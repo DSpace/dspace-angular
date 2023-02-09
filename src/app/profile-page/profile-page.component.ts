@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
@@ -9,17 +9,15 @@ import { RemoteData } from '../core/data/remote-data';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { filter, switchMap, tap } from 'rxjs/operators';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload,
-  getFirstCompletedRemoteData
-} from '../core/shared/operators';
+import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getRemoteDataPayload } from '../core/shared/operators';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { AuthService } from '../core/auth/auth.service';
 import { Operation } from 'fast-json-patch';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 
 @Component({
   selector: 'ds-profile-page',
@@ -46,6 +44,11 @@ export class ProfilePageComponent implements OnInit {
   groupsRD$: Observable<RemoteData<PaginatedList<Group>>>;
 
   /**
+   * The special groups the user belongs to
+   */
+  specialGroupsRD$: Observable<RemoteData<PaginatedList<Group>>>;
+
+  /**
    * Prefix for the notification messages of this component
    */
   NOTIFICATIONS_PREFIX = 'profile.notifications.';
@@ -64,6 +67,10 @@ export class ProfilePageComponent implements OnInit {
    * The password filled in, in the security form
    */
   private password: string;
+  /**
+   * The current-password filled in, in the security form
+   */
+  private currentPassword: string;
 
   /**
    * The authenticated user
@@ -71,11 +78,14 @@ export class ProfilePageComponent implements OnInit {
   private currentUser: EPerson;
   canChangePassword$: Observable<boolean>;
 
+  isResearcherProfileEnabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   constructor(private authService: AuthService,
               private notificationsService: NotificationsService,
               private translate: TranslateService,
               private epersonService: EPersonDataService,
-              private authorizationService: AuthorizationDataService) {
+              private authorizationService: AuthorizationDataService,
+              private configurationService: ConfigurationDataService) {
   }
 
   ngOnInit(): void {
@@ -88,6 +98,13 @@ export class ProfilePageComponent implements OnInit {
     );
     this.groupsRD$ = this.user$.pipe(switchMap((user: EPerson) => user.groups));
     this.canChangePassword$ = this.user$.pipe(switchMap((user: EPerson) => this.authorizationService.isAuthorized(FeatureID.CanChangePassword, user._links.self.href)));
+    this.specialGroupsRD$ = this.authService.getSpecialGroupsFromAuthStatus();
+
+    this.configurationService.findByPropertyName('researcher-profile.entity-type').pipe(
+      getFirstCompletedRemoteData()
+    ).subscribe((configRD: RemoteData<ConfigurationProperty>) => {
+      this.isResearcherProfileEnabled$.next(configRD.hasSucceeded && configRD.payload.values.length > 0);
+    });
   }
 
   /**
@@ -125,15 +142,14 @@ export class ProfilePageComponent implements OnInit {
    */
   updateSecurity() {
     const passEntered = isNotEmpty(this.password);
-
     if (this.invalidSecurity) {
       this.notificationsService.error(this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.general'));
     }
     if (!this.invalidSecurity && passEntered) {
-      const operation = {op: 'add', path: '/password', value: this.password} as Operation;
-      this.epersonService.patch(this.currentUser, [operation]).pipe(
-        getFirstCompletedRemoteData()
-      ).subscribe((response: RemoteData<EPerson>) => {
+      const operations = [
+        { 'op': 'add', 'path': '/password', 'value': { 'new_password': this.password, 'current_password': this.currentPassword } }
+      ] as Operation[];
+      this.epersonService.patch(this.currentUser, operations).pipe(getFirstCompletedRemoteData()).subscribe((response: RemoteData<EPerson>) => {
         if (response.hasSucceeded) {
           this.notificationsService.success(
             this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'success.title'),
@@ -141,7 +157,8 @@ export class ProfilePageComponent implements OnInit {
           );
         } else {
           this.notificationsService.error(
-            this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.title'), response.errorMessage
+            this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.title'),
+            this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.change-failed')
           );
         }
       });
@@ -158,9 +175,25 @@ export class ProfilePageComponent implements OnInit {
   }
 
   /**
+   * Set the current-password value based on the value emitted from the security form
+   * @param $event
+   */
+  setCurrentPasswordValue($event: string) {
+    this.currentPassword = $event;
+  }
+
+  /**
    * Submit of the security form that triggers the updateProfile method
    */
   submit() {
     this.updateProfile();
   }
+
+  /**
+   * Returns true if the researcher profile feature is enabled, false otherwise.
+   */
+  isResearcherProfileEnabled(): Observable<boolean> {
+    return this.isResearcherProfileEnabled$.asObservable();
+  }
+
 }

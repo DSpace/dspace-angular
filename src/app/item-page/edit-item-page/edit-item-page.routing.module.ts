@@ -7,7 +7,6 @@ import { ItemPrivateComponent } from './item-private/item-private.component';
 import { ItemPublicComponent } from './item-public/item-public.component';
 import { ItemDeleteComponent } from './item-delete/item-delete.component';
 import { ItemStatusComponent } from './item-status/item-status.component';
-import { ItemMetadataComponent } from './item-metadata/item-metadata.component';
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
 import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
 import { ItemMoveComponent } from './item-move/item-move.component';
@@ -38,6 +37,7 @@ import { ItemPageBitstreamsGuard } from './item-page-bitstreams.guard';
 import { ItemPageRelationshipsGuard } from './item-page-relationships.guard';
 import { ItemPageVersionHistoryGuard } from './item-page-version-history.guard';
 import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.guard';
+import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -75,7 +75,7 @@ import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.gua
               },
               {
                 path: 'metadata',
-                component: ItemMetadataComponent,
+                component: ThemedDsoEditMetadataComponent,
                 data: { title: 'item.edit.tabs.metadata.title', showBreadcrumbs: true },
                 canActivate: [ItemPageMetadataGuard]
               },

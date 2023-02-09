@@ -4,7 +4,7 @@ import { ChangeDetectorRef, Component, Injector, NO_ERRORS_SCHEMA } from '@angul
 import { of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { createTestComponent } from '../../../testing/utils.test';
@@ -19,8 +19,6 @@ import { PaginationComponentOptions } from '../../../pagination/pagination-compo
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../../core/data/request.models';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
 

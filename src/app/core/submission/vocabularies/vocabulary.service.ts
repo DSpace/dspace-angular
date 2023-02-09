@@ -1,104 +1,38 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap, mergeMap } from 'rxjs/operators';
-
 import { FollowLinkConfig, followLink } from '../../../shared/utils/follow-link-config.model';
-import { dataService } from '../../cache/builders/build-decorators';
-import { DataService } from '../../data/data.service';
 import { RequestService } from '../../data/request.service';
-import { FindListOptions } from '../../data/request.models';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { RemoteData } from '../../data/remote-data';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { CoreState } from '../../core.reducers';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ChangeAnalyzer } from '../../data/change-analyzer';
-import { DefaultChangeAnalyzer } from '../../data/default-change-analyzer.service';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { Vocabulary } from './models/vocabulary.model';
-import { VOCABULARY } from './models/vocabularies.resource-type';
 import { VocabularyEntry } from './models/vocabulary-entry.model';
 import { isNotEmpty } from '../../../shared/empty.util';
 import {
   getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteListPayload
+  getFirstSucceededRemoteListPayload,
 } from '../../shared/operators';
 import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
 import { VocabularyEntryDetail } from './models/vocabulary-entry-detail.model';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { VocabularyOptions } from './models/vocabulary-options.model';
 import { PageInfo } from '../../shared/page-info.model';
-import { HrefOnlyDataService } from '../../data/href-only-data.service';
-
-/* tslint:disable:max-classes-per-file */
-
-/**
- * A private DataService implementation to delegate specific methods to.
- */
-class VocabularyDataServiceImpl extends DataService<Vocabulary> {
-  protected linkPath = 'vocabularies';
-
-  constructor(
-    protected requestService: RequestService,
-    protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
-    protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: ChangeAnalyzer<Vocabulary>) {
-    super();
-  }
-
-}
-
-/**
- * A private DataService implementation to delegate specific methods to.
- */
-class VocabularyEntryDetailDataServiceImpl extends DataService<VocabularyEntryDetail> {
-  protected linkPath = 'vocabularyEntryDetails';
-
-  constructor(
-    protected requestService: RequestService,
-    protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
-    protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected hrefOnlyDataService: HrefOnlyDataService,
-    protected http: HttpClient,
-    protected comparator: ChangeAnalyzer<VocabularyEntryDetail>) {
-    super();
-  }
-
-}
+import { FindListOptions } from '../../data/find-list-options.model';
+import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
+import { VocabularyDataService } from './vocabulary.data.service';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the vocabularies endpoint
  */
 @Injectable()
-@dataService(VOCABULARY)
 export class VocabularyService {
   protected searchTopMethod = 'top';
-  private vocabularyDataService: VocabularyDataServiceImpl;
-  private vocabularyEntryDetailDataService: VocabularyEntryDetailDataServiceImpl;
 
   constructor(
     protected requestService: RequestService,
-    protected rdbService: RemoteDataBuildService,
-    protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected hrefOnlyDataService: HrefOnlyDataService,
-    protected http: HttpClient,
-    protected comparatorVocabulary: DefaultChangeAnalyzer<Vocabulary>,
-    protected comparatorEntry: DefaultChangeAnalyzer<VocabularyEntryDetail>) {
-    this.vocabularyDataService = new VocabularyDataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparatorVocabulary);
-    this.vocabularyEntryDetailDataService = new VocabularyEntryDetailDataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, hrefOnlyDataService, http, comparatorEntry);
+    protected vocabularyDataService: VocabularyDataService,
+    protected vocabularyEntryDetailDataService: VocabularyEntryDetailsDataService,
+  ) {
   }
 
   /**
@@ -338,7 +272,6 @@ export class VocabularyService {
    *    Return an observable that emits a PaginatedList of VocabularyEntryDetail
    */
   getEntryDetailChildren(value: string, name: string, pageInfo: PageInfo, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<VocabularyEntryDetail>[]): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
-    const linkPath = `${name}:${value}/children`;
     const options: VocabularyFindOptions = new VocabularyFindOptions(
       null,
       null,
@@ -347,8 +280,10 @@ export class VocabularyService {
       pageInfo.elementsPerPage,
       pageInfo.currentPage
     );
-    return this.vocabularyEntryDetailDataService.getFindAllHref(options, linkPath).pipe(
-      mergeMap((href) => this.vocabularyEntryDetailDataService.findAllByHref(href, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow))
+
+    return this.vocabularyEntryDetailDataService.getBrowseEndpoint().pipe(
+      map(href => `${href}/${name}:${value}/children`),
+      switchMap(href => this.vocabularyEntryDetailDataService.findListByHref(href, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow))
     );
   }
 
@@ -386,4 +321,3 @@ export class VocabularyService {
   }
 }
 
-/* tslint:enable:max-classes-per-file */

@@ -10,13 +10,14 @@ import { SubmissionObject } from '../../core/submission/models/submission-object
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
-import { SubmissionError, SubmissionObjectEntry } from '../objects/submission-objects.reducer';
+import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
+import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 import { SectionDataObject } from '../sections/models/section-data.model';
 import { SubmissionService } from '../submission.service';
 import { Item } from '../../core/shared/item.model';
 import { SectionsType } from '../sections/sections-type';
 import { SectionsService } from '../sections/sections.service';
+import { SubmissionError } from '../objects/submission-error.model';
 
 /**
  * This component represents the submission form.

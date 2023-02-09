@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
@@ -6,7 +6,7 @@ import { listableObjectComponent } from '../../../../../shared/object-collection
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { Context } from '../../../../../core/shared/context.model';
-import { RelationshipService } from '../../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { take } from 'rxjs/operators';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
@@ -17,6 +17,7 @@ import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
 @Component({
@@ -33,22 +34,28 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
   selectedName: string;
   alternativeField = 'dc.title.alternative';
 
+  /**
+   * Display thumbnail if required by configuration
+   */
+  showThumbnails: boolean;
+
   constructor(protected truncatableService: TruncatableService,
-              private relationshipService: RelationshipService,
+              private relationshipService: RelationshipDataService,
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
               private modalService: NgbModal,
               private itemDataService: ItemDataService,
               private bitstreamDataService: BitstreamDataService,
               private selectableListService: SelectableListService,
-              protected dsoNameService: DSONameService
+              protected dsoNameService: DSONameService,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
-    super(truncatableService, dsoNameService);
+    super(truncatableService, dsoNameService, appConfig);
   }
 
   ngOnInit() {
     super.ngOnInit();
-    const defaultValue = this.firstMetadataValue('person.familyName') + ', ' + this.firstMetadataValue('person.givenName');
+    const defaultValue = this.dso ? this.dsoNameService.getName(this.dso) : undefined;
     const alternatives = this.allMetadataValues(this.alternativeField);
     this.allSuggestions = [defaultValue, ...alternatives];
 
@@ -58,6 +65,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
         this.selectedName = nameVariant || defaultValue;
         }
       );
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 
   select(value) {

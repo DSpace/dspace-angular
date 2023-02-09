@@ -2,10 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VersionedItemComponent } from './versioned-item.component';
 import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { VersionDataService } from '../../../../core/data/version-data.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { ItemVersionsSharedService } from '../../../../shared/item/item-versions/item-versions-shared.service';
+import { ItemVersionsSharedService } from '../../../versions/item-versions-shared.service';
 import { Item } from '../../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
@@ -19,6 +19,8 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Version } from '../../../../core/shared/version.model';
 import { RouteService } from '../../../../core/services/route.service';
+import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
+import { ItemSharedModule } from '../../../item-shared.module';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
@@ -57,17 +59,25 @@ describe('VersionedItemComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [VersionedItemComponent, DummyComponent],
-      imports: [RouterTestingModule],
+      imports: [
+        RouterTestingModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          }
+        }),
+        ItemSharedModule,
+      ],
       providers: [
         { provide: VersionHistoryDataService, useValue: versionHistoryServiceSpy },
-        { provide: TranslateService, useValue: {} },
         { provide: VersionDataService, useValue: versionServiceSpy },
         { provide: NotificationsService, useValue: {} },
         { provide: ItemVersionsSharedService, useValue: {} },
         { provide: WorkspaceitemDataService, useValue: {} },
         { provide: SearchService, useValue: {} },
         { provide: ItemDataService, useValue: {} },
-        { provide: RouteService, useValue: mockRouteService }
+        { provide: RouteService, useValue: mockRouteService },
       ]
     }).compileComponents();
     versionService = TestBed.inject(VersionDataService);

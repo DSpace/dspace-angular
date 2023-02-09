@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { SearchResult } from '../../search/models/search-result.model';
@@ -8,6 +8,7 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-search-result-list-element',
@@ -20,7 +21,9 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
   dso: K;
   dsoTitle: string;
 
-  public constructor(protected truncatableService: TruncatableService, protected dsoNameService: DSONameService) {
+  public constructor(protected truncatableService: TruncatableService,
+                     protected dsoNameService: DSONameService,
+                     @Inject(APP_CONFIG) protected appConfig?: AppConfig) {
     super();
   }
 
@@ -30,7 +33,7 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
   ngOnInit(): void {
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;
-      this.dsoTitle = this.dsoNameService.getName(this.dso);
+      this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.dso);
     }
   }
 
