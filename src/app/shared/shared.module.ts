@@ -71,7 +71,6 @@ import {
 } from './object-detail/my-dspace-result-detail-element/search-result-detail-element.component';
 import { ObjectDetailComponent } from './object-detail/object-detail.component';
 import { ObjNgFor } from './utils/object-ngfor.pipe';
-import { BrowseByComponent } from './browse-by/browse-by.component';
 import {
   BrowseEntryListElementComponent
 } from './object-list/browse-entry-list-element/browse-entry-list-element.component';
@@ -85,6 +84,8 @@ import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 import {
   PlainTextMetadataListElementComponent
 } from './object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
+import { BrowseLinkMetadataListElementComponent }
+  from './object-list/metadata-representation-list-element/browse-link/browse-link-metadata-list-element.component';
 import {
   ItemMetadataListElementComponent
 } from './object-list/metadata-representation-list-element/item/item-metadata-list-element.component';
@@ -101,19 +102,19 @@ import {
   CreateCommunityParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
 import {
-    ThemedCreateCommunityParentSelectorComponent
+  ThemedCreateCommunityParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
 import {
   CreateItemParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import {
-    ThemedCreateItemParentSelectorComponent
+  ThemedCreateItemParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
 import {
   CreateCollectionParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 import {
-    ThemedCreateCollectionParentSelectorComponent
+  ThemedCreateCollectionParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
 import {
   CommunitySearchResultListElementComponent
@@ -125,19 +126,19 @@ import {
   EditItemSelectorComponent
 } from './dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import {
-    ThemedEditItemSelectorComponent
+  ThemedEditItemSelectorComponent
 } from './dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
 import {
   EditCommunitySelectorComponent
 } from './dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import {
-    ThemedEditCommunitySelectorComponent
+  ThemedEditCommunitySelectorComponent
 } from './dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
 import {
   EditCollectionSelectorComponent
 } from './dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 import {
-    ThemedEditCollectionSelectorComponent
+  ThemedEditCollectionSelectorComponent
 } from './dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
 import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
@@ -216,7 +217,6 @@ import {
 import {
   AuthorizedCollectionSelectorComponent
 } from './dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
-import { DsoPageEditButtonComponent } from './dso-page/dso-page-edit-button/dso-page-edit-button.component';
 import { HoverClassDirective } from './hover-class.directive';
 import {
   ValidationSuggestionsComponent
@@ -228,6 +228,8 @@ import { SearchNavbarComponent } from '../search-navbar/search-navbar.component'
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
 import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
+import { ContextHelpDirective } from './context-help.directive';
+import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 import { RSSComponent } from './rss-feed/rss.component';
 import { BrowserOnlyPipe } from './utils/browser-only.pipe';
 import { ThemedLoadingComponent } from './loading/themed-loading.component';
@@ -243,6 +245,7 @@ import {
 } from './object-list/listable-notification-object/listable-notification-object.component';
 import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
+import { ShortNumberPipe } from './utils/short-number.pipe';
 import { LogInExternalProviderComponent } from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
 import { AdvancedClaimedTaskActionSelectReviewerComponent } from './mydspace-actions/claimed-task/select-reviewer/advanced-claimed-task-action-select-reviewer.component';
 import {
@@ -263,7 +266,7 @@ const MODULES = [
   RouterModule,
   DragDropModule,
   GoogleRecaptchaModule,
-  MenuModule,
+  MenuModule
 ];
 
 const ROOT_MODULES = [
@@ -287,6 +290,7 @@ const PIPES = [
   ObjNgFor,
   BrowserOnlyPipe,
   MarkdownPipe,
+  ShortNumberPipe
 ];
 
 const COMPONENTS = [
@@ -317,7 +321,6 @@ const COMPONENTS = [
   ViewModeSwitchComponent,
   TruncatableComponent,
   TruncatablePartComponent,
-  BrowseByComponent,
   InputSuggestionsComponent,
   FilterInputSuggestionsComponent,
   ValidationSuggestionsComponent,
@@ -348,8 +351,8 @@ const COMPONENTS = [
   ItemPageTitleFieldComponent,
   ThemedSearchNavbarComponent,
   ListableNotificationObjectComponent,
-  DsoPageEditButtonComponent,
   MetadataFieldWrapperComponent,
+  ContextHelpWrapperComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -385,6 +388,7 @@ const ENTRY_COMPONENTS = [
   EditItemSelectorComponent,
   ThemedEditItemSelectorComponent,
   PlainTextMetadataListElementComponent,
+  BrowseLinkMetadataListElementComponent,
   ItemMetadataListElementComponent,
   MetadataRepresentationListElementComponent,
   ItemMetadataRepresentationListElementComponent,
@@ -430,7 +434,8 @@ const DIRECTIVES = [
   FileValidator,
   NgForTrackByIdDirective,
   MetadataFieldValidator,
-  HoverClassDirective
+  HoverClassDirective,
+  ContextHelpDirective,
 ];
 
 @NgModule({

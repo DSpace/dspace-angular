@@ -3246,9 +3246,9 @@
   // TODO New key - Add a translation
   "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   
-  // "item.edit.tabs.status.buttons.move.button": "Move...",
+  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
   // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.move.button": "Move...",
+  "item.edit.tabs.status.buttons.move.button": "Bu Öğeyi farklı bir Koleksiyona taşıyın",
   
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
   // TODO New key - Add a translation
@@ -3278,9 +3278,9 @@
   // TODO New key - Add a translation
   "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
   
-  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
+  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
   // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
+  "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
   
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
   // TODO New key - Add a translation

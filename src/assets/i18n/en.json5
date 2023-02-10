@@ -501,7 +501,11 @@
 
   "admin.access-control.groups.form.return": "Back",
 
+  "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
 
+  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
 
   "admin.search.breadcrumbs": "Administrative Search",
 
@@ -842,6 +846,9 @@
   "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
 
   "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
+
+
+  "search.browse.item-back": "Back to Results",
 
 
   "chips.remove": "Remove chip",
@@ -1395,7 +1402,7 @@
 
   "curation-task.task.vscan.label": "Virus Scan",
 
-  "curation-task.task.registerdoi.label": "Register DOI",
+  "curation-task.task.register-doi.label": "Register DOI",
 
 
 
@@ -1606,7 +1613,7 @@
 
   "forgot-email.form.email.error.required": "Please fill in an email address",
 
-  "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
+  "forgot-email.form.email.error.not-email-form": "Please fill in a valid email address",
 
   "forgot-email.form.email.hint": "An email will be sent to this address with a further instructions.",
 
@@ -1986,6 +1993,48 @@
 
   "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
 
+  "item.edit.identifiers.doi.status.UNKNOWN": "Unknown",
+
+  "item.edit.identifiers.doi.status.TO_BE_REGISTERED": "Queued for registration",
+
+  "item.edit.identifiers.doi.status.TO_BE_RESERVED": "Queued for reservation",
+
+  "item.edit.identifiers.doi.status.IS_REGISTERED": "Registered",
+
+  "item.edit.identifiers.doi.status.IS_RESERVED": "Reserved",
+
+  "item.edit.identifiers.doi.status.UPDATE_RESERVED": "Reserved (update queued)",
+
+  "item.edit.identifiers.doi.status.UPDATE_REGISTERED": "Registered (update queued)",
+
+  "item.edit.identifiers.doi.status.UPDATE_BEFORE_REGISTRATION": "Queued for update and registration",
+
+  "item.edit.identifiers.doi.status.TO_BE_DELETED": "Queued for deletion",
+
+  "item.edit.identifiers.doi.status.DELETED": "Deleted",
+
+  "item.edit.identifiers.doi.status.PENDING": "Pending (not registered)",
+
+  "item.edit.identifiers.doi.status.MINTED": "Minted (not registered)",
+
+  "item.edit.tabs.status.buttons.register-doi.label": "Register a new or pending DOI",
+
+  "item.edit.tabs.status.buttons.register-doi.button": "Register DOI...",
+
+  "item.edit.register-doi.header": "Register a new or pending DOI",
+
+  "item.edit.register-doi.description": "Review any pending identifiers and item metadata below and click Confirm to proceed with DOI registration, or Cancel to back out",
+
+  "item.edit.register-doi.confirm": "Confirm",
+
+  "item.edit.register-doi.cancel": "Cancel",
+
+  "item.edit.register-doi.success": "DOI queued for registration successfully.",
+
+  "item.edit.register-doi.error": "Error registering DOI",
+
+  "item.edit.register-doi.to-update": "The following DOI has already been minted and will be queued for registration online",
+
   "item.edit.item-mapper.buttons.add": "Map item to selected collections",
 
   "item.edit.item-mapper.buttons.remove": "Remove item's mapping for selected collections",
@@ -2028,6 +2077,10 @@
 
   "item.edit.metadata.discard-button": "Discard",
 
+  "item.edit.metadata.edit.buttons.confirm": "Confirm",
+
+  "item.edit.metadata.edit.buttons.drag": "Drag to reorder",
+
   "item.edit.metadata.edit.buttons.edit": "Edit",
 
   "item.edit.metadata.edit.buttons.remove": "Remove",
@@ -2035,6 +2088,8 @@
   "item.edit.metadata.edit.buttons.undo": "Undo changes",
 
   "item.edit.metadata.edit.buttons.unedit": "Stop editing",
+
+  "item.edit.metadata.edit.buttons.virtual": "This is a virtual metadata value, i.e. a value inherited from a related entity. It can’t be modified directly. Add or remove the corresponding relationship in the \"Relationships\" tab",
 
   "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
 
@@ -2045,6 +2100,8 @@
   "item.edit.metadata.headers.language": "Lang",
 
   "item.edit.metadata.headers.value": "Value",
+
+  "item.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
 
   "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
 
@@ -2067,6 +2124,8 @@
   "item.edit.metadata.notifications.saved.title": "Metadata saved",
 
   "item.edit.metadata.reinstate-button": "Undo",
+
+  "item.edit.metadata.reset-order-button": "Undo reorder",
 
   "item.edit.metadata.save-button": "Save",
 
@@ -2212,7 +2271,7 @@
 
   "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
 
-  "item.edit.tabs.status.buttons.move.button": "Move...",
+  "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
 
   "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
 
@@ -2230,7 +2289,7 @@
 
   "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
 
-  "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
+  "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
 
   "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
 
@@ -2529,6 +2588,62 @@
   "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
 
   "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
+
+
+
+  "itemtemplate.edit.metadata.add-button": "Add",
+
+  "itemtemplate.edit.metadata.discard-button": "Discard",
+
+  "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
+
+  "itemtemplate.edit.metadata.edit.buttons.drag": "Drag to reorder",
+
+  "itemtemplate.edit.metadata.edit.buttons.edit": "Edit",
+
+  "itemtemplate.edit.metadata.edit.buttons.remove": "Remove",
+
+  "itemtemplate.edit.metadata.edit.buttons.undo": "Undo changes",
+
+  "itemtemplate.edit.metadata.edit.buttons.unedit": "Stop editing",
+
+  "itemtemplate.edit.metadata.empty": "The item template currently doesn't contain any metadata. Click Add to start adding a metadata value.",
+
+  "itemtemplate.edit.metadata.headers.edit": "Edit",
+
+  "itemtemplate.edit.metadata.headers.field": "Field",
+
+  "itemtemplate.edit.metadata.headers.language": "Lang",
+
+  "itemtemplate.edit.metadata.headers.value": "Value",
+
+  "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
+
+  "itemtemplate.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
+
+  "itemtemplate.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+
+  "itemtemplate.edit.metadata.notifications.discarded.title": "Changed discarded",
+
+  "itemtemplate.edit.metadata.notifications.error.title": "An error occurred",
+
+  "itemtemplate.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
+
+  "itemtemplate.edit.metadata.notifications.invalid.title": "Metadata invalid",
+
+  "itemtemplate.edit.metadata.notifications.outdated.content": "The item template you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
+
+  "itemtemplate.edit.metadata.notifications.outdated.title": "Changed outdated",
+
+  "itemtemplate.edit.metadata.notifications.saved.content": "Your changes to this item template's metadata were saved.",
+
+  "itemtemplate.edit.metadata.notifications.saved.title": "Metadata saved",
+
+  "itemtemplate.edit.metadata.reinstate-button": "Undo",
+
+  "itemtemplate.edit.metadata.reset-order-button": "Undo reorder",
+
+  "itemtemplate.edit.metadata.save-button": "Save",
 
 
 
@@ -2954,6 +3069,8 @@
 
   "nav.community-browse.header": "By Community",
 
+  "nav.context-help-toggle": "Toggle context help",
+
   "nav.language": "Language switch",
 
   "nav.login": "Log In",
@@ -3342,7 +3459,9 @@
 
   "register-page.registration.email.error.required": "Please fill in an email address",
 
-  "register-page.registration.email.error.pattern": "Please fill in a valid email address",
+  "register-page.registration.email.error.not-email-form": "Please fill in a valid email address.",
+
+  "register-page.registration.email.error.not-valid-domain": "Use email with allowed domains: {{ domains }}",
 
   "register-page.registration.email.hint": "This address will be verified and used as your login name.",
 
@@ -3359,6 +3478,8 @@
   "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
 
   "register-page.registration.google-recaptcha.must-accept-cookies": "In order to register you must accept the <b>Registration and Password recovery</b> (Google reCaptcha) cookies.",
+  "register-page.registration.error.maildomain": "This email address is not on the list of domains who can register. Allowed domains are {{ domains }}",
+
 
   "register-page.registration.google-recaptcha.open-cookie-settings": "Open cookie settings",
 
@@ -3367,6 +3488,7 @@
   "register-page.registration.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
 
   "register-page.registration.google-recaptcha.notification.message.expired": "Verification expired. Please verify again.",
+  "register-page.registration.info.maildomain": "Accounts can be registered for mail addresses of the domains",
 
   "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
 
@@ -3715,6 +3837,7 @@
 
   "search.filters.filter.submitter.label": "Search submitter",
 
+  "search.filters.filter.show-tree": "Browse {{ name }} tree",
 
 
   "search.filters.entityType.JournalIssue": "Journal Issue",
@@ -4281,7 +4404,17 @@
 
   "submission.sections.general.sections_not_valid": "There are incomplete sections.",
 
+  "submission.sections.identifiers.info": "The following identifiers will be created for your item:",
 
+  "submission.sections.identifiers.no_handle": "No handles have been minted for this item.",
+
+  "submission.sections.identifiers.no_doi": "No DOIs have been minted for this item.",
+
+  "submission.sections.identifiers.handle_label": "Handle: ",
+
+  "submission.sections.identifiers.doi_label": "DOI: ",
+
+  "submission.sections.identifiers.otherIdentifiers_label": "Other identifiers: ",
 
   "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
 
@@ -4296,6 +4429,8 @@
   "submission.sections.submit.progressbar.describe.steptwo": "Describe",
 
   "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
+
+  "submission.sections.submit.progressbar.identifiers": "Identifiers",
 
   "submission.sections.submit.progressbar.license": "Deposit license",
 
@@ -4602,7 +4737,7 @@
 
   "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
 
-
+  "vocabulary-treeview.info": "Select a subject to add as search filter",
 
   "uploader.browse": "browse",
 
@@ -4966,4 +5101,53 @@
   "home.recent-submissions.head": "Recent Submissions",
 
   "listable-notification-object.default-message": "This object couldn't be retrieved",
+
+
+  "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
+
+  "system-wide-alert-banner.countdown.prefix": "In",
+
+  "system-wide-alert-banner.countdown.days": "{{days}} day(s),",
+
+  "system-wide-alert-banner.countdown.hours": "{{hours}} hour(s) and",
+
+  "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
+
+
+
+  "menu.section.system-wide-alert": "System-wide Alert",
+
+  "system-wide-alert.form.header": "System-wide Alert",
+
+  "system-wide-alert-form.retrieval.error": "Something went wrong retrieving the system-wide alert",
+
+  "system-wide-alert.form.cancel": "Cancel",
+
+  "system-wide-alert.form.save": "Save",
+
+  "system-wide-alert.form.label.active": "ACTIVE",
+
+  "system-wide-alert.form.label.inactive": "INACTIVE",
+
+  "system-wide-alert.form.error.message": "The system wide alert must have a message",
+
+  "system-wide-alert.form.label.message": "Alert message",
+
+  "system-wide-alert.form.label.countdownTo.enable": "Enable a countdown timer",
+
+  "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
+
+  "system-wide-alert.form.label.preview": "System-wide alert preview",
+
+  "system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
+
+  "system-wide-alert.form.update.error": "Something went wrong when updating the system-wide alert",
+
+  "system-wide-alert.form.create.success": "The system-wide alert was successfully created",
+
+  "system-wide-alert.form.create.error": "Something went wrong when creating the system-wide alert",
+
+  "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
+
+  "admin.system-wide-alert.title": "System-wide Alerts",
 }
