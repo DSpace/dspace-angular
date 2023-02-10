@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Location } from '@angular/common';
 import {
   rendersAdvancedWorkflowTaskOption
 } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
@@ -62,6 +63,7 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
     protected workflowActionService: WorkflowActionDataService,
     protected claimedTaskDataService: ClaimedTaskDataService,
     protected requestService: RequestService,
+    protected location: Location,
   ) {
     super(route, workflowItemService, router, routeService, notificationsService, translationService, workflowActionService, claimedTaskDataService, requestService);
   }
@@ -138,11 +140,11 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
    * switching between the different pages
    */
   previousPage(): void {
-    const queryParams: Params = {
-      configuration: 'workflow',
-    };
-    if (hasValue(this.route.snapshot.queryParams.previousSearchQuery)) {
-      queryParams.query = decodeURIComponent(this.route.snapshot.queryParams.previousSearchQuery);
+    let queryParams: Params = (this.location.getState() as { [key: string]: any }).previousQueryParams;
+    if (!hasValue(queryParams)) {
+      queryParams = {
+        configuration: 'workflow',
+      };
     }
     void this.router.navigate(['/mydspace'], { queryParams: queryParams });
   }

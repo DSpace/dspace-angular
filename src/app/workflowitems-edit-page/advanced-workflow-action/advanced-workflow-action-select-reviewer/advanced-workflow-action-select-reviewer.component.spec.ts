@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Location } from '@angular/common';
 import {
   AdvancedWorkflowActionSelectReviewerComponent,
   ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER,
@@ -25,6 +26,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RequestService } from '../../../core/data/request.service';
 import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
+import { LocationStub } from '../../../shared/testing/location.stub';
 
 const claimedTaskId = '2';
 const workflowId = '1';
@@ -36,6 +38,7 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
   let fixture: ComponentFixture<AdvancedWorkflowActionSelectReviewerComponent>;
 
   let claimedTaskDataService: ClaimedTaskDataServiceStub;
+  let location: LocationStub;
   let notificationService: NotificationsServiceStub;
   let router: RouterStub;
   let workflowActionDataService: WorkflowItemDataServiceStub;
@@ -43,6 +46,7 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
 
   beforeEach(async () => {
     claimedTaskDataService = new ClaimedTaskDataServiceStub();
+    location = new LocationStub();
     notificationService = new NotificationsServiceStub();
     router = new RouterStub();
     workflowActionDataService = new WorkflowActionDataServiceStub();
@@ -72,9 +76,10 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
             },
           },
         },
-        { provide: Router, useValue: router },
         { provide: ClaimedTaskDataService, useValue: claimedTaskDataService },
+        { provide: Location, useValue: location },
         { provide: NotificationsService, useValue: notificationService },
+        { provide: Router, useValue: router },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: WorkflowActionDataService, useValue: workflowActionDataService },
         { provide: WorkflowItemDataService, useValue: workflowItemDataService },
@@ -96,6 +101,13 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
 
   describe('previousPage', () => {
     it('should navigate back to the Workflow tasks page with the previous query', () => {
+      spyOn(location, 'getState').and.returnValue({
+        previousQueryParams: {
+          configuration: 'workflow',
+          query: 'Thor Love and Thunder',
+        },
+      });
+
       component.previousPage();
 
       expect(router.navigate).toHaveBeenCalledWith(['/mydspace'], {

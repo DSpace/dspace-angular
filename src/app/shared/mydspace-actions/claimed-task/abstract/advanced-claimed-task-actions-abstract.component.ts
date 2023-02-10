@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { ClaimedTaskActionsAbstractComponent } from './claimed-task-actions-abstract.component';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
-import { Params } from '@angular/router';
+import { Params, Router, ActivatedRoute, NavigationExtras } from '@angular/router';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { RequestService } from '../../../../core/data/request.service';
 
 /**
  * Abstract component for rendering an advanced claimed task's action
@@ -27,6 +31,18 @@ export abstract class AdvancedClaimedTaskActionsAbstractComponent extends Claime
    */
   workflowTaskPageRoute: string;
 
+  constructor(
+    protected injector: Injector,
+    protected router: Router,
+    protected notificationsService: NotificationsService,
+    protected translate: TranslateService,
+    protected searchService: SearchService,
+    protected requestService: RequestService,
+    protected route: ActivatedRoute,
+  ) {
+    super(injector, router, notificationsService, translate, searchService, requestService);
+  }
+
   ngOnInit(): void {
     super.ngOnInit();
     this.initPageRoute();
@@ -47,9 +63,14 @@ export abstract class AdvancedClaimedTaskActionsAbstractComponent extends Claime
    * Navigates to the advanced workflow page based on the {@link workflow}.
    */
   openAdvancedClaimedTaskTab(): void {
-    void this.router.navigate([this.workflowTaskPageRoute], {
+    const navigationExtras: NavigationExtras = {
       queryParams: this.getQueryParams(),
-    });
+    };
+    if (Object.keys(this.route.snapshot.queryParams).length > 0) {
+      navigationExtras.state = {};
+      navigationExtras.state.previousQueryParams = this.route.snapshot.queryParams;
+    }
+    void this.router.navigate([this.workflowTaskPageRoute], navigationExtras);
   }
 
   /**

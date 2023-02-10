@@ -99,22 +99,4 @@ describe('AdvancedClaimedTaskActionSelectReviewerComponent', () => {
       },
     });
   });
-
-  it('should navigate to the advanced workflow page with a previousSearchQuery when clicked anq a query is defined', () => {
-    spyOnProperty(route, 'snapshot').and.returnValue({
-      queryParams: {
-        query: 'Thor%20Love%20and%20Thunder',
-      }
-    });
-    component.workflowTaskPageRoute = `/workflowitems/${workflowId}/advanced`;
-    fixture.debugElement.query(By.css('.selectReviewerAction')).nativeElement.click();
-
-    expect(router.navigate).toHaveBeenCalledWith([`/workflowitems/${workflowId}/advanced`], {
-      queryParams: {
-        workflow: ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER,
-        claimedTask: taskId,
-        previousSearchQuery: 'Thor%20Love%20and%20Thunder',
-      },
-    });
-  });
 });
