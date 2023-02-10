@@ -1,11 +1,9 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { of as observableOf } from 'rxjs';
-
-import { ClaimedDeclinedSearchResultListElementComponent } from './claimed-declined-search-result-list-element.component';
-import { ClaimedDeclinedTaskSearchResult } from '../../../../object-collection/shared/claimed-declined-task-search-result.model';
+import { ClaimedDeclinedTaskSearchResultListElementComponent } from './claimed-declined-task-search-result-list-element.component';
+import { ClaimedDeclinedTaskTaskSearchResult } from '../../../../object-collection/shared/claimed-declined-task-task-search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject } from '../../../../remote-data.utils';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
@@ -19,11 +17,12 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
+import { TranslateModule } from '@ngx-translate/core';
 
-let component: ClaimedDeclinedSearchResultListElementComponent;
-let fixture: ComponentFixture<ClaimedDeclinedSearchResultListElementComponent>;
+let component: ClaimedDeclinedTaskSearchResultListElementComponent;
+let fixture: ComponentFixture<ClaimedDeclinedTaskSearchResultListElementComponent>;
 
-const mockResultObject: ClaimedDeclinedTaskSearchResult = new ClaimedDeclinedTaskSearchResult();
+const mockResultObject: ClaimedDeclinedTaskTaskSearchResult = new ClaimedDeclinedTaskTaskSearchResult();
 mockResultObject.hitHighlights = {};
 
 const item = Object.assign(new Item(), {
@@ -61,25 +60,28 @@ const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
 mockResultObject.indexableObject = Object.assign(new ClaimedTask(), { workflowitem: observableOf(rdWorkflowitem) });
 const linkService = getMockLinkService();
 
-describe('ClaimedDeclinedSearchResultListElementComponent', () => {
+describe('ClaimedDeclinedTaskSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [ClaimedDeclinedSearchResultListElementComponent, VarDirective],
+      imports: [
+        NoopAnimationsModule,
+        TranslateModule.forRoot(),
+      ],
+      declarations: [ClaimedDeclinedTaskSearchResultListElementComponent, VarDirective],
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environment },
       ],
       schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ClaimedDeclinedSearchResultListElementComponent, {
+    }).overrideComponent(ClaimedDeclinedTaskSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {
-    fixture = TestBed.createComponent(ClaimedDeclinedSearchResultListElementComponent);
+    fixture = TestBed.createComponent(ClaimedDeclinedTaskSearchResultListElementComponent);
     component = fixture.componentInstance;
   }));
 
@@ -101,7 +103,7 @@ describe('ClaimedDeclinedSearchResultListElementComponent', () => {
   });
 
   it('should have properly status', () => {
-    expect(component.status).toEqual(MyDspaceItemStatusType.DECLINED);
+    expect(component.status).toEqual(MyDspaceItemStatusType.DECLINED_TASk);
   });
 
 });
