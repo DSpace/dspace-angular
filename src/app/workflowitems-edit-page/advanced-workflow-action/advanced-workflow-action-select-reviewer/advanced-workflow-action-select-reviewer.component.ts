@@ -12,7 +12,7 @@ import {
 } from '../../../access-control/group-registry/group-form/members-list/members-list.component';
 import { Subscription } from 'rxjs';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { RouteService } from '../../../core/services/route.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -20,7 +20,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { ReviewersListComponent } from './reviewers-list/reviewers-list.component';
-import { RequestService } from 'src/app/core/data/request.service';
+import { RequestService } from '../../../core/data/request.service';
+import { hasValue } from '../../../shared/empty.util';
 
 export const ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER = 'submit_select_reviewer';
 export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweraction';
@@ -138,7 +139,13 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
    * switching between the different pages
    */
   previousPage(): void {
-    void this.router.navigate(['/mydspace'], { queryParams: { configuration: 'workflow' } });
+    const queryParams: Params = {
+      configuration: 'workflow',
+    };
+    if (hasValue(this.route.snapshot.queryParams.previousSearchQuery)) {
+      queryParams.query = decodeURIComponent(this.route.snapshot.queryParams.previousSearchQuery);
+    }
+    void this.router.navigate(['/mydspace'], { queryParams: queryParams });
   }
 
 }

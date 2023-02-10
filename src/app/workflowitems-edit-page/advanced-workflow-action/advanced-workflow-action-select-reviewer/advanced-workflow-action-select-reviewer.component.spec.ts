@@ -1,12 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   AdvancedWorkflowActionSelectReviewerComponent,
-  ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER
+  ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER,
 } from './advanced-workflow-action-select-reviewer.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { WorkflowItemDataServiceStub } from '../../../shared/testing/workflow-item-data-service.stub';
-import { RouterTestingModule } from '@angular/router/testing';
 import { WorkflowActionDataServiceStub } from '../../../shared/testing/workflow-action-data-service.stub';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
 import { RouteService } from '../../../core/services/route.service';
@@ -25,6 +24,7 @@ import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-res
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RequestService } from '../../../core/data/request.service';
 import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
 
 const claimedTaskId = '2';
 const workflowId = '1';
@@ -37,18 +37,19 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
 
   let claimedTaskDataService: ClaimedTaskDataServiceStub;
   let notificationService: NotificationsServiceStub;
+  let router: RouterStub;
   let workflowActionDataService: WorkflowItemDataServiceStub;
   let workflowItemDataService: WorkflowItemDataServiceStub;
 
   beforeEach(async () => {
     claimedTaskDataService = new ClaimedTaskDataServiceStub();
     notificationService = new NotificationsServiceStub();
+    router = new RouterStub();
     workflowActionDataService = new WorkflowActionDataServiceStub();
     workflowItemDataService = new WorkflowItemDataServiceStub();
 
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
         TranslateModule.forRoot(),
       ],
       declarations: [
@@ -66,10 +67,12 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
               queryParams: {
                 claimedTask: claimedTaskId,
                 workflow: 'testaction',
+                previousSearchQuery: 'Thor%20Love%20and%20Thunder',
               },
             },
           },
         },
+        { provide: Router, useValue: router },
         { provide: ClaimedTaskDataService, useValue: claimedTaskDataService },
         { provide: NotificationsService, useValue: notificationService },
         { provide: RouteService, useValue: routeServiceStub },
@@ -85,14 +88,30 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
     fixture = TestBed.createComponent(AdvancedWorkflowActionSelectReviewerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    spyOn(component, 'previousPage');
   });
 
   afterEach(() => {
     fixture.debugElement.nativeElement.remove();
   });
 
+  describe('previousPage', () => {
+    it('should navigate back to the Workflow tasks page with the previous query', () => {
+      component.previousPage();
+
+      expect(router.navigate).toHaveBeenCalledWith(['/mydspace'], {
+        queryParams: {
+          configuration: 'workflow',
+          query: 'Thor Love and Thunder',
+        },
+      });
+    });
+  });
+
   describe('performAction', () => {
+    beforeEach(() => {
+      spyOn(component, 'previousPage');
+    });
+
     it('should call the claimedTaskDataService with the list of selected ePersons', () => {
       spyOn(claimedTaskDataService, 'submitTask').and.returnValue(observableOf(new ProcessTaskResponse(true)));
       component.selectedReviewers = [EPersonMock, EPersonMock2];
