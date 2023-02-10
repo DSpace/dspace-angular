@@ -37,7 +37,6 @@ import { json } from 'body-parser';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
-import { APP_BASE_HREF } from '@angular/common';
 import { enableProdMode } from '@angular/core';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
@@ -65,7 +64,7 @@ const DIST_FOLDER = join(process.cwd(), 'dist/browser');
 // Set path fir IIIF viewer.
 const IIIF_VIEWER = join(process.cwd(), 'dist/iiif');
 
-const indexHtml = existsSync(join(DIST_FOLDER, 'index.html')) ? 'index.html' : 'index';
+const indexHtml = join(DIST_FOLDER, 'index.html');
 
 const cookieParser = require('cookie-parser');
 
@@ -258,7 +257,6 @@ function serverSideRender(req, res, sendToUser: boolean = true) {
     baseUrl: environment.ui.nameSpace,
     originUrl: environment.ui.baseUrl,
     requestUrl: req.originalUrl,
-    providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }]
   }, (err, data) => {
     if (hasNoValue(err) && hasValue(data)) {
       // save server side rendered page to cache (if any are enabled)
@@ -292,13 +290,7 @@ function serverSideRender(req, res, sendToUser: boolean = true) {
  * @param res current response
  */
 function clientSideRender(req, res) {
-  res.render(indexHtml, {
-    req,
-    providers: [{
-      provide: APP_BASE_HREF,
-      useValue: req.baseUrl
-    }]
-  });
+  res.sendFile(indexHtml);
 }
 
 
