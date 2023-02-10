@@ -1,0 +1,13 @@
+<ng-container *ngVar="(supervisionOrderEntries$ | async) as supervisionOrders">
+  <div class="item-list-supervision row" *ngIf="supervisionOrders?.length > 0">
+    <div class="col-md-3">
+      <span>{{'workflow-item.search.result.list.element.supervised-by' | translate}} </span>
+    </div>
+    <div class="col-md-9">
+            <span class="badge badge-primary d-table mt-1" *ngFor="let supervisionOrder of supervisionOrders">
+              {{supervisionOrder.group.name}}
+              <a [ngbTooltip]="'workflow-item.search.result.list.element.supervised.remove-tooltip' | translate" (click)="deleteSupervisionOrder(supervisionOrder)">X</a>
+            </span>
+    </div>
+  </div>
+</ng-container>

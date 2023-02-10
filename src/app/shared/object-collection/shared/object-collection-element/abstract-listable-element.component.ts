@@ -47,6 +47,11 @@ export class AbstractListableElementComponent<T extends ListableObject> {
   @Input() showLabel = true;
 
   /**
+   * Whether to show the supervision orders badges or not
+   */
+  @Input() showSupervisionOrderBadges = false;
+
+  /**
    * The context we matched on to get this component
    */
   @Input() context: Context;

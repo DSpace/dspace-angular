@@ -1,5 +1,7 @@
 import { Component, Inject } from '@angular/core';
-import { listableObjectComponent } from '../../../../../object-collection/shared/listable-object/listable-object.decorator';
+import {
+  listableObjectComponent
+} from '../../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ViewMode } from '../../../../../../core/shared/view-mode.model';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { SearchResultListElementComponent } from '../../../search-result-list-element.component';
@@ -8,7 +10,7 @@ import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-
 import { SupervisionOrderDataService } from '../../../../../../core/supervision-order/supervision-order-data.service';
 import { TruncatableService } from '../../../../../../shared/truncatable/truncatable.service';
 import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
-import { AppConfig, APP_CONFIG } from '../../../../../../../config/app-config.interface';
+import { APP_CONFIG, AppConfig } from '../../../../../../../config/app-config.interface';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { combineLatest, filter, map, Observable, switchMap, take } from 'rxjs';
 import { ConfirmationModalComponent } from '../../../../../../shared/confirmation-modal/confirmation-modal.component';
@@ -16,11 +18,15 @@ import { hasValue } from '../../../../../../shared/empty.util';
 import { NotificationsService } from '../../../../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { followLink } from '../../../../../../shared/utils/follow-link-config.model';
-import { getAllSucceededRemoteListPayload, getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
+import {
+  getAllSucceededRemoteData,
+  getAllSucceededRemoteListPayload,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload
+} from '../../../../../../core/shared/operators';
 import { SupervisionOrder } from '../../../../../../core/supervision-order/models/supervision-order.model';
 import { Group } from '../../../../../../core/eperson/models/group.model';
 import { ResourcePolicyDataService } from '../../../../../../core/resource-policy/resource-policy-data.service';
-import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { AuthService } from '../../../../../../core/auth/auth.service';
 import { EPerson } from '../../../../../../core/eperson/models/eperson.model';
 import { EPersonDataService } from '../../../../../../core/eperson/eperson-data.service';

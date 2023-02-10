@@ -6,9 +6,13 @@
 </div>
 <ds-listable-object-component-loader *ngIf="item$ | async"
                                      [object]="item$ | async"
-                                     [supervisionOrders]="supervisionOrder$ | async"
                                      [viewMode]="viewModes.ListElement"
                                      [index]="index"
                                      [linkType]="linkType"
                                      [listID]="listID"></ds-listable-object-component-loader>
+<div class="my-1">
+  <ds-supervision-order-status [supervisionOrderList]="supervisionOrder$ | async"
+                               (delete)="deleteSupervisionOrder($event)"></ds-supervision-order-status>
+</div>
+
 <ds-workflow-item-admin-workflow-actions-element [wfi]="dso" [small]="false"></ds-workflow-item-admin-workflow-actions-element>

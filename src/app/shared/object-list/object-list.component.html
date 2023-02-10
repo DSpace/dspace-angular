@@ -25,8 +25,13 @@
           <ds-importable-list-item-control *ngIf="importable" [object]="object"
                                            [importConfig]="importConfig"
                                            (importObject)="importObject.emit($event)"></ds-importable-list-item-control>
-          <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode" [index]="i" [context]="context" [linkType]="linkType"
+          <ds-listable-object-component-loader [object]="object"
+                                               [viewMode]="viewMode"
+                                               [index]="i"
+                                               [context]="context"
+                                               [linkType]="linkType"
                                                [listID]="selectionConfig?.listId"
+                                               [showSupervisionOrderBadges]="showSupervisionOrderBadges"
                                                (contentChange)="contentChange.emit($event)"></ds-listable-object-component-loader>
         </li>
     </ul>

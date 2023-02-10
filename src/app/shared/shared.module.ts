@@ -100,19 +100,19 @@ import {
   CreateCommunityParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
 import {
-    ThemedCreateCommunityParentSelectorComponent
+  ThemedCreateCommunityParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
 import {
   CreateItemParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import {
-    ThemedCreateItemParentSelectorComponent
+  ThemedCreateItemParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
 import {
   CreateCollectionParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 import {
-    ThemedCreateCollectionParentSelectorComponent
+  ThemedCreateCollectionParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
 import {
   CommunitySearchResultListElementComponent
@@ -124,19 +124,19 @@ import {
   EditItemSelectorComponent
 } from './dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import {
-    ThemedEditItemSelectorComponent
+  ThemedEditItemSelectorComponent
 } from './dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
 import {
   EditCommunitySelectorComponent
 } from './dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import {
-    ThemedEditCommunitySelectorComponent
+  ThemedEditCommunitySelectorComponent
 } from './dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
 import {
   EditCollectionSelectorComponent
 } from './dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 import {
-    ThemedEditCollectionSelectorComponent
+  ThemedEditCollectionSelectorComponent
 } from './dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
 import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
@@ -242,14 +242,20 @@ import { MenuModule } from './menu/menu.module';
 import {
   ListableNotificationObjectComponent
 } from './object-list/listable-notification-object/listable-notification-object.component';
-import { SupervisionGroupSelectorComponent } from './dso-selector/modal-wrappers/supervision-group-selector/supervision-group-selector.component';
+import {
+  SupervisionGroupSelectorComponent
+} from './dso-selector/modal-wrappers/supervision-group-selector/supervision-group-selector.component';
 import { EpersonGroupListComponent } from './form/eperson-group-list/eperson-group-list.component';
 import { EpersonSearchBoxComponent } from './form/eperson-group-list/eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './form/eperson-group-list/group-search-box/group-search-box.component';
 import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
-import { LogInExternalProviderComponent } from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
-
+import {
+  LogInExternalProviderComponent
+} from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
+import {
+  SupervisionOrderStatusComponent
+} from './object-list/supervision-order-status/supervision-order-status.component';
 
 
 const MODULES = [
@@ -452,18 +458,20 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...ENTRY_COMPONENTS,
     ...DIRECTIVES,
+    SupervisionOrderStatusComponent,
   ],
   providers: [
     ...PROVIDERS
   ],
-  exports: [
-    ...MODULES,
-    ...PIPES,
-    ...COMPONENTS,
-    ...ENTRY_COMPONENTS,
-    ...DIRECTIVES,
-    TranslateModule,
-  ]
+    exports: [
+        ...MODULES,
+        ...PIPES,
+        ...COMPONENTS,
+        ...ENTRY_COMPONENTS,
+        ...DIRECTIVES,
+        TranslateModule,
+        SupervisionOrderStatusComponent,
+    ]
 })
 
 /**

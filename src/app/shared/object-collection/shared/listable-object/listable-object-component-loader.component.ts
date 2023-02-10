@@ -13,7 +13,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { ListableObject } from '../listable-object.model';
@@ -40,11 +40,6 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
    * The item or metadata to determine the component for
    */
   @Input() object: ListableObject;
-
-  /**
-   * The supervision order to determine supervision orders
-   */
-  @Input() supervisionOrders: Observable<any>;
 
   /**
    * The index of the object in the list
@@ -75,6 +70,11 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
    * Whether to show the badge label or not
    */
   @Input() showLabel = true;
+
+  /**
+   * Whether to show the supervision orders badges or not
+   */
+  @Input() showSupervisionOrderBadges = false;
 
   /**
    * The value to display for this element
@@ -128,7 +128,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
    */
   protected inAndOutputNames: string[] = [
     'object',
-    'supervisionOrders',
+    'showSupervisionOrderBadges',
     'index',
     'linkType',
     'listID',

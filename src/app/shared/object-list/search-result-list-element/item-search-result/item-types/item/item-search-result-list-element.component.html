@@ -23,37 +23,24 @@
       <span *ngIf="linkType == linkTypes.None" class="lead item-list-title dont-break-out"
             [innerHTML]="dsoTitle"></span>
       <span class="text-muted">
-      <ds-truncatable-part [id]="dso.id" [minLines]="1">
-        <ng-container *ngIf="dso.firstMetadataValue('dc.publisher') || dso.firstMetadataValue('dc.date.issued')">
-          (<span *ngIf="dso.firstMetadataValue('dc.publisher')" class="item-list-publisher" [innerHTML]="firstMetadataValue('dc.publisher') + ', '"></span>
-          <span *ngIf="dso.firstMetadataValue('dc.date.issued')" class="item-list-date" [innerHTML]="firstMetadataValue('dc.date.issued')"></span>)
-        </ng-container>
-        <span *ngIf="dso.allMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0" class="item-list-authors">
-          <span *ngFor="let author of allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
-              <span [innerHTML]="author"><span [innerHTML]="author"></span></span>
-              <span *ngIf="!last">; </span>
+        <ds-truncatable-part [id]="dso.id" [minLines]="1">
+          <ng-container *ngIf="dso.firstMetadataValue('dc.publisher') || dso.firstMetadataValue('dc.date.issued')">
+            (<span *ngIf="dso.firstMetadataValue('dc.publisher')" class="item-list-publisher" [innerHTML]="firstMetadataValue('dc.publisher') + ', '"></span>
+            <span *ngIf="dso.firstMetadataValue('dc.date.issued')" class="item-list-date" [innerHTML]="firstMetadataValue('dc.date.issued')"></span>)
+          </ng-container>
+          <span *ngIf="dso.allMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0" class="item-list-authors">
+            <span *ngFor="let author of allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
+                <span [innerHTML]="author"><span [innerHTML]="author"></span></span>
+                <span *ngIf="!last">; </span>
+            </span>
           </span>
-        </span>
-      </ds-truncatable-part>
-    </span>
+        </ds-truncatable-part>
+      </span>
       <div *ngIf="dso.firstMetadataValue('dc.description.abstract')" class="item-list-abstract">
         <ds-truncatable-part [id]="dso.id" [minLines]="3"><span
           [innerHTML]="firstMetadataValue('dc.description.abstract')"></span>
         </ds-truncatable-part>
       </div>
-      <ng-container *ngVar="(supervisionOrder$ | async) as supervisionOrders">
-        <div class="item-list-supervision row" *ngIf="supervisionOrders?.length > 0">
-          <div class="col-md-3">
-            <span>{{'item.search.result.list.element.supervised-by' | translate}} </span>
-          </div>
-          <div class="col-md-9">
-            <span class="badge badge-primary d-table mt-1" *ngFor="let supervisionOrder of supervisionOrders">
-              {{supervisionOrder.group._name}} 
-              <a [ngbTooltip]="'Remove supervision group'" (click)="deleteSupervisionOrder(supervisionOrder)">X</a>
-            </span>
-          </div>
-        </div>
-      </ng-container>
     </ds-truncatable>
   </div>
 </div>

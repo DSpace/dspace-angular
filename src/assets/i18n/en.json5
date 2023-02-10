@@ -2271,21 +2271,21 @@
 
   "item.truncatable-part.show-less": "Collapse",
 
-  "item.search.result.delete-supervision.modal.header": "Delete Supervision Order",
+  "workflow-item.search.result.delete-supervision.modal.header": "Delete Supervision Order",
 
-  "item.search.result.delete-supervision.modal.info": "Are you sure you want to delete Supervision Order",
+  "workflow-item.search.result.delete-supervision.modal.info": "Are you sure you want to delete Supervision Order",
 
-  "item.search.result.delete-supervision.modal.cancel": "Cancel",
+  "workflow-item.search.result.delete-supervision.modal.cancel": "Cancel",
 
-  "item.search.result.delete-supervision.modal.confirm": "Delete",
+  "workflow-item.search.result.delete-supervision.modal.confirm": "Delete",
 
-  "item.search.result.notification.deleted.success": "Successfully deleted supervision order \"{{name}}\"",
+  "workflow-item.search.result.notification.deleted.success": "Successfully deleted supervision order \"{{name}}\"",
 
-  "item.search.result.notification.deleted.failure.title": "Failed to delete supervision order \"{{name}}\"",
+  "workflow-item.search.result.notification.deleted.failure": "Failed to delete supervision order \"{{name}}\"",
 
-  "item.search.result.notification.deleted.failure.content": "Failed to delete supervision order",
+  "workflow-item.search.result.list.element.supervised-by": "Supervised by:",
 
-  "item.search.result.list.element.supervised-by": "Supervised by:",
+  "workflow-item.search.result.list.element.supervised.remove-tooltip": "Remove supervision group",
 
 
 
