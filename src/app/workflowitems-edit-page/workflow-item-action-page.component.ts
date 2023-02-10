@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Observable, forkJoin } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
@@ -24,6 +25,7 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
   public type;
   public wfi$: Observable<WorkflowItem>;
   public item$: Observable<Item>;
+  protected previousQueryParameters?: Params;
 
   constructor(protected route: ActivatedRoute,
               protected workflowItemService: WorkflowItemDataService,
@@ -32,6 +34,7 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
               protected notificationsService: NotificationsService,
               protected translationService: TranslateService,
               protected requestService: RequestService,
+              protected location: Location,
   ) {
   }
 
@@ -42,6 +45,7 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
     this.type = this.getType();
     this.wfi$ = this.route.data.pipe(map((data: Data) => data.wfi as RemoteData<WorkflowItem>), getRemoteDataPayload());
     this.item$ = this.wfi$.pipe(switchMap((wfi: WorkflowItem) => (wfi.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload())));
+    this.previousQueryParameters = (this.location.getState() as { [key: string]: any }).previousQueryParams;
   }
 
   /**
@@ -72,10 +76,11 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
   previousPage() {
     this.routeService.getPreviousUrl().pipe(take(1))
       .subscribe((url) => {
+          let params: Params = {};
           if (isEmpty(url)) {
             url = '/mydspace';
+            params = this.previousQueryParameters;
           }
-          const params: Params = {};
           if (url.split('?').length > 1) {
             for (const param of url.split('?')[1].split('&')) {
               params[param.split('=')[0]] = decodeURIComponent(param.split('=')[1]);

@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ds-workflow-item-delete',
@@ -26,8 +27,10 @@ export class WorkflowItemDeleteComponent extends WorkflowItemActionPageComponent
               protected routeService: RouteService,
               protected notificationsService: NotificationsService,
               protected translationService: TranslateService,
-              protected requestService: RequestService) {
-    super(route, workflowItemService, router, routeService, notificationsService, translationService, requestService);
+              protected requestService: RequestService,
+              protected location: Location,
+  ) {
+    super(route, workflowItemService, router, routeService, notificationsService, translationService, requestService, location);
   }
 
   /**

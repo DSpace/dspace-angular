@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Location } from '@angular/common';
 import { AdvancedWorkflowActionComponent } from './advanced-workflow-action.component';
 import { Component } from '@angular/core';
 import { MockComponent } from 'ng-mocks';
@@ -20,6 +21,7 @@ import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-res
 import { WorkflowItemDataServiceStub } from '../../../shared/testing/workflow-item-data-service.stub';
 import { RequestService } from '../../../core/data/request.service';
 import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
+import { LocationStub } from '../../../shared/testing/location.stub';
 
 const workflowId = '1';
 
@@ -28,16 +30,17 @@ describe('AdvancedWorkflowActionComponent', () => {
   let fixture: ComponentFixture<AdvancedWorkflowActionComponent>;
 
   let claimedTaskDataService: ClaimedTaskDataServiceStub;
+  let location: LocationStub;
   let notificationService: NotificationsServiceStub;
   let workflowActionDataService: WorkflowActionDataServiceStub;
   let workflowItemDataService: WorkflowItemDataServiceStub;
 
   beforeEach(async () => {
     claimedTaskDataService = new ClaimedTaskDataServiceStub();
+    location = new LocationStub();
     notificationService = new NotificationsServiceStub();
     workflowActionDataService = new WorkflowActionDataServiceStub();
     workflowItemDataService = new WorkflowItemDataServiceStub();
-
 
     await TestBed.configureTestingModule({
       imports: [
@@ -63,6 +66,7 @@ describe('AdvancedWorkflowActionComponent', () => {
           },
         },
         { provide: ClaimedTaskDataService, useValue: claimedTaskDataService },
+        { provide: Location, useValue: location },
         { provide: NotificationsService, useValue: notificationService },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: WorkflowActionDataService, useValue: workflowActionDataService },
