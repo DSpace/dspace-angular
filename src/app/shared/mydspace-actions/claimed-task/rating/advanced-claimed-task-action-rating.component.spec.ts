@@ -9,7 +9,7 @@ import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { RequestService } from '../../../../core/data/request.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { Location } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -19,6 +19,7 @@ import {
 } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
 import { of as observableOf } from 'rxjs';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 
 const taskId = 'claimed-task-1';
 const workflowId = 'workflow-1';
@@ -35,12 +36,14 @@ describe('AdvancedClaimedTaskActionRatingComponent', () => {
 
   let claimedTaskDataService: ClaimedTaskDataServiceStub;
   let notificationService: NotificationsServiceStub;
+  let route: ActivatedRouteStub;
   let router: RouterStub;
   let searchService: SearchServiceStub;
 
   beforeEach(async () => {
     claimedTaskDataService = new ClaimedTaskDataServiceStub();
     notificationService = new NotificationsServiceStub();
+    route = new ActivatedRouteStub();
     router = new RouterStub();
     searchService = new SearchServiceStub();
 
@@ -52,6 +55,7 @@ describe('AdvancedClaimedTaskActionRatingComponent', () => {
         AdvancedClaimedTaskActionRatingComponent,
       ],
       providers: [
+        { provide: ActivatedRoute, useValue: route },
         { provide: ClaimedTaskDataService, useValue: claimedTaskDataService },
         { provide: NotificationsService, useValue: notificationService },
         { provide: RequestService, useValue: {} },

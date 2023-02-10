@@ -1,5 +1,5 @@
 import { Component, Injector } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SearchService } from '../../../../core/shared/search/search.service';
@@ -38,8 +38,9 @@ export class AdvancedClaimedTaskActionRatingComponent extends AdvancedClaimedTas
     protected translate: TranslateService,
     protected searchService: SearchService,
     protected requestService: RequestService,
+    protected route: ActivatedRoute,
   ) {
-    super(injector, router, notificationsService, translate, searchService, requestService);
+    super(injector, router, notificationsService, translate, searchService, requestService, route);
   }
 
 }

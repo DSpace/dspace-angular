@@ -3,7 +3,7 @@ import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-deco
 import {
   AdvancedClaimedTaskActionsAbstractComponent
 } from '../abstract/advanced-claimed-task-actions-abstract.component';
-import { Router, Params, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SearchService } from '../../../../core/shared/search/search.service';
@@ -12,7 +12,6 @@ import {
   ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER,
   ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER
 } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
-import { hasValue } from '../../../empty.util';
 
 /**
  * Advanced Workflow button that redirect to the {@link AdvancedWorkflowActionSelectReviewerComponent}
@@ -41,15 +40,7 @@ export class AdvancedClaimedTaskActionSelectReviewerComponent extends AdvancedCl
     protected requestService: RequestService,
     protected route: ActivatedRoute,
   ) {
-    super(injector, router, notificationsService, translate, searchService, requestService);
-  }
-
-  getQueryParams(): Params {
-    const params: Params = super.getQueryParams();
-    if (hasValue(this.route.snapshot.queryParams.query)) {
-      params.previousSearchQuery = this.route.snapshot.queryParams.query;
-    }
-    return params;
+    super(injector, router, notificationsService, translate, searchService, requestService, route);
   }
 
 }
