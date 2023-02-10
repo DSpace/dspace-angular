@@ -1333,7 +1333,7 @@
 
   "curation-task.task.vscan.label": "Virus Scan",
 
-  "curation-task.task.registerdoi.label": "Register DOI",
+  "curation-task.task.register-doi.label": "Register DOI",
 
 
 
@@ -1570,7 +1570,7 @@
 
   "forgot-email.form.email.error.required": "Please fill in an email address",
 
-  "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
+  "forgot-email.form.email.error.not-email-form": "Please fill in a valid email address",
 
   "forgot-email.form.email.hint": "An email will be sent to this address with a further instructions.",
 
@@ -1949,6 +1949,48 @@
   "item.edit.tabs.mapper.head": "Collection Mapper",
 
   "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
+
+  "item.edit.identifiers.doi.status.UNKNOWN": "Unknown",
+
+  "item.edit.identifiers.doi.status.TO_BE_REGISTERED": "Queued for registration",
+
+  "item.edit.identifiers.doi.status.TO_BE_RESERVED": "Queued for reservation",
+
+  "item.edit.identifiers.doi.status.IS_REGISTERED": "Registered",
+
+  "item.edit.identifiers.doi.status.IS_RESERVED": "Reserved",
+
+  "item.edit.identifiers.doi.status.UPDATE_RESERVED": "Reserved (update queued)",
+
+  "item.edit.identifiers.doi.status.UPDATE_REGISTERED": "Registered (update queued)",
+
+  "item.edit.identifiers.doi.status.UPDATE_BEFORE_REGISTRATION": "Queued for update and registration",
+
+  "item.edit.identifiers.doi.status.TO_BE_DELETED": "Queued for deletion",
+
+  "item.edit.identifiers.doi.status.DELETED": "Deleted",
+
+  "item.edit.identifiers.doi.status.PENDING": "Pending (not registered)",
+
+  "item.edit.identifiers.doi.status.MINTED": "Minted (not registered)",
+
+  "item.edit.tabs.status.buttons.register-doi.label": "Register a new or pending DOI",
+
+  "item.edit.tabs.status.buttons.register-doi.button": "Register DOI...",
+
+  "item.edit.register-doi.header": "Register a new or pending DOI",
+
+  "item.edit.register-doi.description": "Review any pending identifiers and item metadata below and click Confirm to proceed with DOI registration, or Cancel to back out",
+
+  "item.edit.register-doi.confirm": "Confirm",
+
+  "item.edit.register-doi.cancel": "Cancel",
+
+  "item.edit.register-doi.success": "DOI queued for registration successfully.",
+
+  "item.edit.register-doi.error": "Error registering DOI",
+
+  "item.edit.register-doi.to-update": "The following DOI has already been minted and will be queued for registration online",
 
   "item.edit.item-mapper.buttons.add": "Map item to selected collections",
 
@@ -3392,7 +3434,9 @@
 
   "register-page.registration.email.error.required": "Please fill in an email address",
 
-  "register-page.registration.email.error.pattern": "Please fill in a valid email address",
+  "register-page.registration.email.error.not-email-form": "Please fill in a valid email address.",
+
+  "register-page.registration.email.error.not-valid-domain": "Use email with allowed domains: {{ domains }}",
 
   "register-page.registration.email.hint": "This address will be verified and used as your login name.",
 
@@ -3409,6 +3453,8 @@
   "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
 
   "register-page.registration.google-recaptcha.must-accept-cookies": "In order to register you must accept the <b>Registration and Password recovery</b> (Google reCaptcha) cookies.",
+  "register-page.registration.error.maildomain": "This email address is not on the list of domains who can register. Allowed domains are {{ domains }}",
+
 
   "register-page.registration.google-recaptcha.open-cookie-settings": "Open cookie settings",
 
@@ -3417,6 +3463,7 @@
   "register-page.registration.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
 
   "register-page.registration.google-recaptcha.notification.message.expired": "Verification expired. Please verify again.",
+  "register-page.registration.info.maildomain": "Accounts can be registered for mail addresses of the domains",
 
   "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
 
@@ -4339,7 +4386,17 @@
 
   "submission.sections.general.sections_not_valid": "There are incomplete sections.",
 
+  "submission.sections.identifiers.info": "The following identifiers will be created for your item:",
 
+  "submission.sections.identifiers.no_handle": "No handles have been minted for this item.",
+
+  "submission.sections.identifiers.no_doi": "No DOIs have been minted for this item.",
+
+  "submission.sections.identifiers.handle_label": "Handle: ",
+
+  "submission.sections.identifiers.doi_label": "DOI: ",
+
+  "submission.sections.identifiers.otherIdentifiers_label": "Other identifiers: ",
 
   "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
 
@@ -4354,6 +4411,8 @@
   "submission.sections.submit.progressbar.describe.steptwo": "Describe",
 
   "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
+
+  "submission.sections.submit.progressbar.identifiers": "Identifiers",
 
   "submission.sections.submit.progressbar.license": "Deposit license",
 
@@ -4978,4 +5037,53 @@
   "home.recent-submissions.head": "Recent Submissions",
 
   "listable-notification-object.default-message": "This object couldn't be retrieved",
+
+
+  "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
+
+  "system-wide-alert-banner.countdown.prefix": "In",
+
+  "system-wide-alert-banner.countdown.days": "{{days}} day(s),",
+
+  "system-wide-alert-banner.countdown.hours": "{{hours}} hour(s) and",
+
+  "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
+
+
+
+  "menu.section.system-wide-alert": "System-wide Alert",
+
+  "system-wide-alert.form.header": "System-wide Alert",
+
+  "system-wide-alert-form.retrieval.error": "Something went wrong retrieving the system-wide alert",
+
+  "system-wide-alert.form.cancel": "Cancel",
+
+  "system-wide-alert.form.save": "Save",
+
+  "system-wide-alert.form.label.active": "ACTIVE",
+
+  "system-wide-alert.form.label.inactive": "INACTIVE",
+
+  "system-wide-alert.form.error.message": "The system wide alert must have a message",
+
+  "system-wide-alert.form.label.message": "Alert message",
+
+  "system-wide-alert.form.label.countdownTo.enable": "Enable a countdown timer",
+
+  "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
+
+  "system-wide-alert.form.label.preview": "System-wide alert preview",
+
+  "system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
+
+  "system-wide-alert.form.update.error": "Something went wrong when updating the system-wide alert",
+
+  "system-wide-alert.form.create.success": "The system-wide alert was successfully created",
+
+  "system-wide-alert.form.create.error": "Something went wrong when creating the system-wide alert",
+
+  "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
+
+  "admin.system-wide-alert.title": "System-wide Alerts",
 }

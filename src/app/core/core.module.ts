@@ -170,6 +170,7 @@ import { OrcidHistory } from './orcid/model/orcid-history.model';
 import { OrcidAuthService } from './orcid/orcid-auth.service';
 import { VocabularyDataService } from './submission/vocabularies/vocabulary.data.service';
 import { VocabularyEntryDetailsDataService } from './submission/vocabularies/vocabulary-entry-details.data.service';
+import { IdentifierData } from '../shared/object-list/identifier-data/identifier-data.model';
 import { SupervisionOrderDataService } from './supervision-order/supervision-order-data.service';
 
 /**
@@ -358,7 +359,8 @@ export const models =
     ResearcherProfile,
     OrcidQueue,
     OrcidHistory,
-    AccessStatusObject
+    AccessStatusObject,
+    IdentifierData,
   ];
 
 @NgModule({

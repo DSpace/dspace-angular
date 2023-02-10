@@ -84,6 +84,8 @@ import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 import {
   PlainTextMetadataListElementComponent
 } from './object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
+import { BrowseLinkMetadataListElementComponent }
+  from './object-list/metadata-representation-list-element/browse-link/browse-link-metadata-list-element.component';
 import {
   ItemMetadataListElementComponent
 } from './object-list/metadata-representation-list-element/item/item-metadata-list-element.component';
@@ -215,7 +217,6 @@ import {
 import {
   AuthorizedCollectionSelectorComponent
 } from './dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
-import { DsoPageEditButtonComponent } from './dso-page/dso-page-edit-button/dso-page-edit-button.component';
 import { HoverClassDirective } from './hover-class.directive';
 import {
   ValidationSuggestionsComponent
@@ -242,21 +243,21 @@ import { MenuModule } from './menu/menu.module';
 import {
   ListableNotificationObjectComponent
 } from './object-list/listable-notification-object/listable-notification-object.component';
+import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
+import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
+import {
+  LogInExternalProviderComponent
+} from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
+import { ShortNumberPipe } from './utils/short-number.pipe';
+import {
+  SupervisionOrderStatusComponent
+} from './object-list/supervision-order-status/supervision-order-status.component';
 import {
   SupervisionGroupSelectorComponent
 } from './dso-selector/modal-wrappers/supervision-group-selector/supervision-group-selector.component';
 import { EpersonGroupListComponent } from './form/eperson-group-list/eperson-group-list.component';
 import { EpersonSearchBoxComponent } from './form/eperson-group-list/eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './form/eperson-group-list/group-search-box/group-search-box.component';
-import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
-import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
-import {
-  LogInExternalProviderComponent
-} from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
-import {
-  SupervisionOrderStatusComponent
-} from './object-list/supervision-order-status/supervision-order-status.component';
-
 
 const MODULES = [
   CommonModule,
@@ -295,6 +296,7 @@ const PIPES = [
   ObjNgFor,
   BrowserOnlyPipe,
   MarkdownPipe,
+  ShortNumberPipe
 ];
 
 const COMPONENTS = [
@@ -355,13 +357,13 @@ const COMPONENTS = [
   ItemPageTitleFieldComponent,
   ThemedSearchNavbarComponent,
   ListableNotificationObjectComponent,
-  DsoPageEditButtonComponent,
   MetadataFieldWrapperComponent,
   ContextHelpWrapperComponent,
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
   GroupSearchBoxComponent,
-  SupervisionGroupSelectorComponent
+  SupervisionGroupSelectorComponent,
+  SupervisionOrderStatusComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -397,6 +399,7 @@ const ENTRY_COMPONENTS = [
   EditItemSelectorComponent,
   ThemedEditItemSelectorComponent,
   PlainTextMetadataListElementComponent,
+  BrowseLinkMetadataListElementComponent,
   ItemMetadataListElementComponent,
   MetadataRepresentationListElementComponent,
   ItemMetadataRepresentationListElementComponent,
@@ -458,20 +461,18 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...ENTRY_COMPONENTS,
     ...DIRECTIVES,
-    SupervisionOrderStatusComponent,
   ],
   providers: [
     ...PROVIDERS
   ],
-    exports: [
-        ...MODULES,
-        ...PIPES,
-        ...COMPONENTS,
-        ...ENTRY_COMPONENTS,
-        ...DIRECTIVES,
-        TranslateModule,
-        SupervisionOrderStatusComponent,
-    ]
+  exports: [
+    ...MODULES,
+    ...PIPES,
+    ...COMPONENTS,
+    ...ENTRY_COMPONENTS,
+    ...DIRECTIVES,
+    TranslateModule,
+  ]
 })
 
 /**

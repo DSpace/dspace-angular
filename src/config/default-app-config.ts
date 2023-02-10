@@ -67,11 +67,34 @@ export class DefaultAppConfig implements AppConfig {
     msToLive: {
       default: 15 * 60 * 1000 // 15 minutes
     },
-    control: 'max-age=60', // revalidate browser
+    // Cache-Control HTTP Header
+    control: 'max-age=604800', // revalidate browser
     autoSync: {
       defaultTime: 0,
       maxBufferSize: 100,
       timePerMethod: { [RestRequestMethod.PATCH]: 3 } as any // time in seconds
+    },
+    // In-memory cache of server-side rendered content
+    serverSide: {
+      debug: false,
+      // Cache specific to known bots.  Allows you to serve cached contents to bots only.
+      // Defaults to caching 1,000 pages. Each page expires after 1 day
+      botCache: {
+        // Maximum number of pages (rendered via SSR) to cache. Setting max=0 disables the cache.
+        max: 1000,
+        // Amount of time after which cached pages are considered stale (in ms)
+        timeToLive: 24 * 60 * 60 * 1000, // 1 day
+        allowStale: true,
+      },
+      // Cache specific to anonymous users. Allows you to serve cached content to non-authenticated users.
+      // Defaults to caching 0 pages. But, when enabled, each page expires after 10 seconds (to minimize anonymous users seeing out-of-date content)
+      anonymousCache: {
+        // Maximum number of pages (rendered via SSR) to cache. Setting max=0 disables the cache.
+        max: 0, // disabled by default
+        // Amount of time after which cached pages are considered stale (in ms)
+        timeToLive: 10 * 1000, // 10 seconds
+        allowStale: true,
+      }
     }
   };
 

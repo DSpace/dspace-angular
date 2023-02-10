@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ContextHelpService } from '../../shared/context-help.service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /**
@@ -12,22 +12,15 @@ import { map } from 'rxjs/operators';
   templateUrl: './context-help-toggle.component.html',
   styleUrls: ['./context-help-toggle.component.scss']
 })
-export class ContextHelpToggleComponent implements OnInit, OnDestroy {
+export class ContextHelpToggleComponent implements OnInit {
   buttonVisible$: Observable<boolean>;
 
   constructor(
     private contextHelpService: ContextHelpService,
   ) { }
 
-  private subs: Subscription[];
-
   ngOnInit(): void {
     this.buttonVisible$ = this.contextHelpService.tooltipCount$().pipe(map(x => x > 0));
-    this.subs = [this.buttonVisible$.subscribe()];
-  }
-
-  ngOnDestroy() {
-    this.subs.forEach(sub => sub.unsubscribe());
   }
 
   onClick() {
