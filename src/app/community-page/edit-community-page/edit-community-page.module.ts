@@ -21,7 +21,7 @@ import { ComcolModule } from '../../shared/comcol/comcol.module';
     EditCommunityPageRoutingModule,
     CommunityFormModule,
     ComcolModule,
-    ResourcePoliciesModule
+    ResourcePoliciesModule,
   ],
   declarations: [
     EditCommunityPageComponent,

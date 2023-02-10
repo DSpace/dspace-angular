@@ -16,6 +16,8 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
+import {ConfigurationProperty} from '../../../core/shared/configuration-property.model';
 
 describe('SubmissionSectionCcLicensesComponent', () => {
 
@@ -156,6 +158,14 @@ describe('SubmissionSectionCcLicensesComponent', () => {
     remove: undefined,
   });
 
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$({
+      ... new ConfigurationProperty(),
+      name: 'cc.license.jurisdiction',
+      values: ['mock-jurisdiction-value'],
+    }),
+  });
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -170,6 +180,7 @@ describe('SubmissionSectionCcLicensesComponent', () => {
         { provide: SubmissionCcLicenseUrlDataService, useValue: submissionCcLicenseUrlDataService },
         { provide: SectionsService, useValue: sectionService },
         { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: 'collectionIdProvider', useValue: 'test collection id' },
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: 'test submission id' },

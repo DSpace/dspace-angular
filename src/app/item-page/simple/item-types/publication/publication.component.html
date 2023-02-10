@@ -1,3 +1,4 @@
+<ds-themed-results-back-button *ngIf="showBackButton | async" [back]="back"></ds-themed-results-back-button>
 <div class="row" *ngIf="iiifEnabled">
   <div class="col-12">
     <ds-mirador-viewer  id="iiif-viewer"
@@ -76,7 +77,7 @@
 
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.subject']"
-      [separator]="','"
+      [separator]="', '"
       [label]="'item.page.subject'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="object"
