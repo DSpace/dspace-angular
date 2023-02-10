@@ -55,6 +55,7 @@ describe('AdminSidebarComponent', () => {
       isAuthorized: observableOf(true)
     });
     scriptService = jasmine.createSpyObj('scriptService', { scriptWithNameExistsAndCanExecute: observableOf(true) });
+    spyOn(menuService, 'addSection').and.callThrough();
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
       declarations: [AdminSidebarComponent],
@@ -184,10 +185,6 @@ describe('AdminSidebarComponent', () => {
   });
 
   describe('menu', () => {
-    beforeEach(() => {
-      spyOn(menuService, 'addSection');
-    });
-
     describe('for regular user', () => {
       beforeEach(() => {
         authorizationService.isAuthorized = createSpy('isAuthorized').and.callFake(() => {
