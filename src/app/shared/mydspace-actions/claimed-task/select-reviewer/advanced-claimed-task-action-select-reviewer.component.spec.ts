@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   AdvancedClaimedTaskActionSelectReviewerComponent
 } from './advanced-claimed-task-action-select-reviewer.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { RouterStub } from '../../../testing/router.stub';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { NotificationsService } from '../../../notifications/notifications.service';
@@ -22,6 +22,7 @@ import {
 } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { of as observableOf } from 'rxjs';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 
 const taskId = 'claimed-task-1';
 const workflowId = 'workflow-1';
@@ -36,12 +37,14 @@ describe('AdvancedClaimedTaskActionSelectReviewerComponent', () => {
   let component: AdvancedClaimedTaskActionSelectReviewerComponent;
   let fixture: ComponentFixture<AdvancedClaimedTaskActionSelectReviewerComponent>;
 
+  let route: ActivatedRouteStub;
   let claimedTaskDataService: ClaimedTaskDataServiceStub;
   let notificationService: NotificationsServiceStub;
   let router: RouterStub;
   let searchService: SearchServiceStub;
 
   beforeEach(async () => {
+    route = new ActivatedRouteStub();
     claimedTaskDataService = new ClaimedTaskDataServiceStub();
     notificationService = new NotificationsServiceStub();
     router = new RouterStub();
@@ -56,6 +59,7 @@ describe('AdvancedClaimedTaskActionSelectReviewerComponent', () => {
         NgbTooltip,
       ],
       providers: [
+        { provide: ActivatedRoute, useValue: route },
         { provide: ClaimedTaskDataService, useValue: claimedTaskDataService },
         { provide: NotificationsService, useValue: notificationService },
         { provide: RequestService, useValue: {} },
@@ -92,6 +96,24 @@ describe('AdvancedClaimedTaskActionSelectReviewerComponent', () => {
       queryParams: {
         workflow: ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER,
         claimedTask: taskId,
+      },
+    });
+  });
+
+  it('should navigate to the advanced workflow page with a previousSearchQuery when clicked anq a query is defined', () => {
+    spyOnProperty(route, 'snapshot').and.returnValue({
+      queryParams: {
+        query: 'Thor%20Love%20and%20Thunder',
+      }
+    });
+    component.workflowTaskPageRoute = `/workflowitems/${workflowId}/advanced`;
+    fixture.debugElement.query(By.css('.selectReviewerAction')).nativeElement.click();
+
+    expect(router.navigate).toHaveBeenCalledWith([`/workflowitems/${workflowId}/advanced`], {
+      queryParams: {
+        workflow: ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER,
+        claimedTask: taskId,
+        previousSearchQuery: 'Thor%20Love%20and%20Thunder',
       },
     });
   });
