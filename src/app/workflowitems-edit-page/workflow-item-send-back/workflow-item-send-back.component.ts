@@ -7,6 +7,7 @@ import { RouteService } from '../../core/services/route.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { RequestService } from '../../core/data/request.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ds-workflow-item-send-back',
@@ -22,8 +23,10 @@ export class WorkflowItemSendBackComponent extends WorkflowItemActionPageCompone
               protected routeService: RouteService,
               protected notificationsService: NotificationsService,
               protected translationService: TranslateService,
-              protected requestService: RequestService) {
-    super(route, workflowItemService, router, routeService, notificationsService, translationService, requestService);
+              protected requestService: RequestService,
+              protected location: Location,
+  ) {
+    super(route, workflowItemService, router, routeService, notificationsService, translationService, requestService, location);
   }
 
   /**

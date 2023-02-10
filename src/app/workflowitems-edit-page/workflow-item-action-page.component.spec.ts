@@ -18,6 +18,8 @@ import { RouterStub } from '../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { RequestService } from '../core/data/request.service';
 import { RequestServiceStub } from '../shared/testing/request-service.stub';
+import { Location } from '@angular/common';
+import { LocationStub } from '../shared/testing/location.stub';
 
 const type = 'testType';
 describe('WorkflowItemActionPageComponent', () => {
@@ -52,6 +54,7 @@ describe('WorkflowItemActionPageComponent', () => {
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub({}, { wfi: createSuccessfulRemoteDataObject(wfi) }) },
         { provide: Router, useClass: RouterStub },
         { provide: RouteService, useValue: {} },
+        { provide: Location, useValue: new LocationStub() },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: WorkflowItemDataService, useValue: wfiService },
         { provide: RequestService, useClass: RequestServiceStub },
@@ -115,8 +118,9 @@ class TestComponent extends WorkflowItemActionPageComponent {
               protected notificationsService: NotificationsService,
               protected translationService: TranslateService,
               protected requestService: RequestService,
+              protected location: Location,
   ) {
-    super(route, workflowItemService, router, routeService, notificationsService, translationService, requestService);
+    super(route, workflowItemService, router, routeService, notificationsService, translationService, requestService, location);
   }
 
   getType(): string {

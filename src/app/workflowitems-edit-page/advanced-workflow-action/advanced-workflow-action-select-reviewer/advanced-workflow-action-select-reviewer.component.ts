@@ -65,7 +65,7 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
     protected requestService: RequestService,
     protected location: Location,
   ) {
-    super(route, workflowItemService, router, routeService, notificationsService, translationService, workflowActionService, claimedTaskDataService, requestService);
+    super(route, workflowItemService, router, routeService, notificationsService, translationService, workflowActionService, claimedTaskDataService, requestService, location);
   }
 
   ngOnDestroy(): void {
@@ -140,7 +140,7 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
    * switching between the different pages
    */
   previousPage(): void {
-    let queryParams: Params = (this.location.getState() as { [key: string]: any }).previousQueryParams;
+    let queryParams: Params = this.previousQueryParameters;
     if (!hasValue(queryParams)) {
       queryParams = {
         configuration: 'workflow',

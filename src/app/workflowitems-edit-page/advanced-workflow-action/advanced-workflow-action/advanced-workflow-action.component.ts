@@ -13,6 +13,7 @@ import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.se
 import { map } from 'rxjs/operators';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { RequestService } from '../../../core/data/request.service';
+import { Location } from '@angular/common';
 
 /**
  * Abstract component for rendering an advanced claimed task's workflow page
@@ -38,8 +39,9 @@ export abstract class AdvancedWorkflowActionComponent extends WorkflowItemAction
     protected workflowActionService: WorkflowActionDataService,
     protected claimedTaskDataService: ClaimedTaskDataService,
     protected requestService: RequestService,
+    protected location: Location,
   ) {
-    super(route, workflowItemService, router, routeService, notificationsService, translationService, requestService);
+    super(route, workflowItemService, router, routeService, notificationsService, translationService, requestService, location);
   }
 
   ngOnInit(): void {

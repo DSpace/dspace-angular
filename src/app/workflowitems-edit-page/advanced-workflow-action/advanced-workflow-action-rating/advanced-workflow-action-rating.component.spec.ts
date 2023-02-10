@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Location } from '@angular/common';
 import {
   AdvancedWorkflowActionRatingComponent,
   ADVANCED_WORKFLOW_TASK_OPTION_RATING
@@ -28,6 +29,7 @@ import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-res
 import { RatingAdvancedWorkflowInfo } from '../../../core/tasks/models/rating-advanced-workflow-info.model';
 import { RequestService } from '../../../core/data/request.service';
 import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
+import { LocationStub } from '../../../shared/testing/location.stub';
 
 const claimedTaskId = '2';
 const workflowId = '1';
@@ -77,6 +79,7 @@ describe('AdvancedWorkflowActionRatingComponent', () => {
           },
         },
         { provide: ClaimedTaskDataService, useValue: claimedTaskDataService },
+        { provide: Location, useValue: new LocationStub() },
         { provide: NotificationsService, useValue: notificationService },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterStub() },

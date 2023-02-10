@@ -108,6 +108,7 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
         },
       });
 
+      component.ngOnInit();
       component.previousPage();
 
       expect(router.navigate).toHaveBeenCalledWith(['/mydspace'], {
