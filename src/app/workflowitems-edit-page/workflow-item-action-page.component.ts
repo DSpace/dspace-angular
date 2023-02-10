@@ -78,7 +78,7 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
           const params: Params = {};
           if (url.split('?').length > 1) {
             for (const param of url.split('?')[1].split('&')) {
-              params[param.split('=')[0]] = param.split('=')[1];
+              params[param.split('=')[0]] = decodeURIComponent(param.split('=')[1]);
             }
           }
           void this.router.navigate([url.split('?')[0]], { queryParams: params });

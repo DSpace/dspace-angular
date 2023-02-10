@@ -3,6 +3,7 @@ import { ClaimedTaskActionsAbstractComponent } from './claimed-task-actions-abst
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import { Params } from '@angular/router';
 
 /**
  * Abstract component for rendering an advanced claimed task's action
@@ -47,11 +48,18 @@ export abstract class AdvancedClaimedTaskActionsAbstractComponent extends Claime
    */
   openAdvancedClaimedTaskTab(): void {
     void this.router.navigate([this.workflowTaskPageRoute], {
-      queryParams: {
-        workflow: this.workflowType,
-        claimedTask: this.object.id,
-      },
+      queryParams: this.getQueryParams(),
     });
+  }
+
+  /**
+   * The {@link Params} that need to be given to the workflow page.
+   */
+  getQueryParams(): Params {
+    return {
+      workflow: this.workflowType,
+      claimedTask: this.object.id,
+    };
   }
 
 }
