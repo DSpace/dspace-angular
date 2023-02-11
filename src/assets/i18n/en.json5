@@ -4748,6 +4748,8 @@
 
   "subscriptions.modal.new-subscription-form.submit": "Submit",
 
+  "subscriptions.modal.new-subscription-form.processing": "Processing...",
+
   "subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
 
   "subscriptions.modal.delete.success": "Subscription deleted successfully",
