@@ -607,6 +607,18 @@ export class MenuResolver implements Resolve<boolean> {
           icon: 'user-check',
           index: 11
         },
+        {
+          id: 'system_wide_alert',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.system-wide-alert',
+            link: '/admin/system-wide-alert'
+          } as LinkMenuItemModel,
+          icon: 'exclamation-circle',
+          index: 12
+        },
       ];
 
       menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {

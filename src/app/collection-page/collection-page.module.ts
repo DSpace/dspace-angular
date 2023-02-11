@@ -17,6 +17,7 @@ import { CollectionFormModule } from './collection-form/collection-form.module';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 import { ComcolModule } from '../shared/comcol/comcol.module';
 import { DsoSharedModule } from '../dso-shared/dso-shared.module';
+import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { DsoSharedModule } from '../dso-shared/dso-shared.module';
     CollectionFormModule,
     ComcolModule,
     DsoSharedModule,
+    DsoPageModule,
   ],
   declarations: [
     CollectionPageComponent,
