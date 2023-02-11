@@ -10,6 +10,7 @@ import { ItemStatusComponent } from './item-status/item-status.component';
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
 import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
 import { ItemMoveComponent } from './item-move/item-move.component';
+import { ItemRegisterDoiComponent } from './item-register-doi/item-register-doi.component';
 import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
@@ -26,7 +27,8 @@ import {
   ITEM_EDIT_PRIVATE_PATH,
   ITEM_EDIT_PUBLIC_PATH,
   ITEM_EDIT_REINSTATE_PATH,
-  ITEM_EDIT_WITHDRAW_PATH
+  ITEM_EDIT_WITHDRAW_PATH,
+  ITEM_EDIT_REGISTER_DOI_PATH
 } from './edit-item-page.routing-paths';
 import { ItemPageReinstateGuard } from './item-page-reinstate.guard';
 import { ItemPageWithdrawGuard } from './item-page-withdraw.guard';
@@ -38,6 +40,7 @@ import { ItemPageRelationshipsGuard } from './item-page-relationships.guard';
 import { ItemPageVersionHistoryGuard } from './item-page-version-history.guard';
 import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.guard';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
+import { ItemPageRegisterDoiGuard } from './item-page-register-doi.guard';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -143,6 +146,12 @@ import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metada
             data: { title: 'item.edit.move.title' },
           },
           {
+            path: ITEM_EDIT_REGISTER_DOI_PATH,
+            component: ItemRegisterDoiComponent,
+            canActivate: [ItemPageRegisterDoiGuard],
+            data: { title: 'item.edit.register-doi.title' },
+          },
+          {
             path: ITEM_EDIT_AUTHORIZATIONS_PATH,
             children: [
               {
@@ -186,6 +195,7 @@ import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metada
     ItemPageRelationshipsGuard,
     ItemPageVersionHistoryGuard,
     ItemPageCollectionMapperGuard,
+    ItemPageRegisterDoiGuard,
   ]
 })
 export class EditItemPageRoutingModule {

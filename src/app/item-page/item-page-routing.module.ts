@@ -18,6 +18,7 @@ import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { OrcidPageGuard } from './orcid-page/orcid-page.guard';
+import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { OrcidPageGuard } from './orcid-page/orcid-page.guard';
         path: ':id',
         resolve: {
           dso: ItemPageResolver,
-          breadcrumb: ItemBreadcrumbResolver
+          breadcrumb: ItemBreadcrumbResolver,
+          menu: DSOEditMenuResolver
         },
         runGuardsAndResolvers: 'always',
         children: [
