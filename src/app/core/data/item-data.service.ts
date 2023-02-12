@@ -233,6 +233,16 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   }
 
   /**
+   * Get the endpoint for an item's identifiers
+   * @param itemId
+   */
+  public getIdentifiersEndpoint(itemId: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      switchMap((url: string) => this.halService.getEndpoint('identifiers', `${url}/${itemId}`))
+    );
+  }
+
+  /**
    * Get the endpoint to move the item
    * @param itemId
    */

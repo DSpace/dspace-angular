@@ -6,6 +6,7 @@
     (mouseenter)="activateSection($event)"
     (mouseleave)="deactivateSection($event)">
     <a href="javascript:void(0);" class="nav-link dropdown-toggle" routerLinkActive="active"
+       [class.disabled]="section.model?.disabled"
        id="browseDropdown" (click)="toggleSection($event)"
        data-toggle="dropdown">
         <ng-container

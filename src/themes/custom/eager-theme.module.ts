@@ -44,6 +44,7 @@ import { CollectionListElementComponent} from './app/shared/object-list/collecti
 import { CollectionDropdownComponent } from './app/shared/collection-dropdown/collection-dropdown.component';
 import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
 import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
+import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
 import { FileDownloadLinkComponent } from './app/shared/file-download-link/file-download-link.component';
 
 
@@ -90,6 +91,7 @@ const DECLARATIONS = [
     ResultsBackButtonModule,
     ItemPageModule,
     ItemSharedModule,
+    DsoPageModule,
   ],
   declarations: DECLARATIONS,
   providers: [
