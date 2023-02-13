@@ -283,4 +283,8 @@ export const environment: BuildConfig = {
     enabled: false,
     mathjax: false,
   },
+  collectionSelectionSort: {
+    sortMetadata:"dc.title",
+    sortDirection:"ASC",
+  },
 };

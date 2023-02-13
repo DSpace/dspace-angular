@@ -310,3 +310,8 @@ info:
 markdown:
   enabled: false
   mathjax: false
+
+# Default collection/community sorting order at Advanced search, Create/update community and collection when there are not a query. 
+collectionSelectionSort:
+  sortMetadata: "dc.title"
+  sortDirection: "ASC"

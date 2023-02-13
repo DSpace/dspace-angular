@@ -20,6 +20,7 @@ import { InfoConfig } from './info-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
+import { DiscoverySortConfig } from './discovery-sort.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -384,5 +385,11 @@ export class DefaultAppConfig implements AppConfig {
   markdown: MarkdownConfig = {
     enabled: false,
     mathjax: false,
+  };
+
+  // Configuration that determines the metadata sorting of community and collection edition and creation when there are not a search query.
+  collectionSelectionSort: DiscoverySortConfig = {
+    sortMetadata:"dc.title",
+    sortDirection:"ASC",
   };
 }

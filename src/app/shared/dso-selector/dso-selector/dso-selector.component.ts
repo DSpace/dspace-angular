@@ -227,6 +227,8 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    * @param useCache Whether or not to use the cache
    */
   search(query: string, page: number, useCache: boolean = true): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+    // default sort is only used when there is not query
+    var efectiveSort=query?null:this.sort;
     return this.searchService.search(
       new PaginatedSearchOptions({
         query: query,
@@ -234,7 +236,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
         pagination: Object.assign({}, this.defaultPagination, {
           currentPage: page
         }),
-        sort: this.sort
+        sort: efectiveSort
       }),
       null,
       useCache,
