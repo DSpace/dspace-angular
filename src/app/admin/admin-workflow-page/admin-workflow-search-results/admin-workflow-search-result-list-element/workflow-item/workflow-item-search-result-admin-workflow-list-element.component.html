@@ -1,8 +1,5 @@
-<div class="workflow-badge" *ngIf="dso?.type === 'workflowitem'">
+<div class="workflow-badge">
     <span class="badge badge-info">{{ "admin.workflow.item.workflow" | translate }}</span>
-</div>
-<div class="workspace-badge" *ngIf="dso?.type === 'workspaceitem'">
-    <span class="badge badge-info">{{ "admin.workflow.item.workspace" | translate }}</span>
 </div>
 <ds-listable-object-component-loader *ngIf="item$ | async"
                                      [object]="item$ | async"
@@ -10,9 +7,4 @@
                                      [index]="index"
                                      [linkType]="linkType"
                                      [listID]="listID"></ds-listable-object-component-loader>
-<div class="my-1">
-  <ds-supervision-order-status [supervisionOrderList]="supervisionOrder$ | async"
-                               (delete)="deleteSupervisionOrder($event)"></ds-supervision-order-status>
-</div>
-
 <ds-workflow-item-admin-workflow-actions-element [wfi]="dso" [small]="false"></ds-workflow-item-admin-workflow-actions-element>

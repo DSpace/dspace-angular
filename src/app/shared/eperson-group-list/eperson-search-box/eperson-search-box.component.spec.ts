@@ -4,14 +4,14 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createTestComponent } from '../../../testing/utils.test';
-import { GroupSearchBoxComponent } from './group-search-box.component';
+import { createTestComponent } from '../../testing/utils.test';
+import { EpersonSearchBoxComponent } from './eperson-search-box.component';
 import { SearchEvent } from '../eperson-group-list.component';
 
-describe('GroupSearchBoxComponent test suite', () => {
-  let comp: GroupSearchBoxComponent;
+describe('EpersonSearchBoxComponent test suite', () => {
+  let comp: EpersonSearchBoxComponent;
   let compAsAny: any;
-  let fixture: ComponentFixture<GroupSearchBoxComponent>;
+  let fixture: ComponentFixture<EpersonSearchBoxComponent>;
   let de;
   let formBuilder: FormBuilder;
 
@@ -23,12 +23,12 @@ describe('GroupSearchBoxComponent test suite', () => {
         TranslateModule.forRoot()
       ],
       declarations: [
-        GroupSearchBoxComponent,
+        EpersonSearchBoxComponent,
         TestComponent
       ],
       providers: [
         FormBuilder,
-        GroupSearchBoxComponent
+        EpersonSearchBoxComponent
       ],
       schemas: [
         NO_ERRORS_SCHEMA
@@ -53,7 +53,7 @@ describe('GroupSearchBoxComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('should create GroupSearchBoxComponent', inject([GroupSearchBoxComponent], (app: GroupSearchBoxComponent) => {
+    it('should create EpersonSearchBoxComponent', inject([EpersonSearchBoxComponent], (app: EpersonSearchBoxComponent) => {
 
       expect(app).toBeDefined();
 
@@ -63,7 +63,7 @@ describe('GroupSearchBoxComponent test suite', () => {
   describe('', () => {
     beforeEach(() => {
       // initTestScheduler();
-      fixture = TestBed.createComponent(GroupSearchBoxComponent);
+      fixture = TestBed.createComponent(EpersonSearchBoxComponent);
       formBuilder = TestBed.inject(FormBuilder);
       comp = fixture.componentInstance;
       compAsAny = fixture.componentInstance;
@@ -88,11 +88,12 @@ describe('GroupSearchBoxComponent test suite', () => {
 
     it('should emit new search event', () => {
       const data = {
+        scope: 'metadata',
         query: 'test'
       };
 
       const event: SearchEvent = {
-        scope: '',
+        scope: 'metadata',
         query: 'test'
       };
       spyOn(comp.search, 'emit');

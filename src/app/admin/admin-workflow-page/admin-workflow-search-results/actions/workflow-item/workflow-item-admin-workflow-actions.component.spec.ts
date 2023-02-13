@@ -4,17 +4,17 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { URLCombiner } from '../../../core/url-combiner/url-combiner';
+import { URLCombiner } from '../../../../../core/url-combiner/url-combiner';
 import { WorkflowItemAdminWorkflowActionsComponent } from './workflow-item-admin-workflow-actions.component';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import {
   getWorkflowItemDeleteRoute,
   getWorkflowItemSendBackRoute
-} from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+} from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { of } from 'rxjs';
-import { Item } from 'src/app/core/shared/item.model';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { RequestEntryState } from 'src/app/core/data/request-entry-state.model';
+import { Item } from '../../../../../core/shared/item.model';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
 
 describe('WorkflowItemAdminWorkflowActionsComponent', () => {
   let component: WorkflowItemAdminWorkflowActionsComponent;
@@ -66,12 +66,6 @@ describe('WorkflowItemAdminWorkflowActionsComponent', () => {
     const a = fixture.debugElement.query(By.css('a.send-back-link'));
     const link = a.nativeElement.href;
     expect(link).toContain(new URLCombiner(getWorkflowItemSendBackRoute(wfi.id)).toString());
-  });
-
-  it('should render a policies button with the correct link', () => {
-    const a = fixture.debugElement.query(By.css('a.policies-link'));
-    const link = a.nativeElement.href;
-    expect(link).toContain(new URLCombiner('/items/itemUUID1111/edit/bitstreams').toString());
   });
 
 });

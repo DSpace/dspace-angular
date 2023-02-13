@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { Group } from '../../../../core/eperson/models/group.model';
-import { SupervisionOrder } from '../../../../core/supervision-order/models/supervision-order.model';
-import { SupervisionOrderDataService } from '../../../../core/supervision-order/supervision-order-data.service';
-import { followLink } from '../../../../shared/utils/follow-link-config.model';
+import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
+import { Group } from '../../../../../../core/eperson/models/group.model';
+import { SupervisionOrder } from '../../../../../../core/supervision-order/models/supervision-order.model';
+import { SupervisionOrderDataService } from '../../../../../../core/supervision-order/supervision-order-data.service';
+import { RemoteData } from '../../../../../../core/data/remote-data';
 
 /**
  * Component to wrap a dropdown - for type of order -
@@ -18,10 +18,10 @@ import { followLink } from '../../../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-supervision-group-selector',
-  styleUrls: ['./supervision-group-selector.component.scss'],
-  templateUrl: './supervision-group-selector.component.html',
+  styleUrls: ['./supervision-order-group-selector.component.scss'],
+  templateUrl: './supervision-order-group-selector.component.html',
 })
-export class SupervisionGroupSelectorComponent {
+export class SupervisionOrderGroupSelectorComponent {
 
   /**
    * The item to perform the actions on
@@ -42,6 +42,11 @@ export class SupervisionGroupSelectorComponent {
    * boolean flag for the validations
    */
   isSubmitted = false;
+
+  /**
+   * Event emitted when a new SupervisionOrder has been created
+   */
+  @Output() create: EventEmitter<SupervisionOrder> = new EventEmitter<SupervisionOrder>();
 
   constructor(
     public dsoNameService: DSONameService,
@@ -75,10 +80,10 @@ export class SupervisionGroupSelectorComponent {
       supervisionDataObject.ordertype = this.selectedOrderType;
       this.supervisionOrderDataService.create(supervisionDataObject, this.itemUUID, this.selectedGroup.uuid, this.selectedOrderType).pipe(
         getFirstCompletedRemoteData(),
-      ).subscribe(rd => {
+      ).subscribe((rd: RemoteData<SupervisionOrder>) => {
         if (rd.state === 'Success') {
-          this.supervisionOrderDataService.searchByItem(this.itemUUID, null, null, followLink('group'));
           this.notificationsService.success(this.translateService.get('supervision-group-selector.notification.create.success.title', { name: this.selectedGroup.name }));
+          this.create.emit(rd.payload);
           this.close();
         } else {
           this.notificationsService.error(

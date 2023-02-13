@@ -3,11 +3,11 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { BehaviorSubject, from, Observable } from 'rxjs';
 import { map, mergeMap, reduce } from 'rxjs/operators';
 
-import { SupervisionOrder } from '../../../core/supervision-order/models/supervision-order.model';
-import { Group } from '../../../core/eperson/models/group.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { isNotEmpty } from '../../empty.util';
-import { RemoteData } from '../../../core/data/remote-data';
+import { SupervisionOrder } from '../../../../../../core/supervision-order/models/supervision-order.model';
+import { Group } from '../../../../../../core/eperson/models/group.model';
+import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
+import { isNotEmpty } from '../../../../../../shared/empty.util';
+import { RemoteData } from '../../../../../../core/data/remote-data';
 
 export interface SupervisionOrderListEntry {
   supervisionOrder: SupervisionOrder;
@@ -27,11 +27,6 @@ export class SupervisionOrderStatusComponent implements OnChanges {
   @Input() supervisionOrderList: SupervisionOrder[] = [];
 
   /**
-   * The groups the user belongs to
-   */
-  groups: Group[];
-
-  /**
    * List of the supervision orders combined with the group
    */
   supervisionOrderEntries$: BehaviorSubject<SupervisionOrderListEntry[]> = new BehaviorSubject([]);
@@ -42,10 +37,9 @@ export class SupervisionOrderStatusComponent implements OnChanges {
     if (changes && changes.supervisionOrderList) {
       this.getSupervisionOrderEntries(changes.supervisionOrderList.currentValue)
         .subscribe((supervisionOrderEntries: SupervisionOrderListEntry[]) => {
-          this.supervisionOrderEntries$.next(supervisionOrderEntries)
-        })
+          this.supervisionOrderEntries$.next(supervisionOrderEntries);
+        });
     }
-    console.log('ngOnChanges', changes);
   }
 
   /**
@@ -71,12 +65,12 @@ export class SupervisionOrderStatusComponent implements OnChanges {
       )),
       reduce((acc: SupervisionOrderListEntry[], value: any) => {
         if (isNotEmpty(value)) {
-          return [...acc, value]
+          return [...acc, value];
         } else {
           return acc;
         }
       }, []),
-    )
+    );
   }
 
   /**

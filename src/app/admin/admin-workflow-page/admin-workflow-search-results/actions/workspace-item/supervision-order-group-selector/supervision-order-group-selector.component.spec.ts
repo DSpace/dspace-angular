@@ -2,16 +2,16 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { SupervisionGroupSelectorComponent } from './supervision-group-selector.component';
-import { SupervisionOrderDataService } from '../../../../core/supervision-order/supervision-order-data.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { Group } from '../../../../core/eperson/models/group.model';
-import { SupervisionOrder } from '../../../../core/supervision-order/models/supervision-order.model';
+import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector.component';
+import { SupervisionOrderDataService } from '../../../../../../core/supervision-order/supervision-order-data.service';
+import { NotificationsService } from '../../../../../../shared/notifications/notifications.service';
+import { Group } from '../../../../../../core/eperson/models/group.model';
+import { SupervisionOrder } from '../../../../../../core/supervision-order/models/supervision-order.model';
 import { of } from 'rxjs';
 
-describe('SupervisionGroupSelectorComponent', () => {
-  let component: SupervisionGroupSelectorComponent;
-  let fixture: ComponentFixture<SupervisionGroupSelectorComponent>;
+describe('SupervisionOrderGroupSelectorComponent', () => {
+  let component: SupervisionOrderGroupSelectorComponent;
+  let fixture: ComponentFixture<SupervisionOrderGroupSelectorComponent>;
   let debugElement: DebugElement;
 
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
@@ -32,7 +32,7 @@ describe('SupervisionGroupSelectorComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [SupervisionGroupSelectorComponent],
+      declarations: [SupervisionOrderGroupSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
@@ -44,7 +44,7 @@ describe('SupervisionGroupSelectorComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
-    fixture = TestBed.createComponent(SupervisionGroupSelectorComponent);
+    fixture = TestBed.createComponent(SupervisionOrderGroupSelectorComponent);
     component = fixture.componentInstance;
 
   }));

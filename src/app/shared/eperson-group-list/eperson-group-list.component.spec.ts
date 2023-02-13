@@ -6,21 +6,21 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
-import { createTestComponent } from '../../testing/utils.test';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { getMockRequestService } from '../../mocks/request.service.mock';
+import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import { createTestComponent } from '../testing/utils.test';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { GroupDataService } from '../../core/eperson/group-data.service';
+import { RequestService } from '../../core/data/request.service';
+import { getMockRequestService } from '../mocks/request.service.mock';
 import { EpersonGroupListComponent, SearchEvent } from './eperson-group-list.component';
-import { EPersonMock } from '../../testing/eperson.mock';
-import { GroupMock } from '../../testing/group-mock';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
+import { EPersonMock } from '../testing/eperson.mock';
+import { GroupMock } from '../testing/group-mock';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
+import { PageInfo } from '../../core/shared/page-info.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../testing/pagination-service.stub';
 
 describe('EpersonGroupListComponent test suite', () => {
   let comp: EpersonGroupListComponent;

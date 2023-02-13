@@ -3745,6 +3745,8 @@
 
   "search.filters.applied.f.birthDate.min": "Start birth date",
 
+  "search.filters.applied.f.supervisedBy": "Supervised by",
+
   "search.filters.applied.f.withdrawn": "Withdrawn",
 
 

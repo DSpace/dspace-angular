@@ -1,15 +1,17 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { RouterTestingModule } from '@angular/router/testing';
 import {
-  WorkflowItemSearchResultAdminWorkflowGridElementComponent
-} from './workflow-item-search-result-admin-workflow-grid-element.component';
+  WorkspaceItemSearchResultAdminWorkflowGridElementComponent
+} from './workspace-item-search-result-admin-workflow-grid-element.component';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
@@ -26,19 +28,25 @@ import {
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
-import { of as observableOf } from 'rxjs';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import {
+  supervisionOrderPaginatedListRD,
+  supervisionOrderPaginatedListRD$
+} from '../../../../../shared/testing/supervision-order.mock';
+import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
+import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 
-describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
-  let component: WorkflowItemSearchResultAdminWorkflowGridElementComponent;
-  let fixture: ComponentFixture<WorkflowItemSearchResultAdminWorkflowGridElementComponent>;
+describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
+  let component: WorkspaceItemSearchResultAdminWorkflowGridElementComponent;
+  let fixture: ComponentFixture<WorkspaceItemSearchResultAdminWorkflowGridElementComponent>;
   let id;
   let wfi;
   let itemRD$;
   let linkService;
   let object;
   let themeService;
+  let supervisionOrderDataService;
 
   function init() {
     itemRD$ = createSuccessfulRemoteDataObject$(new Item());
@@ -49,13 +57,17 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
     object.indexableObject = wfi;
     linkService = getMockLinkService();
     themeService = getMockThemeService();
+    supervisionOrderDataService = jasmine.createSpyObj('supervisionOrderDataService', {
+      searchByItem: jasmine.createSpy('searchByItem'),
+      delete: jasmine.createSpy('delete'),
+    });
   }
 
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule(
       {
-        declarations: [WorkflowItemSearchResultAdminWorkflowGridElementComponent, ItemGridElementComponent, ListableObjectDirective],
+        declarations: [WorkspaceItemSearchResultAdminWorkflowGridElementComponent, ItemGridElementComponent, ListableObjectDirective],
         imports: [
           NoopAnimationsModule,
           TranslateModule.forRoot(),
@@ -70,10 +82,11 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
             }
           },
           { provide: BitstreamDataService, useValue: {} },
+          { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService }
         ],
         schemas: [NO_ERRORS_SCHEMA]
       })
-      .overrideComponent(WorkflowItemSearchResultAdminWorkflowGridElementComponent, {
+      .overrideComponent(WorkspaceItemSearchResultAdminWorkflowGridElementComponent, {
         set: {
           entryComponents: [ItemGridElementComponent]
         }
@@ -83,12 +96,13 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
 
   beforeEach(() => {
     linkService.resolveLink.and.callFake((a) => a);
-    fixture = TestBed.createComponent(WorkflowItemSearchResultAdminWorkflowGridElementComponent);
+    fixture = TestBed.createComponent(WorkspaceItemSearchResultAdminWorkflowGridElementComponent);
     component = fixture.componentInstance;
     component.object = object;
     component.linkTypes = CollectionElementLinkType;
     component.index = 0;
     component.viewModes = ViewMode;
+    supervisionOrderDataService.searchByItem.and.returnValue(supervisionOrderPaginatedListRD$);
     fixture.detectChanges();
   });
 
@@ -98,5 +112,16 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
 
   it('should retrieve the item using the link service', () => {
     expect(linkService.resolveLink).toHaveBeenCalledWith(wfi, followLink('item'));
+  });
+
+  it('should retrieve supervision order objects properly', () => {
+    expect(component.supervisionOrder$.value).toEqual(supervisionOrderPaginatedListRD.payload.page);
+  });
+
+  it('should emit reloadedObject properly ', () => {
+    spyOn(component.reloadedObject, 'emit');
+    const dso = new DSpaceObject();
+    component.reloadObject(dso);
+    expect(component.reloadedObject.emit).toHaveBeenCalledWith(dso);
   });
 });
