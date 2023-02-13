@@ -29,19 +29,10 @@
                         | translate}}
                 </button>
             </div>
-            <ds-themed-search-results [searchResults]="resultsRD$ | async"
-                                      [searchConfig]="searchOptions$ | async"
-                                      [configuration]="(currentConfiguration$ | async)"
-                                      [disableHeader]="!searchEnabled"
-                                      [linkType]="linkType"
-                                      [context]="(currentContext$ | async)"
-                                      [selectable]="selectable"
-                                      [selectionConfig]="selectionConfig"
-                                      [showCsvExport]="showCsvExport"
-                                      [showThumbnails]="showThumbnails"
-                                      (contentChange)="onContentChange($event)"
-                                      (deselectObject)="deselectObject.emit($event)"
-                                      (selectObject)="selectObject.emit($event)"></ds-themed-search-results>
+          <ds-clarin-item-box-view
+            *ngFor="let item4clarinBox of (items4ClarinBox | async)"
+            [item$]="item4clarinBox">
+          </ds-clarin-item-box-view>
         </div>
     </div>
 </ng-template>

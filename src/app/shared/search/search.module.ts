@@ -93,11 +93,10 @@ export const MODELS = [
   imports: [
     CommonModule,
     TranslateModule.forChild({
-      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
+      missingTranslationHandler: {provide: MissingTranslationHandler, useClass: MissingTranslationHelper},
       useDefaultLang: true
     }),
     SharedModule.withEntryComponents(),
-    NouisliderModule,
   ],
   exports: [
     ...COMPONENTS

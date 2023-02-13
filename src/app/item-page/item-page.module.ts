@@ -53,7 +53,7 @@ import { ClarinRefFeaturedServicesComponent } from './clarin-ref-featured-servic
 import { ClarinRefCitationModalComponent } from './clarin-ref-citation-modal/clarin-ref-citation-modal.component';
 import { ClarinMatomoStatisticsComponent } from './clarin-matomo-statistics/clarin-matomo-statistics.component';
 import { ClarinStatisticsButtonComponent } from './clarin-statistics-button/clarin-statistics-button.component';
-import {ChartsModule } from 'ng2-charts';
+import { ChartsModule } from 'ng2-charts';
 
 
 const ENTRY_COMPONENTS = [
@@ -94,7 +94,7 @@ const DECLARATIONS = [
   TombstoneComponent,
   ReplacedTombstoneComponent,
   WithdrawnTombstoneComponent,
-  ClarinLicenseInfoComponent
+  ClarinLicenseInfoComponent,
 ];
 
 @NgModule({
@@ -109,7 +109,7 @@ const DECLARATIONS = [
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
     NgxGalleryModule,
-    ChartsModule ,
+    ChartsModule
   ],
   declarations: [
     ...DECLARATIONS,
@@ -119,11 +119,11 @@ const DECLARATIONS = [
     ClarinRefFeaturedServicesComponent,
     ClarinRefCitationModalComponent,
     ClarinMatomoStatisticsComponent,
-    ClarinStatisticsButtonComponent
+    ClarinStatisticsButtonComponent,
   ],
-  exports: [
-    ...DECLARATIONS,
-  ]
+    exports: [
+        ...DECLARATIONS
+    ]
 })
 export class ItemPageModule {
   /**

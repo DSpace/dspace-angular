@@ -1838,6 +1838,40 @@
 
   "health-page.section.solrAuthorityCore.title": "Solr: authority core",
 
+  "home-page.carousel.ldata.info": "Linguistic Data and NLP Tools",
+
+  "home-page.carousel.ldata.find": "Find",
+
+  "home-page.carousel.ldata.citation-support": "Citation Support (with Persistent IDs)",
+
+  "home-page.carousel.deposit.header": "Deposit Free and Safe",
+
+  "home-page.carousel.deposit.info": "License of your Choice (Open licenses encouraged)",
+
+  "home-page.carousel.deposit.find": "Easy to Find",
+
+  "home-page.carousel.deposit.cite": "Easy to Cite",
+
+  "home-page.carousel.deposit.citation": "“There ought to be only one grand dépôt of art in the world, to\n                        which the artist might repair with his works, and on presenting them\n                        receive what he required... ”",
+
+  "home-page.carousel.deposit.small": "Ludwig van Beethoven, 1801",
+
+  "home-page.search": "Search",
+
+  "home-page.advanced-search": "Advanced Search",
+
+  "home-page.hyperlink.author.message": "Author",
+
+  "home-page.hyperlink.subject.message": "Subject",
+
+  "home-page.hyperlink.language.message": "Language (ISO)",
+
+  "home-page.whats-new.message": "What's New",
+
+  "home-page.new-items.message": "Most Viewed Items - Last Month",
+
+
+
   "handle-table.breadcrumbs": "Handles",
 
   "handle-table.new-handle.breadcrumbs": "New Handle",
@@ -3956,6 +3990,10 @@
 
   "search.filters.applied.f.rights": "Rights",
 
+  "search.filters.applied.f.language": "Language (ISO)",
+
+  "search.filters.applied.f.items_owning_community": "Community",
+
 
   "search.filters.applied.f.withdrawn": "Withdrawn",
 
@@ -4098,6 +4136,10 @@
   "search.filters.filter.submitter.label": "Search submitter",
 
   "search.filters.filter.rights.head": "Rights",
+
+  "search.filters.filter.language.head": "Language (ISO)",
+
+  "search.filters.filter.items_owning_community.head": "Community",
 
 
 

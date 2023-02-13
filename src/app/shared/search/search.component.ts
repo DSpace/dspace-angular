@@ -31,13 +31,7 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { SelectionConfig } from './search-results/search-results.component';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { environment } from 'src/environments/environment';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { SearchFilterConfig } from './models/search-filter-config.model';
-import { WorkspaceItem } from '../..//core/submission/models/workspaceitem.model';
-import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
-import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
-import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
+import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';
 
 @Component({
   selector: 'ds-search',
@@ -254,6 +248,11 @@ export class SearchComponent implements OnInit {
   subs: Subscription[] = [];
 
   /**
+   * Items which will be showed in the Clarin Item Box.
+   */
+  items4ClarinBox: BehaviorSubject<Item[]> = new BehaviorSubject<Item[]>([]);
+
+  /**
    * Emits an event with the current search result entries
    */
   @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter<SearchObjects<DSpaceObject>>();
@@ -377,6 +376,7 @@ export class SearchComponent implements OnInit {
    */
   public changeViewMode() {
     this.resultsRD$.next(null);
+    this.items4ClarinBox.next([]);
   }
 
   /**
@@ -431,15 +431,7 @@ export class SearchComponent implements OnInit {
    */
   private retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
     this.resultsRD$.next(null);
-    this.lastSearchOptions = searchOptions;
-    let followLinks = [
-      followLink<Item>('thumbnail', { isOptional: true }),
-      followLink<SubmissionObject>('item', { isOptional: true }, followLink<Item>('thumbnail', { isOptional: true })) as any,
-      followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses }),
-    ];
-    if (this.configuration === 'supervision') {
-      followLinks.push(followLink<WorkspaceItem>('supervisionOrders', { isOptional: true }) as any);
-    }
+    this.items4ClarinBox.next([]);
     this.service.search(
       searchOptions,
       undefined,
@@ -457,6 +449,7 @@ export class SearchComponent implements OnInit {
           }
         }
         this.resultsRD$.next(results);
+        this.processResultsForClarinItemBox(results);
       });
   }
 
@@ -513,6 +506,12 @@ export class SearchComponent implements OnInit {
       return currentPath(this.router);
     }
     return this.service.getSearchLink();
+  }
+
+  processResultsForClarinItemBox(results: RemoteData<SearchObjects<DSpaceObject>>) {
+    results?.payload?.page?.forEach((itemSearchResults: ItemSearchResult) => {
+      this.items4ClarinBox.value.push(itemSearchResults?.indexableObject);
+    });
   }
 
 }
