@@ -252,6 +252,10 @@ import {
   AdvancedClaimedTaskActionRatingComponent
 } from './mydspace-actions/claimed-task/rating/advanced-claimed-task-action-rating.component';
 import { ClaimedTaskActionsDeclineTaskComponent } from './mydspace-actions/claimed-task/decline-task/claimed-task-actions-decline-task.component';
+import {
+  DsoPageSubscriptionButtonComponent
+} from './dso-page/dso-page-subscription-button/dso-page-subscription-button.component';
+
 
 const MODULES = [
   CommonModule,
@@ -351,6 +355,7 @@ const COMPONENTS = [
   ItemPageTitleFieldComponent,
   ThemedSearchNavbarComponent,
   ListableNotificationObjectComponent,
+  DsoPageSubscriptionButtonComponent,
   MetadataFieldWrapperComponent,
   ContextHelpWrapperComponent,
 ];
