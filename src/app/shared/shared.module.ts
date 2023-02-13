@@ -245,10 +245,13 @@ import {
 } from './object-list/listable-notification-object/listable-notification-object.component';
 import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
-import {
-  LogInExternalProviderComponent
-} from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
 import { ShortNumberPipe } from './utils/short-number.pipe';
+import { LogInExternalProviderComponent } from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
+import { AdvancedClaimedTaskActionSelectReviewerComponent } from './mydspace-actions/claimed-task/select-reviewer/advanced-claimed-task-action-select-reviewer.component';
+import {
+  AdvancedClaimedTaskActionRatingComponent
+} from './mydspace-actions/claimed-task/rating/advanced-claimed-task-action-rating.component';
+import { ClaimedTaskActionsDeclineTaskComponent } from './mydspace-actions/claimed-task/decline-task/claimed-task-actions-decline-task.component';
 import {
   SupervisionOrderStatusComponent
 } from './object-list/supervision-order-status/supervision-order-status.component';
@@ -405,6 +408,7 @@ const ENTRY_COMPONENTS = [
   ItemMetadataRepresentationListElementComponent,
   LogInPasswordComponent,
   LogInExternalProviderComponent,
+  ClaimedTaskActionsDeclineTaskComponent,
   CollectionDropdownComponent,
   ThemedCollectionDropdownComponent,
   FileDownloadLinkComponent,
@@ -419,6 +423,8 @@ const ENTRY_COMPONENTS = [
   CommunitySidebarSearchListElementComponent,
   ScopeSelectorModalComponent,
   ListableNotificationObjectComponent,
+  AdvancedClaimedTaskActionSelectReviewerComponent,
+  AdvancedClaimedTaskActionRatingComponent,
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
   GroupSearchBoxComponent,
@@ -444,7 +450,6 @@ const DIRECTIVES = [
   ClaimedTaskActionsDirective,
   FileValueAccessorDirective,
   FileValidator,
-  ClaimedTaskActionsDirective,
   NgForTrackByIdDirective,
   MetadataFieldValidator,
   HoverClassDirective,
