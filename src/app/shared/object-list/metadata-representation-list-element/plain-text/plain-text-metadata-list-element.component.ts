@@ -15,4 +15,15 @@ import { metadataRepresentationComponent } from '../../../metadata-representatio
  * It will simply use the value retrieved from MetadataRepresentation.getValue() to display as plain text
  */
 export class PlainTextMetadataListElementComponent extends MetadataRepresentationListElementComponent {
+  /**
+   * Get the appropriate query parameters for this browse link, depending on whether the browse definition
+   * expects 'startsWith' (eg browse by date) or 'value' (eg browse by title)
+   */
+  getQueryParams() {
+    let queryParams = {startsWith: this.metadataRepresentation.getValue()};
+    if (this.metadataRepresentation.browseDefinition.metadataBrowse) {
+      return {value: this.metadataRepresentation.getValue()};
+    }
+    return queryParams;
+  }
 }

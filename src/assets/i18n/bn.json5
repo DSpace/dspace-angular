@@ -2908,7 +2908,7 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "ম্যাপড সংগ্রহ পরিচালনা করুন",
   
-  // "item.edit.tabs.status.buttons.move.button": "Move...",
+  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
   "item.edit.tabs.status.buttons.move.button": "সরানো ...",
   
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
@@ -2935,8 +2935,8 @@
   // "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
   "item.edit.tabs.status.buttons.unauthorized": "আপনি এই অ্যাকশন সঞ্চালন করার জন্য অনুমোদিত না",
   
-  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  "item.edit.tabs.status.buttons.withdraw.button": "প্রত্যাহার ...",
+  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
+  "item.edit.tabs.status.buttons.withdraw.button": "এই আইটেম প্রত্যাহার করুন",
   
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
   "item.edit.tabs.status.buttons.withdraw.label": "সংগ্রহস্থল থেকে আইটেম প্রত্যাহার",

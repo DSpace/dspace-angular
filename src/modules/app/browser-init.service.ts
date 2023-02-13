@@ -29,6 +29,7 @@ import { coreSelector } from '../../app/core/core.selectors';
 import { find, map } from 'rxjs/operators';
 import { isNotEmpty } from '../../app/shared/empty.util';
 import { logStartupMessage } from '../../../startup-message';
+import { MenuService } from '../../app/shared/menu/menu.service';
 
 /**
  * Performs client-side initialization.
@@ -49,6 +50,7 @@ export class BrowserInitService extends InitService {
     protected klaroService: KlaroService,
     protected authService: AuthService,
     protected themeService: ThemeService,
+    protected menuService: MenuService,
   ) {
     super(
       store,
@@ -60,6 +62,7 @@ export class BrowserInitService extends InitService {
       metadata,
       breadcrumbsService,
       themeService,
+      menuService,
     );
   }
 

@@ -346,8 +346,8 @@ export class GroupFormComponent implements OnInit, OnDestroy {
 
     if (hasValue(this.groupDescription.value)) {
       operations = [...operations, {
-        op: 'replace',
-        path: '/metadata/dc.description/0/value',
+        op: 'add',
+        path: '/metadata/dc.description',
         value: this.groupDescription.value
       }];
     }
