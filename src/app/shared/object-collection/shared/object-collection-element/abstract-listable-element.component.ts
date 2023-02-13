@@ -17,11 +17,6 @@ export class AbstractListableElementComponent<T extends ListableObject> {
   @Input() object: T;
 
   /**
-   * The supervision orders to render in this list element
-   */
-  @Input() supervisionOrders: T;
-
-  /**
    * The link type to determine the type of link rendered in this element
    */
   @Input() linkType: CollectionElementLinkType;
@@ -45,11 +40,6 @@ export class AbstractListableElementComponent<T extends ListableObject> {
    * Whether to show the badge label or not
    */
   @Input() showLabel = true;
-
-  /**
-   * Whether to show the supervision orders badges or not
-   */
-  @Input() showSupervisionOrderBadges = false;
 
   /**
    * The context we matched on to get this component

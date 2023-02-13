@@ -72,11 +72,6 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
   @Input() showLabel = true;
 
   /**
-   * Whether to show the supervision orders badges or not
-   */
-  @Input() showSupervisionOrderBadges = false;
-
-  /**
    * The value to display for this element
    */
   @Input() value: string;
@@ -128,7 +123,6 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
    */
   protected inAndOutputNames: string[] = [
     'object',
-    'showSupervisionOrderBadges',
     'index',
     'linkType',
     'listID',
