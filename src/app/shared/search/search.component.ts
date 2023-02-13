@@ -31,6 +31,7 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { SelectionConfig } from './search-results/search-results.component';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';
 
 @Component({
   selector: 'ds-search',
@@ -195,6 +196,11 @@ export class SearchComponent implements OnInit {
   sub: Subscription;
 
   /**
+   * Items which will be showed in the Clarin Item Box.
+   */
+  items4ClarinBox: BehaviorSubject<Item[]> = new BehaviorSubject<Item[]>([]);
+
+  /**
    * Emits an event with the current search result entries
    */
   @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter<SearchObjects<DSpaceObject>>();
@@ -312,6 +318,7 @@ export class SearchComponent implements OnInit {
    */
   public changeViewMode() {
     this.resultsRD$.next(null);
+    this.items4ClarinBox.next([]);
   }
 
   /**
@@ -345,6 +352,7 @@ export class SearchComponent implements OnInit {
    */
   private retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
     this.resultsRD$.next(null);
+    this.items4ClarinBox.next([]);
     this.service.search(
       searchOptions,
       undefined,
@@ -357,6 +365,7 @@ export class SearchComponent implements OnInit {
           this.resultFound.emit(results.payload);
         }
         this.resultsRD$.next(results);
+        this.processResultsForClarinItemBox(results);
       });
   }
 
@@ -378,5 +387,10 @@ export class SearchComponent implements OnInit {
     return this.service.getSearchLink();
   }
 
+  processResultsForClarinItemBox(results: RemoteData<SearchObjects<DSpaceObject>>) {
+    results?.payload?.page?.forEach((itemSearchResults: ItemSearchResult) => {
+      this.items4ClarinBox.value.push(itemSearchResults?.indexableObject);
+    });
+  }
 
 }

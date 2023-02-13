@@ -1,25 +1,110 @@
-<div class="container clarin-shadow remove-padding clarin-home-page-borders">
-    <div class="container bg-white" >
-      <div class="row hidden-xs">
-        <div class="col-md-8 pt-3 mt-2 justify-content-center align-self-center pl-3 pb-3">
-            <h5 class="display-3 ">CLARIN-DSpace 7</h5>
-        </div>
-        <div class="col-md-4">
-          <div class="row">
-            <div class="col-md-7" style="height: 160px; position: relative;">
-              <img alt="LINDAT/CLARIAH-CZ logo" class="logo" style="position: absolute; height: 50%; top: 0px; bottom: 0px; margin: auto;" src="../../assets/images/lindat-logo-new-sm.png">
+<div class="container clarin-shadow remove-padding clarin-home-page-borders clarin-cut-bottom-2">
+
+  <div class="container bg-white clarin-fix-to-navbar">
+    <div class="row d-none d-md-flex">
+      <div class="col-md-8 justify-content-center align-self-center pl-3 clarin-cut-bottom">
+        <ngb-carousel>
+          <ng-template ngbSlide *ngFor="let slide of slides">
+            <div class="wrapper">
+              <div *ngIf="slide.short === 'LData'">
+                <img src="assets/images/home-page-glass.png" class="glass-image">
+                <h3 class="carousel-ldata-info">{{'home-page.carousel.ldata.info' | translate}}</h3>
+                <h5 class="carousel-ldata-find">{{'home-page.carousel.ldata.find' | translate}}</h5>
+                <h5 class="carousel-ldata-citation-support">{{'home-page.carousel.ldata.citation-support' | translate}}</h5>
+              </div>
+              <div *ngIf="slide.short === 'Free Deposit'">
+                <h3 class="h5-font carousel-deposit-header">{{'home-page.carousel.deposit.header' | translate}}</h3>
+                <h5 class="h5-font carousel-deposit-info">{{'home-page.carousel.deposit.info' | translate}}</h5>
+                <h5 class="h5-font carousel-deposit-find">{{'home-page.carousel.deposit.find' | translate}}</h5>
+                <h5 class="h5-font carousel-deposit-cite">{{'home-page.carousel.deposit.cite' | translate}}</h5>
+              </div>
+              <div *ngIf="slide.short === 'Citation'">
+                <div class="carousel-deposit-citation">
+                  <blockquote class="h5-font">
+                    <strong>
+                      <i class="fa fa-quote-left fa-2x pull-left">&nbsp;</i>{{'home-page.carousel.deposit.citation' | translate}}</strong>
+                    <small>{{'home-page.carousel.deposit.small' | translate}}</small>
+                  </blockquote>
+                </div>
+              </div>
             </div>
-            <div class="col-md-5" style="height: 160px; position: relative;">
-              <img alt="LINDAT/CLARIAH-CZ logo" class="logo" style="position: absolute; height: 50%; top: 0px; bottom: 0px; margin: auto;" src="../../assets/images/clarin-logo.png">
+          </ng-template>
+        </ngb-carousel>
+      </div>
+      <div class="col-md-4 d-none d-lg-block">
+        <div class="row">
+          <a class="col-md-7" style="height: 160px; position: relative;" href="/home">
+            <img alt="LINDAT/CLARIAH-CZ logo" class="logo" style="position: absolute; height: 50%; top: 0px; bottom: 0px; margin: auto;" src="../../assets/images/lindat-logo-new-sm.png">
+          </a>
+          <a class="col-md-5" style="height: 160px; position: relative;" href="http://www.clarin.eu/">
+            <img alt="LINDAT/CLARIAH-CZ logo" class="logo" style="position: absolute; height: 50%; top: 0px; bottom: 0px; margin: auto;" src="../../assets/images/clarin-logo.png">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row hidden-xs lindat-color-line">&nbsp;</div>
+  </div>
+  <div class="container clarin-home-page-color pt-4 pb-5">
+    <div class="row justify-content-center pt-4">
+      <div class="input-group input-group-lg col-md-6 col-md-offset-3">
+        <span class="input-group-addon">
+          <i style="color: #7479B8;" class="fas fa-search fa-lg"></i>
+        </span>
+        <input type="text" class="form-control" name="query">
+        <button class="btn btn-repository">{{'home-page.search' | translate}}
+        </button>
+      </div>
+    </div>
+    <div class="row justify-content-center pt-3">
+      <a href="/search">{{'home-page.advanced-search' | translate}}</a>
+    </div>
+    <div class="row justify-content-center pt-5">
+      <div class="col-md-9">
+        <div class="row">
+          <div class="offset-md-1 col-md-3 border-bottom">
+            <strong>{{'home-page.hyperlink.author.message' | translate}}</strong>
+            <div *ngFor="let authorLink of (authors$| async); let i = index">
+              <span><a [href]="authorLink.url">{{ authorLink.name }} ({{ authorLink.occurrences }})</a></span>
+            </div>
+          </div>
+          <div class="col-md-3 mx-3 border-bottom">
+            <strong>{{'home-page.hyperlink.subject.message' | translate}}</strong>
+            <div *ngFor="let subjectLink of (subjects$| async); let i = index">
+              <span><a [href]="subjectLink.url">{{ subjectLink.name }} ({{ subjectLink.occurrences }})</a></span>
+            </div>
+          </div>
+          <div class="col-md-3 px-3 border-bottom">
+            <strong>{{'home-page.hyperlink.language.message' | translate}}</strong>
+            <div *ngFor="let languageLink of (languages$| async); let i = index">
+              <span><a [href]="languageLink.url">{{ languageLink.name }} ({{ languageLink.occurrences }})</a></span>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="container">
-      <div class="row hidden-xs lindat-color-line">&nbsp;</div>
+  </div>
+
+  <div class="container pt-3">
+    <div class="card clarin-home-page-items-color">
+      <div class="card-body">
+        <div class="recent-submissions-head">{{'home-page.whats-new.message' | translate}}</div>
+        <ds-clarin-item-box-view
+          *ngFor="let newItem of (newItems$ | async)"
+          [item$]="newItem"></ds-clarin-item-box-view>
+      </div>
     </div>
-    <div class="container clarin-home-page-color pt-3">
-        <ds-dev-table></ds-dev-table>
+  </div>
+
+  <div class="container pt-3 pb-5">
+    <div class="card clarin-home-page-items-color">
+      <div class="card-body">
+        <div class="top-items-head">{{'home-page.new-items.message' | translate}}</div>
+        <ds-clarin-item-box-view
+          *ngFor="let topItem of (topItems$ | async)"
+            [item$]="topItem"></ds-clarin-item-box-view>
+      </div>
     </div>
+  </div>
 </div>
