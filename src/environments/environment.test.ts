@@ -297,8 +297,8 @@ export const environment: BuildConfig = {
     enabled: false,
     mathjax: false,
   },
-  collectionSelectionSort: {
-    sortMetadata:'dc.title',
+  comcolSelectionSort: {
+    sortField:'dc.title',
     sortDirection:'ASC',
   },
 

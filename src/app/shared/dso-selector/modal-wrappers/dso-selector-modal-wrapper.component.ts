@@ -5,8 +5,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { hasValue, isNotEmpty } from '../../empty.util';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { environment } from '../../../../environments/environment';
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
 
 export enum SelectorActionType {
   CREATE = 'create',
@@ -54,7 +53,7 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
   /**
    * Default DSO ordering
    */
-  defaultSort = new SortOptions(environment.collectionSelectionSort.sortMetadata, environment.collectionSelectionSort.sortDirection as SortDirection);
+  defaultSort: SortOptions;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute) {
   }

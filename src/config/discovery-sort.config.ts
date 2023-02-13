@@ -6,7 +6,7 @@ import { Config } from './config.interface';
  */
 export class DiscoverySortConfig implements Config {
 
-  public sortMetadata: string;
+  public sortField: string;
   /**
    * ASC / DESC values expected
    */

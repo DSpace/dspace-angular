@@ -47,7 +47,7 @@ interface AppConfig extends Config {
   info: InfoConfig;
   markdown: MarkdownConfig;
   vocabularies: FilterVocabularyConfig[];
-  collectionSelectionSort: DiscoverySortConfig;
+  comcolSelectionSort: DiscoverySortConfig;
 }
 
 /**
