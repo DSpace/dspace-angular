@@ -425,7 +425,7 @@ export class DefaultAppConfig implements AppConfig {
 
   // Configuration that determines the metadata sorting of community and collection edition and creation when there are not a search query.
   collectionSelectionSort: DiscoverySortConfig = {
-    sortMetadata:"dc.title",
-    sortDirection:"ASC",
+    sortMetadata:'dc.title',
+    sortDirection:'ASC',
   };
 }

@@ -298,8 +298,8 @@ export const environment: BuildConfig = {
     mathjax: false,
   },
   collectionSelectionSort: {
-    sortMetadata:"dc.title",
-    sortDirection:"ASC",
+    sortMetadata:'dc.title',
+    sortDirection:'ASC',
   },
 
   vocabularies: [
