@@ -50,6 +50,11 @@ export class SubscriptionModalComponent implements OnInit {
   public processing$ = new BehaviorSubject<boolean>(false);
 
   /**
+   * If true, show a message explaining how to delete a subscription
+   */
+  public showDeleteInfo$ = new BehaviorSubject<boolean>(false);
+
+  /**
    * Reactive form group that will be used to add/edit subscriptions
    */
   subscriptionForm: FormGroup;
@@ -68,8 +73,6 @@ export class SubscriptionModalComponent implements OnInit {
    * Frequencies to be shown as checkboxes
    */
   frequencyDefaultValues = ['D', 'W', 'M'];
-
-  showDeleteInfo: boolean;
 
   /**
    * True if form status has changed and at least one frequency is checked
@@ -103,10 +106,8 @@ export class SubscriptionModalComponent implements OnInit {
       this.ePersonId = ePersonId;
       if (isNotEmpty(this.subscription)) {
         this.initFormByGivenSubscription();
-        this.showDeleteInfo = true;
       } else {
         this.initFormByAllSubscriptions();
-        this.showDeleteInfo = false;
       }
     });
 
@@ -153,8 +154,8 @@ export class SubscriptionModalComponent implements OnInit {
   }
 
   /**
-   * Get subscription for the eperson & dso object relation
-   * If no subscription start with an empty form
+   * Get subscriptions for the current ePerson & dso object relation.
+   * If there are no subscriptions then start with an empty form.
    */
   initFormDataBySubscriptions(): void {
     this.processing$.next(true);
@@ -163,6 +164,7 @@ export class SubscriptionModalComponent implements OnInit {
     ).subscribe({
       next: (res: PaginatedList<Subscription>) => {
         if (res.pageInfo.totalElements > 0) {
+          this.showDeleteInfo$.next(true);
           for (let subscription of res.page) {
             const type = subscription.subscriptionType;
             const subscriptionGroup: FormGroup = this.subscriptionForm.get(type) as FormGroup;
