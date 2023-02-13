@@ -1564,6 +1564,13 @@
 
   "confirmation-modal.delete-profile.confirm": "Delete",
 
+  "confirmation-modal.delete-subscription.header": "Delete Subscription",
+
+  "confirmation-modal.delete-subscription.info": "Are you sure you want to delete subscription for \"{{ dsoName }}\"",
+
+  "confirmation-modal.delete-subscription.cancel": "Cancel",
+
+  "confirmation-modal.delete-subscription.confirm": "Delete",
 
   "error.bitstream": "Error fetching bitstream",
 
@@ -3140,6 +3147,8 @@
   "nav.statistics.header": "Statistics",
 
   "nav.stop-impersonating": "Stop impersonating EPerson",
+
+  "nav.subscriptions" : "Subscriptions",
 
   "nav.toggle" : "Toggle navigation",
 
@@ -4758,6 +4767,77 @@
   "submission.workspace.generic.view": "View",
 
   "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+
+
+  "subscriptions.title": "Subscriptions",
+
+  "subscriptions.item": "Subscriptions for items",
+
+  "subscriptions.collection": "Subscriptions for collections",
+
+  "subscriptions.community": "Subscriptions for communities",
+
+  "subscriptions.subscription_type": "Subscription type",
+
+  "subscriptions.frequency": "Subscription frequency",
+
+  "subscriptions.frequency.D": "Daily",
+
+  "subscriptions.frequency.M": "Monthly",
+
+  "subscriptions.frequency.W": "Weekly",
+
+  "subscriptions.tooltip": "Subscribe",
+
+  "subscriptions.modal.title": "Subscriptions",
+
+  "subscriptions.modal.type-frequency": "Type and frequency",
+
+  "subscriptions.modal.close": "Close",
+
+  "subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
+
+  "subscriptions.modal.new-subscription-form.type.content": "Content",
+
+  "subscriptions.modal.new-subscription-form.frequency.D": "Daily",
+
+  "subscriptions.modal.new-subscription-form.frequency.W": "Weekly",
+
+  "subscriptions.modal.new-subscription-form.frequency.M": "Monthly",
+
+  "subscriptions.modal.new-subscription-form.submit": "Submit",
+
+  "subscriptions.modal.new-subscription-form.processing": "Processing...",
+
+  "subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
+
+  "subscriptions.modal.delete.success": "Subscription deleted successfully",
+
+  "subscriptions.modal.update.success": "Subscription to {{ type }} updated successfully",
+
+  "subscriptions.modal.create.error": "An error occurs during the subscription creation",
+
+  "subscriptions.modal.delete.error": "An error occurs during the subscription delete",
+
+  "subscriptions.modal.update.error": "An error occurs during the subscription update",
+
+  "subscriptions.table.dso": "Subject",
+
+  "subscriptions.table.subscription_type": "Subscription Type",
+
+  "subscriptions.table.subscription_frequency": "Subscription Frequency",
+
+  "subscriptions.table.action": "Action",
+
+  "subscriptions.table.edit": "Edit",
+
+  "subscriptions.table.delete": "Delete",
+
+  "subscriptions.table.not-available": "Not available",
+
+  "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
+
+  "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
 
 
   "thumbnail.default.alt": "Thumbnail Image",

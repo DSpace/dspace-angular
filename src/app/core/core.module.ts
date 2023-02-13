@@ -174,6 +174,7 @@ import { OrcidAuthService } from './orcid/orcid-auth.service';
 import { VocabularyDataService } from './submission/vocabularies/vocabulary.data.service';
 import { VocabularyEntryDetailsDataService } from './submission/vocabularies/vocabulary-entry-details.data.service';
 import { IdentifierData } from '../shared/object-list/identifier-data/identifier-data.model';
+import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { SupervisionOrderDataService } from './supervision-order/supervision-order-data.service';
 
 /**
@@ -367,6 +368,7 @@ export const models =
     OrcidHistory,
     AccessStatusObject,
     IdentifierData,
+    Subscription,
   ];
 
 @NgModule({

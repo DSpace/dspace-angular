@@ -33,4 +33,5 @@ export enum FeatureID {
   CanSubmit = 'canSubmit',
   CanEditItem = 'canEditItem',
   CanRegisterDOI = 'canRegisterDOI',
+  CanSubscribe = 'canSubscribeDso',
 }
