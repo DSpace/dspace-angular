@@ -32,7 +32,7 @@ export class CreateCommunityParentSelectorComponent extends DSOSelectorModalWrap
   selectorTypes = [DSpaceObjectType.COMMUNITY];
   action = SelectorActionType.CREATE;
   defaultSort = new SortOptions(environment.comcolSelectionSort.sortField, environment.comcolSelectionSort.sortDirection as SortDirection);
-  
+
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
     super(activeModal, route);
   }

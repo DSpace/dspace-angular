@@ -25,7 +25,7 @@ export class EditCollectionSelectorComponent extends DSOSelectorModalWrapperComp
   selectorTypes = [DSpaceObjectType.COLLECTION];
   action = SelectorActionType.EDIT;
   defaultSort = new SortOptions(environment.comcolSelectionSort.sortField, environment.comcolSelectionSort.sortDirection as SortDirection);
-  
+
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
     super(activeModal, route);
   }
