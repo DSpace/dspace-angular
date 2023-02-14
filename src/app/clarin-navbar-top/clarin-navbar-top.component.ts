@@ -4,6 +4,7 @@ import { take } from 'rxjs/operators';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { ScriptLoaderService } from './script-loader-service';
 import { HALEndpointService } from '../core/shared/hal-endpoint.service';
+import { LocaleService } from '../core/locale/locale.service';
 
 /**
  * The component which wraps `language` and `login`/`logout + profile` operations in the top navbar.
@@ -17,7 +18,8 @@ export class ClarinNavbarTopComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private halService: HALEndpointService,
-              private scriptLoader: ScriptLoaderService) { }
+              private scriptLoader: ScriptLoaderService,
+              private localeService: LocaleService) { }
 
   /**
    * The current authenticated user. It is null if the user is not authenticated.
@@ -68,5 +70,10 @@ export class ClarinNavbarTopComponent implements OnInit {
 
   private loadRepositoryPath() {
     this.repositoryPath = this.halService.getRootHref();
+  }
+
+  setLanguage(language) {
+    this.localeService.setCurrentLanguageCode(language);
+    this.localeService.refreshAfterChangeLanguage();
   }
 }

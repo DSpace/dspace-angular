@@ -252,19 +252,32 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         },
 
         /* Statistics */
-        // TODO: enable this menu item once the feature has been implemented
-        // {
-        //   id: 'statistics_task',
-        //   active: false,
-        //   visible: true,
-        //   model: {
-        //     type: MenuItemType.LINK,
-        //     text: 'menu.section.statistics_task',
-        //     link: ''
-        //   } as LinkMenuItemModel,
-        //   icon: 'chart-bar',
-        //   index: 8
-        // },
+        {
+          id: 'site-stat',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.statistics',
+            link: '/statistics'
+          } as LinkMenuItemModel,
+          icon: 'chart-bar',
+          index: 14
+        },
+
+        /* Workflow tasks */
+        {
+          id: 'submissions',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.submissions',
+            link: '/mydspace'
+          } as LinkMenuItemModel,
+          icon: 'upload',
+          index: 2
+        },
 
         /* Control Panel */
         // TODO: enable this menu item once the feature has been implemented
@@ -311,7 +324,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         {
           id: 'licenses',
           active: false,
-          visible: true,
+          visible: isSiteAdmin,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.licenses',
@@ -343,7 +356,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           text: 'menu.section.export'
         } as TextMenuItemModel,
         icon: 'file-export',
-        index: 3,
+        index: 4,
         shouldPersistOnRouteChange: true
       },
       // TODO: enable this menu item once the feature has been implemented
@@ -429,7 +442,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           text: 'menu.section.import'
         } as TextMenuItemModel,
         icon: 'file-import',
-        index: 2
+        index: 3
       },
       // TODO: enable this menu item once the feature has been implemented
       // {
@@ -488,7 +501,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             link: '/admin/search'
           } as LinkMenuItemModel,
           icon: 'search',
-          index: 5
+          index: 6
         },
         /*  Registries */
         {
@@ -500,7 +513,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             text: 'menu.section.registries'
           } as TextMenuItemModel,
           icon: 'list',
-          index: 6
+          index: 7
         },
         {
           id: 'registries_metadata',
@@ -536,7 +549,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             link: 'admin/curation-tasks'
           } as LinkMenuItemModel,
           icon: 'filter',
-          index: 7
+          index: 8
         },
 
         /* Workflow */
@@ -614,7 +627,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             text: 'menu.section.access_control'
           } as TextMenuItemModel,
           icon: 'key',
-          index: 4
+          index: 5
         },
       ];
 

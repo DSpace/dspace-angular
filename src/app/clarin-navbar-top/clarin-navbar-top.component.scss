@@ -9,6 +9,8 @@
   border-top-left-radius: unset;
   border-top-right-radius: unset;
   display: inherit;
+  position: relative;
+  z-index: 2;
 }
 
 .clarin-login-badge {
@@ -21,4 +23,8 @@
 .signon:hover {
   cursor: pointer;
   text-decoration: underline !important;
+}
+
+.language-icon {
+  cursor: pointer;
 }
