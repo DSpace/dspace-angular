@@ -200,6 +200,7 @@ import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/swi
 import { ImpersonateNavbarComponent } from './impersonate-navbar/impersonate-navbar.component';
 import { NgForTrackByIdDirective } from './ng-for-track-by-id.directive';
 import { FileDownloadLinkComponent } from './file-download-link/file-download-link.component';
+import { ThemedFileDownloadLinkComponent } from './file-download-link/themed-file-download-link.component';
 import { CollectionDropdownComponent } from './collection-dropdown/collection-dropdown.component';
 import { EntityDropdownComponent } from './entity-dropdown/entity-dropdown.component';
 import { CurationFormComponent } from '../curation-form/curation-form.component';
@@ -413,6 +414,7 @@ const ENTRY_COMPONENTS = [
   CollectionDropdownComponent,
   ThemedCollectionDropdownComponent,
   FileDownloadLinkComponent,
+  ThemedFileDownloadLinkComponent,
   CurationFormComponent,
   ExportMetadataSelectorComponent,
   ImportBatchSelectorComponent,
