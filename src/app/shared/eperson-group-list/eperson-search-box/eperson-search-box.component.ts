@@ -4,7 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { SearchEvent } from '../eperson-group-list.component';
-import { isNotNull } from '../../../../empty.util';
+import { isNotNull } from '../../empty.util';
 
 /**
  * A component used to show a search box for epersons.

@@ -84,8 +84,9 @@ import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 import {
   PlainTextMetadataListElementComponent
 } from './object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
-import { BrowseLinkMetadataListElementComponent }
-  from './object-list/metadata-representation-list-element/browse-link/browse-link-metadata-list-element.component';
+import {
+  BrowseLinkMetadataListElementComponent
+} from './object-list/metadata-representation-list-element/browse-link/browse-link-metadata-list-element.component';
 import {
   ItemMetadataListElementComponent
 } from './object-list/metadata-representation-list-element/item/item-metadata-list-element.component';
@@ -199,6 +200,7 @@ import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/swi
 import { ImpersonateNavbarComponent } from './impersonate-navbar/impersonate-navbar.component';
 import { NgForTrackByIdDirective } from './ng-for-track-by-id.directive';
 import { FileDownloadLinkComponent } from './file-download-link/file-download-link.component';
+import { ThemedFileDownloadLinkComponent } from './file-download-link/themed-file-download-link.component';
 import { CollectionDropdownComponent } from './collection-dropdown/collection-dropdown.component';
 import { EntityDropdownComponent } from './entity-dropdown/entity-dropdown.component';
 import { CurationFormComponent } from '../curation-form/curation-form.component';
@@ -246,8 +248,12 @@ import {
 import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
 import { ShortNumberPipe } from './utils/short-number.pipe';
-import { LogInExternalProviderComponent } from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
-import { AdvancedClaimedTaskActionSelectReviewerComponent } from './mydspace-actions/claimed-task/select-reviewer/advanced-claimed-task-action-select-reviewer.component';
+import {
+  LogInExternalProviderComponent
+} from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
+import {
+  AdvancedClaimedTaskActionSelectReviewerComponent
+} from './mydspace-actions/claimed-task/select-reviewer/advanced-claimed-task-action-select-reviewer.component';
 import {
   AdvancedClaimedTaskActionRatingComponent
 } from './mydspace-actions/claimed-task/rating/advanced-claimed-task-action-rating.component';
@@ -255,7 +261,9 @@ import { ClaimedTaskActionsDeclineTaskComponent } from './mydspace-actions/claim
 import {
   DsoPageSubscriptionButtonComponent
 } from './dso-page/dso-page-subscription-button/dso-page-subscription-button.component';
-
+import { EpersonGroupListComponent } from './eperson-group-list/eperson-group-list.component';
+import { EpersonSearchBoxComponent } from './eperson-group-list/eperson-search-box/eperson-search-box.component';
+import { GroupSearchBoxComponent } from './eperson-group-list/group-search-box/group-search-box.component';
 
 const MODULES = [
   CommonModule,
@@ -358,6 +366,9 @@ const COMPONENTS = [
   DsoPageSubscriptionButtonComponent,
   MetadataFieldWrapperComponent,
   ContextHelpWrapperComponent,
+  EpersonGroupListComponent,
+  EpersonSearchBoxComponent,
+  GroupSearchBoxComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -403,6 +414,7 @@ const ENTRY_COMPONENTS = [
   CollectionDropdownComponent,
   ThemedCollectionDropdownComponent,
   FileDownloadLinkComponent,
+  ThemedFileDownloadLinkComponent,
   CurationFormComponent,
   ExportMetadataSelectorComponent,
   ImportBatchSelectorComponent,
@@ -416,6 +428,9 @@ const ENTRY_COMPONENTS = [
   ListableNotificationObjectComponent,
   AdvancedClaimedTaskActionSelectReviewerComponent,
   AdvancedClaimedTaskActionRatingComponent,
+  EpersonGroupListComponent,
+  EpersonSearchBoxComponent,
+  GroupSearchBoxComponent
 ];
 
 const PROVIDERS = [

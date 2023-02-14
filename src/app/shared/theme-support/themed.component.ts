@@ -9,7 +9,8 @@ import {
   ComponentFactoryResolver,
   ChangeDetectorRef,
   OnChanges,
-  HostBinding
+  HostBinding,
+  ElementRef,
 } from '@angular/core';
 import { hasValue, isNotEmpty } from '../empty.util';
 import { from as fromPromise, Observable, of as observableOf, Subscription, BehaviorSubject } from 'rxjs';
@@ -25,6 +26,7 @@ import { BASE_THEME_NAME } from './theme.constants';
 })
 export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges {
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
+  @ViewChild('content') themedElementContent: ElementRef;
   protected compRef: ComponentRef<T>;
 
   /**
@@ -46,7 +48,7 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
   constructor(
     protected resolver: ComponentFactoryResolver,
     protected cdr: ChangeDetectorRef,
-    protected themeService: ThemeService
+    protected themeService: ThemeService,
   ) {
   }
 
@@ -102,10 +104,11 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
       }),
     ).subscribe((constructor: GenericConstructor<T>) => {
       const factory = this.resolver.resolveComponentFactory(constructor);
-      this.compRef = this.vcr.createComponent(factory);
+      this.compRef = this.vcr.createComponent(factory, undefined, undefined, [this.themedElementContent.nativeElement.childNodes]);
       this.connectInputsAndOutputs();
       this.compRef$.next(this.compRef);
       this.cdr.markForCheck();
+      this.themedElementContent.nativeElement.remove();
     });
   }
 
@@ -121,7 +124,7 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
 
   protected connectInputsAndOutputs(): void {
     if (isNotEmpty(this.inAndOutputNames) && hasValue(this.compRef) && hasValue(this.compRef.instance)) {
-      this.inAndOutputNames.forEach((name: any) => {
+      this.inAndOutputNames.filter((name: any) => this[name] !== undefined).forEach((name: any) => {
         this.compRef.instance[name] = this[name];
       });
     }

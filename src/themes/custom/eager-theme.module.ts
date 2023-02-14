@@ -45,6 +45,7 @@ import { CollectionDropdownComponent } from './app/shared/collection-dropdown/co
 import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
 import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
 import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
+import { FileDownloadLinkComponent } from './app/shared/file-download-link/file-download-link.component';
 
 
 /**
@@ -61,6 +62,7 @@ const ENTRY_COMPONENTS = [
   CommunityListElementComponent,
   CollectionListElementComponent,
   CollectionDropdownComponent,
+  FileDownloadLinkComponent,
 ];
 
 const DECLARATIONS = [
@@ -80,21 +82,21 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SharedModule,
-        RootModule,
-        NavbarModule,
-        SharedBrowseByModule,
-        ResultsBackButtonModule,
-        ItemPageModule,
-        ItemSharedModule,
+  imports: [
+    CommonModule,
+    SharedModule,
+    RootModule,
+    NavbarModule,
+    SharedBrowseByModule,
+    ResultsBackButtonModule,
+    ItemPageModule,
+    ItemSharedModule,
     DsoPageModule,
-    ],
-    declarations: DECLARATIONS,
-    providers: [
-        ...ENTRY_COMPONENTS.map((component) => ({provide: component}))
-    ],
+  ],
+  declarations: DECLARATIONS,
+  providers: [
+    ...ENTRY_COMPONENTS.map((component) => ({provide: component}))
+  ],
 })
 /**
  * This module is included in the main bundle that gets downloaded at first page load. So it should

@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+
+import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import {
-    getWorkflowItemSendBackRoute,
-    getWorkflowItemDeleteRoute
-} from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+  getWorkflowItemDeleteRoute,
+  getWorkflowItemSendBackRoute
+} from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 
 @Component({
   selector: 'ds-workflow-item-admin-workflow-actions-element',
@@ -11,7 +12,7 @@ import {
   templateUrl: './workflow-item-admin-workflow-actions.component.html'
 })
 /**
- * The component for displaying the actions for a list element for an item on the admin workflow search page
+ * The component for displaying the actions for a list element for a workflow-item on the admin workflow search page
  */
 export class WorkflowItemAdminWorkflowActionsComponent {
 
@@ -21,7 +22,7 @@ export class WorkflowItemAdminWorkflowActionsComponent {
   @Input() public wfi: WorkflowItem;
 
   /**
-   * Whether or not to use small buttons
+   * Whether to use small buttons or not
    */
   @Input() public small: boolean;
 
@@ -29,7 +30,6 @@ export class WorkflowItemAdminWorkflowActionsComponent {
    * Returns the path to the delete page of this workflow item
    */
   getDeleteRoute(): string {
-
     return getWorkflowItemDeleteRoute(this.wfi.id);
   }
 
@@ -39,4 +39,5 @@ export class WorkflowItemAdminWorkflowActionsComponent {
   getSendBackRoute(): string {
     return getWorkflowItemSendBackRoute(this.wfi.id);
   }
+
 }
