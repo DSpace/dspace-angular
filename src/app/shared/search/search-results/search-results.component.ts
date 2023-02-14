@@ -48,6 +48,11 @@ export class SearchResultsComponent {
   @Input() searchConfig: PaginatedSearchOptions;
 
   /**
+   * A boolean representing if show csv export button
+   */
+  @Input() showCsvExport = false;
+
+  /**
    * The current sorting configuration of the search
    */
   @Input() sortConfig: SortOptions;
