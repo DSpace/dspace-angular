@@ -1,12 +1,12 @@
 <div class="clarin-top-header">
   <div class="d-flex">
     <div class="ds-language-selection pl-1">
-      <a href="/home">
+      <span class="language-icon" (click)="setLanguage('en')">
         <img src="./assets/images/en.png" alt="{{'language.english' | translate}}" title="{{'language.english' | translate}}">
-      </a>
-      <a href="/home">
+      </span>
+      <span class="language-icon" (click)="setLanguage('cs')">
         <img src="./assets/images/cs.png" alt="{{'language.czech' | translate}}" title="{{'language.czech' | translate}}">
-      </a>
+      </span>
     </div>
     <div class="ml-auto pr-3">
       <div *ngIf="authenticatedUser == null" class="badge clarin-login-badge px-2 py-1">
@@ -19,7 +19,7 @@
       <a class="hidden" id="repository_path" [href]="repositoryPath"></a>
       <div *ngIf="authenticatedUser != null" class="badge clarin-logout-badge px-2 py-1">
         <span>
-          <a style="color: #FFF;" href="/mydspace">
+          <a style="color: #FFF;" href="/profile">
             <i class="fa fa-user pr-1 fa-lg"></i>{{authenticatedUser.name}}
           </a>
         </span>

@@ -324,6 +324,8 @@
   flex-basis: 100%;
   flex-grow: 1;
   align-items: center;
+  background-color: var(--navbar-background-color);
+  padding-left: 8px;
 }
 .lindat-common2 .lindat-navbar-toggler {
   padding: 0.25rem 0.75em;

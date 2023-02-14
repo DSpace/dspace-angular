@@ -11,6 +11,7 @@ import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { EPersonMock } from '../shared/testing/eperson.mock';
 import { HALEndpointService } from '../core/shared/hal-endpoint.service';
 import { ScriptLoaderService } from './script-loader-service';
+import { LocaleService } from '../core/locale/locale.service';
 
 describe('ClarinNavbarTopComponent', () => {
   let component: ClarinNavbarTopComponent;
@@ -40,7 +41,8 @@ describe('ClarinNavbarTopComponent', () => {
       providers: [
         { provide: AuthService, useValue: authService },
         { provide: HALEndpointService, useValue: halService },
-        { provide: ScriptLoaderService, useValue: scriptLoader }
+        { provide: ScriptLoaderService, useValue: scriptLoader },
+        { provide: LocaleService, useValue: getMockLocaleService() }
       ]
     })
     .compileComponents();
@@ -62,4 +64,11 @@ describe('ClarinNavbarTopComponent', () => {
         expect(user).toEqual(component.authenticatedUser);
       });
   });
+
+  function getMockLocaleService(): LocaleService {
+    return jasmine.createSpyObj('LocaleService', {
+      setCurrentLanguageCode: jasmine.createSpy('setCurrentLanguageCode'),
+      refreshAfterChangeLanguage: jasmine.createSpy('refreshAfterChangeLanguage')
+    });
+  }
 });

@@ -2782,9 +2782,14 @@
 
   "menu.section.icon.statistics_task": "Statistics Task menu section",
 
+  "menu.section.icon.statistics": "Show site statistics",
+
+  "menu.section.icon.submissions": "Show my submissions",
+
   "menu.section.icon.workflow": "Administer workflow menu section",
 
   "menu.section.icon.unpin": "Unpin sidebar",
+
 
 
 
@@ -2831,6 +2836,8 @@
   "menu.section.statistics": "Statistics",
 
   "menu.section.statistics_task": "Statistics Task",
+
+  "menu.section.submissions": "Submissions",
 
 
 
