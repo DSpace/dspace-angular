@@ -1982,8 +1982,8 @@
   // "forgot-password.form.head": "Forgot Password",
   "forgot-password.form.head": "Passwort vergessen",
   
-  // "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  "forgot-password.form.info": "Bitte geben Sie ein neues Passwort (mindestens sechs Zeichen) ein und bestätigen Sie es erneut.",
+  // "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box.",
+  "forgot-password.form.info": "Bitte geben Sie ein neues Passwort ein und bestätigen Sie es erneut.",
   
   // "forgot-password.form.card.security": "Security",
   "forgot-password.form.card.security": "Sicherheit",
@@ -3838,8 +3838,8 @@
   // "profile.security.form.error.matching-passwords": "The passwords do not match.",
   "profile.security.form.error.matching-passwords": "Die Passwörter stimmen nicht überein.",
   
-  // "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  "profile.security.form.info": "Im nachfolgenden Feld können Sie bei Bedarf ein neues Passwort eingeben und es durch erneute Eingabe in das zweite Feld bestätigen. Es sollte mindestens sechs Zeichen lang sein.",
+  // "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box.",
+  "profile.security.form.info": "Im nachfolgenden Feld können Sie bei Bedarf ein neues Passwort eingeben und es durch erneute Eingabe in das zweite Feld bestätigen.",
   
   // "profile.security.form.label.password": "Password",
   "profile.security.form.label.password": "Passwort",
@@ -3975,8 +3975,8 @@
   // "register-page.create-profile.security.header": "Security",
   "register-page.create-profile.security.header": "Sicherheit",
   
-  // "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  "register-page.create-profile.security.info": "Bitte geben Sie ein Passwort in das unten stehende Feld ein und bestätigen Sie es, indem Sie es in das zweite Feld erneut eingeben. Es sollte mindestens sechs Zeichen lang sein.",
+  // "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box.",
+  "register-page.create-profile.security.info": "Bitte geben Sie ein Passwort in das unten stehende Feld ein und bestätigen Sie es, indem Sie es in das zweite Feld erneut eingeben.",
   
   // "register-page.create-profile.security.label.password": "Password *",
   "register-page.create-profile.security.label.password": "Passwort *",
