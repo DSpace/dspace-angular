@@ -27,6 +27,7 @@ import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core'
 import { MissingTranslationHelper } from '../translate/missing-translation.helper';
 import { SharedModule } from '../shared.module';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { ClarinSearchComponent } from './clarin-search/clarin-search.component';
 import { SearchComponent } from './search.component';
 
 const COMPONENTS = [
@@ -77,7 +78,8 @@ export const MODELS = [
 
 @NgModule({
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
+    ClarinSearchComponent
   ],
   imports: [
     CommonModule,
@@ -87,9 +89,10 @@ export const MODELS = [
     }),
     SharedModule.withEntryComponents(),
   ],
-  exports: [
-    ...COMPONENTS
-  ]
+    exports: [
+        ...COMPONENTS,
+        ClarinSearchComponent
+    ]
 })
 export class SearchModule {
   /**
