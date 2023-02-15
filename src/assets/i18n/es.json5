@@ -6353,7 +6353,7 @@
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
   "submission.sections.upload.header.policy.default.withlist": "Tenga en cuenta que los archivos cargados en la colección {{ collectionName }} serán accesibles, además de lo que se decida explícitamente para el fichero, para los siguientes grupos:",
 
-  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "Aquí encontrará todos los archivos que se encuentran actualmente en el ítem.  Puede actualizar los metadatos del fichero y las condiciones de acceso e <strong> incluir ficheros adicionales simplemente arrastrando-y-soltando en cualquier lugar de la página</strong>",
 
   // "submission.sections.upload.no-entry": "No",
