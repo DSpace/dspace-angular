@@ -372,5 +372,5 @@ vocabularies:
 
 # Default collection/community sorting order at Advanced search, Create/update community and collection when there are not a query. 
 comcolSelectionSort:
-  sortMetadata: 'dc.title'
+  sortField: 'dc.title'
   sortDirection: 'ASC'
