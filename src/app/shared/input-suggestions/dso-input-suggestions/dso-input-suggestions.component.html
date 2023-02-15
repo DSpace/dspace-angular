@@ -14,6 +14,7 @@
         <div class="dropdown-list">
             <div *ngFor="let suggestionOption of suggestions">
                 <button class="d-block dropdown-item"  (click)="onClickSuggestion(suggestionOption)" #suggestion>
+                    {{suggestionOption.name}}
                     <ds-listable-object-component-loader [object]="suggestionOption" [viewMode]="viewMode" [linkType]="linkTypes.None"></ds-listable-object-component-loader>
                 </button>
             </div>
