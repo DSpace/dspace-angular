@@ -3848,7 +3848,7 @@
   "profile.security.form.label.passwordrepeat": "Zum Bestätigen das Passwort erneut eingeben",
   
   // "profile.security.form.label.current-password": "Current password"
-  "profile.security.form.label.current-password": "Ihr aktuelles Passwort"
+  "profile.security.form.label.current-password": "Ihr aktuelles Passwort",
   
   // "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
   "profile.security.form.notifications.success.content": "Ihr geändertes Passwort wurde gespeichert.",
