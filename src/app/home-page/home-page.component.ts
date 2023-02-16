@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { map, take } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Site } from '../core/shared/site.model';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -61,7 +61,8 @@ export class HomePageComponent implements OnInit {
     protected configurationService: ConfigurationDataService,
     protected usageReportService: UsageReportService,
     protected siteService: SiteDataService,
-    protected itemService: ItemDataService
+    protected itemService: ItemDataService,
+    protected router: Router
   ) {
     config.interval = 5000;
     config.keyboard = false;
@@ -237,6 +238,10 @@ export class HomePageComponent implements OnInit {
       .then((baseUrlResponse: ConfigurationProperty) => {
         return baseUrlResponse?.values?.[0];
       });
+  }
+
+  redirectToSearch(searchValue) {
+    this.router.navigateByUrl('/search?query=' + searchValue);
   }
 }
 
