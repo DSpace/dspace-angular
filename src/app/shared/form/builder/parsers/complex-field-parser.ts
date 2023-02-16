@@ -17,7 +17,7 @@ import {
   SPONSOR_METADATA_NAME,
 
 } from '../ds-dynamic-form-ui/models/ds-dynamic-complex.model';
-import { hasValue, isNotEmpty } from '../../../empty.util';
+import { hasValue, isNotEmpty, isUndefined } from '../../../empty.util';
 import { ParserOptions } from './parser-options';
 import {
   CONFIG_DATA,
@@ -128,6 +128,9 @@ export class ComplexFieldParser extends FieldParser {
         inputConfig.required = hasValue(complexDefinitionInput.required) && complexDefinitionInput.required === 'true';
       }
 
+      // max length - 200 chars
+      this.addValidatorToComplexInput(inputConfig, complexDefinitionInput);
+
       let inputModel: DsDynamicInputModel;
       switch (complexDefinitionInput['input-type']) {
         case ParserType.Onebox:
@@ -164,5 +167,22 @@ export class ComplexFieldParser extends FieldParser {
     }
 
     return complexModel;
+  }
+
+  addValidatorToComplexInput(inputConfig, complexDefinitionInput) {
+    let regex;
+    if (isUndefined(complexDefinitionInput.regex)) {
+      // default max length 200 chars
+      regex = new RegExp('^.{1,200}$');
+    } else {
+      // take regex from definition e.g., email
+      regex = new RegExp(complexDefinitionInput.regex);
+    }
+
+    inputConfig.validators = Object.assign({}, inputConfig.validators, { pattern: regex });
+    inputConfig.errorMessages = Object.assign(
+      {},
+      inputConfig.errorMessages,
+      { pattern: 'error.validation.pattern' });
   }
 }
