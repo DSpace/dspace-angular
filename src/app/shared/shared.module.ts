@@ -217,6 +217,9 @@ import {
   CommunitySidebarSearchListElementComponent
 } from './object-list/sidebar-search-list-element/community/community-sidebar-search-list-element.component';
 import {
+  BundleListElementComponent
+} from './object-list/bundle-list-element/bundle-list-element.component';
+import {
   AuthorizedCollectionSelectorComponent
 } from './dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { HoverClassDirective } from './hover-class.directive';
@@ -373,6 +376,7 @@ const COMPONENTS = [
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
+  BundleListElementComponent,
   CollectionListElementComponent,
   CommunityListElementComponent,
   SearchResultListElementComponent,
