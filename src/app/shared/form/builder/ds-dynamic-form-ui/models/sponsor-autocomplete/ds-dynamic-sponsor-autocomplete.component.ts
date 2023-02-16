@@ -91,7 +91,7 @@ export class DsDynamicSponsorAutocompleteComponent extends DsDynamicAutocomplete
       tap(() => this.changeSearchingStatus(true)),
       switchMap((term) => {
         // min 3 characters
-        if (term === '' || term.length < this.model.minChars) {
+        if (term === '' || term.length < this.model.minChars || term.length > this.model.maxLength) {
           return observableOf({ list: [] });
         } else {
         let response: Observable<PaginatedList<ExternalSourceEntry | MetadataValue>>;

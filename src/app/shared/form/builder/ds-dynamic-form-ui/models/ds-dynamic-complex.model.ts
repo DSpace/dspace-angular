@@ -5,7 +5,10 @@ import { DsDynamicInputModel } from './ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { DynamicConcatModel, DynamicConcatModelConfig } from './ds-dynamic-concat.model';
 import { AUTOCOMPLETE_COMPLEX_PREFIX } from './autocomplete/ds-dynamic-autocomplete.model';
-import { DEFAULT_EU_FUNDING_TYPES } from './sponsor-autocomplete/ds-dynamic-sponsor-autocomplete.model';
+import {
+  DEFAULT_EU_FUNDING_TYPES,
+  DEFAULT_MAX_CHARS_TO_AUTOCOMPLETE
+} from './sponsor-autocomplete/ds-dynamic-sponsor-autocomplete.model';
 
 export const COMPLEX_GROUP_SUFFIX = '_COMPLEX_GROUP';
 export const COMPLEX_INPUT_SUFFIX = '_COMPLEX_INPUT_';
@@ -101,6 +104,11 @@ export class DynamicComplexModel extends DynamicConcatModel {
     let isEUFund = false;
     values.forEach((val, index) =>  {
       if (val.value) {
+        // do not set value if it bigger than allowed length
+        if (this.validateInputLength(val.value)) {
+          return;
+        }
+
         (this.get(index) as DsDynamicInputModel).value = val;
         // for `local.sponsor` input field
         if (this.name === SPONSOR_METADATA_NAME) {
@@ -119,5 +127,9 @@ export class DynamicComplexModel extends DynamicConcatModel {
         (this.get(index) as DsDynamicInputModel).value = undefined;
       }
     });
+  }
+
+  private validateInputLength(value) {
+    return value.length > DEFAULT_MAX_CHARS_TO_AUTOCOMPLETE;
   }
 }
