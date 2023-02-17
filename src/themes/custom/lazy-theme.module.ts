@@ -94,7 +94,6 @@ import { AuthNavMenuComponent } from './app/shared/auth-nav-menu/auth-nav-menu.c
 import {
   ExpandableNavbarSectionComponent
 } from './app/navbar/expandable-navbar-section/expandable-navbar-section.component';
-import { ItemMetadataComponent } from './app/item-page/edit-item-page/item-metadata/item-metadata.component';
 import {
   EditItemTemplatePageComponent
 } from './app/collection-page/edit-item-template-page/edit-item-template-page.component';
@@ -114,6 +113,18 @@ import { ObjectListComponent } from './app/shared/object-list/object-list.compon
 import { BrowseByMetadataPageComponent } from './app/browse-by/browse-by-metadata-page/browse-by-metadata-page.component';
 import { BrowseByDatePageComponent } from './app/browse-by/browse-by-date-page/browse-by-date-page.component';
 import { BrowseByTitlePageComponent } from './app/browse-by/browse-by-title-page/browse-by-title-page.component';
+import {
+  ExternalSourceEntryImportModalComponent
+} from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
+import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
+import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
+import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
+import { ItemSharedModule } from '../../app/item-page/item-shared.module';
+import { ResultsBackButtonComponent } from './app/shared/results-back-button/results-back-button.component';
+import { DsoEditMetadataComponent } from './app/dso-shared/dso-edit-metadata/dso-edit-metadata.component';
+import { DsoSharedModule } from '../../app/dso-shared/dso-shared.module';
+import { SystemWideAlertModule } from '../../app/system-wide-alert/system-wide-alert.module';
+import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -157,7 +168,6 @@ const DECLARATIONS = [
   ComcolPageHandleComponent,
   AuthNavMenuComponent,
   ExpandableNavbarSectionComponent,
-  ItemMetadataComponent,
   EditItemTemplatePageComponent,
   LoadingComponent,
   SearchResultsComponent,
@@ -168,8 +178,9 @@ const DECLARATIONS = [
   BrowseByMetadataPageComponent,
   BrowseByDatePageComponent,
   BrowseByTitlePageComponent,
-
-
+  ExternalSourceEntryImportModalComponent,
+  ResultsBackButtonComponent,
+  DsoEditMetadataComponent,
 ];
 
 @NgModule({
@@ -189,8 +200,10 @@ const DECLARATIONS = [
     CommunityPageModule,
     CoreModule,
     DragDropModule,
+    ItemSharedModule,
     ItemPageModule,
     EditItemPageModule,
+    ItemVersionsModule,
     FormsModule,
     HomePageModule,
     HttpClientModule,
@@ -198,6 +211,7 @@ const DECLARATIONS = [
     InfoModule,
     JournalEntitiesModule,
     MenuModule,
+    DsoPageModule,
     MyDspaceSearchModule,
     NavbarModule,
     NgbModule,
@@ -208,6 +222,8 @@ const DECLARATIONS = [
     ScrollToModule,
     SearchPageModule,
     SharedModule,
+    SharedBrowseByModule,
+    ResultsBackButtonModule,
     StatisticsModule,
     StatisticsPageModule,
     StoreModule,
@@ -220,6 +236,8 @@ const DECLARATIONS = [
     FormsModule,
     ResourcePoliciesModule,
     ComcolModule,
+    DsoSharedModule,
+    SystemWideAlertModule
   ],
   declarations: DECLARATIONS,
   exports: [

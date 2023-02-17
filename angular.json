@@ -25,12 +25,10 @@
               }
             },
             "allowedCommonJsDependencies": [
-              "angular2-text-mask",
               "cerialize",
               "core-js",
               "lodash",
               "jwt-decode",
-              "url-parse",
               "uuid",
               "webfontloader",
               "zone.js"

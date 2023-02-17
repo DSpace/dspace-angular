@@ -24,7 +24,7 @@ export class Angulartics2DSpace {
   }
 
   private eventTrack(event) {
-    if (event.action === 'pageView') {
+    if (event.action === 'page_view') {
       this.statisticsService.trackViewEvent(event.properties.object);
     } else if (event.action === 'search') {
       this.statisticsService.trackSearchEvent(

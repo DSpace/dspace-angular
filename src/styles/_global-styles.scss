@@ -204,3 +204,45 @@ ds-dynamic-form-control-container.d-none {
 }
 
 
+
+.badge-validation {
+  background-color: #{map-get($theme-colors, warning)};
+}
+
+.badge-waiting-controller {
+  background-color: #{map-get($theme-colors, info)};
+}
+
+.badge-workspace {
+  background-color: #{map-get($theme-colors, primary)};
+}
+
+.badge-archived {
+  background-color: #{map-get($theme-colors, success)};
+}
+
+.badge-workflow {
+  background-color: #{map-get($theme-colors, info)};
+}
+
+.badge-item-type {
+  background-color: #{map-get($theme-colors, info)};
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
+  // ensure that links in DSO edit menu dropdowns are unstyled (li elements are styled instead to support icons)
+  padding: 0;
+  display: inline;
+}
