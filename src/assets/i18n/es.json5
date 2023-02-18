@@ -3551,7 +3551,7 @@
   "workflow-item.search.result.notification.deleted.success": "La orden de supervisión \”{{ name }}”\ ha sido borrada exitosamente",
 
   // "workflow-item.search.result.notification.deleted.failure": "Failed to delete supervision order \"{{name}}\"",
-  "workflow-item.search.result.notification.deleted.failure": "Error al borrar la orden de supervisión \”{{ name }}”\",
+  "workflow-item.search.result.notification.deleted.failure": "Error al borrar la orden de supervisión \”{{ name }}\”",
 
   // "workflow-item.search.result.list.element.supervised-by": "Supervised by:",
   "workflow-item.search.result.list.element.supervised-by": "Supervisado por:",
@@ -7350,7 +7350,7 @@
   "workflow-item.scorereviewaction.notification.success.title": "Revisar evaluación",
 
   // "workflow-item.scorereviewaction.notification.success.content": "The rating for this item workflow item has been successfully submitted",
-  "workflow-item.scorereviewaction.notification.success.content": "  // "workflow-item.scorereviewaction.notification.success.content": "La evaluación para este ítem ha sido enviada exitosamente",
+  "workflow-item.scorereviewaction.notification.success.content": "La evaluación para este ítem ha sido enviada exitosamente",
 
   // "workflow-item.scorereviewaction.notification.error.title": "Something went wrong",
   "workflow-item.scorereviewaction.notification.error.title": "Algo salió mal",
