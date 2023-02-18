@@ -2,24 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CdkTreeModule } from '@angular/cdk/tree';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
-import { NouisliderModule } from 'ng2-nouislider';
 import {
-  NgbDatepickerModule,
   NgbDropdownModule,
   NgbNavModule,
   NgbPaginationModule,
-  NgbTimepickerModule,
   NgbTooltipModule,
   NgbTypeaheadModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { FileUploadModule } from 'ng2-file-upload';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { MomentModule } from 'ngx-moment';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import {
   ExportMetadataSelectorComponent
@@ -30,7 +22,6 @@ import {
 import {
   ImportBatchSelectorComponent
 } from './dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
-import { FileDropzoneNoUploaderComponent } from './file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 import { ItemListElementComponent } from './object-list/item-list-element/item-types/item/item-list-element.component';
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
 import { FileSizePipe } from './utils/file-size-pipe';
@@ -73,35 +64,13 @@ import { TruncatePipe } from './utils/truncate.pipe';
 import { TruncatableComponent } from './truncatable/truncatable.component';
 import { TruncatableService } from './truncatable/truncatable.service';
 import { TruncatablePartComponent } from './truncatable/truncatable-part/truncatable-part.component';
-import { UploaderComponent } from './uploader/uploader.component';
-import { ChipsComponent } from './chips/chips.component';
-import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { MockAdminGuard } from './mocks/admin-guard.service.mock';
 import { AlertComponent } from './alert/alert.component';
 import {
   SearchResultDetailElementComponent
 } from './object-detail/my-dspace-result-detail-element/search-result-detail-element.component';
-import { ClaimedTaskActionsComponent } from './mydspace-actions/claimed-task/claimed-task-actions.component';
-import { PoolTaskActionsComponent } from './mydspace-actions/pool-task/pool-task-actions.component';
 import { ObjectDetailComponent } from './object-detail/object-detail.component';
-import {
-  ItemDetailPreviewComponent
-} from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview.component';
-import {
-  MyDSpaceItemStatusComponent
-} from './object-collection/shared/mydspace-item-status/my-dspace-item-status.component';
-import { WorkspaceitemActionsComponent } from './mydspace-actions/workspaceitem/workspaceitem-actions.component';
-import { WorkflowitemActionsComponent } from './mydspace-actions/workflowitem/workflowitem-actions.component';
-import { ItemSubmitterComponent } from './object-collection/shared/mydspace-item-submitter/item-submitter.component';
-import { ItemActionsComponent } from './mydspace-actions/item/item-actions.component';
-import {
-  ClaimedTaskActionsApproveComponent
-} from './mydspace-actions/claimed-task/approve/claimed-task-actions-approve.component';
-import {
-  ClaimedTaskActionsRejectComponent
-} from './mydspace-actions/claimed-task/reject/claimed-task-actions-reject.component';
 import { ObjNgFor } from './utils/object-ngfor.pipe';
-import { BrowseByComponent } from './browse-by/browse-by.component';
 import {
   BrowseEntryListElementComponent
 } from './object-list/browse-entry-list-element/browse-entry-list-element.component';
@@ -111,11 +80,13 @@ import { EmphasizePipe } from './utils/emphasize.pipe';
 import { InputSuggestionsComponent } from './input-suggestions/input-suggestions.component';
 import { CapitalizePipe } from './utils/capitalize.pipe';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
-import { AuthorityConfidenceStateDirective } from './authority-confidence/authority-confidence-state.directive';
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 import {
   PlainTextMetadataListElementComponent
 } from './object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
+import {
+  BrowseLinkMetadataListElementComponent
+} from './object-list/metadata-representation-list-element/browse-link/browse-link-metadata-list-element.component';
 import {
   ItemMetadataListElementComponent
 } from './object-list/metadata-representation-list-element/item/item-metadata-list-element.component';
@@ -132,19 +103,19 @@ import {
   CreateCommunityParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
 import {
-    ThemedCreateCommunityParentSelectorComponent
+  ThemedCreateCommunityParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
 import {
   CreateItemParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import {
-    ThemedCreateItemParentSelectorComponent
+  ThemedCreateItemParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
 import {
   CreateCollectionParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 import {
-    ThemedCreateCollectionParentSelectorComponent
+  ThemedCreateCollectionParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
 import {
   CommunitySearchResultListElementComponent
@@ -156,35 +127,22 @@ import {
   EditItemSelectorComponent
 } from './dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import {
-    ThemedEditItemSelectorComponent
+  ThemedEditItemSelectorComponent
 } from './dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
 import {
   EditCommunitySelectorComponent
 } from './dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import {
-    ThemedEditCommunitySelectorComponent
+  ThemedEditCommunitySelectorComponent
 } from './dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
 import {
   EditCollectionSelectorComponent
 } from './dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 import {
-    ThemedEditCollectionSelectorComponent
+  ThemedEditCollectionSelectorComponent
 } from './dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
-import {
-  ItemListPreviewComponent
-} from './object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
-import {
-  MetadataFieldWrapperComponent
-} from '../item-page/field-components/metadata-field-wrapper/metadata-field-wrapper.component';
-import { MetadataValuesComponent } from '../item-page/field-components/metadata-values/metadata-values.component';
 import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
-import {
-  ClaimedTaskActionsReturnToPoolComponent
-} from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
-import {
-  ItemDetailPreviewFieldComponent
-} from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
 import {
   CollectionSearchResultGridElementComponent
 } from './object-grid/search-result-grid-element/collection-search-result/collection-search-result-grid-element.component';
@@ -223,42 +181,28 @@ import {
 } from './object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
 import { PageWithSidebarComponent } from './sidebar/page-with-sidebar.component';
 import { SidebarDropdownComponent } from './sidebar/sidebar-dropdown.component';
-import { SidebarFilterComponent } from './sidebar/filter/sidebar-filter.component';
-import { SidebarFilterSelectedOptionComponent } from './sidebar/filter/sidebar-filter-selected-option.component';
 import {
   SelectableListItemControlComponent
 } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import {
   ImportableListItemControlComponent
 } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
-import { ItemVersionsComponent } from './item/item-versions/item-versions.component';
-import { SortablejsModule } from 'ngx-sortablejs';
 import { LogInContainerComponent } from './log-in/container/log-in-container.component';
-import { LogInShibbolethComponent } from './log-in/methods/shibboleth/log-in-shibboleth.component';
 import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
 import { LogInComponent } from './log-in/log-in.component';
-import { BundleListElementComponent } from './object-list/bundle-list-element/bundle-list-element.component';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
-import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-versions-notice.component';
 import { FileValidator } from './utils/require-file.validator';
 import { FileValueAccessorDirective } from './utils/file-value-accessor.directive';
-import { FileSectionComponent } from '../item-page/simple/field-components/file-section/file-section.component';
 import {
   ModifyItemOverviewComponent
 } from '../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
-import {
-  ClaimedTaskActionsLoaderComponent
-} from './mydspace-actions/claimed-task/switcher/claimed-task-actions-loader.component';
 import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/switcher/claimed-task-actions.directive';
-import {
-  ClaimedTaskActionsEditMetadataComponent
-} from './mydspace-actions/claimed-task/edit-metadata/claimed-task-actions-edit-metadata.component';
 import { ImpersonateNavbarComponent } from './impersonate-navbar/impersonate-navbar.component';
 import { NgForTrackByIdDirective } from './ng-for-track-by-id.directive';
 import { FileDownloadLinkComponent } from './file-download-link/file-download-link.component';
+import { ThemedFileDownloadLinkComponent } from './file-download-link/themed-file-download-link.component';
 import { CollectionDropdownComponent } from './collection-dropdown/collection-dropdown.component';
 import { EntityDropdownComponent } from './entity-dropdown/entity-dropdown.component';
-import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
 import { CurationFormComponent } from '../curation-form/curation-form.component';
 import {
   PublicationSidebarSearchListElementComponent
@@ -273,79 +217,71 @@ import {
   CommunitySidebarSearchListElementComponent
 } from './object-list/sidebar-search-list-element/community/community-sidebar-search-list-element.component';
 import {
+  BundleListElementComponent
+} from './object-list/bundle-list-element/bundle-list-element.component';
+import {
   AuthorizedCollectionSelectorComponent
 } from './dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
-import { DsoPageEditButtonComponent } from './dso-page/dso-page-edit-button/dso-page-edit-button.component';
-import { DsoPageVersionButtonComponent } from './dso-page/dso-page-version-button/dso-page-version-button.component';
 import { HoverClassDirective } from './hover-class.directive';
 import {
   ValidationSuggestionsComponent
 } from './input-suggestions/validation-suggestions/validation-suggestions.component';
-import { ItemAlertsComponent } from './item/item-alerts/item-alerts.component';
 import {
   ItemSearchResultGridElementComponent
 } from './object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
-import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
-import {
-  GenericItemPageFieldComponent
-} from '../item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
-import {
-  MetadataRepresentationListComponent
-} from '../item-page/simple/metadata-representation-list/metadata-representation-list.component';
-import { RelatedItemsComponent } from '../item-page/simple/related-items/related-items-component';
-import { LinkMenuItemComponent } from './menu/menu-item/link-menu-item.component';
-import { OnClickMenuItemComponent } from './menu/menu-item/onclick-menu-item.component';
-import { TextMenuItemComponent } from './menu/menu-item/text-menu-item.component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
-import {
-  ItemVersionsSummaryModalComponent
-} from './item/item-versions/item-versions-summary-modal/item-versions-summary-modal.component';
-import {
-  ItemVersionsDeleteModalComponent
-} from './item/item-versions/item-versions-delete-modal/item-versions-delete-modal.component';
 import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
-import {
-  BitstreamRequestACopyPageComponent
-} from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
-import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
-import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
+import { ContextHelpDirective } from './context-help.directive';
+import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 import { RSSComponent } from './rss-feed/rss.component';
-import { ExternalLinkMenuItemComponent } from './menu/menu-item/external-link-menu-item.component';
-import { DsoPageOrcidButtonComponent } from './dso-page/dso-page-orcid-button/dso-page-orcid-button.component';
-import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
 import { BrowserOnlyPipe } from './utils/browser-only.pipe';
 import { ThemedLoadingComponent } from './loading/themed-loading.component';
-import { PersonPageClaimButtonComponent } from './dso-page/person-page-claim-button/person-page-claim-button.component';
 import { SearchExportCsvComponent } from './search/search-export-csv/search-export-csv.component';
 import {
   ItemPageTitleFieldComponent
 } from '../item-page/simple/field-components/specific-field/title/item-page-title-field.component';
 import { MarkdownPipe } from './utils/markdown.pipe';
 import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha.module';
+import { MenuModule } from './menu/menu.module';
+import {
+  ListableNotificationObjectComponent
+} from './object-list/listable-notification-object/listable-notification-object.component';
+import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
+import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
+import { ShortNumberPipe } from './utils/short-number.pipe';
+import {
+  LogInExternalProviderComponent
+} from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
+import {
+  AdvancedClaimedTaskActionSelectReviewerComponent
+} from './mydspace-actions/claimed-task/select-reviewer/advanced-claimed-task-action-select-reviewer.component';
+import {
+  AdvancedClaimedTaskActionRatingComponent
+} from './mydspace-actions/claimed-task/rating/advanced-claimed-task-action-rating.component';
+import { ClaimedTaskActionsDeclineTaskComponent } from './mydspace-actions/claimed-task/decline-task/claimed-task-actions-decline-task.component';
+import {
+  DsoPageSubscriptionButtonComponent
+} from './dso-page/dso-page-subscription-button/dso-page-subscription-button.component';
+import { EpersonGroupListComponent } from './eperson-group-list/eperson-group-list.component';
+import { EpersonSearchBoxComponent } from './eperson-group-list/eperson-search-box/eperson-search-box.component';
+import { GroupSearchBoxComponent } from './eperson-group-list/group-search-box/group-search-box.component';
 
 const MODULES = [
   CommonModule,
-  SortablejsModule,
-  FileUploadModule,
   FormsModule,
   InfiniteScrollModule,
   NgbNavModule,
-  NgbDatepickerModule,
-  NgbTimepickerModule,
   NgbTypeaheadModule,
-  NgxPaginationModule,
   NgbPaginationModule,
   NgbDropdownModule,
   NgbTooltipModule,
   ReactiveFormsModule,
   RouterModule,
-  NouisliderModule,
-  MomentModule,
   DragDropModule,
-  CdkTreeModule,
   GoogleRecaptchaModule,
+  MenuModule
 ];
 
 const ROOT_MODULES = [
@@ -369,6 +305,7 @@ const PIPES = [
   ObjNgFor,
   BrowserOnlyPipe,
   MarkdownPipe,
+  ShortNumberPipe
 ];
 
 const COMPONENTS = [
@@ -377,16 +314,13 @@ const COMPONENTS = [
   AuthNavMenuComponent,
   ThemedAuthNavMenuComponent,
   UserMenuComponent,
-  ChipsComponent,
   DsSelectComponent,
   ErrorComponent,
-  FileSectionComponent,
   LangSwitchComponent,
   LoadingComponent,
   ThemedLoadingComponent,
   LogInComponent,
   LogOutComponent,
-  NumberPickerComponent,
   ObjectListComponent,
   ThemedObjectListComponent,
   ObjectDetailComponent,
@@ -398,124 +332,51 @@ const COMPONENTS = [
   SearchFormComponent,
   PageWithSidebarComponent,
   SidebarDropdownComponent,
-  SidebarFilterComponent,
-  SidebarFilterSelectedOptionComponent,
   ThumbnailComponent,
-  UploaderComponent,
-  FileDropzoneNoUploaderComponent,
-  ItemListPreviewComponent,
-  ThemedItemListPreviewComponent,
-  MyDSpaceItemStatusComponent,
-  ItemSubmitterComponent,
-  ItemDetailPreviewComponent,
-  ItemDetailPreviewFieldComponent,
-  ClaimedTaskActionsComponent,
-  ClaimedTaskActionsApproveComponent,
-  ClaimedTaskActionsRejectComponent,
-  ClaimedTaskActionsReturnToPoolComponent,
-  ClaimedTaskActionsEditMetadataComponent,
-  ClaimedTaskActionsLoaderComponent,
-  ItemActionsComponent,
-  PoolTaskActionsComponent,
-  WorkflowitemActionsComponent,
-  WorkspaceitemActionsComponent,
   ViewModeSwitchComponent,
   TruncatableComponent,
   TruncatablePartComponent,
-  BrowseByComponent,
   InputSuggestionsComponent,
   FilterInputSuggestionsComponent,
   ValidationSuggestionsComponent,
   DsoInputSuggestionsComponent,
   DSOSelectorComponent,
-  CreateCommunityParentSelectorComponent,
-  ThemedCreateCommunityParentSelectorComponent,
-  CreateCollectionParentSelectorComponent,
-  ThemedCreateCollectionParentSelectorComponent,
-  CreateItemParentSelectorComponent,
-  ThemedCreateItemParentSelectorComponent,
-  EditCommunitySelectorComponent,
-  ThemedEditCommunitySelectorComponent,
-  EditCollectionSelectorComponent,
-  ThemedEditCollectionSelectorComponent,
-  EditItemSelectorComponent,
-  ThemedEditItemSelectorComponent,
-  CommunitySearchResultListElementComponent,
-  CollectionSearchResultListElementComponent,
-  BrowseByComponent,
-
-  CollectionSearchResultGridElementComponent,
-  CommunitySearchResultGridElementComponent,
   SearchExportCsvComponent,
   PageSizeSelectorComponent,
   ListableObjectComponentLoaderComponent,
-  CollectionListElementComponent,
-  CommunityListElementComponent,
-  CollectionGridElementComponent,
-  CommunityGridElementComponent,
-  BrowseByComponent,
   AbstractTrackableComponent,
   ComcolMetadataComponent,
   TypeBadgeComponent,
   AccessStatusBadgeComponent,
-  BrowseByComponent,
-  AbstractTrackableComponent,
-
   ItemSelectComponent,
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,
   SelectableListItemControlComponent,
-
   ImportableListItemControlComponent,
-
-  LogInShibbolethComponent,
-  LogInOidcComponent,
-  LogInOrcidComponent,
-  LogInPasswordComponent,
   LogInContainerComponent,
-  ItemVersionsComponent,
-  ItemSearchResultListElementComponent,
-  ItemVersionsNoticeComponent,
   ModifyItemOverviewComponent,
   ImpersonateNavbarComponent,
-  FileDownloadLinkComponent,
-  BitstreamDownloadPageComponent,
-  BitstreamRequestACopyPageComponent,
-  CollectionDropdownComponent,
   EntityDropdownComponent,
   ExportMetadataSelectorComponent,
   ImportBatchSelectorComponent,
   ExportBatchSelectorComponent,
   ConfirmationModalComponent,
-  VocabularyTreeviewComponent,
   AuthorizedCollectionSelectorComponent,
-  CurationFormComponent,
-  SearchResultListElementComponent,
-  SearchResultGridElementComponent,
-  ItemListElementComponent,
-  ItemGridElementComponent,
-  ItemSearchResultGridElementComponent,
-  BrowseEntryListElementComponent,
-  SearchResultDetailElementComponent,
-  PlainTextMetadataListElementComponent,
-  ItemMetadataListElementComponent,
-  MetadataRepresentationListElementComponent,
-  ItemMetadataRepresentationListElementComponent,
-  BundleListElementComponent,
-  StartsWithDateComponent,
-  StartsWithTextComponent,
-  SidebarSearchListElementComponent,
-  PublicationSidebarSearchListElementComponent,
-  CollectionSidebarSearchListElementComponent,
-  CommunitySidebarSearchListElementComponent,
   SearchNavbarComponent,
-  ScopeSelectorModalComponent,
   ItemPageTitleFieldComponent,
   ThemedSearchNavbarComponent,
+  ListableNotificationObjectComponent,
+  DsoPageSubscriptionButtonComponent,
+  MetadataFieldWrapperComponent,
+  ContextHelpWrapperComponent,
+  EpersonGroupListComponent,
+  EpersonSearchBoxComponent,
+  GroupSearchBoxComponent
 ];
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
+  BundleListElementComponent,
   CollectionListElementComponent,
   CommunityListElementComponent,
   SearchResultListElementComponent,
@@ -547,51 +408,33 @@ const ENTRY_COMPONENTS = [
   EditItemSelectorComponent,
   ThemedEditItemSelectorComponent,
   PlainTextMetadataListElementComponent,
+  BrowseLinkMetadataListElementComponent,
   ItemMetadataListElementComponent,
   MetadataRepresentationListElementComponent,
   ItemMetadataRepresentationListElementComponent,
   LogInPasswordComponent,
-  LogInShibbolethComponent,
-  LogInOidcComponent,
-  LogInOrcidComponent,
-  BundleListElementComponent,
-  ClaimedTaskActionsApproveComponent,
-  ClaimedTaskActionsRejectComponent,
-  ClaimedTaskActionsReturnToPoolComponent,
-  ClaimedTaskActionsEditMetadataComponent,
+  LogInExternalProviderComponent,
+  ClaimedTaskActionsDeclineTaskComponent,
   CollectionDropdownComponent,
+  ThemedCollectionDropdownComponent,
   FileDownloadLinkComponent,
-  BitstreamDownloadPageComponent,
-  BitstreamRequestACopyPageComponent,
+  ThemedFileDownloadLinkComponent,
   CurationFormComponent,
   ExportMetadataSelectorComponent,
   ImportBatchSelectorComponent,
   ExportBatchSelectorComponent,
   ConfirmationModalComponent,
-  VocabularyTreeviewComponent,
   SidebarSearchListElementComponent,
   PublicationSidebarSearchListElementComponent,
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,
-  LinkMenuItemComponent,
-  OnClickMenuItemComponent,
-  TextMenuItemComponent,
   ScopeSelectorModalComponent,
-  ExternalLinkMenuItemComponent
-];
-
-const SHARED_ITEM_PAGE_COMPONENTS = [
-  MetadataFieldWrapperComponent,
-  MetadataValuesComponent,
-  DsoPageEditButtonComponent,
-  DsoPageVersionButtonComponent,
-  PersonPageClaimButtonComponent,
-  ItemAlertsComponent,
-  GenericItemPageFieldComponent,
-  MetadataRepresentationListComponent,
-  RelatedItemsComponent,
-  DsoPageOrcidButtonComponent
-
+  ListableNotificationObjectComponent,
+  AdvancedClaimedTaskActionSelectReviewerComponent,
+  AdvancedClaimedTaskActionRatingComponent,
+  EpersonGroupListComponent,
+  EpersonSearchBoxComponent,
+  GroupSearchBoxComponent
 ];
 
 const PROVIDERS = [
@@ -605,7 +448,6 @@ const DIRECTIVES = [
   DragClickDirective,
   DebounceDirective,
   ClickOutsideDirective,
-  AuthorityConfidenceStateDirective,
   InListValidator,
   AutoFocusDirective,
   RoleDirective,
@@ -614,10 +456,10 @@ const DIRECTIVES = [
   ClaimedTaskActionsDirective,
   FileValueAccessorDirective,
   FileValidator,
-  ClaimedTaskActionsDirective,
   NgForTrackByIdDirective,
   MetadataFieldValidator,
-  HoverClassDirective
+  HoverClassDirective,
+  ContextHelpDirective,
 ];
 
 @NgModule({
@@ -628,10 +470,8 @@ const DIRECTIVES = [
   declarations: [
     ...PIPES,
     ...COMPONENTS,
+    ...ENTRY_COMPONENTS,
     ...DIRECTIVES,
-    ...SHARED_ITEM_PAGE_COMPONENTS,
-    ItemVersionsSummaryModalComponent,
-    ItemVersionsDeleteModalComponent,
   ],
   providers: [
     ...PROVIDERS
@@ -640,9 +480,9 @@ const DIRECTIVES = [
     ...MODULES,
     ...PIPES,
     ...COMPONENTS,
-    ...SHARED_ITEM_PAGE_COMPONENTS,
+    ...ENTRY_COMPONENTS,
     ...DIRECTIVES,
-    TranslateModule
+    TranslateModule,
   ]
 })
 

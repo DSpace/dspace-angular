@@ -18,9 +18,9 @@ import { LocaleService } from '../../app/core/locale/locale.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { MetadataService } from '../../app/core/metadata/metadata.service';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
-import { CSSVariableService } from '../../app/shared/sass-helper/sass-helper.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { take } from 'rxjs/operators';
+import { MenuService } from '../../app/shared/menu/menu.service';
 
 /**
  * Performs server-side initialization.
@@ -37,8 +37,8 @@ export class ServerInitService extends InitService {
     protected angulartics2DSpace: Angulartics2DSpace,
     protected metadata: MetadataService,
     protected breadcrumbsService: BreadcrumbsService,
-    protected cssService: CSSVariableService,
     protected themeService: ThemeService,
+    protected menuService: MenuService,
   ) {
     super(
       store,
@@ -50,6 +50,7 @@ export class ServerInitService extends InitService {
       metadata,
       breadcrumbsService,
       themeService,
+      menuService,
     );
   }
 

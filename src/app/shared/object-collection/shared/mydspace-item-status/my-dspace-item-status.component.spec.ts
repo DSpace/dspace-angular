@@ -55,34 +55,34 @@ describe('MyDSpaceItemStatusComponent', () => {
     component.status = MyDspaceItemStatusType.VALIDATION;
     fixture.detectChanges();
     expect(component.badgeContent).toBe(MyDspaceItemStatusType.VALIDATION);
-    expect(component.badgeClass).toBe('text-light badge badge-warning');
+    expect(component.badgeClass).toBe('text-light badge badge-validation');
   });
 
   it('should init badge content and class', () => {
     component.status = MyDspaceItemStatusType.WAITING_CONTROLLER;
     fixture.detectChanges();
     expect(component.badgeContent).toBe(MyDspaceItemStatusType.WAITING_CONTROLLER);
-    expect(component.badgeClass).toBe('text-light badge badge-info');
+    expect(component.badgeClass).toBe('text-light badge badge-waiting-controller');
   });
 
   it('should init badge content and class', () => {
     component.status = MyDspaceItemStatusType.WORKSPACE;
     fixture.detectChanges();
     expect(component.badgeContent).toBe(MyDspaceItemStatusType.WORKSPACE);
-    expect(component.badgeClass).toBe('text-light badge badge-primary');
+    expect(component.badgeClass).toBe('text-light badge badge-workspace');
   });
 
   it('should init badge content and class', () => {
     component.status = MyDspaceItemStatusType.ARCHIVED;
     fixture.detectChanges();
     expect(component.badgeContent).toBe(MyDspaceItemStatusType.ARCHIVED);
-    expect(component.badgeClass).toBe('text-light badge badge-success');
+    expect(component.badgeClass).toBe('text-light badge badge-archived');
   });
 
   it('should init badge content and class', () => {
     component.status = MyDspaceItemStatusType.WORKFLOW;
     fixture.detectChanges();
     expect(component.badgeContent).toBe(MyDspaceItemStatusType.WORKFLOW);
-    expect(component.badgeClass).toBe('text-light badge badge-info');
+    expect(component.badgeClass).toBe('text-light badge badge-workflow');
   });
 });

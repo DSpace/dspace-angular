@@ -39,13 +39,20 @@ import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/med
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { MiradorViewerComponent } from './mirador-viewer/mirador-viewer.component';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
-import { VersionedItemComponent } from './simple/item-types/versioned-item/versioned-item.component';
 import { ThemedFileSectionComponent } from './simple/field-components/file-section/themed-file-section.component';
 import { OrcidAuthComponent } from './orcid-page/orcid-auth/orcid-auth.component';
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrcidSyncSettingsComponent } from './orcid-page/orcid-sync-settings/orcid-sync-settings.component';
 import { OrcidQueueComponent } from './orcid-page/orcid-queue/orcid-queue.component';
+import { UploadModule } from '../shared/upload/upload.module';
+import { ResultsBackButtonModule } from '../shared/results-back-button/results-back-button.module';
+import { ItemAlertsComponent } from './alerts/item-alerts.component';
+import { ItemVersionsModule } from './versions/item-versions.module';
+import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
+import { FileSectionComponent } from './simple/field-components/file-section/file-section.component';
+import { ItemSharedModule } from './item-shared.module';
+import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 
 
 const ENTRY_COMPONENTS = [
@@ -55,6 +62,7 @@ const ENTRY_COMPONENTS = [
 ];
 
 const DECLARATIONS = [
+  FileSectionComponent,
   ThemedFileSectionComponent,
   ItemPageComponent,
   ThemedItemPageComponent,
@@ -81,7 +89,9 @@ const DECLARATIONS = [
   OrcidPageComponent,
   OrcidAuthComponent,
   OrcidSyncSettingsComponent,
-  OrcidQueueComponent
+  OrcidQueueComponent,
+  ItemAlertsComponent,
+  BitstreamRequestACopyPageComponent,
 ];
 
 @NgModule({
@@ -90,18 +100,23 @@ const DECLARATIONS = [
     SharedModule.withEntryComponents(),
     ItemPageRoutingModule,
     EditItemPageModule,
+    ItemVersionsModule,
+    ItemSharedModule,
     StatisticsModule.forRoot(),
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
     NgxGalleryModule,
-    NgbAccordionModule
+    NgbAccordionModule,
+    ResultsBackButtonModule,
+    UploadModule,
+    DsoPageModule,
   ],
   declarations: [
     ...DECLARATIONS,
-    VersionedItemComponent
+
   ],
   exports: [
-    ...DECLARATIONS
+    ...DECLARATIONS,
   ]
 })
 export class ItemPageModule {

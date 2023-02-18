@@ -165,6 +165,8 @@
   
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "নাম",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.id" : "ID",
   
   // "admin.registries.bitstream-formats.table.return": "Back",
   "admin.registries.bitstream-formats.table.return": "পেছনে",
@@ -244,6 +246,8 @@
   
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "ক্ষেত্র",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.id" : "ID",
   
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "স্কোপ নোট",
@@ -2904,7 +2908,7 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "ম্যাপড সংগ্রহ পরিচালনা করুন",
   
-  // "item.edit.tabs.status.buttons.move.button": "Move...",
+  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
   "item.edit.tabs.status.buttons.move.button": "সরানো ...",
   
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
@@ -2931,8 +2935,8 @@
   // "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
   "item.edit.tabs.status.buttons.unauthorized": "আপনি এই অ্যাকশন সঞ্চালন করার জন্য অনুমোদিত না",
   
-  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  "item.edit.tabs.status.buttons.withdraw.button": "প্রত্যাহার ...",
+  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
+  "item.edit.tabs.status.buttons.withdraw.button": "এই আইটেম প্রত্যাহার করুন",
   
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
   "item.edit.tabs.status.buttons.withdraw.label": "সংগ্রহস্থল থেকে আইটেম প্রত্যাহার",
@@ -5799,7 +5803,7 @@
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
   "submission.sections.upload.header.policy.default.withlist": "অনুগ্রহ করে মনে রাখবেন যে {{collectionName}} সংগ্রহে আপলোড করা ফাইলগুলি অ্যাক্সেসযোগ্য হবে, একক ফাইলের জন্য স্পষ্টভাবে যা নির্ধারণ করা হয়েছে তা ছাড়াও, নিম্নলিখিত গ্রুপ(গুলি) সহ:",
   
-  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "এখানে আপনি বর্তমানে আইটেমটিতে সমস্ত ফাইল পাবেন। আপনি ফাইল মেটাডেটা এবং অ্যাক্সেস শর্তাদি আপডেট করতে পারেন অথবা <strong> অতিরিক্ত ফাইল আপলোড করুন - পৃষ্ঠাটিতে সর্বত্র ড্র্যাগ করুন এবং ড্রপ করুন </strong>",
   
   // "submission.sections.upload.no-entry": "No",

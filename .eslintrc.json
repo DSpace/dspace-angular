@@ -6,7 +6,8 @@
     "eslint-plugin-import",
     "eslint-plugin-jsdoc",
     "eslint-plugin-deprecation",
-    "eslint-plugin-unused-imports"
+    "unused-imports",
+    "eslint-plugin-lodash"
   ],
   "overrides": [
     {
@@ -202,7 +203,13 @@
         "deprecation/deprecation": "warn",
 
         "import/order": "off",
-        "import/no-deprecated": "warn"
+        "import/no-deprecated": "warn",
+        "import/no-namespace": "error",
+        "unused-imports/no-unused-imports": "error",
+        "lodash/import-scope": [
+          "error",
+          "method"
+        ]
       }
     },
     {
