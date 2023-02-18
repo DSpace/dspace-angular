@@ -14,21 +14,21 @@ export class ThemedSearchFormComponent extends ThemedComponent<SearchFormCompone
 
   @Input() query: string;
 
-  @Input() inPlaceSearch;
+  @Input() inPlaceSearch: boolean;
 
-  @Input() scope = '';
+  @Input() scope: string;
 
   @Input() currentUrl: string;
 
-  @Input() large = false;
+  @Input() large: boolean;
 
-  @Input() brandColor = 'primary';
+  @Input() brandColor: string;
 
   @Input() searchPlaceholder: string;
 
-  @Input() showScopeSelector = false;
+  @Input() showScopeSelector: boolean;
 
-  @Output() submitSearch = new EventEmitter<any>();
+  @Output() submitSearch: EventEmitter<any>;
 
   protected inAndOutputNames: (keyof SearchFormComponent & keyof this)[] = [
     'query', 'inPlaceSearch', 'scope', 'currentUrl', 'large', 'brandColor', 'searchPlaceholder', 'showScopeSelector',

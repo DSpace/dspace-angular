@@ -37,7 +37,7 @@ export class SearchFormComponent implements OnInit {
   /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch;
+  @Input() inPlaceSearch: boolean;
 
   /**
    * The currently selected scope object's UUID

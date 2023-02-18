@@ -61,8 +61,7 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
 
   parsedContent$: Observable<ParsedContent>;
 
-  private subs: {always: Subscription[], tooltipBound: Subscription[]}
-    = {always: [], tooltipBound: []};
+  private subs: Subscription[] = [];
 
   constructor(
     private translateService: TranslateService,
@@ -78,14 +77,13 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
         dontParseLinks ? [text] : this.parseLinks(text))
     );
     this.shouldShowIcon$ = this.contextHelpService.shouldShowIcons$();
-    this.subs.always = [this.parsedContent$.subscribe(), this.shouldShowIcon$.subscribe()];
   }
 
   @ViewChild('tooltip', { static: false }) set setTooltip(tooltip: NgbTooltip) {
     this.tooltip = tooltip;
-    this.clearSubs('tooltipBound');
+    this.clearSubs();
     if (this.tooltip !== undefined) {
-      this.subs.tooltipBound = [
+      this.subs = [
         this.contextHelpService.getContextHelp$(this.id)
           .pipe(hasValueOperator())
           .subscribe((ch: ContextHelp) => {
@@ -159,13 +157,8 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
     });
   }
 
-  private clearSubs(filter: null | 'tooltipBound' = null) {
-    if (filter === null) {
-      [].concat(...Object.values(this.subs)).forEach(sub => sub.unsubscribe());
-      this.subs = {always: [], tooltipBound: []};
-    } else {
-      this.subs[filter].forEach(sub => sub.unsubscribe());
-      this.subs[filter] = [];
-    }
+  private clearSubs() {
+    this.subs.forEach(sub => sub.unsubscribe());
+    this.subs = [];
   }
 }

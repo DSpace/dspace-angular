@@ -39,7 +39,6 @@ import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/med
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { MiradorViewerComponent } from './mirador-viewer/mirador-viewer.component';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
-import { VersionedItemComponent } from './simple/item-types/versioned-item/versioned-item.component';
 import { ThemedFileSectionComponent } from './simple/field-components/file-section/themed-file-section.component';
 import { OrcidAuthComponent } from './orcid-page/orcid-auth/orcid-auth.component';
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
@@ -53,6 +52,7 @@ import { ItemVersionsModule } from './versions/item-versions.module';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { FileSectionComponent } from './simple/field-components/file-section/file-section.component';
 import { ItemSharedModule } from './item-shared.module';
+import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 import { ThemedItemAlertsComponent } from './alerts/themed-item-alerts.component';
 
 
@@ -93,7 +93,6 @@ const DECLARATIONS = [
   OrcidQueueComponent,
   ItemAlertsComponent,
   ThemedItemAlertsComponent,
-  VersionedItemComponent,
   BitstreamRequestACopyPageComponent,
 ];
 
@@ -111,7 +110,8 @@ const DECLARATIONS = [
     NgxGalleryModule,
     NgbAccordionModule,
     ResultsBackButtonModule,
-    UploadModule
+    UploadModule,
+    DsoPageModule,
   ],
   declarations: [
     ...DECLARATIONS,

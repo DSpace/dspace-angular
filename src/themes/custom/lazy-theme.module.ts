@@ -124,6 +124,8 @@ import { ItemSharedModule } from '../../app/item-page/item-shared.module';
 import { ResultsBackButtonComponent } from './app/shared/results-back-button/results-back-button.component';
 import { DsoEditMetadataComponent } from './app/dso-shared/dso-edit-metadata/dso-edit-metadata.component';
 import { DsoSharedModule } from '../../app/dso-shared/dso-shared.module';
+import { SystemWideAlertModule } from '../../app/system-wide-alert/system-wide-alert.module';
+import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
 import { ItemAlertsComponent } from './app/item-page/alerts/item-alerts.component';
 
 const DECLARATIONS = [
@@ -213,6 +215,7 @@ const DECLARATIONS = [
     InfoModule,
     JournalEntitiesModule,
     MenuModule,
+    DsoPageModule,
     MyDspaceSearchModule,
     NavbarModule,
     NgbModule,
@@ -238,6 +241,7 @@ const DECLARATIONS = [
     ResourcePoliciesModule,
     ComcolModule,
     DsoSharedModule,
+    SystemWideAlertModule
   ],
   declarations: DECLARATIONS,
   exports: [
