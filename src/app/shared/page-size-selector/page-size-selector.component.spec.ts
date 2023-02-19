@@ -87,7 +87,7 @@ describe('PageSizeSelectorComponent', () => {
       const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
       const childElementToBeSelected = pageSizeSetting.query(By.css('option[value="10"]'));
       expect(childElementToBeSelected).not.toBeNull();
-      expect(childElementToBeSelected.nativeElement.selected).toBeTrue()
+      expect(childElementToBeSelected.nativeElement.selected).toBeTrue();
       done();
     });
   });

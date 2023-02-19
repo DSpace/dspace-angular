@@ -50,6 +50,7 @@ import { AccessControlRoutingModule } from '../../access-control/access-control-
 
 @listableObjectComponent(BrowseEntry, ViewMode.ListElement, DEFAULT_CONTEXT, 'custom')
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: ''
 })
