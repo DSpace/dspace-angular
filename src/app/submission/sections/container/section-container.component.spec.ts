@@ -224,6 +224,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
 // declare a test component
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: ``
 })

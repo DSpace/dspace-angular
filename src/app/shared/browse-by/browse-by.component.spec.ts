@@ -47,6 +47,7 @@ import { getMockThemeService } from '../mocks/theme-service.mock';
 
 @listableObjectComponent(BrowseEntry, ViewMode.ListElement, DEFAULT_CONTEXT, 'custom')
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: ''
 })
