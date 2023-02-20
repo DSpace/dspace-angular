@@ -41,7 +41,7 @@
           <td><b>{{'clarin.license.agreement.item.handle' | translate}}</b></td>
           <td><input type="text" disabled class="rounded-sm max-width border-gray" [value]="(item$ | async)?.handle"></td>
         </tr>
-        <tr *ngFor="let requiredInfo of requiredInfo$ | async" [hidden]="requiredInfo.name === 'SEND_TOKEN'">
+        <tr *ngFor="let requiredInfo of requiredInfo$ | async">
           <td><b>{{requiredInfo.value}}</b></td>
           <td class="input-group">
             <input #requiredInfoRef class="rounded-sm max-width border-gray"

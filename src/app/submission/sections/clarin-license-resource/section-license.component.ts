@@ -1,9 +1,7 @@
-import { ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@angular/core';
-import { DynamicFormControlModel, DynamicFormLayout } from '@ng-dynamic-forms/core';
+import { ChangeDetectorRef, Component, Inject, Renderer2, ViewChild } from '@angular/core';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
-import {
-  JsonPatchOperationPathCombiner,
-} from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationPathCombiner, } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined, isUndefined } from '../../../shared/empty.util';
 import { FormService } from '../../../shared/form/form.service';
@@ -25,7 +23,6 @@ import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem
 import { RemoteData } from '../../../core/data/remote-data';
 import parseSectionErrors from '../../utils/parseSectionErrors';
 import { normalizeSectionData } from '../../../core/submission/submission-response-parsing.service';
-import licenseDefinitions from './license-definitions.json';
 import { License4Selector } from './license-4-selector.model';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { HELP_DESK_PROPERTY } from '../../../item-page/tombstone/tombstone.component';
@@ -52,12 +49,17 @@ export class SubmissionSectionClarinLicenseComponent extends SectionModelCompone
   /**
    * The license selection dropdown reference.
    */
-  @ViewChild('licenseSelection') licenseSelectionRef: ElementRef;
+  @ViewChild('licenseSelection') licenseSelectionRef;
 
   /**
    * Sometimes do not show validation errors e.g. on Init.
    */
   couldShowValidationErrors = false;
+
+  /**
+   * If the Item has license - show it in the license selection.
+   */
+  selectedLicenseFromOptionId;
 
   /**
    * The mail for the help desk is loaded from the server.
@@ -151,11 +153,13 @@ export class SubmissionSectionClarinLicenseComponent extends SectionModelCompone
     super(injectedCollectionId, injectedSectionData, injectedSubmissionId);
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    // initialize licenses for license selector
+    // It must be before `super.ngOnInit();` because that method loads the metadata from the Item and compare
+    // items license with licenses4Selector.
+    await this.loadLicenses4Selector();
     super.ngOnInit();
     this.helpDesk$ = this.configurationDataService.findByPropertyName(HELP_DESK_PROPERTY);
-    // initialize licenses for license selector
-    this.loadLicenses4Selector();
   }
 
   /**
@@ -184,12 +188,13 @@ export class SubmissionSectionClarinLicenseComponent extends SectionModelCompone
             const item = itemRD.payload;
             const dcRightsMetadata = item.metadata['dc.rights'];
             if (isUndefined(dcRightsMetadata)) {
+              // '0' is a magic constant for a default message `Select a license ...`
+              this.selectedLicenseFromOptionId = '0';
               return;
             }
             this.initializeLicenseFromMetadata(dcRightsMetadata);
           });
       });
-
 
     // subscribe validation errors
     this.subs.push(
@@ -234,11 +239,11 @@ export class SubmissionSectionClarinLicenseComponent extends SectionModelCompone
   /**
    * Select license by the license Id.
    */
-  async selectLicense(selectedLicenseId) {
-    if (isEmpty(selectedLicenseId)) {
+  async selectLicense() {
+    if (isEmpty(this.selectedLicenseFromOptionId)) {
       this.selectedLicenseName = '';
     } else {
-      this.selectedLicenseName = this.getLicenseNameById(selectedLicenseId);
+      this.selectedLicenseName = this.getLicenseNameById(this.selectedLicenseFromOptionId);
     }
 
     await this.maintainLicenseSelection();
@@ -355,10 +360,7 @@ export class SubmissionSectionClarinLicenseComponent extends SectionModelCompone
    * Select the license in the license selection dropdown/
    */
   private setLicenseNameForRef(licenseName) {
-    const licenseId = this.getLicenseIdByName(licenseName);
-    // @ts-ignore
-    document.getElementById('aspect_submission_StepTransformer_field_license').value = licenseId;
-    document.getElementById('secret-change-button').click();
+    this.selectedLicenseFromOptionId = this.getLicenseIdByName(licenseName);
   }
 
   /**
@@ -485,14 +487,9 @@ export class SubmissionSectionClarinLicenseComponent extends SectionModelCompone
   /**
    * Map licenses from `license-definitions.json` to the object list.
    */
-  private loadLicenses4Selector() {
-    const options = new FindListOptions();
-    options.currentPage = 0;
-    // Load all licenses
-    options.elementsPerPage = 1000;
-    this.clarinLicenseService.findAll(options, false)
-      .pipe(getFirstSucceededRemoteListPayload())
-      .subscribe((clarinLicenseList: ClarinLicense[]) => {
+  private async loadLicenses4Selector(): Promise<any> {
+    await this.loadAllClarinLicenses()
+      .then((clarinLicenseList: ClarinLicense[]) => {
         clarinLicenseList?.forEach(clarinLicense => {
           const license4Selector = new License4Selector();
           license4Selector.id = clarinLicense.id;
@@ -501,8 +498,15 @@ export class SubmissionSectionClarinLicenseComponent extends SectionModelCompone
           this.licenses4Selector.push(license4Selector);
         });
       });
-    licenseDefinitions.forEach((license4Selector: License4Selector) => {
-      this.licenses4Selector.push(license4Selector);
-    });
+  }
+
+  private loadAllClarinLicenses(): Promise<any> {
+    const options = new FindListOptions();
+    options.currentPage = 0;
+    // Load all licenses
+    options.elementsPerPage = 1000;
+    return this.clarinLicenseService.findAll(options, false)
+      .pipe(getFirstSucceededRemoteListPayload())
+      .toPromise();
   }
 }
