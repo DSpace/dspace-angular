@@ -26,7 +26,7 @@ export class ClarinLicenseRequiredInfo {
  * Required info possible values.
  */
 export const CLARIN_LICENSE_REQUIRED_INFO = {
-  SEND_TOKEN: 'The user will receive an email with download instructions',
+  SEND_TOKEN: 'Email',
   NAME: 'User name',
   DOB: 'Date of birth',
   ADDRESS: 'Address',

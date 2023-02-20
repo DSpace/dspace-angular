@@ -660,47 +660,8 @@
 
   "clarin.license.agreement.notification.check.email": "You will receive email with download link.",
 
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "Identity",
+  "clarin.license.agreement.notification.cannot.send.email": "Error: cannot send the email.",
 
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Email",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "NetID",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Remove / Add",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "No members in group yet, search and add.",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "No EPeople found in that search",
-
-  "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "No reviewer selected.",
-
-  "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
-
-  "admin.batch-import.page.remove": "remove",
-
-  "auth.errors.invalid-user": "Invalid email address or password.",
-
-  "auth.messages.expired": "Your session has expired. Please log in again.",
-
-  "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
-
-  "bitstream.download.page": "Now downloading {{bitstream}}...",
-
-  "bitstream.download.page.back": "Back",
 
   "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
 

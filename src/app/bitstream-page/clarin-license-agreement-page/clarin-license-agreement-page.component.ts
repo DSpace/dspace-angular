@@ -166,6 +166,10 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
     response
       .pipe(getFirstCompletedRemoteData())
       .subscribe(responseRD$ => {
+        if (hasFailed(responseRD$.state)) {
+          this.notificationService.error(
+            this.translateService.instant('clarin.license.agreement.notification.cannot.send.email'));
+        }
         if (isEmpty(responseRD$?.payload)) {
           return;
         }
@@ -301,7 +305,6 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
           this.error$.value.push('Cannot load userRegistration');
           return;
         }
-        console.log('userRegistrationRD$', userRegistrationRD$);
         // Every user has only one userRegistration record
         const userRegistration = userRegistrationRD$?.payload?.page?.[0];
         if (isEmpty(userRegistration)) {
@@ -314,7 +317,6 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
           .pipe(
             getFirstCompletedRemoteData())
           .subscribe(userMetadata$ => {
-            console.log('userMetadata$', userMetadata$);
             if (hasFailed(userMetadata$.state)) {
               this.error$.value.push('Cannot load userMetadata');
               return;
@@ -334,19 +336,15 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
     const areFilledIn = [];
     // Every requiredInfo.name === userMetadata.metadataKey must have the value in the userMetadata.metadataValue
     this.requiredInfo$?.value.forEach(requiredInfo => {
-      if (requiredInfo.name === 'SEND_TOKEN') {
-        return;
-      } else {
-        let hasMetadataValue = false;
-        this.userMetadata$?.value?.page?.forEach(userMetadata => {
-          if (userMetadata.metadataKey === requiredInfo.name) {
-            if (isNotEmpty(userMetadata.metadataValue)) {
-              hasMetadataValue = true;
-            }
+      let hasMetadataValue = false;
+      this.userMetadata$?.value?.page?.forEach(userMetadata => {
+        if (userMetadata.metadataKey === requiredInfo.name) {
+          if (isNotEmpty(userMetadata.metadataValue)) {
+            hasMetadataValue = true;
           }
-        });
-        areFilledIn.push(hasMetadataValue);
-      }
+        }
+      });
+      areFilledIn.push(hasMetadataValue);
     });
 
     // Some required info wasn't filled in

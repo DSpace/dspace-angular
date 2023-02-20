@@ -43,9 +43,10 @@
     </div>
     <div class="col-md-12">
       <div class="form-group">
-        <select #licenseSelection (change)="selectLicense(licenseSelection.value)" id="aspect_submission_StepTransformer_field_license"
+        <select [(ngModel)]="selectedLicenseFromOptionId" (change)="selectLicense()"
+                id="aspect_submission_StepTransformer_field_license"
                 class="form-control" name="license" tabindex="-1" title="">
-          <option value="" selected="selected">
+          <option [value]="'0'" selected="selected">
             {{'submission.sections.clarin-license.head.license-select-default-value' | translate}}
           </option>
           <option *ngFor="let license of licenses4Selector" [value]="license.id" id="license_option">
