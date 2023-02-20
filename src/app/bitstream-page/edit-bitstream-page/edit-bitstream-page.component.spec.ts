@@ -316,7 +316,7 @@ describe('EditBitstreamPageComponent', () => {
             },
 
           ],
-          'iiif.media.annotations': [
+          'iiif.description': [
             {
               value: '{@id: "test"}'
             }
@@ -399,8 +399,8 @@ describe('EditBitstreamPageComponent', () => {
       it('should fill in the iiif height', () => {
         expect(rawForm.iiifHeightContainer.iiifHeight).toEqual('2800');
       });
-      it('should fill in the iiif annotation value', () => {
-        expect(rawForm.iiifAnnotationContainer.iiifAnnotation).toEqual('{@id: "test"}');
+      it('should fill in the iiif description value', () => {
+        expect(rawForm.iiifDescriptionContainer.iiifDescription).toEqual('{@id: "test"}');
       });
     });
   });

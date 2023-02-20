@@ -1,0 +1,29 @@
+<div class="container bundle-row p-4">
+  <span class="col-form-label-lg">IIIF Canvas Annotation File</span>
+<div *ngIf="showUploader">
+<ds-uploader  class="w-100"
+              [dropMsg]="'item.bitstreams.upload.drop-message'"
+              [dropOverDocumentMsg]="'item.bitstreams.upload.drop-message'"
+              [enableDragOverDocument]="true"
+              [uploadFilesOptions]="uploadFilesOptions"
+              (onCompleteItem)="onCompleteItem($event)"
+              (onUploadError)="onUploadError()"></ds-uploader>
+</div>
+  <div *ngIf="!showUploader"  >
+  <div class="row">
+    <div class="col-11">
+      <span class="col-form-label-sm">{{annotationFileName}}</span>
+    </div>
+    <div class="col-1">
+      <button (click)="remove()"
+              class="btn btn-outline-danger btn-sm"
+              title="{{'item.edit.bitstreams.edit.buttons.remove' | translate}}">
+        <i class="fas fa-trash-alt fa-fw"></i>
+      </button>
+    </div>
+  </div>
+  <div class="row" *ngIf="showSave">
+    <button (click)="saveChange()">save</button>
+  </div>
+</div>
+</div>

@@ -12,6 +12,11 @@
             </div>
           </div>
         </div>
+        <div *ngIf="isIIIF">
+          <div class="container mt-5">
+            <ds-iiif-annotation-upload></ds-iiif-annotation-upload>
+          </div>
+        </div>
         <ds-form *ngIf="formGroup" [formId]="'edit-bitstream-form-id'"
                   [formGroup]="formGroup"
                   [formModel]="formModel"
@@ -20,10 +25,12 @@
                   (submitForm)="onSubmit()"
                   (cancel)="onCancel()"
                   (dfChange)="onChange($event)">
+
           <div additional class="container py-3">
             <a [routerLink]="['/bitstreams', bitstreamRD?.payload?.id, 'authorizations']">{{'bitstream.edit.authorizations.link' | translate}}</a>
           </div>
         </ds-form>
+
       </div>
     </div>
     <ds-error *ngIf="bitstreamRD?.hasFailed" message="{{'error.bitstream' | translate}}"></ds-error>

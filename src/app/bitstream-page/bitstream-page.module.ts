@@ -7,6 +7,8 @@ import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bit
 import { FormModule } from '../shared/form/form.module';
 import { ResourcePoliciesModule } from '../shared/resource-policies/resource-policies.module';
 import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
+import { AnnotationUploadComponent } from './edit-bitstream-page/annotation-upload/annotation-upload.component';
+import { UploadModule } from '../shared/upload/upload.module';
 
 /**
  * This module handles all components that are necessary for Bitstream related pages
@@ -17,12 +19,14 @@ import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstr
     SharedModule,
     BitstreamPageRoutingModule,
     FormModule,
-    ResourcePoliciesModule
+    ResourcePoliciesModule,
+    UploadModule
   ],
   declarations: [
     BitstreamAuthorizationsComponent,
     EditBitstreamPageComponent,
     BitstreamDownloadPageComponent,
+    AnnotationUploadComponent
   ]
 })
 export class BitstreamPageModule {
