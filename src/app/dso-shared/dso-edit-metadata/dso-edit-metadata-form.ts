@@ -404,11 +404,16 @@ export class DsoEditMetadataForm {
           if (hasValue(value.change)) {
             if (value.change === DsoEditMetadataChangeType.UPDATE) {
               // Only changes to value or language are considered "replace" operations. Changes to place are considered "move", which is processed below.
-              if (value.originalValue.value !== value.newValue.value || value.originalValue.language !== value.newValue.language) {
-                replaceOperations.push(new MetadataPatchReplaceOperation(field, value.originalValue.place, {
-                  value: value.newValue.value,
-                  language: value.newValue.language,
-                }));
+              // If the changed values has zero length, change will be considered as a "remove" operation.
+              if (!value.newValue.value || !value.newValue.value.trim()) {
+                removeOperations.push(new MetadataPatchRemoveOperation(field, value.originalValue.place));
+              } else {
+                if (value.originalValue.value !== value.newValue.value || value.originalValue.language !== value.newValue.language) {
+                  replaceOperations.push(new MetadataPatchReplaceOperation(field, value.originalValue.place, {
+                    value: value.newValue.value,
+                    language: value.newValue.language,
+                  }));
+                }
               }
             } else if (value.change === DsoEditMetadataChangeType.REMOVE) {
               removeOperations.push(new MetadataPatchRemoveOperation(field, value.originalValue.place));
