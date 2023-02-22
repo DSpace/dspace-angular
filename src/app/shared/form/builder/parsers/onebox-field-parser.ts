@@ -68,8 +68,8 @@ export class OneboxFieldParser extends FieldParser {
       this.setOptions(selectModelConfig);
       if (isNotEmpty(fieldValue)) {
         selectModelConfig.value = fieldValue.metadata;
-        selectModelConfig.disabled = inputModelConfig.readOnly;
       }
+      selectModelConfig.disabled = inputModelConfig.readOnly;
       inputSelectGroup.group.push(new DynamicSelectModel(selectModelConfig, clsSelect));
 
       inputSelectGroup.readOnly = selectModelConfig.disabled && inputModelConfig.readOnly;
