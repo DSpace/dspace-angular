@@ -43,6 +43,7 @@ import {
 
 import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
 import { CollectionListElementComponent} from './app/shared/object-list/collection-list-element/collection-list-element.component';
+import { TopLevelCommunityListComponent } from './app/home-page/top-level-community-list/top-level-community-list.component';
 
 
 /**
@@ -55,9 +56,9 @@ const ENTRY_COMPONENTS = [
   JournalVolumeComponent,
   PublicationComponent,
   UntypedItemComponent,
-
   CommunityListElementComponent,
   CollectionListElementComponent,
+  TopLevelCommunityListComponent,
 ];
 
 const DECLARATIONS = [
