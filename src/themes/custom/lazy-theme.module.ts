@@ -130,6 +130,9 @@ import { ItemAlertsComponent } from './app/item-page/alerts/item-alerts.componen
 import {
   FullFileSectionComponent
 } from './app/item-page/full/field-components/file-section/full-file-section.component';
+import { MetadataRepresentationListComponent } from './app/item-page/simple/metadata-representation-list/metadata-representation-list.component';
+import { DsDynamicLookupRelationSearchTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
+import { DsDynamicLookupRelationExternalSourceTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -189,6 +192,9 @@ const DECLARATIONS = [
   DsoEditMetadataComponent,
   ItemAlertsComponent,
   FullFileSectionComponent,
+  MetadataRepresentationListComponent,
+  DsDynamicLookupRelationSearchTabComponent,
+  DsDynamicLookupRelationExternalSourceTabComponent,
 ];
 
 @NgModule({
