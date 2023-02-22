@@ -9,11 +9,13 @@ import { TopLevelCommunityListComponent } from './top-level-community-list/top-l
 import { StatisticsModule } from '../statistics/statistics.module';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
 import { ThemedHomePageComponent } from './themed-home-page.component';
+import { ThemedTopLevelCommunityListComponent } from './top-level-community-list/themed-top-level-community-list.component';
 
 const DECLARATIONS = [
   HomePageComponent,
   ThemedHomePageComponent,
   TopLevelCommunityListComponent,
+  ThemedTopLevelCommunityListComponent,
   ThemedHomeNewsComponent,
   HomeNewsComponent,
 ];
