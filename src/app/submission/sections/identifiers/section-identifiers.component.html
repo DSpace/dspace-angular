@@ -2,6 +2,7 @@
 Template for the identifiers submission section component
 @author Kim Shepherd
 -->
+<ds-themed-loading *ngIf="!getSectionStatus()" message="{{'loading.default' | translate}}" [showMessage]="true"></ds-themed-loading>
 <!-- Main identifier data -->
 <ng-container *ngVar="(getIdentifierData() | async) as identifierData">
   <ng-container *ngIf="identifierData && identifierData.identifiers">
