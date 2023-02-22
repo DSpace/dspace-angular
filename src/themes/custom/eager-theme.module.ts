@@ -46,6 +46,7 @@ import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-b
 import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
 import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
 import { FileDownloadLinkComponent } from './app/shared/file-download-link/file-download-link.component';
+import { TopLevelCommunityListComponent } from './app/home-page/top-level-community-list/top-level-community-list.component';
 
 
 /**
@@ -58,11 +59,11 @@ const ENTRY_COMPONENTS = [
   JournalVolumeComponent,
   PublicationComponent,
   UntypedItemComponent,
-
   CommunityListElementComponent,
   CollectionListElementComponent,
   CollectionDropdownComponent,
   FileDownloadLinkComponent,
+  TopLevelCommunityListComponent,
 ];
 
 const DECLARATIONS = [
