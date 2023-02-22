@@ -54,6 +54,9 @@ import { FileSectionComponent } from './simple/field-components/file-section/fil
 import { ItemSharedModule } from './item-shared.module';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 import { ThemedItemAlertsComponent } from './alerts/themed-item-alerts.component';
+import {
+  ThemedFullFileSectionComponent
+} from './full/field-components/file-section/themed-full-file-section.component';
 
 
 const ENTRY_COMPONENTS = [
@@ -77,6 +80,7 @@ const DECLARATIONS = [
   ItemPageFieldComponent,
   CollectionsComponent,
   FullFileSectionComponent,
+  ThemedFullFileSectionComponent,
   PublicationComponent,
   UntypedItemComponent,
   ItemComponent,
