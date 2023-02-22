@@ -31,7 +31,7 @@ export class MetricLoaderComponent implements OnInit, OnDestroy {
 
   @Input() isListElement = false;
 
-  @Output() hide : EventEmitter<boolean> = new EventEmitter();
+  @Output() hide: EventEmitter<boolean> = new EventEmitter();
 
   public componentType: any;
 
