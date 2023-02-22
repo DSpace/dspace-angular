@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -15,8 +16,9 @@ import {
 import { Bundle } from '../../../core/shared/bundle.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap, take } from 'rxjs/operators';
-import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { expand, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
@@ -28,38 +30,52 @@ import { Bitstream } from '../../../core/shared/bitstream.model';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
-import { Observable, of as observableOf, zip as observableZip } from 'rxjs';
+import { Observable, of as observableOf, Subscription, zip as observableZip } from 'rxjs';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
+import { environment } from '../../../../environments/environment';
+import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { HttpXsrfTokenExtractor } from '@angular/common/http';
+import { XSRF_REQUEST_HEADER } from '../../../core/xsrf/xsrf.interceptor';
 
 @Component({
   selector: 'ds-iiif-annotation-upload',
   styleUrls: ['./annotation-upload.component.scss'],
   templateUrl: './annotation-upload.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
-export class AnnotationUploadComponent implements OnInit {
+export class AnnotationUploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   BUNDLE_NAME = "ANNOTATIONS";
+
+  BITSTREAM_LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
+    followLink('bundle', {},
+      followLink('item', {},
+        followLink('bundles', {},
+          followLink('bitstreams'))))
+  ];
 
   /**
    * The file uploader component
    */
   @ViewChild(UploaderComponent) uploaderComponent: UploaderComponent;
 
-  bitstream: Bitstream;
-
   @Input() itemId: string;
 
-  bitstreamRD$: Observable<RemoteData<Bitstream>>;
+  /**
+   * The dc.title for the new annotation file.
+   */
+  annotationFileTitle: string;
+
+  @Input() bitstreamId: string;
 
   annotationBundle: Bundle;
 
-  showUploader: boolean;
+  showUploader = true;
 
   annotationBitstream: Bitstream;
 
@@ -67,7 +83,16 @@ export class AnnotationUploadComponent implements OnInit {
 
   itemDSO: Item;
 
-  showSave = false;
+  showSave;
+
+  activeStatus = false;
+
+  discardTimeOut = environment.item.edit.undoTimeout;
+
+  /**
+   * List of subscriptions
+   */
+  subs: Subscription[] = [];
 
   /**
    * The uploader configuration options
@@ -99,97 +124,172 @@ export class AnnotationUploadComponent implements OnInit {
               protected changeDetector: ChangeDetectorRef,
 
               protected notificationsService: NotificationsService,
-              private objectUpdatesService: ObjectUpdatesService,) {}
+              private objectUpdatesService: ObjectUpdatesService,
+
+              private translateService: TranslateService,
+              private tokenExtractor: HttpXsrfTokenExtractor ) {}
 
   ngOnInit(): void {
-    // TODO test by removing followLink cache param for item
-    // TODO this way, or bring the RD observable in from the parent component?
-    // TODO look into destroying subscriptions...
-    this.bitstreamRD$ = this.route.data.pipe(map((data) =>  {
+
+    const bitstreamRD$ = this.route.data.pipe(map((data) =>  {
+      this.annotationFileTitle = data.bitstream.payload.id + ".json";
       return data.bitstream
     }));
-    this.bitstreamRD$.pipe(
+
+    const itemRD$ = bitstreamRD$.pipe(
       getFirstSucceededRemoteData(),
-      getRemoteDataPayload()
-    ).subscribe((bitstream: Bitstream) => {
-          bitstream.bundle.pipe(
-            getFirstCompletedRemoteData(),
-            getRemoteDataPayload(),
-            switchMap((bundle: Bundle) => {
-              return bundle.item.pipe(
-                getFirstCompletedRemoteData()
-              )
-            })
-          ).subscribe(
-            (item: RemoteData<Item>) => {
-              this.itemDSO = item.payload;
-              item.payload.bundles.pipe(
-                getFirstCompletedRemoteData()
-              ).subscribe((bundles: RemoteData<PaginatedList<Bundle>>) => {
-                this.checkForExistingAnnotationBundle(bundles.payload, item.payload);
-                this.setUploadUrl();
-                this.changeDetector.detectChanges();
-                }
-              );
-            }
-          )
-    });
+      getRemoteDataPayload(),
+      switchMap((bitstream: Bitstream) => bitstream.bundle.pipe(
+        getFirstCompletedRemoteData(),
+        getRemoteDataPayload(),
+        switchMap((bundle: Bundle) => bundle.item.pipe(
+          getFirstCompletedRemoteData()))))
+    );
+
+    const bundlesRD$ = itemRD$.pipe(
+      switchMap((item: RemoteData<Item>) => {
+        this.itemDSO = item.payload;
+        return item.payload.bundles;
+      })
+    );
+
+    this.subs.push(bundlesRD$.pipe(
+      getFirstCompletedRemoteData(),
+    ).subscribe((bundles: RemoteData<PaginatedList<Bundle>>) => {
+     if (hasNoValue(this.annotationBundle)) {
+       this.checkForExistingAnnotationBundle(bundles.payload, this.itemDSO);
+     }
+    }));
+
   }
 
+  ngAfterViewInit(): void {
+    this.changeDetector.detectChanges();
+  }
+
+  /**
+   * Looks for an existing annotations bundle. Creates the bundle if
+   * it does not exist already. If the annotations bundle exists, calls
+   * a function  to check for an existing file in the annotations bundle.
+   * @param bundles
+   * @param item
+   */
   checkForExistingAnnotationBundle(bundles: PaginatedList<Bundle>, item: Item): void {
     const matchingBundle = bundles.page.find((bundle: Bundle) =>
       bundle.name === this.BUNDLE_NAME);
-    if (!hasValue(matchingBundle)) {
-      this.createAnnotationBundle(item);
-      // show uploader
-      this.showUploader = true;
-    } else {
-      // Use the existing annotations bundle and check for files
+    if (hasValue(matchingBundle)) {
+      // use the existing bundle
       this.annotationBundle = matchingBundle;
+      this.setUploadUrl();
+      // now check for files in the annotations bundle
       this.checkForExistingAnnotationFile(matchingBundle);
+    } else if (hasNoValue(this.annotationBundle)) {
+      // create the annotations bundle
+      this.createAnnotationBundle(item);
+
     }
+
   }
 
-  checkForExistingAnnotationFile(bundle: Bundle) {
-    bundle.bitstreams.pipe(
+  /**
+   * Checks for matching file in the existing annotations bundle. If found,
+   * hides the uploader component and sets the annotation file name and bitstream
+   * dso to the found object.
+   * @param annotationsBundle bundle
+   */
+  checkForExistingAnnotationFile(annotationsBundle: Bundle) {
+
+    this.subs.push(annotationsBundle.bitstreams.pipe(
       getFirstCompletedRemoteData())
       .subscribe((bitstreams: RemoteData<PaginatedList<Bitstream>>) => {
         // If there are no files in the bundle show the uploader.
         if (bitstreams.payload.pageInfo.totalElements === 0) {
           this.showUploader = true;
-          console.log('show')
         } else {
-          this.annotationBitstream = bitstreams.payload.page.shift();
-          this.showUploader = false;
-          this.annotationFileName = this.annotationBitstream.metadata['dc.title'][0].value;
+          this.checkForExistingAnnotation(annotationsBundle)
+            .subscribe((bitstream: Bitstream) => {
+              this.annotationFileName = bitstream.metadata['dc.title'][0].value
+              this.annotationBitstream = bitstream;
+              this.showUploader = false;
+              // this.setUploadUrl();
+              this.changeDetector.detectChanges();
+            });
         }
-        this.changeDetector.detectChanges();
-      });
+
+      }));
   }
 
+  checkForExistingAnnotation(bundle: Bundle) : Observable<Bitstream>{
+    return bundle.bitstreams.pipe(
+      getFirstCompletedRemoteData(),
+    getRemoteDataPayload(),
+    expand((paginatedList: PaginatedList<Bitstream>) => {
+        if (hasNoValue(paginatedList.next)) {
+          // If there's no next page, stop.
+          return EMPTY;
+        } else {
+          // Otherwise retrieve the next page
+          return this.bitstreamService.findListByHref(
+            paginatedList.next,
+            {},
+            true,
+            true,
+          ).pipe(
+            getFirstCompletedRemoteData(),
+            getRemoteDataPayload(),
+            map((next: PaginatedList<Bitstream>) => {
+              if (hasValue(next)) {
+                return next;
+              } else {
+                return EMPTY;
+              }
+            })
+          )
+        }
+      }),
+      switchMap((paginatedList: PaginatedList<Bitstream>) => {
+        if (hasValue(paginatedList.page)) {
+          return paginatedList.page
+        }
+      }),
+      //tap((bitstream: Bitstream) => console.log(bitstream)),
+      filter((bitstream: Bitstream) => bitstream.metadata['dc.title'][0].value === this.annotationFileTitle),
+      //tap((bitstream: Bitstream) => console.log('found bitstream in annotation bundle')),
+      take(1)
+    );
+  };
+
   createAnnotationBundle(item: Item) {
-    this.itemService.createBundle(item.id, this.BUNDLE_NAME).pipe(
+    this.subs.push(this.itemService.createBundle(item.id, this.BUNDLE_NAME).pipe(
       getFirstSucceededRemoteDataPayload()
     ).subscribe((bundle: Bundle) => {
       this.annotationBundle = bundle;
-    });
+      // bundle is now created so set the uploader url headers
+      this.uploaderComponent.uploader.options.headers = [
+        {name: 'authorization', value: this.authService.buildAuthHeader()},
+        { name: XSRF_REQUEST_HEADER, value: this.tokenExtractor.getToken() }
+      ];
+      this.setUploadUrl();
+    }));
   }
 
   /**
    * Set the upload url to match the selected bundle ID
    */
   setUploadUrl() {
-    this.bundleService.getBitstreamsEndpoint(this.annotationBundle.id).pipe(take(1)).subscribe((href: string) => {
+
+    this.subs.push(this.bundleService.getBitstreamsEndpoint(this.annotationBundle.id).pipe(take(1)).subscribe((href: string) => {
       this.uploadFilesOptions.url = href;
       if (isEmpty(this.uploadFilesOptions.authToken)) {
         this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
       }
+
       // Re-initialize the uploader component to ensure the latest changes to the options are applied
       if (this.uploaderComponent) {
         this.uploaderComponent.ngOnInit();
         this.uploaderComponent.ngAfterViewInit();
       }
-    });
+    }));
   }
 
   /**
@@ -197,8 +297,8 @@ export class AnnotationUploadComponent implements OnInit {
    * @param bitstream
    */
   public onCompleteItem(bitstream: Bitstream) {
-    bitstream.metadata['dc.title'][0].value = bitstream.id + ".json";
-    this.bitstreamService.update(bitstream).pipe(
+    bitstream.metadata['dc.title'][0].value = this.annotationFileTitle;
+    this.subs.push(this.bitstreamService.update(bitstream).pipe(
       getFirstSucceededRemoteDataPayload()
     ).subscribe(() => {
       this.bitstreamService.commitUpdates();
@@ -207,12 +307,12 @@ export class AnnotationUploadComponent implements OnInit {
       this.showSave = false;
       this.showUploader = false;
       this.changeDetector.detectChanges();
-    });
+    }));
 
     // TODO is this needed?
-    this.bundleService.getBitstreamsEndpoint(this.annotationBundle.id).pipe(take(1)).subscribe((href: string) => {
-      this.requestService.removeByHrefSubstring(href);
-    });
+    // this.bundleService.getBitstreamsEndpoint(this.annotationBundle.id).pipe(take(1)).subscribe((href: string) => {
+    //   this.requestService.removeByHrefSubstring(href);
+    // });
   }
 
   /**
@@ -249,22 +349,38 @@ export class AnnotationUploadComponent implements OnInit {
         }
       })
     );
-    removedResponses$.pipe(take(1)).subscribe((responses: RemoteData<NoContent>[]) => {
+    this.subs.push(removedResponses$.pipe(take(1)).subscribe((responses: RemoteData<NoContent>[]) => {
       this.checkForExistingAnnotationFile(this.annotationBundle);
       this.showSave = false;
       this.showUploader = true;
       this.changeDetector.detectChanges();
-    });
+    }));
 
 
   }
   /**
-   * Sends a new remove update for to the object updates service
+   * Sends a new remove update for to the object updates service to remove the
+   * annotation file from the bundle.
    */
   remove(): void {
     this.objectUpdatesService.saveRemoveFieldUpdate(this.annotationBundle._links.self.href, this.annotationBitstream);
     this.showSave = true;
+    this.activeStatus = true;
     this.changeDetector.detectChanges();
+  }
+
+  onCancel() {
+    // this.translateService.instant(this.notificationsPrefix + key + '.title');
+    // this.translateService.instant(this.notificationsPrefix + key + '.content');
+    const undoNotification = this.notificationsService.info('discard change', 'removed discard', {timeOut: this.discardTimeOut});
+    this.objectUpdatesService.discardAllFieldUpdates(this.annotationBundle._links.self.href, undoNotification);
+    this.showSave = false;
+    this.activeStatus = false;
+    this.changeDetector.detectChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
 }

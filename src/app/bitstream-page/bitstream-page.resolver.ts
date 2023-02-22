@@ -13,7 +13,7 @@ import { getFirstCompletedRemoteData } from '../core/shared/operators';
  */
  export const BITSTREAM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
   followLink('bundle', {},
-    followLink('item', {useCachedVersionIfAvailable: false},
+    followLink('item', {},
       followLink('bundles', {},
         followLink('bitstreams')))),
   followLink('format')
