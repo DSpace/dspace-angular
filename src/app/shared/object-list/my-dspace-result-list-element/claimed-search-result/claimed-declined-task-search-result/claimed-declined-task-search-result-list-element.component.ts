@@ -4,7 +4,6 @@ import { ClaimedDeclinedTaskTaskSearchResult } from 'src/app/shared/object-colle
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
-import { MyDspaceItemStatusType } from '../../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
@@ -30,11 +29,6 @@ export class ClaimedDeclinedTaskSearchResultListElementComponent extends SearchR
    * A boolean representing if to show submitter information
    */
   public showSubmitter = true;
-
-  /**
-   * Represent item's status
-   */
-  public status = MyDspaceItemStatusType.DECLINED_TASk;
 
   /**
    * The workflowitem object that belonging to the result object
