@@ -58,8 +58,8 @@ services:
     - |
       while (!</dev/tcp/dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
       /dspace/bin/dspace database migrate
-      catalina.sh jpda run
-  # DSpace database container    
+      custom_run.sh
+  # DSpace database container
   dspacedb:
     restart: unless-stopped
     container_name: dspacedb
@@ -75,7 +75,7 @@ services:
     tty: true
     volumes:
     - pgdata:/pgdata
-  # DSpace Solr container  
+  # DSpace Solr container
   dspacesolr:
     restart: unless-stopped
     container_name: dspacesolr
