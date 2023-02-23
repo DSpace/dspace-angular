@@ -5,7 +5,6 @@ import {
   Component,
   Input,
   OnDestroy,
-  OnInit,
   ViewChild
 } from '@angular/core';
 import {
@@ -16,13 +15,13 @@ import {
 import { Bundle } from '../../../core/shared/bundle.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { expand, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { expand, filter, map, switchMap, take } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
-import { AuthService } from '../../../core/auth/auth.service';;
+import { AuthService } from '../../../core/auth/auth.service';
 import { RequestService } from '../../../core/data/request.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -48,9 +47,9 @@ import { XSRF_REQUEST_HEADER } from '../../../core/xsrf/xsrf.interceptor';
   templateUrl: './annotation-upload.component.html',
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class AnnotationUploadComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
 
-  BUNDLE_NAME = "ANNOTATIONS";
+  BUNDLE_NAME = 'ANNOTATIONS';
 
   BITSTREAM_LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
     followLink('bundle', {},
@@ -129,11 +128,11 @@ export class AnnotationUploadComponent implements OnInit, AfterViewInit, OnDestr
               private translateService: TranslateService,
               private tokenExtractor: HttpXsrfTokenExtractor ) {}
 
-  ngOnInit(): void {
 
+  ngAfterViewInit(): void {
     const bitstreamRD$ = this.route.data.pipe(map((data) =>  {
-      this.annotationFileTitle = data.bitstream.payload.id + ".json";
-      return data.bitstream
+      this.annotationFileTitle = data.bitstream.payload.id + '.json';
+      return data.bitstream;
     }));
 
     const itemRD$ = bitstreamRD$.pipe(
@@ -152,18 +151,13 @@ export class AnnotationUploadComponent implements OnInit, AfterViewInit, OnDestr
         return item.payload.bundles;
       })
     );
-
     this.subs.push(bundlesRD$.pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((bundles: RemoteData<PaginatedList<Bundle>>) => {
-     if (hasNoValue(this.annotationBundle)) {
-       this.checkForExistingAnnotationBundle(bundles.payload, this.itemDSO);
-     }
+      if (hasNoValue(this.annotationBundle)) {
+        this.checkForExistingAnnotationBundle(bundles.payload, this.itemDSO);
+      }
     }));
-
-  }
-
-  ngAfterViewInit(): void {
     this.changeDetector.detectChanges();
   }
 
@@ -186,7 +180,6 @@ export class AnnotationUploadComponent implements OnInit, AfterViewInit, OnDestr
     } else if (hasNoValue(this.annotationBundle)) {
       // create the annotations bundle
       this.createAnnotationBundle(item);
-
     }
 
   }
@@ -208,7 +201,7 @@ export class AnnotationUploadComponent implements OnInit, AfterViewInit, OnDestr
         } else {
           this.checkForExistingAnnotation(annotationsBundle)
             .subscribe((bitstream: Bitstream) => {
-              this.annotationFileName = bitstream.metadata['dc.title'][0].value
+              this.annotationFileName = bitstream.metadata['dc.title'][0].value;
               this.annotationBitstream = bitstream;
               this.showUploader = false;
               // this.setUploadUrl();
@@ -219,7 +212,7 @@ export class AnnotationUploadComponent implements OnInit, AfterViewInit, OnDestr
       }));
   }
 
-  checkForExistingAnnotation(bundle: Bundle) : Observable<Bitstream>{
+  checkForExistingAnnotation(bundle: Bundle): Observable<Bitstream> {
     return bundle.bitstreams.pipe(
       getFirstCompletedRemoteData(),
     getRemoteDataPayload(),
@@ -249,7 +242,7 @@ export class AnnotationUploadComponent implements OnInit, AfterViewInit, OnDestr
       }),
       switchMap((paginatedList: PaginatedList<Bitstream>) => {
         if (hasValue(paginatedList.page)) {
-          return paginatedList.page
+          return paginatedList.page;
         }
       }),
       //tap((bitstream: Bitstream) => console.log(bitstream)),
@@ -257,9 +250,10 @@ export class AnnotationUploadComponent implements OnInit, AfterViewInit, OnDestr
       //tap((bitstream: Bitstream) => console.log('found bitstream in annotation bundle')),
       take(1)
     );
-  };
+  }
 
   createAnnotationBundle(item: Item) {
+
     this.subs.push(this.itemService.createBundle(item.id, this.BUNDLE_NAME).pipe(
       getFirstSucceededRemoteDataPayload()
     ).subscribe((bundle: Bundle) => {
@@ -272,6 +266,7 @@ export class AnnotationUploadComponent implements OnInit, AfterViewInit, OnDestr
       this.setUploadUrl();
     }));
   }
+
 
   /**
    * Set the upload url to match the selected bundle ID
@@ -308,11 +303,10 @@ export class AnnotationUploadComponent implements OnInit, AfterViewInit, OnDestr
       this.showUploader = false;
       this.changeDetector.detectChanges();
     }));
-
-    // TODO is this needed?
-    // this.bundleService.getBitstreamsEndpoint(this.annotationBundle.id).pipe(take(1)).subscribe((href: string) => {
-    //   this.requestService.removeByHrefSubstring(href);
-    // });
+    // assures that the annotations file list is updated in edit item view
+    this.bundleService.getBitstreamsEndpoint(this.annotationBundle.id).pipe(take(1)).subscribe((href: string) => {
+      this.requestService.removeByHrefSubstring(href);
+    });
   }
 
   /**
@@ -327,7 +321,7 @@ export class AnnotationUploadComponent implements OnInit, AfterViewInit, OnDestr
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
       map((bundleList: PaginatedList<Bundle>) => {
-        return bundleList.page
+        return bundleList.page;
       }),
       switchMap((bundles: Bundle[]) => observableZip(
         ...bundles.map((bundle: Bundle) => this.objectUpdatesService.getFieldUpdates(bundle.self, [], true))
@@ -350,7 +344,9 @@ export class AnnotationUploadComponent implements OnInit, AfterViewInit, OnDestr
       })
     );
     this.subs.push(removedResponses$.pipe(take(1)).subscribe((responses: RemoteData<NoContent>[]) => {
+      // TODO this shouldn't be necessary?
       this.checkForExistingAnnotationFile(this.annotationBundle);
+
       this.showSave = false;
       this.showUploader = true;
       this.changeDetector.detectChanges();
