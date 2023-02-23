@@ -44,6 +44,9 @@ import { CollectionListElementComponent} from './app/shared/object-list/collecti
 import { CollectionDropdownComponent } from './app/shared/collection-dropdown/collection-dropdown.component';
 import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
 import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
+import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
+import { FileDownloadLinkComponent } from './app/shared/file-download-link/file-download-link.component';
+import { TopLevelCommunityListComponent } from './app/home-page/top-level-community-list/top-level-community-list.component';
 
 
 /**
@@ -56,10 +59,11 @@ const ENTRY_COMPONENTS = [
   JournalVolumeComponent,
   PublicationComponent,
   UntypedItemComponent,
-
   CommunityListElementComponent,
   CollectionListElementComponent,
   CollectionDropdownComponent,
+  FileDownloadLinkComponent,
+  TopLevelCommunityListComponent,
 ];
 
 const DECLARATIONS = [
@@ -79,20 +83,21 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SharedModule,
-        RootModule,
-        NavbarModule,
-        SharedBrowseByModule,
-        ResultsBackButtonModule,
-        ItemPageModule,
-        ItemSharedModule,
-    ],
-    declarations: DECLARATIONS,
-    providers: [
-        ...ENTRY_COMPONENTS.map((component) => ({provide: component}))
-    ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    RootModule,
+    NavbarModule,
+    SharedBrowseByModule,
+    ResultsBackButtonModule,
+    ItemPageModule,
+    ItemSharedModule,
+    DsoPageModule,
+  ],
+  declarations: DECLARATIONS,
+  providers: [
+    ...ENTRY_COMPONENTS.map((component) => ({provide: component}))
+  ],
 })
 /**
  * This module is included in the main bundle that gets downloaded at first page load. So it should

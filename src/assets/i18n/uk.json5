@@ -5225,7 +5225,7 @@
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
   "submission.sections.upload.header.policy.default.withlist": "Зверніть увагу, що завантажені файли в {{collectionName}} зібрання будуть доступні, для користувачів, що входять у групу(и):",
 
-  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "Тут ви знайдете всі файли, які зараз містяться в документі. Ви можете оновити метадані файлу та умови доступу або <strong>завантажити додаткові файли, просто перетягнувши їх сюди на сторінці</strong>",
 
   // "submission.sections.upload.no-entry": "No",

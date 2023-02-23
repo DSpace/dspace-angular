@@ -84,8 +84,9 @@ import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 import {
   PlainTextMetadataListElementComponent
 } from './object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
-import { BrowseLinkMetadataListElementComponent }
-  from './object-list/metadata-representation-list-element/browse-link/browse-link-metadata-list-element.component';
+import {
+  BrowseLinkMetadataListElementComponent
+} from './object-list/metadata-representation-list-element/browse-link/browse-link-metadata-list-element.component';
 import {
   ItemMetadataListElementComponent
 } from './object-list/metadata-representation-list-element/item/item-metadata-list-element.component';
@@ -102,19 +103,19 @@ import {
   CreateCommunityParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
 import {
-    ThemedCreateCommunityParentSelectorComponent
+  ThemedCreateCommunityParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
 import {
   CreateItemParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import {
-    ThemedCreateItemParentSelectorComponent
+  ThemedCreateItemParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
 import {
   CreateCollectionParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 import {
-    ThemedCreateCollectionParentSelectorComponent
+  ThemedCreateCollectionParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
 import {
   CommunitySearchResultListElementComponent
@@ -126,19 +127,19 @@ import {
   EditItemSelectorComponent
 } from './dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import {
-    ThemedEditItemSelectorComponent
+  ThemedEditItemSelectorComponent
 } from './dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
 import {
   EditCommunitySelectorComponent
 } from './dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import {
-    ThemedEditCommunitySelectorComponent
+  ThemedEditCommunitySelectorComponent
 } from './dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
 import {
   EditCollectionSelectorComponent
 } from './dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 import {
-    ThemedEditCollectionSelectorComponent
+  ThemedEditCollectionSelectorComponent
 } from './dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
 import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
@@ -199,6 +200,7 @@ import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/swi
 import { ImpersonateNavbarComponent } from './impersonate-navbar/impersonate-navbar.component';
 import { NgForTrackByIdDirective } from './ng-for-track-by-id.directive';
 import { FileDownloadLinkComponent } from './file-download-link/file-download-link.component';
+import { ThemedFileDownloadLinkComponent } from './file-download-link/themed-file-download-link.component';
 import { CollectionDropdownComponent } from './collection-dropdown/collection-dropdown.component';
 import { EntityDropdownComponent } from './entity-dropdown/entity-dropdown.component';
 import { CurationFormComponent } from '../curation-form/curation-form.component';
@@ -215,9 +217,11 @@ import {
   CommunitySidebarSearchListElementComponent
 } from './object-list/sidebar-search-list-element/community/community-sidebar-search-list-element.component';
 import {
+  BundleListElementComponent
+} from './object-list/bundle-list-element/bundle-list-element.component';
+import {
   AuthorizedCollectionSelectorComponent
 } from './dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
-import { DsoPageEditButtonComponent } from './dso-page/dso-page-edit-button/dso-page-edit-button.component';
 import { HoverClassDirective } from './hover-class.directive';
 import {
   ValidationSuggestionsComponent
@@ -257,6 +261,23 @@ import { ThemedMyDSpaceStatusBadgeComponent } from './object-collection/shared/b
 import { ThemedAccessStatusBadgeComponent } from './object-collection/shared/badges/access-status-badge/themed-access-status-badge.component';
 import { MyDSpaceStatusBadgeComponent } from './object-collection/shared/badges/my-dspace-status-badge/my-dspace-status-badge.component';
 
+import { ShortNumberPipe } from './utils/short-number.pipe';
+import {
+  LogInExternalProviderComponent
+} from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
+import {
+  AdvancedClaimedTaskActionSelectReviewerComponent
+} from './mydspace-actions/claimed-task/select-reviewer/advanced-claimed-task-action-select-reviewer.component';
+import {
+  AdvancedClaimedTaskActionRatingComponent
+} from './mydspace-actions/claimed-task/rating/advanced-claimed-task-action-rating.component';
+import { ClaimedTaskActionsDeclineTaskComponent } from './mydspace-actions/claimed-task/decline-task/claimed-task-actions-decline-task.component';
+import {
+  DsoPageSubscriptionButtonComponent
+} from './dso-page/dso-page-subscription-button/dso-page-subscription-button.component';
+import { EpersonGroupListComponent } from './eperson-group-list/eperson-group-list.component';
+import { EpersonSearchBoxComponent } from './eperson-group-list/eperson-search-box/eperson-search-box.component';
+import { GroupSearchBoxComponent } from './eperson-group-list/group-search-box/group-search-box.component';
 
 const MODULES = [
   CommonModule,
@@ -295,6 +316,7 @@ const PIPES = [
   ObjNgFor,
   BrowserOnlyPipe,
   MarkdownPipe,
+  ShortNumberPipe
 ];
 
 const COMPONENTS = [
@@ -364,13 +386,17 @@ const COMPONENTS = [
   ItemPageTitleFieldComponent,
   ThemedSearchNavbarComponent,
   ListableNotificationObjectComponent,
-  DsoPageEditButtonComponent,
+  DsoPageSubscriptionButtonComponent,
   MetadataFieldWrapperComponent,
   ContextHelpWrapperComponent,
+  EpersonGroupListComponent,
+  EpersonSearchBoxComponent,
+  GroupSearchBoxComponent
 ];
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
+  BundleListElementComponent,
   CollectionListElementComponent,
   CommunityListElementComponent,
   SearchResultListElementComponent,
@@ -408,9 +434,11 @@ const ENTRY_COMPONENTS = [
   ItemMetadataRepresentationListElementComponent,
   LogInPasswordComponent,
   LogInExternalProviderComponent,
+  ClaimedTaskActionsDeclineTaskComponent,
   CollectionDropdownComponent,
   ThemedCollectionDropdownComponent,
   FileDownloadLinkComponent,
+  ThemedFileDownloadLinkComponent,
   CurationFormComponent,
   ExportMetadataSelectorComponent,
   ImportBatchSelectorComponent,
@@ -422,6 +450,11 @@ const ENTRY_COMPONENTS = [
   CommunitySidebarSearchListElementComponent,
   ScopeSelectorModalComponent,
   ListableNotificationObjectComponent,
+  AdvancedClaimedTaskActionSelectReviewerComponent,
+  AdvancedClaimedTaskActionRatingComponent,
+  EpersonGroupListComponent,
+  EpersonSearchBoxComponent,
+  GroupSearchBoxComponent
 ];
 
 const PROVIDERS = [
@@ -443,7 +476,6 @@ const DIRECTIVES = [
   ClaimedTaskActionsDirective,
   FileValueAccessorDirective,
   FileValidator,
-  ClaimedTaskActionsDirective,
   NgForTrackByIdDirective,
   MetadataFieldValidator,
   HoverClassDirective,

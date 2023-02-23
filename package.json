@@ -1,6 +1,6 @@
 {
   "name": "dspace-angular",
-  "version": "7.5.0-next",
+  "version": "7.6.0-next",
   "scripts": {
     "ng": "ng",
     "config:watch": "nodemon",
@@ -99,6 +99,7 @@
     "fast-json-patch": "^3.0.0-1",
     "filesize": "^6.1.0",
     "http-proxy-middleware": "^1.0.5",
+    "isbot": "^3.6.5",
     "js-cookie": "2.2.1",
     "js-yaml": "^4.1.0",
     "json5": "^2.2.2",
@@ -106,6 +107,7 @@
     "jwt-decode": "^3.1.2",
     "klaro": "^0.7.18",
     "lodash": "^4.17.21",
+    "lru-cache": "^7.14.1",
     "markdown-it": "^13.0.1",
     "markdown-it-mathjax3": "^4.3.1",
     "mirador": "^3.3.0",

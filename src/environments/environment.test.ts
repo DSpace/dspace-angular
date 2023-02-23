@@ -55,6 +55,20 @@ export const environment: BuildConfig = {
       defaultTime: 0,
       maxBufferSize: 100,
       timePerMethod: { [RestRequestMethod.PATCH]: 3 } as any // time in seconds
+    },
+    // In-memory cache of server-side rendered pages. Disabled in test environment (max=0)
+    serverSide: {
+      debug: false,
+      botCache: {
+        max: 0,
+        timeToLive: 24 * 60 * 60 * 1000, // 1 day
+        allowStale: true,
+      },
+      anonymousCache: {
+        max: 0,
+        timeToLive: 10 * 1000, // 10 seconds
+        allowStale: true,
+      }
     }
   },
 

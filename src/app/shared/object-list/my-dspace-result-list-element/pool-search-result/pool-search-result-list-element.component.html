@@ -2,7 +2,9 @@
   <ds-themed-item-list-preview [item]="item$.value"
                                [object]="object"
                                [showSubmitter]="showSubmitter"
-                               [context]="childContext"></ds-themed-item-list-preview>
+                               [context]="childContext"
+                               [workflowItem]="workflowitem$.value"
+                               [status]="status"></ds-themed-item-list-preview>
   <div class="row">
     <div [ngClass]="showThumbnails ? 'offset-3 offset-md-2 pl-3' : ''">
       <ds-pool-task-actions id="actions"
