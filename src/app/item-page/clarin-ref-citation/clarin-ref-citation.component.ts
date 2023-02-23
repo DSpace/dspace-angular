@@ -131,7 +131,7 @@ export class ClarinRefCitationComponent implements OnInit {
     authorText = authorMetadata[0]?.value;
     // There are more authors for the item
     if (authorMetadata.length > 1) {
-      authorText = '; ' + ET_AL_TEXT;
+      authorText = authorText + '; ' + ET_AL_TEXT;
     }
 
     return authorText;

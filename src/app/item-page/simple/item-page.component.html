@@ -1,4 +1,5 @@
-<div class="container" *ngVar="(itemRD$ | async) as itemRD">
+<div class="container clarin-shadow remove-padding clarin-home-page-borders clarin-cut-bottom-2 clarin-cut-top-1 pb-2"
+     *ngVar="(itemRD$ | async) as itemRD">
   <div class="item-page" *ngIf="itemRD?.hasSucceeded && itemRD?.payload as item" @fadeInOut>
     <div *ngIf="!(isAdmin$ | async)?.valueOf() && (withdrawnTombstone || replacedTombstone)">
       <ds-tombstone [item]="item"></ds-tombstone>
@@ -7,9 +8,9 @@
       <ds-item-alerts [item]="item"></ds-item-alerts>
       <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
       <ds-view-tracker [object]="item"></ds-view-tracker>
-      <ds-listable-object-component-loader *ngIf="!item.isWithdrawn || (isAdmin$|async)" [object]="item" [viewMode]="viewMode"></ds-listable-object-component-loader>
-      <ds-item-versions class="mt-2" [item]="item" [displayActions]="false"></ds-item-versions>
-      <ds-clarin-license-info class="mt-2" [item]="item"></ds-clarin-license-info>
+      <ds-listable-object-component-loader [object]="item" [viewMode]="viewMode" class="d-block mb-4"></ds-listable-object-component-loader>
+      <ds-item-versions [item]="item" [displayActions]="false"></ds-item-versions>
+      <ds-clarin-license-info class="mt-3 d-block" [item]="item"></ds-clarin-license-info>
     </div>
   </div>
   <ds-error *ngIf="itemRD?.hasFailed" message="{{'error.item' | translate}}"></ds-error>

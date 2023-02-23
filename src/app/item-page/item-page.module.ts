@@ -54,6 +54,9 @@ import { ClarinRefCitationModalComponent } from './clarin-ref-citation-modal/cla
 import { ClarinMatomoStatisticsComponent } from './clarin-matomo-statistics/clarin-matomo-statistics.component';
 import { ClarinStatisticsButtonComponent } from './clarin-statistics-button/clarin-statistics-button.component';
 import { ChartsModule } from 'ng2-charts';
+import { ClarinGenericItemFieldComponent } from './simple/field-components/clarin-generic-item-field/clarin-generic-item-field.component';
+import { ClarinCollectionsItemFieldComponent } from './simple/field-components/clarin-collections-item-field/clarin-collections-item-field.component';
+import { ClarinFilesItemFieldComponent } from './simple/field-components/clarin-files-item-field/clarin-files-item-field.component';
 
 
 const ENTRY_COMPONENTS = [
@@ -95,6 +98,15 @@ const DECLARATIONS = [
   ReplacedTombstoneComponent,
   WithdrawnTombstoneComponent,
   ClarinLicenseInfoComponent,
+  ClarinRefBoxComponent,
+  ClarinRefCitationComponent,
+  ClarinRefFeaturedServicesComponent,
+  ClarinRefCitationModalComponent,
+  ClarinMatomoStatisticsComponent,
+  ClarinStatisticsButtonComponent,
+  ClarinGenericItemFieldComponent,
+  ClarinCollectionsItemFieldComponent,
+  ClarinFilesItemFieldComponent
 ];
 
 @NgModule({
@@ -113,13 +125,7 @@ const DECLARATIONS = [
   ],
   declarations: [
     ...DECLARATIONS,
-    VersionedItemComponent,
-    ClarinRefBoxComponent,
-    ClarinRefCitationComponent,
-    ClarinRefFeaturedServicesComponent,
-    ClarinRefCitationModalComponent,
-    ClarinMatomoStatisticsComponent,
-    ClarinStatisticsButtonComponent,
+    VersionedItemComponent
   ],
     exports: [
         ...DECLARATIONS

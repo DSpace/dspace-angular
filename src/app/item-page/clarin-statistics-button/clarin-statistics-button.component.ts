@@ -35,7 +35,7 @@ export class ClarinStatisticsButtonComponent implements OnInit {
   constructor(protected authorizationService: AuthorizationDataService) { }
 
   ngOnInit() {
-    this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanViewUsageStatistics, this.dso.self);
+    this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanEditMetadata, this.dso.self);
   }
 
 }
