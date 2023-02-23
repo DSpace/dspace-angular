@@ -1,0 +1,16 @@
+<div class="row clarin-item-page-field" *ngIf="hasMetadataValue()">
+  <div class="col-md-2 d-flex">
+    <div><i [class]="'fas ' + iconName + ' fa-xs'"></i></div>
+    <div class="pl-1"><b>{{label | translate}}</b></div>
+  </div>
+  <div class="col-md-10">
+    <div>
+      <span class="dont-break-out" *ngFor="let mdValue of item?.allMetadata(fields); let last=last;">
+        <a *ngIf="type === 'hyperlink'" [href]="mdValue.value">{{mdValue.value}}</a>
+        <span *ngIf="type == null">
+          {{mdValue.value}}<span *ngIf="!last" [innerHTML]="separator"></span>
+        </span>
+      </span>
+    </div>
+  </div>
+</div>

@@ -2233,6 +2233,18 @@
   "item.search.title": "Item Search",
 
 
+  "item.page.project-url": "Project URL",
+
+  "item.page.referenced-by": "Referenced by",
+
+  "item.page.type": "Type",
+
+  "item.page.size-info": "Size",
+
+  "item.page.language": "Language(s)",
+
+  "item.page.sponsor": "Acknowledgement",
+
 
   "item.page.abstract": "Abstract",
 
@@ -2266,7 +2278,7 @@
 
   "item.page.journal.search.title": "Articles in this journal",
 
-  "item.page.link.full": "Full item page",
+  "item.page.link.full": "Show full item record",
 
   "item.page.link.simple": "Simple item page",
 
@@ -2284,9 +2296,9 @@
 
   "item.page.relationships.isOrgUnitOfProject": "Research Projects",
 
-  "item.page.subject": "Keywords",
+  "item.page.subject": "Subject(s)",
 
-  "item.page.uri": "URI",
+  "item.page.uri": "Item identifier",
 
   "item.page.bitstreams.view-more": "Show more",
 
