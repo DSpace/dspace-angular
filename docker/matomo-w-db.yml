@@ -16,7 +16,7 @@ services:
     image: phpmyadmin/phpmyadmin
     ports:
       - 8148:80
-    container_name: phpAdmin
+    container_name: matomo_phpAdmin
     restart: always
     links:
       - "db:db"
