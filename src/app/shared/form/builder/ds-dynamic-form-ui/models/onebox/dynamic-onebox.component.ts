@@ -226,6 +226,9 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    * @param event The click event fired
    */
   openTree(event) {
+    if (this.model.readOnly) {
+      return;
+    }
     event.preventDefault();
     event.stopImmediatePropagation();
     this.subs.push(this.vocabulary$.pipe(
