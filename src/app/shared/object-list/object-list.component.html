@@ -12,6 +12,13 @@
         (sortFieldChange)="onSortFieldChange($event)"
         (paginationChange)="onPaginationChange($event)">
     <ul *ngIf="objects?.hasSucceeded" class="list-unstyled" [ngClass]="{'ml-4': selectable}">
+      <div *ngIf="config.id === 'spc'">
+        <ds-clarin-item-box-view
+          *ngFor="let object of objects?.payload?.page; let i = index; let last = last"
+          [object]="object">
+        </ds-clarin-item-box-view>
+      </div>
+      <div *ngIf="config.id !== 'spc'">
         <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4 d-flex" [class.border-bottom]="hasBorder && !last">
           <ds-selectable-list-item-control *ngIf="selectable" [index]="i"
                                            [object]="object"
@@ -26,5 +33,6 @@
                                                (contentChange)="contentChange.emit()"
           ></ds-listable-object-component-loader>
         </li>
+      </div>
     </ul>
 </ds-pagination>
