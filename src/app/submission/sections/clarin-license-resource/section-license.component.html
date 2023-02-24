@@ -43,7 +43,7 @@
     </div>
     <div class="col-md-12">
       <div class="form-group">
-        <select [(ngModel)]="selectedLicenseFromOptionId" (change)="selectLicense()"
+        <select #licenseSelection [(ngModel)]="selectedLicenseFromOptionId" (change)="selectLicense()"
                 id="aspect_submission_StepTransformer_field_license"
                 class="form-control" name="license" tabindex="-1" title="">
           <option [value]="'0'" selected="selected">
