@@ -25,6 +25,8 @@ import { BundleDataService } from '../../core/data/bundle-data.service';
 import { Bundle } from '../../core/shared/bundle.model';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { LicenseType } from '../../item-page/clarin-license-info/clarin-license-info.component';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';
 
 /**
  * Show item on the Home/Search page in the customized box with Item's information.
@@ -39,7 +41,9 @@ export class ClarinItemBoxViewComponent implements OnInit {
   /**
    * Show information of this item.
    */
-  @Input() item$: Item = null;
+  @Input() object: Item|ListableObject = null;
+
+  item: Item = null;
 
   /**
    * UI URL loaded from the server.
@@ -110,11 +114,19 @@ export class ClarinItemBoxViewComponent implements OnInit {
               private sanitizer: DomSanitizer) { }
 
   async ngOnInit(): Promise<void> {
+    if (this.object instanceof Item) {
+      this.item = this.object;
+    } else if (this.object instanceof ItemSearchResult) {
+      this.item = this.object.indexableObject;
+    } else {
+      return;
+    }
+
     // Load Items metadata
-    this.itemType = this.item$?.metadata?.['dc.type']?.[0]?.value;
-    this.itemName = this.item$?.metadata?.['dc.title']?.[0]?.value;
-    this.itemUri = this.item$?.metadata?.['dc.identifier.uri']?.[0]?.value;
-    this.itemDescription = this.item$?.metadata?.['dc.description']?.[0]?.value;
+    this.itemType = this.item?.metadata?.['dc.type']?.[0]?.value;
+    this.itemName = this.item?.metadata?.['dc.title']?.[0]?.value;
+    this.itemUri = this.item?.metadata?.['dc.identifier.uri']?.[0]?.value;
+    this.itemDescription = this.item?.metadata?.['dc.description']?.[0]?.value;
 
     await this.assignBaseUrl();
     this.getItemCommunity();
@@ -124,14 +136,14 @@ export class ClarinItemBoxViewComponent implements OnInit {
   }
 
   private loadItemAuthors() {
-    if (isNull(this.item$)) {
+    if (isNull(this.item)) {
       return;
     }
 
-    let authorsMV: MetadataValue[] = this.item$?.metadata?.['dc.contributor.author'];
+    let authorsMV: MetadataValue[] = this.item?.metadata?.['dc.contributor.author'];
     // Harvested Items has authors in the metadata field `dc.creator`.
     if (isUndefined(authorsMV)) {
-      authorsMV = this.item$?.metadata?.['dc.creator'];
+      authorsMV = this.item?.metadata?.['dc.creator'];
     }
 
     if (isUndefined(authorsMV)) {
@@ -150,10 +162,10 @@ export class ClarinItemBoxViewComponent implements OnInit {
   }
 
   private getItemFilesSize() {
-    if (isNull(this.item$)) {
+    if (isNull(this.item)) {
       return;
     }
-    this.bundleService.findByItemAndName(this.item$, 'ORIGINAL', true, true, followLink('bitstreams'))
+    this.bundleService.findByItemAndName(this.item, 'ORIGINAL', true, true, followLink('bitstreams'))
       .pipe(getFirstSucceededRemoteDataPayload())
       .subscribe((bundle: Bundle) => {
         bundle.bitstreams
@@ -170,10 +182,10 @@ export class ClarinItemBoxViewComponent implements OnInit {
   }
 
   private getItemCommunity() {
-    if (isNull(this.item$)) {
+    if (isNull(this.item)) {
       return;
     }
-    this.collectionService.findByHref(this.item$?._links?.owningCollection?.href, true, true, followLink('parentCommunity'))
+    this.collectionService.findByHref(this.item?._links?.owningCollection?.href, true, true, followLink('parentCommunity'))
       .pipe(getFirstSucceededRemoteDataPayload())
       .subscribe((collection: Collection) => {
         collection.parentCommunity
@@ -201,8 +213,8 @@ export class ClarinItemBoxViewComponent implements OnInit {
 
   private loadItemLicense() {
     // load license info from item attributes
-    this.licenseLabel = this.item$?.metadata?.['dc.rights.label']?.[0]?.value;
-    this.license = this.item$?.metadata?.['dc.rights']?.[0]?.value;
+    this.licenseLabel = this.item?.metadata?.['dc.rights.label']?.[0]?.value;
+    this.license = this.item?.metadata?.['dc.rights']?.[0]?.value;
     switch (this.licenseLabel) {
       case LicenseType.public:
         this.licenseType = 'Publicly Available';

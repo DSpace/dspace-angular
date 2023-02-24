@@ -91,7 +91,7 @@
         <div class="recent-submissions-head">{{'home-page.whats-new.message' | translate}}</div>
         <ds-clarin-item-box-view
           *ngFor="let newItem of (newItems$ | async)"
-          [item$]="newItem"></ds-clarin-item-box-view>
+          [object]="newItem"></ds-clarin-item-box-view>
       </div>
     </div>
   </div>
@@ -102,7 +102,7 @@
         <div class="top-items-head">{{'home-page.new-items.message' | translate}}</div>
         <ds-clarin-item-box-view
           *ngFor="let topItem of (topItems$ | async)"
-            [item$]="topItem"></ds-clarin-item-box-view>
+          [object]="topItem"></ds-clarin-item-box-view>
       </div>
     </div>
   </div>

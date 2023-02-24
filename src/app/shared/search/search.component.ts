@@ -248,11 +248,6 @@ export class SearchComponent implements OnInit {
   subs: Subscription[] = [];
 
   /**
-   * Items which will be showed in the Clarin Item Box.
-   */
-  items4ClarinBox: BehaviorSubject<Item[]> = new BehaviorSubject<Item[]>([]);
-
-  /**
    * Emits an event with the current search result entries
    */
   @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter<SearchObjects<DSpaceObject>>();
@@ -376,7 +371,6 @@ export class SearchComponent implements OnInit {
    */
   public changeViewMode() {
     this.resultsRD$.next(null);
-    this.items4ClarinBox.next([]);
   }
 
   /**
@@ -427,11 +421,10 @@ export class SearchComponent implements OnInit {
   /**
    * Retrieve search result by the given search options
    * @param searchOptions
-   * @private
+   * @protected
    */
-  private retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
+  protected retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
     this.resultsRD$.next(null);
-    this.items4ClarinBox.next([]);
     this.service.search(
       searchOptions,
       undefined,
@@ -449,7 +442,6 @@ export class SearchComponent implements OnInit {
           }
         }
         this.resultsRD$.next(results);
-        this.processResultsForClarinItemBox(results);
       });
   }
 
@@ -494,24 +486,18 @@ export class SearchComponent implements OnInit {
    * Check if the sidebar is collapsed
    * @returns {Observable<boolean>} emits true if the sidebar is currently collapsed, false if it is expanded
    */
-  private isSidebarCollapsed(): Observable<boolean> {
+  protected isSidebarCollapsed(): Observable<boolean> {
     return this.sidebarService.isCollapsed;
   }
 
   /**
    * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  private getSearchLink(): string {
+  protected getSearchLink(): string {
     if (this.inPlaceSearch) {
       return currentPath(this.router);
     }
     return this.service.getSearchLink();
-  }
-
-  processResultsForClarinItemBox(results: RemoteData<SearchObjects<DSpaceObject>>) {
-    results?.payload?.page?.forEach((itemSearchResults: ItemSearchResult) => {
-      this.items4ClarinBox.value.push(itemSearchResults?.indexableObject);
-    });
   }
 
 }
