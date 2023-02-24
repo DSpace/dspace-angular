@@ -42,17 +42,6 @@ export class EditItemMode extends CacheableObject {
   label: string;
 
   /**
-   * Security level of this EditItem Mode
-   * Allowed value are:
-   *  1 = Admin
-   *  2 = Owner
-   *  3 = Admin+Owner
-   *  4 = Custom
-   */
-  @autoserialize
-  security: number;
-
-  /**
    * Name of the Submission Definition used
    * for this EditItem mode
    */
