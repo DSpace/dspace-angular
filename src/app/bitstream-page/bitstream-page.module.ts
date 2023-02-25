@@ -9,6 +9,7 @@ import { ResourcePoliciesModule } from '../shared/resource-policies/resource-pol
 import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
 import { AnnotationUploadComponent } from './edit-bitstream-page/annotation-upload/annotation-upload.component';
 import { UploadModule } from '../shared/upload/upload.module';
+import { AnnotationComponent } from './edit-bitstream-page/annotation/annotation.component';
 
 /**
  * This module handles all components that are necessary for Bitstream related pages
@@ -26,6 +27,7 @@ import { UploadModule } from '../shared/upload/upload.module';
     BitstreamAuthorizationsComponent,
     EditBitstreamPageComponent,
     BitstreamDownloadPageComponent,
+    AnnotationComponent,
     AnnotationUploadComponent
   ]
 })

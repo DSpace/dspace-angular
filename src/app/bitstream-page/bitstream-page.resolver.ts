@@ -14,8 +14,8 @@ import { getFirstCompletedRemoteData } from '../core/shared/operators';
  export const BITSTREAM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
   followLink('bundle', {},
     followLink('item', {},
-      followLink('bundles', {},
-        followLink('bitstreams')))),
+      followLink('bundles', {useCachedVersionIfAvailable: false},
+        followLink('bitstreams', )))),
   followLink('format')
 ];
 
@@ -35,7 +35,7 @@ export class BitstreamPageResolver implements Resolve<RemoteData<Bitstream>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Bitstream>> {
-    return this.bitstreamService.findById(route.params.id, true, false, ...this.followLinks)
+    return this.bitstreamService.findById(route.params.id, true, true, ...this.followLinks)
       .pipe(
         getFirstCompletedRemoteData(),
       );

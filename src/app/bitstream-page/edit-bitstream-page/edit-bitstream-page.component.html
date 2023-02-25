@@ -12,11 +12,11 @@
             </div>
           </div>
         </div>
-        <div *ngIf="isIIIF">
+        <ng-container *ngIf="isIIIF">
           <div class="container mt-5">
-            <ds-iiif-annotation-upload [bitstreamId]="bitstream.id"></ds-iiif-annotation-upload>
+            <ds-iiif-annotation></ds-iiif-annotation>
           </div>
-        </div>
+        </ng-container>
         <ds-form *ngIf="formGroup" [formId]="'edit-bitstream-form-id'"
                   [formGroup]="formGroup"
                   [formModel]="formModel"

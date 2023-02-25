@@ -1,33 +1,62 @@
 <div class="container bundle-row p-4">
-  <span class="col-form-label-lg">IIIF Canvas Annotation File</span>
-  <div *ngIf="showUploader">
-    <ds-uploader  class="w-100"
-                  [dropMsg]="'item.bitstreams.upload.drop-message'"
-                  [dropOverDocumentMsg]="'item.bitstreams.upload.drop-message'"
-                  [enableDragOverDocument]="true"
-                  [uploadFilesOptions]="uploadFilesOptions"
-                  (onCompleteItem)="onCompleteItem($event)"
-                  (onUploadError)="onUploadError()"></ds-uploader>
+  <div class="row">
+    <div class="col">
+      <span class="col-form-label-lg">IIIF Image Annotation File</span>
+    </div>
   </div>
-  <div  *ngIf="!showUploader" >
-    <div [ngClass]="activeStatus ? 'table-danger' : 'bg-white'" class="row pt-2 pb-2">
-      <div class="col-11">
-        <span class="col-form-label-sm">{{annotationFileName}}</span>
+    <div *ngIf="showUploaderComponent">
+      <div class="row">
+        <div class="col">
+          <span class="small">Upload an image annotation file.</span>
+        </div>
       </div>
-      <div class="col-1">
-        <button (click)="remove()"
-                class="btn btn-outline-danger btn-sm"
-                title="{{'item.edit.bitstreams.edit.buttons.remove' | translate}}">
-          <i class="fas fa-trash-alt fa-fw"></i>
-        </button>
+      <div class="row">
+      <div class="col">
+        <ds-uploader class="w-100"
+                     [dropMsg]="'item.bitstreams.upload.drop-message'"
+                     [dropOverDocumentMsg]="'item.bitstreams.upload.drop-message'"
+                     [enableDragOverDocument]="true"
+                     [uploadFilesOptions]="uploadFilesOptions"
+                     (onCompleteItem)="onCompleteItem($event)"
+                     (onUploadError)="onUploadError()">
+
+        </ds-uploader>
       </div>
     </div>
-    <div class="row mt-3" *ngIf="showSave">
-      <div class="col pl-3 mt-2">
-        <button class="btn btn-primary float-right" (click)="saveChange()">Delete Now</button>
-        <button class="btn btn-danger float-right mr-2" (click)="onCancel()">Discard Change</button>
-
+    </div>
+  <div *ngIf="!showUploaderComponent">
+    <div class="row">
+      <div class="col">
+        <span class="small">Download or delete the existing image annotation file.</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col ">
+        <div [ngClass]="activeDeleteStatus ? 'table-danger' : 'bg-white'" class="row pt-3 pb-3 border">
+          <div class="col-11">
+            <a href="{{bitstreamDownload}}"><span class="col-form-label-sm">{{annotationFileTitle}}</span></a>
+          </div>
+          <div class="col-1">
+            <button type="button" (click)="remove()"
+                    class="btn btn-outline-danger btn-sm"
+                    title="{{'item.edit.bitstreams.edit.buttons.remove' | translate}}">
+              <i class="fas fa-trash-alt fa-fw"></i>
+            </button>
+          </div>
+        </div>
+        <div class="row mt-3" *ngIf="activeDeleteStatus">
+          <div class="col pl-3 mt-2">
+            <button type="button" class="btn btn-primary float-right" (click)="saveChange()">Delete Now</button>
+            <button type="button" class="btn btn-danger float-right mr-2" (click)="onCancel()">Discard Change</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col pt-3">
+            <span><small><strong>You should see the annotations for this image in the Mirador viewer.</strong></small></span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
