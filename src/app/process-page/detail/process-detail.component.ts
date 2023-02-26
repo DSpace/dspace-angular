@@ -12,15 +12,20 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import {
-  getFirstSucceededRemoteDataPayload,
-  redirectOn4xx,
-  getFirstSucceededRemoteData
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload
 } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { AlertType } from '../../shared/alert/aletr-type';
 import { hasValue } from '../../shared/empty.util';
 import { ProcessStatus } from '../processes/process-status.model';
 import { Process } from '../processes/process.model';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { getProcessListRoute } from '../process-page-routing.paths';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-process-detail',
@@ -71,6 +76,11 @@ export class ProcessDetailComponent implements OnInit {
    */
   dateFormat = 'yyyy-MM-dd HH:mm:ss ZZZZ';
 
+  /**
+   * Reference to NgbModal
+   */
+  protected modalRef: NgbModalRef;
+
   constructor(protected route: ActivatedRoute,
               protected router: Router,
               protected processService: ProcessDataService,
@@ -78,7 +88,11 @@ export class ProcessDetailComponent implements OnInit {
               protected nameService: DSONameService,
               private zone: NgZone,
               protected authService: AuthService,
-              protected http: HttpClient) {
+              protected http: HttpClient,
+              protected modalService: NgbModal,
+              protected notificationsService: NotificationsService,
+              protected translateService: TranslateService
+  ) {
   }
 
   /**
@@ -114,7 +128,6 @@ export class ProcessDetailComponent implements OnInit {
    * Sets the outputLogs when retrieved and sets the showOutputLogs boolean to show them and hide the button.
    */
   showProcessOutputLogs() {
-    console.log('showProcessOutputLogs');
     this.retrievingOutputLogs$.next(true);
     this.zone.runOutsideAngular(() => {
       const processOutputRD$: Observable<RemoteData<Bitstream>> = this.processRD$.pipe(
@@ -170,6 +183,38 @@ export class ProcessDetailComponent implements OnInit {
     return (hasValue(process) && hasValue(process.processStatus) &&
       (process.processStatus.toString() === ProcessStatus[ProcessStatus.COMPLETED].toString()
         || process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()));
+  }
+
+  /**
+   * Delete the current process
+   * @param process
+   */
+  deleteProcess(process: Process) {
+    this.processService.delete(process.processId).pipe(
+      getFirstCompletedRemoteData()
+    ).subscribe((rd) => {
+      if (rd.hasSucceeded) {
+        this.notificationsService.success(this.translateService.get('process.detail.delete.success'));
+        this.closeModal();
+        this.router.navigateByUrl(getProcessListRoute());
+      } else {
+        this.notificationsService.error(this.translateService.get('process.detail.delete.error'));
+      }
+    });
+  }
+
+  /**
+   * Open a given modal.
+   * @param content   - the modal content.
+   */
+  openDeleteModal(content) {
+    this.modalRef = this.modalService.open(content);
+  }
+  /**
+   * Close the modal.
+   */
+  closeModal() {
+    this.modalRef.close();
   }
 
 }

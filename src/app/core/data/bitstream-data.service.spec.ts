@@ -12,6 +12,9 @@ import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
+import { testSearchDataImplementation } from './base/search-data.spec';
+import { testPatchDataImplementation } from './base/patch-data.spec';
+import { testDeleteDataImplementation } from './base/delete-data.spec';
 
 describe('BitstreamDataService', () => {
   let service: BitstreamDataService;
@@ -47,7 +50,14 @@ describe('BitstreamDataService', () => {
     });
     rdbService = getMockRemoteDataBuildService();
 
-    service = new BitstreamDataService(requestService, rdbService, null, objectCache, halService, null, null, null, null, bitstreamFormatService);
+    service = new BitstreamDataService(requestService, rdbService, objectCache, halService, null, bitstreamFormatService, null, null);
+  });
+
+  describe('composition', () => {
+    const initService = () => new BitstreamDataService(null, null, null, null, null, null, null, null);
+    testSearchDataImplementation(initService);
+    testPatchDataImplementation(initService);
+    testDeleteDataImplementation(initService);
   });
 
   describe('when updating the bitstream\'s format', () => {

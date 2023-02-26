@@ -69,7 +69,7 @@ describe('ExistingRelationListElementComponent', () => {
       providers: [
         { provide: SelectableListService, useValue: selectionService },
         { provide: Store, useValue: store },
-        { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: SubmissionService, useClass: SubmissionServiceStub }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

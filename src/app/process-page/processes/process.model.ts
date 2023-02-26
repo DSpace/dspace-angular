@@ -2,7 +2,6 @@ import { Bitstream } from '../../core/shared/bitstream.model';
 import { PROCESS_OUTPUT_TYPE } from '../../core/shared/process-output.resource-type';
 import { ProcessStatus } from './process-status.model';
 import { ProcessParameter } from './process-parameter.model';
-import { CacheableObject } from '../../core/cache/object-cache.reducer';
 import { HALLink } from '../../core/shared/hal-link.model';
 import { autoserialize, deserialize } from 'cerialize';
 import { PROCESS } from './process.resource-type';
@@ -13,6 +12,7 @@ import { Observable } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { SCRIPT } from '../scripts/script.resource-type';
 import { Script } from '../scripts/script.model';
+import { CacheableObject } from '../../core/cache/cacheable-object.model';
 
 /**
  * Object representing a process

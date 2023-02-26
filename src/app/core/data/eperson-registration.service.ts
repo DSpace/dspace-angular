@@ -3,21 +3,22 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { GetRequest, PostRequest } from './request.models';
 import { Observable } from 'rxjs';
-import { filter, find, map, skipWhile } from 'rxjs/operators';
+import { filter, find, map } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { Registration } from '../shared/registration.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../shared/operators';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 import { ResponseParsingService } from './parsing.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { RegistrationResponseParsingService } from './registration-response-parsing.service';
 import { RemoteData } from './remote-data';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { HttpHeaders } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 
-@Injectable(
-  {
-    providedIn: 'root',
-  }
-)
+@Injectable({
+  providedIn: 'root',
+})
 /**
  * Service that will register a new email address and request a token
  */
@@ -53,8 +54,9 @@ export class EpersonRegistrationService {
   /**
    * Register a new email address
    * @param email
+   * @param captchaToken the value of x-recaptcha-token header
    */
-  registerEmail(email: string): Observable<RemoteData<Registration>> {
+  registerEmail(email: string, captchaToken: string = null, type?: string): Observable<RemoteData<Registration>> {
     const registration = new Registration();
     registration.email = email;
 
@@ -62,10 +64,22 @@ export class EpersonRegistrationService {
 
     const href$ = this.getRegistrationEndpoint();
 
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    if (captchaToken) {
+      headers = headers.append('x-recaptcha-token', captchaToken);
+    }
+    options.headers = headers;
+
+    if (hasValue(type)) {
+      options.params = type ?
+        new HttpParams({ fromString: 'accountRequestType=' + type }) : new HttpParams();
+    }
+
     href$.pipe(
       find((href: string) => hasValue(href)),
       map((href: string) => {
-        const request = new PostRequest(requestId, href, registration);
+        const request = new PostRequest(requestId, href, registration, options);
         this.requestService.send(request);
       })
     ).subscribe();
@@ -79,7 +93,7 @@ export class EpersonRegistrationService {
    * Search a registration based on the provided token
    * @param token
    */
-  searchByToken(token: string): Observable<Registration> {
+  searchByToken(token: string): Observable<RemoteData<Registration>> {
     const requestId = this.requestService.generateRequestId();
 
     const href$ = this.getTokenSearchEndpoint(token).pipe(
@@ -97,15 +111,14 @@ export class EpersonRegistrationService {
     });
 
     return this.rdbService.buildSingle<Registration>(href$).pipe(
-      skipWhile((rd: RemoteData<Registration>) => rd.isStale),
-      getFirstSucceededRemoteData(),
-      map((restResponse: RemoteData<Registration>) => {
-        return Object.assign(new Registration(), {
-          email: restResponse.payload.email, token: token, user: restResponse.payload.user
-        });
-      }),
+      map((rd) => {
+        if (rd.hasSucceeded && hasValue(rd.payload)) {
+          return Object.assign(rd, { payload: Object.assign(rd.payload, { token }) });
+        } else {
+          return rd;
+        }
+      })
     );
-
   }
 
 }

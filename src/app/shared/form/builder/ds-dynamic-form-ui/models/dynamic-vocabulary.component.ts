@@ -28,9 +28,9 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
   @Input() abstract group: FormGroup;
   @Input() abstract model: DsDynamicInputModel;
 
-  @Output() abstract blur: EventEmitter<any> = new EventEmitter<any>();
-  @Output() abstract change: EventEmitter<any> = new EventEmitter<any>();
-  @Output() abstract focus: EventEmitter<any> = new EventEmitter<any>();
+  @Output() abstract blur: EventEmitter<any>;
+  @Output() abstract change: EventEmitter<any>;
+  @Output() abstract focus: EventEmitter<any>;
 
   public abstract pageInfo: PageInfo;
 

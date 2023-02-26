@@ -4,12 +4,12 @@ import { Router } from '@angular/router';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { map, mergeMap, take } from 'rxjs/operators';
 
-import { EntityTypeService } from '../../../core/data/entity-type.service';
+import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { FindListOptions } from '../../../core/data/request.models';
 import { hasValue } from '../../../shared/empty.util';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 /**
  * This component represents the 'Import metadata from external source' dropdown menu
@@ -50,10 +50,10 @@ export class MyDSpaceNewExternalDropdownComponent implements OnInit, OnDestroy {
   /**
    * Initialize instance variables
    *
-   * @param {EntityTypeService} entityTypeService
+   * @param {EntityTypeDataService} entityTypeService
    * @param {Router} router
    */
-  constructor(private entityTypeService: EntityTypeService,
+  constructor(private entityTypeService: EntityTypeDataService,
               private router: Router) { }
 
   /**

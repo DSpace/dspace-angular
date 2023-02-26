@@ -16,6 +16,14 @@ import { CommunitySearchResult } from '../../../../../shared/object-collection/s
 import { Community } from '../../../../../core/shared/community.model';
 import { getCommunityEditRoute } from '../../../../../community-page/community-page-routing-paths';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
+import { AuthService } from '../../../../../core/auth/auth.service';
+import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
+import { FileService } from '../../../../../core/shared/file.service';
+import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
+import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 
 describe('CommunityAdminSearchResultGridElementComponent', () => {
   let component: CommunityAdminSearchResultGridElementComponent;
@@ -47,7 +55,11 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: BitstreamDataService, useValue: {} },
-        { provide: LinkService, useValue: linkService }
+        { provide: LinkService, useValue: linkService },
+        { provide: AuthService, useClass: AuthServiceStub },
+        { provide: FileService, useClass: FileServiceStub },
+        { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

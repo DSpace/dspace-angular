@@ -11,10 +11,11 @@ import { COMMUNITY } from './community.resource-type';
 import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
 import { ChildHALResource } from './child-hal-resource.model';
+import { HandleObject } from './handle-object.model';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
-export class Community extends DSpaceObject implements ChildHALResource {
+export class Community extends DSpaceObject implements ChildHALResource, HandleObject {
   static type = COMMUNITY;
 
   /**
