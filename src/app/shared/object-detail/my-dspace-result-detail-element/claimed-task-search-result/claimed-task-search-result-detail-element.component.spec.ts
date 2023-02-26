@@ -18,6 +18,8 @@ import { LinkService } from '../../../../core/cache/builders/link.service';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { By } from '@angular/platform-browser';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 
 let component: ClaimedTaskSearchResultDetailElementComponent;
 let fixture: ComponentFixture<ClaimedTaskSearchResultDetailElementComponent>;
@@ -71,6 +73,7 @@ describe('ClaimedTaskSearchResultDetailElementComponent', () => {
       imports: [NoopAnimationsModule],
       declarations: [ClaimedTaskSearchResultDetailElementComponent, VarDirective],
       providers: [
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: LinkService, useValue: linkService },
         { provide: ObjectCacheService, useValue: objectCacheServiceMock }
       ],

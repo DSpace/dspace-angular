@@ -2,7 +2,7 @@
   <ds-metadata-field-wrapper *ngIf="bitstreams?.length > 0" [label]="label | translate">
     <div class="file-section">
       <ds-file-download-link *ngFor="let file of bitstreams; let last=last;" [bitstream]="file" [item]="item">
-        <span>{{file?.name}}</span>
+        <span>{{ dsoNameService.getName(file) }}</span>
         <span>({{(file?.sizeBytes) | dsFileSize }})</span>
         <span *ngIf="!last" innerHTML="{{separator}}"></span>
       </ds-file-download-link>

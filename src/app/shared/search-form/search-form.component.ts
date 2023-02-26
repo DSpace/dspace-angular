@@ -12,6 +12,7 @@ import { take } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component renders a simple item page.
@@ -79,7 +80,8 @@ export class SearchFormComponent implements OnInit {
               private paginationService: PaginationService,
               private searchConfig: SearchConfigurationService,
               private modalService: NgbModal,
-              private dsoService: DSpaceObjectDataService
+              private dsoService: DSpaceObjectDataService,
+              public dsoNameService: DSONameService,
   ) {
   }
 

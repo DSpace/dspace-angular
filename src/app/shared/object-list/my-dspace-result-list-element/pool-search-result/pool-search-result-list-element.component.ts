@@ -70,7 +70,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
   constructor(
     protected linkService: LinkService,
     protected truncatableService: TruncatableService,
-    protected dsoNameService: DSONameService,
+    public dsoNameService: DSONameService,
     protected objectCache: ObjectCacheService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {

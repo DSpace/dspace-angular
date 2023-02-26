@@ -14,6 +14,7 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { WorkspaceItemSearchResult } from '../../../object-collection/shared/workspace-item-search-result.model';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component renders workspace item object for the search result in the detail view.
@@ -38,9 +39,10 @@ export class WorkspaceItemSearchResultDetailElementComponent extends SearchResul
   status = MyDspaceItemStatusType.WORKSPACE;
 
   constructor(
+    public dsoNameService: DSONameService,
     protected linkService: LinkService
   ) {
-    super();
+    super(dsoNameService);
   }
 
   /**

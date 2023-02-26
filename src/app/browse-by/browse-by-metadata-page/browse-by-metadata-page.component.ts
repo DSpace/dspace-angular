@@ -17,6 +17,7 @@ import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -117,7 +118,9 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
                      protected dsoService: DSpaceObjectDataService,
                      protected paginationService: PaginationService,
                      protected router: Router,
-                     @Inject(APP_CONFIG) public appConfig: AppConfig) {
+                     @Inject(APP_CONFIG) public appConfig: AppConfig,
+                     public dsoNameService: DSONameService,
+  ) {
 
     this.fetchThumbnails = this.appConfig.browseBy.showThumbnails;
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {

@@ -19,6 +19,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { isNotEmpty } from '../../../empty.util';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component renders claimed task object for the search result in the detail view.
@@ -52,8 +53,12 @@ export class ClaimedTaskSearchResultDetailElementComponent extends SearchResultD
    */
   public workflowitem$: BehaviorSubject<WorkflowItem> = new BehaviorSubject<WorkflowItem>(null);
 
-  constructor(protected linkService: LinkService, protected objectCache: ObjectCacheService) {
-    super();
+  constructor(
+    public dsoNameService: DSONameService,
+    protected linkService: LinkService,
+    protected objectCache: ObjectCacheService,
+  ) {
+    super(dsoNameService);
   }
 
   /**

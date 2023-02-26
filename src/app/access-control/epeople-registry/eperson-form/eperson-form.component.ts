@@ -36,6 +36,7 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 import { Registration } from '../../../core/shared/registration.model';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-eperson-form',
@@ -182,6 +183,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     private paginationService: PaginationService,
     public requestService: RequestService,
     private epersonRegistrationService: EpersonRegistrationService,
+    public dsoNameService: DSONameService,
   ) {
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
       this.epersonInitial = eperson;
@@ -200,14 +202,14 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   initialisePage() {
 
-    observableCombineLatest(
+    observableCombineLatest([
       this.translateService.get(`${this.messagePrefix}.firstName`),
       this.translateService.get(`${this.messagePrefix}.lastName`),
       this.translateService.get(`${this.messagePrefix}.email`),
       this.translateService.get(`${this.messagePrefix}.canLogIn`),
       this.translateService.get(`${this.messagePrefix}.requireCertificate`),
       this.translateService.get(`${this.messagePrefix}.emailHint`),
-    ).subscribe(([firstName, lastName, email, canLogIn, requireCertificate, emailHint]) => {
+    ]).subscribe(([firstName, lastName, email, canLogIn, requireCertificate, emailHint]) => {
       this.firstName = new DynamicInputModel({
         id: 'firstName',
         label: firstName,
@@ -374,10 +376,10 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       getFirstCompletedRemoteData()
     ).subscribe((rd: RemoteData<EPerson>) => {
       if (rd.hasSucceeded) {
-        this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.created.success', { name: ePersonToCreate.name }));
+        this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.created.success', { name: this.dsoNameService.getName(ePersonToCreate) }));
         this.submitForm.emit(ePersonToCreate);
       } else {
-        this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.created.failure', { name: ePersonToCreate.name }));
+        this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.created.failure', { name: this.dsoNameService.getName(ePersonToCreate) }));
         this.cancelForm.emit();
       }
     });
@@ -413,10 +415,10 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     const response = this.epersonService.updateEPerson(editedEperson);
     response.pipe(getFirstCompletedRemoteData()).subscribe((rd: RemoteData<EPerson>) => {
       if (rd.hasSucceeded) {
-        this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.edited.success', { name: editedEperson.name }));
+        this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.edited.success', { name: this.dsoNameService.getName(editedEperson) }));
         this.submitForm.emit(editedEperson);
       } else {
-        this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.edited.failure', { name: editedEperson.name }));
+        this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.edited.failure', { name: this.dsoNameService.getName(editedEperson) }));
         this.cancelForm.emit();
       }
     });
@@ -464,7 +466,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
           if (hasValue(eperson.id)) {
             this.epersonService.deleteEPerson(eperson).pipe(getFirstCompletedRemoteData()).subscribe((restResponse: RemoteData<NoContent>) => {
               if (restResponse.hasSucceeded) {
-                this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { name: eperson.name }));
+                this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { name: this.dsoNameService.getName(eperson) }));
                 this.submitForm.emit();
               } else {
                 this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + eperson.id + ' with code: ' + restResponse.statusCode + ' and message: ' + restResponse.errorMessage);
@@ -542,7 +544,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       .subscribe((list: PaginatedList<EPerson>) => {
         if (list.totalElements > 0) {
           this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.' + notificationSection + '.failure.emailInUse', {
-            name: ePerson.name,
+            name: this.dsoNameService.getName(ePerson),
             email: ePerson.email
           }));
         }

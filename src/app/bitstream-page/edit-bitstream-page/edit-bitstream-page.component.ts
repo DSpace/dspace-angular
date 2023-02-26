@@ -395,7 +395,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
               private formService: DynamicFormService,
               private translate: TranslateService,
               private bitstreamService: BitstreamDataService,
-              private dsoNameService: DSONameService,
+              public dsoNameService: DSONameService,
               private notificationsService: NotificationsService,
               private bitstreamFormatService: BitstreamFormatDataService) {
   }

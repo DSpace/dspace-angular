@@ -29,6 +29,7 @@ import { CollectionDropdownComponent } from '../../../shared/collection-dropdown
 import { SectionsService } from '../../sections/sections.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { SectionsType } from '../../sections/sections-type';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component allows to show the current collection the submission belonging to and to change it.
@@ -105,22 +106,14 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   available$: Observable<boolean>;
 
-  /**
-   * Initialize instance variables
-   *
-   * @param {ChangeDetectorRef} cdr
-   * @param {CollectionDataService} collectionDataService
-   * @param {JsonPatchOperationsBuilder} operationsBuilder
-   * @param {SubmissionJsonPatchOperationsService} operationsService
-   * @param {SubmissionService} submissionService
-   * @param {SectionsService} sectionsService
-   */
   constructor(protected cdr: ChangeDetectorRef,
               private collectionDataService: CollectionDataService,
               private operationsBuilder: JsonPatchOperationsBuilder,
               private operationsService: SubmissionJsonPatchOperationsService,
               private submissionService: SubmissionService,
-              private sectionsService: SectionsService) {
+              private sectionsService: SectionsService,
+              public dsoNameService: DSONameService,
+  ) {
   }
 
   /**
@@ -133,7 +126,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
 
       this.selectedCollectionName$ = this.collectionDataService.findById(this.currentCollectionId).pipe(
         find((collectionRD: RemoteData<Collection>) => isNotEmpty(collectionRD.payload)),
-        map((collectionRD: RemoteData<Collection>) => collectionRD.payload.name)
+        map((collectionRD: RemoteData<Collection>) => this.dsoNameService.getName(collectionRD.payload))
       );
     }
   }
@@ -175,7 +168,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
         })
       ).subscribe((submissionObject: SubmissionObject) => {
         this.selectedCollectionId = event.collection.id;
-        this.selectedCollectionName$ = observableOf(event.collection.name);
+        this.selectedCollectionName$ = observableOf(this.dsoNameService.getName(event.collection));
         this.collectionChange.emit(submissionObject);
         this.submissionService.changeSubmissionCollection(this.submissionId, event.collection.id);
         this.processingChange$.next(false);

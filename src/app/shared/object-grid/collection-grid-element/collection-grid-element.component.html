@@ -8,7 +8,7 @@
     </ds-thumbnail>
   </span>
   <div class="card-body">
-    <h4 class="card-title">{{object.name}}</h4>
+    <h4 class="card-title">{{ dsoNameService.getName(object) }}</h4>
     <p *ngIf="object.shortDescription" class="card-text">{{object.shortDescription}}</p>
     <div *ngIf="linkType != linkTypes.None" class="text-center">
       <a [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="['/collections/', object.id]" class="lead btn btn-primary viewButton">{{ 'search.results.view-result' | translate}}</a>

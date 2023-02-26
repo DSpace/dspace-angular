@@ -49,7 +49,7 @@ export class ItemListPreviewComponent implements OnInit {
 
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    private dsoNameService: DSONameService,
+    public dsoNameService: DSONameService,
   ) {
   }
 

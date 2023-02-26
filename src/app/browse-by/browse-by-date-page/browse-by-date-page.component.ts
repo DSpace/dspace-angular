@@ -17,6 +17,7 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { isValidDate } from '../../shared/date.util';
 import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-browse-by-date-page',
@@ -41,8 +42,10 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
                      protected router: Router,
                      protected paginationService: PaginationService,
                      protected cdRef: ChangeDetectorRef,
-                     @Inject(APP_CONFIG) public appConfig: AppConfig) {
-    super(route, browseService, dsoService, paginationService, router, appConfig);
+                     @Inject(APP_CONFIG) public appConfig: AppConfig,
+                     public dsoNameService: DSONameService,
+  ) {
+    super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService);
   }
 
   ngOnInit(): void {

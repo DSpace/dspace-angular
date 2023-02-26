@@ -36,6 +36,8 @@ import { NotificationsServiceStub } from '../../../shared/testing/notifications-
 import { Operation } from 'fast-json-patch';
 import { ValidateGroupExists } from './validators/group-exists.validator';
 import { NoContent } from '../../../core/shared/NoContent.model';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 
 describe('GroupFormComponent', () => {
   let component: GroupFormComponent;
@@ -188,7 +190,7 @@ describe('GroupFormComponent', () => {
     translateService = getMockTranslateService();
     router = new RouterMock();
     notificationService = new NotificationsServiceStub();
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
           loader: {
@@ -198,7 +200,8 @@ describe('GroupFormComponent', () => {
         }),
       ],
       declarations: [GroupFormComponent],
-      providers: [GroupFormComponent,
+      providers: [
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
         { provide: DSpaceObjectDataService, useValue: dsoDataServiceStub },
@@ -240,8 +243,8 @@ describe('GroupFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit a new group using the correct values', waitForAsync(() => {
-        fixture.whenStable().then(() => {
+      it('should emit a new group using the correct values', (async () => {
+        await fixture.whenStable().then(() => {
           expect(component.submitForm.emit).toHaveBeenCalledWith(expected);
         });
       }));
@@ -266,8 +269,8 @@ describe('GroupFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit the existing group using the correct new values', waitForAsync(() => {
-        fixture.whenStable().then(() => {
+      it('should emit the existing group using the correct new values', (async () => {
+        await fixture.whenStable().then(() => {
           expect(component.submitForm.emit).toHaveBeenCalledWith(expected2);
         });
       }));

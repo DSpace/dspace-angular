@@ -47,7 +47,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
               private itemDataService: ItemDataService,
               private bitstreamDataService: BitstreamDataService,
               private selectableListService: SelectableListService,
-              protected dsoNameService: DSONameService,
+              public dsoNameService: DSONameService,
               @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
     super(truncatableService, dsoNameService, appConfig);

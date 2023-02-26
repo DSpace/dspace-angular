@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This componenet renders a video viewer and playlist for the media viewer
@@ -23,6 +24,11 @@ export class MediaViewerVideoComponent implements OnInit {
   };
 
   replacementThumbnail: string;
+
+  constructor(
+    public dsoNameService: DSONameService,
+  ) {
+  }
 
   ngOnInit() {
     this.isCollapsed = false;

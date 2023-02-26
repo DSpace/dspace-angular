@@ -47,8 +47,12 @@
         <tbody>
         <tr *ngFor="let ePerson of (ePeopleSearchDtos | async)?.page">
           <td class="align-middle">{{ePerson.eperson.id}}</td>
-          <td class="align-middle"><a (click)="ePersonDataService.startEditingNewEPerson(ePerson.eperson)"
-                 [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">{{ePerson.eperson.name}}</a></td>
+          <td class="align-middle">
+            <a (click)="ePersonDataService.startEditingNewEPerson(ePerson.eperson)"
+               [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">
+              {{ dsoNameService.getName(ePerson.eperson) }}
+            </a>
+          </td>
           <td class="align-middle">
             {{messagePrefix + '.table.email' | translate}}: {{ ePerson.eperson.email ? ePerson.eperson.email : '-' }}<br/>
             {{messagePrefix + '.table.netid' | translate}}: {{ ePerson.eperson.netid ? ePerson.eperson.netid : '-' }}
@@ -58,14 +62,14 @@
               <button *ngIf="(ePerson.memberOfGroup)"
                       (click)="deleteMemberFromGroup(ePerson)"
                       class="btn btn-outline-danger btn-sm"
-                      title="{{messagePrefix + '.table.edit.buttons.remove' | translate: {name: ePerson.eperson.name} }}">
+                      title="{{messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(ePerson.eperson) } }}">
                 <i class="fas fa-trash-alt fa-fw"></i>
               </button>
 
               <button *ngIf="!(ePerson.memberOfGroup)"
                       (click)="addMemberToGroup(ePerson)"
                       class="btn btn-outline-primary btn-sm"
-                      title="{{messagePrefix + '.table.edit.buttons.add' | translate: {name: ePerson.eperson.name} }}">
+                      title="{{messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(ePerson.eperson) } }}">
                 <i class="fas fa-plus fa-fw"></i>
               </button>
             </div>
@@ -105,8 +109,12 @@
         <tbody>
         <tr *ngFor="let ePerson of (ePeopleMembersOfGroupDtos | async)?.page">
           <td class="align-middle">{{ePerson.eperson.id}}</td>
-          <td class="align-middle"><a (click)="ePersonDataService.startEditingNewEPerson(ePerson.eperson)"
-                 [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">{{ePerson.eperson.name}}</a></td>
+          <td class="align-middle">
+            <a (click)="ePersonDataService.startEditingNewEPerson(ePerson.eperson)"
+               [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">
+              {{ dsoNameService.getName(ePerson.eperson) }}
+            </a>
+          </td>
           <td class="align-middle">
             {{messagePrefix + '.table.email' | translate}}: {{ ePerson.eperson.email ? ePerson.eperson.email : '-' }}<br/>
             {{messagePrefix + '.table.netid' | translate}}: {{ ePerson.eperson.netid ? ePerson.eperson.netid : '-' }}
@@ -115,7 +123,7 @@
             <div class="btn-group edit-field">
               <button (click)="deleteMemberFromGroup(ePerson)"
                       class="btn btn-outline-danger btn-sm"
-                      title="{{messagePrefix + '.table.edit.buttons.remove' | translate: {name: ePerson.eperson.name} }}">
+                      title="{{messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(ePerson.eperson) } }}">
                 <i class="fas fa-trash-alt fa-fw"></i>
               </button>
             </div>

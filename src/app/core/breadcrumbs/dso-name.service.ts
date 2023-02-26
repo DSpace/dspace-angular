@@ -26,6 +26,17 @@ export class DSONameService {
    * With only two exceptions those solutions seem overkill for now.
    */
   private readonly factories = {
+    EPerson: (dso: DSpaceObject): string => {
+      const firstName = dso.firstMetadataValue('eperson.firstname');
+      const lastName = dso.firstMetadataValue('eperson.lastname');
+      if (isEmpty(firstName) && isEmpty(lastName)) {
+        return dso.name;
+      } else if (isEmpty(firstName) || isEmpty(lastName)) {
+        return firstName || lastName;
+      } else {
+        return `${firstName} ${lastName}`;
+      }
+    },
     Person: (dso: DSpaceObject): string => {
       const familyName = dso.firstMetadataValue('person.familyName');
       const givenName = dso.firstMetadataValue('person.givenName');
@@ -51,20 +62,24 @@ export class DSONameService {
    *
    * @param dso  The {@link DSpaceObject} you want a name for
    */
-  getName(dso: DSpaceObject): string {
-    const types = dso.getRenderTypes();
-    const match = types
-      .filter((type) => typeof type === 'string')
-      .find((type: string) => Object.keys(this.factories).includes(type)) as string;
+  getName(dso: DSpaceObject | undefined): string {
+    if (dso) {
+      const types = dso.getRenderTypes();
+      const match = types
+        .filter((type) => typeof type === 'string')
+        .find((type: string) => Object.keys(this.factories).includes(type)) as string;
 
-    let name;
-    if (hasValue(match)) {
-      name = this.factories[match](dso);
+      let name;
+      if (hasValue(match)) {
+        name = this.factories[match](dso);
+      }
+      if (isEmpty(name)) {
+        name = this.factories.Default(dso);
+      }
+      return name;
+    } else {
+      return '';
     }
-    if (isEmpty(name)) {
-      name = this.factories.Default(dso);
-    }
-    return name;
   }
 
 }
