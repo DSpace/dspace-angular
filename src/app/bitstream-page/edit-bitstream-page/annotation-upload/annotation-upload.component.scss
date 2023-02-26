@@ -1,6 +1,22 @@
-.bundle-row {
-  color: var(--bs-table-head-color);
-  background-color: var(--bs-table-head-bg);
-  border-color: var(--bs-table-border-color);
+:host ::ng-deep ds-uploader .well {
+  background-color: var(--bs-white);
 }
 
+.container-background {
+  background-color: var(--bs-gray-100);
+}
+.annotation-row {
+  background-color: var(--bs-white);
+  border: 1px solid var(--bs-gray-300);
+  border-radius: var(--bs-border-radius-sm);
+}
+.delete-selected {
+  background-color: var(--bs-white);
+  border: 1px solid var(--bs-danger);
+  border-radius: var(--bs-border-radius-sm);
+}
+.close-button {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+}

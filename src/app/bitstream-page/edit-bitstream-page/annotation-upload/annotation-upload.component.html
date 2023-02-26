@@ -1,17 +1,21 @@
-<div class="container bundle-row p-4">
+<div class="card border border-primary p-4 container-background">
+  <div class="card-body">
+  <button type="button" (click)="closeView()" class="btn btn-outline-primary btn-sm close-button"
+          aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+
   <div class="row">
     <div class="col">
-      <span class="col-form-label-lg">IIIF Image Annotation File</span>
+      <h3>{{'iiif.image.annotation.notifications.title' | translate}}</h3>
     </div>
   </div>
     <div *ngIf="showUploaderComponent">
       <div class="row">
         <div class="col">
-          <span class="small">Upload an image annotation file.</span>
+          <span class="small">{{'iiif.image.annotation.notifications.upload.message' | translate}}</span>
         </div>
       </div>
       <div class="row">
-      <div class="col">
+      <div class="col mt-3">
         <ds-uploader class="w-100"
                      [dropMsg]="'item.bitstreams.upload.drop-message'"
                      [dropOverDocumentMsg]="'item.bitstreams.upload.drop-message'"
@@ -27,36 +31,38 @@
   <div *ngIf="!showUploaderComponent">
     <div class="row">
       <div class="col">
-        <span class="small">Download or delete the existing image annotation file.</span>
+        <span class="small">{{'iiif.image.annotation.notifications.file.message' | translate}}</span>
       </div>
     </div>
-    <div class="row">
-      <div class="col ">
-        <div [ngClass]="activeDeleteStatus ? 'table-danger' : 'bg-white'" class="row pt-3 pb-3 border">
-          <div class="col-11">
-            <a href="{{bitstreamDownload}}"><span class="col-form-label-sm">{{annotationFileTitle}}</span></a>
-          </div>
+    <div class="row mt-4">
+      <div class="col">
+        <div [ngClass]="activeDeleteStatus ? 'delete-selected' : 'annotation-row'" class="row pt-3 pb-3">
           <div class="col-1">
             <button type="button" (click)="remove()"
                     class="btn btn-outline-danger btn-sm"
-                    title="{{'item.edit.bitstreams.edit.buttons.remove' | translate}}">
+                    aria-label="'item.edit.bitstreams.edit.buttons.remove' | translate"
+                    title="'item.edit.bitstreams.edit.buttons.remove' | translate">
               <i class="fas fa-trash-alt fa-fw"></i>
             </button>
           </div>
+          <div class="">
+            <a href="{{bitstreamDownload}}"><span class="col-form-label-sm">{{annotationFileTitle}}</span></a>
+          </div>
+
         </div>
         <div class="row mt-3" *ngIf="activeDeleteStatus">
           <div class="col pl-3 mt-2">
-            <button type="button" class="btn btn-primary float-right" (click)="saveChange()">Delete Now</button>
-            <button type="button" class="btn btn-danger float-right mr-2" (click)="onCancel()">Discard Change</button>
+            <button type="button" class="btn btn-primary float-right" (click)="saveChange()">{{'iiif.image.annotation.notifications.delete' | translate}}</button>
+            <button type="button" class="btn btn-danger float-right mr-2" (click)="onCancel()">{{'iiif.image.annotation.notifications.cancel' | translate}}</button>
           </div>
         </div>
-        <div class="row">
-          <div class="col pt-3">
-            <span><small><strong>You should see the annotations for this image in the Mirador viewer.</strong></small></span>
+        <div class="row" *ngIf="!activeDeleteStatus">
+          <div class="col pt-3 mt-2">
+            <span><small><strong>{{'iiif.image.annotation.notifications.viewer.message' | translate}}</strong></small></span>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
+</div>

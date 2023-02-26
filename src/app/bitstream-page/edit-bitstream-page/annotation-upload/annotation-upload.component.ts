@@ -1,9 +1,8 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
-  OnDestroy,
+  Component, EventEmitter, Input,
+  OnDestroy, OnInit, Output,
   ViewChild
 } from '@angular/core';
 import {
@@ -35,13 +34,8 @@ import { NoContent } from '../../../core/shared/NoContent.model';
 import { environment } from '../../../../environments/environment';
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
 import { XSRF_REQUEST_HEADER } from '../../../core/xsrf/xsrf.interceptor';
-import {
-  checkForExistingAnnotation,
-  getAnnotationFileName,
-  getItem,
-  getItemBundles
-} from '../annotation/utils/annotationUtils';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { BUNDLE_NAME } from '../annotation/annotation.component';
 
 /**
  * Component for adding and removing IIIF annotation files.
@@ -52,12 +46,7 @@ import { ObjectCacheService } from '../../../core/cache/object-cache.service';
   templateUrl: './annotation-upload.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
-
-  /**
-   * The bundle containing annotation files
-   */
-  BUNDLE_NAME = 'ANNOTATIONS';
+export class AnnotationUploadComponent implements OnInit, OnDestroy {
 
   /**
    * The file uploader component
@@ -65,26 +54,44 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
   @ViewChild(UploaderComponent) uploaderComponent: UploaderComponent;
 
   /**
-   * The dc.title for the new annotation file.
+   * Used to reinitialize both the parent component and this component on file changes.
    */
-  annotationFileTitle: string;
+  @Output() changeStatusEvent = new EventEmitter<any>();
 
   /**
-   * The annotations bundle dso
+   * Used to reinitialize both the parent component and this component on file changes.
    */
-  annotationBundle: Bundle;
+  @Output() closeDialog = new EventEmitter<any>();
 
+  /**
+   * Parent item of the current bitstream.
+   */
+  @Input() item: Item;
+
+  /**
+   * Bundle of the current bitstream.
+   */
+  @Input() annotationBundle: Bundle;
+
+  /**
+   * The annotation bitstream file.
+   */
+  @Input() annotationFile: Bitstream;
+
+  /**
+   * The dc.title of the annotation file.
+   */
+  @Input() annotationFileTitle: string;
+
+  /**
+   * The content href of the annotation file to use when downloading.
+   */
   bitstreamDownload: string;
 
   /**
    * Used to show or hide the ds-uploader component.
    */
   showUploaderComponent = true;
-
-  /**
-   * The annotation bitstream dso.
-   */
-  annotationBitstream: Bitstream;
 
   /**
    * Sets the view to highlight deletion
@@ -118,7 +125,7 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
   /**
    * The prefix for all i18n notification messages within this component
    */
-  NOTIFICATIONS_PREFIX = 'item.bitstreams.upload.notifications.';
+  NOTIFICATIONS_PREFIX = 'iiif.image.annotation.notifications.';
 
   constructor(private itemService: ItemDataService,
               private route: ActivatedRoute,
@@ -138,56 +145,18 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
               private translateService: TranslateService,
               private tokenExtractor: HttpXsrfTokenExtractor ) {}
 
-  ngAfterViewInit(): void {
-    // get bitstream from the route.
-    const bitstreamRD$ = this.route.data.pipe(map((data) =>  {
-      this.annotationFileTitle = getAnnotationFileName(data.bitstream.payload.id);
-      return data.bitstream;
-    }));
-    // get the item and paginated bundles
-    const item$ = getItem(bitstreamRD$);
-    this.bundles$ = getItemBundles(item$);
-    this.subs.push(this.bundles$.pipe(
-    ).subscribe((bundles: PaginatedList<Bundle>) => {
-      this.checkForExistingAnnotationBundle(bundles, item$);
-    }));
-  }
-
-  /**
-   * Looks for an existing annotations bundle.If the annotations bundle exists, calls
-   * a function  to check for a matching file in the annotations bundle and updates
-   * the view. Otherwise, create the missing bundle.
-   * @param bundles
-   * @param item
-   */
-  checkForExistingAnnotationBundle(bundles: PaginatedList<Bundle>, item: Observable<Item>): void {
-    const annotBundle = bundles.page.filter((bundle: Bundle) => bundle.name === this.BUNDLE_NAME)
-      .map((bundle: Bundle) => {
-        this.annotationBundle = bundle;
-        this.setUploadUrl(bundle);
-        this.checkForExistingAnnotationFile(bundle);
-      });
-
-    if (annotBundle.length === 0) {
-      this.subs.push(item.subscribe((item: Item) => this.createAnnotationBundle(item)));
-    }
-}
-
-  /**
-   * Checks for matching file in the annotations bundle. If found,
-   * hides the 'ds-uploader' and shows the bitstream.
-   * @param annotationsBundle bundle
-   */
-  checkForExistingAnnotationFile(annotationsBundle: Bundle) {
-    this.subs.push(checkForExistingAnnotation(annotationsBundle, this.annotationFileTitle)
-      .subscribe((bitstream: Bitstream) => {
-        this.annotationBitstream = bitstream;
-        this.bitstreamDownload = bitstream._links.content.href;
-        // A matching bitstream exists. Hide the uploader.
+  ngOnInit(): void {
+    if (this.annotationBundle) {
+      this.setUploadUrl(this.annotationBundle);
+      if (this.annotationFile) {
+        this.bitstreamDownload = this.annotationFile._links.content.href;
         this.showUploaderComponent = false;
+        this.activeDeleteStatus = false;
         this.changeDetector.detectChanges();
-      })
-    );
+      }
+    } else {
+      this.createAnnotationBundle(this.item);
+    }
   }
 
   /**
@@ -195,7 +164,7 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
    * @param item
    */
   createAnnotationBundle(item: Item) {
-    this.subs.push(this.itemService.createBundle(item.id, this.BUNDLE_NAME).pipe(
+    this.subs.push(this.itemService.createBundle(item.id, BUNDLE_NAME).pipe(
       getFirstSucceededRemoteDataPayload()
     ).subscribe((bundle: Bundle) => {
       this.annotationBundle = bundle;
@@ -232,12 +201,17 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
     this.subs.push(this.bitstreamService.update(bitstream).pipe(
       getFirstSucceededRemoteDataPayload()
     ).subscribe(() => {
+      this.changeStatusEvent.emit([bitstream, this.annotationBundle]);
       this.bitstreamService.commitUpdates();
-      this.annotationBitstream = bitstream;
+      this.annotationFile = bitstream;
+      this.bitstreamDownload = bitstream._links.content.href;
       this.showUploaderComponent = false;
       this.activeDeleteStatus = false;
       this.changeDetector.detectChanges();
-      this.notificationsService.success('file added', 'added file', {timeOut: this.discardTimeOut})
+      this.notificationsService.success(
+        this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'added.title'),
+        this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'added.content'),
+        {timeOut: this.discardTimeOut});
       this.bundleService.getBitstreamsEndpoint(this.annotationBundle.id).pipe(take(1)).subscribe((href: string) => {
         this.requestService.setStaleByHrefSubstring(href);
       });
@@ -256,15 +230,9 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
    * This function is called when the annotation file deletion is confirmed by user.
    */
   saveChange(): void {
-    const removedBitstreams$ = this.bundles$.pipe(
-      map((bundleList: PaginatedList<Bundle>) => bundleList.page),
-      switchMap((bundles: Bundle[]) => observableZip(
-        ...bundles.map((bundle: Bundle) => this.objectUpdatesService.getFieldUpdates(bundle.self, [], true))
-      )),
-      map((fieldUpdates: FieldUpdates[]) => {
-        return ([] as FieldUpdate[]).concat(
-          ...fieldUpdates.map((updates: FieldUpdates) => Object.values(updates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE))
-        )
+    const removedBitstreams$ = this.objectUpdatesService.getFieldUpdates(this.annotationBundle.self, [], true).pipe(
+      map((fieldUpdates: FieldUpdates) => {
+          return Object.values(fieldUpdates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE);
       }),
       map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field))
     );
@@ -281,10 +249,16 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
     );
     this.subs.push(removedResponses$.pipe(take(1)).subscribe((responses: RemoteData<NoContent>[]) => {
       if (hasValue(responses)) {
+        this.changeStatusEvent.emit([undefined, this.annotationBundle]);
         this.showUploaderComponent = true;
         this.changeDetector.detectChanges();
         this.updateTokens();
-        this.notificationsService.success('file deleted', 'removed file', {timeOut: this.discardTimeOut});
+        this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.title');
+        this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.content');
+        this.notificationsService.success(
+          this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.title'),
+          this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.content'),
+          {timeOut: this.discardTimeOut});
       }
     }));
   }
@@ -305,7 +279,7 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
    * when the deletion is confirmed.
    */
   remove(): void {
-    this.objectUpdatesService.saveRemoveFieldUpdate(this.annotationBundle._links.self.href, this.annotationBitstream);
+    this.objectUpdatesService.saveRemoveFieldUpdate(this.annotationBundle._links.self.href, this.annotationFile);
     this.activeDeleteStatus = true;
     this.changeDetector.detectChanges();
   }
@@ -314,12 +288,18 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
    * Cancel the deletion update.
    */
   onCancel() {
-    // this.translateService.instant(this.notificationsPrefix + key + '.title');
-    // this.translateService.instant(this.notificationsPrefix + key + '.content');
-    const undoNotification = this.notificationsService.info('discard change', 'removed discard', {timeOut: this.discardTimeOut});
+    this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'cancel.title');
+    this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'cancel.content');
+    const undoNotification = this.notificationsService.success(null,
+      this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'cancel.content'),
+      {timeOut: this.discardTimeOut});
     this.objectUpdatesService.discardAllFieldUpdates(this.annotationBundle._links.self.href, undoNotification);
     this.activeDeleteStatus = false;
     this.changeDetector.detectChanges();
+  }
+
+  closeView(): void {
+    this.closeDialog.emit();
   }
 
   ngOnDestroy(): void {

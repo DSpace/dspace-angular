@@ -1,10 +1,22 @@
+<div class="annot-container">
 <div class="row">
-  <div class="col mb-2">
-    <button (click)="toggleComponent()" class="btn btn-success float-right">IIIF Image Annotation</button>
+  <div class="col mb-2 ">
+    <button *ngIf="showButton" (click)="toggleComponent()" [ngClass]="annotationMissing ? 'btn-success' : 'btn-primary'" class="btn btn-sm float-right">
+      <i _ngcontent-dspace-angular-c489="" [ngClass]="annotationMissing ? 'fas fa-upload' : 'fas fa-image'" class="mr-3"></i>
+      {{'iiif.image.annotation.notifications.button.label' | translate}}
+    </button>
   </div>
 </div>
 <div class="row">
   <div class="col">
-    <ds-iiif-annotation-upload *ngIf="showComponent"></ds-iiif-annotation-upload>
+    <ds-iiif-annotation-upload *ngIf="showComponent"
+                               [annotationBundle]="annotationBundle"
+                               [annotationFile]="annotationFile"
+                               [item]="item$ | async"
+                               [annotationFileTitle]="annotationFileTitle"
+                               (closeDialog)="toggleComponent()"
+                               (changeStatusEvent)="changeStatus($event)"
+    ></ds-iiif-annotation-upload>
   </div>
+</div>
 </div>

@@ -5,6 +5,11 @@
         <ds-thumbnail [thumbnail]="bitstreamRD?.payload"></ds-thumbnail>
       </div>
       <div class="col-md-10">
+<!--        <div *ngIf="isIIIF">-->
+<!--          <div class="container mt-5">-->
+            <ds-iiif-annotation *ngIf="isIIIF"></ds-iiif-annotation>
+<!--          </div>-->
+<!--        </div>-->
         <div class="container">
           <div class="row">
             <div class="col-12">
@@ -12,11 +17,7 @@
             </div>
           </div>
         </div>
-        <ng-container *ngIf="isIIIF">
-          <div class="container mt-5">
-            <ds-iiif-annotation></ds-iiif-annotation>
-          </div>
-        </ng-container>
+
         <ds-form *ngIf="formGroup" [formId]="'edit-bitstream-form-id'"
                   [formGroup]="formGroup"
                   [formModel]="formModel"

@@ -2782,6 +2782,29 @@
 
   "iiif.page.description": "Description: ",
 
+  "iiif.image.annotation.notifications.button.label": "IIIF Image Annotation",
+
+  "iiif.image.annotation.notifications.title": "Image Annotation File",
+
+  "iiif.image.annotation.notifications.file.message": "Download or delete the existing image annotation file.",
+
+  "iiif.image.annotation.notifications.upload.message": "Upload an image annotation file.",
+
+  "iiif.image.annotation.notifications.viewer.message": "You should see the annotations for this image in the Mirador viewer.",
+
+  "iiif.image.annotation.notifications.delete": "Delete Annotation",
+
+  "iiif.image.annotation.notifications.cancel": "Cancel",
+
+  "iiif.image.annotation.notifications.cancel.content": "Delete Cancelled",
+
+  "iiif.image.annotation.notifications.removed.title": "Annotation Deleted",
+
+  "iiif.image.annotation.notifications.removed.content": "The annotation file for this image has been removed.",
+
+  "iiif.image.annotation.notifications.added.title": "Annotation Added",
+
+  "iiif.image.annotation.notifications.added.content": "An annotation file for this image has been added.",
 
   "loading.bitstream": "Loading bitstream...",
 
