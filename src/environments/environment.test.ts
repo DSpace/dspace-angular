@@ -178,6 +178,10 @@ export const environment: AppConfig = {
     code: 'lv',
     label: 'Latviešu',
     active: true,
+  }, {
+    code: 'disabled',
+    label: 'Disabled',
+    active: false,
   }],
 
   // Browse-By Pages
