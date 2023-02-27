@@ -1,7 +1,9 @@
 :host ::ng-deep ds-uploader .well {
   background-color: var(--bs-white);
 }
-
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.4) !important;
+}
 .container-background {
   background-color: var(--bs-gray-100);
 }

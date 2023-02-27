@@ -1,8 +1,8 @@
 <div class="annot-container">
 <div class="row">
   <div class="col mb-2 ">
-    <button *ngIf="showButton" (click)="toggleComponent()" [ngClass]="annotationMissing ? 'btn-success' : 'btn-primary'" class="btn btn-sm float-right">
-      <i _ngcontent-dspace-angular-c489="" [ngClass]="annotationMissing ? 'fas fa-upload' : 'fas fa-image'" class="mr-3"></i>
+    <button *ngIf="showButton" (click)="toggleComponent()" [ngClass]="uploadButton ? 'btn-success' : 'btn-primary'" class="btn btn-sm float-right">
+      <i _ngcontent-dspace-angular-c489="" [ngClass]="uploadButton ? 'fas fa-upload' : 'fas fa-image'" class="mr-3"></i>
       {{'iiif.image.annotation.notifications.button.label' | translate}}
     </button>
   </div>

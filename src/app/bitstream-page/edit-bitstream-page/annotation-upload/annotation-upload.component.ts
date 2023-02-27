@@ -10,7 +10,7 @@ import {
 } from '../../../core/shared/operators';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
@@ -24,18 +24,17 @@ import { Bitstream } from '../../../core/shared/bitstream.model';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
-import { Observable, of as observableOf, Subscription, zip as observableZip } from 'rxjs';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { of as observableOf, Subscription, zip as observableZip } from 'rxjs';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
-import { environment } from '../../../../environments/environment';
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
 import { XSRF_REQUEST_HEADER } from '../../../core/xsrf/xsrf.interceptor';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { BUNDLE_NAME } from '../annotation/annotation.component';
+import { BUNDLE_NAME } from '../annotation/annotation-properties';
+
 
 /**
  * Component for adding and removing IIIF annotation files.
@@ -57,58 +56,42 @@ export class AnnotationUploadComponent implements OnInit, OnDestroy {
    * Used to reinitialize both the parent component and this component on file changes.
    */
   @Output() changeStatusEvent = new EventEmitter<any>();
-
   /**
    * Used to reinitialize both the parent component and this component on file changes.
    */
   @Output() closeDialog = new EventEmitter<any>();
-
   /**
    * Parent item of the current bitstream.
    */
   @Input() item: Item;
-
   /**
    * Bundle of the current bitstream.
    */
   @Input() annotationBundle: Bundle;
-
   /**
    * The annotation bitstream file.
    */
   @Input() annotationFile: Bitstream;
-
   /**
    * The dc.title of the annotation file.
    */
   @Input() annotationFileTitle: string;
-
   /**
    * The content href of the annotation file to use when downloading.
    */
   bitstreamDownload: string;
-
   /**
    * Used to show or hide the ds-uploader component.
    */
   showUploaderComponent = true;
-
   /**
    * Sets the view to highlight deletion
    */
   activeDeleteStatus = false;
-
   /**
    * List of subscriptions
    */
   subs: Subscription[] = [];
-
-  /**
-   * Observable of the item's bundles.
-   */
-  bundles$: Observable<PaginatedList<Bundle>>;
-
-  discardTimeOut = environment.item.edit.undoTimeout;
 
   /**
    * The uploader configuration options
@@ -127,23 +110,21 @@ export class AnnotationUploadComponent implements OnInit, OnDestroy {
    */
   NOTIFICATIONS_PREFIX = 'iiif.image.annotation.notifications.';
 
-  constructor(private itemService: ItemDataService,
-              private route: ActivatedRoute,
-              private bundleService: BundleDataService,
-              protected authService: AuthService,
-              protected router: Router,
-              protected requestService: RequestService,
-              protected translate: TranslateService,
-
-              protected bitstreamService: BitstreamDataService,
-
-              protected changeDetector: ChangeDetectorRef,
-              protected objectCacheService: ObjectCacheService,
-
-              protected notificationsService: NotificationsService,
-              private objectUpdatesService: ObjectUpdatesService,
-              private translateService: TranslateService,
-              private tokenExtractor: HttpXsrfTokenExtractor ) {}
+  constructor(
+    private itemService: ItemDataService,
+    private route: ActivatedRoute,
+    private bundleService: BundleDataService,
+    private requestService: RequestService,
+    private authService: AuthService,
+    private translate: TranslateService,
+    private bitstreamService: BitstreamDataService,
+    private changeDetector: ChangeDetectorRef,
+    private objectCacheService: ObjectCacheService,
+    private notificationsService: NotificationsService,
+    private objectUpdatesService: ObjectUpdatesService,
+    private translateService: TranslateService,
+    private tokenExtractor: HttpXsrfTokenExtractor
+  ) {}
 
   ngOnInit(): void {
     if (this.annotationBundle) {
@@ -163,7 +144,7 @@ export class AnnotationUploadComponent implements OnInit, OnDestroy {
    * Creates the annotation bundle for the item.
    * @param item
    */
-  createAnnotationBundle(item: Item) {
+  private createAnnotationBundle(item: Item) {
     this.subs.push(this.itemService.createBundle(item.id, BUNDLE_NAME).pipe(
       getFirstSucceededRemoteDataPayload()
     ).subscribe((bundle: Bundle) => {
@@ -177,13 +158,13 @@ export class AnnotationUploadComponent implements OnInit, OnDestroy {
   /**
    * Set the href in uploader options and re-initialize the uploader component.
    */
-  setUploadUrl(bundle: Bundle) {
+  private setUploadUrl(bundle: Bundle) {
     this.subs.push(this.bundleService.getBitstreamsEndpoint(bundle.id).pipe(take(1)).subscribe((href: string) => {
       this.uploadFilesOptions.url = href;
       if (isEmpty(this.uploadFilesOptions.authToken)) {
         this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
       }
-      // Re-initialize the uploader component to ensure the latest changes to the options are applied
+      // Re-initialize the ds-uploader to apply the options changes
       if (this.uploaderComponent) {
         this.updateTokens();
         this.uploaderComponent.ngOnInit();
@@ -196,33 +177,27 @@ export class AnnotationUploadComponent implements OnInit, OnDestroy {
    * Called after successful upload.
    * @param bitstream
    */
-  public onCompleteItem(bitstream: Bitstream) {
+  onCompleteItem(bitstream: Bitstream) {
     bitstream.metadata['dc.title'][0].value = this.annotationFileTitle;
     this.subs.push(this.bitstreamService.update(bitstream).pipe(
       getFirstSucceededRemoteDataPayload()
     ).subscribe(() => {
-      this.changeStatusEvent.emit([bitstream, this.annotationBundle]);
       this.bitstreamService.commitUpdates();
-      this.annotationFile = bitstream;
-      this.bitstreamDownload = bitstream._links.content.href;
-      this.showUploaderComponent = false;
-      this.activeDeleteStatus = false;
-      this.changeDetector.detectChanges();
-      this.notificationsService.success(
-        this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'added.title'),
-        this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'added.content'),
-        {timeOut: this.discardTimeOut});
       this.bundleService.getBitstreamsEndpoint(this.annotationBundle.id).pipe(take(1)).subscribe((href: string) => {
         this.requestService.setStaleByHrefSubstring(href);
       });
+      this.notificationsService.success(
+        this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'added.title'),
+        this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'added.content'));
+      // re-initialize components
+      this.changeStatusEvent.emit([bitstream, this.annotationBundle]);
     }));
-
   }
 
   /**
    * The request was unsuccessful, display an error notification
    */
-  public onUploadError() {
+  onUploadError() {
     this.notificationsService.error(null, this.translate.get(this.NOTIFICATIONS_PREFIX + 'upload.failed'));
   }
 
@@ -232,7 +207,7 @@ export class AnnotationUploadComponent implements OnInit, OnDestroy {
   saveChange(): void {
     const removedBitstreams$ = this.objectUpdatesService.getFieldUpdates(this.annotationBundle.self, [], true).pipe(
       map((fieldUpdates: FieldUpdates) => {
-          return Object.values(fieldUpdates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE);
+        return Object.values(fieldUpdates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE);
       }),
       map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field))
     );
@@ -249,16 +224,14 @@ export class AnnotationUploadComponent implements OnInit, OnDestroy {
     );
     this.subs.push(removedResponses$.pipe(take(1)).subscribe((responses: RemoteData<NoContent>[]) => {
       if (hasValue(responses)) {
-        this.changeStatusEvent.emit([undefined, this.annotationBundle]);
-        this.showUploaderComponent = true;
-        this.changeDetector.detectChanges();
-        this.updateTokens();
-        this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.title');
-        this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.content');
+        this.bundleService.getBitstreamsEndpoint(this.annotationBundle.id).pipe(take(1)).subscribe((href: string) => {
+          this.requestService.setStaleByHrefSubstring(href);
+        });
         this.notificationsService.success(
           this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.title'),
-          this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.content'),
-          {timeOut: this.discardTimeOut});
+          this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.content'));
+        // Update the component status.
+        this.changeStatusEvent.emit([undefined, this.annotationBundle]);
       }
     }));
   }
@@ -266,7 +239,7 @@ export class AnnotationUploadComponent implements OnInit, OnDestroy {
   /**
    * Updates the 'ds-uploader' headers with the current CSRF and authorization tokens.
    */
-  updateTokens(): void {
+  private updateTokens(): void {
     // bundle is now created so set the uploader url headers
     this.uploaderComponent.uploader.options.headers = [
       {name: 'authorization', value: this.authService.buildAuthHeader()},
@@ -291,8 +264,7 @@ export class AnnotationUploadComponent implements OnInit, OnDestroy {
     this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'cancel.title');
     this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'cancel.content');
     const undoNotification = this.notificationsService.success(null,
-      this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'cancel.content'),
-      {timeOut: this.discardTimeOut});
+      this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'cancel.content'));
     this.objectUpdatesService.discardAllFieldUpdates(this.annotationBundle._links.self.href, undoNotification);
     this.activeDeleteStatus = false;
     this.changeDetector.detectChanges();

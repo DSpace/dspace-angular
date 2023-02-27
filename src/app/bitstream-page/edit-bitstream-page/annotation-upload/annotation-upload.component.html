@@ -1,4 +1,4 @@
-<div class="card border border-primary p-4 container-background">
+<div class="card p-4 container-background">
   <div class="card-body">
   <button type="button" (click)="closeView()" class="btn btn-outline-primary btn-sm close-button"
           aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="row">
-      <div class="col mt-3">
+      <div class="col mt-3 mb-5">
         <ds-uploader class="w-100"
                      [dropMsg]="'item.bitstreams.upload.drop-message'"
                      [dropOverDocumentMsg]="'item.bitstreams.upload.drop-message'"
@@ -23,7 +23,6 @@
                      [uploadFilesOptions]="uploadFilesOptions"
                      (onCompleteItem)="onCompleteItem($event)"
                      (onUploadError)="onUploadError()">
-
         </ds-uploader>
       </div>
     </div>
@@ -40,8 +39,8 @@
           <div class="col-1">
             <button type="button" (click)="remove()"
                     class="btn btn-outline-danger btn-sm"
-                    aria-label="'item.edit.bitstreams.edit.buttons.remove' | translate"
-                    title="'item.edit.bitstreams.edit.buttons.remove' | translate">
+                    [attr.aria-label]="'iiif.image.annotation.notifications.delete' | translate"
+                    [attr.title]="'iiif.image.annotation.notifications.delete' | translate">
               <i class="fas fa-trash-alt fa-fw"></i>
             </button>
           </div>

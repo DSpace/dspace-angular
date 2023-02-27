@@ -2804,7 +2804,7 @@
 
   "iiif.image.annotation.notifications.added.title": "Annotation Added",
 
-  "iiif.image.annotation.notifications.added.content": "An annotation file for this image has been added.",
+  "iiif.image.annotation.notifications.added.content": "An annotation file has been added. Annotations for the image should appear in the IIIF viewer.",
 
   "loading.bitstream": "Loading bitstream...",
 

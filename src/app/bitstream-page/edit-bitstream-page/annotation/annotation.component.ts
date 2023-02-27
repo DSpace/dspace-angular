@@ -15,12 +15,8 @@ import { ActivatedRoute } from '@angular/router';
 import { hasNoValue, hasValue } from '../../../shared/empty.util';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { AnnotationUploadComponent } from '../annotation-upload/annotation-upload.component';
+import { BUNDLE_NAME } from './annotation-properties';
 
-
-/**
- * The bundle that contains annotation files.
- */
-export const BUNDLE_NAME = 'ANNOTATIONS';
 
 /**
  * Parent container for the annotation uploader.
@@ -34,62 +30,51 @@ export const BUNDLE_NAME = 'ANNOTATIONS';
 export class AnnotationComponent implements OnInit {
 
   @ViewChild(AnnotationUploadComponent) annotationUploaderComponent: AnnotationUploadComponent;
-
   /**
    * The parent item of the current bitstream
    */
   item$: Observable<Item>;
-
   /**
    * The ANNOTATIONS bundle of the current item.
    */
   annotationBundle: Bundle;
-
   /**
    * The annotation file bitstream DSO.
    */
   annotationFile: Bitstream;
-
   /**
    * The annotation file name.
    */
   annotationFileTitle: string;
-
   /**
    * Used to add or remove the child annotation uploader component from the view.
    */
   showComponent = false;
-
   /**
    * Used to set the button type in the view.
    */
-  annotationMissing = true;
-
+  uploadButton = true;
   /**
    * Used to show the button after it's type has been set.
    */
   showButton: boolean;
-
   /**
    * List of subscriptions
    */
   subs: Subscription[] = [];
 
   constructor(
-    private route: ActivatedRoute,
-    private changeDetector: ChangeDetectorRef,
-    private bitstreamService: BitstreamDataService
+    protected route: ActivatedRoute,
+    protected changeDetector: ChangeDetectorRef,
+    protected bitstreamService: BitstreamDataService
   ) {}
 
   ngOnInit(): void {
-
     const bitstreamRD$ = this.route.data.pipe(map((data) =>  {
       this.annotationFileTitle = this.getAnnotationFileName(data.bitstream.payload.id);
       return data.bitstream;
     }));
-
     this.item$ = this.getItem(bitstreamRD$);
-
     const bundles$ = this.getItemBundles(this.item$);
     this.subs.push(bundles$.pipe(
     ).subscribe((bundles: PaginatedList<Bundle>) => {
@@ -105,7 +90,7 @@ export class AnnotationComponent implements OnInit {
     this.toggleComponent();
     this.annotationFile = input[0];
     this.annotationBundle = input[1];
-    this.annotationMissing = hasNoValue(this.annotationFile);
+    this.uploadButton = hasNoValue(this.annotationFile);
     this.ngOnInit();
     this.annotationUploaderComponent.ngOnInit();
   }
@@ -121,7 +106,7 @@ export class AnnotationComponent implements OnInit {
    * Gets observable of the parent item of the current bitstream.
    * @param bitstreamRD$
    */
-  getItem(bitstreamRD$: Observable<RemoteData<Bitstream>>): Observable<Item> {
+  private getItem(bitstreamRD$: Observable<RemoteData<Bitstream>>): Observable<Item> {
     return bitstreamRD$.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
@@ -138,7 +123,7 @@ export class AnnotationComponent implements OnInit {
    * Gets observable of the bundles from the item.
    * @param item$
    */
-  getItemBundles(item$: Observable<Item>): Observable<PaginatedList<Bundle>> {
+  private getItemBundles(item$: Observable<Item>): Observable<PaginatedList<Bundle>> {
     return item$.pipe(
       switchMap((item: Item) => item.bundles.pipe(
         getFirstSucceededRemoteData(),
@@ -147,48 +132,52 @@ export class AnnotationComponent implements OnInit {
     );
   }
 
-
   /**
    * Looks for an existing annotations bundle.If the annotations bundle exists, calls
    * a function  to check for a matching file in the annotations bundle and updates
-   * the view. Otherwise, create the missing bundle.
-   * @param bundles
+   * the view. Otherwise, show the upload button.
+   * @param bundleList
    * @param item
    */
-  checkForExistingAnnotationBundle(bundles: PaginatedList<Bundle>, item: Observable<Item>): void {
-    const bundleList = bundles.page.filter((bundle: Bundle) => bundle.name === BUNDLE_NAME)
-      .map((bundle: Bundle) => {
-      this.annotationBundle = bundle;
-      this.checkForExistingAnnotationFile(bundle);
-    });
-    if (bundleList.length === 0) {
-      this.showButton = true;
+  private checkForExistingAnnotationBundle(bundleList: PaginatedList<Bundle>, item: Observable<Item>): void {
+    if (bundleList.page) {
+      const bundleCount = bundleList.page.filter((bundle: Bundle) => bundle.name === BUNDLE_NAME)
+        .map((bundle: Bundle) => {
+          this.annotationBundle = bundle;
+          this.checkForExistingAnnotationFile(bundle);
+        });
+      if (bundleCount.length === 0) {
+        // if not annotation bundle was found, show the upload button.
+        this.uploadButton = true;
+        this.showButton = true;
+        this.changeDetector.detectChanges();
+      }
     }
-    this.changeDetector.detectChanges();
   }
 
-
   /**
-   * Checks for matching file in the annotations bundle. If found,
-   * hides the 'ds-uploader' and shows the bitstream.
+   * Checks for matching file in the annotations bundle. Sets the annotation
+   * file property if found and sets the button type to existing annotation styles.
    * @param annotationsBundle bundle
    */
-  checkForExistingAnnotationFile(annotationsBundle: Bundle): void {
+  private checkForExistingAnnotationFile(annotationsBundle: Bundle): void {
     this.subs.push(this.lookForBitstream(annotationsBundle, this.annotationFileTitle)
       .subscribe((bitstream: Bitstream) => {
         this.annotationFile = bitstream;
-        this.annotationMissing = false;
+        // if bitstream was found update set the button style.
+        this.uploadButton = false;
+        this.changeDetector.detectChanges();
       })
     );
   }
 
   /**
-   * Looks for the annotation file in the ANNOTATIONS bundle.
-   * @param bundle
+   * Looks for the annotation file in the ANNOTATIONS Bundle.
+   * @param annotationBundle
    * @param annotationFileTitle
    */
-  lookForBitstream(bundle: Bundle, annotationFileTitle: string): Observable<Bitstream> {
-    return bundle.bitstreams.pipe(
+  private lookForBitstream(annotationBundle: Bundle, annotationFileTitle: string): Observable<Bitstream> {
+    return annotationBundle.bitstreams.pipe(
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
       expand((paginatedList: PaginatedList<Bitstream>) => {
@@ -198,7 +187,7 @@ export class AnnotationComponent implements OnInit {
         } else {
           // Otherwise retrieve the next page
           return this.bitstreamService.findListByHref(
-            paginatedList.next, {elementsPerPage: 40}, true, true,).pipe(
+            paginatedList.next, {elementsPerPage: 60}, true, true,).pipe(
             getFirstCompletedRemoteData(),
             getRemoteDataPayload(),
             map((next: PaginatedList<Bitstream>) => {
@@ -212,15 +201,16 @@ export class AnnotationComponent implements OnInit {
         }
       }),
       switchMap((paginatedList: PaginatedList<Bitstream>) => {
-        // at this point it's ok to show the toggle button
-        this.showButton = true;
         if (hasValue(paginatedList.page)) {
+          // at this point it's ok to show the toggle button
+          this.showButton = true;
+          this.changeDetector.detectChanges();
           return paginatedList.page;
         }
       }),
       //tap((bitstream: Bitstream) => console.log(bitstream)),
       filter((bitstream: Bitstream) => bitstream.metadata['dc.title'][0].value === annotationFileTitle),
-      //tap((bitstream: Bitstream) => console.log('found bitstream in annotation bundle')),
+      //tap((bitstream: Bitstream) => console.log('found bitstream in annotation annotationBundle')),
       take(1)
     );
   }
@@ -229,7 +219,7 @@ export class AnnotationComponent implements OnInit {
    * Returns the annotation file name for the current bitstream.
    * @param uuid
    */
-  getAnnotationFileName(uuid: string): string {
+  private getAnnotationFileName(uuid: string): string {
     return uuid + '.json';
   }
 

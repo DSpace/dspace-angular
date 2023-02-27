@@ -29,7 +29,7 @@ import { AnnotationComponent } from './edit-bitstream-page/annotation/annotation
     BitstreamDownloadPageComponent,
     AnnotationComponent,
     AnnotationUploadComponent
-  ]
+  ],
 })
 export class BitstreamPageModule {
 }
