@@ -180,6 +180,9 @@ import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component'
 import {
   ItemPageTitleFieldComponent
 } from '../item-page/simple/field-components/specific-field/title/item-page-title-field.component';
+import {
+  ThemedItemPageTitleFieldComponent
+} from '../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -350,6 +353,7 @@ const COMPONENTS = [
   SearchNavbarComponent,
   ScopeSelectorModalComponent,
   ItemPageTitleFieldComponent,
+  ThemedItemPageTitleFieldComponent,
 ];
 
 const ENTRY_COMPONENTS = [
