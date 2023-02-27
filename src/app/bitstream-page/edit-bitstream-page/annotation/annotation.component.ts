@@ -87,12 +87,12 @@ export class AnnotationComponent implements OnInit {
    * @param input
    */
   changeStatus(input: any): void {
-    this.toggleComponent();
     this.annotationFile = input[0];
     this.annotationBundle = input[1];
     this.uploadButton = hasNoValue(this.annotationFile);
     this.ngOnInit();
-    this.annotationUploaderComponent.ngOnInit();
+    this.annotationUploaderComponent.ngAfterViewInit();
+    this.toggleComponent();
   }
 
   /**
@@ -147,7 +147,7 @@ export class AnnotationComponent implements OnInit {
           this.checkForExistingAnnotationFile(bundle);
         });
       if (bundleCount.length === 0) {
-        // if not annotation bundle was found, show the upload button.
+        // if no annotation bundle was found, show the upload button.
         this.uploadButton = true;
         this.showButton = true;
         this.changeDetector.detectChanges();
@@ -166,6 +166,7 @@ export class AnnotationComponent implements OnInit {
         this.annotationFile = bitstream;
         // if bitstream was found update set the button style.
         this.uploadButton = false;
+        this.showButton = true;
         this.changeDetector.detectChanges();
       })
     );

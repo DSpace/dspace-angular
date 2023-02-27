@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { Item } from '../../../core/shared/item.model';
@@ -7,15 +7,13 @@ import { Bundle } from '../../../core/shared/bundle.model';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { EditBitstreamPageComponent } from '../edit-bitstream-page.component';
-import { FileSizePipe } from '../../../shared/utils/file-size-pipe';
-import { VarDirective } from '../../../shared/utils/var.directive';
 import { ActivatedRoute } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { AnnotationComponent } from './annotation.component';
 import { MockBitstreamFormat1 } from '../../../shared/mocks/item.mock';
+import { AnnotationUploadComponent } from '../annotation-upload/annotation-upload.component';
 
 const annotationBundleName = 'ANNOTATIONS';
 const bitstreamIdDummy = '0b28ea75-e542-45f8-ad1a-a26c8d36ad89';
@@ -87,13 +85,13 @@ function createBitstreamList(bitstreamId: string) {
 
 describe('AnnotationComponent', () => {
 
-  describe('with existing annotation file for image', () => {
+  describe('create component', () => {
 
     let bitstreamService: BitstreamDataService;
-    let fixture;
-    let comp;
+    let fixture: ComponentFixture<AnnotationComponent>;
+    let comp: AnnotationComponent;
 
-    beforeEach(async () => {
+    beforeEach(waitForAsync(() => {
 
       bitstreamService = jasmine.createSpyObj('bitstreamService', {
         findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList(createBitstreamList(bitstreamIdDummy))),
@@ -104,9 +102,9 @@ describe('AnnotationComponent', () => {
         patch: {}
       });
 
-      await TestBed.configureTestingModule({
+      TestBed.configureTestingModule({
         imports: [TranslateModule.forRoot(), RouterTestingModule],
-        declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
+        declarations: [AnnotationComponent, AnnotationUploadComponent],
         providers: [
           {
             provide: ActivatedRoute,
@@ -120,16 +118,21 @@ describe('AnnotationComponent', () => {
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
-    });
+    }));
 
-    beforeEach(async() => {
+    beforeEach(() => {
       fixture = TestBed.createComponent(AnnotationComponent);
       comp = fixture.componentInstance;
       fixture.detectChanges();
     });
 
-      it('buttons should be to show existing annotation', () => {
+    describe('with annotation bundle and existing file', () => {
+
+      it('should create component', () => {
         expect(comp).toBeTruthy();
+      });
+
+      it('buttons should be to show existing annotation', () => {
         expect(comp.annotationBundle).toBeDefined();
         expect(comp.uploadButton).toBeFalse();
         expect(comp.showButton).toBeTrue();
@@ -143,6 +146,7 @@ describe('AnnotationComponent', () => {
         expect(child).toBeDefined();
       });
 
+    });
   });
 
   describe('with existing annotation bundle but no exising annotation file', () => {
@@ -151,7 +155,7 @@ describe('AnnotationComponent', () => {
     let fixture;
     let comp;
 
-    beforeEach(async () => {
+    beforeEach(waitForAsync(() => {
 
       bitstreamService = jasmine.createSpyObj('bitstreamService', {
         findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList(createBitstreamList(bitstreamIdDummyNoMatch))),
@@ -162,9 +166,9 @@ describe('AnnotationComponent', () => {
         patch: {}
       });
 
-      await TestBed.configureTestingModule({
+      TestBed.configureTestingModule({
         imports: [TranslateModule.forRoot(), RouterTestingModule],
-        declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
+        declarations: [AnnotationComponent, AnnotationUploadComponent],
         providers: [
           {
             provide: ActivatedRoute,
@@ -178,25 +182,24 @@ describe('AnnotationComponent', () => {
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
-    });
+    }));
 
-    beforeEach(async() => {
+    beforeEach(() => {
       fixture = TestBed.createComponent(AnnotationComponent);
       comp = fixture.componentInstance;
       fixture.detectChanges();
     });
 
-
-      it('buttons should be set to show upload option', () => {
-        expect(comp).toBeTruthy();
-        expect(comp.annotationBundle).toBeDefined();
-        expect(comp.uploadButton).toBeTrue();
-        expect(comp.showButton).toBeTrue();
-        const btn = fixture.debugElement.nativeElement.querySelector('.btn-danger');
-        expect(btn).toBeDefined();
-      });
-
+    it('buttons should be set to show upload option', () => {
+      expect(comp).toBeTruthy();
+      expect(comp.annotationBundle).toBeDefined();
+      expect(comp.uploadButton).toBeTrue();
+      expect(comp.showButton).toBeTrue();
+      const btn = fixture.debugElement.nativeElement.querySelector('.btn-danger');
+      expect(btn).toBeDefined();
     });
+
+  });
 
   describe('with no existing annotations bundle', () => {
 
@@ -204,7 +207,7 @@ describe('AnnotationComponent', () => {
     let fixture;
     let comp;
 
-    beforeEach(async () => {
+    beforeEach(waitForAsync(() => {
 
       bitstreamService = jasmine.createSpyObj('bitstreamService', {
         findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList(createBitstreamList(bitstreamIdDummyNoMatch))),
@@ -215,9 +218,9 @@ describe('AnnotationComponent', () => {
         patch: {}
       });
 
-      await TestBed.configureTestingModule({
+      TestBed.configureTestingModule({
         imports: [TranslateModule.forRoot(), RouterTestingModule],
-        declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
+        declarations: [AnnotationComponent, AnnotationUploadComponent],
         providers: [
           {
             provide: ActivatedRoute,
@@ -231,9 +234,9 @@ describe('AnnotationComponent', () => {
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
-    });
+    }));
 
-    beforeEach(async() => {
+    beforeEach(() => {
       fixture = TestBed.createComponent(AnnotationComponent);
       comp = fixture.componentInstance;
       fixture.detectChanges();

@@ -44,15 +44,15 @@
               <i class="fas fa-trash-alt fa-fw"></i>
             </button>
           </div>
-          <div class="">
-            <a href="{{bitstreamDownload}}"><span class="col-form-label-sm">{{annotationFileTitle}}</span></a>
+          <div>
+            <a href="{{bitstreamDownload}}" class="file-title"><span class="col-form-label-sm">{{annotationFileTitle}}</span></a>
           </div>
 
         </div>
         <div class="row mt-3" *ngIf="activeDeleteStatus">
           <div class="col pl-3 mt-2">
-            <button type="button" class="btn btn-primary float-right" (click)="saveChange()">{{'iiif.image.annotation.notifications.delete' | translate}}</button>
-            <button type="button" class="btn btn-danger float-right mr-2" (click)="onCancel()">{{'iiif.image.annotation.notifications.cancel' | translate}}</button>
+            <button type="button" class="delete-button btn btn-primary float-right" (click)="saveChange()">{{'iiif.image.annotation.notifications.delete' | translate}}</button>
+            <button type="button" class="cancel-button btn btn-danger float-right mr-2" (click)="onCancel()">{{'iiif.image.annotation.notifications.cancel' | translate}}</button>
           </div>
         </div>
         <div class="row" *ngIf="!activeDeleteStatus">

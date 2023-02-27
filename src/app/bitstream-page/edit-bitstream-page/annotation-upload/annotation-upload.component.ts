@@ -1,8 +1,9 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component, EventEmitter, Input,
-  OnDestroy, OnInit, Output,
+  OnDestroy, Output,
   ViewChild
 } from '@angular/core';
 import {
@@ -10,7 +11,6 @@ import {
 } from '../../../core/shared/operators';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { ActivatedRoute } from '@angular/router';
 import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
@@ -45,7 +45,7 @@ import { BUNDLE_NAME } from '../annotation/annotation-properties';
   templateUrl: './annotation-upload.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AnnotationUploadComponent implements OnInit, OnDestroy {
+export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
 
   /**
    * The file uploader component
@@ -112,7 +112,6 @@ export class AnnotationUploadComponent implements OnInit, OnDestroy {
 
   constructor(
     private itemService: ItemDataService,
-    private route: ActivatedRoute,
     private bundleService: BundleDataService,
     private requestService: RequestService,
     private authService: AuthService,
@@ -121,14 +120,16 @@ export class AnnotationUploadComponent implements OnInit, OnDestroy {
     private changeDetector: ChangeDetectorRef,
     private objectCacheService: ObjectCacheService,
     private notificationsService: NotificationsService,
-    private objectUpdatesService: ObjectUpdatesService,
+    private objectUpdateService: ObjectUpdatesService,
     private translateService: TranslateService,
     private tokenExtractor: HttpXsrfTokenExtractor
   ) {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     if (this.annotationBundle) {
-      this.setUploadUrl(this.annotationBundle);
+      if (hasValue(this.uploaderComponent)) {
+        this.setUploadUrl(this.annotationBundle);
+      }
       if (this.annotationFile) {
         this.bitstreamDownload = this.annotationFile._links.content.href;
         this.showUploaderComponent = false;
@@ -205,7 +206,7 @@ export class AnnotationUploadComponent implements OnInit, OnDestroy {
    * This function is called when the annotation file deletion is confirmed by user.
    */
   saveChange(): void {
-    const removedBitstreams$ = this.objectUpdatesService.getFieldUpdates(this.annotationBundle.self, [], true).pipe(
+    const removedBitstreams$ = this.objectUpdateService.getFieldUpdates(this.annotationBundle.self, [], true).pipe(
       map((fieldUpdates: FieldUpdates) => {
         return Object.values(fieldUpdates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE);
       }),
@@ -252,7 +253,7 @@ export class AnnotationUploadComponent implements OnInit, OnDestroy {
    * when the deletion is confirmed.
    */
   remove(): void {
-    this.objectUpdatesService.saveRemoveFieldUpdate(this.annotationBundle._links.self.href, this.annotationFile);
+    this.objectUpdateService.saveRemoveFieldUpdate(this.annotationBundle._links.self.href, this.annotationFile);
     this.activeDeleteStatus = true;
     this.changeDetector.detectChanges();
   }
@@ -265,7 +266,7 @@ export class AnnotationUploadComponent implements OnInit, OnDestroy {
     this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'cancel.content');
     const undoNotification = this.notificationsService.success(null,
       this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'cancel.content'));
-    this.objectUpdatesService.discardAllFieldUpdates(this.annotationBundle._links.self.href, undoNotification);
+    this.objectUpdateService.discardAllFieldUpdates(this.annotationBundle._links.self.href, undoNotification);
     this.activeDeleteStatus = false;
     this.changeDetector.detectChanges();
   }
