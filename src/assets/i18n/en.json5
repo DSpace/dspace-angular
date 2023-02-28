@@ -4635,7 +4635,7 @@
 
   "submission.workflow.generic.delete": "Delete",
 
-  "submission.workflow.generic.delete-help": "Select this option if you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
+  "submission.workflow.generic.delete-help": "Select this option to discard this item. You will then be asked to confirm it.",
 
   "submission.workflow.generic.edit": "Edit",
 
