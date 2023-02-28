@@ -19,6 +19,7 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { getCommunityPageRoute } from './community-page-routing-paths';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'ds-community-page',
@@ -51,6 +52,8 @@ export class CommunityPageComponent implements OnInit {
    */
   communityPageRoute$: Observable<string>;
 
+  recentSubmissionspageSize: number;
+
   constructor(
     private communityDataService: CommunityDataService,
     private metadata: MetadataService,
@@ -59,7 +62,7 @@ export class CommunityPageComponent implements OnInit {
     private authService: AuthService,
     private authorizationDataService: AuthorizationDataService
   ) {
-
+    this.recentSubmissionspageSize = environment.homePage.recentSubmissions.pageSize;
   }
 
   ngOnInit(): void {

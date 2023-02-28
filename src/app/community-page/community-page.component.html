@@ -33,7 +33,7 @@
 
         <ds-themed-community-page-sub-community-list [community]="communityPayload"></ds-themed-community-page-sub-community-list>
         <ds-themed-community-page-sub-collection-list [community]="communityPayload"></ds-themed-community-page-sub-collection-list>
-        <ds-recent-item-list [scope]="communityPayload.id"></ds-recent-item-list>
+        <ds-recent-item-list *ngIf="recentSubmissionspageSize>0" [scope]="communityPayload.id"></ds-recent-item-list>
       </section>
       <footer  *ngIf="communityPayload.copyrightText"  class="border-top my-5 pt-4">
         <!-- Copyright -->
