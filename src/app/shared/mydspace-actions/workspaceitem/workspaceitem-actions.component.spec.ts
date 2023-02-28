@@ -123,19 +123,19 @@ describe('WorkspaceitemActionsComponent', () => {
   it('should display edit button', () => {
     const btn = fixture.debugElement.query(By.css('.btn-primary'));
 
-    expect(btn).toBeDefined();
+    expect(btn).not.toBeNull();
   });
 
   it('should display delete button', () => {
     const btn = fixture.debugElement.query(By.css('.btn-danger'));
 
-    expect(btn).toBeDefined();
+    expect(btn).not.toBeNull();
   });
 
   it('should display view button', () => {
-    const btn = fixture.debugElement.query(By.css('button [data-test="view-btn"]'));
+    const btn = fixture.debugElement.query(By.css('button[data-test="view-btn"]'));
 
-    expect(btn).toBeDefined();
+    expect(btn).not.toBeNull();
   });
 
   describe('on discard confirmation', () => {
