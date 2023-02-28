@@ -19,7 +19,7 @@ const annotationBundleName = 'ANNOTATIONS';
 const bitstreamIdDummy = '0b28ea75-e542-45f8-ad1a-a26c8d36ad89';
 const bitstreamIdDummyNoMatch = 'a1d04bc7-f4c4-4353-a53f-a5e8dcde9e81';
 
-function createRouteBitstream(annotationBundle: string, bitstreamId: string, bitstreamId2): Bitstream {
+function getBitstream(bundleName: string, bitstreamId: string, bitstreamId2): Bitstream {
   return Object.assign(new Bitstream(), {
     uuid: bitstreamId,
     id: bitstreamId,
@@ -41,21 +41,25 @@ function createRouteBitstream(annotationBundle: string, bitstreamId: string, bit
           return undefined;
         },
         bundles: createSuccessfulRemoteDataObject$(createPaginatedList([
-          Object.assign(new Bundle(), {
-            uuid: 'bundle-uuid',
-            name: annotationBundle,
-            firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
-              return undefined;
-            },
-            bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList(createBitstreamList(bitstreamId2)))
-          })
+          getBundle(bundleName, bitstreamId2)
         ]))
       }))}
     )
   });
 }
 
-function createBitstreamList(bitstreamId: string) {
+function getBundle(bundleName: string, bitstreamId: string) {
+  return Object.assign(new Bundle(), {
+    uuid: 'bundle-uuid',
+    name: bundleName,
+    firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
+      return undefined;
+    },
+    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList(getBitstreamList(bitstreamId)))
+  });
+}
+
+function getBitstreamList(bitstreamId: string) {
   return [
     Object.assign(new Bitstream(),
       {
@@ -94,8 +98,8 @@ describe('AnnotationComponent', () => {
     beforeEach(waitForAsync(() => {
 
       bitstreamService = jasmine.createSpyObj('bitstreamService', {
-        findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList(createBitstreamList(bitstreamIdDummy))),
-        findById: {},
+        findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList(getBitstreamList(bitstreamIdDummy))),
+        findById: createSuccessfulRemoteDataObject$(getBitstream(annotationBundleName, bitstreamIdDummy, bitstreamIdDummy)),
         update: {},
         updateFormat: {},
         commitUpdates: {},
@@ -109,7 +113,7 @@ describe('AnnotationComponent', () => {
           {
             provide: ActivatedRoute,
             useValue: {
-              data: observableOf({bitstream: createSuccessfulRemoteDataObject(createRouteBitstream(annotationBundleName, bitstreamIdDummy, bitstreamIdDummy))}),
+              data: observableOf({bitstream: createSuccessfulRemoteDataObject(getBitstream(annotationBundleName, bitstreamIdDummy, bitstreamIdDummy))}),
               snapshot: {queryParams: {}}
             }
           },
@@ -158,8 +162,8 @@ describe('AnnotationComponent', () => {
     beforeEach(waitForAsync(() => {
 
       bitstreamService = jasmine.createSpyObj('bitstreamService', {
-        findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList(createBitstreamList(bitstreamIdDummyNoMatch))),
-        findById: {},
+        findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList(getBitstreamList(bitstreamIdDummyNoMatch))),
+        findById: createSuccessfulRemoteDataObject$(getBitstream(annotationBundleName, bitstreamIdDummy, bitstreamIdDummyNoMatch)),
         update: {},
         updateFormat: {},
         commitUpdates: {},
@@ -173,7 +177,7 @@ describe('AnnotationComponent', () => {
           {
             provide: ActivatedRoute,
             useValue: {
-              data: observableOf({bitstream: createSuccessfulRemoteDataObject(createRouteBitstream(annotationBundleName, bitstreamIdDummy, bitstreamIdDummyNoMatch))}),
+              data: observableOf({bitstream: createSuccessfulRemoteDataObject(getBitstream(annotationBundleName, bitstreamIdDummy, bitstreamIdDummyNoMatch))}),
               snapshot: {queryParams: {}}
             }
           },
@@ -210,8 +214,8 @@ describe('AnnotationComponent', () => {
     beforeEach(waitForAsync(() => {
 
       bitstreamService = jasmine.createSpyObj('bitstreamService', {
-        findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList(createBitstreamList(bitstreamIdDummyNoMatch))),
-        findById: {},
+        findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList(getBitstreamList(bitstreamIdDummyNoMatch))),
+        findById: createSuccessfulRemoteDataObject$(getBitstream('ORIGINAL', bitstreamIdDummy, bitstreamIdDummyNoMatch)),
         update: {},
         updateFormat: {},
         commitUpdates: {},
@@ -225,7 +229,7 @@ describe('AnnotationComponent', () => {
           {
             provide: ActivatedRoute,
             useValue: {
-              data: observableOf({bitstream: createSuccessfulRemoteDataObject(createRouteBitstream('ORIGINAL', bitstreamIdDummy, bitstreamIdDummyNoMatch))}),
+              data: observableOf({bitstream: createSuccessfulRemoteDataObject(getBitstream('ORIGINAL', bitstreamIdDummy, bitstreamIdDummyNoMatch))}),
               snapshot: {queryParams: {}}
             }
           },

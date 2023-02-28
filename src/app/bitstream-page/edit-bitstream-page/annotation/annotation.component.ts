@@ -5,7 +5,6 @@ import { Bundle } from '../../../core/shared/bundle.model';
 import { Item } from '../../../core/shared/item.model';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { EMPTY, Observable, Subscription } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
@@ -16,7 +15,15 @@ import { hasNoValue, hasValue } from '../../../shared/empty.util';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { AnnotationUploadComponent } from '../annotation-upload/annotation-upload.component';
 import { BUNDLE_NAME } from './annotation-properties';
+import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 
+
+const BITSTREAM_LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
+  followLink('bundle', {},
+    followLink('item', {},
+      followLink('bundles', {},
+        followLink('bitstreams', {})))),
+];
 
 /**
  * Parent container for the annotation uploader.
@@ -63,6 +70,8 @@ export class AnnotationComponent implements OnInit {
    */
   subs: Subscription[] = [];
 
+  bitstreamId: string;
+
   constructor(
     protected route: ActivatedRoute,
     protected changeDetector: ChangeDetectorRef,
@@ -70,16 +79,24 @@ export class AnnotationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const bitstreamRD$ = this.route.data.pipe(map((data) =>  {
+    this.route.data.pipe().subscribe((data) => {
       this.annotationFileTitle = this.getAnnotationFileName(data.bitstream.payload.id);
-      return data.bitstream;
-    }));
-    this.item$ = this.getItem(bitstreamRD$);
-    const bundles$ = this.getItemBundles(this.item$);
-    this.subs.push(bundles$.pipe(
-    ).subscribe((bundles: PaginatedList<Bundle>) => {
-      this.checkForExistingAnnotationBundle(bundles, this.item$);
-    }));
+      this.bitstreamId = data.bitstream.payload.id;
+
+      // Because of updates this component cannot use the resolved bitstream in the cache.
+      this.bitstreamService.findById(this.bitstreamId, false, true, ...BITSTREAM_LINKS_TO_FOLLOW).pipe(
+        getFirstCompletedRemoteData(),
+        getRemoteDataPayload()
+      ).subscribe((bitstream: Bitstream) => {
+        this.item$ = this.getItem(bitstream);
+        const bundles$ = this.getItemBundles(this.item$);
+        this.subs.push(bundles$.pipe(
+        ).subscribe((bundles: PaginatedList<Bundle>) => {
+          this.checkForExistingAnnotationBundle(bundles);
+        }));
+      });
+
+    });
   }
 
   /**
@@ -106,17 +123,14 @@ export class AnnotationComponent implements OnInit {
    * Gets observable of the parent item of the current bitstream.
    * @param bitstreamRD$
    */
-  private getItem(bitstreamRD$: Observable<RemoteData<Bitstream>>): Observable<Item> {
-    return bitstreamRD$.pipe(
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
-      switchMap((bitstream: Bitstream) => bitstream.bundle.pipe(
+  private getItem(bitstream: Bitstream): Observable<Item> {
+    return bitstream.bundle.pipe(
         getFirstCompletedRemoteData(),
         getRemoteDataPayload(),
         switchMap((bundle: Bundle) => bundle.item.pipe(
           getFirstCompletedRemoteData(),
           getRemoteDataPayload())
-        ))));
+        ));
   }
 
   /**
@@ -133,13 +147,13 @@ export class AnnotationComponent implements OnInit {
   }
 
   /**
-   * Looks for an existing annotations bundle.If the annotations bundle exists, calls
+   * Looks for an existing annotations bundle. If it exists, calls
    * a function  to check for a matching file in the annotations bundle and updates
    * the view. Otherwise, show the upload button.
    * @param bundleList
    * @param item
    */
-  private checkForExistingAnnotationBundle(bundleList: PaginatedList<Bundle>, item: Observable<Item>): void {
+  private checkForExistingAnnotationBundle(bundleList: PaginatedList<Bundle>): void {
     if (bundleList.page) {
       const bundleCount = bundleList.page.filter((bundle: Bundle) => bundle.name === BUNDLE_NAME)
         .map((bundle: Bundle) => {
@@ -211,7 +225,7 @@ export class AnnotationComponent implements OnInit {
       }),
       //tap((bitstream: Bitstream) => console.log(bitstream)),
       filter((bitstream: Bitstream) => bitstream.metadata['dc.title'][0].value === annotationFileTitle),
-      //tap((bitstream: Bitstream) => console.log('found bitstream in annotation annotationBundle')),
+      //tap((bitstream: Bitstream) => console.log(bitstream)),
       take(1)
     );
   }

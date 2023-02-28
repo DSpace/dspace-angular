@@ -12,10 +12,7 @@ import { getFirstCompletedRemoteData } from '../core/shared/operators';
  * Requesting them as embeds will limit the number of requests
  */
  export const BITSTREAM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
-  followLink('bundle', {},
-    followLink('item', {},
-      followLink('bundles', {useCachedVersionIfAvailable: false},
-        followLink('bitstreams', )))),
+  followLink('bundle', {}, followLink('item')),
   followLink('format')
 ];
 

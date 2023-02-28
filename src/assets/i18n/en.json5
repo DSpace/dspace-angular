@@ -2800,6 +2800,8 @@
 
   "iiif.image.annotation.notifications.removed.title": "Annotation Deleted",
 
+  "iiif.image.annotation.notifications.removed.error": "Unable to delete the annotation file.",
+
   "iiif.image.annotation.notifications.removed.content": "The annotation file for this image has been removed.",
 
   "iiif.image.annotation.notifications.added.title": "Annotation Added",

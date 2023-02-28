@@ -11,8 +11,8 @@ import {
 } from '../../../core/shared/operators';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { map, switchMap, take } from 'rxjs/operators';
-import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { filter, map, switchMap, take } from 'rxjs/operators';
+import { hasValue, isEmpty } from '../../../shared/empty.util';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
@@ -24,7 +24,7 @@ import { Bitstream } from '../../../core/shared/bitstream.model';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
-import { of as observableOf, Subscription, zip as observableZip } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
@@ -212,29 +212,42 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
       }),
       map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field))
     );
-    // Send out delete requests for all deleted bitstreams
-    const removedResponses$ = removedBitstreams$.pipe(
+    // Send out the delete request for the annotation bitstream
+    const removedResponse$ = removedBitstreams$.pipe(
       take(1),
       switchMap((removedBitstreams: Bitstream[]) => {
-        if (isNotEmpty(removedBitstreams)) {
-          return observableZip(...removedBitstreams.map((bitstream: Bitstream) => this.bitstreamService.delete(bitstream.id)));
+        // there should be only one update
+        if (removedBitstreams.length === 1) {
+          return this.bitstreamService.delete(removedBitstreams[0].id);
         } else {
-          return observableOf(undefined);
+          // this should never happen
+          this.notificationsService.success(
+            this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.error'));
         }
       })
     );
-    this.subs.push(removedResponses$.pipe(take(1)).subscribe((responses: RemoteData<NoContent>[]) => {
-      if (hasValue(responses)) {
-        this.bundleService.getBitstreamsEndpoint(this.annotationBundle.id).pipe(take(1)).subscribe((href: string) => {
-          this.requestService.setStaleByHrefSubstring(href);
-        });
-        this.notificationsService.success(
-          this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.title'),
-          this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.content'));
-        // Update the component status.
-        this.changeStatusEvent.emit([undefined, this.annotationBundle]);
-      }
+    // if the deletion is successful, update the components
+    this.subs.push(removedResponse$.pipe(
+      filter((response: RemoteData<NoContent>) => response.hasSucceeded),
+      take(1)
+    ).subscribe(() => {
+      this.updateStatus();
+      this.notificationsService.success(
+        this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.title'),
+        this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.content'));
     }));
+  }
+
+  /**
+   * Cleans up and emits event to parent that will re-initialize the components.
+   * @private
+   */
+  private updateStatus(): void {
+    this.bundleService.getBitstreamsEndpoint(this.annotationBundle.id).pipe(take(1)).subscribe((href: string) => {
+      this.requestService.setStaleByHrefSubstring(href);
+      // Update the component status.
+      this.changeStatusEvent.emit([undefined, this.annotationBundle]);
+    });
   }
 
   /**
@@ -262,8 +275,6 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
    * Cancel the deletion update.
    */
   onCancel() {
-    this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'cancel.title');
-    this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'cancel.content');
     const undoNotification = this.notificationsService.success(null,
       this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'cancel.content'));
     this.objectUpdateService.discardAllFieldUpdates(this.annotationBundle._links.self.href, undoNotification);
@@ -271,6 +282,9 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
     this.changeDetector.detectChanges();
   }
 
+  /**
+   * Emits event to parent that will remove this component from the view.
+   */
   closeView(): void {
     this.closeDialog.emit();
   }
