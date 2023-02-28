@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Inject, OnInit, PLATFORM_ID, Input } from '@angular/core';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { RemoteData } from '../../core/data/remote-data';
@@ -30,6 +30,9 @@ import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
   ]
 })
 export class RecentItemListComponent implements OnInit {
+
+  @Input() scope?: string;
+
   itemRD$: Observable<RemoteData<PaginatedList<Item>>>;
   paginationConfig: PaginationComponentOptions;
   sortConfig: SortOptions;
@@ -70,6 +73,7 @@ export class RecentItemListComponent implements OnInit {
         pagination: this.paginationConfig,
         dsoTypes: [DSpaceObjectType.ITEM],
         sort: this.sortConfig,
+        scope: this.scope
       }),
       undefined,
       undefined,

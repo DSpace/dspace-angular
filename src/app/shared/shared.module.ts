@@ -267,6 +267,7 @@ import {
 import { EpersonGroupListComponent } from './eperson-group-list/eperson-group-list.component';
 import { EpersonSearchBoxComponent } from './eperson-group-list/eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './eperson-group-list/group-search-box/group-search-box.component';
+import { RecentItemListComponent } from '../home-page/recent-item-list/recent-item-list.component';
 
 const MODULES = [
   CommonModule,
@@ -312,10 +313,10 @@ const COMPONENTS = [
   // put shared components here
   AlertComponent,
   AuthNavMenuComponent,
-  ThemedAuthNavMenuComponent,
-  UserMenuComponent,
   DsSelectComponent,
   ErrorComponent,
+  ThemedAuthNavMenuComponent,
+  UserMenuComponent,
   LangSwitchComponent,
   LoadingComponent,
   ThemedLoadingComponent,
@@ -371,7 +372,8 @@ const COMPONENTS = [
   ContextHelpWrapperComponent,
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
-  GroupSearchBoxComponent
+  GroupSearchBoxComponent,
+  RecentItemListComponent,
 ];
 
 const ENTRY_COMPONENTS = [
