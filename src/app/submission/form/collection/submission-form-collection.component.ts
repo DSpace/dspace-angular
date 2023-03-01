@@ -188,7 +188,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    * Reset search form control on dropdown menu close
    */
   onClose() {
-    this.collectionDropdown.reset();
+    this.collectionDropdown?.reset();
   }
 
   /**
@@ -199,7 +199,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   toggled(isOpen: boolean) {
     if (!isOpen) {
-      this.collectionDropdown.reset();
+      this.collectionDropdown?.reset();
     }
   }
 }
