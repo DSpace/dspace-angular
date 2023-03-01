@@ -12,7 +12,7 @@
     <ds-iiif-annotation-upload *ngIf="showComponent"
                                [annotationBundle]="annotationBundle"
                                [annotationFile]="annotationFile"
-                               [item]="item$ | async"
+                               [item]="item"
                                [annotationFileTitle]="annotationFileTitle"
                                (closeDialog)="toggleComponent()"
                                (changeStatusEvent)="changeStatus($event)"

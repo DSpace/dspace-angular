@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { expand, filter, map, switchMap, take } from 'rxjs/operators';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { expand, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { Item } from '../../../core/shared/item.model';
@@ -16,6 +16,7 @@ import { BitstreamDataService } from '../../../core/data/bitstream-data.service'
 import { AnnotationUploadComponent } from '../annotation-upload/annotation-upload.component';
 import { BUNDLE_NAME } from './annotation-properties';
 import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { RemoteData } from '../../../core/data/remote-data';
 
 
 const BITSTREAM_LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
@@ -34,13 +35,13 @@ const BITSTREAM_LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
   styleUrls: ['./annotation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AnnotationComponent implements OnInit {
+export class AnnotationComponent implements OnInit, OnDestroy {
 
   @ViewChild(AnnotationUploadComponent) annotationUploaderComponent: AnnotationUploadComponent;
   /**
    * The parent item of the current bitstream
    */
-  item$: Observable<Item>;
+  item: Item;
   /**
    * The ANNOTATIONS bundle of the current item.
    */
@@ -75,28 +76,34 @@ export class AnnotationComponent implements OnInit {
   constructor(
     protected route: ActivatedRoute,
     protected changeDetector: ChangeDetectorRef,
-    protected bitstreamService: BitstreamDataService
-  ) {}
+    protected bitstreamService: BitstreamDataService ) {
+  }
 
   ngOnInit(): void {
-    this.route.data.pipe().subscribe((data) => {
-      this.annotationFileTitle = this.getAnnotationFileName(data.bitstream.payload.id);
-      this.bitstreamId = data.bitstream.payload.id;
 
-      // Because of updates this component cannot use the resolved bitstream in the cache.
-      this.bitstreamService.findById(this.bitstreamId, false, true, ...BITSTREAM_LINKS_TO_FOLLOW).pipe(
-        getFirstCompletedRemoteData(),
-        getRemoteDataPayload()
-      ).subscribe((bitstream: Bitstream) => {
-        this.item$ = this.getItem(bitstream);
-        const bundles$ = this.getItemBundles(this.item$);
-        this.subs.push(bundles$.pipe(
-        ).subscribe((bundles: PaginatedList<Bundle>) => {
-          this.checkForExistingAnnotationBundle(bundles);
-        }));
-      });
+    // Get data from the current bitstream route
+    const bitstreamRD$ = this.route.data.pipe(
+      tap((data: { bitstream: RemoteData<Bitstream>, breadcrumb: any }) => {
+        this.annotationFileTitle = this.getAnnotationFileName(data.bitstream.payload.id);
+        this.bitstreamId = data.bitstream.payload.id;
+      }));
 
-    });
+    // Request an un-cached version of the bitstream for updating.
+    this.subs.push(bitstreamRD$.pipe(
+      switchMap(() =>
+        this.bitstreamService.findById(this.bitstreamId, false, true, ...BITSTREAM_LINKS_TO_FOLLOW).pipe(
+          getFirstCompletedRemoteData(),
+          getRemoteDataPayload(),
+          switchMap((bitstream: Bitstream) => this.getItem(bitstream)),
+          tap((item: Item) => this.item = item),
+          switchMap((item: Item) => this.getItemBundles(item)
+          )
+        ))
+    ).subscribe((bundles: PaginatedList<Bundle>) => {
+      // Check for an annotations bundle. If not found one will be created.
+      this.checkForExistingAnnotationBundle(bundles);
+    }));
+
   }
 
   /**
@@ -125,24 +132,22 @@ export class AnnotationComponent implements OnInit {
    */
   private getItem(bitstream: Bitstream): Observable<Item> {
     return bitstream.bundle.pipe(
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload(),
+      switchMap((bundle: Bundle) => bundle.item.pipe(
         getFirstCompletedRemoteData(),
-        getRemoteDataPayload(),
-        switchMap((bundle: Bundle) => bundle.item.pipe(
-          getFirstCompletedRemoteData(),
-          getRemoteDataPayload())
-        ));
+        getRemoteDataPayload())
+      ));
   }
 
   /**
    * Gets observable of the bundles from the item.
-   * @param item$
+   * @param item
    */
-  private getItemBundles(item$: Observable<Item>): Observable<PaginatedList<Bundle>> {
-    return item$.pipe(
-      switchMap((item: Item) => item.bundles.pipe(
-        getFirstSucceededRemoteData(),
-        getRemoteDataPayload(),
-      ))
+  private getItemBundles(item: Item): Observable<PaginatedList<Bundle>> {
+    return item.bundles.pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
     );
   }
 
@@ -236,6 +241,10 @@ export class AnnotationComponent implements OnInit {
    */
   private getAnnotationFileName(uuid: string): string {
     return uuid + '.json';
+  }
+
+  ngOnDestroy(): void {
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
 }
