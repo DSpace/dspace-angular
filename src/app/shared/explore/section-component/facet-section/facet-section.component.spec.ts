@@ -173,7 +173,7 @@ describe('FacetSectionComponent', () => {
 
   it('should create a facet section foreach not empty filter configs',  () => {
     // graph facets control
-    const graphFacets = fixture.debugElement.queryAll(By.css('.col-6.mb-4'));
+    const graphFacets = fixture.debugElement.queryAll(By.css('.col-lg-6.mb-4'));
     expect(graphFacets.length).toEqual(2);
     const barChartFacet = graphFacets[0];
     expect(barChartFacet.name).toEqual('div');
@@ -186,7 +186,7 @@ describe('FacetSectionComponent', () => {
     const pieChartComponent = pieChartFacet.query(By.css('ds-search-chart'));
     expect(isNotNull(pieChartComponent)).toBe(true);
 
-    const facets = fixture.debugElement.queryAll(By.css('.col-3.mb-4'));
+    const facets = fixture.debugElement.queryAll(By.css('.col-lg-3.mb-4'));
     expect(facets.length).toEqual(2);
 
     const authorFacet = facets[0];
