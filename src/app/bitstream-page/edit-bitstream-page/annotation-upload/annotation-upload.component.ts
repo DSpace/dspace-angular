@@ -221,20 +221,25 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
           return this.bitstreamService.delete(removedBitstreams[0].id);
         } else {
           // this should never happen
-          this.notificationsService.success(
+          this.notificationsService.error(
             this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.error'));
         }
       })
     );
-    // if the deletion is successful, update the components
     this.subs.push(removedResponse$.pipe(
-      filter((response: RemoteData<NoContent>) => response.hasSucceeded),
+      filter((response: RemoteData<NoContent>) => response.hasSucceeded || response.hasFailed),
       take(1)
-    ).subscribe(() => {
-      this.updateStatus();
-      this.notificationsService.success(
-        this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.title'),
-        this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.content'));
+    ).subscribe((response: RemoteData<NoContent>) => {
+      if (response.hasSucceeded) {
+        // if the deletion is successful update the components
+        this.updateStatus();
+        this.notificationsService.success(
+          this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.title'),
+          this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.content'));
+      } else if (response.hasFailed) {
+        this.notificationsService.error(
+          this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.error'));
+      }
     }));
   }
 
@@ -243,11 +248,12 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
    * @private
    */
   private updateStatus(): void {
-    this.bundleService.getBitstreamsEndpoint(this.annotationBundle.id).pipe(take(1)).subscribe((href: string) => {
-      this.requestService.setStaleByHrefSubstring(href);
-      // Update the component status.
-      this.changeStatusEvent.emit([undefined, this.annotationBundle]);
-    });
+    this.subs.push(this.bundleService.getBitstreamsEndpoint(this.annotationBundle.id).pipe(take(1))
+      .subscribe((href: string) => {
+        this.requestService.setStaleByHrefSubstring(href);
+        // Update the component status.
+        this.changeStatusEvent.emit([undefined, this.annotationBundle]);
+      }));
   }
 
   /**
