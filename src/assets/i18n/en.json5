@@ -540,9 +540,15 @@
 
   "admin.workflow.item.workflow": "Workflow",
 
+  "admin.workflow.item.workspace": "Workspace",
+
   "admin.workflow.item.delete": "Delete",
 
   "admin.workflow.item.send-back": "Send back",
+
+  "admin.workflow.item.policies": "Policies",
+
+  "admin.workflow.item.supervision": "Supervision",
 
 
 
@@ -583,6 +589,70 @@
   "admin.metadata-import.page.validateOnly": "Validate Only",
 
   "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
+
+  "advanced-workflow-action.rating.form.rating.label": "Rating",
+
+  "advanced-workflow-action.rating.form.rating.error": "You must rate the item",
+
+  "advanced-workflow-action.rating.form.review.label": "Review",
+
+  "advanced-workflow-action.rating.form.review.error": "You must enter a review to submit this rating",
+
+  "advanced-workflow-action.rating.description": "Please select a rating below",
+
+  "advanced-workflow-action.rating.description-requiredDescription": "Please select a rating below and also add a review",
+
+
+  "advanced-workflow-action.select-reviewer.description-single": "Please select a single reviewer below before submitting",
+
+  "advanced-workflow-action.select-reviewer.description-multiple": "Please select one or more reviewers below before submitting",
+
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.head": "EPeople",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "Add EPeople",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Browse All",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "E-mail (exact)",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.id": "ID",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "Name",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "Identity",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Email",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "NetID",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Remove / Add",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "No members in group yet, search and add.",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "No EPeople found in that search",
+
+  "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "No reviewer selected.",
 
   "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
 
@@ -789,6 +859,12 @@
 
   "chips.remove": "Remove chip",
 
+
+  "claimed-approved-search-result-list-element.title": "Approved",
+
+  "claimed-declined-search-result-list-element.title": "Rejected, sent back to submitter",
+
+  "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
 
 
   "collection.create.head": "Create a Collection",
@@ -1200,6 +1276,11 @@
   "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
 
 
+  "comcol-role.edit.scorereviewers.name": "Score Reviewers",
+
+  "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
+
+
 
   "community.form.abstract": "Short Description",
 
@@ -1327,7 +1408,7 @@
 
   "curation-task.task.vscan.label": "Virus Scan",
 
-  "curation-task.task.registerdoi.label": "Register DOI",
+  "curation-task.task.register-doi.label": "Register DOI",
 
 
 
@@ -1425,6 +1506,32 @@
 
   "dso-selector.results-could-not-be-retrieved": "Something went wrong, please refresh again ↻",
 
+  "supervision-group-selector.header": "Supervision Group Selector",
+
+  "supervision-group-selector.select.type-of-order.label": "Select a type of Order",
+
+  "supervision-group-selector.select.type-of-order.option.none": "NONE",
+
+  "supervision-group-selector.select.type-of-order.option.editor": "EDITOR",
+
+  "supervision-group-selector.select.type-of-order.option.observer": "OBSERVER",
+
+  "supervision-group-selector.select.group.label": "Select a Group",
+
+  "supervision-group-selector.button.cancel": "Cancel",
+
+  "supervision-group-selector.button.save": "Save",
+
+  "supervision-group-selector.select.type-of-order.error": "Please select a type of order",
+
+  "supervision-group-selector.select.group.error": "Please select a group",
+
+  "supervision-group-selector.notification.create.success.title": "Successfully created supervision order for group {{ name }}",
+
+  "supervision-group-selector.notification.create.failure.title": "Error",
+
+  "supervision-group-selector.notification.create.already-existing" : "A supervision order already exists on this item for selected group",
+
   "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
 
   "confirmation-modal.export-metadata.info": "Are you sure you want to export metadata for {{ dsoName }}",
@@ -1457,6 +1564,13 @@
 
   "confirmation-modal.delete-profile.confirm": "Delete",
 
+  "confirmation-modal.delete-subscription.header": "Delete Subscription",
+
+  "confirmation-modal.delete-subscription.info": "Are you sure you want to delete subscription for \"{{ dsoName }}\"",
+
+  "confirmation-modal.delete-subscription.cancel": "Cancel",
+
+  "confirmation-modal.delete-subscription.confirm": "Delete",
 
   "error.bitstream": "Error fetching bitstream",
 
@@ -1918,6 +2032,48 @@
 
   "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
 
+  "item.edit.identifiers.doi.status.UNKNOWN": "Unknown",
+
+  "item.edit.identifiers.doi.status.TO_BE_REGISTERED": "Queued for registration",
+
+  "item.edit.identifiers.doi.status.TO_BE_RESERVED": "Queued for reservation",
+
+  "item.edit.identifiers.doi.status.IS_REGISTERED": "Registered",
+
+  "item.edit.identifiers.doi.status.IS_RESERVED": "Reserved",
+
+  "item.edit.identifiers.doi.status.UPDATE_RESERVED": "Reserved (update queued)",
+
+  "item.edit.identifiers.doi.status.UPDATE_REGISTERED": "Registered (update queued)",
+
+  "item.edit.identifiers.doi.status.UPDATE_BEFORE_REGISTRATION": "Queued for update and registration",
+
+  "item.edit.identifiers.doi.status.TO_BE_DELETED": "Queued for deletion",
+
+  "item.edit.identifiers.doi.status.DELETED": "Deleted",
+
+  "item.edit.identifiers.doi.status.PENDING": "Pending (not registered)",
+
+  "item.edit.identifiers.doi.status.MINTED": "Minted (not registered)",
+
+  "item.edit.tabs.status.buttons.register-doi.label": "Register a new or pending DOI",
+
+  "item.edit.tabs.status.buttons.register-doi.button": "Register DOI...",
+
+  "item.edit.register-doi.header": "Register a new or pending DOI",
+
+  "item.edit.register-doi.description": "Review any pending identifiers and item metadata below and click Confirm to proceed with DOI registration, or Cancel to back out",
+
+  "item.edit.register-doi.confirm": "Confirm",
+
+  "item.edit.register-doi.cancel": "Cancel",
+
+  "item.edit.register-doi.success": "DOI queued for registration successfully.",
+
+  "item.edit.register-doi.error": "Error registering DOI",
+
+  "item.edit.register-doi.to-update": "The following DOI has already been minted and will be queued for registration online",
+
   "item.edit.item-mapper.buttons.add": "Map item to selected collections",
 
   "item.edit.item-mapper.buttons.remove": "Remove item's mapping for selected collections",
@@ -2238,6 +2394,22 @@
   "item.truncatable-part.show-more": "Show more",
 
   "item.truncatable-part.show-less": "Collapse",
+
+  "workflow-item.search.result.delete-supervision.modal.header": "Delete Supervision Order",
+
+  "workflow-item.search.result.delete-supervision.modal.info": "Are you sure you want to delete Supervision Order",
+
+  "workflow-item.search.result.delete-supervision.modal.cancel": "Cancel",
+
+  "workflow-item.search.result.delete-supervision.modal.confirm": "Delete",
+
+  "workflow-item.search.result.notification.deleted.success": "Successfully deleted supervision order \"{{name}}\"",
+
+  "workflow-item.search.result.notification.deleted.failure": "Failed to delete supervision order \"{{name}}\"",
+
+  "workflow-item.search.result.list.element.supervised-by": "Supervised by:",
+
+  "workflow-item.search.result.list.element.supervised.remove-tooltip": "Remove supervision group",
 
 
 
@@ -2924,6 +3096,8 @@
 
   "mydspace.show.workspace": "Your Submissions",
 
+  "mydspace.show.supervisedWorkspace": "Supervised items",
+
   "mydspace.status.archived": "Archived",
 
   "mydspace.status.validation": "Validation",
@@ -2973,6 +3147,8 @@
   "nav.statistics.header": "Statistics",
 
   "nav.stop-impersonating": "Stop impersonating EPerson",
+
+  "nav.subscriptions" : "Subscriptions",
 
   "nav.toggle" : "Toggle navigation",
 
@@ -3578,6 +3754,8 @@
 
   "search.filters.applied.f.birthDate.min": "Start birth date",
 
+  "search.filters.applied.f.supervisedBy": "Supervised by",
+
   "search.filters.applied.f.withdrawn": "Withdrawn",
 
 
@@ -3721,6 +3899,13 @@
   "search.filters.filter.submitter.label": "Search submitter",
 
   "search.filters.filter.show-tree": "Browse {{ name }} tree",
+
+  "search.filters.filter.supervisedBy.head": "Supervised By",
+
+  "search.filters.filter.supervisedBy.placeholder": "Supervised By",
+
+  "search.filters.filter.supervisedBy.label": "Search Supervised By",
+
 
 
   "search.filters.entityType.JournalIssue": "Journal Issue",
@@ -4287,7 +4472,17 @@
 
   "submission.sections.general.sections_not_valid": "There are incomplete sections.",
 
+  "submission.sections.identifiers.info": "The following identifiers will be created for your item:",
 
+  "submission.sections.identifiers.no_handle": "No handles have been minted for this item.",
+
+  "submission.sections.identifiers.no_doi": "No DOIs have been minted for this item.",
+
+  "submission.sections.identifiers.handle_label": "Handle: ",
+
+  "submission.sections.identifiers.doi_label": "DOI: ",
+
+  "submission.sections.identifiers.otherIdentifiers_label": "Other identifiers: ",
 
   "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
 
@@ -4302,6 +4497,8 @@
   "submission.sections.submit.progressbar.describe.steptwo": "Describe",
 
   "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
+
+  "submission.sections.submit.progressbar.identifiers": "Identifiers",
 
   "submission.sections.submit.progressbar.license": "Deposit license",
 
@@ -4384,7 +4581,7 @@
 
   "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
 
-  "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
 
   "submission.sections.upload.no-entry": "No",
 
@@ -4508,6 +4705,15 @@
   "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
 
 
+  "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
+
+  "submission.workflow.generic.submit_select_reviewer-help": "",
+
+
+  "submission.workflow.generic.submit_score": "Rate",
+
+  "submission.workflow.generic.submit_score-help": "",
+
 
   "submission.workflow.tasks.claimed.approve": "Approve",
 
@@ -4516,6 +4722,10 @@
   "submission.workflow.tasks.claimed.edit": "Edit",
 
   "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
+
+  "submission.workflow.tasks.claimed.decline": "Decline",
+
+  "submission.workflow.tasks.claimed.decline_help": "",
 
   "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
 
@@ -4557,6 +4767,77 @@
   "submission.workspace.generic.view": "View",
 
   "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+
+
+  "subscriptions.title": "Subscriptions",
+
+  "subscriptions.item": "Subscriptions for items",
+
+  "subscriptions.collection": "Subscriptions for collections",
+
+  "subscriptions.community": "Subscriptions for communities",
+
+  "subscriptions.subscription_type": "Subscription type",
+
+  "subscriptions.frequency": "Subscription frequency",
+
+  "subscriptions.frequency.D": "Daily",
+
+  "subscriptions.frequency.M": "Monthly",
+
+  "subscriptions.frequency.W": "Weekly",
+
+  "subscriptions.tooltip": "Subscribe",
+
+  "subscriptions.modal.title": "Subscriptions",
+
+  "subscriptions.modal.type-frequency": "Type and frequency",
+
+  "subscriptions.modal.close": "Close",
+
+  "subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
+
+  "subscriptions.modal.new-subscription-form.type.content": "Content",
+
+  "subscriptions.modal.new-subscription-form.frequency.D": "Daily",
+
+  "subscriptions.modal.new-subscription-form.frequency.W": "Weekly",
+
+  "subscriptions.modal.new-subscription-form.frequency.M": "Monthly",
+
+  "subscriptions.modal.new-subscription-form.submit": "Submit",
+
+  "subscriptions.modal.new-subscription-form.processing": "Processing...",
+
+  "subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
+
+  "subscriptions.modal.delete.success": "Subscription deleted successfully",
+
+  "subscriptions.modal.update.success": "Subscription to {{ type }} updated successfully",
+
+  "subscriptions.modal.create.error": "An error occurs during the subscription creation",
+
+  "subscriptions.modal.delete.error": "An error occurs during the subscription delete",
+
+  "subscriptions.modal.update.error": "An error occurs during the subscription update",
+
+  "subscriptions.table.dso": "Subject",
+
+  "subscriptions.table.subscription_type": "Subscription Type",
+
+  "subscriptions.table.subscription_frequency": "Subscription Frequency",
+
+  "subscriptions.table.action": "Action",
+
+  "subscriptions.table.edit": "Edit",
+
+  "subscriptions.table.delete": "Delete",
+
+  "subscriptions.table.not-available": "Not available",
+
+  "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
+
+  "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
 
 
   "thumbnail.default.alt": "Thumbnail Image",
@@ -4617,11 +4898,15 @@
 
 
 
+  "supervisedWorkspace.search.results.head": "Supervised Items",
+
   "workspace.search.results.head": "Your submissions",
 
   "workflowAdmin.search.results.head": "Administer Workflow",
 
   "workflow.search.results.head": "Workflow tasks",
+
+  "supervision.search.results.head": "Workflow and Workspace tasks",
 
 
 
@@ -4667,6 +4952,43 @@
   "workspace-item.view.breadcrumbs": "Workspace View",
 
   "workspace-item.view.title": "Workspace View",
+
+
+  "workflow-item.advanced.title": "Advanced workflow",
+
+
+  "workflow-item.selectrevieweraction.notification.success.title": "Selected reviewer",
+
+  "workflow-item.selectrevieweraction.notification.success.content": "The reviewer for this workflow item has been successfully selected",
+
+  "workflow-item.selectrevieweraction.notification.error.title": "Something went wrong",
+
+  "workflow-item.selectrevieweraction.notification.error.content": "Couldn't select the reviewer for this workflow item",
+
+  "workflow-item.selectrevieweraction.title": "Select Reviewer",
+
+  "workflow-item.selectrevieweraction.header": "Select Reviewer",
+
+  "workflow-item.selectrevieweraction.button.cancel": "Cancel",
+
+  "workflow-item.selectrevieweraction.button.confirm": "Confirm",
+
+
+  "workflow-item.scorereviewaction.notification.success.title": "Rating review",
+
+  "workflow-item.scorereviewaction.notification.success.content": "The rating for this item workflow item has been successfully submitted",
+
+  "workflow-item.scorereviewaction.notification.error.title": "Something went wrong",
+
+  "workflow-item.scorereviewaction.notification.error.content": "Couldn't rate this item",
+
+  "workflow-item.scorereviewaction.title": "Rate this item",
+
+  "workflow-item.scorereviewaction.header": "Rate this item",
+
+  "workflow-item.scorereviewaction.button.cancel": "Cancel",
+
+  "workflow-item.scorereviewaction.button.confirm": "Confirm",
 
   "idle-modal.header": "Session will expire soon",
 
@@ -4922,4 +5244,53 @@
   "home.recent-submissions.head": "Recent Submissions",
 
   "listable-notification-object.default-message": "This object couldn't be retrieved",
+
+
+  "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
+
+  "system-wide-alert-banner.countdown.prefix": "In",
+
+  "system-wide-alert-banner.countdown.days": "{{days}} day(s),",
+
+  "system-wide-alert-banner.countdown.hours": "{{hours}} hour(s) and",
+
+  "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
+
+
+
+  "menu.section.system-wide-alert": "System-wide Alert",
+
+  "system-wide-alert.form.header": "System-wide Alert",
+
+  "system-wide-alert-form.retrieval.error": "Something went wrong retrieving the system-wide alert",
+
+  "system-wide-alert.form.cancel": "Cancel",
+
+  "system-wide-alert.form.save": "Save",
+
+  "system-wide-alert.form.label.active": "ACTIVE",
+
+  "system-wide-alert.form.label.inactive": "INACTIVE",
+
+  "system-wide-alert.form.error.message": "The system wide alert must have a message",
+
+  "system-wide-alert.form.label.message": "Alert message",
+
+  "system-wide-alert.form.label.countdownTo.enable": "Enable a countdown timer",
+
+  "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
+
+  "system-wide-alert.form.label.preview": "System-wide alert preview",
+
+  "system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
+
+  "system-wide-alert.form.update.error": "Something went wrong when updating the system-wide alert",
+
+  "system-wide-alert.form.create.success": "The system-wide alert was successfully created",
+
+  "system-wide-alert.form.create.error": "Something went wrong when creating the system-wide alert",
+
+  "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
+
+  "admin.system-wide-alert.title": "System-wide Alerts",
 }

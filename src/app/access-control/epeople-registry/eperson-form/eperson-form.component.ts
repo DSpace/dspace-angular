@@ -36,6 +36,7 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 import { Registration } from '../../../core/shared/registration.model';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
+import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
 
 @Component({
   selector: 'ds-eperson-form',
@@ -491,7 +492,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   resetPassword() {
     if (hasValue(this.epersonInitial.email)) {
-      this.epersonRegistrationService.registerEmail(this.epersonInitial.email).pipe(getFirstCompletedRemoteData())
+      this.epersonRegistrationService.registerEmail(this.epersonInitial.email, null, TYPE_REQUEST_FORGOT).pipe(getFirstCompletedRemoteData())
         .subscribe((response: RemoteData<Registration>) => {
             if (response.hasSucceeded) {
               this.notificationsService.success(this.translateService.get('admin.access-control.epeople.actions.reset'),

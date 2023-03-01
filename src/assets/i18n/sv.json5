@@ -5954,7 +5954,7 @@
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
   "submission.sections.upload.header.policy.default.withlist": "Notera att uppladdade filer i samlingen {{collectionName}} också kommer att vara åtkompliga för följande grupp(er):",
 
-  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "Här visas samtliga filer som ingår i posten. Du kan uppdatera filernas metadata och villkor för åtkomst, samt <strong>ladda upp nya filer genom att dra och släppa dem här</strong>",
 
   // "submission.sections.upload.no-entry": "No",

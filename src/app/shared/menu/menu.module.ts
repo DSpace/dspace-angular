@@ -24,7 +24,7 @@ const ENTRY_COMPONENTS = [
 const MODULES = [
   TranslateModule,
   RouterModule,
-  CommonModule
+  CommonModule,
 ];
 const PROVIDERS = [
 
