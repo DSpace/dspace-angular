@@ -4031,6 +4031,8 @@
 
   "statistics.table.header.views": "Views",
 
+  "statistics.table.no-name": "(object name could not be loaded)",
+
 
 
   "submission.edit.breadcrumbs": "Edit Submission",
