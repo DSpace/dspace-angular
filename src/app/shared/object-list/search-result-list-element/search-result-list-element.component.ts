@@ -33,7 +33,7 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
   ngOnInit(): void {
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;
-      this.dsoTitle = this.dsoNameService.getName(this.dso);
+      this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.dso);
     }
   }
 

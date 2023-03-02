@@ -9,7 +9,18 @@
       </ng-template>
 
       <ng-template #editheader>
-        <h2 class="border-bottom pb-2">{{messagePrefix + '.head.edit' | translate}}</h2>
+        <h2 class="border-bottom pb-2">
+          <span
+            *dsContextHelp="{
+              content: 'admin.access-control.groups.form.tooltip.editGroupPage',
+              id: 'edit-group-page',
+              iconPlacement: 'right',
+              tooltipPlacement: ['right', 'bottom']
+            }"
+          >
+            {{messagePrefix + '.head.edit' | translate}}
+          </span>
+        </h2>
       </ng-template>
 
       <ds-alert *ngIf="groupBeingEdited?.permanent" [type]="AlertTypeEnum.Warning"

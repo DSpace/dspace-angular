@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { languageHelper } from './language-helper';
+import { CaptionInfo} from './caption-info';
 
 /**
  * This componenet renders a video viewer and playlist for the media viewer
@@ -32,9 +34,38 @@ export class MediaViewerVideoComponent implements OnInit {
 
   ngOnInit() {
     this.isCollapsed = false;
-    this.filteredMedias = this.medias.filter(
-      (media) => media.format === 'audio' || media.format === 'video'
-    );
+    this.filteredMedias = this.medias.filter((media) => media.format === 'audio' || media.format === 'video');
+  }
+
+  /**
+   * This method check if there is caption file for the media
+   * The caption file name is the media name plus "-" following two letter
+   * language code and .vtt suffix
+   *
+   * html5 video only support WEBVTT format
+   *
+   * Two letter language code reference
+   * https://www.w3schools.com/tags/ref_language_codes.asp
+   */
+  getMediaCap(name: string): CaptionInfo[] {
+    let filteredCapMedias: MediaViewerItem[];
+    let capInfos: CaptionInfo[] = [];
+    filteredCapMedias = this.medias
+       .filter((media) => media.mimetype === 'text/vtt')
+       .filter((media) => media.bitstream.name.substring(0, (media.bitstream.name.length - 7) ).toLowerCase() === name.toLowerCase());
+
+    if (filteredCapMedias) {
+      filteredCapMedias
+        .forEach((media, index) => {
+          let srclang: string = media.bitstream.name.slice(-6, -4).toLowerCase();
+          capInfos.push(new CaptionInfo(
+            media.bitstream._links.content.href,
+            srclang,
+            languageHelper[srclang]
+          ));
+        });
+    }
+    return capInfos;
   }
 
   /**

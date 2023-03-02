@@ -1,4 +1,5 @@
 <video
+  crossorigin="anonymous"
   #media
   [src]="filteredMedias[currentIndex].bitstream._links.content.href"
   id="singleVideo"
@@ -8,7 +9,14 @@
   "
   preload="none"
   controls
-></video>
+>
+  <ng-container *ngIf="getMediaCap(filteredMedias[currentIndex].bitstream.name) as capInfos">
+    <ng-container *ngFor="let capInfo of capInfos">
+      <track [src]="capInfo.src" [label]="capInfo.langLabel" [srclang]="capInfo.srclang" />
+    </ng-container>
+  </ng-container>
+
+</video>
 <div class="buttons" *ngIf="filteredMedias?.length > 1">
   <button
     class="btn btn-primary previous"

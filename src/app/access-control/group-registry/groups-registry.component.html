@@ -7,7 +7,7 @@
           <button class="mr-auto btn btn-success"
                   [routerLink]="['newGroup']">
             <i class="fas fa-plus"></i>
-            <span class="d-none d-sm-inline">{{messagePrefix + 'button.add' | translate}}</span>
+            <span class="d-none d-sm-inline ml-1">{{messagePrefix + 'button.add' | translate}}</span>
           </button>
         </div>
       </div>
@@ -17,7 +17,7 @@
         <div class="flex-grow-1 mr-3">
           <div class="form-group input-group">
             <input type="text" name="query" id="query" formControlName="query"
-                   class="form-control" attr.aria-label="{{messagePrefix + 'search.placeholder' | translate}}"
+                   class="form-control" [attr.aria-label]="messagePrefix + 'search.placeholder' | translate"
                    [placeholder]="(messagePrefix + 'search.placeholder' | translate)" >
             <span class="input-group-append">
               <button type="submit" class="search-button btn btn-primary">
