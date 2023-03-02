@@ -40,13 +40,5 @@ export const testA11y = (context?: any, options?: Options) => {
             { id: 'color-contrast', enabled: false },
         ]
     });
-    // Default retries to 2, meaning this accessibility test will retry up to 2 times.
-    const a11yRetries = 2;
-    if (options) {
-        options.retries = a11yRetries;
-    } else {
-        options = { retries: a11yRetries } as Options;
-    }
-
     cy.checkA11y(context, options, terminalLog);
 };

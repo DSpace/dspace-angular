@@ -30,11 +30,11 @@ beforeEach(() => {
 // For better stability between tests, we visit "about:blank" (i.e. blank page) after each test.
 // This ensures any remaining/outstanding XHR requests are killed, so they don't affect the next test.
 // Borrowed from: https://glebbahmutov.com/blog/visit-blank-page-between-tests/
-afterEach(() => {
+/*afterEach(() => {
     cy.window().then((win) => {
       win.location.href = 'about:blank';
     });
-});
+});*/
 
 
 // Global constants used in tests
