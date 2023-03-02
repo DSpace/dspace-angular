@@ -297,6 +297,10 @@ export const environment: BuildConfig = {
     enabled: false,
     mathjax: false,
   },
+  comcolSelectionSort: {
+    sortField:'dc.title',
+    sortDirection:'ASC',
+  },
 
   vocabularies: [
     {
