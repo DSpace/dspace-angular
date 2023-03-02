@@ -14,6 +14,8 @@
         <tr class="text-center">
           <th>{{'resource-policies.form.eperson-group-list.table.headers.id' | translate}}</th>
           <th>{{'resource-policies.form.eperson-group-list.table.headers.name' | translate}}</th>
+          <th *ngIf="isListOfEPerson">{{'resource-policies.form.eperson-group-list.table.headers.identity' | translate}}</th>
+          <th *ngIf="!isListOfEPerson">{{'resource-policies.form.eperson-group-list.table.headers.collcomm' | translate}}</th>
           <th>{{'resource-policies.form.eperson-group-list.table.headers.action' | translate}}</th>
         </tr>
         </thead>
@@ -22,6 +24,11 @@
             [class.table-primary]="isSelected(entry) | async">
           <td>{{entry.id}}</td>
           <td>{{dsoNameService.getName(entry)}}</td>
+          <td *ngIf="isListOfEPerson">
+            {{'resource-policies.form.eperson-group-list.cell.email' | translate}} {{entry.email}}<br/>
+            {{'resource-policies.form.eperson-group-list.cell.netid' | translate}} {{entry.netid}}
+          </td>
+          <td *ngIf="!isListOfEPerson">{{(entry.object | async)?.payload?.name}}</td>
           <td class="text-center">
             <button class="btn btn-sm btn-outline-primary" (click)="emitSelect(entry)">
               {{'resource-policies.form.eperson-group-list.select.btn' | translate}}
