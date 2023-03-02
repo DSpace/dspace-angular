@@ -7,7 +7,7 @@ describe('Community Page', () => {
         cy.visit('/communities/' + TEST_COMMUNITY);
 
         // <ds-community-page> tag must be loaded
-        cy.get('ds-community-page').should('exist');
+        cy.get('ds-community-page').should('be.visible');
 
         // Analyze <ds-community-page> for accessibility issues
         testA11y('ds-community-page',);

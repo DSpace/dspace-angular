@@ -17,7 +17,7 @@ describe('Search Page', () => {
         cy.get('[data-test="search-box"]').should('have.value', TEST_SEARCH_TERM);
 
         // <ds-search-page> tag must be loaded
-        cy.get('ds-search-page').should('exist');
+        cy.get('ds-search-page').should('be.visible');
 
         // At least one search result should be displayed
         cy.get('[data-test="list-object"]').should('be.visible');
@@ -51,7 +51,7 @@ describe('Search Page', () => {
         cy.get('ds-search-sidebar [data-test="grid-view"]').click();
 
         // <ds-search-page> tag must be loaded
-        cy.get('ds-search-page').should('exist');
+        cy.get('ds-search-page').should('be.visible');
 
         // At least one grid object (card) should be displayed
         cy.get('[data-test="grid-object"]').should('be.visible');

@@ -12,7 +12,7 @@ describe('Collection Statistics Page', () => {
 
     it('should contain a "Total visits" section', () => {
         cy.visit(COLLECTIONSTATISTICSPAGE);
-        cy.get('.' + TEST_COLLECTION + '_TotalVisits').should('exist');
+        cy.get('.' + TEST_COLLECTION + '_TotalVisits').should('be.visible');
     });
 
     it('should contain a "Total visits per month" section', () => {
@@ -24,7 +24,7 @@ describe('Collection Statistics Page', () => {
         cy.visit(COLLECTIONSTATISTICSPAGE);
 
         // <ds-collection-statistics-page> tag must be loaded
-        cy.get('ds-collection-statistics-page').should('exist');
+        cy.get('ds-collection-statistics-page').should('be.visible');
 
         // Analyze <ds-collection-statistics-page> for accessibility issues
         testA11y('ds-collection-statistics-page');

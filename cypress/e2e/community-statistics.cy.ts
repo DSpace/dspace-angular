@@ -12,7 +12,7 @@ describe('Community Statistics Page', () => {
 
     it('should contain a "Total visits" section', () => {
         cy.visit(COMMUNITYSTATISTICSPAGE);
-        cy.get('.' + TEST_COMMUNITY + '_TotalVisits').should('exist');
+        cy.get('.' + TEST_COMMUNITY + '_TotalVisits').should('be.visible');
     });
 
     it('should contain a "Total visits per month" section', () => {
@@ -24,7 +24,7 @@ describe('Community Statistics Page', () => {
         cy.visit(COMMUNITYSTATISTICSPAGE);
 
         // <ds-community-statistics-page> tag must be loaded
-        cy.get('ds-community-statistics-page').should('exist');
+        cy.get('ds-community-statistics-page').should('be.visible');
 
         // Analyze <ds-community-statistics-page> for accessibility issues
         testA11y('ds-community-statistics-page');

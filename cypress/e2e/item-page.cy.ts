@@ -16,7 +16,7 @@ describe('Item  Page', () => {
         cy.visit(ENTITYPAGE);
 
         // <ds-item-page> tag must be loaded
-        cy.get('ds-item-page').should('exist');
+        cy.get('ds-item-page').should('be.visible');
 
         // Analyze <ds-item-page> for accessibility issues
         // Disable heading-order checks until it is fixed

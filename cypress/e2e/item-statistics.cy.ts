@@ -12,13 +12,13 @@ describe('Item Statistics Page', () => {
 
     it('should contain element ds-item-statistics-page when navigating to an item statistics page', () => {
         cy.visit(ITEMSTATISTICSPAGE);
-        cy.get('ds-item-statistics-page').should('exist');
+        cy.get('ds-item-statistics-page').should('be.visible');
         cy.get('ds-item-page').should('not.exist');
     });
 
     it('should contain a "Total visits" section', () => {
         cy.visit(ITEMSTATISTICSPAGE);
-        cy.get('.' + TEST_ENTITY_PUBLICATION + '_TotalVisits').should('exist');
+        cy.get('.' + TEST_ENTITY_PUBLICATION + '_TotalVisits').should('be.visible');
     });
 
     it('should contain a "Total visits per month" section', () => {
@@ -30,7 +30,7 @@ describe('Item Statistics Page', () => {
         cy.visit(ITEMSTATISTICSPAGE);
 
         // <ds-item-statistics-page> tag must be loaded
-        cy.get('ds-item-statistics-page').should('exist');
+        cy.get('ds-item-statistics-page').should('be.visible');
 
         // Analyze <ds-item-statistics-page> for accessibility issues
         testA11y('ds-item-statistics-page');

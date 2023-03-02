@@ -7,7 +7,7 @@ describe('Collection Page', () => {
         cy.visit('/collections/' + TEST_COLLECTION);
 
         // <ds-collection-page> tag must be loaded
-        cy.get('ds-collection-page').should('exist');
+        cy.get('ds-collection-page').should('be.visible');
 
         // Analyze <ds-collection-page> for accessibility issues
         testA11y('ds-collection-page');

@@ -9,7 +9,7 @@ describe('My DSpace page', () => {
         // This page is restricted, so we will be shown the login form. Fill it out & submit.
         cy.loginViaForm(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
 
-        cy.get('ds-my-dspace-page').should('exist');
+        cy.get('ds-my-dspace-page').should('be.visible');
 
         // At least one recent submission should be displayed
         cy.get('[data-test="list-object"]').should('be.visible');
@@ -42,12 +42,12 @@ describe('My DSpace page', () => {
         // This page is restricted, so we will be shown the login form. Fill it out & submit.
         cy.loginViaForm(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
 
-        cy.get('ds-my-dspace-page').should('exist');
+        cy.get('ds-my-dspace-page').should('be.visible');
 
         // Click button in sidebar to display detailed view
         cy.get('ds-search-sidebar [data-test="detail-view"]').click();
 
-        cy.get('ds-object-detail').should('exist');
+        cy.get('ds-object-detail').should('be.visible');
 
         // Analyze <ds-search-page> for accessibility issues
         testA11y('ds-my-dspace-page',
