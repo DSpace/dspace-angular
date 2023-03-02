@@ -32,7 +32,7 @@ export class BitstreamPageResolver implements Resolve<RemoteData<Bitstream>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Bitstream>> {
-    return this.bitstreamService.findById(route.params.id, true, true, ...this.followLinks)
+    return this.bitstreamService.findById(route.params.id, true, false, ...this.followLinks)
       .pipe(
         getFirstCompletedRemoteData(),
       );
