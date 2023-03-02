@@ -14,10 +14,15 @@ import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { AnnotationComponent } from './annotation.component';
 import { MockBitstreamFormat1 } from '../../../shared/mocks/item.mock';
 import { AnnotationUploadComponent } from '../annotation-upload/annotation-upload.component';
+import { ItemDataService } from '../../../core/data/item-data.service';
 
 const annotationBundleName = 'ANNOTATIONS';
 const bitstreamIdDummy = '0b28ea75-e542-45f8-ad1a-a26c8d36ad89';
 const bitstreamIdDummyNoMatch = 'a1d04bc7-f4c4-4353-a53f-a5e8dcde9e81';
+let bitstreamService: BitstreamDataService;
+let itemService: ItemDataService;
+let fixture: ComponentFixture<AnnotationComponent>;
+let comp: AnnotationComponent;
 
 function getBitstream(bundleName: string, bitstreamId: string, bitstreamId2): Bitstream {
   return Object.assign(new Bitstream(), {
@@ -35,17 +40,23 @@ function getBitstream(bundleName: string, bitstreamId: string, bitstreamId2): Bi
       self: 'bitstream-selflink'
     },
     bundle: createSuccessfulRemoteDataObject$({
-      item: createSuccessfulRemoteDataObject$(Object.assign(new Item(), {
-        uuid: 'item-uuid',
-        firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
-          return undefined;
-        },
-        bundles: createSuccessfulRemoteDataObject$(createPaginatedList([
-          getBundle(bundleName, bitstreamId2)
-        ]))
-      }))}
-    )
+      item: getItem(bundleName, bitstreamId2)
+    })
   });
+}
+
+function getItem(bundleName: string, bitstreamId: string) {
+  return createSuccessfulRemoteDataObject$(Object.assign(new Item(),
+  {
+    uuid: 'item-uuid',
+      firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
+    return undefined;
+  },
+    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([
+      getBundle(bundleName, bitstreamId)
+    ]))
+    }
+  ));
 }
 
 function getBundle(bundleName: string, bitstreamId: string) {
@@ -91,15 +102,15 @@ describe('AnnotationComponent', () => {
 
   describe('create component', () => {
 
-    let bitstreamService: BitstreamDataService;
-    let fixture: ComponentFixture<AnnotationComponent>;
-    let comp: AnnotationComponent;
-
     beforeEach(waitForAsync(() => {
+
+      itemService = jasmine.createSpyObj('itemService', {
+        findById: getItem(annotationBundleName, bitstreamIdDummy)
+      });
 
       bitstreamService = jasmine.createSpyObj('bitstreamService', {
         findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList(getBitstreamList(bitstreamIdDummy))),
-        findById: createSuccessfulRemoteDataObject$(getBitstream(annotationBundleName, bitstreamIdDummy, bitstreamIdDummy)),
+        findById: {},
         update: {},
         updateFormat: {},
         commitUpdates: {},
@@ -118,6 +129,7 @@ describe('AnnotationComponent', () => {
             }
           },
           {provide: BitstreamDataService, useValue: bitstreamService},
+          {provide: ItemDataService, useValue: itemService},
           ChangeDetectorRef
         ],
         schemas: [NO_ERRORS_SCHEMA]
@@ -155,11 +167,11 @@ describe('AnnotationComponent', () => {
 
   describe('with existing annotation bundle but no exising annotation file', () => {
 
-    let bitstreamService: BitstreamDataService;
-    let fixture;
-    let comp;
-
     beforeEach(waitForAsync(() => {
+
+      itemService = jasmine.createSpyObj('itemService', {
+        findById: getItem(annotationBundleName, bitstreamIdDummyNoMatch)
+      });
 
       bitstreamService = jasmine.createSpyObj('bitstreamService', {
         findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList(getBitstreamList(bitstreamIdDummyNoMatch))),
@@ -182,6 +194,7 @@ describe('AnnotationComponent', () => {
             }
           },
           {provide: BitstreamDataService, useValue: bitstreamService},
+          {provide: ItemDataService, useValue: itemService},
           ChangeDetectorRef
         ],
         schemas: [NO_ERRORS_SCHEMA]
@@ -207,11 +220,11 @@ describe('AnnotationComponent', () => {
 
   describe('with no existing annotations bundle', () => {
 
-    let bitstreamService: BitstreamDataService;
-    let fixture;
-    let comp;
-
     beforeEach(waitForAsync(() => {
+
+      itemService = jasmine.createSpyObj('itemService', {
+        findById: getItem('ORIGINAL', bitstreamIdDummy)
+      });
 
       bitstreamService = jasmine.createSpyObj('bitstreamService', {
         findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList(getBitstreamList(bitstreamIdDummyNoMatch))),
@@ -234,6 +247,7 @@ describe('AnnotationComponent', () => {
             }
           },
           {provide: BitstreamDataService, useValue: bitstreamService},
+          {provide: ItemDataService, useValue: itemService},
           ChangeDetectorRef
         ],
         schemas: [NO_ERRORS_SCHEMA]

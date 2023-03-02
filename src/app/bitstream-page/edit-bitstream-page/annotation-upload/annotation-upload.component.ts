@@ -34,6 +34,7 @@ import { HttpXsrfTokenExtractor } from '@angular/common/http';
 import { XSRF_REQUEST_HEADER } from '../../../core/xsrf/xsrf.interceptor';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { BUNDLE_NAME } from '../annotation/annotation-properties';
+import { Identifiable } from '../../../core/data/object-updates/identifiable.model';
 
 
 /**
@@ -145,7 +146,7 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
    * Creates the annotation bundle for the item.
    * @param item
    */
-  private createAnnotationBundle(item: Item) {
+  private createAnnotationBundle(item: Item): void {
     this.subs.push(this.itemService.createBundle(item.id, BUNDLE_NAME).pipe(
       getFirstSucceededRemoteDataPayload()
     ).subscribe((bundle: Bundle) => {
@@ -159,8 +160,9 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
   /**
    * Set the href in uploader options and re-initialize the uploader component.
    */
-  private setUploadUrl(bundle: Bundle) {
-    this.subs.push(this.bundleService.getBitstreamsEndpoint(bundle.id).pipe(take(1)).subscribe((href: string) => {
+  private setUploadUrl(bundle: Bundle): void {
+    this.subs.push(this.bundleService.getBitstreamsEndpoint(bundle.id).pipe(take(1))
+      .subscribe((href: string) => {
       this.uploadFilesOptions.url = href;
       if (isEmpty(this.uploadFilesOptions.authToken)) {
         this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
@@ -175,18 +177,16 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
   }
 
   /**
-   * Called after successful upload.
+   * Called after successful file upload.
    * @param bitstream
    */
-  onCompleteItem(bitstream: Bitstream) {
+  onCompleteItem(bitstream: Bitstream): void {
     bitstream.metadata['dc.title'][0].value = this.annotationFileTitle;
     this.subs.push(this.bitstreamService.update(bitstream).pipe(
       getFirstSucceededRemoteDataPayload()
     ).subscribe(() => {
       this.bitstreamService.commitUpdates();
-      this.bundleService.getBitstreamsEndpoint(this.annotationBundle.id).pipe(take(1)).subscribe((href: string) => {
-        this.requestService.setStaleByHrefSubstring(href);
-      });
+      this.setBundleHrefToStale();
       this.notificationsService.success(
         this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'added.title'),
         this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'added.content'));
@@ -196,21 +196,35 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
   }
 
   /**
+   * Set the bundle bitstreams href to stale so the new file appears in the item-bitstreams view.
+   */
+  setBundleHrefToStale() {
+    this.subs.push(this.bundleService.getBitstreamsEndpoint(this.annotationBundle.id).pipe(take(1))
+      .subscribe((href: string) => {
+        this.requestService.setStaleByHrefSubstring(href);
+      }));
+  }
+
+  /**
    * The request was unsuccessful, display an error notification
    */
-  onUploadError() {
+  onUploadError(): void {
     this.notificationsService.error(null, this.translate.get(this.NOTIFICATIONS_PREFIX + 'upload.failed'));
   }
 
   /**
-   * This function is called when the annotation file deletion is confirmed by user.
+   * This function is called when file deletion is confirmed by user.
    */
   saveChange(): void {
+    let field: Identifiable;
     const removedBitstreams$ = this.objectUpdateService.getFieldUpdates(this.annotationBundle.self, [], true).pipe(
       map((fieldUpdates: FieldUpdates) => {
         return Object.values(fieldUpdates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE);
       }),
-      map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field))
+      map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => {
+        field = fieldUpdate.field;
+        return fieldUpdate.field;
+      })),
     );
     // Send out the delete request for the annotation bitstream
     const removedResponse$ = removedBitstreams$.pipe(
@@ -231,29 +245,22 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
       take(1)
     ).subscribe((response: RemoteData<NoContent>) => {
       if (response.hasSucceeded) {
-        // if the deletion is successful update the components
-        this.updateStatus();
+        // Drop the REMOVE update from the store after successful delete.
+        this.objectUpdateService.removeSingleFieldUpdate(this.annotationBundle.self, field.uuid);
+
         this.notificationsService.success(
           this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.title'),
           this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.content'));
+
+        // Update the components.
+        this.changeStatusEvent.emit([undefined, this.annotationBundle]);
+
       } else if (response.hasFailed) {
         this.notificationsService.error(
           this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'removed.error'));
       }
-    }));
-  }
 
-  /**
-   * Cleans up and emits event to parent that will re-initialize the components.
-   * @private
-   */
-  private updateStatus(): void {
-    this.subs.push(this.bundleService.getBitstreamsEndpoint(this.annotationBundle.id).pipe(take(1))
-      .subscribe((href: string) => {
-        this.requestService.setStaleByHrefSubstring(href);
-        // Update the component status.
-        this.changeStatusEvent.emit([undefined, this.annotationBundle]);
-      }));
+    }));
   }
 
   /**
@@ -280,7 +287,7 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
   /**
    * Cancel the deletion update.
    */
-  onCancel() {
+  onCancel(): void {
     const undoNotification = this.notificationsService.success(null,
       this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'cancel.content'));
     this.objectUpdateService.discardAllFieldUpdates(this.annotationBundle._links.self.href, undoNotification);

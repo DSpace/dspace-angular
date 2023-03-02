@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { expand, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { expand, filter, map, switchMap, take } from 'rxjs/operators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { Item } from '../../../core/shared/item.model';
@@ -17,14 +17,13 @@ import { AnnotationUploadComponent } from '../annotation-upload/annotation-uploa
 import { BUNDLE_NAME } from './annotation-properties';
 import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { ItemDataService } from '../../../core/data/item-data.service';
 
 
-const BITSTREAM_LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
-  followLink('bundle', {},
-    followLink('item', {},
+const BITSTREAM_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
       followLink('bundles', {},
-        followLink('bitstreams', {})))),
-];
+        followLink('bitstreams', {}))
+  ];
 
 /**
  * Parent container for the annotation uploader.
@@ -41,7 +40,7 @@ export class AnnotationComponent implements OnInit, OnDestroy {
   /**
    * The parent item of the current bitstream
    */
-  item: Item;
+  item$: Observable<Item>;
   /**
    * The ANNOTATIONS bundle of the current item.
    */
@@ -71,38 +70,37 @@ export class AnnotationComponent implements OnInit, OnDestroy {
    */
   subs: Subscription[] = [];
 
-  bitstreamId: string;
-
   constructor(
     protected route: ActivatedRoute,
     protected changeDetector: ChangeDetectorRef,
+    protected itemService: ItemDataService,
     protected bitstreamService: BitstreamDataService ) {
   }
 
   ngOnInit(): void {
 
-    // Get data from the current bitstream route
-    const bitstreamRD$ = this.route.data.pipe(
-      tap((data: { bitstream: RemoteData<Bitstream>, breadcrumb: any }) => {
+    // Get bitstream data and item from the current route
+    const itemRD$ = this.route.data.pipe(
+      map((data: { bitstream: RemoteData<Bitstream>, breadcrumb: any }) => {
         this.annotationFileTitle = this.getAnnotationFileName(data.bitstream.payload.id);
-        this.bitstreamId = data.bitstream.payload.id;
+        return data.bitstream;
+      }),
+      switchMap((bitstream: RemoteData<Bitstream>) => {
+        this.item$ = this.getItem(bitstream.payload);
+        return this.item$;
       }));
 
-    // Request an un-cached version of the bitstream for updating.
-    this.subs.push(bitstreamRD$.pipe(
-      switchMap(() =>
-        this.bitstreamService.findById(this.bitstreamId, false, true, ...BITSTREAM_LINKS_TO_FOLLOW).pipe(
-          getFirstCompletedRemoteData(),
-          getRemoteDataPayload(),
-          switchMap((bitstream: Bitstream) => this.getItem(bitstream)),
-          tap((item: Item) => this.item = item),
-          switchMap((item: Item) => this.getItemBundles(item)
-          )
-        ))
-    ).subscribe((bundles: PaginatedList<Bundle>) => {
-      // Check for an annotations bundle. If not found one will be created.
-      this.checkForExistingAnnotationBundle(bundles);
-    }));
+    // Request un-cached bundles.
+    this.subs.push(itemRD$.pipe(
+      switchMap((item: Item) => this.itemService.findById(item.uuid, false, true, ...BITSTREAM_LINKS_TO_FOLLOW)),
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+      switchMap((item: Item) => this.getItemBundles(item)
+      )).subscribe(
+      (bundles: PaginatedList<Bundle>) => {
+        // Check for an annotations bundle.
+        this.checkForExistingAnnotationBundle(bundles);
+      }));
 
   }
 
@@ -152,9 +150,9 @@ export class AnnotationComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Looks for an existing annotations bundle. If it exists, calls
-   * a function  to check for a matching file in the annotations bundle and updates
-   * the view. Otherwise, show the upload button.
+   * Looks for an existing annotations bundle. If it exists, checks
+   * for a matching file in the annotations bundle. If not
+   * present shows the upload button.
    * @param bundleList
    * @param item
    */
@@ -168,24 +166,23 @@ export class AnnotationComponent implements OnInit, OnDestroy {
       if (bundleCount.length === 0) {
         // if no annotation bundle was found, show the upload button.
         this.uploadButton = true;
-        this.showButton = true;
-        this.changeDetector.detectChanges();
       }
     }
+    this.showButton = true;
+    this.changeDetector.detectChanges();
   }
 
   /**
-   * Checks for matching file in the annotations bundle. Sets the annotation
-   * file property if found and sets the button type to existing annotation styles.
+   * Checks for matching file in the annotations bundle. If found,
+   * sets the annotationFile property and updates the button style.
    * @param annotationsBundle bundle
    */
   private checkForExistingAnnotationFile(annotationsBundle: Bundle): void {
     this.subs.push(this.lookForBitstream(annotationsBundle, this.annotationFileTitle)
       .subscribe((bitstream: Bitstream) => {
         this.annotationFile = bitstream;
-        // if bitstream was found update set the button style.
+        // if bitstream was found update the button style.
         this.uploadButton = false;
-        this.showButton = true;
         this.changeDetector.detectChanges();
       })
     );
@@ -207,7 +204,7 @@ export class AnnotationComponent implements OnInit, OnDestroy {
         } else {
           // Otherwise retrieve the next page
           return this.bitstreamService.findListByHref(
-            paginatedList.next, {elementsPerPage: 60}, true, true,).pipe(
+            paginatedList.next, {elementsPerPage: 40}, true, true,).pipe(
             getFirstCompletedRemoteData(),
             getRemoteDataPayload(),
             map((next: PaginatedList<Bitstream>) => {
@@ -222,15 +219,10 @@ export class AnnotationComponent implements OnInit, OnDestroy {
       }),
       switchMap((paginatedList: PaginatedList<Bitstream>) => {
         if (hasValue(paginatedList.page)) {
-          // at this point it's ok to show the toggle button
-          this.showButton = true;
-          this.changeDetector.detectChanges();
           return paginatedList.page;
         }
       }),
-      //tap((bitstream: Bitstream) => console.log(bitstream)),
       filter((bitstream: Bitstream) => bitstream.metadata['dc.title'][0].value === annotationFileTitle),
-      //tap((bitstream: Bitstream) => console.log(bitstream)),
       take(1)
     );
   }
