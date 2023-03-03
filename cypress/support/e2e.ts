@@ -57,3 +57,10 @@ export const TEST_SUBMIT_COLLECTION_NAME = Cypress.env('DSPACE_TEST_SUBMIT_COLLE
 export const TEST_SUBMIT_COLLECTION_UUID = Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_UUID') || '9d8334e9-25d3-4a67-9cea-3dffdef80144';
 export const TEST_SUBMIT_USER = Cypress.env('DSPACE_TEST_SUBMIT_USER') || 'dspacedemo+submit@gmail.com';
 export const TEST_SUBMIT_USER_PASSWORD = Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD') || 'dspace';
+
+
+// USEFUL REGEX for testing
+
+// Match any string that contains at least one non-space character
+// Can be used with "contains()" to determine if an element has a non-empty text value
+export const REGEX_MATCH_NON_EMPTY_TEXT = /^(?!\s*$).+/;

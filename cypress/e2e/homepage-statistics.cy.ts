@@ -1,3 +1,4 @@
+import { REGEX_MATCH_NON_EMPTY_TEXT } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
 describe('Site Statistics Page', () => {
@@ -10,8 +11,14 @@ describe('Site Statistics Page', () => {
     it('should pass accessibility tests', () => {
         cy.visit('/statistics');
 
-        // <ds-site-statistics-page> tag must be loaded
-        cy.get('ds-site-statistics-page').should('exist');
+        // <ds-site-statistics-page> tag must be visable
+        cy.get('ds-site-statistics-page').should('be.visible');
+
+        // Verify / wait until "Total Visits" table's *last* label is non-empty
+        // (This table loads these labels asynchronously, so we want to wait for them before analyzing page)
+        cy.get('table[data-test="TotalVisits"] th[data-test="statistics-label"]').last().contains(REGEX_MATCH_NON_EMPTY_TEXT);
+        // Wait an extra 500ms, just so all entries in Total Visits have loaded.
+        cy.wait(500);
 
         // Analyze <ds-site-statistics-page> for accessibility issues
         testA11y('ds-site-statistics-page');
