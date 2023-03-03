@@ -193,7 +193,7 @@ describe('FacetSectionComponent', () => {
     expect(authorFacet.children.length).toEqual(3);
 
     const authorSpan = authorFacet.children[0];
-    expect(authorSpan.name).toEqual('span');
+    expect(authorSpan.name).toEqual('h5');
     expect(authorSpan.nativeElement.textContent).toEqual('explore.index.author');
 
     const firstAuthor = authorFacet.children[1];
@@ -210,7 +210,7 @@ describe('FacetSectionComponent', () => {
     expect(dateIssuedFacet.children.length).toEqual(2);
 
     const dateIssuedSpan = dateIssuedFacet.children[0];
-    expect(dateIssuedSpan.name).toEqual('span');
+    expect(dateIssuedSpan.name).toEqual('h5');
     expect(dateIssuedSpan.nativeElement.textContent).toEqual('explore.index.dateIssued');
 
     const dateIssued = dateIssuedFacet.children[1];
