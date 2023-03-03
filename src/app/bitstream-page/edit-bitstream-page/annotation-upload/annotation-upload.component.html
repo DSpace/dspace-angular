@@ -1,13 +1,12 @@
 <div class="card p-4 container-background">
   <div class="card-body">
-  <button type="button" (click)="closeView()" class="btn btn-outline-primary btn-sm close-button"
-          aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-
-  <div class="row">
-    <div class="col">
-      <h3>{{'iiif.image.annotation.notifications.title' | translate}}</h3>
+    <button type="button" (click)="closeView()" class="btn btn-outline-primary btn-sm close-button"
+            aria-label="Close"><i class="fas fa-xmark"></i></button>
+    <div class="row">
+      <div class="col">
+        <h3>{{'iiif.image.annotation.notifications.title' | translate}}</h3>
+      </div>
     </div>
-  </div>
     <div *ngIf="showUploaderComponent">
       <div class="row">
         <div class="col">
@@ -15,53 +14,55 @@
         </div>
       </div>
       <div class="row">
-      <div class="col mt-3 mb-5">
-        <ds-uploader class="w-100"
-                     [dropMsg]="'item.bitstreams.upload.drop-message'"
-                     [dropOverDocumentMsg]="'item.bitstreams.upload.drop-message'"
-                     [enableDragOverDocument]="true"
-                     [uploadFilesOptions]="uploadFilesOptions"
-                     (onCompleteItem)="onCompleteItem($event)"
-                     (onUploadError)="onUploadError()">
-        </ds-uploader>
+        <div class="col mt-3 mb-5">
+          <ds-uploader class="w-100"
+                       [dropMsg]="'item.bitstreams.upload.drop-message'"
+                       [dropOverDocumentMsg]="'item.bitstreams.upload.drop-message'"
+                       [enableDragOverDocument]="true"
+                       [uploadFilesOptions]="uploadFilesOptions"
+                       (onCompleteItem)="onCompleteItem($event)"
+                       (onUploadError)="onUploadError()">
+          </ds-uploader>
+        </div>
       </div>
     </div>
-    </div>
-  <div *ngIf="!showUploaderComponent">
-    <div class="row">
-      <div class="col">
-        <span class="small">{{'iiif.image.annotation.notifications.file.message' | translate}}</span>
+    <div *ngIf="!showUploaderComponent">
+      <div class="row">
+        <div class="col">
+          <span class="small">{{'iiif.image.annotation.notifications.file.message' | translate}}</span>
+        </div>
       </div>
-    </div>
-    <div class="row mt-4">
-      <div class="col">
-        <div [ngClass]="activeDeleteStatus ? 'delete-selected' : 'annotation-row'" class="row pt-3 pb-3">
-          <div class="col-1">
-            <button type="button" (click)="remove()"
-                    class="btn btn-outline-danger btn-sm"
-                    [attr.aria-label]="'iiif.image.annotation.notifications.delete' | translate"
-                    [attr.title]="'iiif.image.annotation.notifications.delete' | translate">
-              <i class="fas fa-trash-alt fa-fw"></i>
-            </button>
+      <div class="row mt-4">
+        <div class="col">
+          <div [ngClass]="activeDeleteStatus ? 'delete-selected' : 'annotation-row'" class="row pt-3 pb-3">
+            <div class="col-1">
+              <button type="button" (click)="remove()"
+                      class="btn btn-outline-danger btn-sm"
+                      [attr.aria-label]="'iiif.image.annotation.notifications.delete' | translate"
+                      [attr.title]="'iiif.image.annotation.notifications.delete' | translate">
+                <i class="fas fa-trash-alt fa-fw"></i>
+              </button>
+            </div>
+            <div>
+              <a href="{{bitstreamDownload}}" class="file-title"><span class="col-form-label-sm">{{annotationFileTitle}}</span></a>
+            </div>
           </div>
-          <div>
-            <a href="{{bitstreamDownload}}" class="file-title"><span class="col-form-label-sm">{{annotationFileTitle}}</span></a>
+          <div class="row mt-3" *ngIf="activeDeleteStatus">
+            <div class="col pl-3 mt-2">
+              <button type="button" class="delete-button btn btn-primary float-right" (click)="saveChange()">
+                <span class="d-sm-inline">{{'iiif.image.annotation.notifications.delete' | translate}}</span></button>
+              <button type="button" class="cancel-button btn btn-danger float-right mr-1" (click)="onCancel()">
+                <i class="fas fa-times mr-2"></i>
+                <span class="d-sm-inline">{{'iiif.image.annotation.notifications.cancel' | translate}}</span></button>
+            </div>
           </div>
-
-        </div>
-        <div class="row mt-3" *ngIf="activeDeleteStatus">
-          <div class="col pl-3 mt-2">
-            <button type="button" class="delete-button btn btn-primary float-right" (click)="saveChange()">{{'iiif.image.annotation.notifications.delete' | translate}}</button>
-            <button type="button" class="cancel-button btn btn-danger float-right mr-2" (click)="onCancel()">{{'iiif.image.annotation.notifications.cancel' | translate}}</button>
-          </div>
-        </div>
-        <div class="row" *ngIf="!activeDeleteStatus">
-          <div class="col pt-3 mt-2">
-            <span><small><strong>{{'iiif.image.annotation.notifications.viewer.message' | translate}}</strong></small></span>
+          <div class="row" *ngIf="!activeDeleteStatus">
+            <div class="col pt-3 mt-2">
+              <span><small><strong>{{'iiif.image.annotation.notifications.viewer.message' | translate}}</strong></small></span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>
