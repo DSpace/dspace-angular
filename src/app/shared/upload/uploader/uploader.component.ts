@@ -129,7 +129,6 @@ export class UploaderComponent {
     if (isUndefined(this.onBeforeUpload)) {
       this.onBeforeUpload = () => {return;};
     }
-
     this.uploader.onBeforeUploadItem = (item) => {
       if (item.url !== this.uploader.options.url) {
         item.url = this.uploader.options.url;

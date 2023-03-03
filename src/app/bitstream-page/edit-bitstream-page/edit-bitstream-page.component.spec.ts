@@ -314,7 +314,6 @@ describe('EditBitstreamPageComponent', () => {
             {
               value: '2800'
             },
-
           ],
           'iiif.description': [
             {

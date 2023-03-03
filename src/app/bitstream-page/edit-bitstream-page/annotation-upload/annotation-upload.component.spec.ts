@@ -138,8 +138,10 @@ const itemService = jasmine.createSpyObj({
   createBundle: createSuccessfulRemoteDataObject$(getMockBundle(ANNOTATION_BUNDLE, itemId))
 });
 const objectUpdateService = jasmine.createSpyObj('objectUpdateService', {
-  getFieldUpdates: jasmine.createSpy('getFieldUpdates')
+  getFieldUpdates: jasmine.createSpy('getFieldUpdates'),
+  removeSingleFieldUpdate: jasmine.createSpy('removeSingleFieldUpdate')
 });
+
 describe('AnnotationUploadComponent', () => {
 
     beforeEach(waitForAsync(() => {
@@ -221,6 +223,23 @@ describe('AnnotationUploadComponent', () => {
           const cancelBtn = fixture.debugElement.nativeElement.querySelector('.cancel-button');
           expect(deleteBtn).toBeDefined();
           expect(cancelBtn).toBeDefined();
+        });
+      });
+      it('should remove update when cancelled', () => {
+        const btn = fixture.debugElement.nativeElement.querySelector('.fa-trash-alt');
+        expect(btn).toBeDefined();
+        btn.click();
+        fixture.whenStable().then(() => {
+          const deleteBtn = fixture.debugElement.nativeElement.querySelector('.delete-button');
+          const cancelBtn = fixture.debugElement.nativeElement.querySelector('.cancel-button');
+          expect(deleteBtn).toBeDefined();
+          expect(cancelBtn).toBeDefined();
+          cancelBtn.click();
+          fixture.whenStable().then(() => {
+            expect(objectUpdateService.removeSingleFieldUpdate).toHaveBeenCalled();
+            expect(comp.activeDeleteStatus).toBeFalse();
+          });
+
         });
       });
     });
