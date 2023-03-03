@@ -248,7 +248,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private submissionObjectService: SubmissionObjectDataService,
     private ref: ChangeDetectorRef,
     private formService: FormService,
-    private formBuilderService: FormBuilderService,
+    public formBuilderService: FormBuilderService,
     private submissionService: SubmissionService
   ) {
     super(ref, componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
