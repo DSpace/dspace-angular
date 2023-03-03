@@ -56,7 +56,7 @@ function login(email: string, password: string): void {
         if (!config.rest.baseUrl) {
             console.warn("Could not load 'rest.baseUrl' from config.json. Falling back to " + FALLBACK_TEST_REST_BASE_URL);
         } else {
-            console.log("Found 'rest.baseUrl' in config.json. Using this REST API for login: " + config.rest.baseUrl);
+            console.log("Found 'rest.baseUrl' in config.json. Using this REST API for login: ".concat(config.rest.baseUrl));
             baseRestUrl = config.rest.baseUrl;
         }
 

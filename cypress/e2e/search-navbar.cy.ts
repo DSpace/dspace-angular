@@ -27,7 +27,7 @@ describe('Search from Navigation Bar', () => {
         page.fillOutQueryInNavBar(query);
         page.submitQueryByPressingEnter();
         // New URL should include query param
-        cy.url().should('include', 'query=' + query);
+        cy.url().should('include', 'query='.concat(query));
         // Wait for search results to come back from the above GET command
         cy.wait('@search-results');
         // At least one search result should be displayed
@@ -42,7 +42,7 @@ describe('Search from Navigation Bar', () => {
         page.fillOutQueryInNavBar(query);
         page.submitQueryByPressingEnter();
         // New URL should include query param
-        cy.url().should('include', 'query=' + query);
+        cy.url().should('include', 'query='.concat(query));
         // Wait for search results to come back from the above GET command
         cy.wait('@search-results');
         // At least one search result should be displayed
@@ -57,7 +57,7 @@ describe('Search from Navigation Bar', () => {
         page.fillOutQueryInNavBar(query);
         page.submitQueryByPressingIcon();
         // New URL should include query param
-        cy.url().should('include', 'query=' + query);
+        cy.url().should('include', 'query='.concat(query));
         // Wait for search results to come back from the above GET command
         cy.wait('@search-results');
         // At least one search result should be displayed

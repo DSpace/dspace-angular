@@ -13,7 +13,7 @@ describe('Search Page', () => {
     });
 
     it('should load results and pass accessibility tests', () => {
-        cy.visit('/search?query=' + TEST_SEARCH_TERM);
+        cy.visit('/search?query='.concat(TEST_SEARCH_TERM));
         cy.get('[data-test="search-box"]').should('have.value', TEST_SEARCH_TERM);
 
         // <ds-search-page> tag must be loaded
@@ -45,7 +45,7 @@ describe('Search Page', () => {
     });
 
     it('should have a working grid view that passes accessibility tests', () => {
-        cy.visit('/search?query=' + TEST_SEARCH_TERM);
+        cy.visit('/search?query='.concat(TEST_SEARCH_TERM));
 
         // Click button in sidebar to display grid view
         cy.get('ds-search-sidebar [data-test="grid-view"]').click();

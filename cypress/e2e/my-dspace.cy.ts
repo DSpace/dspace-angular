@@ -80,7 +80,7 @@ describe('My DSpace page', () => {
         cy.get('ds-authorized-collection-selector input[type="search"]').type(TEST_SUBMIT_COLLECTION_NAME);
 
         // Click on the button matching that known Collection name
-        cy.get('ds-authorized-collection-selector button[title="' + TEST_SUBMIT_COLLECTION_NAME + '"]').click();
+        cy.get('ds-authorized-collection-selector button[title="'.concat(TEST_SUBMIT_COLLECTION_NAME).concat('"]')).click();
 
         // New URL should include /workspaceitems, as we've started a new submission
         cy.url().should('include', '/workspaceitems');
