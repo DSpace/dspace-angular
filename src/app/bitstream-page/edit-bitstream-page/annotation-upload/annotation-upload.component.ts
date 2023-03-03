@@ -279,7 +279,7 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
    * when the deletion is confirmed.
    */
   remove(): void {
-    this.objectUpdateService.saveRemoveFieldUpdate(this.annotationBundle._links.self.href, this.annotationFile);
+    this.objectUpdateService.saveRemoveFieldUpdate(this.annotationBundle.self, this.annotationFile);
     this.activeDeleteStatus = true;
     this.changeDetector.detectChanges();
   }
@@ -288,9 +288,9 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
    * Cancel the deletion update.
    */
   onCancel(): void {
-    const undoNotification = this.notificationsService.success(null,
+    this.objectUpdateService.removeSingleFieldUpdate(this.annotationBundle.self, this.annotationFile.uuid);
+    this.notificationsService.success(
       this.translateService.instant(this.NOTIFICATIONS_PREFIX + 'cancel.content'));
-    this.objectUpdateService.discardAllFieldUpdates(this.annotationBundle._links.self.href, undoNotification);
     this.activeDeleteStatus = false;
     this.changeDetector.detectChanges();
   }
