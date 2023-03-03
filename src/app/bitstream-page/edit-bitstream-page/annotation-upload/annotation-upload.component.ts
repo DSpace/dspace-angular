@@ -303,6 +303,10 @@ export class AnnotationUploadComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    if (this.annotationFile) {
+      // this assures that delete updates are not orphaned
+      this.objectUpdateService.removeSingleFieldUpdate(this.annotationBundle.self, this.annotationFile.uuid);
+    }
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
