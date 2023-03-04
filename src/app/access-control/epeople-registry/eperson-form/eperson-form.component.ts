@@ -169,7 +169,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * A boolean that indicate if to display EPersonForm's Rest password button
    */
   displayResetPassword = false;
-  
+
   /**
    * A string that indicate the label of Submit button
    */
