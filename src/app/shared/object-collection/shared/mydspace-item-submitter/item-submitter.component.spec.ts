@@ -63,7 +63,7 @@ describe('ItemSubmitterComponent', () => {
   it('should show a badge with submitter name', () => {
     const badge = fixture.debugElement.query(By.css('.badge'));
 
-    expect(badge).toBeDefined();
+    expect(badge).not.toBeNull();
     expect(badge.nativeElement.innerHTML).toBe(EPersonMock.name);
   });
 });

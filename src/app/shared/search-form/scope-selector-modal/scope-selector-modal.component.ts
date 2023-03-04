@@ -4,6 +4,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../../dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import { environment } from '../../../../environments/environment';
 
 /**
  * Component to wrap a button - to select the entire repository -
@@ -32,6 +34,11 @@ export class ScopeSelectorModalComponent extends DSOSelectorModalWrapperComponen
    * Emits the selected scope as a DSpaceObject when a user clicks one
    */
   scopeChange = new EventEmitter<DSpaceObject>();
+
+  /**
+   * Default DSO ordering
+   */
+  defaultSort = new SortOptions(environment.comcolSelectionSort.sortField, environment.comcolSelectionSort.sortDirection as SortDirection);
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute) {
     super(activeModal, route);

@@ -48,7 +48,7 @@ describe('MyDSpaceItemStatusComponent', () => {
 
   it('should display badge', () => {
     const badge = fixture.debugElement.query(By.css('span'));
-    expect(badge).toBeDefined();
+    expect(badge).not.toBeNull();
   });
 
   it('should init badge content and class', () => {

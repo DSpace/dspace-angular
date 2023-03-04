@@ -66,7 +66,7 @@ describe('ClaimedTaskActionsEditMetadataComponent', () => {
   it('should display edit button', () => {
     const btn = fixture.debugElement.query(By.css('.btn-primary'));
 
-    expect(btn).toBeDefined();
+    expect(btn).not.toBeNull();
   });
 
 });

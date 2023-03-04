@@ -96,6 +96,7 @@ describe('SubmissionFormSectionAddComponent Component', () => {
 
     afterEach(() => {
       testFixture.destroy();
+      testFixture.debugElement.nativeElement.remove();
     });
 
     it('should create SubmissionFormSectionAddComponent', inject([SubmissionFormSectionAddComponent], (app: SubmissionFormSectionAddComponent) => {
@@ -163,7 +164,7 @@ describe('SubmissionFormSectionAddComponent Component', () => {
 
       it('should have dropdown menu closed', () => {
 
-        expect(dropdowBtn).not.toBeUndefined();
+        expect(dropdowBtn).not.toBeNull();
         expect(dropdownMenu.nativeElement.classList).not.toContain('show');
 
       });

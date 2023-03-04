@@ -1,5 +1,5 @@
 <div [className]="'float-left w-100 ' + wrapperClass">
-  <ul class="nav nav-pills d-flex flex-column flex-sm-row" [sortablejs]="chips.getChips()" [sortablejsOptions]="options">
+  <div role="list" class="nav nav-pills d-flex flex-column flex-sm-row" [sortablejs]="chips.getChips()" [sortablejsOptions]="options">
     <ng-container *ngFor="let c of chips.getChips(); let i = index">
       <ng-template #tipContent>
         <p class="text-left p-0 m-0" *ngFor="let tip of tipText">
@@ -7,7 +7,7 @@
         </p>
       </ng-template>
 
-      <li class="nav-item mr-2 mb-1"
+      <div role="listitem" class="nav-item mr-2 mb-1"
           #t="ngbTooltip"
           triggers="manual"
           [ngbTooltip]="tipContent"
@@ -40,10 +40,10 @@
             <p class="chip-label text-truncate d-table-cell">{{c.display}}</p><i class="fas fa-times ml-2" (click)="removeChips($event, i)" [title]="'chips.remove' | translate"></i>
           </span>
         </a>
-      </li>
+      </div>
     </ng-container>
     <div [class.chips-sort-ignore]="(isDragging | async)" class="flex-grow-1">
       <ng-content ></ng-content>
     </div>
-  </ul>
+  </div>
 </div>

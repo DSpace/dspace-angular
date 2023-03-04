@@ -369,3 +369,8 @@ vocabularies:
   - filter: 'subject'
     vocabulary: 'srsc'
     enabled: true
+
+# Default collection/community sorting order at Advanced search, Create/update community and collection when there are not a query. 
+comcolSelectionSort:
+  sortField: 'dc.title'
+  sortDirection: 'ASC'
