@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
@@ -37,10 +37,10 @@ describe('MembersListComponent', () => {
   let ePersonDataServiceStub: any;
   let groupsDataServiceStub: any;
   let activeGroup;
-  let allEPersons;
-  let allGroups;
-  let epersonMembers;
-  let subgroupMembers;
+  let allEPersons: EPerson[];
+  let allGroups: Group[];
+  let epersonMembers: EPerson[];
+  let subgroupMembers: Group[];
   let paginationService;
 
   beforeEach(waitForAsync(() => {
@@ -53,7 +53,7 @@ describe('MembersListComponent', () => {
       activeGroup: activeGroup,
       epersonMembers: epersonMembers,
       subgroupMembers: subgroupMembers,
-      findAllByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
+      findListByHref(_href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
         return createSuccessfulRemoteDataObject$(buildPaginatedList<EPerson>(new PageInfo(), groupsDataServiceStub.getEPersonMembers()));
       },
       searchByScope(scope: string, query: string): Observable<RemoteData<PaginatedList<EPerson>>> {
@@ -147,8 +147,10 @@ describe('MembersListComponent', () => {
   });
   afterEach(fakeAsync(() => {
     fixture.destroy();
+    fixture.debugElement.nativeElement.remove();
     flush();
     component = null;
+    fixture.debugElement.nativeElement.remove();
   }));
 
   it('should create MembersListComponent', inject([MembersListComponent], (comp: MembersListComponent) => {
@@ -167,12 +169,19 @@ describe('MembersListComponent', () => {
 
   describe('search', () => {
     describe('when searching without query', () => {
-      let epersonsFound;
+      let epersonsFound: DebugElement[];
       beforeEach(fakeAsync(() => {
+        spyOn(component, 'isMemberOfGroup').and.callFake((ePerson: EPerson) => {
+          return observableOf(activeGroup.epersons.includes(ePerson));
+        });
         component.search({ scope: 'metadata', query: '' });
         tick();
         fixture.detectChanges();
         epersonsFound = fixture.debugElement.queryAll(By.css('#epersonsSearch tbody tr'));
+        // Stop using the fake spy function (because otherwise the clicking on the buttons will not change anything
+        // because they don't change the value of activeGroup.epersons)
+        jasmine.getEnv().allowRespy(true);
+        spyOn(component, 'isMemberOfGroup').and.callThrough();
       }));
 
       it('should display all epersons', () => {
@@ -181,62 +190,56 @@ describe('MembersListComponent', () => {
 
       describe('if eperson is already a eperson', () => {
         it('should have delete button, else it should have add button', () => {
-          activeGroup.epersons.map((eperson: EPerson) => {
-            epersonsFound.map((foundEPersonRowElement) => {
-              if (foundEPersonRowElement.debugElement !== undefined) {
-                const epersonId = foundEPersonRowElement.debugElement.query(By.css('td:first-child'));
-                const addButton = foundEPersonRowElement.debugElement.query(By.css('td:last-child .fa-plus'));
-                const deleteButton = foundEPersonRowElement.debugElement.query(By.css('td:last-child .fa-trash-alt'));
-                if (epersonId.nativeElement.textContent === eperson.id) {
-                  expect(addButton).toBeUndefined();
-                  expect(deleteButton).toBeDefined();
-                } else {
-                  expect(deleteButton).toBeUndefined();
-                  expect(addButton).toBeDefined();
-                }
-              }
-            });
+          const memberIds: string[] = activeGroup.epersons.map((ePerson: EPerson) => ePerson.id);
+          epersonsFound.map((foundEPersonRowElement: DebugElement) => {
+            const epersonId: DebugElement = foundEPersonRowElement.query(By.css('td:first-child'));
+            const addButton: DebugElement = foundEPersonRowElement.query(By.css('td:last-child .fa-plus'));
+            const deleteButton: DebugElement = foundEPersonRowElement.query(By.css('td:last-child .fa-trash-alt'));
+            if (memberIds.includes(epersonId.nativeElement.textContent)) {
+              expect(addButton).toBeNull();
+              expect(deleteButton).not.toBeNull();
+            } else {
+              expect(deleteButton).toBeNull();
+              expect(addButton).not.toBeNull();
+            }
           });
         });
       });
 
       describe('if first add button is pressed', () => {
         beforeEach(fakeAsync(() => {
-          const addButton = fixture.debugElement.query(By.css('#epersonsSearch tbody .fa-plus'));
+          const addButton: DebugElement = fixture.debugElement.query(By.css('#epersonsSearch tbody .fa-plus'));
           addButton.nativeElement.click();
           tick();
           fixture.detectChanges();
         }));
-        it('all groups in search member of selected group', () => {
+        it('then all the ePersons are member of the active group', () => {
           epersonsFound = fixture.debugElement.queryAll(By.css('#epersonsSearch tbody tr'));
           expect(epersonsFound.length).toEqual(2);
-          epersonsFound.map((foundEPersonRowElement) => {
-            if (foundEPersonRowElement.debugElement !== undefined) {
-              const addButton = foundEPersonRowElement.debugElement.query(By.css('td:last-child .fa-plus'));
-              const deleteButton = foundEPersonRowElement.debugElement.query(By.css('td:last-child .fa-trash-alt'));
-              expect(addButton).toBeUndefined();
-              expect(deleteButton).toBeDefined();
-            }
+          epersonsFound.map((foundEPersonRowElement: DebugElement) => {
+            const addButton: DebugElement = foundEPersonRowElement.query(By.css('td:last-child .fa-plus'));
+            const deleteButton: DebugElement = foundEPersonRowElement.query(By.css('td:last-child .fa-trash-alt'));
+            expect(addButton).toBeNull();
+            expect(deleteButton).not.toBeNull();
           });
         });
       });
 
       describe('if first delete button is pressed', () => {
         beforeEach(fakeAsync(() => {
-          const addButton = fixture.debugElement.query(By.css('#epersonsSearch tbody .fa-trash-alt'));
-          addButton.nativeElement.click();
+          const deleteButton: DebugElement = fixture.debugElement.query(By.css('#epersonsSearch tbody .fa-trash-alt'));
+          deleteButton.nativeElement.click();
           tick();
           fixture.detectChanges();
         }));
-        it('first eperson in search delete button, because now member', () => {
+        it('then no ePerson is member of the active group', () => {
           epersonsFound = fixture.debugElement.queryAll(By.css('#epersonsSearch tbody tr'));
-          epersonsFound.map((foundEPersonRowElement) => {
-            if (foundEPersonRowElement.debugElement !== undefined) {
-              const addButton = foundEPersonRowElement.debugElement.query(By.css('td:last-child .fa-plus'));
-              const deleteButton = foundEPersonRowElement.debugElement.query(By.css('td:last-child .fa-trash-alt'));
-              expect(deleteButton).toBeUndefined();
-              expect(addButton).toBeDefined();
-            }
+          expect(epersonsFound.length).toEqual(2);
+          epersonsFound.map((foundEPersonRowElement: DebugElement) => {
+            const addButton: DebugElement = foundEPersonRowElement.query(By.css('td:last-child .fa-plus'));
+            const deleteButton: DebugElement = foundEPersonRowElement.query(By.css('td:last-child .fa-trash-alt'));
+            expect(deleteButton).toBeNull();
+            expect(addButton).not.toBeNull();
           });
         });
       });

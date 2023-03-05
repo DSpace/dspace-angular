@@ -11,15 +11,18 @@ import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { authReducer } from '../core/auth/auth.reducer';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { createPaginatedList } from '../shared/testing/utils.test';
 import { BehaviorSubject, of as observableOf } from 'rxjs';
 import { AuthService } from '../core/auth/auth.service';
 import { RestResponse } from '../core/cache/response.models';
 import { provideMockStore } from '@ngrx/store/testing';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { getTestScheduler } from 'jasmine-marbles';
+import { cold, getTestScheduler } from 'jasmine-marbles';
 import { By } from '@angular/platform-browser';
+import { EmptySpecialGroupDataMock$, SpecialGroupDataMock$ } from '../shared/testing/special-group.mock';
+import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
@@ -28,16 +31,28 @@ describe('ProfilePageComponent', () => {
   let initialState: any;
 
   let authService;
+  let authorizationService;
   let epersonService;
   let notificationsService;
+  let configurationService;
 
   const canChangePassword = new BehaviorSubject(true);
+  const validConfiguration = Object.assign(new ConfigurationProperty(), {
+    name: 'researcher-profile.entity-type',
+    values: [
+      'Person'
+    ]
+  });
+  const emptyConfiguration = Object.assign(new ConfigurationProperty(), {
+    name: 'researcher-profile.entity-type',
+    values: []
+  });
 
   function init() {
     user = Object.assign(new EPerson(), {
       id: 'userId',
       groups: createSuccessfulRemoteDataObject$(createPaginatedList([])),
-      _links: {self: {href: 'test.com/uuid/1234567654321'}}
+      _links: { self: { href: 'test.com/uuid/1234567654321' } }
     });
     initialState = {
       core: {
@@ -52,9 +67,10 @@ describe('ProfilePageComponent', () => {
         }
       }
     };
-
+    authorizationService = jasmine.createSpyObj('authorizationService', { isAuthorized: canChangePassword });
     authService = jasmine.createSpyObj('authService', {
-      getAuthenticatedUserFromStore: observableOf(user)
+      getAuthenticatedUserFromStore: observableOf(user),
+      getSpecialGroupsFromAuthStatus: SpecialGroupDataMock$
     });
     epersonService = jasmine.createSpyObj('epersonService', {
       findById: createSuccessfulRemoteDataObject$(user),
@@ -64,6 +80,9 @@ describe('ProfilePageComponent', () => {
       success: {},
       error: {},
       warning: {}
+    });
+    configurationService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: jasmine.createSpy('findByPropertyName')
     });
   }
 
@@ -80,7 +99,8 @@ describe('ProfilePageComponent', () => {
         { provide: EPersonDataService, useValue: epersonService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: AuthService, useValue: authService },
-        { provide: AuthorizationDataService, useValue: jasmine.createSpyObj('authorizationService', { isAuthorized: canChangePassword }) },
+        { provide: ConfigurationDataService, useValue: configurationService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
         provideMockStore({ initialState }),
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -90,148 +110,253 @@ describe('ProfilePageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProfilePageComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  describe('updateProfile', () => {
-    describe('when the metadata form returns false and the security form returns true', () => {
-      beforeEach(() => {
-        component.metadataForm = jasmine.createSpyObj('metadataForm', {
-          updateProfile: false
+  describe('', () => {
+
+    beforeEach(() => {
+      configurationService.findByPropertyName.and.returnValue(createSuccessfulRemoteDataObject$(validConfiguration));
+      fixture.detectChanges();
+    });
+
+    describe('updateProfile', () => {
+      describe('when the metadata form returns false and the security form returns true', () => {
+        beforeEach(() => {
+          component.metadataForm = jasmine.createSpyObj('metadataForm', {
+            updateProfile: false
+          });
+          spyOn(component, 'updateSecurity').and.returnValue(true);
+          component.updateProfile();
         });
-        spyOn(component, 'updateSecurity').and.returnValue(true);
-        component.updateProfile();
+
+        it('should not display a warning', () => {
+          expect(notificationsService.warning).not.toHaveBeenCalled();
+        });
       });
 
-      it('should not display a warning', () => {
-        expect(notificationsService.warning).not.toHaveBeenCalled();
+      describe('when the metadata form returns true and the security form returns false', () => {
+        beforeEach(() => {
+          component.metadataForm = jasmine.createSpyObj('metadataForm', {
+            updateProfile: true
+          });
+          component.updateProfile();
+        });
+
+        it('should not display a warning', () => {
+          expect(notificationsService.warning).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('when the metadata form returns true and the security form returns true', () => {
+        beforeEach(() => {
+          component.metadataForm = jasmine.createSpyObj('metadataForm', {
+            updateProfile: true
+          });
+          component.updateProfile();
+        });
+
+        it('should not display a warning', () => {
+          expect(notificationsService.warning).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('when the metadata form returns false and the security form returns false', () => {
+        beforeEach(() => {
+          component.metadataForm = jasmine.createSpyObj('metadataForm', {
+            updateProfile: false
+          });
+          component.updateProfile();
+        });
+
+        it('should display a warning', () => {
+          expect(notificationsService.warning).toHaveBeenCalled();
+        });
       });
     });
 
-    describe('when the metadata form returns true and the security form returns false', () => {
-      beforeEach(() => {
-        component.metadataForm = jasmine.createSpyObj('metadataForm', {
-          updateProfile: true
+    describe('updateSecurity', () => {
+      describe('when no password value present', () => {
+        let result;
+
+        beforeEach(() => {
+          component.setPasswordValue('');
+          component.setCurrentPasswordValue('current-password');
+          result = component.updateSecurity();
         });
-        component.updateProfile();
+
+        it('should return false', () => {
+          expect(result).toEqual(false);
+        });
+
+        it('should not call epersonService.patch', () => {
+          expect(epersonService.patch).not.toHaveBeenCalled();
+        });
       });
 
-      it('should not display a warning', () => {
-        expect(notificationsService.warning).not.toHaveBeenCalled();
+      describe('when password is filled in, but the password is invalid', () => {
+        let result;
+
+        beforeEach(() => {
+          component.setPasswordValue('test');
+          component.setInvalid(true);
+          component.setCurrentPasswordValue('current-password');
+          result = component.updateSecurity();
+        });
+
+        it('should return true', () => {
+          expect(result).toEqual(true);
+          expect(epersonService.patch).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('when password is filled in, and is valid', () => {
+        let result;
+        let operations;
+
+        beforeEach(() => {
+          component.setPasswordValue('testest');
+          component.setInvalid(false);
+          component.setCurrentPasswordValue('current-password');
+
+          operations = [
+            { 'op': 'add', 'path': '/password', 'value': { 'new_password': 'testest', 'current_password': 'current-password' } }
+          ];
+          result = component.updateSecurity();
+        });
+
+        it('should return true', () => {
+          expect(result).toEqual(true);
+        });
+
+        it('should return call epersonService.patch', () => {
+          expect(epersonService.patch).toHaveBeenCalledWith(user, operations);
+        });
+      });
+
+      describe('when password is filled in, and is valid but return 403', () => {
+        let result;
+        let operations;
+
+        it('should return call epersonService.patch', (done) => {
+          epersonService.patch.and.returnValue(observableOf(Object.assign(new RestResponse(false, 403, 'Error'))));
+          component.setPasswordValue('testest');
+          component.setInvalid(false);
+          component.setCurrentPasswordValue('current-password');
+          operations = [
+            { 'op': 'add', 'path': '/password', 'value': {'new_password': 'testest', 'current_password': 'current-password'  }}
+          ];
+          result = component.updateSecurity();
+          epersonService.patch(user, operations).subscribe((response) => {
+            expect(response.statusCode).toEqual(403);
+            done();
+          });
+          expect(epersonService.patch).toHaveBeenCalledWith(user, operations);
+          expect(result).toEqual(true);
+        });
       });
     });
 
-    describe('when the metadata form returns true and the security form returns true', () => {
-      beforeEach(() => {
-        component.metadataForm = jasmine.createSpyObj('metadataForm', {
-          updateProfile: true
+    describe('canChangePassword$', () => {
+      describe('when the user is allowed to change their password', () => {
+        beforeEach(() => {
+          canChangePassword.next(true);
         });
-        component.updateProfile();
+
+        it('should contain true', () => {
+          getTestScheduler().expectObservable(component.canChangePassword$).toBe('(a)', { a: true });
+        });
+
+        it('should show the security section on the page', () => {
+          fixture.detectChanges();
+          expect(fixture.debugElement.query(By.css('.security-section'))).not.toBeNull();
+        });
       });
 
-      it('should not display a warning', () => {
-        expect(notificationsService.warning).not.toHaveBeenCalled();
+      describe('when the user is not allowed to change their password', () => {
+        beforeEach(() => {
+          canChangePassword.next(false);
+        });
+
+        it('should contain false', () => {
+          getTestScheduler().expectObservable(component.canChangePassword$).toBe('(a)', { a: false });
+        });
+
+        it('should not show the security section on the page', () => {
+          fixture.detectChanges();
+          expect(fixture.debugElement.query(By.css('.security-section'))).toBeNull();
+        });
       });
     });
 
-    describe('when the metadata form returns false and the security form returns false', () => {
-      beforeEach(() => {
-        component.metadataForm = jasmine.createSpyObj('metadataForm', {
-          updateProfile: false
-        });
-        component.updateProfile();
-      });
+  describe('check for specialGroups', () => {
+    it('should contains specialGroups list', () => {
+      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+      expect(specialGroupsEle).toBeTruthy();
+    });
 
-      it('should display a warning', () => {
-        expect(notificationsService.warning).toHaveBeenCalled();
-      });
+    it('should not contains specialGroups list', () => {
+      component.specialGroupsRD$ = null;
+      fixture.detectChanges();
+      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+      expect(specialGroupsEle).toBeFalsy();
+    });
+
+    it('should not contains specialGroups list', () => {
+      component.specialGroupsRD$ = EmptySpecialGroupDataMock$;
+      fixture.detectChanges();
+      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+      expect(specialGroupsEle).toBeFalsy();
     });
   });
+  });
 
-  describe('updateSecurity', () => {
-    describe('when no password value present', () => {
-      let result;
+  describe('isResearcherProfileEnabled', () => {
+
+    describe('when configuration service return values', () => {
 
       beforeEach(() => {
-        component.setPasswordValue('');
+        configurationService.findByPropertyName.and.returnValue(createSuccessfulRemoteDataObject$(validConfiguration));
+        fixture.detectChanges();
+      });
 
-        result = component.updateSecurity();
+      it('should return true', () => {
+        const result = component.isResearcherProfileEnabled();
+        const expected = cold('a', {
+          a: true
+        });
+        expect(result).toBeObservable(expected);
+      });
+    });
+
+    describe('when configuration service return no values', () => {
+
+      beforeEach(() => {
+        configurationService.findByPropertyName.and.returnValue(createSuccessfulRemoteDataObject$(emptyConfiguration));
+        fixture.detectChanges();
       });
 
       it('should return false', () => {
-        expect(result).toEqual(false);
-      });
-
-      it('should not call epersonService.patch', () => {
-        expect(epersonService.patch).not.toHaveBeenCalled();
-      });
-    });
-
-    describe('when password is filled in, but the password is invalid', () => {
-      let result;
-
-      beforeEach(() => {
-        component.setPasswordValue('test');
-        component.setInvalid(true);
-        result = component.updateSecurity();
-      });
-
-      it('should return true', () => {
-        expect(result).toEqual(true);
-        expect(epersonService.patch).not.toHaveBeenCalled();
+        const result = component.isResearcherProfileEnabled();
+        const expected = cold('a', {
+          a: false
+        });
+        expect(result).toBeObservable(expected);
       });
     });
 
-    describe('when password is filled in, and is valid', () => {
-      let result;
-      let operations;
+    describe('when configuration service return an error', () => {
 
       beforeEach(() => {
-        component.setPasswordValue('testest');
-        component.setInvalid(false);
-
-        operations = [{ op: 'add', path: '/password', value: 'testest' }];
-        result = component.updateSecurity();
-      });
-
-      it('should return true', () => {
-        expect(result).toEqual(true);
-      });
-
-      it('should return call epersonService.patch', () => {
-        expect(epersonService.patch).toHaveBeenCalledWith(user, operations);
-      });
-    });
-  });
-
-  describe('canChangePassword$', () => {
-    describe('when the user is allowed to change their password', () => {
-      beforeEach(() => {
-        canChangePassword.next(true);
-      });
-
-      it('should contain true', () => {
-        getTestScheduler().expectObservable(component.canChangePassword$).toBe('(a)', { a: true });
-      });
-
-      it('should show the security section on the page', () => {
+        configurationService.findByPropertyName.and.returnValue(createFailedRemoteDataObject$());
         fixture.detectChanges();
-        expect(fixture.debugElement.query(By.css('.security-section'))).not.toBeNull();
-      });
-    });
-
-    describe('when the user is not allowed to change their password', () => {
-      beforeEach(() => {
-        canChangePassword.next(false);
       });
 
-      it('should contain false', () => {
-        getTestScheduler().expectObservable(component.canChangePassword$).toBe('(a)', { a: false });
-      });
-
-      it('should not show the security section on the page', () => {
-        fixture.detectChanges();
-        expect(fixture.debugElement.query(By.css('.security-section'))).toBeNull();
+      it('should return false', () => {
+        const result = component.isResearcherProfileEnabled();
+        const expected = cold('a', {
+          a: false
+        });
+        expect(result).toBeObservable(expected);
       });
     });
   });

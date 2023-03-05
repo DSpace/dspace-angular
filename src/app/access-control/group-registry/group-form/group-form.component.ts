@@ -46,6 +46,7 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { Operation } from 'fast-json-patch';
 import { ValidateGroupExists } from './validators/group-exists.validator';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'ds-group-form',
@@ -194,6 +195,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         label: groupDescription,
         name: 'groupDescription',
         required: false,
+        spellCheck: environment.form.spellCheck,
       });
       this.formModel = [
         this.groupName,
@@ -344,8 +346,8 @@ export class GroupFormComponent implements OnInit, OnDestroy {
 
     if (hasValue(this.groupDescription.value)) {
       operations = [...operations, {
-        op: 'replace',
-        path: '/metadata/dc.description/0/value',
+        op: 'add',
+        path: '/metadata/dc.description',
         value: this.groupDescription.value
       }];
     }
@@ -426,7 +428,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
               .subscribe((rd: RemoteData<NoContent>) => {
                 if (rd.hasSucceeded) {
                   this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.deleted.success', { name: group.name }));
-                  this.reset();
+                  this.onCancel();
                 } else {
                   this.notificationsService.error(
                     this.translateService.get(this.messagePrefix + '.notification.deleted.failure.title', { name: group.name }),
@@ -437,16 +439,6 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         }
       });
     });
-  }
-
-  /**
-   * This method will ensure that the page gets reset and that the cache is cleared
-   */
-  reset() {
-    this.groupDataService.getBrowseEndpoint().pipe(take(1)).subscribe((href: string) => {
-      this.requestService.removeByHrefSubstring(href);
-    });
-    this.onCancel();
   }
 
   /**

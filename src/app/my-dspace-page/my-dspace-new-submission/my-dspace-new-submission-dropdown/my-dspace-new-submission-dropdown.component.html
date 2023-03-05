@@ -7,7 +7,10 @@
        ngbDropdown
        *ngIf="(moreThanOne$ | async)">
     <button class="btn btn-lg btn-primary mt-1 ml-2" id="dropdownSubmission" ngbDropdownToggle
-            type="button"  [disabled]="!(initialized$|async)">
+            type="button"  [disabled]="!(initialized$|async)"
+            attr.aria-label="{{'mydspace.new-submission' | translate}}"
+            [attr.data-test]="'submission-dropdown' | dsBrowserOnly"
+            title="{{'mydspace.new-submission' | translate}}">
       <i class="fa fa-plus-circle" aria-hidden="true"></i>
       <span class="caret"></span>
     </button>

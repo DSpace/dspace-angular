@@ -8,7 +8,7 @@
           <button class="mr-auto btn btn-success addEPerson-button"
                   (click)="isEPersonFormShown = true">
             <i class="fas fa-plus"></i>
-            <span class="d-none d-sm-inline">{{labelPrefix + 'button.add' | translate}}</span>
+            <span class="d-none d-sm-inline ml-1">{{labelPrefix + 'button.add' | translate}}</span>
           </button>
         </div>
       </div>
@@ -30,7 +30,7 @@
           <div class="flex-grow-1 mr-3 ml-3">
             <div class="form-group input-group">
               <input type="text" name="query" id="query" formControlName="query"
-                    class="form-control" attr.aria-label="{{labelPrefix + 'search.placeholder' | translate}}"
+                    class="form-control" [attr.aria-label]="labelPrefix + 'search.placeholder' | translate"
                      [placeholder]="(labelPrefix + 'search.placeholder' | translate)">
               <span class="input-group-append">
                 <button type="submit" class="search-button btn btn-primary">
@@ -45,7 +45,7 @@
           </div>
         </form>
 
-        <ds-loading *ngIf="searching$ | async"></ds-loading>
+        <ds-themed-loading *ngIf="searching$ | async"></ds-themed-loading>
         <ds-pagination
           *ngIf="(pageInfoState$ | async)?.totalElements > 0 && !(searching$ | async)"
           [paginationOptions]="config"
@@ -72,13 +72,13 @@
                 <td>{{epersonDto.eperson.email}}</td>
                 <td>
                   <div class="btn-group edit-field">
-                    <button class="delete-button" (click)="toggleEditEPerson(epersonDto.eperson)"
+                    <button (click)="toggleEditEPerson(epersonDto.eperson)"
                             class="btn btn-outline-primary btn-sm access-control-editEPersonButton"
                             title="{{labelPrefix + 'table.edit.buttons.edit' | translate: {name: epersonDto.eperson.name} }}">
                       <i class="fas fa-edit fa-fw"></i>
                     </button>
                     <button [disabled]="!epersonDto.ableToDelete" (click)="deleteEPerson(epersonDto.eperson)"
-                            class="btn btn-outline-danger btn-sm access-control-deleteEPersonButton"
+                            class="delete-button btn btn-outline-danger btn-sm access-control-deleteEPersonButton"
                             title="{{labelPrefix + 'table.edit.buttons.remove' | translate: {name: epersonDto.eperson.name} }}">
                       <i class="fas fa-trash-alt fa-fw"></i>
                     </button>

@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, FormArray, FormControl, FormGroup,Validators, NG_VALIDATORS, NG_ASYNC_VALIDATORS } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { BrowserModule, By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
@@ -35,6 +35,7 @@ import { RouterMock } from '../../../shared/mocks/router.mock';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { Operation } from 'fast-json-patch';
 import { ValidateGroupExists } from './validators/group-exists.validator';
+import { NoContent } from '../../../core/shared/NoContent.model';
 
 describe('GroupFormComponent', () => {
   let component: GroupFormComponent;
@@ -86,6 +87,9 @@ describe('GroupFormComponent', () => {
       },
       patch(group: Group, operations: Operation[]) {
         return null;
+      },
+      delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
+        return createSuccessfulRemoteDataObject$({});
       },
       cancelEditGroup(): void {
         this.activeGroup = null;
@@ -262,6 +266,43 @@ describe('GroupFormComponent', () => {
         fixture.detectChanges();
       });
 
+      it('should edit with name and description operations', () => {
+        const operations = [{
+          op: 'add',
+          path: '/metadata/dc.description',
+          value: 'testDescription'
+        }, {
+          op: 'replace',
+          path: '/name',
+          value: 'newGroupName'
+        }];
+        expect(groupsDataServiceStub.patch).toHaveBeenCalledWith(expected, operations);
+      });
+
+      it('should edit with description operations', () => {
+        component.groupName.value = null;
+        component.onSubmit();
+        fixture.detectChanges();
+        const operations = [{
+          op: 'add',
+          path: '/metadata/dc.description',
+          value: 'testDescription'
+        }];
+        expect(groupsDataServiceStub.patch).toHaveBeenCalledWith(expected, operations);
+      });
+
+      it('should edit with name operations', () => {
+        component.groupDescription.value = null;
+        component.onSubmit();
+        fixture.detectChanges();
+        const operations = [{
+          op: 'replace',
+          path: '/name',
+          value: 'newGroupName'
+        }];
+        expect(groupsDataServiceStub.patch).toHaveBeenCalledWith(expected, operations);
+      });
+
       it('should emit the existing group using the correct new values', waitForAsync(() => {
         fixture.whenStable().then(() => {
           expect(component.submitForm.emit).toHaveBeenCalledWith(expected2);
@@ -348,4 +389,46 @@ describe('GroupFormComponent', () => {
     });
   });
 
+  describe('delete', () => {
+    let deleteButton;
+
+    beforeEach(() => {
+      component.initialisePage();
+
+      component.canEdit$ = observableOf(true);
+      component.groupBeingEdited = {
+        permanent: false
+      } as Group;
+
+      fixture.detectChanges();
+      deleteButton = fixture.debugElement.query(By.css('.delete-button')).nativeElement;
+
+      spyOn(groupsDataServiceStub, 'delete').and.callThrough();
+      spyOn(groupsDataServiceStub, 'getActiveGroup').and.returnValue(observableOf({ id: 'active-group' }));
+    });
+
+    describe('if confirmed via modal', () => {
+      beforeEach(waitForAsync(() => {
+        deleteButton.click();
+        fixture.detectChanges();
+        (document as any).querySelector('.modal-footer .confirm').click();
+      }));
+
+      it('should call GroupDataService.delete', () => {
+        expect(groupsDataServiceStub.delete).toHaveBeenCalledWith('active-group');
+      });
+    });
+
+    describe('if canceled via modal', () => {
+      beforeEach(waitForAsync(() => {
+        deleteButton.click();
+        fixture.detectChanges();
+        (document as any).querySelector('.modal-footer .cancel').click();
+      }));
+
+      it('should not call GroupDataService.delete', () => {
+        expect(groupsDataServiceStub.delete).not.toHaveBeenCalled();
+      });
+    });
+  });
 });

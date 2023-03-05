@@ -6,7 +6,7 @@ import { CreateCollectionPageComponent } from './create-collection-page/create-c
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { CreateCollectionPageGuard } from './create-collection-page/create-collection-page.guard';
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
-import { EditItemTemplatePageComponent } from './edit-item-template-page/edit-item-template-page.component';
+import { ThemedEditItemTemplatePageComponent } from './edit-item-template-page/themed-edit-item-template-page.component';
 import { ItemTemplatePageResolver } from './edit-item-template-page/item-template-page.resolver';
 import { CollectionBreadcrumbResolver } from '../core/breadcrumbs/collection-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
@@ -18,9 +18,10 @@ import {
   COLLECTION_CREATE_PATH
 } from './collection-page-routing-paths';
 import { CollectionPageAdministratorGuard } from './collection-page-administrator.guard';
-import { MenuItemType } from '../shared/menu/initial-menus-state';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
+import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
         path: ':id',
         resolve: {
           dso: CollectionPageResolver,
-          breadcrumb: CollectionBreadcrumbResolver
+          breadcrumb: CollectionBreadcrumbResolver,
+          menu: DSOEditMenuResolver
         },
         runGuardsAndResolvers: 'always',
         children: [
@@ -52,7 +54,7 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
           },
           {
             path: ITEMTEMPLATE_PATH,
-            component: EditItemTemplatePageComponent,
+            component: ThemedEditItemTemplatePageComponent,
             canActivate: [AuthenticatedGuard],
             resolve: {
               item: ItemTemplatePageResolver,
@@ -72,6 +74,7 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
               id: 'statistics_collection_:id',
               active: true,
               visible: true,
+              index: 2,
               model: {
                 type: MenuItemType.LINK,
                 text: 'menu.section.statistics',
@@ -90,7 +93,7 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
     DSOBreadcrumbsService,
     LinkService,
     CreateCollectionPageGuard,
-    CollectionPageAdministratorGuard
+    CollectionPageAdministratorGuard,
   ]
 })
 export class CollectionPageRoutingModule {

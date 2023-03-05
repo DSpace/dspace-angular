@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import {
   SelectableListAction,
   SelectableListDeselectAction,
@@ -11,7 +12,6 @@ import { selectableListReducer } from './selectable-list.reducer';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { hasValue } from '../../empty.util';
 
-// tslint:disable:max-classes-per-file
 class SelectableObject extends ListableObject {
   constructor(private value: string) {
     super();
@@ -34,7 +34,6 @@ class NullAction extends SelectableListAction {
   }
 }
 
-// tslint:enable:max-classes-per-file
 const listID1 = 'id1';
 const listID2 = 'id2';
 const value1 = 'Selected object';

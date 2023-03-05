@@ -1,6 +1,6 @@
-import { Item } from '../../../../core/shared/item.model';
+  /* eslint-disable max-classes-per-file */
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { getListableObjectComponent, listableObjectComponent } from './listable-object.decorator';
+import { DEFAULT_VIEW_MODE, getListableObjectComponent, listableObjectComponent } from './listable-object.decorator';
 import { Context } from '../../../../core/shared/context.model';
 import { environment } from '../../../../../environments/environment';
 
@@ -12,8 +12,11 @@ describe('ListableObject decorator function', () => {
   const type3 = 'TestType3';
   const typeAncestor = 'TestTypeAncestor';
   const typeUnthemed = 'TestTypeUnthemed';
+  const typeLowPriority = 'TypeLowPriority';
+  const typeLowPriority2 = 'TypeLowPriority2';
+  const typeMidPriority = 'TypeMidPriority';
+  const typeHighPriority = 'TypeHighPriority';
 
-  /* tslint:disable:max-classes-per-file */
   class Test1List {
   }
 
@@ -38,7 +41,22 @@ describe('ListableObject decorator function', () => {
   class TestUnthemedComponent {
   }
 
-  /* tslint:enable:max-classes-per-file */
+  class TestDefaultLowPriorityComponent {
+  }
+
+  class TestLowPriorityComponent {
+  }
+
+  class TestDefaultMidPriorityComponent {
+  }
+
+  class TestMidPriorityComponent {
+  }
+
+  class TestHighPriorityComponent {
+  }
+
+  /* eslint-enable max-classes-per-file */
 
   beforeEach(() => {
     listableObjectComponent(type1, ViewMode.ListElement)(Test1List);
@@ -53,6 +71,15 @@ describe('ListableObject decorator function', () => {
     // Register a metadata representation in the 'ancestor' theme
     listableObjectComponent(typeAncestor, ViewMode.ListElement, Context.Any, 'ancestor')(TestAncestorComponent);
     listableObjectComponent(typeUnthemed, ViewMode.ListElement, Context.Any)(TestUnthemedComponent);
+
+    // Register component with different priorities for expected parameters:
+    // ViewMode.DetailedListElement, Context.Search, 'custom'
+    listableObjectComponent(typeLowPriority, DEFAULT_VIEW_MODE, undefined, undefined)(TestDefaultLowPriorityComponent);
+    listableObjectComponent(typeLowPriority, DEFAULT_VIEW_MODE, Context.Search, 'custom')(TestLowPriorityComponent);
+    listableObjectComponent(typeLowPriority2, DEFAULT_VIEW_MODE, undefined, undefined)(TestDefaultLowPriorityComponent);
+    listableObjectComponent(typeMidPriority, ViewMode.DetailedListElement, undefined, undefined)(TestDefaultMidPriorityComponent);
+    listableObjectComponent(typeMidPriority, ViewMode.DetailedListElement, undefined, 'custom')(TestMidPriorityComponent);
+    listableObjectComponent(typeHighPriority, ViewMode.DetailedListElement, Context.Search, undefined)(TestHighPriorityComponent);
 
     ogEnvironmentThemes = environment.themes;
   });
@@ -81,7 +108,7 @@ describe('ListableObject decorator function', () => {
     });
   });
 
-  describe('If there isn\'nt an exact match', () => {
+  describe('If there isn\'t an exact match', () => {
     describe('If there is a match for one of the entity types and the view mode', () => {
       it('should return the class with the matching entity type and view mode and default context', () => {
         const component = getListableObjectComponent([type3], ViewMode.ListElement, Context.Workspace);
@@ -149,6 +176,47 @@ describe('ListableObject decorator function', () => {
         }).toThrowError(
           'Theme extension cycle detected: extension-cycle -> broken1 -> broken2 -> broken3 -> broken1'
         );
+      });
+    });
+  });
+
+  describe('priorities', () => {
+    beforeEach(() => {
+      environment.themes = [
+        {
+          name: 'custom',
+        }
+      ];
+    });
+
+    describe('If a component with default ViewMode contains specific context and/or theme', () => {
+      it('requesting a specific ViewMode should return the one with the requested context and/or theme', () => {
+        const component = getListableObjectComponent([typeLowPriority], ViewMode.DetailedListElement, Context.Search, 'custom');
+        expect(component).toEqual(TestLowPriorityComponent);
+      });
+    });
+
+    describe('If a component with default Context contains specific ViewMode and/or theme', () => {
+      it('requesting a specific Context should return the one with the requested view-mode and/or theme', () => {
+        const component = getListableObjectComponent([typeMidPriority], ViewMode.DetailedListElement, Context.Search, 'custom');
+        expect(component).toEqual(TestMidPriorityComponent);
+      });
+    });
+
+    describe('If multiple components exist, each containing a different default value for one of the requested parameters', () => {
+      it('the component with the latest default value in the list should be returned', () => {
+        let component = getListableObjectComponent([typeMidPriority, typeLowPriority], ViewMode.DetailedListElement, Context.Search, 'custom');
+        expect(component).toEqual(TestMidPriorityComponent);
+
+        component = getListableObjectComponent([typeLowPriority, typeMidPriority, typeHighPriority], ViewMode.DetailedListElement, Context.Search, 'custom');
+        expect(component).toEqual(TestHighPriorityComponent);
+      });
+    });
+
+    describe('If two components exist for two different types, both configured for the same view-mode, but one for a specific context and/or theme', () => {
+      it('requesting a component for that specific context and/or theme while providing both types should return the most relevant one', () => {
+        const component = getListableObjectComponent([typeLowPriority2, typeLowPriority], ViewMode.DetailedListElement, Context.Search, 'custom');
+        expect(component).toEqual(TestLowPriorityComponent);
       });
     });
   });

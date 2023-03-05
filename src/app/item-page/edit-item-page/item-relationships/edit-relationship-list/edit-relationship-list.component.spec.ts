@@ -4,9 +4,8 @@ import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { LinkService } from '../../../../core/cache/builders/link.service';
-import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { RelationshipService } from '../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
@@ -22,7 +21,17 @@ import { HostWindowService } from '../../../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { RelationshipTypeService } from '../../../../core/data/relationship-type.service';
+import { RelationshipTypeDataService } from '../../../../core/data/relationship-type-data.service';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
+import { GroupDataService } from '../../../../core/eperson/group-data.service';
+import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
+import { LinkHeadService } from '../../../../core/services/link-head.service';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
+import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
+import { Router } from '@angular/router';
+import { RouterMock } from '../../../../shared/mocks/router.mock';
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
 
 let comp: EditRelationshipListComponent;
 let fixture: ComponentFixture<EditRelationshipListComponent>;
@@ -174,17 +183,48 @@ describe('EditRelationshipListComponent', () => {
 
     hostWindowService = new HostWindowServiceStub(1200);
 
+    const linkHeadService = jasmine.createSpyObj('linkHeadService', {
+      addTag: ''
+    });
+
+    const groupDataService = jasmine.createSpyObj('groupsDataService', {
+      findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+      getGroupRegistryRouterLink: '',
+      getUUIDFromString: '',
+    });
+
+    const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'test',
+        values: [
+          'org.dspace.ctask.general.ProfileFormats = test'
+        ]
+      }))
+    });
+
+    const environmentUseThumbs = {
+      browseBy: {
+        showThumbnails: true
+      }
+    };
+
     TestBed.configureTestingModule({
       imports: [SharedModule, TranslateModule.forRoot()],
       declarations: [EditRelationshipListComponent],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
-        { provide: RelationshipService, useValue: relationshipService },
+        { provide: RelationshipDataService, useValue: relationshipService },
         { provide: SelectableListService, useValue: selectableListService },
         { provide: LinkService, useValue: linkService },
         { provide: PaginationService, useValue: paginationService },
         { provide: HostWindowService, useValue: hostWindowService },
-        { provide: RelationshipTypeService, useValue: relationshipTypeService },
+        { provide: RelationshipTypeDataService, useValue: relationshipTypeService },
+        { provide: GroupDataService, useValue: groupDataService },
+        { provide: Router, useValue: new RouterMock() },
+        { provide: LinkHeadService, useValue: linkHeadService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
+        { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]
@@ -227,9 +267,11 @@ describe('EditRelationshipListComponent', () => {
 
       const callArgs = relationshipService.getItemRelationshipsByLabel.calls.mostRecent().args;
       const findListOptions = callArgs[2];
-
+      const linksToFollow = callArgs[5];
       expect(findListOptions.elementsPerPage).toEqual(paginationOptions.pageSize);
       expect(findListOptions.currentPage).toEqual(paginationOptions.currentPage);
+      expect(linksToFollow.linksToFollow[0].name).toEqual('thumbnail');
+
     });
 
     describe('when the publication is on the left side of the relationship', () => {

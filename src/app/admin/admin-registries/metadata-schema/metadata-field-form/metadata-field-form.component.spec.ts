@@ -24,7 +24,7 @@ describe('MetadataFieldFormComponent', () => {
     prefix: 'fake'
   });
 
-  /* tslint:disable:no-empty */
+  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   const registryServiceStub = {
     getActiveMetadataField: () => observableOf(undefined),
     createMetadataField: (field: MetadataField) => observableOf(field),
@@ -43,7 +43,7 @@ describe('MetadataFieldFormComponent', () => {
       };
     }
   };
-  /* tslint:enable:no-empty */
+  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

@@ -6,7 +6,7 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
-import { findKey } from 'lodash';
+import findKey from 'lodash/findKey';
 
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
@@ -110,7 +110,7 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
     if (this.model.vocabularyOptions.name && this.model.vocabularyOptions.name.length > 0) {
       const listGroup = this.group.controls[this.model.id] as FormGroup;
       if (this.model.repeatable && this.model.required) {
-        listGroup.setValidators(this.hasAtLeastOneVocabularyEntry());
+        listGroup.addValidators(this.hasAtLeastOneVocabularyEntry());
       }
       const pageInfo: PageInfo = new PageInfo({
         elementsPerPage: 9999, currentPage: 1

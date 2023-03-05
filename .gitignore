@@ -1,3 +1,4 @@
+/.angular/cache
 /__build__
 /__server_build__
 /node_modules
@@ -36,3 +37,5 @@ package-lock.json
 
 .env
 /nbproject/
+
+junit.xml

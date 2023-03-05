@@ -1,6 +1,7 @@
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { SearchService } from '../../../core/shared/search/search.service';
@@ -8,10 +9,8 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../utils/route.utils';
-import { Router } from '@angular/router';
 import { hasValue } from '../../empty.util';
 
 @Component({
@@ -28,7 +27,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   /**
    * An observable containing configuration about which filters are shown and how they are shown
    */
-  filters: Observable<RemoteData<SearchFilterConfig[]>>;
+  @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
 
   /**
    * List of all filters that are currently active with their value set to null.
@@ -54,7 +53,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   /**
    * Emits when the search filters values may be stale, and so they must be refreshed.
    */
-  @Input() refreshFilters: Observable<any>;
+  @Input() refreshFilters: BehaviorSubject<boolean>;
 
   /**
    * Link to the search page
@@ -78,24 +77,11 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
-    this.initFilters();
-
-    if (this.refreshFilters) {
-      this.subs.push(this.refreshFilters.subscribe(() => this.initFilters()));
-    }
-
     this.clearParams = this.searchConfigService.getCurrentFrontendFilters().pipe(map((filters) => {
       Object.keys(filters).forEach((f) => filters[f] = null);
       return filters;
     }));
     this.searchLink = this.getSearchLink();
-  }
-
-  initFilters() {
-    this.filters = this.searchService.getConfig(this.currentScope, this.currentConfiguration).pipe(
-      getFirstSucceededRemoteData()
-    );
   }
 
   /**

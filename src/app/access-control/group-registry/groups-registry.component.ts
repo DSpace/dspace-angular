@@ -5,11 +5,12 @@ import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
+  EMPTY,
   Observable,
   of as observableOf,
   Subscription
 } from 'rxjs';
-import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, defaultIfEmpty, map, switchMap, tap } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
@@ -144,7 +145,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
         }
         return this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
           switchMap((isSiteAdmin: boolean) => {
-            return observableCombineLatest(groups.page.map((group: Group) => {
+            return observableCombineLatest([...groups.page.map((group: Group) => {
               if (hasValue(group) && !this.deletedGroupsIds.includes(group.id)) {
                 return observableCombineLatest([
                   this.authorizationService.isAuthorized(FeatureID.CanDelete, group.self),
@@ -165,8 +166,10 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
                     }
                   )
                 );
+              } else {
+                return EMPTY;
               }
-            })).pipe(map((dtos: GroupDtoModel[]) => {
+            })]).pipe(defaultIfEmpty([]), map((dtos: GroupDtoModel[]) => {
               return buildPaginatedList(groups.pageInfo, dtos);
             }));
           })
@@ -199,7 +202,6 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
           if (rd.hasSucceeded) {
             this.deletedGroupsIds = [...this.deletedGroupsIds, group.group.id];
             this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: group.group.name }));
-            this.reset();
           } else {
             this.notificationsService.error(
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: group.group.name }),
@@ -210,22 +212,11 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * This method will set everything to stale, which will cause the lists on this page to update.
-   */
-  reset() {
-    this.groupService.getBrowseEndpoint().pipe(
-      take(1)
-    ).subscribe((href: string) => {
-      this.requestService.setStaleByHrefSubstring(href);
-    });
-  }
-
-  /**
    * Get the members (epersons embedded value of a group)
    * @param group
    */
   getMembers(group: Group): Observable<RemoteData<PaginatedList<EPerson>>> {
-    return this.ePersonDataService.findAllByHref(group._links.epersons.href).pipe(getFirstSucceededRemoteData());
+    return this.ePersonDataService.findListByHref(group._links.epersons.href).pipe(getFirstSucceededRemoteData());
   }
 
   /**
@@ -233,7 +224,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    * @param group
    */
   getSubgroups(group: Group): Observable<RemoteData<PaginatedList<Group>>> {
-    return this.groupService.findAllByHref(group._links.subgroups.href).pipe(getFirstSucceededRemoteData());
+    return this.groupService.findListByHref(group._links.subgroups.href).pipe(getFirstSucceededRemoteData());
   }
 
   /**

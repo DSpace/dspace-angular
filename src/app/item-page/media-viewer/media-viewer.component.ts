@@ -108,6 +108,7 @@ export class MediaViewerComponent implements OnInit {
     const mediaItem = new MediaViewerItem();
     mediaItem.bitstream = original;
     mediaItem.format = format.mimetype.split('/')[0];
+    mediaItem.mimetype = format.mimetype;
     mediaItem.thumbnail = thumbnail ? thumbnail._links.content.href : null;
     return mediaItem;
   }

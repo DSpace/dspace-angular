@@ -157,6 +157,8 @@
   
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Név",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.id" : "ID",
   
   // "admin.registries.bitstream-formats.table.return": "Return",
   "admin.registries.bitstream-formats.table.return": "Vissza",
@@ -236,6 +238,8 @@
   
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Mező",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.id" : "ID",
   
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Cél megjegyzés",
@@ -2477,7 +2481,7 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Térképezett gyűjtemények szervezése",
   
-  // "item.edit.tabs.status.buttons.move.button": "Move...",
+  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
   "item.edit.tabs.status.buttons.move.button": "Elmozdítás...",
   
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
@@ -2501,8 +2505,8 @@
   // "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
   "item.edit.tabs.status.buttons.reinstate.label": "Tárgy visszaállítása az adattárba",
   
-  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  "item.edit.tabs.status.buttons.withdraw.button": "Visszavonás...",
+  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
+  "item.edit.tabs.status.buttons.withdraw.button": "Vedd vissza ezt az elemet",
   
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
   "item.edit.tabs.status.buttons.withdraw.label": "Tárgy visszavonása az adattárból",
@@ -4920,7 +4924,7 @@
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
   "submission.sections.upload.header.policy.default.withlist": "Kérjük, vegye figyelembe, hogy a {{collectionName}} gyűjteménybe feltöltött állományok elérhetők lesznek, azon kívül amit az egyedi állományokról kifejezetten eldöntött, a következő csoport(ok)ban:",
   
-  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "Itt megtalálja a tárgyban lévő valamennyi állományt. Frissítheti az állomány metaadatait és hozzáférési feltételeit vagy <strong>feltölthet további állományokat azzal, hogy behúzza azokat bárhova az oldalra</strong>",
   
   // "submission.sections.upload.no-entry": "No",
@@ -5072,7 +5076,8 @@
   // TODO Source message changed - Revise the translation
   "uploader.or": ", vagy",
   
-  // "uploader.processing": "Processing",
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
+  // TODO Source message changed - Revise the translation
   "uploader.processing": "Feldolgozás",
   
   // "uploader.queue-length": "Queue length",

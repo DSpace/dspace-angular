@@ -25,7 +25,13 @@ export class ItemSearchResultListElementSubmissionComponent extends SearchResult
    */
   public status = MyDspaceItemStatusType.ARCHIVED;
 
+  /**
+   * Display thumbnails if required by configuration
+   */
+  showThumbnails: boolean;
+
   ngOnInit() {
     super.ngOnInit();
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 }

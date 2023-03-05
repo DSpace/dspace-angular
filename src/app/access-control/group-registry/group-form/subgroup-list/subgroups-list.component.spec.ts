@@ -1,14 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  flush,
-  inject,
-  TestBed,
-  tick,
-  waitForAsync
-} from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -46,8 +38,8 @@ describe('SubgroupsListComponent', () => {
   let ePersonDataServiceStub: any;
   let groupsDataServiceStub: any;
   let activeGroup;
-  let subgroups;
-  let allGroups;
+  let subgroups: Group[];
+  let allGroups: Group[];
   let routerStub;
   let paginationService;
 
@@ -65,7 +57,7 @@ describe('SubgroupsListComponent', () => {
       getSubgroups(): Group {
         return this.activeGroup;
       },
-      findAllByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
+      findListByHref(_href: string): Observable<RemoteData<PaginatedList<Group>>> {
         return this.subgroups$.pipe(
           map((currentGroups: Group[]) => {
             return createSuccessfulRemoteDataObject(buildPaginatedList<Group>(new PageInfo(), currentGroups));
@@ -133,6 +125,7 @@ describe('SubgroupsListComponent', () => {
   });
   afterEach(fakeAsync(() => {
     fixture.destroy();
+    fixture.debugElement.nativeElement.remove();
     flush();
     component = null;
   }));
@@ -152,7 +145,7 @@ describe('SubgroupsListComponent', () => {
   });
 
   describe('if first group delete button is pressed', () => {
-    let groupsFound;
+    let groupsFound: DebugElement[];
     beforeEach(fakeAsync(() => {
       const addButton = fixture.debugElement.query(By.css('#subgroupsOfGroup tbody .deleteButton'));
       addButton.triggerEventHandler('click', {
@@ -170,7 +163,7 @@ describe('SubgroupsListComponent', () => {
 
   describe('search', () => {
     describe('when searching with empty query', () => {
-      let groupsFound;
+      let groupsFound: DebugElement[];
       beforeEach(fakeAsync(() => {
         component.search({ query: '' });
         groupsFound = fixture.debugElement.queryAll(By.css('#groupsSearch tbody tr'));
@@ -181,9 +174,9 @@ describe('SubgroupsListComponent', () => {
         groupsFound = fixture.debugElement.queryAll(By.css('#groupsSearch tbody tr'));
         expect(groupsFound.length).toEqual(2);
         groupsFound = fixture.debugElement.queryAll(By.css('#groupsSearch tbody tr'));
-        const groupIdsFound = fixture.debugElement.queryAll(By.css('#groupsSearch tbody tr td:first-child'));
+        const groupIdsFound: DebugElement[] = fixture.debugElement.queryAll(By.css('#groupsSearch tbody tr td:first-child'));
         allGroups.map((group: Group) => {
-          expect(groupIdsFound.find((foundEl) => {
+          expect(groupIdsFound.find((foundEl: DebugElement) => {
             return (foundEl.nativeElement.textContent.trim() === group.uuid);
           })).toBeTruthy();
         });
@@ -195,30 +188,30 @@ describe('SubgroupsListComponent', () => {
           groupsFound = fixture.debugElement.queryAll(By.css('#groupsSearch tbody tr'));
           const getSubgroups = groupsDataServiceStub.getSubgroups().subgroups;
           if (getSubgroups !== undefined && getSubgroups.length > 0) {
-            groupsFound.map((foundGroupRowElement) => {
-              if (foundGroupRowElement.debugElement !== undefined) {
-                const addButton = foundGroupRowElement.debugElement.query(By.css('td:last-child .fa-plus'));
-                const deleteButton = foundGroupRowElement.debugElement.query(By.css('td:last-child .fa-trash-alt'));
-                expect(addButton).toBeUndefined();
-                expect(deleteButton).toBeDefined();
+            groupsFound.map((foundGroupRowElement: DebugElement) => {
+              const groupId: DebugElement = foundGroupRowElement.query(By.css('td:first-child'));
+              const addButton: DebugElement = foundGroupRowElement.query(By.css('td:last-child .fa-plus'));
+              const deleteButton: DebugElement = foundGroupRowElement.query(By.css('td:last-child .fa-trash-alt'));
+              expect(addButton).toBeNull();
+              if (activeGroup.id === groupId.nativeElement.textContent) {
+                expect(deleteButton).toBeNull();
+              } else {
+                expect(deleteButton).not.toBeNull();
               }
             });
           } else {
-            getSubgroups.map((group: Group) => {
-              groupsFound.map((foundGroupRowElement) => {
-                if (foundGroupRowElement.debugElement !== undefined) {
-                  const groupId = foundGroupRowElement.debugElement.query(By.css('td:first-child'));
-                  const addButton = foundGroupRowElement.debugElement.query(By.css('td:last-child .fa-plus'));
-                  const deleteButton = foundGroupRowElement.debugElement.query(By.css('td:last-child .fa-trash-alt'));
-                  if (groupId.nativeElement.textContent === group.id) {
-                    expect(addButton).toBeUndefined();
-                    expect(deleteButton).toBeDefined();
-                  } else {
-                    expect(deleteButton).toBeUndefined();
-                    expect(addButton).toBeDefined();
-                  }
-                }
-              });
+            const subgroupIds: string[] = activeGroup.subgroups.map((group: Group) => group.id);
+            groupsFound.map((foundGroupRowElement: DebugElement) => {
+              const groupId: DebugElement = foundGroupRowElement.query(By.css('td:first-child'));
+              const addButton: DebugElement = foundGroupRowElement.query(By.css('td:last-child .fa-plus'));
+              const deleteButton: DebugElement = foundGroupRowElement.query(By.css('td:last-child .fa-trash-alt'));
+              if (subgroupIds.includes(groupId.nativeElement.textContent)) {
+                expect(addButton).toBeNull();
+                expect(deleteButton).not.toBeNull();
+              } else {
+                expect(deleteButton).toBeNull();
+                expect(addButton).not.toBeNull();
+              }
             });
           }
         });

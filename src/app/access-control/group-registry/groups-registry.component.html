@@ -7,7 +7,7 @@
           <button class="mr-auto btn btn-success"
                   [routerLink]="['newGroup']">
             <i class="fas fa-plus"></i>
-            <span class="d-none d-sm-inline">{{messagePrefix + 'button.add' | translate}}</span>
+            <span class="d-none d-sm-inline ml-1">{{messagePrefix + 'button.add' | translate}}</span>
           </button>
         </div>
       </div>
@@ -17,7 +17,7 @@
         <div class="flex-grow-1 mr-3">
           <div class="form-group input-group">
             <input type="text" name="query" id="query" formControlName="query"
-                   class="form-control" attr.aria-label="{{messagePrefix + 'search.placeholder' | translate}}"
+                   class="form-control" [attr.aria-label]="messagePrefix + 'search.placeholder' | translate"
                    [placeholder]="(messagePrefix + 'search.placeholder' | translate)" >
             <span class="input-group-append">
               <button type="submit" class="search-button btn btn-primary">
@@ -33,7 +33,7 @@
         </div>
       </form>
 
-      <ds-loading *ngIf="loading$ | async"></ds-loading>
+      <ds-themed-loading *ngIf="loading$ | async"></ds-themed-loading>
       <ds-pagination
         *ngIf="(pageInfoState$ | async)?.totalElements > 0 && !(loading$ | async)"
         [paginationOptions]="config"
@@ -79,7 +79,7 @@
                     </button>
                   </ng-container>
                   <button *ngIf="!groupDto.group?.permanent && groupDto.ableToDelete"
-                          (click)="deleteGroup(groupDto)" class="btn btn-outline-danger btn-sm"
+                          (click)="deleteGroup(groupDto)" class="btn btn-outline-danger btn-sm btn-delete"
                           title="{{messagePrefix + 'table.edit.buttons.remove' | translate: {name: groupDto.group.name} }}">
                     <i class="fas fa-trash-alt fa-fw"></i>
                   </button>

@@ -144,7 +144,7 @@ export class AuthInterceptor implements HttpInterceptor {
       const regex = /(\w+ (\w+=((".*?")|[^,]*)(, )?)*)/g;
       const realms = completeWWWauthenticateHeader.match(regex);
 
-      // tslint:disable-next-line:forin
+      // eslint-disable-next-line guard-for-in
       for (const j in realms) {
 
         const splittedRealm = realms[j].split(', ');
@@ -196,7 +196,24 @@ export class AuthInterceptor implements HttpInterceptor {
       authStatus.token = new AuthTokenInfo(accessToken);
     } else {
       authStatus.authenticated = false;
-      authStatus.error = isNotEmpty(error) ? ((typeof error === 'string') ? JSON.parse(error) : error) : null;
+      if (isNotEmpty(error)) {
+        if (typeof error === 'string') {
+          try {
+            authStatus.error = JSON.parse(error);
+          } catch (e) {
+            console.error('Unknown auth error "', error, '" caused ', e);
+            authStatus.error = {
+              error: 'Unknown',
+              message: 'Unknown auth error',
+              status: 500,
+              timestamp: Date.now(),
+              path: ''
+              };
+          }
+        } else {
+          authStatus.error = error;
+        }
+      }
     }
     return authStatus;
   }

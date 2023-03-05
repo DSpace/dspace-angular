@@ -202,6 +202,8 @@
   // "admin.registries.bitstream-formats.table.name": "Name",
   // TODO New key - Add a translation
   "admin.registries.bitstream-formats.table.name": "Name",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.id" : "ID",
   
   // "admin.registries.bitstream-formats.table.return": "Return",
   // TODO New key - Add a translation
@@ -294,6 +296,8 @@
   
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Pole",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.id" : "ID",
   
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Poznámka o rozsahu",
@@ -3182,9 +3186,9 @@
   // TODO New key - Add a translation
   "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   
-  // "item.edit.tabs.status.buttons.move.button": "Move...",
+  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
   // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.move.button": "Move...",
+  "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
   
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
   // TODO New key - Add a translation
@@ -3214,9 +3218,9 @@
   // TODO New key - Add a translation
   "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
   
-  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
+  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
   // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
+  "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
   
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
   // TODO New key - Add a translation
@@ -6323,9 +6327,9 @@
   // TODO New key - Add a translation
   "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
   
-  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   // TODO New key - Add a translation
-  "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   
   // "submission.sections.upload.no-entry": "No",
   // TODO New key - Add a translation
@@ -6518,9 +6522,9 @@
   // TODO New key - Add a translation
   "uploader.or": ", or ",
   
-  // "uploader.processing": "Processing",
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
   // TODO New key - Add a translation
-  "uploader.processing": "Processing",
+  "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
   
   // "uploader.queue-length": "Queue length",
   // TODO New key - Add a translation

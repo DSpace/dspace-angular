@@ -11,12 +11,11 @@ import { EPersonMock } from '../../../testing/eperson.mock';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { getMockLinkService } from '../../../mocks/link-service.mock';
 
 let component: ItemSubmitterComponent;
 let fixture: ComponentFixture<ItemSubmitterComponent>;
-
-const compIndex = 1;
-
 let mockResultObject: PoolTask;
 
 const rdSumbitter = createSuccessfulRemoteDataObject(EPersonMock);
@@ -36,6 +35,9 @@ describe('ItemSubmitterComponent', () => {
         })
       ],
       declarations: [ItemSubmitterComponent],
+      providers: [
+        { provide: LinkService, useValue: getMockLinkService() },
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemSubmitterComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
@@ -61,7 +63,7 @@ describe('ItemSubmitterComponent', () => {
   it('should show a badge with submitter name', () => {
     const badge = fixture.debugElement.query(By.css('.badge'));
 
-    expect(badge).toBeDefined();
+    expect(badge).not.toBeNull();
     expect(badge.nativeElement.innerHTML).toBe(EPersonMock.name);
   });
 });
