@@ -114,6 +114,7 @@ import { ObjectListComponent } from './app/shared/object-list/object-list.compon
 import { BrowseByMetadataPageComponent } from './app/browse-by/browse-by-metadata-page/browse-by-metadata-page.component';
 import { BrowseByDatePageComponent } from './app/browse-by/browse-by-date-page/browse-by-date-page.component';
 import { BrowseByTitlePageComponent } from './app/browse-by/browse-by-title-page/browse-by-title-page.component';
+import { FeedbackFormComponent } from './app/info/feedback/feedback-form/feedback-form.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -153,6 +154,7 @@ const DECLARATIONS = [
   WorkflowItemSendBackComponent,
   BreadcrumbsComponent,
   FeedbackComponent,
+  FeedbackFormComponent,
   CommunityListComponent,
   ComcolPageHandleComponent,
   AuthNavMenuComponent,
