@@ -195,11 +195,23 @@ export class DefaultAppConfig implements AppConfig {
           },
           {
             value: 500,
-            style: 'text-info'
+            style: 'text-warning'
           },
           {
             value: 400,
-            style: 'text-warning'
+            style: 'text-danger'
+          },
+          {
+            value: 300,
+            style: 'text-dark'
+          },
+          {
+            value: 200,
+            style: 'text-dark'
+          },
+          {
+            value: 100,
+            style: 'text-dark'
           },
           // default configuration
           {
