@@ -6663,6 +6663,8 @@
 
   "curation-task.task.iiifpdfmultipages.label": "Create multipages PDF from IIIF images",
 
+  "curation-task.task.iiifclean.label": "Remove all metadata bundles created by a previous upload to the image server",
+
   "curation-task.task.pdftoimagecmyk.label": "Extract images from PDF (CMYK)",
 
   "curation-task.task.pdftoimagergb.label": "Extract images from PDF (RGB)",
