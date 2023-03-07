@@ -6659,6 +6659,8 @@
 
   "curation-task.task.iiifallowfiledownload.label": "Allow file download for files uploaded on image server",
 
+  "curation-task.task.rawtoaccess.label": "Create access image for RAW Types",
+
   "curation-task.task.iiifpdfmultipages.label": "Create multipages PDF from IIIF images",
 
   "curation-task.task.pdftoimagecmyk.label": "Extract images from PDF (CMYK)",
