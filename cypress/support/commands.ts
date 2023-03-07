@@ -133,6 +133,10 @@ Cypress.Commands.add('loginViaForm', loginViaForm);
  * Generate statistic view event for given object. Useful for testing statistics pages with
  * pre-generated statistics. This just generates a single "hit", but can be called multiple times to
  * generate multiple hits.
+ *
+ * NOTE: This requires that "solr-statistics.autoCommit=false" be set on the DSpace backend
+ * (as it is in our docker-compose-ci.yml used in CI).
+ * Otherwise, by default, new statistical events won't be saved until Solr's autocommit next triggers.
  * @param uuid UUID of object
  * @param dsoType type of DSpace Object (e.g. "item", "collection", "community")
  */
@@ -169,9 +173,13 @@ function generateViewEvent(uuid: string, dsoType: string): void {
         cy.request({
             method: 'POST',
             url: baseRestUrl + '/api/statistics/viewevents',
-            headers: { [XSRF_REQUEST_HEADER] : csrfToken},
+            headers: {
+                [XSRF_REQUEST_HEADER] : csrfToken,
+                // use a known public IP address to avoid being seen as a "bot"
+                'X-Forwarded-For': '1.1.1.1',
+            },
             //form: true, // indicates the body should be form urlencoded
-            body: { targetId: uuid, targetType: dsoType }
+            body: { targetId: uuid, targetType: dsoType },
         }).then((resp) => {
             // We expect a 201 (which means statistics event was created)
             expect(resp.status).to.eq(201);
