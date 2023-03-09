@@ -31,7 +31,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
 
   fileName$: Observable<string>;
 
-  hasHistory = this._window.nativeWindow.history.length > 1;
+  hasHistory = this._window.nativeWindow.history?.length > 1;
 
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,

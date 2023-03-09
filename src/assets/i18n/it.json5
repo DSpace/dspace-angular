@@ -9938,5 +9938,7 @@
   // "curation-task.task.ocrclean.label": "Remove all metadata bundles and uploaded ocr created by a previous upload to the ocr server"
   "curation-task.task.ocrclean.label": "Rimuovi tutti i metadata bundles and tutti gli OCR caricati in precedenza sul server OCR",
 
+  //"curation-task.task.rawtoaccess.label": "Create access image for RAW Types",
+  "curation-task.task.rawtoaccess.label": "Creare un'immagine di accesso per i tipi RAW"
 
 }

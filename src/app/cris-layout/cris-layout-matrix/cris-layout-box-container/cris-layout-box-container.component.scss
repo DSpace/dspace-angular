@@ -9,3 +9,9 @@
   box-shadow: none !important;
   width: 100%;
 }
+
+:host ::ng-deep .card {
+  margin-bottom: var(--ds-submission-sections-margin-bottom);
+  overflow: unset;
+}
+

@@ -14,8 +14,10 @@ import { HttpXsrfTokenExtractor } from '@angular/common/http';
 import { CookieService } from '../../core/services/cookie.service';
 import { CookieServiceMock } from '../mocks/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../mocks/http-xsrf-token-extractor.mock';
+import { AuthService } from '../../core/auth/auth.service';
+import { AuthServiceMock } from '../mocks/auth.service.mock';
 
-describe('Chips component', () => {
+describe('UploaderComponent test', () => {
 
   let testComp: TestComponent;
   let testFixture: ComponentFixture<TestComponent>;
@@ -38,6 +40,7 @@ describe('Chips component', () => {
         ScrollToService,
         UploaderComponent,
         UploaderService,
+        { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock('mock-token') },
         { provide: CookieService, useValue: new CookieServiceMock() },
       ],

@@ -18,7 +18,7 @@ describe('MetricDimensionsComponent', () => {
     metricCount: 0,
     metricType: 'dimensions',
     rank: null,
-    remark: '{"data-legend":"hover-right","data-style":"small_rectangle","data-doi":"10.1056/Test","data-pmid":"1234567890"}',
+    remark: '{"data-legend":"hover-right","data-style":"small_rectangle","data-doi":"10.1056/Test","data-pmid":"1234567890","list-data-badge-enabled":"true","data-badge-enabled":"true"}',
     startDate: null,
     type: null,
     _links: null

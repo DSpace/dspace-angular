@@ -12,6 +12,7 @@ declare let _altmetric_embed_init: any;
 })
 export class MetricAltmetricComponent extends BaseEmbeddedMetricComponent implements OnInit {
   remark: JSON;
+
   constructor(protected sr: DomSanitizer) {
     super(sr);
   }
@@ -26,4 +27,10 @@ export class MetricAltmetricComponent extends BaseEmbeddedMetricComponent implem
     _altmetric_embed_init(this.metricChild.nativeElement);
   }
 
+  ngAfterViewChecked(): void {
+    if (this.metricChild?.nativeElement?.children[0].classList.contains('altmetric-hidden')) {
+      this.isHidden$.next(true);
+      this.hide.emit(true);
+    }
+  }
 }

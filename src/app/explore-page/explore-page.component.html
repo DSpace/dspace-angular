@@ -1,7 +1,7 @@
 <div class="container">
-  <div *ngFor="let sectionComponents of ( sectionComponentRows | async )" class="row mb-3">
+  <div *ngFor="let sectionComponents of ( sectionComponentRows | async )" class="row">
     <div *ngFor="let sectionComponent of sectionComponents" [ngSwitch]="sectionComponent.componentType"
-         [ngClass]="sectionComponent.style">
+         [ngClass]="sectionComponent.style" [class.col]="!hasColClass(sectionComponent.style)" class="pb-4">
       <ds-themed-top-section *ngSwitchCase="'top'"
                              [sectionId]="sectionId"
                              [topSection]="sectionComponent"></ds-themed-top-section>
