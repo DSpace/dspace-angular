@@ -77,7 +77,7 @@ export class CollectionPageComponent implements OnInit {
       currentPage: 1,
       pageSize: this.appConfig.browseBy.pageSize,
     });
-    
+
     this.sortConfig = new SortOptions('dc.date.accessioned', SortDirection.DESC);
   }
 
