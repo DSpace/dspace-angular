@@ -34,6 +34,8 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    * The collection id this submission belonging to
    * @type {string}
    */
+  public collectionModifiable: boolean;
+
   public collectionId: string;
 
   /**
@@ -102,13 +104,16 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
               private itemDataService: ItemDataService,
               private submissionService: SubmissionService,
               private translate: TranslateService,
-              private submissionJsonPatchOperationsService: SubmissionJsonPatchOperationsService) {
+              private submissionJsonPatchOperationsService: SubmissionJsonPatchOperationsService) {             
   }
 
   /**
    * Retrieve workspaceitem/workflowitem from server and initialize all instance variables
    */
   ngOnInit() {
+
+    this.collectionModifiable = this.route.snapshot.data['collectionModifiable'];
+    
     this.subs.push(
       this.route.paramMap.pipe(
         switchMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id'))),

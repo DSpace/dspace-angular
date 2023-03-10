@@ -51,6 +51,12 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    * @type {SubmissionDefinitionsModel}
    */
   @Input() currentDefinition: string;
+  
+  /**
+   * Checks if the collection can be modifiable by the user
+   * @type {booelan}
+   */
+  @Input() collectionModifiable: boolean;
 
   /**
    * The submission id
@@ -144,6 +150,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   ngOnInit() {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', 'collection');
     this.available$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.collection);
+    console.log("this.collectionModifiable", this.collectionModifiable)
   }
 
   /**
