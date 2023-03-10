@@ -104,7 +104,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
               private itemDataService: ItemDataService,
               private submissionService: SubmissionService,
               private translate: TranslateService,
-              private submissionJsonPatchOperationsService: SubmissionJsonPatchOperationsService) {             
+              private submissionJsonPatchOperationsService: SubmissionJsonPatchOperationsService) {
   }
 
   /**
@@ -112,8 +112,8 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    */
   ngOnInit() {
 
-    this.collectionModifiable = this.route.snapshot.data['collectionModifiable'];
-    
+    this.collectionModifiable = this.route.snapshot.data.collectionModifiable;
+
     this.subs.push(
       this.route.paramMap.pipe(
         switchMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id'))),

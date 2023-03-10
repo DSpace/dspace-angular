@@ -34,7 +34,7 @@ import {
             resolve: {
               breadcrumb: I18nBreadcrumbResolver
             },
-            data: { 
+            data: {
               title: 'workflow-item.edit.title',
               breadcrumbKey: 'workflow-item.edit',
               collectionModifiable: true
