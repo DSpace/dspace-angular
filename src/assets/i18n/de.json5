@@ -1982,8 +1982,8 @@
   // "forgot-password.form.head": "Forgot Password",
   "forgot-password.form.head": "Passwort vergessen",
   
-  // "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  "forgot-password.form.info": "Bitte geben Sie ein neues Passwort (mindestens sechs Zeichen) ein und bestätigen Sie es erneut.",
+  // "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box.",
+  "forgot-password.form.info": "Bitte geben Sie ein neues Passwort ein und bestätigen Sie es erneut.",
   
   // "forgot-password.form.card.security": "Security",
   "forgot-password.form.card.security": "Sicherheit",
@@ -3838,17 +3838,17 @@
   // "profile.security.form.error.matching-passwords": "The passwords do not match.",
   "profile.security.form.error.matching-passwords": "Die Passwörter stimmen nicht überein.",
   
-  // "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
-  "profile.security.form.error.password-length": "Das Passwort sollte mindestens 6 Zeichen lang sein.",
-  
-  // "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  "profile.security.form.info": "Optional können Sie ein neues Passwort in das Feld darunter eingeben und es durch erneute Eingabe in das zweite Feld bestätigen. Es sollte mindestens sechs Zeichen lang sein.",
+  // "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box.",
+  "profile.security.form.info": "Im nachfolgenden Feld können Sie bei Bedarf ein neues Passwort eingeben und es durch erneute Eingabe in das zweite Feld bestätigen.",
   
   // "profile.security.form.label.password": "Password",
   "profile.security.form.label.password": "Passwort",
   
   // "profile.security.form.label.passwordrepeat": "Retype to confirm",
-  "profile.security.form.label.passwordrepeat": "Zum Bestätigen erneut eingeben",
+  "profile.security.form.label.passwordrepeat": "Zum Bestätigen das Passwort erneut eingeben",
+  
+  // "profile.security.form.label.current-password": "Current password",
+  "profile.security.form.label.current-password": "Ihr aktuelles Passwort",
   
   // "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
   "profile.security.form.notifications.success.content": "Ihr geändertes Passwort wurde gespeichert.",
@@ -3862,8 +3862,14 @@
   // "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
   "profile.security.form.notifications.error.not-long-enough": "Das Passwort sollte mindestens 6 Zeichen lang sein.",
   
+  // "profile.security.form.notifications.error.change-failed": "An error occurred while trying to change the password. Please check if the current password is correct.",
+  "profile.security.form.notifications.error.change-failed": "Es ist ein Fehler beim Ändern des Passworts aufgetreten. Bitte überprüfen Sie, ob Ihr aktuelles Passwort korrekt eingegeben wurde.",
+
   // "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
   "profile.security.form.notifications.error.not-same": "Die angegebenen Passwörter sind nicht identisch.",
+
+  // "profile.security.form.notifications.error.general": "Please fill required fields of security form.",
+  "profile.security.form.notifications.error.general": "Bitte füllen Sie alle Pflichtfelder im Formular aus.",
   
   // "profile.title": "Update Profile",
   "profile.title": "Profil aktualisieren",
@@ -3969,8 +3975,8 @@
   // "register-page.create-profile.security.header": "Security",
   "register-page.create-profile.security.header": "Sicherheit",
   
-  // "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  "register-page.create-profile.security.info": "Bitte geben Sie ein Passwort in das unten stehende Feld ein und bestätigen Sie es, indem Sie es in das zweite Feld erneut eingeben. Es sollte mindestens sechs Zeichen lang sein.",
+  // "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box.",
+  "register-page.create-profile.security.info": "Bitte geben Sie ein Passwort in das unten stehende Feld ein und bestätigen Sie es, indem Sie es in das zweite Feld erneut eingeben.",
   
   // "register-page.create-profile.security.label.password": "Password *",
   "register-page.create-profile.security.label.password": "Passwort *",
@@ -5203,7 +5209,7 @@
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
   "submission.sections.upload.header.policy.default.withlist": "Bitte beachten Sie, dass in diese Sammlung {{collectionName}} hochgeladene Dateien zugüglich zu dem, was für einzelne Dateien entschieden wurde, für folgende Gruppe(n) zugänglich sein:",
   
-  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "Hier finden Sie alle Dateien, die aktuell zum Item gehören. Sie können ihre Metadaten und Zugriffsrechte bearbeiten oder <strong>weitere Dateien per Drag & Drop hinzufügen.</strong>",
   
   // "submission.sections.upload.no-entry": "No",

@@ -5801,7 +5801,7 @@
   // TODO New key - Add a translation
   "submission.sections.upload.header.policy.default.withlist": "Thoir fa-near gum bi cothrom air faidhlichean a chaidh a luchdachadh gu cruinneachadh {{collectionName}}, cho math ris na chaidh a cho-dhùnadh airson an fhaidhle air leth, aig a' bhuidheann/na buidhnean a leanas:",
 
-  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "An seo gheibh thu na faidhlichean gu lèir san nì an-dràsta. Is urrainn dhut metadata an fhaidhle ùrachadh agus cothrom fhaighinn air cumhachan no <strong>faidhlichean eile a luchdachadh suas le bhith gan slaodadh agus gan leigeil às air feadh na duilleig</strong>",
 
   // "submission.sections.upload.no-entry": "No",

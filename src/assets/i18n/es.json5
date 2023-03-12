@@ -169,7 +169,7 @@
   "admin.registries.bitstream-formats.edit.success.head": "Éxito",
 
   // "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
-  "admin.registries.bitstream-formats.edit.supportLevel.hint": "El nivel de apoyo que su institución promete para este formato.",
+  "admin.registries.bitstream-formats.edit.supportLevel.hint": "El nivel de soporte que su institución promete para este formato.",
 
   // "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
   "admin.registries.bitstream-formats.edit.supportLevel.label": "Nivel de soporte",
@@ -309,13 +309,13 @@
   "admin.registries.schema.notification.deleted.success": "{{ amount }} esquemas de metadatos eliminados correctamente",
 
   // "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
-  "admin.registries.schema.notification.edited": "Esquema de metadatos editado correctamente \"{{ prefix }}\"",
+  "admin.registries.schema.notification.edited": "Esquema de metadatos \"{{ prefix }}\" editado correctamente",
 
   // "admin.registries.schema.notification.failure": "Error",
   "admin.registries.schema.notification.failure": "Error",
 
   // "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
-  "admin.registries.schema.notification.field.created": "Campo de metadatos creado correctamente \"{{ field }}\"",
+  "admin.registries.schema.notification.field.created": "Campo de metadatos \"{{ field }}\" creado correctamente",
 
   // "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
   "admin.registries.schema.notification.field.deleted.failure": "No se pudieron borrar {{ amount }} campos de metadatos",
@@ -324,7 +324,7 @@
   "admin.registries.schema.notification.field.deleted.success": "{{ amount }} campos de metadatos eliminados correctamente",
 
   // "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
-  "admin.registries.schema.notification.field.edited": "Campo de metadatos editado correctamente \"{{ field }}\"",
+  "admin.registries.schema.notification.field.edited": "Campo de metadatos \"{{ field }}\" editado correctamente",
 
   // "admin.registries.schema.notification.success": "Success",
   "admin.registries.schema.notification.success": "Éxito",
@@ -746,7 +746,14 @@
   // "admin.access-control.groups.form.return": "Back",
   "admin.access-control.groups.form.return": "Atrás",
 
+  // "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
+  "admin.access-control.groups.form.tooltip.editGroupPage": "En esta página, puede modificar las propiedades y miembros de un grupo. En la sección superior, puede editar el nombre del grupo y la descripción, a menos que este sea un grupo de administración de una colección o comunidad, en cuyo caso el nombre y descripción del grupo fueron auto-generadas y no podrán ser editadas. En las secciones siguientes, puede editar la afiliación al grupo. Para más detalles ver [la wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group).",
 
+  // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Para agregar o remover una persona en este grupo, pulse el botón ‘Examinar todo’ o utilice la barra de búsqueda de abajo para buscar los usuario (Use el desplegable que se encuentra a la derecha de la barra de búsqueda para seleccionar entre buscar por metadato o por correo electrónico). Posteriormente pulse el botón con el icono más por cada usuario que desea agregar a la lista, o el icono de papelera por cada usuario que desea remover. La lista puede contener varias páginas: utilice los controles de paginación debajo de la lista, para navegar a las siguientes páginas. Cuando haya finalizado, guarde sus cambios pulsando el botón ‘Guardar’ ubicado en la parte superior de la sección.",
+
+  // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for subgroups. Then click the plus icon for each subgroup you wish to add in the list below, or the trash can icon for each subgroup you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Para agregar o remover un sub-grupo en este grupo, pulse el botón ‘Examinar todo’  o utilice la barra de búsqueda de abajo para buscar los subgrupos- Posteriormente pulse el botón con el icono más por cada sub-grupo que desea agregar a la lista, o el icono de papelera por cada sub-grupo que desea remover. La lista puede contener varias páginas: utilice los controles de paginación debajo de la lista, para navegar a las siguientes páginas. Cuando haya finalizado, guarde sus cambios pulsando el botón ‘Guardar’ ubicado en la parte superior de la sección.",
 
   // "admin.search.breadcrumbs": "Administrative Search",
   "admin.search.breadcrumbs": "Búsqueda administrativa",
@@ -796,11 +803,20 @@
   // "admin.workflow.item.workflow": "Workflow",
   "admin.workflow.item.workflow": "Flujo de trabajo",
 
+  // "admin.workflow.item.workspace": "Workspace",
+  "admin.workflow.item.workspace": "Espacio de trabajo",
+
   // "admin.workflow.item.delete": "Delete",
   "admin.workflow.item.delete": "Borrar",
 
   // "admin.workflow.item.send-back": "Send back",
   "admin.workflow.item.send-back": "Enviar de vuelta",
+
+  // "admin.workflow.item.policies": "Policies",
+  "admin.workflow.item.policies": "Políticas",
+
+  // "admin.workflow.item.supervision": "Supervision",
+  "admin.workflow.item.supervision": "Supervisión",
 
 
 
@@ -860,6 +876,101 @@
 
   // "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
   "admin.metadata-import.page.validateOnly.hint": "Al seleccionar, se validará el CSV subido. Recibirá un informe con los cambios detectados, pero no se efectuarán dichos cambios.",
+
+  // "advanced-workflow-action.rating.form.rating.label": "Rating",
+  "advanced-workflow-action.rating.form.rating.label": "Evaluación",
+
+  // "advanced-workflow-action.rating.form.rating.error": "You must rate the item",
+  "advanced-workflow-action.rating.form.rating.error": "Usted debe evaluar el ítem",
+
+  // "advanced-workflow-action.rating.form.review.label": "Review",
+  "advanced-workflow-action.rating.form.review.label": "Revisión",
+
+  // "advanced-workflow-action.rating.form.review.error": "You must enter a review to submit this rating",
+  "advanced-workflow-action.rating.form.review.error": "Debe ingresar una revisión para enviar esta evaluación",
+
+  // "advanced-workflow-action.rating.description": "Please select a rating below",
+  "advanced-workflow-action.rating.description": "Por favor, a continuación seleccione una evaluación",
+
+  // "advanced-workflow-action.rating.description-requiredDescription": "Please select a rating below and also add a review",
+  "advanced-workflow-action.rating.description-requiredDescription": "Por favor, seleccione una evaluación y también agregue una revisión",
+
+
+  // "advanced-workflow-action.select-reviewer.description-single": "Please select a single reviewer below before submitting",
+  "advanced-workflow-action.select-reviewer.description-single": "Por favor, seleccione un revisor antes de realizar el envío",
+
+  // "advanced-workflow-action.select-reviewer.description-multiple": "Please select one or more reviewers below before submitting",
+  "advanced-workflow-action.select-reviewer.description-multiple": "Por favor, seleccione uno o mas revisores antes de realizar el envío",
+
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.head": "EPeople",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.head": "Usuario",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "Add EPeople",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "Agregar usuario",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Browse All",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Explorar todo",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Miembros actuales",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadatos",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "E-mail (exact)",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "Correo electrónico (exacto)",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Buscar",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.id": "ID",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.id": "ID",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "Name",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "Nombre",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "Identity",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "Identidad",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Email",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Correo electrónico",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "NetID",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "NetID",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Remove / Add",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Eliminar / Agregar",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Eliminar miembro con nombre \"{{name}}\"",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Miembro agregado exitosamente: \"{{name}}\"",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Error al agregar miembro: \"{{name}}\"",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Miembro borrado exitosamente: \"{{name}}\"",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "No fue posible borrar el miembro: \"{{name}}\"",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Agregar miembro con nombre \"{{name}}\"",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "Actualmente no hay un grupo activo, primero envíe un nombre.",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "No members in group yet, search and add.",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "Aún no hay miembros en el grupo, busque y agregue.",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "No EPeople found in that search",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "No se encontró ningún usuario en la búsqueda",
+
+  // "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "No reviewer selected.",
+  "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "Ningún revisor selecionado.",
 
   // "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
   "admin.batch-import.page.validateOnly.hint": "Al seleccionar, se validará el archivo ZIP subido. Recibirá un informe con los cambios detectados, pero no se efectuarán dichos cambios.",
@@ -1158,9 +1269,22 @@
   "browse.title.page": "Examinando {{ collection }} por {{ field }} {{ value }}",
 
 
+  // "search.browse.item-back": "Back to Results",
+  "search.browse.item-back": "Volver a los resultados",
+
+
   // "chips.remove": "Remove chip",
   "chips.remove": "Quitar chip",
 
+
+  // "claimed-approved-search-result-list-element.title": "Approved",
+  "claimed-approved-search-result-list-element.title": "Aprobado",
+
+  // "claimed-declined-search-result-list-element.title": "Rejected, sent back to submitter",
+  "claimed-declined-search-result-list-element.title": "Rechazado, enviar de vuelta al depositante",
+
+  // "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
+  "claimed-declined-task-search-result-list-element.title": "Declinado, enviar de vuelta al Administrador de Revisión del flujo de trabajo",
 
 
   // "collection.create.head": "Create a Collection",
@@ -1766,6 +1890,13 @@
   "comcol-role.edit.reviewer.description": "Los revisores pueden aceptar o rechazar envíos entrantes. Sin embargo, no pueden editar los metadatos del envío.",
 
 
+  // "comcol-role.edit.scorereviewers.name": "Score Reviewers",
+  // TODO New key - Add a translation
+  "comcol-role.edit.scorereviewers.name": "Score Reviewers",
+
+  // "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
+  // TODO New key - Add a translation
+  "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
 
   // "community.form.abstract": "Short Description",
   "community.form.abstract": "Breve descripción",
@@ -1842,7 +1973,7 @@
   "cookies.consent.close": "Cerrar",
 
   // "cookies.consent.decline": "Decline",
-  "cookies.consent.decline": "Declinar",
+  "cookies.consent.decline": "Rechazar",
 
   // "cookies.consent.ok": "That's ok",
   "cookies.consent.ok": "Aceptar",
@@ -1951,8 +2082,8 @@
   // "curation-task.task.vscan.label": "Virus Scan",
   "curation-task.task.vscan.label": "Búsqueda de virus",
 
-  // "curation-task.task.registerdoi.label": "Register DOI",
-  "curation-task.task.registerdoi.label": "Registra DOI",
+  // "curation-task.task.register-doi.label": "Register DOI",
+  "curation-task.task.register-doi.label": "Registro DOI",
 
 
 
@@ -2094,6 +2225,45 @@
   // "dso-selector.results-could-not-be-retrieved": "Something went wrong, please refresh again ↻",
   "dso-selector.results-could-not-be-retrieved": "Algo salió mal, por favor actualice de nuevo ↻",
 
+  // "supervision-group-selector.header": "Supervision Group Selector",
+  "supervision-group-selector.header": "Selector de grupo de supervisión",
+
+  // "supervision-group-selector.select.type-of-order.label": "Select a type of Order",
+  "supervision-group-selector.select.type-of-order.label": "Seleccione un tipo de Orden",
+
+  // "supervision-group-selector.select.type-of-order.option.none": "NONE",
+  "supervision-group-selector.select.type-of-order.option.none": "NINGUNO",
+
+  // "supervision-group-selector.select.type-of-order.option.editor": "EDITOR",
+  "supervision-group-selector.select.type-of-order.option.editor": "EDITOR",
+
+  // "supervision-group-selector.select.type-of-order.option.observer": "OBSERVER",
+  "supervision-group-selector.select.type-of-order.option.observer": "OBSERVADOR",
+
+  // "supervision-group-selector.select.group.label": "Select a Group",
+  "supervision-group-selector.select.group.label": "Seleccione un grupo",
+
+  // "supervision-group-selector.button.cancel": "Cancel",
+  "supervision-group-selector.button.cancel": "Cancelar",
+
+  // "supervision-group-selector.button.save": "Save",
+  "supervision-group-selector.button.save": "Guardar",
+
+  // "supervision-group-selector.select.type-of-order.error": "Please select a type of order",
+  "supervision-group-selector.select.type-of-order.error": "Por favor seleccione un tipo de orden",
+
+  // "supervision-group-selector.select.group.error": "Please select a group",
+  "supervision-group-selector.select.group.error": "Por favor seleccione un grupo",
+
+  // "supervision-group-selector.notification.create.success.title": "Successfully created supervision order for group {{ name }}",
+  "supervision-group-selector.notification.create.success.title": "Orden de supervisión creada exitosamente para el grupo {{ name }}",
+
+  // "supervision-group-selector.notification.create.failure.title": "Error",
+  "supervision-group-selector.notification.create.failure.title": "Error",
+
+  // "supervision-group-selector.notification.create.already-existing" : "A supervision order already exists on this item for selected group",
+  "supervision-group-selector.notification.create.already-existing" : "Ya existe una orden de supervisión para este ítem en el grupo selecionado",
+
   // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
   "confirmation-modal.export-metadata.header": "Exportar metadatos para {{ dsoName }}",
 
@@ -2142,6 +2312,17 @@
   // "confirmation-modal.delete-profile.confirm": "Delete",
   "confirmation-modal.delete-profile.confirm": "Borrar",
 
+  // "confirmation-modal.delete-subscription.header": "Delete Subscription",
+  "confirmation-modal.delete-subscription.header": "Borrar suscripción",
+
+  // "confirmation-modal.delete-subscription.info": "Are you sure you want to delete subscription for \"{{ dsoName }}\"",
+  "confirmation-modal.delete-subscription.info": "Esta usted seguro que desea borrar la suscripción a \"{{ dsoName }}\"",
+
+  // "confirmation-modal.delete-subscription.cancel": "Cancel",
+  "confirmation-modal.delete-subscription.cancel": "Cancelar",
+
+  // "confirmation-modal.delete-subscription.confirm": "Delete",
+  "confirmation-modal.delete-subscription.confirm": "Borrar",
 
   // "error.bitstream": "Error fetching bitstream",
   "error.bitstream": "Error al obtener el archivo",
@@ -2260,8 +2441,8 @@
   // "forgot-email.form.email.error.required": "Please fill in an email address",
   "forgot-email.form.email.error.required": "Por favor introduzca una dirección de correo electrónico",
 
-  // "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
-  "forgot-email.form.email.error.pattern": "Por favor introduzca una dirección de correo electrónico válida",
+  // "forgot-email.form.email.error.not-email-form": "Please fill in a valid email address",
+  "forgot-email.form.email.error.not-email-form": "Por favor introduzca una dirección de correo electrónico valida",
 
   // "forgot-email.form.email.hint": "An email will be sent to this address with a further instructions.",
   "forgot-email.form.email.hint": "Se le enviará un mensaje a esa dirección con las instrucciones pertinentes.",
@@ -2818,6 +2999,69 @@
   // "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
   "item.edit.tabs.item-mapper.title": "Edición de ítem - Mapeador de colecciones",
 
+  // "item.edit.identifiers.doi.status.UNKNOWN": "Unknown",
+  "item.edit.identifiers.doi.status.UNKNOWN": "Desconocido",
+
+  // "item.edit.identifiers.doi.status.TO_BE_REGISTERED": "Queued for registration",
+  "item.edit.identifiers.doi.status.TO_BE_REGISTERED": "En cola para registro",
+
+  // "item.edit.identifiers.doi.status.TO_BE_RESERVED": "Queued for reservation",
+  "item.edit.identifiers.doi.status.TO_BE_RESERVED": "En cola para reserva",
+
+  // "item.edit.identifiers.doi.status.IS_REGISTERED": "Registered",
+  "item.edit.identifiers.doi.status.IS_REGISTERED": "Registrado",
+
+  // "item.edit.identifiers.doi.status.IS_RESERVED": "Reserved",
+  "item.edit.identifiers.doi.status.IS_RESERVED": "Reservado",
+
+  // "item.edit.identifiers.doi.status.UPDATE_RESERVED": "Reserved (update queued)",
+  "item.edit.identifiers.doi.status.UPDATE_RESERVED": "Reservado (actualización en cola)",
+
+  // "item.edit.identifiers.doi.status.UPDATE_REGISTERED": "Registered (update queued)",
+  "item.edit.identifiers.doi.status.UPDATE_REGISTERED": "Registrado (actualización en cola)",
+
+  // "item.edit.identifiers.doi.status.UPDATE_BEFORE_REGISTRATION": "Queued for update and registration",
+  "item.edit.identifiers.doi.status.UPDATE_BEFORE_REGISTRATION": "En cola para actualización y registro",
+
+  // "item.edit.identifiers.doi.status.TO_BE_DELETED": "Queued for deletion",
+  "item.edit.identifiers.doi.status.TO_BE_DELETED": "En cola para eliminación",
+
+  // "item.edit.identifiers.doi.status.DELETED": "Deleted",
+  "item.edit.identifiers.doi.status.DELETED": "Borrado",
+
+  // "item.edit.identifiers.doi.status.PENDING": "Pending (not registered)",
+  "item.edit.identifiers.doi.status.PENDING": "Pendiente (no registrado)",
+
+  // "item.edit.identifiers.doi.status.MINTED": "Minted (not registered)",
+  "item.edit.identifiers.doi.status.MINTED": "Asignado (no registrado)",
+
+  // "item.edit.tabs.status.buttons.register-doi.label": "Register a new or pending DOI",
+  "item.edit.tabs.status.buttons.register-doi.label": "Registrar un nuevo DOI o uno pendiente",
+
+  // "item.edit.tabs.status.buttons.register-doi.button": "Register DOI...",
+  "item.edit.tabs.status.buttons.register-doi.button": "Registrar DOI...",
+
+  // "item.edit.register-doi.header": "Register a new or pending DOI",
+  "item.edit.register-doi.header": "Registrar un nuevo DOI o uno pendiente",
+
+  // "item.edit.register-doi.description": "Review any pending identifiers and item metadata below and click Confirm to proceed with DOI registration, or Cancel to back out",
+  "item.edit.register-doi.description": "Revise los identificadores pendientes y los metadatos a continuación y pulse Confirmar para proceder con el registro DOI, o pulse Cancelar para devolverse",
+
+  // "item.edit.register-doi.confirm": "Confirm",
+  "item.edit.register-doi.confirm": "Confirmar",
+
+  // "item.edit.register-doi.cancel": "Cancel",
+  "item.edit.register-doi.cancel": "Cancelar",
+
+  // "item.edit.register-doi.success": "DOI queued for registration successfully.",
+  "item.edit.register-doi.success": "Registro exitoso del DOI en cola.",
+
+  // "item.edit.register-doi.error": "Error registering DOI",
+  "item.edit.register-doi.error": "Error registrando el DOI",
+
+  // "item.edit.register-doi.to-update": "The following DOI has already been minted and will be queued for registration online",
+  "item.edit.register-doi.to-update": "El siguiente DOI ya ha sido asignado y estará en cola para el registro en línea",
+
   // "item.edit.item-mapper.buttons.add": "Map item to selected collections",
   "item.edit.item-mapper.buttons.add": "Asignar ítem a colecciones seleccionadas",
 
@@ -2880,6 +3124,12 @@
   // "item.edit.metadata.discard-button": "Discard",
   "item.edit.metadata.discard-button": "Descartar",
 
+  // "item.edit.metadata.edit.buttons.confirm": "Confirm",
+  "item.edit.metadata.edit.buttons.confirm": "Confirmar",
+
+  // "item.edit.metadata.edit.buttons.drag": "Drag to reorder",
+  "item.edit.metadata.edit.buttons.drag": "Arrastre para reordenar",
+
   // "item.edit.metadata.edit.buttons.edit": "Edit",
   "item.edit.metadata.edit.buttons.edit": "Editar",
 
@@ -2891,6 +3141,9 @@
 
   // "item.edit.metadata.edit.buttons.unedit": "Stop editing",
   "item.edit.metadata.edit.buttons.unedit": "Dejar de editar",
+
+  // "item.edit.metadata.edit.buttons.virtual": "This is a virtual metadata value, i.e. a value inherited from a related entity. It can’t be modified directly. Add or remove the corresponding relationship in the \"Relationships\" tab",
+  "item.edit.metadata.edit.buttons.virtual": "Este es un valor de metadato virtual, es decir, un valor heredado de una entidad relacionada. Este no pude ser modificado directamente. Agregue o remueva la relación correspondiente en la pestaña \"Relaciones\"",
 
   // "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
   "item.edit.metadata.empty": "Actualmente, el ítem no contiene metadatos. Haga clic en Agregar para comenzar a agregar un valor de metadatos.",
@@ -2907,8 +3160,11 @@
   // "item.edit.metadata.headers.value": "Value",
   "item.edit.metadata.headers.value": "Valor",
 
+  // "item.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
+  "item.edit.metadata.metadatafield.error": "Un error ha ocurrido al validar el campo del metadato",
+
   // "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
-  "item.edit.metadata.metadatafield.invalid": "Elija un campo de metadatos válido",
+  "item.edit.metadata.metadatafield.invalid": "Por favor, escoja un campo de metadatos valido",
 
   // "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
   "item.edit.metadata.notifications.discarded.content": "Tus cambios fueron descartados. ",
@@ -2939,6 +3195,9 @@
 
   // "item.edit.metadata.reinstate-button": "Undo",
   "item.edit.metadata.reinstate-button": "Deshacer",
+
+  // "item.edit.metadata.reset-order-button": "Undo reorder",
+  "item.edit.metadata.reset-order-button": "Deshacer reordenar",
 
   // "item.edit.metadata.save-button": "Save",
   "item.edit.metadata.save-button": "Guardar",
@@ -3274,6 +3533,30 @@
 
   // "item.truncatable-part.show-less": "Collapse",
   "item.truncatable-part.show-less": "Contraer",
+
+  // "workflow-item.search.result.delete-supervision.modal.header": "Delete Supervision Order",
+  "workflow-item.search.result.delete-supervision.modal.header": "Borrar Orden de Supervisión",
+
+  // "workflow-item.search.result.delete-supervision.modal.info": "Are you sure you want to delete Supervision Order",
+  "workflow-item.search.result.delete-supervision.modal.info": "Esta seguro de querer borrar la Orden de Supervisión",
+
+  // "workflow-item.search.result.delete-supervision.modal.cancel": "Cancel",
+  "workflow-item.search.result.delete-supervision.modal.cancel": "Cancelar",
+
+  // "workflow-item.search.result.delete-supervision.modal.confirm": "Delete",
+  "workflow-item.search.result.delete-supervision.modal.confirm": "Borrar",
+
+  // "workflow-item.search.result.notification.deleted.success": "Successfully deleted supervision order \"{{name}}\"",
+  "workflow-item.search.result.notification.deleted.success": "La orden de supervisión \”{{ name }}”\ ha sido borrada exitosamente",
+
+  // "workflow-item.search.result.notification.deleted.failure": "Failed to delete supervision order \"{{name}}\"",
+  "workflow-item.search.result.notification.deleted.failure": "Error al borrar la orden de supervisión \”{{ name }}\”",
+
+  // "workflow-item.search.result.list.element.supervised-by": "Supervised by:",
+  "workflow-item.search.result.list.element.supervised-by": "Supervisado por:",
+
+  // "workflow-item.search.result.list.element.supervised.remove-tooltip": "Remove supervision group",
+  "workflow-item.search.result.list.element.supervised.remove-tooltip": "Borrar grupo de supervisión",
 
 
 
@@ -3619,6 +3902,89 @@
 
   // "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
   "item.version.edit.notification.failure" : "No ha cambiado el resumen de la versión número {{version}}",
+
+
+
+  // "itemtemplate.edit.metadata.add-button": "Add",
+  "itemtemplate.edit.metadata.add-button": "Agregar",
+
+  // "itemtemplate.edit.metadata.discard-button": "Discard",
+  "itemtemplate.edit.metadata.discard-button": "Descartar",
+
+  // "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
+  "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirmar",
+
+  // "itemtemplate.edit.metadata.edit.buttons.drag": "Drag to reorder",
+  "itemtemplate.edit.metadata.edit.buttons.drag": "Arrastre para reordenar",
+
+  // "itemtemplate.edit.metadata.edit.buttons.edit": "Edit",
+  "itemtemplate.edit.metadata.edit.buttons.edit": "Editar",
+
+  // "itemtemplate.edit.metadata.edit.buttons.remove": "Remove",
+  "itemtemplate.edit.metadata.edit.buttons.remove": "Eliminar",
+
+  // "itemtemplate.edit.metadata.edit.buttons.undo": "Undo changes",
+  "itemtemplate.edit.metadata.edit.buttons.undo": "Deshacer cambios",
+
+  // "itemtemplate.edit.metadata.edit.buttons.unedit": "Stop editing",
+  "itemtemplate.edit.metadata.edit.buttons.unedit": "Dejar de editar",
+
+  // "itemtemplate.edit.metadata.empty": "The item template currently doesn't contain any metadata. Click Add to start adding a metadata value.",
+  "itemtemplate.edit.metadata.empty": "La plantilla de ítem no contiene ningún metadato. Pulse Agregar para empezar a agregar valores de metadatos.",
+
+  // "itemtemplate.edit.metadata.headers.edit": "Edit",
+  "itemtemplate.edit.metadata.headers.edit": "Editar",
+
+  // "itemtemplate.edit.metadata.headers.field": "Field",
+  "itemtemplate.edit.metadata.headers.field": "Campo",
+
+  // "itemtemplate.edit.metadata.headers.language": "Lang",
+  "itemtemplate.edit.metadata.headers.language": "Idioma",
+
+  // "itemtemplate.edit.metadata.headers.value": "Value",
+  "itemtemplate.edit.metadata.headers.value": "Valor",
+
+  // "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
+  "itemtemplate.edit.metadata.metadatafield.error": "Un error ha ocurrido al validar el campo del metadato",
+
+  // "itemtemplate.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
+  "itemtemplate.edit.metadata.metadatafield.invalid": "Por favor, escoja un campo de metadato valido",
+
+  // "itemtemplate.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+  "itemtemplate.edit.metadata.notifications.discarded.content": "Sus cambios fueron descartados. Para recuperar sus cambios pulse el botón 'Deshacer'",
+
+  // "itemtemplate.edit.metadata.notifications.discarded.title": "Changed discarded",
+  "itemtemplate.edit.metadata.notifications.discarded.title": "Cambio descartado",
+
+  // "itemtemplate.edit.metadata.notifications.error.title": "An error occurred",
+  "itemtemplate.edit.metadata.notifications.error.title": "Ocurrió un error",
+
+  // "itemtemplate.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
+  "itemtemplate.edit.metadata.notifications.invalid.content": "Sus cambios no se guardaron. Asegúrese de que todos los campos sean válidos antes de guardar.",
+
+  // "itemtemplate.edit.metadata.notifications.invalid.title": "Metadata invalid",
+  "itemtemplate.edit.metadata.notifications.invalid.title": "Metadatos inválidos",
+
+  // "itemtemplate.edit.metadata.notifications.outdated.content": "The item template you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
+  "itemtemplate.edit.metadata.notifications.outdated.content": "La plantilla de ítem en la que usted esta trabajando actualmente ha sido cambiada por otro usuario. Sus cambios han sido descartados para evitar conflictos",
+
+  // "itemtemplate.edit.metadata.notifications.outdated.title": "Changed outdated",
+  "itemtemplate.edit.metadata.notifications.outdated.title": "Cambiado obsoleto",
+
+  // "itemtemplate.edit.metadata.notifications.saved.content": "Your changes to this item template's metadata were saved.",
+  "itemtemplate.edit.metadata.notifications.saved.content": "Sus cambios a los metadatos de esta plantilla de ítem han sido guardados.",
+
+  // "itemtemplate.edit.metadata.notifications.saved.title": "Metadata saved",
+  "itemtemplate.edit.metadata.notifications.saved.title": "Metadatos guardados",
+
+  // "itemtemplate.edit.metadata.reinstate-button": "Undo",
+  "itemtemplate.edit.metadata.reinstate-button": "Deshacer",
+
+  // "itemtemplate.edit.metadata.reset-order-button": "Undo reorder",
+  "itemtemplate.edit.metadata.reset-order-button": "Deshacer reordenar",
+
+  // "itemtemplate.edit.metadata.save-button": "Save",
+  "itemtemplate.edit.metadata.save-button": "Guardar",
 
 
 
@@ -4193,6 +4559,9 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Sus envíos",
 
+  // "mydspace.show.supervisedWorkspace": "Supervised items",
+  "mydspace.show.supervisedWorkspace": "Ítems supervisados",
+
   // "mydspace.status.archived": "Archived",
   "mydspace.status.archived": "Archivado",
 
@@ -4234,6 +4603,9 @@
   // "nav.community-browse.header": "By Community",
   "nav.community-browse.header": "Por comunidad",
 
+  // "nav.context-help-toggle": "Toggle context help",
+  "nav.context-help-toggle": "Alternar ayuda contextual",
+
   // "nav.language": "Language switch",
   "nav.language": "Cambio de idioma",
 
@@ -4263,6 +4635,9 @@
 
   // "nav.stop-impersonating": "Stop impersonating EPerson",
   "nav.stop-impersonating": "Dejar de hacerse pasar por usuario",
+
+  // "nav.subscriptions" : "Subscriptions",
+  "nav.subscriptions" : "Suscripciones",
 
   // "nav.toggle" : "Toggle navigation",
   "nav.toggle": "Alternar navegación",
@@ -4807,8 +5182,11 @@
   // "register-page.registration.email.error.required": "Please fill in an email address",
   "register-page.registration.email.error.required": "Por favor, introduzca una dirección de correo electrónico",
 
-  // "register-page.registration.email.error.pattern": "Please fill in a valid email address",
-  "register-page.registration.email.error.pattern": "Por favor, introduzca una dirección de correo electrónico válida",
+  // "register-page.registration.email.error.not-email-form": "Please fill in a valid email address.",
+  "register-page.registration.email.error.not-email-form": "Por favor, introduzca una dirección de correo electrónico válida.",
+
+  // "register-page.registration.email.error.not-valid-domain": "Use email with allowed domains: {{ domains }}",
+  "register-page.registration.email.error.not-valid-domain": "Utilice un correo electrónico con uno de los dominos permitidos: {{ domains }}",
 
   // "register-page.registration.email.hint": "This address will be verified and used as your login name.",
   "register-page.registration.email.hint": "Esta dirección será verificada y utilizada como su nombre de inicio de sesión.",
@@ -4834,6 +5212,9 @@
   // "register-page.registration.google-recaptcha.must-accept-cookies": "In order to register you must accept the <b>Registration and Password recovery</b> (Google reCaptcha) cookies.",
   "register-page.registration.google-recaptcha.must-accept-cookies": "Para registrarse debe aceptar las cookies de <b>Registro y recuperación de contraseña</b> (Google reCaptcha).",
 
+  // "register-page.registration.error.maildomain": "This email address is not on the list of domains who can register. Allowed domains are {{ domains }}",
+  "register-page.registration.error.maildomain": "Este correo electrónico no esta en la lista de dominios que pueden registrarse. Los dominios permitidos son {{ domains }}",
+
   // "register-page.registration.google-recaptcha.open-cookie-settings": "Open cookie settings",
   "register-page.registration.google-recaptcha.open-cookie-settings": "Abrir configuración de cookies",
 
@@ -4845,6 +5226,9 @@
 
   // "register-page.registration.google-recaptcha.notification.message.expired": "Verification expired. Please verify again.",
   "register-page.registration.google-recaptcha.notification.message.expired": "Verificación caducada. Verifique de nuevo.",
+
+  // "register-page.registration.info.maildomain": "Accounts can be registered for mail addresses of the domains",
+  "register-page.registration.info.maildomain": "Las cuentas pueden registrarse para las direcciones de correo de los dominios",
 
   // "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
   "relationships.add.error.relationship-type.content": "No se pudo encontrar una coincidencia adecuada para el tipo de relación {{ type }} entre los dos ítems",
@@ -5151,6 +5535,9 @@
   // "search.filters.applied.f.birthDate.min": "Start birth date",
   "search.filters.applied.f.birthDate.min": "Fecha de nacimiento, inicial",
 
+  // "search.filters.applied.f.supervisedBy": "Supervised by",
+  "search.filters.applied.f.supervisedBy": "Supervisado por",
+
   // "search.filters.applied.f.withdrawn": "Withdrawn",
   "search.filters.applied.f.withdrawn": "Retirado",
 
@@ -5365,6 +5752,16 @@
 
   // "search.filters.filter.show-tree": "Browse {{ name }} tree",
   "search.filters.filter.show-tree": "Examinar árbol {{ name }}",
+
+  // "search.filters.filter.supervisedBy.head": "Supervised By",
+  "search.filters.filter.supervisedBy.head": "Supervisado Por",
+
+  // "search.filters.filter.supervisedBy.placeholder": "Supervised By",
+  "search.filters.filter.supervisedBy.placeholder": "Supervisado Por",
+
+  // "search.filters.filter.supervisedBy.label": "Search Supervised By",
+  "search.filters.filter.supervisedBy.label": "Búsqueda Supervisada Por",
+
 
 
   // "search.filters.entityType.JournalIssue": "Journal Issue",
@@ -6209,7 +6606,23 @@
   // "submission.sections.general.sections_not_valid": "There are incomplete sections.",
   "submission.sections.general.sections_not_valid": "Hay secciones incompletas.",
 
+  // "submission.sections.identifiers.info": "The following identifiers will be created for your item:",
+  "submission.sections.identifiers.info": "Se crearán los siguientes identificadores para su ítem:",
 
+  // "submission.sections.identifiers.no_handle": "No handles have been minted for this item.",
+  "submission.sections.identifiers.no_handle": "Ningún handle ha sido asignado a este ítem.",
+
+  // "submission.sections.identifiers.no_doi": "No DOIs have been minted for this item.",
+  "submission.sections.identifiers.no_doi": "No se han asignado DOIs para este ítem.",
+
+  // "submission.sections.identifiers.handle_label": "Handle: ",
+  "submission.sections.identifiers.handle_label": "Handle: ",
+
+  // "submission.sections.identifiers.doi_label": "DOI: ",
+  "submission.sections.identifiers.doi_label": "DOI: ",
+
+  // "submission.sections.identifiers.otherIdentifiers_label": "Other identifiers: ",
+  "submission.sections.identifiers.otherIdentifiers_label": "Otros identificadores: ",
 
   // "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
   "submission.sections.submit.progressbar.accessCondition": "Condiciones de acceso al ítem",
@@ -6231,6 +6644,9 @@
 
   // "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
   "submission.sections.submit.progressbar.detect-duplicate": "Posibles duplicados",
+
+  // "submission.sections.submit.progressbar.identifiers": "Identifiers",
+  "submission.sections.submit.progressbar.identifiers": "Identificadores",
 
   // "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.license": "Licencia de depósito",
@@ -6353,7 +6769,7 @@
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
   "submission.sections.upload.header.policy.default.withlist": "Tenga en cuenta que los archivos cargados en la colección {{ collectionName }} serán accesibles, además de lo que se decida explícitamente para el fichero, para los siguientes grupos:",
 
-  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "Aquí encontrará todos los archivos que se encuentran actualmente en el ítem.  Puede actualizar los metadatos del fichero y las condiciones de acceso e <strong> incluir ficheros adicionales simplemente arrastrando-y-soltando en cualquier lugar de la página</strong>",
 
   // "submission.sections.upload.no-entry": "No",
@@ -6536,6 +6952,19 @@
   "submission.workflow.generic.view-help": "Seleccione esta opción para ver los metadatos del ítem.",
 
 
+  // "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
+  "submission.workflow.generic.submit_select_reviewer": "Seleccionar revisor",
+
+  // "submission.workflow.generic.submit_select_reviewer-help": "",
+  "submission.workflow.generic.submit_select_reviewer-help": "",
+
+
+  // "submission.workflow.generic.submit_score": "Rate",
+  "submission.workflow.generic.submit_score": "Evaluar",
+
+  // "submission.workflow.generic.submit_score-help": "",
+  "submission.workflow.generic.submit_score-help": "",
+
 
   // "submission.workflow.tasks.claimed.approve": "Approve",
   "submission.workflow.tasks.claimed.approve": "Aprobar",
@@ -6548,6 +6977,12 @@
 
   // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
   "submission.workflow.tasks.claimed.edit_help": "Seleccione esta opción para cambiar los metadatos del ítem.",
+
+  // "submission.workflow.tasks.claimed.decline": "Decline",
+  "submission.workflow.tasks.claimed.decline": "Rechazar",
+
+  // "submission.workflow.tasks.claimed.decline_help": "",
+  "submission.workflow.tasks.claimed.decline_help": "",
 
   // "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
   "submission.workflow.tasks.claimed.reject.reason.info": "Introduzca su motivo para rechazar el envío en el cuadro a continuación, indicando si el remitente puede solucionar un problema y volver a enviarlo.",
@@ -6607,6 +7042,112 @@
 
   // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
   "submission.workspace.generic.view-help": "Seleccione esta opción para ver los metadatos del ítem.",
+
+
+  // "subscriptions.title": "Subscriptions",
+  "subscriptions.title": "Suscripciones",
+
+  // "subscriptions.item": "Subscriptions for items",
+  "subscriptions.item": "Suscripciones a ítems",
+
+  // "subscriptions.collection": "Subscriptions for collections",
+  "subscriptions.collection": "Suscripciones a colecciones",
+
+  // "subscriptions.community": "Subscriptions for communities",
+  "subscriptions.community": "Suscripciones a comunidades",
+
+  // "subscriptions.subscription_type": "Subscription type",
+  "subscriptions.subscription_type": "Tipo de suscripción",
+
+  // "subscriptions.frequency": "Subscription frequency",
+  "subscriptions.frequency": "Frecuencia de la suscripción",
+
+  // "subscriptions.frequency.D": "Daily",
+  "subscriptions.frequency.D": "Diaria",
+
+  // "subscriptions.frequency.M": "Monthly",
+  "subscriptions.frequency.M": "Mensual",
+
+  // "subscriptions.frequency.W": "Weekly",
+  "subscriptions.frequency.W": "Semanal",
+
+  // "subscriptions.tooltip": "Subscribe",
+  "subscriptions.tooltip": "Suscribir",
+
+  // "subscriptions.modal.title": "Subscriptions",
+  "subscriptions.modal.title": "Suscripciones",
+
+  // "subscriptions.modal.type-frequency": "Type and frequency",
+  "subscriptions.modal.type-frequency": "Tipo y frecuencia",
+
+  // "subscriptions.modal.close": "Close",
+  "subscriptions.modal.close": "Cerrar",
+
+  // "subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
+  "subscriptions.modal.delete-info": "Para eliminar esta suscripción, por favor visite la página \”Suscripciones”\ en su perfil de usuario",
+
+  // "subscriptions.modal.new-subscription-form.type.content": "Content",
+  "subscriptions.modal.new-subscription-form.type.content": "Contenido",
+
+  // "subscriptions.modal.new-subscription-form.frequency.D": "Diario",
+  "subscriptions.modal.new-subscription-form.frequency.D": "Diario",
+
+  // "subscriptions.modal.new-subscription-form.frequency.W": "Weekly",
+  "subscriptions.modal.new-subscription-form.frequency.W": "Semanal",
+
+  // "subscriptions.modal.new-subscription-form.frequency.M": "Monthly",
+  "subscriptions.modal.new-subscription-form.frequency.M": "Mensual",
+
+  // "subscriptions.modal.new-subscription-form.submit": "Submit",
+  "subscriptions.modal.new-subscription-form.submit": "Enviar",
+
+  // "subscriptions.modal.new-subscription-form.processing": "Processing...",
+  "subscriptions.modal.new-subscription-form.processing": "Procesando...",
+
+  // "subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
+  "subscriptions.modal.create.success": "Suscrito a {{ type }} exitosamente.",
+
+  // "subscriptions.modal.delete.success": "Subscription deleted successfully",
+  "subscriptions.modal.delete.success": "La suscripción fue borrada exitosamente",
+
+  // "subscriptions.modal.update.success": "Subscription to {{ type }} updated successfully",
+  "subscriptions.modal.update.success": "La suscripción a {{ type }} fue exitosamente actualizada",
+
+  // "subscriptions.modal.create.error": "An error occurs during the subscription creation",
+  "subscriptions.modal.create.error": "Un error ocurrió durante la creación de la suscripción",
+
+  // "subscriptions.modal.delete.error": "An error occurs during the subscription delete",
+  "subscriptions.modal.delete.error": "Un error ocurrió durante la eliminación de la suscripción",
+
+  // "subscriptions.modal.update.error": "An error occurs during the subscription update",
+  "subscriptions.modal.update.error": "Un error ocurrió durante la actualización de la suscripción",
+
+  // "subscriptions.table.dso": "Subject",
+  "subscriptions.table.dso": "Tema",
+
+  // "subscriptions.table.subscription_type": "Subscription Type",
+  "subscriptions.table.subscription_type": "Tipo de suscripción",
+
+  // "subscriptions.table.subscription_frequency": "Subscription Frequency",
+  "subscriptions.table.subscription_frequency": "Frecuencia de Suscripción",
+
+  // "subscriptions.table.action": "Action",
+  "subscriptions.table.action": "Acción",
+
+  // "subscriptions.table.edit": "Edit",
+  "subscriptions.table.edit": "Editar",
+
+  // "subscriptions.table.delete": "Delete",
+  "subscriptions.table.delete": "Borrar",
+
+  // "subscriptions.table.not-available": "Not available",
+  "subscriptions.table.not-available": "No disponible",
+
+  // "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
+  "subscriptions.table.not-available-message": "El ítem suscrito ha sido eliminado, o actualmente usted no tiene permisos suficiente para poder visualizarlo.",
+
+  // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
+  "subscriptions.table.empty.message": "Usted no tiene suscripciones. Para subscribirse a las actualizaciones por correo electrónico de una Comunidad o Colección, utilice el botón de suscripción en la página del objeto.",
 
 
   // "thumbnail.default.alt": "Thumbnail Image",
@@ -6693,6 +7234,9 @@
 
 
 
+  // "supervisedWorkspace.search.results.head": "Supervised Items",
+  "supervisedWorkspace.search.results.head": "Ítems supervisados",
+
   // "workspace.search.results.head": "Your submissions",
   "workspace.search.results.head": "Sus envíos",
 
@@ -6701,6 +7245,9 @@
 
   // "workflow.search.results.head": "Workflow tasks",
   "workflow.search.results.head": "Tareas del flujo de trabajo",
+
+  // "supervision.search.results.head": "Workflow and Workspace tasks",
+  "supervision.search.results.head": "Tareas del flujo de trabajo y del espacio de trabajo",
 
 
 
@@ -6767,6 +7314,60 @@
 
   // "workspace-item.view.title": "Workspace View",
   "workspace-item.view.title": "Vista del flujo de trabajo",
+
+
+  // "workflow-item.advanced.title": "Advanced workflow",
+  "workflow-item.advanced.title": "Flujo de trabajo avanzado",
+
+
+  // "workflow-item.selectrevieweraction.notification.success.title": "Selected reviewer",
+  "workflow-item.selectrevieweraction.notification.success.title": "Revisor seleccionado",
+
+  // "workflow-item.selectrevieweraction.notification.success.content": "The reviewer for this workflow item has been successfully selected",
+  "workflow-item.selectrevieweraction.notification.success.content": "El revisor para este flujo de trabajo ha sido seleccionado exitosamente",
+
+  // "workflow-item.selectrevieweraction.notification.error.title": "Something went wrong",
+  "workflow-item.selectrevieweraction.notification.error.title": "Algo salió mal",
+
+  // "workflow-item.selectrevieweraction.notification.error.content": "Couldn't select the reviewer for this workflow item",
+  "workflow-item.selectrevieweraction.notification.error.content": "No fue posible seleccionar el revisor para este flujo de trabajo",
+
+  // "workflow-item.selectrevieweraction.title": "Select Reviewer",
+  "workflow-item.selectrevieweraction.title": "Seleccionar revisor",
+
+  // "workflow-item.selectrevieweraction.header": "Select Reviewer",
+  "workflow-item.selectrevieweraction.header": "Seleccionar revisor",
+
+  // "workflow-item.selectrevieweraction.button.cancel": "Cancel",
+  "workflow-item.selectrevieweraction.button.cancel": "Cancelar",
+
+  // "workflow-item.selectrevieweraction.button.confirm": "Confirm",
+  "workflow-item.selectrevieweraction.button.confirm": "Confirmar",
+
+
+  // "workflow-item.scorereviewaction.notification.success.title": "Revisar evaluación",
+  "workflow-item.scorereviewaction.notification.success.title": "Revisar evaluación",
+
+  // "workflow-item.scorereviewaction.notification.success.content": "The rating for this item workflow item has been successfully submitted",
+  "workflow-item.scorereviewaction.notification.success.content": "La evaluación para este ítem ha sido enviada exitosamente",
+
+  // "workflow-item.scorereviewaction.notification.error.title": "Something went wrong",
+  "workflow-item.scorereviewaction.notification.error.title": "Algo salió mal",
+
+  // "workflow-item.scorereviewaction.notification.error.content": "Couldn't rate this item",
+  "workflow-item.scorereviewaction.notification.error.content": "No fue posible evaluar este ítem",
+
+  // "workflow-item.scorereviewaction.title": "Rate this item",
+  "workflow-item.scorereviewaction.title": "Evaluar este ítem",
+
+  // "workflow-item.scorereviewaction.header": "Rate this item",
+  "workflow-item.scorereviewaction.header": "Evaluar este ítem",
+
+  // "workflow-item.scorereviewaction.button.cancel": "Cancel",
+  "workflow-item.scorereviewaction.button.cancel": "Cancelar",
+
+  // "workflow-item.scorereviewaction.button.confirm": "Confirm",
+  "workflow-item.scorereviewaction.button.confirm": "Confirmar",
 
   // "idle-modal.header": "Session will expire soon",
   "idle-modal.header": "La sesión caducará pronto",
@@ -7150,6 +7751,78 @@
 
   // "listable-notification-object.default-message": "This object couldn't be retrieved",
   "listable-notification-object.default-message": "Este objeto no se pudo recuperar",
+
+
+  // "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
+  "system-wide-alert-banner.retrieval.error": "Algo salió mal al recuperar el banner de alerta del sistema",
+
+  // "system-wide-alert-banner.countdown.prefix": "In",
+  "system-wide-alert-banner.countdown.prefix": "En",
+
+  // "system-wide-alert-banner.countdown.days": "{{days}} day(s),",
+  "system-wide-alert-banner.countdown.days": "{{days}} día(s),",
+
+  // "system-wide-alert-banner.countdown.hours": "{{hours}} hour(s) and",
+  "system-wide-alert-banner.countdown.hours": "{{hours}} hora(s) y",
+
+  // "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
+  "system-wide-alert-banner.countdown.minutes": "{{minutes}} minuto(s):",
+
+
+
+  // "menu.section.system-wide-alert": "System-wide Alert",
+  "menu.section.system-wide-alert": "Alerta del Sistema",
+
+  // "system-wide-alert.form.header": "System-wide Alert",
+  "system-wide-alert.form.header": "Alerta del Sistema",
+
+  // "system-wide-alert-form.retrieval.error": "Something went wrong retrieving the system-wide alert",
+  "system-wide-alert-form.retrieval.error": "Algo salió mal al recuperar la alerta del sistema",
+
+  // "system-wide-alert.form.cancel": "Cancel",
+  "system-wide-alert.form.cancel": "Cancelar",
+
+  // "system-wide-alert.form.save": "Save",
+  "system-wide-alert.form.save": "Guardar",
+
+  // "system-wide-alert.form.label.active": "ACTIVE",
+  "system-wide-alert.form.label.active": "ACTIVO",
+
+  // "system-wide-alert.form.label.inactive": "INACTIVE",
+  "system-wide-alert.form.label.inactive": "INACTIVO",
+
+  // "system-wide-alert.form.error.message": "The system wide alert must have a message",
+  "system-wide-alert.form.error.message": "La alerta de sistema debe tener un mensaje",
+
+  // "system-wide-alert.form.label.message": "Alert message",
+  "system-wide-alert.form.label.message": "Mensaje de alerta",
+
+  // "system-wide-alert.form.label.countdownTo.enable": "Enable a countdown timer",
+  "system-wide-alert.form.label.countdownTo.enable": "Habilitar un temporizador de cuenta regresiva",
+
+  // "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
+  "system-wide-alert.form.label.countdownTo.hint": "Sugerencia: Configure un temporizador. Cuando esté habilitado, se puede establecer una fecha en el futuro y el banner del sistema de alerta realizara una cuenta regresiva hasta la fecha establecida. Cuando finalice el temporizador, este desaparecerá de la alerta. El servidor NO se detendrá automáticamente..",
+
+  // "system-wide-alert.form.label.preview": "System-wide alert preview",
+  "system-wide-alert.form.label.preview": "Vista preliminar de la alerta del sistema",
+
+  // "system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
+  "system-wide-alert.form.update.success": "La alerta de sistema fue actualizada exitosamente",
+
+  // "system-wide-alert.form.update.error": "Something went wrong when updating the system-wide alert",
+  "system-wide-alert.form.update.error": "Algo salió mal al actualizar la alerta del sistema",
+
+  // "system-wide-alert.form.create.success": "The system-wide alert was successfully created",
+  "system-wide-alert.form.create.success": "La alerta del sistema fue creada exitosamente",
+
+  // "system-wide-alert.form.create.error": "Something went wrong when creating the system-wide alert",
+  "system-wide-alert.form.create.error": "Algo salió mal al crear la alerta del sistema",
+
+  // "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
+  "admin.system-wide-alert.breadcrumbs": "Alertas del sistema",
+
+  // "admin.system-wide-alert.title": "System-wide Alerts",
+  "admin.system-wide-alert.title": "Alertas del sistema",
 
 
 }
