@@ -109,7 +109,7 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
   /**
    * The authority key (may be undefined) associated with {@link #value}.
    */
-  authority: string;
+   authority: string;
 
   /**
    * The current startsWith option (fetched and updated from query-params)
@@ -122,19 +122,19 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
   fetchThumbnails: boolean;
 
   public constructor(protected route: ActivatedRoute,
-    protected browseService: BrowseService,
-    protected dsoService: DSpaceObjectDataService,
-    protected paginationService: PaginationService,
-    protected router: Router,
-    @Inject(APP_CONFIG) public appConfig: AppConfig) {
+                     protected browseService: BrowseService,
+                     protected dsoService: DSpaceObjectDataService,
+                     protected paginationService: PaginationService,
+                     protected router: Router,
+                     @Inject(APP_CONFIG) public appConfig: AppConfig) {
 
     this.fetchThumbnails = this.appConfig.browseBy.showThumbnails;
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
-      id: BBM_PAGINATION_ID,
-      currentPage: 1,
-      pageSize: this.appConfig.browseBy.pageSize,
-    });
-  }
+        id: BBM_PAGINATION_ID,
+        currentPage: 1,
+        pageSize: this.appConfig.browseBy.pageSize,
+        });
+    }
 
 
   ngOnInit(): void {
@@ -149,28 +149,28 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
           return [Object.assign({}, routeParams, queryParams),currentPage,currentSort];
         })
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
-        this.browseId = params.id || this.defaultBrowseId;
-        this.authority = params.authority;
-
-        if (typeof params.value === 'string'){
-          this.value = params.value.trim();
-        }
-
-        this.value = +params.value || params.value || '';
-
-        if (typeof params.startsWith === 'string'){
-          this.startsWith = params.startsWith.trim();
-        }
-
-        if (isNotEmpty(this.value)) {
-          this.updatePageWithItems(
-            browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.fetchThumbnails), this.value, this.authority);
-        } else {
-          this.updatePage(browseParamsToOptions(params, currentPage, currentSort, this.browseId, false));
-        }
-        this.updateParent(params.scope);
-        this.updateLogo();
-      }));
+          this.browseId = params.id || this.defaultBrowseId;
+          this.authority = params.authority;
+          
+          if (typeof params.value === 'string'){
+            this.value = params.value.trim();
+          }
+  
+          this.value = +params.value || params.value || '';
+  
+          if (typeof params.startsWith === 'string'){
+            this.startsWith = params.startsWith.trim();
+          }
+          
+          if (isNotEmpty(this.value)) {
+            this.updatePageWithItems(
+              browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.fetchThumbnails), this.value, this.authority);
+          } else {
+            this.updatePage(browseParamsToOptions(params, currentPage, currentSort, this.browseId, false));
+          }
+          this.updateParent(params.scope);
+          this.updateLogo();
+        }));
     this.updateStartsWithTextOptions();
 
   }
@@ -222,8 +222,8 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
         true,
         true,
         ...linksToFollow() as FollowLinkConfig<DSpaceObject>[]).pipe(
-          getFirstSucceededRemoteData()
-        );
+        getFirstSucceededRemoteData()
+      );
     }
   }
 
@@ -287,9 +287,9 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
  * @returns BrowseEntrySearchOptions instance
  */
 export function getBrowseSearchOptions(defaultBrowseId: string,
-  paginationConfig: PaginationComponentOptions,
-  sortConfig: SortOptions,
-  fetchThumbnails?: boolean) {
+                                       paginationConfig: PaginationComponentOptions,
+                                       sortConfig: SortOptions,
+                                       fetchThumbnails?: boolean) {
   if (!hasValue(fetchThumbnails)) {
     fetchThumbnails = false;
   }
@@ -306,10 +306,10 @@ export function getBrowseSearchOptions(defaultBrowseId: string,
  * @param fetchThumbnail   Optional parameter for requesting thumbnail images
  */
 export function browseParamsToOptions(params: any,
-  paginationConfig: PaginationComponentOptions,
-  sortConfig: SortOptions,
-  metadata?: string,
-  fetchThumbnail?: boolean): BrowseEntrySearchOptions {
+                                      paginationConfig: PaginationComponentOptions,
+                                      sortConfig: SortOptions,
+                                      metadata?: string,
+                                      fetchThumbnail?: boolean): BrowseEntrySearchOptions {
   return new BrowseEntrySearchOptions(
     metadata,
     paginationConfig,
