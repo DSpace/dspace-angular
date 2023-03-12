@@ -35,7 +35,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    * @type {string}
    */
   public collectionId: string;
-  
+
   /**
    * Checks if the collection can be modifiable by the user
    * @type {booelan}
