@@ -41,7 +41,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    * Checks if the collection can be modifiable by the user
    * @type {booelan}
    */
-  @Input() collectionModifiable: boolean;
+  @Input() collectionModifiable: boolean | null = null;
 
 
   /**

@@ -56,7 +56,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    * Checks if the collection can be modifiable by the user
    * @type {booelan}
    */
-  @Input() collectionModifiable: boolean;
+  @Input() collectionModifiable: boolean | null = null;
 
   /**
    * The submission id

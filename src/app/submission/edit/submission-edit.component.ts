@@ -34,9 +34,14 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    * The collection id this submission belonging to
    * @type {string}
    */
-  public collectionModifiable: boolean;
-
   public collectionId: string;
+  
+  /**
+   * Checks if the collection can be modifiable by the user
+   * @type {booelan}
+   */
+  public collectionModifiable: boolean | null = null;
+
 
   /**
    * The list of submission's sections
