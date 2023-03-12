@@ -104,9 +104,13 @@ describe('FullItemPageComponent', () => {
     fixture.detectChanges();
   }));
 
+  afterEach(() => {
+    fixture.debugElement.nativeElement.remove();
+  });
+
   it('should display the item\'s metadata', () => {
     const table = fixture.debugElement.query(By.css('table'));
-    for (const metadatum of mockItem.allMetadata([])) {
+    for (const metadatum of mockItem.allMetadata(Object.keys(mockItem.metadata))) {
       expect(table.nativeElement.innerHTML).toContain(metadatum.value);
     }
   });
@@ -137,7 +141,7 @@ describe('FullItemPageComponent', () => {
 
     it('should display the item', () => {
       const objectLoader = fixture.debugElement.query(By.css('.full-item-info'));
-      expect(objectLoader.nativeElement).toBeDefined();
+      expect(objectLoader.nativeElement).not.toBeNull();
     });
   });
   describe('when the item is withdrawn and the user is not an admin', () => {
@@ -161,7 +165,7 @@ describe('FullItemPageComponent', () => {
 
     it('should display the item', () => {
       const objectLoader = fixture.debugElement.query(By.css('.full-item-info'));
-      expect(objectLoader.nativeElement).toBeDefined();
+      expect(objectLoader).not.toBeNull();
     });
   });
 
@@ -173,7 +177,7 @@ describe('FullItemPageComponent', () => {
 
     it('should display the item', () => {
       const objectLoader = fixture.debugElement.query(By.css('.full-item-info'));
-      expect(objectLoader.nativeElement).toBeDefined();
+      expect(objectLoader).not.toBeNull();
     });
   });
 });

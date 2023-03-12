@@ -41,6 +41,7 @@ describe('MenuResolver', () => {
   beforeEach(waitForAsync(() => {
     menuService = new MenuServiceStub();
     spyOn(menuService, 'getMenu').and.returnValue(observableOf(MENU_STATE));
+    spyOn(menuService, 'addSection');
 
     browseService = jasmine.createSpyObj('browseService', {
       getBrowseDefinitions: createSuccessfulRemoteDataObject$(createPaginatedList(BROWSE_DEFINITIONS))
@@ -70,8 +71,6 @@ describe('MenuResolver', () => {
       schemas: [NO_ERRORS_SCHEMA]
     });
     resolver = TestBed.inject(MenuResolver);
-
-    spyOn(menuService, 'addSection');
   }));
 
   it('should be created', () => {

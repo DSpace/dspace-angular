@@ -67,7 +67,7 @@ describe(`XsrfInterceptor`, () => {
     expect(httpRequest.request.headers.has('X-XSRF-TOKEN')).toBeTrue();
     expect(httpRequest.request.withCredentials).toBeTrue();
     const token = httpRequest.request.headers.get('X-XSRF-TOKEN');
-    expect(token).toBeDefined();
+    expect(token).not.toBeNull();
     expect(token).toBe(testToken.toString());
 
     httpRequest.flush(mockPayload, { status: mockStatusCode, statusText: mockStatusText });
@@ -116,11 +116,11 @@ describe(`XsrfInterceptor`, () => {
       // ensure mock XSRF token is in response
       expect(response.headers.has('DSPACE-XSRF-TOKEN')).toBeTrue();
       const token = response.headers.get('DSPACE-XSRF-TOKEN');
-      expect(token).toBeDefined();
+      expect(token).not.toBeNull();
       expect(token).toBe(mockNewXSRFToken.toString());
 
       // ensure our XSRF-TOKEN cookie exists & has the same value as the new DSPACE-XSRF-TOKEN header
-      expect(cookieService.get('XSRF-TOKEN')).toBeDefined();
+      expect(cookieService.get('XSRF-TOKEN')).not.toBeNull();
       expect(cookieService.get('XSRF-TOKEN')).toBe(mockNewXSRFToken.toString());
 
       done();
@@ -153,7 +153,7 @@ describe(`XsrfInterceptor`, () => {
         expect(error.statusText).toBe(mockErrorText);
 
         // ensure our XSRF-TOKEN cookie exists & has the same value as the new DSPACE-XSRF-TOKEN header
-        expect(cookieService.get('XSRF-TOKEN')).toBeDefined();
+        expect(cookieService.get('XSRF-TOKEN')).not.toBeNull();
         expect(cookieService.get('XSRF-TOKEN')).toBe(mockNewXSRFToken.toString());
 
         done();
