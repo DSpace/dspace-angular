@@ -117,7 +117,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    */
   ngOnInit() {
 
-    this.collectionModifiable = this.route.snapshot.data.collectionModifiable;
+    this.collectionModifiable = this.route.snapshot.data.collectionModifiable ?? null;
 
     this.subs.push(
       this.route.paramMap.pipe(
