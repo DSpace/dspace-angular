@@ -109,7 +109,7 @@ describe('LangSwitchComponent', () => {
     }));
 
     it('should define the main A HREF in the UI', (() => {
-      expect(langSwitchElement.querySelector('a')).toBeDefined();
+      expect(langSwitchElement.querySelector('a')).not.toBeNull();
     }));
 
     describe('when selecting a language', () => {

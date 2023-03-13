@@ -3,7 +3,7 @@
     <div class="file-section">
       <ds-themed-file-download-link *ngFor="let file of bitstreams; let last=last;" [bitstream]="file" [item]="item">
         <span>{{file?.name}}</span>
-        <span>({{(file?.sizeBytes) | dsFileSize }})</span>
+        <span> ({{(file?.sizeBytes) | dsFileSize }})</span>
         <span *ngIf="!last" innerHTML="{{separator}}"></span>
       </ds-themed-file-download-link>
       <ds-themed-loading *ngIf="isLoading" message="{{'loading.default' | translate}}" [showMessage]="false"></ds-themed-loading>

@@ -65,7 +65,7 @@
                 <i class="fas fa-trash-alt fa-fw"></i>
               </button>
 
-              <p *ngIf="(isActiveGroup(group) | async)">{{ messagePrefix + '.table.edit.currentGroup' | translate }}</p>
+              <span *ngIf="(isActiveGroup(group) | async)">{{ messagePrefix + '.table.edit.currentGroup' | translate }}</span>
 
               <button *ngIf="!(isSubgroupOfGroup(group) | async) && !(isActiveGroup(group) | async)"
                       (click)="addSubgroupToGroup(group)"

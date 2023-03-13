@@ -1,5 +1,5 @@
 <ds-themed-loading *ngIf="(loading | async) || (isAuthenticated | async)" class="m-5"></ds-themed-loading>
-<div *ngIf="!(loading | async) && !(isAuthenticated | async)" class="px-4 py-3 login-container">
+<div *ngIf="!(loading | async) && !(isAuthenticated | async)" class="px-4 py-3 mx-auto login-container">
   <ng-container *ngFor="let authMethod of (authMethods); let i = index">
     <div *ngIf="i === 1" class="text-center mt-2">
       <span class="align-middle">{{"login.form.or-divider" | translate}}</span>
