@@ -4,7 +4,7 @@
             name="parameter-{{index}}"
             [(ngModel)]="selectedParameter"
             #param="ngModel">
-        <option [ngValue]="undefined">Add a parameter...</option>
+        <option [ngValue]="undefined" selected>Add a parameter...</option>
         <option *ngFor="let param of parameters" [ngValue]="param.name">
             {{param.nameLong || param.name}}
         </option>

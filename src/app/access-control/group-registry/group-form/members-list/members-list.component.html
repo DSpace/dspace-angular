@@ -17,7 +17,7 @@
   <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)" class="d-flex justify-content-between">
     <div>
       <select name="scope" id="scope" formControlName="scope" class="form-control" aria-label="Search scope">
-        <option value="metadata">{{messagePrefix + '.search.scope.metadata' | translate}}</option>
+        <option value="metadata" selected>{{messagePrefix + '.search.scope.metadata' | translate}}</option>
         <option value="email">{{messagePrefix + '.search.scope.email' | translate}}</option>
       </select>
     </div>

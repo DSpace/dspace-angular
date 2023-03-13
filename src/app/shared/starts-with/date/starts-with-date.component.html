@@ -5,7 +5,7 @@
     </span>
     <div class="col-6 col-md-2">
       <select id="year-select" class="form-control" (change)="setStartsWithYearEvent($event)" [attr.aria-label]="'browse.startsWith.choose_year.label' |translate">
-        <option [value]="-1" [selected]="!startsWithYear">
+        <option [value]="-1" [selected]="!startsWithYear" selected>
           {{'browse.startsWith.choose_year' | translate}}
         </option>
         <option *ngFor="let option of startsWithOptions"

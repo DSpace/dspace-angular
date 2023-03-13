@@ -4,7 +4,7 @@
             <div class="col-12 col-sm-6">
                 <label class="font-weight-bold" for="task">{{'curation.form.task-select.label' |translate }}</label>
                 <select id="task" formControlName="task" class="form-control">
-                    <option *ngFor="let task of tasks" [value]="task">
+                    <option *ngFor="let task of tasks; let i = index" [value]="task" [selected]="i == 0">
                         {{ 'curation-task.task.' + task + '.label' | translate }}
                     </option>
                 </select>

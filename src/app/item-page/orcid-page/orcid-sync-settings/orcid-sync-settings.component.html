@@ -16,8 +16,8 @@
                 <label for="syncMode">{{ 'person.page.orcid.synchronization-mode.label'| translate }}</label>
                 <select class="form-control" [(ngModel)]="currentSyncMode" name="syncMode" id="syncMode"
                         required>
-                  <option *ngFor="let syncMode of syncModes"
-                          [value]="syncMode.value">{{ syncMode.label | translate }}</option>
+                  <option *ngFor="let syncMode of syncModes; let i = index"
+                          [value]="syncMode.value" [selected]="i == 0">{{ syncMode.label | translate }}</option>
                 </select>
               </div>
             </div>
