@@ -1,0 +1,65 @@
+@media screen and (min-width: map-get($grid-breakpoints, md)) {
+  nav.navbar {
+    display: none;
+  }
+  .header {
+    background-color: var(--ds-header-bg);
+  }
+}
+
+.navbar-brand img {
+  @media screen and (max-width: map-get($grid-breakpoints, md)) {
+    height: var(--ds-header-logo-height-xs);
+  }
+}
+.navbar-toggler .navbar-toggler-icon {
+  background-image: none !important;
+  line-height: 1.5;
+  color: var(--bs-link-color);
+}
+// CUL mobile logo
+.mobile-cornell-logo {
+  background: url("/assets/ecommons/images/cornell-reduced-red.svg") no-repeat;
+  width: 200px;
+  height: 45px;
+  display: block;
+  text-indent: -99999em;
+}
+.library-brand-mobile {
+  display: block;
+  background: url("/assets/ecommons/images/CULWordmark.svg") no-repeat;
+  text-indent: -99999em;
+  width: 120px;
+  height: 45px;
+  margin-top: .5rem;
+}
+
+// CUL logo
+.cornell-logo {
+  padding-left: 0;
+  background: url('/assets/ecommons/images/CULibraryRed.svg') no-repeat;
+  min-height: 100px;
+  width: 300px;
+}
+.cornell-logo .insignia {
+  float: left;
+  margin-right: 0.8em;
+  width: 100px;
+  height: 100px;
+  text-indent: -99999em;
+}
+.library-brand {
+  margin-top: .5rem;
+}
+.library-logo a {
+  text-indent: -99999em;
+  display: block;
+  width: 160px;
+  height: 100px;
+}
+// eCommons type
+.navbar-brand {
+  text-decoration: none;
+  font-size: 2.25rem;
+  color: var(--cul-blue-darker);
+}
