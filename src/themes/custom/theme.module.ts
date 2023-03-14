@@ -85,6 +85,9 @@ import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resou
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
 import { MediaViewerComponent } from './app/item-page/media-viewer/media-viewer.component';
+import {
+  MediaViewerImageComponent
+} from './app/item-page/media-viewer/media-viewer-image/media-viewer-image.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 const DECLARATIONS = [
@@ -130,6 +133,7 @@ const DECLARATIONS = [
   BreadcrumbsComponent,
   FeedbackComponent,
   MediaViewerComponent,
+  MediaViewerImageComponent,
 ];
 
 @NgModule({

@@ -30,6 +30,7 @@ import { MediaViewerComponent } from './media-viewer/media-viewer.component';
 import { ThemedMediaViewerComponent } from './media-viewer/themed-media-viewer.component';
 import { MediaViewerVideoComponent } from './media-viewer/media-viewer-video/media-viewer-video.component';
 import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/media-viewer-image.component';
+import { ThemedMediaViewerImageComponent } from './media-viewer/media-viewer-image/themed-media-viewer-image.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { MiradorViewerComponent } from './mirador-viewer/mirador-viewer.component';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
@@ -66,6 +67,7 @@ const DECLARATIONS = [
   ThemedMediaViewerComponent,
   MediaViewerVideoComponent,
   MediaViewerImageComponent,
+  ThemedMediaViewerImageComponent,
   MiradorViewerComponent,
   VersionPageComponent,
 ];
