@@ -84,6 +84,8 @@ import { SearchModule } from '../../app/shared/search/search.module';
 import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
+import { MediaViewerComponent } from './app/item-page/media-viewer/media-viewer.component';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -126,7 +128,8 @@ const DECLARATIONS = [
   NavbarComponent,
   HeaderNavbarWrapperComponent,
   BreadcrumbsComponent,
-  FeedbackComponent
+  FeedbackComponent,
+  MediaViewerComponent,
 ];
 
 @NgModule({
@@ -176,7 +179,8 @@ const DECLARATIONS = [
     SearchModule,
     FormsModule,
     ResourcePoliciesModule,
-    ComcolModule
+    ComcolModule,
+    NgxGalleryModule,
   ],
   declarations: DECLARATIONS
 })

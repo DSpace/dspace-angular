@@ -27,6 +27,7 @@ import { ResearchEntitiesModule } from '../entity-groups/research-entities/resea
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { MediaViewerComponent } from './media-viewer/media-viewer.component';
+import { ThemedMediaViewerComponent } from './media-viewer/themed-media-viewer.component';
 import { MediaViewerVideoComponent } from './media-viewer/media-viewer-video/media-viewer-video.component';
 import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/media-viewer-image.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
@@ -34,7 +35,6 @@ import { MiradorViewerComponent } from './mirador-viewer/mirador-viewer.componen
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
 import { VersionedItemComponent } from './simple/item-types/versioned-item/versioned-item.component';
 import { ThemedFileSectionComponent } from './simple/field-components/file-section/themed-file-section.component';
-
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -63,6 +63,7 @@ const DECLARATIONS = [
   UploadBitstreamComponent,
   AbstractIncrementalListComponent,
   MediaViewerComponent,
+  ThemedMediaViewerComponent,
   MediaViewerVideoComponent,
   MediaViewerImageComponent,
   MiradorViewerComponent,
