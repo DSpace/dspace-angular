@@ -88,6 +88,9 @@ import { MediaViewerComponent } from './app/item-page/media-viewer/media-viewer.
 import {
   MediaViewerImageComponent
 } from './app/item-page/media-viewer/media-viewer-image/media-viewer-image.component';
+import {
+  MediaViewerVideoComponent
+} from './app/item-page/media-viewer/media-viewer-video/media-viewer-video.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 const DECLARATIONS = [
@@ -134,6 +137,7 @@ const DECLARATIONS = [
   FeedbackComponent,
   MediaViewerComponent,
   MediaViewerImageComponent,
+  MediaViewerVideoComponent,
 ];
 
 @NgModule({

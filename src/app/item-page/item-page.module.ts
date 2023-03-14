@@ -29,6 +29,7 @@ import { ThemedFullItemPageComponent } from './full/themed-full-item-page.compon
 import { MediaViewerComponent } from './media-viewer/media-viewer.component';
 import { ThemedMediaViewerComponent } from './media-viewer/themed-media-viewer.component';
 import { MediaViewerVideoComponent } from './media-viewer/media-viewer-video/media-viewer-video.component';
+import { ThemedMediaViewerVideoComponent } from './media-viewer/media-viewer-video/themed-media-viewer-video.component';
 import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/media-viewer-image.component';
 import { ThemedMediaViewerImageComponent } from './media-viewer/media-viewer-image/themed-media-viewer-image.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
@@ -66,6 +67,7 @@ const DECLARATIONS = [
   MediaViewerComponent,
   ThemedMediaViewerComponent,
   MediaViewerVideoComponent,
+  ThemedMediaViewerVideoComponent,
   MediaViewerImageComponent,
   ThemedMediaViewerImageComponent,
   MiradorViewerComponent,

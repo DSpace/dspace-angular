@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 
 /**
- * This componenet renders a video viewer and playlist for the media viewer
+ * This component renders a video viewer and playlist for the media viewer
  */
 @Component({
   selector: 'ds-media-viewer-video',
@@ -21,8 +21,6 @@ export class MediaViewerVideoComponent implements OnInit {
     video: './assets/images/replacement_video.svg',
     audio: './assets/images/replacement_audio.svg',
   };
-
-  replacementThumbnail: string;
 
   ngOnInit() {
     this.isCollapsed = false;
