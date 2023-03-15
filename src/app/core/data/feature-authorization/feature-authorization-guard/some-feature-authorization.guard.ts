@@ -2,9 +2,9 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { returnForbiddenUrlTreeOrLoginOnAllFalse } from '../../../shared/operators';
 import { switchMap } from 'rxjs/operators';
 import { AuthService } from '../../../auth/auth.service';
+import { returnForbiddenUrlTreeOrLoginOnAllFalse } from '../../../shared/authorized.operators';
 
 /**
  * Abstract Guard for preventing unauthorized activating and loading of routes when a user
@@ -19,7 +19,7 @@ export abstract class SomeFeatureAuthorizationGuard implements CanActivate {
 
   /**
    * True when user has authorization rights for the feature and object provided
-   * Redirect the user to the unauthorized page when he/she's not authorized for the given feature
+   * Redirect the user to the unauthorized page when they are not authorized for the given feature
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
     return observableCombineLatest(this.getFeatureIDs(route, state), this.getObjectUrl(route, state), this.getEPersonUuid(route, state)).pipe(

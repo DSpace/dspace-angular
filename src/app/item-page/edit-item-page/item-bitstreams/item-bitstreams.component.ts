@@ -15,15 +15,16 @@ import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Bundle } from '../../../core/shared/bundle.model';
-import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Bitstream } from '../../../core/shared/bitstream.model';
-import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { Operation } from 'fast-json-patch';
+import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
+import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -146,7 +147,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     // Perform the setup actions from above in order and display notifications
     removedResponses$.pipe(take(1)).subscribe((responses: RemoteData<NoContent>[]) => {
       this.displayNotifications('item.edit.bitstreams.notifications.remove', responses);
-      this.reset();
       this.submitting = false;
     });
   }
@@ -239,27 +239,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
       switchMap((bundles: Bundle[]) => observableZip(...bundles.map((bundle: Bundle) => this.objectUpdatesService.hasUpdates(bundle.self)))),
       map((hasChanges: boolean[]) => hasChanges.includes(true))
     );
-  }
-
-  /**
-   * De-cache the current item (it should automatically reload due to itemUpdateSubscription)
-   */
-  reset() {
-    this.refreshItemCache();
-  }
-
-  /**
-   * Remove the current item's cache from object- and request-cache
-   */
-  refreshItemCache() {
-    this.bundles$.pipe(take(1)).subscribe((bundles: Bundle[]) => {
-      bundles.forEach((bundle: Bundle) => {
-        this.objectCache.remove(bundle.self);
-        this.requestService.removeByHrefSubstring(bundle.self);
-      });
-      this.objectCache.remove(this.item.self);
-      this.requestService.removeByHrefSubstring(this.item.self);
-    });
   }
 
   /**

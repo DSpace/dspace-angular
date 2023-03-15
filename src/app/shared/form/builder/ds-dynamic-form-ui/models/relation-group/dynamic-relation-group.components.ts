@@ -11,17 +11,18 @@ import {
   DynamicFormValidationService,
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
-import { isEqual, isObject } from 'lodash';
+import isEqual from 'lodash/isEqual';
+import isObject from 'lodash/isObject';
 
 import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { FormService } from '../../../../form.service';
 import { FormComponent } from '../../../../form.component';
-import { Chips } from '../../../../../chips/models/chips.model';
+import { Chips } from '../../../../chips/models/chips.model';
 import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.util';
 import { shrinkInOut } from '../../../../../animations/shrink';
-import { ChipsItem } from '../../../../../chips/models/chips-item.model';
+import { ChipsItem } from '../../../../chips/models/chips-item.model';
 import { hasOnlyEmptyProperties } from '../../../../../object.util';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';

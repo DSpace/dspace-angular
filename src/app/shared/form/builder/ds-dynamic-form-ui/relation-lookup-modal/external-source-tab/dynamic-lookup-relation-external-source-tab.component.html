@@ -4,10 +4,10 @@
     <ds-page-size-selector></ds-page-size-selector>
   </div>
   <div class="col-8">
-    <ds-search-form [query]="(searchConfigService.paginatedSearchOptions | async)?.query"
+    <ds-themed-search-form [query]="(searchConfigService.paginatedSearchOptions | async)?.query"
                     [inPlaceSearch]="true"
                     [searchPlaceholder]="'submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder' | translate">
-    </ds-search-form>
+    </ds-themed-search-form>
     <div>
       <h3>{{ 'submission.sections.describe.relationship-lookup.selection-tab.title.' + externalSource.id | translate}}</h3>
       <ng-container *ngVar="(entriesRD$ | async) as entriesRD">
@@ -21,8 +21,8 @@
                                 [importConfig]="importConfig"
                                 (importObject)="import($event)">
         </ds-viewable-collection>
-        <ds-loading *ngIf="!entriesRD || entriesRD?.isLoading"
-                    message="{{'loading.search-results' | translate}}"></ds-loading>
+        <ds-themed-loading *ngIf="!entriesRD || entriesRD?.isLoading"
+                    message="{{'loading.search-results' | translate}}"></ds-themed-loading>
         <ds-error   *ngIf="entriesRD?.hasFailed && (!entriesRD?.errorMessage || entriesRD?.statusCode != 400)"
                     message="{{'error.search-results' | translate}}"></ds-error>
         <div *ngIf="entriesRD?.payload?.page?.length == 0 || entriesRD?.statusCode == 400" id="empty-external-entry-list">

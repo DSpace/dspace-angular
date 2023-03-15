@@ -1,12 +1,12 @@
 <div class="d-flex">
-    <span class="mr-auto text-contents">
+    <div class="flex-grow-1 mr-auto">
         <ng-container *ngIf="!(relatedItem$ | async)">
-            <ds-loading [showMessage]="false"></ds-loading>
+            <ds-themed-loading [showMessage]="false"></ds-themed-loading>
         </ng-container>
         <ng-container *ngIf="(relatedItem$ | async)">
             <ds-listable-object-component-loader [showLabel]="false" [viewMode]="viewType" [object]="(relatedItem$ | async)"></ds-listable-object-component-loader>
         </ng-container>
-    </span>
+    </div>
     <button type="button" class="btn btn-secondary"
             (click)="removeSelection()">
         <i class="fas fa-trash" aria-hidden="true"></i>

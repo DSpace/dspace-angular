@@ -1,4 +1,5 @@
-import { projectRoot} from '../webpack/helpers';
+import { projectRoot } from '../webpack/helpers';
+
 const commander = require('commander');
 const fs = require('fs');
 const JSON5 = require('json5');
@@ -119,7 +120,7 @@ function syncFileWithSource(pathToTargetFile, pathToOutputFile) {
     outputChunks.forEach(function (chunk) {
       progressBar.increment();
       chunk.split("\n").forEach(function (line) {
-        file.write("  " + line + "\n");
+        file.write((line === '' ? '' : `  ${line}`) + "\n");
       });
     });
     file.write("\n}");
@@ -192,7 +193,10 @@ function createNewChunkComparingSourceAndTarget(correspondingTargetChunk, source
 
   const targetList = correspondingTargetChunk.split("\n");
   const oldKeyValueInTargetComments = getSubStringWithRegex(correspondingTargetChunk, "\\s*\\/\\/\\s*\".*");
-  const keyValueTarget = targetList[targetList.length - 1];
+  let keyValueTarget = targetList[targetList.length - 1];
+  if (!keyValueTarget.endsWith(",")) {
+    keyValueTarget = keyValueTarget + ",";
+  }
 
   if (oldKeyValueInTargetComments != null) {
     const oldKeyValueUncommented = getSubStringWithRegex(oldKeyValueInTargetComments[0], "\".*")[0];

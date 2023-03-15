@@ -1,6 +1,7 @@
 import { TOKENITEM } from '../../core/auth/models/auth-token-info.model';
 import { IMPERSONATING_COOKIE, REDIRECT_COOKIE } from '../../core/auth/auth.service';
 import { LANG_COOKIE } from '../../core/locale/locale.service';
+import { CAPTCHA_COOKIE, CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
 
 /**
  * Cookie for has_agreed_end_user
@@ -11,6 +12,8 @@ export const HAS_AGREED_END_USER = 'dsHasAgreedEndUser';
  * Storage name used to store klaro cookie
  */
 export const ANONYMOUS_STORAGE_NAME_KLARO = 'klaro-anonymous';
+
+export const GOOGLE_ANALYTICS_KLARO_KEY = 'google-analytics';
 
 /**
  * Klaro configuration
@@ -24,7 +27,7 @@ export const klaroConfiguration: any = {
   /*
   Setting 'hideLearnMore' to 'true' will hide the "learn more / customize" link in
   the consent notice. We strongly advise against using this under most
-  circumstances, as it keeps the user from customizing his/her consent choices.
+  circumstances, as it keeps the user from customizing their consent choices.
   */
   hideLearnMore: false,
 
@@ -51,10 +54,46 @@ export const klaroConfiguration: any = {
   https://github.com/KIProtect/klaro/tree/master/src/translations
   */
   translations: {
-    en: {
+    /*
+      The `zz` key contains default translations that will be used as fallback values.
+      This can e.g. be useful for defining a fallback privacy policy URL.
+      FOR DSPACE: We use 'zz' to map to our own i18n translations for klaro, see
+      translateConfiguration() in browser-klaro.service.ts. All the below i18n keys are specified
+      in your /src/assets/i18n/*.json5 translation pack.
+    */
+    zz: {
       acceptAll: 'cookies.consent.accept-all',
       acceptSelected: 'cookies.consent.accept-selected',
-      app: {
+      close: 'cookies.consent.close',
+      consentModal: {
+        title: 'cookies.consent.content-modal.title',
+        description: 'cookies.consent.content-modal.description'
+      },
+      consentNotice: {
+        changeDescription: 'cookies.consent.update',
+        title: 'cookies.consent.content-notice.title',
+        description: 'cookies.consent.content-notice.description',
+        learnMore: 'cookies.consent.content-notice.learnMore',
+      },
+      decline: 'cookies.consent.decline',
+      ok: 'cookies.consent.ok',
+      poweredBy: 'Powered by Klaro!',
+      privacyPolicy: {
+        name: 'cookies.consent.content-modal.privacy-policy.name',
+        text: 'cookies.consent.content-modal.privacy-policy.text'
+      },
+      purposeItem: {
+        service: 'cookies.consent.content-modal.service',
+        services: 'cookies.consent.content-modal.services'
+      },
+      purposes: {
+      },
+      save: 'cookies.consent.save',
+      service: {
+        disableAll: {
+          description: 'cookies.consent.app.disable-all.description',
+          title: 'cookies.consent.app.disable-all.title'
+        },
         optOut: {
           description: 'cookies.consent.app.opt-out.description',
           title: 'cookies.consent.app.opt-out.title'
@@ -62,26 +101,10 @@ export const klaroConfiguration: any = {
         purpose: 'cookies.consent.app.purpose',
         purposes: 'cookies.consent.app.purposes',
         required: {
-          description: 'cookies.consent.app.required.description',
-          title: 'cookies.consent.app.required.title'
+          title: 'cookies.consent.app.required.title',
+          description: 'cookies.consent.app.required.description'
         }
-      },
-      close: 'cookies.consent.close',
-      decline: 'cookies.consent.decline',
-      changeDescription: 'cookies.consent.update',
-      consentNotice: {
-        description: 'cookies.consent.content-notice.description',
-        learnMore: 'cookies.consent.content-notice.learnMore'
-      },
-      consentModal: {
-        description: 'cookies.consent.content-modal.description',
-        privacyPolicy: {
-          name: 'cookies.consent.content-modal.privacy-policy.name',
-          text: 'cookies.consent.content-modal.privacy-policy.text'
-        },
-        title: 'cookies.consent.content-modal.title'
-      },
-      purposes: {}
+      }
     }
   },
   services: [
@@ -113,7 +136,7 @@ export const klaroConfiguration: any = {
       ]
     },
     {
-      name: 'google-analytics',
+      name: GOOGLE_ANALYTICS_KLARO_KEY,
       purposes: ['statistical'],
       required: false,
       cookies: [
@@ -155,5 +178,17 @@ export const klaroConfiguration: any = {
       */
       onlyOnce: true,
     },
+    {
+      name: CAPTCHA_NAME,
+      purposes: ['registration-password-recovery'],
+      required: false,
+      cookies: [
+        [/^klaro-.+$/],
+        CAPTCHA_COOKIE
+      ],
+      onAccept: `window.refreshCaptchaScript?.call()`,
+      onDecline: `window.refreshCaptchaScript?.call()`,
+      onlyOnce: true,
+    }
   ],
 };

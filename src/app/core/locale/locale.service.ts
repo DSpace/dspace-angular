@@ -40,7 +40,7 @@ export class LocaleService {
     protected translate: TranslateService,
     protected authService: AuthService,
     protected routeService: RouteService,
-    @Inject(DOCUMENT) private document: any
+    @Inject(DOCUMENT) protected document: any
   ) {
   }
 
@@ -192,7 +192,7 @@ export class LocaleService {
     this.routeService.getCurrentUrl().pipe(take(1)).subscribe((currentURL) => {
       // Hard redirect to the reload page with a unique number behind it
       // so that all state is definitely lost
-      this._window.nativeWindow.location.href = `/reload/${new Date().getTime()}?redirect=` + encodeURIComponent(currentURL);
+      this._window.nativeWindow.location.href = `reload/${new Date().getTime()}?redirect=` + encodeURIComponent(currentURL);
     });
 
   }

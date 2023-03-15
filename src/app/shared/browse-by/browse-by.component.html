@@ -1,42 +1,28 @@
 <ng-container *ngVar="(objects$ | async) as objects">
-  <h3 [ngClass]="{'sr-only': parentname }" >{{title | translate}}</h3>
+  <h3 [ngClass]="{'sr-only': parentname }">{{title | translate}}</h3>
   <ng-container *ngComponentOutlet="getStartsWithComponent(); injector: objectInjector;"></ng-container>
   <div *ngIf="objects?.hasSucceeded && !objects?.isLoading && objects?.payload?.page.length > 0" @fadeIn>
-    <div *ngIf="!enableArrows">
-      <ds-viewable-collection
-        [config]="paginationConfig"
-        [sortConfig]="sortConfig"
-        [objects]="objects">
-      </ds-viewable-collection>
-    </div>
-    <div *ngIf="enableArrows">
-      <div class="row">
-        <div class="col-12">
-          <div *ngIf="!hideGear" ngbDropdown #paginationControls="ngbDropdown" placement="bottom-right" class="d-inline-block float-right">
-            <button class="btn btn-secondary" id="paginationControls" [title]="'pagination.options.description' | translate" [attr.aria-label]="'pagination.options.description' | translate" ngbDropdownToggle><i class="fas fa-cog" aria-hidden="true"></i></button>
-            <div id="paginationControlsDropdownMenu" aria-labelledby="paginationControls" ngbDropdownMenu>
-              <h6 class="dropdown-header">{{ 'pagination.results-per-page' | translate}}</h6>
-              <button class="dropdown-item page-size-change" *ngFor="let item of paginationConfig?.pageSizeOptions" (click)="doPageSizeChange(item)"><i [ngClass]="{'invisible': item != paginationConfig?.pageSize}" class="fas fa-check" aria-hidden="true"></i> {{item}} </button>
-              <h6 class="dropdown-header">{{ 'pagination.sort-direction' | translate}}</h6>
-              <button class="dropdown-item sort-direction-change" *ngFor="let direction of (sortDirections | dsKeys)" (click)="doSortDirectionChange(direction.value)"><i [ngClass]="{'invisible': direction.value !== sortConfig?.direction}" class="fas fa-check" aria-hidden="true"></i> {{'sorting.' + direction.key | translate}} </button>
-            </div>
-          </div>
-        </div>
+      <div *ngIf="shouldDisplayResetButton$ |async" class="mb-2 reset">
+        <ds-themed-results-back-button [back]="back" [buttonLabel]="buttonLabel"></ds-themed-results-back-button>
       </div>
-      <ul class="list-unstyled">
-        <li *ngFor="let object of objects?.payload?.page" class="mt-4 mb-4">
-          <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode"></ds-listable-object-component-loader>
-        </li>
-      </ul>
-      <div>
-        <button id="nav-prev" type="button" class="btn btn-outline-primary float-left" (click)="goPrev()" [disabled]="objects?.payload?.currentPage <= 1"><i class="fas fa-angle-left"></i> {{'browse.previous.button' |translate}}</button>
-        <button id="nav-next" type="button" class="btn btn-outline-primary float-right" (click)="goNext()" [disabled]="objects?.payload?.currentPage >= objects?.payload?.totalPages"><i class="fas fa-angle-right"></i> {{'browse.next.button' |translate}}</button>
-      </div>
-    </div>
+    <ds-viewable-collection
+      [config]="paginationConfig"
+      [sortConfig]="sortConfig"
+      [showPaginator]="showPaginator"
+      [objects]="objects"
+      (prev)="goPrev()"
+      (next)="goNext()">
+    </ds-viewable-collection>
   </div>
-  <ds-loading *ngIf="!objects || objects?.isLoading" message="{{'loading.browse-by' | translate}}"></ds-loading>
+  <ds-themed-loading *ngIf="!objects || objects?.isLoading" message="{{'loading.browse-by' | translate}}"></ds-themed-loading>
   <ds-error *ngIf="objects?.hasFailed" message="{{'error.browse-by' | translate}}"></ds-error>
-  <div *ngIf="!objects?.isLoading && objects?.payload?.page.length === 0" class="alert alert-info w-100" role="alert">
-    {{'browse.empty' | translate}}
+  <div *ngIf="!objects?.isLoading && objects?.payload?.page.length === 0">
+    <div *ngIf="shouldDisplayResetButton$ |async" class="d-inline-block mb-4 reset">
+      <ds-themed-results-back-button [back]="back" [buttonLabel]="buttonLabel"></ds-themed-results-back-button>
+    </div>
+    <div class="alert alert-info w-100" role="alert">
+      {{'browse.empty' | translate}}
+    </div>
   </div>
 </ng-container>
+

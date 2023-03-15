@@ -8,6 +8,7 @@ export function getMockThemeService(themeName = 'base', themes?: ThemeConfig[]):
     getThemeName: themeName,
     getThemeName$: observableOf(themeName),
     getThemeConfigFor: undefined,
+    listenForRouteChanges: undefined,
   });
 
   if (isNotEmpty(themes)) {

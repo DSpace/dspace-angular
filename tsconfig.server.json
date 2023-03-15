@@ -4,7 +4,8 @@
     "outDir": "./out-tsc/app-server",
     "target": "es2016",
     "types": [
-      "node"
+      "node",
+      "grecaptcha"
     ]
   },
   "files": [

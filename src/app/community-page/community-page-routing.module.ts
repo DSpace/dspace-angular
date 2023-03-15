@@ -11,9 +11,10 @@ import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.servi
 import { LinkService } from '../core/cache/builders/link.service';
 import { COMMUNITY_EDIT_PATH, COMMUNITY_CREATE_PATH } from './community-page-routing-paths';
 import { CommunityPageAdministratorGuard } from './community-page-administrator.guard';
-import { MenuItemType } from '../shared/menu/initial-menus-state';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
+import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { ThemedCommunityPageComponent } from './themed-community-page.component'
         path: ':id',
         resolve: {
           dso: CommunityPageResolver,
-          breadcrumb: CommunityBreadcrumbResolver
+          breadcrumb: CommunityBreadcrumbResolver,
+          menu: DSOEditMenuResolver
         },
         runGuardsAndResolvers: 'always',
         children: [
@@ -55,6 +57,7 @@ import { ThemedCommunityPageComponent } from './themed-community-page.component'
               id: 'statistics_community_:id',
               active: true,
               visible: true,
+              index: 2,
               model: {
                 type: MenuItemType.LINK,
                 text: 'menu.section.statistics',
@@ -72,7 +75,7 @@ import { ThemedCommunityPageComponent } from './themed-community-page.component'
     DSOBreadcrumbsService,
     LinkService,
     CreateCommunityPageGuard,
-    CommunityPageAdministratorGuard
+    CommunityPageAdministratorGuard,
   ]
 })
 export class CommunityPageRoutingModule {
