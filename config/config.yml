@@ -3,3 +3,16 @@ rest:
   host: api7.dspace.org
   port: 443
   nameSpace: /server
+themes:
+  - name: edutask
+    headTags:
+      - tagName: link
+        attributes:
+          rel: icon
+          href: assets/edutask/images/favicons/favicon.ico
+          sizes: any
+      - tagName: link
+        attributes:
+          rel: icon
+          href: assets/edutask/images/favicons/favicon.svg
+          type: image/svg+xml

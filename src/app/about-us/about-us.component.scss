@@ -1,0 +1,27 @@
+.about-us-container-edu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.breadcrumb-edu {
+  margin-top: -25px;
+}
+.about-us-breadcrumb {
+  font-weight: 600;
+}
+
+.about-us-link {
+  margin-left: 15px;
+}
+.about-us-link-a {
+  color: #0C966F;
+}
+
+.about-us-link-active {
+  color: #808080;
+}
+
+.about-kdea-edu {
+  font-weight: 600;
+  font-size: 18px;
+}

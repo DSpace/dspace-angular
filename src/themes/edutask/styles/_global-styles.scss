@@ -1,0 +1,134 @@
+// Add any global css for the theme here
+
+// imports the base global style
+@import '../../../styles/_global-styles.scss';
+
+a {
+  color: #{map-get($theme-colors, secondary)};
+}
+
+.navbar-wrapper-edu {
+  border-bottom: 5px solid #0C966F;
+  margin-bottom: -5px;
+}
+
+.lead {
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+
+.pagination-info {
+  margin-bottom: 10px;
+  font-weight: 300;
+}
+
+.page-link {
+  color: #808080;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.page-item:first-child, .page-item:last-child {
+  .page-link {
+    color: #0C966F;
+    font-weight: 300;
+    border-radius: 0;
+  }
+}
+
+.badge-info {
+  background: #808080;
+  font-weight: 300;
+  border-radius: 0;
+  padding: 5px 15px;
+}
+
+.btn {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.form-control {
+  border-radius: 0;
+  border-color: #CCCCCC;
+}
+
+a:focus,
+button:focus,
+input:focus,
+textarea:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+.breadcrumb-item {
+  font-weight: 600;
+}
+
+.list-group-item {
+  border-radius: 0 !important;
+}
+
+.thumbnail-edu {
+  //border: 1px solid #CCCCCC;
+}
+
+.thumbnail-placeholder-edu {
+  background-color: transparent !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.btn-settings-edu {
+  background-color: #0C966F;
+  border-color: transparent;
+
+  img {
+    height: 25px;
+    width: 25px;
+  }
+}
+
+.about-us-edu {
+  color: #0C966F;
+}
+
+.nav-breadcrumb-edu {
+}
+
+.table-striped {
+  tbody tr:nth-of-type(odd) {
+    background-color: #DEDFDE !important;
+  }
+
+  tr {
+    height: 50px;
+  }
+
+  tbody td, tbody th {
+    border-color: #CCCCCC !important;
+  }
+
+  tbody tr:last-child {
+    border-bottom: 1px solid #CCCCCC !important;
+  }
+}
+
+.fa-chevron-right {
+  color: #0C966F;
+}
+
+.fa-chevron-down {
+  color: #0C966F;
+  border: 1px solid #CCCCCC;
+}

@@ -1,0 +1,80 @@
+<footer class="text-lg-start">
+  <div *ngIf="showTopFooter" class="top-footer">
+    <!-- Grid container -->
+    <div class=" container p-4">
+      <!--Grid row-->
+      <div class="d-flex flex-row justify-content-center">
+
+        <!--Grid column-->
+        <div class="col-lg-12 col-md-12 mb-4 mb-lg-0">
+          <p class="footer-text-edu">The first phase of this project is supported by the Municipality of Prishtina through a grant to establish
+            the archive and initiate the collection covering the period of 1990's.
+            Hosting and data storage is enabled by the Kosovo National Research and Education Network.</p>
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+    </div>
+    <div class="container p-4">
+      <!--Grid row-->
+      <div class="d-flex flex-row justify-content-between mx-4">
+
+        <!--Grid column-->
+        <div class="">
+          <div>
+            <p class="footer-worth-mention-edu text-left">Implemented by:</p>
+          </div>
+          <div>
+            <img width="125" src="assets/edutask/images/edutask-footer-logo.svg" alt="">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <p class="footer-worth-mention-edu">Supported by:</p>
+          </div>
+          <div>
+            <img width="75" src="assets/edutask/images/komuna_e_prishtines.svg" alt="">
+          </div>
+          <div class="d-flex align-items-end">
+            <img width="85" src="assets/edutask/images/kren.svg" alt="">
+          </div>
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+    </div>
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="bottom-footer p-1 d-flex justify-content-center align-items-center text-white">
+    <div class="content-container">
+      <p class="m-0 footer-text-edu mb-4">
+        <a class="footer-text-edu"
+           href="http://www.dspace.org/">{{ 'footer.link.dspace' | translate}}</a>
+        {{ 'footer.copyright' | translate:{year: dateObj | date:'y'} }}
+      </p>
+      <!--      <ul class="footer-info list-unstyled small d-flex justify-content-center mb-0">-->
+      <!--        <li>-->
+      <!--          <a class="text-white" href="javascript:void(0);"-->
+      <!--             (click)="showCookieSettings()">{{ 'footer.link.cookies' | translate}}</a>-->
+      <!--        </li>-->
+      <!--        <li *ngIf="showPrivacyPolicy">-->
+      <!--          <a class="text-white"-->
+      <!--             routerLink="info/privacy">{{ 'footer.link.privacy-policy' | translate}}</a>-->
+      <!--        </li>-->
+      <!--        <li *ngIf="showEndUserAgreement">-->
+      <!--          <a class="text-white"-->
+      <!--             routerLink="info/end-user-agreement">{{ 'footer.link.end-user-agreement' | translate}}</a>-->
+      <!--        </li>-->
+      <!--        <li>-->
+      <!--          <a class="text-white"-->
+      <!--             routerLink="info/feedback">{{ 'footer.link.feedback' | translate}}</a>-->
+      <!--        </li>-->
+      <!--      </ul>-->
+    </div>
+  </div>
+  <!-- Copyright -->
+</footer>

@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  margin-top: calc(var(--ds-content-spacing) * -1);
+
+  div.background-image-container {
+    color: white;
+    position: relative;
+
+    .background-image > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+
+  }
+  a {
+    color: var(--ds-home-news-link-color);
+
+    @include hover {
+      color: var(--ds-home-news-link-hover-color);
+    }
+  }
+}
+
+

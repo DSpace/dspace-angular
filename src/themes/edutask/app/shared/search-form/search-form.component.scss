@@ -1,0 +1,40 @@
+// temporary fix for bootstrap 4 beta btn color issue
+.btn-secondary {
+  background-color: var(--bs-input-bg);
+  color: var(--bs-input-color);
+}
+
+.scope-button {
+  max-width: var(--ds-search-form-scope-max-width);
+}
+
+.search-button {
+}
+
+// start  modified from edutask
+
+.form-control-edu {
+  border-radius: 0 !important;
+  height: 45px;
+}
+
+.input-group-append-edu {
+  border-radius: 0 !important;
+}
+.search-news-edu {
+  margin-bottom: 6px;
+}
+.search-button-edu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 25px;
+  border-radius: 0;
+  background: transparent;
+  border: 1px solid #CCCCCC;
+  color: #808080;
+  font-size: 26px;
+  font-weight: 350;
+  height: 45px;
+}
+// end  modified from edutask

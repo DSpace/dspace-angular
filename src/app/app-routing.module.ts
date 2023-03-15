@@ -40,6 +40,7 @@ import {
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
+import {AboutUsComponent} from './about-us/about-us.component';
 
 @NgModule({
   imports: [
@@ -220,6 +221,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
             loadChildren: () => import('./statistics-page/statistics-page-routing.module')
               .then((m) => m.StatisticsPageRoutingModule)
           },
+          { path: 'about-us', component: AboutUsComponent },
           {
             path: HEALTH_PAGE_PATH,
             loadChildren: () => import('./health-page/health-page.module')

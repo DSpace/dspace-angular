@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2017 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="1.38276in" height="0.403343in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 403 118"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <font id="FontID1" horiz-adv-x="759" font-variant="normal" style="fill-rule:nonzero" font-style="normal" font-weight="400">
+	<font-face 
+		font-family="Nexa Regular">
+		<font-face-src>
+			<font-face-name name="NexaRegular"/>
+		</font-face-src>
+	</font-face>
+   <missing-glyph><path d="M0 0z"/></missing-glyph>
+   <glyph unicode="U" horiz-adv-x="740" d="M655.027 699.993l-85.0139 0 0 -420.01c0,-136.963 -90.0021,-212.998 -198.033,-212.998 -107.96,0 -200.955,73.0421 -200.955,212l0 420.01 -86.0115 0 0 -420.01c0,-195.967 137.961,-291.955 286.966,-291.955 152.997,0 284.045,97.9833 284.045,291.955l0 420.01 -0.997648 0.997648z"/>
+   <glyph unicode="D" horiz-adv-x="750" d="M92.9951 699.993l0 -699.993 254.97 0c245.065,0 352.027,179.007 352.027,358.013 0,173.021 -114.017,342.977 -352.027,342.977l-254.97 0 0 -0.997648zm254.97 -612.984l-167.961 0 0 529.965 167.961 0c179.007,0 265.018,-127.984 265.018,-257.963 0,-134.041 -78.9567,-272.002 -265.018,-272.002z"/>
+   <glyph unicode="A" horiz-adv-x="759" d="M331.005 699.993l-313.974 -699.993 94.9904 0 67.9826 153.994 399.986 0 68.9803 -153.994 94.064 0 -314.045 699.993 -97.9833 0zm214.993 -465.973l-332.003 0 166.037 377.966 165.966 -377.966z"/>
+   <glyph unicode="R" horiz-adv-x="711" d="M568.018 0l109.955 0 -230.956 259.032c144.018,11.9718 201.953,110.953 200.955,216.989 0,113.946 -78.9567,223.972 -236.941,223.972l-318.036 0 0 -699.993 87.0092 0 0 251.977 170.028 0 217.986 -251.977zm-161.049 330.008l-226.965 0 0 292.026 231.027 0c100.976,0 151.001,-78.0304 150.004,-148.008 0,-79.028 -49.0273,-144.018 -154.065,-144.018z"/>
+   <glyph unicode="O" horiz-adv-x="809" d="M405.972 711.965c-220.979,0 -356.944,-160.978 -356.944,-363.999 0,-183.995 115.941,-361.933 355.947,-361.933 240.006,0 354.023,178.935 355.02,361.933 0.997648,185.064 -117.01,363.001 -354.023,363.999zm267.013 -363.999c0,-137.961 -83.0186,-279.983 -267.013,-279.983 -183.995,0 -270.006,138.032 -270.006,279.983 0,153.068 92.0687,284.045 270.006,284.045 182.997,-1.9953 268.011,-142.022 267.013,-284.045z"/>
+   <glyph unicode="I" horiz-adv-x="272" d="M92.9951 0l87.0092 0 0 699.993 -87.0092 0 0 -699.993z"/>
+   <glyph unicode="W" horiz-adv-x="1080" d="M27.0078 699.993l243.996 -700.991 88.0068 0 181.002 523.979 182 -523.979 87.0092 0 244.994 700.991 -98.981 0 -191.05 -578.992 -195.967 578.992 -56.0108 0 -194.043 -578.992 -192.974 578.992 -97.9833 0z"/>
+   <glyph unicode="T" horiz-adv-x="598" d="M255.968 622.034l0 -622.034 86.0115 0 0 622.034 239.008 0 0 77.9591 -563.956 0 0 -77.9591 238.937 0z"/>
+   <glyph unicode="C" horiz-adv-x="709" d="M674.98 92.9951l-60.9991 60.0014c-52.9466,-53.0179 -127.984,-81.0233 -198.96,-81.0233 -189.054,0 -275.992,133.044 -277.988,274.995 -1.06891,145.015 89.9309,281.052 277.988,281.052 70.9756,0 141.951,-25.0125 195.967,-78.0304l60.0014 56.0108c-70.9756,69.9779 -162.973,104.967 -255.968,104.967 -245.992,0 -366.992,-179.933 -364.997,-364.997 0.997648,-185.99 118.008,-356.944 364.997,-356.944 95.988,0 188.983,33.9913 259.959,103.969z"/>
+   <glyph unicode="N" horiz-adv-x="761" d="M92.9951 699.993l0 -699.993 86.0115 0 0 534.027 429.986 -534.027 60.0014 0 0 699.993 -86.0115 0 0 -536.022 -428.989 536.022 -60.9991 0z"/>
+   <glyph unicode="K" horiz-adv-x="628" d="M92.9951 0l86.0115 0 0 329.01 340.982 -329.01 108.031 0 0 5.98589 -365.994 357.016 335.994 332.003 0 4.98824 -109.029 0 -309.984 -308.986 0 308.986 -86.0115 0 0 -699.993z"/>
+   <glyph unicode="H" horiz-adv-x="759" d="M579.99 0l87.0092 0 0 699.993 -87.0092 0 0 -303 -399.986 0 0 303 -87.0092 0 0 -699.993 87.0092 0 0 315.97 399.986 0 0 -315.97z"/>
+   <glyph unicode="E" horiz-adv-x="650" d="M92.9951 0l508.017 0 0 83.0186 -422.005 0 0 237.013 389.012 0 0 80.952 -389.012 0 0 218.984 405.972 0 0 80.0257 -491.983 0 0 -699.993z"/>
+   <glyph unicode="V" horiz-adv-x="714" d="M20.0242 699.993l289.959 -701.988 93.9927 0 289.033 701.988 -95.988 0 -241.003 -598.019 -239.008 598.019 -96.9857 0z"/>
+   <glyph unicode=" " horiz-adv-x="255" d=""/>
+   <glyph unicode="S" horiz-adv-x="664" d="M532.032 546.996l65.9873 40.9748c-61.9967,106.036 -161.049,127.058 -265.018,127.058 -121,0 -270.006,-50.0249 -268.011,-196.038 0,-142.022 130.977,-173.021 266.016,-193.971 104.967,-16.0336 203.021,-41.0461 202.024,-127.984 0,-103.043 -113.019,-130.051 -198.033,-130.051 -86.0115,0 -180.004,40.0485 -224.97,122.996l-72.0445 -41.9725c54.0155,-117.01 172.023,-161.975 296.017,-161.975 133.97,0 283.973,50.9513 284.971,207.938 0,158.056 -137.961,186.061 -277.988,208.01 -102.972,17.0313 -189.981,39.0508 -189.981,115.015 0,85.0139 94.9904,120.003 183.995,120.003 78.0304,-0.997648 158.982,-29.0031 197.036,-90.0021z"/>
+  </font>
+  <font id="FontID0" horiz-adv-x="749" font-variant="normal" style="fill-rule:nonzero" font-weight="700">
+	<font-face 
+		font-family="Nexa Bold">
+		<font-face-src>
+			<font-face-name name="NexaBold"/>
+		</font-face-src>
+	</font-face>
+   <missing-glyph><path d="M0 0z"/></missing-glyph>
+   <glyph unicode="R" horiz-adv-x="675" d="M670 8.99846l-211.999 239.005c132.995,26.9954 176.996,123.997 176.996,220.497 0,121.504 -87.0018,231.498 -251.997,232.499 -111.004,-1.00094 -221.999,0 -333.003,0l0 -700.999 132.004 0 0 234 126.999 0 204.002 -234 156.998 0 0 8.99846zm-287 569.005c82.998,0 120.003,-56.1728 120.003,-112.506 0,-56.333 -36.0038,-112.496 -120.003,-112.496l-200.999 0 0 225.002 200.999 0z"/>
+   <glyph unicode="N" horiz-adv-x="713" d="M508.998 266.33l-343.002 434.669 -107.001 0 0 -700.999 132.004 0 0 472.664 367.996 -472.664 0 0 82.0071 0 0 700.999 -132.004 0 0 -434.669z"/>
+   <glyph unicode="K" horiz-adv-x="654" d="M611.004 700.999l-164.004 0 -266 -296.499 0 296.499 -132.004 0 0 -700.999 132.004 0 0 310.502 292.995 -310.502 163.003 0 0 7.99752 -336.997 353.502 311.002 335.495 0 4.00376z"/>
+   <glyph unicode="E" horiz-adv-x="623" d="M570.997 130.002l-392.999 0 0 157.999 379.006 0 0 122.996 -379.006 0 0 162.002 392.999 0 0 128 -523.993 0c0,-233.67 0,-468 0,-700.999l523.993 0 0 130.002z"/>
+  </font>
+  <style type="text/css">
+   <![CDATA[
+    @font-face { font-family:"Nexa Regular";font-variant:normal;font-style:normal;font-weight:normal;src:url("#FontID1") format(svg)}
+    @font-face { font-family:"Nexa Bold";font-variant:normal;font-weight:bold;src:url("#FontID0") format(svg)}
+    .fil0 {fill:#0D4F3C}
+    .fil1 {fill:#0D4F3C}
+    .fnt1 {font-weight:normal;font-size:16.1049px;font-family:'Nexa Regular'}
+    .fnt0 {font-weight:bold;font-size:114.657px;font-family:'Nexa Bold'}
+   ]]>
+  </style>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_2302628960736">
+   <g>
+    <polygon class="fil0" points="2,62 89,60 89,51 2,50 "/>
+    <polygon class="fil0" points="96,75 8,74 8,65 96,63 "/>
+    <polygon class="fil0" points="3,93 91,90 91,78 3,78 "/>
+    <path class="fil0" d="M44 0c10,0 19,8 19,19 0,10 -8,19 -19,19 -4,0 -9,-2 -12,-4l-28 16 -4 -6 28 -16 0 0c-1,-3 -2,-6 -2,-9 0,-10 8,-19 19,-19zm0 8c6,0 11,5 11,11 0,6 -5,11 -11,11 -6,0 -11,-5 -11,-11 0,-6 5,-11 11,-11z"/>
+    <polygon class="fil0" points="89,49 25,47 25,38 89,36 "/>
+   </g>
+   <text x="99" y="90"  class="fil1 fnt0">K</text>
+   <text x="173" y="90"  class="fil1 fnt0">R</text>
+   <text x="254" y="90"  class="fil1 fnt0">E</text>
+   <text x="329" y="90"  class="fil1 fnt0">N</text>
+   <text x="" y="117"  class="fil1 fnt1">K</text>
+   <text x="9" y="117"  class="fil1 fnt1">O</text>
+   <text x="23" y="117"  class="fil1 fnt1">S</text>
+   <text x="34" y="117"  class="fil1 fnt1">O</text>
+   <text x="47" y="117"  class="fil1 fnt1">V</text>
+   <text x="58" y="117"  class="fil1 fnt1">O </text>
+   <text x="76" y="117"  class="fil1 fnt1">R</text>
+   <text x="87" y="117"  class="fil1 fnt1">E</text>
+   <text x="98" y="117"  class="fil1 fnt1">S</text>
+   <text x="109" y="117"  class="fil1 fnt1">E</text>
+   <text x="120" y="117"  class="fil1 fnt1">A</text>
+   <text x="132" y="117"  class="fil1 fnt1">R</text>
+   <text x="144" y="117"  class="fil1 fnt1">C</text>
+   <text x="156" y="117"  class="fil1 fnt1">H </text>
+   <text x="172" y="117"  class="fil1 fnt1">A</text>
+   <text x="185" y="117"  class="fil1 fnt1">N</text>
+   <text x="197" y="117"  class="fil1 fnt1">D </text>
+   <text x="214" y="117"  class="fil1 fnt1">E</text>
+   <text x="225" y="117"  class="fil1 fnt1">D</text>
+   <text x="237" y="117"  class="fil1 fnt1">U</text>
+   <text x="249" y="117"  class="fil1 fnt1">C</text>
+   <text x="261" y="117"  class="fil1 fnt1">A</text>
+   <text x="272" y="117"  class="fil1 fnt1">T</text>
+   <text x="282" y="117"  class="fil1 fnt1">I</text>
+   <text x="287" y="117"  class="fil1 fnt1">O</text>
+   <text x="300" y="117"  class="fil1 fnt1">N </text>
+   <text x="317" y="117"  class="fil1 fnt1">N</text>
+   <text x="330" y="117"  class="fil1 fnt1">E</text>
+   <text x="341" y="117"  class="fil1 fnt1">T</text>
+   <text x="350" y="117"  class="fil1 fnt1">W</text>
+   <text x="368" y="117"  class="fil1 fnt1">O</text>
+   <text x="381" y="117"  class="fil1 fnt1">R</text>
+   <text x="393" y="117"  class="fil1 fnt1">K</text>
+  </g>
+ </g>
+</svg>
