@@ -618,7 +618,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     // TODO: Set bitstream to primary when supported
     const primary = rawForm.fileNamePrimaryContainer.primaryBitstream;
     Metadata.setFirstValue(newMetadata, 'dc.title', rawForm.fileNamePrimaryContainer.fileName);
-    Metadata.setFirstValue(newMetadata, 'dc.description', rawForm.descriptionContainer.description);
+    if (isEmpty(rawForm.descriptionContainer.description)) {
+      delete newMetadata['dc.description'];
+    } else {
+      Metadata.setFirstValue(newMetadata, 'dc.description', rawForm.descriptionContainer.description);
+    }
     if (this.isIIIF) {
       // It's helpful to remove these metadata elements entirely when the form value is empty.
       // This avoids potential issues on the REST side and makes it possible to do things like

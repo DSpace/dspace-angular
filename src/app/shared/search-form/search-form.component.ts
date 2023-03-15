@@ -31,7 +31,7 @@ export class SearchFormComponent implements OnChanges {
   /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch;
+  @Input() inPlaceSearch: boolean;
 
   /**
    * The currently selected scope object's UUID
@@ -68,13 +68,14 @@ export class SearchFormComponent implements OnChanges {
    */
   @Output() submitSearch = new EventEmitter<any>();
 
-  constructor(private router: Router,
-              private searchService: SearchService,
-              private paginationService: PaginationService,
-              private searchConfig: SearchConfigurationService,
-              private modalService: NgbModal,
-              private dsoService: DSpaceObjectDataService,
-              public dsoNameService: DSONameService,
+  constructor(
+    protected router: Router,
+    protected searchService: SearchService,
+    protected paginationService: PaginationService,
+    protected searchConfig: SearchConfigurationService,
+    protected modalService: NgbModal,
+    protected dsoService: DSpaceObjectDataService,
+    public dsoNameService: DSONameService,
   ) {
   }
 
