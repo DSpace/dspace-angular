@@ -134,6 +134,9 @@ import { MetadataRepresentationListComponent } from './app/item-page/simple/meta
 import { DsDynamicLookupRelationSearchTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
 import { FeedbackFormComponent } from './app/info/feedback/feedback-form/feedback-form.component';
+import {
+  ItemPageTitleFieldComponent
+} from './app/item-page/simple/field-components/specific-field/title/item-page-title-field.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -197,6 +200,8 @@ const DECLARATIONS = [
   MetadataRepresentationListComponent,
   DsDynamicLookupRelationSearchTabComponent,
   DsDynamicLookupRelationExternalSourceTabComponent,
+  FeedbackComponent,
+  ItemPageTitleFieldComponent,
 ];
 
 @NgModule({
