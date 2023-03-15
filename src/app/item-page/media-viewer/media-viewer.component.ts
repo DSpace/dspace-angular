@@ -13,9 +13,8 @@ import { hasValue } from '../../shared/empty.util';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 
 /**
- * This componenet renders the media viewers
+ * This component renders the media viewers
  */
-
 @Component({
   selector: 'ds-media-viewer',
   templateUrl: './media-viewer.component.html',

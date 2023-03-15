@@ -137,6 +137,14 @@ import { FeedbackFormComponent } from './app/info/feedback/feedback-form/feedbac
 import {
   ItemPageTitleFieldComponent
 } from './app/item-page/simple/field-components/specific-field/title/item-page-title-field.component';
+import { MediaViewerComponent } from './app/item-page/media-viewer/media-viewer.component';
+import {
+  MediaViewerImageComponent
+} from './app/item-page/media-viewer/media-viewer-image/media-viewer-image.component';
+import {
+  MediaViewerVideoComponent
+} from './app/item-page/media-viewer/media-viewer-video/media-viewer-video.component';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -200,8 +208,10 @@ const DECLARATIONS = [
   MetadataRepresentationListComponent,
   DsDynamicLookupRelationSearchTabComponent,
   DsDynamicLookupRelationExternalSourceTabComponent,
-  FeedbackComponent,
   ItemPageTitleFieldComponent,
+  MediaViewerComponent,
+  MediaViewerImageComponent,
+  MediaViewerVideoComponent,
 ];
 
 @NgModule({
@@ -258,7 +268,8 @@ const DECLARATIONS = [
     ResourcePoliciesModule,
     ComcolModule,
     DsoSharedModule,
-    SystemWideAlertModule
+    SystemWideAlertModule,
+    NgxGalleryModule,
   ],
   declarations: DECLARATIONS,
   exports: [
