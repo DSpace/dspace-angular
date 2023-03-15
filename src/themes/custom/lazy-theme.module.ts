@@ -133,6 +133,7 @@ import {
 import { MetadataRepresentationListComponent } from './app/item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { DsDynamicLookupRelationSearchTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
+import { FeedbackFormComponent } from './app/info/feedback/feedback-form/feedback-form.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -173,6 +174,7 @@ const DECLARATIONS = [
   WorkflowItemSendBackComponent,
   BreadcrumbsComponent,
   FeedbackComponent,
+  FeedbackFormComponent,
   CommunityListComponent,
   ComcolPageHandleComponent,
   AuthNavMenuComponent,
