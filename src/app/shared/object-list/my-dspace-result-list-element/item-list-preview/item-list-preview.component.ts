@@ -1,4 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
+import removeMarkdown from 'remove-markdown';
 
 import { Item } from '../../../../core/shared/item.model';
 import { fadeInOut } from '../../../animations/fade';
@@ -64,5 +65,7 @@ export class ItemListPreviewComponent implements OnInit {
     this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.item);
   }
 
-
+  removeMarkdown(text: string) {
+    return removeMarkdown(text);
+  }
 }

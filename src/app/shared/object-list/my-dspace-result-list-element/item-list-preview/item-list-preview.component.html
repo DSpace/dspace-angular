@@ -38,7 +38,7 @@
 
           <ds-truncatable-part [id]="item.id" [minLines]="1" class="item-list-abstract">
             <span [ngClass]="{'text-muted': !item.firstMetadataValue('dc.description.abstract')}"
-              [innerHTML]="(item.firstMetadataValue('dc.description.abstract')) || ('mydspace.results.no-abstract' | translate)"></span>
+              [innerHTML]="(removeMarkdown(item.firstMetadataValue('dc.description.abstract'))) || ('mydspace.results.no-abstract' | translate)"></span>
           </ds-truncatable-part>
 
         </div>
