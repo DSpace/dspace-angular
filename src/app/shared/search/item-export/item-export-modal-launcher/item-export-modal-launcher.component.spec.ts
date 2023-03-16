@@ -153,6 +153,7 @@ describe('ItemExportModalWrapperComponent', () => {
           expect(modalRef.componentInstance.item).toBeFalsy();
           expect(modalRef.componentInstance.searchOptions).toEqual('searchOptions');
           expect(modalRef.componentInstance.molteplicity).toEqual(ItemExportFormatMolteplicity.MULTIPLE);
+          expect(modalRef.componentInstance.showListSelection).toBeTrue();
         });
 
       });

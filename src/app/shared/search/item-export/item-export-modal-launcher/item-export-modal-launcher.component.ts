@@ -85,6 +85,7 @@ export class ItemExportModalLauncherComponent implements OnInit {
         modalRef.componentInstance.searchOptions = searchOptions;
         modalRef.componentInstance.itemType = event;
         modalRef.componentInstance.bulkExportLimit = this.bulkExportLimit;
+        modalRef.componentInstance.showListSelection = true;
       });
     }
 
