@@ -4753,8 +4753,6 @@
 
   "submission.workflow.tasks.generic.success": "Operation successful",
 
-
-
   "submission.workflow.tasks.pool.claim": "Claim",
 
   "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
@@ -4763,11 +4761,11 @@
 
   "submission.workflow.tasks.pool.show-detail": "Show detail",
 
-
   "submission.workspace.generic.view": "View",
 
   "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
-
+  
+  "submitter.empty": "N/A",
 
   "subscriptions.title": "Subscriptions",
 
