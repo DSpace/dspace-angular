@@ -60,7 +60,9 @@ describe('ItemSubmitterComponent', () => {
     }));
   });
 
-  it('should show a badge with submitter name', () => {
+  it('should show a badge with submitter name', async () => {
+
+    await new Promise(f => setTimeout(f, 1000));
     const badge = fixture.debugElement.query(By.css('.badge'));
 
     expect(badge).not.toBeNull();
