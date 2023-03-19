@@ -6,9 +6,14 @@ $sidebar-items-width: 250px !default;
 $total-sidebar-width: $collapsed-sidebar-width + $sidebar-items-width !default;
 
 /* Fonts */
-$fa-font-path: "/assets/fonts" !default;
+// Starting this url with a caret (^) allows it to be a relative path based on UI's deployment path
+// See https://github.com/angular/angular-cli/issues/12797#issuecomment-598534241
+$fa-font-path: "^assets/fonts" !default;
 /* Images */
 $image-path: "../assets/images" !default;
+
+// enable-responsive-font-sizes allows text to scale more naturally across device and viewport sizes
+$enable-responsive-font-sizes: true;
 
 /** Bootstrap Variables **/
 /* Colors */

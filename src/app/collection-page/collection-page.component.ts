@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subject } from 'rxjs';
 import { filter, map, mergeMap, startWith, switchMap, take } from 'rxjs/operators';
@@ -16,7 +16,6 @@ import { Item } from '../core/shared/item.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteData,
-  redirectOn4xx,
   toDSpaceObjectListRD
 } from '../core/shared/operators';
 
@@ -28,6 +27,9 @@ import { PaginationService } from '../core/pagination/pagination.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { getCollectionPageRoute } from './collection-page-routing-paths';
+import { redirectOn4xx } from '../core/shared/authorized.operators';
+import { BROWSE_LINKS_TO_FOLLOW } from '../core/browse/browse.service';
+import { APP_CONFIG, AppConfig } from '../../../src/config/app-config.interface';
 
 @Component({
   selector: 'ds-collection-page',
@@ -68,11 +70,14 @@ export class CollectionPageComponent implements OnInit {
     private authService: AuthService,
     private paginationService: PaginationService,
     private authorizationDataService: AuthorizationDataService,
+    @Inject(APP_CONFIG) public appConfig: AppConfig,
   ) {
-    this.paginationConfig = new PaginationComponentOptions();
-    this.paginationConfig.id = 'cp';
-    this.paginationConfig.pageSize = 5;
-    this.paginationConfig.currentPage = 1;
+    this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
+      id: 'cp',
+      currentPage: 1,
+      pageSize: this.appConfig.browseBy.pageSize,
+    });
+
     this.sortConfig = new SortOptions('dc.date.accessioned', SortDirection.DESC);
   }
 
@@ -102,13 +107,14 @@ export class CollectionPageComponent implements OnInit {
         getFirstSucceededRemoteData(),
         map((rd) => rd.payload.id),
         switchMap((id: string) => {
-          return this.searchService.search(
+          return this.searchService.search<Item>(
             new PaginatedSearchOptions({
               scope: id,
               pagination: currentPagination,
               sort: currentSort,
               dsoTypes: [DSpaceObjectType.ITEM]
-            })).pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>;
+            }), null, true, true, ...BROWSE_LINKS_TO_FOLLOW)
+            .pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>;
         }),
         startWith(undefined) // Make sure switching pages shows loading component
       )

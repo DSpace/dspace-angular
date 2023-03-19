@@ -28,16 +28,16 @@ let mockPoolTaskDataService: PoolTaskDataService;
 
 describe('ClaimedTaskActionsEditMetadataComponent', () => {
   const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
-  mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
+  mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null);
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       providers: [
         { provide: ClaimedTaskDataService, useValue: {} },
@@ -66,7 +66,7 @@ describe('ClaimedTaskActionsEditMetadataComponent', () => {
   it('should display edit button', () => {
     const btn = fixture.debugElement.query(By.css('.btn-primary'));
 
-    expect(btn).toBeDefined();
+    expect(btn).not.toBeNull();
   });
 
 });

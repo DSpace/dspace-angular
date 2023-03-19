@@ -37,7 +37,7 @@ export class SearchFormComponent implements OnInit {
   /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch;
+  @Input() inPlaceSearch: boolean;
 
   /**
    * The currently selected scope object's UUID
@@ -74,12 +74,13 @@ export class SearchFormComponent implements OnInit {
    */
   @Output() submitSearch = new EventEmitter<any>();
 
-  constructor(private router: Router,
-              private searchService: SearchService,
-              private paginationService: PaginationService,
-              private searchConfig: SearchConfigurationService,
-              private modalService: NgbModal,
-              private dsoService: DSpaceObjectDataService
+  constructor(
+    protected router: Router,
+    protected searchService: SearchService,
+    protected paginationService: PaginationService,
+    protected searchConfig: SearchConfigurationService,
+    protected modalService: NgbModal,
+    protected dsoService: DSpaceObjectDataService,
   ) {
   }
 
@@ -98,6 +99,9 @@ export class SearchFormComponent implements OnInit {
    * @param data Values submitted using the form
    */
   onSubmit(data: any) {
+    if (isNotEmpty(this.scope)) {
+      data = Object.assign(data, { scope: this.scope });
+    }
     this.updateSearch(data);
     this.submitSearch.emit(data);
   }
@@ -117,7 +121,7 @@ export class SearchFormComponent implements OnInit {
   updateSearch(data: any) {
     const queryParams = Object.assign({}, data);
 
-    this.router.navigate(this.getSearchLinkParts(), {
+    void this.router.navigate(this.getSearchLinkParts(), {
       queryParams: queryParams,
       queryParamsHandling: 'merge'
     });

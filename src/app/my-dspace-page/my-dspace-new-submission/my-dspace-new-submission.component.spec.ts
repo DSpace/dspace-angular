@@ -16,16 +16,16 @@ import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
-import { UploaderService } from '../../shared/uploader/uploader.service';
+import { DragService } from '../../core/drag.service';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
-import { UploaderComponent } from '../../shared/uploader/uploader.component';
+import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
 import { CookieService } from '../../core/services/cookie.service';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';
 import { getMockEntityTypeService } from './my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component.spec';
-import { EntityTypeService } from '../../core/data/entity-type.service';
+import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
 
 describe('MyDSpaceNewSubmissionComponent test', () => {
 
@@ -59,11 +59,11 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
         NgbModal,
         ChangeDetectorRef,
         MyDSpaceNewSubmissionComponent,
-        UploaderService,
+        DragService,
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock('mock-token') },
         { provide: CookieService, useValue: new CookieServiceMock() },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
-        { provide: EntityTypeService, useValue: getMockEntityTypeService() },
+        { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -124,5 +124,5 @@ class TestComponent {
 
   reload = (event) => {
     return;
-  }
+  };
 }

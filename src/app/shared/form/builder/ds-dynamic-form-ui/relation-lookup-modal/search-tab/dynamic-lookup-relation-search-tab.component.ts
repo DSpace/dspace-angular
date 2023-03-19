@@ -4,7 +4,7 @@ import { SearchConfigurationService } from '../../../../../../core/shared/search
 import { Item } from '../../../../../../core/shared/item.model';
 import { SearchResult } from '../../../../../search/models/search-result.model';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
@@ -17,13 +17,12 @@ import { CollectionElementLinkType } from '../../../../../object-collection/coll
 import { Context } from '../../../../../../core/shared/context.model';
 import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { RelationshipService } from '../../../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../../../core/data/relationship-data.service';
 import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
 
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
 import { SearchObjects } from '../../../../../search/models/search-objects.model';
 import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 
 @Component({
@@ -148,12 +147,12 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter<SearchObjects<DSpaceObject>>();
 
   constructor(
-    private searchService: SearchService,
-    private selectableListService: SelectableListService,
+    protected searchService: SearchService,
+    protected selectableListService: SelectableListService,
     public searchConfigService: SearchConfigurationService,
     public lookupRelationService: LookupRelationService,
-    private relationshipService: RelationshipService,
-    private paginationService: PaginationService
+    protected relationshipService: RelationshipDataService,
+    protected paginationService: PaginationService,
   ) {
   }
 

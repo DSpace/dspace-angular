@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
+import { languageHelper } from './language-helper';
+import { CaptionInfo } from './caption-info';
+import { Bitstream } from 'src/app/core/shared/bitstream.model';
 
 /**
  * This componenet renders a video viewer and playlist for the media viewer
@@ -12,6 +15,8 @@ import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 export class MediaViewerVideoComponent {
   @Input() medias: MediaViewerItem[];
 
+  @Input() captions: Bitstream[] = [];
+
   isCollapsed = false;
 
   currentIndex = 0;
@@ -22,6 +27,32 @@ export class MediaViewerVideoComponent {
   };
 
   replacementThumbnail: string;
+
+  /**
+   * This method check if there is caption file for the media
+   * The caption file name is the media name plus "-" following two letter
+   * language code and .vtt suffix
+   *
+   * html5 video only support WEBVTT format
+   *
+   * Two letter language code reference
+   * https://www.w3schools.com/tags/ref_language_codes.asp
+   */
+  getMediaCap(name: string, captions: Bitstream[]): CaptionInfo[] {
+    const capInfos: CaptionInfo[] = [];
+    const filteredCapMedias: Bitstream[] = captions
+      .filter((media: Bitstream) => media.name.substring(0, (media.name.length - 7)).toLowerCase() === name.toLowerCase());
+
+    for (const media of filteredCapMedias) {
+      let srclang: string = media.name.slice(-6, -4).toLowerCase();
+      capInfos.push(new CaptionInfo(
+        media._links.content.href,
+        srclang,
+        languageHelper[srclang],
+      ));
+    }
+    return capInfos;
+  }
 
   /**
    * This method sets the received index into currentIndex

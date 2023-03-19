@@ -22,7 +22,7 @@ module.exports = function (config) {
       reports: ['html', 'lcovonly', 'text-summary'],
       fixWebpackSourcePaths: true
     },
-    reporters: ['mocha', 'kjhtml'],
+    reporters: ['mocha', 'kjhtml', 'coverage-istanbul'],
     mochaReporter: {
       ignoreSkipped: true,
       output: 'autowatch'

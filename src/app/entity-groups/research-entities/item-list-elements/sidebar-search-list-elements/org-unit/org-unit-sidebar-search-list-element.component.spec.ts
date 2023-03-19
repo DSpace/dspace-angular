@@ -8,6 +8,11 @@ const object = Object.assign(new ItemSearchResult(), {
   indexableObject: Object.assign(new Item(), {
     id: 'test-item',
     metadata: {
+      'dspace.entity.type': [
+        {
+          value: 'OrgUnit'
+        }
+      ],
       'organization.legalName': [
         {
           value: 'title'

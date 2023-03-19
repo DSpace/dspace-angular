@@ -86,7 +86,7 @@ describe('WorkspaceitemActionsComponent', () => {
       ],
       declarations: [WorkspaceitemActionsComponent],
       providers: [
-        { provide: Injector, useValue: {} },
+        Injector,
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
         { provide: WorkspaceitemDataService, useValue: mockDataService },
@@ -123,31 +123,42 @@ describe('WorkspaceitemActionsComponent', () => {
   it('should display edit button', () => {
     const btn = fixture.debugElement.query(By.css('.btn-primary'));
 
-    expect(btn).toBeDefined();
+    expect(btn).not.toBeNull();
   });
 
   it('should display delete button', () => {
     const btn = fixture.debugElement.query(By.css('.btn-danger'));
 
-    expect(btn).toBeDefined();
+    expect(btn).not.toBeNull();
   });
 
-  it('should call confirmDiscard on discard confirmation', () => {
-    mockDataService.delete.and.returnValue(observableOf(true));
-    spyOn(component, 'reload');
-    const btn = fixture.debugElement.query(By.css('.btn-danger'));
-    btn.nativeElement.click();
-    fixture.detectChanges();
+  it('should display view button', () => {
+    const btn = fixture.debugElement.query(By.css('button[data-test="view-btn"]'));
 
-    const confirmBtn: any = ((document as any).querySelector('.modal-footer .btn-danger'));
-    confirmBtn.click();
+    expect(btn).not.toBeNull();
+  });
 
-    fixture.detectChanges();
+  describe('on discard confirmation', () => {
+    beforeEach((done) => {
+      mockDataService.delete.and.returnValue(observableOf(true));
+      spyOn(component, 'reload');
+      const btn = fixture.debugElement.query(By.css('.btn-danger'));
+      btn.nativeElement.click();
+      fixture.detectChanges();
 
-    fixture.whenStable().then(() => {
-      expect(mockDataService.delete).toHaveBeenCalledWith(mockObject.id);
+      const confirmBtn: any = ((document as any).querySelector('.modal-footer .btn-danger'));
+      confirmBtn.click();
+
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        done();
+      });
     });
 
+    it('should call confirmDiscard', () => {
+      expect(mockDataService.delete).toHaveBeenCalledWith(mockObject.id);
+    });
   });
 
   it('should display a success notification on delete success', waitForAsync(() => {

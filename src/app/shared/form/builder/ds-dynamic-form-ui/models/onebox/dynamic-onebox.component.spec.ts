@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -20,11 +21,11 @@ import { DsDynamicOneboxComponent } from './dynamic-onebox.component';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
-import { AuthorityConfidenceStateDirective } from '../../../../../authority-confidence/authority-confidence-state.directive';
+import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
-import { VocabularyTreeviewComponent } from '../../../../../vocabulary-treeview/vocabulary-treeview.component';
+import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService
@@ -34,7 +35,6 @@ export let ONEBOX_TEST_GROUP;
 
 export let ONEBOX_TEST_MODEL_CONFIG;
 
-/* tslint:disable:max-classes-per-file */
 
 // Mock class for NgbModalRef
 export class MockNgbModalRef {
@@ -463,4 +463,3 @@ class TestComponent {
 
 }
 
-/* tslint:enable:max-classes-per-file */

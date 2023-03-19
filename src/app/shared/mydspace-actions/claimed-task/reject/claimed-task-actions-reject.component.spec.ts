@@ -32,16 +32,17 @@ const searchService = getMockSearchService();
 
 const requestService = getMockRequestService();
 
+const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
+
+const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
+  submitTask: of(new ProcessTaskResponse(true))
+});
+
 let mockPoolTaskDataService: PoolTaskDataService;
 
 describe('ClaimedTaskActionsRejectComponent', () => {
-  const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
-  const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
-    submitTask: of(new ProcessTaskResponse(true))
-  });
-
   beforeEach(waitForAsync(() => {
-    mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
+    mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null);
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
@@ -49,29 +50,26 @@ describe('ClaimedTaskActionsRejectComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [ClaimedTaskActionsRejectComponent],
       providers: [
         { provide: ClaimedTaskDataService, useValue: claimedTaskService },
-        { provide: Injector, useValue: {} },
+        Injector,
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
         FormBuilder,
-        NgbModal
+        NgbModal,
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ClaimedTaskActionsRejectComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
-  }));
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(ClaimedTaskActionsRejectComponent);
     component = fixture.componentInstance;
     formBuilder = TestBed.inject(FormBuilder);
@@ -80,7 +78,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
     component.modalRef = modalService.open('ok');
     spyOn(component, 'initReloadAnchor').and.returnValue(undefined);
     fixture.detectChanges();
-  });
+  }));
 
   it('should init reject form properly', () => {
     expect(component.rejectForm).toBeDefined();
@@ -91,7 +89,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
   it('should display reject button', () => {
     const btn = fixture.debugElement.query(By.css('.btn-danger'));
 
-    expect(btn).toBeDefined();
+    expect(btn).not.toBeNull();
   });
 
   it('should display spin icon when reject is pending', () => {
@@ -100,7 +98,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
 
     const span = fixture.debugElement.query(By.css('.btn-danger .fa-spin'));
 
-    expect(span).toBeDefined();
+    expect(span).not.toBeNull();
   });
 
   it('should call openRejectModal on reject button click', () => {

@@ -156,6 +156,8 @@
 
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Ainm",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.id" : "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
   "admin.registries.bitstream-formats.table.return": "Air ais",
@@ -235,6 +237,8 @@
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Raon",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.id" : "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Nota Leudachd",
@@ -2888,8 +2892,8 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Manaids cruinneachaidhean mapaichte",
 
-  // "item.edit.tabs.status.buttons.move.button": "Move...",
-  "item.edit.tabs.status.buttons.move.button": "Gluais...",
+  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
+  "item.edit.tabs.status.buttons.move.button": "Helyezze át ezt az elemet egy másik gyűjteménybe",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
   "item.edit.tabs.status.buttons.move.label": "Gluais nì gu cruinneachadh eile",
@@ -2915,8 +2919,8 @@
   // "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
   "item.edit.tabs.status.buttons.unauthorized": "Chan eil cead agad an gnìomh seo a dhèanamh",
 
-  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  "item.edit.tabs.status.buttons.withdraw.button": "Thoir air falbh...",
+  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
+  "item.edit.tabs.status.buttons.withdraw.button": "Thoir air falbh",
 
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
     "item.edit.tabs.status.buttons.withdraw.label": "Thoir nì air falbh bhon ionad-tasgaidh",
@@ -5797,7 +5801,7 @@
   // TODO New key - Add a translation
   "submission.sections.upload.header.policy.default.withlist": "Thoir fa-near gum bi cothrom air faidhlichean a chaidh a luchdachadh gu cruinneachadh {{collectionName}}, cho math ris na chaidh a cho-dhùnadh airson an fhaidhle air leth, aig a' bhuidheann/na buidhnean a leanas:",
 
-  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "An seo gheibh thu na faidhlichean gu lèir san nì an-dràsta. Is urrainn dhut metadata an fhaidhle ùrachadh agus cothrom fhaighinn air cumhachan no <strong>faidhlichean eile a luchdachadh suas le bhith gan slaodadh agus gan leigeil às air feadh na duilleig</strong>",
 
   // "submission.sections.upload.no-entry": "No",
@@ -5980,7 +5984,8 @@
   // "uploader.or": ", or ",
     "uploader.or": ", no ",
 
-  // "uploader.processing": "Processing",
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
+  // TODO Source message changed - Revise the translation
    "uploader.processing": "A' pròiseasadh",
 
   // "uploader.queue-length": "Queue length",

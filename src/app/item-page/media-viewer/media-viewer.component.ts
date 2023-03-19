@@ -31,6 +31,8 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
 
   mediaList$: BehaviorSubject<MediaViewerItem[]> = new BehaviorSubject([]);
 
+  captions$: BehaviorSubject<Bitstream[]> = new BehaviorSubject([]);
+
   isLoading = true;
 
   thumbnailPlaceholder = './assets/images/replacement_document.svg';
@@ -78,6 +80,8 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
                 );
                 if (types.includes(mediaItem.format)) {
                   this.mediaList$.next([...this.mediaList$.getValue(), mediaItem]);
+                } else if (format.mimetype === 'text/vtt') {
+                  this.captions$.next([...this.captions$.getValue(), bitstreamsRD.payload.page[index]]);
                 }
               }));
           }
@@ -123,6 +127,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
     const mediaItem = new MediaViewerItem();
     mediaItem.bitstream = original;
     mediaItem.format = format.mimetype.split('/')[0];
+    mediaItem.mimetype = format.mimetype;
     mediaItem.thumbnail = thumbnail ? thumbnail._links.content.href : null;
     return mediaItem;
   }

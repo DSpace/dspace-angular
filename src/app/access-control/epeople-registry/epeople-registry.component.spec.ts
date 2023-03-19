@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
@@ -9,7 +9,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { FindListOptions } from '../../core/data/request.models';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { PageInfo } from '../../core/shared/page-info.model';
@@ -27,6 +26,7 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { RequestService } from '../../core/data/request.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
@@ -42,6 +42,7 @@ describe('EPeopleRegistryComponent', () => {
   let paginationService;
 
   beforeEach(waitForAsync(() => {
+    jasmine.getEnv().allowRespy(true);
     mockEPeople = [EPersonMock, EPersonMock2];
     ePersonDataServiceStub = {
       activeEPerson: null,
@@ -98,7 +99,7 @@ describe('EPeopleRegistryComponent', () => {
       deleteEPerson(ePerson: EPerson): Observable<boolean> {
         this.allEpeople = this.allEpeople.filter((ePerson2: EPerson) => {
           return (ePerson2.uuid !== ePerson.uuid);
-        });
+            });
         return observableOf(true);
       },
       editEPerson(ePerson: EPerson) {
@@ -260,17 +261,16 @@ describe('EPeopleRegistryComponent', () => {
   describe('delete EPerson button when the isAuthorized returns false', () => {
     let ePeopleDeleteButton;
     beforeEach(() => {
-      authorizationService = jasmine.createSpyObj('authorizationService', {
-        isAuthorized: observableOf(false)
-      });
+      spyOn(authorizationService, 'isAuthorized').and.returnValue(observableOf(false));
+      component.initialisePage();
+      fixture.detectChanges();
     });
 
     it('should be disabled', () => {
       ePeopleDeleteButton = fixture.debugElement.queryAll(By.css('#epeople tr td div button.delete-button'));
-      ePeopleDeleteButton.forEach((deleteButton) => {
+      ePeopleDeleteButton.forEach((deleteButton: DebugElement) => {
         expect(deleteButton.nativeElement.disabled).toBe(true);
       });
-
     });
   });
 });

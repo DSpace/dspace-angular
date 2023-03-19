@@ -4,12 +4,13 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 import { map, switchMap } from 'rxjs/operators';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, redirectOn4xx } from '../../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { VersionDataService } from '../../../core/data/version-data.service';
 import { Version } from '../../../core/shared/version.model';
 import { Item } from '../../../core/shared/item.model';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 import { getPageNotFoundRoute } from '../../../app-routing-paths';
+import { redirectOn4xx } from '../../../core/shared/authorized.operators';
 
 @Component({
   selector: 'ds-version-page',
@@ -42,7 +43,7 @@ export class VersionPageComponent implements OnInit {
       switchMap((version) => version.item),
       redirectOn4xx(this.router, this.authService),
       getFirstCompletedRemoteData(),
-    ).subscribe((itemRD) => {
+    ).subscribe((itemRD: RemoteData<Item>) => {
       if (itemRD.hasNoContent) {
         this.router.navigateByUrl(getPageNotFoundRoute(), { skipLocationChange: true });
       } else {

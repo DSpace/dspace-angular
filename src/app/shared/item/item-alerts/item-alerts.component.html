@@ -1,8 +1,0 @@
-<div>
-  <div *ngIf="item && !item.isDiscoverable" class="private-warning">
-    <ds-alert [type]="AlertTypeEnum.Warning" [content]="'item.alerts.private' | translate"></ds-alert>
-  </div>
-  <div *ngIf="item && item.isWithdrawn" class="withdrawn-warning">
-    <ds-alert [type]="AlertTypeEnum.Warning" [content]="'item.alerts.withdrawn' | translate"></ds-alert>
-  </div>
-</div>

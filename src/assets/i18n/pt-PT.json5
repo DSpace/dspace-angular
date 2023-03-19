@@ -368,6 +368,8 @@
   
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Nome",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.id" : "ID",
   
   // "admin.registries.bitstream-formats.table.return": "Return",
   "admin.registries.bitstream-formats.table.return": "Voltar",
@@ -443,6 +445,8 @@
   
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Campo",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.id" : "ID",
   
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Descrição",
@@ -2672,8 +2676,8 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Gerenciar coleções mapeadas",
   
-  // "item.edit.tabs.status.buttons.move.button": "Move...",
-  "item.edit.tabs.status.buttons.move.button": "Mover...",
+  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
+  "item.edit.tabs.status.buttons.move.button": "Mova este item para uma coleção diferente",
   
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
   "item.edit.tabs.status.buttons.move.label": "Mover item para outra coleção",
@@ -2696,8 +2700,8 @@
   // "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
   "item.edit.tabs.status.buttons.reinstate.label": "Restabelecer item no repositório",
   
-  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  "item.edit.tabs.status.buttons.withdraw.button": "Retirar...",
+  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
+  "item.edit.tabs.status.buttons.withdraw.button": "retirar este item",
   
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
   "item.edit.tabs.status.buttons.withdraw.label": "Retirar item do repositório",
@@ -5113,7 +5117,7 @@
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
   "submission.sections.upload.header.policy.default.withlist": "Por favor note que os ficheiros enviados à coleção {{collectionName}} serão acessíveis, de acordo com o que está explicitamente definido no ficheiro, no(s) seguinte(s) grupo(s):",
   
-  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "Aqui encontra todos os ficheiros que estão atualmente no item. Pode atualizar os metadados do ficheiro e condições de acesso ou <strong>carregar ficheiros adicionais arrastando os ficheiros em qualquer lugar desta página</strong>",
   
   // "submission.sections.upload.no-entry": "No",
@@ -5264,7 +5268,8 @@
   // "uploader.or": ", or ",
   "uploader.or": ", ou",
   
-  // "uploader.processing": "Processing",
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
+  // TODO Source message changed - Revise the translation
   "uploader.processing": "A Processar",
   
   // "uploader.queue-length": "Queue length",

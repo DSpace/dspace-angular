@@ -1,14 +1,14 @@
 <ng-container *ngVar="mediaList$ | async as mediaList">
-  <ds-loading
+  <ds-themed-loading
     *ngIf="isLoading"
     message="{{ 'loading.default' | translate }}"
     [showMessage]="false"
-  ></ds-loading>
+  ></ds-themed-loading>
   <div class="media-viewer" *ngIf="!isLoading">
     <ng-container *ngIf="mediaList.length > 0; else showThumbnail">
       <ng-container *ngVar="mediaOptions.video && ['audio', 'video'].includes(mediaList[0]?.format) as showVideo">
         <ng-container *ngVar="mediaOptions.image && mediaList[0]?.format === 'image' as showImage">
-          <ds-media-viewer-video *ngIf="showVideo" [medias]="mediaList"></ds-media-viewer-video>
+          <ds-media-viewer-video *ngIf="showVideo" [medias]="mediaList" [captions]="captions$ | async"></ds-media-viewer-video>
           <ds-media-viewer-image *ngIf="showImage" [images]="mediaList"></ds-media-viewer-image>
           <ng-container *ngIf="showImage || showVideo; else showThumbnail"></ng-container>
         </ng-container>

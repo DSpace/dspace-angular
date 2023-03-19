@@ -12,6 +12,53 @@ export const DEFAULT_CONTEXT = Context.Any;
 export const DEFAULT_THEME = '*';
 
 /**
+ * A class used to compare two matches and their relevancy to determine which of the two gains priority over the other
+ *
+ * "level" represents the index of the first default value that was used to find the match with:
+ * ViewMode being index 0, Context index 1 and theme index 2. Examples:
+ * - If a default value was used for context, but not view-mode and theme, the "level" will be 1
+ * - If a default value was used for view-mode and context, but not for theme, the "level" will be 0
+ * - If no default value was used for any of the fields, the "level" will be 3
+ *
+ * "relevancy" represents the amount of values that didn't require a default value to fall back on. Examples:
+ * - If a default value was used for theme, but not view-mode and context, the "relevancy" will be 2
+ * - If a default value was used for view-mode and context, but not for theme, the "relevancy" will be 1
+ * - If a default value was used for all fields, the "relevancy" will be 0
+ * - If no default value was used for any of the fields, the "relevancy" will be 3
+ *
+ * To determine which of two MatchRelevancies is the most relevant, we compare "level" and "relevancy" in that order.
+ * If any of the two is higher than the other, that match is most relevant. Examples:
+ * - { level: 1, relevancy: 1 } is more relevant than { level: 0, relevancy: 2 }
+ * - { level: 1, relevancy: 1 } is less relevant than { level: 1, relevancy: 2 }
+ * - { level: 1, relevancy: 1 } is more relevant than { level: 1, relevancy: 0 }
+ * - { level: 1, relevancy: 1 } is less relevant than { level: 2, relevancy: 0 }
+ * - { level: 1, relevancy: 1 } is more relevant than null
+ */
+class MatchRelevancy {
+  constructor(public match: any,
+              public level: number,
+              public relevancy: number) {
+  }
+
+  isMoreRelevantThan(otherMatch: MatchRelevancy): boolean {
+    if (hasNoValue(otherMatch)) {
+      return true;
+    }
+    if (otherMatch.level > this.level) {
+      return false;
+    }
+    if (otherMatch.level === this.level && otherMatch.relevancy > this.relevancy) {
+      return false;
+    }
+    return true;
+  }
+
+  isLessRelevantThan(otherMatch: MatchRelevancy): boolean {
+    return !this.isMoreRelevantThan(otherMatch);
+  }
+}
+
+/**
  * Factory to allow us to inject getThemeConfigFor so we can mock it in tests
  */
 export const GET_THEME_CONFIG_FOR_FACTORY = new InjectionToken<(str) => ThemeConfig>('getThemeConfigFor', {
@@ -48,47 +95,70 @@ export function listableObjectComponent(objectType: string | GenericConstructor<
 
 /**
  * Getter to retrieve the matching listable object component
+ *
+ * Looping over the provided types, it'll attempt to find the best match depending on the {@link MatchRelevancy} returned by getMatch()
+ * The most relevant match between types is kept and eventually returned
+ *
  * @param types The types of which one should match the listable component
  * @param viewMode The view mode that should match the components
  * @param context The context that should match the components
  * @param theme The theme that should match the components
  */
 export function getListableObjectComponent(types: (string | GenericConstructor<ListableObject>)[], viewMode: ViewMode, context: Context = DEFAULT_CONTEXT, theme: string = DEFAULT_THEME) {
-  let bestMatch;
-  let bestMatchValue = 0;
+  let currentBestMatch: MatchRelevancy = null;
   for (const type of types) {
     const typeMap = map.get(type);
     if (hasValue(typeMap)) {
-      const typeModeMap = typeMap.get(viewMode);
-      if (hasValue(typeModeMap)) {
-        const contextMap = typeModeMap.get(context);
-        if (hasValue(contextMap)) {
-          const match = resolveTheme(contextMap, theme);
-          if (hasValue(match)) {
-            return match;
-          }
-          if (bestMatchValue < 3 && hasValue(contextMap.get(DEFAULT_THEME))) {
-            bestMatchValue = 3;
-            bestMatch = contextMap.get(DEFAULT_THEME);
-          }
-        }
-        if (bestMatchValue < 2 &&
-          hasValue(typeModeMap.get(DEFAULT_CONTEXT)) &&
-          hasValue(typeModeMap.get(DEFAULT_CONTEXT).get(DEFAULT_THEME))) {
-          bestMatchValue = 2;
-          bestMatch = typeModeMap.get(DEFAULT_CONTEXT).get(DEFAULT_THEME);
-        }
-      }
-      if (bestMatchValue < 1 &&
-        hasValue(typeMap.get(DEFAULT_VIEW_MODE)) &&
-        hasValue(typeMap.get(DEFAULT_VIEW_MODE).get(DEFAULT_CONTEXT)) &&
-        hasValue(typeMap.get(DEFAULT_VIEW_MODE).get(DEFAULT_CONTEXT).get(DEFAULT_THEME))) {
-        bestMatchValue = 1;
-        bestMatch = typeMap.get(DEFAULT_VIEW_MODE).get(DEFAULT_CONTEXT).get(DEFAULT_THEME);
+      const match = getMatch(typeMap, [viewMode, context, theme], [DEFAULT_VIEW_MODE, DEFAULT_CONTEXT, DEFAULT_THEME]);
+      if (hasNoValue(currentBestMatch) || currentBestMatch.isLessRelevantThan(match)) {
+        currentBestMatch = match;
       }
     }
   }
-  return bestMatch;
+  return hasValue(currentBestMatch) ? currentBestMatch.match : null;
+}
+
+/**
+ * Find an object within a nested map, matching the provided keys as best as possible, falling back on defaults wherever
+ * needed.
+ *
+ * Starting off with a Map, it loops over the provided keys, going deeper into the map until it finds a value
+ * If at some point, no value is found, it'll attempt to use the default value for that index instead
+ * If the default value exists, the index is stored in the "level"
+ * If no default value exists, 1 is added to "relevancy"
+ * See {@link MatchRelevancy} what these represent
+ *
+ * @param typeMap         a multi-dimensional map
+ * @param keys            the keys of the multi-dimensional map to loop over. Each key represents a level within the map
+ * @param defaults        the default values to use for each level, in case no value is found for the key at that index
+ * @returns matchAndLevel a {@link MatchRelevancy} object containing the match and its level of relevancy
+ */
+function getMatch(typeMap: Map<any, any>, keys: any[], defaults: any[]): MatchRelevancy {
+  let currentMap = typeMap;
+  let level = -1;
+  let relevancy = 0;
+  for (let i = 0; i < keys.length; i++) {
+    // If we're currently checking the theme, resolve it first to take extended themes into account
+    let currentMatch = defaults[i] === DEFAULT_THEME ? resolveTheme(currentMap, keys[i]) : currentMap.get(keys[i]);
+    if (hasNoValue(currentMatch)) {
+      currentMatch = currentMap.get(defaults[i]);
+      if (level === -1) {
+        level = i;
+      }
+    } else {
+      relevancy++;
+    }
+    if (hasValue(currentMatch)) {
+      if (currentMatch instanceof Map) {
+        currentMap = currentMatch as Map<any, any>;
+      } else {
+        return new MatchRelevancy(currentMatch, level > -1 ? level : i + 1, relevancy);
+      }
+    } else {
+      return null;
+    }
+  }
+  return null;
 }
 
 /**
