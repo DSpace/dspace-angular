@@ -1,15 +1,14 @@
 <video
-  #media
-  [src]="filteredMedias[currentIndex].bitstream._links.content.href"
+  [src]="medias[currentIndex].bitstream._links.content.href"
   id="singleVideo"
   [poster]="
-    filteredMedias[currentIndex].thumbnail ||
-    replacements[filteredMedias[currentIndex].format]
+    medias[currentIndex].thumbnail ||
+    replacements[medias[currentIndex].format]
   "
   preload="none"
   controls
 ></video>
-<div class="buttons" *ngIf="filteredMedias?.length > 1">
+<div class="buttons" *ngIf="medias?.length > 1">
   <button
     class="btn btn-primary previous"
     [disabled]="currentIndex === 0"
@@ -20,7 +19,7 @@
 
   <button
     class="btn btn-primary next"
-    [disabled]="currentIndex === filteredMedias.length - 1"
+    [disabled]="currentIndex === medias.length - 1"
     (click)="nextMedia()"
   >
     {{ "media-viewer.next" | translate }}
@@ -36,7 +35,7 @@
     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
       <button
         ngbDropdownItem
-        *ngFor="let item of filteredMedias; index as indexOfelement"
+        *ngFor="let item of medias; index as indexOfelement"
         class="list-element"
         (click)="selectedMedia(indexOfelement)"
       >

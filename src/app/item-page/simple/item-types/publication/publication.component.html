@@ -17,13 +17,13 @@
 </div>
 <div class="row">
   <div class="col-xs-12 col-md-4">
-    <ng-container *ngIf="!mediaViewer.image">
+    <ng-container *ngIf="!(mediaViewer.image || mediaViewer.video)">
       <ds-metadata-field-wrapper [hideIfNoTextContent]="false">
         <ds-thumbnail [thumbnail]="object?.thumbnail | async"></ds-thumbnail>
       </ds-metadata-field-wrapper>
     </ng-container>
-    <ng-container *ngIf="mediaViewer.image">
-      <ds-media-viewer [item]="object" [videoOptions]="mediaViewer.video"></ds-media-viewer>
+    <ng-container *ngIf="mediaViewer.image || mediaViewer.video">
+      <ds-media-viewer [item]="object"></ds-media-viewer>
     </ng-container>
     <ds-themed-item-page-file-section [item]="object"></ds-themed-item-page-file-section>
     <ds-item-page-date-field [item]="object"></ds-item-page-date-field>

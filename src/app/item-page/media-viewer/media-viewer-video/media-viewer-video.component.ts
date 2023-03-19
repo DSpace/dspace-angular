@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 
 /**
@@ -9,12 +9,11 @@ import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
   templateUrl: './media-viewer-video.component.html',
   styleUrls: ['./media-viewer-video.component.scss'],
 })
-export class MediaViewerVideoComponent implements OnInit {
+export class MediaViewerVideoComponent {
   @Input() medias: MediaViewerItem[];
 
-  filteredMedias: MediaViewerItem[];
+  isCollapsed = false;
 
-  isCollapsed: boolean;
   currentIndex = 0;
 
   replacements = {
@@ -24,15 +23,8 @@ export class MediaViewerVideoComponent implements OnInit {
 
   replacementThumbnail: string;
 
-  ngOnInit() {
-    this.isCollapsed = false;
-    this.filteredMedias = this.medias.filter(
-      (media) => media.format === 'audio' || media.format === 'video'
-    );
-  }
-
   /**
-   * This method sets the reviced index into currentIndex
+   * This method sets the received index into currentIndex
    * @param index Selected index
    */
   selectedMedia(index: number) {
@@ -40,14 +32,14 @@ export class MediaViewerVideoComponent implements OnInit {
   }
 
   /**
-   * This method increade the number of the currentIndex
+   * This method increases the number of the currentIndex
    */
   nextMedia() {
     this.currentIndex++;
   }
 
   /**
-   * This method decrese the number of the currentIndex
+   * This method decreases the number of the currentIndex
    */
   prevMedia() {
     this.currentIndex--;
