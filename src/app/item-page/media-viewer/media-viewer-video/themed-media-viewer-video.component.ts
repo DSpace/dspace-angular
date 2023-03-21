@@ -20,7 +20,7 @@ export class ThemedMediaViewerVideoComponent extends ThemedComponent<MediaViewer
   ];
 
   protected getComponentName(): string {
-    return 'MediaViewerImageComponent';
+    return 'MediaViewerVideoComponent';
   }
 
   protected importThemedComponent(themeName: string): Promise<any> {
