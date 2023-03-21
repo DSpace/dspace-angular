@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../app/shared/shared.module';
-import { HeaderComponent } from './app/header/header.component';
+import { NavbarComponent } from './app/navbar/navbar.component';
 import { SearchModule } from '../../app/shared/search/search.module';
 import { RootModule } from '../../app/root.module';
 import { NavbarModule } from '../../app/navbar/navbar.module';
@@ -16,7 +16,7 @@ const ENTRY_COMPONENTS = [
 
 const DECLARATIONS = [
   ...ENTRY_COMPONENTS,
-  HeaderComponent,
+  NavbarComponent,
 ];
 
 @NgModule({
