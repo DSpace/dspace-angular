@@ -133,6 +133,18 @@ import {
 import { MetadataRepresentationListComponent } from './app/item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { DsDynamicLookupRelationSearchTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
+import { FeedbackFormComponent } from './app/info/feedback/feedback-form/feedback-form.component';
+import {
+  ItemPageTitleFieldComponent
+} from './app/item-page/simple/field-components/specific-field/title/item-page-title-field.component';
+import { MediaViewerComponent } from './app/item-page/media-viewer/media-viewer.component';
+import {
+  MediaViewerImageComponent
+} from './app/item-page/media-viewer/media-viewer-image/media-viewer-image.component';
+import {
+  MediaViewerVideoComponent
+} from './app/item-page/media-viewer/media-viewer-video/media-viewer-video.component';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -173,6 +185,7 @@ const DECLARATIONS = [
   WorkflowItemSendBackComponent,
   BreadcrumbsComponent,
   FeedbackComponent,
+  FeedbackFormComponent,
   CommunityListComponent,
   ComcolPageHandleComponent,
   AuthNavMenuComponent,
@@ -195,6 +208,10 @@ const DECLARATIONS = [
   MetadataRepresentationListComponent,
   DsDynamicLookupRelationSearchTabComponent,
   DsDynamicLookupRelationExternalSourceTabComponent,
+  ItemPageTitleFieldComponent,
+  MediaViewerComponent,
+  MediaViewerImageComponent,
+  MediaViewerVideoComponent,
 ];
 
 @NgModule({
@@ -251,7 +268,8 @@ const DECLARATIONS = [
     ResourcePoliciesModule,
     ComcolModule,
     DsoSharedModule,
-    SystemWideAlertModule
+    SystemWideAlertModule,
+    NgxGalleryModule,
   ],
   declarations: DECLARATIONS,
   exports: [
