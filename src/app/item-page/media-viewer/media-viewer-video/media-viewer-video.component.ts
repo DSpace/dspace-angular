@@ -5,7 +5,7 @@ import { CaptionInfo } from './caption-info';
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
 
 /**
- * This componenet renders a video viewer and playlist for the media viewer
+ * This component renders a video viewer and playlist for the media viewer
  */
 @Component({
   selector: 'ds-media-viewer-video',
@@ -25,8 +25,6 @@ export class MediaViewerVideoComponent {
     video: './assets/images/replacement_video.svg',
     audio: './assets/images/replacement_audio.svg',
   };
-
-  replacementThumbnail: string;
 
   /**
    * This method check if there is caption file for the media

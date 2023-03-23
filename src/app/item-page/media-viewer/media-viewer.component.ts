@@ -16,9 +16,8 @@ import { environment } from '../../../environments/environment';
 import { Subscription } from 'rxjs/internal/Subscription';
 
 /**
- * This componenet renders the media viewers
+ * This component renders the media viewers
  */
-
 @Component({
   selector: 'ds-media-viewer',
   templateUrl: './media-viewer.component.html',
