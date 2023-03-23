@@ -249,6 +249,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * @param ePerson   EPerson we want to delete as member from group that is currently being edited
    */
   deleteMemberFromGroup(ePerson: EpersonDtoModel) {
+    ePerson.memberOfGroup = false;
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         const response = this.groupDataService.deleteMemberFromGroup(activeGroup, ePerson.eperson);
