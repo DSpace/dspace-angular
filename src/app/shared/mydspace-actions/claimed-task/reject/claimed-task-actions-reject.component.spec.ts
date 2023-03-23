@@ -89,7 +89,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
   it('should display reject button', () => {
     const btn = fixture.debugElement.query(By.css('.btn-danger'));
 
-    expect(btn).toBeDefined();
+    expect(btn).not.toBeNull();
   });
 
   it('should display spin icon when reject is pending', () => {
@@ -98,7 +98,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
 
     const span = fixture.debugElement.query(By.css('.btn-danger .fa-spin'));
 
-    expect(span).toBeDefined();
+    expect(span).not.toBeNull();
   });
 
   it('should call openRejectModal on reject button click', () => {

@@ -21,6 +21,7 @@ import { CommunityListConfig } from './community-list-config.interface';
 import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
+import { DiscoverySortConfig } from './discovery-sort.config';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -46,6 +47,7 @@ interface AppConfig extends Config {
   info: InfoConfig;
   markdown: MarkdownConfig;
   vocabularies: FilterVocabularyConfig[];
+  comcolSelectionSort: DiscoverySortConfig;
 }
 
 /**
