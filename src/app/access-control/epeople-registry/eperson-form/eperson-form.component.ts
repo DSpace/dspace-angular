@@ -167,6 +167,15 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   isImpersonated = false;
 
   /**
+   * A boolean that indicate if to display EPersonForm's Rest password button
+   */
+  displayResetPassword = false;
+
+  /**
+   * A string that indicate the label of Submit button
+   */
+  submitLabel = 'form.create';
+  /**
    * Subscription to email field value change
    */
   emailValueChangeSubscribe: Subscription;
@@ -190,6 +199,8 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       this.epersonInitial = eperson;
       if (hasValue(eperson)) {
         this.isImpersonated = this.authService.isImpersonatingUser(eperson.id);
+        this.displayResetPassword = true;
+        this.submitLabel = 'form.submit';
       }
     }));
   }

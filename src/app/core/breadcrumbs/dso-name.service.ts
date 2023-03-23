@@ -31,7 +31,7 @@ export class DSONameService {
       const firstName = dso.firstMetadataValue('eperson.firstname');
       const lastName = dso.firstMetadataValue('eperson.lastname');
       if (isEmpty(firstName) && isEmpty(lastName)) {
-        return dso.name;
+        return this.translateService.instant('dso.name.unnamed');
       } else if (isEmpty(firstName) || isEmpty(lastName)) {
         return firstName || lastName;
       } else {
@@ -42,7 +42,7 @@ export class DSONameService {
       const familyName = dso.firstMetadataValue('person.familyName');
       const givenName = dso.firstMetadataValue('person.givenName');
       if (isEmpty(familyName) && isEmpty(givenName)) {
-        return dso.firstMetadataValue('dc.title') || dso.name;
+        return dso.firstMetadataValue('dc.title') || this.translateService.instant('dso.name.unnamed');
       } else if (isEmpty(familyName) || isEmpty(givenName)) {
         return familyName || givenName;
       } else {

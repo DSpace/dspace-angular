@@ -1448,6 +1448,8 @@
 
   "dso.name.untitled": "Untitled",
 
+  "dso.name.unnamed": "Unnamed",
+
 
 
   "dso-selector.create.collection.head": "New collection",
@@ -1750,6 +1752,8 @@
   "form.search-help": "Click here to look for an existing correspondence",
 
   "form.submit": "Save",
+
+  "form.create": "Create",
 
   "form.repeatable.sort.tip": "Drop the item in the new position",
 
