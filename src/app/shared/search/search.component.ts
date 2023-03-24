@@ -127,7 +127,7 @@ export class SearchComponent implements OnInit {
   /**
    * List of available view mode
    */
-  @Input() useUniquePageId: false;
+  @Input() useUniquePageId: boolean;
 
   /**
    * List of available view mode
