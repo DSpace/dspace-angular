@@ -1,5 +1,5 @@
 <div class="mt-2 mb-2" *ngIf="(submitter$ | async) as sub">
   <span class="text-muted">{{'submission.workflow.tasks.generic.submitter' | translate}}:
-    <span class="badge badge-info">{{sub?.name ?? 'submitter.empty' | translate}}</span>
+    <span class="badge badge-info">{{sub?.name ? sub.name : ('submitter.empty' | translate)}}</span>
   </span>
 </div>
