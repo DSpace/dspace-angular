@@ -2991,8 +2991,8 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Керувати прив'язаними зібраннями",
 
-  // "item.edit.tabs.status.buttons.move.button": "Move...",
-  "item.edit.tabs.status.buttons.move.button": "Перемістити...",
+  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
+  "item.edit.tabs.status.buttons.move.button": "Перемістити цей елемент до іншої колекції",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
   "item.edit.tabs.status.buttons.move.label": "Перемістити документ до іншого зібрання",
@@ -3015,8 +3015,8 @@
   // "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
   "item.edit.tabs.status.buttons.reinstate.label": "Відновити документ в репозиторій",
 
-  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  "item.edit.tabs.status.buttons.withdraw.button": "Вилучити...",
+  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
+  "item.edit.tabs.status.buttons.withdraw.button": "вилучити цей предмет",
 
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
   "item.edit.tabs.status.buttons.withdraw.label": "Вилучити документ з репозиторію",
@@ -5646,7 +5646,7 @@
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
   "submission.sections.upload.header.policy.default.withlist": "Зверніть увагу, що завантажені файли в {{collectionName}} зібрання будуть доступні, для користувачів, що входять у групу(и):",
 
-  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "Тут ви знайдете всі файли, які зараз містяться в документі. Ви можете оновити метадані файлу та умови доступу або <strong>завантажити додаткові файли, просто перетягнувши їх сюди на сторінці</strong>",
 
   // "submission.sections.upload.no-entry": "No",

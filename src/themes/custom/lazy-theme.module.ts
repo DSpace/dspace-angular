@@ -50,6 +50,7 @@ import { BrowseBySwitcherComponent } from './app/browse-by/browse-by-switcher/br
 import { CommunityListPageComponent } from './app/community-list-page/community-list-page.component';
 import { SearchPageComponent } from './app/search-page/search-page.component';
 import { ConfigurationSearchPageComponent } from './app/search-page/configuration-search-page.component';
+import { SearchFormComponent } from './app/shared/search-form/search-form.component';
 import { EndUserAgreementComponent } from './app/info/end-user-agreement/end-user-agreement.component';
 import { PageNotFoundComponent } from './app/pagenotfound/pagenotfound.component';
 import { ObjectNotFoundComponent } from './app/lookup-by-id/objectnotfound/objectnotfound.component';
@@ -94,7 +95,6 @@ import { AuthNavMenuComponent } from './app/shared/auth-nav-menu/auth-nav-menu.c
 import {
   ExpandableNavbarSectionComponent
 } from './app/navbar/expandable-navbar-section/expandable-navbar-section.component';
-import { ItemMetadataComponent } from './app/item-page/edit-item-page/item-metadata/item-metadata.component';
 import {
   EditItemTemplatePageComponent
 } from './app/collection-page/edit-item-template-page/edit-item-template-page.component';
@@ -117,8 +117,34 @@ import { BrowseByTitlePageComponent } from './app/browse-by/browse-by-title-page
 import {
   ExternalSourceEntryImportModalComponent
 } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
+import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
+import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
 import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
 import { ItemSharedModule } from '../../app/item-page/item-shared.module';
+import { ResultsBackButtonComponent } from './app/shared/results-back-button/results-back-button.component';
+import { DsoEditMetadataComponent } from './app/dso-shared/dso-edit-metadata/dso-edit-metadata.component';
+import { DsoSharedModule } from '../../app/dso-shared/dso-shared.module';
+import { SystemWideAlertModule } from '../../app/system-wide-alert/system-wide-alert.module';
+import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
+import { ItemAlertsComponent } from './app/item-page/alerts/item-alerts.component';
+import {
+  FullFileSectionComponent
+} from './app/item-page/full/field-components/file-section/full-file-section.component';
+import { MetadataRepresentationListComponent } from './app/item-page/simple/metadata-representation-list/metadata-representation-list.component';
+import { DsDynamicLookupRelationSearchTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
+import { DsDynamicLookupRelationExternalSourceTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
+import { FeedbackFormComponent } from './app/info/feedback/feedback-form/feedback-form.component';
+import {
+  ItemPageTitleFieldComponent
+} from './app/item-page/simple/field-components/specific-field/title/item-page-title-field.component';
+import { MediaViewerComponent } from './app/item-page/media-viewer/media-viewer.component';
+import {
+  MediaViewerImageComponent
+} from './app/item-page/media-viewer/media-viewer-image/media-viewer-image.component';
+import {
+  MediaViewerVideoComponent
+} from './app/item-page/media-viewer/media-viewer-video/media-viewer-video.component';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -128,6 +154,7 @@ const DECLARATIONS = [
   CommunityListPageComponent,
   SearchPageComponent,
   ConfigurationSearchPageComponent,
+  SearchFormComponent,
   EndUserAgreementComponent,
   PageNotFoundComponent,
   ObjectNotFoundComponent,
@@ -158,11 +185,11 @@ const DECLARATIONS = [
   WorkflowItemSendBackComponent,
   BreadcrumbsComponent,
   FeedbackComponent,
+  FeedbackFormComponent,
   CommunityListComponent,
   ComcolPageHandleComponent,
   AuthNavMenuComponent,
   ExpandableNavbarSectionComponent,
-  ItemMetadataComponent,
   EditItemTemplatePageComponent,
   LoadingComponent,
   SearchResultsComponent,
@@ -174,8 +201,17 @@ const DECLARATIONS = [
   BrowseByDatePageComponent,
   BrowseByTitlePageComponent,
   ExternalSourceEntryImportModalComponent,
-
-
+  ResultsBackButtonComponent,
+  DsoEditMetadataComponent,
+  ItemAlertsComponent,
+  FullFileSectionComponent,
+  MetadataRepresentationListComponent,
+  DsDynamicLookupRelationSearchTabComponent,
+  DsDynamicLookupRelationExternalSourceTabComponent,
+  ItemPageTitleFieldComponent,
+  MediaViewerComponent,
+  MediaViewerImageComponent,
+  MediaViewerVideoComponent,
 ];
 
 @NgModule({
@@ -206,6 +242,7 @@ const DECLARATIONS = [
     InfoModule,
     JournalEntitiesModule,
     MenuModule,
+    DsoPageModule,
     MyDspaceSearchModule,
     NavbarModule,
     NgbModule,
@@ -216,6 +253,8 @@ const DECLARATIONS = [
     ScrollToModule,
     SearchPageModule,
     SharedModule,
+    SharedBrowseByModule,
+    ResultsBackButtonModule,
     StatisticsModule,
     StatisticsPageModule,
     StoreModule,
@@ -228,6 +267,9 @@ const DECLARATIONS = [
     FormsModule,
     ResourcePoliciesModule,
     ComcolModule,
+    DsoSharedModule,
+    SystemWideAlertModule,
+    NgxGalleryModule,
   ],
   declarations: DECLARATIONS,
   exports: [

@@ -34,6 +34,7 @@ import { CollectionElementLinkType } from '../object-collection/collection-eleme
 import { environment } from 'src/environments/environment';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
+import { WorkspaceItem } from '../..//core/submission/models/workspaceitem.model';
 
 @Component({
   selector: 'ds-search',
@@ -118,6 +119,11 @@ export class SearchComponent implements OnInit {
   @Input() selectionConfig: SelectionConfig;
 
   /**
+   * A boolean representing if show csv export button
+   */
+  @Input() showCsvExport = false;
+
+  /**
    * A boolean representing if show search sidebar button
    */
   @Input() showSidebar = true;
@@ -146,6 +152,11 @@ export class SearchComponent implements OnInit {
    * Whether or not to track search statistics by sending updates to the rest api
    */
   @Input() trackStatistics = false;
+
+  /**
+   * The default value for the search query when none is already defined in the {@link SearchConfigurationService}
+   */
+  @Input() query: string;
 
   /**
    * The current configuration used during the search
@@ -303,6 +314,9 @@ export class SearchComponent implements OnInit {
           configuration: searchOptions.configuration || configuration,
           sort: sortOption || searchOptions.sort
         });
+      if (combinedOptions.query === '') {
+        combinedOptions.query = this.query;
+      }
       const newSearchOptions = new PaginatedSearchOptions(combinedOptions);
       // check if search options are changed
       // if so retrieve new related results otherwise skip it
@@ -398,15 +412,21 @@ export class SearchComponent implements OnInit {
   private retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
     this.resultsRD$.next(null);
     this.lastSearchOptions = searchOptions;
+    let followLinks = [
+      followLink<Item>('thumbnail', { isOptional: true }),
+      followLink<SubmissionObject>('item', { isOptional: true }, followLink<Item>('thumbnail', { isOptional: true })) as any,
+      followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses }),
+    ];
+    if (this.configuration === 'supervision') {
+      followLinks.push(followLink<WorkspaceItem>('supervisionOrders', { isOptional: true }) as any);
+    }
     this.service.search(
       searchOptions,
       undefined,
       this.useCachedVersionIfAvailable,
       true,
-      followLink<Item>('thumbnail', { isOptional: true }),
-      followLink<SubmissionObject>('item', { isOptional: true }, followLink<Item>('thumbnail', { isOptional: true })) as any,
-      followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
-    ).pipe(getFirstCompletedRemoteData())
+      ...followLinks
+      ).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         if (results.hasSucceeded) {
           if (this.trackStatistics) {

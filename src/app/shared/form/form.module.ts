@@ -21,7 +21,7 @@ import { DsDynamicLookupRelationExternalSourceTabComponent } from './builder/ds-
 import { SharedModule } from '../shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchModule } from '../search/search.module';
-import { DYNAMIC_FORM_CONTROL_MAP_FN, DYNAMIC_MATCHER_PROVIDERS, DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { DYNAMIC_FORM_CONTROL_MAP_FN, DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { ExistingMetadataListElementComponent } from './builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 import { ExistingRelationListElementComponent } from './builder/ds-dynamic-form-ui/existing-relation-list-element/existing-relation-list-element.component';
 import { ExternalSourceEntryImportModalComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
@@ -40,6 +40,8 @@ import { NgxMaskModule } from 'ngx-mask';
 import { ThemedExternalSourceEntryImportModalComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
 import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { CdkTreeModule } from '@angular/cdk/tree';
+import { ThemedDynamicLookupRelationSearchTabComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/themed-dynamic-lookup-relation-search-tab.component';
+import { ThemedDynamicLookupRelationExternalSourceTabComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component';
 
 const COMPONENTS = [
   CustomSwitchComponent,
@@ -48,8 +50,10 @@ const COMPONENTS = [
   DsDynamicListComponent,
   DsDynamicLookupComponent,
   DsDynamicLookupRelationSearchTabComponent,
+  ThemedDynamicLookupRelationSearchTabComponent,
   DsDynamicLookupRelationSelectionTabComponent,
   DsDynamicLookupRelationExternalSourceTabComponent,
+  ThemedDynamicLookupRelationExternalSourceTabComponent,
   DsDynamicDisabledComponent,
   DsDynamicLookupRelationModalComponent,
   DsDynamicScrollableDropdownComponent,
@@ -101,7 +105,6 @@ const DIRECTIVES = [
       provide: DYNAMIC_FORM_CONTROL_MAP_FN,
       useValue: dsDynamicFormControlMapFn
     },
-    ...DYNAMIC_MATCHER_PROVIDERS,
     VocabularyTreeviewService,
     DynamicFormLayoutService,
     DynamicFormService,
