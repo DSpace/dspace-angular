@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync, tick, fakeAsync } from '@angular/core/testing';
 
 import { of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -60,7 +60,7 @@ describe('ItemSubmitterComponent', () => {
     }));
   });
 
-  it('should show a badge with submitter name', () => {
+  it('should show a badge with submitter name', fakeAsync(() => {
 
     const badge = fixture.debugElement.query(By.css('.badge'));
 
@@ -72,5 +72,5 @@ describe('ItemSubmitterComponent', () => {
       expect(badge.nativeElement.innerHTML).toBe(EPersonMock.name);
     });
 
-  });
+  }));
 });
