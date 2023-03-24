@@ -22,7 +22,7 @@ export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPrev
 
   @Input() status: MyDspaceItemStatusType;
 
-  @Input() showSubmitter = false;
+  @Input() showSubmitter: boolean;
 
 
   protected getComponentName(): string {
