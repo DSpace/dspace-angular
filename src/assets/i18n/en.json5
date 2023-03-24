@@ -3255,7 +3255,7 @@
 
   "process.new.notification.error.content": "An error occurred while creating this process",
 
-  "process.new.notification.error.max-upload.content": "One or more files exceeds the maximum upload size",
+  "process.new.notification.error.max-upload.content": "The file exceeds the maximum upload size",
 
   "process.new.header": "Create a new process",
 
