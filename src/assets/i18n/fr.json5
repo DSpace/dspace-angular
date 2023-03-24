@@ -6177,8 +6177,8 @@
   // "idle-modal.log-out": "Log out",
   "idle-modal.log-out": "Déconnexion",
 
-  // "idle-modal.extend-session": "Extend session"
-  "idle-modal.extend-session": "Prolonger la session"
+  // "idle-modal.extend-session": "Extend session",
+  "idle-modal.extend-session": "Prolonger la session",
   
   
   
@@ -6212,46 +6212,46 @@
   "system-wide-alert.form.cancel": "Annuler",
   
 
-  "system-wide-alert.form.save": "Save",
+  //"system-wide-alert.form.save": "Save",
 "system-wide-alert.form.save": "Sauvegarder",
   
-  "system-wide-alert.form.label.active": "ACTIVE",
+  //"system-wide-alert.form.label.active": "ACTIVE",
  "system-wide-alert.form.label.active": "ACTIF",
   
-  "system-wide-alert.form.label.inactive": "INACTIVE",
+  //"system-wide-alert.form.label.inactive": "INACTIVE",
    "system-wide-alert.form.label.inactive": "INACTIF",
 
-  "system-wide-alert.form.error.message": "The system wide alert must have a message",
+  //"system-wide-alert.form.error.message": "The system wide alert must have a message",
   "system-wide-alert.form.error.message": "Le message d'avertissement ne peut pas être vide",
 
-  "system-wide-alert.form.label.message": "Alert message",
+  //"system-wide-alert.form.label.message": "Alert message",
   "system-wide-alert.form.label.message": "Message d'avertissement",
 
-  "system-wide-alert.form.label.countdownTo.enable": "Enable a countdown timer",
+  //"system-wide-alert.form.label.countdownTo.enable": "Enable a countdown timer",
   "system-wide-alert.form.label.countdownTo.enable": "Activer un compte à rebours",
 
-  "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
+  //"system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
   "system-wide-alert.form.label.countdownTo.hint": "Lorsque cette option est activée, il est possible de fixer une date dans le futur et la bannière du message d'avertissement effectuera un compte à rebours jusqu'à la date fixée. À la fin du compte à rebours, le message d'avertissement disparaîtra mais le serveur ne sera pas arrêté automatiquement.",
 
- "system-wide-alert.form.label.preview": "System-wide alert preview",
+ //"system-wide-alert.form.label.preview": "System-wide alert preview",
   "system-wide-alert.form.label.preview": "Aperçu du message d'avertissement",
 
-  "system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
+  //"system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
   "system-wide-alert.form.update.success": "Le message d'avertissement a été mis à jour",
 
-  "system-wide-alert.form.update.error": "Something went wrong when updating the system-wide alert",
+  //"system-wide-alert.form.update.error": "Something went wrong when updating the system-wide alert",
   "system-wide-alert.form.update.error": "Un erreur s'est produite lors de la mise à jour du message d'avertissement",
 
-  "system-wide-alert.form.create.success": "The system-wide alert was successfully created",
+  //"system-wide-alert.form.create.success": "The system-wide alert was successfully created",
   "system-wide-alert.form.create.success": "Le message d'avertissement a été crée",
 
-  "system-wide-alert.form.create.error": "Something went wrong when creating the system-wide alert",
+  //"system-wide-alert.form.create.error": "Something went wrong when creating the system-wide alert",
   "system-wide-alert.form.create.error": "Un erreur s'est produite lors de la création du message d'avertissement",
 
-  "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
+  //"admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
   "admin.system-wide-alert.breadcrumbs": "Messages d'avertissement",
 
-  "admin.system-wide-alert.title": "System-wide Alerts",
+  //"admin.system-wide-alert.title": "System-wide Alerts",
   "admin.system-wide-alert.title": "Messages d'avertissement",
   
   
