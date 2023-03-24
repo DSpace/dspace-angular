@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync, tick } from '@angular/core/testing';
 
 import { of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -66,6 +66,8 @@ describe('ItemSubmitterComponent', () => {
 
     fixture.whenStable().then(() => {
       fixture.detectChanges();
+      tick(); // Espera a que se ejecuten todos los pipes
+      
       expect(badge).not.toBeNull();
       expect(badge.nativeElement.innerHTML).toBe(EPersonMock.name);
     });
