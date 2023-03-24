@@ -18,7 +18,7 @@ export class MediaViewerImageComponent implements OnInit {
   @Input() preview?: boolean;
   @Input() image?: string;
 
-  loggedin: boolean;
+  thumbnailPlaceholder = './assets/images/replacement_image.svg';
 
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
@@ -28,7 +28,10 @@ export class MediaViewerImageComponent implements OnInit {
    */
   isAuthenticated$: Observable<boolean>;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    protected authService: AuthService,
+  ) {
+  }
 
   /**
    * Thi method sets up the gallery settings and data
@@ -69,20 +72,20 @@ export class MediaViewerImageComponent implements OnInit {
    * @param medias input NgxGalleryImage array
    */
   convertToGalleryImage(medias: MediaViewerItem[]): NgxGalleryImage[] {
-    const mappadImages = [];
+    const mappedImages = [];
     for (const image of medias) {
       if (image.format === 'image') {
-        mappadImages.push({
+        mappedImages.push({
           small: image.thumbnail
             ? image.thumbnail
-            : './assets/images/replacement_image.svg',
+            : this.thumbnailPlaceholder,
           medium: image.thumbnail
             ? image.thumbnail
-            : './assets/images/replacement_image.svg',
+            : this.thumbnailPlaceholder,
           big: image.bitstream._links.content.href,
         });
       }
     }
-    return mappadImages;
+    return mappedImages;
   }
 }
