@@ -60,12 +60,15 @@ describe('ItemSubmitterComponent', () => {
     }));
   });
 
-  it('should show a badge with submitter name', async () => {
+  it('should show a badge with submitter name', () => {
 
-    await new Promise(f => setTimeout(f, 1000));
     const badge = fixture.debugElement.query(By.css('.badge'));
 
-    expect(badge).not.toBeNull();
-    expect(badge.nativeElement.innerHTML).toBe(EPersonMock.name);
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      expect(badge).not.toBeNull();
+      expect(badge.nativeElement.innerHTML).toBe(EPersonMock.name);
+    });
+
   });
 });

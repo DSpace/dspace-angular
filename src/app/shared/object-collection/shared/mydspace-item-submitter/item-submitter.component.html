@@ -1,10 +1,11 @@
 <div class="mt-2 mb-2" *ngIf="(submitter$ | async)">
   <span class="text-muted">
     {{'submission.workflow.tasks.generic.submitter' | translate}}:
-    <span class="badge badge-info">
-      <ng-container *ngIf="{ value: submitter$ | async } as submitter">
+    <ng-container *ngIf="{ value: submitter$ | async } as submitter">
+      <span class="badge badge-info">
+        {{Object.prototype.toString.call(submitter.name)}}
         {{ submitter.name ?? ('submitter.empty' | translate) }}
-      </ng-container>
-    </span>
+      </span>
+    </ng-container>
   </span>
 </div>
