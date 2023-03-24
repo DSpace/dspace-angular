@@ -3,7 +3,6 @@
     {{'submission.workflow.tasks.generic.submitter' | translate}}:
     <ng-container *ngIf="{ value: submitter$ | async } as submitter">
       <span class="badge badge-info">
-        {{Object.prototype.toString.call(submitter.name)}}
         {{ submitter.name ?? ('submitter.empty' | translate) }}
       </span>
     </ng-container>
