@@ -68,7 +68,7 @@ export class EPerson extends DSpaceObject {
    */
   get name(): string | null {
     if (!this.firstMetadataValue('eperson.firstname') && !this.firstMetadataValue('eperson.lastname')) {
-      return null
+      return null;
     }
 
     return this.firstMetadataValue('eperson.firstname') + ' ' + this.firstMetadataValue('eperson.lastname');
