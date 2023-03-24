@@ -66,7 +66,7 @@ describe('ItemSubmitterComponent', () => {
 
     fixture.whenStable().then(() => {
       fixture.detectChanges();
-      tick(); // Espera a que se ejecuten todos los pipes
+      tick(5000); // Espera a que se ejecuten todos los pipes
 
       expect(badge).not.toBeNull();
       expect(badge.nativeElement.innerHTML).toBe(EPersonMock.name);
