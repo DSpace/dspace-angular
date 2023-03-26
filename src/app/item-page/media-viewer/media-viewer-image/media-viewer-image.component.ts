@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
@@ -20,8 +20,9 @@ export class MediaViewerImageComponent implements OnChanges, OnInit {
 
   loggedin: boolean;
 
-  galleryOptions: NgxGalleryOptions[];
-  galleryImages: NgxGalleryImage[];
+  galleryOptions: NgxGalleryOptions[] = [];
+
+  galleryImages: NgxGalleryImage[] = [];
 
   /**
    * Whether or not the current user is authenticated
@@ -30,9 +31,7 @@ export class MediaViewerImageComponent implements OnChanges, OnInit {
 
   constructor(private authService: AuthService) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.image = changes.image.currentValue;
-    this.preview = changes.preview.currentValue;
+  ngOnChanges(): void {
     this.galleryOptions = [
       {
         preview: this.preview !== undefined ? this.preview : true,
@@ -63,6 +62,7 @@ export class MediaViewerImageComponent implements OnChanges, OnInit {
 
   ngOnInit(): void {
     this.isAuthenticated$ = this.authService.isAuthenticated();
+    this.ngOnChanges();
   }
 
   /**
