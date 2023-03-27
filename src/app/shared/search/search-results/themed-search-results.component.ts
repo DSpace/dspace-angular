@@ -29,7 +29,7 @@ export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsC
 
   @Input() searchConfig: PaginatedSearchOptions;
 
-  @Input() showCsvExport = false;
+  @Input() showCsvExport: boolean;
 
   @Input() sortConfig: SortOptions;
 

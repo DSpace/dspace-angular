@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { ObjectListComponent } from './object-list.component';
 import { ThemedComponent } from '../theme-support/themed.component';
-import {ViewMode} from '../../core/shared/view-mode.model';
 import {PaginationComponentOptions} from '../pagination/pagination-component-options.model';
 import {SortDirection, SortOptions} from '../../core/cache/models/sort-options.model';
 import {CollectionElementLinkType} from '../object-collection/collection-element-link.type';

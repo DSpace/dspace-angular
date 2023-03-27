@@ -10,19 +10,11 @@ import { Item } from '../../../../../../core/shared/item.model';
 import { SearchResult } from '../../../../../search/models/search-result.model';
 import { SearchObjects } from '../../../../../search/models/search-objects.model';
 import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 
 @Component({
   selector: 'ds-themed-dynamic-lookup-relation-search-tab',
   styleUrls: [],
   templateUrl: '../../../../../theme-support/themed.component.html',
-  providers: [
-    {
-      provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
 })
 export class ThemedDynamicLookupRelationSearchTabComponent extends ThemedComponent<DsDynamicLookupRelationSearchTabComponent> {
   protected inAndOutputNames: (keyof DsDynamicLookupRelationSearchTabComponent & keyof this)[] = ['relationship', 'listId',
@@ -51,11 +43,11 @@ export class ThemedDynamicLookupRelationSearchTabComponent extends ThemedCompone
 
   @Input() isEditRelationship: boolean;
 
-  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter();
 
-  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter();
 
-  @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter<SearchObjects<DSpaceObject>>();
+  @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter();
 
   protected getComponentName(): string {
     return 'DsDynamicLookupRelationSearchTabComponent';
