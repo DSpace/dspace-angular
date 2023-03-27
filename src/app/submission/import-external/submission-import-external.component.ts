@@ -15,7 +15,9 @@ import { Context } from '../../core/shared/context.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { RouteService } from '../../core/services/route.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
+import {
+  SubmissionImportExternalPreviewComponent
+} from './import-external-preview/submission-import-external-preview.component';
 import { fadeIn } from '../../shared/animations/fade';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
@@ -186,12 +188,17 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     this.retrieveExternalSourcesSub = this.reload$.pipe(
       filter((sourceQueryObject: ExternalSourceData) => isNotEmpty(sourceQueryObject.sourceId) && isNotEmpty(sourceQueryObject.query)),
       switchMap((sourceQueryObject: ExternalSourceData) => {
+          const currentEntry = this.entriesRD$.getValue();
+          let useCache = true;
+          if (hasValue(currentEntry) && currentEntry.isError) {
+            useCache = false;
+          }
           const query = sourceQueryObject.query;
           this.routeData = sourceQueryObject;
           return this.searchConfigService.paginatedSearchOptions.pipe(
             tap(() => this.isLoading$.next(true)),
             filter((searchOptions) => searchOptions.query === query),
-            mergeMap((searchOptions) => this.externalService.getExternalSourceEntries(this.routeData.sourceId, searchOptions).pipe(
+            mergeMap((searchOptions) => this.externalService.getExternalSourceEntries(this.routeData.sourceId, searchOptions, useCache).pipe(
               getFinishedRemoteData(),
             ))
           );
