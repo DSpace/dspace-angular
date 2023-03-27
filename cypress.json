@@ -5,7 +5,7 @@
   "screenshotsFolder": "cypress/screenshots",
   "pluginsFile": "cypress/plugins/index.ts",
   "fixturesFolder": "cypress/fixtures",
-  "baseUrl": "http://localhost:4000",
+  "baseUrl": "http://127.0.0.1:4000",
   "retries":  {
     "runMode": 2,
     "openMode": 0

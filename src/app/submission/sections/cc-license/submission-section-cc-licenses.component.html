@@ -81,7 +81,7 @@
 
     </ng-template>
 
-    <ds-select *ngIf="field.enums?.length > 5">
+    <ds-select *ngIf="field.enums?.length > 5" [disabled]="field.id === 'jurisdiction' && defaultJurisdiction !== undefined && defaultJurisdiction !== 'none'">
       <ng-container class="selection" *ngVar="getSelectedOption(getSelectedCcLicense(), field) as option">
         <span *ngIf="option">
           {{ option.label }}
@@ -136,7 +136,7 @@
           <input type="checkbox"
                  title="accepted"
                  [checked]="accepted">
-          <span>{{ 'submission.sections.ccLicense.confirmation' | translate }}</span>
+          <span> {{ 'submission.sections.ccLicense.confirmation' | translate }}</span>
         </div>
       </div>
     </div>

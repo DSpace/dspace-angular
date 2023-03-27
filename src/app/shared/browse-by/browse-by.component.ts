@@ -12,6 +12,7 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { RouteService } from '../../core/services/route.service';
 import { map } from 'rxjs/operators';
 import { hasValue } from '../empty.util';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-browse-by',
@@ -124,10 +125,24 @@ export class BrowseByComponent implements OnInit, OnDestroy {
 
   public constructor(private injector: Injector,
                      protected paginationService: PaginationService,
+                     protected translateService: TranslateService,
                      private routeService: RouteService,
   ) {
 
   }
+
+  /**
+   * The label used by the back button.
+   */
+  buttonLabel = this.translateService.get('browse.back.all-results');
+
+  /**
+   * The function used for back navigation in metadata browse.
+   */
+  back = () => {
+    const page = +this.previousPage$.value > 1 ? +this.previousPage$.value : 1;
+    this.paginationService.updateRoute(this.paginationConfig.id, {page: page}, {[this.paginationConfig.id + '.return']: null, value: null, startsWith: null});
+  };
 
   /**
    * Go to the previous page
@@ -182,14 +197,6 @@ export class BrowseByComponent implements OnInit, OnDestroy {
       map(([startsWith, value]) => hasValue(startsWith) || hasValue(value))
     );
     this.sub = this.routeService.getQueryParameterValue(this.paginationConfig.id + '.return').subscribe(this.previousPage$);
-  }
-
-  /**
-   * Navigate back to the previous browse by page
-   */
-  back() {
-    const page = +this.previousPage$.value > 1 ? +this.previousPage$.value : 1;
-    this.paginationService.updateRoute(this.paginationConfig.id, {page: page}, {[this.paginationConfig.id + '.return']: null, value: null, startsWith: null});
   }
 
   ngOnDestroy(): void {
