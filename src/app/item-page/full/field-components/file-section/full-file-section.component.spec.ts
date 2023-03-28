@@ -90,5 +90,10 @@ describe('FullFileSectionComponent', () => {
       const fileSection = fixture.debugElement.queryAll(By.css('.file-section'));
       expect(fileSection.length).toEqual(6);
     });
+
+    it('and the title should be wrapped', () => {
+      const fileNameElement = fixture.debugElement.query(By.css('[data-test="file-name"]')).nativeElement;
+      expect(fileNameElement.classList).toContain('text-break');
+    });
   });
 });
