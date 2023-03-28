@@ -3,7 +3,7 @@
     <div class="col-md-12 mb-40">
       <div class="d-flex align-items-center mb-2">
         <div class="mr-auto">
-          <h2 class="m-0">{{'search.filters.applied.charts.' + ((configuration | async) ? (configuration | async) : 'default') + '.title' | translate}}</h2>
+          <h2 class="m-0 text-break">{{'search.filters.applied.charts.' + ((configuration | async) ? (configuration | async) : 'default') + '.title' | translate}}</h2>
         </div>
         <button class="btn btn-outline-secondary" data-test="search-charts-toggle"
                 ngbTooltip="{{'search.sidebar.show.hide.charts.tooltip' | translate}}"

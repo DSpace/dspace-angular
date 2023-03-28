@@ -6,7 +6,8 @@
                             [hideGear]="true"
                             [context]="context"
                             [selectable]="true"
-                            [selectionConfig]="{ repeatable: true, listId: listId }">
+                            [selectionConfig]="{ repeatable: true, listId: listId }"
+                            [showMetrics]="false">
     </ds-viewable-collection>
     <ds-loading *ngIf="!resultsRD || resultsRD?.isLoading"
                 message="{{'loading.search-results' | translate}}"></ds-loading>

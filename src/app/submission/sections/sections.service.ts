@@ -379,7 +379,7 @@ export class SectionsService {
         return submissionState.sections[key];
       }),
       map((sectionObj: SubmissionSectionObject) => {
-        return SubmissionVisibility.isReadOnly(sectionObj.visibility, submissionScope);
+        return sectionObj ? SubmissionVisibility.isReadOnly(sectionObj.visibility, submissionScope) : true;
       }),
       distinctUntilChanged());
   }
