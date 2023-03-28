@@ -341,6 +341,37 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
     }
   }
 
+  hasCachedResponse(href$: string | Observable<string>): Observable<boolean> {
+    if (isNotEmpty(href$)) {
+      if (typeof href$ === 'string') {
+        href$ = observableOf(href$);
+      }
+      return href$.pipe(
+        isNotEmptyOperator(),
+        take(1),
+        map((href: string) => {
+          const requestId = this.requestService.generateRequestId();
+          const request = new GetRequest(requestId, href);
+          return !this.requestService.shouldDispatchRequest(request, true);
+        }),
+      );
+    }
+  }
+
+  hasCachedErrorResponse(href$: string | Observable<string>): Observable<boolean> {
+    return this.hasCachedResponse(href$).pipe(
+      switchMap((hasCachedResponse) => {
+        if (hasCachedResponse) {
+           return this.rdbService.buildSingle(href$).pipe(
+             getFirstCompletedRemoteData(),
+             map((rd => rd.isError || rd.isErrorStale))
+           );
+        }
+        return observableOf(false);
+      })
+    );
+  }
+
   /**
    * Return the links to traverse from the root of the api to the
    * endpoint this DataService represents
