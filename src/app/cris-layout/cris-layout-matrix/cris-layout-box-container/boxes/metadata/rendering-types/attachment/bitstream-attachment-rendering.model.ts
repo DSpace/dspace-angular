@@ -34,7 +34,8 @@ export abstract class BitstreamAttachmentRenderingModelComponent extends Bitstre
 
   getBitstreamsByItem(options?: FindListOptions): Observable<PaginatedList<Bitstream>> {
     return this.bitstreamDataService
-      .findShowableBitstreamsByItem(this.item.uuid, this.field.bitstream.bundle, this.getMetadataFilters(), options, false, false, followLink('thumbnail'))
+      .findShowableBitstreamsByItem(this.item.uuid, this.field.bitstream.bundle, this.getMetadataFilters(), options,
+        false, false, followLink('thumbnail'), followLink('format'))
       .pipe(
         getFirstCompletedRemoteData(),
         map((response: RemoteData<PaginatedList<Bitstream>>) => {
