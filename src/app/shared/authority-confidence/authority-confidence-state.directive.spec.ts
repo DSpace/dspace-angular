@@ -102,7 +102,7 @@ describe('AuthorityConfidenceStateDirective', () => {
     });
 
     it('should display a text-info icon', () => {
-      const icon = fixture.debugElement.query(By.css('i.text-info'));
+      const icon = fixture.debugElement.query(By.css('i.text-warning'));
       expect(icon).toBeTruthy();
     });
   });
@@ -122,7 +122,7 @@ describe('AuthorityConfidenceStateDirective', () => {
     });
 
     it('should display a text-warning icon', () => {
-      const icon = fixture.debugElement.query(By.css('i.text-warning'));
+      const icon = fixture.debugElement.query(By.css('i.text-danger'));
       expect(icon).toBeTruthy();
     });
   });
@@ -142,7 +142,7 @@ describe('AuthorityConfidenceStateDirective', () => {
     });
 
     it('should display a text-muted icon', () => {
-      const icon = fixture.debugElement.query(By.css('i.text-muted'));
+      const icon = fixture.debugElement.query(By.css('i.text-dark'));
       expect(icon).toBeTruthy();
     });
   });
@@ -162,7 +162,7 @@ describe('AuthorityConfidenceStateDirective', () => {
     });
 
     it('should display a text-muted icon', () => {
-      const icon = fixture.debugElement.query(By.css('i.text-muted'));
+      const icon = fixture.debugElement.query(By.css('i.text-dark'));
       expect(icon).toBeTruthy();
     });
   });
@@ -182,7 +182,7 @@ describe('AuthorityConfidenceStateDirective', () => {
     });
 
     it('should display a text-muted icon', () => {
-      const icon = fixture.debugElement.query(By.css('i.text-muted'));
+      const icon = fixture.debugElement.query(By.css('i.text-dark'));
       expect(icon).toBeTruthy();
     });
   });

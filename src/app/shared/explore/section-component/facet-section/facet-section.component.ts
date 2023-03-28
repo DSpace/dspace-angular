@@ -77,12 +77,19 @@ export class FacetSectionComponent implements OnInit {
     queryParams[facet.paramName] = getFacetValueForTypeAndLabel(facetValue, facet);
   }
 
+  /**
+   * Return the appropriate col-* classes for the facet, based on the number of facets per row
+   * @param facet
+   */
   getFacetsBoxCol(facet) {
     if (facet.filterType.includes('chart')) {
-      return 6;
+      return 'col-12 col-lg-6';
     }
     const facetsPerRow = this.facetSection.facetsPerRow ? this.facetSection.facetsPerRow : 4;
-    return 12 / facetsPerRow;
+    const colSizeLg = Math.min(Math.ceil(12 / facetsPerRow), 12);
+    const colSizeMd = Math.min(Math.ceil(12 / facetsPerRow * 2), 12); // double width on medium screens
+
+    return `col-12 col-md-${colSizeMd} col-lg-${colSizeLg}`;
   }
 
   /**

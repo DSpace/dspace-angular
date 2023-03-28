@@ -25,6 +25,8 @@ import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
 import { hasAuthMethodRendering } from '../../shared/log-in/methods/log-in.methods-decorator';
 
+export const ON_BEHALF_OF_HEADER = 'X-On-Behalf-Of';
+
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
@@ -224,7 +226,7 @@ export class AuthInterceptor implements HttpInterceptor {
       // When present, add the ID of the EPerson we're impersonating to the headers
       const impersonatingID = authService.getImpersonateID();
       if (hasValue(impersonatingID)) {
-        newHeaders = newHeaders.set('X-On-Behalf-Of', impersonatingID);
+        newHeaders = newHeaders.set(ON_BEHALF_OF_HEADER, impersonatingID);
       }
 
       // Clone the request to add the new header.

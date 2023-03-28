@@ -3,7 +3,9 @@
        role="combobox"
        [attr.aria-label]="model.label"
        [attr.aria-owns]="'combobox_' + id + '_listbox'">
-    <i ngbDropdownToggle class="position-absolute scrollable-dropdown-toggle"
+    <i *ngIf="!model.readOnly" ngbDropdownToggle class="position-absolute scrollable-dropdown-toggle"
+       aria-hidden="true"></i>
+    <i *ngIf="model.readOnly" class="dropdown-toggle position-absolute toggle-icon"
        aria-hidden="true"></i>
     <input class="form-control"
            [attr.aria-controls]="'combobox_' + id + '_listbox'"

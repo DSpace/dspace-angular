@@ -1,6 +1,7 @@
+<div class="row d-flex align-items-center m-2">
 <a [href]="$any(remark).href ? $any(remark).href : ''">
   <div class="row">
-    <div class="col-2 mr-2" *ngIf="metric && metric.icon">
+    <div class="col-2" *ngIf="metric && metric.icon">
       <img class="icon-size" [src]="metric.icon" />
     </div>
     <div class="col">
@@ -15,3 +16,4 @@
     {{ "item.page.metric.label.view-detail-btn" | translate }}
   </button>
 </a>
+</div>

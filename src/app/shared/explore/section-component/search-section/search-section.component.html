@@ -1,21 +1,27 @@
-<div class="container">
+<div>
     <h2 *ngIf="searchSection.displayTitle">{{ 'explore.search-section.' + sectionId + '.title' | translate }}</h2>
-    <form *ngIf="searchSection.searchType !== 'basic' || !searchSection.searchType" class="container" [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)">
+    <form *ngIf="searchSection.searchType !== 'basic' || !searchSection.searchType" [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)">
         <div formArrayName="queryArray" *ngFor="let queryStatement of queryArray.controls; let i = index; let isLast = last">
-            <div [formGroupName]="i" class="row mb-2">
-                <select name="filter" id="filter" formControlName="filter" class="form-control col-md-4 mr-3 mb-2">
-                    <option *ngFor="let filter of (filters | async)" [value]="filter">{{'explore.index.' + filter | translate}}</option>
+            <div [formGroupName]="i" class="row mb-3 mb-md-0" data-test="form-row">
+              <div class="col-md-4 pb-3">
+                <select name="filter" id="filter" formControlName="filter" class="form-control mr-2">
+                  <option *ngFor="let filter of (filters | async)" [value]="filter">{{'explore.index.' + filter | translate}}</option>
                 </select>
-                <input type="text" name="query" id="query" formControlName="query" class="form-control col-md-5 mr-3 mb-2"/>
-                <select *ngIf="!isLast" name="operation" id="operation" formControlName="operation" class="form-control col-md-2 mb-2">
-                    <option *ngFor="let operation of operations" [value]="operation">{{operation}}</option>
+              </div>
+              <div class="col-md-5 col-xl-6 pb-3">
+                <input type="text" name="query" id="query" formControlName="query" class="form-control mr-2"/>
+              </div>
+              <div class="col-md-3 col-xl-2 pb-3">
+                <select *ngIf="!isLast" name="operation" id="operation" formControlName="operation" class="form-control">
+                  <option *ngFor="let operation of operations" [value]="operation">{{operation}}</option>
                 </select>
-                <button *ngIf="isLast" id="addButton" type="button" class="btn btn-info col-md-2 mb-2" (click)="addQueryStatement()">+</button>
+                <button *ngIf="isLast" id="addButton" type="button" class="btn btn-info w-100" (click)="addQueryStatement()">+</button>
+              </div>
             </div>
         </div>
-        <div>
-            <button type="submit" id="searchButton" class="btn btn-primary float-right">{{'explore.search-section.search-button' | translate}}</button>
-            <button type="button" id="resetButton" class="btn btn-outline float-right" (click)="onReset()">{{'explore.search-section.reset-button' | translate}}</button>
+        <div class="d-flex justify-content-end" style="gap: 20px;">
+          <button type="button" id="resetButton" class="btn btn-outline-primary float-right" (click)="onReset()">{{'explore.search-section.reset-button' | translate}}</button>
+          <button type="submit" id="searchButton" class="btn btn-primary float-right">{{'explore.search-section.search-button' | translate}}</button>
         </div>
     </form>
 

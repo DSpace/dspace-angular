@@ -5455,6 +5455,465 @@
   "workflow-item.send-back.button.cancel": "Abbrechen",
 
   // "workflow-item.send-back.button.confirm": "Send back"
-  "workflow-item.send-back.button.confirm": "Zurücksenden"
+  "workflow-item.send-back.button.confirm": "Zurücksenden",
+  
+  "submission.sections.submit.progressbar.describe.product_contributor": "Autoren",
+
+  "submission.sections.submit.progressbar.describe.product_bibliographic_details": "Bibliografische Informationen",
+
+  "submission.sections.submit.progressbar.describe.product_ou_pj": "Zugehörigkeit zu Organisation und Projekt",
+
+  "submission.sections.submit.progressbar.describe.product_general": "Allgemeine Beschreibung Forschungsdaten",
+
+  "submission.sections.submit.progressbar.describe.product_method": "Methode",
+
+  "submission.sections.submit.progressbar.describe.product_rights": "Rechte und Zugriff",
+
+  "submission.sections.submit.progressbar.describe.product_references": "Verbindungen",
+
+  "submission.sections.submit.progressbar.describe.publication_contributor": "Autoren",
+
+  "submission.sections.submit.progressbar.describe.publication_bibliographic_details": "Bibliografische Informationen",
+
+  "submission.sections.submit.progressbar.describe.publication_ou_pj": "Zugehörigkeit zu Organisation und Projekt",
+
+  "submission.sections.submit.progressbar.describe.publication_desc": "Publikation Beschreibung",
+
+  "submission.sections.submit.progressbar.describe.publication_conference": "Konferenzinformationen",
+
+  "submission.sections.submit.progressbar.describe.publication_oa": "Open Access",
+
+  "submission.sections.submit.progressbar.describe.publication_review": "Besprochener Titel",
+
+  "submission.sections.submit.progressbar.describe.publication_rights": "Zugänglichkeit und Rechte",
+
+  "submission.sections.submit.progressbar.describe.publication_references": "Verbindungen",
+  
+  "submission.sections.submit.progressbar.describe.publication_qm": "Metriken",
+
+  "layout.tab.header.Person.details": "Profil",
+
+  "layout.tab.header.Person.publications": "Publikationen",
+
+  "layout.tab.header.Person.projects": "Projekte",
+
+  "layout.tab.header.Person.orcid": "ORCID",
+
+  "layout.tab.header.Person.otherinfo": "Andere",
+
+  "layout.tab.header.Person.indicators": "Metriken",
+
+  "layout.tab.header.Person.secure": "Secured Tab",
+
+  "layout.tab.header.OrgUnit.maininformation": "Informationen",
+
+  "layout.tab.header.OrgUnit.details": "Details",
+
+  "layout.tab.header.OrgUnit.organizations": "Organisationen",
+
+  "layout.tab.header.OrgUnit.publications": "Publikationen",
+
+  "layout.tab.header.OrgUnit.rppublications": "Publikationen von Forschern",
+
+  "layout.tab.header.OrgUnit.projects": "Projekte",
+
+  "layout.tab.header.OrgUnit.rpprojects": "Forscherprojekte",
+
+  "layout.tab.header.OrgUnit.people": "Personen",
+
+  "layout.tab.header.Project.details": "Details",
+
+  "layout.tab.header.Project.outputs::projectoutputs": "Outputs::Publikationen",
+
+  "layout.tab.header.Project.outputs::fundings": "Outputs::Finanzierung",
+
+  "layout.tab.header.Journal.details": "Details",
+
+  "layout.tab.header.Event.details": "Details",
+
+  "layout.tab.header.Equipment.details": "Details",
+
+  "layout.tab.header.Funding.details": "Details",
+
+  "layout.tab.header.Publication.details": "Details",
+
+  "layout.tab.header.Product.details": "Details",
+
+  "layout.tab.header.Patent.details": "Details",
+
+  "layout.box.header.Person.projects": "Projekte",
+
+  "layout.box.header.Person.researchoutputs": "Publikationen",
+
+  "layout.box.header.Person.qualifications": "Berüfliche Qualifikationen",
+
+  "layout.box.header.Person.media": "Medienkontakt Directory",
+
+  "layout.box.header.Person.orcidsyncqueue": "ORCID-Registrierungswarteschlange",
+
+  "layout.box.header.Person.namecard": "Namenskarte",
+
+  "layout.box.header.Person.orcidsyncsettings": "ORCID-Synchronisierungseinstellungen",
+
+  "layout.box.header.Person.researcherprofile": "Profil",
+
+  "layout.box.header.Person.orcidauthorizations": "ORCID-Berechtigungen",
+
+  "layout.box.header.Person.metrics": "Metriken",
+
+  "layout.box.header.Person.usagemetrics": "Nutzungsmetriken",
+
+  "layout.box.header.Person.secure": "Secured Box",
+
+  "layout.box.header.OrgUnit.rpprojects": "Forschungsprojekte der OrgUnit",
+
+  "layout.box.header.OrgUnit.publications": "Publikationen der OrgUnit",
+
+  "layout.box.header.OrgUnit.rppublications": "Publikationen von Forschern der OrgUnit",
+
+  "layout.box.header.OrgUnit.people": "Forscher der OrgUnit",
+
+  "layout.box.header.OrgUnit.projects": "OrgUnit finanzierte Projekte",
+
+  "layout.box.header.OrgUnit.description": "Beschreibung",
+
+  "layout.box.header.OrgUnit.organizations": "SubOrgUnits",
+
+  "layout.box.header.OrgUnit.details": "Details",
+
+  "layout.box.header.OrgUnit.orgcard": "Karte",
+
+  "layout.box.header.OrgUnit.metrics": "Metriken",
+
+  "layout.box.header.Project.description": "Beschreibung",
+
+  "layout.box.header.Project.researchoutputs": "Publikationen",
+
+  "layout.box.header.Project.fundings": "Finanzierungen",
+
+  "layout.box.header.Project.primarydata": "Primärdaten",
+
+  "layout.box.header.Project.projectcard": "Projektkarte",
+
+  "layout.box.header.Project.metrics": "Metriken",
+
+  "layout.box.header.Funding.primarydata": "Primärdaten",
+
+  "layout.box.header.Funding.financialdata": "Finanzdaten",
+
+  "layout.box.header.Funding.metrics": "Metriken",
+
+  "layout.box.header.Journal.details": "Journalbeschreibung",
+
+  "layout.box.header.Journal.metrics": "Metriken",
+
+  "layout.box.header.Event.details": "Beschreibung",
+
+  "layout.box.header.Event.metrics": "Metriken",
+
+  "layout.box.header.Equipment.details": "Equipmentbeschreibung",
+
+  "layout.box.header.Equipment.metrics": "Metriken",
+
+  "layout.box.header.Publication.iiifviewer": "IIIF-Viewer",
+
+  "layout.box.header.Publication.details": "Details",
+
+  "layout.box.header.Publication.metrics": "Metriken",
+
+  "layout.box.header.Publication.altmetrics": "Alternative Metriken",
+
+  "layout.box.header.Publication.usagemetrics": "Nutzungsmetriken",
+
+  "layout.box.header.Patent.details": "Details",
+
+  "layout.box.header.Patent.metrics": "Metriken",
+
+  "layout.box.header.Patent.altmetrics": "Metriken",
+
+  "layout.box.header.Patent.usagemetrics": "Metriken",
+
+  "layout.box.header.Product.details": "Details",
+
+  "layout.box.header.Product.metrics": "Metriken",
+
+  "layout.box.header.Product.altmetrics": "Metriken",
+
+  "layout.box.header.Product.usagemetrics": "Metriken",
+
+  "layout.field.label.OrgUnit.organization.address.addressCountry": "Land",
+
+  "layout.field.label.OrgUnit.organization.address.addressLocality": "Stadt",
+
+  "layout.field.label.OrgUnit.dc.description.abstract": "Beschreibung",
+
+  "layout.field.label.OrgUnit.crisou.director": "Direktor",
+
+  "layout.field.label.OrgUnit.organization.parentOrganization": "Mutter Organisation",
+
+  "layout.field.label.OrgUnit.organization.foundingDate": "Gründungsdatum",
+
+  "layout.field.label.OrgUnit.crisou.boards": "Boards",
+
+  "layout.field.label.OrgUnit.dc.title": "Organisationsname",
+
+  "layout.field.label.OrgUnit.crisou.director": "Direktor",
+
+  "layout.field.label.OrgUnit.organization.parentOrganization": "Mutter Organisation",
+
+  "layout.field.label.OrgUnit.organization.foundingDate": "Gründungsdatum",
+
+  "layout.field.label.OrgUnit.organization.address.addressLocality": "Stadt",
+
+  "layout.field.label.OrgUnit.organization.address.addressCountry": "Land",
+
+  "layout.field.label.Project.dc.description.abstract": "Beschreibung",
+
+  "layout.field.label.Project.dc.subject": "Keywords",
+
+  "layout.field.label.Project.oairecerif.acronym": "Akronym",
+
+  "layout.field.label.Project.dc.title": "Projekttitel",
+
+  "layout.field.label.Project.crispj.coordinator": "Koordinator des Konsortiums",
+
+  "layout.field.label.Project.crispj.partnerou": "Partnerorganisationen",
+
+  "layout.field.label.Project.oairecerif.internalid": "Internal ID",
+
+  "layout.field.label.Project.crispj.investigator": "Hauptermittler",
+
+  "layout.field.label.Project.oairecerif.project.status": "Status",
+
+  "layout.field.label.Project.oairecerif.project.startDate": "Startdatum",
+
+  "layout.field.label.Project.oairecerif.project.endDate": "Enddatum",
+
+  "layout.field.label.Project.crispj.coinvestigators": "Ermittler",
+
+  "layout.field.label.Project.crispj.organization": "Organisationen",
+
+  "layout.field.label.Project.dc.relation.equipment": "Nutzungen",
+
+  "layout.field.label.Project.oairecerif.identifier.url": "Projekt-Website",
+
+  "layout.field.label.Project.crispj.openaireid": "OpenAIRE-ID",
+
+  "layout.field.label.Project.dc.title": "Projekttitel",
+
+  "layout.field.label.Project.oairecerif.internalid": "Internal ID",
+
+  "layout.field.label.Project.oairecerif.project.status": "Status",
+
+  "layout.field.label.Project.oairecerif.project.startDate": "Startdatum",
+
+  "layout.field.label.Project.oairecerif.project.endDate": "Enddatum",
+
+  "layout.field.label.Funding.dc.relation.project": "Projekt",
+
+  "layout.field.label.Funding.dc.type": "Typ",
+
+  "layout.field.label.Funding.oairecerif.funder": "Finanzier",
+
+  "layout.field.label.Funding.oairecerif.fundingParent": "Finanzierungsprogramm",
+
+  "layout.field.label.Funding.oairecerif.identifier.url": "Award-URL",
+
+  "layout.field.label.Funding.oairecerif.oamandate": "OA-Mandat",
+
+  "layout.field.label.Funding.oairecerif.internalid": "Finanzierungscode",
+
+  "layout.field.label.Funding.dc.title": "Finanzierungstitel",
+
+  "layout.field.label.Funding.oairecerif.amount.currency": "Währung",
+
+  "layout.field.label.Person.dc.subject": "Forschungsinteressen",
+
+  "layout.field.label.Person.person.knowsLanguage": "Kann Sprache",
+
+  "layout.field.label.Person.crisrp.qualification": "Qualifikation",
+
+  "layout.field.label.Person.dc.title": "Bevorzugter Name",
+
+  "layout.field.label.Person.crisrp.name": "Offizieller Name",
+
+  "layout.field.label.Person.crisrp.name.translated": "Übersetzter Name",
+
+  "layout.field.label.Person.crisrp.name.variant": "Alternativer Name",
+
+  "layout.field.label.Person.person.affiliation.name": "Hauptzugehörigkeit",
+
+  "layout.field.label.Person.oairecerif.identifier.url": "Web Site",
+
+  "layout.field.label.Person.person.email": "E-Mail",
+
+  "layout.field.label.Person.person.identifier.orcid": "ORCID",
+
+  "layout.field.label.Person.person.identifier.scopus-author-id": "Scopus-Autoren-ID",
+
+  "layout.field.label.Person.person.identifier.rid": "Forscher-ID",
+
+  "layout.field.label.Person.dc.description.abstract": "Biographie",
+
+  "layout.field.label.Person.oairecerif.person.affiliation": "Zugehörigkeit",
+
+  "layout.field.label.Person.crisrp.education": "Bildung",
+
+  "layout.field.label.Person.crisrp.qualification": "Qualifikation",
+
+  "layout.field.label.Person.crisrp.country": "Land",
+
+  "layout.field.label.Person.person.birthDate": "Geburtsdatum",
+
+  "layout.field.label.Journal.dc.title": "Titel der Zeitschrift",
+
+  "layout.field.label.Journal.dc.subject": "Keywords",
+
+  "layout.field.label.Journal.dc.identifier.issn": "ISSN",
+
+  "layout.field.label.Event.dc.title": "Titel",
+
+  "layout.field.label.Event.oairecerif.event.startDate": "Startdatum",
+
+  "layout.field.label.Event.oairecerif.event.endDate": "Enddatum",
+
+  "layout.field.label.Event.oairecerif.event.place": "Ort",
+
+  "layout.field.label.Event.dc.type": "Typ",
+
+  "layout.field.label.Event.crisevent.organizerou": "Organisator",
+
+  "layout.field.label.Event.crisevent.organizerpj": "Organisator",
+
+  "layout.field.label.Event.crisevent.sponsorou": "Sponsor",
+
+  "layout.field.label.Event.crisevent.sponsorpj": "Sponsor",
+
+  "layout.field.label.Event.crisevent.partnerou": "Partnerorganisation",
+
+  "layout.field.label.Event.crisevent.partnerpj": "Partnerprojekt",
+
+  "layout.field.label.Event.oairecerif.acronym": "Akronym",
+
+  "layout.field.label.Event.dc.description.abstract": "Abstract",
+
+  "layout.field.label.Event.dc.subject": "Keywords",
+
+  "layout.field.label.Event.oairecerif.event.country": "Land",
+
+  "layout.field.label.Equipment.oairecerif.acronym": "Akronym",
+
+  "layout.field.label.Equipment.dc.description": "Beschreibung",
+
+  "layout.field.label.Equipment.oairecerif.internalid": "Internal ID",
+
+  "layout.field.label.Equipment.dc.title": "Name",
+
+  "layout.field.label.Equipment.crisequipment.ownerou": "Eigentümerorganisation",
+
+  "layout.field.label.Publication.dc.relation.ispartof": "Zeitschrift",
+
+  "layout.field.label.Publication.dc.relation.issn": "ISSN",
+
+  "layout.field.label.Publication.dc.date.issued": "Ausgabedatum",
+
+  "layout.field.label.Publication.dc.contributor.author": "Autor(en)",
+
+  "layout.field.label.Publication.dc.contributor.editor": "Herausgeber",
+
+  "layout.field.label.Publication.dc.identifier.doi": "DOI",
+
+  "layout.field.label.Publication.dc.description.abstract": "Abstract",
+
+  "layout.field.label.Publication.dc.relation.project": "Projekt(e)",
+
+  "layout.field.label.Publication.dc.relation.funding": "Finanzierung(en)",
+
+  "layout.field.label.Publication.dc.subject": "Themen",
+
+  "layout.field.label.Publication.BITSTREAM": "File(s)",
+
+  "layout.field.label.Product.dc.title": "Titel",
+
+  "layout.field.label.Product.dc.relation.ispartof": "Zeitschrift",
+
+  "layout.field.label.Product.dc.relation.issn": "ISSN",
+
+  "layout.field.label.Product.dc.date.issued": "Ausgabedatum",
+
+  "layout.field.label.Product.dc.contributor.author": "Autor(en)",
+
+  "layout.field.label.Product.dc.identifier.doi": "DOI",
+
+  "layout.field.label.Product.dc.description.abstract": "Abstract",
+
+  "layout.field.label.Product.dc.relation.project": "Projekt(e)",
+
+  "layout.field.label.Product.dc.relation.funding": "Finanzierung(en)",
+
+  "layout.field.label.Product.dc.subject": "Themen",
+
+  "layout.field.label.Product.BITSTREAM": "File(s)",
+
+  "layout.field.label.Patent.dc.title": "Titel",
+
+  "layout.field.label.Patent.dc.relation.ispartof": "Zeitschrift",
+
+  "layout.field.label.Patent.dc.relation.issn": "ISSN",
+
+  "layout.field.label.Patent.dc.date.issued": "Ausgabedatum",
+
+  "layout.field.label.Patent.dc.contributor.author": "Autor(en)",
+
+  "layout.field.label.Patent.dc.identifier.patentno": "DOI",
+
+  "layout.field.label.Patent.dc.description.abstract": "Abstract",
+
+  "layout.field.label.Patent.dc.relation.project": "Projekt(e)",
+
+  "layout.field.label.Patent.dc.relation.funding": "Finanzierung(en)",
+
+  "layout.field.label.Patent.dc.subject": "Themen",
+
+  "layout.field.label.Patent.BITSTREAM": "File(s)",
+
+  "layout.field.label.Person.crisrp.qualification": "Titel",
+
+  "layout.field.label.Person.crisrp.qualification.start": "Startdatum",
+
+  "layout.field.label.Person.crisrp.qualification.end": "Enddatum",
+
+  "layout.field.label.Person.oairecerif.affiliation.role": "Rolle",
+
+  "layout.field.label.Person.oairecerif.person.affiliation": "Organisation",
+
+  "layout.field.label.Person.oairecerif.affiliation.startDate": "Startdatum",
+
+  "layout.field.label.Person.oairecerif.affiliation.endDate": "Enddatum",
+
+  "layout.field.label.Person.crisrp.education.role": "Rolle",
+
+  "layout.field.label.Person.crisrp.education": "Organisation",
+
+  "layout.field.label.Person.crisrp.education.start": "Startdatum",
+
+  "layout.field.label.Person.crisrp.education.end": "Enddatum",
+
+  "layout.field.label.Publication.dc.contributor.author": "Autor",
+
+  "layout.field.label.Publication.oairecerif.author.affiliation": "Zugehörigkeit",
+
+  "layout.field.label.Publication.dc.contributor.editor": "Herausgeber",
+
+  "layout.field.label.Publication.oairecerif.editor.affiliation": "Zugehörigkeit",
+
+  "layout.field.label.Product.dc.contributor.author": "Autor",
+
+  "layout.field.label.Product.oairecerif.author.affiliation": "Zugehörigkeit",
+
+  "layout.field.label.Patent.dc.contributor.author": "Autor",
+
+  "layout.field.label.Patent.oairecerif.author.affiliation": "Zugehörigkeit"  
+  
 
 }
