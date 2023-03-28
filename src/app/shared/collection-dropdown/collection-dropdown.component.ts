@@ -191,7 +191,6 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    *    the selected [CollectionListEntry]
    */
   onSelect(event: CollectionListEntry) {
-    this.isLoading.next(true);
     this.selectionChange.emit(event);
   }
 
