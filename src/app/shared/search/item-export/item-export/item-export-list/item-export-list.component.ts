@@ -1,15 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
+
+import { BehaviorSubject, Observable } from 'rxjs';
+
 import { SearchOptions } from '../../../models/search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
-import { BehaviorSubject } from 'rxjs';
 import { getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
 import { SearchObjects } from '../../../models/search-objects.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { SearchManager } from '../../../../../core/browse/search-manager';
 import { PaginationComponentOptions } from '../../../../pagination/pagination-component-options.model';
-import { Observable } from 'rxjs/internal/Observable';
 import { Context } from '../../../../../core/shared/context.model';
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { fadeIn } from '../../../../animations/fade';
@@ -65,7 +66,8 @@ export class ItemExportListComponent implements OnInit {
 
   constructor(
     private paginationService: PaginationService,
-    private searchManager: SearchManager) {
+    private searchManager: SearchManager
+  ) {
   }
 
   ngOnInit(): void {

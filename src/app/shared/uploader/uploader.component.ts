@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, Output, ViewEncapsulation, } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 
 import { of as observableOf } from 'rxjs';
 import { FileUploader } from 'ng2-file-upload';
@@ -12,6 +21,8 @@ import { UploaderProperties } from './uploader-properties.model';
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
 import { XSRF_COOKIE, XSRF_REQUEST_HEADER, XSRF_RESPONSE_HEADER } from '../../core/xsrf/xsrf.interceptor';
 import { CookieService } from '../../core/services/cookie.service';
+import { AuthService } from '../../core/auth/auth.service';
+import { ON_BEHALF_OF_HEADER } from '../../core/auth/auth.interceptor';
 
 @Component({
   selector: 'ds-uploader',
@@ -85,9 +96,14 @@ export class UploaderComponent {
     }
   }
 
-  constructor(private cdr: ChangeDetectorRef, private scrollToService: ScrollToService,
-    private uploaderService: UploaderService, private tokenExtractor: HttpXsrfTokenExtractor,
-    private cookieService: CookieService) {
+  constructor(
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef,
+    private scrollToService: ScrollToService,
+    private uploaderService: UploaderService,
+    private tokenExtractor: HttpXsrfTokenExtractor,
+    private cookieService: CookieService
+  ) {
   }
 
   /**
@@ -129,8 +145,16 @@ export class UploaderComponent {
       if (item.url !== this.uploader.options.url) {
         item.url = this.uploader.options.url;
       }
+
       // Ensure the current XSRF token is included in every upload request (token may change between items uploaded)
       this.uploader.options.headers = [{ name: XSRF_REQUEST_HEADER, value: this.tokenExtractor.getToken() }];
+
+      // When present, add the ID of the EPerson we're impersonating to the headers
+      const impersonatingID = this.authService.getImpersonateID();
+      if (hasValue(impersonatingID)) {
+        this.uploader.options.headers.push({ name: ON_BEHALF_OF_HEADER, value: impersonatingID });
+      }
+
       this.onBeforeUpload();
       this.isOverDocumentDropZone = observableOf(false);
     };

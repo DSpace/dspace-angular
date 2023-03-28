@@ -127,13 +127,15 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    * Initialize the component, setting up the init form value
    */
   ngOnInit() {
-     if (this.model.value) {
-      this.setCurrentValue(this.model.value, true);
-    }
     this.initVocabulary();
     this.isHierarchicalVocabulary$ = this.vocabulary$.pipe(
       filter((vocabulary: Vocabulary) => isNotEmpty(vocabulary)),
-      map((result: Vocabulary) => result.hierarchical)
+      map((vocabulary: Vocabulary) => vocabulary.hierarchical),
+      tap((isHierarchical: boolean) => {
+        if (this.model.value) {
+          this.setCurrentValue(this.model.value, isHierarchical);
+        }
+      })
     );
     this.subs.push(this.group.get(this.model.id).valueChanges.pipe(
       filter((value) => this.currentValue !== value))
@@ -226,6 +228,9 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    * @param event The click event fired
    */
   openTree(event) {
+    if (this.model.readOnly) {
+      return;
+    }
     event.preventDefault();
     event.stopImmediatePropagation();
     this.subs.push(this.vocabulary$.pipe(

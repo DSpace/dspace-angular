@@ -102,7 +102,7 @@ describe('SearchSectionComponent', () => {
   }));
 
   it('should create an empty form with three rows',  () => {
-    const formRows = fixture.debugElement.queryAll(By.css('.row.mb-2'));
+    const formRows = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'));
     expect(formRows.length).toEqual(3);
 
     for (const formRow of formRows) {
@@ -142,7 +142,7 @@ describe('SearchSectionComponent', () => {
     }));
 
     it('should add a row in the form', () => {
-      const formRows = fixture.debugElement.queryAll(By.css('.row.mb-2'));
+      const formRows = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'));
       expect(formRows.length).toEqual(4);
     });
   });
@@ -150,7 +150,7 @@ describe('SearchSectionComponent', () => {
   describe('when you click on the reset button', () => {
 
     beforeEach(() => {
-      const firstFormRow = fixture.debugElement.queryAll(By.css('.row.mb-2'))[0];
+      const firstFormRow = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'))[0];
       const filterSelect = firstFormRow.query(By.css('#filter'));
       filterSelect.nativeElement.value = 'author';
       const queryInput = firstFormRow.query(By.css('#query'));
@@ -165,9 +165,9 @@ describe('SearchSectionComponent', () => {
     }));
 
     it('should reset the form', () => {
-      const formRows = fixture.debugElement.queryAll(By.css('.row.mb-2'));
+      const formRows = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'));
       expect(formRows.length).toEqual(3);
-      const firstFormRow = fixture.debugElement.queryAll(By.css('.row.mb-2'))[0];
+      const firstFormRow = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'))[0];
       const filterSelect = firstFormRow.query(By.css('#filter'));
       expect(filterSelect.nativeElement.value).toEqual('all');
       const queryInput = firstFormRow.query(By.css('#query'));
@@ -178,7 +178,7 @@ describe('SearchSectionComponent', () => {
   describe('when you click on the search button', () => {
 
     beforeEach(() => {
-      const firstFormRow = fixture.debugElement.queryAll(By.css('.row.mb-2'))[0];
+      const firstFormRow = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'))[0];
       const filterSelect = firstFormRow.query(By.css('#filter')).nativeElement;
       filterSelect.value = 'author';
       filterSelect.dispatchEvent(new Event('change'));
@@ -188,7 +188,7 @@ describe('SearchSectionComponent', () => {
       const operationInput = firstFormRow.query(By.css('#operation')).nativeElement;
       operationInput.value = 'OR';
       operationInput.dispatchEvent(new Event('change'));
-      const secondFormRow = fixture.debugElement.queryAll(By.css('.row.mb-2'))[1];
+      const secondFormRow = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'))[1];
 
       const secondQueryInput = secondFormRow.query(By.css('#query')).nativeElement;
       secondQueryInput.value = 'test';

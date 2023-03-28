@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { hasValue, isNotNull } from '../empty.util';
-import { map, reduce, startWith, switchMap, take } from 'rxjs/operators';
+import { map, reduce, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
@@ -159,38 +159,44 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
    */
   public populateEntityList(page: number) {
     this.isLoadingList.next(true);
-    // Set the pagination info
-    const findOptions: FindListOptions = {
-      elementsPerPage: 10,
-      currentPage: page
-    };
     let searchListEntity$;
     if (this.isSubmission) {
-      searchListEntity$ = this.entityTypeService.getAllAuthorizedRelationshipType(findOptions);
+      // Set the pagination info
+      const findOptions: FindListOptions = {
+        elementsPerPage: 10,
+        currentPage: page
+      };
+      searchListEntity$ =
+        this.entityTypeService.getAllAuthorizedRelationshipType(findOptions)
+          .pipe(
+            getFirstSucceededRemoteWithNotEmptyData(),
+            tap(entityType => {
+              if ((this.searchListEntity.length + findOptions.elementsPerPage) >= entityType.payload.totalElements) {
+                this.hasNextPage = false;
+              }
+            })
+          );
     } else {
-      searchListEntity$ = this.itemExportFormatService.byEntityTypeAndMolteplicity(null, ItemExportFormatMolteplicity.MULTIPLE).pipe(
-        take(1),
-        map((formatTypes: ItemExportFormatMap) => {
-          const entityList: ItemType[] = Object.keys(formatTypes)
-            .filter((entityType: string) => isNotNull(entityType) && entityType !== 'null')
-            .map((entityType: string) => ({
-              id: entityType,
-              label: entityType
-            } as any));
-          return createSuccessfulRemoteDataObject(buildPaginatedList(null, entityList));
-        })
-      );
+      searchListEntity$ =
+        this.itemExportFormatService.byEntityTypeAndMolteplicity(null, ItemExportFormatMolteplicity.MULTIPLE)
+          .pipe(
+            take(1),
+            map((formatTypes: any) => {
+              const entityList: ItemType[] = Object.keys(formatTypes)
+                .filter((entityType: string) => isNotNull(entityType) && entityType !== 'null')
+                .map((entityType: string) => ({
+                  id: entityType,
+                  label: entityType
+                } as any));
+              return createSuccessfulRemoteDataObject(buildPaginatedList(null, entityList));
+            }),
+            tap(() => this.hasNextPage = false)
+          );
     }
     this.searchListEntity$ = searchListEntity$.pipe(
-        getFirstSucceededRemoteWithNotEmptyData(),
-        switchMap((entityType: RemoteData<PaginatedList<ItemType>>) => {
-          if ( (this.searchListEntity.length + findOptions.elementsPerPage) >= entityType.payload.totalElements ) {
-            this.hasNextPage = false;
-          }
-          return entityType.payload.page;
-        }),
-        reduce((acc: any, value: any) => [...acc, value], []),
-        startWith([])
+      switchMap((entityType: RemoteData<PaginatedList<ItemType>>) => entityType.payload.page),
+      reduce((acc: any, value: any) => [...acc, value], []),
+      startWith([])
     );
     this.subs.push(
       this.searchListEntity$.subscribe({

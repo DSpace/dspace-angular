@@ -19,6 +19,11 @@ import { ItemType } from '../../../../core/shared/item-relationships/item-type.m
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { SearchResult } from '../../models/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { SearchManager } from '../../../../core/browse/search-manager';
+import { SearchObjects } from '../../models/search-objects.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { PageInfo } from '../../../../core/shared/page-info.model';
 
 describe('ItemExportComponent', () => {
   let component: ItemExportComponent;
@@ -67,6 +72,26 @@ describe('ItemExportComponent', () => {
       }
     }
   });
+
+  const mockSearchResults: SearchObjects<DSpaceObject> = Object.assign(new SearchObjects(), {
+    page: [mockItem],
+    pageInfo: Object.assign(new PageInfo(), {
+      totalElements: 10
+    })
+  });
+
+  const mockEmptySearchResults: SearchObjects<DSpaceObject> = Object.assign(new SearchObjects(), {
+    page: [],
+    pageInfo: Object.assign(new PageInfo(), {
+      totalElements: 0
+    })
+  });
+
+
+  const mockSearchManager = jasmine.createSpyObj('SearchManager', {
+    search: jasmine.createSpy('search')
+  });
+
   const selectService = jasmine.createSpyObj('selectService', {
     getSelectableList: jasmine.createSpy('getSelectableList'),
     removeSelection: jasmine.createSpy('removeSelection')
@@ -99,13 +124,56 @@ describe('ItemExportComponent', () => {
         { provide: NgbActiveModal, useValue: modal },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: SelectableListService, useValue: selectService },
-        { provide: Router, useValue: router }
+        { provide: Router, useValue: router },
+        { provide: SearchManager, useValue: mockSearchManager }
+      ],
+      schemas: [
+        NO_ERRORS_SCHEMA
       ]
     })
       .compileComponents();
   }));
 
-  describe('when initializing', () => {
+  describe('when cannot export', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(ItemExportComponent);
+      component = fixture.componentInstance;
+      componentAsAny = fixture.componentInstance;
+
+      // inputs
+      component.searchOptions = 'searchOptions' as any;
+      component.molteplicity = 'molteplicity' as any;
+
+      // component.itemType = itemType;
+      component.bulkExportLimit = '-1' as any;
+
+      // data
+      configuration = { format: 'format', entityType: 'entityType', entityTypes: ['entityType'] } as any;
+
+      component.showListSelection = true;
+      component.itemType = itemType;
+      component.item = undefined;
+      // spies
+      itemExportService.initialItemExportFormConfiguration.calls.reset();
+      mockSearchManager.search.and.returnValue(createSuccessfulRemoteDataObject$(mockEmptySearchResults));
+      fixture.detectChanges();
+    });
+
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should show a warning alert', () => {
+      expect(itemExportService.initialItemExportFormConfiguration).not.toHaveBeenCalled();
+
+      const alert = fixture.debugElement.query(By.css('[data-test="cannotExport"]'));
+      expect(alert).toBeTruthy();
+    });
+
+  });
+
+  describe('when can export', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(ItemExportComponent);
       component = fixture.componentInstance;
@@ -123,6 +191,7 @@ describe('ItemExportComponent', () => {
 
       // spies
       itemExportService.initialItemExportFormConfiguration.and.returnValue(observableOf(configuration));
+      mockSearchManager.search.and.returnValue(createSuccessfulRemoteDataObject$(mockSearchResults));
 
     });
 
@@ -280,6 +349,7 @@ describe('ItemExportComponent', () => {
 
       // spies
       itemExportService.submitForm.and.returnValue(of('processNumber'));
+      mockSearchManager.search.and.returnValue(createSuccessfulRemoteDataObject$(mockSearchResults));
     });
 
 
@@ -303,6 +373,7 @@ describe('ItemExportComponent', () => {
 
     describe('when has selection', () => {
       beforeEach(() => {
+        component.showListSelection = true;
         const selection = {
           selection: [firstSearchResult]
         };
