@@ -145,7 +145,8 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
         let headers = new HttpHeaders();
         headers = headers.append('Content-Type', 'text/uri-list');
         options.headers = headers;
-        return new PostRequest(this.requestService.generateRequestId(), endpointURL, collectionHref, options);
+        const collectionURI = collectionHref.split('?')[0];
+        return new PostRequest(this.requestService.generateRequestId(), endpointURL, collectionURI, options);
       }),
       sendRequest(this.requestService),
       switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID(request.uuid))

@@ -20,6 +20,8 @@ import { HALEndpointServiceStub } from 'src/app/shared/testing/hal-endpoint-serv
 import { testCreateDataImplementation } from './base/create-data.spec';
 import { testPatchDataImplementation } from './base/patch-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
+import { RestRequestMethod } from './rest-request-method';
+import objectContaining = jasmine.objectContaining;
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
@@ -146,11 +148,14 @@ describe('ItemDataService', () => {
 
     beforeEach(() => {
       service = initTestService();
-      result = service.mapToCollection('item-id', 'collection-href');
+      result = service.mapToCollection('item-id', 'collection-href?query=param');
     });
 
-    it('should send a POST request', () => {
-      result.subscribe(() => expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PostRequest)));
+    it('should send a POST request with stripped query params in collectionHref', () => {
+      result.subscribe(() => expect(requestService.send).toHaveBeenCalledWith(objectContaining({
+        method: RestRequestMethod.POST,
+        body: 'collection-href'
+      })));
     });
   });
 
