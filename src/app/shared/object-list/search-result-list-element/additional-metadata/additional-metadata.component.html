@@ -1,52 +1,53 @@
 <div *ngIf="additionalMetadataFields">
   <ng-container *ngFor="let metadataFieldConfiguration of additionalMetadataFields">
+    <div *ngFor="let metadataItem of metadataFieldConfiguration" [ngClass]="{'d-inline-block mr-3': metadataFieldConfiguration.length > 1}">
 
-    <ng-template #label>
-      <span class="font-weight-bold mr-1 text-muted">{{metadataFieldConfiguration.label | translate}}:</span>
-    </ng-template>
+      <ng-template #label>
+        <span class="font-weight-bold mr-1 text-muted">{{metadataItem.label | translate}}:</span>
+      </ng-template>
 
-    <!-- If there are more values then show the label on a separate line -->
-    <div *ngIf="metadataFieldConfiguration.label && object.allMetadata(metadataFieldConfiguration.name).length > 1">
-      <ng-container *ngTemplateOutlet="label"></ng-container>
-    </div>
+      <!-- If there are more values then show the label on a separate line -->
+      <div *ngIf="metadataItem.label && object.allMetadata(metadataItem.name).length > 1">
+        <ng-container *ngTemplateOutlet="label"></ng-container>
+      </div>
 
-    <div *ngFor="let metadataValue of object.allMetadata(metadataFieldConfiguration.name); let c = count">
+      <div *ngFor="let metadataValue of object.allMetadata(metadataItem.name); let c = count">
 
-        <!-- If there is only one value then show the label on the same line -->
-        <span *ngIf="metadataFieldConfiguration.label && c === 1">
-          <ng-container *ngTemplateOutlet="label"></ng-container>
-        </span>
+          <!-- If there is only one value then show the label on the same line -->
+          <span *ngIf="metadataItem.label && c === 1">
+            <ng-container *ngTemplateOutlet="label"></ng-container>
+          </span>
 
-        <ng-container [ngSwitch]="metadataRenderingType(metadataFieldConfiguration)">
+          <ng-container [ngSwitch]="metadataRenderingType(metadataItem)">
 
-          <ng-container *ngSwitchCase="'crisref'">
-              <ds-metadata-link-view [item]="object" [metadata]="metadataValue"></ds-metadata-link-view>
-          </ng-container>
-
-          <ng-container *ngSwitchCase="'link'">
-            <ng-container *ngVar="linkData(metadataFieldConfiguration, metadataValue) as linkData">
-              <a href="{{linkData.href}}" target="_blank" [innerHTML]="linkData.text"></a>
+            <ng-container *ngSwitchCase="'crisref'">
+                <ds-metadata-link-view [item]="object" [metadata]="metadataValue"></ds-metadata-link-view>
             </ng-container>
-          </ng-container>
 
-          <ng-container *ngSwitchCase="'identifier'">
-            <ng-container *ngVar="identifierData(metadataFieldConfiguration, metadataValue) as identifierData">
-              <a href="{{identifierData.href}}" target="_blank" [innerHTML]="identifierData.text"></a>
+            <ng-container *ngSwitchCase="'link'">
+              <ng-container *ngVar="linkData(metadataItem, metadataValue) as linkData">
+                <a href="{{linkData.href}}" target="_blank" [innerHTML]="linkData.text"></a>
+              </ng-container>
             </ng-container>
+
+            <ng-container *ngSwitchCase="'identifier'">
+              <ng-container *ngVar="identifierData(metadataItem, metadataValue) as identifierData">
+                <a href="{{identifierData.href}}" target="_blank" [innerHTML]="identifierData.text"></a>
+              </ng-container>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'valuepair'">
+              {{ valuepairData(metadataValue, metadataRenderingSubtype(metadataItem)) | async }}
+            </ng-container>
+
+            <ng-container *ngSwitchDefault>
+              <span class="metadata" [innerHTML]="metadataValue.value"></span>
+            </ng-container>
+
           </ng-container>
 
-          <ng-container *ngSwitchCase="'valuepair'">
-            {{ valuepairData(metadataValue, metadataRenderingSubtype(metadataFieldConfiguration)) | async }}
-          </ng-container>
-
-          <ng-container *ngSwitchDefault>
-            <span class="metadata" [innerHTML]="metadataValue.value"></span>
-          </ng-container>
-
-        </ng-container>
-
+      </div>
     </div>
-
   </ng-container>
 
 </div>

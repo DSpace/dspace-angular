@@ -7,5 +7,5 @@ export interface SearchResultConfig extends Config {
 
 export interface SearchResultAdditionalMetadataEntityTypeConfig extends Config {
   entityType: string,
-  metadataConfiguration: AdditionalMetadataConfig[],
+  metadataConfiguration: Array<AdditionalMetadataConfig>[]
 }

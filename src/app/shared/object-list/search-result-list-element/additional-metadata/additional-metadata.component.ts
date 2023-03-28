@@ -32,7 +32,7 @@ export class AdditionalMetadataComponent implements OnInit {
   /**
    * A list of additional metadata fields to display
    */
-  public additionalMetadataFields: AdditionalMetadataConfig[];
+  public additionalMetadataFields: Array<AdditionalMetadataConfig>[];
 
   constructor(
     protected resolver: ResolverStrategyService,
@@ -50,7 +50,7 @@ export class AdditionalMetadataComponent implements OnInit {
       (field: SearchResultAdditionalMetadataEntityTypeConfig) => field.entityType.toLocaleLowerCase() === this.DEFAULT_CONFIG_NAME
     );
 
-    let unfilteredAdditionalMetadataFields: AdditionalMetadataConfig[] = [];
+    let unfilteredAdditionalMetadataFields: Array<AdditionalMetadataConfig>[] = [];
 
     if (entityTypeConfig.length > 0) {
       unfilteredAdditionalMetadataFields = entityTypeConfig[0].metadataConfiguration;
@@ -58,10 +58,13 @@ export class AdditionalMetadataComponent implements OnInit {
       unfilteredAdditionalMetadataFields = defaultConfig[0].metadataConfiguration;
     }
 
-    this.additionalMetadataFields = unfilteredAdditionalMetadataFields.filter(
-      (field) => this.object.hasMetadata(field.name)
-    );
+    this.additionalMetadataFields = unfilteredAdditionalMetadataFields.map(field => {
+      return field.filter(item =>
+        this.object.hasMetadata(item.name)
+      );
+    }).filter(field => !!field.length);
 
+    console.log('ADDITIONAL METADATA FIELDS:', this.additionalMetadataFields);
   }
 
   metadataRenderingType(metadata: AdditionalMetadataConfig): string {
