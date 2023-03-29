@@ -38,7 +38,7 @@
         (change)="onChangeLanguage($event)"
         [ngModelOptions]="{standalone: true}"
         required>
-        <option *ngFor="let lang of model.languageCodes; let i of index" [value]="lang.code" [selected]="i == 0">{{lang.display}}</option>
+        <option *ngFor="let lang of model.languageCodes; let i = index" [value]="lang.code" [selected]="i == 0">{{lang.display}}</option>
       </select>
     </div>
     <div *ngIf="isRelationship" class="col-auto text-center">

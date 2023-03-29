@@ -6,7 +6,7 @@
           [compareWith]="compare"
           [(ngModel)]="selectedOption"
           (change)="onSelect()">
-    <option *ngFor="let option of configurationList; let i of index" [ngValue]="option" [selected]="i == 0">
+    <option *ngFor="let option of configurationList; let i = index" [ngValue]="option" [selected]="i == 0">
       {{option.label | translate}}
     </option>
   </select>
