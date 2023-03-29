@@ -1,3 +1,4 @@
+import { getRemoteDataPayload } from './../../../core/shared/operators';
 import { SEARCH_CONFIG_SERVICE } from './../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from './../../../core/shared/search/search-configuration.service';
 import { SearchService } from './../../../core/shared/search/search.service';
@@ -69,8 +70,8 @@ export class SearchChartsComponent implements OnInit {
         return this.hasFacetValues(rd.payload[0]).pipe(
           tap((hasValues) => {
             this.selectedFilter = this.selectedFilter
-          ? this.selectedFilter
-          : rd.hasSucceeded && hasValues ? rd.payload[0] : null;
+              ? this.selectedFilter
+              : rd.hasSucceeded && hasValues ? rd.payload[0] : null;
           })
         );
       }),
@@ -105,16 +106,50 @@ export class SearchChartsComponent implements OnInit {
    * @param filterConfig the filter config to check
    * @returns {Observable<boolean>} true if the filter config has facet values
    */
-  hasFacetValues(filterConfig: SearchFilterConfig): Observable<boolean> {
+  private hasFacetValues(filterConfig: SearchFilterConfig): Observable<boolean> {
     if (hasValue(filterConfig)) {
       return this.searchConfigService.searchOptions.pipe(
         switchMap((options) => {
-            return this.searchService.getFacetValuesFor(filterConfig, 1, options).pipe(
-              filter((RD) => !RD.isLoading),
-              map((valuesRD) => valuesRD.payload.totalElements > 0));
-          }
+          return this.searchService.getFacetValuesFor(filterConfig, 1, options).pipe(
+            filter((RD) => !RD.isLoading),
+            map((valuesRD) => valuesRD.payload.totalElements > 0));
+        }
         ));
     }
     return of(false);
+  }
+
+  /**
+   * Checks if the filter config tab can be shown or if chart section should be hidden
+   * based on the filter config has facet values and the selected filter.
+   * If the selected filter is the filter config to check and it doesn't have facet values,
+   * the selected filter will be changed to the previous filter config that has facet values.
+   * If the previous filter config doesn't exist, the selected filter will be changed to the next filter config that has facet values.
+   * @param filterConfig the filter config to check
+   * @returns {Observable<boolean>} if the filter config tab can be shown or if chart section should be hidden
+   */
+  canShowChart(filterConfig: SearchFilterConfig): Observable<boolean> {
+    return this.hasFacetValues(filterConfig).pipe(
+      mergeMap((hasValues: boolean) => this.filters.pipe(
+        filter((rd: RemoteData<SearchFilterConfig[]>) => isNotEmpty(rd)),
+        take(1),
+        getRemoteDataPayload(),
+        map((configs: SearchFilterConfig[]) => {
+          if (!hasValues && this.selectedFilter === filterConfig) {
+            const index = configs.findIndex(x => x.filterType === this.selectedFilter.filterType);
+            if (index > -1) {
+              if (hasValue(configs[index - 1])) {
+                this.changeChartType(configs[index - 1]);
+              } else {
+                this.selectedFilter = hasValue(configs[index + 1]) ? configs[index + 1] : null;
+              }
+            }
+            return false;
+          }
+
+          return hasValues;
+        })
+      ))
+    );
   }
 }
