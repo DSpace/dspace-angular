@@ -22,7 +22,9 @@ import { DsDynamicOneboxComponent } from './dynamic-onebox.component';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
-import { AuthorityConfidenceStateDirective } from '../../../../../authority-confidence/authority-confidence-state.directive';
+import {
+  AuthorityConfidenceStateDirective
+} from '../../../../../authority-confidence/authority-confidence-state.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
@@ -360,7 +362,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
       it('should init component properly', fakeAsync(() => {
         tick();
         expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test', null, null,null, 'testDisplay'));
-        expect((oneboxComponent as any).vocabularyService.getVocabularyEntryByValue).toHaveBeenCalled();
+        expect((oneboxComponent as any).vocabularyService.getVocabularyEntryByValue).not.toHaveBeenCalled();
       }));
 
       it('should emit change Event onChange and currentValue is empty', () => {
@@ -397,7 +399,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
       it('should init component properly', fakeAsync(() => {
         tick();
         expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test', null, null,validAuthority, 'test'));
-        expect((oneboxComponent as any).vocabularyService.getVocabularyEntryByID).toHaveBeenCalled();
+        expect((oneboxComponent as any).vocabularyService.getVocabularyEntryByID).not.toHaveBeenCalled();
       }));
 
       it('should emit change Event onChange and currentValue is empty', () => {

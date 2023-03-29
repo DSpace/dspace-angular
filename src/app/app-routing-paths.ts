@@ -135,6 +135,9 @@ export const HEALTH_PAGE_PATH = 'health';
 
 export const EDIT_ITEM_PATH = 'edit-items';
 
+export function getEditItemPageRoute() {
+  return `/${EDIT_ITEM_PATH}`;
+}
 
 export function getSubscriptionsModuleRoute() {
   return `/${SUBSCRIPTIONS_MODULE_PATH}`;

@@ -1,12 +1,8 @@
-<div class="container">
+<div>
   <h2>{{ 'explore.browse-section.title' | translate }}</h2>
-  <div class="container">
-    <div class="container">
-      <div *ngFor="let name of browseSection.browseNames" class="row">
-        <a [routerLink]="'/browse/' + name" class="lead mb-3">
-          {{'explore.index.' + name | translate}}
-        </a>
-      </div>
-    </div>
+  <div *ngFor="let name of browseSection.browseNames" class="mb-2">
+    <a [routerLink]="'/browse/' + name" class="lead mb-3">
+      {{'explore.index.' + name | translate}}
+    </a>
   </div>
 </div>

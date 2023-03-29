@@ -77,20 +77,18 @@ describe('OpenaireBrokerTopicRestService', () => {
       rdbService,
       objectCache,
       halService,
-      notificationsService,
-      http,
-      comparator
+      notificationsService
     );
 
-    spyOn((service as any).dataService, 'findAllByHref').and.callThrough();
-    spyOn((service as any).dataService, 'findByHref').and.callThrough();
+    spyOn((service as any), 'findListByHref').and.callThrough();
+    spyOn((service as any), 'findByHref').and.callThrough();
   });
 
   describe('getTopics', () => {
-    it('should proxy the call to dataservice.findAllByHref', (done) => {
+    it('should call findListByHref', (done) => {
       service.getTopics().subscribe(
         (res) => {
-          expect((service as any).dataService.findAllByHref).toHaveBeenCalledWith(endpointURL, {}, true, true);
+          expect((service as any).findListByHref).toHaveBeenCalledWith(endpointURL, {}, true, true);
         }
       );
       done();
@@ -106,10 +104,10 @@ describe('OpenaireBrokerTopicRestService', () => {
   });
 
   describe('getTopic', () => {
-    it('should proxy the call to dataservice.findByHref', (done) => {
+    it('should call findByHref', (done) => {
       service.getTopic(openaireBrokerTopicObjectMorePid.id).subscribe(
         (res) => {
-          expect((service as any).dataService.findByHref).toHaveBeenCalledWith(endpointURL + '/' + openaireBrokerTopicObjectMorePid.id, true, true);
+          expect((service as any).findByHref).toHaveBeenCalledWith(endpointURL + '/' + openaireBrokerTopicObjectMorePid.id, true, true);
         }
       );
       done();

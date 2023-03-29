@@ -1,12 +1,13 @@
 /* eslint-disable max-classes-per-file */
 import {
+  AddDependentsObjectCacheAction,
   AddPatchObjectCacheAction,
   AddToObjectCacheAction,
   ApplyPatchObjectCacheAction,
   ObjectCacheAction,
-  ObjectCacheActionTypes,
+  ObjectCacheActionTypes, RemoveDependentsObjectCacheAction,
   RemoveFromObjectCacheAction,
-  ResetObjectCacheTimestampsAction
+  ResetObjectCacheTimestampsAction,
 } from './object-cache.actions';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { CacheEntry } from './cache-entry';
@@ -68,6 +69,12 @@ export class ObjectCacheEntry implements CacheEntry {
    * to make retrieving the latest UUID easier.
    */
   requestUUIDs: string[];
+
+  /**
+   * A list of UUIDs for the requests that depend on this object.
+   * When this object is invalidated, these requests will be invalidated as well.
+   */
+  dependentRequestUUIDs: string[];
 
   /**
    * An array of patches that were made on the client side to this entry, but haven't been sent to the server yet
@@ -134,6 +141,14 @@ export function objectCacheReducer(state = initialState, action: ObjectCacheActi
       return applyPatchObjectCache(state, action as ApplyPatchObjectCacheAction);
     }
 
+    case ObjectCacheActionTypes.ADD_DEPENDENTS: {
+      return addDependentsObjectCacheState(state, action as AddDependentsObjectCacheAction);
+    }
+
+    case ObjectCacheActionTypes.REMOVE_DEPENDENTS: {
+      return removeDependentsObjectCacheState(state, action as RemoveDependentsObjectCacheAction);
+    }
+
     default: {
       return state;
     }
@@ -159,6 +174,7 @@ function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheActio
       timeCompleted: action.payload.timeCompleted,
       msToLive: action.payload.msToLive,
       requestUUIDs: [action.payload.requestUUID, ...(existing.requestUUIDs || [])],
+      dependentRequestUUIDs: existing.dependentRequestUUIDs || [],
       isDirty: isNotEmpty(existing.patches),
       patches: existing.patches || [],
       alternativeLinks: [...(existing.alternativeLinks || []), ...newAltLinks]
@@ -250,5 +266,51 @@ function applyPatchObjectCache(state: ObjectCacheState, action: ApplyPatchObject
     const newData = applyPatch(newState[uuid].data, flatPatch, undefined, false);
     newState[uuid] = Object.assign({}, newState[uuid], { data: newData.newDocument, patches: [] });
   }
+  return newState;
+}
+
+/**
+ * Add a list of dependent request UUIDs to a cached object, used when defining new dependencies
+ *
+ * @param state   the current state
+ * @param action  an AddDependentsObjectCacheAction
+ * @return        the new state, with the dependent requests of the cached object updated
+ */
+function addDependentsObjectCacheState(state: ObjectCacheState, action: AddDependentsObjectCacheAction): ObjectCacheState {
+  const href = action.payload.href;
+  const newState = Object.assign({}, state);
+
+  if (hasValue(newState[href])) {
+    newState[href] = Object.assign({}, newState[href], {
+      dependentRequestUUIDs: [
+        ...new Set([
+          ...newState[href]?.dependentRequestUUIDs || [],
+          ...action.payload.dependentRequestUUIDs,
+        ])
+      ]
+    });
+  }
+
+  return newState;
+}
+
+
+/**
+ * Remove all dependent request UUIDs from a cached object, used to clear out-of-date depedencies
+ *
+ * @param state   the current state
+ * @param action  an AddDependentsObjectCacheAction
+ * @return        the new state, with the dependent requests of the cached object updated
+ */
+function removeDependentsObjectCacheState(state: ObjectCacheState, action: RemoveDependentsObjectCacheAction): ObjectCacheState {
+  const href = action.payload;
+  const newState = Object.assign({}, state);
+
+  if (hasValue(newState[href])) {
+    newState[href] = Object.assign({}, newState[href], {
+      dependentRequestUUIDs: []
+    });
+  }
+
   return newState;
 }

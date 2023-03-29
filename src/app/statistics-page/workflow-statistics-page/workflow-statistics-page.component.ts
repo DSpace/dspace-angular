@@ -3,16 +3,15 @@ import { NgbDate, NgbDateParserFormatter, NgbDateStruct, NgbModal, NgbModalRef }
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import {
-  getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getPaginatedListPayload,
   getRemoteDataPayload
 } from '../../core/shared/operators';
-import { WorkflowStepStatisticsService } from '../../core/statistics/workflow-step-statistics.service';
+import { WorkflowStepStatisticsDataService } from '../../core/statistics/workflow-step-statistics-data.service';
 import { WorkflowStepStatistics } from '../../core/statistics/models/workflow-step-statistics.model';
 import { CollectionSelectorComponent } from '../../my-dspace-page/collection-selector/collection-selector.component';
 import { TranslateService } from '@ngx-translate/core';
-import { WorkflowOwnerStatisticsService } from '../../core/statistics/workflow-owner-statistics.service';
+import { WorkflowOwnerStatisticsDataService } from '../../core/statistics/workflow-owner-statistics-data.service';
 import { WorkflowOwnerStatistics } from '../../core/statistics/models/workflow-owner-statistics.model';
 import { AlertType } from 'src/app/shared/alert/aletr-type';
 
@@ -48,8 +47,8 @@ export class WorkflowStatisticsPageComponent implements OnInit {
 
   AlertTypeEnum = AlertType;
 
-  constructor( private workflowStepStatisticsService: WorkflowStepStatisticsService,
-    private workflowOwnerStatisticsService: WorkflowOwnerStatisticsService,
+  constructor( private workflowStepStatisticsService: WorkflowStepStatisticsDataService,
+    private workflowOwnerStatisticsService: WorkflowOwnerStatisticsDataService,
     private ngbDateParserFormatter: NgbDateParserFormatter,
     private translateService: TranslateService,
     private modalService: NgbModal) {

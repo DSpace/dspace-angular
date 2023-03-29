@@ -1,5 +1,5 @@
 import { NotificationsService } from '../../notifications/notifications.service';
-import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
+import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
@@ -40,7 +40,7 @@ export class ClaimItemMenuComponent extends ContextMenuEntryComponent implements
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
     protected authorizationService: AuthorizationDataService,
-    private researcherProfileService: ResearcherProfileService,
+    private researcherProfileService: ResearcherProfileDataService,
     private notificationsService: NotificationsService,
     private translate: TranslateService,
   ) {

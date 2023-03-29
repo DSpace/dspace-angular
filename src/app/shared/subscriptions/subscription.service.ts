@@ -10,7 +10,6 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { RequestParam } from '../../core/cache/models/request-param.model';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
-import { DataService } from '../../core/data/data.service';
 import { DSOChangeAnalyzer } from '../../core/data/dso-change-analyzer.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
@@ -21,14 +20,19 @@ import { RestRequest } from '../../core/data/rest-request.model';
 import { RequestService } from '../../core/data/request.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { Subscription } from './models/subscription.model';
-import { dataService } from '../../core/cache/builders/build-decorators';
+import { dataService } from '../../core/data/base/data-service.decorator';
 import { SUBSCRIPTION } from './models/subscription.resource-type';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { isNotEmpty, isNotEmptyOperator } from '../empty.util';
 
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { sendRequest } from 'src/app/core/shared/request.operators';
+import { IdentifiableDataService } from '../../core/data/base/identifiable-data.service';
+import { DeleteDataImpl } from '../../core/data/base/delete-data';
+import { SearchDataImpl } from '../../core/data/base/search-data';
+import { FindAllData } from '../../core/data/base/find-all-data';
+import { followLink } from '../utils/follow-link-config.model';
 
 /**
  * Provides methods to retrieve subscription resources from the REST API related CRUD actions.
@@ -37,10 +41,12 @@ import { sendRequest } from 'src/app/core/shared/request.operators';
   providedIn: 'root'
 })
 @dataService(SUBSCRIPTION)
-export class SubscriptionService extends DataService<Subscription> {
-  protected linkPath = 'subscriptions';
+export class SubscriptionService extends IdentifiableDataService<Subscription> {
+  protected findByEpersonLinkPath = 'findByEPerson';
 
-  protected browseEndpoint = '';
+  private deleteData: DeleteDataImpl<Subscription>;
+  private findAllData: FindAllData<Subscription>;
+  private searchData: SearchDataImpl<Subscription>;
 
   constructor(
     protected comparator: DSOChangeAnalyzer<Subscription>,
@@ -53,7 +59,10 @@ export class SubscriptionService extends DataService<Subscription> {
     protected halService: HALEndpointService,
     protected nameService: DSONameService,
   ) {
-    super();
+    super('subscriptions', requestService, rdbService, objectCache, halService);
+
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
   }
   /**
    * Get subscriptions for a given item or community or collection & eperson.
@@ -61,7 +70,7 @@ export class SubscriptionService extends DataService<Subscription> {
    * @param eperson The eperson to search for
    * @param uuid The uuid of the dsobjcet to search for
    */
-  getSubscriptionByPersonDSO(eperson: string, uuid: string): Observable<PaginatedList<Subscription>> {
+  getSubscriptionByPersonDSO(eperson: string, uuid: string): Observable<RemoteData<PaginatedList<Subscription>>> {
 
     const optionsWithObject = Object.assign(new FindListOptions(), {
       searchParams: [
@@ -70,10 +79,7 @@ export class SubscriptionService extends DataService<Subscription> {
       ]
     });
 
-    return this.searchBy('findByEPersonAndDso', optionsWithObject, false, true).pipe(
-      getFirstCompletedRemoteData(),
-      getRemoteDataPayload(),
-    );
+    return this.searchData.searchBy('findByEPersonAndDso', optionsWithObject, false, true);
   }
 
   /**
@@ -126,7 +132,7 @@ export class SubscriptionService extends DataService<Subscription> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
-      switchMap((endpointUrl) => this.delete(id)),
+      switchMap((endpointUrl) => this.deleteData.delete(id)),
       getFirstCompletedRemoteData(),
     );
   }
@@ -136,45 +142,30 @@ export class SubscriptionService extends DataService<Subscription> {
    *
    * @param options                     options for the find all request
    */
-  findAllSubscriptions(options?): Observable<PaginatedList<Subscription>> {
-    const optionsWithObject = Object.assign(new FindListOptions(), options, {
-      searchParams: [new RequestParam('embed', 'dSpaceObject'),new RequestParam('embed', 'ePerson')]
-    });
-
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      filter((href: string) => isNotEmpty(href)),
-      distinctUntilChanged(),
-      switchMap((endpointUrl) => this.findAllByHref(endpointUrl, optionsWithObject, false, true)),
-      getFirstCompletedRemoteData(),
-      getRemoteDataPayload()
-    );
-
+  findAllSubscriptions(options?): Observable<RemoteData<PaginatedList<Subscription>>> {
+    return this.findAllData.findAll(options, true, true, followLink('dSpaceObject'), followLink('ePerson'));
   }
 
 
   /**
    * Retrieves the list of subscription with {@link dSpaceObject} and {@link ePerson}
    *
-   * @param options                     options for the find all request
+   * @param epersonId  The eperson id
+   * @param options    The options for the find all request
    */
-  findByEPerson(eperson,options?): Observable<PaginatedList<Subscription>> {
+  findByEPerson(epersonId: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Subscription>>> {
      const optionsWithObject = Object.assign(new FindListOptions(), options, {
       searchParams: [
-      new RequestParam('id', eperson),
-      new RequestParam('embed', 'dSpaceObject'),
-      new RequestParam('embed', 'ePerson')
+        new RequestParam('id', epersonId)
       ]
     });
 
-    const endpoint = this.getSearchEndpoint('findByEPerson');
-
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      filter((href: string) => isNotEmpty(href)),
-      distinctUntilChanged(),
-      switchMap((endpointUrl) => this.findAllByHref(endpoint, optionsWithObject, false, true)),
-      getFirstCompletedRemoteData(),
-      getRemoteDataPayload()
+    return this.getEndpoint().pipe(
+      map(href => `${href}/search/${this.findByEpersonLinkPath}`),
+      switchMap(href => this.findListByHref(href, optionsWithObject, true, true, followLink('dSpaceObject'), followLink('ePerson')))
     );
+
+
   }
 
 }

@@ -87,7 +87,8 @@ describe('OpenaireBrokerEventRestService', () => {
       buildList: cold('(a)', {
         a: paginatedListRD
       }),
-      buildFromRequestUUID: jasmine.createSpy('buildFromRequestUUID')
+      buildFromRequestUUID: jasmine.createSpy('buildFromRequestUUID'),
+      buildFromRequestUUIDAndAwait: jasmine.createSpy('buildFromRequestUUIDAndAwait')
     });
 
     objectCache = {} as ObjectCacheService;
@@ -105,17 +106,16 @@ describe('OpenaireBrokerEventRestService', () => {
       objectCache,
       halService,
       notificationsService,
-      http,
       comparator
     );
 
     serviceASAny = service;
 
-    spyOn(serviceASAny.dataService, 'searchBy').and.callThrough();
-    spyOn(serviceASAny.dataService, 'findById').and.callThrough();
-    spyOn(serviceASAny.dataService, 'patch').and.callThrough();
-    spyOn(serviceASAny.dataService, 'postOnRelated').and.callThrough();
-    spyOn(serviceASAny.dataService, 'deleteOnRelated').and.callThrough();
+    spyOn(serviceASAny.searchData, 'searchBy').and.callThrough();
+    spyOn(serviceASAny, 'findById').and.callThrough();
+    spyOn(serviceASAny.patchData, 'patch').and.callThrough();
+    spyOn(serviceASAny, 'postOnRelated').and.callThrough();
+    spyOn(serviceASAny, 'deleteOnRelated').and.callThrough();
   });
 
   describe('getEventsByTopic', () => {
@@ -135,7 +135,7 @@ describe('OpenaireBrokerEventRestService', () => {
         ]
       };
       service.getEventsByTopic(topic);
-      expect(serviceASAny.dataService.searchBy).toHaveBeenCalledWith('findByTopic', options, true, true);
+      expect(serviceASAny.searchData.searchBy).toHaveBeenCalledWith('findByTopic', options, true, true);
     });
 
     it('should return a RemoteData<PaginatedList<OpenaireBrokerEventObject>> for the object with the given Topic', () => {
@@ -154,10 +154,10 @@ describe('OpenaireBrokerEventRestService', () => {
       serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(brokerEventObjectRD));
     });
 
-    it('should proxy the call to dataservice.findById', () => {
+    it('should call findById', () => {
       service.getEvent(openaireBrokerEventObjectMissingPid.id).subscribe(
         (res) => {
-          expect(serviceASAny.dataService.findById).toHaveBeenCalledWith(openaireBrokerEventObjectMissingPid.id, true, true);
+          expect(serviceASAny.findById).toHaveBeenCalledWith(openaireBrokerEventObjectMissingPid.id, true, true);
         }
       );
     });
@@ -176,12 +176,13 @@ describe('OpenaireBrokerEventRestService', () => {
       serviceASAny.requestService.getByHref.and.returnValue(observableOf(responseCacheEntry));
       serviceASAny.requestService.getByUUID.and.returnValue(observableOf(responseCacheEntry));
       serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(brokerEventObjectRD));
+      serviceASAny.rdbService.buildFromRequestUUIDAndAwait.and.returnValue(observableOf(brokerEventObjectRD));
     });
 
     it('should proxy the call to dataservice.patch', () => {
       service.patchEvent(status, openaireBrokerEventObjectMissingPid).subscribe(
         (res) => {
-          expect(serviceASAny.dataService.patch).toHaveBeenCalledWith(openaireBrokerEventObjectMissingPid, operation);
+          expect(serviceASAny.patchData.patch).toHaveBeenCalledWith(openaireBrokerEventObjectMissingPid, operation);
         }
       );
     });
@@ -205,7 +206,7 @@ describe('OpenaireBrokerEventRestService', () => {
     it('should proxy the call to dataservice.postOnRelated', () => {
       service.boundProject(openaireBrokerEventObjectMissingProjectFound.id, requestUUID).subscribe(
         (res) => {
-          expect(serviceASAny.dataService.postOnRelated).toHaveBeenCalledWith(openaireBrokerEventObjectMissingProjectFound.id, requestUUID);
+          expect(serviceASAny.postOnRelated).toHaveBeenCalledWith(openaireBrokerEventObjectMissingProjectFound.id, requestUUID);
         }
       );
     });
@@ -229,7 +230,7 @@ describe('OpenaireBrokerEventRestService', () => {
     it('should proxy the call to dataservice.deleteOnRelated', () => {
       service.removeProject(openaireBrokerEventObjectMissingProjectFound.id).subscribe(
         (res) => {
-          expect(serviceASAny.dataService.deleteOnRelated).toHaveBeenCalledWith(openaireBrokerEventObjectMissingProjectFound.id);
+          expect(serviceASAny.deleteOnRelated).toHaveBeenCalledWith(openaireBrokerEventObjectMissingProjectFound.id);
         }
       );
     });

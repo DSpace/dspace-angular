@@ -8,7 +8,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { VocabularyExternalSourceComponent } from './vocabulary-external-source.component';
-import { ExternalSourceService } from '../../core/data/external-source.service';
+import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
 import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { NotificationsServiceStub } from '../testing/notifications-service.stub';
@@ -18,7 +18,9 @@ import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { Item } from '../../core/shared/item.model';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
-import { CreateItemParentSelectorComponent } from '../dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import {
+  CreateItemParentSelectorComponent
+} from '../dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import { Collection } from '../../core/shared/collection.model';
 import { Metadata } from '../../core/shared/metadata.utils';
 
@@ -29,7 +31,7 @@ describe('VocabularyExternalSourceComponent', () => {
   let scheduler: TestScheduler;
 
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
-  const externalSourceService = jasmine.createSpyObj('ExternalSourceService', {
+  const externalSourceService = jasmine.createSpyObj('ExternalSourceDataService', {
     getExternalSourceEntryById: jasmine.createSpy('getExternalSourceEntryById')
   });
   const submissionObjectDataService = jasmine.createSpyObj('SubmissionObjectDataService', {
@@ -104,7 +106,7 @@ describe('VocabularyExternalSourceComponent', () => {
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: NgbModal, useValue: ngbModal },
-        { provide: ExternalSourceService, useValue: externalSourceService },
+        { provide: ExternalSourceDataService, useValue: externalSourceService },
         { provide: ItemDataService, useValue: itemDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: SubmissionObjectDataService, useValue: submissionObjectDataService },

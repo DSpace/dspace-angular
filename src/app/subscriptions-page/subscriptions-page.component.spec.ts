@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 
@@ -8,7 +8,6 @@ import { BrowserModule, By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-
 
 // Import components
 import { SubscriptionsPageComponent } from './subscriptions-page.component';
@@ -26,7 +25,7 @@ import { HostWindowServiceStub } from '../shared/testing/host-window-service.stu
 
 // Import mocks
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
-import { findAllSubscriptionRes } from '../shared/testing/subscriptions-data.mock';
+import { mockSubscriptionList } from '../shared/testing/subscriptions-data.mock';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { of as observableOf } from 'rxjs';
 import { EPersonMock } from '../shared/testing/eperson.mock';
@@ -35,7 +34,10 @@ import { VarDirective } from '../shared/utils/var.directive';
 import {
   SubscriptionViewComponent
 } from '../shared/subscriptions/components/subscription-view/subscription-view.component';
-
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
+import { PageInfo } from '../core/shared/page-info.model';
+import { buildPaginatedList } from '../core/data/paginated-list.model';
 
 describe('SubscriptionsPageComponent', () => {
   let component: SubscriptionsPageComponent;
@@ -46,8 +48,14 @@ describe('SubscriptionsPageComponent', () => {
     getAuthenticatedUserFromStore: observableOf(EPersonMock)
   });
 
+  const pageInfo = Object.assign(new PageInfo(), {
+    'elementsPerPage': 10,
+    'totalElements': 10,
+    'totalPages': 1,
+    'currentPage': 1
+  });
   const subscriptionServiceStub = jasmine.createSpyObj('SubscriptionService', {
-    findByEPerson: observableOf(findAllSubscriptionRes)
+    findByEPerson: createSuccessfulRemoteDataObject$(buildPaginatedList(pageInfo, mockSubscriptionList))
   });
   const paginationService = new PaginationServiceStub();
 
@@ -65,7 +73,7 @@ describe('SubscriptionsPageComponent', () => {
         }),
         NoopAnimationsModule
       ],
-      declarations: [ SubscriptionsPageComponent, SubscriptionViewComponent, VarDirective ],
+      declarations: [ PaginationComponent, SubscriptionsPageComponent, SubscriptionViewComponent, VarDirective ],
       providers:[
         { provide: SubscriptionService, useValue: subscriptionServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
@@ -92,12 +100,11 @@ describe('SubscriptionsPageComponent', () => {
 
   describe('when table', () => {
 
-    it('should show table', async() => {
-      await fixture.whenStable();
-      fixture.detectChanges();
+    it('should show table', fakeAsync(() => {
+      flush();
       const table = de.query(By.css('table'));
       expect(table).toBeTruthy();
-    });
+    }));
 
   });
 
@@ -122,6 +129,5 @@ describe('SubscriptionsPageComponent', () => {
     expect(de.query(By.css('.btn-outline-primary'))).toBeTruthy();
     expect(de.query(By.css('.btn-outline-danger'))).toBeTruthy();
   });
-
 
 });

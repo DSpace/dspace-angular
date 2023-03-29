@@ -32,6 +32,8 @@ import { SearchConfigurationService } from '../../core/shared/search/search-conf
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service.stub';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment.test';
 
 describe('TopLevelCommunityList Component', () => {
   let comp: TopLevelCommunityListComponent;
@@ -126,7 +128,7 @@ describe('TopLevelCommunityList Component', () => {
   });
 
   const groupDataService = jasmine.createSpyObj('groupsDataService', {
-    findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     getGroupRegistryRouterLink: '',
     getUUIDFromString: '',
   });
@@ -151,6 +153,7 @@ describe('TopLevelCommunityList Component', () => {
       ],
       declarations: [TopLevelCommunityListComponent],
       providers: [
+        { provide: APP_CONFIG, useValue: environment },
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: PaginationService, useValue: paginationService },
@@ -172,14 +175,18 @@ describe('TopLevelCommunityList Component', () => {
 
   });
 
-  it('should display a list of top-communities', () => {
-    const subComList = fixture.debugElement.queryAll(By.css('li'));
 
-    expect(subComList.length).toEqual(5);
-    expect(subComList[0].nativeElement.textContent).toContain('TopCommunity 1');
-    expect(subComList[1].nativeElement.textContent).toContain('TopCommunity 2');
-    expect(subComList[2].nativeElement.textContent).toContain('TopCommunity 3');
-    expect(subComList[3].nativeElement.textContent).toContain('TopCommunity 4');
-    expect(subComList[4].nativeElement.textContent).toContain('TopCommunity 5');
+  it('should display a list of top-communities', () => {
+    waitForAsync(() => {
+      const subComList = fixture.debugElement.queryAll(By.css('li'));
+
+      expect(subComList.length).toEqual(5);
+      expect(subComList[0].nativeElement.textContent).toContain('TopCommunity 1');
+      expect(subComList[1].nativeElement.textContent).toContain('TopCommunity 2');
+      expect(subComList[2].nativeElement.textContent).toContain('TopCommunity 3');
+      expect(subComList[3].nativeElement.textContent).toContain('TopCommunity 4');
+      expect(subComList[4].nativeElement.textContent).toContain('TopCommunity 5');
+    });
   });
+
 });

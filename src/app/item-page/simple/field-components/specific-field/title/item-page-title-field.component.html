@@ -1,8 +1,8 @@
 <h2 class="item-page-title-field">
-  <div *ngIf="item.firstMetadataValue('dspace.entity.type') as type">
+  <div *ngIf="item.firstMetadataValue('dspace.entity.type') as type" class="d-inline">
     {{ type.toLowerCase() + '.page.titleprefix' | translate }}
   </div>
   <div class="d-flex justify-content-between">
-    <ds-metadata-values [mdValues]="item?.allMetadata(fields)"></ds-metadata-values>
+    <span class="dont-break-out">{{ dsoNameService.getName(item) }}</span>
   </div>
 </h2>

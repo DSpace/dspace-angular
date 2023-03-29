@@ -683,27 +683,45 @@
 
   "admin.metadata-import.breadcrumbs": "Import Metadata",
 
+  "admin.batch-import.breadcrumbs": "Import Batch",
+
   "admin.metadata-import.title": "Import Metadata",
+
+  "admin.batch-import.title": "Import Batch",
 
   "admin.metadata-import.page.header": "Import Metadata",
 
+  "admin.batch-import.page.header": "Import Batch",
+
   "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
+
+  "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
 
   "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
 
+  "admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
+
   "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
+
+  "admin.batch-import.page.dropMsgReplace": "Drop to replace the batch ZIP to import",
 
   "admin.metadata-import.page.button.return": "Back",
 
   "admin.metadata-import.page.button.proceed": "Proceed",
 
+  "admin.metadata-import.page.button.select-collection": "Select Collection",
+
   "admin.metadata-import.page.error.addFile": "Select file first!",
+
+  "admin.batch-import.page.error.addFile": "Select Zip file first!",
 
   "admin.metadata-import.page.validateOnly": "Validate Only",
 
   "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
 
+  "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
 
+  "admin.batch-import.page.remove": "remove",
 
 
   "alert.close.aria": "Close",
@@ -1151,7 +1169,7 @@
 
   "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
 
-  "collection.edit.tabs.source.notifications.discarded.title": "Changed discarded",
+  "collection.edit.tabs.source.notifications.discarded.title": "Changes discarded",
 
   "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
 
@@ -1572,6 +1590,9 @@
 
   "datapackage.listelement.badge": "Data Package",
 
+
+  "checksum-tooltip.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
+
   "cookies.consent.accept-all": "Accept all",
 
   "cookies.consent.accept-selected": "Accept selected",
@@ -1597,6 +1618,8 @@
   "cookies.consent.decline": "Decline",
 
   "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
+
+  "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
 
   "cookies.consent.content-notice.learnMore": "Customize",
 
@@ -1633,11 +1656,23 @@
 
 
 
+  "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
+
+  "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
+
+
+
   "cookies.consent.purpose.functional": "Functional",
 
   "cookies.consent.purpose.statistical": "Statistical",
 
+  "cookies.consent.purpose.registration-password-recovery": "Registration and Password recovery",
+
   "cookies.consent.purpose.sharing": "Sharing",
+
+
+  "curation-task.task.citationpage.label":  "Generate Citation Page",
+
 
   "cris-layout.toggle.open": "Open section",
 
@@ -1650,6 +1685,10 @@
   "cris-layout.advanced-attachment.dc.title": "Name",
 
   "cris-layout.advanced-attachment.size": "Size",
+
+  "cris-layout.advanced-attachment.checksum": "Checksum",
+
+  "cris-layout.advanced-attachment.checksum.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
 
   "cris-layout.advanced-attachment.format": "Format",
 
@@ -1745,6 +1784,10 @@
 
   "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
 
+  "dso-selector.export-batch.dspaceobject.head": "Export Batch (ZIP) from",
+
+  "dso-selector.import-batch.dspaceobject.head": "Import batch from",
+
   "dso-selector.import-item.item.head": "Import items",
 
   "dso-selector.import-item.sub-level": "Bulk import items in",
@@ -1780,6 +1823,14 @@
   "confirmation-modal.export-metadata.cancel": "Cancel",
 
   "confirmation-modal.export-metadata.confirm": "Export",
+
+  "confirmation-modal.export-batch.header": "Export batch (ZIP) for {{ dsoName }}",
+
+  "confirmation-modal.export-batch.info": "Are you sure you want to export batch (ZIP) for {{ dsoName }}",
+
+  "confirmation-modal.export-batch.cancel": "Cancel",
+
+  "confirmation-modal.export-batch.confirm": "Export",
 
   "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
 
@@ -2072,7 +2123,7 @@
 
   "forgot-email.form.header": "Forgot Password",
 
-  "forgot-email.form.info": "Enter Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
+  "forgot-email.form.info": "Enter the email address associated with the account.",
 
   "forgot-email.form.email": "Email Address *",
 
@@ -2080,17 +2131,17 @@
 
   "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
 
-  "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
+  "forgot-email.form.email.hint": "An email will be sent to this address with a further instructions.",
 
-  "forgot-email.form.submit": "Save",
+  "forgot-email.form.submit": "Reset password",
 
-  "forgot-email.form.success.head": "Verification email sent",
+  "forgot-email.form.success.head": "Password reset email sent",
 
   "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
 
-  "forgot-email.form.error.head": "Error when trying to register email",
+  "forgot-email.form.error.head": "Error when trying to reset password",
 
-  "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
+  "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
 
 
 
@@ -2098,7 +2149,7 @@
 
   "forgot-password.form.head": "Forgot Password",
 
-  "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box.",
 
   "forgot-password.form.card.security": "Security",
 
@@ -2114,8 +2165,6 @@
 
   "forgot-password.form.error.matching-passwords": "The passwords do not match.",
 
-  "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
-
   "forgot-password.form.notification.error.title": "Error when trying to submit new password",
 
   "forgot-password.form.notification.success.content": "The password reset was successful. You have been logged in as the created user.",
@@ -2123,7 +2172,6 @@
   "forgot-password.form.notification.success.title": "Password reset completed",
 
   "forgot-password.form.submit": "Submit password",
-
 
 
   "form.add": "Add more",
@@ -2267,13 +2315,13 @@
 
   "health-page.section.geoIp.title": "GeoIp",
 
-  "health-page.section.solrAuthorityCore.title": "Sor: authority core",
+  "health-page.section.solrAuthorityCore.title": "Solr: authority core",
 
-  "health-page.section.solrOaiCore.title": "Sor: oai core",
+  "health-page.section.solrOaiCore.title": "Solr: oai core",
 
-  "health-page.section.solrSearchCore.title": "Sor: search core",
+  "health-page.section.solrSearchCore.title": "Solr: search core",
 
-  "health-page.section.solrStatisticsCore.title": "Sor: statistics core",
+  "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
 
   "health-page.section-info.app.title": "Application Backend",
 
@@ -2551,7 +2599,7 @@
 
   "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
 
-  "item.edit.metadata.notifications.discarded.title": "Changed discarded",
+  "item.edit.metadata.notifications.discarded.title": "Changes discarded",
 
   "item.edit.metadata.notifications.error.title": "An error occurred",
 
@@ -2561,7 +2609,7 @@
 
   "item.edit.metadata.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
 
-  "item.edit.metadata.notifications.outdated.title": "Changed outdated",
+  "item.edit.metadata.notifications.outdated.title": "Changes outdated",
 
   "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
 
@@ -3168,9 +3216,15 @@
 
   "item-export.modal-launcher.multiple.btn": "Export",
 
-  "item-export.alert.single": "Export item ",
+  "item-export.alert.single": "Export item <b>{{title}}</b>",
 
   "item-export.alert.multiple": "Export all items of a particular entity type belonging to the current search.",
+
+  "item-export.alert.multiple-with-type": "Export all items with type <b>{{type}}</b> belonging to the current search.",
+
+  "item-export.alert.export.limit": "This export will be limited to a maximum of {{limit}} items.",
+
+  "item-export.cannot-msg": "There are no items to export with the selected configuration",
 
   "item-export.form.entityType": "Entity Type",
 
@@ -3183,6 +3237,14 @@
   "item-export.form.btn.submit": "Export",
 
   "item-export.form.btn.cancel": "Cancel",
+
+  "item-export.form.selection": "Export mode",
+
+  "item-export.form.selection.all": "Export all",
+
+  "item-export.form.selection.only-selected": "Export only selected",
+
+  "item-export.modal.title": "Item Export Process Launcher",
 
   "item-export.process.title": "Bulk export item",
 
@@ -3343,11 +3405,25 @@
 
   "manage.relationships.unhide": "Unhide",
 
-  "manage.relationships.title" : "Selected items",
+  "manage.relationships.search-list.title" : "All your items",
+
+  "manage.relationships.selected-list.title" : "Selected items",
 
   "manage.relationships.no.relationships.found" : "Empty selection",
 
   "manage.relationships.no.data.found" : "No data found",
+
+  "manage.relationships.error.select" : "An unexpected error occurs while selecting the entity.",
+
+  "manage.relationships.error.unselect" : "An unexpected error occurs while unselecting the entity.",
+
+  "manage.relationships.error.hide" : "An unexpected error occurs while hiding the entity.",
+
+  "manage.relationships.error.unhide" : "An unexpected error occurs while exposing the entity.",
+
+  "manage.relationships.error.sort" : "An unexpected error occurs while sorting entities.",
+
+  "manage.relationships.hidden-related-items-alert" : "Please note that hidden related items will always be visible among Item’s relations to administrators and owner of the Item",
 
 
   "menu.header.admin": "Management",
@@ -3432,7 +3508,11 @@
 
   "menu.section.export_metadata": "Metadata",
 
+  "menu.section.export_batch": "Batch Export (ZIP)",
+
   "menu.section.import_from_excel": "Import from excel",
+
+  "menu.section.export_batch": "Batch Export (ZIP)",
 
   "menu.section.export_to_excel": "Export to excel",
 
@@ -3692,8 +3772,6 @@
 
   "mydspace.description": "",
 
-  "mydspace.general.text-here": "here",
-
   "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
 
   "mydspace.messages.description-placeholder": "Insert your message here...",
@@ -3754,6 +3832,8 @@
 
   "mydspace.show.workspace": "Your Submissions",
 
+  "mydspace.show.otherworkspace": "Other Workspace Submissions",
+
   "mydspace.status.archived": "Archived",
 
   "mydspace.status.validation": "Validation",
@@ -3774,8 +3854,6 @@
 
   "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
 
-  "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
-
   "mydspace.view-btn": "View",
 
   "mydspace.import": "Import",
@@ -3792,7 +3870,9 @@
 
   "nav.login": "Log In",
 
-  "nav.logout": "User profile menu and Log Out",
+  "nav.user-profile-menu-and-logout": "User profile menu and Log Out",
+
+  "nav.logout": "Log Out",
 
   "nav.main.description": "Main navigation bar",
 
@@ -3984,6 +4064,8 @@
 
   "reciter.suggestion.hideEvidence": "Hide evidence",
 
+  "reciter.suggestion.not-found": "No suggestion found with the given identifier.",
+
   "reciter.suggestion.suggestionFor": "Suggestion for",
 
   "reciter.suggestion.source.oaire": "OpenAIRE Graph",
@@ -3996,8 +4078,12 @@
 
   "reciter.suggestion.type.oaire": "Publications",
 
+  "reciter.suggestion.type.orcidWorks": "Publications",
+
 
   "orgunit.listelement.badge": "Organizational Unit",
+
+  "orgunit.listelement.no-title": "Untitled",
 
   "orgunit.page.city": "City",
 
@@ -4135,6 +4221,22 @@
 
   "process.detail.create" : "Create similar process",
 
+  "process.detail.actions": "Actions",
+
+  "process.detail.delete.button": "Delete process",
+
+  "process.detail.delete.header": "Delete process",
+
+  "process.detail.delete.body": "Are you sure you want to delete the current process?",
+
+  "process.detail.delete.cancel": "Cancel",
+
+  "process.detail.delete.confirm": "Delete process",
+
+  "process.detail.delete.success": "The process was successfully deleted.",
+
+  "process.detail.delete.error": "Something went wrong when deleting the process",
+
   "process.overview.delete.failed" : "An error occurs deleting the process.",
 
   "process.overview.delete.success" : "Process deleted with success",
@@ -4156,6 +4258,25 @@
   "process.overview.breadcrumbs": "Processes Overview",
 
   "process.overview.new": "New",
+
+  "process.overview.table.actions": "Actions",
+
+  "process.overview.delete": "Delete {{count}} processes",
+
+  "process.overview.delete.clear": "Clear delete selection",
+
+  "process.overview.delete.processing": "{{count}} process(es) are being deleted. Please wait for the deletion to fully complete. Note that this can take a while.",
+
+  "process.overview.delete.body": "Are you sure you want to delete {{count}} process(es)?",
+
+  "process.overview.delete.header": "Delete processes",
+
+  "process.bulk.delete.error.head": "Error on deleteing process",
+
+  "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
+
+  "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+
 
 
   "audit.overview.title": "Audit Logs Overview",
@@ -4273,13 +4394,13 @@
 
   "profile.security.form.error.matching-passwords": "The passwords do not match.",
 
-  "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
-
-  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box.",
 
   "profile.security.form.label.password": "Password",
 
   "profile.security.form.label.passwordrepeat": "Retype to confirm",
+
+  "profile.security.form.label.current-password": "Current password",
 
   "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
 
@@ -4287,9 +4408,11 @@
 
   "profile.security.form.notifications.error.title": "Error changing passwords",
 
-  "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
+  "profile.security.form.notifications.error.change-failed": "An error occurred while trying to change the password. Please check if the current password is correct.",
 
   "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
+
+  "profile.security.form.notifications.error.general": "Please fill required fields of security form.",
 
   "profile.title": "Update Profile",
 
@@ -4380,7 +4503,7 @@
 
   "register-page.create-profile.security.header": "Security",
 
-  "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box.",
 
   "register-page.create-profile.security.label.password": "Password *",
 
@@ -4389,8 +4512,6 @@
   "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
 
   "register-page.create-profile.security.error.matching-passwords": "The passwords do not match.",
-
-  "register-page.create-profile.security.error.password-length": "The password should be at least 6 characters long.",
 
   "register-page.create-profile.submit": "Complete Registration",
 
@@ -4428,7 +4549,17 @@
 
   "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
 
+  "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
 
+  "register-page.registration.google-recaptcha.must-accept-cookies": "In order to register you must accept the <b>Registration and Password recovery</b> (Google reCaptcha) cookies.",
+
+  "register-page.registration.google-recaptcha.open-cookie-settings": "Open cookie settings",
+
+  "register-page.registration.google-recaptcha.notification.title": "Google reCaptcha",
+
+  "register-page.registration.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
+
+  "register-page.registration.google-recaptcha.notification.message.expired": "Verification expired. Please verify again.",
 
   "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
 
@@ -4945,6 +5076,7 @@
 
   "search.results.view-result": "View",
 
+  "search.results.response.500": "An error occurred during query execution, please try again later",
 
 
   "search.sidebar.close": "Back to results",
@@ -5814,6 +5946,8 @@
 
   "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
 
+  "submission.sections.upload.checksum": "Checksum",
+
   "submission.sections.upload.delete.confirm.cancel": "Cancel",
 
   "submission.sections.upload.delete.confirm.info": "This operation can't be undone. Are you sure?",
@@ -5907,6 +6041,12 @@
   "submission.sections.accesses.form.until-hint": "Select the date until which the related access condition is applied",
 
   "submission.sections.accesses.form.until-placeholder": "Until",
+
+  "submission.sections.license.granted-label": "I confirm the license above",
+
+  "submission.sections.license.required": "You must accept the license",
+
+  "submission.sections.license.notgranted":  "You must accept the license",
 
 
   "submission.sections.sherpa.publication.information": "Publication information",
@@ -6161,7 +6301,7 @@
 
   "uploader.or": ", or ",
 
-  "uploader.processing": "Processing",
+  "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
 
   "uploader.queue-length": "Queue length",
 
@@ -6172,6 +6312,8 @@
   "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
 
 
+
+  "otherworkspace.search.results.head": "Workspace submissions",
 
   "workspace.search.results.head": "Your submissions",
 
@@ -6475,6 +6617,7 @@
   "person.orcid.registry.queue": "ORCID Registry Queue",
 
   "person.orcid.registry.auth": "ORCID Authorizations",
+  "home.recent-submissions.head": "Recent Submissions",
 
   "relation.rp.researchoutputs.search.results.head": "Related Publications",
 
@@ -6505,4 +6648,32 @@
   "curation-task.task.pushocr.label": "Send OCR to the Annotation Server",
 
   "curation-task.task.ocrclean.label": "Remove all metadata bundles and uploaded ocr created by a previous upload to the ocr server",
+
+  "curation-task.task.pushocr.force.label": "Clean OCR from the Annotation Server and send again",
+
+  "curation-task.task.iiifuploader.label": "Upload images to the IIIF Image Server (photo gallery)",
+
+  "curation-task.task.iiifuploader.primary.label": "Upload images to the IIIF Image Server (digitized book)",
+
+  "curation-task.task.iiifforbidfiledownload.label": "Forbid file download for files uploaded on image server",
+
+  "curation-task.task.iiifallowfiledownload.label": "Allow file download for files uploaded on image server",
+
+  "curation-task.task.rawtoaccess.label": "Create access image for RAW Types",
+
+  "curation-task.task.iiifpdfmultipages.label": "Create multipages PDF from IIIF images",
+
+  "curation-task.task.iiifclean.label": "Remove all metadata bundles created by a previous upload to the image server",
+
+  "curation-task.task.pdftoimagecmyk.label": "Extract images from PDF (CMYK)",
+
+  "curation-task.task.pdftoimagergb.label": "Extract images from PDF (RGB)",
+
+  "curation-task.task.scannedpdf.label": "Extract images from a Scanned PDF",
+
+  "curation-task.task.rawimagesinpdf.label": "Extract raw images inside the PDF (no OCR)",
+
+  "curation-task.task.undopdfiiif.label": "Undo PDF 2 IIIF Images",
+
+  "curation-task.task.rebuildpdftoc.label": "Rebuild the PDF ToC"
 }

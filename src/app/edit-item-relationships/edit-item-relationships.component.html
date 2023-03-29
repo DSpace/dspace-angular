@@ -1,41 +1,45 @@
 <div class="container">
 
-    <!-- <div class="row">
-        <div class="col-md-12 mb-4 pl-4">
-            <button class="btn btn-primary" id="backButton"
-                  (click)="onReturn()">{{'admin.metadata-import.page.button.return' | translate}}</button>
-        </div>
-    </div> -->
+  <!-- <div class="row">
+      <div class="col-md-12 mb-4 pl-4">
+          <button class="btn btn-primary" id="backButton"
+                (click)="onReturn()">{{'admin.metadata-import.page.button.return' | translate}}</button>
+      </div>
+  </div> -->
 
-    <div class="row">
-		<div class="col-md-{{ (isSideBarHidden() | async) ? '12' : '8' }}">
-        <ds-loading *ngIf="!isActive"></ds-loading>
-        <ds-configuration-search-page *ngIf="isActive"
-                                      [configuration]="relationshipConfig"
-                                      [context]="context"
-                                      [fixedFilterQuery]="searchFilter"
-                                      [collapseFilters]="true"
-                                      [showFilterToggle]="true"
-                                      [showExport]="false"
-                                      [customData]="{relationships$ : relationshipResults$, entityType: relationshipType, updateStatusByItemId$: updateStatusByItemId$}"
-                                      [showScopeSelector]="false"
-                                      (customEvent)="manageRelationship($event)"></ds-configuration-search-page>
+  <div class="row">
+    <div class="col-md-{{ (isSideBarHidden() | async) ? '12' : '8' }} pl-0">
+      <ds-loading *ngIf="!isActive"></ds-loading>
+      <div class="container"><h2>{{ 'manage.relationships.search-list.title' | translate }}</h2></div>
+      <ds-configuration-search-page *ngIf="isActive"
+                                    [configuration]="relationshipConfig"
+                                    [context]="context"
+                                    [fixedFilterQuery]="searchFilter"
+                                    [collapseFilters]="true"
+                                    [showFilterToggle]="true"
+                                    [showExport]="false"
+                                      [showSearchResultNotice]="hasHiddenRelationship$ | async"
+                                      [searchResultNotice]="hiddenRelationshipMsg"
+                                    [customData]="{relationships$ : relationshipResults$, entityType: relationshipType, updateStatusByItemId$: updateStatusByItemId$}"
+                                    [showScopeSelector]="false"
+                                    (customEvent)="manageRelationship($event)"></ds-configuration-search-page>
 
-        <div *ngIf="!(isXsOrSm$ | async)">
-            <button type="button" class="btn btn-link menu-toggle" (click)="toggleSidebar()">
-                <i class="fa fa-chevron-circle-{{(isSideBarHidden() | async) ? 'left' : 'right'}} fa-2x" aria-hidden="true"></i>
-            </button>
-        </div>
-		</div>
-		<div class="col-md-4" *ngIf="!(isSideBarHidden() | async) && isActive && isInit">
-            <ng-container *ngVar="(relationshipResults$ | async) as relationships">
-                <ds-relationships-sort-list [item]="item"
-                                            [relationships]="relationships"
-                                            [pendingChanges]="(pendingChanges$ | async)"
-                                            (deleteRelationship)="manageRelationship($event)"
-                                            (itemDrop)="itemDropped($event)"></ds-relationships-sort-list>
-            </ng-container>
-		</div>
-	</div>
+      <div *ngIf="!(isXsOrSm$ | async)">
+        <button type="button" class="btn btn-link menu-toggle" (click)="toggleSidebar()">
+          <i class="fa fa-chevron-circle-{{(isSideBarHidden() | async) ? 'left' : 'right'}} fa-2x"
+             aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-md-4" *ngIf="!(isSideBarHidden() | async) && isActive && isInit">
+      <ng-container *ngVar="(relationshipResults$ | async) as relationships">
+        <ds-relationships-sort-list [item]="item"
+                                    [relationships]="relationships"
+                                    [pendingChanges]="(pendingChanges$ | async)"
+                                    (deleteRelationship)="manageRelationship($event)"
+                                    (itemDrop)="itemDropped($event)"></ds-relationships-sort-list>
+      </ng-container>
+    </div>
+  </div>
 
 </div>

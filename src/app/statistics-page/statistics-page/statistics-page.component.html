@@ -11,7 +11,7 @@
   <ng-container *ngVar="reports$ | async as reports">
 
     <ng-container *ngIf="!reports">
-      <ds-loading></ds-loading>
+      <ds-themed-loading></ds-themed-loading>
     </ng-container>
 
     <ng-container *ngIf="reports">

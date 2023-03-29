@@ -45,7 +45,7 @@ export class HomeNewsComponent implements OnInit {
     );
     this.siteService.find().pipe(take(1)).subscribe(
       (site: Site) => {
-        this.hasHomeNewsMetadata = !isEmpty(site.firstMetadataValue('cris.cms.home-news',
+        this.hasHomeNewsMetadata = !isEmpty(site?.firstMetadataValue('cris.cms.home-news',
           {language: this.locale.getCurrentLanguageCode()}));
       }
     );

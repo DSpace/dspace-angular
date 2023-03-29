@@ -3,9 +3,6 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, take } from 'rxjs/operators';
 
-import {
-  OpenaireSuggestionsDataService
-} from '../../core/openaire/reciter-suggestions/openaire-suggestions-data.service';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { RemoteData } from '../../core/data/remote-data';
@@ -13,12 +10,11 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import {
   OpenaireSuggestionTarget
 } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
-import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
+import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import {
-  getAllSucceededRemoteDataPayload,
   getFinishedRemoteData,
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteListPayload
@@ -30,7 +26,16 @@ import { NoContent } from '../../core/shared/NoContent.model';
 import { environment } from '../../../environments/environment';
 import { SuggestionConfig } from '../../../config/layout-config.interfaces';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import { followLink } from '../../shared/utils/follow-link-config.model';
+import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import {
+  QualityAssuranceSuggestionDataService
+} from '../../core/openaire/reciter-suggestions/suggestions/quality-assurance-suggestion-data.service';
+import {
+  QualityAssuranceSuggestionTargetDataService
+} from '../../core/openaire/reciter-suggestions/targets/quality-assurance-suggestion-target-data.service';
+import {
+  OpenaireSuggestionSource
+} from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-source.model';
 
 export interface SuggestionBulkResult {
   success: number;
@@ -46,16 +51,35 @@ export class SuggestionsService {
   /**
    * Initialize the service variables.
    * @param {AuthService} authService
-   * @param {ResearcherProfileService} researcherProfileService
-   * @param {OpenaireSuggestionsDataService} suggestionsDataService
+   * @param {ResearcherProfileDataService} researcherProfileService
+   * @param {QualityAssuranceSuggestionDataService} suggestionsDataService
+   * @param {QualityAssuranceSuggestionTargetDataService} suggestionTargetsDataService
    * @param {TranslateService} translateService
    */
   constructor(
     private authService: AuthService,
-    private researcherProfileService: ResearcherProfileService,
-    private suggestionsDataService: OpenaireSuggestionsDataService,
+    private researcherProfileService: ResearcherProfileDataService,
+    private suggestionsDataService: QualityAssuranceSuggestionDataService,
+    private suggestionTargetsDataService: QualityAssuranceSuggestionTargetDataService,
     private translateService: TranslateService
   ) {
+  }
+
+  /**
+   * Return a Suggestion Target for a given id
+   *
+   * @param id                          The target id to retrieve.
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-requested
+   *                                    after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
+   *
+   * @return Observable<RemoteData<OpenaireSuggestionTarget>>
+   *    The list of Suggestion Target.
+   */
+  public getTargetById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<OpenaireSuggestionSource>[]): Observable<RemoteData<OpenaireSuggestionTarget>> {
+    return this.suggestionTargetsDataService.getTargetById(id, useCachedVersionIfAvailable, reRequestOnStale);
   }
 
   /**
@@ -79,7 +103,7 @@ export class SuggestionsService {
       sort: sortOptions
     };
 
-    return this.suggestionsDataService.getTargets(source, findListOptions).pipe(
+    return this.suggestionTargetsDataService.getTargetsBySource(source, findListOptions).pipe(
       getFinishedRemoteData(),
       take(1),
       map((rd: RemoteData<PaginatedList<OpenaireSuggestionTarget>>) => {
@@ -106,7 +130,7 @@ export class SuggestionsService {
    * @return Observable<RemoteData<PaginatedList<OpenaireSuggestion>>>
    *    The list of Suggestion.
    */
-  public getSuggestions(targetId: string, elementsPerPage, currentPage, sortOptions: SortOptions): Observable<PaginatedList<OpenaireSuggestion>> {
+  public getSuggestions(targetId: string, elementsPerPage, currentPage, sortOptions: SortOptions): Observable<RemoteData<PaginatedList<OpenaireSuggestion>>> {
     const [source, target] = targetId.split(':');
 
     const findListOptions: FindListOptions = {
@@ -115,16 +139,14 @@ export class SuggestionsService {
       sort: sortOptions
     };
 
-    return this.suggestionsDataService.getSuggestionsByTargetAndSource(target, source, findListOptions).pipe(
-      getAllSucceededRemoteDataPayload()
-    );
+    return this.suggestionsDataService.getSuggestionsByTargetAndSource(target, source, findListOptions);
   }
 
   /**
    * Clear suggestions requests from cache
    */
   public clearSuggestionRequests() {
-    this.suggestionsDataService.clearSuggestionRequests();
+    this.suggestionsDataService.clearSuggestionRequestsCache();
   }
 
   /**
@@ -151,12 +173,12 @@ export class SuggestionsService {
    *   The EPerson object for which to retrieve suggestion targets
    */
   public retrieveCurrentUserSuggestions(user: EPerson): Observable<OpenaireSuggestionTarget[]> {
-    return this.researcherProfileService.findById(user.id, false, true, followLink('item')).pipe(
+    return this.researcherProfileService.findById(user.id, true, true, followLink('item')).pipe(
       getFirstSucceededRemoteDataPayload(),
       mergeMap((researcherProfile) => this.researcherProfileService.findRelatedItemId(researcherProfile).pipe(
         mergeMap((itemId: string) => {
           if (isNotEmpty(itemId)) {
-            return this.suggestionsDataService.getTargetsByUser(itemId).pipe(
+            return this.suggestionTargetsDataService.getTargetsByUser(itemId, {}, false).pipe(
               getFirstSucceededRemoteListPayload()
             );
           } else {

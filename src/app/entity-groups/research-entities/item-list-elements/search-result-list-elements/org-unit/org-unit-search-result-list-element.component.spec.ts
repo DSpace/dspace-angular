@@ -9,6 +9,9 @@ import { TruncatableService } from '../../../../../shared/truncatable/truncatabl
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 
 let orgUnitListElementComponent: OrgUnitSearchResultListElementComponent;
 let fixture: ComponentFixture<OrgUnitSearchResultListElementComponent>;
@@ -50,13 +53,33 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
     })
   });
 
+const environmentUseThumbs = {
+  browseBy: {
+    showThumbnails: true
+  }
+};
+
+const enviromentNoThumbs = {
+  browseBy: {
+    showThumbnails: false
+  }
+};
+
 describe('OrgUnitSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        }
+      )],
       declarations: [ OrgUnitSearchResultListElementComponent , TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: {} },
-        { provide: DSONameService, useClass: DSONameServiceMock }
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ],
 
       schemas: [ NO_ERRORS_SCHEMA ]
@@ -70,6 +93,21 @@ describe('OrgUnitSearchResultListElementComponent', () => {
     orgUnitListElementComponent = fixture.componentInstance;
 
   }));
+
+  describe('with environment.browseBy.showThumbnails set to true', () => {
+    beforeEach(() => {
+      orgUnitListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+    it('should set showThumbnails to true', () => {
+      expect(orgUnitListElementComponent.showThumbnails).toBeTrue();
+    });
+
+    it('should add thumbnail element', () => {
+      const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
+      expect(thumbnailElement).toBeTruthy();
+    });
+  });
 
   describe('When the item has an org unit description', () => {
     beforeEach(() => {
@@ -92,6 +130,49 @@ describe('OrgUnitSearchResultListElementComponent', () => {
     it('should not show the description span', () => {
       const orgUnitDescriptionField = fixture.debugElement.query(By.css('span.item-list-org-unit-description'));
       expect(orgUnitDescriptionField).toBeNull();
+    });
+  });
+});
+
+describe('OrgUnitSearchResultListElementComponent', () => {
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        }
+      )],
+      declarations: [OrgUnitSearchResultListElementComponent, TruncatePipe],
+      providers: [
+        {provide: TruncatableService, useValue: {}},
+        {provide: DSONameService, useClass: DSONameServiceMock},
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
+      ],
+
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(OrgUnitSearchResultListElementComponent, {
+      set: {changeDetection: ChangeDetectionStrategy.Default}
+    }).compileComponents();
+  }));
+
+  beforeEach(waitForAsync(() => {
+    fixture = TestBed.createComponent(OrgUnitSearchResultListElementComponent);
+    orgUnitListElementComponent = fixture.componentInstance;
+  }));
+
+  describe('with environment.browseBy.showThumbnails set to false', () => {
+    beforeEach(() => {
+
+      orgUnitListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+
+    it('should not add thumbnail element', () => {
+      const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
+      expect(thumbnailElement).toBeNull();
     });
   });
 });

@@ -6,6 +6,10 @@ import { ResourceType } from '../../shared/resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ITEM_EXPORT_FORMAT } from './item-export-format.resource-type';
 
+export interface ItemExportFormatMap {
+  [entityType: string]: ItemExportFormat[]
+}
+
 /**
  * Class the represents an Item Export Format.
  */

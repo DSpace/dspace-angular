@@ -7,7 +7,7 @@ import { select, Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { formObjectFromIdSelector } from './selectors';
 import { FormBuilderService } from './builder/form-builder.service';
-import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import { DynamicFormControlEvent, DynamicFormControlModel, DynamicFormGroupModel } from '@ng-dynamic-forms/core';
 import { isEmpty, isNotUndefined } from '../empty.util';
 import { uniqueId } from 'lodash';
 import {
@@ -24,7 +24,8 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class FormService {
-   constructor(
+
+  constructor(
     private formBuilderService: FormBuilderService,
     private store: Store<AppState>) {
   }
@@ -161,6 +162,15 @@ export class FormService {
       field.setValidators(() => error);
     }
 
+    // if the field in question is a concat group, pass down the error to its fields
+    if (field instanceof FormGroup && model instanceof DynamicFormGroupModel && this.formBuilderService.isConcatGroup(model)) {
+      model.group.forEach((subModel) => {
+        const subField = field.controls[subModel.id];
+
+        this.addErrorToField(subField, subModel, message);
+      });
+    }
+
     field.markAsTouched();
   }
 
@@ -173,6 +183,15 @@ export class FormService {
       field.setErrors(error);
       field.clearValidators();
       field.updateValueAndValidity();
+    }
+
+    // if the field in question is a concat group, clear the error from its fields
+    if (field instanceof FormGroup && model instanceof DynamicFormGroupModel && this.formBuilderService.isConcatGroup(model)) {
+      model.group.forEach((subModel) => {
+        const subField = field.controls[subModel.id];
+
+        this.removeErrorFromField(subField, subModel, messageKey);
+      });
     }
 
     field.markAsUntouched();

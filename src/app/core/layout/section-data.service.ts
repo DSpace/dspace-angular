@@ -1,46 +1,34 @@
-/* eslint-disable max-classes-per-file */
-import { HttpClient } from '@angular/common/http';
-import { Store } from '@ngrx/store';
+import { Injectable } from '@angular/core';
+
+import { Observable } from 'rxjs';
+
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core-state.model';
-import { ChangeAnalyzer } from '../data/change-analyzer';
-import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Section } from './models/section.model';
-import { Injectable } from '@angular/core';
-import { dataService } from '../cache/builders/build-decorators';
+import { dataService } from '../data/base/data-service.decorator';
 import { SECTION } from './models/section.resource-type';
-import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
-import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list.model';
-
-class DataServiceImpl extends DataService<Section> {
-  protected linkPath = 'sections';
-
-  constructor(
-    protected requestService: RequestService,
-    protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
-    protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: ChangeAnalyzer<Section>) {
-    super();
-  }
-}
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { DSONameService } from '../breadcrumbs/dso-name.service';
+import { FindAllData } from '../data/base/find-all-data';
+import { FindListOptions } from '../data/find-list-options.model';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { SearchDataImpl } from '../data/base/search-data';
 
 /**
  * A service responsible for fetching data from the REST API on the sections endpoint.
  */
 @Injectable()
 @dataService(SECTION)
-export class SectionDataService {
-  private dataService: DataServiceImpl;
+export class SectionDataService extends IdentifiableDataService<Section> {
+
+  protected linkPath = 'sections';
+  private findAllData: FindAllData<Section>;
+  private searchData: SearchDataImpl<Section>;
 
   constructor(
     protected requestService: RequestService,
@@ -48,31 +36,25 @@ export class SectionDataService {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<Section>) {
-    this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
-  }
+    protected dsoNameService: DSONameService
+  ) {
+    super('sections', requestService, rdbService, objectCache, halService);
 
-  /**
-   * Provide detailed information about a specific section.
-   * @param id id of the section
-   */
-  findById(id: string): Observable<RemoteData<Section>> {
-    return this.dataService.findById(id);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
    * Find all the configured sections.
    */
-  findAll(): Observable<RemoteData<PaginatedList<Section>>> {
-    return this.dataService.findAll();
+  findAll(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Section>[]): Observable<RemoteData<PaginatedList<Section>>> {
+    return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Find all the configured sections.
    */
-   findVisibleSections(): Observable<RemoteData<PaginatedList<Section>>> {
-    return this.dataService.searchBy('visibleTopBarSections');
+  findVisibleSections(): Observable<RemoteData<PaginatedList<Section>>> {
+    return this.searchData.searchBy('visibleTopBarSections');
   }
 
 }

@@ -20,6 +20,8 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import createSpy = jasmine.createSpy;
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { Item } from '../../core/shared/item.model';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 
 describe('AdminSidebarComponent', () => {
   let comp: AdminSidebarComponent;
@@ -60,6 +62,7 @@ describe('AdminSidebarComponent', () => {
       declarations: [AdminSidebarComponent],
       providers: [
         Injector,
+        { provide: ThemeService, useValue: getMockThemeService() },
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: AuthService, useClass: AuthServiceStub },

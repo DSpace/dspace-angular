@@ -4,7 +4,7 @@ import { IdentifierType } from '../core/data/request.models';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RemoteData } from '../core/data/remote-data';
-import { DsoRedirectDataService } from '../core/data/dso-redirect-data.service';
+import { DsoRedirectService } from '../core/data/dso-redirect.service';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 
 interface LookupParams {
@@ -15,7 +15,7 @@ interface LookupParams {
 @Injectable()
 export class LookupGuard implements CanActivate {
 
-  constructor(private dsoService: DsoRedirectDataService) {
+  constructor(private dsoService: DsoRedirectService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>  {

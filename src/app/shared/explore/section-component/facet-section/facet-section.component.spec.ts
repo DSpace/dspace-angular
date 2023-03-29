@@ -17,12 +17,14 @@ import { StoreModule } from '@ngrx/store';
 import { authReducer } from '../../../../core/auth/auth.reducer';
 import { storeModuleConfig } from '../../../../app.reducer';
 import { isNotNull } from '../../../empty.util';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 
 describe('FacetSectionComponent', () => {
   let component: FacetSectionComponent;
   let fixture: ComponentFixture<FacetSectionComponent>;
 
   let searchServiceStub: any;
+  let searchConfigurationStub: any;
 
   const dateIssuedValue: FacetValue = {
     label: '1996 - 1999',
@@ -112,9 +114,17 @@ describe('FacetSectionComponent', () => {
   beforeEach(waitForAsync(() => {
 
     searchServiceStub = {
+      getSearchLink(): string {
+        return '/search';
+      }
+    };
+    searchConfigurationStub = {
       searchFacets(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
         return createSuccessfulRemoteDataObject$([mockAuthorFilterConfig, mockSubjectFilterConfig, mockDateIssuedFilterConfig, mockGraphBarChartFilterConfig, mockGraphPieChartFilterConfig]);
       },
+    };
+
+    searchServiceStub = {
       getSearchLink(): string {
         return '/search';
       }
@@ -134,7 +144,8 @@ describe('FacetSectionComponent', () => {
       ],
       declarations: [FacetSectionComponent],
       providers: [
-        { provide: SearchService, useValue: searchServiceStub }
+        { provide: SearchService, useValue: searchServiceStub },
+        { provide: SearchConfigurationService, useValue: searchConfigurationStub }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -162,7 +173,7 @@ describe('FacetSectionComponent', () => {
 
   it('should create a facet section foreach not empty filter configs',  () => {
     // graph facets control
-    const graphFacets = fixture.debugElement.queryAll(By.css('.col-6.mb-4'));
+    const graphFacets = fixture.debugElement.queryAll(By.css('.col-lg-6.mb-4'));
     expect(graphFacets.length).toEqual(2);
     const barChartFacet = graphFacets[0];
     expect(barChartFacet.name).toEqual('div');
@@ -175,14 +186,14 @@ describe('FacetSectionComponent', () => {
     const pieChartComponent = pieChartFacet.query(By.css('ds-search-chart'));
     expect(isNotNull(pieChartComponent)).toBe(true);
 
-    const facets = fixture.debugElement.queryAll(By.css('.col-3.mb-4'));
+    const facets = fixture.debugElement.queryAll(By.css('.col-lg-3.mb-4'));
     expect(facets.length).toEqual(2);
 
     const authorFacet = facets[0];
     expect(authorFacet.children.length).toEqual(3);
 
     const authorSpan = authorFacet.children[0];
-    expect(authorSpan.name).toEqual('span');
+    expect(authorSpan.name).toEqual('h5');
     expect(authorSpan.nativeElement.textContent).toEqual('explore.index.author');
 
     const firstAuthor = authorFacet.children[1];
@@ -199,7 +210,7 @@ describe('FacetSectionComponent', () => {
     expect(dateIssuedFacet.children.length).toEqual(2);
 
     const dateIssuedSpan = dateIssuedFacet.children[0];
-    expect(dateIssuedSpan.name).toEqual('span');
+    expect(dateIssuedSpan.name).toEqual('h5');
     expect(dateIssuedSpan.nativeElement.textContent).toEqual('explore.index.dateIssued');
 
     const dateIssued = dateIssuedFacet.children[1];

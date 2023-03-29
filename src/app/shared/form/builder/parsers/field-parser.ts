@@ -1,7 +1,12 @@
-import {Inject, InjectionToken} from '@angular/core';
+import { Inject, InjectionToken } from '@angular/core';
 
 import { uniqueId } from 'lodash';
-import { DynamicFormControlLayout, DynamicFormControlRelation, MATCH_VISIBLE, OR_OPERATOR } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlLayout,
+  DynamicFormControlRelation,
+  MATCH_VISIBLE,
+  OR_OPERATOR
+} from '@ng-dynamic-forms/core';
 
 import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
@@ -25,6 +30,7 @@ export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<Fo
 export const INIT_FORM_VALUES: InjectionToken<any> = new InjectionToken<any>('initFormValues');
 export const PARSER_OPTIONS: InjectionToken<ParserOptions> = new InjectionToken<ParserOptions>('parserOptions');
 export const SECURITY_CONFIG: InjectionToken<any> = new InjectionToken<any>('securityConfig');
+export const REGEX_FIELD_VALIDATOR = new RegExp('(\\/?)(.+)\\1([gimsuy]*)', 'i');
 
 export abstract class FieldParser {
 
@@ -380,7 +386,13 @@ export abstract class FieldParser {
   }
 
   protected addPatternValidator(controlModel) {
-    const regex = new RegExp(this.configData.input.regex);
+    const validatorMatcher = this.configData.input.regex.match(REGEX_FIELD_VALIDATOR);
+    let regex;
+    if (validatorMatcher != null && validatorMatcher.length > 3) {
+      regex = new RegExp(validatorMatcher[2], validatorMatcher[3]);
+    } else {
+      regex = new RegExp(this.configData.input.regex);
+    }
     controlModel.validators = Object.assign({}, controlModel.validators, { pattern: regex });
     controlModel.errorMessages = Object.assign(
       {},

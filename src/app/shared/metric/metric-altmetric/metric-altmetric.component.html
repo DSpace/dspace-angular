@@ -1,9 +1,12 @@
-<div class="row d-flex align-items-center mb-2" *ngIf="remark">
-  <div class="col text-left">
+<div class="row d-flex align-items-center"
+     *ngIf="!failed && !(isHidden$ | async) && (remark | dsListMetricProps: 'data-badge-enabled':isListElement == true)">
+  <div class="col-5 text-left">
     <div #metricChild>
       <div
         class="altmetric-embed"
-        [attr.data-hide-no-mentions]="isListElement"
+        [attr.data-hide-no-mentions]="remark | dsListMetricProps : 'data-hide-no-mentions' : isListElement"
+        [attr.data-hide-less-than]="remark | dsListMetricProps : 'data-hide-less-than' : isListElement"
+        [attr.data-badge-details]="remark | dsListMetricProps : 'data-badge-details' : isListElement"
         [attr.data-badge-type]="remark | dsListMetricProps : 'badgeType' : isListElement"
         [attr.data-badge-popover]="remark | dsListMetricProps : 'popover' : isListElement"
         [attr.data-doi]="remark | dsListMetricProps : 'doiAttr' : isListElement"
