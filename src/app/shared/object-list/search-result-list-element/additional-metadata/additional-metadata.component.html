@@ -7,46 +7,59 @@
       </ng-template>
 
       <!-- If there are more values then show the label on a separate line -->
-      <div *ngIf="metadataItem.label && object.allMetadata(metadataItem.name).length > 1">
+      <div class="d-inline-block" *ngIf="metadataItem.label && object.allMetadata(metadataItem.name).length > 1">
         <ng-container *ngTemplateOutlet="label"></ng-container>
       </div>
 
-      <div *ngFor="let metadataValue of object.allMetadata(metadataItem.name); let c = count">
+      <span *ngFor="let metadataValue of object.allMetadata(metadataItem.name); let c = count; let f = first; let l = last; let i = index">
 
-          <!-- If there is only one value then show the label on the same line -->
-          <span *ngIf="metadataItem.label && c === 1">
+        <!-- If there is only one value then show the label on the same line -->
+        <span *ngIf="metadataItem.label && c === 1">
             <ng-container *ngTemplateOutlet="label"></ng-container>
           </span>
 
-          <ng-container [ngSwitch]="metadataRenderingType(metadataItem)">
+        <ng-container [ngSwitch]="metadataRenderingType(metadataItem)" *ngIf="!metadataItem.limitTo || (i < metadataItem.limitTo)">
 
-            <ng-container *ngSwitchCase="'crisref'">
-                <ds-metadata-link-view [item]="object" [metadata]="metadataValue"></ds-metadata-link-view>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'link'">
-              <ng-container *ngVar="linkData(metadataItem, metadataValue) as linkData">
-                <a href="{{linkData.href}}" target="_blank" [innerHTML]="linkData.text"></a>
-              </ng-container>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'identifier'">
-              <ng-container *ngVar="identifierData(metadataItem, metadataValue) as identifierData">
-                <a href="{{identifierData.href}}" target="_blank" [innerHTML]="identifierData.text"></a>
-              </ng-container>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'valuepair'">
-              {{ valuepairData(metadataValue, metadataRenderingSubtype(metadataItem)) | async }}
-            </ng-container>
-
-            <ng-container *ngSwitchDefault>
-              <span class="metadata" [innerHTML]="metadataValue.value"></span>
-            </ng-container>
-
+          <ng-container *ngSwitchCase="'crisref'">
+            <ds-metadata-link-view [item]="object" [metadata]="metadataValue"></ds-metadata-link-view>
           </ng-container>
 
-      </div>
+          <ng-container *ngSwitchCase="'link'">
+            <ng-container *ngVar="linkData(metadataItem, metadataValue) as linkData">
+              <a href="{{linkData.href}}" target="_blank" [innerHTML]="linkData.text"></a>
+            </ng-container>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'identifier'">
+            <ng-container *ngVar="identifierData(metadataItem, metadataValue) as identifierData">
+              <a href="{{identifierData.href}}" target="_blank" [innerHTML]="identifierData.text"></a>
+            </ng-container>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'valuepair'">
+            {{ valuepairData(metadataValue, metadataRenderingSubtype(metadataItem)) | async }}
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'date'">
+            <span class="metadata">{{ metadataValue.value | date:dateFormat }}</span>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'authors'">
+            <span class="metadata">
+              <a *ngIf="f; else noLink" [routerLink]="'/handle/' + metadataValue.authority">
+                {{ metadataValue.value }}<ng-container *ngIf="!l">;&nbsp;</ng-container>
+              </a>
+              <ng-template #noLink>{{ metadataValue.value }}<ng-container *ngIf="!l">;&nbsp;</ng-container></ng-template>
+            </span>
+          </ng-container>
+
+          <ng-container *ngSwitchDefault>
+            <span class="metadata" [innerHTML]="metadataValue.value"></span>
+          </ng-container>
+
+        </ng-container>
+
+      </span>
     </div>
   </ng-container>
 

@@ -569,48 +569,7 @@ export class DefaultAppConfig implements AppConfig {
   };
 
   searchResult: SearchResultConfig = {
-    additionalMetadataFields: [
-      {
-        entityType: 'person',
-        metadataConfiguration: [
-          [
-            {
-              name: 'person.email',
-              rendering: 'link.email',
-              label: 'search.results-metadata.label.person.email'
-            },
-            {
-              name: 'oairecerif.identifier.url',
-              rendering: 'link',
-              label: 'Web Site'
-            },
-            {
-              name: 'person.birthDate',
-              rendering: 'text',
-              label: 'search.results-metadata.label.person.birthdate'
-            },
-          ],
-          [
-            {
-              name: 'person.birthDate',
-              rendering: 'text',
-              label: 'search.results-metadata.label.person.birthdate'
-            }
-          ]
-        ]
-      },
-      {
-        entityType: 'fallback',
-        metadataConfiguration: [
-          [
-            {
-              name: 'dc.title',
-              rendering: 'text'
-            }
-          ]
-        ]
-      }
-    ]
+    additionalMetadataFields: []
   };
 
 }

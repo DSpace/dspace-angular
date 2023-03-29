@@ -26,6 +26,7 @@ interface LinkData {
 export class AdditionalMetadataComponent implements OnInit {
 
   DEFAULT_CONFIG_NAME = 'default';
+  dateFormat = 'yyyy-MM-dd';
 
   @Input() object: Item | DSpaceObject;
 
@@ -64,7 +65,6 @@ export class AdditionalMetadataComponent implements OnInit {
       );
     }).filter(field => !!field.length);
 
-    console.log('ADDITIONAL METADATA FIELDS:', this.additionalMetadataFields);
   }
 
   metadataRenderingType(metadata: AdditionalMetadataConfig): string {

@@ -6505,7 +6505,4 @@
   "curation-task.task.pushocr.label": "Send OCR to the Annotation Server",
 
   "curation-task.task.ocrclean.label": "Remove all metadata bundles and uploaded ocr created by a previous upload to the ocr server",
-
-  "search.results-metadata.label.person.email": "Person Email",
-  "search.results-metadata.label.person.birthdate": "Birth Date"
 }
