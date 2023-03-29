@@ -14,6 +14,7 @@ import { FeatureID } from '../../../../core/data/feature-authorization/feature-i
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { isNotEmpty } from '../../../empty.util';
+import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
 
 export const BULK_EXPORT_LIMIT_ADMIN = 'bulk-export.limit.admin';
 export const BULK_EXPORT_LIMIT_LOGGEDIN = 'bulk-export.limit.loggedIn';
@@ -67,10 +68,13 @@ export class ItemExportModalLauncherComponent implements OnInit {
   }
 
   open(event) {
+    const modalOptions: NgbModalOptions = {
+      size: 'xl',
+    };
     if (this.item) {
 
       // open a single item-export modal
-      const modalRef = this.modalService.open(ItemExportComponent);
+      const modalRef = this.modalService.open(ItemExportComponent, modalOptions);
       modalRef.componentInstance.molteplicity = ItemExportFormatMolteplicity.SINGLE;
       modalRef.componentInstance.item = this.item;
       modalRef.componentInstance.itemType = event;
@@ -80,11 +84,12 @@ export class ItemExportModalLauncherComponent implements OnInit {
 
       // open a bulk-item-export modal
       this.searchOptions$.pipe(take(1)).subscribe((searchOptions) => {
-        const modalRef = this.modalService.open(ItemExportComponent);
+        const modalRef = this.modalService.open(ItemExportComponent, modalOptions);
         modalRef.componentInstance.molteplicity = ItemExportFormatMolteplicity.MULTIPLE;
         modalRef.componentInstance.searchOptions = searchOptions;
         modalRef.componentInstance.itemType = event;
         modalRef.componentInstance.bulkExportLimit = this.bulkExportLimit;
+        modalRef.componentInstance.showListSelection = true;
       });
     }
 

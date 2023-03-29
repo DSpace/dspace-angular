@@ -134,7 +134,7 @@ describe('ItemExportModalWrapperComponent', () => {
 
         it('should configure the ItemExportComponent with the item and molteplicity SINGLE', () => {
           component.open(itemType);
-          expect(modalService.open).toHaveBeenCalledWith(ItemExportComponent);
+          expect(modalService.open).toHaveBeenCalledWith(ItemExportComponent, { size: 'xl' });
           expect(modalRef.componentInstance.item).toEqual('item');
           expect(modalRef.componentInstance.searchOptions).toBeFalsy();
         });
@@ -149,10 +149,11 @@ describe('ItemExportModalWrapperComponent', () => {
 
         it('should configure the ItemExportComponent with the searchOptions$ and molteplicity MULTIPLE', () => {
           component.open(itemType);
-          expect(modalService.open).toHaveBeenCalledWith(ItemExportComponent);
+          expect(modalService.open).toHaveBeenCalledWith(ItemExportComponent, { size: 'xl' });
           expect(modalRef.componentInstance.item).toBeFalsy();
           expect(modalRef.componentInstance.searchOptions).toEqual('searchOptions');
           expect(modalRef.componentInstance.molteplicity).toEqual(ItemExportFormatMolteplicity.MULTIPLE);
+          expect(modalRef.componentInstance.showListSelection).toBeTrue();
         });
 
       });
