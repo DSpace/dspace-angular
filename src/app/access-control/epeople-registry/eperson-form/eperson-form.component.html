@@ -13,12 +13,13 @@
          [formGroup]="formGroup"
          [formLayout]="formLayout"
          [displayCancel]="false"
+         [submitLabel]="submitLabel"
          (submitForm)="onSubmit()">
   <div before class="btn-group">
     <button (click)="onCancel()"
             class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> {{messagePrefix + '.return' | translate}}</button>
   </div>
-  <div between class="btn-group">
+  <div *ngIf="displayResetPassword" between class="btn-group">
     <button class="btn btn-primary" [disabled]="!(canReset$ | async)" (click)="resetPassword()">
       <i class="fa fa-key"></i> {{'admin.access-control.epeople.actions.reset' | translate}}
     </button>

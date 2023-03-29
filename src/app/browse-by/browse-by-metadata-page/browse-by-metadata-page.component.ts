@@ -151,8 +151,15 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
           this.browseId = params.id || this.defaultBrowseId;
           this.authority = params.authority;
-          this.value = +params.value || params.value || '';
-          this.startsWith = +params.startsWith || params.startsWith;
+
+          if (typeof params.value === 'string'){
+            this.value = params.value.trim();
+          }
+
+          if (typeof params.startsWith === 'string'){
+            this.startsWith = params.startsWith.trim();
+          }
+
           if (isNotEmpty(this.value)) {
             this.updatePageWithItems(
               browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.fetchThumbnails), this.value, this.authority);
@@ -305,7 +312,7 @@ export function browseParamsToOptions(params: any,
     metadata,
     paginationConfig,
     sortConfig,
-    +params.startsWith || params.startsWith,
+    params.startsWith,
     params.scope,
     fetchThumbnail
   );
