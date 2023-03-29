@@ -29,7 +29,9 @@ describe('MetadataSchemaFormComponent', () => {
     createFormGroup: () => {
       return {
         patchValue: () => {
-        }
+        },
+        markAsUntouched(opts?: any) {
+        },
       };
     }
   };

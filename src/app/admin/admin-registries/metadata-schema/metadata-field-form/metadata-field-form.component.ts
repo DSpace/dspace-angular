@@ -98,25 +98,35 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
    * Initialize the component, setting up the necessary Models for the dynamic form
    */
   ngOnInit() {
-    combineLatest(
+    combineLatest([
       this.translateService.get(`${this.messagePrefix}.element`),
       this.translateService.get(`${this.messagePrefix}.qualifier`),
       this.translateService.get(`${this.messagePrefix}.scopenote`)
-    ).subscribe(([element, qualifier, scopenote]) => {
+    ]).subscribe(([element, qualifier, scopenote]) => {
       this.element = new DynamicInputModel({
         id: 'element',
         label: element,
         name: 'element',
         validators: {
           required: null,
+          pattern: '^[^.]*$',
         },
         required: true,
+        errorMessages: {
+          pattern: 'error.validation.metadata.element.invalid-pattern',
+        },
       });
       this.qualifier = new DynamicInputModel({
         id: 'qualifier',
         label: qualifier,
         name: 'qualifier',
+        validators: {
+          pattern: '^[^.]*$',
+        },
         required: false,
+        errorMessages: {
+          pattern: 'error.validation.metadata.qualifier.invalid-pattern',
+        },
       });
       this.scopeNote = new DynamicInputModel({
         id: 'scopeNote',
@@ -189,6 +199,7 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
    * Reset all input-fields to be empty
    */
   clearFields() {
+    this.formGroup.markAsUntouched();
     this.formGroup.patchValue({
       metadatadatafieldgroup: {
         element: '',

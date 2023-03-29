@@ -77,10 +77,10 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    combineLatest(
+    combineLatest([
       this.translateService.get(`${this.messagePrefix}.name`),
       this.translateService.get(`${this.messagePrefix}.namespace`)
-    ).subscribe(([name, namespace]) => {
+    ]).subscribe(([name, namespace]) => {
       this.name = new DynamicInputModel({
           id: 'name',
           label: name,
@@ -97,8 +97,12 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
           name: 'namespace',
           validators: {
             required: null,
+            pattern: '^[^.]*$',
           },
           required: true,
+          errorMessages: {
+            pattern: 'error.validation.metadata.namespace.invalid-pattern',
+          },
         });
       this.formModel = [
         new DynamicFormGroupModel(
@@ -163,9 +167,10 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
    * Reset all input-fields to be empty
    */
   clearFields() {
+    this.formGroup.markAsUntouched();
     this.formGroup.patchValue({
       metadatadataschemagroup:{
-        prefix: '',
+        name: '',
         namespace: ''
       }
     });

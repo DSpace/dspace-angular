@@ -1478,6 +1478,12 @@
 
   "error.validation.groupExists": "This group already exists",
 
+  "error.validation.metadata.namespace.invalid-pattern": "This field cannot contain dots, please use the Element & Qualifier fields instead",
+
+  "error.validation.metadata.element.invalid-pattern": "This field cannot contain dots, please use the Qualifier field instead",
+
+  "error.validation.metadata.qualifier.invalid-pattern": "This field cannot contain dots",
+
 
   "feed.description": "Syndication feed",
 
