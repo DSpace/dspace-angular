@@ -356,6 +356,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
         }),
       );
     }
+    throw new Error(`Can't check whether there is a cached response for an empty href$`);
   }
 
   hasCachedErrorResponse(href$: string | Observable<string>): Observable<boolean> {
