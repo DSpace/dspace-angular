@@ -2527,7 +2527,7 @@
   "item.edit.identifiers.doi.status.IS_REGISTERED": "Inscrit",
 
   // "item.edit.identifiers.doi.status.IS_RESERVED": "Reserved",
-  "item.edit.identifiers.doi.status.IS_RESERVED": "Réseré",
+  "item.edit.identifiers.doi.status.IS_RESERVED": "Réservé",
 
   // "item.edit.identifiers.doi.status.UPDATE_RESERVED": "Reserved (update queued)",
   "item.edit.identifiers.doi.status.UPDATE_RESERVED": "Réservé (en attente)",
@@ -2560,7 +2560,7 @@
   "item.edit.register-doi.header": "Inscrire un nouveau DOI ou un DOI en attente",
 
   // "item.edit.register-doi.description": "Review any pending identifiers and item metadata below and click Confirm to proceed with DOI registration, or Cancel to back out",
-  "item.edit.register-doi.description": "Réviser les identifiants en attente and les métadonnées ci-dessous item metadata below puis cliquer sur Confirmer afin de lancer l'inscription du DOI ou sur Annuler pour interrompre l'inscription",
+  "item.edit.register-doi.description": "Réviser les identifiants en attente et les métadonnées ci-dessous puis cliquer sur Confirmer afin de lancer l'inscription du DOI ou sur Annuler pour interrompre l'inscription",
 
   // "item.edit.register-doi.confirm": "Confirm",
   "item.edit.register-doi.confirm": "Confirmer",
@@ -6088,7 +6088,7 @@
 
   
   //"supervisedWorkspace.search.results.head": "Supervised Items",
-  "supervisedWorkspace.search.results.head": "Items supervisés",
+  "supervisedWorkspace.search.results.head": "Documents supervisés",
 
   //"workspace.search.results.head": "Your submissions",
   "workspace.search.results.head": "Vos dépôts",
