@@ -37,7 +37,7 @@ import {
             data: {
               title: 'workflow-item.edit.title',
               breadcrumbKey: 'workflow-item.edit',
-              collectionModifiable: true
+              collectionModifiable: false
             }
           },
           {
