@@ -6,6 +6,7 @@ import { CommunityListPageRoutingModule } from './community-list-page.routing.mo
 import { CommunityListComponent } from './community-list/community-list.component';
 import { ThemedCommunityListPageComponent } from './themed-community-list-page.component';
 import { ThemedCommunityListComponent } from './community-list/themed-community-list.component';
+import { CdkTreeModule } from '@angular/cdk/tree';
 
 
 const DECLARATIONS = [
@@ -21,13 +22,15 @@ const DECLARATIONS = [
   imports: [
     CommonModule,
     SharedModule,
-    CommunityListPageRoutingModule
+    CommunityListPageRoutingModule,
+    CdkTreeModule,
   ],
   declarations: [
     ...DECLARATIONS
   ],
   exports: [
     ...DECLARATIONS,
+    CdkTreeModule,
   ],
 })
 export class CommunityListPageModule {

@@ -168,6 +168,8 @@
 
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Namn",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.id" : "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
   "admin.registries.bitstream-formats.table.return": "Tillbaka",
@@ -245,6 +247,8 @@
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Fält",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.id" : "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Anmärkning (scope note)",
@@ -2932,8 +2936,8 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Hantera mappade samlingar",
 
-  // "item.edit.tabs.status.buttons.move.button": "Move...",
-  "item.edit.tabs.status.buttons.move.button": "Flytta...",
+  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
+  "item.edit.tabs.status.buttons.move.button": "Flytta detta föremål till en annan samling",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
   "item.edit.tabs.status.buttons.move.label": "Flytta post till en annan samling",
@@ -2959,8 +2963,8 @@
   // "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
   "item.edit.tabs.status.buttons.unauthorized": "Du saknar behörighet att utföra detta",
 
-  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  "item.edit.tabs.status.buttons.withdraw.button": "Återkalla...",
+  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
+  "item.edit.tabs.status.buttons.withdraw.button": "dra tillbaka den här artikeln",
 
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
   "item.edit.tabs.status.buttons.withdraw.label": "Återkalla post från arkivet",
@@ -5950,7 +5954,7 @@
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
   "submission.sections.upload.header.policy.default.withlist": "Notera att uppladdade filer i samlingen {{collectionName}} också kommer att vara åtkompliga för följande grupp(er):",
 
-  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "Här visas samtliga filer som ingår i posten. Du kan uppdatera filernas metadata och villkor för åtkomst, samt <strong>ladda upp nya filer genom att dra och släppa dem här</strong>",
 
   // "submission.sections.upload.no-entry": "No",

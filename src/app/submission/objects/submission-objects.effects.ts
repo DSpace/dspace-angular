@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { findKey, isEqual, union } from 'lodash';
+import findKey from 'lodash/findKey';
+import isEqual from 'lodash/isEqual';
+import union from 'lodash/union';
 
 import { from as observableFrom, Observable, of as observableOf } from 'rxjs';
 import { catchError, filter, map, mergeMap, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';

@@ -1,6 +1,6 @@
-import * as colors from 'colors';
-import * as fs from 'fs';
-import * as yaml from 'js-yaml';
+import { red, blue, green, bold } from 'colors';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { load } from 'js-yaml';
 import { join } from 'path';
 
 import { AppConfig } from './app-config.interface';
@@ -62,7 +62,7 @@ const getDefaultConfigPath = () => {
   // default to config/config.yml
   let defaultConfigPath = join(CONFIG_PATH, 'config.yml');
 
-  if (!fs.existsSync(defaultConfigPath)) {
+  if (!existsSync(defaultConfigPath)) {
     defaultConfigPath = join(CONFIG_PATH, 'config.yaml');
   }
 
@@ -95,11 +95,11 @@ const getEnvConfigFilePath = (env: Environment) => {
   // check if any environment variations of app config exist
   for (const envVariation of envVariations) {
     envLocalConfigPath = join(CONFIG_PATH, `config.${envVariation}.yml`);
-    if (fs.existsSync(envLocalConfigPath)) {
+    if (existsSync(envLocalConfigPath)) {
       break;
     }
     envLocalConfigPath = join(CONFIG_PATH, `config.${envVariation}.yaml`);
-    if (fs.existsSync(envLocalConfigPath)) {
+    if (existsSync(envLocalConfigPath)) {
       break;
     }
   }
@@ -110,8 +110,8 @@ const getEnvConfigFilePath = (env: Environment) => {
 const overrideWithConfig = (config: Config, pathToConfig: string) => {
   try {
     console.log(`Overriding app config with ${pathToConfig}`);
-    const externalConfig = fs.readFileSync(pathToConfig, 'utf8');
-    mergeConfig(config, yaml.load(externalConfig));
+    const externalConfig = readFileSync(pathToConfig, 'utf8');
+    mergeConfig(config, load(externalConfig));
   } catch (err) {
     console.error(err);
   }
@@ -178,18 +178,18 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
 
   switch (env) {
     case 'production':
-      console.log(`Building ${colors.red.bold(`production`)} app config`);
+      console.log(`Building ${red.bold(`production`)} app config`);
       break;
     case 'test':
-      console.log(`Building ${colors.blue.bold(`test`)} app config`);
+      console.log(`Building ${blue.bold(`test`)} app config`);
       break;
     default:
-      console.log(`Building ${colors.green.bold(`development`)} app config`);
+      console.log(`Building ${green.bold(`development`)} app config`);
   }
 
   // override with default config
   const defaultConfigPath = getDefaultConfigPath();
-  if (fs.existsSync(defaultConfigPath)) {
+  if (existsSync(defaultConfigPath)) {
     overrideWithConfig(appConfig, defaultConfigPath);
   } else {
     console.warn(`Unable to find default config file at ${defaultConfigPath}`);
@@ -197,7 +197,7 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
 
   // override with env config
   const localConfigPath = getEnvConfigFilePath(env);
-  if (fs.existsSync(localConfigPath)) {
+  if (existsSync(localConfigPath)) {
     overrideWithConfig(appConfig, localConfigPath);
   } else {
     console.warn(`Unable to find env config file at ${localConfigPath}`);
@@ -206,7 +206,7 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   // override with external config if specified by environment variable `DSPACE_APP_CONFIG_PATH`
   const externalConfigPath = ENV('APP_CONFIG_PATH', true);
   if (isNotEmpty(externalConfigPath)) {
-    if (fs.existsSync(externalConfigPath)) {
+    if (existsSync(externalConfigPath)) {
       overrideWithConfig(appConfig, externalConfigPath);
     } else {
       console.warn(`Unable to find external config file at ${externalConfigPath}`);
@@ -236,9 +236,9 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   buildBaseUrl(appConfig.rest);
 
   if (isNotEmpty(destConfigPath)) {
-    fs.writeFileSync(destConfigPath, JSON.stringify(appConfig, null, 2));
+    writeFileSync(destConfigPath, JSON.stringify(appConfig, null, 2));
 
-    console.log(`Angular ${colors.bold('config.json')} file generated correctly at ${colors.bold(destConfigPath)} \n`);
+    console.log(`Angular ${bold('config.json')} file generated correctly at ${bold(destConfigPath)} \n`);
   }
 
   return appConfig;

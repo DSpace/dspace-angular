@@ -128,7 +128,6 @@ export class ProcessDetailComponent implements OnInit {
    * Sets the outputLogs when retrieved and sets the showOutputLogs boolean to show them and hide the button.
    */
   showProcessOutputLogs() {
-    console.log('showProcessOutputLogs');
     this.retrievingOutputLogs$.next(true);
     this.zone.runOutsideAngular(() => {
       const processOutputRD$: Observable<RemoteData<Bitstream>> = this.processRD$.pipe(

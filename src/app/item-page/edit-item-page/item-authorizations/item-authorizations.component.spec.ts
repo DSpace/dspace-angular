@@ -1,12 +1,11 @@
-import { Observable } from 'rxjs/internal/Observable';
 import { waitForAsync, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of as observableOf, of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { ItemAuthorizationsComponent, BitstreamMapValue } from './item-authorizations.component';
+import { ItemAuthorizationsComponent } from './item-authorizations.component';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { Item } from '../../../core/shared/item.model';
@@ -14,8 +13,6 @@ import { LinkService } from '../../../core/cache/builders/link.service';
 import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList, createTestComponent } from '../../../shared/testing/utils.test';
-import { PaginatedList, buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
 
 describe('ItemAuthorizationsComponent test suite', () => {
   let comp: ItemAuthorizationsComponent;
