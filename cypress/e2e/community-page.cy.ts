@@ -1,13 +1,13 @@
-import { TEST_COMMUNITY } from 'cypress/support';
+import { TEST_COMMUNITY } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
 describe('Community Page', () => {
 
     it('should pass accessibility tests', () => {
-        cy.visit('/communities/' + TEST_COMMUNITY);
+        cy.visit('/communities/'.concat(TEST_COMMUNITY));
 
         // <ds-community-page> tag must be loaded
-        cy.get('ds-community-page').should('exist');
+        cy.get('ds-community-page').should('be.visible');
 
         // Analyze <ds-community-page> for accessibility issues
         testA11y('ds-community-page',);

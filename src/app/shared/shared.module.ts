@@ -268,6 +268,9 @@ import {
 import { EpersonGroupListComponent } from './eperson-group-list/eperson-group-list.component';
 import { EpersonSearchBoxComponent } from './eperson-group-list/eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './eperson-group-list/group-search-box/group-search-box.component';
+import {
+  ThemedItemPageTitleFieldComponent
+} from '../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 
 const MODULES = [
   CommonModule,
@@ -373,7 +376,8 @@ const COMPONENTS = [
   ContextHelpWrapperComponent,
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
-  GroupSearchBoxComponent
+  GroupSearchBoxComponent,
+  ThemedItemPageTitleFieldComponent,
 ];
 
 const ENTRY_COMPONENTS = [

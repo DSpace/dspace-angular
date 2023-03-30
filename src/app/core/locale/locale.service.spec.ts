@@ -62,25 +62,33 @@ describe('LocaleService test suite', () => {
   });
 
   describe('getCurrentLanguageCode', () => {
-    it('should return language saved on cookie', () => {
+    beforeEach(() => {
+      spyOn(translateService, 'getLangs').and.returnValue(langList);
+    });
+
+    it('should return the language saved on cookie if it\'s a valid & active language', () => {
       spyOnGet.and.returnValue('de');
       expect(service.getCurrentLanguageCode()).toBe('de');
     });
 
-    describe('', () => {
-      beforeEach(() => {
-        spyOn(translateService, 'getLangs').and.returnValue(langList);
-      });
+    it('should return the default language if the cookie language is disabled', () => {
+      spyOnGet.and.returnValue('disabled');
+      expect(service.getCurrentLanguageCode()).toBe('en');
+    });
 
-      it('should return language from browser setting', () => {
-        spyOn(translateService, 'getBrowserLang').and.returnValue('it');
-        expect(service.getCurrentLanguageCode()).toBe('it');
-      });
+    it('should return the default language if the cookie language does not exist', () => {
+      spyOnGet.and.returnValue('does-not-exist');
+      expect(service.getCurrentLanguageCode()).toBe('en');
+    });
 
-      it('should return default language from config', () => {
-        spyOn(translateService, 'getBrowserLang').and.returnValue('fr');
-        expect(service.getCurrentLanguageCode()).toBe('en');
-      });
+    it('should return language from browser setting', () => {
+      spyOn(translateService, 'getBrowserLang').and.returnValue('it');
+      expect(service.getCurrentLanguageCode()).toBe('it');
+    });
+
+    it('should return default language from config', () => {
+      spyOn(translateService, 'getBrowserLang').and.returnValue('fr');
+      expect(service.getCurrentLanguageCode()).toBe('en');
     });
   });
 
