@@ -15,6 +15,7 @@ import { InputSuggestion } from '../../../../shared/input-suggestions/input-sugg
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
+import { FindListOptions } from '../../../../core/data/find-list-options.model';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -124,10 +125,11 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Then sets all found metadata fields as metadataFieldSuggestions
    * Ignores fields from metadata schemas "relation" and "relationship"
    * @param query The query to look for
+   * @param options The options that need to be given to the backend
    */
-  findMetadataFieldSuggestions(query: string) {
+  findMetadataFieldSuggestions(query: string, options: FindListOptions = {}) {
     if (isNotEmpty(query)) {
-      return this.registryService.queryMetadataFields(query, null, true, false, followLink('schema')).pipe(
+      return this.registryService.queryMetadataFields(query, options, true, false, followLink('schema')).pipe(
         getFirstSucceededRemoteData(),
         metadataFieldsToString(),
       ).subscribe((fieldNames: string[]) => {
