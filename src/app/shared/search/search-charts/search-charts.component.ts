@@ -106,7 +106,7 @@ export class SearchChartsComponent implements OnInit {
    * @param filterConfig the filter config to check
    * @returns {Observable<boolean>} true if the filter config has facet values
    */
-  private hasFacetValues(filterConfig: SearchFilterConfig): Observable<boolean> {
+  hasFacetValues(filterConfig: SearchFilterConfig): Observable<boolean> {
     if (hasValue(filterConfig)) {
       return this.searchConfigService.searchOptions.pipe(
         switchMap((options) => {
