@@ -47,15 +47,17 @@
           <ng-container *ngSwitchCase="'authors'">
             <span class="metadata">
               <a *ngIf="f; else noLink" [routerLink]="'/handle/' + metadataValue.authority">
-                {{ metadataValue.value }}<ng-container *ngIf="!l">;&nbsp;</ng-container>
+                {{ metadataValue.value }}
               </a>
-              <ng-template #noLink>{{ metadataValue.value }}<ng-container *ngIf="!l">;&nbsp;</ng-container></ng-template>
+              <ng-template #noLink>{{ metadataValue.value }}</ng-template>
             </span>
           </ng-container>
 
           <ng-container *ngSwitchDefault>
             <span class="metadata" [innerHTML]="metadataValue.value"></span>
           </ng-container>
+
+          <ng-container *ngIf="!l && (!metadataItem.limitTo || (i !== metadataItem.limitTo - 1))">;&nbsp;</ng-container>
 
         </ng-container>
 
