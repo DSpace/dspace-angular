@@ -1,5 +1,5 @@
 import { Options } from 'cypress-axe';
-import { TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD, TEST_SUBMIT_COLLECTION_NAME } from 'cypress/support';
+import { TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD, TEST_SUBMIT_COLLECTION_NAME } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
 describe('My DSpace page', () => {
@@ -9,7 +9,7 @@ describe('My DSpace page', () => {
         // This page is restricted, so we will be shown the login form. Fill it out & submit.
         cy.loginViaForm(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
 
-        cy.get('ds-my-dspace-page').should('exist');
+        cy.get('ds-my-dspace-page').should('be.visible');
 
         // At least one recent submission should be displayed
         cy.get('[data-test="list-object"]').should('be.visible');
@@ -42,12 +42,12 @@ describe('My DSpace page', () => {
         // This page is restricted, so we will be shown the login form. Fill it out & submit.
         cy.loginViaForm(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
 
-        cy.get('ds-my-dspace-page').should('exist');
+        cy.get('ds-my-dspace-page').should('be.visible');
 
         // Click button in sidebar to display detailed view
         cy.get('ds-search-sidebar [data-test="detail-view"]').click();
 
-        cy.get('ds-object-detail').should('exist');
+        cy.get('ds-object-detail').should('be.visible');
 
         // Analyze <ds-search-page> for accessibility issues
         testA11y('ds-my-dspace-page',
@@ -80,7 +80,7 @@ describe('My DSpace page', () => {
         cy.get('ds-authorized-collection-selector input[type="search"]').type(TEST_SUBMIT_COLLECTION_NAME);
 
         // Click on the button matching that known Collection name
-        cy.get('ds-authorized-collection-selector button[title="' + TEST_SUBMIT_COLLECTION_NAME + '"]').click();
+        cy.get('ds-authorized-collection-selector button[title="'.concat(TEST_SUBMIT_COLLECTION_NAME).concat('"]')).click();
 
         // New URL should include /workspaceitems, as we've started a new submission
         cy.url().should('include', '/workspaceitems');
