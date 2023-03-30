@@ -62,7 +62,7 @@ import {
           {
             canActivate: [AuthenticatedGuard],
             path: WORKFLOW_ITEM_SEND_BACK_PATH,
-            component: ThemedWorkflowItemSendBackComponent, 
+            component: ThemedWorkflowItemSendBackComponent,
             resolve: {
               breadcrumb: I18nBreadcrumbResolver
             },
