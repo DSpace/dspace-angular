@@ -38,6 +38,7 @@
     "merge-i18n": "ts-node --project ./tsconfig.ts-node.json scripts/merge-i18n-files.ts",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
+    "docs": "npx typedoc --options typedoc.json",
     "env:yaml": "ts-node --project ./tsconfig.ts-node.json scripts/env-to-yaml.ts",
     "base-href": "ts-node --project ./tsconfig.ts-node.json scripts/base-href.ts",
     "check-circ-deps": "npx madge --exclude '(bitstream|bundle|collection|config-submission-form|eperson|item|version)\\.model\\.ts$' --circular --extensions ts ./"
@@ -197,6 +198,7 @@
     "sass-loader": "^12.6.0",
     "sass-resources-loader": "^2.1.1",
     "ts-node": "^8.10.2",
+    "typedoc": "0.19.2",
     "typescript": "~4.5.5",
     "webpack": "^5.76.0",
     "webpack-bundle-analyzer": "^4.4.0",
