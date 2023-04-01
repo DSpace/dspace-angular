@@ -37,6 +37,13 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
   public collectionId: string;
 
   /**
+   * Checks if the collection can be modifiable by the user
+   * @type {booelan}
+   */
+  public collectionModifiable: boolean | null = null;
+
+
+  /**
    * The list of submission's sections
    * @type {WorkspaceitemSectionsObject}
    */
@@ -109,6 +116,9 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    * Retrieve workspaceitem/workflowitem from server and initialize all instance variables
    */
   ngOnInit() {
+
+    this.collectionModifiable = this.route.snapshot.data?.collectionModifiable ?? null;
+
     this.subs.push(
       this.route.paramMap.pipe(
         switchMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id'))),
