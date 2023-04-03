@@ -142,14 +142,20 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
         })
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
-      this.registryService.getActiveMetadataField().subscribe((field) => {
-        this.formGroup.patchValue({
-          metadatadatafieldgroup: {
-            element: field != null ? field.element : '',
-            qualifier: field != null ? field.qualifier : '',
-            scopeNote: field != null ? field.scopeNote : ''
-          }
-        });
+      this.registryService.getActiveMetadataField().subscribe((field: MetadataField): void => {
+        if (field == null) {
+          this.clearFields();
+        } else {
+          this.formGroup.patchValue({
+            metadatadatafieldgroup: {
+              element: field.element,
+              qualifier: field.qualifier,
+              scopeNote: field.scopeNote,
+            },
+          });
+          this.element.disabled = true;
+          this.qualifier.disabled = true;
+        }
       });
     });
   }
@@ -167,25 +173,24 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
    * When the field has no id attached -> Create new field
    * Emit the updated/created field using the EventEmitter submitForm
    */
-  onSubmit() {
+  onSubmit(): void {
     this.registryService.getActiveMetadataField().pipe(take(1)).subscribe(
-      (field) => {
-        const values = {
-          element: this.element.value,
-          qualifier: this.qualifier.value,
-          scopeNote: this.scopeNote.value
-        };
+      (field: MetadataField) => {
         if (field == null) {
-          this.registryService.createMetadataField(Object.assign(new MetadataField(), values), this.metadataSchema).subscribe((newField) => {
+          this.registryService.createMetadataField(Object.assign(new MetadataField(), {
+            element: this.element.value,
+            qualifier: this.qualifier.value,
+            scopeNote: this.scopeNote.value,
+          }), this.metadataSchema).subscribe((newField: MetadataField) => {
             this.submitForm.emit(newField);
           });
         } else {
           this.registryService.updateMetadataField(Object.assign(new MetadataField(), field, {
             id: field.id,
-            element: (values.element ? values.element : field.element),
-            qualifier: (values.qualifier ? values.qualifier : field.qualifier),
-            scopeNote: (values.scopeNote ? values.scopeNote : field.scopeNote)
-          })).subscribe((updatedField) => {
+            element: field.element,
+            qualifier: field.qualifier,
+            scopeNote: this.scopeNote.value,
+          })).subscribe((updatedField: MetadataField) => {
             this.submitForm.emit(updatedField);
           });
         }
@@ -198,15 +203,10 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
   /**
    * Reset all input-fields to be empty
    */
-  clearFields() {
-    this.formGroup.markAsUntouched();
-    this.formGroup.patchValue({
-      metadatadatafieldgroup: {
-        element: '',
-        qualifier: '',
-        scopeNote: ''
-      }
-    });
+  clearFields(): void {
+    this.formGroup.reset('metadatadatafieldgroup');
+    this.element.disabled = false;
+    this.qualifier.disabled = false;
   }
 
   /**

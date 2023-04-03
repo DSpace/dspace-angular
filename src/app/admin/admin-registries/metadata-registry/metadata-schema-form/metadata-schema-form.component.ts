@@ -87,9 +87,12 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
           name: 'name',
           validators: {
             required: null,
-            pattern: '^[^ ,_]{1,32}$'
+            pattern: '^[^. ,_]{1,32}$',
           },
           required: true,
+          errorMessages: {
+            pattern: 'error.validation.metadata.namespace.invalid-pattern',
+          },
         });
       this.namespace = new DynamicInputModel({
           id: 'namespace',
@@ -97,12 +100,8 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
           name: 'namespace',
           validators: {
             required: null,
-            pattern: '^[^.]*$',
           },
           required: true,
-          errorMessages: {
-            pattern: 'error.validation.metadata.namespace.invalid-pattern',
-          },
         });
       this.formModel = [
         new DynamicFormGroupModel(
@@ -112,13 +111,18 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
           })
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
-      this.registryService.getActiveMetadataSchema().subscribe((schema) => {
-        this.formGroup.patchValue({
-          metadatadataschemagroup:{
-            name: schema != null ? schema.prefix : '',
-            namespace: schema != null ? schema.namespace : ''
-          }
-        });
+      this.registryService.getActiveMetadataSchema().subscribe((schema: MetadataSchema) => {
+        if (schema == null) {
+          this.clearFields();
+        } else {
+          this.formGroup.patchValue({
+            metadatadataschemagroup: {
+              name: schema.prefix,
+              namespace: schema.namespace,
+            },
+          });
+          this.name.disabled = true;
+        }
       });
     });
   }
@@ -136,10 +140,10 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
    * When the schema has no id attached -> Create new schema
    * Emit the updated/created schema using the EventEmitter submitForm
    */
-  onSubmit() {
+  onSubmit(): void {
     this.registryService.clearMetadataSchemaRequests().subscribe();
     this.registryService.getActiveMetadataSchema().pipe(take(1)).subscribe(
-      (schema) => {
+      (schema: MetadataSchema) => {
         const values = {
           prefix: this.name.value,
           namespace: this.namespace.value
@@ -151,9 +155,9 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
         } else {
           this.registryService.createOrUpdateMetadataSchema(Object.assign(new MetadataSchema(), schema, {
             id: schema.id,
-            prefix: (values.prefix ? values.prefix : schema.prefix),
-            namespace: (values.namespace ? values.namespace : schema.namespace)
-          })).subscribe((updatedSchema) => {
+            prefix: schema.prefix,
+            namespace: values.namespace,
+          })).subscribe((updatedSchema: MetadataSchema) => {
             this.submitForm.emit(updatedSchema);
           });
         }
@@ -166,14 +170,9 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
   /**
    * Reset all input-fields to be empty
    */
-  clearFields() {
-    this.formGroup.markAsUntouched();
-    this.formGroup.patchValue({
-      metadatadataschemagroup:{
-        name: '',
-        namespace: ''
-      }
-    });
+  clearFields(): void {
+    this.formGroup.reset('metadatadataschemagroup');
+    this.name.disabled = false;
   }
 
   /**
