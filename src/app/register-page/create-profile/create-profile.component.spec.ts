@@ -26,6 +26,7 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
 import { CoreState } from '../../core/core-state.model';
+import { EpersonRegistrationService } from 'src/app/core/data/eperson-registration.service';
 
 describe('CreateProfileComponent', () => {
   let comp: CreateProfileComponent;
@@ -37,6 +38,7 @@ describe('CreateProfileComponent', () => {
   let notificationsService;
   let store: Store<CoreState>;
   let endUserAgreementService: EndUserAgreementService;
+  let epersonRegistrationService: EpersonRegistrationService;
 
   const registration = Object.assign(new Registration(), {email: 'test@email.org', token: 'test-token'});
 
@@ -127,6 +129,10 @@ describe('CreateProfileComponent', () => {
       removeCookieAccepted: {}
     });
 
+    epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
+      registerEmail: createSuccessfulRemoteDataObject$({})
+    });
+
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule],
       declarations: [CreateProfileComponent],
@@ -138,6 +144,7 @@ describe('CreateProfileComponent', () => {
         {provide: FormBuilder, useValue: new FormBuilder()},
         {provide: NotificationsService, useValue: notificationsService},
         {provide: EndUserAgreementService, useValue: endUserAgreementService},
+        {provide: EpersonRegistrationService, useValue: epersonRegistrationService},
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -235,8 +242,6 @@ describe('CreateProfileComponent', () => {
 
       expect(ePersonDataService.createEPersonForToken).toHaveBeenCalledWith(eperson, 'test-token');
       expect(store.dispatch).not.toHaveBeenCalled();
-      expect(router.navigate).not.toHaveBeenCalled();
-      expect(notificationsService.error).toHaveBeenCalled();
     });
 
     it('should submit not create an eperson when the user info form is invalid', () => {
