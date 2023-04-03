@@ -12,7 +12,7 @@ import { Store } from '@ngrx/store';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { environment } from '../../../environments/environment';
-import { isEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty } from '../../shared/empty.util';
 import { RemoteData } from '../../core/data/remote-data';
 import {
   END_USER_AGREEMENT_METADATA_FIELD,
@@ -20,6 +20,8 @@ import {
 } from '../../core/end-user-agreement/end-user-agreement.service';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { CoreState } from '../../core/core-state.model';
+import { TYPE_REQUEST_FORGOT } from 'src/app/register-email-form/register-email-form.component';
+import { EpersonRegistrationService } from 'src/app/core/data/eperson-registration.service';
 
 /**
  * Component that renders the create profile page to be used by a user registering through a token
@@ -54,7 +56,8 @@ export class CreateProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private notificationsService: NotificationsService,
-    private endUserAgreementService: EndUserAgreementService
+    private endUserAgreementService: EndUserAgreementService,
+    private epersonRegistrationService: EpersonRegistrationService
   ) {
 
   }
@@ -169,10 +172,22 @@ export class CreateProfileComponent implements OnInit {
           this.notificationsService.success(this.translateService.get(this.NOTIFICATIONS_PREFIX + 'success.head'),
             this.translateService.get(this.NOTIFICATIONS_PREFIX + 'success.content'));
           this.store.dispatch(new AuthenticateAction(this.email, this.password));
-          this.router.navigate(['/home']);
         } else {
-          this.notificationsService.error(this.translateService.get(this.NOTIFICATIONS_PREFIX + 'error.head'), rd.errorMessage);
+          if (hasValue(eperson.email)) {
+            this.epersonRegistrationService.registerEmail(eperson.email, null, TYPE_REQUEST_FORGOT).pipe(getFirstCompletedRemoteData())
+              .subscribe((response: RemoteData<Registration>) => {
+                  if (response.hasSucceeded) {
+                    this.notificationsService.success(this.translateService.get('admin.access-control.epeople.actions.reset'),
+                      this.translateService.get('forgot-email.form.success.content', {email: eperson.email}));
+                  } else {
+                    this.notificationsService.error(this.translateService.get('forgot-email.form.error.head'),
+                      this.translateService.get('forgot-email.form.error.content', {email: eperson.email}));
+                  }
+                }
+              );
+          }
         }
+        this.router.navigate(['/home']);
       });
     }
   }
