@@ -1,5 +1,5 @@
 import { Options } from 'cypress-axe';
-import { TEST_SEARCH_TERM } from 'cypress/support';
+import { TEST_SEARCH_TERM } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
 describe('Search Page', () => {
@@ -13,11 +13,11 @@ describe('Search Page', () => {
     });
 
     it('should load results and pass accessibility tests', () => {
-        cy.visit('/search?query=' + TEST_SEARCH_TERM);
+        cy.visit('/search?query='.concat(TEST_SEARCH_TERM));
         cy.get('[data-test="search-box"]').should('have.value', TEST_SEARCH_TERM);
 
         // <ds-search-page> tag must be loaded
-        cy.get('ds-search-page').should('exist');
+        cy.get('ds-search-page').should('be.visible');
 
         // At least one search result should be displayed
         cy.get('[data-test="list-object"]').should('be.visible');
@@ -45,13 +45,13 @@ describe('Search Page', () => {
     });
 
     it('should have a working grid view that passes accessibility tests', () => {
-        cy.visit('/search?query=' + TEST_SEARCH_TERM);
+        cy.visit('/search?query='.concat(TEST_SEARCH_TERM));
 
         // Click button in sidebar to display grid view
         cy.get('ds-search-sidebar [data-test="grid-view"]').click();
 
         // <ds-search-page> tag must be loaded
-        cy.get('ds-search-page').should('exist');
+        cy.get('ds-search-page').should('be.visible');
 
         // At least one grid object (card) should be displayed
         cy.get('[data-test="grid-object"]').should('be.visible');

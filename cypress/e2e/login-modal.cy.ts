@@ -1,4 +1,4 @@
-import { TEST_ADMIN_PASSWORD, TEST_ADMIN_USER, TEST_ENTITY_PUBLICATION } from 'cypress/support';
+import { TEST_ADMIN_PASSWORD, TEST_ADMIN_USER, TEST_ENTITY_PUBLICATION } from 'cypress/support/e2e';
 
 const page = {
     openLoginMenu() {
@@ -36,7 +36,7 @@ const page = {
 
 describe('Login Modal', () => {
     it('should login when clicking button & stay on same page', () => {
-        const ENTITYPAGE = '/entities/publication/' + TEST_ENTITY_PUBLICATION;
+        const ENTITYPAGE = '/entities/publication/'.concat(TEST_ENTITY_PUBLICATION);
         cy.visit(ENTITYPAGE);
 
         // Login menu should exist

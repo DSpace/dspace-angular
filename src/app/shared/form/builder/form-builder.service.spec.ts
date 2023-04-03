@@ -235,10 +235,16 @@ describe('FormBuilderService test suite', () => {
       new DynamicListCheckboxGroupModel({
         id: 'testCheckboxList',
         vocabularyOptions: vocabularyOptions,
-        repeatable: true
+        repeatable: true,
+        required: false,
       }),
 
-      new DynamicListRadioGroupModel({ id: 'testRadioList', vocabularyOptions: vocabularyOptions, repeatable: false }),
+      new DynamicListRadioGroupModel({
+        id: 'testRadioList',
+        vocabularyOptions: vocabularyOptions,
+        repeatable: false,
+        required: false,
+      }),
 
       new DynamicRelationGroupModel({
         submissionId,
