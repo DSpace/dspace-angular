@@ -145,7 +145,7 @@ describe('MetadataContainerComponent', () => {
   });
 
   const mockBitstreamDataService = jasmine.createSpyObj('BitstreamDataService', {
-    findAllByItemAndBundleName: jasmine.createSpy('findAllByItemAndBundleName')
+    findShowableBitstreamsByItem: jasmine.createSpy('findShowableBitstreamsByItem')
   });
 
   beforeEach(async () => {
@@ -172,7 +172,10 @@ describe('MetadataContainerComponent', () => {
     component = fixture.componentInstance;
     component.item = testItem;
     component.box = boxMetadata;
-    mockBitstreamDataService.findAllByItemAndBundleName.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([])));
+
+    mockBitstreamDataService.findShowableBitstreamsByItem.and.returnValue(
+      createSuccessfulRemoteDataObject$(createPaginatedList([]))
+    );
   });
 
   describe('When field rendering type is not structured', () => {
@@ -283,7 +286,7 @@ describe('MetadataContainerComponent', () => {
     describe('and item has bitstream', () => {
 
       beforeEach(() => {
-        mockBitstreamDataService.findAllByItemAndBundleName.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
+        mockBitstreamDataService.findShowableBitstreamsByItem.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
         fixture.detectChanges();
       });
 
@@ -291,7 +294,7 @@ describe('MetadataContainerComponent', () => {
         expect(component).toBeTruthy();
       });
 
-      it('should not render metadata ', (done) => {
+      it('should render metadata ', (done) => {
         const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-label'));
         expect(spanValueFound.length).toBe(1);
 
@@ -301,6 +304,35 @@ describe('MetadataContainerComponent', () => {
       });
     });
 
+    describe('and bitstream has metadata', () => {
+      beforeEach(() => {
+        component.field.bitstream.metadataField = 'metadataFieldTest';
+        component.field.bitstream.metadataValue = 'metadataValueTest';
+        fixture.detectChanges();
+      });
+
+      it('should use the metadata in filters', () => {
+        expect(mockBitstreamDataService.findShowableBitstreamsByItem).toHaveBeenCalledWith(
+          testItem.uuid,
+          bitstreamField.bitstream.bundle,
+          [ { metadataName: 'metadataFieldTest', metadataValue: 'metadataValueTest' } ]
+        );
+      });
+    });
+
+    describe('and bitstream doesnt have metadataValue', () => {
+      beforeEach(() => {
+        component.field.bitstream.metadataValue = undefined;
+        fixture.detectChanges();
+      });
+
+      it('should use empty array in filters', () => {
+        expect(mockBitstreamDataService.findShowableBitstreamsByItem).toHaveBeenCalledWith(
+          testItem.uuid,
+          bitstreamField.bitstream.bundle,
+          [] // <--- empty array of filters
+        );
+      });
+    });
   });
-})
-  ;
+});
