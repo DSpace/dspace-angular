@@ -28,7 +28,8 @@
               [title]="'toggle ' + node.name"
               [attr.aria-label]="'toggle ' + node.name"
               (click)="toggleExpanded(node)"
-              [ngClass]="(hasChild(null, node)| async) ? 'visible' : 'invisible'">
+              [ngClass]="(hasChild(null, node)| async) ? 'visible' : 'invisible'"
+              [attr.data-test]="(hasChild(null, node)| async) ? 'expand-button' : ''">
         <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}"
               aria-hidden="true"></span>
       </button>

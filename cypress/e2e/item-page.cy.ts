@@ -1,10 +1,10 @@
 import { Options } from 'cypress-axe';
-import { TEST_ENTITY_PUBLICATION } from 'cypress/support';
+import { TEST_ENTITY_PUBLICATION } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
 describe('Item  Page', () => {
-    const ITEMPAGE = '/items/' + TEST_ENTITY_PUBLICATION;
-    const ENTITYPAGE = '/entities/publication/' + TEST_ENTITY_PUBLICATION;
+    const ITEMPAGE = '/items/'.concat(TEST_ENTITY_PUBLICATION);
+    const ENTITYPAGE = '/entities/publication/'.concat(TEST_ENTITY_PUBLICATION);
 
     // Test that entities will redirect to /entities/[type]/[uuid] when accessed via /items/[uuid]
     it('should redirect to the entity page when navigating to an item page', () => {
@@ -16,7 +16,7 @@ describe('Item  Page', () => {
         cy.visit(ENTITYPAGE);
 
         // <ds-item-page> tag must be loaded
-        cy.get('ds-item-page').should('exist');
+        cy.get('ds-item-page').should('be.visible');
 
         // Analyze <ds-item-page> for accessibility issues
         // Disable heading-order checks until it is fixed
