@@ -24,14 +24,6 @@ const bootstrap = () => platformBrowserDynamic()
 const hasTransferState = document.querySelector('script#dspace-angular-state') !== null;
 
 const main = () => {
-  // Load fonts async
-  // https://github.com/typekit/webfontloader#configuration
-  loadWebFont({
-    google: {
-      families: ['Droid Sans']
-    }
-  });
-
   if (environment.production) {
     enableProdMode();
   }
