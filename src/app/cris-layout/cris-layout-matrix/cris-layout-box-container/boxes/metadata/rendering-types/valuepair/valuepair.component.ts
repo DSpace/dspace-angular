@@ -52,12 +52,9 @@ export class ValuepairComponent extends RenderingTypeValueModelComponent impleme
     const authority = this.metadataValue.authority ? this.metadataValue.authority.split(':') : undefined;
     const isControlledVocabulary = authority?.length > 1 && authority[0] === vocabularyName;
 
-    let vocabularyEntry$ =
+    let vocabularyEntry$ = isControlledVocabulary ?
+      this.vocabularyService.getPublicVocabularyEntryByID(vocabularyName, this.metadataValue.authority) :
       this.vocabularyService.getPublicVocabularyEntryByValue(vocabularyName, this.metadataValue.value);
-    if (!!isControlledVocabulary) {
-      vocabularyEntry$ =
-        this.vocabularyService.getPublicVocabularyEntryByID(vocabularyName, this.metadataValue.authority);
-    }
 
     vocabularyEntry$.pipe(
       getFirstCompletedRemoteData(),
