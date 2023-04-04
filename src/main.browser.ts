@@ -3,7 +3,6 @@ import 'reflect-metadata';
 import 'core-js/es/reflect';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { load as loadWebFont } from 'webfontloader';
 
 import { BrowserAppModule } from './modules/app/browser-app.module';
 
