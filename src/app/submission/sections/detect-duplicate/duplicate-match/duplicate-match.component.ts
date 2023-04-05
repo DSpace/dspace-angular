@@ -20,6 +20,7 @@ import { SectionsService } from '../../sections.service';
 import { DuplicateMatchMetadataDetailConfig } from '../models/duplicate-detail-metadata.model';
 import { DetectDuplicateMatch } from '../../../../core/submission/models/workspaceitem-section-deduplication.model';
 import { environment } from '../../../../../environments/environment';
+import {getEntityPageRoute, getItemPageRoute} from "../../../../item-page/item-page-routing-paths";
 
 /**
  * This component shows a single possible duplication within the duplications section.
@@ -303,4 +304,9 @@ export class DuplicateMatchComponent implements OnInit {
     this.modalRef = this.modalService.open(modal);
   }
 
+  getItemPage(item: Item) {
+    return getItemPageRoute(item);
+  }
+
+  protected readonly getItemPageRoute = getItemPageRoute;
 }
