@@ -7,10 +7,10 @@ describe('Community List Page', () => {
         cy.visit('/community-list');
 
         // <ds-community-list-page> tag must be loaded
-        cy.get('ds-community-list-page').should('exist');
+        cy.get('ds-community-list-page').should('be.visible');
 
-        // Open first Community (to show Collections)...that way we scan sub-elements as well
-        cy.get('ds-community-list :nth-child(1) > .btn-group > .btn').click();
+        // Open every expand button on page, so that we can scan sub-elements as well
+        cy.get('[data-test="expand-button"]').click({ multiple: true });
 
         // Analyze <ds-community-list-page> for accessibility issues
         // Disable heading-order checks until it is fixed
