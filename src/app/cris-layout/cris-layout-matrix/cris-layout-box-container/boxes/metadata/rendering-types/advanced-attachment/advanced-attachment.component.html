@@ -19,7 +19,7 @@
 
             <ng-container *ngIf="attachmentConf.type == AdvancedAttachmentElementType.Metadata">
 
-              <p class="word-break m-0" *ngIf="!attachmentConf.truncatable">
+              <p class="text-break m-0" data-test="attachment-name" *ngIf="!attachmentConf.truncatable">
                 {{attachment.firstMetadataValue(attachmentConf.name)}}
               </p>
 

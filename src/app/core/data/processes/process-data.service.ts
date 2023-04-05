@@ -19,12 +19,12 @@ import { dataService } from '../base/data-service.decorator';
 import { DeleteData, DeleteDataImpl } from '../base/delete-data';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NoContent } from '../../shared/NoContent.model';
-import { SearchData } from '../base/search-data';
+import { SearchData, SearchDataImpl } from '../base/search-data';
 
 @Injectable()
 @dataService(PROCESS)
 export class ProcessDataService extends IdentifiableDataService<Process> implements FindAllData<Process>, DeleteData<Process> {
-  protected findOwnLink = 'own';
+  protected findOwnLink = 'search/own';
 
   private findAllData: FindAllData<Process>;
   private deleteData: DeleteData<Process>;
@@ -42,6 +42,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
 
     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive, this.constructIdEndpoint);
   }
 
   /**
@@ -139,7 +140,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
    *    Return an observable that emits object list
    */
   searchItsOwnProcesses(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Process>[]): Observable<RemoteData<PaginatedList<Process>>> {
-    return this.searchData.searchBy(this.findOwnLink, options);
+    return this.searchData.searchBy(this.findOwnLink, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**

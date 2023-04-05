@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
@@ -17,7 +18,11 @@ module.exports = {
     fallback: {
       url: false
     }},
-  plugins: [new CopyWebpackPlugin({
+  plugins: [
+    new webpack.IgnorePlugin({
+      resourceRegExp: /@blueprintjs\/(core|icons)/, // ignore optional UI framework dependencies
+    }),
+    new CopyWebpackPlugin({
     patterns: [
       {from: './src/mirador-viewer/mirador.html', to: './index.html'}
     ]
