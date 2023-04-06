@@ -26,7 +26,7 @@ import { AuthService } from '../../app/core/auth/auth.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { StoreAction, StoreActionTypes } from '../../app/store.actions';
 import { coreSelector } from '../../app/core/core.selectors';
-import { filter, find, map, switchMap } from 'rxjs/operators';
+import { filter, find, map } from 'rxjs/operators';
 import { isNotEmpty } from '../../app/shared/empty.util';
 import { logStartupMessage } from '../../../startup-message';
 import { MenuService } from '../../app/shared/menu/menu.service';
