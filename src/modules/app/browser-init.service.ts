@@ -31,12 +31,16 @@ import { isNotEmpty } from '../../app/shared/empty.util';
 import { logStartupMessage } from '../../../startup-message';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { RootDataService } from '../../app/core/data/root-data.service';
+import { firstValueFrom, Subscription } from 'rxjs';
 
 /**
  * Performs client-side initialization.
  */
 @Injectable()
 export class BrowserInitService extends InitService {
+
+  sub: Subscription;
+
   constructor(
     protected store: Store<AppState>,
     protected correlationIdService: CorrelationIdService,
@@ -139,13 +143,13 @@ export class BrowserInitService extends InitService {
   }
 
   /**
-   * During the external authentication flow invalidates the SSR transferState
+   * During an external authentication flow invalidate the SSR transferState
    * data in the cache. This allows the app to fetch fresh content.
    * @private
    */
   private externalAuthCheck() {
 
-    this.authService.isExternalAuthentication().pipe(
+    this.sub = this.authService.isExternalAuthentication().pipe(
         filter((externalAuth: boolean) => externalAuth)
       ).subscribe(() => {
         // Clear the transferState data.
@@ -154,6 +158,19 @@ export class BrowserInitService extends InitService {
       }
     );
 
+    this.closeAuthCheckSubscription();
+  }
+
+  /**
+   * Unsubscribe the external authentication subscription
+   * when authentication is no longer blocking.
+   * @private
+   */
+  private closeAuthCheckSubscription() {
+    firstValueFrom(this.authenticationReady$()).then(() => {
+        this.sub.unsubscribe();
+      }
+    )
   }
 
 }
