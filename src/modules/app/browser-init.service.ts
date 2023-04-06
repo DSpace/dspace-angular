@@ -169,8 +169,7 @@ export class BrowserInitService extends InitService {
   private closeAuthCheckSubscription() {
     firstValueFrom(this.authenticationReady$()).then(() => {
         this.sub.unsubscribe();
-      }
-    )
+      });
   }
 
 }
