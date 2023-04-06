@@ -139,19 +139,18 @@ export class BrowserInitService extends InitService {
   }
 
   /**
-   * When authenticated during the external authentication flow invalidate
-   * the cache so the app is rehydrated with fresh data.
+   * During the external authentication flow invalidates the SSR transferState
+   * data in the cache. This allows the app to fetch fresh content.
    * @private
    */
   private externalAuthCheck() {
 
-    this.authenticationReady$().pipe(
-        switchMap(() => this.authService.isExternalAuthentication().pipe(
-          filter((externalAuth: boolean) => externalAuth)
-        ))
+    this.authService.isExternalAuthentication().pipe(
+        filter((externalAuth: boolean) => externalAuth)
       ).subscribe(() => {
-        this.authService.setExternalAuthStatus(false);
+        // Clear the transferState data.
         this.rootDatatService.invalidateRootCache();
+        this.authService.setExternalAuthStatus(false);
       }
     );
 
