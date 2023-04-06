@@ -25,7 +25,7 @@ import {
 import { CookieService } from '../services/cookie.service';
 import {
   getAuthenticatedUserId,
-  getAuthenticationToken,
+  getAuthenticationToken, getExternalAuthCookieStatus,
   getRedirectUrl,
   isAuthenticated,
   isAuthenticatedLoaded,
@@ -36,7 +36,7 @@ import { AppState } from '../../app.reducer';
 import {
   CheckAuthenticationTokenAction,
   RefreshTokenAction,
-  ResetAuthenticationMessagesAction,
+  ResetAuthenticationMessagesAction, SetAuthCookieStatus,
   SetRedirectUrlAction,
   SetUserAsIdleAction,
   UnsetUserAsIdleAction
@@ -154,6 +154,15 @@ export class AuthService {
    */
   public isAuthenticationLoaded(): Observable<boolean> {
     return this.store.pipe(select(isAuthenticatedLoaded));
+  }
+
+  public setExternalAuthStatus(external: boolean) {
+    this.store.dispatch(new SetAuthCookieStatus(external));
+  }
+
+  public isExternalAuthentication(): Observable<boolean> {
+    return this.store.pipe(
+      select(getExternalAuthCookieStatus));
   }
 
   /**

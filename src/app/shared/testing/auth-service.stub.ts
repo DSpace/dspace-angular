@@ -122,6 +122,13 @@ export class AuthServiceStub {
   checkAuthenticationCookie() {
     return;
   }
+  setExternalAuthStatus(externalCookie: boolean) {
+    return;
+  }
+
+  isExternalAuthentication(): Observable<boolean> {
+    return;
+  }
 
   retrieveAuthMethodsFromAuthStatus(status: AuthStatus) {
     return observableOf(authMethodsMock);

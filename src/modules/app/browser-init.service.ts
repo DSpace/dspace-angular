@@ -26,10 +26,11 @@ import { AuthService } from '../../app/core/auth/auth.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { StoreAction, StoreActionTypes } from '../../app/store.actions';
 import { coreSelector } from '../../app/core/core.selectors';
-import { find, map } from 'rxjs/operators';
+import { filter, find, map, switchMap } from 'rxjs/operators';
 import { isNotEmpty } from '../../app/shared/empty.util';
 import { logStartupMessage } from '../../../startup-message';
 import { MenuService } from '../../app/shared/menu/menu.service';
+import { RootDataService } from '../../app/core/data/root-data.service';
 
 /**
  * Performs client-side initialization.
@@ -51,6 +52,7 @@ export class BrowserInitService extends InitService {
     protected authService: AuthService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
+    private rootDatatService: RootDataService
   ) {
     super(
       store,
@@ -80,6 +82,7 @@ export class BrowserInitService extends InitService {
     return async () => {
       await this.loadAppState();
       this.checkAuthenticationToken();
+      this.externalAuthCheck();
       this.initCorrelationId();
 
       this.checkEnvironment();
@@ -134,4 +137,24 @@ export class BrowserInitService extends InitService {
   protected initGoogleAnalytics() {
     this.googleAnalyticsService.addTrackingIdToPage();
   }
+
+  /**
+   * When authenticated during the external authentication flow invalidate
+   * the cache so the app is rehydrated with fresh data.
+   * @private
+   */
+  private externalAuthCheck() {
+
+    this.authenticationReady$().pipe(
+        switchMap(() => this.authService.isExternalAuthentication().pipe(
+          filter((externalAuth: boolean) => externalAuth)
+        ))
+      ).subscribe(() => {
+        this.authService.setExternalAuthStatus(false);
+        this.rootDatatService.invalidateRootCache();
+      }
+    );
+
+  }
+
 }

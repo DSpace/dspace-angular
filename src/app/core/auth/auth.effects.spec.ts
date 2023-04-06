@@ -214,12 +214,14 @@ describe('AuthEffects', () => {
               authenticated: true
             })
         );
+        spyOn((authEffects as any).authService, 'setExternalAuthStatus');
         actions = hot('--a-', { a: { type: AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE } });
 
         const expected = cold('--b-', { b: new RetrieveTokenAction() });
 
         expect(authEffects.checkTokenCookie$).toBeObservable(expected);
         authEffects.checkTokenCookie$.subscribe(() => {
+          expect(authServiceStub.setExternalAuthStatus).toHaveBeenCalledWith(true);
           expect((authEffects as any).authorizationsService.invalidateAuthorizationsRequestCache).toHaveBeenCalled();
         });
       });
