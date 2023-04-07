@@ -134,19 +134,19 @@ import {
   CreateCommunityParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
 import {
-    ThemedCreateCommunityParentSelectorComponent
+  ThemedCreateCommunityParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
 import {
   CreateItemParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import {
-    ThemedCreateItemParentSelectorComponent
+  ThemedCreateItemParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
 import {
   CreateCollectionParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 import {
-    ThemedCreateCollectionParentSelectorComponent
+  ThemedCreateCollectionParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
 import {
   CommunitySearchResultListElementComponent
@@ -158,19 +158,19 @@ import {
   EditItemSelectorComponent
 } from './dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import {
-    ThemedEditItemSelectorComponent
+  ThemedEditItemSelectorComponent
 } from './dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
 import {
   EditCommunitySelectorComponent
 } from './dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import {
-    ThemedEditCommunitySelectorComponent
+  ThemedEditCommunitySelectorComponent
 } from './dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
 import {
   EditCollectionSelectorComponent
 } from './dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 import {
-    ThemedEditCollectionSelectorComponent
+  ThemedEditCollectionSelectorComponent
 } from './dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
 import {
   ItemListPreviewComponent
@@ -299,21 +299,43 @@ import { LinkMenuItemComponent } from './menu/menu-item/link-menu-item.component
 import { OnClickMenuItemComponent } from './menu/menu-item/onclick-menu-item.component';
 import { TextMenuItemComponent } from './menu/menu-item/text-menu-item.component';
 import { SearchChartsComponent } from './search/search-charts/search-charts.component';
-import { SearchChartBarComponent } from './search/search-charts/search-chart/search-chart-bar/search-chart-bar.component';
-import { SearchChartBarToLeftComponent } from './search/search-charts/search-chart/search-chart-bar-to-left/search-chart-bar-to-left.component';
-import { SearchChartBarToRightComponent } from './search/search-charts/search-chart/search-chart-bar-to-right/search-chart-bar-to-right.component';
-import { SearchChartPieComponent } from './search/search-charts/search-chart/search-chart-pie/search-chart-pie.component';
-import { SearchChartLineComponent } from './search/search-charts/search-chart/search-chart-line/search-chart-line.component';
-import { SearchChartFilterWrapperComponent } from './search/search-charts/search-chart/search-chart-wrapper/search-chart-wrapper.component';
+import {
+  SearchChartBarComponent
+} from './search/search-charts/search-chart/search-chart-bar/search-chart-bar.component';
+import {
+  SearchChartBarToLeftComponent
+} from './search/search-charts/search-chart/search-chart-bar-to-left/search-chart-bar-to-left.component';
+import {
+  SearchChartBarToRightComponent
+} from './search/search-charts/search-chart/search-chart-bar-to-right/search-chart-bar-to-right.component';
+import {
+  SearchChartPieComponent
+} from './search/search-charts/search-chart/search-chart-pie/search-chart-pie.component';
+import {
+  SearchChartLineComponent
+} from './search/search-charts/search-chart/search-chart-line/search-chart-line.component';
+import {
+  SearchChartFilterWrapperComponent
+} from './search/search-charts/search-chart/search-chart-wrapper/search-chart-wrapper.component';
 import { SearchChartComponent } from './search/search-charts/search-chart/search-chart.component';
 import { ChartsModule } from '../charts/charts.module';
-import { SearchChartFilterComponent } from './search/search-charts/search-chart/search-chart-filter/search-chart-filter.component';
+import {
+  SearchChartFilterComponent
+} from './search/search-charts/search-chart/search-chart-filter/search-chart-filter.component';
 import { VocabularyExternalSourceComponent } from './vocabulary-external-source/vocabulary-external-source.component';
-import { BulkImportSelectorComponent } from './dso-selector/modal-wrappers/bulk-import-collection-selector/bulk-import-collection-selector.component';
-import { AdministeredCollectionSelectorComponent } from './dso-selector/dso-selector/administered-collection-selector/administered-collection-selector.component';
+import {
+  BulkImportSelectorComponent
+} from './dso-selector/modal-wrappers/bulk-import-collection-selector/bulk-import-collection-selector.component';
+import {
+  AdministeredCollectionSelectorComponent
+} from './dso-selector/dso-selector/administered-collection-selector/administered-collection-selector.component';
 import { RelationshipsListComponent } from './object-list/relationships-list/relationships-list.component';
-import { RelationshipsItemsActionsComponent } from './object-list/relationships-list/relationships-items-actions/relationships-items-actions.component';
-import { RelationshipsItemsListPreviewComponent } from './object-list/relationships-list/relationships-items-list-preview/relationships-items-list-preview.component';
+import {
+  RelationshipsItemsActionsComponent
+} from './object-list/relationships-list/relationships-items-actions/relationships-items-actions.component';
+import {
+  RelationshipsItemsListPreviewComponent
+} from './object-list/relationships-list/relationships-items-list-preview/relationships-items-list-preview.component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
 import {
@@ -329,13 +351,21 @@ import {
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
 import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
-import { ClaimItemSelectorComponent } from './dso-selector/modal-wrappers/claim-item-selector/claim-item-selector.component';
+import {
+  ClaimItemSelectorComponent
+} from './dso-selector/modal-wrappers/claim-item-selector/claim-item-selector.component';
 import { BrowseMostElementsComponent } from './browse-most-elements/browse-most-elements.component';
-import { EditMetadataSecurityComponent } from '../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
+import {
+  EditMetadataSecurityComponent
+} from '../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 import { MetadataLinkViewComponent } from './metadata-link-view/metadata-link-view.component';
-import { ExportExcelSelectorComponent } from './dso-selector/modal-wrappers/export-excel-selector/export-excel-selector.component';
+import {
+  ExportExcelSelectorComponent
+} from './dso-selector/modal-wrappers/export-excel-selector/export-excel-selector.component';
 import { ThemedBrowseMostElementsComponent } from './browse-most-elements/themed-browse-most-elements.component';
-import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
+import {
+  ThemedItemListPreviewComponent
+} from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { RSSComponent } from './rss-feed/rss.component';
 import { ExternalLinkMenuItemComponent } from './menu/menu-item/external-link-menu-item.component';
 import { DsoPageOrcidButtonComponent } from './dso-page/dso-page-orcid-button/dso-page-orcid-button.component';
@@ -350,13 +380,10 @@ import { MarkdownPipe } from './utils/markdown.pipe';
 import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha.module';
 import { ItemCorrectionComponent } from './object-collection/shared/mydspace-item-correction/item-correction.component';
 import { MetricsModule } from './metric/metrics.module';
-import { SearchChartBarHorizontalComponent } from './search/search-charts/search-chart/search-chart-bar-horizontal/search-chart-bar-horizontal.component';
-import { ThumbnailService } from './thumbnail/thumbnail.service';
-import { ItemExportAlertComponent } from './search/item-export/item-export-alert/item-export-alert.component';
 import {
-  ItemExportModalLauncherComponent
-} from './search/item-export/item-export-modal-launcher/item-export-modal-launcher.component';
-import { ItemExportComponent } from './search/item-export/item-export/item-export.component';
+  SearchChartBarHorizontalComponent
+} from './search/search-charts/search-chart/search-chart-bar-horizontal/search-chart-bar-horizontal.component';
+import { ThumbnailService } from './thumbnail/thumbnail.service';
 import { EpersonGroupListComponent } from './resource-policies/form/eperson-group-list/eperson-group-list.component';
 import {
   EpersonSearchBoxComponent
@@ -365,7 +392,6 @@ import {
   GroupSearchBoxComponent
 } from './resource-policies/form/eperson-group-list/group-search-box/group-search-box.component';
 import { EntityIconDirective } from './entity-icon/entity-icon.directive';
-import { ItemExportListComponent } from './search/item-export/item-export/item-export-list/item-export-list.component';
 
 const MODULES = [
   CommonModule,
@@ -699,7 +725,7 @@ const DIRECTIVES = [
   NgForTrackByIdDirective,
   MetadataFieldValidator,
   HoverClassDirective,
-  EntityIconDirective
+  EntityIconDirective,
 ];
 
 @NgModule({

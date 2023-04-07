@@ -142,4 +142,11 @@ export function getEditItemPageRoute() {
 export function getSubscriptionsModuleRoute() {
   return `/${SUBSCRIPTIONS_MODULE_PATH}`;
 }
+
 export const SUBSCRIPTIONS_MODULE_PATH = 'subscriptions';
+
+export const STATISTICS_PAGE_PATH = 'statistics';
+
+export function getStatisticsModuleRoute() {
+  return `/${STATISTICS_PAGE_PATH}`;
+}

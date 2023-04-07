@@ -1,4 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
@@ -16,7 +17,7 @@ import { ExportImageType, ExportService } from '../../../../core/export-service/
 /**
  * Component that is being injected by wrapper and obtains the report information
  */
-export class StatisticsChartDataComponent implements OnInit {
+export abstract class StatisticsChartDataComponent implements OnInit {
 
   /**
    * For the ChartType
@@ -43,38 +44,30 @@ export class StatisticsChartDataComponent implements OnInit {
    */
   @ViewChild('chartRef') chartRef: ElementRef;
 
+  protected exportService: ExportService;
+
   constructor(
     @Inject(REPORT_DATA) public report: UsageReport,
     @Inject('categoryType') public categoryType: string,
-    private exportService: ExportService
+    @Inject(PLATFORM_ID) protected platformId: Object
   ) {
+
+    /* IMPORTANT
+       Due to a problem occurring on SSR with the ExportAsService dependency, which use window object, the service can't be injected.
+       So we need to instantiate the class directly based on current the platform */
+    if (isPlatformBrowser(this.platformId)) {
+      import('../../../../core/export-service/browser-export.service').then((s) => {
+        this.exportService = new s.BrowserExportService();
+      });
+    } else {
+      import('../../../../core/export-service/server-export.service').then((s) => {
+        this.exportService = new s.ServerExportService();
+      });
+    }
   }
 
   ngOnInit() {
-    // super.ngOnInit();
     this.results = this.getInitData();
-  }
-
-  select(data) {
-    // const queryParam = this.router['browserUrlTree'].queryParamMap.params;
-    // const key = this.filterConfig.paramName;
-    // let value = queryParam[this.filterConfig.paramName];
-    // if (queryParam[key]) {
-    //   if (queryParam[key].indexOf(data.extra.value) !== -1) {
-    //     value.splice(value.indexOf(data.extra.value), 1);
-    //   } else {
-    //     value.push(data.extra.value);
-    //   }
-    // } else {
-    //   value = value ? value : [];
-    //   value.push(data.extra.value);
-    // }
-    // this.router.navigate(this.getSearchLinkParts(), {
-    //   queryParams: {
-    //     [key]: [...value],
-    //   },
-    //   queryParamsHandling: 'merge',
-    // });
   }
 
   /**

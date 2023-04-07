@@ -31,7 +31,7 @@ describe('MetricDimensionsComponent', () => {
           useClass: TranslateLoaderMock
         }
       })],
-      declarations: [ MetricDimensionsComponent, ListMetricPropsPipe ]
+      declarations: [MetricDimensionsComponent, ListMetricPropsPipe]
     })
     .compileComponents();
   }));

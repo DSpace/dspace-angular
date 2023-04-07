@@ -8,9 +8,12 @@
 import { constructSearchEndpointDefault, SearchData, SearchDataImpl } from './search-data';
 import { FindListOptions } from '../find-list-options.model';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { of as observableOf } from 'rxjs';
+import { of, of as observableOf } from 'rxjs';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
+import { TestScheduler } from 'rxjs/testing';
+import { RemoteData } from '../remote-data';
+import { RequestEntryState } from '../request-entry-state.model';
 
 /**
  * Tests whether calls to `SearchData` methods are correctly patched through in a concrete data service that implements it
@@ -19,6 +22,12 @@ export function testSearchDataImplementation(serviceFactory: () => SearchData<an
   let service;
 
   describe('SearchData implementation', () => {
+    let testScheduler: TestScheduler;
+    const searchByResp = Object.assign(
+      new RemoteData(0, 0, 0, undefined, undefined, {}, 200),
+      { state: RequestEntryState.Success, payload: 'TEST searchBy' }
+    );
+    const searchByResp$ = of(searchByResp);
     const OPTIONS = Object.assign(new FindListOptions(), { elementsPerPage: 10, currentPage: 3 });
     const FOLLOWLINKS = [
       followLink('test'),
@@ -27,16 +36,27 @@ export function testSearchDataImplementation(serviceFactory: () => SearchData<an
 
     beforeAll(() => {
       service = serviceFactory();
-      (service as any).searchData = jasmine.createSpyObj('searchData', {
-        searchBy: 'TEST searchBy',
+      (service as any).searchData = jasmine.createSpyObj('searchData', ['searchBy']);
+      service.searchData.searchBy.and.returnValue(searchByResp$);
+    });
+
+    beforeEach(() => {
+      testScheduler = new TestScheduler((actual, expected) => {
+        return expect(actual).toEqual(expected);
       });
     });
 
     it('should handle calls to searchBy', () => {
+      const expectedMarbles = '(a|)';
+      const expectedValues = {
+        a: searchByResp
+      };
       const out: any = service.searchBy('searchMethod', OPTIONS, false, true, ...FOLLOWLINKS);
 
       expect((service as any).searchData.searchBy).toHaveBeenCalledWith('searchMethod', OPTIONS, false, true, ...FOLLOWLINKS);
-      expect(out).toBe('TEST searchBy');
+      testScheduler.run(({ expectObservable }) => {
+        expectObservable(out).toBe(expectedMarbles, expectedValues);
+      });
     });
   });
 }

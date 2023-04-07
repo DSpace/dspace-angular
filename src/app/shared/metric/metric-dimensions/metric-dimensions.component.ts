@@ -21,7 +21,7 @@ export class MetricDimensionsComponent extends BaseEmbeddedMetricComponent imple
 
   ngOnInit() {
     if (hasValue(this.metric.remark)) {
-      this.remark = JSON.parse(this.metric.remark);
+      this.remark = this.parseRemark();
     }
   }
 
