@@ -88,3 +88,33 @@ jobs:
           # Use tags / labels provided by 'docker/metadata-action' above
           tags: ${{ steps.meta_build.outputs.tags }}
           labels: ${{ steps.meta_build.outputs.labels }}
+
+      #####################################################
+      # Build/Push the 'dspace/dspace-angular' image ('-dist' tag)
+      #####################################################
+      # https://github.com/docker/metadata-action
+      # Get Metadata for docker_build_dist step below
+      - name: Sync metadata (tags, labels) from GitHub to Docker for 'dspace-angular-dist' image
+        id: meta_build_dist
+        uses: docker/metadata-action@v4
+        with:
+          images: dspace/dspace-angular
+          tags: ${{ env.IMAGE_TAGS }}
+          # As this is a "dist" image, its tags are all suffixed with "-dist". Otherwise, it uses the same
+          # tagging logic as the primary 'dspace/dspace-angular' image above.
+          flavor: ${{ env.TAGS_FLAVOR }}
+            suffix=-dist
+
+      - name: Build and push 'dspace-angular-dist' image
+        id: docker_build_dist
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile.dist
+          platforms: ${{ env.PLATFORMS }}
+          # For pull requests, we run the Docker build (to ensure no PR changes break the build),
+          # but we ONLY do an image push to DockerHub if it's NOT a PR
+          push: ${{ github.event_name != 'pull_request' }}
+          # Use tags / labels provided by 'docker/metadata-action' above
+          tags: ${{ steps.meta_build_dist.outputs.tags }}
+          labels: ${{ steps.meta_build_dist.outputs.labels }}
