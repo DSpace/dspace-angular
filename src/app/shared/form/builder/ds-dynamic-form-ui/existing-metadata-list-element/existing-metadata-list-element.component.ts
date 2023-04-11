@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { DynamicFormArrayGroupModel } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -64,7 +64,7 @@ export class ReorderableFormFieldMetadataValue extends Reorderable {
   constructor(
     public metadataValue: FormFieldMetadataValueObject,
     public model: DynamicConcatModel,
-    public control: FormControl,
+    public control: UntypedFormControl,
     public group: DynamicFormArrayGroupModel,
     oldIndex?: number,
     newIndex?: number

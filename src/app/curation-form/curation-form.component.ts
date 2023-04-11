@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ScriptDataService } from '../core/data/processes/script-data.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { find, map } from 'rxjs/operators';
 import { NotificationsService } from '../shared/notifications/notifications.service';
@@ -28,7 +28,7 @@ export class CurationFormComponent implements OnInit {
 
   config: Observable<RemoteData<ConfigurationProperty>>;
   tasks: string[];
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   @Input()
   dsoHandle: string;
@@ -45,9 +45,9 @@ export class CurationFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      task: new FormControl(''),
-      handle: new FormControl('')
+    this.form = new UntypedFormGroup({
+      task: new UntypedFormControl(''),
+      handle: new UntypedFormControl('')
     });
 
     this.config = this.configurationDataService.findByPropertyName(CURATION_CFG);
