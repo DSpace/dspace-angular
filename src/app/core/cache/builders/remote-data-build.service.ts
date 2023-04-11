@@ -72,7 +72,7 @@ export class RemoteDataBuildService {
         if (hasValue(obj)) {
           if (getResourceTypeValueFor((obj as any).type) === PAGINATED_LIST.value) {
             return this.buildPaginatedList<T>(obj, ...linksToFollow);
-          } else if (isNotEmpty(linksToFollow)) {
+          } else if (isNotEmpty(linksToFollow) && obj instanceof HALResource) {
             return [this.linkService.resolveLinks(obj, ...linksToFollow)];
           }
         }
