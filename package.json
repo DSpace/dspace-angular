@@ -147,7 +147,7 @@
     "@cypress/schematic": "^1.5.0",
     "@fortawesome/fontawesome-free": "^6.2.1",
     "@ngrx/store-devtools": "^13.0.2",
-    "@ngtools/webpack": "^13.2.6",
+    "@ngtools/webpack": "^15.2.5",
     "@nguniversal/builders": "^15.2.0",
     "@types/deep-freeze": "0.1.2",
     "@types/ejs": "^3.1.1",

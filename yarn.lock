@@ -380,7 +380,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/compiler-cli@^13.0.0", "@angular/compiler-cli@^14.0.0", "@angular/compiler-cli@^15.0.0", "@angular/compiler-cli@^15.2.6", "@angular/compiler-cli@14.3.0", "@angular/compiler-cli@15.2.6":
+"@angular/compiler-cli@^14.0.0", "@angular/compiler-cli@^15.0.0", "@angular/compiler-cli@^15.2.6", "@angular/compiler-cli@14.3.0", "@angular/compiler-cli@15.2.6":
   version "15.2.6"
   resolved "https://registry.npmjs.org/@angular/compiler-cli/-/compiler-cli-15.2.6.tgz"
   integrity sha512-GHwL4l+NkaUGGdypF+nMFWCmTqvGusTzIriIwpnp38wc8lpmVME2jVodB6sHAkrxFmaHXU/gOCDFK4AnOi6Gmw==
@@ -2094,20 +2094,15 @@
   dependencies:
     tslib "^2.0.0"
 
-"@ngtools/webpack@^13.2.6":
-  version "13.3.11"
-  resolved "https://registry.npmjs.org/@ngtools/webpack/-/webpack-13.3.11.tgz"
-  integrity sha512-gB33hTbc/RJmHyIgSUYj8ErPazhYYm7yfapOnvwHdYhCjrj1TKkR1ierOlhJtpfBYUQg6FChdl2YpyIQNPjWMA==
+"@ngtools/webpack@^15.2.5", "@ngtools/webpack@15.2.5":
+  version "15.2.5"
+  resolved "https://registry.npmjs.org/@ngtools/webpack/-/webpack-15.2.5.tgz"
+  integrity sha512-wD6GY4xghVK+SQL0dy/M3saGx5pqi7+1VHEr+BBI7IUNYGSqPNzylKNxLBgQiTzfkzvbrZ6MhfaMNkhvSCYr5w==
 
 "@ngtools/webpack@14.2.11":
   version "14.2.11"
   resolved "https://registry.npmjs.org/@ngtools/webpack/-/webpack-14.2.11.tgz"
   integrity sha512-4enbLFAp98uTgWYF6OFceQqLcfv2/0brIrNN4iWT9xe/Mh3zdCt+eH42zvNRsqo9WXNWRSLvnx8I924p83LNlw==
-
-"@ngtools/webpack@15.2.5":
-  version "15.2.5"
-  resolved "https://registry.npmjs.org/@ngtools/webpack/-/webpack-15.2.5.tgz"
-  integrity sha512-wD6GY4xghVK+SQL0dy/M3saGx5pqi7+1VHEr+BBI7IUNYGSqPNzylKNxLBgQiTzfkzvbrZ6MhfaMNkhvSCYr5w==
 
 "@nguniversal/builders@^15.2.0":
   version "15.2.0"
@@ -11576,7 +11571,7 @@ typescript-tuple@^2.2.1:
   dependencies:
     typescript-compare "^0.0.2"
 
-typescript@*, "typescript@^3.7.5 || ^4.0.0 || ^5.0.0", typescript@>=2.7, "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", "typescript@>=3.2.x || >= 4.x", typescript@>=3.7.5, "typescript@>=4.4.3 <4.7", "typescript@>=4.6.2 <4.9", "typescript@>=4.8.2 <5.0", typescript@~4.8.4:
+typescript@*, "typescript@^3.7.5 || ^4.0.0 || ^5.0.0", typescript@>=2.7, "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", "typescript@>=3.2.x || >= 4.x", typescript@>=3.7.5, "typescript@>=4.6.2 <4.9", "typescript@>=4.8.2 <5.0", typescript@~4.8.4:
   version "4.8.4"
   resolved "https://registry.npmjs.org/typescript/-/typescript-4.8.4.tgz"
   integrity sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==
@@ -12090,7 +12085,7 @@ webpack-subresource-integrity@5.1.0:
   dependencies:
     typed-assert "^1.0.8"
 
-"webpack@^4.0.0 || ^5.0.0", "webpack@^4.37.0 || ^5.0.0", webpack@^5.0.0, webpack@^5.1.0, webpack@^5.12.0, webpack@^5.30.0, webpack@^5.72.1, webpack@^5.76.0, webpack@>=5, "webpack@4.x.x || 5.x.x":
+"webpack@^4.0.0 || ^5.0.0", "webpack@^4.37.0 || ^5.0.0", webpack@^5.0.0, webpack@^5.1.0, webpack@^5.12.0, webpack@^5.30.0, webpack@^5.54.0, webpack@^5.72.1, webpack@^5.76.0, webpack@>=5, "webpack@4.x.x || 5.x.x":
   version "5.78.0"
   resolved "https://registry.npmjs.org/webpack/-/webpack-5.78.0.tgz"
   integrity sha512-gT5DP72KInmE/3azEaQrISjTvLYlSM0j1Ezhht/KLVkrqtv10JoP/RXhwmX/frrutOPuSq3o5Vq0ehR/4Vmd1g==
@@ -12120,7 +12115,7 @@ webpack-subresource-integrity@5.1.0:
     watchpack "^2.4.0"
     webpack-sources "^3.2.3"
 
-webpack@^5.54.0, webpack@>=2, webpack@5.76.1:
+webpack@>=2, webpack@5.76.1:
   version "5.76.1"
   resolved "https://registry.npmjs.org/webpack/-/webpack-5.76.1.tgz"
   integrity sha512-4+YIK4Abzv8172/SGqObnUjaIHjLEuUasz9EwQj/9xmPPkYJy2Mh03Q/lJfSD3YLzbxy5FeTq5Uw0323Oh6SJQ==
