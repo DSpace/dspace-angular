@@ -373,7 +373,7 @@
     symbol-observable "4.0.0"
     yargs "17.6.2"
 
-"@angular/common@*", "@angular/common@^11.0.0", "@angular/common@^13.0.0", "@angular/common@^13.0.0 || ^14.0.0-0", "@angular/common@^14.2.0", "@angular/common@^15.0.0", "@angular/common@^15.2.6", "@angular/common@>=10.0.0", "@angular/common@>=13.0.0 <14", "@angular/common@>=13.0.0-0", "@angular/common@>=2.x", "@angular/common@>=5.0.0", "@angular/common@15.2.6", "@angular/common@5.0.0-alpha - 5 || 6.0.0-alpha - 6 || 7.0.0-alpha - 7 || 8.0.0-alpha - 8 || 9.0.0-alpha - 9 || 10.0.0-alpha - 10 || 11.0.0-alpha - 11 || 12.0.0-alpha - 12 || 13.0.0-alpha - 13 || 14.0.0-alpha - 14":
+"@angular/common@*", "@angular/common@^11.0.0", "@angular/common@^13.0.0", "@angular/common@^13.0.0 || ^14.0.0-0", "@angular/common@^15.0.0", "@angular/common@^15.2.6", "@angular/common@>=10.0.0", "@angular/common@>=13.0.0 <14", "@angular/common@>=13.0.0-0", "@angular/common@>=2.x", "@angular/common@>=5.0.0", "@angular/common@15.2.6", "@angular/common@5.0.0-alpha - 5 || 6.0.0-alpha - 6 || 7.0.0-alpha - 7 || 8.0.0-alpha - 8 || 9.0.0-alpha - 9 || 10.0.0-alpha - 10 || 11.0.0-alpha - 11 || 12.0.0-alpha - 12 || 13.0.0-alpha - 13 || 14.0.0-alpha - 14":
   version "15.2.6"
   resolved "https://registry.npmjs.org/@angular/common/-/common-15.2.6.tgz"
   integrity sha512-kPGJoSkFPXsIeHzcjlal8JC8/jYK9qAr+wv+HDX8O1J2FEzQjwoX4SYvpnvVk5WTqUkxMkRCTMu2YFAAmU1+qg==
@@ -410,7 +410,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@*", "@angular/core@^11.0.0", "@angular/core@^13.0.0", "@angular/core@^13.0.0 || ^14.0.0-0", "@angular/core@^14.2.0", "@angular/core@^15.0.0", "@angular/core@^15.2.6", "@angular/core@>=10.0.0", "@angular/core@>=12", "@angular/core@>=13.0.0 <14", "@angular/core@>=13.0.0-0", "@angular/core@>=2.x", "@angular/core@>=5.0.0", "@angular/core@15.2.6", "@angular/core@5.0.0-alpha - 5 || 6.0.0-alpha - 6 || 7.0.0-alpha - 7 || 8.0.0-alpha - 8 || 9.0.0-alpha - 9 || 10.0.0-alpha - 10 || 11.0.0-alpha - 11 || 12.0.0-alpha - 12 || 13.0.0-alpha - 13 || 14.0.0-alpha - 14":
+"@angular/core@*", "@angular/core@^11.0.0", "@angular/core@^13.0.0", "@angular/core@^13.0.0 || ^14.0.0-0", "@angular/core@^15.0.0", "@angular/core@^15.2.6", "@angular/core@>=10.0.0", "@angular/core@>=12", "@angular/core@>=13.0.0 <14", "@angular/core@>=13.0.0-0", "@angular/core@>=2.x", "@angular/core@>=5.0.0", "@angular/core@15.2.6", "@angular/core@5.0.0-alpha - 5 || 6.0.0-alpha - 6 || 7.0.0-alpha - 7 || 8.0.0-alpha - 8 || 9.0.0-alpha - 9 || 10.0.0-alpha - 10 || 11.0.0-alpha - 11 || 12.0.0-alpha - 12 || 13.0.0-alpha - 13 || 14.0.0-alpha - 14":
   version "15.2.6"
   resolved "https://registry.npmjs.org/@angular/core/-/core-15.2.6.tgz"
   integrity sha512-eN46OfSOLQGN6AciUvyHOJ8xQxmiEakkxJeoG1jwcSRXCjwSYYnQ/6drnhUpq5p43XXBAIduKfJXNztEPvLAkA==
@@ -468,7 +468,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/platform-server@^14.2.0", "@angular/platform-server@^15.0.0", "@angular/platform-server@^15.2.6":
+"@angular/platform-server@^15.0.0", "@angular/platform-server@^15.2.6":
   version "15.2.6"
   resolved "https://registry.npmjs.org/@angular/platform-server/-/platform-server-15.2.6.tgz"
   integrity sha512-/2Ez8V+1s8MYSzq9sFUACJaxjYm/NbksGuKbwxV4oydN082vVgh96er5cOCLDzJLYHq+AeAkV3hL1kGHH5FFEg==
@@ -2121,15 +2121,6 @@
     rxjs "^6.5.5"
     tree-kill "^1.2.2"
 
-"@nguniversal/common@14.2.3":
-  version "14.2.3"
-  resolved "https://registry.npmjs.org/@nguniversal/common/-/common-14.2.3.tgz"
-  integrity sha512-FWoZY+DZCNw24tNnnWkgTpNAlshkfiaxiT7V+fx2WFpY0LNXLWk45+hWhl4+wFEknOXr/DT/oU1m/RjR6FgXZQ==
-  dependencies:
-    critters "0.0.16"
-    jsdom "20.0.0"
-    tslib "^2.3.0"
-
 "@nguniversal/common@15.2.0":
   version "15.2.0"
   resolved "https://registry.npmjs.org/@nguniversal/common/-/common-15.2.0.tgz"
@@ -2139,12 +2130,12 @@
     jsdom "21.1.0"
     tslib "^2.3.0"
 
-"@nguniversal/express-engine@^14.2.3":
-  version "14.2.3"
-  resolved "https://registry.npmjs.org/@nguniversal/express-engine/-/express-engine-14.2.3.tgz"
-  integrity sha512-8G60LgQViz7caJbmL5f0Cw3mUtchVOiLUf9q1PKKhPVYMv9PVs1roKWuq1yAd4ZVMztBo93gyPt8vQGOo+C9WA==
+"@nguniversal/express-engine@^15.2.0":
+  version "15.2.0"
+  resolved "https://registry.npmjs.org/@nguniversal/express-engine/-/express-engine-15.2.0.tgz"
+  integrity sha512-WDHx8iouuAlxaYQ/Sn3Qebv8ZH20O73yt9Z7xJvPM/8uPvWn/zk3wuCIWGPxars7KdkUa/NbDkRmgTlwqUPA3A==
   dependencies:
-    "@nguniversal/common" "14.2.3"
+    "@nguniversal/common" "15.2.0"
     tslib "^2.3.0"
 
 "@ngx-translate/core@^13.0.0":
@@ -4737,7 +4728,7 @@ debug@4.3.2:
   dependencies:
     ms "2.1.2"
 
-decimal.js@^10.2.1, decimal.js@^10.3.1, decimal.js@^10.4.2:
+decimal.js@^10.2.1, decimal.js@^10.4.2:
   version "10.4.3"
   resolved "https://registry.npmjs.org/decimal.js/-/decimal.js-10.4.3.tgz"
   integrity sha512-VBBaLc1MgL5XpzgIP7ny5Z6Nx3UrRkIViUkPUdtl9aya5amy3De1gsUUSB1g3+3sExYNjCAsAznmukyxCb1GRA==
@@ -7284,39 +7275,6 @@ jsdom@^16.4.0:
     whatwg-url "^8.5.0"
     ws "^7.4.6"
     xml-name-validator "^3.0.0"
-
-jsdom@20.0.0:
-  version "20.0.0"
-  resolved "https://registry.npmjs.org/jsdom/-/jsdom-20.0.0.tgz"
-  integrity sha512-x4a6CKCgx00uCmP+QakBDFXwjAJ69IkkIWHmtmjd3wvXPcdOS44hfX2vqkOQrVrq8l9DhNNADZRXaCEWvgXtVA==
-  dependencies:
-    abab "^2.0.6"
-    acorn "^8.7.1"
-    acorn-globals "^6.0.0"
-    cssom "^0.5.0"
-    cssstyle "^2.3.0"
-    data-urls "^3.0.2"
-    decimal.js "^10.3.1"
-    domexception "^4.0.0"
-    escodegen "^2.0.0"
-    form-data "^4.0.0"
-    html-encoding-sniffer "^3.0.0"
-    http-proxy-agent "^5.0.0"
-    https-proxy-agent "^5.0.1"
-    is-potential-custom-element-name "^1.0.1"
-    nwsapi "^2.2.0"
-    parse5 "^7.0.0"
-    saxes "^6.0.0"
-    symbol-tree "^3.2.4"
-    tough-cookie "^4.0.0"
-    w3c-hr-time "^1.0.2"
-    w3c-xmlserializer "^3.0.0"
-    webidl-conversions "^7.0.0"
-    whatwg-encoding "^2.0.0"
-    whatwg-mimetype "^3.0.0"
-    whatwg-url "^11.0.0"
-    ws "^8.8.0"
-    xml-name-validator "^4.0.0"
 
 jsdom@21.1.0:
   version "21.1.0"
@@ -11822,13 +11780,6 @@ w3c-xmlserializer@^2.0.0:
   dependencies:
     xml-name-validator "^3.0.0"
 
-w3c-xmlserializer@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/w3c-xmlserializer/-/w3c-xmlserializer-3.0.0.tgz"
-  integrity sha512-3WFqGEgSXIyGhOmAFtlicJNMjEps8b1MG31NCA0/vOF9+nKMUW1ckhi9cnNHmf88Rzw5V+dwIwsm2C7X8k9aQg==
-  dependencies:
-    xml-name-validator "^4.0.0"
-
 w3c-xmlserializer@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/w3c-xmlserializer/-/w3c-xmlserializer-4.0.0.tgz"
@@ -12317,7 +12268,7 @@ ws@^7.4.6:
   resolved "https://registry.npmjs.org/ws/-/ws-7.5.9.tgz"
   integrity sha512-F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q==
 
-ws@^8.11.0, ws@^8.13.0, ws@^8.4.2, ws@^8.8.0:
+ws@^8.11.0, ws@^8.13.0, ws@^8.4.2:
   version "8.13.0"
   resolved "https://registry.npmjs.org/ws/-/ws-8.13.0.tgz"
   integrity sha512-x9vcZYTrFPC7aSIbj7sRCYo7L/Xb8Iy+pW0ng0wt2vCJv7M9HOMy0UoN3rr+IFC7hb7vXoqS+P9ktyLLLhO+LA==
