@@ -76,7 +76,7 @@
     "@ngrx/effects": "^13.0.2",
     "@ngrx/router-store": "^13.0.2",
     "@ngrx/store": "^13.0.2",
-    "@nguniversal/express-engine": "^13.0.2",
+    "@nguniversal/express-engine": "^14.2.3",
     "@ngx-translate/core": "^13.0.0",
     "@nicky-lenaers/ngx-scroll-to": "^13.0.0",
     "@types/grecaptcha": "^3.0.4",
