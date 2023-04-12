@@ -14,6 +14,7 @@ import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { getFirstCompletedRemoteData } from '../../../../../../../core/shared/operators';
 import { map, take } from 'rxjs/operators';
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
+import { MetadataFilter } from '../../../../../../../core/data/bitstream-data.service';
 import { RemoteData } from '../../../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 import { Observable } from 'rxjs';
@@ -126,7 +127,14 @@ export class MetadataContainerComponent implements OnInit {
   }
 
   hasBitstream(): Observable<boolean> {
-    return this.bitstreamDataService.findAllByItemAndBundleName(this.item, this.field.bitstream.bundle)
+    let filters: MetadataFilter[] = [];
+    if (isNotEmpty(this.field.bitstream.metadataValue)) {
+      filters.push({
+        metadataName: this.field.bitstream.metadataField,
+        metadataValue: this.field.bitstream.metadataValue
+      });
+    }
+    return this.bitstreamDataService.findShowableBitstreamsByItem(this.item.uuid, this.field.bitstream.bundle, filters)
       .pipe(
         getFirstCompletedRemoteData(),
         map((response: RemoteData<PaginatedList<Bitstream>>) => {
