@@ -91,10 +91,10 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
             lowerLimit = dateObj.getUTCFullYear();
           }
         }
-        const options = [];
-        const currentYear = new Date().getUTCFullYear();
-        const oneYearBreak = Math.floor((currentYear - environment.browseBy.oneYearLimit) / 5) * 5;
-        const fiveYearBreak = Math.floor((currentYear - environment.browseBy.fiveYearLimit) / 10) * 10;
+        const options: number[] = [];
+        const currentYear: number = new Date().getUTCFullYear();
+        const oneYearBreak: number = Math.floor((currentYear - environment.browseBy.oneYearLimit) / 5) * 5;
+        const fiveYearBreak: number = Math.floor((currentYear - environment.browseBy.fiveYearLimit) / 10) * 10;
         if (lowerLimit <= fiveYearBreak) {
           lowerLimit -= 10;
         } else if (lowerLimit <= oneYearBreak) {
@@ -102,7 +102,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
         } else {
           lowerLimit -= 1;
         }
-        let i = currentYear;
+        let i: number = currentYear;
         while (i > lowerLimit) {
           options.push(i);
           if (i <= fiveYearBreak) {
