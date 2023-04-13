@@ -29,8 +29,8 @@ services:
       # __D__ => "-" (e.g. google__D__metadata => google-metadata)
       # dspace.dir, dspace.server.url, dspace.ui.url and dspace.name
       dspace__P__dir: /dspace
-      dspace__P__server__P__url: http://localhost:8080/server
-      dspace__P__ui__P__url: http://localhost:4000
+      dspace__P__server__P__url: http://172.31.86.154:8080/server
+      dspace__P__ui__P__url: http://172.31.86.154:4000
       dspace__P__name: 'DSpace Started with Docker Compose'
       # db.url: Ensure we are using the 'dspacedb' image for our database
       db__P__url: 'jdbc:postgresql://dspacedb:5432/dspace'
@@ -41,29 +41,29 @@ services:
       proxies__P__trusted__P__ipranges: '172.23.0'
     image: dspace/dspace:dspace-7_x-test
     depends_on:
-    - dspacedb
+      - dspacedb
     networks:
       dspacenet:
     ports:
-    - published: 8080
-      target: 8080
+      - published: 8080
+        target: 8080
     stdin_open: true
     tty: true
     volumes:
-    - assetstore:/dspace/assetstore
-    # Mount DSpace's solr configs to a volume, so that we can share to 'dspacesolr' container (see below)
-    - solr_configs:/dspace/solr
-    # Ensure that the database is ready BEFORE starting tomcat
-    # 1. While a TCP connection to dspacedb port 5432 is not available, continue to sleep
-    # 2. Then, run database migration to init database tables
-    # 3. Finally, start Tomcat
+      - assetstore:/dspace/assetstore
+      # Mount DSpace's solr configs to a volume, so that we can share to 'dspacesolr' container (see below)
+      - solr_configs:/dspace/solr
+      # Ensure that the database is ready BEFORE starting tomcat
+      # 1. While a TCP connection to dspacedb port 5432 is not available, continue to sleep
+      # 2. Then, run database migration to init database tables
+      # 3. Finally, start Tomcat
     entrypoint:
-    - /bin/bash
-    - '-c'
-    - |
-      while (!</dev/tcp/dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
-      /dspace/bin/dspace database migrate
-      catalina.sh run
+      - /bin/bash
+      - '-c'
+      - |
+        while (!</dev/tcp/dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
+        /dspace/bin/dspace database migrate
+        catalina.sh run
   # DSpace database container    
   dspacedb:
     container_name: dspacedb
@@ -73,12 +73,12 @@ services:
     networks:
       dspacenet:
     ports:
-    - published: 5432
-      target: 5432
+      - published: 5432
+        target: 5432
     stdin_open: true
     tty: true
     volumes:
-    - pgdata:/pgdata
+      - pgdata:/pgdata
   # DSpace Solr container  
   dspacesolr:
     container_name: dspacesolr
@@ -86,42 +86,41 @@ services:
     image: solr:8.11-slim
     # Needs main 'dspace' container to start first to guarantee access to solr_configs
     depends_on:
-    - dspace
+      - dspace
     networks:
       dspacenet:
     ports:
-    - published: 8983
-      target: 8983
+      - published: 8983
+        target: 8983
     stdin_open: true
     tty: true
     working_dir: /var/solr/data
     volumes:
-    # Mount our "solr_configs" volume available under the Solr's configsets folder (in a 'dspace' subfolder)
-    # This copies the Solr configs from main 'dspace' container into 'dspacesolr' via that volume
-    - solr_configs:/opt/solr/server/solr/configsets/dspace
-    # Keep Solr data directory between reboots
-    - solr_data:/var/solr/data
-    # Initialize all DSpace Solr cores using the mounted local configsets (see above), then start Solr
-    # * First, run precreate-core to create the core (if it doesn't yet exist). If exists already, this is a no-op
-    # * Second, copy updated configs from mounted configsets to this core. If it already existed, this updates core
-    #   to the latest configs. If it's a newly created core, this is a no-op.
+      # Mount our "solr_configs" volume available under the Solr's configsets folder (in a 'dspace' subfolder)
+      - solr_configs:/opt/solr/server/solr/configsets/dspace
+      # Keep Solr data directory between reboots
+      - solr_data:/var/solr/data
+      # Initialize all DSpace Solr cores using the mounted local configsets (see above), then start Solr
+      # * First, run precreate-core to create the core (if it doesn't yet exist). If exists already, this is a no-op
+      # * Second, copy updated configs from mounted configsets to this core. If it already existed, this updates core
+      #   to the latest configs. If it's a newly created core, this is a no-op.
     entrypoint:
-    - /bin/bash
-    - '-c'
-    - |
-      init-var-solr
-      precreate-core authority /opt/solr/server/solr/configsets/dspace/authority
-      cp -r -u /opt/solr/server/solr/configsets/dspace/authority/* authority
-      precreate-core oai /opt/solr/server/solr/configsets/dspace/oai
-      cp -r -u /opt/solr/server/solr/configsets/dspace/oai/* oai
-      precreate-core search /opt/solr/server/solr/configsets/dspace/search
-      cp -r -u /opt/solr/server/solr/configsets/dspace/search/* search
-      precreate-core statistics /opt/solr/server/solr/configsets/dspace/statistics
-      cp -r -u /opt/solr/server/solr/configsets/dspace/statistics/* statistics
-      exec solr -f
+      - /bin/bash
+      - '-c'
+      - |
+        init-var-solr
+        precreate-core authority /opt/solr/server/solr/configsets/dspace/authority
+        cp -r -u /opt/solr/server/solr/configsets/dspace/authority/* authority
+        precreate-core oai /opt/solr/server/solr/configsets/dspace/oai
+        cp -r -u /opt/solr/server/solr/configsets/dspace/oai/* oai
+        precreate-core search /opt/solr/server/solr/configsets/dspace/search
+        cp -r -u /opt/solr/server/solr/configsets/dspace/search/* search
+        precreate-core statistics /opt/solr/server/solr/configsets/dspace/statistics
+        cp -r -u /opt/solr/server/solr/configsets/dspace/statistics/* statistics
+        exec solr -f
 volumes:
   assetstore:
   pgdata:
-  solr_data:
-  # Special volume used to share Solr configs from 'dspace' to 'dspacesolr' container (see above)
+  solr_data: # Special volume used to share Solr configs from 'dspace' to 'dspacesolr' container (see above)
+
   solr_configs:

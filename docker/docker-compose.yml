@@ -18,10 +18,10 @@ services:
     environment:
       DSPACE_UI_SSL: "false"
       DSPACE_UI_HOST: dspace-angular
-      DSPACE_UI_PORT: "4000"
+      DSPACE_UI_PORT: "80"
       DSPACE_UI_NAMESPACE: /
       DSPACE_REST_SSL: "false"
-      DSPACE_REST_HOST: localhost
+      DSPACE_REST_HOST: "172.31.86.154"
       DSPACE_REST_PORT: 8080
       DSPACE_REST_NAMESPACE: /server
     image: dspace/dspace-angular:dspace-7_x
@@ -31,9 +31,7 @@ services:
     networks:
       dspacenet:
     ports:
-      - published: 4000
+      - published: 80
         target: 4000
-      - published: 9876
-        target: 9876
     stdin_open: true
     tty: true
