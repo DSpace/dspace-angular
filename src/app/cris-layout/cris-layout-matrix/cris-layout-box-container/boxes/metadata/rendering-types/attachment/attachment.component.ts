@@ -19,7 +19,7 @@ import { BitstreamAttachmentRenderingModelComponent } from './bitstream-attachme
   templateUrl: './attachment.component.html',
   styleUrls: ['./attachment.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRenderingType.ATTACHMENT, true)
+@MetadataBoxFieldRendering(FieldRenderingType.SIMPLEATTACHMENT, true)
 /**
  * The component for displaying a thumbnail rendered metadata box
  */

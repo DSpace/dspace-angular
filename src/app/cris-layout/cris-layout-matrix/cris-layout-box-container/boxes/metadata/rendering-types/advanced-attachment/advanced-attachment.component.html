@@ -1,78 +1,6 @@
 <div class="{{valueStyle}}">
   <ng-container *ngFor="let attachment of (bitstreams$ | async); let last = last;">
-    <ng-template #tipContent>
-      <span [innerHTML]="('checksum-tooltip.info.' + attachment.checkSum.checkSumAlgorithm | translate)"></span>
-    </ng-template>
-    <div class="row mt-1 mb-2" data-test="attachment-info">
-      <div class="col-3">
-        <ds-thumbnail [thumbnail]="attachment.thumbnail | async"></ds-thumbnail>
-      </div>
-      <div class="col-5">
-
-        <ng-container *ngFor="let attachmentConf of envMetadata">
-
-          <div class="content" [attr.data-test]="attachmentConf.name"
-            *ngIf="attachment.firstMetadataValue(attachmentConf.name) || attachmentConf.type == AdvancedAttachmentElementType.Attribute">
-            <strong *ngIf="attachmentConf.type != AdvancedAttachmentElementType.Attribute">
-              {{ 'cris-layout.advanced-attachment.'+attachmentConf.name | translate }}
-            </strong>
-
-            <ng-container *ngIf="attachmentConf.type == AdvancedAttachmentElementType.Metadata">
-
-              <p class="text-break m-0" data-test="attachment-name" *ngIf="!attachmentConf.truncatable">
-                {{attachment.firstMetadataValue(attachmentConf.name)}}
-              </p>
-
-              <ds-truncatable *ngIf="attachmentConf.truncatable" [id]=" attachment.id">
-                <ds-truncatable-part [id]="attachment.id" [minLines]="1">
-                  {{attachment.firstMetadataValue(attachmentConf.name)}}
-                </ds-truncatable-part>
-              </ds-truncatable>
-
-            </ng-container>
-
-            <ng-container *ngIf="attachmentConf.type == AdvancedAttachmentElementType.Attribute">
-              <ng-container *ngIf="attachmentConf.name == 'format' && (getFormat(attachment) | async)">
-                <strong>
-                  {{ 'cris-layout.advanced-attachment.'+attachmentConf.name | translate }}
-                </strong>
-                <p class="word-break m-0">{{getFormat(attachment) | async}}</p>
-              </ng-container>
-
-              <ng-container *ngIf="attachmentConf.name == 'size' && getSize(attachment)">
-                <strong>
-                  {{ 'cris-layout.advanced-attachment.'+attachmentConf.name | translate }}
-                </strong>
-                <p class="word-break m-0">{{getSize(attachment) | dsFileSize}}</p>
-              </ng-container>
-
-              <ng-container *ngIf="attachmentConf.name == 'checksum' && getChecksum(attachment)">
-                <ng-container *ngVar="getChecksum(attachment) as checksum">
-                  <strong>
-                    {{ 'cris-layout.advanced-attachment.'+ attachmentConf.name | translate }}
-                    ({{checksum.checkSumAlgorithm}}) <i class="far fa-question-circle text-info hint" #hint="ngbTooltip"
-                                                        container="body"
-                                                        placement="top"
-                                                        [ngbTooltip]="tipContent"
-                                                        triggers="manual"
-                                                        [autoClose]="false"
-                                                        (click)="hint.toggle();$event.preventDefault();"></i>
-                  </strong>
-                  <p class="word-break m-0">{{checksum.value}}</p>
-                </ng-container>
-              </ng-container>
-            </ng-container>
-
-          </div>
-        </ng-container>
-
-      </div>
-      <div class="col-4 text-right">
-        <ds-file-download-button [bitstream]="attachment" [enableRequestACopy]="true" [item]="item">
-        </ds-file-download-button>
-      </div>
-    </div>
-    <hr *ngIf="!last">
+    <ds-bitstream-attachment [attachment]="attachment"></ds-bitstream-attachment>
   </ng-container>
   <div *ngIf="canViewMore" class="w-100 text-center my-3">
     <button class="btn btn-outline-primary" data-test="view-more" (click)="viewMore()">
@@ -80,5 +8,3 @@
     </button>
   </div>
 </div>
-
-
