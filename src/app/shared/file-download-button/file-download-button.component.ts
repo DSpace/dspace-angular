@@ -20,7 +20,7 @@ export class FileDownloadButtonComponent extends FileDownloadLinkComponent imple
 
   ngOnInit() {
     super.ngOnInit();
-    this.hasNoDownload = this.item.allMetadataValues('bitstream.viewer.provider').includes('nodownload');
+    this.hasNoDownload = this.bitstream.allMetadataValues('bitstream.viewer.provider').includes('nodownload');
   }
 
 }

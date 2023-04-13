@@ -29,7 +29,7 @@ export class BitstreamAttachmentComponent extends BitstreamRenderingModelCompone
   /**
    * All item providers to show buttons of
    */
-  allItemProviders: string[] = [];
+  allAttachmentProviders: string[] = [];
 
   @Input()
   attachment: Bitstream;
@@ -47,6 +47,6 @@ export class BitstreamAttachmentComponent extends BitstreamRenderingModelCompone
   }
 
   ngOnInit() {
-    this.allItemProviders = this.item.allMetadataValues('bitstream.viewer.provider');
+    this.allAttachmentProviders = this.attachment.allMetadataValues('bitstream.viewer.provider');
   }
 }
