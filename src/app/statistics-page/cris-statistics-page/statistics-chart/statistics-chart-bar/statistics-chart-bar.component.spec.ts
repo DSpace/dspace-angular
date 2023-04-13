@@ -7,7 +7,7 @@ import { StatisticsChartBarComponent } from './statistics-chart-bar.component';
 import { UsageReport } from '../../../../core/statistics/models/usage-report.model';
 import { USAGE_REPORT } from '../../../../core/statistics/models/usage-report.resource-type';
 import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
-import { ExportService } from '../../../../core/export-service/export.service';
+import { BrowserExportService } from '../../../../core/export-service/browser-export.service';
 import { ExportServiceStub } from '../../../../shared/testing/export-service.stub';
 import { CommonModule } from '@angular/common';
 import { StatisticsType } from '../../statistics-type.model';
@@ -64,7 +64,7 @@ describe('StatisticsChartBarComponent', () => {
       declarations: [StatisticsChartBarComponent],
       providers: [
         { provide: REPORT_DATA, useValue: selectedReport },
-        { provide: ExportService, useValue: exportServiceStub },
+        { provide: BrowserExportService, useValue: exportServiceStub },
         { provide: 'categoryType', useValue: 'mainReports' },
       ],
       schemas: [NO_ERRORS_SCHEMA]

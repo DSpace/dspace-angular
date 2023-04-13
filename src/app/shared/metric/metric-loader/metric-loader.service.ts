@@ -6,8 +6,10 @@ import { MetricAltmetricComponent } from '../metric-altmetric/metric-altmetric.c
 import { MetricDimensionsComponent } from '../metric-dimensions/metric-dimensions.component';
 import { MetricGooglescholarComponent } from '../metric-googlescholar/metric-googlescholar.component';
 import { MetricDefaultComponent } from '../metric-default/metric-default.component';
-import { MetricEmbeddedViewComponent } from '../metric-embedded-view/metric-embedded-view.component';
-import { MetricEmbeddedDownloadComponent } from '../metric-embedded-download/metric-embedded-download.component';
+import { MetricEmbeddedViewComponent } from '../metric-embedded/metric-embedded-view/metric-embedded-view.component';
+import {
+  MetricEmbeddedDownloadComponent
+} from '../metric-embedded/metric-embedded-download/metric-embedded-download.component';
 import { MetricPlumxComponent } from '../metric-plumx/metric-plumx.component';
 import { MetricLoadScriptService } from './metric-load-script.service';
 import { MetricTypeConf, Script } from './metric-types-config';

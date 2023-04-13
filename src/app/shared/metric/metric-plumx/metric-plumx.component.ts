@@ -28,7 +28,7 @@ export class MetricPlumxComponent extends BaseMetricComponent implements OnInit,
 
   async ngOnInit() {
     if (hasValue(this.metric.remark)) {
-      this.remark = JSON.parse(this.metric.remark);
+      this.remark = this.parseRemark();
       const script = this.isListElement
         ? this.remark['list-src']
         : (this.remark as any).src;
