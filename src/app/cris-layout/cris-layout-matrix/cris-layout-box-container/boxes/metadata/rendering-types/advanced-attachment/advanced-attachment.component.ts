@@ -24,7 +24,6 @@ import { RemoteData } from '../../../../../../../core/data/remote-data';
 /**
  * This component renders the attachment with an advanced layout.
  */
-@MetadataBoxFieldRendering(FieldRenderingType.ATTACHMENT, true)
 @MetadataBoxFieldRendering(FieldRenderingType.ADVANCEDATTACHMENT, true)
 export class AdvancedAttachmentComponent extends AttachmentComponent implements OnInit {
 
