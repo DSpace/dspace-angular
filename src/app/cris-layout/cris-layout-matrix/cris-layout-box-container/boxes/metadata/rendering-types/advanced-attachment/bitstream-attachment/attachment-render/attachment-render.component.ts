@@ -60,25 +60,27 @@ export class AttachmentRenderComponent implements OnInit {
   }
 
   /**
-   * Generate ComponentFactory for metadata rendering
+   * Generate ComponentFactory for attachment rendering
    */
   computeComponentFactory(): ComponentFactory<any> {
     const rendering = this.computeRendering();
-    const metadataFieldRenderOptions = this.getMetadataBoxFieldRenderOptions(rendering);
-    const constructor: GenericConstructor<Component> = metadataFieldRenderOptions?.componentRef;
+    const attachmentTypeRenderOptions = getAttachmentTypeRendering(rendering);
+    const constructor: GenericConstructor<Component> = attachmentTypeRenderOptions?.componentRef;
     return constructor ? this.componentFactoryResolver.resolveComponentFactory(constructor) : null;
   }
 
   /**
-   * Generate ComponentRef for metadata rendering
+   * Generate ComponentRef for attachment rendering
    */
   generateComponentRef(): ComponentRef<any> {
-    let metadataRef: ComponentRef<Component>;
+    let attachentComponentRef: ComponentRef<Component>;
     const factory: ComponentFactory<any> = this.computeComponentFactory();
-    metadataRef = this.attachmentValueViewRef.createComponent(factory, 0, this.getComponentInjector());
-    (metadataRef.instance as any).item = this.item;
-    (metadataRef.instance as any).bitstream = this.bitstream;
-    return metadataRef;
+    if (factory) {
+      attachentComponentRef = this.attachmentValueViewRef.createComponent(factory, 0, this.getComponentInjector());
+      (attachentComponentRef.instance as any).item = this.item;
+      (attachentComponentRef.instance as any).bitstream = this.bitstream;
+    }
+    return attachentComponentRef;
   }
 
   /**
@@ -103,19 +105,6 @@ export class AttachmentRenderComponent implements OnInit {
    */
   computeRendering(): string | AttachmentRenderingType {
     return this.renderingType || AttachmentRenderingType.DOWNLOAD;
-  }
-
-  /**
-   * Return the rendering option related to the given rendering type
-   * @param fieldRenderingType
-   */
-  getMetadataBoxFieldRenderOptions(fieldRenderingType: string): AttachmentTypeFieldRenderOptions {
-    let renderOptions = getAttachmentTypeRendering(fieldRenderingType);
-    // If the rendering type not exists will use DOWNLOAD type rendering
-    if (isEmpty(renderOptions)) {
-      renderOptions = getAttachmentTypeRendering(AttachmentRenderingType.DOWNLOAD);
-    }
-    return renderOptions;
   }
 
 }
