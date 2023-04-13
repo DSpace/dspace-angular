@@ -108,12 +108,15 @@ const getEnvConfigFilePath = (env: Environment) => {
 };
 
 const overrideWithConfig = (config: Config, pathToConfig: string) => {
-  try {
-    console.log(`Overriding app config with ${pathToConfig}`);
-    const externalConfig = readFileSync(pathToConfig, 'utf8');
-    mergeConfig(config, load(externalConfig));
-  } catch (err) {
-    console.error(err);
+  console.debug(`Attempting to override config with ${pathToConfig}`);
+  if (existsSync(pathToConfig)) {
+    try {
+      const externalConfig = readFileSync(pathToConfig, 'utf8');
+      mergeConfig(config, load(externalConfig));
+      console.info(`Overriding app config with ${pathToConfig}`);
+    } catch (err) {
+      console.error(err);
+    }
   }
 };
 
