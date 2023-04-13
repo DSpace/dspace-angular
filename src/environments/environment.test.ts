@@ -209,6 +209,10 @@ export const environment: BuildConfig = {
     code: 'el',
     label: 'Ελληνικά',
     active: true,
+  }, {
+    code: 'disabled',
+    label: 'Disabled',
+    active: false,
   }],
 
   // Browse-By Pages
@@ -296,6 +300,10 @@ export const environment: BuildConfig = {
   markdown: {
     enabled: false,
     mathjax: false,
+  },
+  comcolSelectionSort: {
+    sortField:'dc.title',
+    sortDirection:'ASC',
   },
 
   vocabularies: [

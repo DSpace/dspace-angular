@@ -1,14 +1,13 @@
 <div class="container" *ngVar="(itemRD$ | async) as itemRD">
   <div class="item-page" *ngIf="itemRD?.hasSucceeded" @fadeInOut>
     <div *ngIf="itemRD?.payload as item">
-      <ds-item-alerts [item]="item"></ds-item-alerts>
+      <ds-themed-item-alerts [item]="item"></ds-themed-item-alerts>
       <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
       <ds-view-tracker [object]="item"></ds-view-tracker>
       <div *ngIf="!item.isWithdrawn || (isAdmin$|async)" class="full-item-info">
         <div class="d-flex flex-row">
-          <ds-item-page-title-field class="mr-auto" [item]="item"></ds-item-page-title-field>
-        <ds-dso-edit-menu></ds-dso-edit-menu>
-
+          <ds-themed-item-page-title-field class="mr-auto" [item]="item"></ds-themed-item-page-title-field>
+          <ds-dso-edit-menu></ds-dso-edit-menu>
         </div>
         <div class="simple-view-link my-3" *ngIf="!fromSubmissionObject">
           <a class="btn btn-outline-primary" [routerLink]="[(itemPageRoute$ | async)]">
@@ -28,7 +27,7 @@
             </tbody>
           </table>
         </div>
-        <ds-item-page-full-file-section [item]="item"></ds-item-page-full-file-section>
+        <ds-themed-item-page-full-file-section [item]="item"></ds-themed-item-page-full-file-section>
         <ds-item-page-collections [item]="item"></ds-item-page-collections>
         <ds-item-versions class="mt-2" [item]="item"></ds-item-versions>
         <div class="button-row bottom" *ngIf="fromSubmissionObject">
