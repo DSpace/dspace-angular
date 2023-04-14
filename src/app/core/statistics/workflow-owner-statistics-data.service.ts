@@ -22,7 +22,7 @@ import { IdentifiableDataService } from '../data/base/identifiable-data.service'
 @dataService(WORKFLOW_OWNER_STATISTICS)
 export class WorkflowOwnerStatisticsDataService extends IdentifiableDataService<WorkflowOwnerStatistics> {
 
-  protected linkPath = 'workflowSteps';
+  protected linkPath = 'workflowOwners';
 
   private searchData: SearchDataImpl<WorkflowOwnerStatistics>;
 
