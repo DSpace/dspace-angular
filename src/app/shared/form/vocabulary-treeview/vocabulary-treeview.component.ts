@@ -40,14 +40,19 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
   @Input() preloadLevel = 2;
 
   /**
-   * The vocabulary entry already selected, if any
+   * The vocabulary entries already selected, if any
    */
-  @Input() selectedItem: any = null;
+  @Input() selectedItems: string[] = [];
 
   /**
    * The active modal
    */
   @Input() activeModal?: NgbActiveModal;
+
+  /**
+   * Whether to allow selecting multiple values with checkboxes
+   */
+  @Input() multiSelect = false;
 
   /**
    * Contain a descriptive message for this vocabulary retrieved from i18n files
@@ -151,7 +156,8 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
       node.pageInfo,
       node.loadMoreParentItem,
       node.isSearchNode,
-      node.isInInitValueHierarchy
+      node.isInInitValueHierarchy,
+      node.isSelected
     );
     this.nodeMap.set(node.item.id, newNode);
 
@@ -214,7 +220,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
 
     this.loading = this.vocabularyTreeviewService.isLoading();
 
-    this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), null);
+    this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), this.selectedItems, null);
   }
 
   /**
@@ -222,7 +228,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    * @param item The VocabularyEntryDetail for which to load more nodes
    */
   loadMore(item: VocabularyEntryDetail) {
-    this.vocabularyTreeviewService.loadMore(item);
+    this.vocabularyTreeviewService.loadMore(item, this.selectedItems);
   }
 
   /**
@@ -230,7 +236,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    * @param node The TreeviewFlatNode for which to load more nodes
    */
   loadMoreRoot(node: TreeviewFlatNode) {
-    this.vocabularyTreeviewService.loadMoreRoot(node);
+    this.vocabularyTreeviewService.loadMoreRoot(node, this.selectedItems);
   }
 
   /**
@@ -238,15 +244,14 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    * @param node The TreeviewFlatNode for which to load children nodes
    */
   loadChildren(node: TreeviewFlatNode) {
-    this.vocabularyTreeviewService.loadMore(node.item, true);
+    this.vocabularyTreeviewService.loadMore(node.item, this.selectedItems, true);
   }
 
   /**
    * Method called on entry select
-   * Emit a new select Event
    */
   onSelect(item: VocabularyEntryDetail) {
-    this.select.emit(item);
+    this.selectedItems.push(item.id);
     this.activeModal.close(item);
   }
 
@@ -259,7 +264,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
         this.storedNodeMap = this.nodeMap;
       }
       this.nodeMap = new Map<string, TreeviewFlatNode>();
-      this.vocabularyTreeviewService.searchByQuery(this.searchText);
+      this.vocabularyTreeviewService.searchByQuery(this.searchText, this.selectedItems);
     }
   }
 

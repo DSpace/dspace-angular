@@ -23,9 +23,14 @@ export class VocabularyTreeviewModalComponent {
   @Input() preloadLevel = 2;
 
   /**
-   * The vocabulary entry already selected, if any
+   * The vocabulary entries already selected, if any
    */
-  @Input() selectedItem: any = null;
+  @Input() selectedItems: string[] = [];
+
+  /**
+   * Whether to allow selecting multiple values with checkboxes
+   */
+  @Input() multiSelect = false;
 
   /**
    * Initialize instance variables

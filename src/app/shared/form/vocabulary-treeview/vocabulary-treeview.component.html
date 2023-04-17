@@ -26,12 +26,18 @@
           <span class="fas fa-angle-right fa-2x invisible" aria-hidden="true"></span>
         </button>
         <button class="btn btn-outline-link btn-sm text-left"
-                [class.text-success]="node.item?.value === selectedItem?.value"
+                [class.text-success]="node.isSelected"
                 [disabled]="!node.item?.selectable"
                 [ngbTooltip]="node.item?.otherInformation?.note"
                 [openDelay]="500"
                 container="body"
-                (click)="onSelect(node.item)">{{node.item.display}}</button>
+                (click)="onSelect(node.item)">
+          <span *ngIf="multiSelect" class="form-check">
+            <input class="form-check-input" type="checkbox" id="leaf-node-checkbox" [checked]="node.isSelected">
+            <label class="form-check-label" for="leaf-node-checkbox">{{node.item.display}}</label>
+          </span>
+          <span *ngIf="!multiSelect">{{node.item.display}}</span>
+        </button>
     </cdk-tree-node>
 
     <!-- expandable node -->
@@ -44,12 +50,18 @@
         </button>
 
         <button class="btn btn-outline-link btn-sm text-left"
-                [class.text-success]="node.item?.value === selectedItem?.value"
+                [class.text-success]="node.isSelected"
                 [disabled]="!node.item?.selectable"
                 [ngbTooltip]="node.item?.otherInformation?.note"
                 [openDelay]="500"
                 container="body"
-                (click)="onSelect(node.item)">{{node.item.display}}</button>
+                (click)="onSelect(node.item)">
+          <span *ngIf="multiSelect" class="form-check">
+            <input class="form-check-input" type="checkbox" id="expandable-node-checkbox" [checked]="node.isSelected">
+            <label class="form-check-label" for="expandable-node-checkbox">{{node.item.display}}</label>
+          </span>
+          <span *ngIf="!multiSelect">{{node.item.display}}</span>
+     </button>
     </cdk-tree-node>
 
     <cdk-tree-node *cdkTreeNodeDef="let node; when: isLoadMore" cdkTreeNodePadding>
