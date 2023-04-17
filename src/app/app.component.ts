@@ -25,13 +25,12 @@ import { HostWindowState } from './shared/search/host-window.reducer';
 import { NativeWindowRef, NativeWindowService } from './core/services/window.service';
 import { isAuthenticationBlocking } from './core/auth/selectors';
 import { AuthService } from './core/auth/auth.service';
-import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
+import { CSSVariableService } from './shared/sass-helper/css-variable.service';
 import { environment } from '../environments/environment';
 import { models } from './core/core.module';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { distinctNext } from './core/shared/distinct-next';
-import { ModalBeforeDismiss } from './shared/interfaces/modal-before-dismiss.interface';
 
 @Component({
   selector: 'ds-app',
@@ -110,18 +109,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private storeCSSVariables() {
-    this.cssService.addCSSVariable('xlMin', '1200px');
-    this.cssService.addCSSVariable('mdMin', '768px');
-    this.cssService.addCSSVariable('lgMin', '576px');
-    this.cssService.addCSSVariable('smMin', '0');
-    this.cssService.addCSSVariable('adminSidebarActiveBg', '#0f1b28');
-    this.cssService.addCSSVariable('sidebarItemsWidth', '250px');
-    this.cssService.addCSSVariable('collapsedSidebarWidth', '53.234px');
-    this.cssService.addCSSVariable('totalSidebarWidth', '303.234px');
-    // const vars = variables.locals || {};
-    // Object.keys(vars).forEach((name: string) => {
-    //   this.cssService.addCSSVariable(name, vars[name]);
-    // })
+    this.cssService.clearCSSVariables();
+    this.cssService.addCSSVariables(this.cssService.getCSSVariablesFromStylesheets(this.document));
   }
 
   ngAfterViewInit() {

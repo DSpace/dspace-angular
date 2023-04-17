@@ -6,5 +6,6 @@ import { MenuItemType } from '../../menu-item-type.model';
  */
 export class TextMenuItemModel implements MenuItemModel {
   type = MenuItemType.TEXT;
+  disabled: boolean;
   text: string;
 }

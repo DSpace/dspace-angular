@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { LangConfig } from '../../../config/lang-config.interface';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../core/shared/operators';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

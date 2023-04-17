@@ -9,6 +9,7 @@
            [selectionConfig]="{ repeatable: repeatable, listId: listId }"
            [showScopeSelector]="false"
            [showViewModes]="false"
+           [query]="query"
            (resultFound)="onResultFound($event)"
            (deselectObject)="deselectObject.emit($event)"
            (selectObject)="selectObject.emit($event)">

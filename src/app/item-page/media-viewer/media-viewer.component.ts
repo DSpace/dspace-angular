@@ -13,9 +13,8 @@ import { hasValue } from '../../shared/empty.util';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 
 /**
- * This componenet renders the media viewers
+ * This component renders the media viewers
  */
-
 @Component({
   selector: 'ds-media-viewer',
   templateUrl: './media-viewer.component.html',
@@ -108,6 +107,7 @@ export class MediaViewerComponent implements OnInit {
     const mediaItem = new MediaViewerItem();
     mediaItem.bitstream = original;
     mediaItem.format = format.mimetype.split('/')[0];
+    mediaItem.mimetype = format.mimetype;
     mediaItem.thumbnail = thumbnail ? thumbnail._links.content.href : null;
     return mediaItem;
   }

@@ -32,8 +32,7 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { createTestComponent } from '../testing/utils.test';
 import { storeModuleConfig } from '../../app.reducer';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { BehaviorSubject } from 'rxjs';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 
 function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
