@@ -752,8 +752,8 @@
   // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
   "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Para agregar o remover una persona en este grupo, pulse el botón ‘Examinar todo’ o utilice la barra de búsqueda de abajo para buscar los usuario (Use el desplegable que se encuentra a la derecha de la barra de búsqueda para seleccionar entre buscar por metadato o por correo electrónico). Posteriormente pulse el botón con el icono más por cada usuario que desea agregar a la lista, o el icono de papelera por cada usuario que desea remover. La lista puede contener varias páginas: utilice los controles de paginación debajo de la lista, para navegar a las siguientes páginas. Cuando haya finalizado, guarde sus cambios pulsando el botón ‘Guardar’ ubicado en la parte superior de la sección.",
 
-  // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for subgroups. Then click the plus icon for each subgroup you wish to add in the list below, or the trash can icon for each subgroup you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
-  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Para agregar o remover un sub-grupo en este grupo, pulse el botón ‘Examinar todo’  o utilice la barra de búsqueda de abajo para buscar los subgrupos- Posteriormente pulse el botón con el icono más por cada sub-grupo que desea agregar a la lista, o el icono de papelera por cada sub-grupo que desea remover. La lista puede contener varias páginas: utilice los controles de paginación debajo de la lista, para navegar a las siguientes páginas. Cuando haya finalizado, guarde sus cambios pulsando el botón ‘Guardar’ ubicado en la parte superior de la sección.",
+  // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Para agregar o remover un sub-grupo en este grupo, pulse el botón 'Examinar todo' o utilice la barra de búsqueda de abajo para buscar los subgrupos- Posteriormente pulse el botón con el icono más por cada sub-grupo que desea agregar a la lista, o el icono de papelera por cada sub-grupo que desea remover. La lista puede contener varias páginas: utilice los controles de paginación debajo de la lista, para navegar a las siguientes páginas. Cuando haya finalizado, guarde sus cambios pulsando el botón ‘Guardar’ ubicado en la parte superior de la sección.",
 
   // "admin.search.breadcrumbs": "Administrative Search",
   "admin.search.breadcrumbs": "Búsqueda administrativa",
@@ -1891,12 +1891,10 @@
 
 
   // "comcol-role.edit.scorereviewers.name": "Score Reviewers",
-  // TODO New key - Add a translation
-  "comcol-role.edit.scorereviewers.name": "Score Reviewers",
+  "comcol-role.edit.scorereviewers.name": "Revisores de puntuación",
 
   // "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
+  "comcol-role.edit.scorereviewers.description": "Los revisores pueden dar una puntuación a un envío entrante, esto definirá si el envío será rechazado o no.",
 
   // "community.form.abstract": "Short Description",
   "community.form.abstract": "Breve descripción",
@@ -2587,6 +2585,9 @@
 
   // "form.submit": "Save",
   "form.submit": "Guardar",
+
+  // "form.create": "Create",
+  "form.create": "Crear",
 
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "Suelte el ítem en la nueva posición",
@@ -3953,8 +3954,8 @@
   // "itemtemplate.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
   "itemtemplate.edit.metadata.notifications.discarded.content": "Sus cambios fueron descartados. Para recuperar sus cambios pulse el botón 'Deshacer'",
 
-  // "itemtemplate.edit.metadata.notifications.discarded.title": "Changed discarded",
-  "itemtemplate.edit.metadata.notifications.discarded.title": "Cambio descartado",
+  // "itemtemplate.edit.metadata.notifications.discarded.title": "Changes discarded",
+  "itemtemplate.edit.metadata.notifications.discarded.title": "Cambios descartados",
 
   // "itemtemplate.edit.metadata.notifications.error.title": "An error occurred",
   "itemtemplate.edit.metadata.notifications.error.title": "Ocurrió un error",
@@ -3968,8 +3969,8 @@
   // "itemtemplate.edit.metadata.notifications.outdated.content": "The item template you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
   "itemtemplate.edit.metadata.notifications.outdated.content": "La plantilla de ítem en la que usted esta trabajando actualmente ha sido cambiada por otro usuario. Sus cambios han sido descartados para evitar conflictos",
 
-  // "itemtemplate.edit.metadata.notifications.outdated.title": "Changed outdated",
-  "itemtemplate.edit.metadata.notifications.outdated.title": "Cambiado obsoleto",
+  // "itemtemplate.edit.metadata.notifications.outdated.title": "Changes outdated",
+  "itemtemplate.edit.metadata.notifications.outdated.title": "Cambios obsoletos",
 
   // "itemtemplate.edit.metadata.notifications.saved.content": "Your changes to this item template's metadata were saved.",
   "itemtemplate.edit.metadata.notifications.saved.content": "Sus cambios a los metadatos de esta plantilla de ítem han sido guardados.",
@@ -5211,7 +5212,6 @@
 
   // "register-page.registration.google-recaptcha.must-accept-cookies": "In order to register you must accept the <b>Registration and Password recovery</b> (Google reCaptcha) cookies.",
   "register-page.registration.google-recaptcha.must-accept-cookies": "Para registrarse debe aceptar las cookies de <b>Registro y recuperación de contraseña</b> (Google reCaptcha).",
-
   // "register-page.registration.error.maildomain": "This email address is not on the list of domains who can register. Allowed domains are {{ domains }}",
   "register-page.registration.error.maildomain": "Este correo electrónico no esta en la lista de dominios que pueden registrarse. Los dominios permitidos son {{ domains }}",
 
@@ -5226,7 +5226,6 @@
 
   // "register-page.registration.google-recaptcha.notification.message.expired": "Verification expired. Please verify again.",
   "register-page.registration.google-recaptcha.notification.message.expired": "Verificación caducada. Verifique de nuevo.",
-
   // "register-page.registration.info.maildomain": "Accounts can be registered for mail addresses of the domains",
   "register-page.registration.info.maildomain": "Las cuentas pueden registrarse para las direcciones de correo de los dominios",
 
@@ -5943,6 +5942,8 @@
   // "statistics.table.header.views": "Views",
   "statistics.table.header.views": "Visitas",
 
+  // "statistics.table.no-name": "(object name could not be loaded)",
+  "statistics.table.no-name": "(el nombre del objeto no pudo ser cargado)",
 
 
   // "submission.edit.breadcrumbs": "Edit Submission",
@@ -6936,8 +6937,8 @@
   // "submission.workflow.generic.delete": "Delete",
   "submission.workflow.generic.delete": "Eliminar",
 
-  // "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
-  "submission.workflow.generic.delete-help": "Si desea descartar este ítem, seleccione \"Eliminar\". Luego se le pedirá que lo confirme.",
+  // "submission.workflow.generic.delete-help": "Select this option to discard this item. You will then be asked to confirm it.",
+  "submission.workflow.generic.delete-help": "Seleccione esta opción para descartar este ítem. A contunuación se le pedirá confirmación.",
 
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Editar",
@@ -7089,7 +7090,7 @@
   // "subscriptions.modal.new-subscription-form.type.content": "Content",
   "subscriptions.modal.new-subscription-form.type.content": "Contenido",
 
-  // "subscriptions.modal.new-subscription-form.frequency.D": "Diario",
+  // "subscriptions.modal.new-subscription-form.frequency.D": "Daily",
   "subscriptions.modal.new-subscription-form.frequency.D": "Diario",
 
   // "subscriptions.modal.new-subscription-form.frequency.W": "Weekly",
@@ -7345,8 +7346,8 @@
   "workflow-item.selectrevieweraction.button.confirm": "Confirmar",
 
 
-  // "workflow-item.scorereviewaction.notification.success.title": "Revisar evaluación",
-  "workflow-item.scorereviewaction.notification.success.title": "Revisar evaluación",
+  // "workflow-item.scorereviewaction.notification.success.title": "Rating review",
+  "workflow-item.scorereviewaction.notification.success.title": "Revisión de evaluación",
 
   // "workflow-item.scorereviewaction.notification.success.content": "The rating for this item workflow item has been successfully submitted",
   "workflow-item.scorereviewaction.notification.success.content": "La evaluación para este ítem ha sido enviada exitosamente",
