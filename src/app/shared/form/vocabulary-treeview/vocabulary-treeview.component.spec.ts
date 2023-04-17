@@ -117,7 +117,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = comp;
       comp.vocabularyOptions = vocabularyOptions;
-      comp.selectedItem = null;
+      comp.selectedItems = [];
     });
 
     afterEach(() => {
@@ -138,10 +138,10 @@ describe('VocabularyTreeviewComponent test suite', () => {
       currentValue.otherInformation = {
         id: 'entryID'
       };
-      comp.selectedItem = currentValue;
+      comp.selectedItems = [currentValue.value];
       fixture.detectChanges();
       expect(comp.dataSource.data).toEqual([]);
-      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), null);
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['testValue'], null);
     });
 
     it('should should init component properly with init value as VocabularyEntry', () => {
@@ -150,30 +150,30 @@ describe('VocabularyTreeviewComponent test suite', () => {
       currentValue.otherInformation = {
         id: 'entryID'
       };
-      comp.selectedItem = currentValue;
+      comp.selectedItems = [currentValue.value];
       fixture.detectChanges();
       expect(comp.dataSource.data).toEqual([]);
-      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), null);
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['testValue'], null);
     });
 
     it('should call loadMore function', () => {
       comp.loadMore(item);
       fixture.detectChanges();
-      expect(vocabularyTreeviewServiceStub.loadMore).toHaveBeenCalledWith(item);
+      expect(vocabularyTreeviewServiceStub.loadMore).toHaveBeenCalledWith(item, []);
     });
 
     it('should call loadMoreRoot function', () => {
       const node = new TreeviewFlatNode(item);
       comp.loadMoreRoot(node);
       fixture.detectChanges();
-      expect(vocabularyTreeviewServiceStub.loadMoreRoot).toHaveBeenCalledWith(node);
+      expect(vocabularyTreeviewServiceStub.loadMoreRoot).toHaveBeenCalledWith(node, []);
     });
 
     it('should call loadChildren function', () => {
       const node = new TreeviewFlatNode(item);
       comp.loadChildren(node);
       fixture.detectChanges();
-      expect(vocabularyTreeviewServiceStub.loadMore).toHaveBeenCalledWith(node.item, true);
+      expect(vocabularyTreeviewServiceStub.loadMore).toHaveBeenCalledWith(node.item, [], true);
     });
 
     it('should emit select event', () => {
@@ -188,7 +188,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
       comp.nodeMap.set('test', new TreeviewFlatNode(item));
       comp.search();
       fixture.detectChanges();
-      expect(vocabularyTreeviewServiceStub.searchByQuery).toHaveBeenCalledWith('test search');
+      expect(vocabularyTreeviewServiceStub.searchByQuery).toHaveBeenCalledWith('test search', []);
       expect(comp.storedNodeMap).toEqual(nodeMap);
       expect(comp.nodeMap).toEqual(emptyNodeMap);
     });
@@ -199,7 +199,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
       comp.storedNodeMap.set('test', new TreeviewFlatNode(item2));
       comp.search();
       fixture.detectChanges();
-      expect(vocabularyTreeviewServiceStub.searchByQuery).toHaveBeenCalledWith('test search');
+      expect(vocabularyTreeviewServiceStub.searchByQuery).toHaveBeenCalledWith('test search', []);
       expect(comp.storedNodeMap).toEqual(storedNodeMap);
       expect(comp.nodeMap).toEqual(emptyNodeMap);
     });
