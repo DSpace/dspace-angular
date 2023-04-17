@@ -16,13 +16,15 @@ import { debounceTime, distinctUntilChanged, map, mergeMap, reduce, startWith, s
 
 import { hasValue } from '../empty.util';
 import { RemoteData } from '../../core/data/remote-data';
-import { FindListOptions } from '../../core/data/request.models';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Community } from '../../core/shared/community.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { followLink } from '../utils/follow-link-config.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload
+} from '../../core/shared/operators';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 
 /**
  * An interface to represent a collection entry

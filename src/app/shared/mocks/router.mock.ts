@@ -29,4 +29,8 @@ export class RouterMock {
   createUrlTree(commands, navExtras = {}) {
     return {};
   }
+
+  get url() {
+    return this.routerState.snapshot.url;
+  }
 }

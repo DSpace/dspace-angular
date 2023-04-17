@@ -5,7 +5,9 @@ import { ListableObject } from '../listable-object.model';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { Context } from '../../../../core/shared/context.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { ItemListElementComponent } from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
+import {
+  ItemListElementComponent
+} from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
 import { ListableObjectDirective } from './listable-object.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
@@ -146,7 +148,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
       expect((comp as any).instantiateComponent).not.toHaveBeenCalled();
 
       (listableComponent as any).reloadedObject.emit(reloadedObject);
-      tick();
+      tick(200);
 
       expect((comp as any).instantiateComponent).toHaveBeenCalledWith(reloadedObject);
     }));
@@ -155,7 +157,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
       expect((comp as any).contentChange.emit).not.toHaveBeenCalled();
 
       (listableComponent as any).reloadedObject.emit(reloadedObject);
-      tick();
+      tick(200);
 
       expect((comp as any).contentChange.emit).toHaveBeenCalledWith(reloadedObject);
     }));

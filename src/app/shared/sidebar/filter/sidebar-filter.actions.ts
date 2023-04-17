@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
 import { type } from '../../ngrx/type';
@@ -37,7 +38,6 @@ export class SidebarFilterAction implements Action {
   }
 }
 
-/* tslint:disable:max-classes-per-file */
 /**
  * Used to initialize a filter
  */
@@ -71,4 +71,3 @@ export class FilterExpandAction extends SidebarFilterAction {
 export class FilterToggleAction extends SidebarFilterAction {
   type = SidebarFilterActionTypes.TOGGLE;
 }
-/* tslint:enable:max-classes-per-file */

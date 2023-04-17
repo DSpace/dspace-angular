@@ -5,12 +5,14 @@ import { CommunityListPageComponent } from './community-list-page.component';
 import { CommunityListPageRoutingModule } from './community-list-page.routing.module';
 import { CommunityListComponent } from './community-list/community-list.component';
 import { ThemedCommunityListPageComponent } from './themed-community-list-page.component';
+import { ThemedCommunityListComponent } from './community-list/themed-community-list.component';
 
 
 const DECLARATIONS = [
   CommunityListPageComponent,
   CommunityListComponent,
-  ThemedCommunityListPageComponent
+  ThemedCommunityListPageComponent,
+  ThemedCommunityListComponent
 ];
 /**
  * The page which houses a title and the community list, as described in community-list.component

@@ -4,7 +4,7 @@ nav.navbar {
 }
 
 /** Mobile menu styling **/
-@media screen and (max-width: map-get($grid-breakpoints, md)) {
+@media screen and (max-width: map-get($grid-breakpoints, md)-0.02) {
     .navbar {
         width: 100vw;
         background-color: var(--bs-white);
@@ -26,7 +26,7 @@ nav.navbar {
 
 /* TODO remove when https://github.com/twbs/bootstrap/issues/24726 is fixed */
 .navbar-expand-md.navbar-container {
-    @media screen and (max-width: map-get($grid-breakpoints, md)) {
+    @media screen and (max-width: map-get($grid-breakpoints, md)-0.02) {
         > .container {
             padding: 0 var(--bs-spacer);
         }

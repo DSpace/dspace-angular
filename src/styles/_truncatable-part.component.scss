@@ -19,7 +19,7 @@
       min-width: 75px;
       max-width: 150px;
       height: $height;
-      background: linear-gradient(to right, rgba(255, 255, 255, 0), $bg 70%);
+      background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba($bg, 1) 70%);
       pointer-events: none;
     }
   }
@@ -60,6 +60,15 @@ $h4-factor: strip-unit($h4-font-size);
   :focus .clamp-primary-#{$i},
   .ds-hover .clamp-primary-#{$i} {
     @include clamp-with-titles($i, darken($primary, 10%));
+  }
+
+  .clamp-light-#{$i} {
+    @include clamp-with-titles($i, $light);
+  }
+
+  :focus .clamp-light-#{$i},
+  .ds-hover .clamp-light-#{$i} {
+    @include clamp-with-titles($i, darken($light, 10%));
   }
 }
 

@@ -18,9 +18,9 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../../core/data/request.models';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { FindListOptions } from '../../../../core/data/find-list-options.model';
 
 describe('FullFileSectionComponent', () => {
   let comp: FullFileSectionComponent;
