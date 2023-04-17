@@ -68,7 +68,7 @@ jobs:
       # https://github.com/actions/cache/blob/main/examples.md#node---yarn
       - name: Get Yarn cache directory
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
       - name: Cache Yarn dependencies
         uses: actions/cache@v3
         with:
@@ -116,11 +116,10 @@ jobs:
       # https://github.com/cypress-io/github-action
       # (NOTE: to run these e2e tests locally, just use 'ng e2e')
       - name: Run e2e tests (integration tests)
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v5
         with:
-          # Run tests in Chrome, headless mode
+          # Run tests in Chrome, headless mode (default)
           browser: chrome
-          headless: true
           # Start app before running tests (will be stopped automatically after tests finish)
           start: yarn run serve:ssr
           # Wait for backend & frontend to be available
