@@ -30,8 +30,8 @@ import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyTreeviewModalComponent } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 
 /**
  * Component representing a onebox input field.
@@ -222,7 +222,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       map((vocabulary: Vocabulary) => vocabulary.preloadLevel),
       take(1)
     ).subscribe((preloadLevel) => {
-      const modalRef: NgbModalRef = this.modalService.open(VocabularyTreeviewComponent, { size: 'lg', windowClass: 'treeview' });
+      const modalRef: NgbModalRef = this.modalService.open(VocabularyTreeviewModalComponent, { size: 'lg', windowClass: 'treeview' });
       modalRef.componentInstance.vocabularyOptions = this.model.vocabularyOptions;
       modalRef.componentInstance.preloadLevel = preloadLevel;
       modalRef.componentInstance.selectedItem = this.currentValue ? this.currentValue : '';

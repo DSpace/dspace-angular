@@ -20,7 +20,7 @@ import { CoreState } from '../../../core/core-state.model';
 import { lowerCase } from 'lodash/string';
 
 /**
- * Component that show a hierarchical vocabulary in a tree view
+ * Component that shows a hierarchical vocabulary in a tree view
  */
 @Component({
   selector: 'ds-vocabulary-treeview',
@@ -43,6 +43,11 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    * The vocabulary entry already selected, if any
    */
   @Input() selectedItem: any = null;
+
+  /**
+   * The active modal
+   */
+  @Input() activeModal?: NgbActiveModal;
 
   /**
    * Contain a descriptive message for this vocabulary retrieved from i18n files
@@ -103,13 +108,11 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
   /**
    * Initialize instance variables
    *
-   * @param {NgbActiveModal} activeModal
    * @param {VocabularyTreeviewService} vocabularyTreeviewService
    * @param {Store<CoreState>} store
    * @param {TranslateService} translate
    */
   constructor(
-    public activeModal: NgbActiveModal,
     private vocabularyTreeviewService: VocabularyTreeviewService,
     private store: Store<CoreState>,
     private translate: TranslateService

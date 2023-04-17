@@ -33,6 +33,7 @@ import { AuthorityConfidenceStateDirective } from './directives/authority-confid
 import { SortablejsModule } from 'ngx-sortablejs';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
 import { VocabularyTreeviewService } from './vocabulary-treeview/vocabulary-treeview.service';
+import { VocabularyTreeviewModalComponent } from './vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FormBuilderService } from './builder/form-builder.service';
 import { DsDynamicTypeBindRelationService } from './builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { FormService } from './form.service';
@@ -67,7 +68,8 @@ const COMPONENTS = [
   ChipsComponent,
   NumberPickerComponent,
   VocabularyTreeviewComponent,
-  ThemedExternalSourceEntryImportModalComponent
+  VocabularyTreeviewModalComponent,
+  ThemedExternalSourceEntryImportModalComponent,
 ];
 
 const DIRECTIVES = [
