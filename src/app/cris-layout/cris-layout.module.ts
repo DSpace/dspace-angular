@@ -106,6 +106,9 @@ import {
 import {
   AttachmentRenderComponent
 } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/bitstream-attachment/attachment-render/attachment-render.component';
+import {
+  AttachmentRenderingModule
+} from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/bitstream-attachment/attachment-render/attachment-rendering.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -166,7 +169,8 @@ const ENTRY_COMPONENTS = [
     NgbAccordionModule,
     ComcolModule,
     MiradorViewerModule,
-    MetricsModule
+    MetricsModule,
+    AttachmentRenderingModule
   ],
   exports: [
     CrisLayoutComponent,

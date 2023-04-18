@@ -13,12 +13,10 @@ import {
 import {
   TabbedRelatedEntitiesSearchComponent
 } from './simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
-import { FileDownloadButtonComponent } from '../shared/file-download-button/file-download-button.component';
 
 const COMPONENTS = [
   RelatedEntitiesSearchComponent,
   TabbedRelatedEntitiesSearchComponent,
-  FileDownloadButtonComponent
 ];
 
 @NgModule({
