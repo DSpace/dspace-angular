@@ -158,5 +158,29 @@ export class AdditionalMetadataComponent implements OnInit {
 
   }
 
+  currentRoleData(object: Item | DSpaceObject) {
+    const currentAffiliation = object.firstMetadataValue('person.affiliation.name');
+    const allAffiliations = object.allMetadataValues('oairecerif.person.affiliation');
+    const allRoles = object.allMetadataValues('oairecerif.affiliation.role');
 
+    const lastIndexOfCurrentAffiliation = allAffiliations.lastIndexOf(currentAffiliation);
+
+    if (lastIndexOfCurrentAffiliation !== -1) {
+      return allRoles[lastIndexOfCurrentAffiliation];
+    }
+  }
+
+  lastRoleData(object: Item | DSpaceObject) {
+    const currentAffiliation = object.firstMetadataValue('person.affiliation.name');
+    const allAffiliations = object.allMetadataValues('oairecerif.person.affiliation');
+    const allRoles = object.allMetadataValues('oairecerif.affiliation.role');
+
+    const lastIndexOfCurrentAffiliation = allAffiliations.lastIndexOf(currentAffiliation);
+
+    if (lastIndexOfCurrentAffiliation !== -1) {
+      return allRoles[lastIndexOfCurrentAffiliation - 1];
+    } else {
+      return allRoles[allRoles.length - 1];
+    }
+  }
 }
