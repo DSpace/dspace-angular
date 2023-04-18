@@ -1,6 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
+import { uniqBy } from 'lodash';
+
 import { AuthMethod } from '../../core/auth/models/auth.method';
 import {
   getAuthenticationError,
@@ -70,6 +73,9 @@ export class LogInComponent implements OnInit, OnDestroy {
 
     this.authMethods = this.store.pipe(
       select(getAuthenticationMethods),
+      map((authMethods: AuthMethod[]) => {
+        return uniqBy(authMethods, 'authMethodType');
+      })
     );
 
     // set loading
