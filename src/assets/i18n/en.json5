@@ -1925,6 +1925,8 @@
 
   "error.validation.fundingInvestigatorOrLeadOrganizationRequired" : "At least one investigator or one lead organization is required",
 
+  "error.validation.notRepeatable": "This field is not repeatable, please choose only one value and discard the others.",
+
   "event.listelement.badge" : "Event",
 
   "explore.browse-section.title" : "Browse",
