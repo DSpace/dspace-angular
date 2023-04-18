@@ -11,6 +11,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { Metadata } from '../../core/shared/metadata.utils';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { environment } from '../../../environments/environment';
 
 interface MetadataView {
@@ -41,8 +42,7 @@ export class MetadataLinkViewComponent implements OnInit {
   /**
    * Item of the metadata value
    */
-  @Input() item: Item;
-
+  @Input() item: DSpaceObject;
   /**
    * The metadata name from where to take the value of the cris style
    */

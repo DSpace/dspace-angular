@@ -109,6 +109,7 @@ const ENTRY_COMPONENTS = [
   ],
   exports: [
     CrisLayoutComponent,
+    CrisrefComponent,
   ]
 })
 export class CrisLayoutModule {
