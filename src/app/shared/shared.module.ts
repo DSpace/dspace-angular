@@ -729,7 +729,7 @@ const DIRECTIVES = [
   NgForTrackByIdDirective,
   MetadataFieldValidator,
   HoverClassDirective,
-  EntityIconDirective
+  EntityIconDirective,
 ];
 
 @NgModule({

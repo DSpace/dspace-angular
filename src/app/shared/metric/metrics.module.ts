@@ -5,8 +5,10 @@ import { CommonModule } from '@angular/common';
 import { MetricAltmetricComponent } from './metric-altmetric/metric-altmetric.component';
 import { MetricDimensionsComponent } from './metric-dimensions/metric-dimensions.component';
 import { MetricDefaultComponent } from './metric-default/metric-default.component';
-import { MetricEmbeddedDownloadComponent } from './metric-embedded-download/metric-embedded-download.component';
-import { MetricEmbeddedViewComponent } from './metric-embedded-view/metric-embedded-view.component';
+import {
+  MetricEmbeddedDownloadComponent
+} from './metric-embedded/metric-embedded-download/metric-embedded-download.component';
+import { MetricEmbeddedViewComponent } from './metric-embedded/metric-embedded-view/metric-embedded-view.component';
 import { MetricGooglescholarComponent } from './metric-googlescholar/metric-googlescholar.component';
 import { MetricPlumxComponent } from './metric-plumx/metric-plumx.component';
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
@@ -16,6 +18,7 @@ import { ListMetricPropsPipe } from './pipes/list-metric-props/list-metric-props
 import { MetricBadgesComponent } from '../object-list/metric-badges/metric-badges.component';
 import { MetricDonutsComponent } from '../object-list/metric-donuts/metric-donuts.component';
 import { FormsModule } from '@angular/forms';
+import { DirectivesModule } from '../../directives/directives.module';
 
 const PIPES = [
   MetricStyleConfigPipe,
@@ -24,21 +27,22 @@ const PIPES = [
 
 const MODULES = [
   CommonModule,
+  DirectivesModule,
   FormsModule,
   NgbTooltipModule,
 ];
 
 const COMPONENTS = [
-  MetricLoaderComponent,
   MetricAltmetricComponent,
   MetricDimensionsComponent,
-  MetricDefaultComponent,
   MetricGooglescholarComponent,
   MetricEmbeddedViewComponent,
   MetricEmbeddedDownloadComponent,
   MetricPlumxComponent,
   MetricBadgesComponent,
-  MetricDonutsComponent
+  MetricDonutsComponent,
+  MetricLoaderComponent,
+  MetricDefaultComponent
 ];
 
 @NgModule({
@@ -53,8 +57,9 @@ const COMPONENTS = [
       useDefaultLang: true
     }),
   ],
-  exports:[
-    ...COMPONENTS
+  exports: [
+    ...COMPONENTS,
   ]
 })
-export class MetricsModule { }
+export class MetricsModule {
+}

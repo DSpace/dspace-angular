@@ -19,7 +19,7 @@ export class MetricAltmetricComponent extends BaseEmbeddedMetricComponent implem
 
   ngOnInit() {
     if (hasValue(this.metric.remark)) {
-        this.remark = JSON.parse(this.metric.remark);
+        this.remark = this.parseRemark();
     }
   }
 
