@@ -1,0 +1,29 @@
+<div class="item-page-kaltura-field">
+    <div *ngIf="item.metadata['dc.description.audio']?.length > 0">
+        <div *ngFor="let audio of item.metadata['dc.description.audio']; index as i;">
+            <iframe
+                    type="text/javascript"
+                    [src]=safeUrl(audio.value)
+                    style="width: 640px;height: 400px"
+                    allowfullscreen
+                    webkitallowfullscreen
+                    mozAllowFullScreen
+            >
+            </iframe>
+        </div>
+    </div>
+
+    <div *ngIf="item.metadata['dc.description.viewer']?.length > 0">
+        <div *ngFor="let viewer of item.metadata['dc.description.viewer']; index as i;">
+            <iframe
+                    type="text/javascript"
+                    [src]=safeUrl(viewer.value)
+                    style="width: 640px;height: 400px"
+                    allowfullscreen
+                    webkitallowfullscreen
+                    mozAllowFullScreen
+            >
+            </iframe>
+        </div>
+    </div>
+</div>

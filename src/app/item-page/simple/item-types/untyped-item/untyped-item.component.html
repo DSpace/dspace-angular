@@ -70,6 +70,9 @@
       [label]="'item.page.uri'">
     </ds-item-page-uri-field>
     <ds-item-page-collections [item]="object"></ds-item-page-collections>
+
+    <ds-item-page-kaltura-field [item]="object"></ds-item-page-kaltura-field>
+
     <div>
       <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']" role="button">
         <i class="fas fa-info-circle"></i> {{"item.page.link.full" | translate}}
