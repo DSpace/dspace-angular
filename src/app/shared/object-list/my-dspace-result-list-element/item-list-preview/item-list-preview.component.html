@@ -37,6 +37,8 @@
               [innerHTML]="(item.firstMetadataValue('dc.description.abstract')) || ('mydspace.results.no-abstract' | translate)"></span>
           </ds-truncatable-part>
 
+      <ds-additional-metadata [object]="item"></ds-additional-metadata>
+
         </div>
       </ds-truncatable>
   <ds-item-correction [item]="item"></ds-item-correction>

@@ -32,6 +32,8 @@ import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field/ite
 import { ItemDetailPreviewComponent } from './item-detail-preview.component';
 import { createPaginatedList } from '../../../testing/utils.test';
 import { FindListOptions } from '../../../../core/data/find-list-options.model';
+import { environment } from 'src/environments/environment';
+import { By } from '@angular/platform-browser';
 
 function getMockFileService(): FileService {
   return jasmine.createSpyObj('FileService', {

@@ -384,6 +384,7 @@ import {
   SearchChartBarHorizontalComponent
 } from './search/search-charts/search-chart/search-chart-bar-horizontal/search-chart-bar-horizontal.component';
 import { ThumbnailService } from './thumbnail/thumbnail.service';
+import { ItemExportAlertComponent } from './search/item-export/item-export-alert/item-export-alert.component';
 import { EpersonGroupListComponent } from './resource-policies/form/eperson-group-list/eperson-group-list.component';
 import {
   EpersonSearchBoxComponent
@@ -392,6 +393,9 @@ import {
   GroupSearchBoxComponent
 } from './resource-policies/form/eperson-group-list/group-search-box/group-search-box.component';
 import { EntityIconDirective } from './entity-icon/entity-icon.directive';
+import {
+  AdditionalMetadataComponent
+} from './object-list/search-result-list-element/additional-metadata/additional-metadata.component';
 
 const MODULES = [
   CommonModule,
@@ -741,6 +745,7 @@ const DIRECTIVES = [
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ItemVersionsSummaryModalComponent,
     ItemVersionsDeleteModalComponent,
+    AdditionalMetadataComponent,
   ],
   providers: [
     ...PROVIDERS
@@ -751,7 +756,8 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ...DIRECTIVES,
-    TranslateModule
+    TranslateModule,
+    AdditionalMetadataComponent
   ]
 })
 

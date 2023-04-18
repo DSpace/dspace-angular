@@ -22,19 +22,17 @@
         <ds-truncatable [id]="dso.id">
             <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
                rel="noopener noreferrer"
-               [routerLink]="[itemPageRoute]" class="lead"
+     [routerLink]="[itemPageRoute]" class="lead"
                [innerHTML]="dsoTitle || ('orgunit.listelement.no-title' | translate)"></a>
-            <span *ngIf="linkType == linkTypes.None"
-                  class="lead"
-                  [innerHTML]="dsoTitle || ('orgunit.listelement.no-title' | translate)"></span>
-            <span class="text-muted">
-                <span *ngIf="dso.allMetadata(['dc.description.*']).length > 0"
-                      class="item-list-org-unit-description">
-                      <ds-truncatable-part [id]="dso.id" [minLines]="3"><span
-                                  [innerHTML]="firstMetadataValue('dc.description.abstract')"></span>
-                      </ds-truncatable-part>
-                </span>
-            </span>
+  <span *ngIf="linkType == linkTypes.None"
+        class="lead"
+        [innerHTML]="dsoTitle || ('orgunit.listelement.no-title' | translate)"></span>
+  <div *ngIf="dso.allMetadata(['dc.description.*']).length > 0" class="text-muted">
+    <ds-truncatable-part [id]="dso.id" [minLines]="3">
+      <span class="item-list-org-unit-description" [innerHTML]="firstMetadataValue('dc.description.abstract')"></span>
+    </ds-truncatable-part>
+  </div>
+  <ds-additional-metadata [object]="dso"></ds-additional-metadata>
         </ds-truncatable>
     </div>
 </div>
