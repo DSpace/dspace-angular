@@ -20,6 +20,8 @@ import { JournalVolumeSidebarSearchListElementComponent } from './item-list-elem
 import { JournalIssueSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/journal-issue/journal-issue-sidebar-search-list-element.component';
 import { JournalSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/journal/journal-sidebar-search-list-element.component';
 import { ItemSharedModule } from '../../item-page/item-shared.module';
+import { ResultsBackButtonModule } from '../../shared/results-back-button/results-back-button.module';
+import { DsoPageModule } from '../../shared/dso-page/dso-page.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -47,7 +49,9 @@ const ENTRY_COMPONENTS = [
   imports: [
     CommonModule,
     ItemSharedModule,
-    SharedModule
+    SharedModule,
+    ResultsBackButtonModule,
+    DsoPageModule
   ],
   declarations: [
     ...ENTRY_COMPONENTS
