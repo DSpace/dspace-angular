@@ -7,8 +7,8 @@ describe('Homepage', () => {
     cy.visit('/');
   });
 
-  it('should display translated title "DSpace Cris Angular :: Home"', () => {
-    cy.title().should('eq', 'DSpace Cris Angular :: Home');
+  it('should display translated title "DSpace at My University :: Home"', () => {
+    cy.title().should('eq', 'DSpace at My University :: Home');
   });
 
   it('should contain a news section', () => {
