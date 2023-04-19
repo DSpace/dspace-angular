@@ -221,7 +221,8 @@ describe('AuthEffects', () => {
 
         expect(authEffects.checkTokenCookie$).toBeObservable(expected);
         authEffects.checkTokenCookie$.subscribe(() => {
-          expect(authServiceStub.setExternalAuthStatus).toHaveBeenCalledWith(true);
+          expect(authServiceStub.setExternalAuthStatus).toHaveBeenCalled();
+          expect(authServiceStub.isExternalAuthentication).toBeTrue();
           expect((authEffects as any).authorizationsService.invalidateAuthorizationsRequestCache).toHaveBeenCalled();
         });
       });

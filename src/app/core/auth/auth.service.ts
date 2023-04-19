@@ -156,10 +156,19 @@ export class AuthService {
     return this.store.pipe(select(isAuthenticatedLoaded));
   }
 
+  /**
+   * Used to set the external authentication status when authenticating via an
+   * external authentication system (e.g. Shibboleth).
+   * @param external
+   */
   public setExternalAuthStatus(external: boolean) {
     this.store.dispatch(new SetAuthCookieStatus(external));
   }
 
+  /**
+   * Returns true if an external authentication system (e.g. Shibboleth) is being used
+   * for authentication. Returns false otherwise.
+   */
   public isExternalAuthentication(): Observable<boolean> {
     return this.store.pipe(
       select(getExternalAuthCookieStatus));

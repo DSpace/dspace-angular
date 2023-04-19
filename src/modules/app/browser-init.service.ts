@@ -56,7 +56,7 @@ export class BrowserInitService extends InitService {
     protected authService: AuthService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
-    private rootDatatService: RootDataService
+    private rootDataService: RootDataService
   ) {
     super(
       store,
@@ -153,7 +153,7 @@ export class BrowserInitService extends InitService {
         filter((externalAuth: boolean) => externalAuth)
       ).subscribe(() => {
         // Clear the transferState data.
-        this.rootDatatService.invalidateRootCache();
+        this.rootDataService.invalidateRootCache();
         this.authService.setExternalAuthStatus(false);
       }
     );

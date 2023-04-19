@@ -17,6 +17,7 @@ export class AuthServiceStub {
   token: AuthTokenInfo = new AuthTokenInfo('token_test');
   impersonating: string;
   private _tokenExpired = false;
+  private _isExternalAuth = false;
   private redirectUrl;
 
   constructor() {
@@ -123,11 +124,11 @@ export class AuthServiceStub {
     return;
   }
   setExternalAuthStatus(externalCookie: boolean) {
-    return;
+    this._isExternalAuth = externalCookie;
   }
 
   isExternalAuthentication(): Observable<boolean> {
-    return;
+    return observableOf(this._isExternalAuth);
   }
 
   retrieveAuthMethodsFromAuthStatus(status: AuthStatus) {

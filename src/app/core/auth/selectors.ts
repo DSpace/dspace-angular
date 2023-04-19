@@ -181,7 +181,7 @@ export const isAuthenticated = createSelector(getAuthState, _isAuthenticated);
 export const isAuthenticatedLoaded = createSelector(getAuthState, _isAuthenticatedLoaded);
 
 /**
- * Returns the authentication cookie status. Expect to be ture when external authentication
+ * Returns the authentication cookie status. Expect to be true when external authentication
  * is used.
  * @function getExternalAuthCookieStatus
  * @param {AuthState} state
