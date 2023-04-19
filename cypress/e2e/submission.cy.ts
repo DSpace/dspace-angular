@@ -122,8 +122,6 @@ describe('New Submission page', () => {
 
         // Wait for upload to complete before proceeding
         cy.wait('@upload');
-        // Close the upload success notice
-        cy.get('[data-dismiss="alert"]').click({multiple: true});
 
         // Wait for deposit button to not be disabled & click it.
         cy.get('button#deposit').should('not.be.disabled').click();
