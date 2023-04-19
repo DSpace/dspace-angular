@@ -19,7 +19,7 @@ export class ThemedMetadataRepresentationListComponent extends ThemedComponent<M
 
   @Input() label: string;
 
-  @Input() incrementBy = 10;
+  @Input() incrementBy: number;
 
   protected getComponentName(): string {
     return 'MetadataRepresentationListComponent';
