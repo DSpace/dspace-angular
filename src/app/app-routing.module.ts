@@ -209,7 +209,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           {
             path: REQUEST_COPY_MODULE_PATH,
             loadChildren: () => import('./request-copy/request-copy.module').then((m) => m.RequestCopyModule),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: FORBIDDEN_PATH,
