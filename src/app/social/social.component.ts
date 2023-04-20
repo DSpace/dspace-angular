@@ -1,9 +1,5 @@
-import {
-  Component,
-  Inject, OnDestroy,
-  OnInit,
-} from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { SocialService } from './social.service';
 
@@ -13,7 +9,7 @@ import { SocialService } from './social.service';
   styleUrls: ['./social.component.scss']
 })
 /**
- * Component to render dinamically the social2 buttons using addThis plugin
+ * Component to render dynamically the social2 buttons using addThis plugin
  */
 export class SocialComponent implements OnInit, OnDestroy {
 
@@ -25,19 +21,22 @@ export class SocialComponent implements OnInit, OnDestroy {
   subscription;
 
   constructor(@Inject(DOCUMENT) private _document: Document,
+              @Inject(PLATFORM_ID) protected platformId: Object,
               private socialService: SocialService,
               private activatedRoute: ActivatedRoute,
   ) {
   }
 
   ngOnInit() {
-    this.subscription = this.socialService.showSocialButtons(this.activatedRoute).subscribe((show) => {
-      if (show) {
-        this.showSocialButtons();
-      } else {
-        this.hideSocialButtons();
-      }
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      this.subscription = this.socialService.showSocialButtons(this.activatedRoute).subscribe((show) => {
+        if (show) {
+          this.showSocialButtons();
+        } else {
+          this.hideSocialButtons();
+        }
+      });
+    }
   }
 
   showSocialButtons() {
