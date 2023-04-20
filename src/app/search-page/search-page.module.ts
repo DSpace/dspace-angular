@@ -4,7 +4,6 @@ import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { ConfigurationSearchPageGuard } from './configuration-search-page.guard';
-import { SearchTrackerComponent } from './search-tracker.component';
 import { StatisticsModule } from '../statistics/statistics.module';
 import { SearchPageComponent } from './search-page.component';
 import { SidebarFilterService } from '../shared/sidebar/filter/sidebar-filter.service';
@@ -17,7 +16,6 @@ import { SearchModule } from '../shared/search/search.module';
 
 const components = [
   SearchPageComponent,
-  SearchTrackerComponent,
   ThemedSearchPageComponent
 ];
 
