@@ -43,6 +43,13 @@ export class SearchTrackerComponent extends SearchComponent implements OnInit, O
   uuidRegex = /\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/g;
 
   /**
+   * List of paths that are considered to be the start of a route to an object page (excluding "/", e.g. "items")
+   * These are expected to end on an object UUID
+   * If they match the route we're navigating to, an object property will be added to the search event sent
+   */
+  allowedObjectPaths: string[] = ['entities', ITEM_MODULE_PATH, COLLECTION_MODULE_PATH, COMMUNITY_MODULE_PATH];
+
+  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
@@ -142,12 +149,12 @@ export class SearchTrackerComponent extends SearchComponent implements OnInit, O
 
   /**
    * Get the UUID from a DSO url
-   * Return null if the url isn't a community, collection or item page or the UUID couldn't be found
+   * Return null if the url isn't an object page (allowedObjectPaths) or the UUID couldn't be found
    * @param url
    */
   getDsoUUIDFromUrl(url: string): string {
     if (isNotEmpty(url)) {
-      if (url.startsWith(`/${ITEM_MODULE_PATH}`) || url.startsWith(`/${COLLECTION_MODULE_PATH}`) || url.startsWith(`/${COMMUNITY_MODULE_PATH}`)) {
+      if (this.allowedObjectPaths.some((path) => url.startsWith(`/${path}`))) {
         const uuid = url.substring(url.lastIndexOf('/') + 1);
         if (uuid.match(this.uuidRegex)) {
           return uuid;
