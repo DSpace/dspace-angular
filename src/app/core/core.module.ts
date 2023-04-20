@@ -176,6 +176,7 @@ import { VocabularyEntryDetailsDataService } from './submission/vocabularies/voc
 import { IdentifierData } from '../shared/object-list/identifier-data/identifier-data.model';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { SupervisionOrderDataService } from './supervision-order/supervision-order-data.service';
+import { ItemRequest } from './shared/item-request.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -369,6 +370,7 @@ export const models =
     AccessStatusObject,
     IdentifierData,
     Subscription,
+    ItemRequest,
   ];
 
 @NgModule({
