@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ThemedComponent } from '../../../shared/theme-support/themed.component';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 import { MediaViewerVideoComponent } from './media-viewer-video.component';
+import { Bitstream } from '../../../core/shared/bitstream.model';
 
 /**
  * Themed wrapper for {@link MediaViewerVideoComponent}.
@@ -15,8 +16,11 @@ export class ThemedMediaViewerVideoComponent extends ThemedComponent<MediaViewer
 
   @Input() medias: MediaViewerItem[];
 
+  @Input() captions: Bitstream[];
+
   protected inAndOutputNames: (keyof MediaViewerVideoComponent & keyof this)[] = [
     'medias',
+    'captions',
   ];
 
   protected getComponentName(): string {
