@@ -158,7 +158,7 @@
   "admin.registries.bitstream-formats.table.name": "Nimi",
 
   // "admin.registries.bitstream-formats.table.id" : "ID",
-  "admin.registries.bitstream-formats.table.id" : "ID",
+  "admin.registries.bitstream-formats.table.id": "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Return",
   "admin.registries.bitstream-formats.table.return": "Palaa",
@@ -239,8 +239,8 @@
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Kenttä",
 
-  // "admin.registries.schema.fields.table.id" : "ID",
-  "admin.registries.schema.fields.table.id" : "ID",
+  // "admin.registries.schema.fields.table.id": "ID",
+  "admin.registries.schema.fields.table.id": "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Soveltamisala",
@@ -1965,7 +1965,7 @@
 
 
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
-  "curation-task.task.checklinks.label":  "Tarkista metadatan linkit",
+  "curation-task.task.checklinks.label": "Tarkista metadatan linkit",
 
   // "curation-task.task.noop.label": "NOOP",
   "curation-task.task.noop.label": "Ei toimintaa",
@@ -2159,7 +2159,7 @@
   "footer.link.privacy-policy": "Yksilönsuoja",
 
   // "footer.link.end-user-agreement":"End User Agreement",
-  "footer.link.end-user-agreement":"Käyttöehdot",
+  "footer.link.end-user-agreement": "Käyttöehdot",
 
 
 
@@ -2409,7 +2409,7 @@
   // "item.bitstreams.upload.bundle.new": "Create bundle",
   "item.bitstreams.upload.bundle.new": "Luo nippu",
 
-  // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+  // "item.bitstreams.upload.bundles.empty": "This item doesn't contain any bundles to upload a bitstream to.",
   "item.bitstreams.upload.bundles.empty": "Tällä tietueella ei ole nippua, johon tiedoston voisi ladata.",
 
   // "item.bitstreams.upload.cancel": "Cancel",
@@ -2969,9 +2969,6 @@
   // "item.page.description": "Description",
   "item.page.description": "Kuvaus",
 
-  // "item.page.edit": "Edit this item",
-  "item.page.edit": "Muokkaa tietuetta",
-
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "Kausijulkaisun ISSN",
 
@@ -3074,10 +3071,10 @@
   "item.page.bitstreams.collapse": "Sulje",
 
   // "item.page.filesection.original.bundle" : "Original bundle",
-  "item.page.filesection.original.bundle" : "Alkuperäinen nippu",
+  "item.page.filesection.original.bundle": "Alkuperäinen nippu",
 
   // "item.page.filesection.license.bundle" : "License bundle",
-  "item.page.filesection.license.bundle" : "Lisenssinippu",
+  "item.page.filesection.license.bundle": "Lisenssinippu",
 
   // "item.preview.dc.identifier.uri": "Identifier:",
   "item.preview.dc.identifier.uri": "Tunnus:",
@@ -3708,7 +3705,7 @@
   "mydspace.upload.upload-failed": "Virhe uutta työtilaa luotaessa. Tarkista ladattava sisältö ennen kuin yrität uudelleen.",
 
   // "mydspace.upload.upload-failed-manyentries": "Unprocessable file. Detected too many entries but allowed only one for file.",
-    "mydspace.upload.upload-failed-manyentries": "Tiedostoa ei voida käsitellä. Vain yksi kohde on sallittu, mutta niitä on useita.",
+  "mydspace.upload.upload-failed-manyentries": "Tiedostoa ei voida käsitellä. Vain yksi kohde on sallittu, mutta niitä on useita.",
 
   // "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
   "mydspace.upload.upload-failed-moreonefile": "Pyyntöä ei voida käsitellä. Vain yksi tiedosto sallittu.",
@@ -3900,16 +3897,16 @@
 
 
   // "process.detail.arguments" : "Arguments",
-  "process.detail.arguments" : "Muuttujat",
+  "process.detail.arguments": "Muuttujat",
 
   // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
-  "process.detail.arguments.empty" : "Prosessiin ei liity muuttujia",
+  "process.detail.arguments.empty": "Prosessiin ei liity muuttujia",
 
   // "process.detail.back" : "Back",
-  "process.detail.back" : "Paluu",
+  "process.detail.back": "Paluu",
 
   // "process.detail.output" : "Process Output",
-  "process.detail.output" : "Prosessin tulos",
+  "process.detail.output": "Prosessin tulos",
 
   // "process.detail.logs.button": "Retrieve process output",
   "process.detail.logs.button": "Nouda prosessin tulos",
@@ -3921,48 +3918,48 @@
   "process.detail.logs.none": "Prosessilla ei tulosta",
 
   // "process.detail.output-files" : "Output Files",
-  "process.detail.output-files" : "Tulostiedostot",
+  "process.detail.output-files": "Tulostiedostot",
 
   // "process.detail.output-files.empty" : "This process doesn't contain any output files",
-  "process.detail.output-files.empty" : "Prosessilla ei ole tulostiedostoja",
+  "process.detail.output-files.empty": "Prosessilla ei ole tulostiedostoja",
 
   // "process.detail.script" : "Script",
-  "process.detail.script" : "Skripti",
+  "process.detail.script": "Skripti",
 
   // "process.detail.title" : "Process: {{ id }} - {{ name }}",
-  "process.detail.title" : "Prosessi: {{ id }} - {{ name }}",
+  "process.detail.title": "Prosessi: {{ id }} - {{ name }}",
 
   // "process.detail.start-time" : "Start time",
-  "process.detail.start-time" : "Aloitusaika",
+  "process.detail.start-time": "Aloitusaika",
 
   // "process.detail.end-time" : "Finish time",
-  "process.detail.end-time" : "Lopetusaika",
+  "process.detail.end-time": "Lopetusaika",
 
   // "process.detail.status" : "Status",
-  "process.detail.status" : "Tila",
+  "process.detail.status": "Tila",
 
   // "process.detail.create" : "Create similar process",
-  "process.detail.create" : "Luo vastaava prosessi",
+  "process.detail.create": "Luo vastaava prosessi",
 
 
 
   // "process.overview.table.finish" : "Finish time",
-  "process.overview.table.finish" : "Lopetusaika",
+  "process.overview.table.finish": "Lopetusaika",
 
   // "process.overview.table.id" : "Process ID",
-  "process.overview.table.id" : "Prosessin ID",
+  "process.overview.table.id": "Prosessin ID",
 
   // "process.overview.table.name" : "Name",
-  "process.overview.table.name" : "Nimi",
+  "process.overview.table.name": "Nimi",
 
   // "process.overview.table.start" : "Start time",
-  "process.overview.table.start" : "Aloitusaika",
+  "process.overview.table.start": "Aloitusaika",
 
   // "process.overview.table.status" : "Status",
-  "process.overview.table.status" : "Tila",
+  "process.overview.table.status": "Tila",
 
   // "process.overview.table.user" : "User",
-  "process.overview.table.user" : "Käyttäjä",
+  "process.overview.table.user": "Käyttäjä",
 
   // "process.overview.title": "Processes Overview",
   "process.overview.title": "Prosessien yleiskatsaukset",
@@ -5190,7 +5187,7 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Hakutulokset",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Haluatko tallentaa nimen \"{{ value }}\" käyttäjän vaihtoehtoiseksi nimeksi, jota muutkin voivat käyttää uudelleen myös tulevissa tallennuksissa? Ellet tallenna nimeä, voit silti käyttää sitä tässä tallennuksessa.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
@@ -5558,7 +5555,7 @@
   "workflow-item.send-back.button.cancel": "Peruuta",
 
   // "workflow-item.send-back.button.confirm": "Send back"
-  "workflow-item.send-back.button.confirm": "Lähetä takaisin"
+  "workflow-item.send-back.button.confirm": "Lähetä takaisin",
 
 
 }

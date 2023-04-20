@@ -196,7 +196,7 @@
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Név",
   // "admin.registries.bitstream-formats.table.id" : "ID",
-  "admin.registries.bitstream-formats.table.id" : "ID",
+  "admin.registries.bitstream-formats.table.id": "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
   "admin.registries.bitstream-formats.table.return": "Vissza",
@@ -277,7 +277,7 @@
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Mező",
   // "admin.registries.schema.fields.table.id" : "ID",
-  "admin.registries.schema.fields.table.id" : "ID",
+  "admin.registries.schema.fields.table.id": "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Cél megjegyzés",
@@ -2611,10 +2611,10 @@
 
   // "curation-task.task.citationpage.label":  "Generate Citation Page",
   // TODO New key - Add a translation
-  "curation-task.task.citationpage.label":  "Generate Citation Page",
+  "curation-task.task.citationpage.label": "Generate Citation Page",
 
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
-  "curation-task.task.checklinks.label":  "Hivatkozások ellenőrzése a metaadatokban",
+  "curation-task.task.checklinks.label": "Hivatkozások ellenőrzése a metaadatokban",
 
   // "curation-task.task.noop.label": "NOOP",
   "curation-task.task.noop.label": "NOOP",
@@ -2846,7 +2846,7 @@
 
   // "supervision-group-selector.notification.create.already-existing" : "A supervision order already exists on this item for selected group",
   // TODO New key - Add a translation
-  "supervision-group-selector.notification.create.already-existing" : "A supervision order already exists on this item for selected group",
+  "supervision-group-selector.notification.create.already-existing": "A supervision order already exists on this item for selected group",
 
   // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
   "confirmation-modal.export-metadata.header": "Metaadat exportálásának célja {{ dsoName }}",
@@ -3024,10 +3024,10 @@
   "footer.link.privacy-policy": "Adatvédelmi nyilatkozat",
 
   // "footer.link.end-user-agreement":"End User Agreement",
-  "footer.link.end-user-agreement":"Felhasználói feltételek",
+  "footer.link.end-user-agreement": "Felhasználói feltételek",
 
   // "footer.link.feedback":"Send Feedback",
-  "footer.link.feedback":"Visszajelzés küldése",
+  "footer.link.feedback": "Visszajelzés küldése",
 
 
 
@@ -3292,15 +3292,15 @@
 
   // "health-page.heading" : "Health",
   // TODO New key - Add a translation
-  "health-page.heading" : "Health",
+  "health-page.heading": "Health",
 
   // "health-page.info-tab" : "Info",
   // TODO New key - Add a translation
-  "health-page.info-tab" : "Info",
+  "health-page.info-tab": "Info",
 
   // "health-page.status-tab" : "Status",
   // TODO New key - Add a translation
-  "health-page.status-tab" : "Status",
+  "health-page.status-tab": "Status",
 
   // "health-page.error.msg": "The health check service is temporarily unavailable",
   // TODO New key - Add a translation
@@ -3449,23 +3449,23 @@
 
   // "info.feedback.create.success" : "Feedback Sent Successfully!",
   // TODO New key - Add a translation
-  "info.feedback.create.success" : "Feedback Sent Successfully!",
+  "info.feedback.create.success": "Feedback Sent Successfully!",
 
   // "info.feedback.error.email.required" : "A valid email address is required",
   // TODO New key - Add a translation
-  "info.feedback.error.email.required" : "A valid email address is required",
+  "info.feedback.error.email.required": "A valid email address is required",
 
   // "info.feedback.error.message.required" : "A comment is required",
   // TODO New key - Add a translation
-  "info.feedback.error.message.required" : "A comment is required",
+  "info.feedback.error.message.required": "A comment is required",
 
   // "info.feedback.page-label" : "Page",
   // TODO New key - Add a translation
-  "info.feedback.page-label" : "Page",
+  "info.feedback.page-label": "Page",
 
   // "info.feedback.page_help" : "Tha page related to your feedback",
   // TODO New key - Add a translation
-  "info.feedback.page_help" : "Tha page related to your feedback",
+  "info.feedback.page_help": "Tha page related to your feedback",
 
 
 
@@ -4369,10 +4369,10 @@
   "item.page.bitstreams.collapse": "Bezár",
 
   // "item.page.filesection.original.bundle" : "Original bundle",
-  "item.page.filesection.original.bundle" : "Eredeti csomag",
+  "item.page.filesection.original.bundle": "Eredeti csomag",
 
   // "item.page.filesection.license.bundle" : "License bundle",
-  "item.page.filesection.license.bundle" : "Licenccsomag",
+  "item.page.filesection.license.bundle": "Licenccsomag",
 
   // "item.page.return": "Back",
   "item.page.return": "Vissza",
@@ -4423,19 +4423,19 @@
 
   // "item.preview.oaire.citation.issue" : "Issue",
   // TODO New key - Add a translation
-  "item.preview.oaire.citation.issue" : "Issue",
+  "item.preview.oaire.citation.issue": "Issue",
 
   // "item.preview.oaire.citation.volume" : "Volume",
   // TODO New key - Add a translation
-  "item.preview.oaire.citation.volume" : "Volume",
+  "item.preview.oaire.citation.volume": "Volume",
 
   // "item.preview.dc.relation.issn" : "ISSN",
   // TODO New key - Add a translation
-  "item.preview.dc.relation.issn" : "ISSN",
+  "item.preview.dc.relation.issn": "ISSN",
 
   // "item.preview.dc.identifier.isbn" : "ISBN",
   // TODO New key - Add a translation
-  "item.preview.dc.identifier.isbn" : "ISBN",
+  "item.preview.dc.identifier.isbn": "ISBN",
 
   // "item.preview.dc.identifier": "Identifier:",
   // TODO New key - Add a translation
@@ -4443,11 +4443,11 @@
 
   // "item.preview.dc.relation.ispartof" : "Journal or Serie",
   // TODO New key - Add a translation
-  "item.preview.dc.relation.ispartof" : "Journal or Serie",
+  "item.preview.dc.relation.ispartof": "Journal or Serie",
 
   // "item.preview.dc.identifier.doi" : "DOI",
   // TODO New key - Add a translation
-  "item.preview.dc.identifier.doi" : "DOI",
+  "item.preview.dc.identifier.doi": "DOI",
 
   // "item.preview.person.familyName": "Surname:",
   "item.preview.person.familyName": "Keresztnév:",
@@ -4623,15 +4623,15 @@
 
   // "item.version.create.notification.success" : "New version has been created with version number {{version}}",
   // TODO New key - Add a translation
-  "item.version.create.notification.success" : "New version has been created with version number {{version}}",
+  "item.version.create.notification.success": "New version has been created with version number {{version}}",
 
   // "item.version.create.notification.failure" : "New version has not been created",
   // TODO New key - Add a translation
-  "item.version.create.notification.failure" : "New version has not been created",
+  "item.version.create.notification.failure": "New version has not been created",
 
   // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
   // TODO New key - Add a translation
-  "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
+  "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
 
 
   // "item.version.delete.modal.header": "Delete version",
@@ -4660,20 +4660,20 @@
 
   // "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
   // TODO New key - Add a translation
-  "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
+  "item.version.delete.notification.success": "Version number {{version}} has been deleted",
 
   // "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
   // TODO New key - Add a translation
-  "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
+  "item.version.delete.notification.failure": "Version number {{version}} has not been deleted",
 
 
   // "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
   // TODO New key - Add a translation
-  "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
+  "item.version.edit.notification.success": "The summary of version number {{version}} has been changed",
 
   // "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
   // TODO New key - Add a translation
-  "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
+  "item.version.edit.notification.failure": "The summary of version number {{version}} has not been changed",
 
 
 
@@ -5489,15 +5489,15 @@
 
   // "nav.subscriptions" : "Subscriptions",
   // TODO New key - Add a translation
-  "nav.subscriptions" : "Subscriptions",
+  "nav.subscriptions": "Subscriptions",
 
   // "nav.toggle" : "Toggle navigation",
   // TODO New key - Add a translation
-  "nav.toggle" : "Toggle navigation",
+  "nav.toggle": "Toggle navigation",
 
   // "nav.user.description" : "User profile bar",
   // TODO New key - Add a translation
-  "nav.user.description" : "User profile bar",
+  "nav.user.description": "User profile bar",
 
   // "none.listelement.badge": "Item",
   // TODO New key - Add a translation
@@ -5665,16 +5665,16 @@
 
 
   // "process.detail.arguments" : "Arguments",
-  "process.detail.arguments" : "Érvek",
+  "process.detail.arguments": "Érvek",
 
   // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
-  "process.detail.arguments.empty" : "Ez a folyamat nem tartalmaz érveket",
+  "process.detail.arguments.empty": "Ez a folyamat nem tartalmaz érveket",
 
   // "process.detail.back" : "Back",
-  "process.detail.back" : "Vissza",
+  "process.detail.back": "Vissza",
 
   // "process.detail.output" : "Process Output",
-  "process.detail.output" : "Folyamat eredménye",
+  "process.detail.output": "Folyamat eredménye",
 
   // "process.detail.logs.button": "Retrieve process output",
   "process.detail.logs.button": "Folyamatkimenet lekérése",
@@ -5686,28 +5686,28 @@
   "process.detail.logs.none": "Ennek a folyamatnak nincs kimenete",
 
   // "process.detail.output-files" : "Output Files",
-  "process.detail.output-files" : "Kimeneti fájlok",
+  "process.detail.output-files": "Kimeneti fájlok",
 
   // "process.detail.output-files.empty" : "This process doesn't contain any output files",
-  "process.detail.output-files.empty" : "Ennek a folyamatnak nincsenek kimeneti fájljai",
+  "process.detail.output-files.empty": "Ennek a folyamatnak nincsenek kimeneti fájljai",
 
   // "process.detail.script" : "Script",
-  "process.detail.script" : "Szkript",
+  "process.detail.script": "Szkript",
 
   // "process.detail.title" : "Process: {{ id }} - {{ name }}",
-  "process.detail.title" : "Folyamat: {{ id }} - {{ name }}",
+  "process.detail.title": "Folyamat: {{ id }} - {{ name }}",
 
   // "process.detail.start-time" : "Start time",
-  "process.detail.start-time" : "Kezdési idő",
+  "process.detail.start-time": "Kezdési idő",
 
   // "process.detail.end-time" : "Finish time",
-  "process.detail.end-time" : "Végzési idő",
+  "process.detail.end-time": "Végzési idő",
 
   // "process.detail.status" : "Status",
-  "process.detail.status" : "Állapot",
+  "process.detail.status": "Állapot",
 
   // "process.detail.create" : "Create similar process",
-  "process.detail.create" : "Hasonló folyamat létrehozása",
+  "process.detail.create": "Hasonló folyamat létrehozása",
 
   // "process.detail.actions": "Actions",
   // TODO New key - Add a translation
@@ -5745,23 +5745,23 @@
 
   // "process.overview.table.finish" : "Finish time (UTC)",
   // TODO Source message changed - Revise the translation
-  "process.overview.table.finish" : "Végzési idő",
+  "process.overview.table.finish": "Végzési idő",
 
   // "process.overview.table.id" : "Process ID",
-  "process.overview.table.id" : "Folyamat ID",
+  "process.overview.table.id": "Folyamat ID",
 
   // "process.overview.table.name" : "Name",
-  "process.overview.table.name" : "Név",
+  "process.overview.table.name": "Név",
 
   // "process.overview.table.start" : "Start time (UTC)",
   // TODO Source message changed - Revise the translation
-  "process.overview.table.start" : "Kezdési idő",
+  "process.overview.table.start": "Kezdési idő",
 
   // "process.overview.table.status" : "Status",
-  "process.overview.table.status" : "Állapot",
+  "process.overview.table.status": "Állapot",
 
   // "process.overview.table.user" : "User",
-  "process.overview.table.user" : "Felhasználó",
+  "process.overview.table.user": "Felhasználó",
 
   // "process.overview.title": "Processes Overview",
   "process.overview.title": "Folyaamt áttekintő",
@@ -7900,7 +7900,7 @@
 
   // "submission.sections.license.notgranted":  "You must accept the license",
   // TODO New key - Add a translation
-  "submission.sections.license.notgranted":  "You must accept the license",
+  "submission.sections.license.notgranted": "You must accept the license",
 
 
   // "submission.sections.sherpa.publication.information": "Publication information",
@@ -8548,7 +8548,7 @@
 
   // "researcher.profile.action.processing" : "Processing...",
   // TODO New key - Add a translation
-  "researcher.profile.action.processing" : "Processing...",
+  "researcher.profile.action.processing": "Processing...",
 
   // "researcher.profile.associated": "Researcher profile associated",
   // TODO New key - Add a translation
@@ -8592,11 +8592,11 @@
 
   // "researcher.profile.private.visibility" : "PRIVATE",
   // TODO New key - Add a translation
-  "researcher.profile.private.visibility" : "PRIVATE",
+  "researcher.profile.private.visibility": "PRIVATE",
 
   // "researcher.profile.public.visibility" : "PUBLIC",
   // TODO New key - Add a translation
-  "researcher.profile.public.visibility" : "PUBLIC",
+  "researcher.profile.public.visibility": "PUBLIC",
 
   // "researcher.profile.status": "Status:",
   // TODO New key - Add a translation
@@ -8608,19 +8608,19 @@
 
   // "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
   // TODO New key - Add a translation
-  "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
+  "researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
 
   // "researcherprofile.error.claim.title" : "Error",
   // TODO New key - Add a translation
-  "researcherprofile.error.claim.title" : "Error",
+  "researcherprofile.error.claim.title": "Error",
 
   // "researcherprofile.success.claim.body" : "Profile claimed with success",
   // TODO New key - Add a translation
-  "researcherprofile.success.claim.body" : "Profile claimed with success",
+  "researcherprofile.success.claim.body": "Profile claimed with success",
 
   // "researcherprofile.success.claim.title" : "Success",
   // TODO New key - Add a translation
-  "researcherprofile.success.claim.title" : "Success",
+  "researcherprofile.success.claim.title": "Success",
 
   // "person.page.orcid.create": "Create an ORCID ID",
   // TODO New key - Add a translation
@@ -8632,7 +8632,7 @@
 
   // "person.page.orcid.grant-authorizations" : "Grant authorizations",
   // TODO New key - Add a translation
-  "person.page.orcid.grant-authorizations" : "Grant authorizations",
+  "person.page.orcid.grant-authorizations": "Grant authorizations",
 
   // "person.page.orcid.link": "Connect to ORCID ID",
   // TODO New key - Add a translation
@@ -8696,55 +8696,55 @@
 
   // "person.page.orcid.sync-profile.affiliation" : "Affiliation",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.affiliation" : "Affiliation",
+  "person.page.orcid.sync-profile.affiliation": "Affiliation",
 
   // "person.page.orcid.sync-profile.biographical" : "Biographical data",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.biographical" : "Biographical data",
+  "person.page.orcid.sync-profile.biographical": "Biographical data",
 
   // "person.page.orcid.sync-profile.education" : "Education",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.education" : "Education",
+  "person.page.orcid.sync-profile.education": "Education",
 
   // "person.page.orcid.sync-profile.identifiers" : "Identifiers",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.identifiers" : "Identifiers",
+  "person.page.orcid.sync-profile.identifiers": "Identifiers",
 
   // "person.page.orcid.sync-fundings.all" : "All fundings",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.all" : "All fundings",
+  "person.page.orcid.sync-fundings.all": "All fundings",
 
   // "person.page.orcid.sync-fundings.mine" : "My fundings",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.mine" : "My fundings",
+  "person.page.orcid.sync-fundings.mine": "My fundings",
 
   // "person.page.orcid.sync-fundings.my_selected" : "Selected fundings",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.my_selected" : "Selected fundings",
+  "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
 
   // "person.page.orcid.sync-fundings.disabled" : "Disabled",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.disabled" : "Disabled",
+  "person.page.orcid.sync-fundings.disabled": "Disabled",
 
   // "person.page.orcid.sync-publications.all" : "All publications",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.all" : "All publications",
+  "person.page.orcid.sync-publications.all": "All publications",
 
   // "person.page.orcid.sync-publications.mine" : "My publications",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.mine" : "My publications",
+  "person.page.orcid.sync-publications.mine": "My publications",
 
   // "person.page.orcid.sync-publications.my_selected" : "Selected publications",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.my_selected" : "Selected publications",
+  "person.page.orcid.sync-publications.my_selected": "Selected publications",
 
   // "person.page.orcid.sync-publications.disabled" : "Disabled",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.disabled" : "Disabled",
+  "person.page.orcid.sync-publications.disabled": "Disabled",
 
   // "person.page.orcid.sync-queue.discard" : "Discard the change and do not synchronize with the ORCID registry",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.discard" : "Discard the change and do not synchronize with the ORCID registry",
+  "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
 
   // "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
   // TODO New key - Add a translation
@@ -8760,15 +8760,15 @@
 
   // "person.page.orcid.sync-queue.table.header.type" : "Type",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.table.header.type" : "Type",
+  "person.page.orcid.sync-queue.table.header.type": "Type",
 
   // "person.page.orcid.sync-queue.table.header.description" : "Description",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.table.header.description" : "Description",
+  "person.page.orcid.sync-queue.table.header.description": "Description",
 
   // "person.page.orcid.sync-queue.table.header.action" : "Action",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.table.header.action" : "Action",
+  "person.page.orcid.sync-queue.table.header.action": "Action",
 
   // "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
   // TODO New key - Add a translation
@@ -8856,7 +8856,7 @@
 
   // "person.page.orcid.sync-queue.send" : "Synchronize with ORCID registry",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send" : "Synchronize with ORCID registry",
+  "person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
   // TODO New key - Add a translation
@@ -8928,7 +8928,7 @@
 
   // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "The publication date must be one year after 1900",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "The publication date must be one year after 1900",
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
   // TODO New key - Add a translation

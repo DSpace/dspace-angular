@@ -19,6 +19,10 @@ services:
       DSPACE_UI_HOST: dspace-angular
       DSPACE_UI_PORT: '4000'
       DSPACE_UI_NAMESPACE: /
+      # NOTE: When running the UI in production mode (which the -dist image does),
+      # these DSPACE_REST_* variables MUST point at a public, HTTPS URL.
+      # This is because Server Side Rendering (SSR) currently requires a public URL,
+      # see this bug: https://github.com/DSpace/dspace-angular/issues/1485
       DSPACE_REST_SSL: 'true'
       DSPACE_REST_HOST: api7.dspace.org
       DSPACE_REST_PORT: 443
