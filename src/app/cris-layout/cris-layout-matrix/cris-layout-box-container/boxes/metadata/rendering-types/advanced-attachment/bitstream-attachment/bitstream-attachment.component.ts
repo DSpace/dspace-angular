@@ -47,6 +47,6 @@ export class BitstreamAttachmentComponent extends BitstreamRenderingModelCompone
   }
 
   ngOnInit() {
-    this.allAttachmentProviders = this.attachment.allMetadataValues('bitstream.viewer.provider');
+    this.allAttachmentProviders = this.attachment?.allMetadataValues('bitstream.viewer.provider');
   }
 }
