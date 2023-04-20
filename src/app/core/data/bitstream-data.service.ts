@@ -352,7 +352,56 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
     uuid: string,
     bundlename: string,
     metadataFilters: MetadataFilter[],
-    options?: FindListOptions,
+    options: FindListOptions = {},
+    useCachedVersionIfAvailable = true,
+    reRequestOnStale = true,
+    ...linksToFollow: FollowLinkConfig<Bitstream>[]
+  ): Observable<RemoteData<PaginatedList<Bitstream>>> {
+    const searchParams = [];
+    searchParams.push(new RequestParam('uuid', uuid));
+    searchParams.push(new RequestParam('name', bundlename));
+
+    metadataFilters.forEach((entry: MetadataFilter) => {
+      searchParams.push(new RequestParam('filterMetadata', entry.metadataName));
+      searchParams.push(new RequestParam('filterMetadataValue', entry.metadataValue));
+    });
+
+    const hrefObs = this.getSearchByHref(
+      'showableByItem',
+      { searchParams },
+      ...linksToFollow
+    );
+
+    return this.findListByHref(
+      hrefObs,
+      options,
+      useCachedVersionIfAvailable,
+      reRequestOnStale,
+      ...linksToFollow
+    );
+  }
+
+  /**
+   * Returns an observable of {@link RemoteData} of a {@link Bitstream} that is not marked
+   * hidden (that hasn't got the metadata `bitstream.hide` or its value is not true/yes).
+   * resolve {@link HALLink}s of the object
+   *
+   * @param uuid                        The item UUID to retrieve bitstreams from
+   * @param bundlename                  Bundle type of the bitstreams
+   * @param metadataFilters             Array of object we want to filter by
+   * @param options                     The {@link FindListOptions} for the request
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  showableByItem(
+    uuid: string,
+    bundlename: string,
+    metadataFilters: MetadataFilter[],
+    options: FindListOptions,
     useCachedVersionIfAvailable = true,
     reRequestOnStale = true,
     ...linksToFollow: FollowLinkConfig<Bitstream>[]

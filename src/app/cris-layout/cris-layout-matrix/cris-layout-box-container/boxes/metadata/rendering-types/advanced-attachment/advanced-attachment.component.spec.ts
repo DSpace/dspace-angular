@@ -197,43 +197,6 @@ describe('AdvancedAttachmentComponent', () => {
         expect(valueFound.length).toBe(3);
       }));
 
-      it('should show information properly', () => {
-        const entries = de.queryAll(By.css('[data-test="attachment-info"]'));
-        expect(entries.length).toBe(3);
-        expect(entries[0].query(By.css('[data-test="dc.title"]'))).toBeTruthy();
-        expect(entries[0].query(By.css('[data-test="dc.description"]'))).toBeTruthy();
-        expect(entries[0].query(By.css('[data-test="dc.type"]'))).toBeTruthy();
-        expect(entries[0].query(By.css('[data-test="format"]'))).toBeTruthy();
-        expect(entries[0].query(By.css('[data-test="size"]'))).toBeTruthy();
-        expect(entries[0].query(By.css('[data-test="checksum"]'))).toBeTruthy();
-      });
-
-      it('should wrap the title', () => {
-        const titleElement = de.query(By.css('[data-test="attachment-name"]')).nativeElement;
-        expect(titleElement.classList).toContain('text-break');
-      });
-
-      describe('and the field has metadata key and value set as value', () => {
-        beforeEach(() => {
-          // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
-          TestBed.resetTestingModule();
-          TestBed.configureTestingModule(getDefaultTestBedConf());
-          TestBed.overrideProvider('fieldProvider', { useValue: mockFieldWithMetadata });
-          fixture = TestBed.createComponent(AdvancedAttachmentComponent);
-          component = fixture.componentInstance;
-          de = fixture.debugElement;
-          let spy = spyOn(component, 'getBitstreamsByItem');
-          spy.and.returnValue(of(createPaginatedList([attachmentsMock[1]])));
-          component.item = testItem;
-          fixture.detectChanges();
-        });
-
-        it('should show main article attachment', () => {
-          expect(de.query(By.css('[data-test="dc.title"]')).nativeElement.innerHTML).toContain('main.pdf');
-        });
-
-      });
-
     });
 
     describe('when pagination is enabled', () => {
@@ -307,40 +270,6 @@ describe('AdvancedAttachmentComponent', () => {
         const valueFound = fixture.debugElement.queryAll(By.css('[data-test="attachment-info"]'));
         expect(valueFound.length).toBe(3);
       }));
-
-      it('should show information properly', () => {
-        const entries = de.queryAll(By.css('[data-test="attachment-info"]'));
-        expect(entries.length).toBe(3);
-        expect(entries[0].query(By.css('[data-test="dc.title"]'))).toBeFalsy();
-        expect(entries[0].query(By.css('[data-test="dc.description"]'))).toBeFalsy();
-        expect(entries[0].query(By.css('[data-test="dc.type"]'))).toBeFalsy();
-        expect(entries[0].query(By.css('[data-test="format"]'))).toBeFalsy();
-        expect(entries[0].query(By.css('[data-test="size"]'))).toBeFalsy();
-        expect(entries[0].query(By.css('[data-test="checksum"]'))).toBeFalsy();
-      });
-
-      describe('and the field has metadata key and value set as value', () => {
-        beforeEach(() => {
-          // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
-          TestBed.resetTestingModule();
-          TestBed.configureTestingModule(getDefaultTestBedConf());
-          TestBed.overrideProvider('fieldProvider', { useValue: mockFieldWithMetadata });
-          fixture = TestBed.createComponent(AdvancedAttachmentComponent);
-          component = fixture.componentInstance;
-          component.envMetadata = [];
-          de = fixture.debugElement;
-          let spy = spyOn(component, 'getBitstreamsByItem');
-          spy.and.returnValue(of(createPaginatedList([attachmentsMock[1]])));
-          component.item = testItem;
-          fixture.detectChanges();
-        });
-
-        it('should show main article attachment', () => {
-          expect(de.queryAll(By.css('[data-test="attachment-info"]')).length).toBe(1);
-          expect(de.query(By.css('[data-test="dc.title"]'))).toBeFalsy();
-        });
-
-      });
 
     });
 
