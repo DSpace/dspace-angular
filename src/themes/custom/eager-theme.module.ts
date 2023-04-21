@@ -48,6 +48,9 @@ import { FooterModule } from '../../app/footer/footer.module';
 import { ExploreModule } from '../../app/shared/explore/explore.module';
 import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
 import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
+import {
+  AttachmentRenderingModule
+} from '../../app/cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/bitstream-attachment/attachment-render/attachment-rendering.module';
 
 /**
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.
@@ -90,6 +93,7 @@ const DECLARATIONS = [
     NavbarModule,
     ItemPageModule,
     ItemSharedModule,
+    AttachmentRenderingModule,
     ContextMenuModule,
     FooterModule,
     ExploreModule,
