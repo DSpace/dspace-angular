@@ -52,7 +52,7 @@ export class MetricDonutsComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       this.retrieveMetrics().subscribe((metrics: Metric[]) => {
         this.metrics$.next(metrics);
-      })
+      });
     }
   }
 
