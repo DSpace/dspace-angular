@@ -1,4 +1,4 @@
-<div *ngIf="(filters | async)?.hasSucceeded && (filters | async)?.payload?.length > 0" class="container">
+<div *ngIf="isPlatformBrowser && (filters | async)?.hasSucceeded && (filters | async)?.payload?.length > 0" class="container">
   <div class="row">
     <div class="col-md-12 mb-40">
       <div class="d-flex align-items-center mb-2">

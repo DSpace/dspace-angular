@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -13,6 +13,7 @@ import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { CrisLayoutBox, MetricsBoxConfiguration, } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { CrisLayoutMetricRow } from '../../../../../core/layout/models/tab.model';
+import { isPlatformBrowser } from '@angular/common';
 
 /**
  * This component renders the metadata boxes of items
@@ -54,7 +55,8 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent i
     protected itemService: ItemDataService,
     protected translateService: TranslateService,
     @Inject('boxProvider') public boxProvider: CrisLayoutBox,
-    @Inject('itemProvider') public itemProvider: Item
+    @Inject('itemProvider') public itemProvider: Item,
+    @Inject(PLATFORM_ID) protected platformId: Object
   ) {
     super(translateService, boxProvider, itemProvider);
   }
@@ -62,17 +64,19 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent i
   ngOnInit() {
     super.ngOnInit();
 
-    this.metricsBoxConfiguration = this.box.configuration as MetricsBoxConfiguration;
-    this.subs.push(
-      this.itemService.getMetrics(this.item.uuid).pipe(getFirstSucceededRemoteDataPayload())
-        .subscribe((result) => {
-          const matchingMetrics = this.metricsComponentService.getMatchingMetrics(
-            result.page,
-            this.metricsBoxConfiguration.maxColumns,
-            this.metricsBoxConfiguration.metrics
-          );
-          this.metricRows.next(matchingMetrics);
-        }));
+    if (isPlatformBrowser(this.platformId)) {
+      this.metricsBoxConfiguration = this.box.configuration as MetricsBoxConfiguration;
+      this.subs.push(
+        this.itemService.getMetrics(this.item.uuid).pipe(getFirstSucceededRemoteDataPayload())
+          .subscribe((result) => {
+            const matchingMetrics = this.metricsComponentService.getMatchingMetrics(
+              result.page,
+              this.metricsBoxConfiguration.maxColumns,
+              this.metricsBoxConfiguration.metrics
+            );
+            this.metricRows.next(matchingMetrics);
+          }));
+    }
   }
 
   /**
