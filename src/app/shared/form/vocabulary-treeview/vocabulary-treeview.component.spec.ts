@@ -12,7 +12,7 @@ import { createTestComponent } from '../../testing/utils.test';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview.component';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { TreeviewFlatNode } from './vocabulary-treeview-node.model';
+import { TreeviewFlatNode, TreeviewNode } from './vocabulary-treeview-node.model';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
@@ -20,6 +20,7 @@ import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vo
 import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
 import { authReducer } from '../../../core/auth/auth.reducer';
 import { storeModuleConfig } from '../../../app.reducer';
+import { By } from '@angular/platform-browser';
 
 describe('VocabularyTreeviewComponent test suite', () => {
 
@@ -27,6 +28,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
   let compAsAny: any;
   let fixture: ComponentFixture<VocabularyTreeviewComponent>;
   let initialState;
+  let de;
 
   const item = new VocabularyEntryDetail();
   item.id = 'node1';
@@ -87,6 +89,12 @@ describe('VocabularyTreeviewComponent test suite', () => {
     });
   }));
 
+  afterEach(() => {
+    fixture.destroy();
+    comp = null;
+    compAsAny = null;
+  });
+
   describe('', () => {
     let testComp: TestComponent;
     let testFixture: ComponentFixture<TestComponent>;
@@ -118,12 +126,6 @@ describe('VocabularyTreeviewComponent test suite', () => {
       compAsAny = comp;
       comp.vocabularyOptions = vocabularyOptions;
       comp.selectedItems = [];
-    });
-
-    afterEach(() => {
-      fixture.destroy();
-      comp = null;
-      compAsAny = null;
     });
 
     it('should should init component properly', () => {
@@ -227,6 +229,50 @@ describe('VocabularyTreeviewComponent test suite', () => {
     it('should call cleanTree method on destroy', () => {
       compAsAny.ngOnDestroy();
       expect(vocabularyTreeviewServiceStub.cleanTree).toHaveBeenCalled();
+    });
+  });
+
+  describe('', () => {
+    beforeEach(() => {
+      vocabularyTreeviewServiceStub.getData.and.returnValue(observableOf([
+        {
+          'item': {
+            'id': 'srsc:SCB11',
+            'display': 'HUMANITIES and RELIGION'
+          }
+        } as TreeviewNode,
+        {
+          'item': {
+            'id': 'srsc:SCB12',
+            'display': 'LAW/JURISPRUDENCE'
+          }
+        } as TreeviewNode,
+        {
+          'item': {
+            'id': 'srsc:SCB13',
+            'display': 'SOCIAL SCIENCES'
+          }
+        } as TreeviewNode,
+      ]));
+      fixture = TestBed.createComponent(VocabularyTreeviewComponent);
+      comp = fixture.componentInstance;
+      compAsAny = comp;
+      comp.vocabularyOptions = vocabularyOptions;
+      comp.selectedItems = [];
+      de = fixture.debugElement;
+    });
+
+    it('should not display checkboxes by default', async () => {
+      fixture.detectChanges();
+      expect(de.query(By.css('input[checkbox]'))).toBeNull();
+      expect(de.queryAll(By.css('cdk-tree-node')).length).toEqual(3);
+    });
+
+    it('should display checkboxes if multiSelect is true', async () => {
+      comp.multiSelect = true;
+      fixture.detectChanges();
+      expect(de.queryAll(By.css('#leaf-node-checkbox')).length).toEqual(3);
+      expect(de.queryAll(By.css('cdk-tree-node')).length).toEqual(3);
     });
   });
 });
