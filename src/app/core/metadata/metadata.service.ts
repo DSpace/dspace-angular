@@ -130,19 +130,18 @@ export class MetadataService {
     }
 
     if (routeInfo.data.value.title) {
-      const pageName$ = this.rootService.findRoot(true).pipe(
-        getFirstCompletedRemoteData(),
-        map((rootRD: RemoteData<Root>) => rootRD.payload.dspaceName),
+      const repositoryName$ = this.rootService.findRoot(true).pipe(
+        getFirstSucceededRemoteDataPayload(),
+        map((payload: Root) => payload.dspaceName),
       );
-
+      const titlePrefix = repositoryName$.pipe(
+        switchMap((repositoryName) => this.translate.get('repository.title.prefix', { repositoryName })),
+      );
       const title = this.translate.get(routeInfo.data.value.title, routeInfo.data.value);
-      combineLatest([ pageName$, title ])
-        .pipe(take(1))
-        .subscribe(([ translatedTitlePrefix, translatedTitle ]: [ string, string ]) => {
-          let finalTitle = translatedTitlePrefix + ' :: ' + translatedTitle;
-          this.addMetaTag('title', finalTitle);
-          this.title.setTitle(finalTitle);
-        });
+      combineLatest([titlePrefix, title]).pipe(take(1)).subscribe(([translatedTitlePrefix, translatedTitle]: [string, string]) => {
+        this.addMetaTag('title', translatedTitlePrefix + translatedTitle);
+        this.title.setTitle(translatedTitlePrefix + translatedTitle);
+      });
     }
     if (routeInfo.data.value.description) {
       this.translate.get(routeInfo.data.value.description).pipe(take(1)).subscribe((translatedDescription: string) => {
