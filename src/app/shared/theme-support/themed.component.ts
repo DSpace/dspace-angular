@@ -10,8 +10,8 @@ import {
   ChangeDetectorRef,
   OnChanges
 } from '@angular/core';
-import { hasValue, isNotEmpty } from '../empty.util';
-import { from as fromPromise, Observable, of as observableOf, Subscription } from 'rxjs';
+import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
+import { combineLatest, from as fromPromise, Observable, of as observableOf, Subscription } from 'rxjs';
 import { ThemeService } from './theme.service';
 import { catchError, switchMap, map } from 'rxjs/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
@@ -25,6 +25,7 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
   protected compRef: ComponentRef<T>;
 
+  protected lazyLoadObs: Observable<any>;
   protected lazyLoadSub: Subscription;
   protected themeSub: Subscription;
 
@@ -43,17 +44,24 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
   protected abstract importUnthemedComponent(): Promise<any>;
 
   ngOnChanges(changes: SimpleChanges): void {
-    // if an input or output has changed
-    if (this.inAndOutputNames.some((name: any) => hasValue(changes[name]))) {
-      this.connectInputsAndOutputs();
+    if (hasNoValue(this.compRef)) {
+      // sometimes the component has not been initialized yet, so it first needs to be initialized
+      // before being called again
+      this.initComponentInstance(changes);
+    } else {
+      // if an input or output has changed
+      if (this.inAndOutputNames.some((name: any) => hasValue(changes[name]))) {
+        this.connectInputsAndOutputs();
+        if (this.compRef?.instance && 'ngOnChanges' in this.compRef.instance) {
+          (this.compRef.instance as any).ngOnChanges(changes);
+        }
+      }
     }
   }
 
   ngOnInit(): void {
     this.destroyComponentInstance();
-    this.themeSub = this.themeService.getThemeName$().subscribe(() => {
-      this.renderComponentInstance();
-    });
+    this.initComponentInstance();
   }
 
   ngOnDestroy(): void {
@@ -61,32 +69,48 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
     this.destroyComponentInstance();
   }
 
-  protected renderComponentInstance(): void {
-    this.destroyComponentInstance();
+  initComponentInstance(changes?: SimpleChanges) {
+    this.themeSub = this.themeService?.getThemeName$().subscribe(() => {
+      this.renderComponentInstance(changes);
+    });
+  }
 
+  protected renderComponentInstance(changes?: SimpleChanges): void {
     if (hasValue(this.lazyLoadSub)) {
       this.lazyLoadSub.unsubscribe();
     }
 
-    this.lazyLoadSub = this.resolveThemedComponent(this.themeService.getThemeName()).pipe(
-      switchMap((themedFile: any) => {
-        if (hasValue(themedFile) && hasValue(themedFile[this.getComponentName()])) {
-          // if the file is not null, and exports a component with the specified name,
-          // return that component
-          return [themedFile[this.getComponentName()]];
-        } else {
-          // otherwise import and return the default component
-          return fromPromise(this.importUnthemedComponent()).pipe(
-            map((unthemedFile: any) => {
-              return unthemedFile[this.getComponentName()];
-            })
-          );
-        }
-      }),
-    ).subscribe((constructor: GenericConstructor<T>) => {
+    if (hasNoValue(this.lazyLoadObs)) {
+      this.destroyComponentInstance();
+
+      this.lazyLoadObs = combineLatest([
+        observableOf(changes),
+        this.resolveThemedComponent(this.themeService.getThemeName()).pipe(
+          switchMap((themedFile: any) => {
+            if (hasValue(themedFile) && hasValue(themedFile[this.getComponentName()])) {
+              // if the file is not null, and exports a component with the specified name,
+              // return that component
+              return [themedFile[this.getComponentName()]];
+            } else {
+              // otherwise import and return the default component
+              return fromPromise(this.importUnthemedComponent()).pipe(
+                map((unthemedFile: any) => {
+                  return unthemedFile[this.getComponentName()];
+                })
+              );
+            }
+          })),
+      ]);
+    }
+
+    this.lazyLoadSub = this.lazyLoadObs.subscribe(([simpleChanges, constructor]: [SimpleChanges, GenericConstructor<T>]) => {
       const factory = this.resolver.resolveComponentFactory(constructor);
       this.compRef = this.vcr.createComponent(factory);
-      this.connectInputsAndOutputs();
+      if (hasValue(simpleChanges)) {
+        this.ngOnChanges(simpleChanges);
+      } else {
+        this.connectInputsAndOutputs();
+      }
       this.cdr.markForCheck();
     });
   }

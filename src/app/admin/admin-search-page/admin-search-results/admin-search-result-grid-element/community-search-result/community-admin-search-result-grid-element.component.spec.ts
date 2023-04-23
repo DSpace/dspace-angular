@@ -16,6 +16,8 @@ import { CommunitySearchResult } from '../../../../../shared/object-collection/s
 import { Community } from '../../../../../core/shared/community.model';
 import { getCommunityEditRoute } from '../../../../../community-page/community-page-routing-paths';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 
 describe('CommunityAdminSearchResultGridElementComponent', () => {
   let component: CommunityAdminSearchResultGridElementComponent;
@@ -47,7 +49,8 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: BitstreamDataService, useValue: {} },
-        { provide: LinkService, useValue: linkService }
+        { provide: LinkService, useValue: linkService },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

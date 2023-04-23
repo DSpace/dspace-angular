@@ -14,6 +14,8 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 
 describe('CollectionAdminSearchResultGridElementComponent', () => {
   let component: CollectionAdminSearchResultGridElementComponent;
@@ -45,7 +47,8 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: BitstreamDataService, useValue: {} },
-        { provide: LinkService, useValue: linkService }
+        { provide: LinkService, useValue: linkService },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ]
     })
       .compileComponents();
