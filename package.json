@@ -118,7 +118,7 @@
     "ng2-file-upload": "1.4.0",
     "ng2-nouislider": "^1.8.3",
     "ngx-infinite-scroll": "^10.0.1",
-    "ngx-pagination": "5.0.0",
+    "ngx-pagination": "6.0.3",
     "ngx-sortablejs": "^11.1.0",
     "ngx-ui-switch": "^14.0.3",
     "nouislider": "^14.6.3",
