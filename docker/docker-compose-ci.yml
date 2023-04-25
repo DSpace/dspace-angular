@@ -63,7 +63,7 @@ services:
       # This LOADSQL should be kept in sync with the LOADSQL in
       # https://github.com/DSpace/DSpace/blob/main/dspace/src/main/docker-compose/db.entities.yml
       # This SQL is available from https://github.com/DSpace-Labs/AIP-Files/releases/tag/demo-entities-data
-      LOADSQL: https://github.com/dataquest-dev/DSpace/releases/download/data/dspace-test-database-dump.sql
+      LOADSQL: https://github.com/dataquest-dev/DSpace/releases/download/data/dspace-test-database-dump_20.4.2023.sql
       PGDATA: /pgdata
     image: dspace/dspace-postgres-pgcrypto:loadsql
     networks:
