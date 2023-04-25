@@ -83,7 +83,6 @@ describe('MediaViewerVideoComponent', () => {
     fixture = TestBed.createComponent(MediaViewerVideoComponent);
     component = fixture.componentInstance;
     component.medias = mockMediaViewerItem;
-    component.filteredMedias = mockMediaViewerItem;
     fixture.detectChanges();
   });
 
@@ -94,7 +93,6 @@ describe('MediaViewerVideoComponent', () => {
   describe('should show controller buttons when the having mode then one video', () => {
     beforeEach(() => {
       component.medias = mockMediaViewerItems;
-      component.filteredMedias = mockMediaViewerItems;
       fixture.detectChanges();
     });
 

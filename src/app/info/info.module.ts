@@ -10,6 +10,7 @@ import { ThemedEndUserAgreementComponent } from './end-user-agreement/themed-end
 import { ThemedPrivacyComponent } from './privacy/themed-privacy.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { FeedbackFormComponent } from './feedback/feedback-form/feedback-form.component';
+import { ThemedFeedbackFormComponent } from './feedback/feedback-form/themed-feedback-form.component';
 import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
 import { FeedbackGuard } from '../core/feedback/feedback.guard';
 
@@ -23,6 +24,7 @@ const DECLARATIONS = [
   ThemedPrivacyComponent,
   FeedbackComponent,
   FeedbackFormComponent,
+  ThemedFeedbackFormComponent,
   ThemedFeedbackComponent
 ];
 
