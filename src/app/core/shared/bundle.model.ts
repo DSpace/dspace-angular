@@ -1,4 +1,4 @@
-import { deserialize, inheritSerialization } from 'cerialize';
+import { autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
 
 import { Observable } from 'rxjs';
 
@@ -28,6 +28,12 @@ export class Bundle extends DSpaceObject {
     bitstreams: HALLink;
     item: HALLink;
   };
+
+  /**
+   * The ID of the primaryBitstream of this Bundle
+   */
+  @autoserializeAs('primarybitstream')
+  primaryBitstreamUUID: string;
 
   /**
    * The primary Bitstream of this Bundle

@@ -24,6 +24,8 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { Item } from '../../core/shared/item.model';
 import { MetadataValueFilter } from '../../core/shared/metadata.models';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { Bundle } from '../../core/shared/bundle.model';
+import { BundleDataService } from '../../core/data/bundle-data.service';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -35,9 +37,14 @@ let bitstreamService: BitstreamDataService;
 let bitstreamFormatService: BitstreamFormatDataService;
 let dsoNameService: DSONameService;
 let bitstream: Bitstream;
+let bitstreamID: string;
 let selectedFormat: BitstreamFormat;
 let allFormats: BitstreamFormat[];
 let router: Router;
+let bundleDataService;
+let bundleWithCurrentPrimary: Bundle;
+let bundleWithDifferentPrimary: Bundle;
+let bundleWithNoPrimary: Bundle;
 
 let comp: EditBitstreamPageComponent;
 let fixture: ComponentFixture<EditBitstreamPageComponent>;
@@ -45,6 +52,12 @@ let fixture: ComponentFixture<EditBitstreamPageComponent>;
 describe('EditBitstreamPageComponent', () => {
 
   beforeEach(() => {
+    bitstreamID = 'current-bitstream-id';
+    bundleWithCurrentPrimary = Object.assign(new Bundle(), { 'primaryBitstreamUUID': bitstreamID });
+    bundleWithDifferentPrimary = Object.assign(new Bundle(), { 'primaryBitstreamUUID': '12345-abcde-54321-edcba' });
+    bundleWithNoPrimary = Object.assign(new Bundle(), { 'primaryBitstreamUUID': null });
+    bundleDataService = jasmine.createSpyObj('BundleDataService', ['patch']);
+    bundleDataService.patch.and.callFake((a, b) => createSuccessfulRemoteDataObject$(a));
     allFormats = [
       Object.assign({
         id: '1',
@@ -53,7 +66,7 @@ describe('EditBitstreamPageComponent', () => {
         supportLevel: BitstreamFormatSupportLevel.Unknown,
         mimetype: 'application/octet-stream',
         _links: {
-          self: {href: 'format-selflink-1'}
+          self: { href: 'format-selflink-1' }
         }
       }),
       Object.assign({
@@ -63,7 +76,7 @@ describe('EditBitstreamPageComponent', () => {
         supportLevel: BitstreamFormatSupportLevel.Known,
         mimetype: 'image/png',
         _links: {
-          self: {href: 'format-selflink-2'}
+          self: { href: 'format-selflink-2' }
         }
       }),
       Object.assign({
@@ -73,7 +86,7 @@ describe('EditBitstreamPageComponent', () => {
         supportLevel: BitstreamFormatSupportLevel.Known,
         mimetype: 'image/gif',
         _links: {
-          self: {href: 'format-selflink-3'}
+          self: { href: 'format-selflink-3' }
         }
       })
     ] as BitstreamFormat[];
@@ -112,6 +125,8 @@ describe('EditBitstreamPageComponent', () => {
       const bundleName = 'ORIGINAL';
 
       bitstream = Object.assign(new Bitstream(), {
+        uuid: bitstreamID,
+        id: bitstreamID,
         metadata: {
           'dc.description': [
             {
@@ -155,17 +170,19 @@ describe('EditBitstreamPageComponent', () => {
         imports: [TranslateModule.forRoot(), RouterTestingModule],
         declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
         providers: [
-          {provide: NotificationsService, useValue: notificationsService},
-          {provide: DynamicFormService, useValue: formService},
-          {provide: ActivatedRoute,
+          { provide: NotificationsService, useValue: notificationsService },
+          { provide: DynamicFormService, useValue: formService },
+          {
+            provide: ActivatedRoute,
             useValue: {
-              data: observableOf({bitstream: createSuccessfulRemoteDataObject(bitstream)}),
-              snapshot: {queryParams: {}}
+              data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
+              snapshot: { queryParams: {} }
             }
           },
-          {provide: BitstreamDataService, useValue: bitstreamService},
-          {provide: DSONameService, useValue: dsoNameService},
-          {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
+          { provide: BitstreamDataService, useValue: bitstreamService },
+          { provide: DSONameService, useValue: dsoNameService },
+          { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
+          { provide: BundleDataService, useValue: bundleDataService },
           ChangeDetectorRef
         ],
         schemas: [NO_ERRORS_SCHEMA]
@@ -203,6 +220,27 @@ describe('EditBitstreamPageComponent', () => {
       it('should put the \"New Format\" input on invisible', () => {
         expect(comp.formLayout.newFormat.grid.host).toContain('invisible');
       });
+      describe('when the bitstream is the primary bitstream on the bundle', () => {
+        beforeEach(() => {
+          (comp as any).bundle = bundleWithCurrentPrimary;
+          comp.setForm();
+          rawForm = comp.formGroup.getRawValue();
+
+        });
+        it('should enable the primary bitstream toggle', () => {
+          expect(rawForm.fileNamePrimaryContainer.primaryBitstream).toEqual(true);
+        });
+      });
+      describe('when the bitstream is not the primary bitstream on the bundle', () => {
+        beforeEach(() => {
+          (comp as any).bundle = bundleWithDifferentPrimary;
+          comp.setForm();
+          rawForm = comp.formGroup.getRawValue();
+        });
+        it('should disable the primary bitstream toggle', () => {
+          expect(rawForm.fileNamePrimaryContainer.primaryBitstream).toEqual(false);
+        });
+      });
     });
 
     describe('when an unknown format is selected', () => {
@@ -216,6 +254,95 @@ describe('EditBitstreamPageComponent', () => {
     });
 
     describe('onSubmit', () => {
+      describe('when the primaryBitstream changed', () => {
+        describe('to the current bitstream', () => {
+          beforeEach(() => {
+            const rawValue = Object.assign(comp.formGroup.getRawValue(), { fileNamePrimaryContainer: { primaryBitstream: true } });
+            spyOn(comp.formGroup, 'getRawValue').and.returnValue(rawValue);
+          });
+
+          describe('from a different primary bitstream', () => {
+            beforeEach(() => {
+              (comp as any).bundle = bundleWithDifferentPrimary;
+              comp.onSubmit();
+            });
+
+            it('should call patch with a replace operation', () => {
+              expect(bundleDataService.patch).toHaveBeenCalledWith(bundleWithDifferentPrimary, [jasmine.objectContaining({
+                op: 'replace'
+              })]);
+            });
+
+            it('should call patch with the correct bitstream uuid', () => {
+              expect(bundleDataService.patch).toHaveBeenCalledWith(bundleWithDifferentPrimary, [jasmine.objectContaining({
+                value: bitstreamID
+              })]);
+            });
+          });
+          describe('from no primary bitstream', () => {
+            beforeEach(() => {
+              (comp as any).bundle = bundleWithNoPrimary;
+              comp.onSubmit();
+            });
+
+            it('should call patch with an add operation', () => {
+              expect(bundleDataService.patch).toHaveBeenCalledWith(bundleWithNoPrimary, [jasmine.objectContaining({
+                op: 'add'
+              })]);
+            });
+
+            it('should call patch with the correct bitstream uuid', () => {
+              expect(bundleDataService.patch).toHaveBeenCalledWith(bundleWithNoPrimary, [jasmine.objectContaining({
+                value: bitstreamID
+              })]);
+            });
+          });
+        });
+        describe('to no primary bitstream', () => {
+          beforeEach(() => {
+            const rawValue = Object.assign(comp.formGroup.getRawValue(), { fileNamePrimaryContainer: { primaryBitstream: false } });
+            spyOn(comp.formGroup, 'getRawValue').and.returnValue(rawValue);
+          });
+
+          describe('from the current bitstream', () => {
+            beforeEach(() => {
+              (comp as any).bundle = bundleWithCurrentPrimary;
+              comp.onSubmit();
+            });
+
+            it('should call patch with a remove operation', () => {
+              expect(bundleDataService.patch).toHaveBeenCalledWith(bundleWithCurrentPrimary, [jasmine.objectContaining({
+                op: 'remove'
+              })]);
+            });
+          });
+        });
+      });
+      describe('when the primaryBitstream did not changed', () => {
+        describe('the current bitstream stayed the primary bitstream', () => {
+          beforeEach(() => {
+            const rawValue = Object.assign(comp.formGroup.getRawValue(), { fileNamePrimaryContainer: { primaryBitstream: true } });
+            spyOn(comp.formGroup, 'getRawValue').and.returnValue(rawValue);
+            (comp as any).bundle = bundleWithCurrentPrimary;
+            comp.onSubmit();
+          });
+          it('should not call patch on the bundle data service', () => {
+            expect(bundleDataService.patch).not.toHaveBeenCalled();
+          });
+        });
+        describe('the bitstream was not and did not become the primary bitstream', () => {
+          beforeEach(() => {
+            const rawValue = Object.assign(comp.formGroup.getRawValue(), { fileNamePrimaryContainer: { primaryBitstream: false } });
+            spyOn(comp.formGroup, 'getRawValue').and.returnValue(rawValue);
+            (comp as any).bundle = bundleWithDifferentPrimary;
+            comp.onSubmit();
+          });
+          it('should not call patch on the bundle data service', () => {
+            expect(bundleDataService.patch).not.toHaveBeenCalled();
+          });
+        });
+      });
+
       describe('when selected format hasn\'t changed', () => {
         beforeEach(() => {
           comp.onSubmit();
@@ -357,6 +484,7 @@ describe('EditBitstreamPageComponent', () => {
           {provide: BitstreamDataService, useValue: bitstreamService},
           {provide: DSONameService, useValue: dsoNameService},
           {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
+          { provide: BundleDataService, useValue: bundleDataService },
           ChangeDetectorRef
         ],
         schemas: [NO_ERRORS_SCHEMA]
@@ -370,7 +498,6 @@ describe('EditBitstreamPageComponent', () => {
       router = TestBed.inject(Router);
       spyOn(router, 'navigate');
     });
-
 
     describe('on startup', () => {
       let rawForm;
@@ -475,6 +602,7 @@ describe('EditBitstreamPageComponent', () => {
             {provide: BitstreamDataService, useValue: bitstreamService},
             {provide: DSONameService, useValue: dsoNameService},
             {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
+            { provide: BundleDataService, useValue: bundleDataService },
             ChangeDetectorRef
           ],
           schemas: [NO_ERRORS_SCHEMA]
