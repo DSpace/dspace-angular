@@ -13,6 +13,8 @@ import { NativeWindowRef, NativeWindowService } from '../services/window.service
 export const CAPTCHA_COOKIE = '_GRECAPTCHA';
 export const CAPTCHA_NAME = 'google-recaptcha';
 
+declare var grecaptcha: any;
+
 /**
  * A GoogleRecaptchaService used to send action and get a token from REST
  */

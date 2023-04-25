@@ -1,19 +1,10 @@
 {
   "out": "./doc",
-  "mode": "modules",
-  "module": "commonjs",
-  "target": "ES5",
   "theme": "default",
-  "name": "Angular 2 UI for DSpace",
+  "name": "Angular User Interface for DSpace",
   "readme": "./README.md",
-  "exclude": "**/*+(spec.ts|po.ts|index.ts|.json|.js|.config.ts|.aot.ts)",
-  "excludeExternals": "true",
-  "ignoreCompilerErrors": "true",
-  "experimentalDecorators": "true",
-  "emitDecoratorMetadata": "true",
-  "moduleResolution": "node",
-  "preserveConstEnums": "true",
-  "stripInternal": "true",
-  "suppressExcessPropertyErrors": "true",
-  "suppressImplicitAnyIndexErrors": "true"
+  "entryPointStrategy":"expand",
+  "entryPoints": ["./src"],
+  "exclude": ["**/*+(spec.ts|index.ts|.json|.json5|.js|.config.ts)", "cypress/**", "webpack/**", "src/themes/**"]
+
 }
