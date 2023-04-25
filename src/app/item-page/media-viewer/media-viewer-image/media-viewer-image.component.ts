@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
@@ -13,15 +13,16 @@ import { AuthService } from '../../../core/auth/auth.service';
   templateUrl: './media-viewer-image.component.html',
   styleUrls: ['./media-viewer-image.component.scss'],
 })
-export class MediaViewerImageComponent implements OnInit {
+export class MediaViewerImageComponent implements OnChanges, OnInit {
   @Input() images: MediaViewerItem[];
   @Input() preview?: boolean;
   @Input() image?: string;
 
   thumbnailPlaceholder = './assets/images/replacement_image.svg';
 
-  galleryOptions: NgxGalleryOptions[];
-  galleryImages: NgxGalleryImage[];
+  galleryOptions: NgxGalleryOptions[] = [];
+
+  galleryImages: NgxGalleryImage[] = [];
 
   /**
    * Whether or not the current user is authenticated
@@ -33,11 +34,7 @@ export class MediaViewerImageComponent implements OnInit {
   ) {
   }
 
-  /**
-   * Thi method sets up the gallery settings and data
-   */
-  ngOnInit(): void {
-    this.isAuthenticated$ = this.authService.isAuthenticated();
+  ngOnChanges(): void {
     this.galleryOptions = [
       {
         preview: this.preview !== undefined ? this.preview : true,
@@ -53,7 +50,6 @@ export class MediaViewerImageComponent implements OnInit {
         previewFullscreen: true,
       },
     ];
-
     if (this.image) {
       this.galleryImages = [
         {
@@ -65,6 +61,11 @@ export class MediaViewerImageComponent implements OnInit {
     } else {
       this.galleryImages = this.convertToGalleryImage(this.images);
     }
+  }
+
+  ngOnInit(): void {
+    this.isAuthenticated$ = this.authService.isAuthenticated();
+    this.ngOnChanges();
   }
 
   /**
