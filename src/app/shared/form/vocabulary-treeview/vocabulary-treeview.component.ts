@@ -1,7 +1,6 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { map } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -43,11 +42,6 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    * The vocabulary entries already selected, if any
    */
   @Input() selectedItems: string[] = [];
-
-  /**
-   * The active modal
-   */
-  @Input() activeModal?: NgbActiveModal;
 
   /**
    * Whether to allow selecting multiple values with checkboxes
@@ -252,7 +246,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    */
   onSelect(item: VocabularyEntryDetail) {
     this.selectedItems.push(item.id);
-    this.activeModal.close(item);
+    this.select.emit(item);
   }
 
   /**
