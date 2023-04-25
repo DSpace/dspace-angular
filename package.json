@@ -78,7 +78,7 @@
     "@ngrx/store": "^15.4.0",
     "@nguniversal/express-engine": "^15.2.0",
     "@ngx-translate/core": "^14.0.0",
-    "@nicky-lenaers/ngx-scroll-to": "^13.0.0",
+    "@nicky-lenaers/ngx-scroll-to": "^14.0.0",
     "@types/grecaptcha": "^3.0.4",
     "angular-idle-preload": "3.0.0",
     "angulartics2": "^12.0.0",
