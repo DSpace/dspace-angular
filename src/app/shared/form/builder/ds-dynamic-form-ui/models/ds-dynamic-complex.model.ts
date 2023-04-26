@@ -1,6 +1,6 @@
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 
-import { hasNoValue, hasValue, isNotEmpty } from '../../../../empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../../empty.util';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { DynamicConcatModel, DynamicConcatModelConfig } from './ds-dynamic-concat.model';
@@ -48,6 +48,15 @@ export class DynamicComplexModel extends DynamicConcatModel {
 
     let value = '';
     let allFormValuesEmpty = true;
+
+
+    // Validate input value (if the user types something the input validation is processed here)
+    formValues.forEach(formValue => {
+      if (isEmpty(formValue)) {
+        return;
+      }
+      formValue.value = this.validateInput(formValue.value);
+    });
 
     formValues.forEach((formValue, index) => {
       if (isNotEmpty(formValue) && isNotEmpty(formValue.value)) {
@@ -131,5 +140,18 @@ export class DynamicComplexModel extends DynamicConcatModel {
 
   private validateInputLength(value) {
     return value.length > DEFAULT_MAX_CHARS_TO_AUTOCOMPLETE;
+  }
+
+  /**
+   * Remove separator (;) from the single input field in the complex group.
+   * @param value just value from one input field
+   */
+  private validateInput(value: string) {
+    // Do not validate suggestion for the complex input field because in the suggestion values are separater by the
+    // separator character.
+    if (value.startsWith(AUTOCOMPLETE_COMPLEX_PREFIX)) {
+      return value;
+    }
+    return value.replace(new RegExp(';', 'g'), '');
   }
 }
