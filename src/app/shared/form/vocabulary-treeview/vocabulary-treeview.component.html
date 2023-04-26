@@ -33,8 +33,8 @@
                 container="body"
                 (click)="onSelect(node.item)">
           <span *ngIf="multiSelect" class="form-check">
-            <input class="form-check-input" type="checkbox" id="leaf-node-checkbox" [checked]="node.isSelected">
-            <label class="form-check-label" for="leaf-node-checkbox">{{node.item.display}}</label>
+            <input class="form-check-input" type="checkbox" id="leaf-node-checkbox_{{node.item.id}}" [checked]="node.isSelected">
+            <label class="form-check-label" for="leaf-node-checkbox_{{node.item.id}}">{{node.item.display}}</label>
           </span>
           <span *ngIf="!multiSelect">{{node.item.display}}</span>
         </button>
@@ -57,8 +57,8 @@
                 container="body"
                 (click)="onSelect(node.item)">
           <span *ngIf="multiSelect" class="form-check">
-            <input class="form-check-input" type="checkbox" id="expandable-node-checkbox" [checked]="node.isSelected">
-            <label class="form-check-label" for="expandable-node-checkbox">{{node.item.display}}</label>
+            <input class="form-check-input" type="checkbox" id="expandable-node-checkbox_{{node.item.id}}" [checked]="node.isSelected">
+            <label class="form-check-label" for="expandable-node-checkbox_{{node.item.id}}">{{node.item.display}}</label>
           </span>
           <span *ngIf="!multiSelect">{{node.item.display}}</span>
      </button>

@@ -245,8 +245,12 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    * Method called on entry select
    */
   onSelect(item: VocabularyEntryDetail) {
-    this.selectedItems.push(item.id);
-    this.select.emit(item);
+    if (!this.selectedItems.includes(item.id)) {
+      this.selectedItems.push(item.id);
+      this.select.emit(item);
+    } else {
+      this.selectedItems = this.selectedItems.filter((detail: string) => { return detail !== item.id; });
+    }
   }
 
   /**
