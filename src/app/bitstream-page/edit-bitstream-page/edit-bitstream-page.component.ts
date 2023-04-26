@@ -291,7 +291,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     },
     primaryBitstream: {
       grid: {
-        host: 'col col-sm-4 d-inline-block switch'
+        host: 'col col-sm-4 d-inline-block switch border-0'
       }
     },
     description: {
