@@ -294,7 +294,7 @@
 	"advanced-workflow-action.rating.form.rating.error": "Bạn phải đánh giá tài liệu/ thực thế này",
 	"advanced-workflow-action.rating.form.review.label": "Kiểm duyệt",
 	"advanced-workflow-action.rating.form.review.error": "Bạn phải nhập nội dung đánh giá để gửi bản xếp hạng này",
-	"advanced-workflow-action.rating.description": "Vui lòng chọn một xếp hạng bên dưới"
+	"advanced-workflow-action.rating.description": "Vui lòng chọn một xếp hạng bên dưới",
 	"advanced-workflow-action.rating.description-requiredDescription": "Vui lòng chọn xếp hạng bên dưới và thêm đánh giá",
 	"advanced-workflow-action.select-reviewer.description-single": "Vui lòng chọn một người kiểm duyệt dưới đây trước khi tải tài liệu lên",
 	"advanced-workflow-action.select-reviewer.description-multiple": "Vui lòng chọn một hoặc nhiều người kiểm duyệt dưới đây trước khi tải tài liệu lên",
