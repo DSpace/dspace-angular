@@ -371,7 +371,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * Path to patch primary bitstream on the bundle
    * @private
    */
-  private readonly primaryBitstreamPath = '/primarybitstream';
+  private readonly primaryBitstreamPath = '/primaryBitstreamUUID';
 
   constructor(private route: ActivatedRoute,
               private router: Router,

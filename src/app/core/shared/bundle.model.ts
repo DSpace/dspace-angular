@@ -1,4 +1,4 @@
-import { autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
+import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 
 import { Observable } from 'rxjs';
 
@@ -30,9 +30,9 @@ export class Bundle extends DSpaceObject {
   };
 
   /**
-   * The ID of the primaryBitstream of this Bundle
+   * The UUID of the primaryBitstream of this Bundle
    */
-  @autoserializeAs('primarybitstream')
+  @autoserialize
   primaryBitstreamUUID: string;
 
   /**
