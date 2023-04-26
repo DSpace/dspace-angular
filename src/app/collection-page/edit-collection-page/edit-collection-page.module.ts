@@ -13,6 +13,7 @@ import { CollectionSourceControlsComponent } from './collection-source/collectio
 import { ResourcePoliciesModule } from '../../shared/resource-policies/resource-policies.module';
 import { FormModule } from '../../shared/form/form.module';
 import { ComcolModule } from '../../shared/comcol/comcol.module';
+import { CollectionAccessControlComponent } from './collection-access-control/collection-access-control.component';
 
 /**
  * Module that contains all components related to the Edit Collection page administrator functionality
@@ -33,7 +34,7 @@ import { ComcolModule } from '../../shared/comcol/comcol.module';
     CollectionRolesComponent,
     CollectionCurateComponent,
     CollectionSourceComponent,
-
+    CollectionAccessControlComponent,
     CollectionSourceControlsComponent,
     CollectionAuthorizationsComponent
   ]

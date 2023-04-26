@@ -965,6 +965,10 @@
   "collection.edit.return": "Back",
 
 
+  "collection.edit.tabs.access-control.head": "Access Control",
+
+  "collection.edit.tabs.access-control.title": "Collection Edit - Access Control",
+
 
   "collection.edit.tabs.curate.head": "Curate",
 
@@ -1200,6 +1204,10 @@
   "community.edit.tabs.curate.head": "Curate",
 
   "community.edit.tabs.curate.title": "Community Edit - Curate",
+
+  "community.edit.tabs.access-control.head": "Access Control",
+
+  "community.edit.tabs.access-control.title": "Community Edit - Access Control",
 
   "community.edit.tabs.metadata.head": "Edit Metadata",
 
@@ -2291,6 +2299,10 @@
   "item.edit.tabs.curate.head": "Curate",
 
   "item.edit.tabs.curate.title": "Item Edit - Curate",
+
+  "item.edit.tabs.access-control.head": "Access Control",
+
+  "item.edit.tabs.access-control.title": "Item Edit - Access Control",
 
   "item.edit.tabs.metadata.head": "Metadata",
 

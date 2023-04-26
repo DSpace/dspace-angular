@@ -38,6 +38,7 @@ import { IdentifierDataService } from '../../core/data/identifier-data.service';
 import { IdentifierDataComponent } from '../../shared/object-list/identifier-data/identifier-data.component';
 import { ItemRegisterDoiComponent } from './item-register-doi/item-register-doi.component';
 import { DsoSharedModule } from '../../dso-shared/dso-shared.module';
+import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
 
 
 /**
@@ -81,7 +82,8 @@ import { DsoSharedModule } from '../../dso-shared/dso-shared.module';
     VirtualMetadataComponent,
     ItemAuthorizationsComponent,
     IdentifierDataComponent,
-    ItemRegisterDoiComponent
+    ItemRegisterDoiComponent,
+    ItemAccessControlComponent
   ],
   providers: [
     BundleDataService,
