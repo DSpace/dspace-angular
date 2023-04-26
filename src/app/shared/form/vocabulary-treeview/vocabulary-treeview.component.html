@@ -33,7 +33,9 @@
                 container="body"
                 (click)="onSelect(node.item)">
           <span *ngIf="multiSelect" class="form-check">
-            <input class="form-check-input" type="checkbox" id="leaf-node-checkbox_{{node.item.id}}" [checked]="node.isSelected">
+            <!-- checkbox (click) needs to be stopped, to prevent that button (click) gets called twice -->
+            <input class="form-check-input" type="checkbox" id="leaf-node-checkbox_{{node.item.id}}"
+                   [checked]="node.isSelected" (click)="$event.stopPropagation()">
             <label class="form-check-label" for="leaf-node-checkbox_{{node.item.id}}">{{node.item.display}}</label>
           </span>
           <span *ngIf="!multiSelect">{{node.item.display}}</span>
@@ -57,7 +59,9 @@
                 container="body"
                 (click)="onSelect(node.item)">
           <span *ngIf="multiSelect" class="form-check">
-            <input class="form-check-input" type="checkbox" id="expandable-node-checkbox_{{node.item.id}}" [checked]="node.isSelected">
+            <!-- checkbox (click) needs to be stopped, to prevent that button (click) gets called twice -->
+            <input class="form-check-input" type="checkbox" id="expandable-node-checkbox_{{node.item.id}}"
+                   [checked]="node.isSelected" (click)="$event.stopPropagation()">
             <label class="form-check-label" for="expandable-node-checkbox_{{node.item.id}}">{{node.item.display}}</label>
           </span>
           <span *ngIf="!multiSelect">{{node.item.display}}</span>
