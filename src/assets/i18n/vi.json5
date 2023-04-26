@@ -11,17 +11,14 @@
   "500.help": "Máy chủ tạm thời không thể phục vụ yêu cầu của bạn do đang trong giai đoạn bảo trì hoặc vấn đề về dung lượng. Vui lòng thử lại sau.",
   "500.link.home-page": "Đi tới trang chủ",
   "500.page-internal-server-error": "Dịch vụ không sẵn sàng",
-  
   "access-status.embargo.listelement.badge": "Ngăn chặn",
   "access-status.metadata.only.listelement.badge": "Chỉ siêu dữ liệu",
   "access-status.open.access.listelement.badge": "Truy cập mở",
   "access-status.restricted.listelement.badge": "Hạn chế",
   "access-status.unknown.listelement.badge": "Không xác định",
-  
   "admin.curation-tasks.breadcrumbs": "Thu thập các tác vụ hệ thống",
   "admin.curation-tasks.header": "Thu thập các tác vụ hệ thống",
   "admin.curation-tasks.title": "Thu thập các tác vụ hệ thống",
-  
   "admin.registries.bitstream-formats.breadcrumbs": "Tạo định dạng",
   "admin.registries.bitstream-formats.create.breadcrumbs": "Định dạng tệp tin",
   "admin.registries.bitstream-formats.create.failure.content": "Đã xảy ra lỗi khi tạo định dạng tệp tin mới.",
@@ -106,7 +103,6 @@
   "admin.registries.schema.notification.success": "Thành công",
   "admin.registries.schema.return": "Quay lại",
   "admin.registries.schema.title": "Tạo lược đồ thông tin mô tả",
-  
   "admin.access-control.epeople.actions.delete": "Xóa người dùng",
   "admin.access-control.epeople.actions.impersonate": "Mạo danh người dùng",
   "admin.access-control.epeople.actions.reset": "Cài lại mật khẩu",
@@ -134,7 +130,7 @@
   "admin.access-control.epeople.form.notification.edited.success": "Chỉnh sửa thành công người dùng \"{{name}}\"",
   "admin.access-control.epeople.form.requireCertificate": "Khóa tài khoản",
   "admin.access-control.epeople.form.return": "Quay lại",
-  "admin.access-control.epeople.form.table.collectionOrCommunity": "Đơn vị\/ Bộ sưu tập",
+  "admin.access-control.epeople.form.table.collectionOrCommunity": "Đơn vị/ Bộ sưu tập",
   "admin.access-control.epeople.form.table.id": "ID",
   "admin.access-control.epeople.form.table.name": "Tên",
   "admin.access-control.epeople.head": "Người dùng",
@@ -161,7 +157,7 @@
   "admin.access-control.groups.button.see-all": "Duyệt toàn bộ",
   "admin.access-control.groups.form.actions.delete": "Xóa nhóm người dùng",
   "admin.access-control.groups.form.alert.permanent": "Nhóm này là cố định vì vậy nó không thể bị chỉnh sửa hoặc xóa. Bạn vẫn có thể thêm và loại bỏ thành viên trong nhóm tại trang này.",
-  "admin.access-control.groups.form.alert.workflowGroup": "Không thể chỉnh sửa hoặc xóa nhóm này vì nó tương ứng với một vai trò trong quá trình gửi và quy trình xử lý trong \"{{name}}\" {{comcol}}. Bạn có thể xóa nó từ thẻ <a href='{{comcolEditRolesRoute}}'>assign roles<\/a> trên trang chỉnh sửa {{comcol}}. Bạn vẫn có thể thêm và loại bỏ thành viên nhóm bằng trang này.\"",
+  "admin.access-control.groups.form.alert.workflowGroup": "Không thể chỉnh sửa hoặc xóa nhóm này vì nó tương ứng với một vai trò trong quá trình gửi và quy trình xử lý trong \"{{name}}\" {{comcol}}. Bạn có thể xóa nó từ thẻ <a href='{{comcolEditRolesRoute}}'>assign roles</a> trên trang chỉnh sửa {{comcol}}. Bạn vẫn có thể thêm và loại bỏ thành viên nhóm bằng trang này.\"",
   "admin.access-control.groups.form.delete-group.modal.cancel": "Hủy",
   "admin.access-control.groups.form.delete-group.modal.confirm": "Xóa",
   "admin.access-control.groups.form.delete-group.modal.header": "Xóa nhóm người dùng \"{{ dsoName }}\"",
@@ -185,7 +181,7 @@
   "admin.access-control.groups.form.members-list.search.head": "Thêm người dùng",
   "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (chính xác)",
   "admin.access-control.groups.form.members-list.search.scope.metadata": "Siêu dữ liệu",
-  "admin.access-control.groups.form.members-list.table.edit": "Loại bỏ \/ Thêm",
+  "admin.access-control.groups.form.members-list.table.edit": "Loại bỏ / Thêm",
   "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Thêm thành viên với tên \"{{name}}\"",
   "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Loại bỏ thành viên với tên \"{{name}}\"",
   "admin.access-control.groups.form.members-list.table.email": "Email",
@@ -217,8 +213,8 @@
   "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Loại bỏ thành công nhóm người dùng: \"{{name}}\" ra khỏi nhóm",
   "admin.access-control.groups.form.subgroups-list.search.button": "Tìm kiếm",
   "admin.access-control.groups.form.subgroups-list.search.head": "Thêm nhóm người dùng con",
-  "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Đơn vị\/ Bộ sưu tập",
-  "admin.access-control.groups.form.subgroups-list.table.edit": "Loại bỏ \/ Thêm",
+  "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Đơn vị/ Bộ sưu tập",
+  "admin.access-control.groups.form.subgroups-list.table.edit": "Loại bỏ / Thêm",
   "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Thêm nhóm người dùng con với tên \"{{name}}\"",
   "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Loại bỏ nhóm người dùng con với tên \"{{name}}\"",
   "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Nhóm người dùng hiện tại",
@@ -233,7 +229,7 @@
   "admin.access-control.groups.search.head": "Tìm kiếm nhóm người dùng",
   "admin.access-control.groups.search.placeholder": "Tìm kiếm nhóm người dùng...",
   "admin.access-control.groups.singleGroup.breadcrumbs": "Chỉnh sửa nhóm người dùng",
-  "admin.access-control.groups.table.collectionOrCommunity": "Đơn vị\/ Bộ sưu tập",
+  "admin.access-control.groups.table.collectionOrCommunity": "Đơn vị/ Bộ sưu tập",
   "admin.access-control.groups.table.edit": "Chỉnh sửa",
   "admin.access-control.groups.table.edit.buttons.edit": "Chỉnh sửa \"{{name}}\"",
   "admin.access-control.groups.table.edit.buttons.remove": "Xóa \"{{name}}\"",
@@ -243,7 +239,6 @@
   "admin.access-control.groups.title": "Nhóm người dùng",
   "admin.access-control.groups.title.addGroup": "Tạo nhóm người dùng",
   "admin.access-control.groups.title.singleGroup": "Chỉnh sửa nhóm người dùng",
-  
   "admin.search.breadcrumbs": "Tìm kiếm quản trị",
   "admin.search.collection.edit": "Chỉnh sửa",
   "admin.search.community.edit": "Chỉnh sửa",
@@ -255,9 +250,7 @@
   "admin.search.item.reinstate": "Khôi phục",
   "admin.search.item.withdraw": "Ẩn",
   "admin.search.title": "Tìm kiếm quản trị",
-  
   "administrativeView.search.results.head": "Tìm kiếm quản trị",
-  
   "admin.workflow.breadcrumbs": "Quản trị luồng công việc",
   "admin.workflow.title": "Quản trị luồng công việc",
   "admin.workflow.item.workflow": "Luồng công việc",
@@ -266,7 +259,6 @@
   "admin.workflow.item.send-back": "Gửi trở lại",
   "admin.workflow.item.policies": "Policies",
   "admin.workflow.item.supervision": "Supervision",
-  
   "admin.batch-import.breadcrumbs": "Nhập dữ liệu theo lô",
   "admin.batch-import.page.dropMsg": "Kéo thả file ZIP để nhập vào",
   "admin.batch-import.page.dropMsgReplace": "Kéo thả để thay thế file ZIP cần nhập vào",
@@ -276,7 +268,6 @@
   "admin.batch-import.page.remove": "xóa",
   "admin.batch-import.title": "Nhập dữ liệu theo lô",
   "admin.batch-import.page.validateOnly.hint": "Nếu chọn tùy chọn \"Kiểm tra file ZIP tải lên\", hệ thống sẽ chạy một tiến trình kiểm tra việc nhập dữ liệu theo lô thay vì đổ trực tiếp dữ liệu lên hệ thống. Việc này giúp cán bộ xác nhận lại kết quả của quy trình nhập trước khi nhập dữ liệu chính thức. Bỏ chọn tùy chọn này để đổ lô tài liệu lên hệ thống.",
-  
   "admin.metadata-import.breadcrumbs": "Nhập thông tin mô tả",
   "admin.metadata-import.page.button.proceed": "Tiếp tục",
   "admin.metadata-import.page.button.return": "Quay lại",
@@ -289,7 +280,6 @@
   "admin.metadata-import.page.validateOnly": "Kiểm tra nhập lô siêu dữ liệu",
   "admin.metadata-import.page.validateOnly.hint": "Nếu chọn tùy chọn \"Kiểm tra nhập lô siêu dữ liệu\", hệ thống sẽ chạy một tiến trình kiểm tra nhập lô siêu dữ liệu thay vì đổ trực tiếp dữ liệu lên hệ thống. Bỏ chọn tùy chọn này để tiến hành nhập dữ liệu chính thức.",
   "admin.metadata-import.title": "Nhập thông tin mô tả",
-  
   "advanced-workflow-action.rating.form.rating.label": "Xếp hạng",
   "advanced-workflow-action.rating.form.rating.error": "Bạn phải đánh giá tài liệu/ thực thế này",
   "advanced-workflow-action.rating.form.review.label": "Kiểm duyệt",
@@ -320,16 +310,12 @@
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "Không có nhóm hoạt động, gửi tên trước.",
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "Chưa có thành viên nào trong nhóm, tìm kiếm để thêm.",
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "Không tìm thấy người dùng",
-  "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "Không có người kiểm duyệt nào được chọn.",
-  
+  "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "Không có người kiểm duyệt nào được chọn.", 
   "auth.errors.invalid-user": "Địa chỉ email hoặc mật khẩu không hợp lệ.",
-  
   "auth.messages.expired": "Phiên của bạn đã hết hạn. Xin vui lòng đăng nhập lại.",
   "auth.messages.token-refresh-failed": "Làm mới mã token phiên làm việc của bạn không thành công. Vui lòng đăng nhập lại.",
-  
   "bitstream.download.page": "Đang tải xuống {{bitstream}}... ",
   "bitstream.download.page.back": "Quay lại",
-  
   "bitstream.edit.authorizations.link": "Chỉnh sửa chính sách của tệp tin",
   "bitstream.edit.authorizations.title": "Chỉnh sửa chính sách của tệp tin",
   "bitstream.edit.bitstream": "Tệp tin:",
@@ -358,7 +344,6 @@
   "bitstream.edit.notifications.saved.title": "Đã lưu tệp tin",
   "bitstream.edit.return": "Quay lại",
   "bitstream.edit.title": "Chỉnh sửa tệp tin",
-  
   "bitstream-request-a-copy.alert.canDownload1": "Bạn đã có quyền truy cập tệp tin này. Nếu muốn tải tệp tin click ",
   "bitstream-request-a-copy.alert.canDownload2": "vào đây",
   "bitstream-request-a-copy.allfiles.label": "Các tệp tin",
@@ -378,17 +363,13 @@
   "bitstream-request-a-copy.submit": "Yêu cầu bản sao",
   "bitstream-request-a-copy.submit.error": "Đã xảy ra lỗi trong quá trình gửi yêu cầu tài liệu.",
   "bitstream-request-a-copy.submit.success": "Yêu cầu tài liệu đã được gửi thành công.",
-  
   "browse.back.all-results": "Tất cả kết quả",
-  
   "browse.comcol.by.author": "Tác giả",
   "browse.comcol.by.dateissued": "Năm xuất bản",
   "browse.comcol.by.subject": "Chủ đề",
   "browse.comcol.by.title": "Nhan đề",
   "browse.comcol.head": "Duyệt",
-  
   "browse.empty": "Không có tài liệu nào để hiển thị.",
-  
   "browse.metadata.author": "Tác giả",
   "browse.metadata.author.breadcrumbs": "Duyệt theo tác giả",
   "browse.metadata.dateissued": "Năm xuất bản",
@@ -399,11 +380,9 @@
   "browse.metadata.title.breadcrumbs": "Duyệt theo nhan đề",
   "browse.metadata.topic": "Topic",
   "browse.metadata.type": "Kiểu tài liệu",
-  
   "pagination.next.button": "Tiếp theo",
   "pagination.previous.button": "Quay lại",
   "pagination.next.button.disabled.tooltip": "Không còn trang kết quả khác",
-  
   "browse.startsWith.choose_year.label": "Chọn năm xuất bản",
   "browse.startsWith.choose_year": "(Năm)",
   "browse.startsWith.jump": "Chuyển tới một điểm trong chỉ mục:",
@@ -425,18 +404,13 @@
   "browse.startsWith.type_date": "Hoặc nhập một ngày  (năm-tháng) và nhấp \"Duyệt\"",
   "browse.startsWith.type_date.label": "Hoặc nhập một ngày  (năm-tháng) à nhấp Duyệt",
   "browse.startsWith.type_text": "Nhập một vài ký tự đầu tiên và nhấp vào nút Duyệt",
-  
   "browse.title": "Duyệt {{ collection }} theo {{ field }}{{ startsWith }} {{ value }}",
   "browse.title.page": "Duyệt {{ collection }} theo {{ field }} {{ value }}",
-  
   "search.browse.item-back": "Quay lại kết quả tìm kiếm",
-  
   "chips.remove": "Loại bỏ chip",
-  
   "claimed-approved-search-result-list-element.title": "Chấp nhận",
   "claimed-declined-search-result-list-element.title": "Đã bị từ chối, đã gửi lại cho người nhập liệu",
   "claimed-declined-task-search-result-list-element.title": "Bị từ chối, đã gửi lại tới người quản lý kiểm duyệt",
-  
   "collection.create.head": "Tạo một Bộ sưu tập",
   "collection.create.notifications.success": "Tạo bộ sưu tập thành công",
   "collection.create.sub-head": "Tạo một bộ sưu tập cho đơnn vị {{ parent }}",
@@ -545,7 +519,7 @@
   "collection.select.table.title": "Nhan đề",
   "collection.source.controls.harvest.last": "Lần thu thập trước:",
   "collection.source.controls.harvest.message": "Thông tin thu thập:",
-  "collection.source.controls.harvest.no-information": "N\/A",
+  "collection.source.controls.harvest.no-information": "N/A",
   "collection.source.controls.harvest.start": "Thời gian bắt đầu thu thập:",
   "collection.source.controls.harvest.status": "Trạng thái thu thập:",
   "collection.source.controls.head": "Quản lý thu thập:",
@@ -568,7 +542,6 @@
   "collection.source.controls.test.submit.error": "Đã xảy ra lỗi khi bắt đầu cài đặt thử nghiệm",
   "collection.source.update.notifications.error.content": "Các cài đặt đã được kiểm tra và không hoạt động.",
   "collection.source.update.notifications.error.title": "Lỗi máy chủ",
-  
   "community.create.head": "Tạo đơn vị",
   "community.create.notifications.success": "Tạo đơn vị thành công",
   "community.create.sub-head": "Tạo một đơn vị con cho đơn vị {{ parent }}",
@@ -621,7 +594,6 @@
   "communityList.showMore": "Hiển thị thêm",
   "communityList.tabTitle": "Danh sách đơn vị",
   "communityList.title": "Danh sách các đơn vị",
-  
   "comcol-role.edit.bitstream_read.anonymous-group": "Quyền đọc được mặc định cho các tài liệu hiện được đặt cho nhóm người dùng ẩn danh.",
   "comcol-role.edit.bitstream_read.description": "Người có quyền đọc tệp tin có khả năng tải các tệp tin về máy tính cá nhân để sử dụng",
   "comcol-role.edit.bitstream_read.name": "Quyền đọc tệp tin mặc định",
@@ -646,24 +618,19 @@
   "comcol-role.edit.reviewer.name": "Người kiểm duyệt",
   "comcol-role.edit.submitters.description": "Tài khoản người dùng và nhóm người dùng có quyền tải tài liệu mới vào bộ sưu tập này",
   "comcol-role.edit.submitters.name": "Người tải lên",
-  
   "community.form.abstract": "Mô tả ngắn",
   "community.form.description": "Văn bản giới thiệu (HTML)",
   "community.form.errors.title.required": "Vui lòng nhập tên đơn vị",
   "community.form.rights": "Thông tin bản quyền (HTML)",
   "community.form.tableofcontents": "Tin tức (HTML)",
   "community.form.title": "Tên",
-  
   "community.page.edit": "Chỉnh sửa đơn vị",
   "community.page.handle": "URL",
   "community.page.license": "Giấy phép",
   "community.page.news": "Tin tức",
-  
   "community.all-lists.head": "Đơn vị con và bộ sưu tập",
-  
   "community.sub-collection-list.head": "Các bộ sưu tập của đơn vị này",
   "community.sub-community-list.head": "Các đơn vị con của đơn vị này",
-  
   "cookies.consent.accept-all": "Chấp thuận tất cả",
   "cookies.consent.accept-selected": "Chấp nhận các mục đã chọn",
   "cookies.consent.app.description.acknowledgement": "Bắt buộc để lưu sự xác nhận và đồng ý của bạn",
@@ -700,7 +667,6 @@
   "cookies.consent.purpose.statistical": "Thống kê",
   "cookies.consent.save": "Lưu",
   "cookies.consent.update": "Có 1 vài thay đổi từ lần ghé thăm cuối cùng của bạn vui lòng cập nhập sự đồng ý của bạn.",
-  
   "curation-task.task.checklinks.label": "\"Kiểm tra các link trong thông tin mô tả\"",
   "curation-task.task.citationpage.label": "Tạo trang trích dẫn",
   "curation-task.task.noop.label": "NOOP",
@@ -709,8 +675,7 @@
   "curation-task.task.requiredmetadata.label": "Kiểm tra các trường dữ liệu bắt buộc",
   "curation-task.task.translate.label": "Bộ dịch của Microsoft",
   "curation-task.task.vscan.label": "Quét Virus",
-  
-  "curation.form.handle.hint": "Gợi ý: Nhập [your-handle-prefix]\/0 để chạy một tác vụ trên toàn bộ trang (chú ý rằng không phải tất cả tác vụ đều hỗ trợ khả năng này)",
+  "curation.form.handle.hint": "Gợi ý: Nhập [your-handle-prefix]/0 để chạy một tác vụ trên toàn bộ trang (chú ý rằng không phải tất cả tác vụ đều hỗ trợ khả năng này)",
   "curation.form.handle.label": "Handle:",
   "curation.form.submit": "Bắt đầu",
   "curation.form.submit.error.content": "Đã có lỗi xảy ra khi cố gắng khởi động tác vụ kiểm tra.",
@@ -719,16 +684,13 @@
   "curation.form.submit.success.content": "Bạn sẽ được điều hướng đến trang phản hồi quy trình.",
   "curation.form.submit.success.head": "Tác vụ kiểm tra đã khởi động thành công",
   "curation.form.task-select.label": "Tác vụ:",
-  
   "deny-request-copy.email.message": "Kính gửi {{ recipientName }}\n\nLiên quan đến yêu cầu của bạn Thư viện rất tiếc phải thông báo với bạn rằng chúng tôi không thể gửi cho bạn bản sao của (các) tệp bạn đã yêu cầu liên quan đến tài liệu: \"{{ itemUrl }}\" ({{ itemName }}).\n\nTrân trọng\n,{{ authorName}}<{{ authorEmail }}>",
   "deny-request-copy.email.subject": "Yêu cầu bản sao tài liệu",
   "deny-request-copy.error": "Đã xảy ra lỗi",
   "deny-request-copy.header": "Từ chối yêu cầu bản sao tài liệu",
   "deny-request-copy.intro": "Tin nhắn này sẽ được gửi đến người yêu cầu",
   "deny-request-copy.success": "Từ chối thành công yêu cầu tài liệu",
-  
   "dso.name.untitled": "Không có nhan đề",
-  
   "dso-selector.claim.item.body": "Đây là những hồ sơ hiện có có thể liên quan đến bạn. Nếu bạn nhận ra mình ở một trong những hồ sơ này hãy chọn hồ sơ đó và trên trang chi tiết hãy chọn xác nhận hồ sơ. Nếu không bạn có thể tạo một hồ sơ mới từ đầu bằng cách sử dụng nút bên dưới.",
   "dso-selector.claim.item.create-from-scratch": "Tạo hồ sơ mới",
   "dso-selector.claim.item.head": "Mẹo quản lý hồ sơ",
@@ -759,7 +721,6 @@
   "dso-selector.set-scope.community.head": "Chọn một phạm vi tìm kiếm",
   "dso-selector.set-scope.community.input-header": "Tìm kiếm một đơn vị hoặc bộ sưu tập",
   "dso-selector.set-scope.community.or-divider": "hoặc",
-  
   "supervision-group-selector.header": "Supervision Group Selector",
   "supervision-group-selector.select.type-of-order.label": "Select a type of Order",
   "supervision-group-selector.select.type-of-order.option.none": "NONE",
@@ -773,7 +734,6 @@
   "supervision-group-selector.notification.create.success.title": "Successfully created supervision order for group {{ name }}",
   "supervision-group-selector.notification.create.failure.title": "Error",
   "supervision-group-selector.notification.create.already-existing" : "A supervision order already exists on this item for selected group",
-  
   "confirmation-modal.delete-eperson.cancel": "Hủy",
   "confirmation-modal.delete-eperson.confirm": "Xóa",
   "confirmation-modal.delete-eperson.header": "Xóa người dùng \"{{ dsoName }}\"",
@@ -797,7 +757,6 @@
   "confirmation-modal.reset-password-eperson.cancel": "Hủy",
   "confirmation-modal.reset-password-eperson.confirm": "Thiết lập lại mật khẩu",
   "confirmation-modal.reset-password-eperson.info": "Bạn có chắc chắn muốn thiết lập lại mật khẩu cho người dùng \"{{ dsoName }}\"",
-  
   "error.bitstream": "Lỗi tìm kiếm tệp tin",
   "error.browse-by": "Lỗi tìm kiếm tài liệu",
   "error.collection": "Lỗi tìm kiếm bộ sưu tập",
@@ -827,11 +786,8 @@
   "error-page.description.404": "không tìm thấy trang",
   "error-page.description.500": "Dịch vụ không sẵn sàng",
   "error-page.orcid.generic-error": "Đã xảy ra lỗi khi đăng nhập qua ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists contact the administrator",
-  
   "feed.description": "Nguồn cấp dữ liệu tổng hợp",
-  
   "file-section.error.header": "Lỗi khi lấy tệp cho tài liệu này",
-  
   "footer.copyright": "bản quyền © 2002-{{ year }}",
   "footer.link.cookies": "Cài đặt Cookie",
   "footer.link.dspace": "Phần mềm thư viện số",
@@ -839,7 +795,6 @@
   "footer.link.feedback": "Gửi phản hồi",
   "footer.link.lyrasis": "LYRASIS",
   "footer.link.privacy-policy": "Chính sách riêng tư",
-  
   "forgot-email.form.email": "Địa chỉ Email *",
   "forgot-email.form.email.error.pattern": "Vui lòng nhập một địa chỉ email hợp lệ",
   "forgot-email.form.email.error.required": "Vui lòng nhập địa chỉ email",
@@ -851,7 +806,6 @@
   "forgot-email.form.submit": "Lưu",
   "forgot-email.form.success.content": "Một email đã được gửi tới địa chỉ {{ email }} trong đó có chứa URL và các hướng dẫn chi tiết hơn.",
   "forgot-email.form.success.head": "Email xác nhận đã được gửi tới bạn",
-  
   "forgot-password.form.card.security": "Bảo mật",
   "forgot-password.form.error.empty-password": "Vui lòng nhập mật khẩu mới trong ô dưới đây.",
   "forgot-password.form.error.matching-passwords": "Hai mật khẩu không trùng khớp.",
@@ -866,7 +820,6 @@
   "forgot-password.form.notification.success.title": "Hoàn thành đặt lại mật khẩu",
   "forgot-password.form.submit": "Gửi mật khẩu",
   "forgot-password.title": "Quên mật khẩu",
-  
   "form.add": "Thêm",
   "form.add-help": "Nhấp vào đây để thêm mục hiện tại và một mục khác",
   "form.cancel": "Hủy",
@@ -894,7 +847,6 @@
   "form.search": "Tìm kiếm",
   "form.search-help": "Nhấp vào đây để tìm kiếm thư từ đang tồn tại",
   "form.submit": "Lưu",
-  
   "grant-deny-request-copy.deny": "Không gửi bản sao",
   "grant-deny-request-copy.email.back": "Quay lại",
   "grant-deny-request-copy.email.message": "Tin nhắn",
@@ -916,7 +868,6 @@
   "grant-request-copy.header": "Chấp nhận yêu cầu bản sao tài liệu",
   "grant-request-copy.intro": "Tin nhắn này sẽ được gửi đến người gửi yêu cầu. (Các) tài liệu được yêu cầu sẽ được gửi kèm tin nhắn.",
   "grant-request-copy.success": "Yêu cầu tài liệu đã được xử lý thành công",
-  
   "health.breadcrumbs": "Kiểm tra hệ thống",
   "health-page.error.msg": "Dịch vụ kiểm tra hệ thống tạm thời không khả dụng",
   "health-page.heading": "Kiểm tra hệ thống",
@@ -937,14 +888,12 @@
   "health-page.status.warning.info": "Phát hiện các vấn đề có thể xảy ra",
   "health-page.status-tab": "Trạng thái",
   "health-page.title": "Kiểm tra hệ thống",
-  
   "home.description": "",
   "home.breadcrumbs": "Trang chủ",
   "home.search-form.placeholder": "Tìm kiếm kho lưu trữ",
   "home.title": "Trang chủ",
   "home.top-level-communities.head": "Danh sách đơn vị trong DSpace",
   "home.top-level-communities.help": "Chọn một đơn vị để xem các bộ sưu tập của nó.",
-  
   "info.contact.breadcrumbs": "Thông tin liên hệ",
   "info.contact.head": "Thông tin liên hệ",
   "info.contact.title": "Thông tin liên hệ",
@@ -974,7 +923,6 @@
   "info.privacy.breadcrumbs": "Cam kết bảo mật",
   "info.privacy.head": "Cam kết bảo mật",
   "info.privacy.title": "Cam kết bảo mật",
-  
   "item.alerts.private": "Đây là tài liệu cá nhân",
   "item.alerts.withdrawn": "Tài liệu này đã được chuyển sang chế độ ẩn",
   "item.badge.private": "Cá nhân",
@@ -990,7 +938,7 @@
   "item.bitstreams.upload.notifications.bundle.created.title": "Đã tạo gói tệp tin",
   "item.bitstreams.upload.notifications.upload.failed": "Tải lên thất bại. Vui lòng xác minh nội dung sau trước khi thực hiện lại.",
   "item.bitstreams.upload.title": "Tải tệp tin lên",
-  "item.edit.authorizations.heading": "Với trình chỉnh sửa này bạn có thể xem và chỉnh sửa chính sách phân quyền của một tài liệu (item) cũng như các thành phần của tài liệu đó như: gói tệp tin (bundle) và tệp tin (bitstream). Các tài liệu có thể chứa nhiều gói và mỗi gói có thể chứa nhiều tệp tin. Tài liệu và gói tệp tin thường có các quyền là THÊM\/XÓA\/ĐỌC\/CHỈNH SỬA còn tệp tin chỉ có quyền ĐỌC\/CHỈNH SỬA.",
+  "item.edit.authorizations.heading": "Với trình chỉnh sửa này bạn có thể xem và chỉnh sửa chính sách phân quyền của một tài liệu (item) cũng như các thành phần của tài liệu đó như: gói tệp tin (bundle) và tệp tin (bitstream). Các tài liệu có thể chứa nhiều gói và mỗi gói có thể chứa nhiều tệp tin. Tài liệu và gói tệp tin thường có các quyền là THÊM/XÓA/ĐỌC/CHỈNH SỬA còn tệp tin chỉ có quyền ĐỌC/CHỈNH SỬA.",
   "item.edit.authorizations.title": "Chỉnh sửa chính sách phân quyền của tài liệu",
   "item.edit.bitstreams.bundle.displaying": "Đang hiển thị {{ amount }} trong số {{ total }} tệp tin.",
   "item.edit.bitstreams.bundle.edit.buttons.upload": "Tải lên",
@@ -1294,62 +1242,33 @@
   "item.version.history.table.workflowItem": "Đang kiểm duyệt",
   "item.version.history.table.workspaceItem": "Đang biên mục",
   "item.version.notice": "Đây không phải là phiên bản mới nhất của tài liệu này. Phiên bản mới nhất có thể xem <a href='{{destination}}'>tại đây</a>.",
-  
   "itemtemplate.edit.metadata.add-button": "Add",
-
   "itemtemplate.edit.metadata.discard-button": "Discard",
-
   "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
-
   "itemtemplate.edit.metadata.edit.buttons.drag": "Drag to reorder",
-
   "itemtemplate.edit.metadata.edit.buttons.edit": "Edit",
-
   "itemtemplate.edit.metadata.edit.buttons.remove": "Remove",
-
   "itemtemplate.edit.metadata.edit.buttons.undo": "Undo changes",
-
   "itemtemplate.edit.metadata.edit.buttons.unedit": "Stop editing",
-
   "itemtemplate.edit.metadata.empty": "The item template currently doesn't contain any metadata. Click Add to start adding a metadata value.",
-
   "itemtemplate.edit.metadata.headers.edit": "Edit",
-
   "itemtemplate.edit.metadata.headers.field": "Field",
-
   "itemtemplate.edit.metadata.headers.language": "Lang",
-
   "itemtemplate.edit.metadata.headers.value": "Value",
-
   "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
-
   "itemtemplate.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
-
   "itemtemplate.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-
   "itemtemplate.edit.metadata.notifications.discarded.title": "Changes discarded",
-
   "itemtemplate.edit.metadata.notifications.error.title": "An error occurred",
-
   "itemtemplate.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
-
   "itemtemplate.edit.metadata.notifications.invalid.title": "Metadata invalid",
-
   "itemtemplate.edit.metadata.notifications.outdated.content": "The item template you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-
   "itemtemplate.edit.metadata.notifications.outdated.title": "Changes outdated",
-
   "itemtemplate.edit.metadata.notifications.saved.content": "Your changes to this item template's metadata were saved.",
-
   "itemtemplate.edit.metadata.notifications.saved.title": "Metadata saved",
-
   "itemtemplate.edit.metadata.reinstate-button": "Undo",
-
   "itemtemplate.edit.metadata.reset-order-button": "Undo reorder",
-
-  "itemtemplate.edit.metadata.save-button": "Save",
-  
-  
+  "itemtemplate.edit.metadata.save-button": "Save",  
   "journal.listelement.badge": "Tạp chí",
   "journal.page.description": "Mô tả",
   "journal.page.edit": "Chỉnh sửa tài liệu này",
@@ -1376,8 +1295,6 @@
   "journalvolume.page.issuedate": "Ngày xuất bản",
   "journalvolume.page.titleprefix": "Tập của tạp chí:",
   "journalvolume.page.volume": "Tập",
-  
-  
   "iiif.listelement.badge": "Phương tiện hình ảnh",
   "iiif.page.description": "Mô tả:",
   "iiif.page.doi": "Đường dẫn cố định:",
@@ -1389,7 +1306,6 @@
   "iiifsearchable.page.issue": "Vấn đề:",
   "iiifsearchable.page.titleprefix": "Tài liệu:",
   "iiifviewer.fullscreen.notice": "Sử dụng chế độ toàn màn hình để xem tốt hơn.",
-  
   "loading.bitstream": "Đang tải tệp tin...",
   "loading.bitstreams": "Đang tải tệp tin...",
   "loading.browse-by": "Đang tải tài liệu...",
@@ -1408,7 +1324,6 @@
   "loading.sub-collections": "Đang tải bộ sưu tập con...",
   "loading.sub-communities": "Đang tải đơn vị con...",
   "loading.top-level-communities": "Đang tải các đơn vị lớn...",
-  
   "login.breadcrumbs": "Đăng nhập",
   "login.form.email": "Địa chỉ email",
   "login.form.forgot-password": "Có phải bạn quên mật khẩu?",
@@ -1421,15 +1336,12 @@
   "login.form.shibboleth": "Đăng nhập bằng Shibboleth",
   "login.form.submit": "Đăng nhập",
   "login.title": "Đăng nhập",
-  
   "logout.form.header": "Đăng xuất khỏi DSpace",
   "logout.form.submit": "Đăng xuất",
   "logout.title": "Đăng xuất",
-  
   "menu.header.admin": "Quản trị",
   "menu.header.admin.description": "Menu quản trị",
   "menu.header.image.logo": "Logo của kho lưu trữ",
-  
   "menu.section.access_control": "Người dùng và nhóm người dùng",
   "menu.section.access_control_authorizations": "Chính sách phân quyền",
   "menu.section.access_control_groups": "Nhóm người dùng",
@@ -1505,11 +1417,9 @@
   "menu.section.toggle.statistics_task": "Phần chuyển đổi Nhiệm vụ Báo cáo thống kê",
   "menu.section.unpin": "Bỏ ghim thanh quản trị",
   "menu.section.workflow": "Quản trị dòng công việc",
-  
   "metadata-export-search.submit.error": "Xảy ra lỗi trong quá trình xuất dữ liệu",
   "metadata-export-search.submit.success": "Quá trình xuất dữ liệu đã được khởi chạy thành công",
   "metadata-export-search.tooltip": "Xuất kết quả tìm kiếm ra CSV",
-  
   "mydspace.breadcrumbs": "Trang cá nhân",
   "mydspace.messages.controller-help": "Chọn tùy chọn này để gửi tin nhắn tới người biên mục tài liệu.",
   "mydspace.messages.description-placeholder": "Thêm tin nhắn của bạn tại đây...",
@@ -1550,7 +1460,6 @@
   "mydspace.upload.upload-failed-moreonefile": "Không thể xử lý yêu cầu. Chỉ cho phép một tệp tin duy nhất.",
   "mydspace.upload.upload-multiple-successful": "Đã tạo {{qty}} mục không gian làm việc mới.",
   "mydspace.view-btn": "Xem chi tiết",
-  
   "nav.browse.header": "Tất cả DSpace",
   "nav.community-browse.header": "Theo Đơn vị",
   "nav.language": "Chuyển ngôn ngữ",
@@ -1564,11 +1473,9 @@
   "nav.stop-impersonating": "Ngừng giả danh Người dùng",
   "nav.toggle": "Điều hướng chuyển",
   "nav.user.description": "Thanh hồ sơ người dùng",
-  "nav.user-profile-menu-and-logout": "Trình đơn Hồ sơ cá nhân và Đăng xuất",
-  
+  "nav.user-profile-menu-and-logout": "Trình đơn Hồ sơ cá nhân và Đăng xuất", 
   "none.listelement.badge": "Tài liệu",
-  
-  "orgunit.listelement.badge": "Đơn vị\/Tổ chức",
+  "orgunit.listelement.badge": "Đơn vị/Tổ chức",
   "orgunit.listelement.no-title": "Không có nhan đề",
   "orgunit.page.city": "Thành phố",
   "orgunit.page.country": "Quốc gia",
@@ -1576,17 +1483,15 @@
   "orgunit.page.description": "Mô tả",
   "orgunit.page.edit": "Chỉnh sửa tài liệu",
   "orgunit.page.id": "ID",
-  "orgunit.page.titleprefix": "Đơn vị\/Tổ chức",
-  
+  "orgunit.page.titleprefix": "Đơn vị/Tổ chức",
   "pagination.next.button": "Tiếp theo",
   "pagination.next.button.disabled.tooltip": "Không còn trang kết quả khác",
   "pagination.options.description": "Tùy chọn Phân trang",
   "pagination.previous.button": "Quay lại",
-  "pagination.results-per-page": "Số kết quả\/trang",
+  "pagination.results-per-page": "Số kết quả/trang",
   "pagination.showing.detail": "{{ range }} của tổng số {{ total }} kết quả",
   "pagination.showing.label": "Đang hiển thị ",
   "pagination.sort-direction": "Tùy chọn sắp xếp",
-  
   "person.listelement.badge": "Nhà nghiên cứu",
   "person.listelement.no-title": "Không tìm thấy tên",
   "person.orcid.registry.auth": "Được phép qua ORCID ",
@@ -1598,7 +1503,7 @@
   "person.page.firstname": "Tên",
   "person.page.jobtitle": "Chức vụ",
   "person.page.abtract": "Tiểu sử",
-   "person.page.description": "Mô tả",
+  "person.page.description": "Mô tả",
   "person.page.lastname": "Họ",
   "person.page.link.full": "Hiển thị chi tiết",
   "person.page.name": "Tên",
@@ -1619,9 +1524,9 @@
   "person.page.orcid.publications-preferences": "Tham số của ấn phẩm",
   "person.page.orcid.remove-orcid-message": "Nếu bạn cần xóa ORCID của bạn vui lòng liên hệ với quản trị viên.",
   "person.page.orcid.save.preference.changes": "Cập nhật cài đặt",
-  "person.page.orcid.scope.activities-update": "Thêm\/cập nhật các hoạt động nghiên cứu của bạn",
+  "person.page.orcid.scope.activities-update": "Thêm/cập nhật các hoạt động nghiên cứu của bạn",
   "person.page.orcid.scope.authenticate": "Lấy ID ORCID của bạn",
-  "person.page.orcid.scope.person-update": "Thêm\/cập nhật thông tin cá nhân của bạn",
+  "person.page.orcid.scope.person-update": "Thêm/cập nhật thông tin cá nhân của bạn",
   "person.page.orcid.scope.read-limited": "Thiết lập để cho phép Các bên Tin cậy (Trusted Parties) có khả năng đọc thông tin của bạn ",
   "person.page.orcid.sync-fundings.all": "Tất cả quỹ",
   "person.page.orcid.sync-fundings.disabled": "Đã ngừng kích hoạt",
@@ -1631,10 +1536,10 @@
   "person.page.orcid.synchronization-mode.batch": "Theo lô",
   "person.page.orcid.synchronization-mode.label": "Chế độ đồng bộ",
   "person.page.orcid.synchronization-mode.manual": "Thủ công",
-  "person.page.orcid.synchronization-mode-funding-message": "Chọn gửi\/không gửi các thực thể dự án của bạn đến danh sách các quỹ tài trợ trong bản ghi ORCID của bạn hay không.",
+  "person.page.orcid.synchronization-mode-funding-message": "Chọn gửi/không gửi các thực thể dự án của bạn đến danh sách các quỹ tài trợ trong bản ghi ORCID của bạn hay không.",
   "person.page.orcid.synchronization-mode-message": "Vui lòng chọn phương thức đồng bộ hóa với ORCID. Các tùy chọn bao gồm \"Thủ công\" (bạn phải gửi dữ liệu của mình tới ORCID theo cách thủ công) hoặc \"Tự động\" (hệ thống sẽ gửi dữ liệu của bạn tới ORCID thông qua tập lệnh đã lên lịch).",
-  "person.page.orcid.synchronization-mode-profile-message": "Chọn gửi\/ không gửi thông tin tiểu sử hoặc số định danh cá nhân tới hồ sơ ORCID của bạn.",
-  "person.page.orcid.synchronization-mode-publication-message": "Chọn gửi\/ không gửi các thực thể Ấn phẩm tới danh sách các tác phẩm trong biểu ghi ORCID của bạn.",
+  "person.page.orcid.synchronization-mode-profile-message": "Chọn gửi/ không gửi thông tin tiểu sử hoặc số định danh cá nhân tới hồ sơ ORCID của bạn.",
+  "person.page.orcid.synchronization-mode-publication-message": "Chọn gửi/ không gửi các thực thể Ấn phẩm tới danh sách các tác phẩm trong biểu ghi ORCID của bạn.",
   "person.page.orcid.synchronization-settings-update.error": "Cập nhật cài đặt  đồng bộ hóa không thành công",
   "person.page.orcid.synchronization-settings-update.success": "Cài đặt đồng bộ hóa đã được cập nhật thành công",
   "person.page.orcid.sync-profile.affiliation": "Tổ chức",
@@ -1663,7 +1568,7 @@
   "person.page.orcid.sync-queue.send.error": "Đẩy dữ liệu lên ORCID không thành công",
   "person.page.orcid.sync-queue.send.not-found-warning": "Tài nguyên không còn tồn tại trên ORCID.",
   "person.page.orcid.sync-queue.send.success": "Đẩy dữ liệu lên ORCID thành công",
-  "person.page.orcid.sync-queue.send.unauthorized-error.content": "Nhấp <a href='{{orcid}}'>vào đây<\/a> để cấp lại các quyền bắt buộc. Nếu vấn đề vẫn còn tồn tại vui lòng liên hệ quản trị viên.",
+  "person.page.orcid.sync-queue.send.unauthorized-error.content": "Nhấp <a href='{{orcid}}'>vào đây</a> để cấp lại các quyền bắt buộc. Nếu vấn đề vẫn còn tồn tại vui lòng liên hệ quản trị viên.",
   "person.page.orcid.sync-queue.send.unauthorized-error.title": "Đẩy dữ liệu lên ORCID không thành công do tài khoản của bạn không đủ các quyền cần thiết.",
   "person.page.orcid.sync-queue.send.validation-error": "Dữ liệu bạn muốn đồng bộ với ORCID là dữ liệu không hợp lệ",
   "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "Đơn vị tiền tệ là bắt buộc",
@@ -1707,8 +1612,7 @@
   "person.page.titleprefix": "Nhà nghiên cứu",
   "person.search.results.head": "Kết quả tìm kiếm Nhà nghiên cứu",
   "person.search.title": "Tìm kiếm Nhà nghiên cứu",
-  "person-relationships.search.results.head": "Kết quả tìm kiếm Tác giả\/Nhà nghiên cứu",
-  
+  "person-relationships.search.results.head": "Kết quả tìm kiếm Tác giả/Nhà nghiên cứu",
   "process.bulk.delete.error.body": "Không thể xóa tiến trình có ID {{ processId}}. Các tiến trình còn lại sẽ tiếp tục bị xóa.",
   "process.bulk.delete.error.head": "Đã xảy ra lỗi khi xóa tiến trình",
   "process.detail.actions": "Hành động",
@@ -1767,7 +1671,6 @@
   "process.overview.table.status": "Trạng thái",
   "process.overview.table.user": "Người dùng",
   "process.overview.title": "Tổng quan tiến trình",
-  
   "profile.breadcrumbs": "Cập nhật hồ sơ",
   "profile.card.identify": "Hồ sơ định danh",
   "profile.card.researcher": "Định danh",
@@ -1799,7 +1702,6 @@
   "profile.security.form.notifications.success.title": "Đã lưu mật khẩu",
   "profile.special.groups.head": "Phân quyền cho các nhóm đặc biệt mà bạn thuộc về",
   "profile.title": "Cập nhật hồ sơ",
-  
   "project.listelement.badge": "Dự án nghiên cứu",
   "project.page.contributor": "Người tham gia",
   "project.page.description": "Mô tả",
@@ -1812,7 +1714,6 @@
   "project.page.titleprefix": "Dự án nghiên cứu:",
   "project.search.results.head": "Kết quả tìm kiếm dự án",
   "project-relationships.search.results.head": "Kết quả tìm kiếm dự án",
-  
   "publication.listelement.badge": "Ấn phẩm",
   "publication.page.description": "Mô tả",
   "publication.page.edit": "Chỉnh sửa tài liệu",
@@ -1824,11 +1725,9 @@
   "publication.search.results.head": "Kết quả tìm kiếm ấn phẩm",
   "publication.search.title": "Tìm kiếm ấn phẩm",
   "publication-relationships.search.results.head": "Kết quả tìm kiếm ấn phẩm",
-  
   "media-viewer.next": "Tiếp theot",
   "media-viewer.playlist": "Danh sách phát",
   "media-viewer.previous": "Quay lại",
-  
   "register-email.title": "Đăng ký tài khoản mới",
   "register-page.create-profile.header": "Tạo hồ sơ",
   "register-page.create-profile.identification.contact": "Điện thoại liên hệ",
@@ -1857,7 +1756,7 @@
   "register-page.registration.error.content": "Đã xảy ra lỗi khi đăng ký địa chỉ email sau: {{ email }}",
   "register-page.registration.error.head": "Lỗi khi đăng ký email",
   "register-page.registration.error.recaptcha": "Lỗi khi thực hiện xác minh bằng recaptcha",
-  "register-page.registration.google-recaptcha.must-accept-cookies": "Để đăng ký bạn phải chấp nhận cookie <b>Đăng ký và khôi phục mật khẩu<\/b> (Google reCaptcha).",
+  "register-page.registration.google-recaptcha.must-accept-cookies": "Để đăng ký bạn phải chấp nhận cookie <b>Đăng ký và khôi phục mật khẩu</b> (Google reCaptcha).",
   "register-page.registration.google-recaptcha.notification.message.error": "Xác minh đã hết hạn. Vui lòng xác minh lại.",
   "register-page.registration.google-recaptcha.notification.message.expired": "Đã xảy ra lỗi trong quá trình xác minh reCaptcha",
   "register-page.registration.google-recaptcha.notification.title": "Google reCaptcha",
@@ -1867,7 +1766,6 @@
   "register-page.registration.submit": "Đăng ký",
   "register-page.registration.success.content": "Một email sẽ được gửi đến địa chỉ email {{ email }} chứa liên kết xác nhận và các hướng dẫn khác.",
   "register-page.registration.success.head": "Gửi email xác nhận",
-  
   "relationships.add.error.relationship-type.content": "Không có kết quả nào phù hợp cho kiểu quan hệ {{ type }} giữa hai tài liệu",
   "relationships.add.error.server.content": "Máy chủ trả về lỗi",
   "relationships.add.error.title": "Không thể thêm mối quan hệ",
@@ -1889,11 +1787,9 @@
   "relationships.isSingleJournalOf": "Tạp chí",
   "relationships.isSingleVolumeOf": "Số tập của tạp chí",
   "relationships.isVolumeOf": "Số tập của tạp chí",
-  
   "repository.image.logo": "Logo lưu trữ",
   "repository.title.prefix": "Digital Library ::",
   "repository.title.prefixDSpace": "Digital Library ::",
-  
   "resource-policies.add.button": "Thêm",
   "resource-policies.add.for.bitstream": "Thêm chính sách dữ liệu số mới",
   "resource-policies.add.for.bundle": "Thêm chính sách gói dữ liệu mới",
@@ -1910,9 +1806,9 @@
   "resource-policies.delete.success.content": "Hành động thành công",
   "resource-policies.edit.page.failure.content": "Đã có lỗi xảy ra khi chỉnh sửa chính sách tài nguyên.",
   "resource-policies.edit.page.heading": "Chỉnh sửa chính sách tài nguyên",
-  "resource-policies.edit.page.other-failure.content": "Đã xảy ra lỗi khi chỉnh sửa chính sách phân quyền. Người dùng\/ nhóm người dùng đã được cập nhật thành công.",
+  "resource-policies.edit.page.other-failure.content": "Đã xảy ra lỗi khi chỉnh sửa chính sách phân quyền. Người dùng/ nhóm người dùng đã được cập nhật thành công.",
   "resource-policies.edit.page.success.content": "Hành động thành công",
-  "resource-policies.edit.page.target-failure.content": "Đã xảy ra lỗi khi chỉnh sửa người dùng\/ nhóm người dùng trong chính sách phân quyền.",
+  "resource-policies.edit.page.target-failure.content": "Đã xảy ra lỗi khi chỉnh sửa người dùng/ nhóm người dùng trong chính sách phân quyền.",
   "resource-policies.edit.page.title": "Chỉnh sửa chính sách phân quyền",
   "resource-policies.form.action-type.label": "Lựa chọn kiểu hành động",
   "resource-policies.form.action-type.required": "Bạn cần phải lựa chọn hành động chính sách phân quyền.",
@@ -1951,7 +1847,6 @@
   "resource-policies.table.headers.title.for.community": "Chính sách đơn vị",
   "resource-policies.table.headers.title.for.item": "Chính sách tài liệu",
   "resource-policies.table.headers.title.for.topic": "Chính sách topic",
-  
   "search.breadcrumbs": "Tìm kiếm",
   "search.browse.item-back": "Quay lại kết quả tìm kiếm",
   "search.filters.applied.f.author": "Tác giả",
@@ -2073,7 +1968,6 @@
   "search.view-switch.show-detail": "Xem chi tiết",
   "search.view-switch.show-grid": "Hiển thị dưới dạng lưới",
   "search.view-switch.show-list": "Hiển thị dưới dạng danh sách",
-  
   "sorting.ASC": "Tăng dần",
   "sorting.dc.date.accessioned.ASC": "Tăng dần theo ngày lưu trữ",
   "sorting.dc.date.accessioned.DESC": "Giảm dần theo ngày lưu trữ",
@@ -2086,7 +1980,6 @@
   "sorting.lastModified.DESC": "Giảm dần theo lần chỉnh sửa cuối cùng",
   "sorting.score.ASC": "Liên quan ít nhất",
   "sorting.score.DESC": "Liên quan nhiều nhất",
-  
   "statistics.breadcrumbs": "Thống kê",
   "statistics.header": "Thống kê theo {{ scope }}",
   "statistics.page.no-data": "Không có dữ liệu",
@@ -2098,8 +1991,6 @@
   "statistics.table.title.TotalVisits": "Tổng số truy cập",
   "statistics.table.title.TotalVisitsPerMonth": "Tổng số lượt truy cập theo từng tháng",
   "statistics.title": "Thống kê",
-  
-  
   "submission.edit.breadcrumbs": "Chỉnh sửa đăng ký",
   "submission.edit.title": "Chỉnh sửa đăng ký",
   "submission.general.cancel": "Hủy",
@@ -2125,14 +2016,14 @@
   "submission.import-external.preview.title.Journal": "Xem trước Tạp chí",
   "submission.import-external.preview.title.none": "Xem trước tài liệu",
   "submission.import-external.preview.title.OrgUnit": "Xem trước tổ chức",
-  "submission.import-external.preview.title.Person": "Xem trước Tác giả\/nhà nghiên cứu",
+  "submission.import-external.preview.title.Person": "Xem trước Tác giả/nhà nghiên cứu",
   "submission.import-external.preview.title.Project": "Xem trước dự án",
   "submission.import-external.preview.title.Publication": "Xem trước ấn phẩm",
   "submission.import-external.search.button": "Tìm kiếm",
   "submission.import-external.search.button.hint": "Nhập một từ để tìm kiếm",
   "submission.import-external.search.placeholder": "Tìm kiếm nguồn bên ngoài",
   "submission.import-external.search.source.hint": "Chọn một nguồn bên ngoài",
-  "submission.import-external.source.ads": "NASA\/ADS",
+  "submission.import-external.source.ads": "NASA/ADS",
   "submission.import-external.source.arxiv": "arXiv",
   "submission.import-external.source.cinii": "CiNii",
   "submission.import-external.source.crossref": "CrossRef",
@@ -2158,7 +2049,7 @@
   "submission.import-external.title.JournalVolume": "Nhập một tập của tạp chí từ nguồn bên ngoài",
   "submission.import-external.title.none": "Nhập thông tin mô tả từ nguồn bên ngoài",
   "submission.import-external.title.OrgUnit": "Nhập nhà xuất bản từ nguồn bên ngoài",
-  "submission.import-external.title.Person": "Nhập một tác giả\/ nhà nghiên cứu từ nguồn bên ngoài",
+  "submission.import-external.title.Person": "Nhập một tác giả/ nhà nghiên cứu từ nguồn bên ngoài",
   "submission.import-external.title.Project": "Nhập một dự án từ nguồn bên ngoài",
   "submission.import-external.title.Publication": "Nhập một ấn phẩm từ nguồn bên ngoài",
   "submission.sections.accesses.form.access-condition-hint": "Chọn chính sách phân quyền để áp dụng cho biểu ghi khi nó được nhập vào hệ thống.",
@@ -2166,7 +2057,7 @@
   "submission.sections.accesses.form.date-required": "Thông tin thời gian là bắt buộc.",
   "submission.sections.accesses.form.date-required-from": "Bắt buộc phải khai báo thời gian để xác định ngày bắt đầu cấp quyền truy cập",
   "submission.sections.accesses.form.date-required-until": "Bắt buộc phải khai báo thời gian để xác định ngày bắt đầu cấp quyền truy cập",
-  "submission.sections.accesses.form.discoverable-description": "Khi được chọn biểu ghi này sẽ có thể được tìm thấy trong các chức năng tìm kiếm\/duyệt. Khi bỏ chọn biểu ghi sẽ chỉ có sẵn qua đường dẫn trực tiếp và sẽ không bao giờ xuất hiện trong tìm kiếm\/duyệt.",
+  "submission.sections.accesses.form.discoverable-description": "Khi được chọn biểu ghi này sẽ có thể được tìm thấy trong các chức năng tìm kiếm/duyệt. Khi bỏ chọn biểu ghi sẽ chỉ có sẵn qua đường dẫn trực tiếp và sẽ không bao giờ xuất hiện trong tìm kiếm/duyệt.",
   "submission.sections.accesses.form.discoverable-label": "Có thể khám phá",
   "submission.sections.accesses.form.from-hint": "Chọn ngày mà quyền được áp dụng",
   "submission.sections.accesses.form.from-label": "Cấp quyền truy cập từ",
@@ -2196,8 +2087,8 @@
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Nhập tài liệu từ cơ sở dữ liệu từ xa",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Nhập tổ chức từ cơ sở dữ liệu từ xa",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Nhập bằng sáng chế từ cơ sở dữ liệu từ xa",
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Nhập tác giả\/ nhà nghiên cứu từ cơ sở dữ liệu từ xa",
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Nhập tác giả\/ nhà nghiên cứu từ cơ sở dữ liệu từ xa",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Nhập tác giả/ nhà nghiên cứu từ cơ sở dữ liệu từ xa",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Nhập tác giả/ nhà nghiên cứu từ cơ sở dữ liệu từ xa",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Nhập dự án từ cơ sở dữ liệu từ xa",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Nhập ấn phẩm từ cơ sở dữ liệu từ xa",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Kiểm soát",
@@ -2350,7 +2241,7 @@
   "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
   "submission.sections.sherpa.publisher.policy": "Chính sách của nhà xuất bản",
   "submission.sections.sherpa.publisher.policy.conditions": "Điều kiện",
-  "submission.sections.sherpa.publisher.policy.description": "Thông tin dưới đây được tìm thấy thông qua Sherpa Romeo. Dựa trên các chính sách của nhà xuất bản của bạn hệ thống sẽ đưa ra lời khuyên về việc có cần thiết phải hạn chế hay không và\/hoặc những tệp nào mà bạn được phép tải lên. Nếu bạn có thắc mắc vui lòng liên hệ với quản trị viên.",
+  "submission.sections.sherpa.publisher.policy.description": "Thông tin dưới đây được tìm thấy thông qua Sherpa Romeo. Dựa trên các chính sách của nhà xuất bản của bạn hệ thống sẽ đưa ra lời khuyên về việc có cần thiết phải hạn chế hay không và/hoặc những tệp nào mà bạn được phép tải lên. Nếu bạn có thắc mắc vui lòng liên hệ với quản trị viên.",
   "submission.sections.sherpa.publisher.policy.embargo": "Hạn chế",
   "submission.sections.sherpa.publisher.policy.license": "Bản quyền",
   "submission.sections.sherpa.publisher.policy.location": "Vị trí",
@@ -2450,7 +2341,6 @@
   "submission.workflow.tasks.pool.show-detail": "Xem chi tiết",
   "submission.workspace.generic.view": "Xem",
   "submission.workspace.generic.view-help": "Chọn tủy chọn để xem thông tin mô tả của tài liệu",
-  
   "thumbnail.default.alt": "Hình ảnh thu nhỏ",
   "thumbnail.default.placeholder": "Không có ảnh thu nhỏ nào",
   "thumbnail.orgunit.alt": "Logo Đơn vị tổ chức",
@@ -2459,9 +2349,7 @@
   "thumbnail.person.placeholder": "Không có ảnh hồ sơ nào",
   "thumbnail.project.alt": "Logo dự án",
   "thumbnail.project.placeholder": "Hình ảnh giữ chỗ của dự án",
-  
   "title": "DSpace",
-  
   "vocabulary-treeview.header": "Chế độ xem phân cấp",
   "vocabulary-treeview.info": "Chọn một chủ đề để thêm làm bộ lọc tìm kiếm",
   "vocabulary-treeview.load-more": "Xem thêm",
@@ -2470,20 +2358,15 @@
   "vocabulary-treeview.search.no-result": "Không có tài liệu nào hiển thị",
   "vocabulary-treeview.tree.description.nsi": "Chỉ số Norwegian Science",
   "vocabulary-treeview.tree.description.srsc": "Danh mục chủ đề",
-  
   "uploader.browse": "duyệt",
   "uploader.delete.btn-title": "Xóa",
   "uploader.drag-message": "Kéo & thả tệp tại đây",
   "uploader.processing": "Đang xử lý",
   "uploader.queue-length": "Chiều dài hàng đợi",
-  
   "virtual-metadata.delete-item.info": "Chọn kiểu mà bạn muốn lưu thông tin mô tả ảo làm thông tin mô tả thực",
   "virtual-metadata.delete-item.modal-head": "Siêu dữ liệu ảo của mối quan hệ này",
   "virtual-metadata.delete-relationship.modal-head": "Chọn các tài liệu mà bạn muốn lưu thông tin mô tả ảo làm thông tin mô tả thực",
-  
   "supervisedWorkspace.search.results.head": "Supervised Items",
-  
-  
   "workflow.search.results.head": "Tất cả nhiệm vụ",
   "workflowAdmin.search.results.head": "Tiến trình làm việc của quản trị viên",
   "workflow-item.delete.button.cancel": "Hủy",
@@ -2508,12 +2391,10 @@
   "workspace.search.results.head": "Biểu ghi bạn đã tải lên",
   "workspace-item.view.breadcrumbs": "Xem các tài liệu đang biên mục dở dang",
   "workspace-item.view.title": "Xem các tài liệu đang biên mục dở dang",
-  
   "idle-modal.extend-session": "Gia hạn phiên",
   "idle-modal.header": "Phiên sẽ sớm hết hạn",
   "idle-modal.info": "Vì lý do bảo mật các phiên của người dùng sẽ hết hạn sau {{timeToExpire}} phút không hoạt động. Phiên của bạn sẽ sớm hết hạn. Bạn muốn gia hạn hay đăng xuất?",
   "idle-modal.log-out": "Đăng xuất",
-  
   "researcher.profile.action.processing": "Đang xử lý…",
   "researcher.profile.associated": "Hồ sơ nhà nghiên cứu đã được liên kết",
   "researcher.profile.change-visibility.fail": "Đã xảy ra lỗi khi thay đổi chế độ hiển thị hồ sơ",
@@ -2528,7 +2409,6 @@
   "researcher.profile.public.visibility": "CÔNG CỘNG",
   "researcher.profile.status": "Trạng thái:",
   "researcher.profile.view": "Xem",
-  
   "person.page.orcid": "ORCID",
   "person.page.orcid.create": "Tạo một ID trên ORCID",
   "person.page.orcid.funding-preferences": "Quỹ ưa thích",
@@ -2546,9 +2426,9 @@
   "person.page.orcid.publications-preferences": "Tham số của ấn phẩm",
   "person.page.orcid.remove-orcid-message": "Nếu bạn cần xóa ORCID của bạn vui lòng liên hệ với quản trị viên.",
   "person.page.orcid.save.preference.changes": "Cập nhật cài đặt",
-  "person.page.orcid.scope.activities-update": "Thêm\/cập nhật các hoạt động nghiên cứu của bạn",
+  "person.page.orcid.scope.activities-update": "Thêm/cập nhật các hoạt động nghiên cứu của bạn",
   "person.page.orcid.scope.authenticate": "Lấy ID ORCID của bạn",
-  "person.page.orcid.scope.person-update": "Thêm\/cập nhật thông tin cá nhân của bạn",
+  "person.page.orcid.scope.person-update": "Thêm/cập nhật thông tin cá nhân của bạn",
   "person.page.orcid.scope.read-limited": "Thiết lập để cho phép Các bên Tin cậy (Trusted Parties) có khả năng đọc thông tin của bạn ",
   "person.page.orcid.sync-fundings.all": "Tất cả quỹ",
   "person.page.orcid.sync-fundings.disabled": "Đã ngừng kích hoạt",
@@ -2558,10 +2438,10 @@
   "person.page.orcid.synchronization-mode.batch": "Theo lô",
   "person.page.orcid.synchronization-mode.label": "Chế độ đồng bộ",
   "person.page.orcid.synchronization-mode.manual": "Thủ công",
-  "person.page.orcid.synchronization-mode-funding-message": "Chọn gửi\/không gửi các thực thể dự án của bạn đến danh sách các quỹ tài trợ trong bản ghi ORCID của bạn hay không.",
+  "person.page.orcid.synchronization-mode-funding-message": "Chọn gửi/không gửi các thực thể dự án của bạn đến danh sách các quỹ tài trợ trong bản ghi ORCID của bạn hay không.",
   "person.page.orcid.synchronization-mode-message": "Vui lòng chọn phương thức đồng bộ hóa với ORCID. Các tùy chọn bao gồm \"Thủ công\" (bạn phải gửi dữ liệu của mình tới ORCID theo cách thủ công) hoặc \"Tự động\" (hệ thống sẽ gửi dữ liệu của bạn tới ORCID thông qua tập lệnh đã lên lịch).",
-  "person.page.orcid.synchronization-mode-profile-message": "Chọn gửi\/ không gửi thông tin tiểu sử hoặc số định danh cá nhân tới hồ sơ ORCID của bạn.",
-  "person.page.orcid.synchronization-mode-publication-message": "Chọn gửi\/ không gửi các thực thể Ấn phẩm tới danh sách các tác phẩm trong biểu ghi ORCID của bạn.",
+  "person.page.orcid.synchronization-mode-profile-message": "Chọn gửi/ không gửi thông tin tiểu sử hoặc số định danh cá nhân tới hồ sơ ORCID của bạn.",
+  "person.page.orcid.synchronization-mode-publication-message": "Chọn gửi/ không gửi các thực thể Ấn phẩm tới danh sách các tác phẩm trong biểu ghi ORCID của bạn.",
   "person.page.orcid.synchronization-settings-update.error": "Cập nhật cài đặt  đồng bộ hóa không thành công",
   "person.page.orcid.synchronization-settings-update.success": "Cài đặt đồng bộ hóa đã được cập nhật thành công",
   "person.page.orcid.sync-profile.affiliation": "Tổ chức",
@@ -2590,7 +2470,7 @@
   "person.page.orcid.sync-queue.send.error": "Đẩy dữ liệu lên ORCID không thành công",
   "person.page.orcid.sync-queue.send.not-found-warning": "Tài nguyên không còn tồn tại trên ORCID.",
   "person.page.orcid.sync-queue.send.success": "Đẩy dữ liệu lên ORCID thành công",
-  "person.page.orcid.sync-queue.send.unauthorized-error.content": "Nhấp <a href='{{orcid}}'>vào đây<\/a> để cấp lại các quyền bắt buộc. Nếu vấn đề vẫn còn tồn tại vui lòng liên hệ quản trị viên.",
+  "person.page.orcid.sync-queue.send.unauthorized-error.content": "Nhấp <a href='{{orcid}}'>vào đây</a> để cấp lại các quyền bắt buộc. Nếu vấn đề vẫn còn tồn tại vui lòng liên hệ quản trị viên.",
   "person.page.orcid.sync-queue.send.unauthorized-error.title": "Đẩy dữ liệu lên ORCID không thành công do tài khoản của bạn không đủ các quyền cần thiết.",
   "person.page.orcid.sync-queue.send.validation-error": "Dữ liệu bạn muốn đồng bộ với ORCID là dữ liệu không hợp lệ",
   "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "Đơn vị tiền tệ là bắt buộc",
@@ -2630,23 +2510,17 @@
   "person.page.orcid.unlink.error": "Đã xảy ra lỗi khi ngắt kết nối giữa hồ sơ và ORCID. Vui lòng thử lại.",
   "person.page.orcid.unlink.processing": "Đang xử lý…",
   "person.page.orcid.unlink.success": "Đã ngắt kết nối giữa hồ sơ nhà nghiên cứu và trang ORCID thành công",
-  
   "person.orcid.registry.auth": "Được phép qua ORCID ",
   "person.orcid.registry.queue": "Đang xếp hàng đợi đăng ký ORCID",
   "person.orcid.sync.setting": "Thiết lập đồng bộ hóa với ORCID",
-  
   "home.recent-submissions.head": "Các tài liệu tải lên gần đây",
-  
   "listable-notification-object.default-message": "Không thể truy xuất",
-  
   "system-wide-alert-banner.retrieval.error": "Đã xảy ra lỗi trong quá trình truy xuất cảnh báo hệ thống",
   "system-wide-alert-banner.countdown.prefix": "Trong",
   "system-wide-alert-banner.countdown.days": "{{days}} ngày",
   "system-wide-alert-banner.countdown.hours": "{{hours}} giờ và",
   "system-wide-alert-banner.countdown.minutes": "{{minutes}} phút:",
-  
   "menu.section.system-wide-alert": "Cảnh báo toàn hệ thống",
-  
   "system-wide-alert.form.header": "Cảnh báo toàn hệ thống",
   "system-wide-alert-form.retrieval.error": "Đã xảy ra lỗi trong quá trình truy xuất cảnh báo trên toàn hệ thống",
   "system-wide-alert.form.cancel": "Hủy",
