@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 
 @Component({
   selector: 'ds-browse-by-taxonomy-page',
@@ -11,9 +12,29 @@ import { VocabularyOptions } from '../../core/submission/vocabularies/models/voc
  */
 export class BrowseByTaxonomyPageComponent implements OnInit {
 
+  /**
+   * The {@link VocabularyOptions} object
+   */
   vocabularyOptions: VocabularyOptions;
+
+  /**
+   * The selected vocabulary entries
+   */
+  selectedItems: VocabularyEntryDetail[] = [];
+
+  /**
+   * The query parameters, contain the selected entries
+   */
+  queryParams: { 'f.subject': string[] };
 
   ngOnInit() {
     this.vocabularyOptions = { name: 'srsc', closed: true };
+  }
+
+  onSelect(detail: VocabularyEntryDetail): void {
+    this.selectedItems.push(detail);
+    const filterValues = this.selectedItems
+      .map((item: VocabularyEntryDetail) => `${item.value},equals`);
+    this.queryParams = { 'f.subject': filterValues };
   }
 }

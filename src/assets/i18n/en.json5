@@ -775,6 +775,8 @@
 
   "browse.startsWith.type_text": "Filter results by typing the first few letters",
 
+  "browse.taxonomy.button": "Browse",
+
   "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
 
   "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
