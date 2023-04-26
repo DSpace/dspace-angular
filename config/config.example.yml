@@ -229,6 +229,9 @@ languages:
   - code: uk
     label: Yкраї́нська
     active: true
+  - code: vi
+    label: Vietnamese
+    active: true
 
 
 # Browse-By Pages
