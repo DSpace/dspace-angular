@@ -1,58 +1,32 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, mergeMap, switchMap } from 'rxjs/operators';
-import {
-  combineLatest,
-  combineLatest as observableCombineLatest,
-  Observable,
-  of as observableOf,
-  Subscription
-} from 'rxjs';
-import {
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
-  DynamicFormLayout,
-  DynamicFormService,
-  DynamicInputModel,
-  DynamicSelectModel
-} from '@ng-dynamic-forms/core';
+import { map, switchMap, tap } from 'rxjs/operators';
+import { combineLatest, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
+import { DynamicFormControlModel, DynamicFormGroupModel, DynamicFormLayout, DynamicFormService, DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
 import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import cloneDeep from 'lodash/cloneDeep';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload
-} from '../../core/shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload, getRemoteDataPayload } from '../../core/shared/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
-import { hasValue, isNotEmpty, isEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { Location } from '@angular/common';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
-import { getEntityEditRoute, getItemEditRoute } from '../../item-page/item-page-routing-paths';
+import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import { Bundle } from '../../core/shared/bundle.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../core/shared/item.model';
-import {
-  DsDynamicInputModel
-} from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { BundleDataService } from '../../core/data/bundle-data.service';
+import { Operation } from 'fast-json-patch';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -440,17 +414,24 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       getFirstSucceededRemoteDataPayload(),
     );
 
+    const item$ = bundle$.pipe(
+      switchMap((bundle: Bundle) => bundle.item),
+      getFirstSucceededRemoteDataPayload()
+    );
     this.subs.push(
       observableCombineLatest(
         bitstream$,
         allFormats$,
-        bundle$
-      ).subscribe(([bitstream, allFormats, bundle]) => {
-        this.bitstream = bitstream as Bitstream;
-        this.formats = allFormats.page;
-        this.bundle = bundle;
-        this.setIiifStatus(this.bitstream);
-      })
+        bundle$,
+        item$,
+      ).pipe()
+        .subscribe(([bitstream, allFormats, bundle, item]) => {
+          this.bitstream = bitstream as Bitstream;
+          this.formats = allFormats.page;
+          this.bundle = bundle;
+          this.itemId = item.uuid;
+          this.setIiifStatus(this.bitstream);
+        })
     );
 
     this.subs.push(
@@ -582,7 +563,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     }
   }
 
-
   /**
    * Check for changes against the bitstream and send update requests to the REST API
    */
@@ -598,23 +578,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     let bundle$: Observable<Bundle>;
 
     if (wasPrimary !== isPrimary) {
-      let patchOperation;
-      // No longer primary bitstream: remove
-      if (wasPrimary) {
-        patchOperation = {
-          path: this.primaryBitstreamPath,
-          op: 'remove'
-        };
-      } else {
-        // Has become primary bitstream
-        // If it already had a value: replace, otherwise: add
-        patchOperation = {
-          path: this.primaryBitstreamPath,
-          op: hasValue(this.bundle.primaryBitstreamUUID) ? 'replace' : 'add',
-          value: this.bitstream.uuid
-        };
-      }
-      bundle$ = this.bundleService.patch(this.bundle, [patchOperation]).pipe(
+      const patchOperations: Operation[] = this.retrieveBundlePatch(wasPrimary);
+      bundle$ = this.bundleService.patch(this.bundle, patchOperations).pipe(
         getFirstCompletedRemoteData(),
         map((bundleResponse: RemoteData<Bundle>) => {
           if (hasValue(bundleResponse) && bundleResponse.hasFailed) {
@@ -649,6 +614,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     }
 
     combineLatest([bundle$, bitstream$]).pipe(
+      tap(([bundle]) => this.bundle = bundle),
       switchMap(() => {
         return this.bitstreamService.update(updatedBitstream).pipe(
           getFirstSucceededRemoteDataPayload()
@@ -664,6 +630,24 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  private retrieveBundlePatch(wasPrimary: boolean): Operation[] {
+    // No longer primary bitstream: remove
+    if (wasPrimary) {
+      return [{
+        path: this.primaryBitstreamPath,
+        op: 'remove'
+      }];
+    } else {
+      // Has become primary bitstream
+      // If it already had a value: replace, otherwise: add
+      return [{
+        path: this.primaryBitstreamPath,
+        op: hasValue(this.bundle.primaryBitstreamUUID) ? 'replace' : 'add',
+        value: this.bitstream.uuid
+      }];
+    }
+  }
+
   /**
    * Parse form data to an updated bitstream object
    * @param rawForm   Raw form data
@@ -671,8 +655,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   formToBitstream(rawForm): Bitstream {
     const updatedBitstream = cloneDeep(this.bitstream);
     const newMetadata = updatedBitstream.metadata;
-    // TODO: Set bitstream to primary when supported
-    const primary = rawForm.fileNamePrimaryContainer.primaryBitstream;
     Metadata.setFirstValue(newMetadata, 'dc.title', rawForm.fileNamePrimaryContainer.fileName);
     if (isEmpty(rawForm.descriptionContainer.description)) {
       delete newMetadata['dc.description'];
@@ -724,15 +706,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * otherwise retrieve the item ID based on the owning bundle's link
    */
   navigateToItemEditBitstreams() {
-    if (hasValue(this.itemId)) {
-      this.router.navigate([getEntityEditRoute(this.entityType, this.itemId), 'bitstreams']);
-    } else {
-      this.bitstream.bundle.pipe(getFirstSucceededRemoteDataPayload(),
-        mergeMap((bundle: Bundle) => bundle.item.pipe(getFirstSucceededRemoteDataPayload())))
-        .subscribe((item) => {
-          this.router.navigate(([getItemEditRoute(item), 'bitstreams']));
-        });
-    }
+    this.router.navigate([getEntityEditRoute(this.entityType, this.itemId), 'bitstreams']);
   }
 
   /**

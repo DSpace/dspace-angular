@@ -705,6 +705,8 @@
 
   "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
 
+  "bitstream.edit.notifications.error.primaryBitstream.title": "An error occurred saving the primary bitstream",
+
   "bitstream.edit.form.iiifLabel.label": "IIIF Label",
 
   "bitstream.edit.form.iiifLabel.hint": "Canvas label for this image. If not provided default label will be used.",
