@@ -33,19 +33,18 @@ export class BrowseByTaxonomyPageComponent implements OnInit {
 
   /**
    * Adds detail to selectedItems, transforms it to be used as query parameter
-   * and adds that to filterValues. If they already contained the detail,
-   * it gets deleted from both arrays.
+   * and adds that to filterValues.
    *
-   * @param detail VocabularyEntryDetail to be added/deleted
+   * @param detail VocabularyEntryDetail to be added
    */
   onSelect(detail: VocabularyEntryDetail): void {
-    if (!this.selectedItems.includes(detail)) {
       this.selectedItems.push(detail);
       this.filterValues = this.selectedItems
         .map((item: VocabularyEntryDetail) => `${item.value},equals`);
-    } else {
-      this.selectedItems = this.selectedItems.filter((entry: VocabularyEntryDetail) => { return entry !== detail; });
-      this.filterValues = this.filterValues.filter((value: string) => { return value !== `${detail.value},equals`; });
-    }
+  }
+
+  onDeselect(detail: VocabularyEntryDetail): void {
+    this.selectedItems = this.selectedItems.filter((entry: VocabularyEntryDetail) => { return entry !== detail; });
+    this.filterValues = this.filterValues.filter((value: string) => { return value !== `${detail.value},equals`; });
   }
 }

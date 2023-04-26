@@ -95,6 +95,12 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
   @Output() select: EventEmitter<VocabularyEntryDetail> = new EventEmitter<VocabularyEntryDetail>(null);
 
   /**
+   * An event fired when a vocabulary entry is deselected.
+   * Event's payload equals to {@link VocabularyEntryDetail} deselected.
+   */
+  @Output() deselect: EventEmitter<VocabularyEntryDetail> = new EventEmitter<VocabularyEntryDetail>(null);
+
+  /**
    * A boolean representing if user is authenticated
    */
   private isAuthenticated: Observable<boolean>;
@@ -250,6 +256,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
       this.select.emit(item);
     } else {
       this.selectedItems = this.selectedItems.filter((detail: string) => { return detail !== item.id; });
+      this.deselect.emit(item);
     }
   }
 
