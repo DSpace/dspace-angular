@@ -31,7 +31,6 @@
                  [openDelay]="500"
                  container="body"
           >
-            <!-- checkbox (click) needs to be stopped, to prevent that button (click) gets called twice -->
             <input class="mr-2" type="checkbox"
                    [disabled]="!node.item?.selectable"
                    [checked]="node.isSelected"
@@ -64,7 +63,6 @@
                 [ngbTooltip]="node.item?.otherInformation?.note"
                 [openDelay]="500"
                 container="body">
-            <!-- checkbox (click) needs to be stopped, to prevent that button (click) gets called twice -->
             <input class="mr-2" type="checkbox"
                    [disabled]="!node.item?.selectable"
                    [checked]="node.isSelected"

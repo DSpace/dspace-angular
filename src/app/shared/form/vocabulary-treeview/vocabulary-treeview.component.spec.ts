@@ -90,7 +90,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
   }));
 
   afterEach(() => {
-    fixture.destroy();
+    fixture?.destroy();
     comp = null;
     compAsAny = null;
   });
@@ -264,14 +264,14 @@ describe('VocabularyTreeviewComponent test suite', () => {
 
     it('should not display checkboxes by default', async () => {
       fixture.detectChanges();
-      expect(de.query(By.css('.form-check-input'))).toBeNull();
+      expect(de.query(By.css('input[type=checkbox]'))).toBeNull();
       expect(de.queryAll(By.css('cdk-tree-node')).length).toEqual(3);
     });
 
     it('should display checkboxes if multiSelect is true', async () => {
       comp.multiSelect = true;
       fixture.detectChanges();
-      expect(de.queryAll(By.css('.form-check-input')).length).toEqual(3);
+      expect(de.queryAll(By.css('input[type=checkbox]')).length).toEqual(3);
       expect(de.queryAll(By.css('cdk-tree-node')).length).toEqual(3);
     });
   });
