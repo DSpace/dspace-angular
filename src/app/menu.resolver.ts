@@ -181,21 +181,11 @@ export class MenuResolver implements Resolve<boolean> {
     combineLatest([
       this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
       this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
-      this.authorizationService.isAuthorized(FeatureID.AdministratorOf)
-    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin]) => {
-      const menuList = [
-        /* News */
-        {
-          id: 'new',
-          active: false,
-          visible: true,
-          model: {
-            type: MenuItemType.TEXT,
-            text: 'menu.section.new'
-          } as TextMenuItemModel,
-          icon: 'plus',
-          index: 0
-        },
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
+      this.authorizationService.isAuthorized(FeatureID.CanSubmit),
+      this.authorizationService.isAuthorized(FeatureID.CanEditItem),
+    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit, canEditItem]) => {
+      const newSubMenuList = [
         {
           id: 'new_community',
           parentID: 'new',
@@ -226,7 +216,7 @@ export class MenuResolver implements Resolve<boolean> {
           id: 'new_item',
           parentID: 'new',
           active: false,
-          visible: true,
+          visible: canSubmit,
           model: {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_item',
@@ -239,38 +229,16 @@ export class MenuResolver implements Resolve<boolean> {
           id: 'new_process',
           parentID: 'new',
           active: false,
-          visible: isCollectionAdmin,
+          visible: isSiteAdmin,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.new_process',
             link: '/processes/new'
           } as LinkMenuItemModel,
         },
-        // TODO: enable this menu item once the feature has been implemented
-        // {
-        //   id: 'new_item_version',
-        //   parentID: 'new',
-        //   active: false,
-        //   visible: true,
-        //   model: {
-        //     type: MenuItemType.LINK,
-        //     text: 'menu.section.new_item_version',
-        //     link: ''
-        //   } as LinkMenuItemModel,
-        // },
-
+      ];
+      const editSubMenuList = [
         /* Edit */
-        {
-          id: 'edit',
-          active: false,
-          visible: true,
-          model: {
-            type: MenuItemType.TEXT,
-            text: 'menu.section.edit'
-          } as TextMenuItemModel,
-          icon: 'pencil-alt',
-          index: 1
-        },
         {
           id: 'edit_community',
           parentID: 'edit',
@@ -301,7 +269,7 @@ export class MenuResolver implements Resolve<boolean> {
           id: 'edit_item',
           parentID: 'edit',
           active: false,
-          visible: true,
+          visible: canEditItem,
           model: {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.edit_item',
@@ -310,6 +278,47 @@ export class MenuResolver implements Resolve<boolean> {
             }
           } as OnClickMenuItemModel,
         },
+      ];
+      const newSubMenu = {
+        id: 'new',
+        active: false,
+        visible: newSubMenuList.some(subMenu => subMenu.visible),
+        model: {
+          type: MenuItemType.TEXT,
+          text: 'menu.section.new'
+        } as TextMenuItemModel,
+        icon: 'plus',
+        index: 0
+      };
+      const editSubMenu = {
+        id: 'edit',
+        active: false,
+        visible: editSubMenuList.some(subMenu => subMenu.visible),
+        model: {
+          type: MenuItemType.TEXT,
+          text: 'menu.section.edit'
+        } as TextMenuItemModel,
+        icon: 'pencil-alt',
+        index: 1
+      };
+
+      const menuList = [
+        ...newSubMenuList,
+        newSubMenu,
+        ...editSubMenuList,
+        editSubMenu,
+        // TODO: enable this menu item once the feature has been implemented
+        // {
+        //   id: 'new_item_version',
+        //   parentID: 'new',
+        //   active: false,
+        //   visible: true,
+        //   model: {
+        //     type: MenuItemType.LINK,
+        //     text: 'menu.section.new_item_version',
+        //     link: ''
+        //   } as LinkMenuItemModel,
+        // },
 
         /* Statistics */
         // TODO: enable this menu item once the feature has been implemented
@@ -611,6 +620,18 @@ export class MenuResolver implements Resolve<boolean> {
           } as LinkMenuItemModel,
           icon: 'user-check',
           index: 11
+        },
+        {
+          id: 'system_wide_alert',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.system-wide-alert',
+            link: '/admin/system-wide-alert'
+          } as LinkMenuItemModel,
+          icon: 'exclamation-circle',
+          index: 12
         },
       ];
 

@@ -153,6 +153,7 @@ export class AuthEffects {
       return this.authService.checkAuthenticationCookie().pipe(
         map((response: AuthStatus) => {
           if (response.authenticated) {
+            this.authService.setExternalAuthStatus(true);
             this.authorizationsService.invalidateAuthorizationsRequestCache();
             return new RetrieveTokenAction();
           } else {

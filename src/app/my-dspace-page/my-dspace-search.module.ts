@@ -18,6 +18,7 @@ import { ClaimedApprovedSearchResultListElementComponent } from '../shared/objec
 import { ClaimedDeclinedSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/claimed-search-result/claimed-declined-search-result/claimed-declined-search-result-list-element.component';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 import { ItemSubmitterComponent } from '../shared/object-collection/shared/mydspace-item-submitter/item-submitter.component';
+import { ItemCollectionComponent } from '../shared/object-collection/shared/mydspace-item-collection/item-collection.component';
 import { ItemDetailPreviewComponent } from '../shared/object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview.component';
 import { ItemDetailPreviewFieldComponent } from '../shared/object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
 import { ItemListPreviewComponent } from '../shared/object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
@@ -25,6 +26,7 @@ import { ThemedItemListPreviewComponent } from '../shared/object-list/my-dspace-
 import { MyDSpaceItemStatusComponent } from '../shared/object-collection/shared/mydspace-item-status/my-dspace-item-status.component';
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { MyDSpaceActionsModule } from '../shared/mydspace-actions/mydspace-actions.module';
+import { ClaimedDeclinedTaskSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/claimed-search-result/claimed-declined-task-search-result/claimed-declined-task-search-result-list-element.component';
 
 const ENTRY_COMPONENTS = [
   WorkspaceItemSearchResultListElementComponent,
@@ -32,6 +34,7 @@ const ENTRY_COMPONENTS = [
   ClaimedSearchResultListElementComponent,
   ClaimedApprovedSearchResultListElementComponent,
   ClaimedDeclinedSearchResultListElementComponent,
+  ClaimedDeclinedTaskSearchResultListElementComponent,
   PoolSearchResultListElementComponent,
   ItemSearchResultDetailElementComponent,
   WorkspaceItemSearchResultDetailElementComponent,
@@ -44,6 +47,7 @@ const ENTRY_COMPONENTS = [
 const DECLARATIONS = [
   ...ENTRY_COMPONENTS,
   ItemSubmitterComponent,
+  ItemCollectionComponent,
   ItemDetailPreviewComponent,
   ItemDetailPreviewFieldComponent,
   ItemListPreviewComponent,

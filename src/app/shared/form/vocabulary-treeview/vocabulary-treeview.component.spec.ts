@@ -89,12 +89,6 @@ describe('VocabularyTreeviewComponent test suite', () => {
     });
   }));
 
-  afterEach(() => {
-    fixture.destroy();
-    comp = null;
-    compAsAny = null;
-  });
-
   describe('', () => {
     let testComp: TestComponent;
     let testFixture: ComponentFixture<TestComponent>;

@@ -4,6 +4,7 @@ import { ItemListPreviewComponent } from './item-list-preview.component';
 import { Item } from '../../../../core/shared/item.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { SearchResult } from '../../../search/models/search-result.model';
+import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model';
 
 /**
  * Themed wrapper for ItemListPreviewComponent
@@ -11,10 +12,10 @@ import { SearchResult } from '../../../search/models/search-result.model';
 @Component({
   selector: 'ds-themed-item-list-preview',
   styleUrls: [],
-  templateUrl: '../../../theme-support/themed.component.html',
+  templateUrl: '../../../theme-support/themed.component.html'
 })
 export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPreviewComponent> {
-  protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'status', 'showSubmitter'];
+  protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'status', 'showSubmitter', 'workflowItem'];
 
   @Input() item: Item;
 
@@ -22,8 +23,9 @@ export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPrev
 
   @Input() status: MyDspaceItemStatusType;
 
-  @Input() showSubmitter = false;
+  @Input() showSubmitter: boolean;
 
+  @Input() workflowItem: WorkflowItem;
 
   protected getComponentName(): string {
     return 'ItemListPreviewComponent';

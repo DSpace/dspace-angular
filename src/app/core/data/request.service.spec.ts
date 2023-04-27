@@ -594,6 +594,19 @@ describe('RequestService', () => {
         'property1=multiple%0Alines%0Ato%0Asend&property2=sp%26ci%40l%20characters&sp%26ci%40l-chars%20in%20prop=test123'
       );
     });
+
+    it('should properly encode the body with an array', () => {
+      const body = {
+        'property1': 'multiple\nlines\nto\nsend',
+        'property2': 'sp&ci@l characters',
+        'sp&ci@l-chars in prop': 'test123',
+        'arrayParam': ['arrayValue1', 'arrayValue2'],
+      };
+      const queryParams = service.uriEncodeBody(body);
+      expect(queryParams).toEqual(
+        'property1=multiple%0Alines%0Ato%0Asend&property2=sp%26ci%40l%20characters&sp%26ci%40l-chars%20in%20prop=test123&arrayParam=arrayValue1&arrayParam=arrayValue2'
+      );
+    });
   });
 
   describe('setStaleByUUID', () => {
