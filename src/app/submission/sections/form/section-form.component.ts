@@ -35,6 +35,7 @@ import { environment } from '../../../../environments/environment';
 import { ConfigObject } from '../../../core/config/models/config.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { SPONSOR_METADATA_NAME } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-complex.model';
+import { AUTHOR_METADATA_FIELD_NAME } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/clarin-name.model';
 
 /**
  * This component represents a section that contains a Form.
@@ -380,17 +381,27 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
 
     if (metadata === SPONSOR_METADATA_NAME) {
       this.submissionService.dispatchSaveSection(this.submissionId, this.sectionData.id);
-      this.updateItemSponsor(value);
+      this.reinitializeForm(SPONSOR_METADATA_NAME, value);
+    }
+
+    if (metadata === AUTHOR_METADATA_FIELD_NAME) {
+      this.submissionService.dispatchSaveSection(this.submissionId, this.sectionData.id);
+      this.reinitializeForm(AUTHOR_METADATA_FIELD_NAME, value);
     }
   }
 
   /**
-   * This method updates `local.sponsor` input field and check if the `local.sponsor` was updated in the DB. When
-   * the metadata is updated in the DB refresh this `local.sponsor` input field.
-   * @param newSponsorValue sponsor added to the `local.sponsor` complex input field
+   * This method updates specific input field e.g. `local.sponsor` and check if the metadata value was updated
+   * in the DB. When the metadata is updated in the DB refresh this input field.
+   * The reason of this method: If the data is not actual in BE, the input field probably won't fill in suggested value
+   * into all input fields e.g., the user click on the suggested value for the `author` but the input fields
+   * are still empty.
+   *
+   * @param metadataField input field which is updating
+   * @param newMetadataValue value added to the input field
    */
-  private updateItemSponsor(newSponsorValue) {
-    let sponsorFromDB = '';
+  private reinitializeForm(metadataField, newMetadataValue) {
+    let metadataValueFromDB = '';
     // Counter to count update request timeout (20s)
     let counter = 0;
 
@@ -398,22 +409,22 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
     const interval = setInterval( () => {
       // Load item from the DB
       this.submissionObjectService.findById(this.submissionId, true, false, followLink('item')).pipe(
-          getFirstSucceededRemoteData(),
-          getRemoteDataPayload())
-          .subscribe((payload) => {
-            if (isNotEmpty(payload.item)) {
-              payload.item.subscribe( item => {
-                if (isNotEmpty(item.payload) && isNotEmpty(item.payload.metadata['local.sponsor'])) {
-                  sponsorFromDB = item.payload.metadata['local.sponsor'];
-                }
-              });
-            }
-          });
+        getFirstSucceededRemoteData(),
+        getRemoteDataPayload())
+        .subscribe((payload) => {
+          if (isNotEmpty(payload.item)) {
+            payload.item.subscribe( item => {
+              if (isNotEmpty(item.payload) && isNotEmpty(item.payload.metadata[metadataField])) {
+                metadataValueFromDB = item.payload.metadata[metadataField];
+              }
+            });
+          }
+        });
       // Check if new value is refreshed in the DB
-      if (Array.isArray(sponsorFromDB) && isNotEmpty(sponsorFromDB)) {
-        sponsorFromDB.forEach((mv, index) => {
+      if (Array.isArray(metadataValueFromDB) && isNotEmpty(metadataValueFromDB)) {
+        metadataValueFromDB.forEach((mv, index) => {
           // @ts-ignore
-          if (sponsorFromDB[index].value === newSponsorValue.value) {
+          if (metadataValueFromDB[index].value === newMetadataValue.value) {
             // update form
             this.formModel = undefined;
             this.cdr.detectChanges();

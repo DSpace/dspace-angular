@@ -168,6 +168,21 @@ const createItemProcess = {
   },
   showErrorNotSupportedLicense() {
     cy.get('div[class = "form-group alert alert-danger in"]').contains('The selected license is not supported at the moment. Please follow the procedure described under section "None of these licenses suits your needs".');
+  },
+  checkAuthorLastnameField() {
+    cy.get('ds-dynamic-autocomplete input[placeholder = "Last name"]').should('be.visible');
+  },
+  checkAuthorLastnameFieldValue(value) {
+    cy.get('ds-dynamic-autocomplete input[placeholder = "Last name"]').should('have.value', value);
+  },
+  checkAuthorFirstnameField() {
+    cy.get('dynamic-ng-bootstrap-input input[placeholder = "First name"]').should('be.visible');
+  },
+  checkAuthorFirstnameFieldValue(value) {
+    cy.get('dynamic-ng-bootstrap-input input[placeholder = "First name"]').should('have.value', value);
+  },
+  writeAuthorInputField(value) {
+    cy.get('ds-dynamic-autocomplete input[placeholder = "Last name"]').eq(0).click({force: true}).type(value);
   }
 };
 
@@ -249,127 +264,142 @@ describe('Create a new submission', () => {
   //   addEUSponsor(3);
   // });
 
-  // Test type-bind
-  it('should be showed chosen type value', {
-      retries: {
-        runMode: 6,
-        openMode: 6,
-      },
-      defaultCommandTimeout: 10000
-    },() => {
-    createItemProcess.clickOnSelectionInput('dc.type');
-    createItemProcess.clickOnTypeSelection('Article');
-  });
+  // From HERE **********
 
-  // Test CMDI input field
-  it('should be visible Has CMDI file input field because user is admin', {
-      retries: {
-        runMode: 6,
-        openMode: 6,
-      },
-      defaultCommandTimeout: 10000
-    },() => {
-    createItemProcess.checkLocalHasCMDIVisibility();
-  });
+  // // Test type-bind
+  // it('should be showed chosen type value', {
+  //     retries: {
+  //       runMode: 6,
+  //       openMode: 6,
+  //     },
+  //     defaultCommandTimeout: 10000
+  //   },() => {
+  //   createItemProcess.clickOnSelectionInput('dc.type');
+  //   createItemProcess.clickOnTypeSelection('Article');
+  // });
+  //
+  // // Test CMDI input field
+  // it('should be visible Has CMDI file input field because user is admin', {
+  //     retries: {
+  //       runMode: 6,
+  //       openMode: 6,
+  //     },
+  //     defaultCommandTimeout: 10000
+  //   },() => {
+  //   createItemProcess.checkLocalHasCMDIVisibility();
+  // });
+  //
+  // it('The local.hasCMDI value should be sent in the response after type change', {
+  //     retries: {
+  //       runMode: 6,
+  //       openMode: 6,
+  //     },
+  //     defaultCommandTimeout: 10000
+  //   },() => {
+  //   createItemProcess.clickOnSelectionInput('dc.type');
+  //   createItemProcess.clickOnTypeSelection('Article');
+  //   createItemProcess.checkCheckbox('local_hasCMDI');
+  //   createItemProcess.controlCheckedCheckbox('local_hasCMDI',true);
+  //   createItemProcess.clickOnSave();
+  //   cy.reload();
+  //   createItemProcess.controlCheckedCheckbox('local_hasCMDI',true);
+  // });
+  //
+  // it('should change the step status after accepting/declining the distribution license', {
+  //   retries: {
+  //     runMode: 6,
+  //     openMode: 6,
+  //   },
+  //   defaultCommandTimeout: 10000
+  // },() => {
+  //   createItemProcess.checkDistributionLicenseStep();
+  //   createItemProcess.checkDistributionLicenseToggle();
+  //   // default status value is warnings
+  //   createItemProcess.checkDistributionLicenseStatus('Warnings');
+  //   // accept the distribution license agreement
+  //   createItemProcess.clickOnDistributionLicenseToggle();
+  //   // after accepting the status should be valid
+  //   createItemProcess.checkDistributionLicenseStatus('Valid');
+  //   // click on the toggle again and status should be changed to `Warnings`
+  //   createItemProcess.clickOnDistributionLicenseToggle();
+  //   createItemProcess.checkDistributionLicenseStatus('Warnings');
+  // });
+  //
+  // it('should pick up the license from the license selector', {
+  //   retries: {
+  //     runMode: 6,
+  //     openMode: 6,
+  //   },
+  //   defaultCommandTimeout: 10000
+  // },() => {
+  //   createItemProcess.checkLicenseResourceStep();
+  //   // check default value in the license dropdown selection
+  //   createItemProcess.checkLicenseSelectionValue('Select a License ...');
+  //   // pop up the license selector modal
+  //   createItemProcess.clickOnLicenseSelectorButton();
+  //   // check if the modal was popped up
+  //   createItemProcess.checkLicenseSelectorModal();
+  //   // pick up the first license from the modal, it is `Public Domain Mark (PD)`
+  //   createItemProcess.pickUpLicenseFromLicenseSelector();
+  //   // check if the picked up license value is seen as selected value in the selection
+  //   createItemProcess.checkLicenseSelectionValue('Public Domain Mark (PD)');
+  // });
+  //
+  // it('should select the license from the license selection dropdown and change status', {
+  //   retries: {
+  //     runMode: 6,
+  //     openMode: 6,
+  //   },
+  //   defaultCommandTimeout: 10000
+  // },() => {
+  //   createItemProcess.checkLicenseResourceStep();
+  //   // check default value in the license dropdown selection
+  //   createItemProcess.checkLicenseSelectionValue('Select a License ...');
+  //   // check step status - it should be as warning
+  //   createItemProcess.checkResourceLicenseStatus('Warnings');
+  //   // select `Public Domain Mark (PD)` from the selection
+  //   createItemProcess.selectValueFromLicenseSelection('Public Domain Mark (PD)');
+  //   // selected value should be seen as selected value in the selection
+  //   createItemProcess.checkLicenseSelectionValue('Public Domain Mark (PD)');
+  //   // check step status - it should be valid
+  //   createItemProcess.checkResourceLicenseStatus('Valid');
+  // });
+  //
+  // it('should show warning messages if was selected non-supported license', {
+  //   retries: {
+  //     runMode: 6,
+  //     openMode: 6,
+  //   },
+  //   defaultCommandTimeout: 10000
+  // },() => {
+  //   createItemProcess.checkLicenseResourceStep();
+  //   // check default value in the license dropdown selection
+  //   createItemProcess.checkLicenseSelectionValue('Select a License ...');
+  //   // check step status - it should be as warning
+  //   createItemProcess.checkResourceLicenseStatus('Warnings');
+  //   // select `Select a License ...` from the selection - this license is not supported
+  //   createItemProcess.selectValueFromLicenseSelection('Select a License ...');
+  //   // selected value should be seen as selected value in the selection
+  //   createItemProcess.checkLicenseSelectionValue('Select a License ...');
+  //   // check step status - it should an error
+  //   createItemProcess.checkResourceLicenseStatus('Errors');
+  //   // error messages should be popped up
+  //   createItemProcess.showErrorMustChooseLicense();
+  //   createItemProcess.showErrorNotSupportedLicense();
+  // });
 
-  it('The local.hasCMDI value should be sent in the response after type change', {
-      retries: {
-        runMode: 6,
-        openMode: 6,
-      },
-      defaultCommandTimeout: 10000
-    },() => {
-    createItemProcess.clickOnSelectionInput('dc.type');
-    createItemProcess.clickOnTypeSelection('Article');
-    createItemProcess.checkCheckbox('local_hasCMDI');
-    createItemProcess.controlCheckedCheckbox('local_hasCMDI',true);
-    createItemProcess.clickOnSave();
-    cy.reload();
-    createItemProcess.controlCheckedCheckbox('local_hasCMDI',true);
-  });
-
-  it('should change the step status after accepting/declining the distribution license', {
+  // Author field should consist of two input fields
+  it('Author field should consist of two input fields', {
     retries: {
       runMode: 6,
       openMode: 6,
     },
     defaultCommandTimeout: 10000
   },() => {
-    createItemProcess.checkDistributionLicenseStep();
-    createItemProcess.checkDistributionLicenseToggle();
-    // default status value is warnings
-    createItemProcess.checkDistributionLicenseStatus('Warnings');
-    // accept the distribution license agreement
-    createItemProcess.clickOnDistributionLicenseToggle();
-    // after accepting the status should be valid
-    createItemProcess.checkDistributionLicenseStatus('Valid');
-    // click on the toggle again and status should be changed to `Warnings`
-    createItemProcess.clickOnDistributionLicenseToggle();
-    createItemProcess.checkDistributionLicenseStatus('Warnings');
+    createItemProcess.checkAuthorFirstnameField();
+    createItemProcess.checkAuthorLastnameField();
   });
 
-  it('should pick up the license from the license selector', {
-    retries: {
-      runMode: 6,
-      openMode: 6,
-    },
-    defaultCommandTimeout: 10000
-  },() => {
-    createItemProcess.checkLicenseResourceStep();
-    // check default value in the license dropdown selection
-    createItemProcess.checkLicenseSelectionValue('Select a License ...');
-    // pop up the license selector modal
-    createItemProcess.clickOnLicenseSelectorButton();
-    // check if the modal was popped up
-    createItemProcess.checkLicenseSelectorModal();
-    // pick up the first license from the modal, it is `Public Domain Mark (PD)`
-    createItemProcess.pickUpLicenseFromLicenseSelector();
-    // check if the picked up license value is seen as selected value in the selection
-    createItemProcess.checkLicenseSelectionValue('Public Domain Mark (PD)');
-  });
-
-  it('should select the license from the license selection dropdown and change status', {
-    retries: {
-      runMode: 6,
-      openMode: 6,
-    },
-    defaultCommandTimeout: 10000
-  },() => {
-    createItemProcess.checkLicenseResourceStep();
-    // check default value in the license dropdown selection
-    createItemProcess.checkLicenseSelectionValue('Select a License ...');
-    // check step status - it should be as warning
-    createItemProcess.checkResourceLicenseStatus('Warnings');
-    // select `Public Domain Mark (PD)` from the selection
-    createItemProcess.selectValueFromLicenseSelection('Public Domain Mark (PD)');
-    // selected value should be seen as selected value in the selection
-    createItemProcess.checkLicenseSelectionValue('Public Domain Mark (PD)');
-    // check step status - it should be valid
-    createItemProcess.checkResourceLicenseStatus('Valid');
-  });
-
-  it('should show warning messages if was selected non-supported license', {
-    retries: {
-      runMode: 6,
-      openMode: 6,
-    },
-    defaultCommandTimeout: 10000
-  },() => {
-    createItemProcess.checkLicenseResourceStep();
-    // check default value in the license dropdown selection
-    createItemProcess.checkLicenseSelectionValue('Select a License ...');
-    // check step status - it should be as warning
-    createItemProcess.checkResourceLicenseStatus('Warnings');
-    // select `Select a License ...` from the selection - this license is not supported
-    createItemProcess.selectValueFromLicenseSelection('Select a License ...');
-    // selected value should be seen as selected value in the selection
-    createItemProcess.checkLicenseSelectionValue('Select a License ...');
-    // check step status - it should an error
-    createItemProcess.checkResourceLicenseStatus('Errors');
-    // error messages should be popped up
-    createItemProcess.showErrorMustChooseLicense();
-    createItemProcess.showErrorNotSupportedLicense();
-  });
 });
 
 function addEUSponsor(euSponsorOrder) {
