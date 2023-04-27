@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../core/shared/item.model';
 
-fdescribe('ItemCurateComponent', () => {
+describe('ItemCurateComponent', () => {
   let comp: ItemCurateComponent;
   let fixture: ComponentFixture<ItemCurateComponent>;
   let debugEl: DebugElement;
