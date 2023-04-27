@@ -156,7 +156,7 @@ export class DsDynamicAutocompleteComponent extends DsDynamicTagComponent implem
           return observableOf({ list: [] });
         } else {
           // metadataValue request
-          const response = this.metadataValueService.findByMetadataNameAndByValue(this.model.name, term);
+          const response = this.metadataValueService.findByMetadataNameAndByValue(this.model?.metadataFields?.pop(), term);
           return response.pipe(
             tap(() => this.searchFailed = false),
             catchError((error) => {
