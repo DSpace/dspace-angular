@@ -32,6 +32,7 @@ import { logStartupMessage } from '../../../startup-message';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { RootDataService } from '../../app/core/data/root-data.service';
 import { firstValueFrom, Subscription } from 'rxjs';
+import { MetadataItemService } from 'src/app/core/metadata-item/metadata-item.service';
 
 /**
  * Performs client-side initialization.
@@ -51,6 +52,7 @@ export class BrowserInitService extends InitService {
     protected angulartics2DSpace: Angulartics2DSpace,
     protected googleAnalyticsService: GoogleAnalyticsService,
     protected metadata: MetadataService,
+    protected metadataItem: MetadataItemService,
     protected breadcrumbsService: BreadcrumbsService,
     protected klaroService: KlaroService,
     protected authService: AuthService,
@@ -66,6 +68,7 @@ export class BrowserInitService extends InitService {
       localeService,
       angulartics2DSpace,
       metadata,
+      metadataItem,
       breadcrumbsService,
       themeService,
       menuService,

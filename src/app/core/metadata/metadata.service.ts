@@ -84,7 +84,7 @@ export class MetadataService {
   ];
 
   constructor(
-    private router: Router,
+    protected router: Router,
     private translate: TranslateService,
     private meta: Meta,
     private title: Title,
@@ -362,6 +362,15 @@ export class MetadataService {
       });
     }
   }
+
+  /**
+ * Add <meta name="link" ... >  to the <head>
+ */
+  // private setLinkTag(): void {
+  //   const value = this.getMetaTagValue('dc.link');
+  //   this.meta.addTag({ name: 'Link', content: value });
+  //   this.addMetaTag('Link', value);
+  // }
 
   getBitLinkIfDownloadable(bitstream: Bitstream, bitstreamRd: RemoteData<PaginatedList<Bitstream>>): Observable<string> {
     return observableOf(bitstream).pipe(

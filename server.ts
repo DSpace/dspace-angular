@@ -180,6 +180,15 @@ export function app() {
     changeOrigin: true
   }));
 
+    /**
+   * Proxy the linksets
+   */
+    router.use('/linksets**', createProxyMiddleware({
+      target: `${environment.rest.baseUrl}/linksets`,
+      pathRewrite: path => path.replace(environment.ui.nameSpace, '/'),
+      changeOrigin: true
+    }));
+
   /**
    * Checks if the rateLimiter property is present
    * When it is present, the rateLimiter will be enabled. When it is undefined, the rateLimiter will be disabled.

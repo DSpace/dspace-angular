@@ -24,6 +24,7 @@ import { isAuthenticationBlocking } from './core/auth/selectors';
 import { distinctUntilChanged, find } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { MenuService } from './shared/menu/menu.service';
+import { MetadataItemService } from './core/metadata-item/metadata-item.service';
 
 /**
  * Performs the initialization of the app.
@@ -50,6 +51,7 @@ export abstract class InitService {
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
     protected metadata: MetadataService,
+    protected metadataItem: MetadataItemService,
     protected breadcrumbsService: BreadcrumbsService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
@@ -188,6 +190,7 @@ export abstract class InitService {
     this.breadcrumbsService.listenForRouteChanges();
     this.themeService.listenForRouteChanges();
     this.menuService.listenForRouteChanges();
+    this.metadataItem.checkCurrentRoute();
   }
 
   /**
