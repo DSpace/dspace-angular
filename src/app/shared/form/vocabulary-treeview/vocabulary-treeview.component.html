@@ -25,20 +25,27 @@
         <button type="button" class="btn btn-default" cdkTreeNodeToggle>
           <span class="fas fa-angle-right fa-2x invisible" aria-hidden="true"></span>
         </button>
-        <button class="btn btn-outline-link btn-sm text-left"
-                [class.text-success]="node.isSelected"
-                [disabled]="!node.item?.selectable"
-                [ngbTooltip]="node.item?.otherInformation?.note"
-                [openDelay]="500"
-                container="body"
-                (click)="onSelect(node.item)">
-          <span *ngIf="multiSelect" class="form-check">
-            <!-- checkbox (click) needs to be stopped, to prevent that button (click) gets called twice -->
-            <input class="form-check-input" type="checkbox" id="leaf-node-checkbox_{{node.item.id}}"
-                   [checked]="node.isSelected" (click)="$event.stopPropagation()">
-            <label class="form-check-label" for="leaf-node-checkbox_{{node.item.id}}">{{node.item.display}}</label>
-          </span>
-          <span *ngIf="!multiSelect">{{node.item.display}}</span>
+          <label *ngIf="multiSelect" class="d-flex align-items-center m-0 p-0 form-check"
+                 [class.text-success]="node.isSelected"
+                 [ngbTooltip]="node.item?.otherInformation?.note"
+                 [openDelay]="500"
+                 container="body"
+          >
+            <input class="mr-2" type="checkbox"
+                   [disabled]="!node.item?.selectable"
+                   [checked]="node.isSelected"
+                   (change)="onSelect(node.item)"
+            >
+            <span>{{node.item.display}}</span>
+          </label>
+          <button *ngIf="!multiSelect" class="btn btn-outline-link btn-sm text-left"
+                  [class.text-success]="node.isSelected"
+                  [disabled]="!node.item?.selectable"
+                  [ngbTooltip]="node.item?.otherInformation?.note"
+                  [openDelay]="500"
+                  container="body"
+                  (click)="onSelect(node.item)">
+          <span>{{node.item.display}}</span>
         </button>
     </cdk-tree-node>
 
@@ -51,21 +58,27 @@
                 aria-hidden="true"></span>
         </button>
 
-        <button class="btn btn-outline-link btn-sm text-left"
+          <label *ngIf="multiSelect" class="d-flex align-items-center m-0 p-0 form-check"
                 [class.text-success]="node.isSelected"
-                [disabled]="!node.item?.selectable"
                 [ngbTooltip]="node.item?.otherInformation?.note"
                 [openDelay]="500"
-                container="body"
-                (click)="onSelect(node.item)">
-          <span *ngIf="multiSelect" class="form-check">
-            <!-- checkbox (click) needs to be stopped, to prevent that button (click) gets called twice -->
-            <input class="form-check-input" type="checkbox" id="expandable-node-checkbox_{{node.item.id}}"
-                   [checked]="node.isSelected" (click)="$event.stopPropagation()">
-            <label class="form-check-label" for="expandable-node-checkbox_{{node.item.id}}">{{node.item.display}}</label>
-          </span>
-          <span *ngIf="!multiSelect">{{node.item.display}}</span>
-     </button>
+                container="body">
+            <input class="mr-2" type="checkbox"
+                   [disabled]="!node.item?.selectable"
+                   [checked]="node.isSelected"
+                   (change)="onSelect(node.item)"
+            >
+            <span>{{node.item.display}}</span>
+          </label>
+          <button *ngIf="!multiSelect" class="btn btn-outline-link btn-sm text-left"
+                  [class.text-success]="node.isSelected"
+                  [disabled]="!node.item?.selectable"
+                  [ngbTooltip]="node.item?.otherInformation?.note"
+                  [openDelay]="500"
+                  container="body"
+                  (click)="onSelect(node.item)">
+            <span>{{node.item.display}}</span>
+          </button>
     </cdk-tree-node>
 
     <cdk-tree-node *cdkTreeNodeDef="let node; when: isLoadMore" cdkTreeNodePadding>
