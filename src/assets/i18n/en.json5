@@ -2649,6 +2649,8 @@
 
   "menu.section.browse_global_by_subject": "By Subject",
 
+  "menu.section.browse_global_by_srsc": "By Subject Category",
+
   "menu.section.browse_global_by_title": "By Title",
 
   "menu.section.browse_global_communities_and_collections": "Communities & Collections",
