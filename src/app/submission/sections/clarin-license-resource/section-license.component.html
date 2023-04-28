@@ -1,3 +1,4 @@
+<span id="secret-selected-license-from-license-selector" style="display: none" #licenseSelection></span>
 <button id="secret-change-button" type="button" (click)="changeLicenseNameFromRef()" style="display: none">
 </button>
 <div class="container">
@@ -42,17 +43,37 @@
       </div>
     </div>
     <div class="col-md-12">
-      <div class="form-group">
-        <select #licenseSelection [(ngModel)]="selectedLicenseFromOptionId" (change)="selectLicense()"
-                id="aspect_submission_StepTransformer_field_license"
-                class="form-control" name="license" tabindex="-1" title="">
-          <option [value]="'0'" selected="selected">
-            {{'submission.sections.clarin-license.head.license-select-default-value' | translate}}
-          </option>
-          <option *ngFor="let license of licenses4Selector" [value]="license.id" id="license_option">
-            {{license.name}}
-          </option>
-        </select>
+      <div class="form-group mb-0">
+          <div class="input-group">
+            <input type="button"
+                   class="custom-select clarin-select-input btn text-left"
+                   id="aspect_submission_StepTransformer_field_license"
+                   data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false"
+                   [value]="this.selectedLicenseName"/>
+            <ul class="dropdown-menu scrollable-menu"
+                aria-labelledby="aspect_submission_StepTransformer_field_license">
+                <div class="form-group has-search mb-0">
+                  <span class="fa fa-search form-control-feedback"></span>
+                  <input type="search"
+                         (input)="searchInClarinLicenses($event)"
+                         class="form-control border-top-0 border-left-0 border-right-0 no-radius shadow-none"
+                         placeholder="Search">
+                </div>
+              <li class="dropdown-item clarin-dropdown-item pt-2" value="0" (click)="selectLicense(0)">
+                <b>{{'submission.sections.clarin-license.head.license-select-default-value' | translate}}</b>
+              </li>
+              <li class="dropdown-item clarin-dropdown-item pt-2"
+                  *ngFor="let license of filteredLicenses4Selector"
+                  (click)="selectLicense(license.id)"
+                  [value]="license.id"
+                  id="license_option">
+                <span [class]="'label label-' + license.licenseLabel">{{license.licenseLabel}}</span>
+                <b>{{license.name}}</b>
+              </li>
+            </ul>
+          </div>
       </div>
     </div>
     <div class="col-md-12">

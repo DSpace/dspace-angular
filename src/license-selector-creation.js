@@ -60,7 +60,7 @@ $(function() {
     for (var i = 0; i < allLic.length; i++) {
       if (allLic[i].href == selectedLic) {
         var id = allLic[i].name.replace("license_", "");
-        document.getElementById('aspect_submission_StepTransformer_field_license').value = id;
+        document.getElementById('secret-selected-license-from-license-selector').value = id;
         $("#aspect_submission_StepTransformer_item_license-not-supported-message").addClass("hidden");
         document.getElementById('secret-change-button').click();
         return;
