@@ -4270,6 +4270,8 @@
 
   "submission.sections.submit.progressbar.upload": "Upload files",
 
+  "submission.sections.submit.progressbar.clarin-notice": "Notice",
+
 
 
   "submission.sections.status.errors.title": "Errors",
@@ -4426,6 +4428,10 @@
   "submission.sections.clarin-license.toggle.off-text": "Click to accept",
 
   "submission.sections.clarin-license.toggle.on-text": "Accepted",
+
+
+
+  "submission.sections.clarin-notice.message": ["The submission process for this collection (\"","\") is still being fine-tuned. If you find yourself unable to continue the submission because you can't provide the required information, because the required format for a field is too strict, because there's no appropriate field for your information, or for any other reason", "let us know"],
 
 
 

@@ -7,4 +7,6 @@ export enum SectionsType {
   collection = 'collection',
   AccessesCondition = 'accessCondition',
   clarinLicense = 'clarin-license',
+
+  clarinNotice = 'clarin-notice',
 }

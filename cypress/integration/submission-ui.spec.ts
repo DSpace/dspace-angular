@@ -2,7 +2,12 @@
  * This IT will be never be pushed to the upstream because clicking testing DOM elements is antipattern because
  * the tests on other machines could fail.
  */
-import { TEST_ADMIN_PASSWORD, TEST_ADMIN_USER, TEST_SUBMIT_COLLECTION_UUID } from '../support';
+import {
+  TEST_ADMIN_PASSWORD,
+  TEST_ADMIN_USER,
+  TEST_SUBMIT_CLARIAH_COLLECTION_UUID,
+  TEST_SUBMIT_COLLECTION_UUID
+} from '../support';
 import { loginProcess } from '../support/commands';
 import wait from 'fork-ts-checker-webpack-plugin/lib/utils/async/wait';
 
@@ -144,6 +149,12 @@ const createItemProcess = {
   },
   checkLicenseResourceStep() {
     cy.get('ds-submission-section-clarin-license').should('be.visible');
+  },
+  checkClarinNoticeStep() {
+    cy.get('ds-clarin-notice').should('be.visible');
+  },
+  checkClarinNoticeStepNotExist() {
+    cy.get('ds-clarin-notice').should('not.exist');
   },
   clickOnLicenseSelectorButton() {
     cy.get('ds-submission-section-clarin-license div[id = "aspect_submission_StepTransformer_item_"] button').click();
@@ -405,6 +416,81 @@ describe('Create a new submission', () => {
     createItemProcess.checkAuthorLastnameField();
   });
 
+  it('should show warning messages if was selected non-supported license', {
+    retries: {
+      runMode: 6,
+      openMode: 6,
+    },
+    defaultCommandTimeout: 10000
+  },() => {
+    createItemProcess.checkLicenseResourceStep();
+    // check default value in the license dropdown selection
+    createItemProcess.checkLicenseSelectionValue('Select a License ...');
+    // check step status - it should be as warning
+    createItemProcess.checkResourceLicenseStatus('Warnings');
+    // select `Select a License ...` from the selection - this license is not supported
+    createItemProcess.selectValueFromLicenseSelection('Select a License ...');
+    // selected value should be seen as selected value in the selection
+    createItemProcess.checkLicenseSelectionValue('Select a License ...');
+    // check step status - it should an error
+    createItemProcess.checkResourceLicenseStatus('Errors');
+    // error messages should be popped up
+    createItemProcess.showErrorMustChooseLicense();
+    createItemProcess.showErrorNotSupportedLicense();
+  });
+
+  it('the submission should have the Notice Step', {
+    retries: {
+      runMode: 6,
+      openMode: 6,
+    },
+    defaultCommandTimeout: 10000
+  },() => {
+    createItemProcess.checkLicenseResourceStep();
+    // check default value in the license dropdown selection
+    createItemProcess.checkLicenseSelectionValue('Select a License ...');
+    // check step status - it should be as warning
+    createItemProcess.checkResourceLicenseStatus('Warnings');
+    // select `Select a License ...` from the selection - this license is not supported
+    createItemProcess.selectValueFromLicenseSelection('Select a License ...');
+    // selected value should be seen as selected value in the selection
+    createItemProcess.checkLicenseSelectionValue('Select a License ...');
+    // check step status - it should an error
+    createItemProcess.checkResourceLicenseStatus('Errors');
+    // error messages should be popped up
+    createItemProcess.showErrorMustChooseLicense();
+    createItemProcess.showErrorNotSupportedLicense();
+  });
+
+  it('The submission should not have the Notice Step', {
+    retries: {
+      runMode: 6,
+      openMode: 6,
+    },
+    defaultCommandTimeout: 10000
+  },() => {
+    createItemProcess.checkClarinNoticeStepNotExist();
+  });
+});
+
+describe('Create a new submission in the clariah collection', () => {
+  beforeEach(() => {
+    cy.visit('/');
+    // Login as admin
+    loginProcess.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
+    // Create a new submission
+    cy.visit('/submit?collection=' + TEST_SUBMIT_CLARIAH_COLLECTION_UUID + '&entityType=none');
+  });
+
+  it('The submission should have the Notice Step', {
+    retries: {
+      runMode: 6,
+      openMode: 6,
+    },
+    defaultCommandTimeout: 10000
+  },() => {
+    createItemProcess.checkClarinNoticeStep();
+  });
 });
 
 function addEUSponsor(euSponsorOrder) {
