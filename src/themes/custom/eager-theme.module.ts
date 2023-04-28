@@ -43,6 +43,7 @@ import {
 
 import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
 import { CollectionListElementComponent} from './app/shared/object-list/collection-list-element/collection-list-element.component';
+import { PersonComponent } from './app/entity-groups/research-entities/item-pages/person/person.component';
 
 
 /**
@@ -58,6 +59,7 @@ const ENTRY_COMPONENTS = [
 
   CommunityListElementComponent,
   CollectionListElementComponent,
+  PersonComponent,
 ];
 
 const DECLARATIONS = [
