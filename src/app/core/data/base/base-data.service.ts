@@ -341,6 +341,11 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
     }
   }
 
+  /**
+   * Checks for the provided href whether a response is already cached
+   * @param href$                       The url for which to check whether there is a cached response.
+   *                                    Can be a string or an Observable<string>
+   */
   hasCachedResponse(href$: string | Observable<string>): Observable<boolean> {
     if (isNotEmpty(href$)) {
       if (typeof href$ === 'string') {
@@ -359,6 +364,11 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
     throw new Error(`Can't check whether there is a cached response for an empty href$`);
   }
 
+  /**
+   * Checks for the provided href whether an ERROR response is currently cached
+   * @param href$                       The url for which to check whether there is a cached ERROR response.
+   *                                    Can be a string or an Observable<string>
+   */
   hasCachedErrorResponse(href$: string | Observable<string>): Observable<boolean> {
     return this.hasCachedResponse(href$).pipe(
       switchMap((hasCachedResponse) => {
