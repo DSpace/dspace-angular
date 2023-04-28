@@ -41,6 +41,7 @@ describe('ClarinLicenseTableComponent', () => {
       findAll: mockLicenseRD$,
       create: createdLicenseRD$,
       put: createdLicenseRD$,
+      searchBy: mockLicenseRD$,
       getLinkPath: observableOf('')
     });
     clarinLicenseLabelDataService = jasmine.createSpyObj('clarinLicenseLabelService', {
@@ -98,7 +99,7 @@ describe('ClarinLicenseTableComponent', () => {
 
   it('should onInit should initialize clarin license table data', () => {
     (component as ClarinLicenseTableComponent).ngOnInit();
-    expect((component as any).clarinLicenseService.findAll).toHaveBeenCalled();
+    expect((component as any).clarinLicenseService.searchBy).toHaveBeenCalled();
     expect((component as ClarinLicenseTableComponent).licensesRD$).not.toBeNull();
   });
 
@@ -108,7 +109,7 @@ describe('ClarinLicenseTableComponent', () => {
     // notificate successful response
     expect((component as any).notificationService.success).toHaveBeenCalled();
     // load table data
-    expect((component as any).clarinLicenseService.findAll).toHaveBeenCalled();
+    expect((component as any).clarinLicenseService.searchBy).toHaveBeenCalled();
     expect((component as ClarinLicenseTableComponent).licensesRD$).not.toBeNull();
   });
 
@@ -127,7 +128,7 @@ describe('ClarinLicenseTableComponent', () => {
       // notificate successful response
       expect((component as any).notificationService.success).toHaveBeenCalled();
       // load table data
-      expect((component as any).clarinLicenseService.findAll).toHaveBeenCalled();
+      expect((component as any).clarinLicenseService.searchBy).toHaveBeenCalled();
       expect((component as ClarinLicenseTableComponent).licensesRD$).not.toBeNull();
     });
   }));
@@ -141,7 +142,7 @@ describe('ClarinLicenseTableComponent', () => {
     // notificate successful response
     expect((component as any).notificationService.success).toHaveBeenCalled();
     // load table data
-    expect((component as any).clarinLicenseService.findAll).toHaveBeenCalled();
+    expect((component as any).clarinLicenseService.searchBy).toHaveBeenCalled();
     expect((component as ClarinLicenseTableComponent).licensesRD$).not.toBeNull();
   });
 });

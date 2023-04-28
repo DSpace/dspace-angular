@@ -3520,6 +3520,10 @@
 
   "clarin-license.button.delete-license": "Delete License",
 
+  "clarin-license.button.search": "Search",
+
+  "clarin-license.button.search.placeholder": "Search by the license name ...",
+
 
   "clarin-license.define-license-form.form-name": "Define new license",
 

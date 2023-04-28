@@ -21,6 +21,7 @@ import { ClarinLicenseLabelDataService } from '../../core/data/clarin/clarin-lic
 import { ClarinLicenseLabelExtendedSerializer } from '../../core/shared/clarin/clarin-license-label-extended-serializer';
 import { ClarinLicenseRequiredInfoSerializer } from '../../core/shared/clarin/clarin-license-required-info-serializer';
 import { cloneDeep } from 'lodash';
+import { RequestParam } from '../../core/cache/models/request-param.model';
 
 /**
  * Component for managing clarin licenses and defining clarin license labels.
@@ -60,6 +61,11 @@ export class ClarinLicenseTableComponent implements OnInit {
    * If the request isn't processed show the loading bar.
    */
   isLoading = false;
+
+  /**
+   * License name typed into search input field, it is passed to the BE as searching value.
+   */
+  searchingLicenseName = '';
 
   ngOnInit(): void {
     this.initializePaginationOptions();
@@ -311,10 +317,11 @@ export class ClarinLicenseTableComponent implements OnInit {
 
     observableCombineLatest([currentPagination$, currentSort$]).pipe(
       switchMap(([currentPagination, currentSort]) => {
-        return this.clarinLicenseService.findAll({
+        return this.clarinLicenseService.searchBy('byNameLike',{
             currentPage: currentPagination.currentPage,
             elementsPerPage: currentPagination.pageSize,
-            sort: {field: currentSort.field, direction: currentSort.direction}
+            sort: {field: currentSort.field, direction: currentSort.direction},
+            searchParams: [Object.assign(new RequestParam('name', this.searchingLicenseName))]
           }, false
         );
       }),

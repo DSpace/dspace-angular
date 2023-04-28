@@ -10,8 +10,8 @@ export const paginationID = 'cLicense';
 // pageSize: 200; get all licenses
 export const defaultPagination = Object.assign(new PaginationComponentOptions(), {
   id: paginationID,
-  currentPage: 0,
-  pageSize: 200
+  currentPage: 1,
+  pageSize: 10
 });
 
 export const defaultSortConfiguration = new SortOptions('', SortDirection.DESC);

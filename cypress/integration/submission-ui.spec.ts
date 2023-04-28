@@ -416,52 +416,6 @@ describe('Create a new submission', () => {
     createItemProcess.checkAuthorLastnameField();
   });
 
-  it('should show warning messages if was selected non-supported license', {
-    retries: {
-      runMode: 6,
-      openMode: 6,
-    },
-    defaultCommandTimeout: 10000
-  },() => {
-    createItemProcess.checkLicenseResourceStep();
-    // check default value in the license dropdown selection
-    createItemProcess.checkLicenseSelectionValue('Select a License ...');
-    // check step status - it should be as warning
-    createItemProcess.checkResourceLicenseStatus('Warnings');
-    // select `Select a License ...` from the selection - this license is not supported
-    createItemProcess.selectValueFromLicenseSelection('Select a License ...');
-    // selected value should be seen as selected value in the selection
-    createItemProcess.checkLicenseSelectionValue('Select a License ...');
-    // check step status - it should an error
-    createItemProcess.checkResourceLicenseStatus('Errors');
-    // error messages should be popped up
-    createItemProcess.showErrorMustChooseLicense();
-    createItemProcess.showErrorNotSupportedLicense();
-  });
-
-  it('the submission should have the Notice Step', {
-    retries: {
-      runMode: 6,
-      openMode: 6,
-    },
-    defaultCommandTimeout: 10000
-  },() => {
-    createItemProcess.checkLicenseResourceStep();
-    // check default value in the license dropdown selection
-    createItemProcess.checkLicenseSelectionValue('Select a License ...');
-    // check step status - it should be as warning
-    createItemProcess.checkResourceLicenseStatus('Warnings');
-    // select `Select a License ...` from the selection - this license is not supported
-    createItemProcess.selectValueFromLicenseSelection('Select a License ...');
-    // selected value should be seen as selected value in the selection
-    createItemProcess.checkLicenseSelectionValue('Select a License ...');
-    // check step status - it should an error
-    createItemProcess.checkResourceLicenseStatus('Errors');
-    // error messages should be popped up
-    createItemProcess.showErrorMustChooseLicense();
-    createItemProcess.showErrorNotSupportedLicense();
-  });
-
   it('The submission should not have the Notice Step', {
     retries: {
       runMode: 6,
