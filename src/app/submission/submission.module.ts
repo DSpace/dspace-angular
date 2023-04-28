@@ -58,6 +58,7 @@ import { SubmissionSectionAccessesComponent } from './sections/accesses/section-
 import { SubmissionAccessesConfigDataService } from '../core/config/submission-accesses-config-data.service';
 import { SectionAccessesService } from './sections/accesses/section-accesses.service';
 import {SubmissionSectionClarinLicenseDistributionComponent} from './sections/clarin-license-distribution/clarin-license-distribution.component';
+import {SubmissionSectionClarinNoticeComponent} from './sections/clarin-notice/clarin-notice.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -68,7 +69,8 @@ const ENTRY_COMPONENTS = [
   SubmissionSectionCcLicensesComponent,
   SubmissionSectionAccessesComponent,
   SubmissionSectionUploadFileEditComponent,
-  SubmissionSectionClarinLicenseDistributionComponent
+  SubmissionSectionClarinLicenseDistributionComponent,
+  SubmissionSectionClarinNoticeComponent
 ];
 
 const DECLARATIONS = [
