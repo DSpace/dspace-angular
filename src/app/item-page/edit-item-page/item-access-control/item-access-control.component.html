@@ -1,1 +1,110 @@
-<p>item-access-control works!</p>
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <p>
+        This form allows you to perform changes to the access condition of all the items owned by collection under this community.
+        Changes can be performed on the access condition for the metadata (item) or for the content (bitstream).
+      </p>
+
+      <div class="row mt-5">
+        <div class="col-12 col-md-6 border-right">
+          <div class="d-flex align-items-center">
+            <h4 class="mb-0 mr-4">Item's Metadata</h4>
+            <ui-switch [(ngModel)]="state.item.toggleStatus"></ui-switch>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-12 col-md-3">Mode</div>
+            <div class="col-12 col-md-8">
+              <div class="form-check">
+                <input class="form-check-input" type="radio"
+                       name="itemMode" id="itemReplace" value="replace" [(ngModel)]="state.item.accessMode">
+                <label class="form-check-label" for="itemReplace">Replace access conditions</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio"
+                       name="itemMode" id="itemAdd" value="add" [(ngModel)]="state.item.accessMode">
+                <label class="form-check-label" for="itemAdd">Add to existing ones</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <h5>Access conditions</h5>
+
+            <div class="alert alert-warning">
+              You have not specified any access conditions, the new items access conditions will be inherited from the owning collection.
+            </div>
+          </div>
+
+          <ds-access-control-array-form
+            #itemAccessCmp
+            [dropdownOptions]="(dropdownData$ | async)?.itemAccessConditionOptions || []">
+          </ds-access-control-array-form>
+
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="d-flex align-items-center">
+            <h4 class="mb-0 mr-4">Bitstreams</h4>
+            <ui-switch [(ngModel)]="state.bitstream.toggleStatus"></ui-switch>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-12">Limit the changes to specific bitstreams</div>
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" type="radio"
+                       name="changesLimit" id="processAll" value="all" [(ngModel)]="state.bitstream.changesLimit">
+                <label class="form-check-label" for="processAll">process all the bitstreams in the item</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio"
+                       name="changesLimit" id="processSelected" value="selected" [(ngModel)]="state.bitstream.changesLimit">
+                <label class="form-check-label" for="processSelected">
+                  {{ state.bitstream.selectedBitstreams.length }} bitstreams selected
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-12 col-md-3">Mode</div>
+            <div class="col-12 col-md-8">
+              <div class="form-check">
+                <input class="form-check-input" type="radio"
+                       name="bitstreamMode" id="bitstreamReplace" value="replace" [(ngModel)]="state.bitstream.accessMode">
+                <label class="form-check-label" for="bitstreamReplace">Replace access conditions</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio"
+                       name="bitstreamMode" id="bitstreamAdd" value="add" [(ngModel)]="state.bitstream.accessMode">
+                <label class="form-check-label" for="bitstreamAdd">Add to existing ones</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <h5>Access conditions</h5>
+
+            <div class="alert alert-warning">
+              You have not specified any access conditions, the new items access conditions will be inherited from the owning collection.
+            </div>
+          </div>
+
+          <ds-access-control-array-form
+            #bitstreamAccessCmp
+            [dropdownOptions]="(dropdownData$ | async)?.bitstreamAccessConditionOptions || []">
+          </ds-access-control-array-form>
+
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-lg btn-outline-primary mr-3" (click)="reset()">Reset</button>
+        <button class="btn btn-lg btn-primary" (click)="submit()">Execute</button>
+      </div>
+    </div>
+  </div>
+</div>

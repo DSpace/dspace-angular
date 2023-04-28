@@ -1,37 +1,56 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ActivatedRoute } from '@angular/router';
-import { first, map } from 'rxjs/operators';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { shareReplay } from 'rxjs';
+import {
+  AccessControlArrayFormComponent
+} from '../../../shared/access-control-array-form/access-control-array-form.component';
+import { CollectionAccessControlService } from './collection-access-control.service';
 
 @Component({
   selector: 'ds-collection-access-control',
   templateUrl: './collection-access-control.component.html',
-  styleUrls: ['./collection-access-control.component.scss']
+  styleUrls: ['./collection-access-control.component.scss'],
+  providers: [CollectionAccessControlService]
 })
-export class CollectionAccessControlComponent<TDomain extends DSpaceObject>  implements OnInit {
+export class CollectionAccessControlComponent  implements OnInit {
 
-  /**
-   * The initial DSO object
-   */
-  public dsoRD$: Observable<RemoteData<TDomain>>;
+  @ViewChild('bitstreamAccessCmp', { static: true }) bitstreamAccessCmp: AccessControlArrayFormComponent;
+  @ViewChild('itemAccessCmp', { static: true }) itemAccessCmp: AccessControlArrayFormComponent;
 
-  /**
-   * Initialize instance variables
-   *
-   * @param {ActivatedRoute} route
-   */
-  constructor(
-    private route: ActivatedRoute
-  ) {
+  constructor(private collectionAccessControlService: CollectionAccessControlService) {}
+
+  state = initialState;
+
+  dropdownData$ = this.collectionAccessControlService.dropdownData$.pipe(
+    shareReplay(1)
+  );
+
+  ngOnInit(): void {
+
   }
 
-  /**
-   * Initialize the component, setting up the collection
-   */
-  ngOnInit(): void {
-    this.dsoRD$ = this.route.parent.parent.data.pipe(first(), map((data) => data.dso));
+  reset() {
+    this.bitstreamAccessCmp.reset();
+    this.itemAccessCmp.reset();
+    this.state = initialState;
+  }
+
+  submit() {
+    const bitstreamAccess = this.bitstreamAccessCmp.getValue();
+    const itemAccess = this.itemAccessCmp.getValue();
+
+    console.log('bitstreamAccess', bitstreamAccess);
+    console.log('itemAccess', itemAccess);
   }
 
 }
+
+const initialState = {
+  item: {
+    toggleStatus: false,
+    accessMode: '',
+  },
+  bitstream: {
+    toggleStatus: false,
+    accessMode: '',
+  },
+};
