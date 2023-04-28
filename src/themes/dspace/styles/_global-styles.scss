@@ -2,6 +2,7 @@
 
 // imports the base global style
 @import '../../../styles/_global-styles.scss';
+@import '../../../styles/_clarin-styles.scss';
 
 .facet-filter, .setting-option {
   background-color: var(--bs-light);
