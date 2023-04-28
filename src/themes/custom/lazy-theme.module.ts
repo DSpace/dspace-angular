@@ -145,6 +145,7 @@ import {
   MediaViewerVideoComponent
 } from './app/item-page/media-viewer/media-viewer-video/media-viewer-video.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { WorkspaceItemsDeletePageComponent } from './app/workspace-items-delete-page/workspace-items-delete/workspace-items-delete.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -212,6 +213,7 @@ const DECLARATIONS = [
   MediaViewerComponent,
   MediaViewerImageComponent,
   MediaViewerVideoComponent,
+  WorkspaceItemsDeletePageComponent,
 ];
 
 @NgModule({
