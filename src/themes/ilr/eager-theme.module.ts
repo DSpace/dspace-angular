@@ -1,37 +1,36 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { SharedModule } from '../../app/shared/shared.module';
-import { NavbarComponent } from './app/navbar/navbar.component';
-import { SearchModule } from '../../app/shared/search/search.module';
-import { RootModule } from '../../app/root.module';
-import { NavbarModule } from '../../app/navbar/navbar.module';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {SharedModule} from '../../app/shared/shared.module';
+import {NavbarComponent} from './app/navbar/navbar.component';
+import {SearchModule} from '../../app/shared/search/search.module';
+import {RootModule} from '../../app/root.module';
+import {NavbarModule} from '../../app/navbar/navbar.module';
 
 /**
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.
  * This will ensure that decorator gets picked up when the app loads
  */
-const ENTRY_COMPONENTS = [
-];
+const ENTRY_COMPONENTS = [];
 
 const DECLARATIONS = [
-  ...ENTRY_COMPONENTS,
-  NavbarComponent,
+    ...ENTRY_COMPONENTS,
+    NavbarComponent,
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    SearchModule,
-    FormsModule,
-    RootModule,
-    NavbarModule,
-  ],
-  declarations: DECLARATIONS,
-  providers: [
-    ...ENTRY_COMPONENTS.map((component) => ({ provide: component }))
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        SearchModule,
+        FormsModule,
+        RootModule,
+        NavbarModule,
+    ],
+    declarations: DECLARATIONS,
+    providers: [
+        ...ENTRY_COMPONENTS.map((component) => ({provide: component}))
+    ],
 })
 /**
  * This module is included in the main bundle that gets downloaded at first page load. So it should

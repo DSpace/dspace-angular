@@ -11,6 +11,9 @@ rest:
   nameSpace: /server
 
 themes:
+  - name: ilr
+    extends: ecommons
+    uuid: '248b4901-f047-44d0-99b8-08613890ba79'
   - name: ecommons
     headTags:
       - tagName: link

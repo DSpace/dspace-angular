@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { EagerThemeModule as DSpaceEagerThemeModule } from './dspace/eager-theme.module';
 import { EagerThemeModule as eCommonsEagerThemeModule } from './ecommons/eager-theme.module';
-// import { EagerThemeModule as CustomEagerThemeModule } from './custom/eager-theme.module';
+import { EagerThemeModule as ILREagerThemeModule } from './ilr/eager-theme.module';
 
 /**
  * This module bundles the eager theme modules for all available themes.
@@ -13,8 +13,8 @@ import { EagerThemeModule as eCommonsEagerThemeModule } from './ecommons/eager-t
 @NgModule({
   imports: [
     DSpaceEagerThemeModule,
-    eCommonsEagerThemeModule
-    // CustomEagerThemeModule,
+    eCommonsEagerThemeModule,
+    ILREagerThemeModule
   ],
 })
 export class EagerThemesModule {
