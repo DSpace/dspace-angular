@@ -235,10 +235,16 @@ describe('FormBuilderService test suite', () => {
       new DynamicListCheckboxGroupModel({
         id: 'testCheckboxList',
         vocabularyOptions: vocabularyOptions,
-        repeatable: true
+        repeatable: true,
+        required: false,
       }),
 
-      new DynamicListRadioGroupModel({ id: 'testRadioList', vocabularyOptions: vocabularyOptions, repeatable: false }),
+      new DynamicListRadioGroupModel({
+        id: 'testRadioList',
+        vocabularyOptions: vocabularyOptions,
+        repeatable: false,
+        required: false,
+      }),
 
       new DynamicRelationGroupModel({
         submissionId,
@@ -325,6 +331,14 @@ describe('FormBuilderService test suite', () => {
           typeBindRelations: [{ match: 'VISIBLE', operator: 'OR', when: [{id: 'dc.type', value: 'Book' }]}]
         },
       ),
+
+      new DynamicConcatModel({
+        id: 'testConcatGroup_CONCAT_GROUP',
+        group: [
+          new DynamicInputModel({ id: 'testConcatGroup_CONCAT_FIRST_INPUT' }),
+          new DynamicInputModel({ id: 'testConcatGroup_CONCAT_SECOND_INPUT' }),
+        ]
+      } as any)
     ];
 
     testFormConfiguration = {
@@ -463,6 +477,7 @@ describe('FormBuilderService test suite', () => {
     expect(service.findById('testTimePicker', testModel) instanceof DynamicTimePickerModel).toBe(true);
     expect(service.findById('testRating', testModel) instanceof DynamicRatingModel).toBe(true);
     expect(service.findById('testColorPicker', testModel) instanceof DynamicColorPickerModel).toBe(true);
+    expect(service.findById('testConcatGroup', testModel) instanceof DynamicConcatModel).toBe(true);
   });
 
   it('should find a nested dynamic form control model by id', () => {

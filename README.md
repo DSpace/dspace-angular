@@ -35,7 +35,7 @@ https://wiki.lyrasis.org/display/DSDOC7x/Installing+DSpace
 Quick start
 -----------
 
-**Ensure you're running [Node](https://nodejs.org) `v14.x` or `v16.x`, [npm](https://www.npmjs.com/) >= `v5.x` and [yarn](https://yarnpkg.com) == `v1.x`**
+**Ensure you're running [Node](https://nodejs.org) `v16.x` or `v18.x`, [npm](https://www.npmjs.com/) >= `v5.x` and [yarn](https://yarnpkg.com) == `v1.x`**
 
 ```bash
 # clone the repo
@@ -90,7 +90,7 @@ Requirements
 ------------
 
 -	[Node.js](https://nodejs.org) and [yarn](https://yarnpkg.com)
--	Ensure you're running node `v14.x` or `v16.x` and yarn == `v1.x`
+-	Ensure you're running node `v16.x` or `v18.x` and yarn == `v1.x`
 
 If you have [`nvm`](https://github.com/creationix/nvm#install-script) or [`nvm-windows`](https://github.com/coreybutler/nvm-windows) installed, which is highly recommended, you can run `nvm install --lts && nvm use` to install and start using the latest Node LTS.
 
@@ -351,7 +351,7 @@ Documentation
 
 Official DSpace documentation is available in the DSpace wiki at https://wiki.lyrasis.org/display/DSDOC7x/
 
-Some UI specific configuration documentation is also found in the [`./docs`](docs) folder of htis codebase.
+Some UI specific configuration documentation is also found in the [`./docs`](docs) folder of this codebase.
 
 ### Building code documentation
 
@@ -379,10 +379,10 @@ To get the most out of TypeScript, you'll need a TypeScript-aware editor. We've 
 	-	[Sublime Text](http://www.sublimetext.com/3)
 		-	[Typescript-Sublime-Plugin](https://github.com/Microsoft/Typescript-Sublime-plugin#installation)
 
-Collaborating
+Contributing
 -------------
 
-See [the guide on the wiki](https://wiki.lyrasis.org/display/DSPACE/DSpace+7+-+Angular+UI+Development#DSpace7-AngularUIDevelopment-Howtocontribute)
+See [Contributing documentation](CONTRIBUTING.md)
 
 File Structure
 --------------

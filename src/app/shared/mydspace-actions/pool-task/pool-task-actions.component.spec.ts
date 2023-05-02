@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 
 import { of as observableOf } from 'rxjs';
-import { cold } from 'jasmine-marbles';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
@@ -75,16 +74,16 @@ mockObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkfl
 
 describe('PoolTaskActionsComponent', () => {
   beforeEach(waitForAsync(() => {
-    mockDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
-    mockClaimedTaskDataService = new ClaimedTaskDataService(null, null, null, null, null, null, null, null);
+    mockDataService = new PoolTaskDataService(null, null, null, null);
+    mockClaimedTaskDataService = new ClaimedTaskDataService(null, null, null, null);
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [PoolTaskActionsComponent],
       providers: [
@@ -105,7 +104,9 @@ describe('PoolTaskActionsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(PoolTaskActionsComponent);
     component = fixture.componentInstance;
+    component.item = item;
     component.object = mockObject;
+    component.workflowitem = workflowitem;
     notificationsServiceStub = TestBed.inject(NotificationsService as any);
     router = TestBed.inject(Router as any);
     fixture.detectChanges();
@@ -120,23 +121,23 @@ describe('PoolTaskActionsComponent', () => {
     component.object = null;
     component.initObjects(mockObject);
 
+    expect(component.item).toEqual(item);
+
     expect(component.object).toEqual(mockObject);
 
-    expect(component.workflowitem$).toBeObservable(cold('(b|)', {
-      b: rdWorkflowitem.payload
-    }));
+    expect(component.workflowitem).toEqual(workflowitem);
   });
 
   it('should display claim task button', () => {
     const btn = fixture.debugElement.query(By.css('.btn-info'));
 
-    expect(btn).toBeDefined();
+    expect(btn).not.toBeNull();
   });
 
   it('should display view button', () => {
-    const btn = fixture.debugElement.query(By.css('button [data-test="view-btn"]'));
+    const btn = fixture.debugElement.query(By.css('button[data-test="view-btn"]'));
 
-    expect(btn).toBeDefined();
+    expect(btn).not.toBeNull();
   });
 
   it('should call claim task with href of getPoolTaskEndpointById', ((done) => {

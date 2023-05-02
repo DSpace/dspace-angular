@@ -4,7 +4,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
 import { Observable, of as observableOf } from 'rxjs';
-import { map, startWith, switchMap, take } from 'rxjs/operators';
+import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import { CookieAttributes } from 'js-cookie';
 
@@ -25,7 +25,7 @@ import {
 import { CookieService } from '../services/cookie.service';
 import {
   getAuthenticatedUserId,
-  getAuthenticationToken,
+  getAuthenticationToken, getExternalAuthCookieStatus,
   getRedirectUrl,
   isAuthenticated,
   isAuthenticatedLoaded,
@@ -36,7 +36,7 @@ import { AppState } from '../../app.reducer';
 import {
   CheckAuthenticationTokenAction,
   RefreshTokenAction,
-  ResetAuthenticationMessagesAction,
+  ResetAuthenticationMessagesAction, SetAuthCookieStatus,
   SetRedirectUrlAction,
   SetUserAsIdleAction,
   UnsetUserAsIdleAction
@@ -93,6 +93,8 @@ export class AuthService {
               private translateService: TranslateService
   ) {
     this.store.pipe(
+      // when this service is constructed the store is not fully initialized yet
+      filter((state: any) => state?.core?.auth !== undefined),
       select(isAuthenticated),
       startWith(false)
     ).subscribe((authenticated: boolean) => this._authenticated = authenticated);
@@ -152,6 +154,24 @@ export class AuthService {
    */
   public isAuthenticationLoaded(): Observable<boolean> {
     return this.store.pipe(select(isAuthenticatedLoaded));
+  }
+
+  /**
+   * Used to set the external authentication status when authenticating via an
+   * external authentication system (e.g. Shibboleth).
+   * @param external
+   */
+  public setExternalAuthStatus(external: boolean) {
+    this.store.dispatch(new SetAuthCookieStatus(external));
+  }
+
+  /**
+   * Returns true if an external authentication system (e.g. Shibboleth) is being used
+   * for authentication. Returns false otherwise.
+   */
+  public isExternalAuthentication(): Observable<boolean> {
+    return this.store.pipe(
+      select(getExternalAuthCookieStatus));
   }
 
   /**
@@ -346,7 +366,7 @@ export class AuthService {
     let token: AuthTokenInfo;
     let currentlyRefreshingToken = false;
     this.store.pipe(select(getAuthenticationToken)).subscribe((authTokenInfo: AuthTokenInfo) => {
-      // If new token is undefined an it wasn't previously => Refresh failed
+      // If new token is undefined and it wasn't previously => Refresh failed
       if (currentlyRefreshingToken && token !== undefined && authTokenInfo === undefined) {
         // Token refresh failed => Error notification => 10 second wait => Page reloads & user logged out
         this.notificationService.error(this.translateService.get('auth.messages.token-refresh-failed'));

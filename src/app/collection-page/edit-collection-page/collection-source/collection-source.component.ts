@@ -8,8 +8,7 @@ import {
   DynamicInputModel,
   DynamicOptionControlModel,
   DynamicRadioGroupModel,
-  DynamicSelectModel,
-  DynamicTextAreaModel
+  DynamicSelectModel
 } from '@ng-dynamic-forms/core';
 import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
@@ -23,7 +22,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
 import { first, map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { getFirstSucceededRemoteData, getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { MetadataConfig } from '../../../core/shared/metadata-config.model';

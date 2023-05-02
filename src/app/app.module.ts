@@ -1,26 +1,21 @@
 import { APP_BASE_HREF, CommonModule, DOCUMENT } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { MetaReducer, Store, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
-import {
-  DYNAMIC_ERROR_MESSAGES_MATCHER,
-  DYNAMIC_MATCHER_PROVIDERS,
-  DynamicErrorMessagesMatcher
-} from '@ng-dynamic-forms/core';
+import { MetaReducer, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { appEffects } from './app.effects';
 import { appMetaReducers, debugMetaReducers } from './app.metareducers';
 import { appReducers, AppState, storeModuleConfig } from './app.reducer';
-import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { CoreModule } from './core/core.module';
 import { ClientCookieService } from './core/services/client-cookie.service';
 import { NavbarModule } from './navbar/navbar.module';
@@ -32,9 +27,7 @@ import { LocaleInterceptor } from './core/locale/locale.interceptor';
 import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
 import { LogInterceptor } from './core/log/log.interceptor';
 import { EagerThemesModule } from '../themes/eager-themes.module';
-
 import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
-import { NgxMaskModule } from 'ngx-mask';
 import { StoreDevModules } from '../config/store/devtools';
 import { RootModule } from './root.module';
 
@@ -52,14 +45,6 @@ export function getMetaReducers(appConfig: AppConfig): MetaReducer<AppState>[] {
   return appConfig.debug ? [...appMetaReducers, ...debugMetaReducers] : appMetaReducers;
 }
 
-/**
- * Condition for displaying error messages on email form field
- */
-export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
-  (control: AbstractControl, model: any, hasFocus: boolean) => {
-    return (control.touched && !hasFocus) || (control.errors?.emailTaken && hasFocus);
-  };
-
 const IMPORTS = [
   CommonModule,
   SharedModule,
@@ -70,7 +55,6 @@ const IMPORTS = [
   ScrollToModule.forRoot(),
   NgbModule,
   TranslateModule.forRoot(),
-  NgxMaskModule.forRoot(),
   EffectsModule.forRoot(appEffects),
   StoreModule.forRoot(appReducers, storeModuleConfig),
   StoreRouterConnectingModule.forRoot(),
@@ -80,10 +64,6 @@ const IMPORTS = [
 ];
 
 const PROVIDERS = [
-  {
-    provide: APP_CONFIG,
-    useFactory: getConfig
-  },
   {
     provide: APP_BASE_HREF,
     useFactory: getBaseHref,
@@ -99,15 +79,6 @@ const PROVIDERS = [
     useClass: DSpaceRouterStateSerializer
   },
   ClientCookieService,
-  // Check the authentication token when the app initializes
-  {
-    provide: APP_INITIALIZER,
-    useFactory: (store: Store<AppState>,) => {
-      return () => store.dispatch(new CheckAuthenticationTokenAction());
-    },
-    deps: [Store],
-    multi: true
-  },
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
@@ -132,10 +103,7 @@ const PROVIDERS = [
     useClass: LogInterceptor,
     multi: true
   },
-  {
-    provide: DYNAMIC_ERROR_MESSAGES_MATCHER,
-    useValue: ValidateEmailErrorStateMatcher
-  },
+  // register the dynamic matcher used by form. MUST be provided by the app module
   ...DYNAMIC_MATCHER_PROVIDERS,
 ];
 

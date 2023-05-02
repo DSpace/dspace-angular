@@ -19,8 +19,15 @@ import {
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
-import { BrowseDefinitionDataService } from './browse-definition-data.service';
 import { HrefOnlyDataService } from '../data/href-only-data.service';
+import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { BrowseDefinitionDataService } from './browse-definition-data.service';
+import { SortDirection } from '../cache/models/sort-options.model';
+
+
+export const BROWSE_LINKS_TO_FOLLOW: FollowLinkConfig<BrowseEntry | Item>[] = [
+  followLink('thumbnail')
+];
 
 /**
  * The service handling all browse requests
@@ -29,7 +36,7 @@ import { HrefOnlyDataService } from '../data/href-only-data.service';
 export class BrowseService {
   protected linkPath = 'browses';
 
-  private static toSearchKeyArray(metadataKey: string): string[] {
+  public static toSearchKeyArray(metadataKey: string): string[] {
     const keyParts = metadataKey.split('.');
     const searchFor = [];
     searchFor.push('*');
@@ -96,7 +103,10 @@ export class BrowseService {
         return href;
       })
     );
-    return this.hrefOnlyDataService.findAllByHref<BrowseEntry>(href$);
+    if (options.fetchThumbnail ) {
+      return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$, {}, null, null, ...BROWSE_LINKS_TO_FOLLOW);
+    }
+    return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$);
   }
 
   /**
@@ -141,15 +151,19 @@ export class BrowseService {
         return href;
       }),
     );
-    return this.hrefOnlyDataService.findAllByHref<Item>(href$);
+    if (options.fetchThumbnail) {
+      return this.hrefOnlyDataService.findListByHref<Item>(href$, {}, null, null, ...BROWSE_LINKS_TO_FOLLOW);
+    }
+    return this.hrefOnlyDataService.findListByHref<Item>(href$);
   }
 
   /**
    * Get the first item for a metadata definition in an optional scope
    * @param definition
    * @param scope
+   * @param sortDirection optional sort parameter
    */
-  getFirstItemFor(definition: string, scope?: string): Observable<RemoteData<Item>> {
+  getFirstItemFor(definition: string, scope?: string, sortDirection?: SortDirection): Observable<RemoteData<Item>> {
     const href$ = this.getBrowseDefinitions().pipe(
       getBrowseDefinitionLinks(definition),
       hasValueOperator(),
@@ -165,6 +179,9 @@ export class BrowseService {
         }
         args.push('page=0');
         args.push('size=1');
+        if (sortDirection) {
+          args.push('sort=default,' + sortDirection);
+        }
         if (isNotEmpty(args)) {
           href = new URLCombiner(href, `?${args.join('&')}`).toString();
         }
@@ -172,7 +189,7 @@ export class BrowseService {
       })
     );
 
-    return this.hrefOnlyDataService.findAllByHref<Item>(href$).pipe(
+    return this.hrefOnlyDataService.findListByHref<Item>(href$).pipe(
       getFirstSucceededRemoteData(),
       getFirstOccurrence()
     );
@@ -184,7 +201,7 @@ export class BrowseService {
    * @param items
    */
   getPrevBrowseItems(items: RemoteData<PaginatedList<Item>>): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.hrefOnlyDataService.findAllByHref<Item>(items.payload.prev);
+    return this.hrefOnlyDataService.findListByHref<Item>(items.payload.prev);
   }
 
   /**
@@ -192,7 +209,7 @@ export class BrowseService {
    * @param items
    */
   getNextBrowseItems(items: RemoteData<PaginatedList<Item>>): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.hrefOnlyDataService.findAllByHref<Item>(items.payload.next);
+    return this.hrefOnlyDataService.findListByHref<Item>(items.payload.next);
   }
 
   /**
@@ -200,7 +217,7 @@ export class BrowseService {
    * @param entries
    */
   getPrevBrowseEntries(entries: RemoteData<PaginatedList<BrowseEntry>>): Observable<RemoteData<PaginatedList<BrowseEntry>>> {
-    return this.hrefOnlyDataService.findAllByHref<BrowseEntry>(entries.payload.prev);
+    return this.hrefOnlyDataService.findListByHref<BrowseEntry>(entries.payload.prev);
   }
 
   /**
@@ -208,7 +225,7 @@ export class BrowseService {
    * @param entries
    */
   getNextBrowseEntries(entries: RemoteData<PaginatedList<BrowseEntry>>): Observable<RemoteData<PaginatedList<BrowseEntry>>> {
-    return this.hrefOnlyDataService.findAllByHref<BrowseEntry>(entries.payload.next);
+    return this.hrefOnlyDataService.findListByHref<BrowseEntry>(entries.payload.next);
   }
 
   /**

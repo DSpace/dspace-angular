@@ -16,14 +16,14 @@ import {
   RemoveRelationshipAction,
   UpdateRelationshipNameVariantAction,
 } from './relationship.actions';
-import { RelationshipService } from '../../../../../core/data/relationship.service';
-import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
+import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../app.reducer';
 import { Context } from '../../../../../core/shared/context.model';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
 import { ExternalSource } from '../../../../../core/shared/external-source.model';
-import { ExternalSourceService } from '../../../../../core/data/external-source.service';
+import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
 import { Router } from '@angular/router';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
@@ -156,9 +156,9 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   constructor(
     public modal: NgbActiveModal,
     private selectableListService: SelectableListService,
-    private relationshipService: RelationshipService,
-    private relationshipTypeService: RelationshipTypeService,
-    private externalSourceService: ExternalSourceService,
+    private relationshipService: RelationshipDataService,
+    private relationshipTypeService: RelationshipTypeDataService,
+    private externalSourceService: ExternalSourceDataService,
     private lookupRelationService: LookupRelationService,
     private searchConfigService: SearchConfigurationService,
     private rdbService: RemoteDataBuildService,

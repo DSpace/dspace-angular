@@ -5,7 +5,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { AddOperation, RemoveOperation } from 'fast-json-patch';
 
-import { ResearcherProfileService } from '../profile/researcher-profile.service';
+import { ResearcherProfileDataService } from '../profile/researcher-profile-data.service';
 import { Item } from '../shared/item.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../shared/operators';
@@ -22,7 +22,7 @@ export class OrcidAuthService {
   constructor(
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
     private configurationService: ConfigurationDataService,
-    private researcherProfileService: ResearcherProfileService,
+    private researcherProfileService: ResearcherProfileDataService,
     private router: Router) {
   }
 
@@ -77,7 +77,7 @@ export class OrcidAuthService {
 
     return this.researcherProfileService.findById(person.firstMetadata('dspace.object.owner').authority).pipe(
       getFirstCompletedRemoteData(),
-      switchMap((profileRD) => this.researcherProfileService.updateByOrcidOperations(profileRD.payload, operations))
+      switchMap((profileRD) => this.researcherProfileService.patch(profileRD.payload, operations)),
     );
   }
 
@@ -94,7 +94,7 @@ export class OrcidAuthService {
 
     return this.researcherProfileService.findById(person.firstMetadata('dspace.object.owner').authority).pipe(
       getFirstCompletedRemoteData(),
-      switchMap((profileRD) => this.researcherProfileService.updateByOrcidOperations(profileRD.payload, operations))
+      switchMap((profileRD) => this.researcherProfileService.patch(profileRD.payload, operations)),
     );
   }
 
@@ -111,7 +111,6 @@ export class OrcidAuthService {
     ).pipe(
       map(([authorizeUrl, clientId, scopes]) => {
         const redirectUri = new URLCombiner(this._window.nativeWindow.origin, encodeURIComponent(this.router.url.split('?')[0]));
-        console.log(redirectUri.toString());
         return authorizeUrl.values[0] + '?client_id=' + clientId.values[0]   + '&redirect_uri=' + redirectUri + '&response_type=code&scope='
           + scopes.values.join(' ');
       }));

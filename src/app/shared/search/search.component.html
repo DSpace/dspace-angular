@@ -30,15 +30,17 @@
                 </button>
             </div>
             <ds-themed-search-results [searchResults]="resultsRD$ | async"
-                               [searchConfig]="searchOptions$ | async"
-                               [configuration]="(currentConfiguration$ | async)"
-                               [disableHeader]="!searchEnabled"
-                               [linkType]="linkType"
-                               [context]="(currentContext$ | async)"
-                               [selectable]="selectable"
-                               [selectionConfig]="selectionConfig"
-                               (deselectObject)="deselectObject.emit($event)"
-                               (selectObject)="selectObject.emit($event)"></ds-themed-search-results>
+                                      [searchConfig]="searchOptions$ | async"
+                                      [configuration]="(currentConfiguration$ | async)"
+                                      [disableHeader]="!searchEnabled"
+                                      [linkType]="linkType"
+                                      [context]="(currentContext$ | async)"
+                                      [selectable]="selectable"
+                                      [selectionConfig]="selectionConfig"
+                                      [showCsvExport]="showCsvExport"
+                                      (contentChange)="onContentChange($event)"
+                                      (deselectObject)="deselectObject.emit($event)"
+                                      (selectObject)="selectObject.emit($event)"></ds-themed-search-results>
         </div>
     </div>
 </ng-template>
@@ -48,6 +50,8 @@
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
+                       [filters]="filtersRD$.asObservable()"
+                       [refreshFilters]="refreshFilters"
                        [resultCount]="(resultsRD$ | async)?.payload?.totalElements"
                        [searchOptions]="(searchOptions$ | async)"
                        [sortOptionsList]="(sortOptionsList$ | async)"
@@ -61,6 +65,8 @@
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
+                       [filters]="filtersRD$.asObservable()"
+                       [refreshFilters]="refreshFilters"
                        [resultCount]="(resultsRD$ | async)?.payload.totalElements"
                        [searchOptions]="(searchOptions$ | async)"
                        [sortOptionsList]="(sortOptionsList$ | async)"
@@ -74,14 +80,14 @@
 </ng-template>
 
 <ng-template #searchForm>
-    <ds-search-form *ngIf="searchEnabled" id="search-form"
+    <ds-themed-search-form *ngIf="searchEnabled" id="search-form"
                     [query]="(searchOptions$ | async)?.query"
                     [scope]="(searchOptions$ | async)?.scope"
                     [currentUrl]="searchLink"
                     [showScopeSelector]="showScopeSelector"
                     [inPlaceSearch]="inPlaceSearch"
                     [searchPlaceholder]="searchFormPlaceholder | translate">
-    </ds-search-form>
+    </ds-themed-search-form>
     <div class="row mb-3 mb-md-1">
         <div class="labels col-sm-9">
             <ds-search-labels *ngIf="searchEnabled" [inPlaceSearch]="inPlaceSearch"></ds-search-labels>

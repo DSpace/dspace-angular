@@ -19,7 +19,7 @@ import { SubmissionSectionUploadComponent } from './sections/upload/section-uplo
 import { SectionUploadService } from './sections/upload/section-upload.service';
 import { SubmissionUploadFilesComponent } from './form/submission-upload-files/submission-upload-files.component';
 import { SubmissionSectionLicenseComponent } from './sections/license/section-license.component';
-import { SubmissionUploadsConfigService } from '../core/config/submission-uploads-config.service';
+import { SubmissionUploadsConfigDataService } from '../core/config/submission-uploads-config-data.service';
 import { SubmissionEditComponent } from './edit/submission-edit.component';
 import { SubmissionSectionUploadFileComponent } from './sections/upload/file/section-upload-file.component';
 import {
@@ -52,7 +52,7 @@ import { ThemedSubmissionImportExternalComponent } from './import-external/theme
 import { FormModule } from '../shared/form/form.module';
 import { NgbAccordionModule, NgbCollapseModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionSectionAccessesComponent } from './sections/accesses/section-accesses.component';
-import { SubmissionAccessesConfigService } from '../core/config/submission-accesses-config.service';
+import { SubmissionAccessesConfigDataService } from '../core/config/submission-accesses-config-data.service';
 import { SectionAccessesService } from './sections/accesses/section-accesses.service';
 import { SubmissionSectionSherpaPoliciesComponent } from './sections/sherpa-policies/section-sherpa-policies.component';
 import { ContentAccordionComponent } from './sections/sherpa-policies/content-accordion/content-accordion.component';
@@ -60,9 +60,12 @@ import { PublisherPolicyComponent } from './sections/sherpa-policies/publisher-p
 import {
   PublicationInformationComponent
 } from './sections/sherpa-policies/publication-information/publication-information.component';
+import { UploadModule } from '../shared/upload/upload.module';
 import {
   MetadataInformationComponent
 } from './sections/sherpa-policies/metadata-information/metadata-information.component';
+import { SectionFormOperationsService } from './sections/form/section-form-operations.service';
+import {SubmissionSectionIdentifiersComponent} from './sections/identifiers/section-identifiers.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -91,6 +94,7 @@ const DECLARATIONS = [
   SubmissionSectionUploadFileComponent,
   SubmissionSectionUploadFileEditComponent,
   SubmissionSectionUploadFileViewComponent,
+  SubmissionSectionIdentifiersComponent,
   SubmissionImportExternalComponent,
   ThemedSubmissionImportExternalComponent,
   SubmissionImportExternalSearchbarComponent,
@@ -114,16 +118,21 @@ const DECLARATIONS = [
     FormModule,
     NgbModalModule,
     NgbCollapseModule,
-    NgbAccordionModule
+    NgbAccordionModule,
+    UploadModule,
   ],
   declarations: DECLARATIONS,
-  exports: DECLARATIONS,
+  exports: [
+    ...DECLARATIONS,
+    FormModule,
+  ],
   providers: [
     SectionUploadService,
     SectionsService,
-    SubmissionUploadsConfigService,
-    SubmissionAccessesConfigService,
+    SubmissionUploadsConfigDataService,
+    SubmissionAccessesConfigDataService,
     SectionAccessesService,
+    SectionFormOperationsService,
   ]
 })
 

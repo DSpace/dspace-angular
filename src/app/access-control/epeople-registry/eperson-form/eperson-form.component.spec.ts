@@ -177,7 +177,7 @@ describe('EPersonFormComponent', () => {
 
     });
     groupsDataService = jasmine.createSpyObj('groupsDataService', {
-      findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+      findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
       getGroupRegistryRouterLink: ''
     });
 
@@ -537,7 +537,7 @@ describe('EPersonFormComponent', () => {
     });
 
     it('should call epersonRegistrationService.registerEmail', () => {
-      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith(ePersonEmail);
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith(ePersonEmail, null, 'forgot');
     });
   });
 });

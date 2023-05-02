@@ -128,10 +128,13 @@ describe('CollectionSelectorComponent', () => {
 
   beforeEach(() => {
     scheduler = getTestScheduler();
-    fixture = TestBed.createComponent(CollectionSelectorComponent);
+    fixture = TestBed.overrideComponent(CollectionSelectorComponent, {
+      set: {
+        template: '<ds-collection-dropdown (selectionChange)="selectObject($event)"></ds-collection-dropdown>'
+      }
+    }).createComponent(CollectionSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
   });
 
   it('should create', () => {
