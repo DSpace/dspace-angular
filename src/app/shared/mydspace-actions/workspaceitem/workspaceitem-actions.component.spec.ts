@@ -1,4 +1,4 @@
-import { EPerson } from './../../../core/eperson/models/eperson.model';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
