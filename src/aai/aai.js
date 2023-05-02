@@ -68,8 +68,9 @@
             var auth = e.auth || null;
             switch(auth) {
               case 'local':
-                DiscoJuice.UI.setScreen(opts.localauth);
-                jQuery('input#login').focus();
+                // DiscoJuice.UI.setScreen(opts.localauth);
+                // jQuery('input#login').focus();
+                window.location.href = "/login";
                 break;
               //case 'saml':
               default:
