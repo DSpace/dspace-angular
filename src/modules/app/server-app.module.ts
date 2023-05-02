@@ -29,6 +29,8 @@ import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mo
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { ServerAuthRequestService } from '../../app/core/auth/server-auth-request.service';
 import { ServerInitService } from './server-init.service';
+import { ReferrerService } from '../../app/core/services/referrer.service';
+import { ServerReferrerService } from '../../app/core/services/server.referrer.service';
 
 export function createTranslateLoader(transferState: TransferState) {
   return new TranslateServerLoader(transferState, 'dist/server/assets/i18n/', '.json5');
@@ -99,6 +101,10 @@ export function createTranslateLoader(transferState: TransferState) {
     {
       provide: HardRedirectService,
       useClass: ServerHardRedirectService,
+    },
+    {
+      provide: ReferrerService,
+      useClass: ServerReferrerService,
     },
   ]
 })
