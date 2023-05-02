@@ -37,6 +37,8 @@ import { AppConfig, APP_CONFIG_STATE } from '../../config/app-config.interface';
 import { DefaultAppConfig } from '../../config/default-app-config';
 import { extendEnvironmentWithAppConfig } from '../../config/config.util';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
+import { ReferrerService } from '../../app/core/services/referrer.service';
+import { BrowserReferrerService } from '../../app/core/services/browser.referrer.service';
 
 import { environment } from '../../environments/environment';
 
@@ -135,6 +137,10 @@ export function getRequest(transferState: TransferState): any {
     {
       provide: AuthRequestService,
       useClass: BrowserAuthRequestService,
+    },
+    {
+      provide: ReferrerService,
+      useClass: BrowserReferrerService,
     },
     {
       provide: LocationToken,
