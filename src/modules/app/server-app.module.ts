@@ -33,6 +33,8 @@ import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mo
 import { RouterModule } from '@angular/router';
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { ServerAuthRequestService } from '../../app/core/auth/server-auth-request.service';
+import { ReferrerService } from '../../app/core/services/referrer.service';
+import { ServerReferrerService } from '../../app/core/services/server.referrer.service';
 
 export function createTranslateLoader() {
   return new TranslateJson5UniversalLoader('dist/server/assets/i18n/', '.json5');
@@ -101,6 +103,10 @@ export function createTranslateLoader() {
     {
       provide: HardRedirectService,
       useClass: ServerHardRedirectService,
+    },
+    {
+      provide: ReferrerService,
+      useClass: ServerReferrerService,
     },
   ]
 })
