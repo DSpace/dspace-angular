@@ -1,8 +1,8 @@
-import { EPerson } from './../../../core/eperson/models/eperson.model';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { AuthService } from './../../../core/auth/auth.service';
-import { Item } from 'src/app/core/shared/item.model';
-import { FeatureID } from './../../../core/data/feature-authorization/feature-id';
+import { AuthService } from '../../../core/auth/auth.service';
+import { Item } from '../../../core/shared/item.model';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { Component, Injector, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
