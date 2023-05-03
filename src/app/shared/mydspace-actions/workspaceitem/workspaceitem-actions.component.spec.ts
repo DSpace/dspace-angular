@@ -157,6 +157,9 @@ authService = jasmine.createSpyObj('authService', {
 
 describe('WorkspaceitemActionsComponent', () => {
   beforeEach(waitForAsync(async () => {
+    authorizationService = jasmine.createSpyObj('authorizationService', {
+      isAuthorized: observableOf(true)
+    });
    await TestBed.configureTestingModule({
       imports: [
         NgbModule,
@@ -190,9 +193,6 @@ describe('WorkspaceitemActionsComponent', () => {
     component = fixture.componentInstance;
     component.object = mockObject;
     notificationsServiceStub = TestBed.inject(NotificationsService as any);
-    authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
-    });
     (authService.getAuthenticatedUserFromStore as jasmine.Spy).and.returnValue(observableOf(ePersonMock));
     fixture.detectChanges();
   });
