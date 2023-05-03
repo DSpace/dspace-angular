@@ -16,33 +16,7 @@
           </div>
         </div>
         <div class="row">
-          <div *ngIf="itemAuthors.value.length <= 5" class="item-author-wrapper pb-1">
-            <span *ngFor="let author of (itemAuthors | async); let i = index">
-              <span *ngIf="i > 0 && i < itemAuthors.value.length -1"> ; </span>
-              <span *ngIf="i == itemAuthors.value.length -1 && itemAuthors.value.length > 1"> and </span>
-              <a [href]="author.url" class="item-author">{{ author.name }}</a>
-            </span>
-          </div>
-          <div *ngIf="itemAuthors.value.length > 5">
-            <div *ngFor="let author of (itemAuthors | async); let i = index">
-              <span *ngIf="i == 0" ><a [href]="author.url" class="item-author">{{ author.name }}</a> ; et al.</span>
-            </div>
-            <div class="item-author-wrapper">
-              <span (click)="toggleShowEveryAuthor()" class="clarin-font-size">
-                <i [hidden]="showEveryAuthor | async" class="fas fa-caret-right"></i>
-                <i [hidden]="!(showEveryAuthor | async)" class="fas fa-caret-down"></i>
-                Show everyone
-              </span>
-
-              <div [hidden]="!(showEveryAuthor | async)">
-                <span *ngFor="let author of (itemAuthors | async); let i = index">
-                  <span *ngIf="i > 1 && i < itemAuthors.value.length -1"> ; </span>
-                  <span *ngIf="i == itemAuthors.value.length -1"> and </span>
-                  <a *ngIf="i > 0" [href]="author.url" class="item-author">{{author.name}}</a>
-                </span>
-              </div>
-            </div>
-          </div>
+          <ds-clarin-item-author-preview [item]="item"></ds-clarin-item-author-preview>
         </div>
         <div class="row d-block pt-1">
           <div><strong>Description:</strong></div>

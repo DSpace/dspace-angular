@@ -2354,6 +2354,10 @@
 
   "item.preview.oaire.fundingStream": "Funding Stream:",
 
+  "item.preview.authors.show.everyone": "Show everyone",
+
+  "item.preview.authors.et.al": " ; et al.",
+
 
   "item.refbox.modal.copy.instruction": ["Press", "ctrl + c", "to copy"],
 
@@ -3615,6 +3619,8 @@
   "search.filters.applied.f.language": "Language (ISO)",
 
   "search.filters.applied.f.items_owning_community": "Community",
+
+  "search.filters.applied.f.publisher": "Publisher",
 
 
 

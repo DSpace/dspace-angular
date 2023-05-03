@@ -19,7 +19,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { ClarinLicense } from '../../core/shared/clarin/clarin-license.model';
 import { ClarinLicenseDataService } from '../../core/data/clarin/clarin-license-data.service';
-import { secureImageData } from '../clarin-shared-util';
+import { getBaseUrl, secureImageData } from '../clarin-shared-util';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BundleDataService } from '../../core/data/bundle-data.service';
 import { Bundle } from '../../core/shared/bundle.model';
@@ -81,14 +81,7 @@ export class ClarinItemBoxViewComponent implements OnInit {
    * How many files the Item has.
    */
   itemCountOfFiles: BehaviorSubject<number> = new BehaviorSubject<number>(-1);
-  /**
-   * Authors of the Item.
-   */
-  itemAuthors: BehaviorSubject<AuthorNameLink[]> = new BehaviorSubject<AuthorNameLink[]>([]);
-  /**
-   * If the Item have a lot of authors do not show them all.
-   */
-  showEveryAuthor: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   /**
    * Current License Label e.g. `PUB`
    */
@@ -132,33 +125,6 @@ export class ClarinItemBoxViewComponent implements OnInit {
     this.getItemCommunity();
     this.loadItemLicense();
     this.getItemFilesSize();
-    this.loadItemAuthors();
-  }
-
-  private loadItemAuthors() {
-    if (isNull(this.item)) {
-      return;
-    }
-
-    let authorsMV: MetadataValue[] = this.item?.metadata?.['dc.contributor.author'];
-    // Harvested Items has authors in the metadata field `dc.creator`.
-    if (isUndefined(authorsMV)) {
-      authorsMV = this.item?.metadata?.['dc.creator'];
-    }
-
-    if (isUndefined(authorsMV)) {
-      return null;
-    }
-    const itemAuthorsLocal = [];
-    authorsMV.forEach((authorMV: MetadataValue) => {
-      const authorSearchLink = this.baseUrl + '/search/objects?f.author=' + authorMV.value + ',equals';
-      const authorNameLink = Object.assign(new AuthorNameLink(), {
-        name: authorMV.value,
-        url: authorSearchLink
-      });
-      itemAuthorsLocal.push(authorNameLink);
-    });
-    this.itemAuthors.next(itemAuthorsLocal);
   }
 
   private getItemFilesSize() {
@@ -197,15 +163,8 @@ export class ClarinItemBoxViewComponent implements OnInit {
           });
       });
   }
-
-  async getBaseUrl(): Promise<any> {
-    return this.configurationService.findByPropertyName('dspace.ui.url')
-      .pipe(getFirstSucceededRemoteDataPayload())
-      .toPromise();
-  }
-
   async assignBaseUrl() {
-    this.baseUrl = await this.getBaseUrl()
+    this.baseUrl = await getBaseUrl(this.configurationService)
       .then((baseUrlResponse: ConfigurationProperty) => {
         return baseUrlResponse?.values?.[0];
       });
@@ -251,17 +210,13 @@ export class ClarinItemBoxViewComponent implements OnInit {
   secureImageData(imageByteArray) {
     return secureImageData(this.sanitizer, imageByteArray);
   }
-
-  toggleShowEveryAuthor() {
-    this.showEveryAuthor.next(!this.showEveryAuthor.value);
-  }
 }
 
 /**
  * Redirect the user after clicking on the `Author`.
  */
 // tslint:disable-next-line:max-classes-per-file
-class AuthorNameLink {
+export class AuthorNameLink {
   name: string;
   url: string;
 }

@@ -29,7 +29,8 @@
                                   [fields]="['dc.contributor.author', 'dc.creator']"
                                   [label]="'relationships.isAuthorOf'"
                                   [iconName]="'fa-pen'"
-                                  [separator]="','">
+                                  [separator]="','"
+                                  [type]="'author'">
     </ds-clarin-generic-item-field>
     <ds-clarin-generic-item-field [item]="object"
                                   [fields]="['dc.identifier.uri']"
@@ -40,7 +41,8 @@
     <ds-clarin-generic-item-field [item]="object"
                                   [fields]="['dc.source.uri']"
                                   [label]="'item.page.project-url'"
-                                  [iconName]="'fa-link'">
+                                  [iconName]="'fa-link'"
+                                  [type]="'hyperlink'">
     </ds-clarin-generic-item-field>
     <ds-clarin-generic-item-field [item]="object"
                                   [fields]="['dc.relation.isreferencedby']"
@@ -55,7 +57,8 @@
     <ds-clarin-generic-item-field [item]="object"
                                   [fields]="['dc.type']"
                                   [label]="'item.page.type'"
-                                  [iconName]="'fa-tag'">
+                                  [iconName]="'fa-tag'"
+                                  [type]="'search'">
     </ds-clarin-generic-item-field>
     <ds-clarin-generic-item-field [item]="object"
                                   [fields]="['local.size.info']"
@@ -66,7 +69,8 @@
                                   [fields]="['dc.language.iso']"
                                   [label]="'item.page.language'"
                                   [iconName]="'fa-flag'"
-                                  [separator]="','">
+                                  [separator]="','"
+                                  [type]="'search'">
     </ds-clarin-generic-item-field>
     <ds-clarin-generic-item-field [item]="object"
                                   [fields]="['dc.description']"
@@ -74,9 +78,10 @@
                                   [iconName]="'fa-file-alt'">
     </ds-clarin-generic-item-field>
     <ds-clarin-generic-item-field [item]="object"
-                                  [fields]="['dc.publisher']"
+                                  [fields]="['dc.publisher', 'creativework.publisher']"
                                   [label]="'item.page.publisher'"
-                                  [iconName]="'fa-copy'">
+                                  [iconName]="'fa-copy'"
+                                  [type]="'search'">
     </ds-clarin-generic-item-field>
     <ds-clarin-generic-item-field [item]="object"
                                   [fields]="['local.sponsor']"
@@ -87,7 +92,8 @@
                                   [fields]="['dc.subject']"
                                   [label]="'item.page.subject'"
                                   [iconName]="'fa-tags'"
-                                  [separator]="','">
+                                  [separator]="','"
+                                  [type]="'subject'">
     </ds-clarin-generic-item-field>
     <ds-clarin-collections-item-field
                                   [item]="object"

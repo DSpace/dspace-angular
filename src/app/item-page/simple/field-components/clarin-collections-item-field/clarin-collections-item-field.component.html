@@ -1,9 +1,9 @@
 <div class="row clarin-item-page-field">
-  <div class="col-md-2 d-flex">
+  <div class="col-lg-2 d-flex">
     <div><i [class]="'fas ' + iconName + ' fa-xs'"></i></div>
     <div class="pl-1"><b>{{'item.page.collections' | translate}}</b></div>
   </div>
-  <div class="col-md-10">
+  <div class="col-lg-10">
     <div class="collections">
       <a *ngFor="let collection of (this.collections$ | async); let last=last;" [routerLink]="['/collections', collection.id]">
         <span>{{collection?.name}}</span><span *ngIf="!last" [innerHTML]="separator"></span>

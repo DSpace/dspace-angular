@@ -1,16 +1,27 @@
 <div class="row clarin-item-page-field" *ngIf="hasMetadataValue()">
-  <div class="col-md-2 d-flex">
+  <div class="col-lg-2 d-flex">
     <div><i [class]="'fas ' + iconName + ' fa-xs'"></i></div>
     <div class="pl-1"><b>{{label | translate}}</b></div>
   </div>
-  <div class="col-md-10">
+  <div class="col-lg-10">
     <div>
-      <span class="dont-break-out" *ngFor="let mdValue of item?.allMetadata(fields); let last=last;">
+      <div *ngIf="type === 'author'" class="d-inline">
+        <ds-clarin-item-author-preview [item]="item"></ds-clarin-item-author-preview>
+      </div>
+      <div class="dont-break-out d-inline" *ngFor="let mdValue of item?.allMetadata(fields); let last=last; let i = index">
         <a *ngIf="type === 'hyperlink'" [href]="mdValue.value">{{mdValue.value}}</a>
+        <a *ngIf="type === 'search'" [href]="getLinkToSearch(i)">{{mdValue.value}}</a>
+        <span *ngIf="type === 'subject'">
+          <a class="badge badge-info text-white cursor-pointer"
+             *ngFor="let subject of mdValue.value.split(separator);"
+             [href]="getLinkToSearch(-1, subject)">
+            {{subject}}
+          </a>
+        </span>
         <span *ngIf="type == null">
           {{mdValue.value}}<span *ngIf="!last" [innerHTML]="separator"></span>
         </span>
-      </span>
+      </div>
     </div>
   </div>
 </div>

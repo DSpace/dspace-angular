@@ -183,6 +183,7 @@ import { ClarinLicenseLabelRadioValuePipe } from './utils/clarin-license-label-r
 import { CharToEndPipe } from './utils/char-to-end.pipe';
 import { ClarinLicenseRequiredInfoPipe } from './utils/clarin-license-required-info.pipe';
 import { ClarinItemBoxViewComponent } from './clarin-item-box-view/clarin-item-box-view.component';
+import { ClarinItemAuthorPreviewComponent } from './clarin-item-author-preview/clarin-item-author-preview.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -357,7 +358,8 @@ const COMPONENTS = [
   CommunitySidebarSearchListElementComponent,
   SearchNavbarComponent,
   ScopeSelectorModalComponent,
-  ClarinItemBoxViewComponent
+  ClarinItemBoxViewComponent,
+  ClarinItemAuthorPreviewComponent
 ];
 
 const ENTRY_COMPONENTS = [
