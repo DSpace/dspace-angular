@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, NgZone, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, interval, Observable, shareReplay, Subscription } from 'rxjs';
 import { finalize, map, switchMap, take, tap } from 'rxjs/operators';
@@ -27,6 +27,7 @@ import { getProcessListRoute } from '../process-page-routing.paths';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'ds-process-detail',
@@ -87,6 +88,7 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
   private refreshTimerSub?: Subscription;
 
   constructor(
+    @Inject(PLATFORM_ID) protected platformId: object,
     protected route: ActivatedRoute,
     protected router: Router,
     protected processService: ProcessDataService,
@@ -107,8 +109,10 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.processRD$ = this.route.data.pipe(
       map((data) => {
-        if (!this.isProcessFinished(data.process.payload)) {
-          this.startRefreshTimer();
+        if (isPlatformBrowser(this.platformId)) {
+          if (!this.isProcessFinished(data.process.payload)) {
+            this.startRefreshTimer();
+          }
         }
 
         return data.process as RemoteData<Process>;
@@ -133,7 +137,6 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
       getFirstSucceededRemoteData(),
       redirectOn4xx(this.router, this.authService),
       tap((processRemoteData: RemoteData<Process>) => {
-        console.log('refresh', processRemoteData);
         if (!this.isProcessFinished(processRemoteData.payload)) {
           this.startRefreshTimer();
         }
