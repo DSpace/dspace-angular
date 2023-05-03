@@ -6,25 +6,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { ControlMaxStartDatePipe } from './control-max-start-date.pipe';
 import { ControlMaxEndDatePipe } from './control-max-end-date.pipe';
+import { AccessControlItem } from '../../core/shared/bulk-access-condition-options.model';
 
-// type of the dropdown item that comes from backend
-export interface AccessControlItem {
-  name: string
-  hasStartDate?: boolean
-  maxStartDate?: string
-  hasEndDate?: boolean
-  maxEndDate?: string
-}
 
 // will be used on the form value
 export interface AccessControlItemValue {
   itemName: string | null; // item name
   startDate?: string;
   endDate?: string;
-}
-
-export interface AccessControlArrayFormValue {
-  accessControl: AccessControlItemValue[];
 }
 
 @Component({

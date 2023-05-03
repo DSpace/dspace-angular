@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
-import { AccessControlItem } from '../../../shared/access-control-array-form/access-control-array-form.component';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
+import { BulkAccessConditionOptionsService } from '../../../core/data/bulk-access-condition-options.service';
+import { BulkAccessConditionOptions } from '../../../core/shared/bulk-access-condition-options.model';
 
-export interface AccessControlDropdownDataResponse {
-  id: string;
-  itemAccessConditionOptions: AccessControlItem[];
-  bitstreamAccessConditionOptions: AccessControlItem[];
-}
 
 @Injectable()
 export class CommunityAccessControlService {
-  dropdownData$: Observable<AccessControlDropdownDataResponse> = of(accessControlDropdownData);
+  constructor(private service: BulkAccessConditionOptionsService) {}
+
+  dropdownData$ = of(accessControlDropdownData);
+
+  // dropdownData$ = this.service.getAll().pipe(
+  //   getAllSucceededRemoteData(),
+  //   filter((data) => data.hasSucceeded),
+  //   map((data) => data.payload)
+  // );
 }
 
-const accessControlDropdownData: AccessControlDropdownDataResponse = {
+const accessControlDropdownData: BulkAccessConditionOptions = {
+  _links: { self: undefined }, type: undefined, uuid: '',
   'id': 'default',
   'itemAccessConditionOptions': [
     {
