@@ -1,6 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
-import { isNotUndefined } from '../../../../shared/empty.util';
+import { isEmpty, isNotUndefined } from '../../../../shared/empty.util';
+import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { convertMetadataFieldIntoSearchType, getBaseUrl } from '../../../../shared/clarin-shared-util';
+import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 
 @Component({
   selector: 'ds-clarin-generic-item-field',
@@ -40,15 +44,73 @@ export class ClarinGenericItemFieldComponent implements OnInit {
    */
   @Input() label: string;
 
-  // tslint:disable-next-line:no-empty
-  constructor() { }
+  /**
+   * UI URL loaded from the server.
+   */
+  baseUrl = '';
 
   // tslint:disable-next-line:no-empty
-  ngOnInit(): void {
+  constructor(protected dsoNameService: DSONameService,
+              protected configurationService: ConfigurationDataService) { }
+
+  // tslint:disable-next-line:no-empty
+  async ngOnInit(): Promise<void> {
+    await this.assignBaseUrl();
   }
 
+  /**
+   * If the metadata fields has some metadata value - show nothing if the field do not have any value.
+   */
   public hasMetadataValue() {
     return isNotUndefined(this.item.firstMetadataValue(this.fields));
   }
 
+  /**
+   * Return current metadata value. The metadata field could have more metadata values, often the metadata
+   * field has only one metadata value - index is 0, but sometimes it has more values e.g. `Author`.
+   * @param index
+   */
+  public getLinkToSearch(index, value = '') {
+    let metadataValue = 'Error: value is empty';
+    if (isEmpty(value)) {
+      // Get metadata value from the Item's metadata field
+      metadataValue = this.getMetadataValue(index);
+    } else {
+      // The metadata value is passed from the parameter.
+      metadataValue = value;
+    }
+
+    const searchType = convertMetadataFieldIntoSearchType(this.fields);
+    return this.baseUrl + '/search/objects?f.' + searchType + '=' + metadataValue + ',equals';
+  }
+
+  /**
+   * If the metadata field has more than 1 value return the value based on the index.
+   * @param index of the metadata value
+   */
+  public getMetadataValue(index) {
+    let metadataValue = '';
+    if (index === 0) {
+      // Return first metadata value.
+      return this.item.firstMetadataValue(this.fields);
+    }
+    // The metadata field has more metadata values - get the actual one
+    this.item.allMetadataValues(this.fields)?.forEach((metadataValueArray, arrayIndex) => {
+      if (index !== arrayIndex) {
+        return metadataValue;
+      }
+      metadataValue = metadataValueArray;
+    });
+    return metadataValue;
+  }
+
+  /**
+   * Load base url from the configuration from the BE.
+   */
+  async assignBaseUrl() {
+    this.baseUrl = await getBaseUrl(this.configurationService)
+      .then((baseUrlResponse: ConfigurationProperty) => {
+        return baseUrlResponse?.values?.[0];
+      });
+  }
 }
