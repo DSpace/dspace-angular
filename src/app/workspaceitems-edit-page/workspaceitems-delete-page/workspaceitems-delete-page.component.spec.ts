@@ -25,7 +25,7 @@ describe('WorkspaceitemsDeletePageComponent', () => {
   let fixture: ComponentFixture<WorkspaceItemsDeletePageComponent>;
 
   const workspaceitemDataServiceSpy = jasmine.createSpyObj('WorkspaceitemDataService', {
-    delete: jasmine.createSpy('delete')
+    delete: observableOf(createSuccessfulRemoteDataObject({}))
   });
 
   const wsi = new WorkspaceItem();
@@ -88,9 +88,7 @@ describe('WorkspaceitemsDeletePageComponent', () => {
   });
 
   it('should have the current WorkspaceItem', () => {
-    console.log( (component as any).activatedRoute, 'data wsi');
     (component as any).activatedRoute.data.subscribe((data) => {
-      console.log(data, 'dataaa');
       expect(data.wsi.payload.id).toEqual('1234');
     });
   });
@@ -103,7 +101,6 @@ describe('WorkspaceitemsDeletePageComponent', () => {
   });
 
   it('should call workspaceItemService.delete', () => {
-    spyOn(workspaceitemDataServiceSpy, 'delete').and.returnValue(observableOf(createSuccessfulRemoteDataObject({})));
     component.sendDeleteRequest();
     expect((component as any).workspaceItemService.delete).toHaveBeenCalledWith('1234');
   });
