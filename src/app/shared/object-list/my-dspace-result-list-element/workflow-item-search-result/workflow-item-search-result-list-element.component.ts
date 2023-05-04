@@ -40,9 +40,9 @@ export class WorkflowItemSearchResultListElementComponent extends SearchResultLi
   derivedSearchResult$: Observable<ItemSearchResult>;
 
   /**
-   * Represent child context
+   * Represents the badge context
    */
-  public childContext = Context.MyDSpaceWorkflow;
+  public badgeContext = Context.MyDSpaceWorkflow;
 
   /**
    * Display thumbnails if required by configuration

@@ -33,9 +33,9 @@ export class WorkspaceItemSearchResultDetailElementComponent extends SearchResul
   public item: Item;
 
   /**
-   * Represent child context
+   * Represents the badge context
    */
-  public childContext = Context.MyDSpaceWorkspace;
+  public badgeContext = Context.MyDSpaceWorkspace;
 
   constructor(
     protected linkService: LinkService

@@ -33,9 +33,9 @@ export class ClaimedDeclinedSearchResultListElementComponent extends SearchResul
   public showSubmitter = true;
 
   /**
-   * Represent child context
+   * Represents the badge context
    */
-  public childContext = Context.MyDSpaceDeclined;
+  public badgeContext = Context.MyDSpaceDeclined;
 
   /**
    * The workflowitem object that belonging to the result object

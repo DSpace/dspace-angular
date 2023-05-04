@@ -41,9 +41,9 @@ export class ClaimedTaskSearchResultDetailElementComponent extends SearchResultD
   public showSubmitter = true;
 
   /**
-   * Represent child context
+   * Represents the badge context
    */
-  public childContext = Context.MyDSpaceValidation;
+  public badgeContext = Context.MyDSpaceValidation;
 
   /**
    * The workflowitem object that belonging to the result object

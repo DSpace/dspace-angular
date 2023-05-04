@@ -41,9 +41,9 @@ export class PoolSearchResultDetailElementComponent extends SearchResultDetailEl
   public showSubmitter = true;
 
   /**
-   * Represent child context
+   * Represents the badge context
    */
-  public childContext = Context.MyDSpaceWaitingController;
+  public badgeContext = Context.MyDSpaceWaitingController;
 
   /**
    * The workflowitem object that belonging to the result object

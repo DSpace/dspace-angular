@@ -20,9 +20,9 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.Workflow)
 export class ItemSearchResultListElementSubmissionComponent extends SearchResultListElementComponent<ItemSearchResult, Item> implements OnInit {
   /**
-   * Represent child context
+   * Represents the badge context
    */
-  public childContext = Context.MyDSpaceArchived;
+  public badgeContext = Context.MyDSpaceArchived;
 
 
   /**

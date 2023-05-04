@@ -32,9 +32,9 @@ export class ClaimedApprovedSearchResultListElementComponent extends SearchResul
   public showSubmitter = true;
 
   /**
-   * Represent child context
+   * Represents the badge context
    */
-  public childContext = Context.MyDSpaceApproved;
+  public badgeContext = Context.MyDSpaceApproved;
 
   /**
    * The workflowitem object that belonging to the result object

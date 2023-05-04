@@ -40,9 +40,9 @@ export class  WorkspaceItemSearchResultListElementComponent extends SearchResult
   derivedSearchResult$: Observable<ItemSearchResult>;
 
   /**
-   * Represent child context
+   * Represents the badge context
    */
-  public childContext = Context.MyDSpaceWorkspace;
+  public badgeContext = Context.MyDSpaceWorkspace;
 
   /**
    * Display thumbnails if required by configuration

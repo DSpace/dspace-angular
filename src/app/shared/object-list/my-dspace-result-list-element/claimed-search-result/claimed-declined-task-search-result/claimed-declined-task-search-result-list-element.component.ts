@@ -13,6 +13,7 @@ import { ClaimedTaskSearchResult } from '../../../../object-collection/shared/cl
 import { ClaimedTask } from '../../../../../core/tasks/models/claimed-task-object.model';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
+import { Context } from '../../../../../core/shared/context.model';
 
 /**
  * This component renders claimed task declined task object for the search result in the list view.
@@ -29,6 +30,11 @@ export class ClaimedDeclinedTaskSearchResultListElementComponent extends SearchR
    * A boolean representing if to show submitter information
    */
   public showSubmitter = true;
+
+  /**
+   * Represents the badge context
+   */
+  public badgeContext = Context.MyDSpaceDeclined;
 
   /**
    * The workflowitem object that belonging to the result object

@@ -36,9 +36,9 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
   public showSubmitter = true;
 
   /**
-   * Represent child context
+   * Represents the badge context
    */
-  public childContext = Context.MyDSpaceValidation;
+  public badgeContext = Context.MyDSpaceValidation;
 
   /**
    * The item object that belonging to the result object

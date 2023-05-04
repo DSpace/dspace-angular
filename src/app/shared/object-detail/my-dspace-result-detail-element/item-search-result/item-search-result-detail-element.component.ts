@@ -21,8 +21,8 @@ import { Context } from '../../../../core/shared/context.model';
 export class ItemSearchResultDetailElementComponent extends SearchResultDetailElementComponent<ItemSearchResult, Item> {
 
   /**
-   * Represent context
+   * Represents the badge context
    */
-  public childContext = Context.MyDSpaceArchived;
+  public badgeContext = Context.MyDSpaceArchived;
 
 }

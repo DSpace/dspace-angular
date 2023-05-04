@@ -32,9 +32,9 @@ export class WorkflowItemSearchResultDetailElementComponent extends SearchResult
   public item: Item;
 
   /**
-   * Represent child context
+   * Represents the badge context
    */
-  public childContext = Context.MyDSpaceWorkflow;
+  public badgeContext = Context.MyDSpaceWorkflow;
 
   constructor(
     protected linkService: LinkService
