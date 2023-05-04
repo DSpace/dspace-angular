@@ -18,12 +18,14 @@ export enum Context {
 
   /** Administrative menu context */
   AdminMenu = 'adminMenu',
+
   EntitySearchModalWithNameVariants = 'EntitySearchModalWithNameVariants',
   EntitySearchModal = 'EntitySearchModal',
 
   /** Administrative search page context */
   AdminSearch = 'adminSearch',
   AdminWorkflowSearch = 'adminWorkflowSearch',
+
   SideBarSearchModal = 'sideBarSearchModal',
   SideBarSearchModalCurrent = 'sideBarSearchModalCurrent',
 
