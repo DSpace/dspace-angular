@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { slide } from '../../animations/slide';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -59,7 +59,7 @@ export class AdvancedSearchComponent implements OnInit {
   notab: boolean;
   @Input() searchConfig;
   closed: boolean;
-  collapsedSearch: boolean = false;
+  collapsedSearch = false;
   focusBox = false;
 
   advSearchForm: FormGroup;
@@ -105,11 +105,11 @@ export class AdvancedSearchComponent implements OnInit {
   onSubmit(data) {
     if (this.advSearchForm.valid) {
       if (!this.router.url.includes('?')) {
-        this.router.navigateByUrl(this.router.url + "?f." + data.filter + "=" + data.textsearch + "," + data.operator);
+        this.router.navigateByUrl(this.router.url + '?f.' + data.filter + '=' + data.textsearch + ',' + data.operator);
       } else {
-        this.router.navigateByUrl(this.router.url + "&f." + data.filter + "=" + data.textsearch + "," + data.operator);
+        this.router.navigateByUrl(this.router.url + '&f.' + data.filter + '=' + data.textsearch + ',' + data.operator);
       }
-      this.advSearchForm.reset({ operator: data.operator, filter: data.filter, textsearch: "" });
+      this.advSearchForm.reset({ operator: data.operator, filter: data.filter, textsearch: '' });
     }
   }
   startSlide(event: any): void {
