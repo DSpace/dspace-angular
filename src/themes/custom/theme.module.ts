@@ -59,6 +59,7 @@ import { CollectionPageModule } from '../../app/collection-page/collection-page.
 import { ConfigurationSearchPageComponent } from './app/search-page/configuration-search-page.component';
 import { ItemPageComponent } from './app/item-page/simple/item-page.component';
 import { FullItemPageComponent } from './app/item-page/full/full-item-page.component';
+import { LogInComponent } from './app/shared/log-in/log-in.component';
 import { LoginPageComponent } from './app/login-page/login-page.component';
 import { LogoutPageComponent } from './app/logout-page/logout-page.component';
 import { CreateProfileComponent } from './app/register-page/create-profile/create-profile.component';
@@ -108,6 +109,7 @@ const DECLARATIONS = [
   CollectionPageComponent,
   ItemPageComponent,
   FullItemPageComponent,
+  LogInComponent,
   LoginPageComponent,
   LogoutPageComponent,
   CreateProfileComponent,
