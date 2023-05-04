@@ -77,8 +77,8 @@ describe('ItemMyDSpaceResultListElementComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should have correct child context', () => {
-    expect(component.childContext).toEqual(Context.MyDSpaceArchived);
+  it('should have correct badge context', () => {
+    expect(component.badgeContext).toEqual(Context.MyDSpaceArchived);
   });
 
   it('should forward item-actions processComplete event to reloadObject event emitter', fakeAsync(() => {

@@ -104,8 +104,8 @@ describe('ClaimedDeclinedSearchResultListElementComponent', () => {
     });
   });
 
-  it('should have the correct child context', () => {
-    expect(component.childContext).toEqual(Context.MyDSpaceDeclined);
+  it('should have the correct badge context', () => {
+    expect(component.badgeContext).toEqual(Context.MyDSpaceDeclined);
   });
 
 });

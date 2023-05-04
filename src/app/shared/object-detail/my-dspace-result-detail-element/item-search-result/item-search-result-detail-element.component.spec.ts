@@ -68,7 +68,7 @@ describe('ItemSearchResultDetailElementComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should have the correct child context', () => {
-    expect(component.childContext).toEqual(Context.MyDSpaceArchived);
+  it('should have the correct badge context', () => {
+    expect(component.badgeContext).toEqual(Context.MyDSpaceArchived);
   });
 });

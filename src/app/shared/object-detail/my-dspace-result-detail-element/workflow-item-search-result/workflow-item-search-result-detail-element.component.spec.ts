@@ -87,7 +87,7 @@ describe('WorkflowItemSearchResultDetailElementComponent', () => {
     expect(component.item).toEqual(item);
   });
 
-  it('should have the correct child context', () => {
-    expect(component.childContext).toEqual(Context.MyDSpaceWorkflow);
+  it('should have the correct badge context', () => {
+    expect(component.badgeContext).toEqual(Context.MyDSpaceWorkflow);
   });
 });

@@ -104,8 +104,8 @@ describe('ClaimedApprovedSearchResultListElementComponent', () => {
     });
   });
 
-  it('should have the correct child context', () => {
-    expect(component.childContext).toEqual(Context.MyDSpaceApproved);
+  it('should have the correct badge context', () => {
+    expect(component.badgeContext).toEqual(Context.MyDSpaceApproved);
   });
 
 });

@@ -106,8 +106,8 @@ describe('ClaimedTaskSearchResultDetailElementComponent', () => {
     expect(component.item$.value).toEqual(item);
   }));
 
-  it('should have the correct child context', () => {
-    expect(component.childContext).toEqual(Context.MyDSpaceValidation);
+  it('should have the correct badge context', () => {
+    expect(component.badgeContext).toEqual(Context.MyDSpaceValidation);
   });
 
   it('should forward claimed-task-actions processComplete event to reloadObject event emitter', fakeAsync(() => {

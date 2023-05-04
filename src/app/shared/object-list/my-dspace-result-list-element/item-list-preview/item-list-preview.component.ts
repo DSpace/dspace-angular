@@ -30,9 +30,9 @@ export class ItemListPreviewComponent implements OnInit {
   @Input() object: SearchResult<any>;
 
   /**
-   * Represent context
+   * Represents the badge context
    */
-  @Input() context: Context;
+  @Input() badgeContext: Context;
 
   /**
    * A boolean representing if to show submitter information

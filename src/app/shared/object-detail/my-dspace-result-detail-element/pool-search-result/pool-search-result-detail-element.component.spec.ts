@@ -101,8 +101,8 @@ describe('PoolSearchResultDetailElementComponent', () => {
     expect(component.item$.value).toEqual(item);
   }));
 
-  it('should have the correct child context', () => {
-    expect(component.childContext).toEqual(Context.MyDSpaceWaitingController);
+  it('should have the correct badge context', () => {
+    expect(component.badgeContext).toEqual(Context.MyDSpaceWaitingController);
   });
 
   it('should forward pool-task-actions processCompleted event to the reloadedObject event emitter', fakeAsync(() => {

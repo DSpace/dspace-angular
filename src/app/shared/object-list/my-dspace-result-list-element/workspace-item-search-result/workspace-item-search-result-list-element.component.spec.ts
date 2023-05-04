@@ -104,8 +104,8 @@ describe('WorkspaceItemSearchResultListElementComponent', () => {
     });
   });
 
-  it('should have correct child context', () => {
-    expect(component.childContext).toEqual(Context.MyDSpaceWorkspace);
+  it('should have correct badge context', () => {
+    expect(component.badgeContext).toEqual(Context.MyDSpaceWorkspace);
   });
 
   it('should forward workspaceitem-actions processCompleted event to the reloadedObject event emitter', fakeAsync(() => {

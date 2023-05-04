@@ -15,13 +15,13 @@ import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model'
   templateUrl: '../../../theme-support/themed.component.html'
 })
 export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPreviewComponent> {
-  protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'context', 'showSubmitter', 'workflowItem'];
+  protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'badgeContext', 'showSubmitter', 'workflowItem'];
 
   @Input() item: Item;
 
   @Input() object: SearchResult<any>;
 
-  @Input() context: Context;
+  @Input() badgeContext: Context;
 
   @Input() showSubmitter: boolean;
 

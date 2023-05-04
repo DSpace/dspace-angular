@@ -105,8 +105,8 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
     });
   });
 
-  it('should have the correct child context', () => {
-    expect(component.childContext).toEqual(Context.MyDSpaceWorkflow);
+  it('should have the correct badge context', () => {
+    expect(component.badgeContext).toEqual(Context.MyDSpaceWorkflow);
   });
 
   it('should forward workflowitem-actions processCompleted event to the reloadedObject event emitter', fakeAsync(() => {

@@ -87,7 +87,7 @@ describe('WorkspaceItemSearchResultDetailElementComponent', () => {
     expect(component.item).toEqual(item);
   });
 
-  it('should have the correct child context', () => {
-    expect(component.childContext).toEqual(Context.MyDSpaceWorkspace);
+  it('should have the correct badge context', () => {
+    expect(component.badgeContext).toEqual(Context.MyDSpaceWorkspace);
   });
 });

@@ -2,7 +2,7 @@
     <ds-listable-object-component-loader
             [viewMode]="ViewModes.ListElement"
             [object]="derivedSearchResult$ | async" [linkType]="LinkTypes.None"
-            [context]="childContext"></ds-listable-object-component-loader>
+            [context]="badgeContext"></ds-listable-object-component-loader>
     <div class="row">
         <div [ngClass]="showThumbnails ? 'offset-3 offset-md-2  pl-3' : ''">
             <ds-workspaceitem-actions [object]="dso" (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-workspaceitem-actions>
