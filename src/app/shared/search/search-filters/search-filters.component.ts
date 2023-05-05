@@ -82,11 +82,11 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
       Object.keys(filters).forEach((f) => filters[f] = null);
       return filters;
     }));
-
+    this.searchLink = this.getSearchLink();
     this.searchConfigService.getConfigurationSearchConfig(this.currentConfiguration).pipe(distinctUntilChanged()).subscribe(searchConfig => {
       this.searchConfig = searchConfig;
     });
-    this.searchLink = this.getSearchLink();
+
   }
 
   /**
