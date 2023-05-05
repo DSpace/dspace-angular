@@ -12,7 +12,7 @@
                                   (clickSuggestion)="update(suggestionControl)"
                                   (typeSuggestion)="update(suggestionControl)"
                                   (dsClickOutside)="checkValidity(suggestionControl)"
-                                  (findSuggestions)="findMetadataFieldSuggestions($event, { elementsPerPage: 10 })"
+                                  (findSuggestions)="findMetadataFieldSuggestions($event, { elementsPerPage: 10, sort: defaultMetadataSort })"
                                   #suggestionControl="ngModel"
                                   [valid]="(valid | async) !== false"
                                   dsAutoFocus autoFocusSelector=".suggestion_input"

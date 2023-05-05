@@ -16,6 +16,7 @@ import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { FindListOptions } from '../../../../core/data/find-list-options.model';
+import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -56,6 +57,8 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * The current suggestions for the metadatafield when editing
    */
   metadataFieldSuggestions: BehaviorSubject<InputSuggestion[]> = new BehaviorSubject([]);
+
+  defaultMetadataSort: SortOptions = new  SortOptions('fieldName', SortDirection.ASC);
 
   constructor(
     private registryService: RegistryService,
