@@ -9,7 +9,7 @@ import { XsrfInterceptor } from './xsrf.interceptor';
 import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 
-fdescribe(`XsrfInterceptor`, () => {
+describe(`XsrfInterceptor`, () => {
   let service: DspaceRestService;
   let httpMock: HttpTestingController;
   let cookieService: CookieService;
