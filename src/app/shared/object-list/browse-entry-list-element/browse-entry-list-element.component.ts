@@ -49,7 +49,7 @@ export class BrowseEntryListElementComponent extends AbstractListableElementComp
       map((currentPage) => {
         return {
           value: this.object.value,
-          authority: !!this.object.authority ? this.object.authority : undefined,
+          authority: this.object.authority ? this.object.authority : undefined,
           startsWith: undefined,
           [pageParamName]: null,
           [BBM_PAGINATION_ID + '.return']: currentPage

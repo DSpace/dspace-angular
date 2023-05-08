@@ -17,7 +17,7 @@ export class ValidateEmailNotTaken {
         .pipe(
           getFirstSucceededRemoteData(),
           map(res => {
-            return !!res.payload ? { emailTaken: true } : null;
+            return res.payload ? { emailTaken: true } : null;
           })
         );
     };

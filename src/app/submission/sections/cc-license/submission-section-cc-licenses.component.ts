@@ -188,7 +188,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    */
   getCcLicenseLink$(): Observable<string> {
 
-    if (!!this.storedCcLicenseLink) {
+    if (this.storedCcLicenseLink) {
       return observableOf(this.storedCcLicenseLink);
     }
     if (!this.getSelectedCcLicense() || this.getSelectedCcLicense().fields.some(
@@ -257,7 +257,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
             ).subscribe((link) => {
               this.operationsBuilder.add(path, link.toString(), false, true);
             });
-          } else if (!!this.data.uri) {
+          } else if (this.data.uri) {
             this.operationsBuilder.remove(path);
           }
         }

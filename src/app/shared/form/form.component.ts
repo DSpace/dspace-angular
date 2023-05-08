@@ -123,7 +123,7 @@ export class FormComponent implements OnDestroy, OnInit {
   }*/
 
   private getFormGroup(): UntypedFormGroup {
-    if (!!this.parentFormModel) {
+    if (this.parentFormModel) {
       return this.formGroup.parent as UntypedFormGroup;
     }
 
@@ -183,7 +183,7 @@ export class FormComponent implements OnDestroy, OnInit {
               const { fieldId } = error;
               const { fieldIndex } = error;
               let field: AbstractControl;
-              if (!!this.parentFormModel) {
+              if (this.parentFormModel) {
                 field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as UntypedFormGroup, formModel, fieldIndex);
               } else {
                 field = this.formBuilderService.getFormControlById(fieldId, formGroup, formModel, fieldIndex);
@@ -206,7 +206,7 @@ export class FormComponent implements OnDestroy, OnInit {
               const { fieldId } = error;
               const { fieldIndex } = error;
               let field: AbstractControl;
-              if (!!this.parentFormModel) {
+              if (this.parentFormModel) {
                 field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as UntypedFormGroup, formModel, fieldIndex);
               } else {
                 field = this.formBuilderService.getFormControlById(fieldId, formGroup, formModel, fieldIndex);

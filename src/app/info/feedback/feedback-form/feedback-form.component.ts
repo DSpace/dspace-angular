@@ -51,7 +51,7 @@ export class FeedbackFormComponent implements OnInit {
   ngOnInit() {
 
     this.authService.getAuthenticatedUserFromStore().pipe(take(1)).subscribe((user: EPerson) => {
-      if (!!user) {
+      if (user) {
         this.feedbackForm.patchValue({ email: user.email });
       }
     });
