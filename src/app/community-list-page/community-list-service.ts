@@ -280,9 +280,7 @@ export class CommunityListService {
    * @param community     Community being checked whether it is expandable (if it has subcommunities or collections)
    */
   public getIsExpandable(community: Community): Observable<boolean> {
-    let hasSubcoms$: Observable<boolean>;
-    let hasColls$: Observable<boolean>;
-    hasSubcoms$ = this.communityDataService.findByParent(community.uuid, this.configOnePage)
+    const hasSubcoms$ = this.communityDataService.findByParent(community.uuid, this.configOnePage)
       .pipe(
         map((rd: RemoteData<PaginatedList<Community>>) => {
           if (hasValue(rd) && hasValue(rd.payload)) {
@@ -293,7 +291,7 @@ export class CommunityListService {
         }),
       );
 
-    hasColls$ = this.collectionDataService.findByParent(community.uuid, this.configOnePage)
+    const hasColls$ = this.collectionDataService.findByParent(community.uuid, this.configOnePage)
       .pipe(
         map((rd: RemoteData<PaginatedList<Collection>>) => {
           if (hasValue(rd) && hasValue(rd.payload)) {
@@ -304,12 +302,9 @@ export class CommunityListService {
         }),
       );
 
-    let hasChildren$: Observable<boolean>;
-    hasChildren$ = observableCombineLatest(hasSubcoms$, hasColls$).pipe(
+    return observableCombineLatest(hasSubcoms$, hasColls$).pipe(
       map(([hasSubcoms, hasColls]: [boolean, boolean]) => hasSubcoms || hasColls)
     );
-
-    return hasChildren$;
   }
 
 }

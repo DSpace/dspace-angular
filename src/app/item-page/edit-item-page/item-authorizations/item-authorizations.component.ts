@@ -184,7 +184,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
         mergeMap((list: PaginatedList<Bundle>) => list.page),
         map((bundle: Bundle) => ({ id: bundle.id, bitstreams: this.getBundleBitstreams(bundle) }))
       ).subscribe((entry: BundleBitstreamsMapEntry) => {
-        let bitstreamMapValues: BitstreamMapValue = {
+        const bitstreamMapValues: BitstreamMapValue = {
           isCollapsed: true,
           allBitstreamsLoaded: false,
           bitstreams: null
@@ -239,14 +239,14 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    */
   onBitstreamsLoad(bundle: Bundle) {
     return this.getBundleBitstreams(bundle).subscribe((res: PaginatedList<Bitstream>) => {
-      let nextBitstreams = res?.page.slice(this.bitstreamPageSize, this.bitstreamPageSize + this.bitstreamSize);
-      let bitstreamsToShow = this.bundleBitstreamsMap.get(bundle.id).bitstreams.pipe(
+      const nextBitstreams = res?.page.slice(this.bitstreamPageSize, this.bitstreamPageSize + this.bitstreamSize);
+      const bitstreamsToShow = this.bundleBitstreamsMap.get(bundle.id).bitstreams.pipe(
         map((existingBits: Bitstream[])=> {
           return [... existingBits, ...nextBitstreams];
         })
       );
       this.bitstreamPageSize = this.bitstreamPageSize + this.bitstreamSize;
-      let bitstreamMapValues: BitstreamMapValue = {
+      const bitstreamMapValues: BitstreamMapValue = {
         bitstreams: bitstreamsToShow ,
         isCollapsed: this.bundleBitstreamsMap.get(bundle.id).isCollapsed,
         allBitstreamsLoaded: res?.page.length <= this.bitstreamPageSize

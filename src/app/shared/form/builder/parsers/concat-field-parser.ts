@@ -1,7 +1,6 @@
 import {Inject} from '@angular/core';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { DynamicFormControlLayout, } from '@ng-dynamic-forms/core';
 import {
   CONCAT_FIRST_INPUT_SUFFIX,
   CONCAT_GROUP_SUFFIX,
@@ -38,12 +37,9 @@ export class ConcatFieldParser extends FieldParser {
   }
 
   public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
-
-    let clsGroup: DynamicFormControlLayout;
-    let clsInput: DynamicFormControlLayout;
     const id: string = this.configData.selectableMetadata[0].metadata;
 
-    clsInput = {
+    const clsInput = {
       grid: {
         host: 'col-sm-6'
       }
@@ -105,7 +101,7 @@ export class ConcatFieldParser extends FieldParser {
     concatGroup.group.push(model1);
     concatGroup.group.push(model2);
 
-    clsGroup = {
+    const clsGroup = {
       element: {
         control: 'form-row',
       }

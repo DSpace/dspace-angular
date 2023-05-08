@@ -183,7 +183,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
    * Registration of an email address
    */
   registration(captchaToken = null) {
-    let registerEmail$ = captchaToken ?
+    const registerEmail$ = captchaToken ?
       this.epersonRegistrationService.registerEmail(this.email.value, captchaToken, this.typeRequest) :
       this.epersonRegistrationService.registerEmail(this.email.value, null, this.typeRequest);
     this.subscriptions.push(registerEmail$.subscribe((response: RemoteData<Registration>) => {

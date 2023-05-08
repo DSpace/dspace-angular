@@ -95,7 +95,7 @@ export class DsoRedirectService {
         if (response.hasSucceeded) {
           const dso = response.payload;
           if (hasValue(dso.uuid)) {
-            let newRoute = getDSORoute(dso);
+            const newRoute = getDSORoute(dso);
             if (hasValue(newRoute)) {
               // Use a "301 Moved Permanently" redirect for SEO purposes
               this.hardRedirectService.redirect(newRoute, 301);

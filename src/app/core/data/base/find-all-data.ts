@@ -87,10 +87,9 @@ export class FindAllDataImpl<T extends CacheableObject> extends BaseDataService<
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   getFindAllHref(options: FindListOptions = {}, linkPath?: string, ...linksToFollow: FollowLinkConfig<T>[]): Observable<string> {
-    let endpoint$: Observable<string>;
     const args = [];
 
-    endpoint$ = this.getBrowseEndpoint(options).pipe(
+    const endpoint$ = this.getBrowseEndpoint(options).pipe(
       filter((href: string) => isNotEmpty(href)),
       map((href: string) => isNotEmpty(linkPath) ? `${href}/${linkPath}` : href),
       distinctUntilChanged(),

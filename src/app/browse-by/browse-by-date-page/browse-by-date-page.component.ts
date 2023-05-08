@@ -90,7 +90,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
     this.subs.push(
       observableCombineLatest([firstItemRD, lastItemRD]).subscribe(([firstItem, lastItem]) => {
         let lowerLimit = this.getLimit(firstItem, metadataKeys, this.appConfig.browseBy.defaultLowerLimit);
-        let upperLimit = this.getLimit(lastItem, metadataKeys, new Date().getUTCFullYear());
+        const upperLimit = this.getLimit(lastItem, metadataKeys, new Date().getUTCFullYear());
         const options = [];
         const oneYearBreak = Math.floor((upperLimit - this.appConfig.browseBy.oneYearLimit) / 5) * 5;
         const fiveYearBreak = Math.floor((upperLimit - this.appConfig.browseBy.fiveYearLimit) / 10) * 10;

@@ -333,11 +333,10 @@ export class PaginationComponent implements OnDestroy, OnInit {
     if (collectionSize) {
       showingDetails = this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(
         map((currentPaginationOptions) => {
-          let firstItem;
           let lastItem;
           const pageMax = currentPaginationOptions.pageSize * currentPaginationOptions.currentPage;
 
-          firstItem = currentPaginationOptions.pageSize * (currentPaginationOptions.currentPage - 1) + 1;
+          const firstItem = currentPaginationOptions.pageSize * (currentPaginationOptions.currentPage - 1) + 1;
           if (collectionSize > pageMax) {
             lastItem = pageMax;
           } else {

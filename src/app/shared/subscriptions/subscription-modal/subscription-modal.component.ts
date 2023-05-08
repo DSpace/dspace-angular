@@ -115,7 +115,7 @@ export class SubscriptionModalComponent implements OnInit {
 
     this.subscriptionForm.valueChanges.subscribe((newValue) => {
       let anyFrequencySelected = false;
-      for (let f of this.frequencyDefaultValues) {
+      for (const f of this.frequencyDefaultValues) {
         anyFrequencySelected = anyFrequencySelected || newValue.content.frequencies[f];
       }
       this.isValid = anyFrequencySelected;
@@ -124,11 +124,11 @@ export class SubscriptionModalComponent implements OnInit {
 
   initFormByAllSubscriptions(): void {
     this.subscriptionForm = new UntypedFormGroup({});
-    for (let t of this.subscriptionDefaultTypes) {
+    for (const t of this.subscriptionDefaultTypes) {
       const formGroup = new UntypedFormGroup({});
       formGroup.addControl('subscriptionId', this.formBuilder.control(''));
       formGroup.addControl('frequencies', this.formBuilder.group({}));
-      for (let f of this.frequencyDefaultValues) {
+      for (const f of this.frequencyDefaultValues) {
         (formGroup.controls.frequencies as UntypedFormGroup).addControl(f, this.formBuilder.control(false));
       }
       this.subscriptionForm.addControl(t, formGroup);
@@ -145,7 +145,7 @@ export class SubscriptionModalComponent implements OnInit {
     formGroup.addControl('subscriptionId', this.formBuilder.control(this.subscription.id));
     formGroup.addControl('frequencies', this.formBuilder.group({}));
     (formGroup.get('frequencies') as UntypedFormGroup).addValidators(Validators.required);
-    for (let f of this.frequencyDefaultValues) {
+    for (const f of this.frequencyDefaultValues) {
       const value = findIndex(this.subscription.subscriptionParameterList, ['value', f]) !== -1;
       (formGroup.controls.frequencies as UntypedFormGroup).addControl(f, this.formBuilder.control(value));
     }
@@ -167,12 +167,12 @@ export class SubscriptionModalComponent implements OnInit {
       next: (res: PaginatedList<Subscription>) => {
         if (res.pageInfo.totalElements > 0) {
           this.showDeleteInfo$.next(true);
-          for (let subscription of res.page) {
+          for (const subscription of res.page) {
             const type = subscription.subscriptionType;
             const subscriptionGroup: UntypedFormGroup = this.subscriptionForm.get(type) as UntypedFormGroup;
             if (isNotEmpty(subscriptionGroup)) {
               subscriptionGroup.controls.subscriptionId.setValue(subscription.id);
-              for (let parameter of subscription.subscriptionParameterList.filter((p) => p.name === 'frequency')) {
+              for (const parameter of subscription.subscriptionParameterList.filter((p) => p.name === 'frequency')) {
                 (subscriptionGroup.controls.frequencies as UntypedFormGroup).controls[parameter.value]?.setValue(true);
               }
             }
@@ -266,7 +266,7 @@ export class SubscriptionModalComponent implements OnInit {
       subscriptionParameterList: []
     };
 
-    for (let frequency of this.frequencyDefaultValues) {
+    for (const frequency of this.frequencyDefaultValues) {
       if (frequencies.value[frequency]) {
         body.subscriptionParameterList.push(
           {

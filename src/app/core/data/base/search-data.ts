@@ -112,10 +112,9 @@ export class SearchDataImpl<T extends CacheableObject> extends BaseDataService<T
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   getSearchByHref(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<T>[]): Observable<string> {
-    let result$: Observable<string>;
     const args = [];
 
-    result$ = this.getSearchEndpoint(searchMethod);
+    const result$ = this.getSearchEndpoint(searchMethod);
 
     return result$.pipe(map((result: string) => this.buildHrefFromFindOptions(result, options, args, ...linksToFollow)));
   }

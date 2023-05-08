@@ -264,7 +264,7 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
    * @param options
    */
   getRelatedItemsByLabel(item: Item, label: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Item>>> {
-    let linksToFollow: FollowLinkConfig<Relationship>[] = itemLinksToFollow(options.fetchThumbnail);
+    const linksToFollow: FollowLinkConfig<Relationship>[] = itemLinksToFollow(options.fetchThumbnail);
     linksToFollow.push(followLink('relationshipType'));
 
     return this.getItemRelationshipsByLabel(item, label, options, true, true, ...linksToFollow).pipe(this.paginatedRelationsToItems(item.uuid));

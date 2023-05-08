@@ -260,9 +260,8 @@ export class AuthService {
       select(getAuthenticationToken),
       take(1),
       map((authTokenInfo: AuthTokenInfo) => {
-        let token: AuthTokenInfo;
         // Retrieve authentication token info and check if is valid
-        token = isNotEmpty(authTokenInfo) ? authTokenInfo : this.storage.get(TOKENITEM);
+        const token = isNotEmpty(authTokenInfo) ? authTokenInfo : this.storage.get(TOKENITEM);
         if (isNotEmpty(token) && token.hasOwnProperty('accessToken') && isNotEmpty(token.accessToken) && !this.isTokenExpired(token)) {
           return token;
         } else {

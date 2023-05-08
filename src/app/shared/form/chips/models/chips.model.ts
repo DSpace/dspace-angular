@@ -2,7 +2,7 @@ import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 import { BehaviorSubject } from 'rxjs';
-import { ChipsItem, ChipsItemIcon } from './chips-item.model';
+import { ChipsItem } from './chips-item.model';
 import { hasValue, isNotEmpty } from '../../../empty.util';
 import { MetadataIconConfig } from '../../../../../config/submission-config.interface';
 import { FormFieldMetadataValueObject } from '../../builder/models/form-field-metadata-value.model';
@@ -123,12 +123,10 @@ export class Chips {
         config = (configIndex !== -1) ? this.iconsConfig[configIndex] : defaultConfig;
 
         if (hasValue(value) && isNotEmpty(config) && !this.hasPlaceholder(value)) {
-
-          let icon: ChipsItemIcon;
           const visibleWhenAuthorityEmpty = this.displayObj !== metadata;
 
           // Set icon
-          icon = {
+          const icon = {
             metadata,
             visibleWhenAuthorityEmpty,
             style: config.style

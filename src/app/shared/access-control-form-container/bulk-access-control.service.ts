@@ -96,7 +96,7 @@ export class BulkAccessControlService {
  * @param payload
  */
 export const convertToBulkAccessControlFileModel = (payload: { state: AccessControlFormState, bitstreamAccess: AccessCondition[], itemAccess: AccessCondition[] }): BulkAccessControlFileModel => {
-  let finalPayload: BulkAccessControlFileModel = {};
+  const finalPayload: BulkAccessControlFileModel = {};
 
   const itemEnabled = payload.state.item.toggleStatus;
   const bitstreamEnabled = payload.state.bitstream.toggleStatus;

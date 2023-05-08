@@ -21,8 +21,7 @@ export class NotificationsService {
   }
 
   private add(notification: Notification) {
-    let notificationAction;
-    notificationAction = new NewNotificationAction(notification);
+    const notificationAction = new NewNotificationAction(notification);
     this.store.dispatch(notificationAction);
   }
 

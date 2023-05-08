@@ -108,7 +108,7 @@ export class BrowserKlaroService extends KlaroService {
 
     const servicesToHide$: Observable<string[]> = observableCombineLatest([hideGoogleAnalytics$, hideRegistrationVerification$]).pipe(
       map(([hideGoogleAnalytics, hideRegistrationVerification]) => {
-        let servicesToHideArray: string[] = [];
+        const servicesToHideArray: string[] = [];
         if (hideGoogleAnalytics) {
           servicesToHideArray.push(this.GOOGLE_ANALYTICS_SERVICE_NAME);
         }

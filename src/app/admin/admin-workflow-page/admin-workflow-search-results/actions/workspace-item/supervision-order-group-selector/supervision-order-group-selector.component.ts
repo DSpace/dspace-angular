@@ -76,7 +76,7 @@ export class SupervisionOrderGroupSelectorComponent {
   save() {
     this.isSubmitted = true;
     if (this.selectedOrderType && this.selectedGroup) {
-      let supervisionDataObject = new SupervisionOrder();
+      const supervisionDataObject = new SupervisionOrder();
       supervisionDataObject.ordertype = this.selectedOrderType;
       this.supervisionOrderDataService.create(supervisionDataObject, this.itemUUID, this.selectedGroup.uuid, this.selectedOrderType).pipe(
         getFirstCompletedRemoteData(),
