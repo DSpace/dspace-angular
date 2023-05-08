@@ -57,7 +57,7 @@ export class SubmissionObjectDataService {
         return this.workspaceitemDataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
       case SubmissionScopeType.WorkflowItem:
         return this.workflowItemDataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
-      default:
+      default: {
         const now = new Date().getTime();
         return observableOf(new RemoteData(
           now,
@@ -68,6 +68,7 @@ export class SubmissionObjectDataService {
           undefined,
           400
         ));
+      }
     }
   }
 }

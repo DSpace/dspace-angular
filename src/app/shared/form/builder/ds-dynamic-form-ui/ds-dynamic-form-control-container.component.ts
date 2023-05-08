@@ -133,9 +133,7 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
       return (model instanceof DynamicListCheckboxGroupModel) ? DsDynamicListComponent : DynamicNGBootstrapCheckboxGroupComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER:
-      const datepickerModel = model as DynamicDatePickerModel;
-
-      return datepickerModel.inline ? DynamicNGBootstrapCalendarComponent : DsDatePickerInlineComponent;
+      return (model as DynamicDatePickerModel).inline ? DynamicNGBootstrapCalendarComponent : DsDatePickerInlineComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_GROUP:
       return DsDynamicFormGroupComponent;

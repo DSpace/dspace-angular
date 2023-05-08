@@ -51,10 +51,11 @@ export class AuthRequestServiceStub {
   public getRequest(method: string, options?: HttpOptions): Observable<any> {
     const authStatusStub: AuthStatus = new AuthStatus();
     switch (method) {
-      case 'logout':
+      case 'logout': {
         authStatusStub.authenticated = false;
         break;
-      case 'status':
+      }
+      case 'status': {
         const token = ((options.headers as any).lazyUpdate[1]) ? (options.headers as any).lazyUpdate[1].value : null;
         if (this.validateToken(token)) {
           authStatusStub.authenticated = true;
@@ -74,6 +75,7 @@ export class AuthRequestServiceStub {
           authStatusStub.authenticated = false;
         }
         break;
+      }
     }
     return createSuccessfulRemoteDataObject$(authStatusStub);
   }
