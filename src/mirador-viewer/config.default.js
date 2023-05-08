@@ -2,7 +2,7 @@ import Mirador from 'mirador/dist/es/src/index';
 
 // You can modify this default Mirador configuration file. However,
 // you should consider creating a copy of this file named
-// 'index.local.js'. If that file exists it will be used to build
+// 'config.local.js'. If that file exists it will be used to build
 // your local Mirador instance. This allows you to keep local
 // Mirador configuration separate from this default distribution
 // copy.
