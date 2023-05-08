@@ -181,7 +181,7 @@
         ],
         "@typescript-eslint/type-annotation-spacing": "error",
         "@typescript-eslint/unified-signatures": "error",
-        "@typescript-eslint/ban-types": "warn",  // todo: deal with {} type issues & re-enable
+        "@typescript-eslint/ban-types": "error",
         "@typescript-eslint/no-floating-promises": "warn",
         "@typescript-eslint/no-misused-promises": "warn",
         "@typescript-eslint/restrict-plus-operands": "warn",
