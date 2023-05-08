@@ -8,5 +8,5 @@ export class OnClickMenuItemModel implements MenuItemModel {
   type = MenuItemType.ONCLICK;
   disabled: boolean;
   text: string;
-  function: () => {};
+  function: () => void;
 }

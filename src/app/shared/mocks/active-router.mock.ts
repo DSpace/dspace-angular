@@ -22,7 +22,7 @@ export class MockActivatedRoute {
 
   // Test parameters
   get testParams() { return this._testParams; }
-  set testParams(params: {}) {
+  set testParams(params: any) {
     this._testParams = params;
     this.subject.next(params);
   }

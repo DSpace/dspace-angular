@@ -24,6 +24,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { PaginationRouteParams } from '../../core/pagination/pagination-route-params.interface';
 
 /**
  * The default pagination controls component.
@@ -273,7 +274,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The page being navigated to.
    */
   public doPageChange(page: number) {
-    this.updateParams({page: page.toString()});
+    this.updateParams({page: page});
     this.emitPaginationChange();
   }
 
@@ -284,7 +285,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The page size being navigated to.
    */
   public doPageSizeChange(pageSize: number) {
-    this.updateParams({ pageId: this.id, page: 1, pageSize: pageSize });
+    this.updateParams({ page: 1, pageSize: pageSize });
     this.emitPaginationChange();
   }
 
@@ -295,7 +296,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The sort direction being navigated to.
    */
   public doSortDirectionChange(sortDirection: SortDirection) {
-    this.updateParams({ pageId: this.id, page: 1, sortDirection: sortDirection });
+    this.updateParams({ page: 1, sortDirection: sortDirection });
     this.emitPaginationChange();
   }
 
@@ -306,7 +307,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The sort field being navigated to.
    */
   public doSortFieldChange(field: string) {
-    this.updateParams({ pageId: this.id, page: 1, sortField: field });
+    this.updateParams({ page: 1, sortField: field });
     this.emitPaginationChange();
   }
 
@@ -321,7 +322,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * Update the current query params and optionally update the route
    * @param params
    */
-  private updateParams(params: {}) {
+  private updateParams(params: PaginationRouteParams) {
     this.paginationService.updateRoute(this.id, params, {}, this.retainScrollPosition);
   }
 
@@ -407,7 +408,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   updatePagination(value: number) {
     this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(take(1)).subscribe((currentPaginationOptions) => {
-      this.updateParams({page: (currentPaginationOptions.currentPage + value).toString()});
+      this.updateParams({ page: (currentPaginationOptions.currentPage + value) });
     });
   }
 

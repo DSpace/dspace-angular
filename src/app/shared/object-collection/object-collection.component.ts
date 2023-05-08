@@ -189,7 +189,7 @@ export class ObjectCollectionComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private elementRef: ElementRef,
-    @Inject(PLATFORM_ID) private platformId: Object) {
+    @Inject(PLATFORM_ID) private platformId: any) {
   }
 
   ngOnInit(): void {

@@ -48,7 +48,7 @@ export class RecentItemListComponent implements OnInit {
     public searchConfigurationService: SearchConfigurationService,
     protected elementRef: ElementRef,
     @Inject(APP_CONFIG) private appConfig: AppConfig,
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: any,
   ) {
 
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {

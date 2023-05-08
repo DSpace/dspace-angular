@@ -9,6 +9,7 @@ import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { difference } from '../../shared/object.util';
 import { FindListOptions } from '../data/find-list-options.model';
 import { isNumeric } from '../../shared/numeric.util';
+import { PaginationRouteParams } from './pagination-route-params.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -121,13 +122,8 @@ export class PaginationService {
    */
   updateRoute(
     paginationId: string,
-    params: {
-      page?: number
-      pageSize?: number
-      sortField?: string
-      sortDirection?: SortDirection
-    },
-    extraParams?,
+    params: PaginationRouteParams,
+    extraParams?: Record<string, unknown>,
     retainScrollPosition?: boolean,
     navigationExtras?: NavigationExtras,
   ) {
@@ -147,13 +143,8 @@ export class PaginationService {
   updateRouteWithUrl(
     paginationId: string,
     url: string[],
-    params: {
-      page?: number
-      pageSize?: number
-      sortField?: string
-      sortDirection?: SortDirection
-    },
-    extraParams?,
+    params: PaginationRouteParams,
+    extraParams?: Record<string, unknown>,
     retainScrollPosition?: boolean,
     navigationExtras?: NavigationExtras,
   ) {
@@ -219,12 +210,7 @@ export class PaginationService {
     );
   }
 
-  private getParametersWithIdName(paginationId: string, params: {
-    page?: number
-    pageSize?: number
-    sortField?: string
-    sortDirection?: SortDirection
-  }) {
+  private getParametersWithIdName(paginationId: string, params: PaginationRouteParams) {
     const paramsWithIdName = {};
     if (hasValue(params.page)) {
       paramsWithIdName[`${paginationId}.page`] = `${params.page}`;

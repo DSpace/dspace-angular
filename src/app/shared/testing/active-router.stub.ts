@@ -35,7 +35,7 @@ export class ActivatedRouteStub {
     return this._testParams;
   }
 
-  set testParams(params: {}) {
+  set testParams(params: unknown) {
     this._testParams = params;
     this.subject.next(params);
   }
@@ -45,7 +45,7 @@ export class ActivatedRouteStub {
     return this._testParams;
   }
 
-  set testData(data: {}) {
+  set testData(data: unknown) {
     this._testData = data;
     this.dataSubject.next(data);
   }

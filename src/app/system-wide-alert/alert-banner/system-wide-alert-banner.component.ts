@@ -48,7 +48,7 @@ export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(
-    @Inject(PLATFORM_ID) protected platformId: Object,
+    @Inject(PLATFORM_ID) protected platformId: any,
     protected systemWideAlertDataService: SystemWideAlertDataService,
     protected notificationsService: NotificationsService,
   ) {
