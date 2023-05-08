@@ -105,13 +105,13 @@
           }
         ],
         "prefer-const": "error",
+        "no-case-declarations": "error",
         "prefer-spread": "off",
         "no-underscore-dangle": "off",
 
         // todo: disabled rules from eslint:recommended, consider re-enabling & fixing
         "no-prototype-builtins": "off",
         "no-useless-escape": "off",
-        "no-case-declarations": "off",
         "no-extra-boolean-cast": "off",
 
         "@angular-eslint/directive-selector": [
