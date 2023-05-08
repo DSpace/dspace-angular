@@ -104,7 +104,7 @@
             "allowTernary": true
           }
         ],
-        "prefer-const": "off",            // todo: re-enable & fix errors (more strict than it used to be in TSLint)
+        "prefer-const": "error",
         "prefer-spread": "off",
         "no-underscore-dangle": "off",
 
@@ -211,6 +211,21 @@
           "error",
           "method"
         ]
+      }
+    },
+    {
+      "files": [
+        "*.spec.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "./tsconfig.json",
+          "./cypress/tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "rules": {
+        "prefer-const": "off"
       }
     },
     {
