@@ -2,9 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   AccessControlArrayFormComponent
 } from '../../../shared/access-control-array-form/access-control-array-form.component';
-import {
-  CollectionAccessControlService
-} from '../../../collection-page/edit-collection-page/collection-access-control/collection-access-control.service';
 import { shareReplay } from 'rxjs';
 import { ItemAccessControlService } from './item-access-control.service';
 
@@ -48,6 +45,13 @@ export class ItemAccessControlComponent implements OnInit {
     });
   }
 
+  handleStatusChange(type: 'item' | 'bitstream', active: boolean) {
+    if (type === 'bitstream') {
+      active ? this.bitstreamAccessCmp.enable() : this.bitstreamAccessCmp.disable();
+    } else if (type === 'item') {
+      active ? this.itemAccessCmp.enable() : this.itemAccessCmp.disable();
+    }
+  }
 }
 
 const initialState = {

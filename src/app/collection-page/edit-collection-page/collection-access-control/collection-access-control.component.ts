@@ -42,6 +42,14 @@ export class CollectionAccessControlComponent  implements OnInit {
     console.log('itemAccess', itemAccess);
   }
 
+  handleStatusChange(type: 'item' | 'bitstream', active: boolean) {
+    if (type === 'bitstream') {
+      active ? this.bitstreamAccessCmp.enable() : this.bitstreamAccessCmp.disable();
+    } else if (type === 'item') {
+      active ? this.itemAccessCmp.enable() : this.itemAccessCmp.disable();
+    }
+  }
+
 }
 
 const initialState = {

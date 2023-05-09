@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AccessControlItem } from '../../../shared/access-control-array-form/access-control-array-form.component';
+import { AccessControlItem } from 'src/app/core/shared/bulk-access-condition-options.model';
 import { Observable, of } from 'rxjs';
 
 export interface AccessControlDropdownDataResponse {

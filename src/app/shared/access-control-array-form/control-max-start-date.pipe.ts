@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-struct';
-import { AccessControlItem } from './access-control-array-form.component';
+import { AccessControlItem } from 'src/app/core/shared/bulk-access-condition-options.model';
 
 @Pipe({
   // eslint-disable-next-line @angular-eslint/pipe-prefix

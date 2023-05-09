@@ -8,7 +8,7 @@ import { RequestService } from './request.service';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { BulkAccessConditionOptions } from '../shared/bulk-access-condition-options.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 /**
  * Data Service responsible for retrieving Bulk Access Condition Options from the REST API
  */

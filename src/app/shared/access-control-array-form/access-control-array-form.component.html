@@ -25,7 +25,9 @@
             #d="ngbDatepicker"
           />
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary fas fa-calendar" (click)="d.toggle()"
+            <button class="btn btn-outline-secondary fas fa-calendar"
+                    [disabled]="form.status === 'DISABLED'"
+                    (click)="d.toggle()"
                     type="button"></button>
           </div>
         </div>
@@ -43,15 +45,18 @@
             #d1="ngbDatepicker"
           />
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary fas fa-calendar" (click)="d1.toggle()"
-                    type="button">
+            <button type="button" class="btn btn-outline-secondary fas fa-calendar"
+              [disabled]="form.status === 'DISABLED'"
+              (click)="d1.toggle()">
             </button>
           </div>
         </div>
       </div>
 
       <div>
-        <button type="button" (click)="removeAccessControlItem(i)" class="btn btn-outline-danger">
+        <button type="button" class="btn btn-outline-danger"
+                [disabled]="form.status === 'DISABLED'"
+                (click)="removeAccessControlItem(i)">
           <i class="fas fa-trash"></i>
         </button>
       </div>
@@ -60,9 +65,10 @@
   </ng-container>
 
   <button type="button" id="add-btn" class="btn btn-outline-primary mt-3"
+          [disabled]="form.status === 'DISABLED'"
           (click)="addAccessControlItem()">
     <i class="fas fa-plus"></i>
-    Add more
+    {{'access-control-add-more' | translate}}
   </button>
 
 </form>

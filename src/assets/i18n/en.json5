@@ -5311,4 +5311,24 @@
   "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
 
   "admin.system-wide-alert.title": "System-wide Alerts",
+
+  "item-access-control-title": "This form allows you to perform changes to the access condition of all the items owned by collection under this community. Changes can be performed on the access condition for the metadata (item) or for the content (bitstream).",
+  "collection-access-control-title": "This form allows you to perform changes to the access condition of all the items owned by collection under this community. Changes can be performed on the access condition for the metadata (item) or for the content (bitstream).",
+  "community-access-control-title": "This form allows you to perform changes to the access condition of all the items owned by collection under this community. Changes can be performed on the access condition for the metadata (item) or for the content (bitstream).",
+  "access-control-item-header-toggle": "Item's Metadata",
+  "access-control-bitstream-header-toggle": "Bitstreams",
+  "access-control-mode": "Mode",
+  "access-control-access-conditions": "Access conditions",
+  "access-control-no-access-conditions-warning-message": "You have not specified any access conditions, the new items access conditions will be inherited from the owning collection.",
+  "access-control-replace-all": "Replace access conditions",
+  "access-control-add-to-existing": "Add to existing ones",
+  "access-control-limit-to-specific": "Limit the changes to specific bitstreams",
+  "access-control-process-all-bitstreams": "process all the bitstreams in the item",
+  "access-control-bitstreams-selected": "bitstreams selected",
+  "access-control-reset": "Reset",
+  "access-control-execute": "Execute",
+  "access-control-add-more": "Add more"
+
+
+
 }
