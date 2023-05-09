@@ -84,13 +84,13 @@ import { EditItemResolver } from './../../core/shared/resolvers/edit-item.resolv
                 data: { title: 'item.edit.tabs.metadata.title', showBreadcrumbs: true },
                 canActivate: [ItemPageMetadataGuard]
               },
-              /* Commented out code because DSpace 7 relationships are not used by DSpace CRIS 7 
+              /* Commented out code because DSpace 7 relationships are not used by DSpace CRIS 7
               {
                 path: 'relationships',
                 component: ItemRelationshipsComponent,
                 data: { title: 'item.edit.tabs.relationships.title', showBreadcrumbs: true },
                 canActivate: [ItemPageRelationshipsGuard]
-              } ,*/
+              }, */
               /* TODO - uncomment & fix when view page exists
               {
                 path: 'view',
