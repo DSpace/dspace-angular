@@ -3,7 +3,7 @@ import { HttpHeaders } from '@angular/common/http';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { filter, map, take, tap } from 'rxjs/operators';
+import { filter, map, take, tap, find } from 'rxjs/operators';
 import cloneDeep from 'lodash/cloneDeep';
 import { hasValue, isEmpty, isNotEmpty, hasNoValue } from '../../shared/empty.util';
 import { ObjectCacheEntry } from '../cache/object-cache.reducer';
@@ -25,6 +25,7 @@ import { RestRequest } from './rest-request.model';
 import { CoreState } from '../core-state.model';
 import { RequestState } from './request-state.model';
 import { RequestEntry } from './request-entry.model';
+import { XSRFService } from '../xsrf/xsrf.service';
 
 /**
  * The base selector function to select the request state in the store
@@ -137,6 +138,7 @@ export class RequestService {
   constructor(private objectCache: ObjectCacheService,
               private uuidService: UUIDService,
               private store: Store<CoreState>,
+              protected xsrfService: XSRFService,
               private indexStore: Store<MetaIndexState>) {
   }
 
@@ -377,7 +379,17 @@ export class RequestService {
    */
   private dispatchRequest(request: RestRequest) {
     this.store.dispatch(new RequestConfigureAction(request));
-    this.store.dispatch(new RequestExecuteAction(request.uuid));
+    // If it's a GET request, or we have an XSRF token, dispatch it immediately
+    if (request.method === RestRequestMethod.GET || this.xsrfService.tokenInitialized$.getValue() === true) {
+      this.store.dispatch(new RequestExecuteAction(request.uuid));
+    } else {
+      // Otherwise wait for the XSRF token first
+      this.xsrfService.tokenInitialized$.pipe(
+        find((hasInitialized: boolean) => hasInitialized === true)
+      ).subscribe(() => {
+        this.store.dispatch(new RequestExecuteAction(request.uuid));
+      });
+    }
   }
 
   /**

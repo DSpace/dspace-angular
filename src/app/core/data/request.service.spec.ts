@@ -1,6 +1,6 @@
 import { Store, StoreModule } from '@ngrx/store';
 import { cold, getTestScheduler } from 'jasmine-marbles';
-import { EMPTY, of as observableOf } from 'rxjs';
+import { EMPTY, of as observableOf, BehaviorSubject } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
@@ -26,6 +26,7 @@ import { RequestEntryState } from './request-entry-state.model';
 import { RestRequest } from './rest-request.model';
 import { CoreState } from '../core-state.model';
 import { RequestEntry } from './request-entry.model';
+import { XSRFService } from '../xsrf/xsrf.service';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;
@@ -35,6 +36,7 @@ describe('RequestService', () => {
   let uuidService: UUIDService;
   let store: Store<CoreState>;
   let mockStore: MockStore<CoreState>;
+  let xsrfService: XSRFService;
 
   const testUUID = '5f2a0d2a-effa-4d54-bd54-5663b960f9eb';
   const testHref = 'https://rest.api/endpoint/selfLink';
@@ -80,10 +82,15 @@ describe('RequestService', () => {
     store = TestBed.inject(Store);
     mockStore = store as MockStore<CoreState>;
     mockStore.setState(initialState);
+    xsrfService = {
+      tokenInitialized$: new BehaviorSubject(false),
+    } as XSRFService;
+
     service = new RequestService(
       objectCache,
       uuidService,
       store,
+      xsrfService,
       undefined
     );
     serviceAsAny = service as any;

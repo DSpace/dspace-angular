@@ -37,6 +37,8 @@ import { XhrFactory } from '@angular/common';
 import { ServerXhrService } from '../../app/core/services/server-xhr.service';
 import { ReferrerService } from '../../app/core/services/referrer.service';
 import { ServerReferrerService } from '../../app/core/services/server.referrer.service';
+import { XSRFService } from '../../app/core/xsrf/xsrf.service';
+import { ServerXSRFService } from '../../app/core/xsrf/server-xsrf.service';
 
 export function createTranslateLoader(transferState: TransferState) {
   return new TranslateServerLoader(transferState, 'dist/server/assets/i18n/', '.json');
@@ -93,6 +95,10 @@ export function createTranslateLoader(transferState: TransferState) {
     {
       provide: AuthRequestService,
       useClass: ServerAuthRequestService,
+    },
+    {
+      provide: XSRFService,
+      useClass: ServerXSRFService
     },
     {
       provide: LocaleService,
