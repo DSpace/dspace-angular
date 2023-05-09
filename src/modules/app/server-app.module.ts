@@ -46,6 +46,8 @@ import { ServerReferrerService } from '../../app/core/services/server.referrer.s
 import { ServerCookieService } from '../../app/core/services/server-cookie.service';
 import { ServerHardRedirectService } from '../../app/core/services/server-hard-redirect.service';
 import { ServerXhrService } from '../../app/core/services/server-xhr.service';
+import { ServerXSRFService } from '../../app/core/xsrf/server-xsrf.service';
+import { XSRFService } from '../../app/core/xsrf/xsrf.service';
 import { AngularticsProviderMock } from '../../app/shared/mocks/angulartics-provider.service.mock';
 import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mock';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
@@ -111,6 +113,10 @@ export function createTranslateLoader(transferState: TransferState) {
     {
       provide: AuthRequestService,
       useClass: ServerAuthRequestService,
+    },
+    {
+      provide: XSRFService,
+      useClass: ServerXSRFService,
     },
     {
       provide: LocaleService,
