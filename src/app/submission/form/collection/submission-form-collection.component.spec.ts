@@ -249,6 +249,12 @@ describe('SubmissionFormCollectionComponent Component', () => {
         expect(dropDown).toBeFalsy();
       });
 
+      it('the dropdown button should be disabled when isReadonly is true', () => {
+        comp.isReadonly = true;
+        fixture.detectChanges();
+        expect(dropdowBtn.nativeNode.attributes.disabled).toBeDefined();
+      });
+
       it('should be simulated when the drop-down menu is closed', () => {
         spyOn(comp, 'onClose');
         comp.onClose();
