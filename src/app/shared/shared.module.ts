@@ -271,6 +271,7 @@ import { GroupSearchBoxComponent } from './eperson-group-list/group-search-box/g
 import {
   ThemedItemPageTitleFieldComponent
 } from '../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
+import { BitstreamListItemComponent } from './object-list/bitstream-list-item/bitstream-list-item.component';
 
 const MODULES = [
   CommonModule,
@@ -395,6 +396,7 @@ const ENTRY_COMPONENTS = [
   SearchResultGridElementComponent,
   ItemListElementComponent,
   ItemGridElementComponent,
+  BitstreamListItemComponent,
   ItemSearchResultListElementComponent,
   ItemSearchResultGridElementComponent,
   BrowseEntryListElementComponent,
