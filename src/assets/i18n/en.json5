@@ -227,6 +227,18 @@
 
 
 
+  "admin.access-control.bulk-access": "Bulk access",
+
+  "admin.access-control.bulk-access.title": "Bulk Access",
+
+  "admin.access-control.bulk-access-browse.header": "Step 1: select objects",
+
+  "admin.access-control.bulk-access-browse.search.header": "Search",
+
+  "admin.access-control.bulk-access-browse.selected.header": "Current selection({{number}})",
+
+  "admin.access-control.bulk-access-settings.header": "Step 2: operation to perform",
+
   "admin.access-control.epeople.actions.delete": "Delete EPerson",
 
   "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
@@ -2877,6 +2889,8 @@
   "menu.section.access_control": "Access Control",
 
   "menu.section.access_control_authorizations": "Authorizations",
+
+  "menu.section.access_control_bulk": "Bulk access",
 
   "menu.section.access_control_groups": "Groups",
 
