@@ -1,6 +1,6 @@
 import { Store, StoreModule } from '@ngrx/store';
 import { cold, getTestScheduler } from 'jasmine-marbles';
-import { EMPTY, Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable, of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
@@ -8,6 +8,7 @@ import { defaultUUID, getMockUUIDService } from '../../shared/mocks/uuid.service
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { coreReducers} from '../core.reducers';
 import { UUIDService } from '../shared/uuid.service';
+import { XSRFService } from '../xsrf/xsrf.service';
 import { RequestConfigureAction, RequestExecuteAction, RequestStaleAction } from './request.actions';
 import {
   DeleteRequest,
@@ -35,6 +36,7 @@ describe('RequestService', () => {
   let uuidService: UUIDService;
   let store: Store<CoreState>;
   let mockStore: MockStore<CoreState>;
+  let xsrfService: XSRFService;
 
   const testUUID = '5f2a0d2a-effa-4d54-bd54-5663b960f9eb';
   const testHref = 'https://rest.api/endpoint/selfLink';
@@ -80,10 +82,15 @@ describe('RequestService', () => {
     store = TestBed.inject(Store);
     mockStore = store as MockStore<CoreState>;
     mockStore.setState(initialState);
+    xsrfService = {
+      tokenInitialized$: new BehaviorSubject(false),
+    } as XSRFService;
+
     service = new RequestService(
       objectCache,
       uuidService,
       store,
+      xsrfService,
       undefined
     );
     serviceAsAny = service as any;
