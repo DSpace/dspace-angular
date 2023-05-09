@@ -43,6 +43,10 @@ import {
   AccessControlArrayFormModule
 } from '../../shared/access-control-array-form/access-control-array-form.component';
 import { UiSwitchModule } from 'ngx-ui-switch';
+import {
+  ItemAccessControlSelectBitstreamsModalComponent
+} from './item-access-control/item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
+import { ResultsBackButtonModule } from '../../shared/results-back-button/results-back-button.module';
 
 
 /**
@@ -62,6 +66,7 @@ import { UiSwitchModule } from 'ngx-ui-switch';
     DsoSharedModule,
     AccessControlArrayFormModule,
     UiSwitchModule,
+    ResultsBackButtonModule,
   ],
   declarations: [
     EditItemPageComponent,
@@ -89,7 +94,8 @@ import { UiSwitchModule } from 'ngx-ui-switch';
     ItemAuthorizationsComponent,
     IdentifierDataComponent,
     ItemRegisterDoiComponent,
-    ItemAccessControlComponent
+    ItemAccessControlComponent,
+    ItemAccessControlSelectBitstreamsModalComponent
   ],
   providers: [
     BundleDataService,

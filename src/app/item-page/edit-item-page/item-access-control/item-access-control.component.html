@@ -87,6 +87,14 @@
                 <label class="form-check-label" for="processSelected">
                   {{ state.bitstream.selectedBitstreams.length }}
                   {{'access-control-bitstreams-selected' | translate}}
+
+                  <button
+                    *ngIf="itemRD$ | async as itemRD"
+                    [disabled]="!state.bitstream.toggleStatus && state.bitstream.changesLimit !== 'selected'"
+                    (click)="openSelectBitstreamsModal(itemRD.payload)" class="btn btn-outline-dark" type="button">
+                    <i class="fa fa-search"></i>
+                  </button>
+
                 </label>
               </div>
             </div>

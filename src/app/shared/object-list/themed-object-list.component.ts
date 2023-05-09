@@ -48,7 +48,7 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
 
   @Input() selectionConfig: { repeatable: boolean, listId: string };
 
-  /**
+w  /**
    * The link type of the listable elements
    */
   @Input() linkType: CollectionElementLinkType;

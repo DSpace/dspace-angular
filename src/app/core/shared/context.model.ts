@@ -16,4 +16,5 @@ export enum Context {
   AdminWorkflowSearch = 'adminWorkflowSearch',
   SideBarSearchModal = 'sideBarSearchModal',
   SideBarSearchModalCurrent = 'sideBarSearchModalCurrent',
+  Bitstream = 'bitstream',
 }
