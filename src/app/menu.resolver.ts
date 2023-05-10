@@ -7,7 +7,7 @@ import { MenuItemType } from './shared/menu/menu-item-type.model';
 import { LinkMenuItemModel } from './shared/menu/menu-item/models/link.model';
 import { getFirstCompletedRemoteData } from './core/shared/operators';
 import { PaginatedList } from './core/data/paginated-list.model';
-import { BrowseDefinition } from './core/shared/browse-definition.model';
+import { FlatBrowseDefinition } from './core/shared/flat-browse-definition.model';
 import { RemoteData } from './core/data/remote-data';
 import { TextMenuItemModel } from './shared/menu/menu-item/models/text.model';
 import { BrowseService } from './core/browse/browse.service';
@@ -108,10 +108,10 @@ export class MenuResolver implements Resolve<boolean> {
     ];
     // Read the different Browse-By types from config and add them to the browse menu
     this.browseService.getBrowseDefinitions()
-      .pipe(getFirstCompletedRemoteData<PaginatedList<BrowseDefinition>>())
-      .subscribe((browseDefListRD: RemoteData<PaginatedList<BrowseDefinition>>) => {
+      .pipe(getFirstCompletedRemoteData<PaginatedList<FlatBrowseDefinition>>())
+      .subscribe((browseDefListRD: RemoteData<PaginatedList<FlatBrowseDefinition>>) => {
         if (browseDefListRD.hasSucceeded) {
-          browseDefListRD.payload.page.forEach((browseDef: BrowseDefinition) => {
+          browseDefListRD.payload.page.forEach((browseDef: FlatBrowseDefinition) => {
             menuList.push({
               id: `browse_global_by_${browseDef.id}`,
               parentID: 'browse_global',

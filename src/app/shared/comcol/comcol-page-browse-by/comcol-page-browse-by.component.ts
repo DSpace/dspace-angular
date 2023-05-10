@@ -6,7 +6,7 @@ import { getCommunityPageRoute } from '../../../community-page/community-page-ro
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
+import { FlatBrowseDefinition } from '../../../core/shared/flat-browse-definition.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { BrowseService } from '../../../core/browse/browse.service';
 
@@ -46,11 +46,11 @@ export class ComcolPageBrowseByComponent implements OnInit {
 
   ngOnInit(): void {
     this.browseService.getBrowseDefinitions()
-      .pipe(getFirstCompletedRemoteData<PaginatedList<BrowseDefinition>>())
-      .subscribe((browseDefListRD: RemoteData<PaginatedList<BrowseDefinition>>) => {
+      .pipe(getFirstCompletedRemoteData<PaginatedList<FlatBrowseDefinition>>())
+      .subscribe((browseDefListRD: RemoteData<PaginatedList<FlatBrowseDefinition>>) => {
         if (browseDefListRD.hasSucceeded) {
           this.allOptions = browseDefListRD.payload.page
-            .map((config: BrowseDefinition) => ({
+            .map((config: FlatBrowseDefinition) => ({
               id: config.id,
               label: `browse.comcol.by.${config.id}`,
               routerLink: `/browse/${config.id}`,

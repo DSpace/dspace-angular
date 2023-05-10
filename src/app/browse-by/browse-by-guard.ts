@@ -7,7 +7,7 @@ import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from 
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { BrowseDefinitionDataService } from '../core/browse/browse-definition-data.service';
-import { BrowseDefinition } from '../core/shared/browse-definition.model';
+import { FlatBrowseDefinition } from '../core/shared/flat-browse-definition.model';
 
 @Injectable()
 /**
@@ -23,7 +23,7 @@ export class BrowseByGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const title = route.data.title;
     const id = route.params.id || route.queryParams.id || route.data.id;
-    let browseDefinition$: Observable<BrowseDefinition>;
+    let browseDefinition$: Observable<FlatBrowseDefinition>;
     if (hasNoValue(route.data.browseDefinition) && hasValue(id)) {
       browseDefinition$ = this.browseDefinitionService.findById(id).pipe(getFirstSucceededRemoteDataPayload());
     } else {

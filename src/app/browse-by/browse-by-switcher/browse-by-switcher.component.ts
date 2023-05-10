@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BROWSE_BY_COMPONENT_FACTORY } from './browse-by-decorator';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { BrowseDefinition } from '../../core/shared/browse-definition.model';
+import { FlatBrowseDefinition } from '../../core/shared/flat-browse-definition.model';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 
 @Component({
@@ -31,7 +31,7 @@ export class BrowseBySwitcherComponent implements OnInit {
    */
   ngOnInit(): void {
     this.browseByComponent = this.route.data.pipe(
-      map((data: { browseDefinition: BrowseDefinition }) => this.getComponentByBrowseByType(data.browseDefinition.dataType, this.themeService.getThemeName()))
+      map((data: { browseDefinition: FlatBrowseDefinition }) => this.getComponentByBrowseByType(data.browseDefinition.dataType, this.themeService.getThemeName()))
     );
   }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BROWSE_DEFINITION } from '../shared/browse-definition.resource-type';
-import { BrowseDefinition } from '../shared/browse-definition.model';
+import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
 import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -21,8 +21,8 @@ import { dataService } from '../data/base/data-service.decorator';
   providedIn: 'root',
 })
 @dataService(BROWSE_DEFINITION)
-export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseDefinition> implements FindAllData<BrowseDefinition> {
-  private findAllData: FindAllDataImpl<BrowseDefinition>;
+export class BrowseDefinitionDataService extends IdentifiableDataService<FlatBrowseDefinition> implements FindAllData<FlatBrowseDefinition> {
+  private findAllData: FindAllDataImpl<FlatBrowseDefinition>;
 
   constructor(
     protected requestService: RequestService,
@@ -49,7 +49,7 @@ export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseD
    * @return {Observable<RemoteData<PaginatedList<T>>>}
    *    Return an observable that emits object list
    */
-  findAll(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<BrowseDefinition>[]): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
+  findAll(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<FlatBrowseDefinition>[]): Observable<RemoteData<PaginatedList<FlatBrowseDefinition>>> {
     return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 }

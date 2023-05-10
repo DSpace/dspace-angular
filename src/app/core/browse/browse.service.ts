@@ -6,7 +6,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
-import { BrowseDefinition } from '../shared/browse-definition.model';
+import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
 import { BrowseEntry } from '../shared/browse-entry.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
@@ -60,7 +60,7 @@ export class BrowseService {
   /**
    * Get all BrowseDefinitions
    */
-  getBrowseDefinitions(): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
+  getBrowseDefinitions(): Observable<RemoteData<PaginatedList<FlatBrowseDefinition>>> {
     // TODO properly support pagination
     return this.browseDefinitionDataService.findAll({ elementsPerPage: 9999 }).pipe(
       getFirstSucceededRemoteData(),
@@ -233,13 +233,13 @@ export class BrowseService {
     return this.getBrowseDefinitions().pipe(
       getRemoteDataPayload(),
       getPaginatedListPayload(),
-      map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
-        .find((def: BrowseDefinition) => {
+      map((browseDefinitions: FlatBrowseDefinition[]) => browseDefinitions
+        .find((def: FlatBrowseDefinition) => {
           const matchingKeys = def.metadataKeys.find((key: string) => searchKeyArray.indexOf(key) >= 0);
           return isNotEmpty(matchingKeys);
         })
       ),
-      map((def: BrowseDefinition) => {
+      map((def: FlatBrowseDefinition) => {
         if (isEmpty(def) || isEmpty(def._links) || isEmpty(def._links[linkPath])) {
           throw new Error(`A browse endpoint for ${linkPath} on ${metadataKey} isn't configured`);
         } else {

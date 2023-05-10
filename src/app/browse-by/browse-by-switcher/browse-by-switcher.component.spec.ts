@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BROWSE_BY_COMPONENT_FACTORY, BrowseByDataType } from './browse-by-decorator';
-import { BrowseDefinition } from '../../core/shared/browse-definition.model';
+import { FlatBrowseDefinition } from '../../core/shared/flat-browse-definition.model';
 import { BehaviorSubject } from 'rxjs';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 
@@ -13,33 +13,33 @@ describe('BrowseBySwitcherComponent', () => {
 
   const types = [
     Object.assign(
-      new BrowseDefinition(), {
+      new FlatBrowseDefinition(), {
         id: 'title',
         dataType: BrowseByDataType.Title,
       }
     ),
     Object.assign(
-      new BrowseDefinition(), {
+      new FlatBrowseDefinition(), {
         id: 'dateissued',
         dataType: BrowseByDataType.Date,
         metadataKeys: ['dc.date.issued']
       }
     ),
     Object.assign(
-      new BrowseDefinition(), {
+      new FlatBrowseDefinition(), {
         id: 'author',
         dataType: BrowseByDataType.Metadata,
       }
     ),
     Object.assign(
-      new BrowseDefinition(), {
+      new FlatBrowseDefinition(), {
         id: 'subject',
         dataType: BrowseByDataType.Metadata,
       }
     ),
   ];
 
-  const data = new BehaviorSubject(createDataWithBrowseDefinition(new BrowseDefinition()));
+  const data = new BehaviorSubject(createDataWithBrowseDefinition(new FlatBrowseDefinition()));
 
   const activatedRouteStub = {
     data
@@ -70,7 +70,7 @@ describe('BrowseBySwitcherComponent', () => {
     comp = fixture.componentInstance;
   }));
 
-  types.forEach((type: BrowseDefinition) => {
+  types.forEach((type: FlatBrowseDefinition) => {
     describe(`when switching to a browse-by page for "${type.id}"`, () => {
       beforeEach(() => {
         data.next(createDataWithBrowseDefinition(type));

@@ -1,7 +1,7 @@
 import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
 import { typedObject } from '../cache/builders/build-decorators';
 import { excludeFromEquals } from '../utilities/equals.decorators';
-import { BROWSE_DEFINITION } from './browse-definition.resource-type';
+import { FLAT_BROWSE_DEFINITION } from './flat-browse-definition.resource-type';
 import { HALLink } from './hal-link.model';
 import { ResourceType } from './resource-type';
 import { SortOption } from './sort-option.model';
@@ -9,15 +9,14 @@ import { CacheableObject } from '../cache/cacheable-object.model';
 import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-decorator';
 
 @typedObject
-export class BrowseDefinition extends CacheableObject {
-  static type = BROWSE_DEFINITION;
+export class FlatBrowseDefinition extends CacheableObject {
+  static type = FLAT_BROWSE_DEFINITION;
 
   /**
    * The object type
    */
   @excludeFromEquals
-  @autoserialize
-  type: ResourceType;
+  type: ResourceType = FLAT_BROWSE_DEFINITION;
 
   @autoserialize
   id: string;
