@@ -6,9 +6,7 @@ import {
   AccessControlArrayFormComponent,
   AccessControlArrayFormModule
 } from '../access-control-array-form/access-control-array-form.component';
-import {
-  ItemAccessControlService
-} from '../../item-page/edit-item-page/item-access-control/item-access-control.service';
+import { BulkAccessControlService } from './bulk-access-control.service';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
@@ -26,18 +24,21 @@ import {
 @Component({
   selector: 'ds-access-control-form-container',
   templateUrl: './access-control-form-container.component.html',
-  styleUrls: ['./access-control-form-container.component.scss']
+  styleUrls: [ './access-control-form-container.component.scss' ],
+  exportAs: 'dsAccessControlForm'
 })
 export class AccessControlFormContainerComponent<T extends DSpaceObject> {
 
   @Input() showLimitToSpecificBitstreams = false;
   @Input() itemRD: RemoteData<T>;
 
+  @Input() hideSubmit = false;
+
   @ViewChild('bitstreamAccessCmp', { static: true }) bitstreamAccessCmp: AccessControlArrayFormComponent;
   @ViewChild('itemAccessCmp', { static: true }) itemAccessCmp: AccessControlArrayFormComponent;
 
   constructor(
-    private itemAccessControlService: ItemAccessControlService,
+    private bulkAccessControlService: BulkAccessControlService,
     private selectableListService: SelectableListService,
     protected modalService: NgbModal,
     private cdr: ChangeDetectorRef
@@ -45,9 +46,17 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> {
 
   state = initialState;
 
-  dropdownData$ = this.itemAccessControlService.dropdownData$.pipe(
+  dropdownData$ = this.bulkAccessControlService.dropdownData$.pipe(
     shareReplay(1)
   );
+
+  getFormValue() {
+    return {
+      bitstream: this.bitstreamAccessCmp.getValue(),
+      item: this.itemAccessCmp.getValue(),
+      state: this.state
+    };
+  }
 
   reset() {
     this.bitstreamAccessCmp.reset();
@@ -59,10 +68,17 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> {
     const bitstreamAccess = this.bitstreamAccessCmp.getValue();
     const itemAccess = this.itemAccessCmp.getValue();
 
-    this.itemAccessControlService.execute({
+    const { file } = this.bulkAccessControlService.createPayloadFile({
       bitstreamAccess,
       itemAccess,
       state: this.state
+    });
+
+    this.bulkAccessControlService.executeScript(
+      [ this.itemRD.payload.uuid ],
+      file
+    ).pipe(take(1)).subscribe((res) => {
+      console.log('success', res);
     });
   }
 
@@ -110,9 +126,18 @@ const initialState = {
 
 
 @NgModule({
-  imports: [ CommonModule, AccessControlArrayFormModule, SharedModule, TranslateModule, UiSwitchModule ],
-  exports: [AccessControlFormContainerComponent],
-  declarations: [ AccessControlFormContainerComponent, ItemAccessControlSelectBitstreamsModalComponent ],
+  imports: [
+    CommonModule,
+    AccessControlArrayFormModule,
+    SharedModule,
+    TranslateModule,
+    UiSwitchModule
+  ],
+  declarations: [
+    AccessControlFormContainerComponent,
+    ItemAccessControlSelectBitstreamsModalComponent
+  ],
+  exports: [ AccessControlFormContainerComponent ],
 })
 export class AccessControlFormContainerModule {}
 

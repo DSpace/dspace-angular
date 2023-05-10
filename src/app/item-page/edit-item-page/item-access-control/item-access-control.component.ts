@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ItemAccessControlService } from './item-access-control.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map } from 'rxjs/operators';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
-import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 
 @Component({
   selector: 'ds-item-access-control',

@@ -16,7 +16,56 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 
 @Component({
   selector: 'ds-bulk-access-browse',
-  templateUrl: './bulk-access-browse.component.html',
+  template: `
+    <ngb-accordion #acc="ngbAccordion" [activeIds]="'browse'">
+      <ngb-panel [id]="'browse'">
+        <ng-template ngbPanelHeader>
+          <div class="w-100 d-flex justify-content-between collapse-toggle" ngbPanelToggle (click)="acc.toggle('browse')"
+               data-test="browse">
+            <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()"
+                    [attr.aria-expanded]="!acc.isExpanded('browse')"
+                    aria-controls="collapsePanels">
+              {{ 'admin.access-control.bulk-access-browse.header' | translate }}
+            </button>
+            <div class="text-right d-flex">
+              <div class="ml-3 d-inline-block">
+                <span *ngIf="acc.isExpanded('browse')" class="fas fa-chevron-up fa-fw"></span>
+                <span *ngIf="!acc.isExpanded('browse')" class="fas fa-chevron-down fa-fw"></span>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <ul ngbNav #nav="ngbNav" [(activeId)]="activateId" class="nav-pills">
+            <li [ngbNavItem]="'search'">
+              <a ngbNavLink>{{'admin.access-control.bulk-access-browse.search.header' | translate}}</a>
+              <ng-template ngbNavContent>
+                <div class="mx-n3">
+                  <ds-themed-search [configuration]="'default'"
+                                    [selectable]="true"
+                                    [selectionConfig]="{ repeatable: true, listId: listId }"
+                                    [showThumbnails]="false"></ds-themed-search>
+                </div>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="'selected'">
+              <a
+                ngbNavLink>{{'admin.access-control.bulk-access-browse.selected.header' | translate: {number: ((objectsSelected$ | async)?.payload?.totalElements) ? (objectsSelected$ | async)?.payload?.totalElements : '0'} }}</a>
+              <ng-template ngbNavContent>
+                <ds-viewable-collection [config]="paginationOptions"
+                                        [hideGear]="true"
+                                        [objects]="objectsSelected$ | async"
+                                        [selectable]="true"
+                                        [selectionConfig]="{ repeatable: true, listId: listId }"
+                                        [showThumbnails]="false"></ds-viewable-collection>
+              </ng-template>
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="nav" class="mt-5"></div>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  `,
   styleUrls: ['./bulk-access-browse.component.scss'],
   providers: [
     {
@@ -44,8 +93,7 @@ export class BulkAccessBrowseComponent implements OnInit {
   paginationOptions: PaginationComponentOptions;
   private subs: Subscription[] = [];
 
-  constructor(private selectableListService: SelectableListService) {
-  }
+  constructor(private selectableListService: SelectableListService) {}
 
   ngOnInit(): void {
     this.paginationOptions = Object.assign(new PaginationComponentOptions(), {

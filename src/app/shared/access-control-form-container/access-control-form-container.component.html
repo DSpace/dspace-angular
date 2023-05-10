@@ -3,10 +3,6 @@
     <div class="card-body">
       <ng-content select="[title]"></ng-content>
 
-<!--      <p>-->
-<!--        {{ 'item-access-control-title' | translate }}-->
-<!--      </p>-->
-
       <div class="row mt-5">
         <div class="col-12 col-md-6 border-right">
           <div class="d-flex align-items-center">
@@ -95,7 +91,8 @@
                   <button
                     *ngIf="itemRD"
                     [disabled]="!state.bitstream.toggleStatus && state.bitstream.changesLimit !== 'selected'"
-                    (click)="openSelectBitstreamsModal(itemRD.payload)" class="btn btn-outline-dark" type="button">
+                    (click)="openSelectBitstreamsModal(itemRD.payload)"
+                    class="btn btn-outline-dark" type="button">
                     <i class="fa fa-search"></i>
                   </button>
 
@@ -148,9 +145,9 @@
         </div>
       </div>
 
-      <hr>
+      <hr *ngIf="!hideSubmit">
 
-      <div class="d-flex justify-content-end">
+      <div *ngIf="!hideSubmit" class="d-flex justify-content-end">
         <button class="btn btn-lg btn-outline-primary mr-3" (click)="reset()">
           {{ 'access-control-reset' | translate }}
         </button>
