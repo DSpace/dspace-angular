@@ -11,6 +11,7 @@ import { ComcolModule } from '../shared/comcol/comcol.module';
 import { ThemedBrowseByMetadataPageComponent } from './browse-by-metadata-page/themed-browse-by-metadata-page.component';
 import { ThemedBrowseByDatePageComponent } from './browse-by-date-page/themed-browse-by-date-page.component';
 import { ThemedBrowseByTitlePageComponent } from './browse-by-title-page/themed-browse-by-title-page.component';
+import { ThemedBrowseByTaxonomyPageComponent } from './browse-by-taxonomy-page/themed-browse-by-taxonomy-page.component';
 import { FormModule } from '../shared/form/form.module';
 
 const ENTRY_COMPONENTS = [
@@ -36,6 +37,7 @@ const ENTRY_COMPONENTS = [
     BrowseBySwitcherComponent,
     ThemedBrowseBySwitcherComponent,
     BrowseByTaxonomyPageComponent,
+    ThemedBrowseByTaxonomyPageComponent,
     ...ENTRY_COMPONENTS
   ],
   exports: [

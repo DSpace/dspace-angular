@@ -4,7 +4,7 @@ import { BrowseByGuard } from './browse-by-guard';
 import { BrowseByDSOBreadcrumbResolver } from './browse-by-dso-breadcrumb.resolver';
 import { BrowseByI18nBreadcrumbResolver } from './browse-by-i18n-breadcrumb.resolver';
 import { ThemedBrowseBySwitcherComponent } from './browse-by-switcher/themed-browse-by-switcher.component';
-import { BrowseByTaxonomyPageComponent } from './browse-by-taxonomy-page/browse-by-taxonomy-page.component';
+import { ThemedBrowseByTaxonomyPageComponent } from './browse-by-taxonomy-page/themed-browse-by-taxonomy-page.component';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 @NgModule({
@@ -16,7 +16,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
         children: [
           {
             path: 'srsc',
-            component: BrowseByTaxonomyPageComponent,
+            component: ThemedBrowseByTaxonomyPageComponent,
             canActivate: [BrowseByGuard],
             resolve: { breadcrumb: I18nBreadcrumbResolver },
             data: { title: 'browse.title.page', breadcrumbKey: 'browse.metadata.srsc' }
