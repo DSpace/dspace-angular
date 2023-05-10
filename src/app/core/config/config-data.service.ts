@@ -1,9 +1,10 @@
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { ConfigObject } from './models/config.model';
 import { RemoteData } from '../data/remote-data';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
-import { map } from 'rxjs/operators';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 
 /**
@@ -38,7 +39,20 @@ export abstract class ConfigDataService extends IdentifiableDataService<ConfigOb
     );
   }
 
-  findByName(name: string,  useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ConfigObject>[]): Observable<RemoteData<ConfigObject>> {
+  /**
+   * Returns a config object by given name
+   *
+   * Throws an error if a configuration object cannot be retrieved.
+   *
+   * @param name                        The name of configuration to retrieve
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  public findByName(name: string,  useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ConfigObject>[]): Observable<RemoteData<ConfigObject>> {
     return super.findById(name, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 }
