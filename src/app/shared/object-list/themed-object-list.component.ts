@@ -44,6 +44,11 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
    */
   @Input() hidePagerWhenSinglePage: boolean;
 
+  /**
+   * If true the object list provided needs to be paginated using the `paginate` pipe
+   */
+  @Input() listToPaginate: boolean;
+
   @Input() selectable: boolean;
 
   @Input() selectionConfig: { repeatable: boolean, listId: string };
@@ -160,6 +165,7 @@ w  /**
     'hidePaginationDetail',
     'importable',
     'importConfig',
+    'listToPaginate',
     'showPaginator',
     'showThumbnails',
     'contentChange',
