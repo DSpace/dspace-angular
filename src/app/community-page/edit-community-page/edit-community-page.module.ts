@@ -14,7 +14,7 @@ import { CommunityAccessControlComponent } from './community-access-control/comm
 import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   AccessControlArrayFormModule
-} from '../../shared/access-control-array-form/access-control-array-form.component';
+} from '../../shared/access-control-form-container/access-control-array-form/access-control-array-form.component';
 import {
   AccessControlFormContainerModule
 } from '../../shared/access-control-form-container/access-control-form-container.component';

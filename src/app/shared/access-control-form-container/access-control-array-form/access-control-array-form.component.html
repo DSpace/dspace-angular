@@ -1,4 +1,8 @@
 <form [formGroup]="form">
+  <div *ngIf="accessControl.controls.length === 0 && form.status !== 'DISABLED'" class="alert alert-warning">
+    {{'access-control-no-access-conditions-warning-message' | translate}}
+  </div>
+
   <ng-container *ngFor="let control of accessControl.controls; let i = index">
     <div [formGroup]="$any(control)"
          class="mt-3" data-testId="access-control-item"

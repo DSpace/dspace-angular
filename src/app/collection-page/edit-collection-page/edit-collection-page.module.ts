@@ -16,7 +16,7 @@ import { ComcolModule } from '../../shared/comcol/comcol.module';
 import { CollectionAccessControlComponent } from './collection-access-control/collection-access-control.component';
 import {
   AccessControlArrayFormModule
-} from '../../shared/access-control-array-form/access-control-array-form.component';
+} from '../../shared/access-control-form-container/access-control-array-form/access-control-array-form.component';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   AccessControlFormContainerModule

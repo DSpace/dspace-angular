@@ -47,9 +47,6 @@ import { IdentifierDataComponent } from '../../shared/object-list/identifier-dat
 import { ItemRegisterDoiComponent } from './item-register-doi/item-register-doi.component';
 import { DsoSharedModule } from '../../dso-shared/dso-shared.module';
 import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
-import {
-  AccessControlArrayFormModule
-} from '../../shared/access-control-array-form/access-control-array-form.component';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { ResultsBackButtonModule } from '../../shared/results-back-button/results-back-button.module';
 import {
@@ -72,7 +69,6 @@ import {
     NgbModule,
     ItemVersionsModule,
     DsoSharedModule,
-    AccessControlArrayFormModule,
     UiSwitchModule,
     ResultsBackButtonModule,
     AccessControlFormContainerModule,

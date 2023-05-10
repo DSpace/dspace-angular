@@ -5,7 +5,7 @@ import { Item } from '../../core/shared/item.model';
 import {
   AccessControlArrayFormComponent,
   AccessControlArrayFormModule
-} from '../access-control-array-form/access-control-array-form.component';
+} from './access-control-array-form/access-control-array-form.component';
 import { BulkAccessControlService } from './bulk-access-control.service';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -176,7 +176,7 @@ const initialState = {
     AccessControlFormContainerComponent,
     ItemAccessControlSelectBitstreamsModalComponent
   ],
-  exports: [ AccessControlFormContainerComponent ],
+  exports: [ AccessControlFormContainerComponent, AccessControlArrayFormModule ],
 })
 export class AccessControlFormContainerModule {}
 

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AccessControlArrayFormComponent } from './access-control-array-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SharedBrowseByModule } from '../browse-by/shared-browse-by.module';
+import { SharedBrowseByModule } from '../../browse-by/shared-browse-by.module';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
