@@ -7,7 +7,7 @@
       <div>
         <select id="accesscontroloption" formControlName="itemName" class="form-control">
           <option value=""></option>
-          <option *ngFor="let option of (dropdownData$ | async)" [value]="option.name">
+          <option *ngFor="let option of dropdownOptions" [value]="option.name">
             {{ option.name }}
           </option>
         </select>
@@ -20,7 +20,7 @@
             placeholder="yyyy-mm-dd"
             name="dp"
             formControlName="startDate"
-            [minDate]="control | maxStartDate: (dropdownData$ | async)"
+            [minDate]="control | maxStartDate: dropdownOptions"
             ngbDatepicker
             #d="ngbDatepicker"
           />
@@ -40,7 +40,7 @@
             placeholder="yyyy-mm-dd"
             name="dp"
             formControlName="endDate"
-            [maxDate]="control | maxEndDate: (dropdownData$ | async)"
+            [maxDate]="control | maxEndDate: dropdownOptions"
             ngbDatepicker
             #d1="ngbDatepicker"
           />

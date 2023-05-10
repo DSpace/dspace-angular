@@ -1,4 +1,4 @@
-import { Component, NgModule, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, NgModule, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SharedBrowseByModule } from '../browse-by/shared-browse-by.module';
@@ -7,20 +7,10 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { ControlMaxStartDatePipe } from './control-max-start-date.pipe';
 import { ControlMaxEndDatePipe } from './control-max-end-date.pipe';
 
-import { distinctUntilChanged, map, shareReplay, takeUntil, tap } from 'rxjs/operators';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { RemoteData } from '../../core/data/remote-data';
-import { BulkAccessConditionOptions } from '../../core/config/models/bulk-access-condition-options.model';
-import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
+import { AccessesConditionOption } from '../../core/config/models/config-accesses-conditions-options.model';
 
-
-// will be used on the form value
-export interface AccessControlItemValue {
-  itemName: string | null; // item name
-  startDate?: string;
-  endDate?: string;
-}
 
 @Component({
   selector: 'ds-access-control-array-form',
@@ -29,6 +19,7 @@ export interface AccessControlItemValue {
   exportAs: 'accessControlArrayForm'
 })
 export class AccessControlArrayFormComponent implements OnInit, OnDestroy {
+  @Input() dropdownOptions: AccessesConditionOption[] = [];
 
   private destroy$ = new Subject<void>();
 
@@ -36,27 +27,9 @@ export class AccessControlArrayFormComponent implements OnInit, OnDestroy {
     accessControl: this.fb.array([])
   });
 
-  constructor(private bulkAccessConfigService: BulkAccessConfigDataService,
-              private fb: FormBuilder) {
-  }
-
-  dropdownData$ = this.bulkAccessConfigService.findByPropertyName('default').pipe(
-    getFirstCompletedRemoteData(),
-    map((configRD: RemoteData<BulkAccessConditionOptions>) => configRD.hasSucceeded ? configRD.payload : null),
-    shareReplay(1),
-    tap(console.log)
-  );
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    // console.log(this.dropdownOptions);
-/*    if (this.accessControlItems.length === 0) {
-      this.addAccessControlItem();
-    } else {
-      for (const item of this.accessControlItems) {
-        this.addAccessControlItem(item.itemName);
-      }
-    }*/
-
     this.addAccessControlItem();
 
     this.accessControl.valueChanges

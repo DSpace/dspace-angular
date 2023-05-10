@@ -48,7 +48,10 @@
             </div>
           </div>
 
-          <ds-access-control-array-form #itemAccessCmp></ds-access-control-array-form>
+          <ds-access-control-array-form
+            #itemAccessCmp
+            [dropdownOptions]="(dropdownData$ | async)?.itemAccessConditionOptions || []">
+          </ds-access-control-array-form>
 
         </div>
         <div class="col-12 col-md-6">
@@ -125,23 +128,24 @@
           </div>
 
           <div class="mt-3">
-            <h5>
-              {{'access-control-access-conditions' | translate}}
-            </h5>
+            <h5>{{'access-control-access-conditions' | translate}}</h5>
 
             <div class="alert alert-warning">
               {{'access-control-no-access-conditions-warning-message' | translate}}
             </div>
           </div>
 
-          <ds-access-control-array-form #bitstreamAccessCmp></ds-access-control-array-form>
+          <ds-access-control-array-form
+            #bitstreamAccessCmp
+            [dropdownOptions]="(dropdownData$ | async)?.bitstreamAccessConditionOptions || []">
+          </ds-access-control-array-form>
 
         </div>
       </div>
 
-      <hr *ngIf="!hideSubmit">
+      <hr *ngIf="showSubmit">
 
-      <div *ngIf="!hideSubmit" class="d-flex justify-content-end">
+      <div *ngIf="showSubmit" class="d-flex justify-content-end">
         <button class="btn btn-lg btn-outline-primary mr-3" (click)="reset()">
           {{ 'access-control-reset' | translate }}
         </button>

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, NgModule, ViewChild } from '@angular/core';
-import { concatMap } from 'rxjs';
+import { concatMap, Observable, shareReplay } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import {
@@ -9,7 +9,7 @@ import {
 import { BulkAccessControlService } from './bulk-access-control.service';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { take } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { SharedModule } from '../shared.module';
@@ -21,6 +21,8 @@ import {
   ItemAccessControlSelectBitstreamsModalComponent
 } from './item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
 import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { BulkAccessConditionOptions } from '../../core/config/models/bulk-access-condition-options.model';
 
 @Component({
   selector: 'ds-access-control-form-container',
@@ -28,12 +30,12 @@ import { BulkAccessConfigDataService } from '../../core/config/bulk-access-confi
   styleUrls: [ './access-control-form-container.component.scss' ],
   exportAs: 'dsAccessControlForm'
 })
-export class AccessControlFormContainerComponent<T extends DSpaceObject> implements OnInit {
+export class AccessControlFormContainerComponent<T extends DSpaceObject> {
 
   @Input() showLimitToSpecificBitstreams = false;
   @Input() itemRD: RemoteData<T>;
 
-  @Input() hideSubmit = false;
+  @Input() showSubmit = true;
 
   @ViewChild('bitstreamAccessCmp', { static: true }) bitstreamAccessCmp: AccessControlArrayFormComponent;
   @ViewChild('itemAccessCmp', { static: true }) itemAccessCmp: AccessControlArrayFormComponent;
@@ -48,16 +50,12 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
 
   state = initialState;
 
-/*  dropdownData$ = this.bulkAccessConfigService.findByPropertyName('default').pipe(
+  dropdownData$: Observable<BulkAccessConditionOptions> = this.bulkAccessConfigService.findByPropertyName('default').pipe(
     getFirstCompletedRemoteData(),
     map((configRD: RemoteData<BulkAccessConditionOptions>) => configRD.hasSucceeded ? configRD.payload : null),
     shareReplay(1),
-    tap(console.log)
-  );*/
-
-/*  dropdownData$ = this.bulkAccessControlService.dropdownData$.pipe(
-    shareReplay(1)
-  );*/
+    tap(x => console.log('options', x))
+  );
 
   getFormValue() {
     return {
