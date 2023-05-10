@@ -150,7 +150,7 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
 }
 
 
-const initialState = {
+const initialState: AccessControlFormState = {
   item: {
     toggleStatus: false,
     accessMode: '',
@@ -163,6 +163,18 @@ const initialState = {
   },
 };
 
+export interface AccessControlFormState {
+  item: {
+    toggleStatus: boolean,
+    accessMode: string,
+  },
+  bitstream: {
+    toggleStatus: boolean,
+    accessMode: string,
+    changesLimit: string,
+    selectedBitstreams: ListableObject[],
+  }
+}
 
 @NgModule({
   imports: [

@@ -68,7 +68,9 @@ export class AccessControlArrayFormComponent implements OnInit, OnDestroy {
    * @return The form value
    */
   getValue() {
-    return this.form.value;
+    return this.form.value.accessControl
+      .filter(x => x.itemName !== null && x.itemName !== '')
+      .map(x => ({ name: x.itemName, startDate: x.startDate || null, endDate: x.endDate || null }));
   }
 
   /**
