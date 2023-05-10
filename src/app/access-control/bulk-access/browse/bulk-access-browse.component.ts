@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import { distinctUntilChanged, map, tap } from 'rxjs/operators';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
@@ -67,7 +67,8 @@ export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.selectableListService.getSelectableList(this.listId).pipe(
         distinctUntilChanged(),
-        map((list: SelectableListState) => this.generatePaginatedListBySelectedElements(list))
+        map((list: SelectableListState) => this.generatePaginatedListBySelectedElements(list)),
+        tap(console.log)
       ).subscribe(this.objectsSelected$)
     )
   }
@@ -76,14 +77,12 @@ export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
     this.paginationOptions$.next(Object.assign(new PaginationComponentOptions(), this.paginationOptions$.value, {
       currentPage: this.paginationOptions$.value.currentPage + 1
     }));
-    console.log(this.paginationOptions$.value);
   }
 
   pagePrev() {
     this.paginationOptions$.next(Object.assign(new PaginationComponentOptions(), this.paginationOptions$.value, {
       currentPage: this.paginationOptions$.value.currentPage - 1
     }));
-    console.log(this.paginationOptions$.value);
   }
 
   private calculatePageCount(pageSize, totalCount = 0) {

@@ -1,20 +1,34 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import {
+  AccessControlFormContainerComponent
+} from '../../../shared/access-control-form-container/access-control-form-container.component';
 
 @Component({
   selector: 'ds-bulk-access-settings',
-  templateUrl: './bulk-access-settings.component.html',
-  styleUrls: ['./bulk-access-settings.component.scss']
+  templateUrl: 'bulk-access-settings.component.html',
+  styleUrls: ['./bulk-access-settings.component.scss'],
+  exportAs: 'dsBulkSettings'
 })
-export class BulkAccessSettingsComponent implements OnInit {
+export class BulkAccessSettingsComponent {
 
   /**
-   * The selection list id
+   * The SectionsDirective reference
    */
-  @Input() listId!: string;
+  @ViewChild('dsAccessControlForm') controlForm: AccessControlFormContainerComponent<any>;
 
-  constructor() { }
+  /**
+   * Will be used from a parent component to read the value of the form
+   */
+  getValue() {
+    return this.controlForm.getFormValue();
+  }
 
-  ngOnInit(): void {
+  /**
+   * Reset the form to its initial state
+   * This will also reset the state of the child components (bitstream and item access)
+   */
+  reset() {
+    this.controlForm.reset()
   }
 
 }

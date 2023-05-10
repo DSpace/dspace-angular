@@ -11,7 +11,7 @@ import { ControlMaxEndDatePipe } from './control-max-end-date.pipe';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
-fdescribe('AccessControlArrayFormComponent', () => {
+describe('AccessControlArrayFormComponent', () => {
   let component: AccessControlArrayFormComponent;
   let fixture: ComponentFixture<AccessControlArrayFormComponent>;
 

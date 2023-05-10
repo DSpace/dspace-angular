@@ -4,11 +4,17 @@ import { ScriptDataService } from '../../core/data/processes/script-data.service
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
 import { AccessControlFormState } from './access-control-form-container.component';
 
+export interface BulkAccessPayload {
+  state: AccessControlFormState;
+  bitstreamAccess: any;
+  itemAccess: any;
+}
+
 @Injectable({ providedIn: 'root' })
 export class BulkAccessControlService {
   constructor(private scriptService: ScriptDataService) {}
 
-  createPayloadFile(payload: { state: AccessControlFormState, bitstreamAccess, itemAccess }) {
+  createPayloadFile(payload: BulkAccessPayload) {
     const content = convertToBulkAccessControlFileModel(payload);
 
     const blob = new Blob([JSON.stringify(content, null, 2)], {

@@ -1,11 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { BulkAccessControlService } from './bulk-access-control.service';
+import { BulkAccessControlService, BulkAccessPayload } from './bulk-access-control.service';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
 
-fdescribe('BulkAccessControlService', () => {
+describe('BulkAccessControlService', () => {
   let service: BulkAccessControlService;
   let scriptServiceSpy: jasmine.SpyObj<ScriptDataService>;
+
+
 
   beforeEach(() => {
     const spy = jasmine.createSpyObj('ScriptDataService', ['invoke']);
@@ -25,7 +27,7 @@ fdescribe('BulkAccessControlService', () => {
 
   describe('createPayloadFile', () => {
     it('should create a file and return the URL and file object', () => {
-      const payload = { data: 'test' };
+      const payload: BulkAccessPayload = { state: null, bitstreamAccess: null, itemAccess: null };
       const result = service.createPayloadFile(payload);
 
       expect(result.url).toBeTruthy();
