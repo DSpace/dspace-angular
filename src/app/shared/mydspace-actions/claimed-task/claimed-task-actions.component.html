@@ -12,12 +12,5 @@
       [routerLink]="[getWorkflowItemViewRoute(workflowitem)]">
       <i class="fa fa-info-circle"></i> {{"submission.workflow.generic.view" | translate}}
     </button>
-
-    <ds-claimed-task-actions-loader [item]="item"
-                                    [option]="returnToPoolOption"
-                                    [object]="object"
-                                    [workflowitem]="workflowitem"
-                                    (processCompleted)="this.processCompleted.emit($event)">
-    </ds-claimed-task-actions-loader>
   </div>
 </ng-container>

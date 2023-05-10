@@ -9,11 +9,11 @@
         <h3 class="position-relative py-1 my-3 font-weight-normal">
             <hr>
             <div id="create-community-or-separator" class="text-center position-absolute w-100">
-                <span class="px-4 bg-white">or</span>
+                <span class="px-4 bg-white">{{'dso-selector.create.community.or-divider' | translate}}</span>
             </div>
         </h3>
 
         <h5 class="px-2">{{'dso-selector.create.community.sub-level' | translate}}</h5>
-        <ds-dso-selector [currentDSOId]="dsoRD?.payload.uuid" [types]="selectorTypes" (onSelect)="selectObject($event)"></ds-dso-selector>
+        <ds-dso-selector [currentDSOId]="dsoRD?.payload.uuid" [types]="selectorTypes" [sort]="defaultSort" (onSelect)="selectObject($event)"></ds-dso-selector>
     </div>
 </div>

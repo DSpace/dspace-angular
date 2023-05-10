@@ -26,15 +26,21 @@ import { AuthService } from '../../app/core/auth/auth.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { StoreAction, StoreActionTypes } from '../../app/store.actions';
 import { coreSelector } from '../../app/core/core.selectors';
-import { find, map } from 'rxjs/operators';
+import { filter, find, map } from 'rxjs/operators';
 import { isNotEmpty } from '../../app/shared/empty.util';
 import { logStartupMessage } from '../../../startup-message';
+import { MenuService } from '../../app/shared/menu/menu.service';
+import { RootDataService } from '../../app/core/data/root-data.service';
+import { firstValueFrom, Subscription } from 'rxjs';
 
 /**
  * Performs client-side initialization.
  */
 @Injectable()
 export class BrowserInitService extends InitService {
+
+  sub: Subscription;
+
   constructor(
     protected store: Store<AppState>,
     protected correlationIdService: CorrelationIdService,
@@ -49,6 +55,8 @@ export class BrowserInitService extends InitService {
     protected klaroService: KlaroService,
     protected authService: AuthService,
     protected themeService: ThemeService,
+    protected menuService: MenuService,
+    private rootDataService: RootDataService
   ) {
     super(
       store,
@@ -60,6 +68,7 @@ export class BrowserInitService extends InitService {
       metadata,
       breadcrumbsService,
       themeService,
+      menuService,
     );
   }
 
@@ -77,6 +86,7 @@ export class BrowserInitService extends InitService {
     return async () => {
       await this.loadAppState();
       this.checkAuthenticationToken();
+      this.externalAuthCheck();
       this.initCorrelationId();
 
       this.checkEnvironment();
@@ -131,4 +141,35 @@ export class BrowserInitService extends InitService {
   protected initGoogleAnalytics() {
     this.googleAnalyticsService.addTrackingIdToPage();
   }
+
+  /**
+   * During an external authentication flow invalidate the SSR transferState
+   * data in the cache. This allows the app to fetch fresh content.
+   * @private
+   */
+  private externalAuthCheck() {
+
+    this.sub = this.authService.isExternalAuthentication().pipe(
+        filter((externalAuth: boolean) => externalAuth)
+      ).subscribe(() => {
+        // Clear the transferState data.
+        this.rootDataService.invalidateRootCache();
+        this.authService.setExternalAuthStatus(false);
+      }
+    );
+
+    this.closeAuthCheckSubscription();
+  }
+
+  /**
+   * Unsubscribe the external authentication subscription
+   * when authentication is no longer blocking.
+   * @private
+   */
+  private closeAuthCheckSubscription() {
+    firstValueFrom(this.authenticationReady$()).then(() => {
+        this.sub.unsubscribe();
+      });
+  }
+
 }

@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { ScriptDataService } from '../core/data/processes/script-data.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { find, map } from 'rxjs/operators';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { hasValue, isEmpty, isNotEmpty, hasNoValue } from '../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../shared/empty.util';
 import { RemoteData } from '../core/data/remote-data';
 import { Router } from '@angular/router';
 import { ProcessDataService } from '../core/data/processes/process-data.service';
@@ -40,7 +40,8 @@ export class CurationFormComponent implements OnInit {
     private notificationsService: NotificationsService,
     private translateService: TranslateService,
     private handleService: HandleService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
   }
 
@@ -59,6 +60,7 @@ export class CurationFormComponent implements OnInit {
         .filter((value) => isNotEmpty(value) && value.includes('='))
         .map((value) => value.split('=')[1].trim());
       this.form.get('task').patchValue(this.tasks[0]);
+      this.cdr.detectChanges();
     });
   }
 

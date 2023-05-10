@@ -25,7 +25,7 @@ import { ComcolModule } from '../../shared/comcol/comcol.module';
     CollectionFormModule,
     ResourcePoliciesModule,
     FormModule,
-    ComcolModule
+    ComcolModule,
   ],
   declarations: [
     EditCollectionPageComponent,

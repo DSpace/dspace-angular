@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
@@ -13,28 +13,28 @@ import { AuthService } from '../../../core/auth/auth.service';
   templateUrl: './media-viewer-image.component.html',
   styleUrls: ['./media-viewer-image.component.scss'],
 })
-export class MediaViewerImageComponent implements OnInit {
+export class MediaViewerImageComponent implements OnChanges, OnInit {
   @Input() images: MediaViewerItem[];
   @Input() preview?: boolean;
   @Input() image?: string;
 
-  loggedin: boolean;
+  thumbnailPlaceholder = './assets/images/replacement_image.svg';
 
-  galleryOptions: NgxGalleryOptions[];
-  galleryImages: NgxGalleryImage[];
+  galleryOptions: NgxGalleryOptions[] = [];
+
+  galleryImages: NgxGalleryImage[] = [];
 
   /**
    * Whether or not the current user is authenticated
    */
   isAuthenticated$: Observable<boolean>;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    protected authService: AuthService,
+  ) {
+  }
 
-  /**
-   * Thi method sets up the gallery settings and data
-   */
-  ngOnInit(): void {
-    this.isAuthenticated$ = this.authService.isAuthenticated();
+  ngOnChanges(): void {
     this.galleryOptions = [
       {
         preview: this.preview !== undefined ? this.preview : true,
@@ -50,7 +50,6 @@ export class MediaViewerImageComponent implements OnInit {
         previewFullscreen: true,
       },
     ];
-
     if (this.image) {
       this.galleryImages = [
         {
@@ -64,25 +63,30 @@ export class MediaViewerImageComponent implements OnInit {
     }
   }
 
+  ngOnInit(): void {
+    this.isAuthenticated$ = this.authService.isAuthenticated();
+    this.ngOnChanges();
+  }
+
   /**
    * This method convert an array of MediaViewerItem into NgxGalleryImage array
    * @param medias input NgxGalleryImage array
    */
   convertToGalleryImage(medias: MediaViewerItem[]): NgxGalleryImage[] {
-    const mappadImages = [];
+    const mappedImages = [];
     for (const image of medias) {
       if (image.format === 'image') {
-        mappadImages.push({
+        mappedImages.push({
           small: image.thumbnail
             ? image.thumbnail
-            : './assets/images/replacement_image.svg',
+            : this.thumbnailPlaceholder,
           medium: image.thumbnail
             ? image.thumbnail
-            : './assets/images/replacement_image.svg',
+            : this.thumbnailPlaceholder,
           big: image.bitstream._links.content.href,
         });
       }
     }
-    return mappadImages;
+    return mappedImages;
   }
 }
