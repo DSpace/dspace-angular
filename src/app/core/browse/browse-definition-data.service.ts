@@ -6,13 +6,16 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list.model';
 import { FindListOptions } from '../data/find-list-options.model';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { FindAllData, FindAllDataImpl } from '../data/base/find-all-data';
 import { dataService } from '../data/base/data-service.decorator';
+import { isNotEmpty, isNotEmptyOperator, hasValue } from '../../shared/empty.util';
+import { take } from 'rxjs/operators';
+import { BrowseDefinitionRestRequest } from '../data/request.models';
 
 /**
  * Data service responsible for retrieving browse definitions from the REST server
@@ -51,6 +54,35 @@ export class BrowseDefinitionDataService extends IdentifiableDataService<FlatBro
    */
   findAll(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<FlatBrowseDefinition>[]): Observable<RemoteData<PaginatedList<FlatBrowseDefinition>>> {
     return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Create a GET request for the given href, and send it.
+   * Use a GET request specific for BrowseDefinitions.
+   *
+   * @param href$                       The url of browse we want to retrieve. Can be a string or
+   *                                    an Observable<string>
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   */
+  createAndSendGetRequest(href$: string | Observable<string>, useCachedVersionIfAvailable: boolean = true) {
+    if (isNotEmpty(href$)) {
+      if (typeof href$ === 'string') {
+        href$ = observableOf(href$);
+      }
+
+      href$.pipe(
+        isNotEmptyOperator(),
+        take(1)
+      ).subscribe((href: string) => {
+        const requestId = this.requestService.generateRequestId();
+        const request = new BrowseDefinitionRestRequest(requestId, href);
+        if (hasValue(this.responseMsToLive)) {
+          request.responseMsToLive = this.responseMsToLive;
+        }
+        this.requestService.send(request, useCachedVersionIfAvailable);
+      });
+    }
   }
 }
 
