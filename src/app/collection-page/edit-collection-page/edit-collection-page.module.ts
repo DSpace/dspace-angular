@@ -9,18 +9,14 @@ import { CollectionCurateComponent } from './collection-curate/collection-curate
 import { CollectionSourceComponent } from './collection-source/collection-source.component';
 import { CollectionAuthorizationsComponent } from './collection-authorizations/collection-authorizations.component';
 import { CollectionFormModule } from '../collection-form/collection-form.module';
-import { CollectionSourceControlsComponent } from './collection-source/collection-source-controls/collection-source-controls.component';
+import {
+  CollectionSourceControlsComponent
+} from './collection-source/collection-source-controls/collection-source-controls.component';
 import { ResourcePoliciesModule } from '../../shared/resource-policies/resource-policies.module';
 import { FormModule } from '../../shared/form/form.module';
 import { ComcolModule } from '../../shared/comcol/comcol.module';
 import { CollectionAccessControlComponent } from './collection-access-control/collection-access-control.component';
-import {
-  AccessControlArrayFormModule
-} from '../../shared/access-control-form-container/access-control-array-form/access-control-array-form.component';
-import { UiSwitchModule } from 'ngx-ui-switch';
-import {
-  AccessControlFormContainerModule
-} from '../../shared/access-control-form-container/access-control-form-container.component';
+import { AccessControlFormModule } from '../../shared/access-control-form-container/access-control-form.module';
 
 /**
  * Module that contains all components related to the Edit Collection page administrator functionality
@@ -34,9 +30,7 @@ import {
     ResourcePoliciesModule,
     FormModule,
     ComcolModule,
-    AccessControlArrayFormModule,
-    UiSwitchModule,
-    AccessControlFormContainerModule,
+    AccessControlFormModule,
   ],
   declarations: [
     EditCollectionPageComponent,

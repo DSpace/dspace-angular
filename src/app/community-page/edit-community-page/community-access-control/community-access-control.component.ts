@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
-import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';

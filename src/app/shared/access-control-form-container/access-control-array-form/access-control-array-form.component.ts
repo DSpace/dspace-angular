@@ -1,16 +1,9 @@
-import { Component, Input, NgModule, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormArray, FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { SharedBrowseByModule } from '../../browse-by/shared-browse-by.module';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
-import { ControlMaxStartDatePipe } from './control-max-start-date.pipe';
-import { ControlMaxEndDatePipe } from './control-max-end-date.pipe';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl } from '@angular/forms';
 
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { AccessesConditionOption } from '../../../core/config/models/config-accesses-conditions-options.model';
-
 
 @Component({
   selector: 'ds-access-control-array-form',
@@ -150,12 +143,4 @@ export class AccessControlArrayFormComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-}
-
-@NgModule({
-  imports: [ CommonModule, ReactiveFormsModule, SharedBrowseByModule, TranslateModule, NgbDatepickerModule ],
-  declarations: [ AccessControlArrayFormComponent, ControlMaxStartDatePipe, ControlMaxEndDatePipe ],
-  exports: [ AccessControlArrayFormComponent ],
-})
-export class AccessControlArrayFormModule {
 }

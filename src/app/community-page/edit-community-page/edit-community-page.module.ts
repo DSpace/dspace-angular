@@ -11,13 +11,9 @@ import { CommunityFormModule } from '../community-form/community-form.module';
 import { ResourcePoliciesModule } from '../../shared/resource-policies/resource-policies.module';
 import { ComcolModule } from '../../shared/comcol/comcol.module';
 import { CommunityAccessControlComponent } from './community-access-control/community-access-control.component';
-import { UiSwitchModule } from 'ngx-ui-switch';
 import {
-  AccessControlArrayFormModule
-} from '../../shared/access-control-form-container/access-control-array-form/access-control-array-form.component';
-import {
-  AccessControlFormContainerModule
-} from '../../shared/access-control-form-container/access-control-form-container.component';
+  AccessControlFormModule
+} from '../../shared/access-control-form-container/access-control-form.module';
 
 /**
  * Module that contains all components related to the Edit Community page administrator functionality
@@ -30,9 +26,7 @@ import {
     CommunityFormModule,
     ComcolModule,
     ResourcePoliciesModule,
-    UiSwitchModule,
-    AccessControlArrayFormModule,
-    AccessControlFormContainerModule,
+    AccessControlFormModule,
   ],
   declarations: [
     EditCommunityPageComponent,

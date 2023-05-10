@@ -1,20 +1,13 @@
-import { ChangeDetectorRef, Component, Input, NgModule, OnDestroy, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, ViewChild } from '@angular/core';
 import { concatMap, Observable, shareReplay } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
-import {
-  AccessControlArrayFormComponent,
-  AccessControlArrayFormModule
-} from './access-control-array-form/access-control-array-form.component';
+import { AccessControlArrayFormComponent } from './access-control-array-form/access-control-array-form.component';
 import { BulkAccessControlService } from './bulk-access-control.service';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map, take } from 'rxjs/operators';
-import { CommonModule } from '@angular/common';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { SharedModule } from '../shared.module';
-import { TranslateModule } from '@ngx-translate/core';
-import { UiSwitchModule } from 'ngx-ui-switch';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import {
   ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID,
@@ -175,21 +168,3 @@ export interface AccessControlFormState {
     selectedBitstreams: ListableObject[],
   }
 }
-
-@NgModule({
-  imports: [
-    CommonModule,
-    AccessControlArrayFormModule,
-    SharedModule,
-    TranslateModule,
-    UiSwitchModule
-  ],
-  declarations: [
-    AccessControlFormContainerComponent,
-    ItemAccessControlSelectBitstreamsModalComponent
-  ],
-  exports: [ AccessControlFormContainerComponent, AccessControlArrayFormModule ],
-})
-export class AccessControlFormContainerModule {}
-
-

@@ -47,12 +47,10 @@ import { IdentifierDataComponent } from '../../shared/object-list/identifier-dat
 import { ItemRegisterDoiComponent } from './item-register-doi/item-register-doi.component';
 import { DsoSharedModule } from '../../dso-shared/dso-shared.module';
 import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
-import { UiSwitchModule } from 'ngx-ui-switch';
 import { ResultsBackButtonModule } from '../../shared/results-back-button/results-back-button.module';
 import {
-  AccessControlFormContainerModule
-} from '../../shared/access-control-form-container/access-control-form-container.component';
-
+  AccessControlFormModule
+} from '../../shared/access-control-form-container/access-control-form.module';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -69,9 +67,8 @@ import {
     NgbModule,
     ItemVersionsModule,
     DsoSharedModule,
-    UiSwitchModule,
     ResultsBackButtonModule,
-    AccessControlFormContainerModule,
+    AccessControlFormModule,
   ],
   declarations: [
     EditItemPageComponent,
