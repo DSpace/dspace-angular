@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, NgModule, ViewChild } from '@angular/core';
-import { concatMap, shareReplay } from 'rxjs';
+import { concatMap } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import {
@@ -20,6 +20,7 @@ import {
   ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID,
   ItemAccessControlSelectBitstreamsModalComponent
 } from './item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
+import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
 
 @Component({
   selector: 'ds-access-control-form-container',
@@ -27,7 +28,7 @@ import {
   styleUrls: [ './access-control-form-container.component.scss' ],
   exportAs: 'dsAccessControlForm'
 })
-export class AccessControlFormContainerComponent<T extends DSpaceObject> {
+export class AccessControlFormContainerComponent<T extends DSpaceObject> implements OnInit {
 
   @Input() showLimitToSpecificBitstreams = false;
   @Input() itemRD: RemoteData<T>;
@@ -38,6 +39,7 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> {
   @ViewChild('itemAccessCmp', { static: true }) itemAccessCmp: AccessControlArrayFormComponent;
 
   constructor(
+    private bulkAccessConfigService: BulkAccessConfigDataService,
     private bulkAccessControlService: BulkAccessControlService,
     private selectableListService: SelectableListService,
     protected modalService: NgbModal,
@@ -46,9 +48,16 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> {
 
   state = initialState;
 
-  dropdownData$ = this.bulkAccessControlService.dropdownData$.pipe(
+/*  dropdownData$ = this.bulkAccessConfigService.findByPropertyName('default').pipe(
+    getFirstCompletedRemoteData(),
+    map((configRD: RemoteData<BulkAccessConditionOptions>) => configRD.hasSucceeded ? configRD.payload : null),
+    shareReplay(1),
+    tap(console.log)
+  );*/
+
+/*  dropdownData$ = this.bulkAccessControlService.dropdownData$.pipe(
     shareReplay(1)
-  );
+  );*/
 
   getFormValue() {
     return {

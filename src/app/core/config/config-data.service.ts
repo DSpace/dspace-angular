@@ -4,13 +4,13 @@ import { RemoteData } from '../data/remote-data';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { map } from 'rxjs/operators';
-import { BaseDataService } from '../data/base/base-data.service';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 
 /**
  * Abstract data service to retrieve configuration objects from the REST server.
  * Common logic for configuration objects should be implemented here.
  */
-export abstract class ConfigDataService extends BaseDataService<ConfigObject> {
+export abstract class ConfigDataService extends IdentifiableDataService<ConfigObject> {
   /**
    * Returns an observable of {@link RemoteData} of an object, based on an href, with a list of
    * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
@@ -36,5 +36,9 @@ export abstract class ConfigDataService extends BaseDataService<ConfigObject> {
         }
       }),
     );
+  }
+
+  findByName(name: string,  useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ConfigObject>[]): Observable<RemoteData<ConfigObject>> {
+    return super.findById(name, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 }

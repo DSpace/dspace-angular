@@ -3,16 +3,16 @@ import { Observable } from 'rxjs';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RemoteData } from './remote-data';
-import { RequestService } from './request.service';
-import { IdentifiableDataService } from './base/identifiable-data.service';
-import { BulkAccessConditionOptions } from '../shared/bulk-access-condition-options.model';
+import { RemoteData } from '../data/remote-data';
+import { RequestService } from '../data/request.service';
+import { BulkAccessConditionOptions } from './models/bulk-access-condition-options.model';
+import { ConfigDataService } from './config-data.service';
 
 @Injectable({ providedIn: 'root' })
 /**
  * Data Service responsible for retrieving Bulk Access Condition Options from the REST API
  */
-export class BulkAccessConditionOptionsService extends IdentifiableDataService<BulkAccessConditionOptions> {
+export class BulkAccessConfigDataService extends ConfigDataService {
 
   constructor(
     protected requestService: RequestService,
@@ -23,11 +23,7 @@ export class BulkAccessConditionOptionsService extends IdentifiableDataService<B
     super('bulkaccessconditionoptions', requestService, rdbService, objectCache, halService);
   }
 
-  getAll(): Observable<RemoteData<BulkAccessConditionOptions>> {
-    return this.findByHref(this.halService.getEndpoint(this.linkPath));
+  findByPropertyName(name: string): Observable<RemoteData<BulkAccessConditionOptions>> {
+    return this.findById(name) as Observable<RemoteData<BulkAccessConditionOptions>>;
   }
-
-  // findByPropertyName(name: string): Observable<RemoteData<BulkAccessConditionOptions>> {
-  //   return this.findById(name);
-  // }
 }
