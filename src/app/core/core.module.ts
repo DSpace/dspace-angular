@@ -177,6 +177,7 @@ import { IdentifierData } from '../shared/object-list/identifier-data/identifier
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { SupervisionOrderDataService } from './supervision-order/supervision-order-data.service';
 import { ItemRequest } from './shared/item-request.model';
+import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -371,6 +372,7 @@ export const models =
     IdentifierData,
     Subscription,
     ItemRequest,
+    BulkAccessConditionOptions
   ];
 
 @NgModule({

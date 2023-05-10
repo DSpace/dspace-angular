@@ -1,17 +1,17 @@
-import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
+import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 import { typedObject } from '../../cache/builders/build-decorators';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ResourceType } from '../../shared/resource-type';
 import { HALLink } from '../../shared/hal-link.model';
 import { ConfigObject } from './config.model';
 import { AccessesConditionOption } from './config-accesses-conditions-options.model';
-
-export const BULK_ACCESS_CONDITION_OPTIONS = new ResourceType('bulkAccessConditionOptions');
+import { BULK_ACCESS_CONDITION_OPTIONS } from './config-type';
 
 /**
  * Model class for a bulk access condition options
  */
 @typedObject
+@inheritSerialization(ConfigObject)
 export class BulkAccessConditionOptions extends ConfigObject {
   static type = BULK_ACCESS_CONDITION_OPTIONS;
 
@@ -28,10 +28,10 @@ export class BulkAccessConditionOptions extends ConfigObject {
   @autoserialize
   id: string;
 
-  @deserialize
+  @autoserialize
   itemAccessConditionOptions: AccessesConditionOption[];
 
-  @deserialize
+  @autoserialize
   bitstreamAccessConditionOptions: AccessesConditionOption[];
 
   _links: { self: HALLink };

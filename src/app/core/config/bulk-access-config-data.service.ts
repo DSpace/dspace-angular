@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
-import { BulkAccessConditionOptions } from './models/bulk-access-condition-options.model';
 import { ConfigDataService } from './config-data.service';
+import { dataService } from '../data/base/data-service.decorator';
+import { BULK_ACCESS_CONDITION_OPTIONS } from './models/config-type';
 
-@Injectable({ providedIn: 'root' })
 /**
  * Data Service responsible for retrieving Bulk Access Condition Options from the REST API
  */
+@Injectable({ providedIn: 'root' })
+@dataService(BULK_ACCESS_CONDITION_OPTIONS)
 export class BulkAccessConfigDataService extends ConfigDataService {
 
   constructor(
@@ -23,7 +23,4 @@ export class BulkAccessConfigDataService extends ConfigDataService {
     super('bulkaccessconditionoptions', requestService, rdbService, objectCache, halService);
   }
 
-  findByPropertyName(name: string): Observable<RemoteData<BulkAccessConditionOptions>> {
-    return this.findById(name) as Observable<RemoteData<BulkAccessConditionOptions>>;
-  }
 }

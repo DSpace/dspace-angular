@@ -9,7 +9,7 @@ import {
 import { BulkAccessControlService } from './bulk-access-control.service';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { map, take, tap } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { SharedModule } from '../shared.module';
@@ -50,11 +50,10 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> {
 
   state = initialState;
 
-  dropdownData$: Observable<BulkAccessConditionOptions> = this.bulkAccessConfigService.findByPropertyName('default').pipe(
+  dropdownData$: Observable<BulkAccessConditionOptions> = this.bulkAccessConfigService.findByName('default').pipe(
     getFirstCompletedRemoteData(),
     map((configRD: RemoteData<BulkAccessConditionOptions>) => configRD.hasSucceeded ? configRD.payload : null),
-    shareReplay(1),
-    tap(x => console.log('options', x))
+    shareReplay(1)
   );
 
   getFormValue() {
