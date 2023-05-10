@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, NgModule, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, NgModule, OnDestroy, ViewChild } from '@angular/core';
 import { concatMap, Observable, shareReplay } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
@@ -30,11 +30,23 @@ import { BulkAccessConditionOptions } from '../../core/config/models/bulk-access
   styleUrls: [ './access-control-form-container.component.scss' ],
   exportAs: 'dsAccessControlForm'
 })
-export class AccessControlFormContainerComponent<T extends DSpaceObject> {
+export class AccessControlFormContainerComponent<T extends DSpaceObject> implements OnDestroy {
 
+  /**
+   * Will be used to determine if we need to show the limit changes to specific bitstreams radio buttons
+   */
   @Input() showLimitToSpecificBitstreams = false;
+
+  /**
+   * The item to which the access control form applies
+   */
   @Input() itemRD: RemoteData<T>;
 
+  /**
+   * Whether to show the submit and cancel button
+   * We want to hide these buttons when the form is
+   * used in an accordion, and we want to show buttons somewhere else
+   */
   @Input() showSubmit = true;
 
   @ViewChild('bitstreamAccessCmp', { static: true }) bitstreamAccessCmp: AccessControlArrayFormComponent;
@@ -57,6 +69,9 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> {
     tap(x => console.log('options', x))
   );
 
+  /**
+   * Will be used from a parent component to read the value of the form
+   */
   getFormValue() {
     return {
       bitstream: this.bitstreamAccessCmp.getValue(),
@@ -65,12 +80,20 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> {
     };
   }
 
+  /**
+   * Reset the form to its initial state
+   * This will also reset the state of the child components (bitstream and item access)
+   */
   reset() {
     this.bitstreamAccessCmp.reset();
     this.itemAccessCmp.reset();
     this.state = initialState;
   }
 
+  /**
+   * Submit the form
+   * This will create a payload file and execute the script
+   */
   submit() {
     const bitstreamAccess = this.bitstreamAccessCmp.getValue();
     const itemAccess = this.itemAccessCmp.getValue();
@@ -89,6 +112,12 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> {
     });
   }
 
+  /**
+   * Handle the status change of the access control form (item or bitstream)
+   * This will enable/disable the access control form for the item or bitstream
+   * @param type The type of the access control form (item or bitstream)
+   * @param active boolean indicating whether the access control form should be enabled or disabled
+   */
   handleStatusChange(type: 'item' | 'bitstream', active: boolean) {
     if (type === 'bitstream') {
       active ? this.bitstreamAccessCmp.enable() : this.bitstreamAccessCmp.disable();
@@ -97,6 +126,11 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> {
     }
   }
 
+  /**
+   * Open the modal to select bitstreams for which to change the access control
+   * This will open the modal and pass the currently selected bitstreams
+   * @param item The item for which to change the access control
+   */
   openSelectBitstreamsModal(item: Item) {
     const ref = this.modalService.open(ItemAccessControlSelectBitstreamsModalComponent);
     ref.componentInstance.selectedBitstreams = this.state.bitstream.selectedBitstreams;
@@ -111,7 +145,6 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> {
     });
   }
 
-  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
   ngOnDestroy(): void {
     this.selectableListService.deselectAll(ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID);
   }

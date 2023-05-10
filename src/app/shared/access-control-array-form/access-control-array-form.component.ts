@@ -31,7 +31,89 @@ export class AccessControlArrayFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.addAccessControlItem();
+    this.handleValidationOnFormArrayChanges();
+  }
 
+  /**
+   * Get the access control form array.
+   */
+  get accessControl() {
+    return this.form.get('accessControl') as FormArray;
+  }
+
+  /**
+   * Add a new access control item to the form.
+   * Start and end date are disabled by default.
+   * @param itemName The name of the item to add
+   */
+  addAccessControlItem(itemName: string = null) {
+    this.accessControl.push(this.fb.group({
+      itemName,
+      startDate: new FormControl({ value: null, disabled: true }),
+      endDate: new FormControl({ value: null, disabled: true })
+    }));
+  }
+
+  /**
+   * Remove an access control item from the form.
+   * @param index
+   */
+  removeAccessControlItem(index: number) {
+    this.accessControl.removeAt(index);
+  }
+
+  /**
+   * Get the value of the form.
+   * This will be used to read the form value from the parent component.
+   * @return The form value
+   */
+  getValue() {
+    return this.form.value;
+  }
+
+  /**
+   * Set the value of the form from the parent component.
+   */
+  reset() {
+    this.accessControl.reset([]);
+  }
+
+  /**
+   * Disable the form.
+   * This will be used to disable the form from the parent component.
+   * This will also disable all date controls.
+   */
+  disable() {
+    this.form.disable();
+
+    // disable all date controls
+    for (const control of this.accessControl.controls) {
+      control.get('startDate').disable();
+      control.get('endDate').disable();
+    }
+  }
+
+  /**
+   * Enable the form.
+   * This will be used to enable the form from the parent component.
+   * This will also enable all date controls.
+   */
+  enable() {
+    this.form.enable();
+
+    // enable date controls
+    for (const control of this.accessControl.controls) {
+      control.get('startDate').enable();
+      control.get('endDate').enable();
+    }
+  }
+
+  /**
+   * Handle validation on form array changes.
+   * This will be used to enable/disable date controls based on the selected item.
+   * @private
+   */
+  private handleValidationOnFormArrayChanges() {
     this.accessControl.valueChanges
       .pipe(
         distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
@@ -59,50 +141,6 @@ export class AccessControlArrayFormComponent implements OnInit, OnDestroy {
           }
         }
       });
-  }
-
-  get accessControl() {
-    return this.form.get('accessControl') as FormArray;
-  }
-
-  addAccessControlItem(itemName: string = null) {
-    this.accessControl.push(this.fb.group({
-      itemName,
-      startDate: new FormControl({ value: null, disabled: true }),
-      endDate: new FormControl({ value: null, disabled: true })
-    }));
-  }
-
-  removeAccessControlItem(index: number) {
-    this.accessControl.removeAt(index);
-  }
-
-  getValue() {
-    return this.form.value;
-  }
-
-  reset() {
-    this.accessControl.reset([]);
-  }
-
-  disable() {
-    this.form.disable();
-
-    // disable all date controls
-    for (const control of this.accessControl.controls) {
-      control.get('startDate').disable();
-      control.get('endDate').disable();
-    }
-  }
-
-  enable() {
-    this.form.enable();
-
-    // enable date controls
-    for (const control of this.accessControl.controls) {
-      control.get('startDate').enable();
-      control.get('endDate').enable();
-    }
   }
 
   ngOnDestroy() {

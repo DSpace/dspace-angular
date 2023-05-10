@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AccessControlArrayFormComponent, AccessControlItemValue } from './access-control-array-form.component';
+import { AccessControlArrayFormComponent } from './access-control-array-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedBrowseByModule } from '../browse-by/shared-browse-by.module';
 import { CommonModule } from '@angular/common';
@@ -26,7 +26,7 @@ fdescribe('AccessControlArrayFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AccessControlArrayFormComponent);
     component = fixture.componentInstance;
-    component.dropdownOptions = [{name: 'Option1'}, {name: 'Option2'}];
+    component.dropdownOptions = [{name: 'Option1'}, {name: 'Option2'}] as any;
     fixture.detectChanges();
   });
 
@@ -54,14 +54,14 @@ fdescribe('AccessControlArrayFormComponent', () => {
   });
 
   it('should set access control item value', () => {
-    const item: AccessControlItemValue = { itemName: 'item1', startDate: '2022-01-01', endDate: '2022-02-01' };
+    const item = { itemName: 'item1', startDate: '2022-01-01', endDate: '2022-02-01' };
     component.addAccessControlItem(item.itemName);
     component.accessControl.controls[0].patchValue(item);
     expect(component.form.value.accessControl[0]).toEqual(item);
   });
 
   it('should reset form value', () => {
-    const item: AccessControlItemValue = { itemName: 'item1', startDate: '2022-01-01', endDate: '2022-02-01' };
+    const item = { itemName: 'item1', startDate: '2022-01-01', endDate: '2022-02-01' };
     component.addAccessControlItem(item.itemName);
     component.accessControl.controls[1].patchValue(item);
     component.reset();

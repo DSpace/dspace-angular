@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AccessControlFormContainerComponent } from './access-control-form-container.component';
 
 describe('AccessControlFormContainerComponent', () => {
-  let component: AccessControlFormContainerComponent;
-  let fixture: ComponentFixture<AccessControlFormContainerComponent>;
+  let component: AccessControlFormContainerComponent<any>;
+  let fixture: ComponentFixture<AccessControlFormContainerComponent<any>>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
