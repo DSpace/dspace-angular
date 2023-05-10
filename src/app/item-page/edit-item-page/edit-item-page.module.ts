@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { NgbTooltipModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { SharedModule } from '../../shared/shared.module';
 import { EditItemPageRoutingModule } from './edit-item-page.routing.module';
@@ -20,14 +20,22 @@ import { SearchPageModule } from '../../search-page/search-page.module';
 import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
 import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
 import { EditRelationshipComponent } from './item-relationships/edit-relationship/edit-relationship.component';
-import { EditRelationshipListComponent } from './item-relationships/edit-relationship-list/edit-relationship-list.component';
+import {
+  EditRelationshipListComponent
+} from './item-relationships/edit-relationship-list/edit-relationship-list.component';
 import { AbstractItemUpdateComponent } from './abstract-item-update/abstract-item-update.component';
 import { ItemMoveComponent } from './item-move/item-move.component';
-import { ItemEditBitstreamBundleComponent } from './item-bitstreams/item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
+import {
+  ItemEditBitstreamBundleComponent
+} from './item-bitstreams/item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
 import { BundleDataService } from '../../core/data/bundle-data.service';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { ItemEditBitstreamDragHandleComponent } from './item-bitstreams/item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
-import { PaginatedDragAndDropBitstreamListComponent } from './item-bitstreams/item-edit-bitstream-bundle/paginated-drag-and-drop-bitstream-list/paginated-drag-and-drop-bitstream-list.component';
+import {
+  ItemEditBitstreamDragHandleComponent
+} from './item-bitstreams/item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
+import {
+  PaginatedDragAndDropBitstreamListComponent
+} from './item-bitstreams/item-edit-bitstream-bundle/paginated-drag-and-drop-bitstream-list/paginated-drag-and-drop-bitstream-list.component';
 import { VirtualMetadataComponent } from './virtual-metadata/virtual-metadata.component';
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
@@ -43,10 +51,10 @@ import {
   AccessControlArrayFormModule
 } from '../../shared/access-control-array-form/access-control-array-form.component';
 import { UiSwitchModule } from 'ngx-ui-switch';
-import {
-  ItemAccessControlSelectBitstreamsModalComponent
-} from './item-access-control/item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
 import { ResultsBackButtonModule } from '../../shared/results-back-button/results-back-button.module';
+import {
+  AccessControlFormContainerModule
+} from '../../shared/access-control-form-container/access-control-form-container.component';
 
 
 /**
@@ -67,6 +75,7 @@ import { ResultsBackButtonModule } from '../../shared/results-back-button/result
     AccessControlArrayFormModule,
     UiSwitchModule,
     ResultsBackButtonModule,
+    AccessControlFormContainerModule,
   ],
   declarations: [
     EditItemPageComponent,
@@ -95,7 +104,6 @@ import { ResultsBackButtonModule } from '../../shared/results-back-button/result
     IdentifierDataComponent,
     ItemRegisterDoiComponent,
     ItemAccessControlComponent,
-    ItemAccessControlSelectBitstreamsModalComponent
   ],
   providers: [
     BundleDataService,

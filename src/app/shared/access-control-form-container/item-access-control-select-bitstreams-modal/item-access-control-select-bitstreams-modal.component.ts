@@ -1,17 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { TranslateService } from '@ngx-translate/core';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { BehaviorSubject } from 'rxjs';
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { hasValue } from '../../../../shared/empty.util';
-import { Context } from '../../../../core/shared/context.model';
+import { PaginatedList } from 'src/app/core/data/paginated-list.model';
+import { RemoteData } from 'src/app/core/data/remote-data';
+import { Bitstream } from 'src/app/core/shared/bitstream.model';
+import { Context } from 'src/app/core/shared/context.model';
+import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
+import { Item } from '../../../core/shared/item.model';
+import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { TranslateService } from '@ngx-translate/core';
+import { hasValue } from '../../empty.util';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 export const ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID = 'item-access-control-select-bitstreams'
 
