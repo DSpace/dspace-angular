@@ -18,6 +18,9 @@ import {
   AccessControlArrayFormModule
 } from '../../shared/access-control-array-form/access-control-array-form.component';
 import { UiSwitchModule } from 'ngx-ui-switch';
+import {
+  AccessControlFormContainerModule
+} from '../../shared/access-control-form-container/access-control-form-container.component';
 
 /**
  * Module that contains all components related to the Edit Collection page administrator functionality
@@ -33,6 +36,7 @@ import { UiSwitchModule } from 'ngx-ui-switch';
     ComcolModule,
     AccessControlArrayFormModule,
     UiSwitchModule,
+    AccessControlFormContainerModule,
   ],
   declarations: [
     EditCollectionPageComponent,

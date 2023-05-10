@@ -8,7 +8,7 @@ export interface AccessControlDropdownDataResponse {
   bitstreamAccessConditionOptions: AccessControlItem[];
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ItemAccessControlService {
   dropdownData$: Observable<AccessControlDropdownDataResponse> = of(accessControlDropdownData);
 

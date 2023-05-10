@@ -15,6 +15,9 @@ import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   AccessControlArrayFormModule
 } from '../../shared/access-control-array-form/access-control-array-form.component';
+import {
+  AccessControlFormContainerModule
+} from '../../shared/access-control-form-container/access-control-form-container.component';
 
 /**
  * Module that contains all components related to the Edit Community page administrator functionality
@@ -29,6 +32,7 @@ import {
     ResourcePoliciesModule,
     UiSwitchModule,
     AccessControlArrayFormModule,
+    AccessControlFormContainerModule,
   ],
   declarations: [
     EditCommunityPageComponent,
