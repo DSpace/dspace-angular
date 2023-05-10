@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ds-bulk-access-settings',
@@ -6,6 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bulk-access-settings.component.scss']
 })
 export class BulkAccessSettingsComponent implements OnInit {
+
+  /**
+   * The selection list id
+   */
+  @Input() listId!: string;
 
   constructor() { }
 

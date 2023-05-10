@@ -22,7 +22,7 @@
           <a ngbNavLink>{{'admin.access-control.bulk-access-browse.search.header' | translate}}</a>
           <ng-template ngbNavContent>
             <div class="mx-n3">
-              <ds-themed-search [configuration]="'default'"
+              <ds-themed-search [configuration]="'administrativeBulkAccess'"
                                 [selectable]="true"
                                 [selectionConfig]="{ repeatable: true, listId: listId }"
                                 [showThumbnails]="false"></ds-themed-search>
@@ -30,15 +30,20 @@
           </ng-template>
         </li>
         <li [ngbNavItem]="'selected'">
-          <a
-            ngbNavLink>{{'admin.access-control.bulk-access-browse.selected.header' | translate: {number: ((objectsSelected$ | async)?.payload?.totalElements) ? (objectsSelected$ | async)?.payload?.totalElements : '0'} }}</a>
+          <a ngbNavLink>
+            {{'admin.access-control.bulk-access-browse.selected.header' | translate: {number: ((objectsSelected$ | async)?.payload?.totalElements) ? (objectsSelected$ | async)?.payload?.totalElements : '0'} }}
+          </a>
           <ng-template ngbNavContent>
-            <ds-viewable-collection [config]="paginationOptions"
-                                    [hideGear]="true"
-                                    [objects]="objectsSelected$ | async"
-                                    [selectable]="true"
-                                    [selectionConfig]="{ repeatable: true, listId: listId }"
-                                    [showThumbnails]="false"></ds-viewable-collection>
+            <ds-themed-object-list [config]="paginationOptions$ | async"
+                                   [hideGear]="true"
+                                   [listToPaginate]="true"
+                                   [objects]="objectsSelected$ | async"
+                                   [selectable]="true"
+                                   [selectionConfig]="{ repeatable: true, listId: listId }"
+                                   [showThumbnails]="false"
+                                   [showPaginator]="false"
+                                   (next)="pageNext()"
+                                   (prev)="pagePrev()"></ds-themed-object-list>
           </ng-template>
         </li>
       </ul>

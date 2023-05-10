@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BulkAccessComponent implements OnInit {
 
+
+  /**
+   * The selection list id
+   */
+  listId: string = 'bulk-access-list';
+
   constructor() { }
 
   ngOnInit(): void {
