@@ -2,6 +2,9 @@ import { Inject, Injectable } from '@angular/core';
 import { Request, Response } from 'express';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import { HardRedirectService } from './hard-redirect.service';
+import { SignpostingDataService } from '../data/signposting-data.service';
+import { ActivatedRoute } from '@angular/router';
+import { take } from 'rxjs';
 
 /**
  * Service for performing hard redirects within the server app module
@@ -12,6 +15,8 @@ export class ServerHardRedirectService extends HardRedirectService {
   constructor(
     @Inject(REQUEST) protected req: Request,
     @Inject(RESPONSE) protected res: Response,
+    private signpostginDataService: SignpostingDataService,
+    protected route: ActivatedRoute
   ) {
     super();
   }
@@ -46,6 +51,13 @@ export class ServerHardRedirectService extends HardRedirectService {
       }
 
       console.log(`Redirecting from ${this.req.url} to ${url} with ${status}`);
+
+      this.route.params.subscribe(params => {
+        this.signpostginDataService.getLinksets(params.id).pipe(take(1)).subscribe(linksets => {
+          this.res.setHeader('Link', linksets);
+        });
+      });
+
       this.res.redirect(status, url);
       this.res.end();
       // I haven't found a way to correctly stop Angular rendering.

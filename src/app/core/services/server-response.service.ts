@@ -35,4 +35,10 @@ export class ServerResponseService {
   setInternalServerError(message = 'Internal Server Error'): this {
     return this.setStatus(500, message);
   }
+
+  setLinksetsHeader(linksets: string){
+    if (this.response) {
+      this.response.setHeader('Link', linksets);
+    }
+  }
 }

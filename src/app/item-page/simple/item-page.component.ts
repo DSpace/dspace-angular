@@ -15,6 +15,8 @@ import { getItemPageRoute } from '../item-page-routing-paths';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { ServerResponseService } from '../../core/services/server-response.service';
+import { SignpostingDataService } from '../../core/data/signposting-data.service';
 
 /**
  * This component renders a simple item page.
@@ -62,8 +64,15 @@ export class ItemPageComponent implements OnInit {
     private router: Router,
     private items: ItemDataService,
     private authService: AuthService,
-    private authorizationService: AuthorizationDataService
+    private authorizationService: AuthorizationDataService,
+    private responseService: ServerResponseService,
+    private signpostginDataService: SignpostingDataService
   ) {
+    this.route.params.subscribe(params => {
+      this.signpostginDataService.getLinksets(params.id).subscribe(linksets => {
+        this.responseService.setLinksetsHeader(linksets);
+      });
+    });
   }
 
   /**

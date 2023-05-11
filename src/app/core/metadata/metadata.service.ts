@@ -165,7 +165,6 @@ export class MetadataService {
     this.setCitationPdfUrlTag();
     this.setCitationPublisherTag();
     this.setSignpostingLinks();
-    this.setSignpostingLinksets();
 
     if (this.isDissertation()) {
       this.setCitationDissertationNameTag();
@@ -211,21 +210,24 @@ export class MetadataService {
     console.log(link);
   }
 
-  private setSignpostingLinksets() {
-    if (this.currentObject.value instanceof Item){
-      const value = this.signpostginDataService.getLinksets(this.currentObject.getValue().id);
-      value.subscribe(linksets => {
-        this.setLinkAttribute(linksets);
-      });
-    }
-  }
+  // public setSignpostingLinksets(itemId: string) {
+  //   let linkSet: string;
 
-  setLinkAttribute(linksets){
-    console.log('ANDREA', linksets);
-    const linkAttribute = `Link: ${linksets.payload.body}`;
-    const textNode = document.createTextNode(linkAttribute);
-    document.head.appendChild(textNode);
-  }
+  //   const value = this.signpostginDataService.getLinksets(itemId);
+
+  //   value.subscribe(linksets => {
+  //     linkSet = linksets.payload.body;
+  //   });
+
+  //   return linkSet;
+  // }
+
+  // setLinkAttribute(linksets){
+  //   console.log('ANDREA', linksets);
+  //   const linkAttribute = `Link: ${linksets.payload.body}`;
+  //   const textNode = document.createTextNode(linkAttribute);
+  //   document.head.appendChild(textNode);
+  // }
 
   /**
    * Add <meta name="title" ... >  to the <head>

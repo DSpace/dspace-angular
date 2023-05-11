@@ -16,8 +16,7 @@ export class SignpostingDataService {
   constructor(private restService: DspaceRestService, protected halService: HALEndpointService) { }
 
   getLinks(uuid: string): Observable<any> {
-    const url = this.halService.getRootHref().split('/');
-    const baseUrl = `${url[0]}//${url[2]}/${url[3]}`;
+    const baseUrl = this.halService.getRootHref().replace('/api', '');
 
     return this.restService.get(`${baseUrl}/signposting/links/${uuid}`).pipe(
       catchError((err ) => {
@@ -28,9 +27,8 @@ export class SignpostingDataService {
     );
   }
 
-  getLinksets(uuid: string): Observable<any> {
-    const url = this.halService.getRootHref().split('/');
-    const baseUrl = `${url[0]}//${url[2]}/${url[3]}`;
+  getLinksets(uuid: string): Observable<string> {
+    const baseUrl = this.halService.getRootHref().replace('/api', '');
 
     const requestOptions = {
       observe: 'response' as any,
@@ -46,7 +44,7 @@ export class SignpostingDataService {
         console.error(err);
         return observableOf(false);
       }),
-      map((res: RawRestResponse) => res)
+      map((res: RawRestResponse) => res.payload.body)
     );
   }
 }
