@@ -1,6 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
-import { map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { SearchComponent } from '../shared/search/search.component';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { HostWindowService } from '../shared/host-window.service';
@@ -10,10 +10,17 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
 import { SearchService } from '../core/shared/search/search.service';
 import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
 import { SearchObjects } from '../shared/search/models/search-objects.model';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { getFirstSucceededRemoteData } from '../core/shared/operators';
+import { inspect } from 'util';
+import { hasValue, hasValueOperator, isNotEmpty } from '../shared/empty.util';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { Observable } from 'rxjs/internal/Observable';
+import { ITEM_MODULE_PATH } from '../item-page/item-page-routing-paths';
+import { COLLECTION_MODULE_PATH } from '../collection-page/collection-page-routing-paths';
+import { COMMUNITY_MODULE_PATH } from '../community-page/community-page-routing-paths';
 
 /**
  * This component triggers a page view statistic
@@ -29,7 +36,24 @@ import { getFirstSucceededRemoteData } from '../core/shared/operators';
     }
   ]
 })
-export class SearchTrackerComponent extends SearchComponent implements OnInit {
+export class SearchTrackerComponent extends SearchComponent implements OnInit, OnDestroy {
+  /**
+   * Regex to match UUIDs
+   */
+  uuidRegex = /\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/g;
+
+  /**
+   * List of paths that are considered to be the start of a route to an object page (excluding "/", e.g. "items")
+   * These are expected to end on an object UUID
+   * If they match the route we're navigating to, an object property will be added to the search event sent
+   */
+  allowedObjectPaths: string[] = ['entities', ITEM_MODULE_PATH, COLLECTION_MODULE_PATH, COMMUNITY_MODULE_PATH];
+
+  /**
+   * Array to track all subscriptions and unsubscribe them onDestroy
+   * @type {Array}
+   */
+  subs: Subscription[] = [];
 
   constructor(
     protected service: SearchService,
@@ -44,8 +68,33 @@ export class SearchTrackerComponent extends SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // super.ngOnInit();
-    this.getSearchOptions().pipe(
+    this.subs.push(
+      this.getSearchOptionsAndObjects().subscribe((options) => {
+        this.trackEvent(this.transformOptionsToEventProperties(options));
+      }),
+      this.router.events.pipe(
+        filter((event) => event instanceof NavigationStart),
+        map((event: NavigationStart) => this.getDsoUUIDFromUrl(event.url)),
+        hasValueOperator(),
+        switchMap((uuid) =>
+          this.getSearchOptionsAndObjects().pipe(
+            take(1),
+            map((options) => this.transformOptionsToEventProperties(Object.assign({}, options, {
+              clickedObject: uuid,
+            })))
+          )
+        ),
+      ).subscribe((options) => {
+        this.trackEvent(options);
+      }),
+    );
+  }
+
+  /**
+   * Get a combination of the currently applied search options and search query response
+   */
+  getSearchOptionsAndObjects(): Observable<{ config: PaginatedSearchOptions, searchQueryResponse: SearchObjects<DSpaceObject> }> {
+    return this.getSearchOptions().pipe(
       switchMap((options: PaginatedSearchOptions) =>
         this.service.searchEntries(options).pipe(
           getFirstSucceededRemoteData(),
@@ -53,31 +102,70 @@ export class SearchTrackerComponent extends SearchComponent implements OnInit {
             config: options,
             searchQueryResponse: rd.payload
           }))
-        )),
-    ).subscribe(({ config, searchQueryResponse }) => {
-        const filters: { filter: string, operator: string, value: string, label: string; }[] = [];
-        const appliedFilters = searchQueryResponse.appliedFilters || [];
-        for (let i = 0, filtersLength = appliedFilters.length; i < filtersLength; i++) {
-          const appliedFilter = appliedFilters[i];
-          filters.push(appliedFilter);
+        )
+      ),
+    );
+  }
+
+  /**
+   * Transform the given options containing search-options, query-response and optional object UUID into properties
+   * that can be sent to Angularitics for triggering a search event
+   * @param options
+   */
+  transformOptionsToEventProperties(options: { config: PaginatedSearchOptions, searchQueryResponse: SearchObjects<DSpaceObject>, clickedObject?: string }): any {
+    const filters: { filter: string, operator: string, value: string, label: string; }[] = [];
+    const appliedFilters = options.searchQueryResponse.appliedFilters || [];
+    for (let i = 0, filtersLength = appliedFilters.length; i < filtersLength; i++) {
+      const appliedFilter = appliedFilters[i];
+      filters.push(appliedFilter);
+    }
+    return {
+      action: 'search',
+      properties: {
+        searchOptions: options.config,
+        page: {
+          size: options.config.pagination.size, // same as searchQueryResponse.page.elementsPerPage
+          totalElements: options.searchQueryResponse.pageInfo.totalElements,
+          totalPages: options.searchQueryResponse.pageInfo.totalPages,
+          number: options.config.pagination.currentPage, // same as searchQueryResponse.page.currentPage
+        },
+        sort: {
+          by: options.config.sort.field,
+          order: options.config.sort.direction
+        },
+        filters: filters,
+        clickedObject: options.clickedObject,
+      },
+    };
+  }
+
+  /**
+   * Track an event with given properties
+   * @param properties
+   */
+  trackEvent(properties: any) {
+    this.angulartics2.eventTrack.next(properties);
+  }
+
+  /**
+   * Get the UUID from a DSO url
+   * Return null if the url isn't an object page (allowedObjectPaths) or the UUID couldn't be found
+   * @param url
+   */
+  getDsoUUIDFromUrl(url: string): string {
+    if (isNotEmpty(url)) {
+      if (this.allowedObjectPaths.some((path) => url.startsWith(`/${path}`))) {
+        const uuid = url.substring(url.lastIndexOf('/') + 1);
+        if (uuid.match(this.uuidRegex)) {
+          return uuid;
         }
-        this.angulartics2.eventTrack.next({
-          action: 'search',
-          properties: {
-            searchOptions: config,
-            page: {
-              size: config.pagination.size, // same as searchQueryResponse.page.elementsPerPage
-              totalElements: searchQueryResponse.pageInfo.totalElements,
-              totalPages: searchQueryResponse.pageInfo.totalPages,
-              number: config.pagination.currentPage, // same as searchQueryResponse.page.currentPage
-            },
-            sort: {
-              by: config.sort.field,
-              order: config.sort.direction
-            },
-            filters: filters,
-          },
-        });
-      });
+      }
+    }
+    return null;
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 }

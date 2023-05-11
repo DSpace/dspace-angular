@@ -31,7 +31,8 @@ export class Angulartics2DSpace {
         event.properties.searchOptions,
         event.properties.page,
         event.properties.sort,
-        event.properties.filters
+        event.properties.filters,
+        event.properties.clickedObject,
       );
     }
   }
