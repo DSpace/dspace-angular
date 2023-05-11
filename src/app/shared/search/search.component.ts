@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 import uniqueId from 'lodash/uniqueId';
 
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -11,7 +11,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { pushInOut } from '../animations/push';
 import { HostWindowService } from '../host-window.service';
 import { SidebarService } from '../sidebar/sidebar.service';
-import { hasValue } from '../empty.util';
+import { hasValue, hasValueOperator, isNotEmpty } from '../empty.util';
 import { RouteService } from '../../core/services/route.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
@@ -35,6 +35,9 @@ import { environment } from 'src/environments/environment';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { WorkspaceItem } from '../..//core/submission/models/workspaceitem.model';
+import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
+import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
+import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 
 @Component({
   selector: 'ds-search',
@@ -229,9 +232,21 @@ export class SearchComponent implements OnInit {
   searchLink: string;
 
   /**
-   * Subscription to unsubscribe from
+   * Regex to match UUIDs
    */
-  sub: Subscription;
+  uuidRegex = /\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/g;
+
+  /**
+   * List of paths that are considered to be the start of a route to an object page (excluding "/", e.g. "items")
+   * These are expected to end on an object UUID
+   * If they match the route we're navigating to, an object property will be added to the search event sent
+   */
+  allowedObjectPaths: string[] = ['entities', ITEM_MODULE_PATH, COLLECTION_MODULE_PATH, COMMUNITY_MODULE_PATH];
+
+  /**
+   * Subscriptions to unsubscribe from
+   */
+  subs: Subscription[] = [];
 
   /**
    * Emits an event with the current search result entries
@@ -301,7 +316,7 @@ export class SearchComponent implements OnInit {
     );
     const searchOptions$: Observable<PaginatedSearchOptions> = this.getSearchOptions().pipe(distinctUntilChanged());
 
-    this.sub = combineLatest([configuration$, searchSortOptions$, searchOptions$, sortOption$]).pipe(
+    this.subs.push(combineLatest([configuration$, searchSortOptions$, searchOptions$, sortOption$]).pipe(
       filter(([configuration, searchSortOptions, searchOptions, sortOption]: [string, SortOptions[], PaginatedSearchOptions, SortOptions]) => {
         // filter for search options related to instanced paginated id
         return searchOptions.pagination.id === this.paginationId;
@@ -332,7 +347,9 @@ export class SearchComponent implements OnInit {
         this.retrieveSearchResults(newSearchOptions);
         this.retrieveFilters(searchOptions);
       }
-    });
+    }));
+
+    this.subscribeToRoutingEvents();
   }
 
   /**
@@ -374,12 +391,10 @@ export class SearchComponent implements OnInit {
   }
 
   /**
-   * Unsubscribe from the subscription
+   * Unsubscribe from the subscriptions
    */
   ngOnDestroy(): void {
-    if (hasValue(this.sub)) {
-      this.sub.unsubscribe();
-    }
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
   /**
@@ -438,6 +453,43 @@ export class SearchComponent implements OnInit {
         }
         this.resultsRD$.next(results);
       });
+  }
+
+  /**
+   * Subscribe to routing events to detect when a user moves away from the search page
+   * When the user is routing to an object page, it needs to send out a separate search event containing that object's UUID
+   * This method should only be called once and is essentially what SearchTrackingComponent used to do (now removed)
+   * @private
+   */
+  private subscribeToRoutingEvents() {
+    this.subs.push(
+      this.router.events.pipe(
+        filter((event) => event instanceof NavigationStart),
+        map((event: NavigationStart) => this.getDsoUUIDFromUrl(event.url)),
+        hasValueOperator(),
+      ).subscribe((uuid) => {
+        if (this.resultsRD$.value.hasSucceeded) {
+          this.service.trackSearch(this.searchOptions$.value, this.resultsRD$.value.payload as SearchObjects<DSpaceObject>, uuid);
+        }
+      }),
+    );
+  }
+
+  /**
+   * Get the UUID from a DSO url
+   * Return null if the url isn't an object page (allowedObjectPaths) or the UUID couldn't be found
+   * @param url
+   */
+  private getDsoUUIDFromUrl(url: string): string {
+    if (isNotEmpty(url)) {
+      if (this.allowedObjectPaths.some((path) => url.startsWith(`/${path}`))) {
+        const uuid = url.substring(url.lastIndexOf('/') + 1);
+        if (uuid.match(this.uuidRegex)) {
+          return uuid;
+        }
+      }
+    }
+    return null;
   }
 
   /**
