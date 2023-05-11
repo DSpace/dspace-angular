@@ -13,7 +13,7 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
 import { SearchComponent } from './search.component';
 import { SearchService } from '../../core/shared/search/search.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute, NavigationStart } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { SidebarService } from '../sidebar/sidebar.service';
@@ -31,10 +31,8 @@ import { SearchObjects } from './models/search-objects.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { FilterType } from './models/filter-type.model';
-import { createPaginatedList } from '../testing/utils.test';
-import { COMMUNITY_MODULE_PATH, getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
+import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
-import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
