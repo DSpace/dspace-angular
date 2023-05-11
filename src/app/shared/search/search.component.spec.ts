@@ -240,7 +240,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
   }).compileComponents();
 }
 
-fdescribe('SearchComponent', () => {
+describe('SearchComponent', () => {
   beforeEach(waitForAsync(() => {
     configureSearchComponentTestingModule(SearchComponent);
   }));
