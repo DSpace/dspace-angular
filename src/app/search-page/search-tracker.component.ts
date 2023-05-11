@@ -80,7 +80,7 @@ export class SearchTrackerComponent extends SearchComponent implements OnInit, O
           this.getSearchOptionsAndObjects().pipe(
             take(1),
             map((options) => this.transformOptionsToEventProperties(Object.assign({}, options, {
-              object: uuid,
+              clickedObject: uuid,
             })))
           )
         ),
@@ -112,7 +112,7 @@ export class SearchTrackerComponent extends SearchComponent implements OnInit, O
    * that can be sent to Angularitics for triggering a search event
    * @param options
    */
-  transformOptionsToEventProperties(options: { config: PaginatedSearchOptions, searchQueryResponse: SearchObjects<DSpaceObject>, object?: string }): any {
+  transformOptionsToEventProperties(options: { config: PaginatedSearchOptions, searchQueryResponse: SearchObjects<DSpaceObject>, clickedObject?: string }): any {
     const filters: { filter: string, operator: string, value: string, label: string; }[] = [];
     const appliedFilters = options.searchQueryResponse.appliedFilters || [];
     for (let i = 0, filtersLength = appliedFilters.length; i < filtersLength; i++) {
@@ -134,7 +134,7 @@ export class SearchTrackerComponent extends SearchComponent implements OnInit, O
           order: options.config.sort.direction
         },
         filters: filters,
-        object: options.object,
+        clickedObject: options.clickedObject,
       },
     };
   }

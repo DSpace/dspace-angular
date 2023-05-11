@@ -32,7 +32,7 @@ export class Angulartics2DSpace {
         event.properties.page,
         event.properties.sort,
         event.properties.filters,
-        event.properties.object,
+        event.properties.clickedObject,
       );
     }
   }
