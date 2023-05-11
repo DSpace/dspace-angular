@@ -214,6 +214,9 @@ languages:
   - code: tr
     label: Türkçe
     active: true
+  - code: vi
+    label: Tiếng Việt
+    active: true
   - code: kk
     label: Қазақ
     active: true

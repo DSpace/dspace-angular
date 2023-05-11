@@ -41,6 +41,7 @@ import { ItemPageVersionHistoryGuard } from './item-page-version-history.guard';
 import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.guard';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { ItemPageRegisterDoiGuard } from './item-page-register-doi.guard';
+import { ItemCurateComponent } from './item-curate/item-curate.component';
 import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
 
 /**
@@ -82,6 +83,11 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
                 component: ThemedDsoEditMetadataComponent,
                 data: { title: 'item.edit.tabs.metadata.title', showBreadcrumbs: true },
                 canActivate: [ItemPageMetadataGuard]
+              },
+              {
+                path: 'curate',
+                component: ItemCurateComponent,
+                data: { title: 'item.edit.tabs.curate.title', showBreadcrumbs: true }
               },
               {
                 path: 'relationships',
