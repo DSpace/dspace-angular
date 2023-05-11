@@ -1,35 +1,27 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.component';
-import { distinctUntilChanged, map, take, tap } from 'rxjs/operators';
 import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
 import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';
-import { BehaviorSubject, Subscription } from 'rxjs';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { RemoteData } from '../../core/data/remote-data';
+import { Process } from '../../process-page/processes/process.model';
+import { isNotEmpty } from '../../shared/empty.util';
+import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-bulk-access',
-  // templateUrl: './bulk-access.component.html',
-  template: `<div class="container">
-    <ds-bulk-access-browse [listId]="listId"></ds-bulk-access-browse>
-    <div class="clearfix mb-3"></div>
-    <ds-bulk-access-settings #dsBulkSettings ></ds-bulk-access-settings>
-
-    <hr>
-
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-outline-primary mr-3" (click)="reset()">
-        {{ 'access-control-reset' | translate }}
-      </button>
-      <button class="btn btn-primary" [disabled]="!canExport()" (click)="submit()">
-        {{ 'access-control-execute' | translate }}
-      </button>
-    </div>
-  </div>`,
+  templateUrl: './bulk-access.component.html',
   styleUrls: ['./bulk-access.component.scss']
 })
 export class BulkAccessComponent implements OnInit {
-
 
   /**
    * The selection list id
@@ -53,16 +45,18 @@ export class BulkAccessComponent implements OnInit {
 
   constructor(
     private bulkAccessControlService: BulkAccessControlService,
-    private selectableListService: SelectableListService
-  ) { }
+    private notificationsService: NotificationsService,
+    private router: Router,
+    private selectableListService: SelectableListService,
+    private translationService: TranslateService
+  ) {
+  }
 
   ngOnInit(): void {
     this.subs.push(
       this.selectableListService.getSelectableList(this.listId).pipe(
         distinctUntilChanged(),
-        tap(console.log),
-        map((list: SelectableListState) => this.generateIdListBySelectedElements(list)),
-        tap(console.log)
+        map((list: SelectableListState) => this.generateIdListBySelectedElements(list))
       ).subscribe(this.objectsSelected$)
     )
   }
@@ -97,9 +91,24 @@ export class BulkAccessComponent implements OnInit {
     this.bulkAccessControlService.executeScript(
       this.objectsSelected$.value || [],
       file
-    ).pipe(take(1)).subscribe((res) => {
-      console.log('success', res);
-    });
+    ).pipe(
+      getFirstCompletedRemoteData(),
+      map((rd: RemoteData<Process>) => {
+        if (rd.hasSucceeded) {
+          const title = this.translationService.get('process.new.notification.success.title');
+          const content = this.translationService.get('process.new.notification.success.content');
+          this.notificationsService.success(title, content);
+          if (isNotEmpty(rd.payload)) {
+            this.router.navigateByUrl(getProcessDetailRoute(rd.payload.processId));
+          }
+          return true;
+        } else {
+          const title = this.translationService.get('process.new.notification.error.title');
+          const content = this.translationService.get('process.new.notification.error.content');
+          this.notificationsService.error(title, content);
+          return false;
+        }
+      })).subscribe();
   }
 
   /**

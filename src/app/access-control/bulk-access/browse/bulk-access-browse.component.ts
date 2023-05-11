@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { distinctUntilChanged, map, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
@@ -67,8 +67,7 @@ export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.selectableListService.getSelectableList(this.listId).pipe(
         distinctUntilChanged(),
-        map((list: SelectableListState) => this.generatePaginatedListBySelectedElements(list)),
-        tap(console.log)
+        map((list: SelectableListState) => this.generatePaginatedListBySelectedElements(list))
       ).subscribe(this.objectsSelected$)
     )
   }
