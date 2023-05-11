@@ -5,7 +5,9 @@ import { GrantDenyRequestCopyComponent } from './grant-deny-request-copy/grant-d
 import { RequestCopyRoutingModule } from './request-copy-routing.module';
 import { DenyRequestCopyComponent } from './deny-request-copy/deny-request-copy.component';
 import { EmailRequestCopyComponent } from './email-request-copy/email-request-copy.component';
+import { ThemedEmailRequestCopyComponent } from './email-request-copy/themed-email-request-copy.component';
 import { GrantRequestCopyComponent } from './grant-request-copy/grant-request-copy.component';
+import { ThemedGrantRequestCopyComponent } from './grant-request-copy/themed-grant-request-copy.component';
 
 @NgModule({
   imports: [
@@ -17,7 +19,9 @@ import { GrantRequestCopyComponent } from './grant-request-copy/grant-request-co
     GrantDenyRequestCopyComponent,
     DenyRequestCopyComponent,
     EmailRequestCopyComponent,
+    ThemedEmailRequestCopyComponent,
     GrantRequestCopyComponent,
+    ThemedGrantRequestCopyComponent,
   ],
   providers: []
 })
