@@ -180,14 +180,14 @@ export function app() {
     changeOrigin: true
   }));
 
-    /**
+  /**
    * Proxy the linksets
    */
-    router.use('/linksets**', createProxyMiddleware({
-      target: `${environment.rest.baseUrl}/linksets`,
-      pathRewrite: path => path.replace(environment.ui.nameSpace, '/'),
-      changeOrigin: true
-    }));
+  router.use('/linkset**', createProxyMiddleware({
+    target: `${environment.rest.baseUrl}/signposting/linksets`,
+    pathRewrite: path => path.replace(environment.ui.nameSpace, '/'),
+    changeOrigin: true
+  }));
 
   /**
    * Checks if the rateLimiter property is present

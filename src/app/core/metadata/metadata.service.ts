@@ -45,6 +45,7 @@ import { CoreState } from '../core-state.model';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { getDownloadableBitstream } from '../shared/bitstream.operators';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
+import { SignpostingDataService } from '../data/signposting-data.service';
 
 /**
  * The base selector function to select the metaTag section in the store
@@ -96,7 +97,8 @@ export class MetadataService {
     private store: Store<CoreState>,
     private hardRedirectService: HardRedirectService,
     @Inject(APP_CONFIG) private appConfig: AppConfig,
-    private authorizationService: AuthorizationDataService
+    private authorizationService: AuthorizationDataService,
+    private signpostginDataService: SignpostingDataService
   ) {
   }
 
@@ -138,7 +140,7 @@ export class MetadataService {
     }
   }
 
-  private getCurrentRoute(route: ActivatedRoute): ActivatedRoute {
+  public getCurrentRoute(route: ActivatedRoute): ActivatedRoute {
     while (route.firstChild) {
       route = route.firstChild;
     }
@@ -162,6 +164,8 @@ export class MetadataService {
     this.setCitationAbstractUrlTag();
     this.setCitationPdfUrlTag();
     this.setCitationPublisherTag();
+    this.setSignpostingLinks();
+    this.setSignpostingLinksets();
 
     if (this.isDissertation()) {
       this.setCitationDissertationNameTag();
@@ -182,6 +186,45 @@ export class MetadataService {
     // this.setCitationPatentCountryTag();
     // this.setCitationPatentNumberTag();
 
+  }
+
+  /**
+   * Add <link name="title" ... >  to the <head>
+   */
+  private setSignpostingLinks() {
+    if (this.currentObject.value instanceof Item){
+      const value = this.signpostginDataService.getLinks(this.currentObject.getValue().id);
+      value.subscribe(links => {
+        links.payload.forEach(link => {
+          this.setLinkTag(link.href, link.rel, link.type);
+        });
+      });
+    }
+  }
+
+  setLinkTag(href: string, rel: string, type: string){
+    let link: HTMLLinkElement = document.createElement('link');
+    link.href = href;
+    link.rel = rel;
+    link.type = type;
+    document.head.appendChild(link);
+    console.log(link);
+  }
+
+  private setSignpostingLinksets() {
+    if (this.currentObject.value instanceof Item){
+      const value = this.signpostginDataService.getLinksets(this.currentObject.getValue().id);
+      value.subscribe(linksets => {
+        this.setLinkAttribute(linksets);
+      });
+    }
+  }
+
+  setLinkAttribute(linksets){
+    console.log('ANDREA', linksets);
+    const linkAttribute = `Link: ${linksets.payload.body}`;
+    const textNode = document.createTextNode(linkAttribute);
+    document.head.appendChild(textNode);
   }
 
   /**
@@ -362,15 +405,6 @@ export class MetadataService {
       });
     }
   }
-
-  /**
- * Add <meta name="link" ... >  to the <head>
- */
-  // private setLinkTag(): void {
-  //   const value = this.getMetaTagValue('dc.link');
-  //   this.meta.addTag({ name: 'Link', content: value });
-  //   this.addMetaTag('Link', value);
-  // }
 
   getBitLinkIfDownloadable(bitstream: Bitstream, bitstreamRd: RemoteData<PaginatedList<Bitstream>>): Observable<string> {
     return observableOf(bitstream).pipe(

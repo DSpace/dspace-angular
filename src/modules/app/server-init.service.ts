@@ -21,7 +21,6 @@ import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { take } from 'rxjs/operators';
 import { MenuService } from '../../app/shared/menu/menu.service';
-import { MetadataItemService } from 'src/app/core/metadata-item/metadata-item.service';
 
 /**
  * Performs server-side initialization.
@@ -37,7 +36,6 @@ export class ServerInitService extends InitService {
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
     protected metadata: MetadataService,
-    protected metadataItem: MetadataItemService,
     protected breadcrumbsService: BreadcrumbsService,
     protected themeService: ThemeService,
     protected menuService: MenuService
@@ -50,7 +48,6 @@ export class ServerInitService extends InitService {
       localeService,
       angulartics2DSpace,
       metadata,
-      metadataItem,
       breadcrumbsService,
       themeService,
       menuService,
