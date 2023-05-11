@@ -16,6 +16,7 @@ import {
 import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { BulkAccessConditionOptions } from '../../core/config/models/bulk-access-condition-options.model';
+import { AlertType } from '../alert/aletr-type';
 
 @Component({
   selector: 'ds-access-control-form-container',
@@ -31,6 +32,11 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
   @Input() showLimitToSpecificBitstreams = false;
 
   /**
+   * The title message of the access control form (translate key)
+   */
+  @Input() titleMessage = '';
+
+  /**
    * The item to which the access control form applies
    */
   @Input() itemRD: RemoteData<T>;
@@ -44,6 +50,8 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
 
   @ViewChild('bitstreamAccessCmp', { static: true }) bitstreamAccessCmp: AccessControlArrayFormComponent;
   @ViewChild('itemAccessCmp', { static: true }) itemAccessCmp: AccessControlArrayFormComponent;
+
+  readonly AlertType = AlertType;
 
   constructor(
     private bulkAccessConfigService: BulkAccessConfigDataService,
@@ -145,18 +153,19 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
   ngOnDestroy(): void {
     this.selectableListService.deselectAll(ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID);
   }
+
 }
 
 
 const initialState: AccessControlFormState = {
   item: {
     toggleStatus: false,
-    accessMode: '',
+    accessMode: 'replace',
   },
   bitstream: {
     toggleStatus: false,
-    accessMode: '',
-    changesLimit: '', // 'all' | 'selected'
+    accessMode: 'replace',
+    changesLimit: 'all', // 'all' | 'selected'
     selectedBitstreams: [] as ListableObject[],
   },
 };

@@ -34,6 +34,13 @@ export class AccessControlArrayFormComponent implements OnInit, OnDestroy {
     return this.form.get('accessControl') as FormArray;
   }
 
+  get allControlsAreEmpty() {
+    if (this.accessControl.length === 0) {
+      return true;
+    }
+    return this.accessControl.value.every(x => x.itemName === null || x.itemName === '');
+  }
+
   /**
    * Add a new access control item to the form.
    * Start and end date are disabled by default.

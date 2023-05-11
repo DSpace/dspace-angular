@@ -43,22 +43,25 @@ export class BulkAccessControlService {
 }
 
 export const convertToBulkAccessControlFileModel = (payload: { state: AccessControlFormState, bitstreamAccess: AccessCondition[], itemAccess: AccessCondition[] }): BulkAccessControlFileModel => {
+  const itemEnabled = payload.state.item.toggleStatus;
+  const bitstreamEnabled = payload.state.bitstream.toggleStatus;
+
   const constraints = { uuid: [] };
 
-  if (payload.state.bitstream.changesLimit === 'selected') {
+  if (bitstreamEnabled && payload.state.bitstream.changesLimit === 'selected') {
     // @ts-ignore
     constraints.uuid = payload.state.bitstream.selectedBitstreams.map((x) => x.id);
   }
 
   return {
     item: {
-      mode: payload.state.item.accessMode,
-      accessConditions: payload.itemAccess
+      mode: itemEnabled ? payload.state.item.accessMode : '',
+      accessConditions: itemEnabled ? payload.itemAccess : []
     },
     bitstream: {
       constraints,
-      mode: payload.state.bitstream.accessMode,
-      accessConditions: payload.bitstreamAccess
+      mode: bitstreamEnabled ? payload.state.bitstream.accessMode : '',
+      accessConditions: bitstreamEnabled ? payload.bitstreamAccess : []
     }
   };
 };

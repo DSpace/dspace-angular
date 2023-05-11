@@ -1,5 +1,7 @@
 <div class="modal-header">
-  <h4 class="modal-title">Hi there!</h4>
+  <h4 class="modal-title">
+    {{'access-control-select-bitstreams-modal.title' | translate}}
+  </h4>
   <button type="button" class="close" aria-label="Close"
           (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
@@ -20,7 +22,7 @@
 
     <div *ngIf="data && data.payload.page.length === 0"
       class="alert alert-info w-100" role="alert">
-      {{'browse.empty' | translate}}
+      {{'access-control-select-bitstreams-modal.no-items' | translate}}
     </div>
 
   </ng-container>
@@ -28,6 +30,6 @@
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-dark"
           (click)="activeModal.close('Close click')">
-    Close
+    {{'access-control-select-bitstreams-modal.close' | translate}}
   </button>
 </div>

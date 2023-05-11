@@ -5326,7 +5326,7 @@
 
   "admin.system-wide-alert.title": "System-wide Alerts",
 
-  "item-access-control-title": "This form allows you to perform changes to the access condition of all the items owned by collection under this community. Changes can be performed on the access condition for the metadata (item) or for the content (bitstream).",
+  "item-access-control-title": "This form allows you to perform changes to the access condition of all the item's metadata and all its bitstreams.",
   "collection-access-control-title": "This form allows you to perform changes to the access condition of all the items owned by collection under this community. Changes can be performed on the access condition for the metadata (item) or for the content (bitstream).",
   "community-access-control-title": "This form allows you to perform changes to the access condition of all the items owned by collection under this community. Changes can be performed on the access condition for the metadata (item) or for the content (bitstream).",
   "access-control-item-header-toggle": "Item's Metadata",
@@ -5341,8 +5341,9 @@
   "access-control-bitstreams-selected": "bitstreams selected",
   "access-control-reset": "Reset",
   "access-control-execute": "Execute",
-  "access-control-add-more": "Add more"
-
-
+  "access-control-add-more": "Add more",
+  "access-control-select-bitstreams-modal.title": "Select bitstreams",
+  "access-control-select-bitstreams-modal.no-items": "No items to show.",
+  "access-control-select-bitstreams-modal.close": "Close"
 
 }

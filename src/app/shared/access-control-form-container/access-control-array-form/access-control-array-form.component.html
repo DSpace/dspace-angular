@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-  <div *ngIf="accessControl.controls.length === 0 && form.status !== 'DISABLED'" class="alert alert-warning">
+  <div *ngIf="allControlsAreEmpty && form.status !== 'DISABLED'" class="alert alert-warning">
     {{'access-control-no-access-conditions-warning-message' | translate}}
   </div>
 
