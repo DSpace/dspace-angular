@@ -26,9 +26,40 @@ const MENU_STATE = {
 };
 const EXPLORE_SECTIONS_DEFINITIONS = [
   { id: 'definition1' },
+  {
+    id: 'definition2',
+    nestedSections: [
+      { id: 'definition1' },
+      { id: 'definition2' }
+    ]
+  },
+  { id: 'definition3' },
+];
+
+const ALL_FLAT_MENUS = [
+  { id: 'definition1' },
   { id: 'definition2' },
   { id: 'definition3' },
 ];
+const ALL_NESTED_MENUS = [
+  {
+    id: 'definition1',
+    nestedSections: [
+      { id: 'definition1' },
+    ]
+  },{
+    id: 'definition2',
+    nestedSections: [
+      { id: 'definition2' },
+    ]
+  },{
+    id: 'definition3',
+    nestedSections: [
+      { id: 'definition3' },
+    ]
+  }
+];
+const NO_MENUS = [];
 
 describe('MenuResolver', () => {
   let resolver: MenuResolver;
@@ -131,8 +162,77 @@ describe('MenuResolver', () => {
           id: 'explore_definition2', visible: true,
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, jasmine.objectContaining({
+          id: 'explore_nested_definition2',
+          parentID: 'explore_definition2',
+          active: false,
+          visible: true
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, jasmine.objectContaining({
           id: 'explore_definition3', visible: true,
         }));
+      });
+    });
+
+    describe('handle menus', () => {
+      it('should show all flat menus', () => {
+        sectionsService.findVisibleSections.and.returnValue(
+          createSuccessfulRemoteDataObject$(createPaginatedList(ALL_FLAT_MENUS))
+        );
+        resolver.createPublicMenu$().subscribe();
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, jasmine.objectContaining({
+          id: 'explore_definition1', visible: true,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, jasmine.objectContaining({
+          id: 'explore_definition2', visible: true,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, jasmine.objectContaining({
+          id: 'explore_definition3', visible: true,
+        }));
+      });
+
+      it('should show all nested menus', () => {
+        sectionsService.findVisibleSections.and.returnValue(
+          createSuccessfulRemoteDataObject$(createPaginatedList(ALL_NESTED_MENUS))
+        );
+        resolver.createPublicMenu$().subscribe();
+        expect(menuService.addSection).toHaveBeenCalledWith(
+          MenuID.PUBLIC,
+          jasmine.objectContaining({
+            id: 'explore_nested_definition1',
+            parentID: 'explore_definition1',
+            active: false,
+            visible: true
+          })
+        );
+        expect(menuService.addSection).toHaveBeenCalledWith(
+          MenuID.PUBLIC,
+          jasmine.objectContaining({
+            id: 'explore_nested_definition2',
+            parentID: 'explore_definition2',
+            active: false,
+            visible: true
+          })
+        );
+        expect(menuService.addSection).toHaveBeenCalledWith(
+          MenuID.PUBLIC,
+          jasmine.objectContaining({
+            id: 'explore_nested_definition3',
+            parentID: 'explore_definition3',
+            active: false,
+            visible: true
+          })
+        );
+      });
+
+      it('should show no menus', () => {
+        sectionsService.findVisibleSections.and.returnValue(
+          createSuccessfulRemoteDataObject$(createPaginatedList(NO_MENUS))
+        );
+        resolver.createPublicMenu$().subscribe();
+        expect(menuService.addSection).toHaveBeenCalledWith(
+          MenuID.PUBLIC,
+          jasmine.objectContaining({})
+        );
       });
     });
   });

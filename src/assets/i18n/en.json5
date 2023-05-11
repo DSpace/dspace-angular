@@ -2078,7 +2078,9 @@
 
   "explore.infrastructure.breadcrumbs": "Infrastructure",
 
-  "explore.fundings.breadcrumbs": "Projects",
+  "explore.fundings.breadcrumbs": "Fundings",
+
+  "explore.projects.breadcrumbs": "Projects",
 
   "explore.fundings_and_projects.breadcrumbs": "Projects",
 
@@ -3476,9 +3478,11 @@
 
   "menu.section.explore_orgunits": "Organizations",
 
-  "menu.section.explore_fundings": "Projects",
+  "menu.section.explore_fundings": "Fundings",
 
-  "menu.section.explore_fundings_and_projects": "Projects",
+  "menu.section.explore_projects": "Projects",
+
+  "menu.section.explore_fundings_and_projects": "Fundings & Projects",
 
   "menu.section.communities_and_collections": "Communities & Collections",
 

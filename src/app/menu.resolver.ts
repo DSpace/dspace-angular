@@ -123,17 +123,44 @@ export class MenuResolver implements Resolve<boolean> {
     ).subscribe( (sectionDefListRD: RemoteData<PaginatedList<Section>>) => {
       if (sectionDefListRD.hasSucceeded) {
         sectionDefListRD.payload.page.forEach((section) => {
-          menuList.push({
+          let parentMenu: any = {
             id: `explore_${section.id}`,
             active: false,
             visible: true,
-            model: {
-              type: MenuItemType.LINK,
-              text: `menu.section.explore_${section.id}`,
-              link: `/explore/${section.id}`
-            } as LinkMenuItemModel
-          });
-
+          };
+          if (section.nestedSections && section.nestedSections.length) {
+            section.nestedSections.forEach((nested) => {
+              menuList.push({
+                id: `explore_nested_${nested.id}`,
+                parentID: `explore_${section.id}`,
+                active: false,
+                visible: true,
+                model: {
+                  type: MenuItemType.LINK,
+                  text: `menu.section.explore_${nested.id}`,
+                  link: `/explore/${nested.id}`
+                } as LinkMenuItemModel
+              });
+            });
+            parentMenu = {
+              ...parentMenu,
+              index: 1,
+              model: {
+                type: MenuItemType.TEXT,
+                text: `menu.section.explore_${section.id}`
+              } as TextMenuItemModel,
+            };
+          } else {
+            parentMenu = {
+              ...parentMenu,
+              model: {
+                type: MenuItemType.LINK,
+                text: `menu.section.explore_${section.id}`,
+                link: `/explore/${section.id}`
+              } as LinkMenuItemModel
+            };
+          }
+          menuList.push(parentMenu);
         });
       }
       menuList.forEach((menuSection) => this.menuService.addSection(MenuID.PUBLIC, Object.assign(menuSection, {
