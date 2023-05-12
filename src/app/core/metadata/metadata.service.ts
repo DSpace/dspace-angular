@@ -64,6 +64,11 @@ const tagsInUseSelector =
     (state: MetaTagState) => state.tagsInUse,
   );
 
+/**
+ * Link elements added on Item Page
+ */
+let linkTags = [];
+
 @Injectable()
 export class MetadataService {
 
@@ -119,6 +124,7 @@ export class MetadataService {
 
   private processRouteChange(routeInfo: any): void {
     this.clearMetaTags();
+    this.clearLinkTags();
 
     if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
       this.currentObject.next(routeInfo.data.value.dso.payload);
@@ -207,27 +213,14 @@ export class MetadataService {
     link.rel = rel;
     link.type = type;
     document.head.appendChild(link);
-    console.log(link);
+    linkTags.push(link);
   }
 
-  // public setSignpostingLinksets(itemId: string) {
-  //   let linkSet: string;
-
-  //   const value = this.signpostginDataService.getLinksets(itemId);
-
-  //   value.subscribe(linksets => {
-  //     linkSet = linksets.payload.body;
-  //   });
-
-  //   return linkSet;
-  // }
-
-  // setLinkAttribute(linksets){
-  //   console.log('ANDREA', linksets);
-  //   const linkAttribute = `Link: ${linksets.payload.body}`;
-  //   const textNode = document.createTextNode(linkAttribute);
-  //   document.head.appendChild(textNode);
-  // }
+  public clearLinkTags(){
+    linkTags.forEach(link => {
+      link.parentNode.removeChild(link);
+    });
+  }
 
   /**
    * Add <meta name="title" ... >  to the <head>
