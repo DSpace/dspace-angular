@@ -14,6 +14,8 @@ import { getForbiddenRoute } from '../../app-routing-paths';
 import { RemoteData } from '../../core/data/remote-data';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { Location } from '@angular/common';
+import { SignpostingDataService } from 'src/app/core/data/signposting-data.service';
+import { ServerResponseService } from 'src/app/core/services/server-response.service';
 
 @Component({
   selector: 'ds-bitstream-download-page',
@@ -36,8 +38,14 @@ export class BitstreamDownloadPageComponent implements OnInit {
     private fileService: FileService,
     private hardRedirectService: HardRedirectService,
     private location: Location,
+    private signpostginDataService: SignpostingDataService,
+    private responseService: ServerResponseService
   ) {
-
+    this.route.params.subscribe(params => {
+      this.signpostginDataService.getLinksets(params.id).pipe(take(1)).subscribe(linksets => {
+        this.responseService.setLinksetsHeader(linksets);
+      });
+    });
   }
 
   back(): void {
