@@ -2,10 +2,12 @@ import { Component, Input } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of as observableOf } from 'rxjs';
 import { AccessStatusObject } from './access-status.model';
-import { hasValue } from '../../empty.util';
+import { hasValue } from '../../../../empty.util';
 import { environment } from 'src/environments/environment';
-import { Item } from 'src/app/core/shared/item.model';
 import { AccessStatusDataService } from 'src/app/core/data/access-status-data.service';
+import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
+import { Item } from '../../../../../core/shared/item.model';
+import { ITEM } from '../../../../../core/shared/item.resource-type';
 
 @Component({
   selector: 'ds-access-status-badge',
@@ -16,7 +18,7 @@ import { AccessStatusDataService } from 'src/app/core/data/access-status-data.se
  */
 export class AccessStatusBadgeComponent {
 
-  @Input() item: Item;
+  @Input() object: DSpaceObject;
   accessStatus$: Observable<string>;
 
   /**
@@ -33,15 +35,17 @@ export class AccessStatusBadgeComponent {
 
   ngOnInit(): void {
     this.showAccessStatus = environment.item.showAccessStatuses;
-    if (!this.showAccessStatus || this.item == null) {
+    if (this.object.type.toString() !== ITEM.value || !this.showAccessStatus || this.object == null) {
       // Do not show the badge if the feature is inactive or if the item is null.
       return;
     }
-    if (this.item.accessStatus == null) {
+
+    const item = this.object as Item;
+    if (item.accessStatus == null) {
       // In case the access status has not been loaded, do it individually.
-      this.item.accessStatus = this.accessStatusDataService.findAccessStatusFor(this.item);
+      item.accessStatus = this.accessStatusDataService.findAccessStatusFor(item);
     }
-    this.accessStatus$ = this.item.accessStatus.pipe(
+    this.accessStatus$ = item.accessStatus.pipe(
       map((accessStatusRD) => {
         if (accessStatusRD.statusCode !== 401 && hasValue(accessStatusRD.payload)) {
           return accessStatusRD.payload;

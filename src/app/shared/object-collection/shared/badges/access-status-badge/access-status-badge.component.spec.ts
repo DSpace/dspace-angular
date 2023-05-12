@@ -1,10 +1,10 @@
-import { Item } from '../../../core/shared/item.model';
+import { Item } from '../../../../../core/shared/item.model';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { TruncatePipe } from '../../utils/truncate.pipe';
+import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AccessStatusBadgeComponent } from './access-status-badge.component';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { By } from '@angular/platform-browser';
 import { AccessStatusObject } from './access-status.model';
 import { AccessStatusDataService } from 'src/app/core/data/access-status-data.service';
@@ -50,7 +50,8 @@ describe('ItemAccessStatusBadgeComponent', () => {
     });
 
     item = Object.assign(new Item(), {
-      uuid: 'item-uuid'
+      uuid: 'item-uuid',
+      type: 'item'
     });
   }
 
@@ -69,7 +70,7 @@ describe('ItemAccessStatusBadgeComponent', () => {
     environment.item.showAccessStatuses = true;
     fixture = TestBed.createComponent(AccessStatusBadgeComponent);
     component = fixture.componentInstance;
-    component.item = item;
+    component.object = item;
     fixture.detectChanges();
     environment.item.showAccessStatuses = false;
   }
