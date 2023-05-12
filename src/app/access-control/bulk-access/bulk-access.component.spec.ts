@@ -14,7 +14,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 
-fdescribe('BulkAccessComponent', () => {
+describe('BulkAccessComponent', () => {
   let component: BulkAccessComponent;
   let fixture: ComponentFixture<BulkAccessComponent>;
   let bulkAccessControlService: any;

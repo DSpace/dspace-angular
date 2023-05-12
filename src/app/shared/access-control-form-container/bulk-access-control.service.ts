@@ -1,8 +1,19 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
 import { AccessControlFormState } from './access-control-form-container.component';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { RemoteData } from '../../core/data/remote-data';
+import { Process } from '../../process-page/processes/process.model';
+import { isNotEmpty } from '../empty.util';
+import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
+import { NotificationsService } from '../notifications/notifications.service';
 
 export interface BulkAccessPayload {
   state: AccessControlFormState;
@@ -12,7 +23,14 @@ export interface BulkAccessPayload {
 
 @Injectable({ providedIn: 'root' })
 export class BulkAccessControlService {
-  constructor(private scriptService: ScriptDataService) {}
+  constructor(
+    private notificationsService: NotificationsService,
+    private router: Router,
+    private scriptService: ScriptDataService,
+    private translationService: TranslateService
+  ) {
+
+  }
 
   createPayloadFile(payload: BulkAccessPayload) {
     const content = convertToBulkAccessControlFileModel(payload);
@@ -26,19 +44,37 @@ export class BulkAccessControlService {
     });
 
     const url = URL.createObjectURL(file);
-    window.open(url, '_blank'); // remove this later
 
     return { url, file };
   }
 
-  executeScript(uuids: string[], file: File) {
+  executeScript(uuids: string[], file: File): Observable<boolean> {
     console.log('execute', { uuids, file });
 
     const params: ProcessParameter[] = [
-      { name: 'uuid', value: uuids.join(',') },
+      { name: '-u', value: uuids.join(',') },
+      { name: '-f', value: file.name }
     ];
 
-    return this.scriptService.invoke('bulk-access-control', params, [file]);
+    return this.scriptService.invoke('bulk-access-control', params, [file]).pipe(
+      getFirstCompletedRemoteData(),
+      map((rd: RemoteData<Process>) => {
+        if (rd.hasSucceeded) {
+          const title = this.translationService.get('process.new.notification.success.title');
+          const content = this.translationService.get('process.new.notification.success.content');
+          this.notificationsService.success(title, content);
+          if (isNotEmpty(rd.payload)) {
+            this.router.navigateByUrl(getProcessDetailRoute(rd.payload.processId));
+          }
+          return true;
+        } else {
+          const title = this.translationService.get('process.new.notification.error.title');
+          const content = this.translationService.get('process.new.notification.error.content');
+          this.notificationsService.error(title, content);
+          return false;
+        }
+      })
+    );
   }
 }
 
