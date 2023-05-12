@@ -77,8 +77,9 @@ describe('BulkAccessControlService', () => {
       const uuids = ['123', '456'];
       const file = new File(['test'], 'data.json', { type: 'application/json' });
       const expectedParams: ProcessParameter[] = [
-        { name: '-u', value: '123,456' },
-        { name: '-f', value: 'data.json' }
+        { name: '-f', value: 'data.json' },
+        { name: '-u', value: '123' },
+        { name: '-u', value: '456' },
       ];
 
       // @ts-ignore

@@ -52,9 +52,11 @@ export class BulkAccessControlService {
     console.log('execute', { uuids, file });
 
     const params: ProcessParameter[] = [
-      { name: '-u', value: uuids.join(',') },
       { name: '-f', value: file.name }
     ];
+    uuids.forEach((uuid) => {
+      params.push({ name: '-u', value: uuid })
+    });
 
     return this.scriptService.invoke('bulk-access-control', params, [file]).pipe(
       getFirstCompletedRemoteData(),
