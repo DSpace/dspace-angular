@@ -14,7 +14,7 @@ jQuery(document).ready(
             if (instance.repoPath.charAt(instance.repoPath.length - 1) !== '/') {
                 instance.repoPath = instance.repoPath + '/';
             }
-            instance.target = instance.host + instance.port + instance.repoPath;
+            instance.target = instance.repoPath;
 
             //In order to use the discojuice store (improve score of used IDPs)
             //Works only with "verified" SPs - ie. ufal-point, displays error on ufal-point-dev
@@ -34,7 +34,8 @@ jQuery(document).ready(
                     '<p style="margin: 5px; color: #607890; text-decoration: underline;"><a href="' + instance.target + 'forgot">Forgot your password?</a></p>' +
                     '<p  style="" ><input type="submit" style="margin: 20px 2px" name="submit" value="Sign in" /></p>' +
                     '</form>';
-            instance.target = instance.target + "shibboleth-login";
+	    // XXX there should be a better way then hardcoding this
+            instance.target = instance.target + "authn/shibboleth";
             return instance;
         })();
         if (!("aai" in window)) {
