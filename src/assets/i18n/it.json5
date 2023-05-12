@@ -1073,7 +1073,7 @@
   "bitstream.edit.form.embargo.label": "Embargo fino a data specifica",
 
   // "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
-  "bitstream.edit.form.fileName.hint": "Modificare il nome del file per il bitstream. Si noti che questo cambierà il display bitstream URL , i vecchi collegamenti verranno comunque risolti finché il sequence ID non cambierà  .",
+  "bitstream.edit.form.fileName.hint": "Modificare il nome del file per il bitstream. Si noti che questo cambierà il display bitstream URL , i vecchi collegamenti verranno comunque risolti finché il sequence ID non cambierà  .",
 
   // "bitstream.edit.form.fileName.label": "Filename",
   "bitstream.edit.form.fileName.label": "Filename",
@@ -1134,7 +1134,7 @@
   "bitstream.edit.title": "Modifica bitstream",
 
   // "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
-  "bitstream-request-a-copy.alert.canDownload1": "Hai già accesso a questo file. Se si desidera scaricare il file, fare clic su",
+  "bitstream-request-a-copy.alert.canDownload1": "Hai già accesso a questo file. Se si desidera scaricare il file, fare clic su",
 
   // "bitstream-request-a-copy.alert.canDownload2": "here",
   "bitstream-request-a-copy.alert.canDownload2": "qui",
@@ -2936,23 +2936,23 @@
 
   // "info.feedback.create.success": "Feedback Sent Successfully!",
   // TODO Source message changed - Revise the translation
-  "info.feedback.create.success" : "Feedback inviato con successo!",
+  "info.feedback.create.success": "Feedback inviato con successo!",
 
   // "info.feedback.error.email.required": "A valid email address is required",
   // TODO Source message changed - Revise the translation
-  "info.feedback.error.email.required" : "Inserire un un indirizzo email valido",
+  "info.feedback.error.email.required": "Inserire un un indirizzo email valido",
 
   // "info.feedback.error.message.required": "A comment is required",
   // TODO Source message changed - Revise the translation
-  "info.feedback.error.message.required" : "Inserire un commento",
+  "info.feedback.error.message.required": "Inserire un commento",
 
   // "info.feedback.page-label": "Page",
   // TODO Source message changed - Revise the translation
-  "info.feedback.page-label" : "Pagina",
+  "info.feedback.page-label": "Pagina",
 
   // "info.feedback.page_help": "Tha page related to your feedback",
   // TODO Source message changed - Revise the translation
-  "info.feedback.page_help" : "In questa pagina trovi i tuoi feedback",
+  "info.feedback.page_help": "In questa pagina trovi i tuoi feedback",
 
 
 
@@ -3900,30 +3900,30 @@
 
   // "item.preview.oaire.citation.issue": "Issue",
   // TODO Source message changed - Revise the translation
-  "item.preview.oaire.citation.issue" : "Fascicolo",
+  "item.preview.oaire.citation.issue": "Fascicolo",
 
   // "item.preview.oaire.citation.volume": "Volume",
   // TODO Source message changed - Revise the translation
-  "item.preview.oaire.citation.volume" : "Volume",
+  "item.preview.oaire.citation.volume": "Volume",
 
   // "item.preview.dc.relation.issn": "ISSN",
   // TODO Source message changed - Revise the translation
-  "item.preview.dc.relation.issn" : "ISSN",
+  "item.preview.dc.relation.issn": "ISSN",
 
   // "item.preview.dc.identifier.isbn": "ISBN",
   // TODO Source message changed - Revise the translation
-  "item.preview.dc.identifier.isbn" : "ISBN",
+  "item.preview.dc.identifier.isbn": "ISBN",
 
   // "item.preview.dc.identifier": "Identifier:",
   "item.preview.dc.identifier": "Identificativo:",
 
   // "item.preview.dc.relation.ispartof": "Journal or Serie",
   // TODO Source message changed - Revise the translation
-  "item.preview.dc.relation.ispartof" : "Periodico or Serie",
+  "item.preview.dc.relation.ispartof": "Periodico or Serie",
 
   // "item.preview.dc.identifier.doi": "DOI",
   // TODO Source message changed - Revise the translation
-  "item.preview.dc.identifier.doi" : "DOI",
+  "item.preview.dc.identifier.doi": "DOI",
 
   // "item.preview.person.familyName": "Surname:",
   "item.preview.person.familyName": "Cognome:",
@@ -4071,15 +4071,15 @@
 
   // "item.version.create.notification.success": "New version has been created with version number {{version}}",
   // TODO Source message changed - Revise the translation
-  "item.version.create.notification.success" : "È stata creata una nuova versione con il numero {{version}}",
+  "item.version.create.notification.success": "È stata creata una nuova versione con il numero {{version}}",
 
   // "item.version.create.notification.failure": "New version has not been created",
   // TODO Source message changed - Revise the translation
-  "item.version.create.notification.failure" : "Non è stata creata una nuova versione",
+  "item.version.create.notification.failure": "Non è stata creata una nuova versione",
 
   // "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
   // TODO Source message changed - Revise the translation
-  "item.version.create.notification.inProgress" : "Non è possibile creare una nuova versione perchè c'è già una submission in progress nella cronologia delle versioni",
+  "item.version.create.notification.inProgress": "Non è possibile creare una nuova versione perchè c'è già una submission in progress nella cronologia delle versioni",
 
 
   // "item.version.delete.modal.header": "Delete version",
@@ -4102,20 +4102,20 @@
 
   // "item.version.delete.notification.success": "Version number {{version}} has been deleted",
   // TODO Source message changed - Revise the translation
-  "item.version.delete.notification.success" : "La versione numero {{version}} è stata eliminata",
+  "item.version.delete.notification.success": "La versione numero {{version}} è stata eliminata",
 
   // "item.version.delete.notification.failure": "Version number {{version}} has not been deleted",
   // TODO Source message changed - Revise the translation
-  "item.version.delete.notification.failure" : "La versione numero {{version}} non è stata eliminata",
+  "item.version.delete.notification.failure": "La versione numero {{version}} non è stata eliminata",
 
 
   // "item.version.edit.notification.success": "The summary of version number {{version}} has been changed",
   // TODO Source message changed - Revise the translation
-  "item.version.edit.notification.success" : "Il riepilogo della versione numero {{version}} è stato modificato",
+  "item.version.edit.notification.success": "Il riepilogo della versione numero {{version}} è stato modificato",
 
   // "item.version.edit.notification.failure": "The summary of version number {{version}} has not been changed",
   // TODO Source message changed - Revise the translation
-  "item.version.edit.notification.failure" : "Il riepilogo della versione numero {{version}} non è stato modificato",
+  "item.version.edit.notification.failure": "Il riepilogo della versione numero {{version}} non è stato modificato",
 
 
 
@@ -7844,7 +7844,7 @@
 
   // "researcher.profile.action.processing": "Processing...",
   // TODO Source message changed - Revise the translation
-  "researcher.profile.action.processing" : "Elaborazione...",
+  "researcher.profile.action.processing": "Elaborazione...",
 
   // "researcher.profile.associated": "Researcher profile associated",
   "researcher.profile.associated": "Profilo ricercatore associato",
@@ -7878,11 +7878,11 @@
 
   // "researcher.profile.private.visibility": "PRIVATE",
   // TODO Source message changed - Revise the translation
-  "researcher.profile.private.visibility" : "PRIVATO",
+  "researcher.profile.private.visibility": "PRIVATO",
 
   // "researcher.profile.public.visibility": "PUBLIC",
   // TODO Source message changed - Revise the translation
-  "researcher.profile.public.visibility" : "PUBBLICO",
+  "researcher.profile.public.visibility": "PUBBLICO",
 
   // "researcher.profile.status": "Status:",
   "researcher.profile.status": "Stato:",
@@ -7892,19 +7892,19 @@
 
   // "researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
   // TODO Source message changed - Revise the translation
-  "researcherprofile.error.claim.body" : "Si è verificato un errore durante l'associazione del profilo, prova più tardi",
+  "researcherprofile.error.claim.body": "Si è verificato un errore durante l'associazione del profilo, prova più tardi",
 
   // "researcherprofile.error.claim.title": "Error",
   // TODO Source message changed - Revise the translation
-  "researcherprofile.error.claim.title" : "Errore",
+  "researcherprofile.error.claim.title": "Errore",
 
   // "researcherprofile.success.claim.body": "Profile claimed with success",
   // TODO Source message changed - Revise the translation
-  "researcherprofile.success.claim.body" : "Profilo associato con successo",
+  "researcherprofile.success.claim.body": "Profilo associato con successo",
 
   // "researcherprofile.success.claim.title": "Success",
   // TODO Source message changed - Revise the translation
-  "researcherprofile.success.claim.title" : "Successo",
+  "researcherprofile.success.claim.title": "Successo",
 
   // "person.page.orcid.create": "Create an ORCID ID",
   "person.page.orcid.create": "Creare un ID ORCID",
@@ -7914,7 +7914,7 @@
 
   // "person.page.orcid.grant-authorizations": "Grant authorizations",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.grant-authorizations" : "Concedere autorizzazioni",
+  "person.page.orcid.grant-authorizations": "Concedere autorizzazioni",
 
   // "person.page.orcid.link": "Connect to ORCID ID",
   "person.page.orcid.link": "Connettersi all'ORCID ID",
@@ -7963,55 +7963,55 @@
 
   // "person.page.orcid.sync-profile.affiliation": "Affiliation",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.sync-profile.affiliation" : "Affiliazione",
+  "person.page.orcid.sync-profile.affiliation": "Affiliazione",
 
   // "person.page.orcid.sync-profile.biographical": "Biographical data",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.sync-profile.biographical" : "Riferimenti biografici",
+  "person.page.orcid.sync-profile.biographical": "Riferimenti biografici",
 
   // "person.page.orcid.sync-profile.education": "Education",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.sync-profile.education" : "Educazione",
+  "person.page.orcid.sync-profile.education": "Educazione",
 
   // "person.page.orcid.sync-profile.identifiers": "Identifiers",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.sync-profile.identifiers" : "Identificativi",
+  "person.page.orcid.sync-profile.identifiers": "Identificativi",
 
   // "person.page.orcid.sync-fundings.all": "All fundings",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.sync-fundings.all" : "Tutti i finanziamenti",
+  "person.page.orcid.sync-fundings.all": "Tutti i finanziamenti",
 
   // "person.page.orcid.sync-fundings.mine": "My fundings",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.sync-fundings.mine" : "I miei finanziamenti",
+  "person.page.orcid.sync-fundings.mine": "I miei finanziamenti",
 
   // "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.sync-fundings.my_selected" : "Finanziamenti selezionati",
+  "person.page.orcid.sync-fundings.my_selected": "Finanziamenti selezionati",
 
   // "person.page.orcid.sync-fundings.disabled": "Disabled",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.sync-fundings.disabled" : "Disabilitato",
+  "person.page.orcid.sync-fundings.disabled": "Disabilitato",
 
   // "person.page.orcid.sync-publications.all": "All publications",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.sync-publications.all" : "Tutte le pubblicazioni",
+  "person.page.orcid.sync-publications.all": "Tutte le pubblicazioni",
 
   // "person.page.orcid.sync-publications.mine": "My publications",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.sync-publications.mine" : "Le mie pubblicazioni",
+  "person.page.orcid.sync-publications.mine": "Le mie pubblicazioni",
 
   // "person.page.orcid.sync-publications.my_selected": "Selected publications",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.sync-publications.my_selected" : "Pubblicazioni selezionate",
+  "person.page.orcid.sync-publications.my_selected": "Pubblicazioni selezionate",
 
   // "person.page.orcid.sync-publications.disabled": "Disabled",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.sync-publications.disabled" : "Disabilitato",
+  "person.page.orcid.sync-publications.disabled": "Disabilitato",
 
   // "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.sync-queue.discard" : "Scarta la modifica e non sincronizzarla con il registro ORCID.",
+  "person.page.orcid.sync-queue.discard": "Scarta la modifica e non sincronizzarla con il registro ORCID.",
 
   // "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
   "person.page.orcid.sync-queue.discard.error": "L'eliminazione del record della coda ORCID non è riuscita",
@@ -8024,15 +8024,15 @@
 
   // "person.page.orcid.sync-queue.table.header.type": "Type",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.sync-queue.table.header.type" : "Tipo",
+  "person.page.orcid.sync-queue.table.header.type": "Tipo",
 
   // "person.page.orcid.sync-queue.table.header.description": "Description",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.sync-queue.table.header.description" : "Descrizione",
+  "person.page.orcid.sync-queue.table.header.description": "Descrizione",
 
   // "person.page.orcid.sync-queue.table.header.action": "Action",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.sync-queue.table.header.action" : "Azione",
+  "person.page.orcid.sync-queue.table.header.action": "Azione",
 
   // "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
   "person.page.orcid.sync-queue.description.affiliation": "Affiliazioni",
@@ -8099,7 +8099,7 @@
 
   // "person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.sync-queue.send" : "Sincronizza con il registro ORCID",
+  "person.page.orcid.sync-queue.send": "Sincronizza con il registro ORCID",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
   "person.page.orcid.sync-queue.send.unauthorized-error.title": "L'immissione a ORCID non è riuscita a causa di autorizzazioni mancanti.",
@@ -8155,7 +8155,7 @@
 
   // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
   // TODO Source message changed - Revise the translation
-  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "La data di pubblicazione deve partire dal 1900",
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "La data di pubblicazione deve partire dal 1900",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
   "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "L'organizzazione da inviare richiede un indirizzo",
