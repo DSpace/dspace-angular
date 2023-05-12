@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 import { type } from '../../shared/ngrx/type';
 
@@ -8,7 +9,6 @@ export const RouterActionTypes = {
   ROUTE_UPDATE: type('dspace/core/router/ROUTE_UPDATE'),
 };
 
-/* tslint:disable:max-classes-per-file */
 /**
  * An ngrx action to be fired when the route is updated
  * Note that, contrary to the router-store.ROUTER_NAVIGATION action,
@@ -19,4 +19,3 @@ export class RouteUpdateAction implements Action {
   type = RouterActionTypes.ROUTE_UPDATE;
 }
 
-/* tslint:enable:max-classes-per-file */
