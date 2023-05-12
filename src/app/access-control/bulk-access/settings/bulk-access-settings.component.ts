@@ -28,7 +28,7 @@ export class BulkAccessSettingsComponent {
    * This will also reset the state of the child components (bitstream and item access)
    */
   reset() {
-    this.controlForm.reset()
+    this.controlForm.reset();
   }
 
 }

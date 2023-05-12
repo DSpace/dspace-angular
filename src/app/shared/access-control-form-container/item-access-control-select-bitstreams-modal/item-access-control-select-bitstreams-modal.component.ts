@@ -13,7 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { hasValue } from '../../empty.util';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
-export const ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID = 'item-access-control-select-bitstreams'
+export const ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID = 'item-access-control-select-bitstreams';
 
 @Component({
   selector: 'ds-item-access-control-select-bitstreams-modal',

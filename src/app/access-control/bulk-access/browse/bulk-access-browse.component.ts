@@ -69,7 +69,7 @@ export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
         distinctUntilChanged(),
         map((list: SelectableListState) => this.generatePaginatedListBySelectedElements(list))
       ).subscribe(this.objectsSelected$)
-    )
+    );
   }
 
   pageNext() {
@@ -87,7 +87,7 @@ export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
   private calculatePageCount(pageSize, totalCount = 0) {
     // we suppose that if we have 0 items we want 1 empty page
     return totalCount < pageSize ? 1 : Math.ceil(totalCount / pageSize);
-  };
+  }
 
   /**
    * Generate The RemoteData object containing the list of the selected elements
@@ -114,6 +114,6 @@ export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
-    this.selectableListService.deselectAll(this.listId)
+    this.selectableListService.deselectAll(this.listId);
   }
 }

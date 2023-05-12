@@ -26,7 +26,7 @@ export class BulkAccessComponent implements OnInit {
   /**
    * The selection list id
    */
-  listId: string = 'bulk-access-list';
+  listId = 'bulk-access-list';
 
   /**
    * The list of the objects already selected
@@ -58,7 +58,7 @@ export class BulkAccessComponent implements OnInit {
         distinctUntilChanged(),
         map((list: SelectableListState) => this.generateIdListBySelectedElements(list))
       ).subscribe(this.objectsSelected$)
-    )
+    );
   }
 
   canExport(): boolean {
@@ -70,7 +70,7 @@ export class BulkAccessComponent implements OnInit {
    * This will also reset the state of the child components (bitstream and item access)
    */
   reset(): void {
-    this.settings.reset()
+    this.settings.reset();
   }
 
   /**

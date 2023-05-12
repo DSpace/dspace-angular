@@ -24,38 +24,38 @@ fdescribe('BulkAccessComponent', () => {
   const bulkAccessControlServiceMock = jasmine.createSpyObj('bulkAccessControlService', ['createPayloadFile', 'executeScript']);
 
   const mockFormState = {
-    "bitstream": [],
-    "item": [
+    'bitstream': [],
+    'item': [
       {
-        "name": "embargo",
-        "startDate": {
-          "year": 2026,
-          "month": 5,
-          "day": 31
+        'name': 'embargo',
+        'startDate': {
+          'year': 2026,
+          'month': 5,
+          'day': 31
         },
-        "endDate": null
+        'endDate': null
       }
     ],
-    "state": {
-      "item": {
-        "toggleStatus": true,
-        "accessMode": "replace"
+    'state': {
+      'item': {
+        'toggleStatus': true,
+        'accessMode': 'replace'
       },
-      "bitstream": {
-        "toggleStatus": false,
-        "accessMode": "",
-        "changesLimit": "",
-        "selectedBitstreams": []
+      'bitstream': {
+        'toggleStatus': false,
+        'accessMode': '',
+        'changesLimit': '',
+        'selectedBitstreams': []
       }
     }
   };
 
   const mockFile = {
-    "uuids": [
+    'uuids': [
       '1234', '5678'
     ],
-    "file": {  }
-  }
+    'file': {  }
+  };
 
   const mockSettings: any = jasmine.createSpyObj('AccessControlFormContainerComponent',  {
     getValue: jasmine.createSpy('getValue'),

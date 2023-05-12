@@ -69,10 +69,10 @@ describe('BulkAccessBrowseComponent', () => {
 
   it('should have an initial remote data with a paginated list as value', () => {
     const list = buildPaginatedList(new PageInfo({
-      "elementsPerPage": 5,
-      "totalElements": 2,
-      "totalPages": 1,
-      "currentPage": 1
+      'elementsPerPage': 5,
+      'totalElements': 2,
+      'totalPages': 1,
+      'currentPage': 1
     }), [selected1, selected2]) ;
     const rd = createSuccessfulRemoteDataObject(list);
 

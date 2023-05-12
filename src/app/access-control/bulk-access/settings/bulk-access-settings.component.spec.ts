@@ -8,28 +8,28 @@ describe('BulkAccessSettingsComponent', () => {
   let component: BulkAccessSettingsComponent;
   let fixture: ComponentFixture<BulkAccessSettingsComponent>;
   const mockFormState = {
-    "bitstream": [],
-    "item": [
+    'bitstream': [],
+    'item': [
       {
-        "name": "embargo",
-        "startDate": {
-          "year": 2026,
-          "month": 5,
-          "day": 31
+        'name': 'embargo',
+        'startDate': {
+          'year': 2026,
+          'month': 5,
+          'day': 31
         },
-        "endDate": null
+        'endDate': null
       }
     ],
-    "state": {
-      "item": {
-        "toggleStatus": true,
-        "accessMode": "replace"
+    'state': {
+      'item': {
+        'toggleStatus': true,
+        'accessMode': 'replace'
       },
-      "bitstream": {
-        "toggleStatus": false,
-        "accessMode": "",
-        "changesLimit": "",
-        "selectedBitstreams": []
+      'bitstream': {
+        'toggleStatus': false,
+        'accessMode': '',
+        'changesLimit': '',
+        'selectedBitstreams': []
       }
     }
   };
@@ -68,7 +68,7 @@ describe('BulkAccessSettingsComponent', () => {
 
   it('should return the correct form value', () => {
     const expectedValue = mockFormState;
-    (component.controlForm as any).getFormValue.and.returnValue(mockFormState)
+    (component.controlForm as any).getFormValue.and.returnValue(mockFormState);
     const actualValue = component.getValue();
     expect(actualValue).toEqual(expectedValue);
   });
