@@ -23,9 +23,6 @@ export class FlatBrowseDefinition extends CacheableObject implements BrowseDefin
   id: string;
 
   @autoserialize
-  metadataBrowse: boolean;
-
-  @autoserialize
   sortOptions: SortOption[];
 
   @autoserializeAs('order')

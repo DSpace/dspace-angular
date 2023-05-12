@@ -170,6 +170,7 @@ import { OrcidHistory } from './orcid/model/orcid-history.model';
 import { OrcidAuthService } from './orcid/orcid-auth.service';
 import { VocabularyDataService } from './submission/vocabularies/vocabulary.data.service';
 import { VocabularyEntryDetailsDataService } from './submission/vocabularies/vocabulary-entry-details.data.service';
+import { HierarchicalBrowseDefinition } from './shared/hierarchical-browse-definition.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -325,6 +326,7 @@ export const models =
     AuthStatus,
     BrowseEntry,
     FlatBrowseDefinition,
+    HierarchicalBrowseDefinition,
     ClaimedTask,
     TaskObject,
     PoolTask,
