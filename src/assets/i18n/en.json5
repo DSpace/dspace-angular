@@ -2291,6 +2291,7 @@
   "item.edit.tabs.curate.head": "Curate",
 
   "item.edit.tabs.curate.title": "Item Edit - Curate",
+  "item.edit.curate.title": "Curate Item: {{item}}",
 
   "item.edit.tabs.metadata.head": "Metadata",
 
@@ -3145,6 +3146,9 @@
   "nav.profile": "Profile",
 
   "nav.search": "Search",
+
+  "nav.search.button": "Submit search",
+
 
   "nav.statistics.header": "Statistics",
 
