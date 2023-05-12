@@ -31,7 +31,7 @@ export class BrowseBySwitcherComponent implements OnInit {
    */
   ngOnInit(): void {
     this.browseByComponent = this.route.data.pipe(
-      map((data: { browseDefinition: FlatBrowseDefinition }) => this.getComponentByBrowseByType(data.browseDefinition.dataType, this.themeService.getThemeName()))
+      map((data: { browseDefinition: FlatBrowseDefinition }) => this.getComponentByBrowseByType(data.browseDefinition.getRenderType(), this.themeService.getThemeName()))
     );
   }
 

@@ -15,13 +15,6 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
         resolve: { breadcrumb: BrowseByDSOBreadcrumbResolver },
         children: [
           {
-            path: 'srsc',
-            component: ThemedBrowseByTaxonomyPageComponent,
-            canActivate: [BrowseByGuard],
-            resolve: { breadcrumb: I18nBreadcrumbResolver },
-            data: { title: 'browse.title.page', breadcrumbKey: 'browse.metadata.srsc' }
-          },
-          {
             path: ':id',
             component: ThemedBrowseBySwitcherComponent,
             canActivate: [BrowseByGuard],

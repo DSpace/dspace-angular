@@ -10,7 +10,9 @@ import { DSOResponseParsingService } from './dso-response-parsing.service';
 /**
  * A ResponseParsingService used to parse RawRestResponse coming from the REST API to a BrowseDefinition object
  */
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+  })
 export class BrowseResponseParsingService extends DSOResponseParsingService {
   protected objectCache: ObjectCacheService;
   protected toCache: boolean;
