@@ -79,6 +79,8 @@ import { FormService } from '../../form.service';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { FormBuilderService } from '../form-builder.service';
 import { NgxMaskModule } from 'ngx-mask';
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
@@ -145,12 +147,14 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     new DynamicListCheckboxGroupModel({
       id: 'checkboxList',
       vocabularyOptions: vocabularyOptions,
-      repeatable: true
+      repeatable: true,
+      required: false,
     }),
     new DynamicListRadioGroupModel({
       id: 'radioList',
       vocabularyOptions: vocabularyOptions,
-      repeatable: false
+      repeatable: false,
+      required: false,
     }),
     new DynamicRelationGroupModel({
       submissionId: '1234',
@@ -230,7 +234,8 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
             findById: () => observableOf(createSuccessfulRemoteDataObject(testWSI))
           }
         },
-        { provide: NgZone, useValue: new NgZone({}) }
+        { provide: NgZone, useValue: new NgZone({}) },
+        { provide: APP_CONFIG, useValue: environment }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents().then(() => {

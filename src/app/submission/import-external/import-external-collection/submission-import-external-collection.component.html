@@ -6,11 +6,10 @@
   </div>
   <div class="modal-body">
     <ds-themed-loading *ngIf="isLoading()"></ds-themed-loading>
-    <ds-collection-dropdown [ngClass]="{'d-none': isLoading()}"
+    <ds-themed-collection-dropdown [ngClass]="{'d-none': isLoading()}"
                             (selectionChange)="selectObject($event)"
                             (searchComplete)="searchComplete()"
-                            (theOnlySelectable)="theOnlySelectable($event)"
                             [entityType]="entityType">
-    </ds-collection-dropdown>
+    </ds-themed-collection-dropdown>
   </div>
 </div>

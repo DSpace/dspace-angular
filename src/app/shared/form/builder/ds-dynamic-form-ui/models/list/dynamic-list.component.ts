@@ -1,13 +1,12 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-
+import { FormGroup, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import {
   DynamicCheckboxModel,
   DynamicFormControlComponent,
   DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
-import { findKey } from 'lodash';
+import findKey from 'lodash/findKey';
 
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
@@ -110,6 +109,9 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
   protected setOptionsFromVocabulary() {
     if (this.model.vocabularyOptions.name && this.model.vocabularyOptions.name.length > 0) {
       const listGroup = this.group.controls[this.model.id] as FormGroup;
+      if (this.model.repeatable && this.model.required) {
+        listGroup.addValidators(this.hasAtLeastOneVocabularyEntry());
+      }
       const pageInfo: PageInfo = new PageInfo({
         elementsPerPage: 9999, currentPage: 1
       } as PageInfo);
@@ -121,7 +123,7 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
         let tempList: ListItem[] = [];
         this.optionsList = entries.page;
         // Make a list of available options (checkbox/radio) and split in groups of 'model.groupLength'
-        entries.page.forEach((option, key) => {
+        entries.page.forEach((option: VocabularyEntry, key: number) => {
           const value = option.authority || option.value;
           const checked: boolean = isNotEmpty(findKey(
             this.model.value,
@@ -154,6 +156,15 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
       });
 
     }
+  }
+
+  /**
+   * Checks if at least one {@link VocabularyEntry} has been selected.
+   */
+  hasAtLeastOneVocabularyEntry(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      return control && control.value && Object.values(control.value).find((checked: boolean) => checked === true) ? null : this.model.errorMessages;
+    };
   }
 
 }

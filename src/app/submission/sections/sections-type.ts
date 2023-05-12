@@ -7,4 +7,5 @@ export enum SectionsType {
   collection = 'collection',
   AccessesCondition = 'accessCondition',
   SherpaPolicies = 'sherpaPolicy',
+  Identifiers = 'identifiers',
 }

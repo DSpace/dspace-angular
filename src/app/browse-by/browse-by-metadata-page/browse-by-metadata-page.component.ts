@@ -15,7 +15,11 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { map } from 'rxjs/operators';
+import { filter, map, mergeMap } from 'rxjs/operators';
+import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { Bitstream } from '../../core/shared/bitstream.model';
+import { Collection } from '../../core/shared/collection.model';
+import { Community } from '../../core/shared/community.model';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 
 export const BBM_PAGINATION_ID = 'bbm';
@@ -47,6 +51,11 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
    * The current Community or Collection we're browsing metadata/items in
    */
   parent$: Observable<RemoteData<DSpaceObject>>;
+
+  /**
+   * The logo of the current Community or Collection
+   */
+  logo$: Observable<RemoteData<Bitstream>>;
 
   /**
    * The pagination config used to display the values
@@ -142,8 +151,17 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
           this.browseId = params.id || this.defaultBrowseId;
           this.authority = params.authority;
-          this.value = +params.value || params.value || '';
-          this.startsWith = +params.startsWith || params.startsWith;
+
+          if (typeof params.value === 'string'){
+            this.value = params.value.trim();
+          } else {
+            this.value = '';
+          }
+
+          if (typeof params.startsWith === 'string'){
+            this.startsWith = params.startsWith.trim();
+          }
+
           if (isNotEmpty(this.value)) {
             this.updatePageWithItems(
               browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.fetchThumbnails), this.value, this.authority);
@@ -151,6 +169,7 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
             this.updatePage(browseParamsToOptions(params, currentPage, currentSort, this.browseId, false));
           }
           this.updateParent(params.scope);
+          this.updateLogo();
         }));
     this.updateStartsWithTextOptions();
 
@@ -196,8 +215,27 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
    */
   updateParent(scope: string) {
     if (hasValue(scope)) {
-      this.parent$ = this.dsoService.findById(scope).pipe(
+      const linksToFollow = () => {
+        return [followLink('logo')];
+      };
+      this.parent$ = this.dsoService.findById(scope,
+        true,
+        true,
+        ...linksToFollow() as FollowLinkConfig<DSpaceObject>[]).pipe(
         getFirstSucceededRemoteData()
+      );
+    }
+  }
+
+  /**
+   * Update the parent Community or Collection logo
+   */
+  updateLogo() {
+    if (hasValue(this.parent$)) {
+      this.logo$ = this.parent$.pipe(
+        map((rd: RemoteData<Collection | Community>) => rd.payload),
+        filter((collectionOrCommunity: Collection | Community) => hasValue(collectionOrCommunity.logo)),
+        mergeMap((collectionOrCommunity: Collection | Community) => collectionOrCommunity.logo)
       );
     }
   }
@@ -276,7 +314,7 @@ export function browseParamsToOptions(params: any,
     metadata,
     paginationConfig,
     sortConfig,
-    +params.startsWith || params.startsWith,
+    params.startsWith,
     params.scope,
     fetchThumbnail
   );

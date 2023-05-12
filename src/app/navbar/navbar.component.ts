@@ -8,6 +8,10 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { MenuID } from '../shared/menu/menu-id.model';
 import { ThemeService } from '../shared/theme-support/theme.service';
+import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../app.reducer';
+import { isAuthenticated } from '../core/auth/selectors';
 
 /**
  * Component representing the public navbar
@@ -25,18 +29,29 @@ export class NavbarComponent extends MenuComponent {
    */
   menuID = MenuID.PUBLIC;
 
+  /**
+   * Whether user is authenticated.
+   * @type {Observable<string>}
+   */
+  public isAuthenticated$: Observable<boolean>;
+
+  public isXsOrSm$: Observable<boolean>;
+
   constructor(protected menuService: MenuService,
     protected injector: Injector,
               public windowService: HostWindowService,
               public browseService: BrowseService,
               public authorizationService: AuthorizationDataService,
               public route: ActivatedRoute,
-              protected themeService: ThemeService
+              protected themeService: ThemeService,
+              private store: Store<AppState>,
   ) {
     super(menuService, injector, authorizationService, route, themeService);
   }
 
   ngOnInit(): void {
     super.ngOnInit();
+    this.isXsOrSm$ = this.windowService.isXsOrSm();
+    this.isAuthenticated$ = this.store.pipe(select(isAuthenticated));
   }
 }

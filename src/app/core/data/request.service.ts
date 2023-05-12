@@ -4,7 +4,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter, map, take, tap } from 'rxjs/operators';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { hasValue, isEmpty, isNotEmpty, hasNoValue } from '../../shared/empty.util';
 import { ObjectCacheEntry } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -255,8 +255,8 @@ export class RequestService {
   /**
    * Convert request Payload to a URL-encoded string
    *
-   * e.g.  uriEncodeBody({param: value, param1: value1})
-   * returns: param=value&param1=value1
+   * e.g.  uriEncodeBody({param: value, param1: value1, param2: [value3, value4]})
+   * returns: param=value&param1=value1&param2=value3&param2=value4
    *
    * @param body
    *    The request Payload to convert
@@ -267,11 +267,19 @@ export class RequestService {
     let queryParams = '';
     if (isNotEmpty(body) && typeof body === 'object') {
       Object.keys(body)
-        .forEach((param) => {
+        .forEach((param: string) => {
           const encodedParam = encodeURIComponent(param);
-          const encodedBody = encodeURIComponent(body[param]);
-          const paramValue = `${encodedParam}=${encodedBody}`;
-          queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
+          if (Array.isArray(body[param])) {
+            for (const element of body[param]) {
+              const encodedBody = encodeURIComponent(element);
+              const paramValue = `${encodedParam}=${encodedBody}`;
+              queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
+            }
+          } else {
+            const encodedBody = encodeURIComponent(body[param]);
+            const paramValue = `${encodedParam}=${encodedBody}`;
+            queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
+          }
         });
     }
     return queryParams;
