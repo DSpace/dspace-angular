@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormControl } from '@angular/forms';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { AccessesConditionOption } from '../../../core/config/models/config-accesses-conditions-options.model';
+import { dateToISOFormat } from '../../date.util';
 
 @Component({
   selector: 'ds-access-control-array-form',
@@ -70,7 +71,11 @@ export class AccessControlArrayFormComponent implements OnInit, OnDestroy {
   getValue() {
     return this.form.value.accessControl
       .filter(x => x.itemName !== null && x.itemName !== '')
-      .map(x => ({ name: x.itemName, startDate: x.startDate || null, endDate: x.endDate || null }));
+      .map(x => ({
+        name: x.itemName,
+        startDate: (x.startDate ? dateToISOFormat(x.startDate) : null),
+        endDate: (x.endDate ? dateToISOFormat(x.endDate) : null)
+      }));
   }
 
   /**
