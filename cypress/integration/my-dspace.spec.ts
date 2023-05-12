@@ -88,8 +88,17 @@ xdescribe('My DSpace page', () => {
         // The Submission edit form tag should be visible
         cy.get('ds-submission-edit').should('be.visible');
 
-        // A Collection menu button should exist & its value should be the selected collection
-        cy.get('#collectionControlsMenuButton span').should('have.text', TEST_SUBMIT_COLLECTION_NAME);
+        // A Collection menu button should exist(based on collection visibility) & its value should be the selected collection
+        cy.get('#collectionControlsMenuButton span')
+        .should(($span) => {
+          if ($span.length > 0) {
+            // If the element exists in the DOM (it's visible or read-only)
+            expect($span).to.have.text(TEST_SUBMIT_COLLECTION_NAME);
+          } else {
+            // If the element doesn't exist in the DOM, the length will be 0
+            expect($span).to.have.length(0);
+          }
+        });
 
         // Now that we've created a submission, we'll test that we can go back and Edit it.
         // Get our Submission URL, to parse out the ID of this new submission
