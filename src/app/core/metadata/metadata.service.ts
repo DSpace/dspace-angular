@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -8,12 +8,12 @@ import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
-  Observable,
-  of as observableOf,
   concat as observableConcat,
-  EMPTY
+  EMPTY,
+  Observable,
+  of as observableOf
 } from 'rxjs';
-import { filter, map, switchMap, take, mergeMap } from 'rxjs/operators';
+import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 
 import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
@@ -25,10 +25,7 @@ import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload
-} from '../shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { RootDataService } from '../data/root-data.service';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 import { BundleDataService } from '../data/bundle-data.service';
@@ -46,6 +43,7 @@ import { AuthorizationDataService } from '../data/feature-authorization/authoriz
 import { getDownloadableBitstream } from '../shared/bitstream.operators';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { SignpostingDataService } from '../data/signposting-data.service';
+import { DOCUMENT } from '@angular/common';
 
 /**
  * The base selector function to select the metaTag section in the store
@@ -102,8 +100,9 @@ export class MetadataService {
     private store: Store<CoreState>,
     private hardRedirectService: HardRedirectService,
     @Inject(APP_CONFIG) private appConfig: AppConfig,
+    @Inject(DOCUMENT) private _document: Document,
     private authorizationService: AuthorizationDataService,
-    private signpostginDataService: SignpostingDataService
+    private signpostingDataService: SignpostingDataService
   ) {
   }
 
@@ -198,9 +197,9 @@ export class MetadataService {
    */
   private setSignpostingLinks() {
     if (this.currentObject.value instanceof Item){
-      const value = this.signpostginDataService.getLinks(this.currentObject.getValue().id);
+      const value = this.signpostingDataService.getLinks(this.currentObject.getValue().id);
       value.subscribe(links => {
-        links.payload.forEach(link => {
+        links.forEach(link => {
           this.setLinkTag(link.href, link.rel, link.type);
         });
       });
@@ -208,17 +207,19 @@ export class MetadataService {
   }
 
   setLinkTag(href: string, rel: string, type: string){
-    let link: HTMLLinkElement = document.createElement('link');
-    link.href = href;
-    link.rel = rel;
-    link.type = type;
-    document.head.appendChild(link);
-    linkTags.push(link);
+    let link: HTMLLinkElement = this._document.createElement('link');
+    if (link) {
+      link.href = href;
+      link.rel = rel;
+      link.type = type;
+      this._document.head?.appendChild(link);
+      linkTags.push(link);
+    }
   }
 
   public clearLinkTags(){
     linkTags.forEach(link => {
-      link.parentNode.removeChild(link);
+      link.parentNode?.removeChild(link);
     });
   }
 

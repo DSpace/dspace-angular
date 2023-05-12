@@ -19,7 +19,6 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { ServerResponseService } from 'src/app/core/services/server-response.service';
 import { SignpostingDataService } from 'src/app/core/data/signposting-data.service';
 
-
 /**
  * This component renders a full item page.
  * The route parameter 'id' is used to request the item it represents.
@@ -52,8 +51,8 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
               authorizationService: AuthorizationDataService,
               private _location: Location,
               responseService: ServerResponseService,
-              signpostginDataService: SignpostingDataService) {
-    super(route, router, items, authService, authorizationService, responseService, signpostginDataService);
+              signpostingDataService: SignpostingDataService) {
+    super(route, router, items, authService, authorizationService, responseService, signpostingDataService);
   }
 
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/

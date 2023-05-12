@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-// import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
-// import { throwError } from 'rxjs';
 import { Observable, of as observableOf } from 'rxjs';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
@@ -14,9 +12,10 @@ import { SignpostingLinks } from './signposting-links.model';
 })
 export class SignpostingDataService {
 
-  constructor(private restService: DspaceRestService, protected halService: HALEndpointService) { }
+  constructor(private restService: DspaceRestService, protected halService: HALEndpointService) {
+  }
 
-  getLinks(uuid: string): Observable<SignpostingLinks> {
+  getLinks(uuid: string): Observable<SignpostingLinks[]> {
     const baseUrl = this.halService.getRootHref().replace('/api', '');
 
     return this.restService.get(`${baseUrl}/signposting/links/${uuid}`).pipe(
@@ -24,7 +23,7 @@ export class SignpostingDataService {
         console.error(err);
         return observableOf(false);
       }),
-      map((res: SignpostingLinks) => res)
+      map((res: RawRestResponse) => res.payload as SignpostingLinks[])
     );
   }
 

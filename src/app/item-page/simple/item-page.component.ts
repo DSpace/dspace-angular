@@ -66,10 +66,10 @@ export class ItemPageComponent implements OnInit {
     private authService: AuthService,
     private authorizationService: AuthorizationDataService,
     private responseService: ServerResponseService,
-    private signpostginDataService: SignpostingDataService
+    private signpostingDataService: SignpostingDataService
   ) {
     this.route.params.subscribe(params => {
-      this.signpostginDataService.getLinksets(params.id).subscribe(linksets => {
+      this.signpostingDataService.getLinksets(params.id).subscribe(linksets => {
         this.responseService.setLinksetsHeader(linksets);
       });
     });

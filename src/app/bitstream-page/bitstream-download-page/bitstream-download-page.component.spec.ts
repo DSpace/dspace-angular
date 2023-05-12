@@ -11,6 +11,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { getForbiddenRoute } from '../../app-routing-paths';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
+import { SignpostingDataService } from '../../core/data/signposting-data.service';
+import { ServerResponseService } from '../../core/services/server-response.service';
 
 describe('BitstreamDownloadPageComponent', () => {
   let component: BitstreamDownloadPageComponent;
@@ -24,6 +26,8 @@ describe('BitstreamDownloadPageComponent', () => {
   let router;
 
   let bitstream: Bitstream;
+  let serverResponseService: jasmine.SpyObj<ServerResponseService>;
+  let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
 
   function init() {
     authService = jasmine.createSpyObj('authService', {
@@ -44,8 +48,8 @@ describe('BitstreamDownloadPageComponent', () => {
     bitstream = Object.assign(new Bitstream(), {
       uuid: 'bitstreamUuid',
       _links: {
-        content: {href: 'bitstream-content-link'},
-        self: {href: 'bitstream-self-link'},
+        content: { href: 'bitstream-content-link' },
+        self: { href: 'bitstream-self-link' },
       }
     });
 
@@ -54,10 +58,21 @@ describe('BitstreamDownloadPageComponent', () => {
         bitstream: createSuccessfulRemoteDataObject(
           bitstream
         )
+      }),
+      params: observableOf({
+        id: 'testid'
       })
     };
 
     router = jasmine.createSpyObj('router', ['navigateByUrl']);
+
+    serverResponseService = jasmine.createSpyObj('ServerResponseService', {
+      setLinksetsHeader: jasmine.createSpy('setLinksetsHeader'),
+    });
+
+    signpostingDataService = jasmine.createSpyObj('SignpostingDataService', {
+      getLinksets: observableOf('test'),
+    });
   }
 
   function initTestbed() {
@@ -65,12 +80,14 @@ describe('BitstreamDownloadPageComponent', () => {
       imports: [CommonModule, TranslateModule.forRoot()],
       declarations: [BitstreamDownloadPageComponent],
       providers: [
-        {provide: ActivatedRoute, useValue: activatedRoute},
-        {provide: Router, useValue: router},
-        {provide: AuthorizationDataService, useValue: authorizationService},
-        {provide: AuthService, useValue: authService},
-        {provide: FileService, useValue: fileService},
-        {provide: HardRedirectService, useValue: hardRedirectService},
+        { provide: ActivatedRoute, useValue: activatedRoute },
+        { provide: Router, useValue: router },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: AuthService, useValue: authService },
+        { provide: FileService, useValue: fileService },
+        { provide: HardRedirectService, useValue: hardRedirectService },
+        { provide: ServerResponseService, useValue: serverResponseService },
+        { provide: SignpostingDataService, useValue: signpostingDataService }
       ]
     })
       .compileComponents();
@@ -134,7 +151,7 @@ describe('BitstreamDownloadPageComponent', () => {
         fixture.detectChanges();
       });
       it('should navigate to the forbidden route', () => {
-        expect(router.navigateByUrl).toHaveBeenCalledWith(getForbiddenRoute(), {skipLocationChange: true});
+        expect(router.navigateByUrl).toHaveBeenCalledWith(getForbiddenRoute(), { skipLocationChange: true });
       });
     });
     describe('when the user is not authorized and not logged in', () => {

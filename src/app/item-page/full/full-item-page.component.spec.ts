@@ -11,7 +11,7 @@ import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Item } from '../../core/shared/item.model';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { BehaviorSubject, of as observableOf, of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -20,6 +20,8 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
 import { RemoteData } from '../../core/data/remote-data';
+import { ServerResponseService } from '../../core/services/server-response.service';
+import { SignpostingDataService } from '../../core/data/signposting-data.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -55,8 +57,8 @@ describe('FullItemPageComponent', () => {
   let routeStub: ActivatedRouteStub;
   let routeData;
   let authorizationDataService: AuthorizationDataService;
-
-
+  let serverResponseService: jasmine.SpyObj<ServerResponseService>;
+  let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
 
   beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
@@ -76,6 +78,14 @@ describe('FullItemPageComponent', () => {
       isAuthorized: observableOf(false),
     });
 
+    serverResponseService = jasmine.createSpyObj('ServerResponseService', {
+      setLinksetsHeader: jasmine.createSpy('setLinksetsHeader'),
+    });
+
+    signpostingDataService = jasmine.createSpyObj('SignpostingDataService', {
+      getLinksets: of('test'),
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -90,8 +100,9 @@ describe('FullItemPageComponent', () => {
         { provide: MetadataService, useValue: metadataServiceStub },
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
+        { provide: ServerResponseService, useValue: serverResponseService },
+        { provide: SignpostingDataService, useValue: signpostingDataService },
       ],
-
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(FullItemPageComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }

@@ -22,6 +22,9 @@ import {
 import { AuthService } from '../../core/auth/auth.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { of } from 'rxjs/internal/observable/of';
+import { ServerResponseService } from '../../core/services/server-response.service';
+import { SignpostingDataService } from '../../core/data/signposting-data.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -41,6 +44,8 @@ describe('ItemPageComponent', () => {
   let fixture: ComponentFixture<ItemPageComponent>;
   let authService: AuthService;
   let authorizationDataService: AuthorizationDataService;
+  let serverResponseService: jasmine.SpyObj<ServerResponseService>;
+  let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
 
   const mockMetadataService = {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
@@ -60,6 +65,13 @@ describe('ItemPageComponent', () => {
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
       isAuthorized: observableOf(false),
     });
+    serverResponseService = jasmine.createSpyObj('ServerResponseService', {
+      setLinksetsHeader: jasmine.createSpy('setLinksetsHeader'),
+    });
+
+    signpostingDataService = jasmine.createSpyObj('SignpostingDataService', {
+      getLinksets: of('test'),
+    });
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
@@ -76,6 +88,8 @@ describe('ItemPageComponent', () => {
         { provide: Router, useValue: {} },
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
+        { provide: ServerResponseService, useValue: serverResponseService },
+        { provide: SignpostingDataService, useValue: signpostingDataService },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
