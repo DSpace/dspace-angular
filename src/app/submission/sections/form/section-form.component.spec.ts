@@ -350,6 +350,22 @@ describe('SubmissionSectionFormComponent test suite', () => {
             {
               fields: [
                 {
+                  selectableMetadata: [{ metadata: 'scoped.workflow.relation' }],
+                  scope: 'WORKFLOW',
+                } as FormFieldModel,
+              ],
+            },
+            {
+              fields: [
+                {
+                  selectableMetadata: [{ metadata: 'scoped.workspace.relation' }],
+                  scope: 'WORKSPACE',
+                } as FormFieldModel,
+              ],
+            },
+            {
+              fields: [
+                {
                   selectableMetadata: [{ metadata: 'dc.title' }],
                 } as FormFieldModel
               ]
@@ -375,6 +391,14 @@ describe('SubmissionSectionFormComponent test suite', () => {
         it('should return false for fields scoped to workflow', () => {
           expect((comp as any).inCurrentSubmissionScope('scoped.workflow')).toBe(false);
         });
+
+        it('should return true for relation fields scoped to workspace', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workspace.relation')).toBe(true);
+        });
+
+        it('should return false for relation fields scoped to workflow', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workflow.relation')).toBe(false);
+        });
       });
 
       describe('in workflow scope', () => {
@@ -393,6 +417,14 @@ describe('SubmissionSectionFormComponent test suite', () => {
 
         it('should return false for fields scoped to workspace', () => {
           expect((comp as any).inCurrentSubmissionScope('scoped.workspace')).toBe(false);
+        });
+
+        it('should return true for relation fields scoped to workflow', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workflow.relation')).toBe(true);
+        });
+
+        it('should return false for relation fields scoped to workspace', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workspace.relation')).toBe(false);
         });
       });
     });
