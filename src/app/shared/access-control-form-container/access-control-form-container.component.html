@@ -49,6 +49,7 @@
 
           <ds-access-control-array-form
             #itemAccessCmp
+            [mode]="state.item.accessMode"
             [dropdownOptions]="(dropdownData$ | async)?.itemAccessConditionOptions || []">
           </ds-access-control-array-form>
 
@@ -130,6 +131,7 @@
 
           <ds-access-control-array-form
             #bitstreamAccessCmp
+            [mode]="state.bitstream.accessMode"
             [dropdownOptions]="(dropdownData$ | async)?.bitstreamAccessConditionOptions || []">
           </ds-access-control-array-form>
 

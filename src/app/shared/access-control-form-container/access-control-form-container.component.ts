@@ -173,11 +173,11 @@ const initialState: AccessControlFormState = {
 export interface AccessControlFormState {
   item: {
     toggleStatus: boolean,
-    accessMode: string,
+    accessMode: 'add' | 'replace',
   },
   bitstream: {
     toggleStatus: boolean,
-    accessMode: string,
+    accessMode: 'add' | 'replace',
     changesLimit: string,
     selectedBitstreams: ListableObject[],
   }

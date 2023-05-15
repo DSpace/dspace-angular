@@ -14,6 +14,7 @@ import { dateToISOFormat } from '../../date.util';
 })
 export class AccessControlArrayFormComponent implements OnInit, OnDestroy {
   @Input() dropdownOptions: AccessesConditionOption[] = [];
+  @Input() mode!: 'add' | 'replace';
 
   private destroy$ = new Subject<void>();
 
