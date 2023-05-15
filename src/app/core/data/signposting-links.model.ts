@@ -1,6 +1,7 @@
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-
-export interface SignpostingLinks extends RawRestResponse {
+/**
+ * Represents the link object received by the signposting endpoint
+ */
+export interface SignpostingLink {
     href?: string,
     rel?: string,
     type?: string

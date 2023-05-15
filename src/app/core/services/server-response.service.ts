@@ -36,9 +36,10 @@ export class ServerResponseService {
     return this.setStatus(500, message);
   }
 
-  setLinksetsHeader(linksets: string){
+  setHeader(header: string, content: string) {
+    console.log(this.response);
     if (this.response) {
-      this.response.setHeader('Link', linksets);
+      this.response.setHeader(header, content);
     }
   }
 }

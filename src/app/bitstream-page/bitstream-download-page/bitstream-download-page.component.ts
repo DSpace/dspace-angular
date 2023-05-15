@@ -16,6 +16,7 @@ import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { Location } from '@angular/common';
 import { SignpostingDataService } from 'src/app/core/data/signposting-data.service';
 import { ServerResponseService } from 'src/app/core/services/server-response.service';
+import { SignpostingLink } from '../../core/data/signposting-links.model';
 
 @Component({
   selector: 'ds-bitstream-download-page',
@@ -37,14 +38,18 @@ export class BitstreamDownloadPageComponent implements OnInit {
     private fileService: FileService,
     private hardRedirectService: HardRedirectService,
     private location: Location,
-    private signpostginDataService: SignpostingDataService,
+    private signpostingDataService: SignpostingDataService,
     private responseService: ServerResponseService
   ) {
     this.route.params.subscribe(params => {
-      this.signpostginDataService.getLinks(params.id).pipe(take(1)).subscribe(linksets => {
-        linksets.forEach(link => {
-          this.responseService.setLinksetsHeader(link.href);
+      this.signpostingDataService.getLinks(params.id).pipe(take(1)).subscribe((signpostingLinks: SignpostingLink[]) => {
+        let links = '';
+
+        signpostingLinks.forEach((link: SignpostingLink) => {
+          links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}" ; type="${link.type}" `;
         });
+
+        this.responseService.setHeader('Link', links);
       });
     });
   }

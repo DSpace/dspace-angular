@@ -29,6 +29,18 @@ describe('BitstreamDownloadPageComponent', () => {
   let serverResponseService: jasmine.SpyObj<ServerResponseService>;
   let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
 
+  const mocklink = {
+    href: 'http://test.org',
+    rel: 'test',
+    type: 'test'
+  };
+
+  const mocklink2 = {
+    href: 'http://test2.org',
+    rel: 'test',
+    type: 'test'
+  };
+
   function init() {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
@@ -67,11 +79,11 @@ describe('BitstreamDownloadPageComponent', () => {
     router = jasmine.createSpyObj('router', ['navigateByUrl']);
 
     serverResponseService = jasmine.createSpyObj('ServerResponseService', {
-      setLinksetsHeader: jasmine.createSpy('setLinksetsHeader'),
+      setHeader: jasmine.createSpy('setHeader'),
     });
 
     signpostingDataService = jasmine.createSpyObj('SignpostingDataService', {
-      getLinksets: observableOf('test'),
+      getLinks: observableOf([mocklink, mocklink2])
     });
   }
 
@@ -123,6 +135,9 @@ describe('BitstreamDownloadPageComponent', () => {
       });
       it('should redirect to the content link', () => {
         expect(hardRedirectService.redirect).toHaveBeenCalledWith('bitstream-content-link');
+      });
+      it('should add the signposting links', () => {
+        expect(serverResponseService.setHeader).toHaveBeenCalled();
       });
     });
     describe('when the user is authorized and logged in', () => {

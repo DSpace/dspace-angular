@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of as observableOf } from 'rxjs';
+
+import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import { HttpHeaders } from '@angular/common/http';
-import { SignpostingLinks } from './signposting-links.model';
+import { SignpostingLink } from './signposting-links.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,36 +16,16 @@ export class SignpostingDataService {
   constructor(private restService: DspaceRestService, protected halService: HALEndpointService) {
   }
 
-  getLinks(uuid: string): Observable<SignpostingLinks[]> {
+  getLinks(uuid: string): Observable<SignpostingLink[]> {
     const baseUrl = this.halService.getRootHref().replace('/api', '');
 
     return this.restService.get(`${baseUrl}/signposting/links/${uuid}`).pipe(
       catchError((err) => {
         console.error(err);
-        return observableOf(false);
+        return observableOf([]);
       }),
-      map((res: RawRestResponse) => res.payload as SignpostingLinks[])
+      map((res: RawRestResponse) => res.statusCode === 200 ? res.payload as SignpostingLink[] : [])
     );
   }
 
-  getLinksets(uuid: string): Observable<string> {
-    const baseUrl = this.halService.getRootHref().replace('/api', '');
-
-    const requestOptions = {
-      observe: 'response' as any,
-      headers: new HttpHeaders({
-        'accept': 'application/linkset',
-        'Content-Type': 'application/linkset'
-      }),
-      responseType: 'text'
-    } as any;
-
-    return this.restService.getWithHeaders(`${baseUrl}/signposting/linksets/${uuid}`, requestOptions).pipe(
-      catchError((err) => {
-        console.error(err);
-        return observableOf(false);
-      }),
-      map((res: RawRestResponse) => res.payload.body)
-    );
-  }
 }

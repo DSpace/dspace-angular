@@ -22,9 +22,9 @@ import {
 import { AuthService } from '../../core/auth/auth.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { of } from 'rxjs/internal/observable/of';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
+import { LinkHeadService } from '../../core/services/link-head.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -39,6 +39,18 @@ const mockWithdrawnItem: Item = Object.assign(new Item(), {
   isWithdrawn: true
 });
 
+const mocklink = {
+  href: 'http://test.org',
+  rel: 'test',
+  type: 'test'
+};
+
+const mocklink2 = {
+  href: 'http://test2.org',
+  rel: 'test',
+  type: 'test'
+};
+
 describe('ItemPageComponent', () => {
   let comp: ItemPageComponent;
   let fixture: ComponentFixture<ItemPageComponent>;
@@ -46,6 +58,7 @@ describe('ItemPageComponent', () => {
   let authorizationDataService: AuthorizationDataService;
   let serverResponseService: jasmine.SpyObj<ServerResponseService>;
   let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
+  let linkHeadService: jasmine.SpyObj<LinkHeadService>;
 
   const mockMetadataService = {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
@@ -66,11 +79,16 @@ describe('ItemPageComponent', () => {
       isAuthorized: observableOf(false),
     });
     serverResponseService = jasmine.createSpyObj('ServerResponseService', {
-      setLinksetsHeader: jasmine.createSpy('setLinksetsHeader'),
+      setHeader: jasmine.createSpy('setHeader'),
     });
 
     signpostingDataService = jasmine.createSpyObj('SignpostingDataService', {
-      getLinksets: of('test'),
+      getLinks: observableOf([mocklink, mocklink2]),
+    });
+
+    linkHeadService = jasmine.createSpyObj('LinkHeadService', {
+      addTag: jasmine.createSpy('setHeader'),
+      removeTag: jasmine.createSpy('removeTag'),
     });
 
     TestBed.configureTestingModule({
@@ -90,6 +108,7 @@ describe('ItemPageComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
+        { provide: LinkHeadService, useValue: linkHeadService },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -140,6 +159,12 @@ describe('ItemPageComponent', () => {
       const objectLoader = fixture.debugElement.query(By.css('ds-listable-object-component-loader'));
       expect(objectLoader.nativeElement).toBeDefined();
     });
+
+    it('should add the signposting links', () => {
+      expect(serverResponseService.setHeader).toHaveBeenCalled();
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+    });
+
   });
   describe('when the item is withdrawn and the user is not an admin', () => {
     beforeEach(() => {
@@ -164,6 +189,11 @@ describe('ItemPageComponent', () => {
       const objectLoader = fixture.debugElement.query(By.css('ds-listable-object-component-loader'));
       expect(objectLoader.nativeElement).toBeDefined();
     });
+
+    it('should add the signposting links', () => {
+      expect(serverResponseService.setHeader).toHaveBeenCalled();
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+    });
   });
 
   describe('when the item is not withdrawn and the user is not an admin', () => {
@@ -175,6 +205,11 @@ describe('ItemPageComponent', () => {
     it('should display the item', () => {
       const objectLoader = fixture.debugElement.query(By.css('ds-listable-object-component-loader'));
       expect(objectLoader.nativeElement).toBeDefined();
+    });
+
+    it('should add the signposting links', () => {
+      expect(serverResponseService.setHeader).toHaveBeenCalled();
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
     });
   });
 

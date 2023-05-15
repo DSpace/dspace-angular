@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -8,12 +8,12 @@ import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
-  concat as observableConcat,
-  EMPTY,
   Observable,
-  of as observableOf
+  of as observableOf,
+  concat as observableConcat,
+  EMPTY
 } from 'rxjs';
-import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { filter, map, switchMap, take, mergeMap } from 'rxjs/operators';
 
 import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
@@ -25,7 +25,10 @@ import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload
+} from '../shared/operators';
 import { RootDataService } from '../data/root-data.service';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 import { BundleDataService } from '../data/bundle-data.service';
@@ -42,8 +45,6 @@ import { CoreState } from '../core-state.model';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { getDownloadableBitstream } from '../shared/bitstream.operators';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
-import { SignpostingDataService } from '../data/signposting-data.service';
-import { DOCUMENT } from '@angular/common';
 
 /**
  * The base selector function to select the metaTag section in the store
@@ -61,11 +62,6 @@ const tagsInUseSelector =
     metaTagSelector,
     (state: MetaTagState) => state.tagsInUse,
   );
-
-/**
- * Link elements added on Item Page
- */
-let linkTags = [];
 
 @Injectable()
 export class MetadataService {
@@ -88,7 +84,7 @@ export class MetadataService {
   ];
 
   constructor(
-    protected router: Router,
+    private router: Router,
     private translate: TranslateService,
     private meta: Meta,
     private title: Title,
@@ -100,9 +96,7 @@ export class MetadataService {
     private store: Store<CoreState>,
     private hardRedirectService: HardRedirectService,
     @Inject(APP_CONFIG) private appConfig: AppConfig,
-    @Inject(DOCUMENT) private _document: Document,
-    private authorizationService: AuthorizationDataService,
-    private signpostingDataService: SignpostingDataService
+    private authorizationService: AuthorizationDataService
   ) {
   }
 
@@ -123,7 +117,6 @@ export class MetadataService {
 
   private processRouteChange(routeInfo: any): void {
     this.clearMetaTags();
-    this.clearLinkTags();
 
     if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
       this.currentObject.next(routeInfo.data.value.dso.payload);
@@ -145,7 +138,7 @@ export class MetadataService {
     }
   }
 
-  public getCurrentRoute(route: ActivatedRoute): ActivatedRoute {
+  private getCurrentRoute(route: ActivatedRoute): ActivatedRoute {
     while (route.firstChild) {
       route = route.firstChild;
     }
@@ -169,7 +162,6 @@ export class MetadataService {
     this.setCitationAbstractUrlTag();
     this.setCitationPdfUrlTag();
     this.setCitationPublisherTag();
-    this.setSignpostingLinks();
 
     if (this.isDissertation()) {
       this.setCitationDissertationNameTag();
@@ -190,37 +182,6 @@ export class MetadataService {
     // this.setCitationPatentCountryTag();
     // this.setCitationPatentNumberTag();
 
-  }
-
-  /**
-   * Add <link name="title" ... >  to the <head>
-   */
-  private setSignpostingLinks() {
-    if (this.currentObject.value instanceof Item){
-      const value = this.signpostingDataService.getLinks(this.currentObject.getValue().id);
-      value.subscribe(links => {
-        links.forEach(link => {
-          this.setLinkTag(link.href, link.rel, link.type);
-        });
-      });
-    }
-  }
-
-  setLinkTag(href: string, rel: string, type: string){
-    let link: HTMLLinkElement = this._document.createElement('link');
-    if (link) {
-      link.href = href;
-      link.rel = rel;
-      link.type = type;
-      this._document.head?.appendChild(link);
-      linkTags.push(link);
-    }
-  }
-
-  public clearLinkTags(){
-    linkTags.forEach(link => {
-      link.parentNode?.removeChild(link);
-    });
   }
 
   /**

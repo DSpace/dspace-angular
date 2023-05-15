@@ -11,7 +11,7 @@ import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Item } from '../../core/shared/item.model';
-import { BehaviorSubject, of as observableOf, of } from 'rxjs';
+import { BehaviorSubject, of as observableOf } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -22,6 +22,7 @@ import { createRelationshipsObservable } from '../simple/item-types/shared/item.
 import { RemoteData } from '../../core/data/remote-data';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
+import { LinkHeadService } from '../../core/services/link-head.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -59,6 +60,19 @@ describe('FullItemPageComponent', () => {
   let authorizationDataService: AuthorizationDataService;
   let serverResponseService: jasmine.SpyObj<ServerResponseService>;
   let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
+  let linkHeadService: jasmine.SpyObj<LinkHeadService>;
+
+  const mocklink = {
+    href: 'http://test.org',
+    rel: 'test',
+    type: 'test'
+  };
+
+  const mocklink2 = {
+    href: 'http://test2.org',
+    rel: 'test',
+    type: 'test'
+  };
 
   beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
@@ -79,11 +93,16 @@ describe('FullItemPageComponent', () => {
     });
 
     serverResponseService = jasmine.createSpyObj('ServerResponseService', {
-      setLinksetsHeader: jasmine.createSpy('setLinksetsHeader'),
+      setHeader: jasmine.createSpy('setHeader'),
     });
 
     signpostingDataService = jasmine.createSpyObj('SignpostingDataService', {
-      getLinksets: of('test'),
+      getLinks: observableOf([mocklink, mocklink2]),
+    });
+
+    linkHeadService = jasmine.createSpyObj('LinkHeadService', {
+      addTag: jasmine.createSpy('setHeader'),
+      removeTag: jasmine.createSpy('removeTag'),
     });
 
     TestBed.configureTestingModule({
@@ -102,6 +121,7 @@ describe('FullItemPageComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
+        { provide: LinkHeadService, useValue: linkHeadService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(FullItemPageComponent, {
@@ -154,6 +174,11 @@ describe('FullItemPageComponent', () => {
       const objectLoader = fixture.debugElement.query(By.css('.full-item-info'));
       expect(objectLoader.nativeElement).not.toBeNull();
     });
+
+    it('should add the signposting links', () => {
+      expect(serverResponseService.setHeader).toHaveBeenCalled();
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+    });
   });
   describe('when the item is withdrawn and the user is not an admin', () => {
     beforeEach(() => {
@@ -178,6 +203,11 @@ describe('FullItemPageComponent', () => {
       const objectLoader = fixture.debugElement.query(By.css('.full-item-info'));
       expect(objectLoader).not.toBeNull();
     });
+
+    it('should add the signposting links', () => {
+      expect(serverResponseService.setHeader).toHaveBeenCalled();
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+    });
   });
 
   describe('when the item is not withdrawn and the user is not an admin', () => {
@@ -189,6 +219,11 @@ describe('FullItemPageComponent', () => {
     it('should display the item', () => {
       const objectLoader = fixture.debugElement.query(By.css('.full-item-info'));
       expect(objectLoader).not.toBeNull();
+    });
+
+    it('should add the signposting links', () => {
+      expect(serverResponseService.setHeader).toHaveBeenCalled();
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
     });
   });
 });

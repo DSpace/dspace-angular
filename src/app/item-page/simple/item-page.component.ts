@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
@@ -17,6 +17,9 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
+import { SignpostingLink } from '../../core/data/signposting-links.model';
+import { isNotEmpty } from '../../shared/empty.util';
+import { LinkHeadService } from '../../core/services/link-head.service';
 
 /**
  * This component renders a simple item page.
@@ -30,7 +33,7 @@ import { SignpostingDataService } from '../../core/data/signposting-data.service
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut]
 })
-export class ItemPageComponent implements OnInit {
+export class ItemPageComponent implements OnInit, OnDestroy {
 
   /**
    * The item's id
@@ -59,18 +62,36 @@ export class ItemPageComponent implements OnInit {
 
   itemUrl: string;
 
+  /**
+   * Contains a list of SignpostingLink related to the item
+   */
+  signpostingLinks: SignpostingLink[];
+
   constructor(
     protected route: ActivatedRoute,
-    private router: Router,
-    private items: ItemDataService,
-    private authService: AuthService,
-    private authorizationService: AuthorizationDataService,
-    private responseService: ServerResponseService,
-    private signpostingDataService: SignpostingDataService
+    protected router: Router,
+    protected items: ItemDataService,
+    protected authService: AuthService,
+    protected authorizationService: AuthorizationDataService,
+    protected responseService: ServerResponseService,
+    protected signpostingDataService: SignpostingDataService,
+    protected linkHeadService: LinkHeadService
   ) {
     this.route.params.subscribe(params => {
-      this.signpostingDataService.getLinksets(params.id).subscribe(linksets => {
-        this.responseService.setLinksetsHeader(linksets);
+      this.signpostingDataService.getLinks(params.id).pipe(take(1)).subscribe((signpostingLinks: SignpostingLink[]) => {
+        let links = '';
+        this.signpostingLinks = signpostingLinks;
+
+        signpostingLinks.forEach((link: SignpostingLink) => {
+          links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}" ; type="${link.type}" `;
+          this.linkHeadService.addTag({
+            href: link.href,
+            type: link.type,
+            rel: link.rel
+          })
+        });
+
+        this.responseService.setHeader('Link', links);
       });
     });
   }
@@ -90,5 +111,12 @@ export class ItemPageComponent implements OnInit {
 
     this.isAdmin$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
 
+  }
+
+
+  ngOnDestroy(): void {
+    this.signpostingLinks.forEach((link: SignpostingLink) => {
+      this.linkHeadService.removeTag(`href='${link.href}'`);
+    })
   }
 }

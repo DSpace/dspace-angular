@@ -8,7 +8,12 @@ import { Observable, of as observableOf, of } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { Item } from '../shared/item.model';
 
-import { ItemMock, MockBitstream1, MockBitstream2, MockBitstream3 } from '../../shared/mocks/item.mock';
+import {
+  ItemMock,
+  MockBitstream1,
+  MockBitstream3,
+  MockBitstream2
+} from '../../shared/mocks/item.mock';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PaginatedList } from '../data/paginated-list.model';
 import { Bitstream } from '../shared/bitstream.model';
@@ -25,7 +30,6 @@ import { getMockStore } from '@ngrx/store/testing';
 import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { AppConfig } from '../../../config/app-config.interface';
-import { SignpostingDataService } from '../data/signposting-data.service';
 
 describe('MetadataService', () => {
   let metadataService: MetadataService;
@@ -42,7 +46,6 @@ describe('MetadataService', () => {
   let translateService: TranslateService;
   let hardRedirectService: HardRedirectService;
   let authorizationService: AuthorizationDataService;
-  let signpostingDataService: SignpostingDataService;
 
   let router: Router;
   let store;
@@ -50,12 +53,7 @@ describe('MetadataService', () => {
   let appConfig: AppConfig;
 
   const initialState = { 'core': { metaTag: { tagsInUse: ['title', 'description'] }}};
-  const mocklink = {
-    href: 'http://test.org',
-    rel: 'test',
-    type: 'test'
-  };
-  const document: any = jasmine.createSpyObj('document', ['head', 'createElement']);
+
 
   beforeEach(() => {
     rootService = jasmine.createSpyObj({
@@ -92,10 +90,6 @@ describe('MetadataService', () => {
       isAuthorized: observableOf(true)
     });
 
-    signpostingDataService = jasmine.createSpyObj('SignpostingDataService', {
-      getLinks: observableOf([mocklink])
-    });
-
     // @ts-ignore
     store = getMockStore({ initialState });
     spyOn(store, 'dispatch');
@@ -121,9 +115,7 @@ describe('MetadataService', () => {
       store,
       hardRedirectService,
       appConfig,
-      document,
-      authorizationService,
-      signpostingDataService
+      authorizationService
     );
   });
 
