@@ -3,7 +3,9 @@
 </a>
 <span *ngIf="linkType == linkTypes.None" class="lead">
     {{object.name}}
+    <span>[{{object.archivedItems}}]<span>
 </span>
+
 <div *ngIf="object.shortDescription" class="text-muted abstract-text">
     {{object.shortDescription}}
 </div>

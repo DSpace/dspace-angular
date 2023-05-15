@@ -37,6 +37,7 @@
         <a [routerLink]="node.route" class="lead">
           {{node.name}}
         </a>
+        <span>[{{node.payload.archivedItems}}]</span>
       </h5>
     </div>
     <ds-truncatable [id]="node.id">
