@@ -16,17 +16,8 @@ describe('New Submission page', () => {
         // The Submission edit form tag should be visible
         cy.get('ds-submission-edit').should('be.visible');
 
-        // A Collection menu button should exist(if it's visible or read-only) & it's value should be the selected collection
-        cy.get('#collectionControlsMenuButton span')
-        .should(($span) => {
-          if ($span.length > 0) {
-            // If the element exists in the DOM (it's visible or read-only)
-            expect($span).to.have.text(TEST_SUBMIT_COLLECTION_NAME);
-          } else {
-            // If the element doesn't exist in the DOM, the length will be 0
-            expect($span).to.have.length(0);
-          }
-        });
+        // A Collection menu button should exist & it's value should be the selected collection
+        cy.get('#collectionControlsMenuButton span').should('have.text', TEST_SUBMIT_COLLECTION_NAME);
 
         // 4 sections should be visible by default
         cy.get('div#section_traditionalpageone').should('be.visible');
