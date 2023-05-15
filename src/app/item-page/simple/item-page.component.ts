@@ -88,7 +88,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
             href: link.href,
             type: link.type,
             rel: link.rel
-          })
+          });
         });
 
         this.responseService.setHeader('Link', links);
@@ -117,6 +117,6 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.signpostingLinks.forEach((link: SignpostingLink) => {
       this.linkHeadService.removeTag(`href='${link.href}'`);
-    })
+    });
   }
 }
