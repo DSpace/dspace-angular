@@ -7,6 +7,29 @@ import { Collection } from '../../../core/shared/collection.model';
 let collectionListElementComponent: CollectionListElementComponent;
 let fixture: ComponentFixture<CollectionListElementComponent>;
 
+const mockCollectionWithArchivedItems: Collection = Object.assign(new Collection(), {
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'Test title'
+      }
+    ]
+  }, archivedItems: 1
+});
+
+const mockCollectionWithoutArchivedItems: Collection = Object.assign(new Collection(), {
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'Test title'
+      }
+    ]
+  }, archivedItems: 0
+});
+
+
 const mockCollectionWithAbstract: Collection = Object.assign(new Collection(), {
   metadata: {
     'dc.description.abstract': [
@@ -15,7 +38,7 @@ const mockCollectionWithAbstract: Collection = Object.assign(new Collection(), {
         value: 'Short description'
       }
     ]
-  }
+  }, archivedItems: 1
 });
 
 const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection(), {
@@ -26,7 +49,7 @@ const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection()
         value: 'Test title'
       }
     ]
-  }
+  }, archivedItems: 1
 });
 
 describe('CollectionListElementComponent', () => {
@@ -69,6 +92,31 @@ describe('CollectionListElementComponent', () => {
     it('should not show the description paragraph', () => {
       const collectionAbstractField = fixture.debugElement.query(By.css('div.abstract-text'));
       expect(collectionAbstractField).toBeNull();
+    });
+  });
+
+
+  describe('When the collection has archived items', () => {
+    beforeEach(() => {
+      collectionListElementComponent.object = mockCollectionWithArchivedItems;
+      fixture.detectChanges();
+    });
+
+    it('should show the archived items paragraph', () => {
+      const field = fixture.debugElement.query(By.css('span.archived-items-lead'));
+      expect(field).not.toBeNull();
+    });
+  });
+
+  describe('When the collection has no archived items', () => {
+    beforeEach(() => {
+      collectionListElementComponent.object = mockCollectionWithoutArchivedItems;
+      fixture.detectChanges();
+    });
+
+    it('should not show the archived items paragraph', () => {
+      const field = fixture.debugElement.query(By.css('span.archived-items-lead'));
+      expect(field).toBeNull();
     });
   });
 });
