@@ -160,7 +160,7 @@ import { SubmissionAccessesModel } from './config/models/config-submission-acces
 import { RatingAdvancedWorkflowInfo } from './tasks/models/rating-advanced-workflow-info.model';
 import { AdvancedWorkflowInfo } from './tasks/models/advanced-workflow-info.model';
 import { SelectReviewerAdvancedWorkflowInfo } from './tasks/models/select-reviewer-advanced-workflow-info.model';
-import { AccessStatusObject } from '../shared/object-list/access-status-badge/access-status.model';
+import { AccessStatusObject } from '../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { AccessStatusDataService } from './data/access-status-data.service';
 import { LinkHeadService } from './services/link-head.service';
 import { ResearcherProfileDataService } from './profile/researcher-profile-data.service';

@@ -47,7 +47,7 @@
 </ng-template>
 
 <ng-template #sidebarContent>
-    <ds-search-sidebar id="search-sidebar" *ngIf="!(isXsOrSm$ | async)"
+    <ds-themed-search-sidebar id="search-sidebar" *ngIf="!(isXsOrSm$ | async)"
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
@@ -61,8 +61,8 @@
                        [viewModeList]="viewModeList"
                        [showViewModes]="showViewModes"
                        (changeConfiguration)="changeContext($event.context)"
-                       (changeViewMode)="changeViewMode()"></ds-search-sidebar>
-    <ds-search-sidebar id="search-sidebar-sm" *ngIf="(isXsOrSm$ | async)"
+                       (changeViewMode)="changeViewMode()"></ds-themed-search-sidebar>
+    <ds-themed-search-sidebar id="search-sidebar-sm" *ngIf="(isXsOrSm$ | async)"
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
@@ -77,7 +77,7 @@
                        (toggleSidebar)="closeSidebar()"
                        (changeConfiguration)="changeContext($event.context)"
                        (changeViewMode)="changeViewMode()">
-    </ds-search-sidebar>
+    </ds-themed-search-sidebar>
 </ng-template>
 
 <ng-template #searchForm>
