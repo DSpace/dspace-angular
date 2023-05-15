@@ -1,20 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MyDspaceItemStatusType } from './my-dspace-item-status-type';
+import { Context } from 'src/app/core/shared/context.model';
 
 /**
  * This component represents a badge with mydspace item status
  */
 @Component({
-  selector: 'ds-mydspace-item-status',
-  styleUrls: ['./my-dspace-item-status.component.scss'],
-  templateUrl: './my-dspace-item-status.component.html'
+  selector: 'ds-my-dspace-status-badge',
+  styleUrls: ['./my-dspace-status-badge.component.scss'],
+  templateUrl: './my-dspace-status-badge.component.html'
 })
-export class MyDSpaceItemStatusComponent implements OnInit {
+export class MyDSpaceStatusBadgeComponent implements OnInit {
 
   /**
-   * This mydspace item status
+   * This mydspace item context
    */
-  @Input() status: MyDspaceItemStatusType;
+  @Input() context: Context;
 
   /**
    * This badge class
@@ -30,22 +30,22 @@ export class MyDSpaceItemStatusComponent implements OnInit {
    * Initialize badge content and class
    */
   ngOnInit() {
-    this.badgeContent = this.status;
+    this.badgeContent = this.context;
     this.badgeClass = 'text-light badge ';
-    switch (this.status) {
-      case MyDspaceItemStatusType.VALIDATION:
+    switch (this.context) {
+      case Context.MyDSpaceValidation:
         this.badgeClass += 'badge-validation';
         break;
-      case MyDspaceItemStatusType.WAITING_CONTROLLER:
+      case Context.MyDSpaceWaitingController:
         this.badgeClass += 'badge-waiting-controller';
         break;
-      case MyDspaceItemStatusType.WORKSPACE:
+      case Context.MyDSpaceWorkspace:
         this.badgeClass += 'badge-workspace';
         break;
-      case MyDspaceItemStatusType.ARCHIVED:
+      case Context.MyDSpaceArchived:
         this.badgeClass += 'badge-archived';
         break;
-      case MyDspaceItemStatusType.WORKFLOW:
+      case Context.MyDSpaceWorkflow:
         this.badgeClass += 'badge-workflow';
         break;
     }

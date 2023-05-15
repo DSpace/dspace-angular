@@ -1,6 +1,6 @@
 <td class="dso-info">
   <ng-container *ngIf="!!dso">
-    <ds-type-badge [object]="dso"></ds-type-badge>
+    <ds-themed-type-badge [object]="dso"></ds-themed-type-badge>
     <p><a [routerLink]="[getPageRoutePrefix(), dso.id]">{{dso.name}}</a></p>
   </ng-container>
   <ng-container *ngIf="!dso">
