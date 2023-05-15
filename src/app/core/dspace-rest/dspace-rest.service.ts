@@ -1,4 +1,4 @@
-import { Observable, throwError as observableThrowError, throwError } from 'rxjs';
+import { Observable, throwError as observableThrowError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
@@ -55,19 +55,6 @@ export class DspaceRestService {
           statusText: err.statusText,
           message: (hasValue(err.error) && isNotEmpty(err.error.message)) ? err.error.message : err.message
         });
-      }));
-  }
-
-  getWithHeaders(absoluteURL: string, reqOptions: any): Observable<any> {
-    const requestOptions = reqOptions;
-
-    return this.http.get(absoluteURL, requestOptions).pipe(
-      map((res) => ({
-        payload: res
-      })),
-      catchError((err) => {
-        console.log('Error: ', err);
-        return throwError(() => new Error(err.error));
       }));
   }
 

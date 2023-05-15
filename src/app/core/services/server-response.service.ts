@@ -37,7 +37,6 @@ export class ServerResponseService {
   }
 
   setHeader(header: string, content: string) {
-    console.log(this.response);
     if (this.response) {
       this.response.setHeader(header, content);
     }
