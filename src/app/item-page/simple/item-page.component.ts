@@ -65,7 +65,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   /**
    * Contains a list of SignpostingLink related to the item
    */
-  signpostingLinks: SignpostingLink[];
+  signpostingLinks: SignpostingLink[] = [];
 
   constructor(
     protected route: ActivatedRoute,
