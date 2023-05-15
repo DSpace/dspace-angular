@@ -55,7 +55,7 @@ export class BulkAccessControlService {
       { name: '-f', value: file.name }
     ];
     uuids.forEach((uuid) => {
-      params.push({ name: '-u', value: uuid })
+      params.push({ name: '-u', value: uuid });
     });
 
     return this.scriptService.invoke('bulk-access-control', params, [file]).pipe(
@@ -90,7 +90,7 @@ export const convertToBulkAccessControlFileModel = (payload: { state: AccessCont
     finalPayload.item = {
       mode: payload.state.item.accessMode,
       accessConditions: payload.itemAccess
-    }
+    };
   }
 
   if (bitstreamEnabled) {
@@ -105,7 +105,7 @@ export const convertToBulkAccessControlFileModel = (payload: { state: AccessCont
       constraints,
       mode: payload.state.bitstream.accessMode,
       accessConditions: payload.bitstreamAccess
-    }
+    };
   }
 
   return finalPayload;
