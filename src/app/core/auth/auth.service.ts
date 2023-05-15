@@ -112,16 +112,6 @@ export class AuthService {
       map((rd: RemoteData<AuthStatus>) => {
         if (hasValue(rd.payload) && rd.payload.authenticated) {
           return rd.payload;
-        } else if (hasValue(rd.payload.error) && rd.payload.error.message.startsWith(USER_WITHOUT_EMAIL_EXCEPTION)) {
-          // ShibbolethAuthentication error - USER_WITHOUT_EMAIL_EXCEPTION
-          const queryParams = this.retrieveParamsFromErrorMessage(rd.payload.error.message);
-          // Redirect to the auth-failed.component
-          this.router.navigate(['/login/','auth-failed'], { queryParams: queryParams });
-        } else if (hasValue(rd.payload.error) &&
-            rd.payload.error.message.startsWith(MISSING_HEADERS_FROM_IDP_EXCEPTION)) {
-          // ShibbolethAuthentication error - MISSING_HEADERS_FROM_IDP_EXCEPTION
-          // Redirect to the missing-idp-headers.component
-          this.router.navigate(['/login/','missing-headers']);
         } else {
           throw(new Error('Invalid email or password'));
         }
