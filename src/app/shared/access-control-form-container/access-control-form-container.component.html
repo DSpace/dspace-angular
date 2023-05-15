@@ -142,7 +142,9 @@
         <button class="btn btn-lg btn-outline-primary mr-3" (click)="reset()">
           {{ 'access-control-reset' | translate }}
         </button>
-        <button class="btn btn-lg btn-primary" (click)="submit()">
+        <button class="btn btn-lg btn-primary"
+                [disabled]="!state.item.toggleStatus && !state.bitstream.toggleStatus"
+                (click)="submit()">
           {{ 'access-control-execute' | translate }}
         </button>
       </div>
