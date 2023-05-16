@@ -107,7 +107,7 @@ export class AdvancedSearchComponent implements OnInit {
   }
   onSubmit(data) {
     if (this.advSearchForm.valid) {
-      let queryParams = { [this.paramName(data.filter)]: data.textsearch + ',' + data.operator }
+      let queryParams = { [this.paramName(data.filter)]: data.textsearch + ',' + data.operator };
       this.router.navigate([], { queryParams: queryParams, queryParamsHandling: 'merge' });
       this.advSearchForm.reset({ operator: data.operator, filter: data.filter, textsearch: '' });
     }
