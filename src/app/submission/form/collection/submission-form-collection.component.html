@@ -37,11 +37,11 @@
          [ngClass]="{'d-none': !hasChoice}"
          id="collectionControlsDropdownMenu"
          aria-labelledby="collectionControlsMenuButton">
-      <ds-collection-dropdown
+      <ds-themed-collection-dropdown
         [entityType]="entityType"
         (selectionChange)="onSelect($event)"
         (hasChoice)="onHasChoice($event)">
-      </ds-collection-dropdown>
+      </ds-themed-collection-dropdown>
     </div>
   </div>
 </div>

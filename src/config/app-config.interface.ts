@@ -21,6 +21,7 @@ import { InfoConfig } from './info-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
+import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-config.interfaces';
 import { MetadataSecurityConfig } from './metadata-security-config';
 import { CmsMetadata } from './cms-metadata';
@@ -53,6 +54,7 @@ interface AppConfig extends Config {
   actuators: ActuatorsConfig
   info: InfoConfig;
   markdown: MarkdownConfig;
+  vocabularies: FilterVocabularyConfig[];
   crisLayout: CrisLayoutConfig;
   layout: LayoutConfig;
   security: MetadataSecurityConfig;

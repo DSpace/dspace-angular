@@ -3,6 +3,7 @@ import { globalCSSImports, projectRoot } from './helpers';
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const sass = require('sass');
+const JSON5 = require('json5');
 
 export const copyWebpackOptions = {
   patterns: [
@@ -10,6 +11,20 @@ export const copyWebpackOptions = {
       from: path.join(__dirname, '..', 'node_modules', '@fortawesome', 'fontawesome-free', 'webfonts'),
       to: path.join('assets', 'fonts'),
       force: undefined
+    },
+    {
+      from: path.join(__dirname, '..', 'src', 'assets', '**', '*.json5').replace(/\\/g, '/'),
+      to({ absoluteFilename }) {
+        // use [\/|\\] to match both POSIX and Windows separators
+        const matches = absoluteFilename.match(/.*[\/|\\]assets[\/|\\](.+)\.json5$/);
+        if (matches) {
+          // matches[1] is the relative path from src/assets to the JSON5 file, without the extension
+          return path.join('assets', matches[1] + '.json');
+        }
+      },
+      transform(content) {
+        return JSON.stringify(JSON5.parse(content.toString()))
+      }
     },
     {
       from: path.join(__dirname, '..', 'src', 'assets'),
@@ -32,8 +47,8 @@ export const copyWebpackOptions = {
       },
     },
     {
-      from: path.join(__dirname, '..', 'src', 'robots.txt'),
-      to: 'robots.txt'
+      from: path.join(__dirname, '..', 'src', 'robots.txt.ejs'),
+      to: 'assets/robots.txt.ejs'
     }
   ]
 };

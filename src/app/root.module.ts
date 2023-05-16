@@ -34,6 +34,8 @@ import {
 import { PageInternalServerErrorComponent } from './page-internal-server-error/page-internal-server-error.component';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { PageErrorComponent } from './page-error/page-error.component';
+import { ContextHelpToggleComponent } from './header/context-help-toggle/context-help-toggle.component';
+import { SystemWideAlertModule } from './system-wide-alert/system-wide-alert.module';
 import {
   ProcessNotificationComponent
 } from './shared/notifications/process-notification/process-notification.component';
@@ -45,6 +47,7 @@ const IMPORTS = [
   CommonModule,
   SharedModule.withEntryComponents(),
   NavbarModule,
+  SystemWideAlertModule,
   NgbModule,
   ExploreModule,
   FooterModule,
@@ -78,7 +81,8 @@ const DECLARATIONS = [
   ThemedPageInternalServerErrorComponent,
   PageInternalServerErrorComponent,
   ThemedPageErrorComponent,
-  PageErrorComponent
+  PageErrorComponent,
+  ContextHelpToggleComponent,
 ];
 
 const EXPORTS = [

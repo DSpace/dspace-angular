@@ -4,13 +4,20 @@ import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
 import { ItemOperation } from '../item-operation/itemOperation.model';
 import { distinctUntilChanged, first, map, mergeMap, switchMap, toArray } from 'rxjs/operators';
-import { BehaviorSubject, combineLatest, from as observableFrom, Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, combineLatest, from, Observable, of, Subscription } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { hasValue } from '../../../shared/empty.util';
-import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import {
+  getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData, getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { IdentifierDataService } from '../../../core/data/identifier-data.service';
+import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { IdentifierData } from '../../../shared/object-list/identifier-data/identifier-data.model';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 
 @Component({
@@ -48,9 +55,15 @@ export class ItemStatusComponent implements OnInit {
   operations$: BehaviorSubject<ItemOperation[]> = new BehaviorSubject<ItemOperation[]>([]);
 
   /**
-   * The keys of the actions (to loop over)
+   * Identifiers (handles, DOIs)
    */
-  actionsKeys;
+  identifiers$: Observable<Identifier[]>;
+
+  /**
+   * Configuration and state variables regarding DOIs
+   */
+
+  public subs: Subscription[] = [];
 
   /**
    * Route to the item's page
@@ -59,9 +72,14 @@ export class ItemStatusComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private authorizationService: AuthorizationDataService,
+              private identifierDataService: IdentifierDataService,
+              private configurationService: ConfigurationDataService,
               private orcidAuthService: OrcidAuthService) {
   }
 
+  /**
+   * Initialise component
+   */
   ngOnInit(): void {
     this.itemRD$ = this.route.parent.data.pipe(map((data) => data.dso));
     this.itemRD$.pipe(
@@ -75,12 +93,37 @@ export class ItemStatusComponent implements OnInit {
           lastModified: item.lastModified
         });
         this.statusDataKeys = Object.keys(this.statusData);
+
+      // Observable for item identifiers (retrieved from embedded link)
+      this.identifiers$ = this.identifierDataService.getIdentifierDataFor(item).pipe(
+        map((identifierRD) => {
+          if (identifierRD.statusCode !== 401 && hasValue(identifierRD.payload)) {
+            return identifierRD.payload.identifiers;
+          } else {
+            return null;
+          }
+        }),
+      );
+
+      // Observable for configuration determining whether the Register DOI feature is enabled
+      let registerConfigEnabled$: Observable<boolean> = this.configurationService.findByPropertyName('identifiers.item-status.register-doi').pipe(
+        getFirstSucceededRemoteData(),
+        getRemoteDataPayload(),
+        map((enabled: ConfigurationProperty) => {
+          if (enabled !== undefined && enabled.values) {
+            return true;
+          }
+          return false;
+        })
+      );
+
         /*
+      Construct a base list of operations.
           The key is used to build messages
             i18n example: 'item.edit.tabs.status.buttons.<key>.label'
           The value is supposed to be a href for the button
         */
-        const operations = [];
+      const operations: ItemOperation[] = [];
         operations.push(new ItemOperation('authorizations', this.getCurrentUrl(item) + '/authorizations', FeatureID.CanManagePolicies, true));
         operations.push(new ItemOperation('mappedCollections', this.getCurrentUrl(item) + '/mapper', FeatureID.CanManageMappings, true));
         if (item.isWithdrawn) {
@@ -95,10 +138,9 @@ export class ItemStatusComponent implements OnInit {
         }
         operations.push(new ItemOperation('delete', this.getCurrentUrl(item) + '/delete', FeatureID.CanDelete, true));
         operations.push(new ItemOperation('move', this.getCurrentUrl(item) + '/move', FeatureID.CanMove, true));
-
         this.operations$.next(operations);
 
-        const ops$ = observableFrom(operations).pipe(
+        const ops$ = from(operations).pipe(
           mergeMap((operation) => {
             if (hasValue(operation.featureID)) {
               return this.authorizationService.isAuthorized(operation.featureID, item.self).pipe(
@@ -112,7 +154,7 @@ export class ItemStatusComponent implements OnInit {
           toArray()
         );
 
-        let orcidOps$ = observableOf([]);
+        let orcidOps$ = of([]);
         if (this.orcidAuthService.isLinkedToOrcid(item)) {
           orcidOps$ = this.orcidAuthService.onlyAdminCanDisconnectProfileFromOrcid().pipe(
               map((canDisconnect) => {
@@ -134,6 +176,7 @@ export class ItemStatusComponent implements OnInit {
       getAllSucceededRemoteDataPayload(),
       map((item) => getItemPageRoute(item))
     );
+
   }
 
   /**
@@ -146,6 +189,12 @@ export class ItemStatusComponent implements OnInit {
 
   trackOperation(index: number, operation: ItemOperation) {
     return hasValue(operation) ? operation.operationKey : undefined;
+  }
+
+  ngOnDestroy(): void {
+    this.subs
+      .filter((subscription) => hasValue(subscription))
+      .forEach((subscription) => subscription.unsubscribe());
   }
 
 }

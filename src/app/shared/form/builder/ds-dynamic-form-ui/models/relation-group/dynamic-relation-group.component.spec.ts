@@ -15,7 +15,7 @@ import { FormFieldModel } from '../../../models/form-field.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { FormService } from '../../../../form.service';
 import { FormComponent } from '../../../../form.component';
-import { Chips } from '../../../../../chips/models/chips.model';
+import { Chips } from '../../../../chips/models/chips.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';

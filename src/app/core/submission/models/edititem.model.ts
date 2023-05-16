@@ -1,6 +1,6 @@
 import { ResourceType } from '../../shared/resource-type';
 import { typedObject, inheritLinkAnnotations, link } from '../../cache/builders/build-decorators';
-import { inheritSerialization, deserializeAs, deserialize } from 'cerialize';
+import { inheritSerialization, deserializeAs } from 'cerialize';
 import { SubmissionObject } from './submission-object.model';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { HALLink } from '../../shared/hal-link.model';
@@ -25,19 +25,6 @@ export class EditItem extends SubmissionObject {
    */
   @deserializeAs(new IDToUUIDSerializer(EditItem.type.value), 'id')
   uuid: string;
-
-  /**
-   * The {@link HALLink}s for this EditItem
-   */
-  @deserialize
-  _links: {
-    self: HALLink;
-    collection: HALLink;
-    item: HALLink;
-    submissionDefinition: HALLink;
-    submitter: HALLink;
-    modes: HALLink;
-  };
 
   /**
    * Existing EditItem modes for current EditItem

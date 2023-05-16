@@ -9,7 +9,7 @@ import { formObjectFromIdSelector } from './selectors';
 import { FormBuilderService } from './builder/form-builder.service';
 import { DynamicFormControlEvent, DynamicFormControlModel, DynamicFormGroupModel } from '@ng-dynamic-forms/core';
 import { isEmpty, isNotUndefined } from '../empty.util';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import {
   FormAddError,
   FormAddTouchedAction,

@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
-import { Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, combineLatest } from 'rxjs';
+import { take } from 'rxjs/operators';
+
 import { AuthService } from '../../../core/auth/auth.service';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
@@ -9,7 +11,7 @@ import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-
+import { DsoVersioningModalService } from '../../dso-page/dso-versioning-modal-service/dso-versioning-modal.service';
 
 @Component({
   selector: 'ds-item-version-menu',
@@ -25,7 +27,7 @@ export class ItemVersionMenuComponent extends ContextMenuEntryComponent implemen
   /**
    * Whether or not the current user is authorized to subscribe the DSpaceObject
    */
-  isAuthorized$: Observable<boolean> = observableOf(false);
+  canShow$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
    * EPerson id of the logged user
@@ -44,18 +46,34 @@ export class ItemVersionMenuComponent extends ContextMenuEntryComponent implemen
    * @param {DSpaceObjectType} injectedContextMenuObjectType
    * @param {AuthorizationDataService} authorizationService
    * @param {AuthService} authService
+   * @param {DsoVersioningModalService} versioningModalService
    */
   constructor(
     @Inject('contextMenuObjectProvider') public injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
     protected authorizationService: AuthorizationDataService,
-    private authService: AuthService
+    private authService: AuthService,
+    private versioningModalService: DsoVersioningModalService,
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.ItemVersion);
   }
 
   ngOnInit() {
-    this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, this.contextMenuObject.self);
+    const isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, this.contextMenuObject.self);
+    const isDisabled$ = this.versioningModalService.isNewVersionButtonDisabled(this.contextMenuObject);
+
+    combineLatest([isAuthorized$, isDisabled$]).pipe(
+      take(1)
+    ).subscribe(([isAuthorized, isDisabled]) => {
+      this.canShow$.next(isAuthorized && !isDisabled)
+    });
+
   }
 
+  /**
+   * Open modal to create a new version
+   */
+  createNewVersion(): void {
+    this.versioningModalService.openCreateVersionModal(this.contextMenuObject)
+  }
 }
