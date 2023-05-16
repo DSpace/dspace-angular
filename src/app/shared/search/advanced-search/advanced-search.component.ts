@@ -102,13 +102,13 @@ export class AdvancedSearchComponent implements OnInit {
   get operator() {
     return this.advSearchForm.get('operator');
   }
+  paramName(filter) {
+    return 'f.' + filter;
+  }
   onSubmit(data) {
     if (this.advSearchForm.valid) {
-      if (!this.router.url.includes('?')) {
-        this.router.navigateByUrl(this.router.url + '?f.' + data.filter + '=' + data.textsearch + ',' + data.operator);
-      } else {
-        this.router.navigateByUrl(this.router.url + '&f.' + data.filter + '=' + data.textsearch + ',' + data.operator);
-      }
+      let queryParams = { [this.paramName(data.filter)]: data.textsearch + ',' + data.operator }
+      this.router.navigate([], { queryParams: queryParams, queryParamsHandling: 'merge' });
       this.advSearchForm.reset({ operator: data.operator, filter: data.filter, textsearch: '' });
     }
   }
