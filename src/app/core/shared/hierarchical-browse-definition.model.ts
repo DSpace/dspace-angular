@@ -1,14 +1,14 @@
-import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
+import { autoserialize, autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
 import { typedObject } from '../cache/builders/build-decorators';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { HIERARCHICAL_BROWSE_DEFINITION } from './hierarchical-browse-definition.resource-type';
 import { HALLink } from './hal-link.model';
 import { ResourceType } from './resource-type';
-import { CacheableObject } from '../cache/cacheable-object.model';
-import { BrowseDefinition } from './browse-definition';
+import { BrowseDefinition } from './browse-definition.model';
 
 @typedObject
-export class HierarchicalBrowseDefinition extends CacheableObject implements BrowseDefinition {
+@inheritSerialization(BrowseDefinition)
+export class HierarchicalBrowseDefinition extends BrowseDefinition {
   static type = HIERARCHICAL_BROWSE_DEFINITION;
 
   /**
@@ -16,9 +16,6 @@ export class HierarchicalBrowseDefinition extends CacheableObject implements Bro
    */
   @excludeFromEquals
   type: ResourceType = HIERARCHICAL_BROWSE_DEFINITION;
-
-  @autoserialize
-  id: string;
 
   @autoserialize
   facetType: string;

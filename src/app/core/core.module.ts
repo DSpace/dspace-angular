@@ -73,7 +73,7 @@ import { ServerResponseService } from './services/server-response.service';
 import { NativeWindowFactory, NativeWindowService } from './services/window.service';
 import { BitstreamFormat } from './shared/bitstream-format.model';
 import { Bitstream } from './shared/bitstream.model';
-import { FlatBrowseDefinition } from './shared/flat-browse-definition.model';
+import { BrowseDefinition } from './shared/browse-definition.model';
 import { BrowseEntry } from './shared/browse-entry.model';
 import { Bundle } from './shared/bundle.model';
 import { Collection } from './shared/collection.model';
@@ -325,7 +325,7 @@ export const models =
     SubmissionUploadsModel,
     AuthStatus,
     BrowseEntry,
-    FlatBrowseDefinition,
+    BrowseDefinition,
     HierarchicalBrowseDefinition,
     ClaimedTask,
     TaskObject,

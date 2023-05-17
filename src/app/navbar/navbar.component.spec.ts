@@ -16,7 +16,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BrowseService } from '../core/browse/browse.service';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { buildPaginatedList } from '../core/data/paginated-list.model';
-import { FlatBrowseDefinition } from '../core/shared/flat-browse-definition.model';
+import { BrowseDefinition } from '../core/shared/browse-definition.model';
 import { BrowseByDataType } from '../browse-by/browse-by-switcher/browse-by-decorator';
 import { Item } from '../core/shared/item.model';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
@@ -66,26 +66,26 @@ describe('NavbarComponent', () => {
   beforeEach(waitForAsync(() => {
     browseDefinitions = [
       Object.assign(
-        new FlatBrowseDefinition(), {
+        new BrowseDefinition(), {
           id: 'title',
           dataType: BrowseByDataType.Title,
         }
       ),
       Object.assign(
-        new FlatBrowseDefinition(), {
+        new BrowseDefinition(), {
           id: 'dateissued',
           dataType: BrowseByDataType.Date,
           metadataKeys: ['dc.date.issued']
         }
       ),
       Object.assign(
-        new FlatBrowseDefinition(), {
+        new BrowseDefinition(), {
           id: 'author',
           dataType: BrowseByDataType.Metadata,
         }
       ),
       Object.assign(
-        new FlatBrowseDefinition(), {
+        new BrowseDefinition(), {
           id: 'subject',
           dataType: BrowseByDataType.Metadata,
         }

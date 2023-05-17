@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BROWSE_DEFINITION } from '../shared/browse-definition.resource-type';
-import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
 import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -16,46 +15,10 @@ import { dataService } from '../data/base/data-service.decorator';
 import { isNotEmpty, isNotEmptyOperator, hasValue } from '../../shared/empty.util';
 import { take } from 'rxjs/operators';
 import { BrowseDefinitionRestRequest } from '../data/request.models';
+import { BrowseDefinition } from '../shared/browse-definition.model';
 
-/**
- * Data service responsible for retrieving browse definitions from the REST server
- */
-@Injectable({
-  providedIn: 'root',
-})
-@dataService(BROWSE_DEFINITION)
-export class BrowseDefinitionDataService extends IdentifiableDataService<FlatBrowseDefinition> implements FindAllData<FlatBrowseDefinition> {
-  private findAllData: FindAllDataImpl<FlatBrowseDefinition>;
 
-  constructor(
-    protected requestService: RequestService,
-    protected rdbService: RemoteDataBuildService,
-    protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService,
-  ) {
-    super('browses', requestService, rdbService, objectCache, halService);
-
-    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
-  }
-
-  /**
-   * Returns {@link RemoteData} of all object with a list of {@link FollowLinkConfig}, to indicate which embedded
-   * info should be added to the objects
-   *
-   * @param options                     Find list options object
-   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
-   *                                    no valid cached version. Defaults to true
-   * @param reRequestOnStale            Whether or not the request should automatically be re-
-   *                                    requested after the response becomes stale
-   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
-   *                                    {@link HALLink}s should be automatically resolved
-   * @return {Observable<RemoteData<PaginatedList<T>>>}
-   *    Return an observable that emits object list
-   */
-  findAll(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<FlatBrowseDefinition>[]): Observable<RemoteData<PaginatedList<FlatBrowseDefinition>>> {
-    return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
-  }
-
+class BrowseDefinitionDataImpl extends FindAllDataImpl<BrowseDefinition> {
   /**
    * Create a GET request for the given href, and send it.
    * Use a GET request specific for BrowseDefinitions.
@@ -83,6 +46,46 @@ export class BrowseDefinitionDataService extends IdentifiableDataService<FlatBro
         this.requestService.send(request, useCachedVersionIfAvailable);
       });
     }
+  }
+}
+
+/**
+ * Data service responsible for retrieving browse definitions from the REST server
+ */
+@Injectable({
+  providedIn: 'root',
+})
+@dataService(BROWSE_DEFINITION)
+export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseDefinition> implements FindAllData<BrowseDefinition> {
+  private findAllData: BrowseDefinitionDataImpl;
+
+  constructor(
+    protected requestService: RequestService,
+    protected rdbService: RemoteDataBuildService,
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService,
+  ) {
+    super('browses', requestService, rdbService, objectCache, halService);
+
+    this.findAllData = new BrowseDefinitionDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+  }
+
+  /**
+   * Returns {@link RemoteData} of all object with a list of {@link FollowLinkConfig}, to indicate which embedded
+   * info should be added to the objects
+   *
+   * @param options                     Find list options object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>>}
+   *    Return an observable that emits object list
+   */
+  findAll(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<BrowseDefinition>[]): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
+    return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 }
 

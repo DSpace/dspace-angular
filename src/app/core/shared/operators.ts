@@ -6,7 +6,7 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { FlatBrowseDefinition } from './flat-browse-definition.model';
+import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
 import { InjectionToken } from '@angular/core';
 import { MonoTypeOperatorFunction, SchedulerLike } from 'rxjs/internal/types';
@@ -171,17 +171,17 @@ export const toDSpaceObjectListRD = <T extends DSpaceObject>() =>
 /**
  * Get the browse links from a definition by ID given an array of all definitions
  * @param {string} definitionID
- * @returns {(source: Observable<RemoteData<FlatBrowseDefinition[]>>) => Observable<any>}
+ * @returns {(source: Observable<RemoteData<BrowseDefinition[]>>) => Observable<any>}
  */
 export const getBrowseDefinitionLinks = (definitionID: string) =>
-  (source: Observable<RemoteData<PaginatedList<FlatBrowseDefinition>>>): Observable<any> =>
+  (source: Observable<RemoteData<PaginatedList<BrowseDefinition>>>): Observable<any> =>
     source.pipe(
       getRemoteDataPayload(),
       getPaginatedListPayload(),
-      map((browseDefinitions: FlatBrowseDefinition[]) => browseDefinitions
-        .find((def: FlatBrowseDefinition) => def.id === definitionID)
+      map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
+        .find((def: BrowseDefinition) => def.id === definitionID)
       ),
-      map((def: FlatBrowseDefinition) => {
+      map((def: BrowseDefinition) => {
         if (isNotEmpty(def)) {
           return def._links;
         } else {

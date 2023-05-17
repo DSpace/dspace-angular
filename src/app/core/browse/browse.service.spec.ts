@@ -6,7 +6,7 @@ import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestService } from '../data/request.service';
-import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
+import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 import { BrowseService } from './browse.service';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -23,7 +23,7 @@ describe('BrowseService', () => {
   const browsesEndpointURL = 'https://rest.api/browses';
   const halService: any = new HALEndpointServiceStub(browsesEndpointURL);
   const browseDefinitions = [
-    Object.assign(new FlatBrowseDefinition(), {
+    Object.assign(new BrowseDefinition(), {
       id: 'date',
       metadataBrowse: false,
       sortOptions: [
@@ -50,7 +50,7 @@ describe('BrowseService', () => {
         items: { href: 'https://rest.api/discover/browses/dateissued/items' }
       }
     }),
-    Object.assign(new FlatBrowseDefinition(), {
+    Object.assign(new BrowseDefinition(), {
       id: 'author',
       metadataBrowse: true,
       sortOptions: [
