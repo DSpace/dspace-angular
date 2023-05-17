@@ -49,7 +49,7 @@ describe('ThumbnailComponent', () => {
         comp.src = 'http://bit.stream';
         comp.defaultImage = 'http://default.img';
         comp.errorHandler();
-        comp.ngOnChanges();
+        comp.ngOnChanges({});
         fixture.detectChanges();
         const image: HTMLElement = de.query(By.css('img')).nativeElement;
         expect(image.getAttribute('alt')).toBe('TRANSLATED ' + comp.alt);
@@ -61,7 +61,7 @@ describe('ThumbnailComponent', () => {
         comp.errorHandler();
         expect(comp.src).toBe(null);
 
-        comp.ngOnChanges();
+        comp.ngOnChanges({});
         fixture.detectChanges();
         const placeholder = fixture.debugElement.query(By.css('div.thumbnail-placeholder')).nativeElement;
         expect(placeholder.innerHTML).toBe('TRANSLATED ' + comp.placeholder);
@@ -84,7 +84,7 @@ describe('ThumbnailComponent', () => {
 
     it('should display an image', () => {
       comp.thumbnail = thumbnail;
-      comp.ngOnChanges();
+      comp.ngOnChanges({});
       fixture.detectChanges();
       const image: HTMLElement = de.query(By.css('img')).nativeElement;
       expect(image.getAttribute('src')).toBe(comp.thumbnail._links.content.href);
@@ -92,7 +92,7 @@ describe('ThumbnailComponent', () => {
 
     it('should include the alt text', () => {
       comp.thumbnail = thumbnail;
-      comp.ngOnChanges();
+      comp.ngOnChanges({});
       fixture.detectChanges();
       const image: HTMLElement = de.query(By.css('img')).nativeElement;
       expect(image.getAttribute('alt')).toBe('TRANSLATED ' + comp.alt);
@@ -113,7 +113,7 @@ describe('ThumbnailComponent', () => {
 
       it('should show a loading animation', () => {
         comp.thumbnail = thumbnail;
-        comp.ngOnChanges();
+        comp.ngOnChanges({});
         fixture.detectChanges();
         expect(de.query(By.css('ds-loading'))).toBeTruthy();
       });
@@ -134,7 +134,7 @@ describe('ThumbnailComponent', () => {
 
       it('should display an image', () => {
         comp.thumbnail = thumbnail;
-        comp.ngOnChanges();
+        comp.ngOnChanges({});
         fixture.detectChanges();
         const image: HTMLElement = de.query(By.css('img')).nativeElement;
         expect(image.getAttribute('src')).toBe(comp.thumbnail.payload._links.content.href);
@@ -142,7 +142,7 @@ describe('ThumbnailComponent', () => {
 
       it('should display the alt text', () => {
         comp.thumbnail = thumbnail;
-        comp.ngOnChanges();
+        comp.ngOnChanges({});
         fixture.detectChanges();
         const image: HTMLElement = de.query(By.css('img')).nativeElement;
         expect(image.getAttribute('alt')).toBe('TRANSLATED ' + comp.alt);
