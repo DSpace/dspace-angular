@@ -53,7 +53,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
    */
   getInitValueFromModel(): Observable<FormFieldMetadataValueObject> {
     let initValue$: Observable<FormFieldMetadataValueObject>;
-    if (isNotEmpty(this.model.value) && (this.model.value instanceof FormFieldMetadataValueObject)) {
+    if (isNotEmpty(this.model.value) && (this.model.value instanceof FormFieldMetadataValueObject) && !this.model.value.hasAuthorityToGenerate()) {
       let initEntry$: Observable<VocabularyEntry>;
       if (this.model.value.hasAuthority()) {
         initEntry$ = this.vocabularyService.getVocabularyEntryByID(this.model.value.authority, this.model.vocabularyOptions);
