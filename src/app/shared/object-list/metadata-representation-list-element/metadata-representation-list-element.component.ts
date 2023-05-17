@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
+import { Context } from '../../../core/shared/context.model';
 
 @Component({
   selector: 'ds-metadata-representation-list-element',
@@ -10,7 +11,12 @@ import { MetadataRepresentation } from '../../../core/shared/metadata-representa
  */
 export class MetadataRepresentationListElementComponent {
   /**
+   * The optional context
+   */
+  @Input() context: Context;
+
+  /**
    * The metadata representation of this component
    */
-  metadataRepresentation: MetadataRepresentation;
+  @Input() mdRepresentation: MetadataRepresentation;
 }
