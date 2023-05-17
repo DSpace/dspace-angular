@@ -1,3 +1,4 @@
+import removeMarkdown from 'remove-markdown';
 import { Component } from '@angular/core';
 import { listableObjectComponent } from '../../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ViewMode } from '../../../../../../core/shared/view-mode.model';
@@ -31,5 +32,9 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
     super.ngOnInit();
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;
     this.itemPageRoute = getItemPageRoute(this.dso);
+  }
+
+  removeMarkdown(text: string) {
+    return removeMarkdown(text);
   }
 }
