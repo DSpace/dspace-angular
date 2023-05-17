@@ -1,4 +1,5 @@
 {
+  "include": ["src/*.ts"],
   "compileOnSave": false,
   "buildOnSave": false,
   "atom": {
