@@ -148,7 +148,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
       (listableComponent as any).reloadedObject.emit(reloadedObject);
       tick();
 
-      expect((comp as any).instantiateComponent).toHaveBeenCalledWith(reloadedObject);
+      expect((comp as any).instantiateComponent).toHaveBeenCalledWith(reloadedObject, undefined);
     }));
 
     it('should re-emit it as a contentChange', fakeAsync(() => {

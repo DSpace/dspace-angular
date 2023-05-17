@@ -19,8 +19,8 @@ import { getListableObjectComponent } from './listable-object.decorator';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ListableObjectDirective } from './listable-object.directive';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
-import { hasValue, isNotEmpty } from '../../../empty.util';
-import { Subscription } from 'rxjs';
+import { hasValue, isNotEmpty, hasNoValue } from '../../../empty.util';
+import { Subscription, combineLatest, of as observableOf, Observable } from 'rxjs';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { take } from 'rxjs/operators';
 import { ThemeService } from '../../../theme-support/theme.service';
@@ -147,8 +147,18 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
    * Whenever the inputs change, update the inputs of the dynamic component
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.inAndOutputNames.some((name: any) => hasValue(changes[name]))) {
-      this.connectInputsAndOutputs();
+    if (hasNoValue(this.compRef)) {
+      // sometimes the component has not been initialized yet, so it first needs to be initialized
+      // before being called again
+      this.instantiateComponent(this.object, changes);
+    } else {
+      // if an input or output has changed
+      if (this.inAndOutputNames.some((name: any) => hasValue(changes[name]))) {
+        this.connectInputsAndOutputs();
+        if (this.compRef?.instance && 'ngOnChanges' in this.compRef.instance) {
+          (this.compRef.instance as any).ngOnChanges(changes);
+        }
+      }
     }
   }
 
@@ -158,7 +168,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
       .forEach((subscription) => subscription.unsubscribe());
   }
 
-  private instantiateComponent(object) {
+  private instantiateComponent(object: ListableObject, changes?: SimpleChanges): void {
 
     this.initBadges();
 
@@ -177,14 +187,21 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
         [this.badges.nativeElement],
       ]);
 
-    this.connectInputsAndOutputs();
+    if (hasValue(changes)) {
+      this.ngOnChanges(changes);
+    } else {
+      this.connectInputsAndOutputs();
+    }
 
     if ((this.compRef.instance as any).reloadedObject) {
-      (this.compRef.instance as any).reloadedObject.pipe(take(1)).subscribe((reloadedObject: DSpaceObject) => {
+      combineLatest([
+        observableOf(changes),
+        (this.compRef.instance as any).reloadedObject.pipe(take(1)) as Observable<DSpaceObject>,
+      ]).subscribe(([simpleChanges, reloadedObject]: [SimpleChanges, DSpaceObject]) => {
         if (reloadedObject) {
           this.compRef.destroy();
           this.object = reloadedObject;
-          this.instantiateComponent(reloadedObject);
+          this.instantiateComponent(reloadedObject, simpleChanges);
           this.contentChange.emit(reloadedObject);
         }
       });
@@ -220,7 +237,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
    */
   protected connectInputsAndOutputs(): void {
     if (isNotEmpty(this.inAndOutputNames) && hasValue(this.compRef) && hasValue(this.compRef.instance)) {
-      this.inAndOutputNames.forEach((name: any) => {
+      this.inAndOutputNames.filter((name: any) => this[name] !== undefined).forEach((name: any) => {
         this.compRef.instance[name] = this[name];
       });
     }
