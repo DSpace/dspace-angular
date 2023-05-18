@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
@@ -86,7 +86,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
   constructor(public groupDataService: GroupDataService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
-              private formBuilder: FormBuilder,
+              private formBuilder: UntypedFormBuilder,
               private paginationService: PaginationService,
               private router: Router) {
     this.currentSearchQuery = '';
