@@ -12,6 +12,7 @@ import { map } from 'rxjs/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { EMPTY } from 'rxjs/internal/observable/empty';
+import { MetadataSecurityConfiguration } from 'src/app/core/submission/models/metadata-security-configuration';
 
 @Component({
   selector: 'ds-dso-edit-metadata-value',
@@ -32,6 +33,11 @@ export class DsoEditMetadataValueComponent implements OnInit {
    * Editable metadata value to show
    */
   @Input() mdValue: DsoEditMetadataValue;
+
+  /**
+   * The metadata security configuration for the entity.
+   */
+  @Input() metadataSecurityConfiguration: MetadataSecurityConfiguration = null;
 
   /**
    * Type of DSO we're displaying values for
