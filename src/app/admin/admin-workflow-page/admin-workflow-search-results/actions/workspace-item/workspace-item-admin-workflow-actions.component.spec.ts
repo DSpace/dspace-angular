@@ -11,7 +11,7 @@ import { URLCombiner } from '../../../../../core/url-combiner/url-combiner';
 import { WorkspaceItemAdminWorkflowActionsComponent } from './workspace-item-admin-workflow-actions.component';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import {
-  getWorkflowItemDeleteRoute,
+ getWorkspaceItemDeleteRoute,
 } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { Item } from '../../../../../core/shared/item.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
@@ -83,7 +83,7 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
   it('should render a delete button with the correct link', () => {
     const button = fixture.debugElement.query(By.css('a.delete-link'));
     const link = button.nativeElement.href;
-    expect(link).toContain(new URLCombiner(getWorkflowItemDeleteRoute(wsi.id)).toString());
+    expect(link).toContain(new URLCombiner(getWorkspaceItemDeleteRoute(wsi.id)).toString());
   });
 
   it('should render a policies button with the correct link', () => {
