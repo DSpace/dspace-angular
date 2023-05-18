@@ -6,7 +6,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -46,7 +46,10 @@ describe('WorkspaceitemsDeletePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
+      imports: [
+        NgbModalModule,
+        TranslateModule.forRoot()
+      ],
       declarations: [WorkspaceItemsDeletePageComponent],
       providers: [
         {
@@ -65,7 +68,6 @@ describe('WorkspaceitemsDeletePageComponent', () => {
           useValue: workspaceitemDataServiceSpy,
         },
         { provide: Location, useValue: new LocationStub() },
-        { provide: NgbModal, useValue: modalService },
         {
           provide: NotificationsService,
           useValue: new NotificationsServiceStub(),
