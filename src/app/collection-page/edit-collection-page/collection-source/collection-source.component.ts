@@ -14,7 +14,7 @@ import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { ContentSource, ContentSourceHarvestType } from '../../../core/shared/content-source.model';
 import { Observable, Subscription } from 'rxjs';
@@ -202,7 +202,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   /**
    * The form group of this form
    */
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   /**
    * Subscription to update the current form
