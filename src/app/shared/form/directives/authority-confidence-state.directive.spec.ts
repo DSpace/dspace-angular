@@ -6,10 +6,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { AuthorityConfidenceStateDirective } from './authority-confidence-state.directive';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
-import { ConfidenceType } from '../../core/shared/confidence-type';
-import { AUTHORITY_GENERATE, AUTHORITY_REFERENCE } from '../../core/shared/metadata.utils';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
+import { ConfidenceType } from '../../../core/shared/confidence-type';
+import { AUTHORITY_GENERATE, AUTHORITY_REFERENCE } from '../../../core/shared/metadata.utils';
 
 describe('AuthorityConfidenceStateDirective', () => {
   let component: TestComponent;
