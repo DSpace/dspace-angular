@@ -15,7 +15,6 @@
       <ng-template modelType="SCROLLABLE_DROPDOWN" let-model="model">
         <div *ngIf="!isTheOnlyFieldInArrayGroup(model)"
              class="col-xs-2 d-flex flex-column justify-content-start align-items-end"
-             [style.padding]="'0 5px 0 10px'"
              [class]="arrayButtonsStyle">
           <button type="button" class="btn btn-secondary" role="button"
                   title="{{'form.remove' | translate}}"

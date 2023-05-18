@@ -386,6 +386,14 @@ describe('FormComponent test suite', () => {
 
       expect(formComp.formGroup.reset).toHaveBeenCalled();
     });
+
+    it('should emit removeArrayItem Event when an scrollable dropdown field has been cleaned', inject([FormBuilderService], (service: FormBuilderService) => {
+      spyOn(formComp.removeArrayItem, 'emit');
+
+      formComp.clearScrollableDropdown(new Event('click'), formComp.formModel[0] as DynamicFormControlModel);
+
+      expect(formComp.removeArrayItem.emit).toHaveBeenCalled();
+    }));
   });
 
   describe('', () => {
@@ -441,13 +449,6 @@ describe('FormComponent test suite', () => {
       expect(formComp.removeArrayItem.emit).toHaveBeenCalled();
     }));
 
-    it('should emit removeArrayItem Event when an scrollable dropdown field has been cleaned', inject([FormBuilderService], (service: FormBuilderService) => {
-      spyOn(formComp.removeArrayItem, 'emit');
-
-      formComp.clearScrollableDropdown(new Event('click'), formComp.formModel[0] as DynamicFormControlModel);
-
-      expect(formComp.removeArrayItem.emit).toHaveBeenCalled();
-    }));
   });
 
   describe('isArrayGroupEmpty', () => {
