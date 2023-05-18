@@ -5,7 +5,7 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
@@ -60,7 +60,7 @@ describe('ForgotPasswordFormComponent', () => {
         {provide: ActivatedRoute, useValue: route},
         {provide: Store, useValue: store},
         {provide: EPersonDataService, useValue: ePersonDataService},
-        {provide: FormBuilder, useValue: new FormBuilder()},
+        {provide: UntypedFormBuilder, useValue: new UntypedFormBuilder()},
         {provide: NotificationsService, useValue: notificationsService},
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
