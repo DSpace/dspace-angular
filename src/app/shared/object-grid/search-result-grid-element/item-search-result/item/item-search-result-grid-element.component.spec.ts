@@ -124,7 +124,8 @@ const mockPerson: ItemSearchResult = Object.assign(new ItemSearchResult(), {
             value: 'Michel'
           }
         ]
-      }
+      },
+      thumbnail: createNoContentRemoteDataObject$()
     })
 });
 const mockOrgUnit: ItemSearchResult = Object.assign(new ItemSearchResult(), {
@@ -178,7 +179,8 @@ const mockOrgUnit: ItemSearchResult = Object.assign(new ItemSearchResult(), {
             value: 'OrgUnit'
           }
         ]
-      }
+      },
+      thumbnail: createNoContentRemoteDataObject$()
     })
 });
 

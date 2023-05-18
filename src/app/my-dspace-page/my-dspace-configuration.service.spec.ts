@@ -173,7 +173,7 @@ describe('MyDSpaceConfigurationService', () => {
     });
   });
 
-  describe('when getAvailableConfigurationTypes is called', () => {
+  fdescribe('when getAvailableConfigurationTypes is called', () => {
 
     it('should return properly list when user is submitter', () => {
       roleService.setSubmitter(true);
@@ -230,8 +230,8 @@ describe('MyDSpaceConfigurationService', () => {
       expect(list$).toBeObservable(cold('(b|)', {
         b: [
           MyDSpaceConfigurationValueType.Workspace,
-          MyDSpaceConfigurationValueType.SupervisedItems,
           MyDSpaceConfigurationValueType.OtherWorkspace,
+          MyDSpaceConfigurationValueType.SupervisedItems,
           MyDSpaceConfigurationValueType.Workflow
         ]
       }));

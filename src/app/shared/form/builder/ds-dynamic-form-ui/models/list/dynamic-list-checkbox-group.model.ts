@@ -28,7 +28,7 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
   @serializable() typeBindRelations: DynamicFormControlRelation[];
   @serializable() toggleSecurityVisibility = false;
   isListGroup = true;
-  valueUpdates: Subject<any>;
+  valueChanges: Subject<any>;
 
   constructor(config: DynamicListCheckboxGroupModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
@@ -38,9 +38,9 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
     this._value = [];
     this.repeatable = config.repeatable;
 
-    this.valueUpdates = new Subject<any>();
-    this.valueUpdates.subscribe((value: VocabularyEntry | VocabularyEntry[]) => this.value = value);
-    this.valueUpdates.next(config.value);
+    this.valueChanges = new Subject<any>();
+    this.valueChanges.subscribe((value: VocabularyEntry | VocabularyEntry[]) => this.value = value);
+    this.valueChanges.next(config.value);
     this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
   }
 
