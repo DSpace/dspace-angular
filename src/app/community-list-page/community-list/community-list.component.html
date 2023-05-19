@@ -8,10 +8,10 @@
         <span class="fa fa-chevron-right invisible" aria-hidden="true"></span>
       </button>
       <div class="align-middle pt-2">
-        <a *ngIf="node!==loadingNode" [routerLink]="[]" (click)="getNextPage(node)"
+        <button *ngIf="node!==loadingNode" (click)="getNextPage(node)"
            class="btn btn-outline-primary btn-sm" role="button">
            <i class="fas fa-angle-down"></i> {{ 'communityList.showMore' | translate }}
-        </a>
+        </button>
         <ds-themed-loading *ngIf="node===loadingNode && dataSource.loading$ | async" class="ds-themed-loading"></ds-themed-loading>
       </div>
     </div>
@@ -28,7 +28,8 @@
               [title]="'toggle ' + node.name"
               [attr.aria-label]="'toggle ' + node.name"
               (click)="toggleExpanded(node)"
-              [ngClass]="(hasChild(null, node)| async) ? 'visible' : 'invisible'">
+              [ngClass]="(hasChild(null, node)| async) ? 'visible' : 'invisible'"
+              [attr.data-test]="(hasChild(null, node)| async) ? 'expand-button' : ''">
         <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}"
               aria-hidden="true"></span>
       </button>

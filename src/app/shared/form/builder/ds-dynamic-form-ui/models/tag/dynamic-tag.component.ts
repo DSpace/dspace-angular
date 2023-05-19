@@ -1,15 +1,15 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, merge, switchMap, tap } from 'rxjs/operators';
 import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { DynamicTagModel } from './dynamic-tag.model';
-import { Chips } from '../../../../../chips/models/chips.model';
+import { Chips } from '../../../../chips/models/chips.model';
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { environment } from '../../../../../../../environments/environment';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
@@ -32,7 +32,7 @@ import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implements OnInit {
 
   @Input() bindId = true;
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() model: DynamicTagModel;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();

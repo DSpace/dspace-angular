@@ -10,7 +10,7 @@ $font-family-sans-serif: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI"
 $navbar-dark-color: #FFFFFF;
 
 /* Reassign color vars to semantic color scheme */
-$blue: #43515f !default;
+$blue: #2b4e72 !default;
 $green: #92C642 !default;
 $cyan: #207698 !default;
 $yellow: #ec9433 !default;
@@ -18,6 +18,7 @@ $red: #CF4444 !default;
 $dark: #43515f !default;
 
 $gray-800: #343a40 !default;
+$gray-700: #495057 !default;
 $gray-400: #ced4da !default;
 $gray-100: #f8f9fa !default;
 
@@ -27,3 +28,14 @@ $table-accent-bg: $gray-100 !default;   // Bootstrap $gray-100
 $table-hover-bg: $gray-400 !default;   // Bootstrap $gray-400
 
 $yiq-contrasted-threshold:  170 !default;
+
+$theme-colors: (
+        primary: $dark,
+        secondary: $gray-700,
+        success: $green,
+        info: $cyan,
+        warning: $yellow,
+        danger: $red,
+        light: $gray-100,
+        dark: $dark
+) !default;

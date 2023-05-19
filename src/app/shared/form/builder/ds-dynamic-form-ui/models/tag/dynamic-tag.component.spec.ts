@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 
@@ -13,7 +13,7 @@ import { VocabularyService } from '../../../../../../core/submission/vocabularie
 import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { DsDynamicTagComponent } from './dynamic-tag.component';
 import { DynamicTagModel } from './dynamic-tag.model';
-import { Chips } from '../../../../../chips/models/chips.model';
+import { Chips } from '../../../../chips/models/chips.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
@@ -39,8 +39,8 @@ let TAG_TEST_GROUP;
 let TAG_TEST_MODEL_CONFIG;
 
 function init() {
-  TAG_TEST_GROUP = new FormGroup({
-    tag: new FormControl(),
+  TAG_TEST_GROUP = new UntypedFormGroup({
+    tag: new UntypedFormControl(),
   });
 
   TAG_TEST_MODEL_CONFIG = {
@@ -291,7 +291,7 @@ describe('DsDynamicTagComponent test suite', () => {
 })
 class TestComponent {
 
-  group: FormGroup = TAG_TEST_GROUP;
+  group: UntypedFormGroup = TAG_TEST_GROUP;
 
   model = new DynamicTagModel(TAG_TEST_MODEL_CONFIG);
 

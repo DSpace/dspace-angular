@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { FormControl, FormGroup, FormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { TranslateModule } from '@ngx-translate/core';
@@ -31,8 +31,8 @@ describe('DsDynamicDisabledComponent', () => {
       name: 'disabledInput',
       hasSelectableMetadata: false
     });
-    group = new FormGroup({
-      disabledInput: new FormControl(),
+    group = new UntypedFormGroup({
+      disabledInput: new UntypedFormControl(),
     });
   }
 

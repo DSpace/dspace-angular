@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import {
@@ -30,7 +30,7 @@ import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyTreeviewComponent } from '../../../../../vocabulary-treeview/vocabulary-treeview.component';
+import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 
 /**
@@ -44,7 +44,7 @@ import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabul
 })
 export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnInit {
 
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() model: DynamicOneboxModel;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();

@@ -72,9 +72,9 @@ describe('PageSizeSelectorComponent', () => {
   });
 
   it('it should show the size settings with the respective selectable options', (done) => {
-    (comp as any).paginationOptions$.pipe(first()).subscribe((options) => {
+    comp.paginationOptions$.pipe(first()).subscribe((options: PaginationComponentOptions) => {
         const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
-        expect(pageSizeSetting).toBeDefined();
+        expect(pageSizeSetting).not.toBeNull();
         const childElements = pageSizeSetting.queryAll(By.css('option'));
         expect(childElements.length).toEqual(options.pageSizeOptions.length);
         done();
@@ -83,10 +83,11 @@ describe('PageSizeSelectorComponent', () => {
   });
 
   it('should have the proper rpp value selected by default', (done) => {
-    (comp as any).paginationOptions$.pipe(take(1)).subscribe((options) => {
+    comp.paginationOptions$.pipe(take(1)).subscribe(() => {
       const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
-      const childElementToBeSelected = pageSizeSetting.query(By.css('option[value="10"][selected="selected"]'));
-      expect(childElementToBeSelected).toBeDefined();
+      const childElementToBeSelected = pageSizeSetting.query(By.css('option[value="10"]'));
+      expect(childElementToBeSelected).not.toBeNull();
+      expect(childElementToBeSelected.nativeElement.selected).toBeTrue();
       done();
     });
   });

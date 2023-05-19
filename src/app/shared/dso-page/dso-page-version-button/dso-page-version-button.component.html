@@ -1,8 +1,0 @@
-<button *ngIf="isAuthorized$ | async"
-        class="edit-button btn btn-dark btn-sm"
-        (click)="createNewVersion()"
-        [disabled]="disableNewVersionButton$ | async"
-        [ngbTooltip]="tooltipMsg$ | async | translate"
-        role="button" [title]="tooltipMsg$ | async |translate" [attr.aria-label]="tooltipMsg$ | async | translate">
-  <i class="fas fa-code-branch fa-fw"></i>
-</button>

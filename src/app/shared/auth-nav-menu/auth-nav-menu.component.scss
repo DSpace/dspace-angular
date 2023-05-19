@@ -12,10 +12,10 @@
   background-color: transparent !important;
 }
 
-.dropdown-toggle {
-  color: var(--ds-header-icon-color) !important;
+.loginLink, .dropdownLogin, .logoutLink, .dropdownLogout {
+  color: var(--ds-header-icon-color);
 
-  &:hover, &focus {
+  &:hover, &:focus {
     color: var(--ds-header-icon-color-hover);
   }
 }
