@@ -3,7 +3,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { AuthService } from '../../../core/auth/auth.service';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
@@ -45,14 +44,12 @@ export class ItemVersionMenuComponent extends ContextMenuEntryComponent implemen
    * @param {DSpaceObject} injectedContextMenuObject
    * @param {DSpaceObjectType} injectedContextMenuObjectType
    * @param {AuthorizationDataService} authorizationService
-   * @param {AuthService} authService
    * @param {DsoVersioningModalService} versioningModalService
    */
   constructor(
     @Inject('contextMenuObjectProvider') public injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
     protected authorizationService: AuthorizationDataService,
-    private authService: AuthService,
     private versioningModalService: DsoVersioningModalService,
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.ItemVersion);
@@ -65,7 +62,7 @@ export class ItemVersionMenuComponent extends ContextMenuEntryComponent implemen
     combineLatest([isAuthorized$, isDisabled$]).pipe(
       take(1)
     ).subscribe(([isAuthorized, isDisabled]) => {
-      this.canShow$.next(isAuthorized && !isDisabled)
+      this.canShow$.next(isAuthorized && !isDisabled);
     });
 
   }
@@ -74,6 +71,6 @@ export class ItemVersionMenuComponent extends ContextMenuEntryComponent implemen
    * Open modal to create a new version
    */
   createNewVersion(): void {
-    this.versioningModalService.openCreateVersionModal(this.contextMenuObject)
+    this.versioningModalService.openCreateVersionModal(this.contextMenuObject);
   }
 }

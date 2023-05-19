@@ -230,8 +230,8 @@ describe('MyDSpaceConfigurationService', () => {
       expect(list$).toBeObservable(cold('(b|)', {
         b: [
           MyDSpaceConfigurationValueType.Workspace,
-          MyDSpaceConfigurationValueType.SupervisedItems,
           MyDSpaceConfigurationValueType.OtherWorkspace,
+          MyDSpaceConfigurationValueType.SupervisedItems,
           MyDSpaceConfigurationValueType.Workflow
         ]
       }));
