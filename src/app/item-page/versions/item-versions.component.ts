@@ -32,7 +32,7 @@ import {
   getItemPageRoute,
   getItemVersionRoute
 } from '../item-page-routing-paths';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -171,7 +171,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
               private versionService: VersionDataService,
               private itemService: ItemDataService,
               private paginationService: PaginationService,
-              private formBuilder: FormBuilder,
+              private formBuilder: UntypedFormBuilder,
               private modalService: NgbModal,
               private notificationsService: NotificationsService,
               private translateService: TranslateService,

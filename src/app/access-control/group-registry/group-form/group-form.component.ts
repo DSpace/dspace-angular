@@ -1,5 +1,5 @@
 import { Component, EventEmitter, HostListener, OnDestroy, OnInit, Output, ChangeDetectorRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -96,7 +96,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   /**
    * A FormGroup that combines all inputs
    */
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   /**
    * An EventEmitter that's fired whenever the form is being submitted

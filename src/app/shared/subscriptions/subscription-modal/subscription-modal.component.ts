@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { BehaviorSubject, combineLatest, from, shareReplay } from 'rxjs';
 import { map, mergeMap, take, tap } from 'rxjs/operators';
@@ -58,7 +58,7 @@ export class SubscriptionModalComponent implements OnInit {
   /**
    * Reactive form group that will be used to add/edit subscriptions
    */
-  subscriptionForm: FormGroup;
+  subscriptionForm: UntypedFormGroup;
 
   /**
    * Used to show validation errors when user submits
@@ -85,7 +85,7 @@ export class SubscriptionModalComponent implements OnInit {
   @Output() updateSubscription: EventEmitter<Subscription> = new EventEmitter<Subscription>();
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private modalService: NgbModal,
     private notificationsService: NotificationsService,
     private subscriptionService: SubscriptionsDataService,
@@ -123,13 +123,13 @@ export class SubscriptionModalComponent implements OnInit {
   }
 
   initFormByAllSubscriptions(): void {
-    this.subscriptionForm = new FormGroup({});
+    this.subscriptionForm = new UntypedFormGroup({});
     for (let t of this.subscriptionDefaultTypes) {
-      const formGroup = new FormGroup({});
+      const formGroup = new UntypedFormGroup({});
       formGroup.addControl('subscriptionId', this.formBuilder.control(''));
       formGroup.addControl('frequencies', this.formBuilder.group({}));
       for (let f of this.frequencyDefaultValues) {
-        (formGroup.controls.frequencies as FormGroup).addControl(f, this.formBuilder.control(false));
+        (formGroup.controls.frequencies as UntypedFormGroup).addControl(f, this.formBuilder.control(false));
       }
       this.subscriptionForm.addControl(t, formGroup);
     }
@@ -141,13 +141,13 @@ export class SubscriptionModalComponent implements OnInit {
    * If the subscription is passed start the form with the information of subscription
    */
   initFormByGivenSubscription(): void {
-    const formGroup = new FormGroup({});
+    const formGroup = new UntypedFormGroup({});
     formGroup.addControl('subscriptionId', this.formBuilder.control(this.subscription.id));
     formGroup.addControl('frequencies', this.formBuilder.group({}));
-    (formGroup.get('frequencies') as FormGroup).addValidators(Validators.required);
+    (formGroup.get('frequencies') as UntypedFormGroup).addValidators(Validators.required);
     for (let f of this.frequencyDefaultValues) {
       const value = findIndex(this.subscription.subscriptionParameterList, ['value', f]) !== -1;
-      (formGroup.controls.frequencies as FormGroup).addControl(f, this.formBuilder.control(value));
+      (formGroup.controls.frequencies as UntypedFormGroup).addControl(f, this.formBuilder.control(value));
     }
 
     this.subscriptionForm = this.formBuilder.group({
@@ -169,11 +169,11 @@ export class SubscriptionModalComponent implements OnInit {
           this.showDeleteInfo$.next(true);
           for (let subscription of res.page) {
             const type = subscription.subscriptionType;
-            const subscriptionGroup: FormGroup = this.subscriptionForm.get(type) as FormGroup;
+            const subscriptionGroup: UntypedFormGroup = this.subscriptionForm.get(type) as UntypedFormGroup;
             if (isNotEmpty(subscriptionGroup)) {
               subscriptionGroup.controls.subscriptionId.setValue(subscription.id);
               for (let parameter of subscription.subscriptionParameterList.filter((p) => p.name === 'frequency')) {
-                (subscriptionGroup.controls.frequencies as FormGroup).controls[parameter.value]?.setValue(true);
+                (subscriptionGroup.controls.frequencies as UntypedFormGroup).controls[parameter.value]?.setValue(true);
               }
             }
           }
@@ -196,12 +196,12 @@ export class SubscriptionModalComponent implements OnInit {
     const subscriptionsToBeUpdated = [];
 
     subscriptionTypes.forEach((subscriptionType: string) => {
-      const subscriptionGroup: FormGroup = this.subscriptionForm.controls[subscriptionType] as FormGroup;
+      const subscriptionGroup: UntypedFormGroup = this.subscriptionForm.controls[subscriptionType] as UntypedFormGroup;
       if (subscriptionGroup.touched && subscriptionGroup.dirty) {
         const body = this.createBody(
           subscriptionGroup.controls.subscriptionId.value,
           subscriptionType,
-          subscriptionGroup.controls.frequencies as FormGroup
+          subscriptionGroup.controls.frequencies as UntypedFormGroup
         );
 
         if (isNotEmpty(body.id)) {
@@ -259,7 +259,7 @@ export class SubscriptionModalComponent implements OnInit {
 
   }
 
-  private createBody(subscriptionId: string, subscriptionType: string, frequencies: FormGroup): Partial<any> {
+  private createBody(subscriptionId: string, subscriptionType: string, frequencies: UntypedFormGroup): Partial<any> {
     const body = {
       id: (isNotEmpty(subscriptionId) ? subscriptionId : null),
       subscriptionType: subscriptionType,

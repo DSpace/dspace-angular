@@ -9,7 +9,7 @@ import {
   QueryList,
   ViewChildren
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 import {
   BehaviorSubject,
@@ -86,7 +86,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   /**
    * Input form control to query the list
    */
-  public input: FormControl = new FormControl();
+  public input: UntypedFormControl = new UntypedFormControl();
 
   /**
    * Default pagination for this feature

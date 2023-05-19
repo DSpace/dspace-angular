@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
@@ -90,7 +90,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
               private authorizationService: AuthorizationDataService,
-              private formBuilder: FormBuilder,
+              private formBuilder: UntypedFormBuilder,
               private router: Router,
               private modalService: NgbModal,
               private paginationService: PaginationService,

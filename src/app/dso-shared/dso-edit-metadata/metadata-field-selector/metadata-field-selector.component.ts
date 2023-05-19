@@ -17,7 +17,7 @@ import {
 } from '../../../core/shared/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { RegistryService } from '../../../core/registry/registry.service';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { hasValue } from '../../../shared/empty.util';
 import { Subscription } from 'rxjs/internal/Subscription';
@@ -70,7 +70,7 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
   /**
    * FormControl for the input
    */
-  public input: FormControl = new FormControl();
+  public input: UntypedFormControl = new UntypedFormControl();
 
   /**
    * The current query to update mdFieldOptions$ for

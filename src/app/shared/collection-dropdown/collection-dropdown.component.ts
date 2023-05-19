@@ -9,7 +9,7 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 import { BehaviorSubject, from as observableFrom, Observable, of as observableOf, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, mergeMap, reduce, startWith, switchMap, take } from 'rxjs/operators';
@@ -55,7 +55,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    * The search form control
    * @type {FormControl}
    */
-  public searchField: FormControl = new FormControl();
+  public searchField: UntypedFormControl = new UntypedFormControl();
 
   /**
    * The collection list obtained from a search
