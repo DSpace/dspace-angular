@@ -72,6 +72,7 @@ export class ThumbnailComponent implements OnChanges {
    */
   ngOnChanges(changes: SimpleChanges): void {
     if (hasNoValue(this.thumbnail)) {
+      this.setSrc(this.defaultImage);
       return;
     }
 
