@@ -56,7 +56,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             public: [{
               id: 'statistics_community_:id',
               active: true,
-              visible: true,
+              visible: false,
               index: 2,
               model: {
                 type: MenuItemType.LINK,

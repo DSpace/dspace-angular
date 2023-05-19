@@ -77,7 +77,7 @@ import { EditCollectionResolver } from '../core/shared/resolvers/edit-collection
             public: [{
               id: 'statistics_collection_:id',
               active: true,
-              visible: true,
+              visible: false,
               index: 2,
               model: {
                 type: MenuItemType.LINK,
