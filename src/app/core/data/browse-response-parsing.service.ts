@@ -11,6 +11,8 @@ import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { Serializer } from '../serializer';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BROWSE_DEFINITION } from '../shared/browse-definition.resource-type';
+import { ValueListBrowseDefinition } from '../shared/value-list-browse-definition.model';
+import { VALUE_LIST_BROWSE_DEFINITION } from '../shared/value-list-browse-definition.resource-type';
 
 /**
  * A ResponseParsingService used to parse RawRestResponse coming from the REST API to a BrowseDefinition object
@@ -31,12 +33,16 @@ export class BrowseResponseParsingService extends DSOResponseParsingService {
       let serializer: Serializer<BrowseDefinition>;
       if (browseType === HIERARCHICAL_BROWSE_DEFINITION.value) {
         serializer = new this.serializerConstructor(HierarchicalBrowseDefinition);
-      } else {
+      } else if (browseType === FLAT_BROWSE_DEFINITION.value) {
         serializer = new this.serializerConstructor(FlatBrowseDefinition);
+      } else if (browseType === VALUE_LIST_BROWSE_DEFINITION.value) {
+        serializer = new this.serializerConstructor(ValueListBrowseDefinition);
+      } else {
+        throw new Error('An error occurred while retrieving the browse definitions.');
       }
       return serializer.deserialize(obj);
     } else {
-      return super.deserialize(obj);
+      throw new Error('An error occurred while retrieving the browse definitions.');
     }
   }
 }

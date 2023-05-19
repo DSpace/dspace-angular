@@ -18,7 +18,7 @@ import { BrowseDefinitionRestRequest } from '../data/request.models';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 
 
-class BrowseDefinitionDataImpl extends FindAllDataImpl<BrowseDefinition> {
+class BrowseDefinitionFindAllDataImpl extends FindAllDataImpl<BrowseDefinition> {
   /**
    * Create a GET request for the given href, and send it.
    * Use a GET request specific for BrowseDefinitions.
@@ -57,7 +57,7 @@ class BrowseDefinitionDataImpl extends FindAllDataImpl<BrowseDefinition> {
 })
 @dataService(BROWSE_DEFINITION)
 export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseDefinition> implements FindAllData<BrowseDefinition> {
-  private findAllData: BrowseDefinitionDataImpl;
+  private findAllData: BrowseDefinitionFindAllDataImpl;
 
   constructor(
     protected requestService: RequestService,
@@ -67,7 +67,7 @@ export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseD
   ) {
     super('browses', requestService, rdbService, objectCache, halService);
 
-    this.findAllData = new BrowseDefinitionDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.findAllData = new BrowseDefinitionFindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
