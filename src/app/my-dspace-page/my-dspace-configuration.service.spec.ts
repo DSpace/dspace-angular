@@ -173,7 +173,7 @@ describe('MyDSpaceConfigurationService', () => {
     });
   });
 
-  fdescribe('when getAvailableConfigurationTypes is called', () => {
+  describe('when getAvailableConfigurationTypes is called', () => {
 
     it('should return properly list when user is submitter', () => {
       roleService.setSubmitter(true);
