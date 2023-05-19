@@ -8,7 +8,8 @@
     "eslint-plugin-deprecation",
     "unused-imports",
     "eslint-plugin-lodash",
-    "eslint-plugin-jsonc"
+    "eslint-plugin-jsonc",
+    "eslint-plugin-rxjs"
   ],
   "overrides": [
     {
@@ -27,7 +28,8 @@
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:rxjs/recommended"
       ],
       "rules": {
         "max-classes-per-file": [
@@ -208,7 +210,10 @@
         "lodash/import-scope": [
           "error",
           "method"
-        ]
+        ],
+
+        "rxjs/no-implicit-any-catch": "off",  // todo: investigate how best to solve these
+        "rxjs/no-nested-subscribe": "off"     // todo: go over _all_ cases
       }
     },
     {
