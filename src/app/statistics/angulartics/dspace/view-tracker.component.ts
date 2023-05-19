@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { ReferrerService } from '../../../core/services/referrer.service';

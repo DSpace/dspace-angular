@@ -16,13 +16,10 @@ import {
   getFirstCompletedRemoteData,
   metadataFieldsToString
 } from '../../../core/shared/operators';
-import { Observable } from 'rxjs/internal/Observable';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { UntypedFormControl } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { hasValue } from '../../../shared/empty.util';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { of } from 'rxjs/internal/observable/of';
+import { of, Subscription, Observable, BehaviorSubject } from 'rxjs';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';

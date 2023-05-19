@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { of } from 'rxjs/internal/observable/of';
+import { of } from 'rxjs';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadataValue, VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
 import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';

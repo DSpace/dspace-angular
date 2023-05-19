@@ -68,7 +68,7 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
   dropdownData$: Observable<BulkAccessConditionOptions> = this.bulkAccessConfigService.findByName('default').pipe(
     getFirstCompletedRemoteData(),
     map((configRD: RemoteData<BulkAccessConditionOptions>) => configRD.hasSucceeded ? configRD.payload : null),
-    shareReplay(1)
+    shareReplay({ refCount: false, bufferSize: 1 }),
   );
 
   /**

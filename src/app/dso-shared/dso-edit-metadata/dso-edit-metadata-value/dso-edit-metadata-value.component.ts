@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
-import { Observable } from 'rxjs/internal/Observable';
 import {
   MetadataRepresentation,
   MetadataRepresentationType
@@ -11,7 +10,7 @@ import { ItemMetadataRepresentation } from '../../../core/shared/metadata-repres
 import { map } from 'rxjs/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { EMPTY } from 'rxjs/internal/observable/empty';
+import { EMPTY, Observable } from 'rxjs';
 
 @Component({
   selector: 'ds-dso-edit-metadata-value',

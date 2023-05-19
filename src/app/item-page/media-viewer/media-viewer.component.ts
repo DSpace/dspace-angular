@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -13,7 +13,6 @@ import { hasValue } from '../../shared/empty.util';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
 import { environment } from '../../../environments/environment';
-import { Subscription } from 'rxjs/internal/Subscription';
 
 /**
  * This component renders the media viewers

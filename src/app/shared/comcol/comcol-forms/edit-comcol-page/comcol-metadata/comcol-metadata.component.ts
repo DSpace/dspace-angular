@@ -63,19 +63,18 @@ export class ComcolMetadataComponent<TDomain extends Community | Collection> imp
     }
 
     if (!isEmpty(event.operations)) {
-      this.dsoDataService.patch(event.dso, event.operations).pipe(getFirstCompletedRemoteData())
-        .subscribe(async (response: RemoteData<DSpaceObject>) => {
-          if (response.hasSucceeded) {
-            if (!newLogo && !deleteLogo) {
-              await this.router.navigate([this.frontendURL + event.dso.uuid]);
-            }
-            this.notificationsService.success(null, this.translate.get(`${this.type.value}.edit.notifications.success`));
-          } else if (response.statusCode === 403) {
-            this.notificationsService.error(null, this.translate.get(`${this.type.value}.edit.notifications.unauthorized`));
-          } else {
-            this.notificationsService.error(null, this.translate.get(`${this.type.value}.edit.notifications.error`));
-          }
-        });
+      this.dsoDataService.patch(event.dso, event.operations).pipe(
+        getFirstCompletedRemoteData(),
+      ).subscribe((response: RemoteData<DSpaceObject>) => {
+        if (response.hasSucceeded) {
+          this.router.navigate([this.frontendURL + event.dso.uuid]);  // todo: ok not to await this?
+          this.notificationsService.success(null, this.translate.get(`${this.type.value}.edit.notifications.success`));
+        } else if (response.statusCode === 403) {
+          this.notificationsService.error(null, this.translate.get(`${this.type.value}.edit.notifications.unauthorized`));
+        } else {
+          this.notificationsService.error(null, this.translate.get(`${this.type.value}.edit.notifications.error`));
+        }
+      });
     }
   }
 

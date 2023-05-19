@@ -1,11 +1,11 @@
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
 import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
 import { AuthService } from '../core/auth/auth.service';
 import { map } from 'rxjs/operators';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

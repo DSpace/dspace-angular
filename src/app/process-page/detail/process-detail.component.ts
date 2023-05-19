@@ -118,7 +118,7 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
         return data.process as RemoteData<Process>;
       }),
       redirectOn4xx(this.router, this.authService),
-      shareReplay(1)
+      shareReplay({ refCount: false, bufferSize: 1 }),
     );
 
     this.filesRD$ = this.processRD$.pipe(
@@ -141,7 +141,7 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
           this.startRefreshTimer();
         }
       }),
-      shareReplay(1)
+      shareReplay({ refCount: false, bufferSize: 1 }),
     );
 
     this.filesRD$ = this.processRD$.pipe(

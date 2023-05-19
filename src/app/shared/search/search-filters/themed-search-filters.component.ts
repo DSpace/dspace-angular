@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ThemedComponent } from '../../theme-support/themed.component';
 import { SearchFiltersComponent } from './search-filters.component';
-import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { Observable } from 'rxjs';
 
 /**
  * Themed wrapper for SearchFiltersComponent

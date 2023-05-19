@@ -103,7 +103,7 @@ export class SubscriptionModalComponent implements OnInit {
     this.authService.getAuthenticatedUserFromStore().pipe(
       take(1),
       map((ePerson) => ePerson.uuid),
-      shareReplay(),
+      shareReplay({ refCount: false }),  // todo: check if this is ok
     ).subscribe((ePersonId: string) => {
       this.ePersonId = ePersonId;
       if (isNotEmpty(this.subscription)) {

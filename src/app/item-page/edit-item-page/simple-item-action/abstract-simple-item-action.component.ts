@@ -75,7 +75,8 @@ export class AbstractSimpleItemActionComponent implements OnInit {
   processRestResponse(response: RemoteData<any>) {
     if (response.hasSucceeded) {
       this.itemDataService.findById(this.item.id).pipe(
-        findSuccessfulAccordingTo(this.predicate)).subscribe(() => {
+        findSuccessfulAccordingTo((itemRd: RemoteData<Item>) => this.predicate(itemRd))
+      ).subscribe(() => {
         this.notificationsService.success(this.translateService.get('item.edit.' + this.messageKey + '.success'));
         this.router.navigate([getItemEditRoute(this.item)]);
       });

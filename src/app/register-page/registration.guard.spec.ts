@@ -7,7 +7,7 @@ import {
   createSuccessfulRemoteDataObject,
 } from '../shared/remote-data.utils';
 import { Registration } from '../core/shared/registration.model';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { RemoteData } from '../core/data/remote-data';
 
 describe('RegistrationGuard', () => {

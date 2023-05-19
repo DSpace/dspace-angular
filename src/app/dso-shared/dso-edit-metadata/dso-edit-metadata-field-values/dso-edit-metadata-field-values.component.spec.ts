@@ -7,8 +7,7 @@ import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-v
 import { DsoEditMetadataForm } from '../dso-edit-metadata-form';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { of } from 'rxjs/internal/observable/of';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { of, BehaviorSubject } from 'rxjs';
 import { By } from '@angular/platform-browser';
 
 describe('DsoEditMetadataFieldValuesComponent', () => {

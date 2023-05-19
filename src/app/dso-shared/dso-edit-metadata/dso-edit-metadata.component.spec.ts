@@ -15,7 +15,7 @@ import { ITEM } from '../../core/shared/item.resource-type';
 import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorator';
 import { Operation } from 'fast-json-patch';
 import { RemoteData } from '../../core/data/remote-data';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 
 const ADD_BTN = 'add';
 const REINSTATE_BTN = 'reinstate';
