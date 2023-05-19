@@ -1,17 +1,17 @@
 <div>
   <!-- Because this template is used by default, we will additionally test for representation type and display accordingly -->
-  <span *ngIf="(metadataRepresentation.representationType=='plain_text') && !isLink()" class="dont-break-out">
-    {{metadataRepresentation.getValue()}}
+  <span *ngIf="(mdRepresentation.representationType=='plain_text') && !isLink()" class="dont-break-out">
+    {{mdRepresentation.getValue()}}
   </span>
-  <a *ngIf="(metadataRepresentation.representationType=='plain_text') && isLink()" class="dont-break-out"
-  target="_blank" [href]="metadataRepresentation.getValue()">
-    {{metadataRepresentation.getValue()}}
+  <a *ngIf="(mdRepresentation.representationType=='plain_text') && isLink()" class="dont-break-out"
+  target="_blank" [href]="mdRepresentation.getValue()">
+    {{mdRepresentation.getValue()}}
   </a>
-  <span *ngIf="(metadataRepresentation.representationType=='authority_controlled')" class="dont-break-out">{{metadataRepresentation.getValue()}}</span>
-  <a *ngIf="(metadataRepresentation.representationType=='browse_link')"
+  <span *ngIf="(mdRepresentation.representationType=='authority_controlled')" class="dont-break-out">{{mdRepresentation.getValue()}}</span>
+  <a *ngIf="(mdRepresentation.representationType=='browse_link')"
      class="dont-break-out ds-browse-link"
-     [routerLink]="['/browse/', metadataRepresentation.browseDefinition.id]"
+     [routerLink]="['/browse/', mdRepresentation.browseDefinition.id]"
      [queryParams]="getQueryParams()">
-    {{metadataRepresentation.getValue()}}
+    {{mdRepresentation.getValue()}}
   </a>
 </div>
