@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
@@ -55,7 +55,7 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
               public ePersonDataService: EPersonDataService,
               translateService: TranslateService,
               notificationsService: NotificationsService,
-              formBuilder: FormBuilder,
+              formBuilder: UntypedFormBuilder,
               paginationService: PaginationService,
               router: Router) {
     super(groupService, ePersonDataService, translateService, notificationsService, formBuilder, paginationService, router);

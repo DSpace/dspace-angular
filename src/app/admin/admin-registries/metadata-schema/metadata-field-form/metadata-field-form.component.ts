@@ -5,7 +5,7 @@ import {
   DynamicFormLayout,
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { take } from 'rxjs/operators';
@@ -82,7 +82,7 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
   /**
    * A FormGroup that combines all inputs
    */
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   /**
    * An EventEmitter that's fired whenever the form is being submitted

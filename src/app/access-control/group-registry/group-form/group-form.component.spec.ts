@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -130,9 +130,9 @@ describe('GroupFormComponent', () => {
             const controlModel = model;
             const controlState = { value: controlModel.value, disabled: controlModel.disabled };
             const controlOptions = this.createAbstractControlOptions(controlModel.validators, controlModel.asyncValidators, controlModel.updateOn);
-            controls[model.id] = new FormControl(controlState, controlOptions);
+            controls[model.id] = new UntypedFormControl(controlState, controlOptions);
         });
-        return new FormGroup(controls, options);
+        return new UntypedFormGroup(controls, options);
       },
       createAbstractControlOptions(validatorsConfig = null, asyncValidatorsConfig = null, updateOn = null) {
         return {
