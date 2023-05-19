@@ -22,7 +22,7 @@ import { ObjectCacheService } from '../../../../core/cache/object-cache.service'
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { Item } from '../../../../core/shared/item.model';
 import { mergeMap, tap } from 'rxjs/operators';
-import { isNotEmpty } from '../../../empty.util';
+import { isNotEmpty, hasValue } from '../../../empty.util';
 
 @Component({
   selector: 'ds-claimed-search-result-list-element',
@@ -101,7 +101,9 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
 
   ngOnDestroy() {
     // This ensures the object is removed from cache, when action is performed on task
-    this.objectCache.remove(this.dso._links.workflowitem.href);
+    if (hasValue(this.dso)) {
+      this.objectCache.remove(this.dso._links.workflowitem.href);
+    }
   }
 
 }

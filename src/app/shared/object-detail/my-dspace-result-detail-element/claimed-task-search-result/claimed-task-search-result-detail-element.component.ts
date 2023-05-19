@@ -17,7 +17,7 @@ import { followLink } from '../../../utils/follow-link-config.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { Item } from '../../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { isNotEmpty } from '../../../empty.util';
+import { isNotEmpty, hasValue } from '../../../empty.util';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 
 /**
@@ -88,7 +88,9 @@ export class ClaimedTaskSearchResultDetailElementComponent extends SearchResultD
 
   ngOnDestroy() {
     // This ensures the object is removed from cache, when action is performed on task
-    this.objectCache.remove(this.dso._links.workflowitem.href);
+    if (hasValue(this.dso)) {
+      this.objectCache.remove(this.dso._links.workflowitem.href);
+    }
   }
 
 }
