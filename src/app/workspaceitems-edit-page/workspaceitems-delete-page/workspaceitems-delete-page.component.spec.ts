@@ -6,7 +6,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -14,6 +14,7 @@ import { Location } from '@angular/common';
 import { of as observableOf } from 'rxjs';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { LocationStub } from '../../shared/testing/location.stub';
+import { By } from '@angular/platform-browser';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
@@ -39,13 +40,12 @@ describe('WorkspaceitemsDeletePageComponent', () => {
     onDefaultLangChange: new EventEmitter()
   };
 
-  const modalService = {
-    open: () => {/** empty */},
-  };
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
+      imports: [
+        NgbModalModule,
+        TranslateModule.forRoot()
+      ],
       declarations: [WorkspaceItemsDeletePageComponent],
       providers: [
         {
@@ -64,7 +64,6 @@ describe('WorkspaceitemsDeletePageComponent', () => {
           useValue: workspaceitemDataServiceSpy,
         },
         { provide: Location, useValue: new LocationStub() },
-        { provide: NgbModal, useValue: modalService },
         {
           provide: NotificationsService,
           useValue: new NotificationsServiceStub(),
@@ -92,12 +91,12 @@ describe('WorkspaceitemsDeletePageComponent', () => {
     });
   });
 
-  /*it('should delete the target workspace item', () => {
-    spyOn((component as any).modalService, 'open').and.returnValue({});
+  it('should delete the target workspace item', () => {
+    spyOn((component as any).modalService, 'open').and.returnValue({result: Promise.resolve('ok')});
     component.confirmDelete(By.css('#delete-modal'));
     fixture.detectChanges();
     expect((component as any).modalService.open).toHaveBeenCalled();
-  });*/
+  });
 
   it('should call workspaceItemService.delete', () => {
     component.sendDeleteRequest();
