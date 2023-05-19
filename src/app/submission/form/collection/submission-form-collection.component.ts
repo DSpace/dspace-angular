@@ -174,7 +174,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
         })
       ).subscribe((submissionObject: SubmissionObject) => {
         this.selectedCollectionId = event.collection.id;
-        this.selectedCollectionName$ = observableOf(this.dsoNameService.getName(event.collection));
+        this.selectedCollectionName$ = observableOf(event.collection.name);
         this.collectionChange.emit(submissionObject);
         this.submissionService.changeSubmissionCollection(this.submissionId, event.collection.id);
         this.processingChange$.next(false);
