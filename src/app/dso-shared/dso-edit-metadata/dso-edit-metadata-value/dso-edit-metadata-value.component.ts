@@ -58,6 +58,17 @@ export class DsoEditMetadataValueComponent implements OnInit {
   @Input() isOnlyValue = false;
 
   /**
+   * Custom security metadata array for the current metadata field
+   */
+  @Input() customSecurityMetadata: Observable<number[]>;
+
+  /**
+   * Default security metadata array for the current metadata field
+   * Used when no security level metadata is set
+   */
+  @Input() defaultMetadataSecurity: Observable<number[]>;
+
+  /**
    * Emits when the user clicked edit
    */
   @Output() edit: EventEmitter<any> = new EventEmitter<any>();
@@ -81,6 +92,12 @@ export class DsoEditMetadataValueComponent implements OnInit {
    * Emits true when the user starts dragging a value, false when the user stops dragging
    */
   @Output() dragging: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  /**
+   * Emits the new value of security level
+   */
+  @Output() updateSecuritylevel: EventEmitter<number> = new EventEmitter<number>();
+
 
   /**
    * The DsoEditMetadataChangeType enumeration for access in the component's template
@@ -128,5 +145,13 @@ export class DsoEditMetadataValueComponent implements OnInit {
     this.mdRepresentationName$ = this.mdRepresentation$.pipe(
       map((mdRepresentation: ItemMetadataRepresentation) => mdRepresentation ? this.dsoNameService.getName(mdRepresentation) : null),
     );
+  }
+
+  /**
+   * Emits the edit event
+   * @param securityLevel
+   */
+  changeSelectedSecurity(securityLevel: number){
+    this.updateSecuritylevel.emit(securityLevel);
   }
 }

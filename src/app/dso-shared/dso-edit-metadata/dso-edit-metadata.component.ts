@@ -1,3 +1,5 @@
+import { Item } from './../../core/shared/item.model';
+import { MetadataSecurityConfigurationService } from './../../core/submission/metadatasecurityconfig-data.service';
 import { Component, Inject, Injector, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AlertType } from '../../shared/alert/aletr-type';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -9,9 +11,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { RemoteData } from '../../core/data/remote-data';
 import { hasNoValue, hasValue } from '../../shared/empty.util';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import {
-  getFirstCompletedRemoteData,
-} from '../../core/shared/operators';
+import { getFirstCompletedRemoteData} from '../../core/shared/operators';
 import { UpdateDataService } from '../../core/data/update-data.service';
 import { ResourceType } from '../../core/shared/resource-type';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -22,6 +22,7 @@ import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analy
 import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorator';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALDataService } from '../../core/data/base/hal-data-service.interface';
+import { MetadataSecurityConfiguration } from 'src/app/core/submission/models/metadata-security-configuration';
 
 @Component({
   selector: 'ds-dso-edit-metadata',
@@ -110,6 +111,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
               protected translateService: TranslateService,
               protected parentInjector: Injector,
               protected arrayMoveChangeAnalyser: ArrayMoveChangeAnalyzer<number>,
+              protected metadataSecurityConfigurationService: MetadataSecurityConfigurationService,
               @Inject(DATA_SERVICE_FACTORY) protected getDataServiceFor: (resourceType: ResourceType) => GenericConstructor<HALDataService<any>>) {
   }
 
@@ -134,6 +136,20 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
     this.savingOrLoadingFieldValidation$ = observableCombineLatest([this.saving$, this.loadingFieldValidation$]).pipe(
       map(([saving, loading]: [boolean, boolean]) => saving || loading),
     );
+  }
+
+  /**
+   * Get the security settings for the current DSpaceObject,
+   * based on entityType (e.g. Person)
+   */
+  getSecuritySettings(): Observable<MetadataSecurityConfiguration> {
+    if (this.dso instanceof Item) {
+      const entityType: string = (this.dso as Item).entityType;
+      return this.metadataSecurityConfigurationService.findById(entityType).pipe(
+        getFirstCompletedRemoteData(),
+        map((securitySettings: RemoteData<MetadataSecurityConfiguration>) => securitySettings.payload)
+      );
+    }
   }
 
   /**

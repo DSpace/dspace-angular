@@ -15,13 +15,13 @@
     <input class="form-control" type="text" *ngIf="mdValue.editing" [(ngModel)]="mdValue.newValue.language"
            [dsDebounce]="300" (onDebounce)="confirm.emit(false)" />
   </div>
-  <div class="ds-flex-cell ds-lang-cell" role="cell">
+  <div class="ds-flex-cell ds-lang-cell d-flex justify-content-center" role="cell">
     <div class="btn-group edit-field">
-<!--      <ds-edit-metadata-security *ngIf="mdValue.newValue.securityConfigurationLevelLimit && mdValue.newValue.securityConfigurationLevelLimit.length > 1"
-                                 [securityLevel]="mdValue.newValue.securityLevel"
-                                 [securityConfigLevel]="mdValue.newValue.securityConfigurationLevelLimit"
+     <ds-edit-metadata-security *ngIf="(customSecurityMetadata | async)?.length > 0"
+                                 [securityLevel]="mdValue.newValue.securityLevel ?? (defaultMetadataSecurity | async)[0]"
+                                 [securityConfigLevel]="(customSecurityMetadata | async)"
                                  (changeSecurityLevel)="changeSelectedSecurity($event)">
-      </ds-edit-metadata-security>-->
+      </ds-edit-metadata-security>
     </div>
   </div>
   <div class="text-center ds-flex-cell ds-edit-cell" role="cell">

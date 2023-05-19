@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/internal/Observable';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { map } from 'rxjs';
+import { MetadataSecurityConfiguration } from 'src/app/core/submission/models/metadata-security-configuration';
 
 @Component({
   selector: 'ds-dso-edit-metadata-field-values',
@@ -47,6 +49,10 @@ export class DsoEditMetadataFieldValuesComponent {
   @Input() draggingMdField$: BehaviorSubject<string>;
 
   /**
+   * Security Settings configuration for the current entity
+   */
+  @Input() metadataSecurityConfiguration: Observable<MetadataSecurityConfiguration>;
+  /**
    * Emit when the value has been saved within the form
    */
   @Output() valueSaved: EventEmitter<any> = new EventEmitter<any>();
@@ -77,5 +83,47 @@ export class DsoEditMetadataFieldValuesComponent {
     // Update the form statuses
     this.form.resetReinstatable();
     this.valueSaved.emit();
+  }
+
+  /**
+   * Get the custom security metadata for the current field
+   */
+  getCustomSecurityMetadata(): Observable<number[]> {
+    if (this.metadataSecurityConfiguration) {
+      return this.metadataSecurityConfiguration.pipe(
+        map((value: MetadataSecurityConfiguration) => {
+          if (value.metadataCustomSecurity[this.mdField]) {
+            return value.metadataCustomSecurity[this.mdField];
+          }
+        })
+      );
+    }
+  }
+
+  /**
+   * Get the default security metadata for the current field
+   */
+  getDefaultSecurityMetadata(): Observable<number[]> {
+    if (this.metadataSecurityConfiguration) {
+      return this.metadataSecurityConfiguration.pipe(
+        map((value: MetadataSecurityConfiguration) => {
+          if (value.metadataCustomSecurity[this.mdField]) {
+            return value.metadataSecurityDefault;
+          }
+        })
+      );
+    }
+  }
+
+  /**
+   * Update the security level for the field at the given index
+   */
+  onUpdateSecurityLevelValue(securityLevel: number, index: number) {
+    if (this.form.fields[this.mdField]?.length > 0) {
+      this.form.fields[this.mdField][index].change = DsoEditMetadataChangeType.UPDATE;
+      this.form.fields[this.mdField][index].newValue.securityLevel = securityLevel;
+
+      this.valueSaved.emit();
+    }
   }
 }

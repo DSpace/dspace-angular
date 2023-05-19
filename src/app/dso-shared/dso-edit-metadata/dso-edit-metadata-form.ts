@@ -350,8 +350,10 @@ export class DsoEditMetadataForm {
       });
     });
     // Reset the order of values within their fields to match their place property
+    // And reinstate the security level values
     this.fieldKeys.forEach((field: string) => {
       this.setValuesForFieldSorted(field, this.fields[field]);
+      this.reinstateSecurityLevel(field);
     });
     this.reinstatableNewValues = {};
   }
@@ -388,6 +390,19 @@ export class DsoEditMetadataForm {
   }
 
   /**
+   * Set the change property of each value within a metadata field,
+   * in case the security level has been changed and we are trying to reinstate the changes
+   * @param mdField
+   */
+  private reinstateSecurityLevel(mdField: string){
+    this.fields[mdField].forEach((value: DsoEditMetadataValue) => {
+      if (hasValue(value.newValue.securityLevel) && value.newValue.securityLevel !== value.originalValue.securityLevel) {
+        value.change = DsoEditMetadataChangeType.UPDATE;
+      }
+    });
+  }
+
+  /**
    * Get the json PATCH operations for the current changes within this form
    * For each metadata field, it'll return operations in the following order: replace, remove (from last to first place), add and move
    * This order is important, as each operation is executed in succession of the previous one
@@ -408,6 +423,12 @@ export class DsoEditMetadataForm {
                 replaceOperations.push(new MetadataPatchReplaceOperation(field, value.originalValue.place, {
                   value: value.newValue.value,
                   language: value.newValue.language,
+                }));
+              }
+              // "replace" the security level value
+              if (value.originalValue.securityLevel !== value.newValue.securityLevel) {
+                replaceOperations.push(new MetadataPatchReplaceOperation(field, value.originalValue.place, {
+                  securityLevel: value.newValue.securityLevel
                 }));
               }
             } else if (value.change === DsoEditMetadataChangeType.REMOVE) {
