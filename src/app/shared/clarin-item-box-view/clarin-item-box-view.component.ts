@@ -203,7 +203,8 @@ export class ClarinItemBoxViewComponent implements OnInit {
         clarinLicense.extendedClarinLicenseLabels.forEach(extendedCll => {
           this.licenseLabelIcons.push(extendedCll?.icon);
         });
-        this.licenseLabelIcons.push(clarinLicense?.clarinLicenseLabel?.icon);
+        // For now show only extended CLL icons
+        // this.licenseLabelIcons.push(clarinLicense?.clarinLicenseLabel?.icon);
       });
   }
 
