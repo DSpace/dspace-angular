@@ -15,6 +15,8 @@ import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.m
 import { ClaimedTaskActionsDirective } from './claimed-task-actions.directive';
 import { hasValue, isNotEmpty, hasNoValue } from '../../../empty.util';
 import { MyDSpaceActionsResult } from '../../mydspace-actions';
+import { Item } from '../../../../core/shared/item.model';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 @Component({
@@ -27,6 +29,11 @@ import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-ac
  */
 export class ClaimedTaskActionsLoaderComponent implements OnInit, OnChanges {
   /**
+   * The item object that belonging to the ClaimedTask object
+   */
+  @Input() item: Item;
+
+  /**
    * The ClaimedTask object
    */
   @Input() object: ClaimedTask;
@@ -36,6 +43,11 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnChanges {
    * Passed on to the decorator to fetch the relevant component for this option
    */
   @Input() option: string;
+
+  /**
+   * The workflowitem object that belonging to the ClaimedTask object
+   */
+  @Input() workflowitem: WorkflowItem;
 
   /**
    * Emits the success or failure of a processed action

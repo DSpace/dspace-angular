@@ -2,7 +2,7 @@ import { of as observableOf } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { LinkService } from '../../core/cache/builders/link.service';
-import { cold, hot } from 'jasmine-marbles';
+import { hot } from 'jasmine-marbles';
 import { SetThemeAction } from './theme.actions';
 import { Theme } from '../../../config/theme.model';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -21,7 +21,9 @@ import {
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { ThemeService } from './theme.service';
 import { ROUTER_NAVIGATED } from '@ngrx/router-store';
-import { ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { RouterMock } from '../mocks/router.mock';
 
 /**
  * LinkService able to mock recursively resolving DSO parent links
@@ -84,12 +86,16 @@ describe('ThemeService', () => {
       findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
     };
     TestBed.configureTestingModule({
+      imports: [
+        CommonModule,
+      ],
       providers: [
         ThemeService,
         { provide: LinkService, useValue: linkService },
         provideMockStore({ initialState }),
         provideMockActions(() => mockActions),
-        { provide: DSpaceObjectDataService, useValue: mockDsoService }
+        { provide: DSpaceObjectDataService, useValue: mockDsoService },
+        { provide: Router, useValue: new RouterMock() },
       ]
     });
 
@@ -365,6 +371,51 @@ describe('ThemeService', () => {
           done();
         });
       });
+    });
+  });
+
+  describe('listenForThemeChanges', () => {
+    let document;
+    let headSpy;
+
+    beforeEach(() => {
+      const mockDsoService = {
+        findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
+      };
+
+      TestBed.configureTestingModule({
+        imports: [
+          CommonModule,
+        ],
+        providers: [
+          ThemeService,
+          { provide: LinkService, useValue: linkService },
+          provideMockStore({ initialState }),
+          { provide: DSpaceObjectDataService, useValue: mockDsoService },
+          { provide: Router, useValue: new RouterMock() },
+        ]
+      });
+
+      document = TestBed.inject(DOCUMENT);
+      headSpy = jasmine.createSpyObj('head', ['appendChild', 'getElementsByClassName']);
+      headSpy.getElementsByClassName.and.returnValue([]);
+      spyOn(document, 'getElementsByTagName').and.returnValue([headSpy]);
+
+      themeService = TestBed.inject(ThemeService);
+      spyOn(themeService, 'getThemeName').and.returnValue('custom');
+      spyOn(themeService, 'getThemeName$').and.returnValue(observableOf('custom'));
+    });
+
+    it('should append a link element with the correct attributes to the head element', () => {
+      themeService.listenForThemeChanges(true);
+
+      const link = document.createElement('link');
+      link.setAttribute('rel', 'stylesheet');
+      link.setAttribute('type', 'text/css');
+      link.setAttribute('class', 'theme-css');
+      link.setAttribute('href', 'custom-theme.css');
+
+      expect(headSpy.appendChild).toHaveBeenCalledWith(link);
     });
   });
 });

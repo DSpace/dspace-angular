@@ -1,11 +1,7 @@
-import { Inject } from '@angular/core';
+import {Inject} from '@angular/core';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import {
-  DynamicFormControlLayout,
-  DynamicInputModel,
-  DynamicInputModelConfig
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlLayout, } from '@ng-dynamic-forms/core';
 import {
   CONCAT_FIRST_INPUT_SUFFIX,
   CONCAT_GROUP_SUFFIX,
@@ -22,6 +18,7 @@ import {
   PARSER_OPTIONS,
   SUBMISSION_ID
 } from './field-parser';
+import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 
 export class ConcatFieldParser extends FieldParser {
 
@@ -58,20 +55,23 @@ export class ConcatFieldParser extends FieldParser {
     concatGroup.group = [];
     concatGroup.separator = this.separator;
 
-    const input1ModelConfig: DynamicInputModelConfig = this.initModel(
+    const input1ModelConfig: DsDynamicInputModelConfig = this.initModel(
       id + CONCAT_FIRST_INPUT_SUFFIX,
       false,
       true,
       true,
       false
     );
-    const input2ModelConfig: DynamicInputModelConfig = this.initModel(
+    const input2ModelConfig: DsDynamicInputModelConfig = this.initModel(
       id + CONCAT_SECOND_INPUT_SUFFIX,
       false,
       true,
       true,
       false
     );
+
+    input1ModelConfig.hideErrorMessages = true;
+    input2ModelConfig.hideErrorMessages = true;
 
     if (hasNoValue(concatGroup.hint) && hasValue(input1ModelConfig.hint) && hasNoValue(input2ModelConfig.hint)) {
       concatGroup.hint = input1ModelConfig.hint;
@@ -98,8 +98,8 @@ export class ConcatFieldParser extends FieldParser {
       input2ModelConfig.placeholder = placeholder[1];
     }
 
-    const model1 = new DynamicInputModel(input1ModelConfig, clsInput);
-    const model2 = new DynamicInputModel(input2ModelConfig, clsInput);
+    const model1 = new DsDynamicInputModel(input1ModelConfig, clsInput);
+    const model2 = new DsDynamicInputModel(input2ModelConfig, clsInput);
     concatGroup.group.push(model1);
     concatGroup.group.push(model2);
 

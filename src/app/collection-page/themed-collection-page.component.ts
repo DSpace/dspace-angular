@@ -6,7 +6,7 @@ import { CollectionPageComponent } from './collection-page.component';
  * Themed wrapper for CollectionPageComponent
  */
 @Component({
-  selector: 'ds-themed-community-page',
+  selector: 'ds-themed-collection-page',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
 })

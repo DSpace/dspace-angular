@@ -33,7 +33,7 @@
         </div>
       </form>
 
-      <ds-loading *ngIf="loading$ | async"></ds-loading>
+      <ds-themed-loading *ngIf="loading$ | async"></ds-themed-loading>
       <ds-pagination
         *ngIf="(pageInfoState$ | async)?.totalElements > 0 && !(loading$ | async)"
         [paginationOptions]="config"
@@ -79,7 +79,7 @@
                     </button>
                   </ng-container>
                   <button *ngIf="!groupDto.group?.permanent && groupDto.ableToDelete"
-                          (click)="deleteGroup(groupDto)" class="btn btn-outline-danger btn-sm"
+                          (click)="deleteGroup(groupDto)" class="btn btn-outline-danger btn-sm btn-delete"
                           title="{{messagePrefix + 'table.edit.buttons.remove' | translate: {name: groupDto.group.name} }}">
                     <i class="fas fa-trash-alt fa-fw"></i>
                   </button>
