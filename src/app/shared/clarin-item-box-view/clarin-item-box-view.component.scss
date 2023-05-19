@@ -46,6 +46,8 @@
   color: #fff;
   border-radius: 0 0.25em 0.25em 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  border: 1px solid #ddd;
+  border-bottom: none;
 }
 
 .label-icon {
@@ -53,15 +55,18 @@
 }
 
 .label-PUB {
-  background-color: #5cb811;
+  background-color: #dff0d8 !important;
+  color: #5cb811 !important;;
 }
 
 .label-RES {
-  background-color: #c62d1f;
+  color: #c62d1f !important;
+  background-color: #f2dede !important;
 }
 
 .label-ACA, .label-PDT {
-  background-color: #ffab23;
+  color: #ffab23 !important;
+  background-color: #fcf8e3 !important;
 }
 
 .label-license {

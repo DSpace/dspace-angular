@@ -28,12 +28,15 @@
         </div>
       </div>
       <div class="row justify-content-end pt-3">
-          <span [ngClass]="'label label-license' + ' label-' + licenseLabel + ' rounded text-white'">
+        <div [ngClass]="'d-inline py-1 px-1 label label-license' + ' label-' + licenseLabel + ' rounded text-white'">
+          <span>
             {{licenseType }}
           </span>
           <div class="d-inline" *ngFor="let icon of licenseLabelIcons">
-            <img [src]="secureImageData(icon)" alt="" width="24px">
+            <img [src]="secureImageData(icon)" alt="" width="16px">
           </div>
+        </div>
+
       </div>
     </div>
   </div>
