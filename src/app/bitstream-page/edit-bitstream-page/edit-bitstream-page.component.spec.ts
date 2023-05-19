@@ -15,7 +15,7 @@ import { INotification, Notification } from '../../shared/notifications/models/n
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
 import { hasValue } from '../../shared/empty.util';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -84,9 +84,9 @@ describe('EditBitstreamPageComponent', () => {
         const controls = {};
         if (hasValue(fModel)) {
           fModel.forEach((controlModel) => {
-            controls[controlModel.id] = new FormControl((controlModel as any).value);
+            controls[controlModel.id] = new UntypedFormControl((controlModel as any).value);
           });
-          return new FormGroup(controls);
+          return new UntypedFormGroup(controls);
         }
         return undefined;
       }
