@@ -44,7 +44,7 @@
           1
         ],
         "comma-dangle": [
-          "off",
+          "error",
           "always-multiline"
         ],
         "eol-last": [
