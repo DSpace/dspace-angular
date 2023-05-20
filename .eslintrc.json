@@ -9,7 +9,9 @@
     "unused-imports",
     "eslint-plugin-lodash",
     "eslint-plugin-jsonc",
-    "eslint-plugin-rxjs"
+    "eslint-plugin-rxjs",
+    "eslint-plugin-simple-import-sort",
+    "eslint-plugin-import-newlines"
   ],
   "overrides": [
     {
@@ -210,9 +212,23 @@
 
         "deprecation/deprecation": "warn",
 
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
         "import/order": "off",
+        "import/first": "error",
+        "import/newline-after-import": "error",
+        "import/no-duplicates": "error",
         "import/no-deprecated": "warn",
         "import/no-namespace": "error",
+        "import-newlines/enforce": [
+          "error",
+          {
+            "items": 1,
+            "semi": true,
+            "forceSingleLine": true
+          }
+        ],
+
         "unused-imports/no-unused-imports": "error",
         "lodash/import-scope": [
           "error",
