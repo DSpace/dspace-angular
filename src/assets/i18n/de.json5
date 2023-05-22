@@ -949,7 +949,7 @@
 
   // "browse.previous.button": "Previous",
   "browse.previous.button": "Zurück",
-  
+
   // "browse.startsWith": ", starting with {{ startsWith }}",
   "browse.startsWith": ", beginnend mit {{ startsWith }}",
 
