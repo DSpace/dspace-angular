@@ -22,7 +22,7 @@ import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analy
 import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorator';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALDataService } from '../../core/data/base/hal-data-service.interface';
-import { MetadataSecurityConfiguration } from 'src/app/core/submission/models/metadata-security-configuration';
+import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
 
 @Component({
   selector: 'ds-dso-edit-metadata',

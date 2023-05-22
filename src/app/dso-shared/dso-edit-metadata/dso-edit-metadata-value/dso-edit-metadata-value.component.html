@@ -18,7 +18,7 @@
   <div class="ds-flex-cell ds-lang-cell d-flex justify-content-center" role="cell">
     <div class="btn-group edit-field">
      <ds-edit-metadata-security *ngIf="(customSecurityMetadata | async)?.length > 0"
-                                 [securityLevel]="mdValue.newValue.securityLevel ?? (defaultMetadataSecurity | async)[0]"
+                                 [securityLevel]="mdValue.newValue.securityLevel ?? (defaultMetadataSecurity | async)"
                                  [securityConfigLevel]="(customSecurityMetadata | async)"
                                  (changeSecurityLevel)="changeSelectedSecurity($event)">
       </ds-edit-metadata-security>

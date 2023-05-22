@@ -1,3 +1,4 @@
+import { MetadataSecurityConfiguration } from './../../../core/submission/models/metadata-security-configuration';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
@@ -92,6 +93,22 @@ describe('DsoEditMetadataFieldValuesComponent', () => {
 
     it('should disable the list', () => {
       expect(fixture.debugElement.query(By.css('.ds-drop-list.disabled'))).toBeTruthy();
+    });
+  });
+
+  describe('security metadata', () => {
+    it('should fetch custom security metadata', () => {
+      const dummyMetadataSecurityConfiguration: MetadataSecurityConfiguration = Object.assign(new MetadataSecurityConfiguration(), {
+        metadataCustomSecurity: new Map([
+          ['person.email', [0, 1]],
+        ]),
+        metadataSecurityDefault: [0],
+      });
+      component.metadataSecurityConfiguration = of(dummyMetadataSecurityConfiguration);
+      component.mdField = 'person.email';
+      component.getCustomSecurityMetadata().subscribe((metadata: number[]) => {
+        expect(metadata).toEqual(dummyMetadataSecurityConfiguration.metadataCustomSecurity['person.email']);
+      });
     });
   });
 

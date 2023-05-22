@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { EMPTY } from 'rxjs/internal/observable/empty';
-import { MetadataSecurityConfiguration } from 'src/app/core/submission/models/metadata-security-configuration';
+import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
 
 @Component({
   selector: 'ds-dso-edit-metadata-value',
@@ -66,7 +66,7 @@ export class DsoEditMetadataValueComponent implements OnInit {
    * Default security metadata array for the current metadata field
    * Used when no security level metadata is set
    */
-  @Input() defaultMetadataSecurity: Observable<number[]>;
+  @Input() defaultMetadataSecurity: Observable<number>;
 
   /**
    * Emits when the user clicked edit

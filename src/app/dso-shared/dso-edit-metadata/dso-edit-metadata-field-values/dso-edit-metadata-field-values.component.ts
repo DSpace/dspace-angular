@@ -4,8 +4,8 @@ import { Observable } from 'rxjs/internal/Observable';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { map } from 'rxjs';
-import { MetadataSecurityConfiguration } from 'src/app/core/submission/models/metadata-security-configuration';
+import { map, take } from 'rxjs';
+import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
 
 @Component({
   selector: 'ds-dso-edit-metadata-field-values',
@@ -91,6 +91,7 @@ export class DsoEditMetadataFieldValuesComponent {
   getCustomSecurityMetadata(): Observable<number[]> {
     if (this.metadataSecurityConfiguration) {
       return this.metadataSecurityConfiguration.pipe(
+        take(1),
         map((value: MetadataSecurityConfiguration) => {
           if (value.metadataCustomSecurity[this.mdField]) {
             return value.metadataCustomSecurity[this.mdField];
@@ -103,12 +104,12 @@ export class DsoEditMetadataFieldValuesComponent {
   /**
    * Get the default security metadata for the current field
    */
-  getDefaultSecurityMetadata(): Observable<number[]> {
+  getDefaultSecurityMetadata(): Observable<number> {
     if (this.metadataSecurityConfiguration) {
       return this.metadataSecurityConfiguration.pipe(
         map((value: MetadataSecurityConfiguration) => {
           if (value.metadataCustomSecurity[this.mdField]) {
-            return value.metadataSecurityDefault;
+            return value.metadataSecurityDefault[0] ?? 0;
           }
         })
       );

@@ -16,11 +16,19 @@ import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorato
 import { Operation } from 'fast-json-patch';
 import { RemoteData } from '../../core/data/remote-data';
 import { Observable } from 'rxjs/internal/Observable';
+import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
+import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
+import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
 
 const ADD_BTN = 'add';
 const REINSTATE_BTN = 'reinstate';
 const SAVE_BTN = 'save';
 const DISCARD_BTN = 'discard';
+const submissionObject: any = mockSubmissionObject;
+
+const metadataSecurityConfigDataServiceSpy = jasmine.createSpyObj('metadataSecurityConfigDataService', {
+  findById: createSuccessfulRemoteDataObject$(submissionObject.metadataSecurityConfiguration),
+});
 
 @Injectable()
 class TestDataService {
@@ -77,6 +85,7 @@ describe('DsoEditMetadataComponent', () => {
         TestDataService,
         { provide: DATA_SERVICE_FACTORY, useValue: jasmine.createSpy('getDataServiceFor').and.returnValue(TestDataService) },
         { provide: NotificationsService, useValue: notificationsService },
+        { provide: MetadataSecurityConfigurationService, useValue: metadataSecurityConfigDataServiceSpy },
         ArrayMoveChangeAnalyzer,
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -162,6 +171,16 @@ describe('DsoEditMetadataComponent', () => {
       it('should not display the separate row with field selector and metadata value anymore', () => {
         expect(fixture.debugElement.query(By.css('ds-metadata-field-selector'))).toBeNull();
         expect(fixture.debugElement.query(By.css('ds-dso-edit-metadata-value'))).toBeNull();
+      });
+    });
+
+    it('should fetch security settings for Item', () => {
+      component.dso = Object.assign(new Item(), {
+        ...dso,
+        entityType: 'Person'
+      });
+      component.getSecuritySettings().subscribe((securitySettings: MetadataSecurityConfiguration) => {
+        expect(securitySettings).toBeDefined();
       });
     });
   });

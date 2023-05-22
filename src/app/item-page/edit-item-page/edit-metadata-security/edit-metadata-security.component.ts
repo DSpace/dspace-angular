@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { LevelSecurityConfig } from '../../../../config/metadata-security-config';
-import { hasNoValue } from 'src/app/shared/empty.util';
+import { hasNoValue } from '../../../shared/empty.util';
 
 @Component({
   selector: 'ds-edit-metadata-security',
