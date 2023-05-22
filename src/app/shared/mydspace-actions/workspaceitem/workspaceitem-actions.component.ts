@@ -42,12 +42,6 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
   public processingDelete$ = new BehaviorSubject<boolean>(false);
 
   /**
-   * A boolean representing if the user is an admin
-   * @type {Observable<boolean>}
-   */
-  isAdmin$: Observable<boolean>;
-
-  /**
    * A boolean representing if the user can edit the item
    * and therefore can delete it as well
    * (since the user can discard the item also from the edit page)
