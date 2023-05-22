@@ -1737,6 +1737,18 @@
 
   "form.no-value": "No value entered",
 
+  "form.other-information.email": "Email",
+
+  "form.other-information.first-name": "First Name",
+
+  "form.other-information.insolr": "In Solr Index",
+
+  "form.other-information.institution": "Institution",
+
+  "form.other-information.last-name": "Last Name",
+
+  "form.other-information.orcid": "ORCID",
+
   "form.remove": "Remove",
 
   "form.save": "Save",
