@@ -20,6 +20,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * Component to wrap a list of existing dso's inside a modal
@@ -38,6 +39,7 @@ export class ExportBatchSelectorComponent extends DSOSelectorModalWrapperCompone
               protected notificationsService: NotificationsService, protected translationService: TranslateService,
               protected scriptDataService: ScriptDataService,
               protected authorizationDataService: AuthorizationDataService,
+              protected dsoNameService: DSONameService,
               private modalService: NgbModal) {
     super(activeModal, route);
   }
@@ -49,7 +51,7 @@ export class ExportBatchSelectorComponent extends DSOSelectorModalWrapperCompone
   navigate(dso: DSpaceObject): Observable<boolean> {
     if (dso instanceof Collection) {
       const modalRef = this.modalService.open(ConfirmationModalComponent);
-      modalRef.componentInstance.dso = dso;
+      modalRef.componentInstance.name = this.dsoNameService.getName(dso);
       modalRef.componentInstance.headerLabel = 'confirmation-modal.export-batch.header';
       modalRef.componentInstance.infoLabel = 'confirmation-modal.export-batch.info';
       modalRef.componentInstance.cancelLabel = 'confirmation-modal.export-batch.cancel';
