@@ -13,7 +13,7 @@
 
                 <div class="file-section row mb-3" *ngFor="let file of originals?.page;">
                     <div class="col-3">
-                        <ds-thumbnail [thumbnail]="(file.thumbnail | async)?.payload"></ds-thumbnail>
+                        <ds-themed-thumbnail [thumbnail]="(file.thumbnail | async)?.payload"></ds-themed-thumbnail>
                     </div>
                     <div class="col-7">
                         <dl class="row">
@@ -55,7 +55,7 @@
 
                 <div class="file-section row" *ngFor="let file of licenses?.page;">
                     <div class="col-3">
-                        <ds-thumbnail [thumbnail]="(file.thumbnail | async)?.payload"></ds-thumbnail>
+                        <ds-themed-thumbnail [thumbnail]="(file.thumbnail | async)?.payload"></ds-themed-thumbnail>
                     </div>
                     <div class="col-7">
                         <dl class="row">

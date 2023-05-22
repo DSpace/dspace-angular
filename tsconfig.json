@@ -46,5 +46,8 @@
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true
-  }
+  },
+  "exclude": [
+    "cypress.config.ts"
+  ]
 }
