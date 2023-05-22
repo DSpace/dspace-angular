@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { CdkTreeModule } from '@angular/cdk/tree';
@@ -47,8 +47,8 @@ export class MockNgbModalRef {
 }
 
 function init() {
-  ONEBOX_TEST_GROUP = new FormGroup({
-    onebox: new FormControl(),
+  ONEBOX_TEST_GROUP = new UntypedFormGroup({
+    onebox: new UntypedFormControl(),
   });
 
   ONEBOX_TEST_MODEL_CONFIG = {
@@ -457,7 +457,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
 })
 class TestComponent {
 
-  group: FormGroup = ONEBOX_TEST_GROUP;
+  group: UntypedFormGroup = ONEBOX_TEST_GROUP;
 
   model = new DynamicOneboxModel(ONEBOX_TEST_MODEL_CONFIG);
 
