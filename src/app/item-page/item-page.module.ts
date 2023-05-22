@@ -29,6 +29,7 @@ import {
   AbstractIncrementalListComponent
 } from './simple/abstract-incremental-list/abstract-incremental-list.component';
 import { UntypedItemComponent } from './simple/item-types/untyped-item/untyped-item.component';
+import { ThemedUntypedItemComponent } from './simple/item-types/untyped-item/themed-untyped-item.component';
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
@@ -85,6 +86,7 @@ const DECLARATIONS = [
   ThemedFullFileSectionComponent,
   PublicationComponent,
   UntypedItemComponent,
+  ThemedUntypedItemComponent,
   ItemComponent,
   UploadBitstreamComponent,
   AbstractIncrementalListComponent,
