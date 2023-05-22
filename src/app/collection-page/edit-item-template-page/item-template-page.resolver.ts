@@ -6,13 +6,17 @@ import { ItemTemplateDataService } from '../../core/data/item-template-data.serv
 import { Observable } from 'rxjs';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 /**
  * This class represents a resolver that requests a specific collection's item template before the route is activated
  */
 @Injectable()
 export class ItemTemplatePageResolver implements Resolve<RemoteData<Item>> {
-  constructor(private itemTemplateService: ItemTemplateDataService) {
+  constructor(
+    public dsoNameService: DSONameService,
+    private itemTemplateService: ItemTemplateDataService,
+  ) {
   }
 
   /**

@@ -1448,6 +1448,8 @@
 
   "dso.name.untitled": "Untitled",
 
+  "dso.name.unnamed": "Unnamed",
+
 
 
   "dso-selector.create.collection.head": "New collection",
@@ -4778,6 +4780,7 @@
 
   "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
 
+  "submitter.empty": "N/A",
 
   "subscriptions.title": "Subscriptions",
 

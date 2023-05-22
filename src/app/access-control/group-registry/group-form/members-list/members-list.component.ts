@@ -27,6 +27,7 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -143,7 +144,8 @@ export class MembersListComponent implements OnInit, OnDestroy {
     protected notificationsService: NotificationsService,
     protected formBuilder: UntypedFormBuilder,
     protected paginationService: PaginationService,
-    private router: Router
+    protected router: Router,
+    public dsoNameService: DSONameService,
   ) {
     this.currentSearchQuery = '';
     this.currentSearchScope = 'metadata';
@@ -253,7 +255,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         const response = this.groupDataService.deleteMemberFromGroup(activeGroup, ePerson.eperson);
-        this.showNotifications('deleteMember', response, ePerson.eperson.name, activeGroup);
+        this.showNotifications('deleteMember', response, this.dsoNameService.getName(ePerson.eperson), activeGroup);
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
       }
@@ -269,7 +271,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         const response = this.groupDataService.addMemberToGroup(activeGroup, ePerson.eperson);
-        this.showNotifications('addMember', response, ePerson.eperson.name, activeGroup);
+        this.showNotifications('addMember', response, this.dsoNameService.getName(ePerson.eperson), activeGroup);
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
       }
