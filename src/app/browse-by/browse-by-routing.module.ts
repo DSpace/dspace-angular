@@ -4,8 +4,6 @@ import { BrowseByGuard } from './browse-by-guard';
 import { BrowseByDSOBreadcrumbResolver } from './browse-by-dso-breadcrumb.resolver';
 import { BrowseByI18nBreadcrumbResolver } from './browse-by-i18n-breadcrumb.resolver';
 import { ThemedBrowseBySwitcherComponent } from './browse-by-switcher/themed-browse-by-switcher.component';
-import { ThemedBrowseByTaxonomyPageComponent } from './browse-by-taxonomy-page/themed-browse-by-taxonomy-page.component';
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 @NgModule({
   imports: [

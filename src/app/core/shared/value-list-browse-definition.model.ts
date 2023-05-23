@@ -5,6 +5,9 @@ import { VALUE_LIST_BROWSE_DEFINITION } from './value-list-browse-definition.res
 import { ResourceType } from './resource-type';
 import { NonHierarchicalBrowseDefinition } from './non-hierarchical-browse-definition';
 
+/**
+ * BrowseDefinition model for browses of type 'valueList'
+ */
 @typedObject
 @inheritSerialization(NonHierarchicalBrowseDefinition)
 export class ValueListBrowseDefinition extends NonHierarchicalBrowseDefinition {

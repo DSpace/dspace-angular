@@ -15,7 +15,7 @@ import { ValueListBrowseDefinition } from '../shared/value-list-browse-definitio
 import { VALUE_LIST_BROWSE_DEFINITION } from '../shared/value-list-browse-definition.resource-type';
 
 /**
- * A ResponseParsingService used to parse RawRestResponse coming from the REST API to a BrowseDefinition object
+ * A ResponseParsingService used to parse a REST API response to a BrowseDefinition object
  */
 @Injectable({
   providedIn: 'root',

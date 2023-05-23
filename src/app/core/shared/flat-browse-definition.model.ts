@@ -5,6 +5,9 @@ import { FLAT_BROWSE_DEFINITION } from './flat-browse-definition.resource-type';
 import { ResourceType } from './resource-type';
 import { NonHierarchicalBrowseDefinition } from './non-hierarchical-browse-definition';
 
+/**
+ * BrowseDefinition model for browses of type 'flatBrowse'
+ */
 @typedObject
 @inheritSerialization(NonHierarchicalBrowseDefinition)
 export class FlatBrowseDefinition extends NonHierarchicalBrowseDefinition {

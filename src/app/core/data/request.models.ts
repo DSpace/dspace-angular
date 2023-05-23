@@ -119,6 +119,9 @@ export class PatchRequest extends DSpaceRestRequest {
   }
 }
 
+/**
+ * Class representing a BrowseDefinition HTTP Rest request object
+ */
 export class BrowseDefinitionRestRequest extends DSpaceRestRequest {
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return BrowseResponseParsingService;

@@ -6,6 +6,9 @@ import { HALLink } from './hal-link.model';
 import { ResourceType } from './resource-type';
 import { BrowseDefinition } from './browse-definition.model';
 
+/**
+ * BrowseDefinition model for browses of type 'hierarchicalBrowse'
+ */
 @typedObject
 @inheritSerialization(BrowseDefinition)
 export class HierarchicalBrowseDefinition extends BrowseDefinition {
