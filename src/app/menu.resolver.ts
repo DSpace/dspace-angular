@@ -137,20 +137,6 @@ export class MenuResolver implements Resolve<boolean> {
               } as TextMenuItemModel,
             }
           );
-          menuList.push(
-            {
-              id: 'browse_global_by_srsc',
-              parentID: 'browse_global',
-              active: false,
-              visible: true,
-              index: 99,
-              model: {
-                type: MenuItemType.LINK,
-                text: `menu.section.browse_global_by_srsc`,
-                link: `/browse/srsc`
-              } as LinkMenuItemModel
-            }
-          );
         }
         menuList.forEach((menuSection) => this.menuService.addSection(MenuID.PUBLIC, Object.assign(menuSection, {
           shouldPersistOnRouteChange: true
