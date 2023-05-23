@@ -14,9 +14,10 @@ import { followLink } from '../../../utils/follow-link-config.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { Item } from '../../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { isNotEmpty } from '../../../empty.util';
+import { isNotEmpty, hasValue } from '../../../empty.util';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { Context } from 'src/app/core/shared/context.model';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component renders pool task object for the search result in the detail view.
@@ -50,8 +51,12 @@ export class PoolSearchResultDetailElementComponent extends SearchResultDetailEl
    */
   public workflowitem$: BehaviorSubject<WorkflowItem> = new BehaviorSubject<WorkflowItem>(null);
 
-  constructor(protected linkService: LinkService, protected objectCache: ObjectCacheService) {
-    super();
+  constructor(
+    public dsoNameService: DSONameService,
+    protected linkService: LinkService,
+    protected objectCache: ObjectCacheService,
+  ) {
+    super(dsoNameService);
   }
 
   /**
@@ -87,7 +92,9 @@ export class PoolSearchResultDetailElementComponent extends SearchResultDetailEl
 
   ngOnDestroy() {
     // This ensures the object is removed from cache, when action is performed on task
-    this.objectCache.remove(this.dso._links.workflowitem.href);
+    if (hasValue(this.dso)) {
+      this.objectCache.remove(this.dso._links.workflowitem.href);
+    }
   }
 
 }

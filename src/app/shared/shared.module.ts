@@ -50,6 +50,7 @@ import { ErrorComponent } from './error/error.component';
 import { LoadingComponent } from './loading/loading.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
+import { ThemedThumbnailComponent } from '../thumbnail/themed-thumbnail.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { ThemedSearchFormComponent } from './search-form/themed-search-form.component';
 import {
@@ -351,6 +352,7 @@ const COMPONENTS = [
   PageWithSidebarComponent,
   SidebarDropdownComponent,
   ThumbnailComponent,
+  ThemedThumbnailComponent,
   MyDSpaceStatusBadgeComponent,
   ThemedMyDSpaceStatusBadgeComponent,
   ViewModeSwitchComponent,

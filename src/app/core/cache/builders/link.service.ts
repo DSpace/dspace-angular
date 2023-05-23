@@ -60,7 +60,7 @@ export class LinkService {
       const provider = this.getDataServiceFor(matchingLinkDef.resourceType);
 
       if (hasNoValue(provider)) {
-        throw new Error(`The @link() for ${linkToFollow.name} on ${model.constructor.name} models uses the resource type ${matchingLinkDef.resourceType.value.toUpperCase()}, but there is no service with an @dataService(${matchingLinkDef.resourceType.value.toUpperCase()}) annotation in order to retrieve it`);
+        throw new Error(`The @link() for ${String(linkToFollow.name)} on ${model.constructor.name} models uses the resource type ${matchingLinkDef.resourceType.value.toUpperCase()}, but there is no service with an @dataService(${matchingLinkDef.resourceType.value.toUpperCase()}) annotation in order to retrieve it`);
       }
 
       const service: HALDataService<any> = Injector.create({
@@ -79,12 +79,12 @@ export class LinkService {
             return service.findByHref(href, linkToFollow.useCachedVersionIfAvailable, linkToFollow.reRequestOnStale, ...linkToFollow.linksToFollow);
           }
         } catch (e) {
-          console.error(`Something went wrong when using @dataService(${matchingLinkDef.resourceType.value}) ${hasValue(service) ? '' : '(undefined) '}to resolve link ${linkToFollow.name} at ${href}`);
+          console.error(`Something went wrong when using @dataService(${matchingLinkDef.resourceType.value}) ${hasValue(service) ? '' : '(undefined) '}to resolve link ${String(linkToFollow.name)} at ${href}`);
           throw e;
         }
       }
     } else if (!linkToFollow.isOptional) {
-      throw new Error(`followLink('${linkToFollow.name}') was used as a required link for a ${model.constructor.name}, but there is no property on ${model.constructor.name} models with an @link() for ${linkToFollow.name}`);
+      throw new Error(`followLink('${String(linkToFollow.name)}') was used as a required link for a ${model.constructor.name}, but there is no property on ${model.constructor.name} models with an @link() for ${String(linkToFollow.name)}`);
     }
 
     return EMPTY;

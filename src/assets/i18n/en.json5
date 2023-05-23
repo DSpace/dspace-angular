@@ -1468,6 +1468,8 @@
 
   "dso.name.untitled": "Untitled",
 
+  "dso.name.unnamed": "Unnamed",
+
 
 
   "dso-selector.create.collection.head": "New collection",
@@ -1757,7 +1759,17 @@
 
   "form.no-value": "No value entered",
 
-  "form.other-information": {},
+  "form.other-information.email": "Email",
+
+  "form.other-information.first-name": "First Name",
+
+  "form.other-information.insolr": "In Solr Index",
+
+  "form.other-information.institution": "Institution",
+
+  "form.other-information.last-name": "Last Name",
+
+  "form.other-information.orcid": "ORCID",
 
   "form.remove": "Remove",
 
@@ -4804,6 +4816,7 @@
 
   "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
 
+  "submitter.empty": "N/A",
 
   "subscriptions.title": "Subscriptions",
 
@@ -4989,9 +5002,23 @@
 
   "workspace-item.view.title": "Workspace View",
 
+  "workspace-item.delete.breadcrumbs": "Workspace Delete",
+
+  "workspace-item.delete.header": "Delete workspace item",
+
+  "workspace-item.delete.button.confirm": "Delete",
+
+  "workspace-item.delete.button.cancel": "Cancel",
+
+  "workspace-item.delete.notification.success.title": "Deleted",
+
+  "workspace-item.delete.title": "This workspace item was successfully deleted",
+
+  "workspace-item.delete.notification.error.title": "Something went wrong",
+
+  "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
 
   "workflow-item.advanced.title": "Advanced workflow",
-
 
   "workflow-item.selectrevieweraction.notification.success.title": "Selected reviewer",
 

@@ -65,9 +65,13 @@
         <tbody>
         <tr *ngFor="let group of (groups | async)?.payload?.page">
           <td class="align-middle">{{group.id}}</td>
-          <td class="align-middle"><a (click)="groupsDataService.startEditingNewGroup(group)"
-                 [routerLink]="[groupsDataService.getGroupEditPageRouterLink(group)]">{{group.name}}</a></td>
-          <td class="align-middle">{{(group.object | async)?.payload?.name}}</td>
+          <td class="align-middle">
+            <a (click)="groupsDataService.startEditingNewGroup(group)"
+               [routerLink]="[groupsDataService.getGroupEditPageRouterLink(group)]">
+            {{ dsoNameService.getName(group) }}
+          </a>
+          </td>
+          <td class="align-middle">{{ dsoNameService.getName(undefined) }}</td>
         </tr>
         </tbody>
       </table>

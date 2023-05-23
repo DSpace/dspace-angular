@@ -7,6 +7,7 @@ import { ResourcePolicy } from '../../../../core/resource-policy/models/resource
 import { isEmpty } from '../../../../shared/empty.util';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component represents a badge that describe an access condition
@@ -27,14 +28,13 @@ export class SubmissionSectionUploadAccessConditionsComponent implements OnInit 
    * The list of access conditions
    * @type {Array}
    */
-  public accessConditionsList = [];
+  public accessConditionsList: ResourcePolicy[] = [];
 
-  /**
-   * Initialize instance variables
-   *
-   * @param {GroupDataService} groupService
-   */
-  constructor(private groupService: GroupDataService) {}
+  constructor(
+    public dsoNameService: DSONameService,
+    protected groupService: GroupDataService,
+  ) {
+  }
 
   /**
    * Retrieve access conditions list
@@ -47,7 +47,7 @@ export class SubmissionSectionUploadAccessConditionsComponent implements OnInit 
           .subscribe((rd: RemoteData<Group>) => {
             const group: Group = rd.payload;
             const accessConditionEntry = Object.assign({}, accessCondition);
-            accessConditionEntry.name = group.name;
+            accessConditionEntry.name = this.dsoNameService.getName(group);
             this.accessConditionsList.push(accessConditionEntry);
           });
       } else {

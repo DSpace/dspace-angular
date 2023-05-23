@@ -10,6 +10,7 @@ import { NoContent } from '../../../../core/shared/NoContent.model';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { Community } from '../../../../core/shared/community.model';
 import { Collection } from '../../../../core/shared/collection.model';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * Component representing the delete page for communities and collections
@@ -36,6 +37,7 @@ export class DeleteComColPageComponent<TDomain extends Community | Collection> i
 
   public constructor(
     protected dsoDataService: ComColDataService<TDomain>,
+    public dsoNameService: DSONameService,
     protected router: Router,
     protected route: ActivatedRoute,
     protected notifications: NotificationsService,

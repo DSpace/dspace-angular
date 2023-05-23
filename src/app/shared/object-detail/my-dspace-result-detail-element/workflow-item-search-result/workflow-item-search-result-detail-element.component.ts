@@ -13,6 +13,7 @@ import { WorkflowItemSearchResult } from '../../../object-collection/shared/work
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { Context } from 'src/app/core/shared/context.model';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component renders workflowitem object for the search result in the detail view.
@@ -37,9 +38,10 @@ export class WorkflowItemSearchResultDetailElementComponent extends SearchResult
   public badgeContext = Context.MyDSpaceWorkflow;
 
   constructor(
+    public dsoNameService: DSONameService,
     protected linkService: LinkService
   ) {
-    super();
+    super(dsoNameService);
   }
 
   /**

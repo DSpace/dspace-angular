@@ -11,6 +11,10 @@ export interface OtherInformation {
  * A class representing a specific input-form field's value
  */
 export class FormFieldMetadataValueObject implements MetadataValueInterface {
+
+  static readonly AUTHORITY_SPLIT: string = '::';
+  static readonly AUTHORITY_GENERATE: string = 'will be generated' + FormFieldMetadataValueObject.AUTHORITY_SPLIT;
+
   metadata?: string;
   value: any;
   display: string;
@@ -56,6 +60,13 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
    */
   hasAuthority(): boolean {
     return isNotEmpty(this.authority);
+  }
+
+  /**
+   * Returns true if this object has an authority value that needs to be generated
+   */
+  hasAuthorityToGenerate(): boolean {
+    return isNotEmpty(this.authority) && this.authority.startsWith(FormFieldMetadataValueObject.AUTHORITY_GENERATE);
   }
 
   /**
