@@ -6,13 +6,15 @@ import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestService } from '../data/request.service';
-import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 import { BrowseService } from './browse.service';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList, getFirstUsedArgumentOfSpyMethod } from '../../shared/testing/utils.test';
 import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { RequestEntry } from '../data/request-entry.model';
+import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
+import { ValueListBrowseDefinition } from '../shared/value-list-browse-definition.model';
+import { HierarchicalBrowseDefinition } from '../shared/hierarchical-browse-definition.model';
 
 describe('BrowseService', () => {
   let scheduler: TestScheduler;
@@ -23,7 +25,7 @@ describe('BrowseService', () => {
   const browsesEndpointURL = 'https://rest.api/browses';
   const halService: any = new HALEndpointServiceStub(browsesEndpointURL);
   const browseDefinitions = [
-    Object.assign(new BrowseDefinition(), {
+    Object.assign(new FlatBrowseDefinition(), {
       id: 'date',
       metadataBrowse: false,
       sortOptions: [
@@ -50,7 +52,7 @@ describe('BrowseService', () => {
         items: { href: 'https://rest.api/discover/browses/dateissued/items' }
       }
     }),
-    Object.assign(new BrowseDefinition(), {
+    Object.assign(new ValueListBrowseDefinition(), {
       id: 'author',
       metadataBrowse: true,
       sortOptions: [
@@ -78,7 +80,23 @@ describe('BrowseService', () => {
         entries: { href: 'https://rest.api/discover/browses/author/entries' },
         items: { href: 'https://rest.api/discover/browses/author/items' }
       }
-    })
+    }),
+    Object.assign(new HierarchicalBrowseDefinition(), {
+      id: 'srsc',
+      browseType: 'hierarchicalBrowse',
+      facetType: 'subject',
+      vocabulary: 'srsc',
+      type: 'browse',
+      metadata: [
+        'dc.subject'
+      ],
+      _links: {
+        vocabulary: { 'href': 'https://rest.api/submission/vocabularies/srsc/' },
+        items: { 'href': 'https://rest.api/discover/browses/srsc/items' },
+        entries: { 'href': 'https://rest.api/discover/browses/srsc/entries' },
+        self: { 'href': 'https://rest.api/discover/browses/srsc' }
+      }
+    }),
   ];
 
   let browseDefinitionDataService;
