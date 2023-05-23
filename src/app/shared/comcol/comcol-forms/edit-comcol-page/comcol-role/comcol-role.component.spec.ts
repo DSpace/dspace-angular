@@ -12,6 +12,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ComcolModule } from '../../../comcol.module';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 
 describe('ComcolRoleComponent', () => {
 
@@ -41,6 +43,7 @@ describe('ComcolRoleComponent', () => {
         NoopAnimationsModule
       ],
       providers: [
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: GroupDataService, useValue: groupService },
         { provide: RequestService, useValue: requestService },
         { provide: NotificationsService, useClass: NotificationsServiceStub }

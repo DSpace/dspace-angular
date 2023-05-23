@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Item } from '../../core/shared/item.model';
 import { Version } from '../../core/shared/version.model';
 import { RemoteData } from '../../core/data/remote-data';
@@ -58,7 +58,7 @@ import { ConfigurationDataService } from '../../core/data/configuration-data.ser
 /**
  * Component listing all available versions of the history the provided item is a part of
  */
-export class ItemVersionsComponent implements OnInit {
+export class ItemVersionsComponent implements OnDestroy, OnInit {
 
   /**
    * The item to display a version history for

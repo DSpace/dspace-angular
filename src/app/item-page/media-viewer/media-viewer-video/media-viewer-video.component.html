@@ -47,7 +47,7 @@
         class="list-element"
         (click)="selectedMedia(indexOfelement)"
       >
-        {{ item.bitstream.name }}
+        {{ dsoNameService.getName(item.bitstream) }}
       </button>
     </div>
   </div>

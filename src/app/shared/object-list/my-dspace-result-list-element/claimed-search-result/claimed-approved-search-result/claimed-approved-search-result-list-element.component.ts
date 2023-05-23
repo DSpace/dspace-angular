@@ -44,7 +44,7 @@ export class ClaimedApprovedSearchResultListElementComponent extends SearchResul
   public constructor(
     protected linkService: LinkService,
     protected truncatableService: TruncatableService,
-    protected dsoNameService: DSONameService,
+    public dsoNameService: DSONameService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
     super(truncatableService, dsoNameService, appConfig);

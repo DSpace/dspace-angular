@@ -14,6 +14,7 @@ import { WorkspaceItemSearchResult } from '../../../object-collection/shared/wor
 import { followLink } from '../../../utils/follow-link-config.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { Context } from '../../../../core/shared/context.model';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component renders workspace item object for the search result in the detail view.
@@ -38,9 +39,10 @@ export class WorkspaceItemSearchResultDetailElementComponent extends SearchResul
   public badgeContext = Context.MyDSpaceWorkspace;
 
   constructor(
+    public dsoNameService: DSONameService,
     protected linkService: LinkService
   ) {
-    super();
+    super(dsoNameService);
   }
 
   /**

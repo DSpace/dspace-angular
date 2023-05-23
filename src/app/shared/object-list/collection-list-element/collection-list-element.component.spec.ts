@@ -3,6 +3,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Collection } from '../../../core/shared/collection.model';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
 
 let collectionListElementComponent: CollectionListElementComponent;
 let fixture: ComponentFixture<CollectionListElementComponent>;
@@ -34,6 +36,7 @@ describe('CollectionListElementComponent', () => {
     TestBed.configureTestingModule({
       declarations: [CollectionListElementComponent],
       providers: [
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) }
       ],
 
