@@ -7,7 +7,6 @@ import { BulkAccessControlService } from './bulk-access-control.service';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map, take } from 'rxjs/operators';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import {
   ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID,
@@ -17,6 +16,7 @@ import { BulkAccessConfigDataService } from '../../core/config/bulk-access-confi
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { BulkAccessConditionOptions } from '../../core/config/models/bulk-access-condition-options.model';
 import { AlertType } from '../alert/aletr-type';
+import { accessControlInitialFormState } from './access-control-form-container-intial-state';
 
 @Component({
   selector: 'ds-access-control-form-container',
@@ -61,7 +61,7 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
     private cdr: ChangeDetectorRef
   ) {}
 
-  state = initialState;
+  state = accessControlInitialFormState;
 
   dropdownData$: Observable<BulkAccessConditionOptions> = this.bulkAccessConfigService.findByName('default').pipe(
     getFirstCompletedRemoteData(),
@@ -92,7 +92,7 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
   reset() {
     this.bitstreamAccessCmp.reset();
     this.itemAccessCmp.reset();
-    this.state = initialState;
+    this.state = accessControlInitialFormState;
   }
 
   /**
@@ -156,29 +156,3 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
 
 }
 
-
-const initialState: AccessControlFormState = {
-  item: {
-    toggleStatus: false,
-    accessMode: 'replace',
-  },
-  bitstream: {
-    toggleStatus: false,
-    accessMode: 'replace',
-    changesLimit: 'all', // 'all' | 'selected'
-    selectedBitstreams: [] as ListableObject[],
-  },
-};
-
-export interface AccessControlFormState {
-  item: {
-    toggleStatus: boolean,
-    accessMode: 'add' | 'replace',
-  },
-  bitstream: {
-    toggleStatus: boolean,
-    accessMode: 'add' | 'replace',
-    changesLimit: string,
-    selectedBitstreams: ListableObject[],
-  }
-}

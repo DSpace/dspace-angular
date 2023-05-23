@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
-import { AccessControlFormState } from './access-control-form-container.component';
+import { AccessControlFormState } from './access-control-form-container-intial-state';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { Process } from '../../process-page/processes/process.model';

@@ -70,7 +70,7 @@ export class AccessControlArrayFormComponent implements OnInit, OnDestroy {
    * @return The form value
    */
   getValue() {
-    return this.form.value.accessControl
+    return (this.form.value.accessControl as any[])
       .filter(x => x.itemName !== null && x.itemName !== '')
       .map(x => ({
         name: x.itemName,
