@@ -17,18 +17,6 @@
           <ds-error *ngIf="feedbackForm.controls.email.errors?.required" message="{{'info.feedback.error.email.required' | translate}}"></ds-error>
           <ds-error *ngIf="feedbackForm.controls.email.errors?.pattern" message="{{'info.feedback.error.email.required' | translate}}"></ds-error>
         </ng-container>
-
-        <div class="row">
-          <div class="control-group col-sm-12">
-            <label class="control-label" for="fullname">Your Fullname</label>
-            <input id="fullname" class="form-control" name="fullname" type="text" value="" formControlName="fullname" autofocus="autofocus">
-          </div>
-        </div>
-
-        <ng-container *ngIf="feedbackForm.controls.fullname.invalid" class="alert">
-          <ds-error *ngIf="feedbackForm.controls.fullname.errors?.required" message="Fullname is required."></ds-error>
-        </ng-container>
-
         <div class="row">
           <div class="control-group col-sm-12">
             <label class="control-label" for="comments">{{ 'info.feedback.comments' | translate }}:&nbsp;</label>
