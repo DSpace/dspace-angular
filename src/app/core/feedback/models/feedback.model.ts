@@ -16,6 +16,9 @@ export class Feedback extends DSpaceObject {
   @autoserialize
   public email: string;
 
+  @autoserialize
+  public fullname: string;
+
   /**
    * A string representing message the user inserted
    */
