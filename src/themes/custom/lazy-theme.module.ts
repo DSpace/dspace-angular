@@ -141,6 +141,7 @@ import {
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { WorkspaceItemsDeletePageComponent } from './app/workspace-items-delete-page/workspace-items-delete/workspace-items-delete.component';
 import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
+import { SubmissionSectionUploadFileComponent } from './app/submission/sections/upload/file/section-upload-file.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -217,6 +218,7 @@ const DECLARATIONS = [
   MediaViewerVideoComponent,
   WorkspaceItemsDeletePageComponent,
   ThumbnailComponent,
+  SubmissionSectionUploadFileComponent,
 ];
 
 @NgModule({
