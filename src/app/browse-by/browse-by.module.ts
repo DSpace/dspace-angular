@@ -19,11 +19,12 @@ const ENTRY_COMPONENTS = [
   BrowseByTitlePageComponent,
   BrowseByMetadataPageComponent,
   BrowseByDatePageComponent,
+  BrowseByTaxonomyPageComponent,
 
   ThemedBrowseByMetadataPageComponent,
   ThemedBrowseByDatePageComponent,
   ThemedBrowseByTitlePageComponent,
-
+  ThemedBrowseByTaxonomyPageComponent,
 ];
 
 @NgModule({
@@ -36,8 +37,6 @@ const ENTRY_COMPONENTS = [
   declarations: [
     BrowseBySwitcherComponent,
     ThemedBrowseBySwitcherComponent,
-    BrowseByTaxonomyPageComponent,
-    ThemedBrowseByTaxonomyPageComponent,
     ...ENTRY_COMPONENTS
   ],
   exports: [

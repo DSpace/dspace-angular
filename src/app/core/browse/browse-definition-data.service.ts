@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import { Injectable } from '@angular/core';
 import { BROWSE_DEFINITION } from '../shared/browse-definition.resource-type';
 import { RequestService } from '../data/request.service';
@@ -17,35 +18,39 @@ import { take } from 'rxjs/operators';
 import { BrowseDefinitionRestRequest } from '../data/request.models';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 
-
-class BrowseDefinitionFindAllDataImpl extends FindAllDataImpl<BrowseDefinition> {
-  /**
-   * Create a GET request for the given href, and send it.
-   * Use a GET request specific for BrowseDefinitions.
-   *
-   * @param href$                       The url of browse we want to retrieve. Can be a string or
-   *                                    an Observable<string>
-   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
-   *                                    no valid cached version. Defaults to true
-   */
-  createAndSendGetRequest(href$: string | Observable<string>, useCachedVersionIfAvailable: boolean = true) {
-    if (isNotEmpty(href$)) {
-      if (typeof href$ === 'string') {
-        href$ = observableOf(href$);
-      }
-
-      href$.pipe(
-        isNotEmptyOperator(),
-        take(1)
-      ).subscribe((href: string) => {
-        const requestId = this.requestService.generateRequestId();
-        const request = new BrowseDefinitionRestRequest(requestId, href);
-        if (hasValue(this.responseMsToLive)) {
-          request.responseMsToLive = this.responseMsToLive;
-        }
-        this.requestService.send(request, useCachedVersionIfAvailable);
-      });
+/**
+ * Create a GET request for the given href, and send it.
+ * Use a GET request specific for BrowseDefinitions.
+ */
+export const createAndSendBrowseDefinitionGetRequest = (requestService: RequestService,
+                                                        responseMsToLive: number,
+                                                        href$: string | Observable<string>,
+                                                        useCachedVersionIfAvailable: boolean = true): void => {
+  if (isNotEmpty(href$)) {
+    if (typeof href$ === 'string') {
+      href$ = observableOf(href$);
     }
+
+    href$.pipe(
+      isNotEmptyOperator(),
+      take(1)
+    ).subscribe((href: string) => {
+      const requestId = requestService.generateRequestId();
+      const request = new BrowseDefinitionRestRequest(requestId, href);
+      if (hasValue(responseMsToLive)) {
+        request.responseMsToLive = responseMsToLive;
+      }
+      requestService.send(request, useCachedVersionIfAvailable);
+    });
+  }
+};
+
+/**
+ * Custom extension of {@link FindAllDataImpl} to be able to send BrowseDefinitionRestRequests
+ */
+class BrowseDefinitionFindAllDataImpl extends FindAllDataImpl<BrowseDefinition> {
+  createAndSendGetRequest(href$: string | Observable<string>, useCachedVersionIfAvailable: boolean = true) {
+    createAndSendBrowseDefinitionGetRequest(this.requestService, this.responseMsToLive, href$, useCachedVersionIfAvailable);
   }
 }
 
@@ -86,6 +91,10 @@ export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseD
    */
   findAll(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<BrowseDefinition>[]): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
     return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  createAndSendGetRequest(href$: string | Observable<string>, useCachedVersionIfAvailable: boolean = true) {
+    createAndSendBrowseDefinitionGetRequest(this.requestService, this.responseMsToLive, href$, useCachedVersionIfAvailable);
   }
 }
 
