@@ -7,7 +7,7 @@ import {
 import { FLAT_BROWSE_DEFINITION } from '../shared/flat-browse-definition.resource-type';
 import { HierarchicalBrowseDefinition } from '../shared/hierarchical-browse-definition.model';
 import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
-import { DSOResponseParsingService } from './dso-response-parsing.service';
+import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { Serializer } from '../serializer';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BROWSE_DEFINITION } from '../shared/browse-definition.resource-type';
@@ -20,7 +20,7 @@ import { VALUE_LIST_BROWSE_DEFINITION } from '../shared/value-list-browse-defini
 @Injectable({
   providedIn: 'root',
 })
-export class BrowseResponseParsingService extends DSOResponseParsingService {
+export class BrowseResponseParsingService extends DspaceRestResponseParsingService {
   constructor(
     protected objectCache: ObjectCacheService,
   ) {
