@@ -4,6 +4,8 @@ import { of as observableOf } from 'rxjs';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { BrowseByDataType } from './browse-by-switcher/browse-by-decorator';
 import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
+import { DSONameServiceMock } from '../shared/mocks/dso-name.service.mock';
+import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 
 describe('BrowseByGuard', () => {
   describe('canActivate', () => {
@@ -33,7 +35,7 @@ describe('BrowseByGuard', () => {
         findById: () => createSuccessfulRemoteDataObject$(browseDefinition)
       };
 
-      guard = new BrowseByGuard(dsoService, translateService, browseDefinitionService);
+      guard = new BrowseByGuard(dsoService, translateService, browseDefinitionService, new DSONameServiceMock() as DSONameService);
     });
 
     it('should return true, and sets up the data correctly, with a scope and value', () => {

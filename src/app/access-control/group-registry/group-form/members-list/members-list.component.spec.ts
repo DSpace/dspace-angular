@@ -28,6 +28,8 @@ import { NotificationsServiceStub } from '../../../../shared/testing/notificatio
 import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 
 describe('MembersListComponent', () => {
   let component: MembersListComponent;
@@ -118,7 +120,7 @@ describe('MembersListComponent', () => {
     translateService = getMockTranslateService();
 
     paginationService = new PaginationServiceStub();
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
           loader: {
@@ -135,6 +137,7 @@ describe('MembersListComponent', () => {
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

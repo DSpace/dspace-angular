@@ -2436,10 +2436,6 @@
   // "form.no-value": "No value entered",
   "form.no-value": "Nebyla zadána hodnota",
 
-  // "form.other-information": {},
-  // TODO New key - Add a translation
-  "form.other-information": {},
-
   // "form.remove": "Remove",
   "form.remove": "Smazat",
 

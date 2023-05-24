@@ -33,7 +33,7 @@ describe('SearchFormComponent', () => {
   };
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot()],
       providers: [
         { provide: Router, useValue: router },
@@ -96,7 +96,7 @@ describe('SearchFormComponent', () => {
     tick();
     const scopeSelect = de.query(By.css('.scope-button')).nativeElement;
 
-    expect(scopeSelect.textContent).toBe(testCommunity.name);
+    expect(scopeSelect.textContent).toContain('Sample Community');
   }));
 
   describe('updateSearch', () => {
@@ -172,32 +172,9 @@ describe('SearchFormComponent', () => {
       expect(comp.updateSearch).toHaveBeenCalledWith(searchQuery);
     });
   });
-
-  // it('should call updateSearch when clicking the submit button with correct parameters', fakeAsync(() => {
-  //   comp.query = 'Test String'
-  //   fixture.detectChanges();
-  //   spyOn(comp, 'updateSearch').and.callThrough();
-  //   fixture.detectChanges();
-  //
-  //   const submit = de.query(By.css('button.search-button')).nativeElement;
-  //   const scope = '123456';
-  //   const query = 'test';
-  //   const select = de.query(By.css('select')).nativeElement;
-  //   const input = de.query(By.css('input')).nativeElement;
-  //
-  //   tick();
-  //   select.value = scope;
-  //   input.value = query;
-  //
-  //   fixture.detectChanges();
-  //
-  //   submit.click();
-  //
-  //   expect(comp.updateSearch).toHaveBeenCalledWith({ scope: scope, query: query });
-  // }));
 });
 
-export const objects: DSpaceObject[] = [
+const objects: DSpaceObject[] = [
   Object.assign(new Community(), {
     logo: {
       self: {

@@ -3,7 +3,7 @@
     <div class="{{bundleNameColumn.buildClasses()}} font-weight-bold row-element d-flex">
       <ds-item-edit-bitstream-drag-handle></ds-item-edit-bitstream-drag-handle>
       <div class="float-left d-flex align-items-center">
-        {{'item.edit.bitstreams.bundle.name' | translate:{ name: bundle.name } }}
+        {{'item.edit.bitstreams.bundle.name' | translate:{ name: dsoNameService.getName(bundle) } }}
       </div>
     </div>
     <div class="{{columnSizes.columns[3].buildClasses()}} text-center row-element">

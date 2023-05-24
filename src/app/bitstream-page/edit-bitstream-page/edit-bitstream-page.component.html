@@ -2,13 +2,13 @@
   <div class="container" *ngVar="(bitstreamFormatsRD$ | async) as formatsRD">
     <div class="row" *ngIf="bitstreamRD?.hasSucceeded && formatsRD?.hasSucceeded">
       <div class="col-md-2">
-        <ds-thumbnail [thumbnail]="bitstreamRD?.payload"></ds-thumbnail>
+        <ds-themed-thumbnail [thumbnail]="bitstreamRD?.payload"></ds-themed-thumbnail>
       </div>
       <div class="col-md-10">
         <div class="container">
           <div class="row">
             <div class="col-12">
-              <h3>{{bitstreamRD?.payload?.name}} <span class="text-muted">({{bitstreamRD?.payload?.sizeBytes | dsFileSize}})</span></h3>
+              <h3>{{dsoNameService.getName(bitstreamRD?.payload)}} <span class="text-muted">({{bitstreamRD?.payload?.sizeBytes | dsFileSize}})</span></h3>
             </div>
           </div>
         </div>
