@@ -6,5 +6,5 @@
                             (deselect)="onDeselect($event)">
     </ds-vocabulary-treeview>
   </div>
-  <a class="btn btn-primary" [routerLink]="['/search']" [queryParams]="{ 'f.subject': filterValues }">{{ 'browse.taxonomy.button' | translate }}</a>
+  <a class="btn btn-primary" [routerLink]="['/search']" [queryParams]="queryParams">{{ 'browse.taxonomy.button' | translate }}</a>
 </div>

@@ -248,7 +248,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Method called on entry select
+   * Method called on entry select/deselect
    */
   onSelect(item: VocabularyEntryDetail) {
     if (!this.selectedItems.includes(item.id)) {

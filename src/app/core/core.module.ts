@@ -177,6 +177,10 @@ import { IdentifierData } from '../shared/object-list/identifier-data/identifier
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { SupervisionOrderDataService } from './supervision-order/supervision-order-data.service';
 import { ItemRequest } from './shared/item-request.model';
+import { HierarchicalBrowseDefinition } from './shared/hierarchical-browse-definition.model';
+import { FlatBrowseDefinition } from './shared/flat-browse-definition.model';
+import { ValueListBrowseDefinition } from './shared/value-list-browse-definition.model';
+import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-browse-definition';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -333,6 +337,10 @@ export const models =
     AuthStatus,
     BrowseEntry,
     BrowseDefinition,
+    NonHierarchicalBrowseDefinition,
+    FlatBrowseDefinition,
+    ValueListBrowseDefinition,
+    HierarchicalBrowseDefinition,
     ClaimedTask,
     TaskObject,
     PoolTask,
