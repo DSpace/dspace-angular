@@ -25,19 +25,21 @@
       <ds-media-viewer [item]="object" [videoOptions]="mediaViewer.video"></ds-media-viewer>
     </ng-container>
     <ds-themed-item-page-file-section [item]="object"></ds-themed-item-page-file-section>
-    <ds-item-page-date-field [item]="object"></ds-item-page-date-field>
-    <ds-generic-item-page-field [item]="object"
-                                [fields]="['journal.title']"
-                                [label]="'item.page.journal-title'">
-    </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="object"
-                                [fields]="['journal.identifier.issn']"
-                                [label]="'item.page.journal-issn'">
-    </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="object"
-                                [fields]="['journalvolume.identifier.name']"
-                                [label]="'item.page.volume-title'">
-    </ds-generic-item-page-field>
+
+    <ds-item-page-uri-field [item]="object"
+                            [fields]="['dc.identifier.doi']"
+                            label="DOI">
+    </ds-item-page-uri-field>
+    <ds-item-page-uri-field [item]="object"
+                            [fields]="['dc.identifier.uri']"
+                            label="Handle">
+    </ds-item-page-uri-field>
+
+    <div>
+      <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']" role="button">
+        <i class="fas fa-info-circle"></i> {{"item.page.link.full" | translate}}
+      </a>
+    </div>
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-generic-item-page-field [item]="object"
@@ -102,14 +104,6 @@
                                 [fields]="['dc.identifier.citation']"
                                 [label]="'item.page.citation'">
     </ds-generic-item-page-field>
-    <ds-item-page-uri-field [item]="object"
-                            [fields]="['dc.identifier.doi']"
-                            label="DOI">
-    </ds-item-page-uri-field>
-    <ds-item-page-uri-field [item]="object"
-                            [fields]="['dc.identifier.uri']"
-                            label="Handle">
-    </ds-item-page-uri-field>
     <ds-item-page-collections [item]="object"></ds-item-page-collections>
   </div>
   <div class="col-xs-12 col-md-4">
@@ -281,12 +275,5 @@
                                 [fields]="['dc.relation.localuri']"
                                 [label]="'Link(s) to Catalog Record'">
     </ds-generic-item-page-field>
-
-    <div>
-      <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']" role="button">
-        <i class="fas fa-info-circle"></i> {{"item.page.link.full" | translate}}
-      </a>
-    </div>
-
   </div>
 </div>
