@@ -35,6 +35,8 @@
                             label="Handle">
     </ds-item-page-uri-field>
 
+    <ds-item-page-collections [item]="object"></ds-item-page-collections>
+
     <div>
       <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']" role="button">
         <i class="fas fa-info-circle"></i> {{"item.page.link.full" | translate}}
@@ -104,7 +106,6 @@
                                 [fields]="['dc.identifier.citation']"
                                 [label]="'item.page.citation'">
     </ds-generic-item-page-field>
-    <ds-item-page-collections [item]="object"></ds-item-page-collections>
   </div>
   <div class="col-xs-12 col-md-4">
   </div>
