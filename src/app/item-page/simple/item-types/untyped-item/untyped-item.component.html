@@ -103,8 +103,12 @@
                                 [label]="'item.page.citation'">
     </ds-generic-item-page-field>
     <ds-item-page-uri-field [item]="object"
+                            [fields]="['dc.identifier.doi']"
+                            [label]="DOI">
+    </ds-item-page-uri-field>
+    <ds-item-page-uri-field [item]="object"
                             [fields]="['dc.identifier.uri']"
-                            [label]="'item.page.uri'">
+                            [label]="Handle">
     </ds-item-page-uri-field>
     <ds-item-page-collections [item]="object"></ds-item-page-collections>
   </div>
