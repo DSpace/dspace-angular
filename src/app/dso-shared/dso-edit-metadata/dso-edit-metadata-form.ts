@@ -428,16 +428,28 @@ export class DsoEditMetadataForm {
               // "replace" the security level value
               if (value.originalValue.securityLevel !== value.newValue.securityLevel) {
                 replaceOperations.push(new MetadataPatchReplaceOperation(field, value.originalValue.place, {
-                  securityLevel: value.newValue.securityLevel
+                  securityLevel: value.newValue.securityLevel,
+                  value: value.newValue.value,
+                  language: value.newValue.language,
                 }));
               }
             } else if (value.change === DsoEditMetadataChangeType.REMOVE) {
               removeOperations.push(new MetadataPatchRemoveOperation(field, value.originalValue.place));
             } else if (value.change === DsoEditMetadataChangeType.ADD) {
-              addOperations.push(new MetadataPatchAddOperation(field, {
-                value: value.newValue.value,
-                language: value.newValue.language,
-              }));
+              let newValue;
+              if (hasValue(value.newValue?.securityLevel)) {
+                newValue = {
+                  value: value.newValue.value,
+                  language: value.newValue.language,
+                  securityLevel: value.newValue.securityLevel
+                };
+              } else {
+                newValue = {
+                  value: value.newValue.value,
+                  language: value.newValue.language,
+                };
+              }
+              addOperations.push(new MetadataPatchAddOperation(field, newValue));
             } else {
               console.warn('Illegal metadata change state detected for', value);
             }

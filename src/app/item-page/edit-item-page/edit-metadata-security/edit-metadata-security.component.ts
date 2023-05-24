@@ -12,10 +12,17 @@ export class EditMetadataSecurityComponent implements OnInit {
   @Input() securityLevel: number;
   @Input() securityConfigLevel: number[];
   @Output() changeSecurityLevel = new EventEmitter<number>();
+
+  /**
+   * Emits when a metadata field has a security level configuration
+   */
+  @Output() hasSecurityLevel = new EventEmitter<boolean>();
+
   public securityLevelsMap: LevelSecurityConfig[] = environment.security.levels;
 
   ngOnInit(): void {
     this.filterSecurityLevelsMap();
+    this.hasSecurityLevel.emit(true);
   }
 
   /**

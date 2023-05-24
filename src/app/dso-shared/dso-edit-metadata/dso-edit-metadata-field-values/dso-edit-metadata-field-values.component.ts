@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/internal/Observable';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { map, take } from 'rxjs';
 import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
 
 @Component({
@@ -86,44 +85,12 @@ export class DsoEditMetadataFieldValuesComponent {
   }
 
   /**
-   * Get the custom security metadata for the current field
-   */
-  getCustomSecurityMetadata(): Observable<number[]> {
-    if (this.metadataSecurityConfiguration) {
-      return this.metadataSecurityConfiguration.pipe(
-        take(1),
-        map((value: MetadataSecurityConfiguration) => {
-          if (value.metadataCustomSecurity[this.mdField]) {
-            return value.metadataCustomSecurity[this.mdField];
-          }
-        })
-      );
-    }
-  }
-
-  /**
-   * Get the default security metadata for the current field
-   */
-  getDefaultSecurityMetadata(): Observable<number> {
-    if (this.metadataSecurityConfiguration) {
-      return this.metadataSecurityConfiguration.pipe(
-        map((value: MetadataSecurityConfiguration) => {
-          if (value.metadataCustomSecurity[this.mdField]) {
-            return value.metadataSecurityDefault[0] ?? 0;
-          }
-        })
-      );
-    }
-  }
-
-  /**
    * Update the security level for the field at the given index
    */
   onUpdateSecurityLevelValue(securityLevel: number, index: number) {
     if (this.form.fields[this.mdField]?.length > 0) {
       this.form.fields[this.mdField][index].change = DsoEditMetadataChangeType.UPDATE;
       this.form.fields[this.mdField][index].newValue.securityLevel = securityLevel;
-
       this.valueSaved.emit();
     }
   }

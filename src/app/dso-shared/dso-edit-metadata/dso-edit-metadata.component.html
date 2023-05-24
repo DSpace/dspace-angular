@@ -29,7 +29,8 @@
       <div class="lbl-cell ds-success" role="rowheader">
         <ds-metadata-field-selector [dsoType]="dsoType"
                                     [(mdField)]="newMdField"
-                                    [autofocus]="true">
+                                    [autofocus]="true"
+                                    (mdFieldChange)="onMdFieldChange($event)">
         </ds-metadata-field-selector>
       </div>
       <div class="flex-grow-1 ds-drop-list" role="cell">
@@ -39,10 +40,14 @@
                                       [mdValue]="form.newValue"
                                       [dsoType]="dsoType"
                                       [saving$]="savingOrLoadingFieldValidation$"
+                                      [metadataSecurityConfiguration]="getSecuritySettings()"
+                                      [mdField]="newMdField"
                                       [isOnlyValue]="true"
                                       (confirm)="confirmNewValue($event)"
                                       (remove)="form.newValue = undefined"
-                                      (undo)="form.newValue = undefined">
+                                      (undo)="form.newValue = undefined"
+                                      (updateSecurityLevel)="onUpdateSecurityLevel($event)"
+                                      (hasSecurityLevel)="hasSecurityLevel($event)">
           </ds-dso-edit-metadata-value>
         </div>
       </div>

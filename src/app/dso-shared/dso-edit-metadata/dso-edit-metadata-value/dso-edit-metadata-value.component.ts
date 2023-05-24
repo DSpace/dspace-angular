@@ -37,7 +37,12 @@ export class DsoEditMetadataValueComponent implements OnInit {
   /**
    * The metadata security configuration for the entity.
    */
-  @Input() metadataSecurityConfiguration: MetadataSecurityConfiguration = null;
+  @Input() metadataSecurityConfiguration: Observable<MetadataSecurityConfiguration>;
+
+  /**
+   * The metadata field to display a value for
+   */
+  @Input() mdField: string;
 
   /**
    * Type of DSO we're displaying values for
@@ -56,17 +61,6 @@ export class DsoEditMetadataValueComponent implements OnInit {
    * Will disable certain functionality like dragging (because dragging within a list of 1 is pointless)
    */
   @Input() isOnlyValue = false;
-
-  /**
-   * Custom security metadata array for the current metadata field
-   */
-  @Input() customSecurityMetadata: Observable<number[]>;
-
-  /**
-   * Default security metadata array for the current metadata field
-   * Used when no security level metadata is set
-   */
-  @Input() defaultMetadataSecurity: Observable<number>;
 
   /**
    * Emits when the user clicked edit
@@ -96,8 +90,12 @@ export class DsoEditMetadataValueComponent implements OnInit {
   /**
    * Emits the new value of security level
    */
-  @Output() updateSecuritylevel: EventEmitter<number> = new EventEmitter<number>();
+  @Output() updateSecurityLevel: EventEmitter<number> = new EventEmitter<number>();
 
+  /**
+   * Emits true when the metadata has security settings
+   */
+  @Output() hasSecurityLevel: EventEmitter<boolean> = new EventEmitter<boolean>(false);
 
   /**
    * The DsoEditMetadataChangeType enumeration for access in the component's template
@@ -151,7 +149,14 @@ export class DsoEditMetadataValueComponent implements OnInit {
    * Emits the edit event
    * @param securityLevel
    */
-  changeSelectedSecurity(securityLevel: number){
-    this.updateSecuritylevel.emit(securityLevel);
+  changeSelectedSecurity(securityLevel: number) {
+    this.updateSecurityLevel.emit(securityLevel);
+  }
+
+  /**
+   * Emits the value for the metadata security existence
+   */
+  hasSecurityMetadata(event: boolean) {
+    this.hasSecurityLevel.emit(event);
   }
 }
