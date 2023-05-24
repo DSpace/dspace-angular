@@ -277,11 +277,12 @@
                                 [fields]="['dc.relation.localuri']"
                                 [label]="'Link(s) to Catalog Record'">
     </ds-generic-item-page-field>
-  </div>
 
-  <div>
-    <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']" role="button">
-      <i class="fas fa-info-circle"></i> {{"item.page.link.full" | translate}}
-    </a>
+    <div>
+      <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']" role="button">
+        <i class="fas fa-info-circle"></i> {{"item.page.link.full" | translate}}
+      </a>
+    </div>
+
   </div>
 </div>
