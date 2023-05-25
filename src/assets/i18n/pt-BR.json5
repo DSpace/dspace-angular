@@ -56,7 +56,7 @@
   "access-status.embargo.listelement.badge": "Embargo",
 
   // "access-status.metadata.only.listelement.badge": "Metadata only",
- "access-status.metadata.only.listelement.badge": "Somente Metadadados",
+  "access-status.metadata.only.listelement.badge": "Somente Metadadados",
 
   // "access-status.open.access.listelement.badge": "Open Access",
   "access-status.open.access.listelement.badge": "Acesso aberto (Open Access)",
@@ -69,18 +69,6 @@
 
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
   "admin.curation-tasks.breadcrumbs": "Tarefas de Curadoria do Sistema",
-
-  // "admin.curation-tasks.title": "System curation tasks",
-  "admin.curation-tasks.title": "Tarefas de Curadoria do Sistema",
-
-  // "admin.curation-tasks.header": "System curation tasks",
-  "admin.curation-tasks.header": "Tarefas de Curadoria do Sistema",
-
-  // "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
-  "admin.registries.bitstream-formats.breadcrumbs": "Formatar registro",
-
-  // "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
-  "admin.registries.bitstream-formats.create.breadcrumbs": "Formatar Bitstream",
 
   // "admin.curation-tasks.title": "System curation tasks",
   "admin.curation-tasks.title": "Tarefas de curadoria do sistema",
@@ -206,7 +194,7 @@
   "admin.registries.bitstream-formats.table.name": "Nome",
 
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.id" : "ID",
+  "admin.registries.bitstream-formats.table.id": "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
   "admin.registries.bitstream-formats.table.return": "Voltar",
@@ -1841,10 +1829,10 @@
   "cookies.consent.purpose.statistical": "Estatística",
 
   // "curation-task.task.citationpage.label":  "Generate Citation Page",
-  "curation-task.task.citationpage.label":  "Gerar página de citação",
+  "curation-task.task.citationpage.label": "Gerar página de citação",
 
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
-  "curation-task.task.checklinks.label":  "Verificar links em metadados",
+  "curation-task.task.checklinks.label": "Verificar links em metadados",
 
   // "curation-task.task.noop.label": "NOOP",
   "curation-task.task.noop.label": "NOOP",
@@ -2001,7 +1989,7 @@
 
   //"confirmation-modal.export-batch.info": "Are you sure you want to export batch (ZIP) for {{ dsoName }}",
   "confirmation-modal.export-batch.info": "Você tem certeza que deseja exportar o lote (ZIP) para {{ dsoName }}",
-  
+
   //"confirmation-modal.export-batch.cancel": "Cancel",
   "confirmation-modal.export-batch.cancel": "Cancelar",
 
@@ -2126,10 +2114,10 @@
   "footer.link.privacy-policy": "Política de Privacidade",
 
   // "footer.link.end-user-agreement":"End User Agreement",
-  "footer.link.end-user-agreement":"Termos de Uso",
+  "footer.link.end-user-agreement": "Termos de Uso",
 
   // "footer.link.feedback":"Send Feedback",
-  "footer.link.feedback":"Enviar uma Sugestão",
+  "footer.link.feedback": "Enviar uma Sugestão",
 
   // "forgot-email.form.header": "Forgot Password",
   "forgot-email.form.header": "Esqueci a Senha",
@@ -2266,9 +2254,6 @@
   // "form.no-value": "No value entered",
   "form.no-value": "Nenhum valor informado",
 
-  // "form.other-information": {},
-  "form.other-information": {},
-
   // "form.remove": "Remove",
   "form.remove": "Apagar",
 
@@ -2358,13 +2343,13 @@
   "health.breadcrumbs": "Saúde",
 
   // "health-page.heading" : "Health",
-  "health-page.heading" : "Saúde",
+  "health-page.heading": "Saúde",
 
   // "health-page.info-tab" : "Info",
-  "health-page.info-tab" : "Informação",
+  "health-page.info-tab": "Informação",
 
   // "health-page.status-tab" : "Status",
-  "health-page.status-tab" : "Status",
+  "health-page.status-tab": "Status",
 
   // "health-page.error.msg": "The health check service is temporarily unavailable",
   "health-page.error.msg": "O serviço de verificação de integridade está temporariamente indisponível",
@@ -2490,19 +2475,19 @@
   "info.feedback.email-label": "Seu Email",
 
   // "info.feedback.create.success" : "Feedback Sent Successfully!",
-  "info.feedback.create.success" : "Sugestão Enviada com Sucesso!",
+  "info.feedback.create.success": "Sugestão Enviada com Sucesso!",
 
   // "info.feedback.error.email.required" : "A valid email address is required",
-  "info.feedback.error.email.required" : "Um endereço de email válido é requerido",
+  "info.feedback.error.email.required": "Um endereço de email válido é requerido",
 
   // "info.feedback.error.message.required" : "A comment is required",
-  "info.feedback.error.message.required" : "Um comentário é requerido",
+  "info.feedback.error.message.required": "Um comentário é requerido",
 
   // "info.feedback.page-label" : "Page",
-  "info.feedback.page-label" : "Página",
+  "info.feedback.page-label": "Página",
 
   // "info.feedback.page_help" : "Tha page related to your feedback",
-  "info.feedback.page_help" : "A página relacionada a sua sugestão",
+  "info.feedback.page_help": "A página relacionada a sua sugestão",
 
   // "item.alerts.private": "This item is non-discoverable",
   "item.alerts.private": "Este item é privado",
@@ -2531,7 +2516,7 @@
   // "item.bitstreams.upload.bundle.new": "Create bundle",
   "item.bitstreams.upload.bundle.new": "Criar pacote",
 
-  // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+  // "item.bitstreams.upload.bundles.empty": "This item doesn't contain any bundles to upload a bitstream to.",
   "item.bitstreams.upload.bundles.empty": "Este item não possui um pacote para poder receber o bitstream.",
 
   // "item.bitstreams.upload.cancel": "Cancel",
@@ -3208,10 +3193,10 @@
   "item.page.bitstreams.collapse": "Fechar",
 
   // "item.page.filesection.original.bundle" : "Original bundle",
-  "item.page.filesection.original.bundle" : "Pacote Original",
+  "item.page.filesection.original.bundle": "Pacote Original",
 
   // "item.page.filesection.license.bundle" : "License bundle",
-  "item.page.filesection.license.bundle" : "Licença do Pacote",
+  "item.page.filesection.license.bundle": "Licença do Pacote",
 
   // "item.page.return": "Back",
   "item.page.return": "Voltar",
@@ -3256,25 +3241,25 @@
   "item.preview.dc.type": "Tipo:",
 
   // "item.preview.oaire.citation.issue" : "Issue",
-  "item.preview.oaire.citation.issue" : "Questão",
+  "item.preview.oaire.citation.issue": "Questão",
 
   // "item.preview.oaire.citation.volume" : "Volume",
-  "item.preview.oaire.citation.volume" : "Volume",
+  "item.preview.oaire.citation.volume": "Volume",
 
   // "item.preview.dc.relation.issn" : "ISSN",
-  "item.preview.dc.relation.issn" : "ISSN",
+  "item.preview.dc.relation.issn": "ISSN",
 
   // "item.preview.dc.identifier.isbn" : "ISBN",
-  "item.preview.dc.identifier.isbn" : "ISBN",
+  "item.preview.dc.identifier.isbn": "ISBN",
 
   // "item.preview.dc.identifier": "Identifier:",
   "item.preview.dc.identifier": "Identificador:",
 
   // "item.preview.dc.relation.ispartof" : "Journal or Serie",
-  "item.preview.dc.relation.ispartof" : "Revista ou Série",
+  "item.preview.dc.relation.ispartof": "Revista ou Série",
 
   // "item.preview.dc.identifier.doi" : "DOI",
-  "item.preview.dc.identifier.doi" : "DOI",
+  "item.preview.dc.identifier.doi": "DOI",
 
   // "item.preview.person.familyName": "Surname:",
   "item.preview.person.familyName": "Sobrenome:",
@@ -3415,13 +3400,13 @@
   "item.version.create.modal.submitted.text": "A nova versão está sendo criada. Isso pode levar algum tempo se o item tiver muitos relacionamentos.",
 
   // "item.version.create.notification.success" : "New version has been created with version number {{version}}",
-  "item.version.create.notification.success" : "Uma nova versão foi criada com o número de versão {{version}}",
+  "item.version.create.notification.success": "Uma nova versão foi criada com o número de versão {{version}}",
 
   // "item.version.create.notification.failure" : "New version has not been created",
-  "item.version.create.notification.failure" : "A nova versão não foi criada",
+  "item.version.create.notification.failure": "A nova versão não foi criada",
 
   // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
-  "item.version.create.notification.inProgress" : "Não é possível criar uma nova versão porque há uma submissão em andamento no histórico de versões",
+  "item.version.create.notification.inProgress": "Não é possível criar uma nova versão porque há uma submissão em andamento no histórico de versões",
 
   // "item.version.delete.modal.header": "Delete version",
   "item.version.delete.modal.header": "Apagar versão",
@@ -3442,16 +3427,16 @@
   "item.version.delete.modal.button.cancel.tooltip": "Não apague esta versão",
 
   // "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
-  "item.version.delete.notification.success" : "Versão número {{version}} foi apagada",
+  "item.version.delete.notification.success": "Versão número {{version}} foi apagada",
 
   // "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
-  "item.version.delete.notification.failure" : "Versão número {{version}} não foi apagada",
+  "item.version.delete.notification.failure": "Versão número {{version}} não foi apagada",
 
   // "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
-  "item.version.edit.notification.success" : "O resumo da versão número {{version}} foi alterado",
+  "item.version.edit.notification.success": "O resumo da versão número {{version}} foi alterado",
 
   // "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
-  "item.version.edit.notification.failure" : "O resumo da versão número {{version}} não foi alterado",
+  "item.version.edit.notification.failure": "O resumo da versão número {{version}} não foi alterado",
 
   // "journal.listelement.badge": "Journal",
   "journal.listelement.badge": "Revista",
@@ -3802,7 +3787,7 @@
 
   // "menu.section.import_batch": "Batch Import (ZIP)",
   "menu.section.import_batch": "Importação em Lote (ZIP)",
-  
+
   // "menu.section.export_batch": "Batch Export (ZIP)",
   "menu.section.export_batch": "Exportação em Lote (ZIP)",
 
@@ -4057,10 +4042,10 @@
   "nav.stop-impersonating": "Deixar de assumir o papel do EPerson",
 
   // "nav.toggle" : "Toggle navigation",
-  "nav.toggle" : "Alternar navegação",
+  "nav.toggle": "Alternar navegação",
 
   // "nav.user.description" : "User profile bar",
-  "nav.user.description" : "Barra de perfil do usuário",
+  "nav.user.description": "Barra de perfil do usuário",
 
   // "none.listelement.badge": "Item",
   "none.listelement.badge": "Item",
@@ -4211,16 +4196,16 @@
   "process.new.breadcrumbs": "Criar novo processo",
 
   // "process.detail.arguments" : "Arguments",
-  "process.detail.arguments" : "Argumentos",
+  "process.detail.arguments": "Argumentos",
 
   // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
-  "process.detail.arguments.empty" : "Este processo não contêm nenhum argumento",
+  "process.detail.arguments.empty": "Este processo não contêm nenhum argumento",
 
   // "process.detail.back" : "Back",
-  "process.detail.back" : "Voltar",
+  "process.detail.back": "Voltar",
 
   // "process.detail.output" : "Process Output",
-  "process.detail.output" : "Saída do Processo",
+  "process.detail.output": "Saída do Processo",
 
   // "process.detail.logs.button": "Retrieve process output",
   "process.detail.logs.button": "Recuperar a saída do processo",
@@ -4232,28 +4217,28 @@
   "process.detail.logs.none": "Este processo não tem saída",
 
   // "process.detail.output-files" : "Output Files",
-  "process.detail.output-files" : "Arquivos de saída",
+  "process.detail.output-files": "Arquivos de saída",
 
   // "process.detail.output-files.empty" : "This process doesn't contain any output files",
-  "process.detail.output-files.empty" : "Este processo não contém nenhum arquivo de saída",
+  "process.detail.output-files.empty": "Este processo não contém nenhum arquivo de saída",
 
   // "process.detail.script" : "Script",
-  "process.detail.script" : "Script",
+  "process.detail.script": "Script",
 
   // "process.detail.title" : "Process: {{ id }} - {{ name }}",
-  "process.detail.title" : "Processo: {{ id }} - {{ name }}",
+  "process.detail.title": "Processo: {{ id }} - {{ name }}",
 
   // "process.detail.start-time" : "Start time",
-  "process.detail.start-time" : "Hora de Início",
+  "process.detail.start-time": "Hora de Início",
 
   // "process.detail.end-time" : "Finish time",
-  "process.detail.end-time" : "Hora de Fim",
+  "process.detail.end-time": "Hora de Fim",
 
   // "process.detail.status" : "Status",
-  "process.detail.status" : "Status",
+  "process.detail.status": "Status",
 
   // "process.detail.create" : "Create similar process",
-  "process.detail.create" : "Criar processo similar",
+  "process.detail.create": "Criar processo similar",
 
   // "process.detail.actions": "Actions",
   "process.detail.actions": "Ações",
@@ -4280,22 +4265,22 @@
   "process.detail.delete.error": "Algo deu errado ao excluir o processo",
 
   // "process.overview.table.finish" : "Finish time (UTC)",
-  "process.overview.table.finish" : "Hora de Fim (UTC)",
+  "process.overview.table.finish": "Hora de Fim (UTC)",
 
   // "process.overview.table.id" : "Process ID",
-  "process.overview.table.id" : "ID do Processo",
+  "process.overview.table.id": "ID do Processo",
 
   // "process.overview.table.name" : "Name",
-  "process.overview.table.name" : "Nome",
+  "process.overview.table.name": "Nome",
 
   // "process.overview.table.start" : "Start time (UTC)",
-  "process.overview.table.start" : "Hora de Início (UTC)",
+  "process.overview.table.start": "Hora de Início (UTC)",
 
   // "process.overview.table.status" : "Status",
-  "process.overview.table.status" : "Status",
+  "process.overview.table.status": "Status",
 
   // "process.overview.table.user" : "User",
-  "process.overview.table.user" : "Usuário",
+  "process.overview.table.user": "Usuário",
 
   // "process.overview.title": "Processes Overview",
   "process.overview.title": "Visão geral dos processos",
@@ -5850,7 +5835,7 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Resultados da pesquisa",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Você gostaria de salvar \"{{ value }}\" como uma variante de nome para esta pessoa para que você e outros possam reutilizá-lo para futuras submissões? Se você não fizer isso, ainda poderá usá-lo para esta submissão.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
@@ -6132,7 +6117,7 @@
 
   // "submission.sections.accesses.form.until-placeholder": "Until",
   "submission.sections.accesses.form.until-placeholder": "Até",
-  
+
   // "submission.sections.license.granted-label": "Confirmo a licença acima",
   "submission.sections.license.granted-label": "I confirm the license above",
 
@@ -6140,7 +6125,7 @@
   "submission.sections.license.required": "Você deve aceitar a licença",
 
   // "submission.sections.license.notgranted":  "You must accept the license",
-  "submission.sections.license.notgranted":  "Você deve aceitar a licença",
+  "submission.sections.license.notgranted": "Você deve aceitar a licença",
 
 
   // "submission.sections.sherpa.publication.information": "Publication information",
@@ -6471,7 +6456,7 @@
   "idle-modal.extend-session": "Estender sessão",
 
   // "researcher.profile.action.processing" : "Processing...",
-  "researcher.profile.action.processing" : "Processando...",
+  "researcher.profile.action.processing": "Processando...",
 
   // "researcher.profile.associated": "Researcher profile associated",
   "researcher.profile.associated": "Perfil do pesquisador associado",
@@ -6504,10 +6489,10 @@
   "researcher.profile.view": "Ver",
 
   // "researcher.profile.private.visibility" : "PRIVATE",
-  "researcher.profile.private.visibility" : "PRIVADO",
+  "researcher.profile.private.visibility": "PRIVADO",
 
   // "researcher.profile.public.visibility" : "PUBLIC",
-  "researcher.profile.public.visibility" : "PÚBLICO",
+  "researcher.profile.public.visibility": "PÚBLICO",
 
   // "researcher.profile.status": "Status:",
   "researcher.profile.status": "Status:",
@@ -6516,16 +6501,16 @@
   "researcherprofile.claim.not-authorized": "Você não está autorizado a reivindicar este item. Para mais detalhes, entre em contato com o(s) administrador(es)",
 
   // "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
-  "researcherprofile.error.claim.body" : "Ocorreu um erro ao reivindicar o perfil, tente novamente mais tarde",
+  "researcherprofile.error.claim.body": "Ocorreu um erro ao reivindicar o perfil, tente novamente mais tarde",
 
   // "researcherprofile.error.claim.title" : "Error",
-  "researcherprofile.error.claim.title" : "Erro",
+  "researcherprofile.error.claim.title": "Erro",
 
   // "researcherprofile.success.claim.body" : "Profile claimed with success",
-  "researcherprofile.success.claim.body" : "Perfil reivindicado com sucesso",
+  "researcherprofile.success.claim.body": "Perfil reivindicado com sucesso",
 
   // "researcherprofile.success.claim.title" : "Success",
-  "researcherprofile.success.claim.title" : "Successo",
+  "researcherprofile.success.claim.title": "Successo",
 
   // "person.page.orcid.create": "Create an ORCID ID",
   "person.page.orcid.create": "Criar um ORCID ID",
@@ -6534,7 +6519,7 @@
   "person.page.orcid.granted-authorizations": "Autorizações concedidas",
 
   // "person.page.orcid.grant-authorizations" : "Grant authorizations",
-  "person.page.orcid.grant-authorizations" : "Conceder autorizações",
+  "person.page.orcid.grant-authorizations": "Conceder autorizações",
 
   // "person.page.orcid.link": "Connect to ORCID ID",
   "person.page.orcid.link": "Conectar ao ORCID ID",
@@ -6582,43 +6567,43 @@
   "person.page.orcid.save.preference.changes": "Atualizar configurações",
 
   // "person.page.orcid.sync-profile.affiliation" : "Affiliation",
-  "person.page.orcid.sync-profile.affiliation" : "Afiliação",
+  "person.page.orcid.sync-profile.affiliation": "Afiliação",
 
   // "person.page.orcid.sync-profile.biographical" : "Biographical data",
-  "person.page.orcid.sync-profile.biographical" : "Dados biográficos",
+  "person.page.orcid.sync-profile.biographical": "Dados biográficos",
 
   // "person.page.orcid.sync-profile.education" : "Education",
-  "person.page.orcid.sync-profile.education" : "Educação",
+  "person.page.orcid.sync-profile.education": "Educação",
 
   // "person.page.orcid.sync-profile.identifiers" : "Identifiers",
-  "person.page.orcid.sync-profile.identifiers" : "Identificadores",
+  "person.page.orcid.sync-profile.identifiers": "Identificadores",
 
   // "person.page.orcid.sync-fundings.all" : "All fundings",
-  "person.page.orcid.sync-fundings.all" : "Todos financiamentos",
+  "person.page.orcid.sync-fundings.all": "Todos financiamentos",
 
   // "person.page.orcid.sync-fundings.mine" : "My fundings",
-  "person.page.orcid.sync-fundings.mine" : "Meus financiamentos",
+  "person.page.orcid.sync-fundings.mine": "Meus financiamentos",
 
   // "person.page.orcid.sync-fundings.my_selected" : "Selected fundings",
-  "person.page.orcid.sync-fundings.my_selected" : "Financiamentos selecionados",
+  "person.page.orcid.sync-fundings.my_selected": "Financiamentos selecionados",
 
   // "person.page.orcid.sync-fundings.disabled" : "Disabled",
-  "person.page.orcid.sync-fundings.disabled" : "Desabilitado",
+  "person.page.orcid.sync-fundings.disabled": "Desabilitado",
 
   // "person.page.orcid.sync-publications.all" : "All publications",
-  "person.page.orcid.sync-publications.all" : "Todas publicações",
+  "person.page.orcid.sync-publications.all": "Todas publicações",
 
   // "person.page.orcid.sync-publications.mine" : "My publications",
-  "person.page.orcid.sync-publications.mine" : "Minhas publicações",
+  "person.page.orcid.sync-publications.mine": "Minhas publicações",
 
   // "person.page.orcid.sync-publications.my_selected" : "Selected publications",
-  "person.page.orcid.sync-publications.my_selected" : "Publicações selecionadas",
+  "person.page.orcid.sync-publications.my_selected": "Publicações selecionadas",
 
   // "person.page.orcid.sync-publications.disabled" : "Disabled",
-  "person.page.orcid.sync-publications.disabled" : "Desabilitado",
+  "person.page.orcid.sync-publications.disabled": "Desabilitado",
 
   // "person.page.orcid.sync-queue.discard" : "Discard the change and do not synchronize with the ORCID registry",
-  "person.page.orcid.sync-queue.discard" : "Descarte a alteração e não sincronize com o registro ORCID",
+  "person.page.orcid.sync-queue.discard": "Descarte a alteração e não sincronize com o registro ORCID",
 
   // "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
   "person.page.orcid.sync-queue.discard.error": "Falha ao descartar o registro da fila ORCID",
@@ -6630,13 +6615,13 @@
   "person.page.orcid.sync-queue.empty-message": "O registro da fila ORCID está vazio",
 
   // "person.page.orcid.sync-queue.table.header.type" : "Type",
-  "person.page.orcid.sync-queue.table.header.type" : "Tipo",
+  "person.page.orcid.sync-queue.table.header.type": "Tipo",
 
   // "person.page.orcid.sync-queue.table.header.description" : "Description",
-  "person.page.orcid.sync-queue.table.header.description" : "Descrição",
+  "person.page.orcid.sync-queue.table.header.description": "Descrição",
 
   // "person.page.orcid.sync-queue.table.header.action" : "Action",
-  "person.page.orcid.sync-queue.table.header.action" : "Ação",
+  "person.page.orcid.sync-queue.table.header.action": "Ação",
 
   // "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
   "person.page.orcid.sync-queue.description.affiliation": "Afiliação",
@@ -6702,7 +6687,7 @@
   "person.page.orcid.sync-queue.tooltip.researcher_urls": "URL do pesquisador",
 
   // "person.page.orcid.sync-queue.send" : "Synchronize with ORCID registry",
-  "person.page.orcid.sync-queue.send" : "Sincronize com o registro ORCID",
+  "person.page.orcid.sync-queue.send": "Sincronize com o registro ORCID",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
   "person.page.orcid.sync-queue.send.unauthorized-error.title": "A submissão ao ORCID falhou por falta de autorizações.",
@@ -6756,7 +6741,7 @@
   "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "O nome da organização é obrigatório",
 
   // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "The publication date must be one year after 1900",
-  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "A data de publicação deve ser um ano após 1900",
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "A data de publicação deve ser um ano após 1900",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
   "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "O endereço da organização a ser enviado exige uma endereço",
@@ -6835,7 +6820,7 @@
 
   // "person.orcid.registry.auth": "ORCID Autorizações",
   "person.orcid.registry.auth": "ORCID Autorizações",
-  
+
   // "home.recent-submissions.head": "Recent Submissions",
   "home.recent-submissions.head": "Submissões Recentes",
 

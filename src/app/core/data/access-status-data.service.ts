@@ -3,8 +3,8 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from './request.service';
-import { AccessStatusObject } from 'src/app/shared/object-list/access-status-badge/access-status.model';
-import { ACCESS_STATUS } from 'src/app/shared/object-list/access-status-badge/access-status.resource-type';
+import { AccessStatusObject } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
+import { ACCESS_STATUS } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
 import { Observable } from 'rxjs';
 import { RemoteData } from './remote-data';
 import { Item } from '../shared/item.model';

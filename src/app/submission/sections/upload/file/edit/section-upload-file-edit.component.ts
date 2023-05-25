@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
@@ -241,13 +241,13 @@ export class SubmissionSectionUploadFileEditComponent
    * @param control
    *    The [[FormControl]] object
    */
-  public setOptions(model: DynamicFormControlModel, control: FormControl) {
+  public setOptions(model: DynamicFormControlModel, control: UntypedFormControl) {
     let accessCondition: AccessConditionOption = null;
     this.availableAccessConditionOptions.filter((element) => element.name === control.value)
       .forEach((element) => accessCondition = element );
     if (isNotEmpty(accessCondition)) {
-      const startDateControl: FormControl = control.parent.get('startDate') as FormControl;
-      const endDateControl: FormControl = control.parent.get('endDate') as FormControl;
+      const startDateControl: UntypedFormControl = control.parent.get('startDate') as UntypedFormControl;
+      const endDateControl: UntypedFormControl = control.parent.get('endDate') as UntypedFormControl;
 
       // Clear previous state
       startDateControl?.markAsUntouched();

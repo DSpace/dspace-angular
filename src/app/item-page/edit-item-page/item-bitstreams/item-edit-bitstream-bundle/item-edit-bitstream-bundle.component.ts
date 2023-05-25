@@ -4,6 +4,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { getItemPageRoute } from '../../../item-page-routing-paths';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-item-edit-bitstream-bundle',
@@ -55,7 +56,10 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
    */
   itemPageRoute: string;
 
-  constructor(private viewContainerRef: ViewContainerRef) {
+  constructor(
+    protected viewContainerRef: ViewContainerRef,
+    public dsoNameService: DSONameService,
+  ) {
   }
 
   ngOnInit(): void {

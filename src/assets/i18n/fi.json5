@@ -156,8 +156,9 @@
 
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Nimi",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.id" : "ID",
+
+  // "admin.registries.bitstream-formats.table.id" : "ID",
+  "admin.registries.bitstream-formats.table.id": "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Return",
   "admin.registries.bitstream-formats.table.return": "Palaa",
@@ -207,7 +208,7 @@
   "admin.registries.metadata.schemas.table.delete": "Poista valittu",
 
   // "admin.registries.metadata.schemas.table.id": "ID",
-  "admin.registries.metadata.schemas.table.id": "ID-tunnus",
+  "admin.registries.metadata.schemas.table.id": "ID",
 
   // "admin.registries.metadata.schemas.table.name": "Name",
   "admin.registries.metadata.schemas.table.name": "Nimi",
@@ -237,8 +238,9 @@
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Kenttä",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.id" : "ID",
+
+  // "admin.registries.schema.fields.table.id": "ID",
+  "admin.registries.schema.fields.table.id": "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Soveltamisala",
@@ -408,7 +410,7 @@
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Jäsenenä näissä ryhmissä:",
 
   // "admin.access-control.epeople.form.table.id": "ID",
-  "admin.access-control.epeople.form.table.id": "ID-tunnus",
+  "admin.access-control.epeople.form.table.id": "ID",
 
   // "admin.access-control.epeople.form.table.name": "Name",
   "admin.access-control.epeople.form.table.name": "Nimi",
@@ -1560,7 +1562,7 @@
 
 
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
-  "curation-task.task.checklinks.label":  "Tarkista metadatan linkit",
+  "curation-task.task.checklinks.label": "Tarkista metadatan linkit",
 
   // "curation-task.task.noop.label": "NOOP",
   "curation-task.task.noop.label": "Ei toimintaa",
@@ -1754,7 +1756,7 @@
   "footer.link.privacy-policy": "Yksilönsuoja",
 
   // "footer.link.end-user-agreement":"End User Agreement",
-  "footer.link.end-user-agreement":"Käyttöehdot",
+  "footer.link.end-user-agreement": "Käyttöehdot",
 
 
 
@@ -1894,9 +1896,6 @@
   // "form.no-value": "No value entered",
   "form.no-value": "Ei syötettyä arvoa",
 
-  // "form.other-information": {},
-  "form.other-information": {},
-
   // "form.remove": "Remove",
   "form.remove": "Poista",
 
@@ -2004,7 +2003,7 @@
   // "item.bitstreams.upload.bundle.new": "Create bundle",
   "item.bitstreams.upload.bundle.new": "Luo nippu",
 
-  // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+  // "item.bitstreams.upload.bundles.empty": "This item doesn't contain any bundles to upload a bitstream to.",
   "item.bitstreams.upload.bundles.empty": "Tällä tietueella ei ole nippua, johon tiedoston voisi ladata.",
 
   // "item.bitstreams.upload.cancel": "Cancel",
@@ -2495,7 +2494,7 @@
   "item.edit.tabs.status.buttons.reinstate.label": "Palauta tietue arkistoon",
 
   // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
-  "item.edit.tabs.status.buttons.withdraw.button": "poista tämä kohde",
+  "item.edit.tabs.status.buttons.withdraw.button": "Poista tämä kohde",
 
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
   "item.edit.tabs.status.buttons.withdraw.label": "Poista tietue käytöstä",
@@ -2510,7 +2509,7 @@
   "item.edit.tabs.status.labels.handle": "Handle-tunnus",
 
   // "item.edit.tabs.status.labels.id": "Item Internal ID",
-  "item.edit.tabs.status.labels.id": "Tietueen sisäinen ID-tunnus",
+  "item.edit.tabs.status.labels.id": "Tietueen sisäinen ID",
 
   // "item.edit.tabs.status.labels.itemPage": "Item Page",
   "item.edit.tabs.status.labels.itemPage": "Tietueen tiedot",
@@ -2563,9 +2562,6 @@
 
   // "item.page.description": "Description",
   "item.page.description": "Kuvaus",
-
-  // "item.page.edit": "Edit this item",
-  "item.page.edit": "Muokkaa tietuetta",
 
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "Kausijulkaisun ISSN",
@@ -2669,10 +2665,10 @@
   "item.page.bitstreams.collapse": "Sulje",
 
   // "item.page.filesection.original.bundle" : "Original bundle",
-  "item.page.filesection.original.bundle" : "Alkuperäinen nippu",
+  "item.page.filesection.original.bundle": "Alkuperäinen nippu",
 
   // "item.page.filesection.license.bundle" : "License bundle",
-  "item.page.filesection.license.bundle" : "Lisenssinippu",
+  "item.page.filesection.license.bundle": "Lisenssinippu",
 
   // "item.preview.dc.identifier.uri": "Identifier:",
   "item.preview.dc.identifier.uri": "Tunnus:",
@@ -3284,7 +3280,7 @@
   "mydspace.upload.upload-failed": "Virhe uutta työtilaa luotaessa. Tarkista ladattava sisältö ennen kuin yrität uudelleen.",
 
   // "mydspace.upload.upload-failed-manyentries": "Unprocessable file. Detected too many entries but allowed only one for file.",
-    "mydspace.upload.upload-failed-manyentries": "Tiedostoa ei voida käsitellä. Vain yksi kohde on sallittu, mutta niitä on useita.",
+  "mydspace.upload.upload-failed-manyentries": "Tiedostoa ei voida käsitellä. Vain yksi kohde on sallittu, mutta niitä on useita.",
 
   // "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
   "mydspace.upload.upload-failed-moreonefile": "Pyyntöä ei voida käsitellä. Vain yksi tiedosto sallittu.",
@@ -3351,7 +3347,7 @@
   "orgunit.page.edit": "Muokkaa tietuetta",
 
   // "orgunit.page.id": "ID",
-  "orgunit.page.id": "ID-tunnus",
+  "orgunit.page.id": "ID",
 
   // "orgunit.page.titleprefix": "Organizational Unit: ",
   "orgunit.page.titleprefix": "Organisaatioyksikkö: ",
@@ -3403,7 +3399,7 @@
   "person.page.orcid": "ORCID-tunniste",
 
   // "person.page.staffid": "Staff ID",
-  "person.page.staffid": "Henkilökunnan ID-tunnus",
+  "person.page.staffid": "Henkilökunnan ID",
 
   // "person.page.titleprefix": "Person: ",
   "person.page.titleprefix": "Käyttäjä: ",
@@ -3476,16 +3472,16 @@
 
 
   // "process.detail.arguments" : "Arguments",
-  "process.detail.arguments" : "Muuttujat",
+  "process.detail.arguments": "Muuttujat",
 
   // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
-  "process.detail.arguments.empty" : "Prosessiin ei liity muuttujia",
+  "process.detail.arguments.empty": "Prosessiin ei liity muuttujia",
 
   // "process.detail.back" : "Back",
-  "process.detail.back" : "Paluu",
+  "process.detail.back": "Paluu",
 
   // "process.detail.output" : "Process Output",
-  "process.detail.output" : "Prosessin tulos",
+  "process.detail.output": "Prosessin tulos",
 
   // "process.detail.logs.button": "Retrieve process output",
   "process.detail.logs.button": "Nouda prosessin tulos",
@@ -3497,48 +3493,48 @@
   "process.detail.logs.none": "Prosessilla ei tulosta",
 
   // "process.detail.output-files" : "Output Files",
-  "process.detail.output-files" : "Tulostiedostot",
+  "process.detail.output-files": "Tulostiedostot",
 
   // "process.detail.output-files.empty" : "This process doesn't contain any output files",
-  "process.detail.output-files.empty" : "Prosessilla ei ole tulostiedostoja",
+  "process.detail.output-files.empty": "Prosessilla ei ole tulostiedostoja",
 
   // "process.detail.script" : "Script",
-  "process.detail.script" : "Skripti",
+  "process.detail.script": "Skripti",
 
   // "process.detail.title" : "Process: {{ id }} - {{ name }}",
-  "process.detail.title" : "Prosessi: {{ id }} - {{ name }}",
+  "process.detail.title": "Prosessi: {{ id }} - {{ name }}",
 
   // "process.detail.start-time" : "Start time",
-  "process.detail.start-time" : "Aloitusaika",
+  "process.detail.start-time": "Aloitusaika",
 
   // "process.detail.end-time" : "Finish time",
-  "process.detail.end-time" : "Lopetusaika",
+  "process.detail.end-time": "Lopetusaika",
 
   // "process.detail.status" : "Status",
-  "process.detail.status" : "Tila",
+  "process.detail.status": "Tila",
 
   // "process.detail.create" : "Create similar process",
-  "process.detail.create" : "Luo vastaava prosessi",
+  "process.detail.create": "Luo vastaava prosessi",
 
 
 
   // "process.overview.table.finish" : "Finish time",
-  "process.overview.table.finish" : "Lopetusaika",
+  "process.overview.table.finish": "Lopetusaika",
 
   // "process.overview.table.id" : "Process ID",
-  "process.overview.table.id" : "Prosessin ID",
+  "process.overview.table.id": "Prosessin ID",
 
   // "process.overview.table.name" : "Name",
-  "process.overview.table.name" : "Nimi",
+  "process.overview.table.name": "Nimi",
 
   // "process.overview.table.start" : "Start time",
-  "process.overview.table.start" : "Aloitusaika",
+  "process.overview.table.start": "Aloitusaika",
 
   // "process.overview.table.status" : "Status",
-  "process.overview.table.status" : "Tila",
+  "process.overview.table.status": "Tila",
 
   // "process.overview.table.user" : "User",
-  "process.overview.table.user" : "Käyttäjä",
+  "process.overview.table.user": "Käyttäjä",
 
   // "process.overview.title": "Processes Overview",
   "process.overview.title": "Prosessien yleiskatsaukset",
@@ -3655,7 +3651,7 @@
   "project.page.funder": "Rahoittajat",
 
   // "project.page.id": "ID",
-  "project.page.id": "ID-tunnus",
+  "project.page.id": "ID",
 
   // "project.page.keyword": "Keywords",
   "project.page.keyword": "Asiasanat",
@@ -3939,7 +3935,7 @@
   "resource-policies.form.eperson-group-list.table.headers.action": "Toimenpide",
 
   // "resource-policies.form.eperson-group-list.table.headers.id": "ID",
-  "resource-policies.form.eperson-group-list.table.headers.id": "ID-tunnus",
+  "resource-policies.form.eperson-group-list.table.headers.id": "ID",
 
   // "resource-policies.form.eperson-group-list.table.headers.name": "Name",
   "resource-policies.form.eperson-group-list.table.headers.name": "Nimi",
@@ -3987,7 +3983,7 @@
   "resource-policies.table.headers.group": "Ryhmä",
 
   // "resource-policies.table.headers.id": "ID",
-  "resource-policies.table.headers.id": "ID-tunnus",
+  "resource-policies.table.headers.id": "ID",
 
   // "resource-policies.table.headers.name": "Name",
   "resource-policies.table.headers.name": "Nimi",
@@ -4766,7 +4762,7 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Hakutulokset",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Haluatko tallentaa nimen \"{{ value }}\" käyttäjän vaihtoehtoiseksi nimeksi, jota muutkin voivat käyttää uudelleen myös tulevissa tallennuksissa? Ellet tallenna nimeä, voit silti käyttää sitä tässä tallennuksessa.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
@@ -4914,8 +4910,8 @@
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
   "submission.sections.upload.header.policy.default.withlist": "Yksittäisten tiedostojen pääsyrajoitusten lisäksi {{collectionName}}-kokoelmaan ladatut tiedostot ovat seuraavien ryhmien saatavilla:",
 
-  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
-  "submission.sections.upload.info": "Tietueen kaikki tiedostot on lueteltu tässä. Voit päivittää tiedoston metadataa ja pääsyehtoja tai <strong>ladata lisää tiedostoja raahaamalla ne mihin hyvänsä sivun kohtaan</strong>",
+  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  "submission.sections.upload.info": "Tietueen kaikki tiedostot on lueteltu tässä. Voit päivittää tiedoston metadataa ja pääsyehtoja tai <strong>ladata lisää tiedostoja raahaamalla ne mihin hyvänsä sivun kohtaan.</strong>",
 
   // "submission.sections.upload.no-entry": "No",
   "submission.sections.upload.no-entry": "Ei",
@@ -5066,8 +5062,7 @@
   "uploader.or": " tai",
 
   // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
-  // TODO Source message changed - Revise the translation
-  "uploader.processing": "Käsitellään",
+  "uploader.processing": "Käsitellään ladattuja tiedostoja... (voit sulkea tämän sivun)",
 
   // "uploader.queue-length": "Queue length",
   "uploader.queue-length": "Jonon pituus",
@@ -5135,7 +5130,7 @@
   "workflow-item.send-back.button.cancel": "Peruuta",
 
   // "workflow-item.send-back.button.confirm": "Send back"
-  "workflow-item.send-back.button.confirm": "Lähetä takaisin"
+  "workflow-item.send-back.button.confirm": "Lähetä takaisin",
 
 
 }

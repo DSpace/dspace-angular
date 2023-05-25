@@ -1,13 +1,14 @@
 input[type="text"] {
   margin-top: calc(-0.5 * var(--bs-font-size-base));
   background-color: #fff !important;
+  border-color: var(--ds-header-icon-color);
 
   &.collapsed {
     opacity: 0;
   }
 }
 
-a.submit-icon {
+.submit-icon {
   cursor: pointer;
   position: sticky;
   top: 0;

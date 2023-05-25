@@ -29,6 +29,8 @@ import { NotificationsServiceStub } from '../../../../shared/testing/notificatio
 import { map } from 'rxjs/operators';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 
 describe('SubgroupsListComponent', () => {
   let component: SubgroupsListComponent;
@@ -108,6 +110,7 @@ describe('SubgroupsListComponent', () => {
       ],
       declarations: [SubgroupsListComponent],
       providers: [SubgroupsListComponent,
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: FormBuilderService, useValue: builderService },

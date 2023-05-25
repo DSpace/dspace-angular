@@ -5,6 +5,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { TranslateService } from '@ngx-translate/core';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 /**
  * Component that represents the page where a user can delete an existing Collection
@@ -19,11 +20,12 @@ export class DeleteCollectionPageComponent extends DeleteComColPageComponent<Col
 
   public constructor(
     protected dsoDataService: CollectionDataService,
+    public dsoNameService: DSONameService,
     protected router: Router,
     protected route: ActivatedRoute,
     protected notifications: NotificationsService,
     protected translate: TranslateService,
   ) {
-    super(dsoDataService, router, route, notifications, translate);
+    super(dsoDataService, dsoNameService, router, route, notifications, translate);
   }
 }

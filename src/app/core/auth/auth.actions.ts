@@ -17,6 +17,7 @@ export const AuthActionTypes = {
   AUTHENTICATED_SUCCESS: type('dspace/auth/AUTHENTICATED_SUCCESS'),
   CHECK_AUTHENTICATION_TOKEN: type('dspace/auth/CHECK_AUTHENTICATION_TOKEN'),
   CHECK_AUTHENTICATION_TOKEN_COOKIE: type('dspace/auth/CHECK_AUTHENTICATION_TOKEN_COOKIE'),
+  SET_AUTH_COOKIE_STATUS: type('dspace/auth/SET_AUTH_COOKIE_STATUS'),
   RETRIEVE_AUTH_METHODS: type('dspace/auth/RETRIEVE_AUTH_METHODS'),
   RETRIEVE_AUTH_METHODS_SUCCESS: type('dspace/auth/RETRIEVE_AUTH_METHODS_SUCCESS'),
   RETRIEVE_AUTH_METHODS_ERROR: type('dspace/auth/RETRIEVE_AUTH_METHODS_ERROR'),
@@ -148,6 +149,19 @@ export class CheckAuthenticationTokenAction implements Action {
  */
 export class CheckAuthenticationTokenCookieAction implements Action {
   public type: string = AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE;
+}
+
+/**
+ * Sets the authentication cookie status to flag an external authentication response.
+ */
+export class SetAuthCookieStatus implements Action {
+  public type: string = AuthActionTypes.SET_AUTH_COOKIE_STATUS;
+
+  payload = false;
+
+  constructor(exists: boolean) {
+    this.payload = exists;
+  }
 }
 
 /**
@@ -425,6 +439,7 @@ export type AuthActions
   | AuthenticationSuccessAction
   | CheckAuthenticationTokenAction
   | CheckAuthenticationTokenCookieAction
+  | SetAuthCookieStatus
   | RedirectWhenAuthenticationIsRequiredAction
   | RedirectWhenTokenExpiredAction
   | AddAuthenticationMessageAction
