@@ -22,11 +22,4 @@ export abstract class NonHierarchicalBrowseDefinition extends BrowseDefinition {
 
   @autoserialize
   dataType: BrowseByDataType;
-
-  @deserialize
-  _links: {
-    self: HALLink;
-    entries: HALLink;
-    items: HALLink;
-  };
 }

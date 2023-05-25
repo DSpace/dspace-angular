@@ -1,9 +1,10 @@
-import { inheritSerialization } from 'cerialize';
+import { inheritSerialization, deserialize } from 'cerialize';
 import { typedObject } from '../cache/builders/build-decorators';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { VALUE_LIST_BROWSE_DEFINITION } from './value-list-browse-definition.resource-type';
 import { ResourceType } from './resource-type';
 import { NonHierarchicalBrowseDefinition } from './non-hierarchical-browse-definition';
+import { HALLink } from './hal-link.model';
 
 /**
  * BrowseDefinition model for browses of type 'valueList'
@@ -26,4 +27,10 @@ export class ValueListBrowseDefinition extends NonHierarchicalBrowseDefinition {
   getRenderType(): string {
     return this.dataType;
   }
+
+  @deserialize
+  _links: {
+    self: HALLink;
+    entries: HALLink;
+  };
 }
