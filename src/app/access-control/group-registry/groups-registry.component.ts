@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -37,6 +37,7 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { NoContent } from '../../core/shared/NoContent.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-groups-registry',
@@ -99,12 +100,14 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               private dSpaceObjectDataService: DSpaceObjectDataService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
-              private formBuilder: FormBuilder,
+              private formBuilder: UntypedFormBuilder,
               protected routeService: RouteService,
               private router: Router,
               private authorizationService: AuthorizationDataService,
               private paginationService: PaginationService,
-              public requestService: RequestService) {
+              public requestService: RequestService,
+              public dsoNameService: DSONameService,
+  ) {
     this.currentSearchQuery = '';
     this.searchForm = this.formBuilder.group(({
       query: this.currentSearchQuery,
@@ -201,10 +204,10 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
         .subscribe((rd: RemoteData<NoContent>) => {
           if (rd.hasSucceeded) {
             this.deletedGroupsIds = [...this.deletedGroupsIds, group.group.id];
-            this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: group.group.name }));
+            this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: this.dsoNameService.getName(group.group) }));
           } else {
             this.notificationsService.error(
-              this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: group.group.name }),
+              this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: this.dsoNameService.getName(group.group) }),
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.content', { cause: rd.errorMessage }));
           }
       });

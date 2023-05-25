@@ -38,7 +38,7 @@ import { IdentifierDataService } from '../../core/data/identifier-data.service';
 import { IdentifierDataComponent } from '../../shared/object-list/identifier-data/identifier-data.component';
 import { ItemRegisterDoiComponent } from './item-register-doi/item-register-doi.component';
 import { DsoSharedModule } from '../../dso-shared/dso-shared.module';
-
+import { ItemCurateComponent } from './item-curate/item-curate.component';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -81,7 +81,8 @@ import { DsoSharedModule } from '../../dso-shared/dso-shared.module';
     VirtualMetadataComponent,
     ItemAuthorizationsComponent,
     IdentifierDataComponent,
-    ItemRegisterDoiComponent
+    ItemRegisterDoiComponent,
+    ItemCurateComponent
   ],
   providers: [
     BundleDataService,

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
+import { UntypedFormGroup, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import {
   DynamicCheckboxModel,
   DynamicFormControlComponent,
@@ -35,7 +35,7 @@ export interface ListItem {
 })
 export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit {
 
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() model: any;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
@@ -108,7 +108,7 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
    */
   protected setOptionsFromVocabulary() {
     if (this.model.vocabularyOptions.name && this.model.vocabularyOptions.name.length > 0) {
-      const listGroup = this.group.controls[this.model.id] as FormGroup;
+      const listGroup = this.group.controls[this.model.id] as UntypedFormGroup;
       if (this.model.repeatable && this.model.required) {
         listGroup.addValidators(this.hasAtLeastOneVocabularyEntry());
       }

@@ -7,7 +7,8 @@
     <i class="fa fa-info-circle"></i> {{"submission.workspace.generic.view" | translate}}
   </button>
 
-  <a class="btn btn-primary mt-1 mb-3" id="{{'edit_' + object.id}}"
+  <a class="btn btn-primary mt-1 mb-3 edit-btn" id="{{'edit_' + object.id}}"
+   *ngIf="(canEditItem$ | async)"
     ngbTooltip="{{'submission.workflow.generic.edit-help' | translate}}"
     [attr.aria-label]="'submission.workflow.generic.edit-help' | translate"
     [routerLink]="['/workspaceitems/' + object.id + '/edit']" role="button">
@@ -15,6 +16,7 @@
   </a>
 
   <button type="button" id="{{'delete_' + object.id}}" class="btn btn-danger mt-1 mb-3"
+    *ngIf="(canEditItem$ | async)"
     ngbTooltip="{{'submission.workflow.generic.delete-help' | translate}}"
     [attr.aria-label]="'submission.workflow.generic.delete-help' | translate"
     (click)="$event.preventDefault();confirmDiscard(content)">
