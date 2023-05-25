@@ -42,6 +42,7 @@
                                       [saving$]="savingOrLoadingFieldValidation$"
                                       [metadataSecurityConfiguration]="getSecuritySettings()"
                                       [mdField]="newMdField"
+                                      [isNewMdField]="true"
                                       [isOnlyValue]="true"
                                       (confirm)="confirmNewValue($event)"
                                       (remove)="form.newValue = undefined"

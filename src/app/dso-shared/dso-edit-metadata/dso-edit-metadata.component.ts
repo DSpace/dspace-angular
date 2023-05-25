@@ -110,13 +110,15 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
    * Field to keep track of the current security level
    * in case a new mdField is added and the security level needs to be set
    */
-  newMdFieldWithSecurityLevelValue = 0;
+  newMdFieldWithSecurityLevelValue: number;
 
   /**
    * Flag to indicate if the metadata security configuration is present
    * for the newly added metadata field
    */
   hasSecurityMetadata = false;
+
+  securitySetings: MetadataSecurityConfiguration;
 
   constructor(protected route: ActivatedRoute,
               protected notificationsService: NotificationsService,
@@ -159,7 +161,10 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
       const entityType: string = (this.dso as Item).entityType;
       return this.metadataSecurityConfigurationService.findById(entityType).pipe(
         getFirstCompletedRemoteData(),
-        map((securitySettings: RemoteData<MetadataSecurityConfiguration>) => securitySettings.payload)
+        map((securitySettings: RemoteData<MetadataSecurityConfiguration>) => {
+          this.securitySetings = securitySettings.payload;
+          return securitySettings.payload;
+        })
       );
     }
   }
@@ -285,7 +290,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
    */
   onMdFieldChange(value: string){
     if (hasValue(value)) {
-      this.newMdFieldWithSecurityLevelValue = 0;
+      this.newMdFieldWithSecurityLevelValue = null;
       this.hasSecurityMetadata = false;
     }
   }
@@ -304,11 +309,38 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
    * @param securityLevel The security level to set for the new metadata field
    */
   setSecurityLevelForNewMdField(securityLevel?: number) {
+    // if the metadata field already exists among the metadata fields,
+    //  set the security level for the new metadata field in the right position
     if (hasValue(this.newMdField) && hasValue(this.form.fields[this.newMdField]) && this.hasSecurityMetadata) {
-      this.form.fields[this.newMdField][this.form.fields[this.newMdField].length - 1].change = DsoEditMetadataChangeType.ADD;
-      this.form.fields[this.newMdField][this.form.fields[this.newMdField].length - 1].newValue.securityLevel = this.newMdFieldWithSecurityLevelValue ?? securityLevel ?? 0;
-    } else if (hasNoValue(this.form.fields[this.newMdField]) && securityLevel) {
+      const lastIndex = this.form.fields[this.newMdField].length - 1;
+      const obj = this.form.fields[this.newMdField][lastIndex];
+
+      if (hasValue(securityLevel)) {
+        // metadata field is not set yet, so store the security level for the new metadata field
         this.newMdFieldWithSecurityLevelValue = securityLevel;
+      } else {
+        // metadata field is set, so set the security level for the new metadata field
+        obj.change = DsoEditMetadataChangeType.ADD;
+        const customSecurity = this.securitySetings.metadataCustomSecurity[this.newMdField];
+        const lastCustomSecurityLevel = customSecurity[customSecurity.length - 1];
+
+        obj.newValue.securityLevel = this.newMdFieldWithSecurityLevelValue ?? lastCustomSecurityLevel;
+      }
+    }
+
+    // if the security level value is changed before the metadata field is set,
+    // store the security level in a temporary variable
+    if (hasValue(securityLevel) && hasNoValue(this.form.fields[this.newMdField])) {
+      this.newMdFieldWithSecurityLevelValue = securityLevel;
+    }
+
+    if (!this.hasSecurityMetadata) {
+      // for newly added metadata fields, set the security level to the default security level
+      // (in case there is no custom security level for the metadata field)
+      const defaultSecurity = this.securitySetings.metadataSecurityDefault;
+      const lastDefaultSecurityLevel = defaultSecurity[defaultSecurity.length - 1];
+
+      this.form.fields[this.newMdField][this.form.fields[this.newMdField].length - 1].newValue.securityLevel = lastDefaultSecurityLevel;
     }
   }
 

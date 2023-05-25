@@ -436,20 +436,12 @@ export class DsoEditMetadataForm {
             } else if (value.change === DsoEditMetadataChangeType.REMOVE) {
               removeOperations.push(new MetadataPatchRemoveOperation(field, value.originalValue.place));
             } else if (value.change === DsoEditMetadataChangeType.ADD) {
-              let newValue;
-              if (hasValue(value.newValue?.securityLevel)) {
-                newValue = {
-                  value: value.newValue.value,
-                  language: value.newValue.language,
-                  securityLevel: value.newValue.securityLevel
-                };
-              } else {
-                newValue = {
-                  value: value.newValue.value,
-                  language: value.newValue.language,
-                };
-              }
-              addOperations.push(new MetadataPatchAddOperation(field, newValue));
+
+              addOperations.push(new MetadataPatchAddOperation(field, {
+                value: value.newValue.value,
+                language: value.newValue.language,
+                securityLevel: value.newValue.securityLevel
+              }));
             } else {
               console.warn('Illegal metadata change state detected for', value);
             }

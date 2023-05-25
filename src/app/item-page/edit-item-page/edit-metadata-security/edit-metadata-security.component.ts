@@ -11,6 +11,7 @@ import { hasNoValue } from '../../../shared/empty.util';
 export class EditMetadataSecurityComponent implements OnInit {
   @Input() securityLevel: number;
   @Input() securityConfigLevel: number[];
+  @Input() isNewMdField = false;
   @Output() changeSecurityLevel = new EventEmitter<number>();
 
   /**
@@ -23,6 +24,11 @@ export class EditMetadataSecurityComponent implements OnInit {
   ngOnInit(): void {
     this.filterSecurityLevelsMap();
     this.hasSecurityLevel.emit(true);
+
+    if (this.isNewMdField) {
+      // If the metadata field is new, set the security level to the highest level automatically
+      this.securityLevel = this.securityConfigLevel[this.securityConfigLevel.length - 1];
+    }
   }
 
   /**

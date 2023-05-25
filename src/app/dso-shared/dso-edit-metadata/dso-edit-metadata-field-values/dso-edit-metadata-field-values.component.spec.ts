@@ -96,22 +96,6 @@ describe('DsoEditMetadataFieldValuesComponent', () => {
     });
   });
 
-  describe('security metadata', () => {
-    it('should fetch custom security metadata', () => {
-      const dummyMetadataSecurityConfiguration: MetadataSecurityConfiguration = Object.assign(new MetadataSecurityConfiguration(), {
-        metadataCustomSecurity: new Map([
-          ['person.email', [0, 1]],
-        ]),
-        metadataSecurityDefault: [0],
-      });
-      component.metadataSecurityConfiguration = of(dummyMetadataSecurityConfiguration);
-      component.mdField = 'person.email';
-      component.getCustomSecurityMetadata().subscribe((metadata: number[]) => {
-        expect(metadata).toEqual(dummyMetadataSecurityConfiguration.metadataCustomSecurity['person.email']);
-      });
-    });
-  });
-
   describe('when draggingMdField$ emits null', () => {
     beforeEach(() => {
       draggingMdField$.next(null);

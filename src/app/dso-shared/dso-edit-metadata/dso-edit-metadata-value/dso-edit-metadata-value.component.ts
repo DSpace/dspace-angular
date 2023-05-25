@@ -45,6 +45,11 @@ export class DsoEditMetadataValueComponent implements OnInit {
   @Input() mdField: string;
 
   /**
+   * Flag whether this is a new metadata field or exists already
+   */
+  @Input() isNewMdField = false;
+
+  /**
    * Type of DSO we're displaying values for
    * Determines i18n messages
    */
