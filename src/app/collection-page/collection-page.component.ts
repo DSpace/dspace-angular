@@ -29,6 +29,7 @@ import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { getCollectionPageRoute } from './collection-page-routing-paths';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { BROWSE_LINKS_TO_FOLLOW } from '../core/browse/browse.service';
+import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../src/config/app-config.interface';
 
 @Component({
@@ -70,6 +71,7 @@ export class CollectionPageComponent implements OnInit {
     private authService: AuthService,
     private paginationService: PaginationService,
     private authorizationDataService: AuthorizationDataService,
+    public dsoNameService: DSONameService,
     @Inject(APP_CONFIG) public appConfig: AppConfig,
   ) {
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {

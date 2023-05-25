@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import {map, scan, startWith, switchMap, tap, withLatestFrom} from 'rxjs/operators';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
@@ -14,6 +14,7 @@ import {
   getPaginatedListPayload,
 } from '../../../core/shared/operators';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component renders the parent collections section of the item
@@ -65,8 +66,11 @@ export class CollectionsComponent implements OnInit {
    */
   collections$: Observable<Collection[]>;
 
-  constructor(private cds: CollectionDataService) {
-
+  constructor(
+    private cds: CollectionDataService,
+    public dsoNameService: DSONameService,
+    protected cdr: ChangeDetectorRef,
+  ) {
   }
 
   ngOnInit(): void {
@@ -114,6 +118,7 @@ export class CollectionsComponent implements OnInit {
         return [owningCollection, ...mappedCollections].filter(collection => hasValue(collection));
       }),
     );
+    this.cdr.detectChanges();
   }
 
   handleLoadMore() {

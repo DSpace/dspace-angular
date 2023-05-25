@@ -17,6 +17,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { AuthService } from '../../../core/auth/auth.service';
 import { isNotEmpty } from '../../empty.util';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-subscription-modal',
@@ -91,6 +92,7 @@ export class SubscriptionModalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private authService: AuthService,
     private translate: TranslateService,
+    public dsoNameService: DSONameService,
   ) {
   }
 

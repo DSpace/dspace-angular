@@ -14,8 +14,9 @@ import { getForbiddenRoute } from '../../app-routing-paths';
 import { RemoteData } from '../../core/data/remote-data';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { isPlatformServer, Location } from '@angular/common';
-import { SignpostingDataService } from 'src/app/core/data/signposting-data.service';
-import { ServerResponseService } from 'src/app/core/services/server-response.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { SignpostingDataService } from '../../core/data/signposting-data.service';
+import { ServerResponseService } from '../../core/services/server-response.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
 
 @Component({
@@ -38,6 +39,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
     private fileService: FileService,
     private hardRedirectService: HardRedirectService,
     private location: Location,
+    public dsoNameService: DSONameService,
     private signpostingDataService: SignpostingDataService,
     private responseService: ServerResponseService,
     @Inject(PLATFORM_ID) protected platformId: string
