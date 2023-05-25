@@ -1,13 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../core/shared/item.model';
-import { MetadataValue } from '../../core/shared/metadata.models';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload
 } from '../../core/shared/operators';
 import { Collection } from '../../core/shared/collection.model';
-import { isNull, isUndefined } from '../empty.util';
+import { isNull } from '../empty.util';
 import { followLink } from '../utils/follow-link-config.model';
 import { Community } from '../../core/shared/community.model';
 import { BehaviorSubject } from 'rxjs';
@@ -158,7 +157,7 @@ export class ClarinItemBoxViewComponent implements OnInit {
           .pipe(getFirstSucceededRemoteDataPayload())
           .subscribe((community: Community) => {
             this.itemCommunity.next(community);
-            this.communitySearchRedirect.next(this.baseUrl + '/search/objects?f.items_owning_community=' +
+            this.communitySearchRedirect.next(this.baseUrl + '/search?f.items_owning_community=' +
               this.dsoNameService.getName(community) + ',equals');
           });
       });

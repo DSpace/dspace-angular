@@ -212,8 +212,10 @@ export class HomePageComponent implements OnInit {
       .pipe(getFirstSucceededRemoteDataPayload())
       .subscribe(authorStats => {
         authorStats.page.forEach((facetValue: FacetValue) => {
-          const updatedSearchUrl = facetValue?._links?.search?.href?.replace(this.halService.getRootHref() +
+          let updatedSearchUrl = facetValue?._links?.search?.href?.replace(this.halService.getRootHref() +
             '/discover', this.baseUrl);
+          // remove `/objects` from the updatedSearchUrl
+          updatedSearchUrl = updatedSearchUrl.replace('/objects', '');
           const fastSearchLink: FastSearchLink = Object.assign(new FastSearchLink(), {
             name: facetValue.value,
             occurrences: facetValue.count,
