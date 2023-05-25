@@ -400,6 +400,9 @@ export class SubmissionSectionClarinLicenseComponent extends SectionModelCompone
    * Get the license object from the API by the license name.
    */
   private async findClarinLicenseByName(licenseName): Promise<RemoteData<PaginatedList<ClarinLicense>>> {
+    if (licenseName.includes('+')) {
+      licenseName = encodeURIComponent(licenseName);
+    }
     const options = {
       searchParams: [
         {
