@@ -188,7 +188,6 @@ export abstract class InitService {
     this.breadcrumbsService.listenForRouteChanges();
     this.themeService.listenForRouteChanges();
     this.menuService.listenForRouteChanges();
-    // this.metadataItem.checkCurrentRoute();
   }
 
   /**

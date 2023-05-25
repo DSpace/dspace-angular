@@ -8,6 +8,9 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { SignpostingLink } from './signposting-links.model';
 
+/**
+ * Service responsible for handling requests related to the Signposting endpoint
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +19,11 @@ export class SignpostingDataService {
   constructor(private restService: DspaceRestService, protected halService: HALEndpointService) {
   }
 
+  /**
+   * Retrieve the list of signposting links related to the given resource's id
+   *
+   * @param uuid
+   */
   getLinks(uuid: string): Observable<SignpostingLink[]> {
     const baseUrl = this.halService.getRootHref().replace('/api', '');
 

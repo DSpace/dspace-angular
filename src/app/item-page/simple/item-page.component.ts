@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { isPlatformServer } from '@angular/common';
 
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
@@ -75,25 +76,10 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     protected authorizationService: AuthorizationDataService,
     protected responseService: ServerResponseService,
     protected signpostingDataService: SignpostingDataService,
-    protected linkHeadService: LinkHeadService
+    protected linkHeadService: LinkHeadService,
+    @Inject(PLATFORM_ID) protected platformId: string
   ) {
-    this.route.params.subscribe(params => {
-      this.signpostingDataService.getLinks(params.id).pipe(take(1)).subscribe((signpostingLinks: SignpostingLink[]) => {
-        let links = '';
-        this.signpostingLinks = signpostingLinks;
-
-        signpostingLinks.forEach((link: SignpostingLink) => {
-          links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}" ; type="${link.type}" `;
-          this.linkHeadService.addTag({
-            href: link.href,
-            type: link.type,
-            rel: link.rel
-          });
-        });
-
-        this.responseService.setHeader('Link', links);
-      });
-    });
+    this.initPageLinks();
   }
 
   /**
@@ -113,6 +99,32 @@ export class ItemPageComponent implements OnInit, OnDestroy {
 
   }
 
+  /**
+   * Create page links if any are retrieved by signposting endpoint
+   *
+   * @private
+   */
+  private initPageLinks(): void {
+    this.route.params.subscribe(params => {
+      this.signpostingDataService.getLinks(params.id).pipe(take(1)).subscribe((signpostingLinks: SignpostingLink[]) => {
+        let links = '';
+        this.signpostingLinks = signpostingLinks;
+
+        signpostingLinks.forEach((link: SignpostingLink) => {
+          links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}" ; type="${link.type}" `;
+          this.linkHeadService.addTag({
+            href: link.href,
+            type: link.type,
+            rel: link.rel
+          });
+        });
+
+        if (isPlatformServer(this.platformId)) {
+          this.responseService.setHeader('Link', links);
+        }
+      });
+    });
+  }
 
   ngOnDestroy(): void {
     this.signpostingLinks.forEach((link: SignpostingLink) => {

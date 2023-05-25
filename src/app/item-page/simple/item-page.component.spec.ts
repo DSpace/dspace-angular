@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
 import { ItemPageComponent } from './item-page.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
@@ -24,7 +24,8 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
+import { LinkDefinition, LinkHeadService } from '../../core/services/link-head.service';
+import { SignpostingLink } from '../../core/data/signposting-links.model';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -41,15 +42,17 @@ const mockWithdrawnItem: Item = Object.assign(new Item(), {
 
 const mocklink = {
   href: 'http://test.org',
-  rel: 'test',
-  type: 'test'
+  rel: 'rel1',
+  type: 'type1'
 };
 
 const mocklink2 = {
   href: 'http://test2.org',
-  rel: 'test',
-  type: 'test'
+  rel: 'rel2',
+  type: 'type2'
 };
+
+const mockSignpostingLinks: SignpostingLink[] = [mocklink, mocklink2];
 
 describe('ItemPageComponent', () => {
   let comp: ItemPageComponent;
@@ -109,6 +112,7 @@ describe('ItemPageComponent', () => {
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
+        { provide: PLATFORM_ID, useValue: 'server' },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -163,6 +167,22 @@ describe('ItemPageComponent', () => {
     it('should add the signposting links', () => {
       expect(serverResponseService.setHeader).toHaveBeenCalled();
       expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+    });
+
+
+    it('should add link tags correctly', () => {
+
+      expect(comp.signpostingLinks).toEqual([mocklink, mocklink2]);
+
+      // Check if linkHeadService.addTag() was called with the correct arguments
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(mockSignpostingLinks.length);
+      expect(linkHeadService.addTag).toHaveBeenCalledWith(mockSignpostingLinks[0] as LinkDefinition);
+      expect(linkHeadService.addTag).toHaveBeenCalledWith(mockSignpostingLinks[1] as LinkDefinition);
+    });
+
+    it('should set Link header on the server', () => {
+
+      expect(serverResponseService.setHeader).toHaveBeenCalledWith('Link', '<http://test.org> ; rel="rel1" ; type="type1" , <http://test2.org> ; rel="rel2" ; type="type2" ');
     });
 
   });

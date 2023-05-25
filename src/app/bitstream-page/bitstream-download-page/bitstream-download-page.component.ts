@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
@@ -13,7 +13,7 @@ import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { getForbiddenRoute } from '../../app-routing-paths';
 import { RemoteData } from '../../core/data/remote-data';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
-import { Location } from '@angular/common';
+import { isPlatformServer, Location } from '@angular/common';
 import { SignpostingDataService } from 'src/app/core/data/signposting-data.service';
 import { ServerResponseService } from 'src/app/core/services/server-response.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
@@ -39,19 +39,10 @@ export class BitstreamDownloadPageComponent implements OnInit {
     private hardRedirectService: HardRedirectService,
     private location: Location,
     private signpostingDataService: SignpostingDataService,
-    private responseService: ServerResponseService
+    private responseService: ServerResponseService,
+    @Inject(PLATFORM_ID) protected platformId: string
   ) {
-    this.route.params.subscribe(params => {
-      this.signpostingDataService.getLinks(params.id).pipe(take(1)).subscribe((signpostingLinks: SignpostingLink[]) => {
-        let links = '';
-
-        signpostingLinks.forEach((link: SignpostingLink) => {
-          links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}" ; type="${link.type}" `;
-        });
-
-        this.responseService.setHeader('Link', links);
-      });
-    });
+    this.initPageLinks();
   }
 
   back(): void {
@@ -100,5 +91,26 @@ export class BitstreamDownloadPageComponent implements OnInit {
         this.router.navigateByUrl('login');
       }
     });
+  }
+
+  /**
+   * Create page links if any are retrieved by signposting endpoint
+   *
+   * @private
+   */
+  private initPageLinks(): void {
+    if (isPlatformServer(this.platformId)) {
+      this.route.params.subscribe(params => {
+        this.signpostingDataService.getLinks(params.id).pipe(take(1)).subscribe((signpostingLinks: SignpostingLink[]) => {
+          let links = '';
+
+          signpostingLinks.forEach((link: SignpostingLink) => {
+            links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}" ; type="${link.type}" `;
+          });
+
+          this.responseService.setHeader('Link', links);
+        });
+      });
+    }
   }
 }

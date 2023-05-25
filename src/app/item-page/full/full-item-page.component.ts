@@ -1,5 +1,5 @@
 import { filter, map } from 'rxjs/operators';
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -54,9 +54,10 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
     protected _location: Location,
     protected responseService: ServerResponseService,
     protected signpostingDataService: SignpostingDataService,
-    protected linkHeadService: LinkHeadService
+    protected linkHeadService: LinkHeadService,
+    @Inject(PLATFORM_ID) protected platformId: string,
   ) {
-    super(route, router, items, authService, authorizationService, responseService, signpostingDataService, linkHeadService);
+    super(route, router, items, authService, authorizationService, responseService, signpostingDataService, linkHeadService, platformId);
   }
 
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/

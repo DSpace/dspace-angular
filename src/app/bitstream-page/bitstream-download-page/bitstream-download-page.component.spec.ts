@@ -13,6 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
+import { PLATFORM_ID } from '@angular/core';
 
 describe('BitstreamDownloadPageComponent', () => {
   let component: BitstreamDownloadPageComponent;
@@ -99,7 +100,8 @@ describe('BitstreamDownloadPageComponent', () => {
         { provide: FileService, useValue: fileService },
         { provide: HardRedirectService, useValue: hardRedirectService },
         { provide: ServerResponseService, useValue: serverResponseService },
-        { provide: SignpostingDataService, useValue: signpostingDataService }
+        { provide: SignpostingDataService, useValue: signpostingDataService },
+        { provide: PLATFORM_ID, useValue: 'server' }
       ]
     })
       .compileComponents();

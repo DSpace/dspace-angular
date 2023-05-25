@@ -2,7 +2,7 @@ import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/cor
 import { ItemDataService } from '../../core/data/item-data.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
 import { TruncatePipe } from '../../shared/utils/truncate.pipe';
 import { FullItemPageComponent } from './full-item-page.component';
 import { MetadataService } from '../../core/metadata/metadata.service';
@@ -122,6 +122,7 @@ describe('FullItemPageComponent', () => {
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
+        { provide: PLATFORM_ID, useValue: 'server' }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(FullItemPageComponent, {
