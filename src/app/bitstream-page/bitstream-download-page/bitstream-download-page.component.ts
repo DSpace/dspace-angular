@@ -14,6 +14,7 @@ import { getForbiddenRoute } from '../../app-routing-paths';
 import { RemoteData } from '../../core/data/remote-data';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { Location } from '@angular/common';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-bitstream-download-page',
@@ -36,6 +37,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
     private fileService: FileService,
     private hardRedirectService: HardRedirectService,
     private location: Location,
+    public dsoNameService: DSONameService,
   ) {
 
   }

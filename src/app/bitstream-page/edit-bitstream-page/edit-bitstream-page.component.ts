@@ -23,7 +23,7 @@ import {
   DynamicInputModel,
   DynamicSelectModel
 } from '@ng-dynamic-forms/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import cloneDeep from 'lodash/cloneDeep';
@@ -359,7 +359,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * The form group of this form
    */
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   /**
    * The ID of the item the bitstream originates from
@@ -395,7 +395,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
               private formService: DynamicFormService,
               private translate: TranslateService,
               private bitstreamService: BitstreamDataService,
-              private dsoNameService: DSONameService,
+              public dsoNameService: DSONameService,
               private notificationsService: NotificationsService,
               private bitstreamFormatService: BitstreamFormatDataService) {
   }
