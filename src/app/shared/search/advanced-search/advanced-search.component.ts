@@ -12,6 +12,7 @@ import { SearchFilterService } from '../../../core/shared/search/search-filter.s
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 @Component({
   selector: 'ds-advanced-search',
   templateUrl: './advanced-search.component.html',
@@ -64,16 +65,17 @@ export class AdvancedSearchComponent implements OnInit {
 
   advSearchForm: FormGroup;
   constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
     private formBuilder: FormBuilder,
     protected searchService: SearchService,
     protected filterService: SearchFilterService,
     protected router: Router,
     protected rdbs: RemoteDataBuildService,
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService) {
-
   }
 
   ngOnInit(): void {
+
     this.advSearchForm = this.formBuilder.group({
       textsearch: new FormControl('', {
         validators: [Validators.required],
@@ -108,7 +110,12 @@ export class AdvancedSearchComponent implements OnInit {
   onSubmit(data) {
     if (this.advSearchForm.valid) {
       let queryParams = { [this.paramName(data.filter)]: data.textsearch + ',' + data.operator };
-      this.router.navigate([], { queryParams: queryParams, queryParamsHandling: 'merge' });
+      if (!this.inPlaceSearch) {
+        this.router.navigate([this.searchService.getSearchLink()], { queryParams: queryParams, queryParamsHandling: 'merge' });
+      } else {
+        this.router.navigate([], { queryParams: queryParams, queryParamsHandling: 'merge' });
+      }
+
       this.advSearchForm.reset({ operator: data.operator, filter: data.filter, textsearch: '' });
     }
   }
@@ -135,6 +142,9 @@ export class AdvancedSearchComponent implements OnInit {
   }
   private isCollapsed(): boolean {
     return !this.collapsedSearch;
+  }
+  isActive(name): Boolean {
+    return this.appConfig.advancefilter.some(item => item.filter === name);
   }
 }
 

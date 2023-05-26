@@ -8,6 +8,7 @@ import { CollectionPageConfig } from './collection-page-config.interface';
 import { FormConfig } from './form-config.interfaces';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
+import { AdvanceSearchConfig } from './advance-search-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { ServerConfig } from './server-config.interface';
@@ -430,4 +431,11 @@ export class DefaultAppConfig implements AppConfig {
     sortField:'dc.title',
     sortDirection:'ASC',
   };
+
+  advancefilter: AdvanceSearchConfig[] = [
+    { filter: 'title' },
+    { filter: 'author' },
+    { filter: 'subject' },
+    { filter: 'entityType' }
+  ];
 }

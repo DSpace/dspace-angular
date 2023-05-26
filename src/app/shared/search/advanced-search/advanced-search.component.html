@@ -17,9 +17,11 @@
                     <select
                         [className]="(filter.invalid) && (filter.dirty || filter.touched) ? 'form-control is-invalid' :'form-control'"
                         aria-label="filter" name="filter" id="filter" placeholder="select operator" formControlName="filter" required>
-                        <option *ngFor="let filter of searchConfig.filters;" [value]="filter.filter">
-                            {{'search.filters.filter.' + filter.filter + '.text'| translate}}
-                        </option>
+                        <ng-container *ngFor="let filter of searchConfig.filters;">
+                            <option *ngIf="isActive(filter.filter)" [value]="filter.filter">
+                                {{'search.filters.filter.' + filter.filter + '.text'| translate}}
+                            </option>
+                        </ng-container>
                     </select>
                 </div>
                 <div class="col-lg-12 mt-1">

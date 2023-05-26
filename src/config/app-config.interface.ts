@@ -22,7 +22,7 @@ import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
-
+import { AdvanceSearchConfig } from './advance-search-config.interface';
 interface AppConfig extends Config {
   ui: UIServerConfig;
   rest: ServerConfig;
@@ -48,6 +48,7 @@ interface AppConfig extends Config {
   markdown: MarkdownConfig;
   vocabularies: FilterVocabularyConfig[];
   comcolSelectionSort: DiscoverySortConfig;
+  advancefilter: AdvanceSearchConfig[];
 }
 
 /**

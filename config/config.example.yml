@@ -380,3 +380,9 @@ vocabularies:
 comcolSelectionSort:
   sortField: 'dc.title'
   sortDirection: 'ASC'
+
+advancefilter:
+  - filter: title
+  - filter: author
+  - filter: subject
+  - filter: entityType
