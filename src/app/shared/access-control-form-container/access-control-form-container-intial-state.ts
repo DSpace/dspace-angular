@@ -1,6 +1,6 @@
 import {ListableObject} from '../object-collection/shared/listable-object.model';
 
-export const accessControlInitialFormState: AccessControlFormState = {
+export const createAccessControlInitialFormState = (): AccessControlFormState => ({
   item: {
     toggleStatus: false,
     accessMode: 'replace',
@@ -11,7 +11,7 @@ export const accessControlInitialFormState: AccessControlFormState = {
     changesLimit: 'all', // 'all' | 'selected'
     selectedBitstreams: [] as ListableObject[],
   },
-};
+});
 
 export interface AccessControlFormState {
   item: {

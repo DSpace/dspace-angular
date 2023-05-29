@@ -9,6 +9,7 @@
          style="display: grid; grid-template-columns: 1fr 1fr 1fr 50px; grid-gap: 5px">
 
       <div>
+        <label for="accesscontroloption">{{'access-control-option' | translate}}</label>
         <select id="accesscontroloption" formControlName="itemName" class="form-control">
           <option value=""></option>
           <option *ngFor="let option of dropdownOptions" [value]="option.name">
@@ -17,9 +18,11 @@
         </select>
       </div>
 
-      <div>
+      <div [class.d-none]="control.get('endDate')?.disabled">
         <div class="input-group">
+          <label for="accesscontrolstartdate">{{'access-control-start-date' | translate}}</label>
           <input
+            id="accesscontrolstartdate"
             class="form-control"
             placeholder="yyyy-mm-dd"
             name="dp"
@@ -37,9 +40,11 @@
         </div>
       </div>
 
-      <div>
+      <div [class.d-none]="control.get('endDate')?.disabled">
+        <label for="accesscontrolenddate">{{'access-control-end-date' | translate}}</label>
         <div class="input-group">
           <input
+            id="accesscontrolenddate"
             class="form-control"
             placeholder="yyyy-mm-dd"
             name="dp"
@@ -58,6 +63,7 @@
       </div>
 
       <div>
+        <label>&nbsp;</label>
         <button type="button" class="btn btn-outline-danger"
                 [disabled]="form.status === 'DISABLED'"
                 (click)="removeAccessControlItem(i)">

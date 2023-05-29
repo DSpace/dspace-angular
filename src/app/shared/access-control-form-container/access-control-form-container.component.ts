@@ -16,7 +16,9 @@ import { BulkAccessConfigDataService } from '../../core/config/bulk-access-confi
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { BulkAccessConditionOptions } from '../../core/config/models/bulk-access-condition-options.model';
 import { AlertType } from '../alert/aletr-type';
-import { accessControlInitialFormState } from './access-control-form-container-intial-state';
+import {
+  createAccessControlInitialFormState
+} from './access-control-form-container-intial-state';
 
 @Component({
   selector: 'ds-access-control-form-container',
@@ -61,7 +63,7 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
     private cdr: ChangeDetectorRef
   ) {}
 
-  state = accessControlInitialFormState;
+  state = createAccessControlInitialFormState();
 
   dropdownData$: Observable<BulkAccessConditionOptions> = this.bulkAccessConfigService.findByName('default').pipe(
     getFirstCompletedRemoteData(),
@@ -92,7 +94,7 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
   reset() {
     this.bitstreamAccessCmp.reset();
     this.itemAccessCmp.reset();
-    this.state = accessControlInitialFormState;
+    this.state = createAccessControlInitialFormState();
   }
 
   /**
