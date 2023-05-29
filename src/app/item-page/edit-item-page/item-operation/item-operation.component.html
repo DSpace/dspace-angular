@@ -5,12 +5,12 @@
 </div>
 <div class="col-9 float-left action-button">
   <span *ngIf="operation.authorized">
-    <button class="btn btn-outline-primary" [disabled]="operation.disabled" [routerLink]="operation.operationUrl">
+    <button class="btn btn-outline-primary" [disabled]="operation.disabled" [routerLink]="operation.operationUrl" [attr.aria-label]="'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate">
       {{'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate}}
     </button>
   </span>
   <span *ngIf="!operation.authorized" [ngbTooltip]="'item.edit.tabs.status.buttons.unauthorized' | translate">
-    <button class="btn btn-outline-primary" [disabled]="true">
+    <button class="btn btn-outline-primary" [disabled]="true" [attr.aria-label]="'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate">
       {{'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate}}
     </button>
   </span>

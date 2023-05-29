@@ -6,6 +6,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
 import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { HALLink } from '../../../core/shared/hal-link.model';
+import { hasValue } from '../../../shared/empty.util';
 
 /**
  * Component for managing a collection's roles
@@ -45,25 +46,31 @@ export class CollectionRolesComponent implements OnInit {
     );
 
     this.comcolRoles$ = this.collection$.pipe(
-      map((collection) => [
-        {
-          name: 'collection-admin',
-          href: collection._links.adminGroup.href,
-        },
-        {
-          name: 'submitters',
-          href: collection._links.submittersGroup.href,
-        },
-        {
-          name: 'item_read',
-          href: collection._links.itemReadGroup.href,
-        },
-        {
-          name: 'bitstream_read',
-          href: collection._links.bitstreamReadGroup.href,
-        },
-        ...collection._links.workflowGroups,
-      ]),
+      map((collection) => {
+        let workflowGroups: HALLink[] | HALLink = hasValue(collection._links.workflowGroups) ? collection._links.workflowGroups : [];
+        if (!Array.isArray(workflowGroups)) {
+          workflowGroups = [workflowGroups];
+        }
+        return [
+          {
+            name: 'collection-admin',
+            href: collection._links.adminGroup.href,
+          },
+          {
+            name: 'submitters',
+            href: collection._links.submittersGroup.href,
+          },
+          {
+            name: 'item_read',
+            href: collection._links.itemReadGroup.href,
+          },
+          {
+            name: 'bitstream_read',
+            href: collection._links.bitstreamReadGroup.href,
+          },
+          ...workflowGroups,
+        ];
+      }),
     );
   }
 }

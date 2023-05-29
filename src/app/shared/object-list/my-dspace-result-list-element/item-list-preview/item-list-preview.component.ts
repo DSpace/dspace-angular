@@ -8,6 +8,7 @@ import {
 import { SearchResult } from '../../../search/models/search-result.model';
 import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { DuplicateMatchMetadataDetailConfig } from '../../../../submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
 
 /**
@@ -47,6 +48,11 @@ export class ItemListPreviewComponent implements OnInit {
   @Input() metadataList: DuplicateMatchMetadataDetailConfig[] = [];
 
   /**
+   * Represents the workflow of the item
+   */
+  @Input() workflowItem: WorkflowItem;
+
+  /**
    * Display thumbnails if required by configuration
    */
   showThumbnails: boolean;
@@ -61,7 +67,7 @@ export class ItemListPreviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;
-    this.dsoTitle = this.dsoNameService.getName(this.item);
+    this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.item);
   }
 
 

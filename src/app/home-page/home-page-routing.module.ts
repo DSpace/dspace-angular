@@ -19,7 +19,7 @@ import { MenuItemType } from '../shared/menu/menu-item-type.model';
             public: [{
               id: 'statistics_site',
               active: true,
-              visible: true,
+              visible: false,
               index: 2,
               model: {
                 type: MenuItemType.LINK,

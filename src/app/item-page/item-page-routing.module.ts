@@ -14,13 +14,12 @@ import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
-import {
-  BitstreamRequestACopyPageComponent
-} from '../shared/bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
-import { CrisItemPageTabResolver } from '../item-page/cris-item-page-tab.resolver';
+import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
+import { CrisItemPageTabResolver } from './cris-item-page-tab.resolver';
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { OrcidPageGuard } from './orcid-page/orcid-page.guard';
+import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 
 @NgModule({
   imports: [
@@ -30,6 +29,7 @@ import { OrcidPageGuard } from './orcid-page/orcid-page.guard';
         resolve: {
           dso: ItemPageResolver,
           breadcrumb: ItemBreadcrumbResolver,
+          menu: DSOEditMenuResolver,
           tabs: CrisItemPageTabResolver
         },
         runGuardsAndResolvers: 'always',
@@ -70,7 +70,8 @@ import { OrcidPageGuard } from './orcid-page/orcid-page.guard';
             public: [{
               id: 'statistics_item_:id',
               active: true,
-              visible: true,
+              visible: false,
+              index: 2,
               model: {
                 type: MenuItemType.LINK,
                 text: 'menu.section.statistics',

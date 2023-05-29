@@ -6,8 +6,7 @@
                         <ds-listable-object-component-loader [object]="item" [viewMode]="viewMode" class="pb-4">
                         </ds-listable-object-component-loader>
                 </div>
-                <button (click)="onLoadMore()" class="btn btn-primary search-button mt-4 float-left ng-tns-c290-40">Load
-                        more...</button>
+                <button (click)="onLoadMore()" class="btn btn-primary search-button mt-4 float-left ng-tns-c290-40"> {{'vocabulary-treeview.load-more' | translate }} ...</button>
         </div>
         <ds-error *ngIf="itemRD?.hasFailed" message="{{'error.recent-submissions' | translate}}"></ds-error>
         <ds-loading *ngIf="!itemRD || itemRD.isLoading" message="{{'loading.recent-submissions' | translate}}">

@@ -27,6 +27,6 @@ export class ItemPageStatusGuard extends DsoPageSomeFeatureGuard<Item> {
    * Check authorization rights
    */
   getFeatureIDs(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID[]> {
-    return observableOf([FeatureID.CanManageMappings, FeatureID.WithdrawItem, FeatureID.ReinstateItem, FeatureID.CanManagePolicies, FeatureID.CanMakePrivate, FeatureID.CanDelete, FeatureID.CanMove]);
+    return observableOf([FeatureID.CanManageMappings, FeatureID.WithdrawItem, FeatureID.ReinstateItem, FeatureID.CanManagePolicies, FeatureID.CanMakePrivate, FeatureID.CanDelete, FeatureID.CanMove, FeatureID.CanRegisterDOI]);
   }
 }

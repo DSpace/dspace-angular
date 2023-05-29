@@ -11,10 +11,6 @@ import { cold, hot } from 'jasmine-marbles';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
 import { Context } from '../core/shared/context.model';
-import { LinkService } from '../core/cache/builders/link.service';
-import { HALEndpointService } from '../core/shared/hal-endpoint.service';
-import { RequestService } from '../core/data/request.service';
-import { RemoteDataBuildService } from '../core/cache/builders/remote-data-build.service';
 import { HALEndpointServiceStub } from '../shared/testing/hal-endpoint-service.stub';
 import { getMockRemoteDataBuildService } from '../shared/mocks/remote-data-build.service.mock';
 
@@ -203,6 +199,7 @@ describe('MyDSpaceConfigurationService', () => {
 
       expect(list$).toBeObservable(cold('(b|)', {
         b: [
+          MyDSpaceConfigurationValueType.SupervisedItems,
           MyDSpaceConfigurationValueType.Workflow
         ]
       }));
@@ -217,6 +214,7 @@ describe('MyDSpaceConfigurationService', () => {
 
       expect(list$).toBeObservable(cold('(b|)', {
         b: [
+          MyDSpaceConfigurationValueType.SupervisedItems,
           MyDSpaceConfigurationValueType.Workflow
         ]
       }));
@@ -233,6 +231,7 @@ describe('MyDSpaceConfigurationService', () => {
         b: [
           MyDSpaceConfigurationValueType.Workspace,
           MyDSpaceConfigurationValueType.OtherWorkspace,
+          MyDSpaceConfigurationValueType.SupervisedItems,
           MyDSpaceConfigurationValueType.Workflow
         ]
       }));

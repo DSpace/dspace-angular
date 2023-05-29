@@ -109,6 +109,7 @@ import {
 import {
   AttachmentRenderingModule
 } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/bitstream-attachment/attachment-render/attachment-rendering.module';
+import { FormModule } from '../shared/form/form.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -170,7 +171,8 @@ const ENTRY_COMPONENTS = [
     ComcolModule,
     MiradorViewerModule,
     MetricsModule,
-    AttachmentRenderingModule
+    AttachmentRenderingModule,
+    FormModule
   ],
   exports: [
     CrisLayoutComponent,
