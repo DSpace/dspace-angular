@@ -25,7 +25,7 @@ jobs:
           echo DSPACE_UI_IMAGE="dataquest/dspace-angular:dspace-7_x" >> .env.dev-5
 
           export ENVFILE=$(pwd)/.env.dev-5
-          docker stop dspacedb
-          docker rm dspacedb
-          docker volume rm dq-d7_pgdata
+          docker stop dspacedb dspace dspace-angular
+          docker rm dspacedb dspace dspace-angular
+          docker volume rm dq-d7_pgdata 
           
