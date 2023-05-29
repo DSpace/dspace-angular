@@ -3,7 +3,7 @@ name: Deploy DSpace
 
 on:
   workflow_run:
-    workflows: ["Docker images"]
+    workflows: ["Docker images", "Erase database"]
     types:
       - completed
     branches:
