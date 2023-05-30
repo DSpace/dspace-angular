@@ -9,7 +9,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { ProjectItemMetadataListElementComponent } from './project-item-metadata-list-element.component';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 
-const projectTitle = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.';
+const projectTitle = 'Lorem ipsum dolor sit amet';
 const mockItem = Object.assign(new Item(), { metadata: { 'dc.title': [{ value: projectTitle }] } });
 const virtMD = Object.assign(new MetadataValue(), { value: projectTitle });
 
@@ -34,7 +34,7 @@ describe('ProjectItemMetadataListElementComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProjectItemMetadataListElementComponent);
     comp = fixture.componentInstance;
-    comp.metadataRepresentation = mockItemMetadataRepresentation;
+    comp.mdRepresentation = mockItemMetadataRepresentation;
     fixture.detectChanges();
   });
 
