@@ -6,21 +6,22 @@
   <ng-container *ngFor="let control of accessControl.controls; let i = index">
     <div [formGroup]="$any(control)"
          class="mt-3" data-testId="access-control-item"
-         style="display: grid; grid-template-columns: 1fr 1fr 1fr 50px; grid-gap: 5px">
+         style="display: grid; grid-template-columns: 1fr 50px; grid-gap: 10px">
 
-      <div>
-        <label for="accesscontroloption">{{'access-control-option' | translate}}</label>
-        <select id="accesscontroloption" formControlName="itemName" class="form-control">
-          <option value=""></option>
-          <option *ngFor="let option of dropdownOptions" [value]="option.name">
-            {{ option.name }}
-          </option>
-        </select>
-      </div>
+      <div class="d-flex flex-column">
+        <div>
+          <label for="accesscontroloption">{{'access-control-option-label' | translate}}</label>
+          <select id="accesscontroloption" formControlName="itemName" class="form-control">
+            <option value=""></option>
+            <option *ngFor="let option of dropdownOptions" [value]="option.name">
+              {{ option.name }}
+            </option>
+          </select>
+          <small class="form-text text-muted">{{'access-control-option-note' | translate}}</small>
+        </div>
 
-      <div [class.d-none]="control.get('endDate')?.disabled">
-        <div class="input-group">
-          <label for="accesscontrolstartdate">{{'access-control-start-date' | translate}}</label>
+        <div class="input-group" [class.d-none]="control.get('endDate')?.disabled">
+          <label for="accesscontrolstartdate">{{'access-control-option-start-date' | translate}}</label>
           <input
             id="accesscontrolstartdate"
             class="form-control"
@@ -37,12 +38,11 @@
                     (click)="d.toggle()"
                     type="button"></button>
           </div>
+          <small class="form-text text-muted">{{'access-control-option-start-date-note' | translate}}</small>
         </div>
-      </div>
 
-      <div [class.d-none]="control.get('endDate')?.disabled">
-        <label for="accesscontrolenddate">{{'access-control-end-date' | translate}}</label>
-        <div class="input-group">
+        <div class="input-group" [class.d-none]="control.get('endDate')?.disabled">
+          <label for="accesscontrolenddate">{{'access-control-option-end-date' | translate}}</label>
           <input
             id="accesscontrolenddate"
             class="form-control"
@@ -55,20 +55,24 @@
           />
           <div class="input-group-append">
             <button type="button" class="btn btn-outline-secondary fas fa-calendar"
-              [disabled]="form.status === 'DISABLED'"
-              (click)="d1.toggle()">
+                    [disabled]="form.status === 'DISABLED'"
+                    (click)="d1.toggle()">
             </button>
           </div>
+          <small class="form-text text-muted">{{'access-control-option-end-date-note' | translate}}</small>
         </div>
       </div>
 
       <div>
         <label>&nbsp;</label>
-        <button type="button" class="btn btn-outline-danger"
-                [disabled]="form.status === 'DISABLED'"
-                (click)="removeAccessControlItem(i)">
-          <i class="fas fa-trash"></i>
-        </button>
+        <div class="input-group">
+
+          <button type="button" class="btn btn-outline-danger"
+                  [disabled]="form.status === 'DISABLED'"
+                  (click)="removeAccessControlItem(i)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
       </div>
     </div>
 
