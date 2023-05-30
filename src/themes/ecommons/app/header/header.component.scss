@@ -47,6 +47,29 @@
 // eCommons type
 .navbar-brand {
   text-decoration: none;
-  font-size: 2.25rem;
+  font-size: 1.8rem;
   color: var(--cul-blue-darker);
 }
+
+
+// MEDIA QUERIES
+// -------------------------
+// Extra small devices (portrait phones, less than 576px)
+// No media query for `xs` since this is the default in Bootstrap
+
+// Small devices (landscape phones, 576px and up)
+// @include media-breakpoint-up(sm) {
+// }
+
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-up(md) {
+  .navbar-brand {
+    font-size: 2.25rem;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+// @include media-breakpoint-up(lg) {
+// }
+// Extra large devices (large desktops, 1200px and up)
+// @include media-breakpoint-up(xl) { ... }
