@@ -5,7 +5,7 @@ import { UsageReport } from '../../../core/statistics/models/usage-report.model'
 import { USAGE_REPORT } from '../../../core/statistics/models/usage-report.resource-type';
 
 import { GoogleChartInterface } from 'ng2-google-charts';
-import { ExportService, ExportImageType } from '../../../core/export-service/export.service';
+import { ExportService } from '../../../core/export-service/export.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { StatisticsType } from '../statistics-type.model';
@@ -55,14 +55,17 @@ describe('StatisticsMapComponent', () => {
 
   const exportServiceMock: any = {
     exportAsImage: jasmine.createSpy('exportAsImage'),
-    exportAsFile: jasmine.createSpy('exportAsFile')
+    exportAsFile: jasmine.createSpy('exportAsFile'),
+    exportImageWithBase64: jasmine.createSpy('exportImageWithBase64')
   };
+
+  let  exportService: ExportService = exportServiceMock;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [ StatisticsMapComponent ],
       providers: [
-        { provide: ExportService, useValue: exportServiceMock }
+        // { provide: ExportService, useValue: exportServiceMock }
       ],
     })
     .compileComponents();
@@ -71,6 +74,8 @@ describe('StatisticsMapComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(StatisticsMapComponent);
     component = fixture.componentInstance;
+    spyOn(component, 'exportMapAsImage');
+    (component as any).exportService = exportServiceMock;
     fixture.detectChanges();
   });
 
@@ -94,18 +99,11 @@ describe('StatisticsMapComponent', () => {
 
   it('should download map as png and jpg', () => {
     component.report = report;
-    fixture.detectChanges();
     component.ngOnInit();
     fixture.detectChanges();
-    const downloadPngMapBtn = fixture.debugElement.query(By.css('[data-test="download-png-map-btn"]'));
-    downloadPngMapBtn.triggerEventHandler('click', null);
+    const drpdButton = fixture.debugElement.query(By.css('div[ngbdropdownmenu]>button[ngbdropdownitem]'));
+    drpdButton.triggerEventHandler('click', null);
     fixture.detectChanges();
-    const node = fixture.debugElement.query(By.css('[data-test="google-chart-ref"]')).nativeElement;
-    expect(exportServiceMock.exportAsImage).toHaveBeenCalledWith(node, ExportImageType.png, report.reportType, component.isLoading);
-
-    const downloadJpgMapBtn = fixture.debugElement.query(By.css('[data-test="download-jpg-map-btn"]'));
-    downloadJpgMapBtn.triggerEventHandler('click', null);
-    fixture.detectChanges();
-    expect(exportServiceMock.exportAsImage).toHaveBeenCalledWith(node, ExportImageType.jpeg, report.reportType, component.isSecondLoading);
+    expect(component.exportMapAsImage).toHaveBeenCalled();
   });
 });

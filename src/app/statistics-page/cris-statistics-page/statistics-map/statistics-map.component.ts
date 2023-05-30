@@ -102,7 +102,7 @@ export class StatisticsMapComponent implements OnInit {
    * Export the map as an image
    * @param type of export
    */
-   exportMapAsImage(type: ExportImageType) {
+   exportMapAsImage(type: ExportImageType){
     this.isLoading$.next(true);
     const chart = this.googleChartRef.wrapper.getChart();
     const imageURI: string = chart?.getImageURI();
