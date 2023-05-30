@@ -36,8 +36,6 @@ export class HierarchicalBrowseDefinition extends BrowseDefinition {
   @deserialize
   _links: {
     self: HALLink;
-    entries: HALLink;
-    items: HALLink;
     vocabulary: HALLink;
   };
 

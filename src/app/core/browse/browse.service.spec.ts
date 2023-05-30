@@ -27,7 +27,7 @@ describe('BrowseService', () => {
   const browseDefinitions = [
     Object.assign(new FlatBrowseDefinition(), {
       id: 'date',
-      metadataBrowse: false,
+      browseType: 'flatBrowse',
       sortOptions: [
         {
           name: 'title',
@@ -54,7 +54,7 @@ describe('BrowseService', () => {
     }),
     Object.assign(new ValueListBrowseDefinition(), {
       id: 'author',
-      metadataBrowse: true,
+      browseType: 'valueList',
       sortOptions: [
         {
           name: 'title',
@@ -158,7 +158,7 @@ describe('BrowseService', () => {
 
     describe('when getBrowseEntriesFor is called with a valid browse definition id', () => {
       it('should call hrefOnlyDataService.findListByHref with the expected href', () => {
-        const expected = browseDefinitions[1]._links.entries.href;
+        const expected = (browseDefinitions[1] as ValueListBrowseDefinition)._links.entries.href;
 
         scheduler.schedule(() => service.getBrowseEntriesFor(new BrowseEntrySearchOptions(browseDefinitions[1].id)).subscribe());
         scheduler.flush();

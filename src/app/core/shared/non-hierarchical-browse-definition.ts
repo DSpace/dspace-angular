@@ -1,7 +1,6 @@
-import { autoserialize, autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
+import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 import { SortOption } from './sort-option.model';
 import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-decorator';
-import { HALLink } from './hal-link.model';
 import { BrowseDefinition } from './browse-definition.model';
 
 /**
@@ -22,11 +21,4 @@ export abstract class NonHierarchicalBrowseDefinition extends BrowseDefinition {
 
   @autoserialize
   dataType: BrowseByDataType;
-
-  @deserialize
-  _links: {
-    self: HALLink;
-    entries: HALLink;
-    items: HALLink;
-  };
 }
