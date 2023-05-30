@@ -24,13 +24,13 @@ export class FlatBrowseDefinition extends NonHierarchicalBrowseDefinition {
     return this._links.self.href;
   }
 
-  getRenderType(): string {
-    return this.dataType;
-  }
-
   @deserialize
   _links: {
     self: HALLink;
     items: HALLink;
   };
+
+  getRenderType(): string {
+    return this.dataType;
+  }
 }

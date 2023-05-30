@@ -24,13 +24,13 @@ export class ValueListBrowseDefinition extends NonHierarchicalBrowseDefinition {
     return this._links.self.href;
   }
 
-  getRenderType(): string {
-    return this.dataType;
-  }
-
   @deserialize
   _links: {
     self: HALLink;
     entries: HALLink;
   };
+
+  getRenderType(): string {
+    return this.dataType;
+  }
 }
