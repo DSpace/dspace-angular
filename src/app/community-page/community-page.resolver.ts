@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../core/data/remote-data';
 import { Community } from '../core/shared/community.model';
@@ -8,6 +8,7 @@ import { followLink, FollowLinkConfig } from '../shared/utils/follow-link-config
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { ResolvedAction } from '../core/resolving/resolver.actions';
 import { Store } from '@ngrx/store';
+import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future
@@ -27,7 +28,8 @@ export const COMMUNITY_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Community>[] = [
 export class CommunityPageResolver implements Resolve<RemoteData<Community>> {
   constructor(
     private communityService: CommunityDataService,
-    private store: Store<any>
+    private store: Store<any>,
+    protected router: Router
   ) {
   }
 
@@ -49,7 +51,12 @@ export class CommunityPageResolver implements Resolve<RemoteData<Community>> {
     );
 
     communityRD$.subscribe((communityRD: RemoteData<Community>) => {
-      this.store.dispatch(new ResolvedAction(state.url, communityRD.payload));
+      if (communityRD.hasSucceeded) {
+        this.store.dispatch(new ResolvedAction(state.url, communityRD.payload));
+      } else {
+        // Community not found
+        void this.router.navigate([PAGE_NOT_FOUND_PATH]);
+      }
     });
 
     return communityRD$;

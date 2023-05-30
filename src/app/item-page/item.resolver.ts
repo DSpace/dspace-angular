@@ -8,6 +8,7 @@ import { followLink, FollowLinkConfig } from '../shared/utils/follow-link-config
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { Store } from '@ngrx/store';
 import { ResolvedAction } from '../core/resolving/resolver.actions';
+import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future
@@ -52,7 +53,12 @@ export class ItemResolver implements Resolve<RemoteData<Item>> {
     );
 
     itemRD$.subscribe((itemRD: RemoteData<Item>) => {
-      this.store.dispatch(new ResolvedAction(state.url, itemRD.payload));
+      if (itemRD.hasSucceeded) {
+        this.store.dispatch(new ResolvedAction(state.url, itemRD.payload));
+      } else {
+        // Item not found
+        void this.router.navigate([PAGE_NOT_FOUND_PATH]);
+      }
     });
 
     return itemRD$;

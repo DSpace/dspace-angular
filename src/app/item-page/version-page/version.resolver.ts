@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { ResolvedAction } from '../../core/resolving/resolver.actions';
 import { Version } from '../../core/shared/version.model';
 import { VersionDataService } from '../../core/data/version-data.service';
+import { PAGE_NOT_FOUND_PATH } from 'src/app/app-routing-paths';
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future
@@ -46,7 +47,12 @@ export class VersionResolver implements Resolve<RemoteData<Version>> {
     );
 
     versionRD$.subscribe((versionRD: RemoteData<Version>) => {
-      this.store.dispatch(new ResolvedAction(state.url, versionRD.payload));
+      if (versionRD.hasSucceeded) {
+        this.store.dispatch(new ResolvedAction(state.url, versionRD.payload));
+      } else {
+        // Version not found
+        void this.router.navigate([PAGE_NOT_FOUND_PATH]);
+      }
     });
 
     return versionRD$;
