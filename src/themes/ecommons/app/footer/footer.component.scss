@@ -40,4 +40,32 @@ footer {
       }
     }
   }
+  .help-link {
+    margin-bottom: 1rem;
+  }
 }
+// Statistics and Help link placement
+
+// MEDIA QUERIES
+// -------------------------
+// Extra small devices (portrait phones, less than 576px)
+// No media query for `xs` since this is the default in Bootstrap
+
+// Small devices (landscape phones, 576px and up)
+// @include media-breakpoint-up(sm) {
+// }
+
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-up(md) {
+  footer {
+    .help-link {
+      float: right;
+    }
+  }
+}
+
+// Large devices (desktops, 992px and up)
+// @include media-breakpoint-up(lg) {
+// }
+// Extra large devices (large desktops, 1200px and up)
+// @include media-breakpoint-up(xl) { ... }
