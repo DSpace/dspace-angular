@@ -6181,5 +6181,7 @@
 
   "invitation.ignore-btn": "Ignore",
 
-  "authority-confidence.search-label":"Search"
+  "authority-confidence.search-label":"Search",
+
+  "statistics-page.export-map-as-image": "Export map",
 }

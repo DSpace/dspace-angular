@@ -1,10 +1,8 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
-import { GoogleChartInterface } from 'ng2-google-charts';
+import { GoogleChartComponent, GoogleChartInterface } from 'ng2-google-charts';
 import { ExportImageType, ExportService } from '../../../core/export-service/export.service';
 import { BehaviorSubject } from 'rxjs';
-
-
 @Component({
   selector: 'ds-statistics-map',
   templateUrl: './statistics-map.component.html',
@@ -36,14 +34,20 @@ export class StatisticsMapComponent implements OnInit {
    * Loading utilized for export functions to disable buttons
    */
   isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  /**
-   * Loading utilized for export functions to disable buttons
-   */
-  isSecondLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   /**
    * Chart ElementRef
    */
-  @ViewChild('googleChartRef') googleChartRef: ElementRef;
+  @ViewChild('googleChartRef') googleChartRef: GoogleChartComponent;
+
+  exportImageType = ExportImageType;
+
+  exportImageTypes = [
+    { type: ExportImageType.png, label: 'PNG' },
+    { type: ExportImageType.jpeg, label: 'JPEG/JPG' }
+  ];
 
   constructor(
     private exportService: ExportService
@@ -80,25 +84,16 @@ export class StatisticsMapComponent implements OnInit {
       ],
       options: { 'title': this.report.reportType }
     };
-
   }
 
   /**
-   * Download map as image in png version.
+   * Export the map as an image
+   * @param type of export
    */
-  downloadPng() {
-    this.isLoading.next(false);
-    const node = this.googleChartRef.nativeElement;
-    this.exportService.exportAsImage(node, ExportImageType.png, this.report.reportType, this.isLoading);
+   exportMapAsImage(type: ExportImageType) {
+    this.isLoading$.next(true);
+    const chart = this.googleChartRef.wrapper.getChart();
+    const imageURI: string = chart?.getImageURI();
+    this.exportService.exportImageWithBase64(imageURI, type, this.report.reportType, this.isLoading$);
   }
-
-  /**
-   * Download map as image in jpeg version.
-   */
-  downloadJpeg() {
-    this.isSecondLoading.next(false);
-    const node = this.googleChartRef.nativeElement;
-    this.exportService.exportAsImage(node, ExportImageType.jpeg, this.report.reportType, this.isSecondLoading);
-  }
-
 }
