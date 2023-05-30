@@ -29,7 +29,9 @@ import {
 } from '../../../shared/mocks/form-models.mock';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import {
+  DynamicRowArrayModel
+} from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 
 describe('SectionFormOperationsService test suite', () => {
   let formBuilderService: any;
@@ -806,7 +808,6 @@ describe('SectionFormOperationsService test suite', () => {
           relationshipConfig: undefined,
           submissionId: '1234',
           isDraggable: true,
-          showButtons: false,
           groupFactory: () => {
             return [
               new DynamicInputModel({ id: 'testFormRowArrayGroupInput' })
@@ -815,7 +816,9 @@ describe('SectionFormOperationsService test suite', () => {
           required: false,
           metadataKey: 'dc.contributor.author',
           metadataFields: ['dc.contributor.author'],
-          hasSelectableMetadata: true
+          hasSelectableMetadata: true,
+          showButtons: true,
+          typeBindRelations: []
         }
       );
       spyOn(serviceAsAny, 'getFieldPathSegmentedFromChangeEvent').and.returnValue('path');

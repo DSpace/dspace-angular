@@ -28,9 +28,11 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   hasSelectableMetadata: boolean;
   metadataValue?: FormFieldMetadataValueObject;
   isModelOfInnerForm?: boolean;
+  hideErrorMessages?: boolean;
   securityLevel?: number;
   securityConfigLevel?: number[];
   toggleSecurityVisibility?: boolean;
+  isModelOfNotRepeatableGroup?: boolean;
 }
 
 export class DsDynamicInputModel extends DynamicInputModel {
@@ -49,9 +51,11 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() hasSelectableMetadata: boolean;
   @serializable() metadataValue: FormFieldMetadataValueObject;
   @serializable() isModelOfInnerForm: boolean;
+  @serializable() hideErrorMessages?: boolean;
   @serializable() securityLevel?: number;
   @serializable() securityConfigLevel?: number[];
   @serializable() toggleSecurityVisibility = true;
+  @serializable() isModelOfNotRepeatableGroup = false;
 
 
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
@@ -72,7 +76,11 @@ export class DsDynamicInputModel extends DynamicInputModel {
     if (isNotUndefined(config.toggleSecurityVisibility)) {
       this.toggleSecurityVisibility = config.toggleSecurityVisibility;
     }
+    if (isNotUndefined(config.isModelOfNotRepeatableGroup)) {
+      this.isModelOfNotRepeatableGroup = config.isModelOfNotRepeatableGroup;
+    }
     this.isModelOfInnerForm = (hasValue(config.isModelOfInnerForm) ? config.isModelOfInnerForm : false);
+    this.hideErrorMessages = config.hideErrorMessages;
 
     this.language = config.language;
     if (!this.language) {

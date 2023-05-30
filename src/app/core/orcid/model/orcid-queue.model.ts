@@ -1,10 +1,10 @@
 import { autoserialize, deserialize } from 'cerialize';
 import { typedObject } from '../../cache/builders/build-decorators';
-import { CacheableObject } from '../../cache/object-cache.reducer';
 import { HALLink } from '../../shared/hal-link.model';
 import { ResourceType } from '../../shared/resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ORCID_QUEUE } from './orcid-queue.resource-type';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 
 /**
  * Class the represents a Orcid Queue.
@@ -34,10 +34,10 @@ export class OrcidQueue extends CacheableObject {
   description: string;
 
   /**
-   * The identifier of the owner of this Orcid Queue record.
+   * The identifier of the profileItem of this Orcid Queue record.
    */
   @autoserialize
-  ownerId: string;
+  profileItemId: string;
 
   /**
    * The identifier of the entity related to this Orcid Queue record.

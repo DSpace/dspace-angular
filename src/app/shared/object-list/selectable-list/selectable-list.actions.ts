@@ -17,7 +17,8 @@ export const SelectableListActionTypes = {
   DESELECT: type('dspace/selectable-lists/DESELECT'),
   DESELECT_SINGLE: type('dspace/selectable-lists/DESELECT_SINGLE'),
   SET_SELECTION: type('dspace/selectable-lists/SET_SELECTION'),
-  DESELECT_ALL: type('dspace/selectable-lists/DESELECT_ALL')
+  DESELECT_ALL: type('dspace/selectable-lists/DESELECT_ALL'),
+  REMOVE_SELECTION: type('dspace/selectable-lists/REMOVE_SELECTION')
 };
 
 /**
@@ -96,5 +97,14 @@ export class SelectableListSetSelectionAction extends SelectableListAction {
 export class SelectableListDeselectAllAction extends SelectableListAction {
   constructor(id: string) {
     super(SelectableListActionTypes.DESELECT_ALL, id);
+  }
+}
+
+/**
+ * Action to remove a selection list from state
+ */
+export class SelectableListRemoveSelectionAction extends SelectableListAction {
+  constructor(id: string) {
+    super(SelectableListActionTypes.REMOVE_SELECTION, id);
   }
 }

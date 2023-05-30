@@ -4,8 +4,8 @@ import { Observable } from 'rxjs/internal/Observable';
 import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
 import { AuthService } from '../core/auth/auth.service';
 import { map } from 'rxjs/operators';
-import { getFirstCompletedRemoteData, redirectOn4xx } from '../core/shared/operators';
-import { Location } from '@angular/common';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { redirectOn4xx } from '../core/shared/authorized.operators';
 
 @Injectable({
   providedIn: 'root'

@@ -10,16 +10,9 @@ export const slide = trigger('slide', [
   transition('expanded <=> collapsed', animate(250))
 ]);
 
-export const slideHorizontal = trigger('slideHorizontal', [
-  state('void', style({ width: 0 })),
-  state('*', style({ width: '*' })),
-  transition(':enter', [animate('200ms')]),
-  transition(':leave', [animate('200ms')])
-]);
-
 export const slideMobileNav = trigger('slideMobileNav', [
 
-  state('expanded', style({ height: '100vh' })),
+  state('expanded', style({ height: 'auto', 'min-height': '100vh' })),
 
   state('collapsed', style({ height: 0 })),
 
@@ -35,7 +28,7 @@ export const slideSidebar = trigger('slideSidebar', [
   transition('expanded => collapsed',
     group(
       [
-        query('@*', animateChild()),
+        query('@*', animateChild(), { optional: true }),
         query('.sidebar-collapsible', expandedStyle, options),
         query('.sidebar-collapsible', animate('300ms ease-in-out', collapsedStyle))
       ],
@@ -44,7 +37,7 @@ export const slideSidebar = trigger('slideSidebar', [
   transition('collapsed => expanded',
     group(
       [
-        query('@*', animateChild()),
+        query('@*', animateChild(), { optional: true }),
         query('.sidebar-collapsible', collapsedStyle),
         query('.sidebar-collapsible', animate('300ms ease-in-out', expandedStyle), options)
       ]

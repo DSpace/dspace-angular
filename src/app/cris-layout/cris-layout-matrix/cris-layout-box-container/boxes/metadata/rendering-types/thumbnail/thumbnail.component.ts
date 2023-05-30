@@ -1,15 +1,18 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
+
+import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
-import { hasValue } from '../../../../../../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../../../../../../shared/empty.util';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { BitstreamRenderingModelComponent } from '../bitstream-rendering-model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
-import { BehaviorSubject } from 'rxjs';
+import { getFirstCompletedRemoteData } from '../../../../../../../core/shared/operators';
+import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -18,13 +21,30 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./thumbnail.component.scss']
 })
 @MetadataBoxFieldRendering(FieldRenderingType.THUMBNAIL, true)
+/**
+ * The component for displaying a thumbnail rendered metadata box
+ */
 export class ThumbnailComponent extends BitstreamRenderingModelComponent implements OnInit {
 
-  bitstream$: BehaviorSubject<Bitstream> = new BehaviorSubject<Bitstream>(null);
+  /**
+   * The bitstream to be rendered
+   */
+  thumbnail$: BehaviorSubject<Bitstream> = new BehaviorSubject<Bitstream>(null);
 
+  /**
+   * Default image to be shown in the thumbnail
+   */
   default: string;
 
+  /**
+   * Item rendering initialization state
+   */
   initialized: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
+   * Maximum size of the thumbnail allowed to be shown
+   */
+  maxSize: number;
 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
@@ -36,23 +56,44 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
     super(fieldProvider, itemProvider, renderingSubTypeProvider, bitstreamDataService, translateService);
   }
 
+  /**
+   * Get the thumbnail information from api for this item
+   */
   ngOnInit(): void {
     this.setDefaultImage();
-    this.getBitstreams().pipe(
-      map((bitstreams: Bitstream[]) => {
-        return bitstreams.filter((bitstream) => {
-          const metadataValue = bitstream.firstMetadataValue(this.field.bitstream.metadataField);
-          return hasValue(metadataValue) && metadataValue.toLowerCase() === this.field.bitstream.metadataValue.toLowerCase();
-        });
+    this.getBitstreamsByItem().pipe(
+      map((bitstreamList: PaginatedList<Bitstream>) => bitstreamList.page),
+      switchMap((filteredBitstreams: Bitstream[]) => {
+        if (filteredBitstreams.length > 0) {
+          if (isEmpty(filteredBitstreams[0].thumbnail)) {
+            return observableOf(null);
+          } else {
+            return filteredBitstreams[0].thumbnail.pipe(
+              getFirstCompletedRemoteData(),
+              map((thumbnailRD) => {
+                if (thumbnailRD.hasSucceeded && isNotEmpty(thumbnailRD.payload)) {
+                  return thumbnailRD.payload;
+                } else {
+                  return null;
+                }
+              })
+            );
+          }
+        } else {
+          return observableOf(null);
+        }
       })
-    ).subscribe((bitstreams: Bitstream[]) => {
-      if (bitstreams.length > 0) {
-        this.bitstream$.next(bitstreams[0]);
+    ).subscribe((thumbnail: Bitstream) => {
+      if (isNotEmpty(thumbnail)) {
+        this.thumbnail$.next(thumbnail);
       }
       this.initialized.next(true);
     });
   }
 
+  /**
+   * Set the default image src depending on item entity type
+   */
   setDefaultImage(): void {
     const eType = this.item.firstMetadataValue('dspace.entity.type');
     this.default = 'assets/images/person-placeholder.svg';

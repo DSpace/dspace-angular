@@ -1,0 +1,12 @@
+<ds-alert [type]="'alert-info'">
+  <span *ngIf="item" [innerHTML]="'item-export.alert.single' | translate: {title: getItemName()} ">
+  </span>
+  <span *ngIf="!item && entityType" [innerHTML]="'item-export.alert.multiple-with-type' | translate: {type: entityType}">
+  </span>
+  <span *ngIf="!item && !entityType" [innerHTML]="'item-export.alert.multiple' | translate">
+  </span>
+</ds-alert>
+<ds-alert *ngIf="bulkExportLimit && bulkExportLimit !== '0' && bulkExportLimit !== '-1'"
+          [type]="'alert-warning'"
+          [content]="'item-export.alert.export.limit' | translate:{limit: bulkExportLimit}">
+</ds-alert>

@@ -1,12 +1,14 @@
+@use 'sass:math';
+
 @function calculateRem($size) {
-    $remSize: $size / 16px;
+    $remSize: math.div($size, 16px);
     @return $remSize;
 }
 
 
 @function strip-unit($number) {
     @if type-of($number) == 'number' and not unitless($number) {
-        @return $number / ($number * 0 + 1);
+        @return math.div($number , ($number * 0 + 1));
     }
     @return $number;
 }

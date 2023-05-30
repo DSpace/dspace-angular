@@ -40,7 +40,7 @@ export class MetadataValue implements MetadataValueInterface {
   value: string;
 
   /**
-   * The place of this MetadataValue within his list of metadata
+   * The place of this MetadataValue within its list of metadata
    * This is used to render metadata in a specific custom order
    */
   @autoserialize
@@ -112,7 +112,7 @@ export class MetadatumViewModel {
   value: string;
 
   /**
-   * The place of this MetadataValue within his list of metadata
+   * The place of this MetadataValue within its list of metadata
    * This is used to render metadata in a specific custom order
    */
   place: number;
@@ -125,9 +125,6 @@ export class MetadatumViewModel {
 
   /** The security level value */
   securityLevel: number;
-
-  /** The security level value of configuration */
-  securityConfigurationLevelLimit?: number[];
 }
 
 /** Serializer used for MetadataMaps.

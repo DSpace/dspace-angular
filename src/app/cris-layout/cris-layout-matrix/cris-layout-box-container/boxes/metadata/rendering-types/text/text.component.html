@@ -1,5 +1,3 @@
 <div [class]="field.styleValue">
-    <span class="text-value">
-      {{ metadataValue.value }}
-    </span>
+    <span class="text-value" [innerHTML]="formatText(metadataValue.value)"></span>
 </div>

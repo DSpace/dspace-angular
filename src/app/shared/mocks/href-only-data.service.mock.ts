@@ -6,10 +6,10 @@ import { createPaginatedList } from '../testing/utils.test';
 
 export function getMockHrefOnlyDataService(
   findByHref$: Observable<RemoteData<any>> = createNoContentRemoteDataObject$(),
-  findAllByHref$: Observable<RemoteData<PaginatedList<any>>> = createSuccessfulRemoteDataObject$(createPaginatedList([]))
+  findListByHref$: Observable<RemoteData<PaginatedList<any>>> = createSuccessfulRemoteDataObject$(createPaginatedList([])),
 ) {
   return jasmine.createSpyObj('hrefOnlyDataService', {
     findByHref: findByHref$,
-    findAllByHref: findAllByHref$,
+    findListByHref: findListByHref$,
   });
 }

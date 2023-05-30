@@ -9,7 +9,7 @@ import { USAGE_REPORT } from '../../../../core/statistics/models/usage-report.re
 import { StatisticsChartLineComponent } from './statistics-chart-line.component';
 import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
 import { ExportServiceStub } from '../../../../shared/testing/export-service.stub';
-import { ExportService } from '../../../../core/export-service/export.service';
+import { BrowserExportService } from '../../../../core/export-service/browser-export.service';
 import { StatisticsType } from '../../statistics-type.model';
 
 describe('StatisticsChartLineComponent', () => {
@@ -187,7 +187,7 @@ describe('StatisticsChartLineComponent', () => {
       declarations: [StatisticsChartLineComponent],
       providers: [
         { provide: REPORT_DATA, useValue: selectedReport },
-        { provide: ExportService, useValue: ExportServiceStub},
+        { provide: BrowserExportService, useValue: ExportServiceStub},
         { provide: 'categoryType', useValue: 'mainReports' },
       ],
       schemas: [NO_ERRORS_SCHEMA]

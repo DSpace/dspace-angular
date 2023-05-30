@@ -74,15 +74,13 @@ export class EditCmsMetadataComponent implements OnInit {
 
     this.siteService.patch(this.site, operations).pipe(getFirstCompletedRemoteData())
       .subscribe((restResponse) => {
-        if (restResponse.isSuccess) {
+        if (restResponse.hasSucceeded) {
           this.site = restResponse.payload;
           this.notificationsService.success(this.translateService.get('admin.edit-cms-metadata.success'));
           this.selectedMetadata = undefined;
           this.editMode.next(false);
         } else {
-          if (restResponse.isError) {
-            this.notificationsService.error(this.translateService.get('admin.edit-cms-metadata.error'));
-          }
+          this.notificationsService.error(this.translateService.get('admin.edit-cms-metadata.error'));
         }
         this.siteService.setStale();
       });
@@ -114,7 +112,7 @@ export class EditCmsMetadataComponent implements OnInit {
       op: 'replace',
       path: '/metadata/' + this.selectedMetadata,
       value: {
-        value: this.selectedMetadataValues.get(firstLanguage),
+        value: this.selectedMetadataValues.get(firstLanguage) ?? '',
         language: firstLanguage
       }
     });
@@ -124,7 +122,7 @@ export class EditCmsMetadataComponent implements OnInit {
           op: 'add',
           path: '/metadata/' + this.selectedMetadata,
           value: {
-            value: value,
+            value: value ?? '',
             language: key
           }
         });

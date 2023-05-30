@@ -3,7 +3,6 @@ import { subStateSelector } from '../../shared/selector.util';
 import { openaireSelector, OpenaireState } from '../openaire.reducer';
 import { OpenaireSuggestionTarget } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { SuggestionTargetState } from './suggestion-targets/suggestion-targets.reducer';
-import { CoreState } from '../../core/core.reducers';
 
 /**
  * Returns the Reciter Suggestion Target state.

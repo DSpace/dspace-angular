@@ -4,15 +4,26 @@ import { RelationshipsItemsActionsComponent } from './relationships-items-action
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../../app.reducer';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 describe('RelationshipsItemsActionsComponent', () => {
   let component: RelationshipsItemsActionsComponent;
   let fixture: ComponentFixture<RelationshipsItemsActionsComponent>;
+  let store: Store<AppState>;
+  let mockStore: MockStore<AppState>;
+
+  const initialState = {
+    editItemRelationships: {
+      pendingChanges: true
+    }
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ RelationshipsItemsActionsComponent ],
-      imports : [
+      imports: [
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -20,11 +31,16 @@ describe('RelationshipsItemsActionsComponent', () => {
           }
         })
       ],
+      providers: [
+        provideMockStore({ initialState }),
+      ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
+    store = TestBed.inject(Store);
+    mockStore = store as MockStore<AppState>;
     fixture = TestBed.createComponent(RelationshipsItemsActionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

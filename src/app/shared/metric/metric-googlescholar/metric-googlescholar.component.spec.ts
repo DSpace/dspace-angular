@@ -4,10 +4,16 @@ import { MetricGooglescholarComponent } from './metric-googlescholar.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
+import { RedirectDirective } from '../../../directives/redirect/redirect.directive';
+import { RedirectWithHrefDirective } from '../../../directives/redirect/redirect-href.directive';
+import { Router } from '@angular/router';
+import { RedirectService } from '../../../redirect/redirect.service';
 
 describe('MetricGooglescholarComponent', () => {
   let component: MetricGooglescholarComponent;
   let fixture: ComponentFixture<MetricGooglescholarComponent>;
+  let routerStub;
+  let redirectServiceStub: RedirectService;
   const href = 'https://scholar.google.com/scholar?q=The+Covid-19+Vaccine-Development+Multiverse';
   const metricMock = {
     acquisitionDate: new Date(),
@@ -32,7 +38,11 @@ describe('MetricGooglescholarComponent', () => {
           useClass: TranslateLoaderMock
         }
       })],
-      declarations: [ MetricGooglescholarComponent ]
+      declarations: [MetricGooglescholarComponent, RedirectDirective, RedirectWithHrefDirective],
+      providers: [
+        { provide: Router, useValue: routerStub },
+        { provide: RedirectService, useValue: redirectServiceStub },
+      ],
     })
     .compileComponents();
   }));

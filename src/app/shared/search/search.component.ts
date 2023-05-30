@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
@@ -40,7 +40,12 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { SelectionConfig } from './search-results/search-results.component';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { environment } from 'src/environments/environment';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
+import { SearchFilterConfig } from './models/search-filter-config.model';
+import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { SearchManager } from '../../core/browse/search-manager';
+import { AlertType } from '../alert/aletr-type';
 
 @Component({
   selector: 'ds-search',
@@ -86,7 +91,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   /**
    * Embedded keys to force during the search
    */
-  @Input() forcedEmbeddedKeys: Map<string, string[]> = new Map([['default', ['metrics']]]) ;
+  @Input() forcedEmbeddedKeys: Map<string, string[]> = new Map([['default', ['metrics']]]);
 
   /**
    * If this is true, the request will only be sent if there's
@@ -155,9 +160,19 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() showCharts = false;
 
   /**
+   * A boolean representing if show csv export button
+   */
+  @Input() showCsvExport = false;
+
+  /**
    * A boolean representing if show export button
    */
   @Input() showExport = true;
+
+  /**
+   * A boolean representing if show search result notice
+   */
+  @Input() showSearchResultNotice = false;
 
   /**
    * A boolean representing if show search sidebar button
@@ -180,6 +195,16 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() viewModeList: ViewMode[];
 
   /**
+   * Contains a notice to show before result list if any
+   */
+  @Input() searchResultNotice: string = null;
+
+  /**
+   * The alert type to use for the notice
+   */
+  @Input() searchResultNoticeType: AlertType = AlertType.Info;
+
+  /**
    * Defines whether to show the scope selector
    */
   @Input() showScopeSelector = true;
@@ -192,7 +217,17 @@ export class SearchComponent implements OnInit, OnDestroy {
   /**
    * Defines whether to show the toggle button to Show/Hide chart
    */
-   @Input() showChartsToggle = false;
+  @Input() showChartsToggle = false;
+
+  /**
+   * Whether or not to track search statistics by sending updates to the rest api
+   */
+  @Input() trackStatistics = false;
+
+  /**
+   * For chart regular expression
+   */
+  chartReg = new RegExp(/^chart./, 'i');
 
   /**
    * The current configuration used during the search
@@ -213,6 +248,21 @@ export class SearchComponent implements OnInit, OnDestroy {
    * The current sort options used
    */
   currentSortOptions$: BehaviorSubject<SortOptions> = new BehaviorSubject<SortOptions>(null);
+
+  /**
+   * An observable containing configuration about which chart filters are shown and how they are shown
+   */
+  chartFiltersRD$: BehaviorSubject<RemoteData<SearchFilterConfig[]>> = new BehaviorSubject<RemoteData<SearchFilterConfig[]>>(null);
+
+  /**
+   * An observable containing configuration about which filters are shown and how they are shown
+   */
+  filtersRD$: BehaviorSubject<RemoteData<SearchFilterConfig[]>> = new BehaviorSubject<RemoteData<SearchFilterConfig[]>>(null);
+
+  /**
+   * Maintains the last search options, so it can be used in refresh
+   */
+  lastSearchOptions: PaginatedSearchOptions;
 
   /**
    * The current search results
@@ -245,6 +295,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   isXsOrSm$: Observable<boolean>;
 
   /**
+   * Emits when the search filters values may be stale, and so they must be refreshed.
+   */
+  refreshFilters: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
    * Link to the search page
    */
   searchLink: string;
@@ -275,12 +330,12 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Output() customEvent = new EventEmitter<any>();
 
   constructor(protected service: SearchService,
-              protected searchManager: SearchManager,
-              protected sidebarService: SidebarService,
-              protected windowService: HostWindowService,
-              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              protected routeService: RouteService,
-              protected router: Router) {
+    protected searchManager: SearchManager,
+    protected sidebarService: SidebarService,
+    protected windowService: HostWindowService,
+    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
+    protected routeService: RouteService,
+    protected router: Router) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -315,7 +370,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       .getCurrentConfiguration(this.configuration).pipe(distinctUntilChanged());
     const searchSortOptions$: Observable<SortOptions[]> = configuration$.pipe(
       switchMap((configuration: string) => this.searchConfigService
-        .getConfigurationSearchConfig(configuration, this.service)),
+        .getConfigurationSearchConfig(configuration)),
       map((searchConfig: SearchConfig) => this.searchConfigService.getConfigurationSortOptions(searchConfig)),
       distinctUntilChanged()
     );
@@ -356,6 +411,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.initialized$.next(true);
         // retrieve results
         this.retrieveSearchResults(newSearchOptions);
+        this.retrieveFilters(searchOptions);
       }
     });
   }
@@ -390,6 +446,15 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Emit event to refresh filter content
+   * @param $event
+   */
+  public onContentChange($event: any) {
+    this.retrieveFilters(this.lastSearchOptions);
+    this.refreshFilters.next(true);
+  }
+
+  /**
    * Unsubscribe from the subscription
    */
   ngOnDestroy(): void {
@@ -407,12 +472,66 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Retrieve search filters by the given search options
+   * @param searchOptions
+   * @private
+   */
+  private retrieveFilters(searchOptions: PaginatedSearchOptions) {
+    this.filtersRD$.next(null);
+    this.chartFiltersRD$.next(null);
+    this.searchConfigService.getConfig(searchOptions.scope, searchOptions.configuration).pipe(
+      getFirstCompletedRemoteData(),
+    ).subscribe((filtersRD: RemoteData<SearchFilterConfig[]>) => {
+      const filtersPayload = filtersRD.payload.filter((entry: SearchFilterConfig) =>
+        !this.chartReg.test(entry.filterType)
+      );
+      const chartFiltersPayload = filtersRD.payload.filter((entry: SearchFilterConfig) =>
+        this.chartReg.test(entry.filterType)
+      );
+      const filters = new RemoteData(
+        filtersRD.timeCompleted,
+        filtersRD.msToLive,
+        filtersRD.lastUpdated,
+        filtersRD.state,
+        filtersRD.errorMessage,
+        filtersPayload,
+        filtersRD.statusCode,
+        filtersRD.errors
+      );
+      this.filtersRD$.next(filters);
+      const chartFilters  = new RemoteData(
+        filtersRD.timeCompleted,
+        filtersRD.msToLive,
+        filtersRD.lastUpdated,
+        filtersRD.state,
+        filtersRD.errorMessage,
+        chartFiltersPayload,
+        filtersRD.statusCode,
+        filtersRD.errors
+      );
+      this.chartFiltersRD$.next(chartFilters);
+    });
+  }
+
+  /**
    * Retrieve search result by the given search options
    * @param searchOptions
    * @private
    */
   private retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
     this.resultsRD$.next(null);
+    this.lastSearchOptions = searchOptions;
+    let followLinks = [
+      followLink<Item>('thumbnail', { isOptional: true }),
+      followLink<SubmissionObject>('item', { isOptional: true },
+        followLink<Item>('thumbnail', { isOptional: true }),
+        followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
+      ) as any
+    ];
+
+    if (this.configuration === 'supervision') {
+      followLinks.push(followLink<WorkspaceItem>('supervisionOrders', { isOptional: true }) as any);
+    }
 
     if (this.projection) {
       searchOptions = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
@@ -425,11 +544,16 @@ export class SearchComponent implements OnInit, OnDestroy {
       undefined,
       this.useCachedVersionIfAvailable,
       true,
-      followLink<Item>('thumbnail', { isOptional: true })
-    ).pipe(getFirstCompletedRemoteData())
+      ...followLinks
+      ).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
-        if (results.hasSucceeded && results.payload?.page?.length > 0) {
-          this.resultFound.emit(results.payload);
+        if (results.hasSucceeded) {
+          if (this.trackStatistics) {
+            this.service.trackSearch(searchOptions, results.payload);
+          }
+          if (results.payload?.page?.length > 0) {
+            this.resultFound.emit(results.payload);
+          }
         }
         this.resultsRD$.next(results);
       });
@@ -459,6 +583,5 @@ export class SearchComponent implements OnInit, OnDestroy {
   toggleSidebar() {
     this.sidebarService.toggle();
   }
-
 
 }

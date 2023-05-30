@@ -4,9 +4,10 @@ import { testA11y } from 'cypress/support/utils';
 
 xdescribe('My DSpace page', () => {
     it('should display recent submissions and pass accessibility tests', () => {
-        cy.login(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
-
         cy.visit('/mydspace');
+
+        // This page is restricted, so we will be shown the login form. Fill it out & submit.
+        cy.loginViaForm(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
 
         cy.get('ds-my-dspace-page').should('exist');
 
@@ -36,9 +37,10 @@ xdescribe('My DSpace page', () => {
     });
 
     it('should have a working detailed view that passes accessibility tests', () => {
-        cy.login(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
-
         cy.visit('/mydspace');
+
+        // This page is restricted, so we will be shown the login form. Fill it out & submit.
+        cy.loginViaForm(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
 
         cy.get('ds-my-dspace-page').should('exist');
 
@@ -61,11 +63,13 @@ xdescribe('My DSpace page', () => {
 
     // NOTE: Deleting existing submissions is exercised by submission.spec.ts
     it('should let you start a new submission & edit in-progress submissions', () => {
-        cy.login(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
         cy.visit('/mydspace');
 
+        // This page is restricted, so we will be shown the login form. Fill it out & submit.
+        cy.loginViaForm(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
+
         // Open the New Submission dropdown
-        cy.get('#dropdownSubmission').click();
+        cy.get('button[data-test="submission-dropdown"]').click();
         // Click on the "Item" type in that dropdown
         cy.get('#entityControlsDropdownMenu button[title="none"]').click();
 
@@ -98,7 +102,7 @@ xdescribe('My DSpace page', () => {
             const id = subpaths[2];
 
             // Click the "Save for Later" button to save this submission
-            cy.get('button#saveForLater').click();
+            cy.get('ds-submission-form-footer [data-test="save-for-later"]').click();
 
             // "Save for Later" should send us to MyDSpace
             cy.url().should('include', '/mydspace');
@@ -122,7 +126,7 @@ xdescribe('My DSpace page', () => {
             cy.url().should('include', '/workspaceitems/' + id + '/edit');
 
             // Discard our new submission by clicking Discard in Submission form & confirming
-            cy.get('button#discard').click();
+            cy.get('ds-submission-form-footer [data-test="discard"]').click();
             cy.get('button#discard_submit').click();
 
             // Discarding should send us back to MyDSpace
@@ -131,11 +135,13 @@ xdescribe('My DSpace page', () => {
     });
 
     it('should let you import from external sources', () => {
-        cy.login(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
         cy.visit('/mydspace');
 
+        // This page is restricted, so we will be shown the login form. Fill it out & submit.
+        cy.loginViaForm(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
+
         // Open the New Import dropdown
-        cy.get('#dropdownImport').click();
+        cy.get('button[data-test="import-dropdown"]').click();
         // Click on the "Item" type in that dropdown
         cy.get('#importControlsDropdownMenu button[title="none"]').click();
 

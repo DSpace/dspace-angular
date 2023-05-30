@@ -1,0 +1,34 @@
+<div *ngIf="!(generatedToken | async)" data-test="notGenerated">
+  <ds-alert *ngIf="!(tokenAlreadyExists | async)" data-test="infoAlert"
+            [type]="'alert-info'"
+            [content]="'profile.card.access-token.no-token-generated'"></ds-alert>
+  <ds-alert *ngIf="(tokenAlreadyExists | async)" data-test="warningAlert"
+            [type]="'alert-warning'"
+            [content]="'profile.card.access-token.token-generated'"></ds-alert>
+  <div class="space-children-mr">
+    <button *ngIf="(tokenAlreadyExists | async)" class="btn btn-danger float-right" data-test="revokeBtn" (click)="revokeToken()">
+      <i class="fas fa-trash-alt"></i> {{'profile.card.access-token.delete' | translate}}
+    </button>
+    <button class="btn btn-primary float-right mr-2" (click)="generateToken()" data-test="createBtn">
+      <i class="fas fa-key"></i> {{'profile.card.access-token.create' | translate}}
+    </button>
+  </div>
+</div>
+
+<div *ngIf="(generatedToken | async)" data-test="generated">
+  <ds-alert [type]="'alert-info'"
+            [content]="'profile.card.access-token.copy-info'"></ds-alert>
+  <div class="input-group mb-3" data-test="tokenGroup">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><i class="fas fa-check text-success"></i></span>
+    </div>
+    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{generatedToken | async}}" readonly data-test="tokenInput">
+    <div class="input-group-append">
+      <button class="input-group-text btn btn-link btn-sm" (click)="copyTokenToClipboard()" title="{{'profile.card.access-token.copy' | translate}}">
+        <i class="far fa-copy"></i>
+      </button>
+    </div>
+  </div>
+
+
+</div>

@@ -8,7 +8,7 @@ import { UsageReport } from '../../../../core/statistics/models/usage-report.mod
 import { USAGE_REPORT } from '../../../../core/statistics/models/usage-report.resource-type';
 import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
 
-import { ExportService } from '../../../../core/export-service/export.service';
+import { BrowserExportService } from '../../../../core/export-service/browser-export.service';
 import { ExportServiceStub } from '../../../../shared/testing/export-service.stub';
 import { StatisticsChartPieComponent } from './statistics-chart-pie.component';
 import { StatisticsType } from '../../statistics-type.model';
@@ -64,7 +64,7 @@ describe('StatisticsChartPieComponent', () => {
       declarations: [StatisticsChartPieComponent],
       providers: [
         { provide: REPORT_DATA, useValue: selectedReport },
-        { provide: ExportService, useValue: ExportServiceStub },
+        { provide: BrowserExportService, useValue: ExportServiceStub },
         { provide: 'categoryType', useValue: 'mainReports' },
       ],
       schemas: [NO_ERRORS_SCHEMA]

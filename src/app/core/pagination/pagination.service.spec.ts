@@ -3,7 +3,7 @@ import { RouterStub } from '../../shared/testing/router.stub';
 import { of as observableOf } from 'rxjs';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
-import { FindListOptions } from '../data/request.models';
+import { FindListOptions } from '../data/find-list-options.model';
 
 
 describe('PaginationService', () => {
@@ -12,7 +12,7 @@ describe('PaginationService', () => {
   let routeService;
 
   const defaultPagination = new PaginationComponentOptions();
-  const defaultSort = new SortOptions('id', SortDirection.DESC);
+  const defaultSort = new SortOptions('dc.title', SortDirection.ASC);
   const defaultFindListOptions = new FindListOptions();
 
   beforeEach(() => {
@@ -39,7 +39,6 @@ describe('PaginationService', () => {
     service = new PaginationService(routeService, router);
   });
 
-
   describe('getCurrentPagination', () => {
     it('should retrieve the current pagination info from the routerService', () => {
       service.getCurrentPagination('test-id', defaultPagination).subscribe((currentPagination) => {
@@ -54,6 +53,26 @@ describe('PaginationService', () => {
     it('should retrieve the current sort info from the routerService', () => {
       service.getCurrentSort('test-id', defaultSort).subscribe((currentSort) => {
         expect(currentSort).toEqual(Object.assign(new SortOptions('score', SortDirection.ASC )));
+      });
+    });
+    it('should return default sort when no sort specified', () => {
+      // This is same as routeService (defined above), but returns no sort field or direction
+      routeService = {
+        getQueryParameterValue: (param) => {
+          let value;
+          if (param.endsWith('.page')) {
+            value = 5;
+          }
+          if (param.endsWith('.rpp')) {
+            value = 10;
+          }
+          return observableOf(value);
+        }
+      };
+      service = new PaginationService(routeService, router);
+
+      service.getCurrentSort('test-id', defaultSort).subscribe((currentSort) => {
+        expect(currentSort).toEqual(defaultSort);
       });
     });
   });
@@ -101,6 +120,17 @@ describe('PaginationService', () => {
 
       expect(router.navigate).toHaveBeenCalledWith([], {queryParams: navigateParams, queryParamsHandling: 'merge'});
     });
+    it('should pass on navigationExtras to router.navigate', () => {
+      service.updateRoute('test', {page: 2}, undefined, undefined, { queryParamsHandling: 'preserve', replaceUrl: true, preserveFragment: true });
+
+      const navigateParams = {};
+      navigateParams[`test.page`] = `2`;
+      navigateParams[`test.rpp`] = `10`;
+      navigateParams[`test.sf`] = `score`;
+      navigateParams[`test.sd`] = `ASC`;
+
+      expect(router.navigate).toHaveBeenCalledWith([], {queryParams: navigateParams, queryParamsHandling: 'preserve', replaceUrl: true, preserveFragment: true });
+    });
   });
   describe('updateRouteWithUrl', () => {
     it('should update the route with the provided page params and url', () => {
@@ -125,7 +155,17 @@ describe('PaginationService', () => {
 
       expect(router.navigate).toHaveBeenCalledWith(['someUrl'], {queryParams: navigateParams, queryParamsHandling: 'merge'});
     });
+    it('should pass on navigationExtras to router.navigate', () => {
+      service.updateRouteWithUrl('test',['someUrl'], {page: 2}, undefined, undefined, { queryParamsHandling: 'preserve', replaceUrl: true, preserveFragment: true });
 
+      const navigateParams = {};
+      navigateParams[`test.page`] = `2`;
+      navigateParams[`test.rpp`] = `10`;
+      navigateParams[`test.sf`] = `score`;
+      navigateParams[`test.sd`] = `ASC`;
+
+      expect(router.navigate).toHaveBeenCalledWith(['someUrl'], {queryParams: navigateParams, queryParamsHandling: 'preserve', replaceUrl: true, preserveFragment: true });
+    });
   });
   describe('clearPagination', () => {
     it('should clear the pagination next time the updateRoute/updateRouteWithUrl method is called', () => {

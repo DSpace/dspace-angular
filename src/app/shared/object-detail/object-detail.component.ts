@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -67,9 +60,24 @@ export class ObjectDetailComponent {
   @Input() context: Context;
 
   /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics = true;
+
+  /**
    * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
    */
   @Input() showPaginator = true;
+
+  /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
+
+  /**
+   * Emit when one of the listed object has changed.
+   */
+  @Output() contentChange = new EventEmitter<any>();
 
   /**
    * If showPaginator is set to true, emit when the previous button is clicked

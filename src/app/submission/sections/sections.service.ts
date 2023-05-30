@@ -5,7 +5,9 @@ import { distinctUntilChanged, filter, map, mergeMap, take } from 'rxjs/operator
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
-import { findIndex, findKey, isEqual } from 'lodash';
+import findIndex from 'lodash/findIndex';
+import findKey from 'lodash/findKey';
+import isEqual from 'lodash/isEqual';
 
 import { SubmissionState } from '../submission.reducers';
 import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
@@ -19,9 +21,7 @@ import {
   UpdateSectionDataAction
 } from '../objects/submission-objects.actions';
 import {
-  SubmissionObjectEntry,
-  SubmissionSectionError,
-  SubmissionSectionObject
+  SubmissionObjectEntry
 } from '../objects/submission-objects.reducer';
 import {
   submissionObjectFromIdSelector,
@@ -43,6 +43,8 @@ import { parseReviver } from '@ng-dynamic-forms/core';
 import { FormService } from '../../shared/form/form.service';
 import { JsonPatchOperationPathCombiner } from '../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { FormError } from '../../shared/form/form.reducer';
+import { SubmissionSectionObject } from '../objects/submission-section-object.model';
+import { SubmissionSectionError } from '../objects/submission-section-error.model';
 import { SubmissionVisibility } from '../utils/visibility.util';
 
 /**
@@ -61,11 +63,11 @@ export class SectionsService {
    * @param {TranslateService} translate
    */
   constructor(private formService: FormService,
-              private notificationsService: NotificationsService,
-              private scrollToService: ScrollToService,
-              private submissionService: SubmissionService,
-              private store: Store<SubmissionState>,
-              private translate: TranslateService) {
+    private notificationsService: NotificationsService,
+    private scrollToService: ScrollToService,
+    private submissionService: SubmissionService,
+    private store: Store<SubmissionState>,
+    private translate: TranslateService) {
   }
 
   /**
@@ -198,7 +200,7 @@ export class SectionsService {
                 path: pathCombiner.getPath(error.fieldId.replace(/\_/g, '.')).path,
                 message: error.message
               } as SubmissionSectionError))
-              .filter((sectionError: SubmissionSectionError) => findIndex(state.errorsToShow, {path: sectionError.path}) === -1);
+              .filter((sectionError: SubmissionSectionError) => findIndex(state.errorsToShow, { path: sectionError.path }) === -1);
             return [...state.errorsToShow, ...sectionErrors];
           })
         ))
@@ -263,7 +265,7 @@ export class SectionsService {
         }
       }),
       distinctUntilChanged()
-      );
+    );
   }
 
   /**
@@ -359,6 +361,32 @@ export class SectionsService {
   }
 
   /**
+   * Check if a given section type is a read only section
+   *
+   * @param submissionId
+   *    The submission id
+   * @param sectionType
+   *    The section type
+   * @param submissionScope
+   *    The submission scope
+   * @return Observable<boolean>
+   *    Emits true whenever a given section should be read only
+   */
+  public isSectionReadOnlyByType(submissionId: string, sectionType: SectionsType, submissionScope: SubmissionScopeType): Observable<boolean> {
+    return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
+      filter((submissionState: SubmissionObjectEntry) => isNotUndefined(submissionState)),
+      map((submissionState: SubmissionObjectEntry) => {
+        const key = findKey(submissionState.sections, {sectionType: sectionType});
+
+        return submissionState.sections[key];
+      }),
+      map((sectionObj: SubmissionSectionObject) => {
+        return sectionObj ? SubmissionVisibility.isReadOnly(sectionObj.visibility, submissionScope) : true;
+      }),
+      distinctUntilChanged());
+  }
+
+  /**
    * Check if a given section id is present in the list of sections
    *
    * @param submissionId
@@ -391,7 +419,7 @@ export class SectionsService {
     return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
       filter((submissionState: SubmissionObjectEntry) => isNotUndefined(submissionState)),
       map((submissionState: SubmissionObjectEntry) => {
-        return isNotUndefined(submissionState.sections) && isNotUndefined(findKey(submissionState.sections, {sectionType: sectionType}));
+        return isNotUndefined(submissionState.sections) && isNotUndefined(findKey(submissionState.sections, { sectionType: sectionType }));
       }),
       distinctUntilChanged());
   }
@@ -532,6 +560,18 @@ export class SectionsService {
       });
     }
     return metadata;
+  }
+
+  /**
+   * Return if the section is an informational type section.
+   * @param sectionType
+   */
+  public getIsInformational(sectionType: SectionsType): boolean {
+    if (sectionType === SectionsType.SherpaPolicies) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

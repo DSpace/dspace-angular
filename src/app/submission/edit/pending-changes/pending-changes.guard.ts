@@ -7,10 +7,6 @@ import { switchMap } from 'rxjs/operators';
 import { SubmissionEditCanDeactivateService } from '../submission-edit-can-deactivate.service';
 import { ThemedSubmissionEditComponent } from '../themed-submission-edit.component';
 
-export interface PendingChangesGuardComponentInterface {
-  canDeactivate: (id: string) => boolean | Observable<boolean>;
-}
-
 @Injectable({
   providedIn: 'root'
 })

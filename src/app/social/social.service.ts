@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+
+import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
+import { distinctUntilChanged, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
+
 import { environment } from '../../environments/environment';
 import { CookieService } from '../core/services/cookie.service';
-import { distinctUntilChanged, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '../core/auth/auth.service';
-import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 
 export const APP_THIS_ID_SELECTOR = '#at4-share';
 
@@ -29,7 +31,7 @@ export class SocialService {
   }
 
   initializeAddThisScript(_document: Document): any {
-    // console.log('Initializing the addThisCookie script');
+    // Initializing the addThisCookie script
     const script = _document.createElement('script');
     script.type = 'text/javascript';
     script.src = environment.addThisPlugin.scriptUrl + environment.addThisPlugin.siteId;
@@ -37,22 +39,21 @@ export class SocialService {
   }
 
   hide(_document: Document) {
-    // console.log('Hiding social buttons');
+    // Hiding social buttons
     const socialButtons: HTMLElement = _document.querySelector(APP_THIS_ID_SELECTOR);
     if (socialButtons) {
-      // console.log('HTML Element found, setting display to none');
+      // HTML Element found, setting display to none
       socialButtons.style.display = 'none';
     }
   }
 
   show(_document: Document) {
-    // console.log('Showing social buttons');
+    // Showing social buttons
     const socialButtons: HTMLElement = _document.querySelector(APP_THIS_ID_SELECTOR);
     if (socialButtons) {
-      // console.log('HTML Element found, setting display to block');
+      // HTML Element found, setting display to block
       socialButtons.style.display = 'block';
     }
-    // console.error('No HTML Elements to show');
   }
 
   protected initialize(activatedRoute: ActivatedRoute) {
@@ -89,7 +90,6 @@ export class SocialService {
 
     // Listen to every cookies / user state changes and evaluate sharing state
     combineLatest([cookies$, userUUId$]).subscribe(([cookieMap, userUUID]) => {
-      // console.log('COOKIE/USER change detected. Evaluating.', cookieMap, userUUID);
       this.evaluateShowHide(cookieMap, userUUID);
     });
 
@@ -119,17 +119,10 @@ export class SocialService {
   }
 
   protected isAddThisCookieEnabled(cookieMap, userUUID) {
-    // console.log(cookieMap, userUUID);
-    // if (userUUID) {
-    //   console.log('The user is authenticated, checking klaro-' + userUUID);
-    // } else {
-    //   console.log('The user is not authenticated, checking klaro-anonymous');
-    // }
     const cookie = userUUID ? this.cookie.get('klaro-' + userUUID) : this.cookie.get('klaro-anonymous');
     const addThisCookie = cookie ? cookie['add-this'] : false;
-    // console.log('AddThisCookie is ' + addThisCookie);
+
     return addThisCookie;
   }
-
 
 }

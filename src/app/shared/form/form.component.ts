@@ -11,7 +11,7 @@ import {
   DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { findIndex } from 'lodash';
+import findIndex from 'lodash/findIndex';
 
 import { FormBuilderService } from './builder/form-builder.service';
 import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';

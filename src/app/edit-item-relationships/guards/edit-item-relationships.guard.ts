@@ -2,15 +2,12 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { isNotEmpty } from '../../shared/empty.util';
 
 import { EditItemDataService } from '../../core/submission/edititem-data.service';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload, getPaginatedListPayload } from '../../core/shared/operators';
-import { EditItem } from '../../core/submission/models/edititem.model';
+import { getAllSucceededRemoteDataPayload, getPaginatedListPayload } from '../../core/shared/operators';
 import { AuthService, LOGIN_ROUTE } from '../../core/auth/auth.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
 import { EditItemMode } from '../../core/submission/models/edititem-mode.model';
 
 /**

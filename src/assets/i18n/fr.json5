@@ -36,6 +36,21 @@
   // "404.page-not-found": "page not found",
   "404.page-not-found": "Page introuvable",
 
+  // "access-status.embargo.listelement.badge": "Embargo",
+  "access-status.embargo.listelement.badge": "Restriction temporaire",
+
+  // "access-status.metadata.only.listelement.badge": "Metadata only",
+  "access-status.metadata.only.listelement.badge": "Métadonnées seulement",
+
+  // "access-status.open.access.listelement.badge": "Open Access",
+  "access-status.open.access.listelement.badge": "Accès libre",
+
+  // "access-status.restricted.listelement.badge": "Restricted",
+  "access-status.restricted.listelement.badge": "Restreint",
+
+  // "access-status.unknown.listelement.badge": "Unknown",
+  "access-status.unknown.listelement.badge": "Inconnu",
+
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
   "admin.curation-tasks.breadcrumbs": "Tâches de conservation système",
 
@@ -161,6 +176,8 @@
 
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Nom",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.id" : "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
   "admin.registries.bitstream-formats.table.return": "Retour",
@@ -236,6 +253,8 @@
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Champ",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.id" : "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Note d'application",
@@ -736,13 +755,13 @@
   "administrativeView.search.results.head": "Recherche Administrateur",
 
   // "admin.workflow.breadcrumbs": "Administer Workflow",
-  "admin.workflow.breadcrumbs": "Gestion des soumissions en Workflow",
+  "admin.workflow.breadcrumbs": "Gestion des soumissions en traitement",
 
   // "admin.workflow.title": "Administer Workflow",
-  "admin.workflow.title": "Gestion des soumissions en Workflow",
+  "admin.workflow.title": "Gestion des soumissions en traitement",
 
   // "admin.workflow.item.workflow": "Workflow",
-  "admin.workflow.item.workflow": "Workflow",
+  "admin.workflow.item.workflow": "En traitement",
 
   // "admin.workflow.item.delete": "Delete",
   "admin.workflow.item.delete": "Supprimer",
@@ -884,8 +903,8 @@
 
   // "bitstream-request-a-copy.header": "Request a copy of the file",
   "bitstream-request-a-copy.header": "Demander une copie du fichier",
-
-  // "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
+  
+   // "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
   "bitstream-request-a-copy.intro": "Entrer les informations suivantes pour demander une copie de l'élément suivant : ",
 
   // "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
@@ -928,7 +947,7 @@
   "bitstream-request-a-copy.submit": "Demander une copie",
 
   // "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
-  "bitstream-request-a-copy.submit.success": "La demande d'Item a été soumise avec succès.",
+  "bitstream-request-a-copy.submit.success": "Votre demande de copie a été envoyée avec succès.",
 
   // "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
   "bitstream-request-a-copy.submit.error": "Un problème est survenu lors de la soumission de la demande d'Item",
@@ -1200,6 +1219,17 @@
   // "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
   "collection.edit.tabs.authorizations.title": "Édition de collection - Autorisations",
 
+   //"collection.edit.item.authorizations.load-bundle-button": "Load more bundles",
+  "collection.edit.item.authorizations.load-bundle-button": "Charger plus de Bundles",
+  
+  //"collection.edit.item.authorizations.load-more-button": "Load more",
+  "collection.edit.item.authorizations.load-more-button": "Charger plus",
+  
+  //"collection.edit.item.authorizations.show-bitstreams-button": "Show bitstream policies for bundle",
+  "collection.edit.item.authorizations.show-bitstreams-button": "Afficher les politiques de Bitstream pour le Bundle",
+
+  
+  
   // "collection.edit.tabs.metadata.head": "Edit Metadata",
   "collection.edit.tabs.metadata.head": "Éditer les Métadonnées",
 
@@ -1780,7 +1810,7 @@
   "curation.form.handle.hint": "Aide : Saisir [votre-préfixe-handle]/0 afin de lancer une tâche de conservation sur l'entièreté du site (ceci peut ne pas être supporté pour toutes les tâches)",
 
   // "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
-  "deny-request-copy.email.message": "Cher {{ recipientName }},\NEn réponse à votre demande, j'ai le regret de vous informer qu'il n'est pas possible de vous envoyer une copie du ou des fichiers que vous avez demandés, concernant le document : \"{{ itemUrl }}\" ({{ itemName }}), dont je suis l'auteur(e).\n\nCordialement,\n{{ authorName }} <{{ auteurEmail }}>",
+  "deny-request-copy.email.message": "Bonjour {{ recipientName }},\nEn réponse à votre demande, j'ai le regret de vous informer qu'il nous est impossible de vous envoyer une copie du document que vous avez demandé: ({{ itemName }})  \"{{ itemUrl }}\".\n\nCordialement,\n{{ authorName }} <{{ auteurEmail }}>",
 
   // "deny-request-copy.email.subject": "Request copy of document",
   "deny-request-copy.email.subject": "Demander une copie du document",
@@ -2781,8 +2811,8 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Gérer les collections associées",
 
-  // "item.edit.tabs.status.buttons.move.button": "Move...",
-  "item.edit.tabs.status.buttons.move.button": "Déplacer...",
+  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
+  "item.edit.tabs.status.buttons.move.button": "Déplacer cet élément vers une autre collection",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
   "item.edit.tabs.status.buttons.move.label": "Déplacer l'Item dans une autre collection",
@@ -2808,8 +2838,8 @@
   // "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
   "item.edit.tabs.status.buttons.unauthorized": "Vous n'êtes pas autorisé à effectuer cette action",
 
-  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  "item.edit.tabs.status.buttons.withdraw.button": "Retirer...",
+  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
+  "item.edit.tabs.status.buttons.withdraw.button": "Retirer cet article",
 
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
   "item.edit.tabs.status.buttons.withdraw.label": "Retirer l'Item du dépôt",
@@ -2894,6 +2924,13 @@
 
   // "item.search.title": "Item Search",
   "item.search.title": "Recherche d'Items",
+  
+  // "item.truncatable-part.show-more": "Show more",
+  "item.truncatable-part.show-more": "Voir plus",
+
+  //"item.truncatable-part.show-less": "Collapse",
+  "item.truncatable-part.show-less": "Réduire",
+  
 
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Résumé",
@@ -3476,6 +3513,9 @@
 
   // "menu.section.export_metadata": "Metadata",
   "menu.section.export_metadata": "Métadonnées",
+  
+  // "menu.section.export_batch": "Batch Export (ZIP)",
+  "menu.section.export_batch": "Exporter en lot (ZIP)",
 
   // "menu.section.icon.access_control": "Access Control menu section",
   "menu.section.icon.access_control": "Section du menu relative au contrôle d'accès",
@@ -3557,6 +3597,9 @@
 
   // "menu.section.processes": "Processes",
   "menu.section.processes": "Processus",
+  
+  // "menu.section.health": "Health",
+  "menu.section.health": "Santé du système",
 
   // "menu.section.registries": "Registries",
   "menu.section.registries": "Registres",
@@ -3611,9 +3654,6 @@
 
   // "mydspace.description": "",
   "mydspace.description": "",
-
-  // "mydspace.general.text-here": "here",
-  "mydspace.general.text-here": "ici",
 
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
   "mydspace.messages.controller-help": "Sélectionner cette option pour envoyer un message au déposant.",
@@ -3694,7 +3734,7 @@
   "mydspace.search-form.placeholder": "Rechercher dans mon compte DSpace...",
 
   // "mydspace.show.workflow": "Workflow tasks",
-  "mydspace.show.workflow": "Tâches du Workflow",
+  "mydspace.show.workflow": "Tableau de suivi",
 
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Vos dépôts",
@@ -3709,10 +3749,10 @@
   "mydspace.status.waiting-for-controller": "En attente d'assignation",
 
   // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Workflow",
+  "mydspace.status.workflow": "En traitement",
 
   // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Espace de travail",
+  "mydspace.status.workspace": "Dépôts en cours",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "Mon compte DSpace",
@@ -3728,9 +3768,6 @@
 
   // "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
   "mydspace.upload.upload-multiple-successful": "{{qty}} nouveaux Items créés dans l'espace de travail.",
-
-  // "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
-  "mydspace.upload.upload-successful": "Nouvel item créé dans l'espace de travail. Cliquer {{here}} pour l'éditer.",
 
   // "mydspace.view-btn": "View",
   "mydspace.view-btn": "Afficher",
@@ -3986,6 +4023,32 @@
 
   // "process.overview.new": "New",
   "process.overview.new": "Nouveau",
+  
+   // "process.overview.table.actions": "Actions",
+   "process.overview.table.actions": "Actions",
+  
+  // "process.overview.delete": "Delete {{count}} processes",
+  "process.overview.delete": "Supprimer {{count}} processus",
+
+  // "process.overview.delete.processing": "{{count}} process(es) are being deleted. Please wait for the deletion to fully complete. Note that this can take a while.",
+  "process.overview.delete.processing": "{{count}} processus sont en train d'être supprimés. Patientez jusqu'à ce que la suppression soit terminée. Notez que cela peut prendre un certain temps.",
+
+  // "process.overview.delete.body": "Are you sure you want to delete {{count}} process(es)?",
+  "process.overview.delete.body": "Êtes-vous certain-e de vouloir supprimer {{count}} processus?",
+
+  // "process.overview.delete.header": "Delete processes",
+  "process.overview.delete.header": "Supprimer les processus",
+
+  // "process.bulk.delete.error.head": "Error on deleteing process",
+  "process.bulk.delete.error.head": "Erreur lors de la suppression de processus",
+
+  // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
+  "process.bulk.delete.error.body": "Le processus numéro {{processId}} n'a pu être supprimé. Les processus restants continueront à être supprimés. ",
+
+  // "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+  "process.bulk.delete.success": "{{count}} processus ont été supprimés.",
+
+ 
 
   // "profile.breadcrumbs": "Update Profile",
   "profile.breadcrumbs": "Mise à jour profil",
@@ -4793,6 +4856,9 @@
 
   // "default.search.results.head": "Search Results",
   "default.search.results.head": "Résultats de recherche",
+  
+  // "default-relationships.search.results.head": "Search Results",
+   "default-relationships.search.results.head": "Résultats de recherche",
 
   // "search.sidebar.close": "Back to results",
   "search.sidebar.close": "Retour aux résultats",
@@ -4985,6 +5051,30 @@
 
   // "submission.import-external.source.arxiv": "arXiv",
   "submission.import-external.source.arxiv": "arXiv",
+  
+   // "submission.import-external.source.ads": "NASA/ADS",
+  "submission.import-external.source.ads": "NASA/ADS",
+
+  // "submission.import-external.source.cinii": "CiNii",
+  "submission.import-external.source.cinii": "CiNii",
+
+  // "submission.import-external.source.crossref": "CrossRef",
+  "submission.import-external.source.crossref": "CrossRef (DOI)",
+
+  // "submission.import-external.source.scielo": "SciELO",
+  "submission.import-external.source.scielo": "SciELO",
+
+  // "submission.import-external.source.scopus": "Scopus",
+  "submission.import-external.source.scopus": "Scopus",
+
+  // "submission.import-external.source.vufind": "VuFind",
+  "submission.import-external.source.vufind": "VuFind",
+
+  // "submission.import-external.source.wos": "Web Of Science",
+  "submission.import-external.source.wos": "Web Of Science",
+
+  // "submission.import-external.source.orcidWorks": "ORCID",
+   "submission.import-external.source.orcidWorks": "ORCID",
 
   // "submission.import-external.source.loading": "Loading ...",
   "submission.import-external.source.loading": "En cours de chargement ...",
@@ -5006,6 +5096,9 @@
 
   // "submission.import-external.source.pubmed": "Pubmed",
   "submission.import-external.source.pubmed": "Pubmed",
+  
+  // "submission.import-external.source.pubmedeu": "Pubmed Europe",
+  "submission.import-external.source.pubmedeu": "Pubmed Europe",
 
   // "submission.import-external.source.lcname": "Library of Congress Names",
   "submission.import-external.source.lcname": "Autorités de noms de la Bibliothèque du Congrès",
@@ -5577,7 +5670,7 @@
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
   "submission.sections.upload.header.policy.default.withlist": "Veuillez noter que, en complément des accès spécifiquement accordés pour le fichier, les fichiers téléchargés dans la collection {{collectionName}} seront accessibles par défaut au(x) groupe(s) suivant(s) :",
 
-  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "Vous trouverez ici tous les fichiers actuellement associés à l'Item. Vous pouvez éditer les métadonnés et les niveaux d'accès de ce(s) fichier(s) ou <strong>télécharger des fichiers complémentaires simplement en les glissant n'importe où sur cette page</strong>",
 
   // "submission.sections.upload.no-entry": "No",
@@ -5643,6 +5736,95 @@
   // "submission.sections.accesses.form.until-placeholder": "Until",
   "submission.sections.accesses.form.until-placeholder": "Jusqu'au",
 
+  
+  // "submission.sections.license.granted-label": "I confirm the license above",
+  "submission.sections.license.granted-label": "J'approuve la licence ci-dessus",
+  
+  // "submission.sections.license.required": "You must accept the license",
+  "submission.sections.license.required": "Vous devez accepter la licence",
+  
+  // "submission.sections.license.notgranted":  "You must accept the license",
+  "submission.sections.license.notgranted":  "Vous devez accepter la licence",
+ 
+  // "submission.sections.sherpa.publication.information": "Publication information",
+  "submission.sections.sherpa.publication.information": "Information sur la publication",
+
+  // "submission.sections.sherpa.publication.information.title": "Title",
+  "submission.sections.sherpa.publication.information.title": "Titre",
+
+  // "submission.sections.sherpa.publication.information.issns": "ISSNs",
+  "submission.sections.sherpa.publication.information.issns": "ISSNs",
+
+  // "submission.sections.sherpa.publication.information.url": "URL",
+   "submission.sections.sherpa.publication.information.url": "URL",
+
+  // "submission.sections.sherpa.publication.information.publishers": "Publisher",
+  "submission.sections.sherpa.publication.information.publishers": "Éditeur",
+
+  // "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
+  "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
+
+  // "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
+  "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
+
+  // "submission.sections.sherpa.publisher.policy": "Publisher Policy",
+  "submission.sections.sherpa.publisher.policy": "Politique de l'éditeur",
+
+  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
+  "submission.sections.sherpa.publisher.policy.description": "L'information ci-dessous provient de Sherpa Romeo. Elle vous permet de savoir quelle version vous êtes autorisé-e à déposer et si une restriction de diffusion (embargo) doit être appliquée. Si vous avez des questions, contactez votre administrateur-trice en utilisant le formulaire en pied de page.",
+
+  // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
+  "submission.sections.sherpa.publisher.policy.openaccess": "Les voies de libre accès autorisées par la politique de cette revue sont listées ci-dessous par version d'article. Cliquez sur l'une des voies pour plus de détails.",
+
+  // "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
+  "submission.sections.sherpa.publisher.policy.more.information": "Pour plus d'information, cliquez sur le lien suivant :",
+
+  // "submission.sections.sherpa.publisher.policy.version": "Version",
+  "submission.sections.sherpa.publisher.policy.version": "Version",
+
+  // "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
+  "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
+
+  // "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
+  "submission.sections.sherpa.publisher.policy.noembargo": "Aucun embargo",
+
+  // "submission.sections.sherpa.publisher.policy.nolocation": "None",
+  "submission.sections.sherpa.publisher.policy.nolocation": "Aucun",
+
+  // "submission.sections.sherpa.publisher.policy.license": "License",
+  "submission.sections.sherpa.publisher.policy.license": "Licence",
+
+  // "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
+  "submission.sections.sherpa.publisher.policy.prerequisites": "Prérequis",
+
+  // "submission.sections.sherpa.publisher.policy.location": "Location",
+  "submission.sections.sherpa.publisher.policy.location": "Lieu",
+
+  // "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
+  "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
+
+  // "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
+  "submission.sections.sherpa.publisher.policy.refresh": "Rafraîchir",
+
+  // "submission.sections.sherpa.record.information": "Record Information",
+  "submission.sections.sherpa.record.information": "Information",
+
+  // "submission.sections.sherpa.record.information.id": "ID",
+  "submission.sections.sherpa.record.information.id": "ID",
+
+  // "submission.sections.sherpa.record.information.date.created": "Date Created",
+  "submission.sections.sherpa.record.information.date.created": "Date de création",
+
+  // "submission.sections.sherpa.record.information.date.modified": "Last Modified",
+  "submission.sections.sherpa.record.information.date.modified": "Dernière modification",
+
+  // "submission.sections.sherpa.record.information.uri": "URI",
+  "submission.sections.sherpa.record.information.uri": "URI",
+
+  // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
+  "submission.sections.sherpa.error.message": "Une erreur s'est produite lors de la recherche d'infomation dans Sherpa.",
+  
+  
   // "submission.submit.breadcrumbs": "New submission",
   "submission.submit.breadcrumbs": "Nouvelle soumission",
 
@@ -5726,6 +5908,12 @@
 
   // "submission.workflow.tasks.pool.show-detail": "Show detail",
   "submission.workflow.tasks.pool.show-detail": "Afficher le détail",
+  
+  // "submission.workspace.generic.view": "View",
+  "submission.workspace.generic.view": "Voir",
+
+  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+  "submission.workspace.generic.view-help": "Sélectionner cette option pour voir les métadonnées de l'item.",
 
   // "thumbnail.default.alt": "Thumbnail Image",
   "thumbnail.default.alt": "Vignette d'image",
@@ -5787,7 +5975,8 @@
   // "uploader.or": ", or ",
   "uploader.or": ", ou ",
 
-  // "uploader.processing": "Processing",
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
+  // TODO Source message changed - Revise the translation
   "uploader.processing": "En cours de traitement",
 
   // "uploader.queue-length": "Queue length",
@@ -5809,7 +5998,7 @@
   "workflowAdmin.search.results.head": "Workflow Administrateur",
 
   // "workflow.search.results.head": "Workflow tasks",
-  "workflow.search.results.head": "tâches du Workflow",
+  "workflow.search.results.head": "Tableau de suivi",
 
   // "workflow-item.edit.breadcrumbs": "Edit workflowitem",
   "workflow-item.edit.breadcrumbs": "Éditer l'Item du Workflow",
@@ -5865,8 +6054,14 @@
   // "workflow-item.send-back.button.confirm": "Send back",
   "workflow-item.send-back.button.confirm": "Renvoyer",
 
-  // "workflow-item.view.breadcrumbs": "Workflow View",
+   // "workflow-item.view.breadcrumbs": "Workflow View",
   "workflow-item.view.breadcrumbs": "Vue d'ensemble du Workflow",
+
+  // "workspace-item.view.breadcrumbs": "Workspace View",
+  "workspace-item.view.breadcrumbs": "Vue du tableau de suivi",
+
+  // "workspace-item.view.title": "Workspace View",
+  "workspace-item.view.title": "Vue du tableau de suivi",
 
   // "idle-modal.header": "Session will expire soon",
   "idle-modal.header": "La session expirera bientôt",

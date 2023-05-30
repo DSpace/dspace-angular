@@ -177,6 +177,8 @@
 
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Name",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.id" : "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Return",
   "admin.registries.bitstream-formats.table.return": "Zurück",
@@ -193,8 +195,8 @@
   // "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
   "admin.registries.bitstream-formats.table.supportLevel.head": "Unterstützungsgrad",
 
-  // "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
-  "admin.registries.bitstream-formats.title": "DSpace Angular :: Referenzliste der Dateiformate",
+  // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
+  "admin.registries.bitstream-formats.title": "Referenzliste der Dateiformate",
 
 
 
@@ -234,8 +236,8 @@
   // "admin.registries.metadata.schemas.table.namespace": "Namespace",
   "admin.registries.metadata.schemas.table.namespace": "Namensraum",
 
-  // "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
-  "admin.registries.metadata.title": "DSpace Angular :: Metadatenreferenzliste",
+  // "admin.registries.metadata.title": "Metadata Registry",
+  "admin.registries.metadata.title": "Metadatenreferenzliste",
 
 
 
@@ -252,10 +254,12 @@
   "admin.registries.schema.fields.no-items": "Es gibt keine Metadatenfelder in diesem Schema.",
 
   // "admin.registries.schema.fields.table.delete": "Delete selected",
-  "admin.registries.schema.fields.table.delete": "Ausgewähltes löschen",
+  "admin.registries.schema.fields.table.delete": "Auswahl löschen",
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Feld",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.id" : "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Gültigkeitsbereich",
@@ -311,8 +315,8 @@
   // "admin.registries.schema.return": "Return",
   "admin.registries.schema.return": "Zurück",
 
-  // "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
-  "admin.registries.schema.title": "DSpace Angular :: Referenzliste der Metadatenschemata",
+  // "admin.registries.schema.title": "Metadata Schema Registry",
+  "admin.registries.schema.title": "Referenzliste der Metadatenschemata",
 
 
 
@@ -328,8 +332,8 @@
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
   "admin.access-control.epeople.actions.stop-impersonating": "Von Person ausloggen",
 
-  // "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
-  "admin.access-control.epeople.title": "DSpace Angular :: Personen",
+  // "admin.access-control.epeople.title": "EPeople",
+  "admin.access-control.epeople.title": "Personen",
 
   // "admin.access-control.epeople.head": "EPeople",
   "admin.access-control.epeople.head": "Personen",
@@ -444,14 +448,14 @@
 
 
 
-  // "admin.access-control.groups.title": "DSpace Angular :: Groups",
-  "admin.access-control.groups.title": "DSpace Angular :: Gruppen",
+  // "admin.access-control.groups.title": "Groups",
+  "admin.access-control.groups.title": "Gruppen",
 
-  // "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
-  "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Gruppe bearbeiten",
+  // "admin.access-control.groups.title.singleGroup": "Edit Group",
+  "admin.access-control.groups.title.singleGroup": "Gruppe bearbeiten",
 
-  // "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
-  "admin.access-control.groups.title.addGroup": "DSpace Angular :: Neue Gruppe",
+  // "admin.access-control.groups.title.addGroup": "New Group",
+  "admin.access-control.groups.title.addGroup": "Neue Gruppe",
 
   // "admin.access-control.groups.head": "Groups",
   "admin.access-control.groups.head": "Gruppen",
@@ -895,6 +899,8 @@
   "bitstream.edit.title": "Datei bearbeiten",
 
 
+  // "browse.back.all-results": "All browse results",
+  "browse.back.all-results": "Filter zurücksetzen",
 
   // "browse.comcol.by.author": "By Author",
   "browse.comcol.by.author": "Nach Autor:in",
@@ -1007,8 +1013,11 @@
   // "browse.startsWith.type_text": "Or enter first few letters:",
   "browse.startsWith.type_text": "Oder geben Sie die ersten Buchstaben ein:",
 
-  // "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
-  "browse.title": "Auflistung von {{ collection }} nach {{ field }} {{ value }}",
+  // "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
+  "browse.title": "Auflistung {{ collection }} nach {{ field }}{{ startsWith }} {{ value }}",
+
+  // "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
+  "browse.title.page": "Auflistung {{ collection }} nach {{ field }} {{ value }}",
 
 
   // "chips.remove": "Remove chip",
@@ -1355,8 +1364,11 @@
   // "community.edit.logo.delete.title": "Delete logo",
   "community.edit.logo.delete.title": "Logo löschen",
 
-  // "communityList.tabTitle": "DSpace - Community List",
-  "communityList.tabTitle": "DSpace - Bereichsliste",
+  // "communityList.breadcrumbs": "Community List",
+  "communityList.breadcrumbs": "Bereichsliste",
+
+  // "communityList.tabTitle": "Community List",
+  "communityList.tabTitle": "Bereichsliste",
 
   // "communityList.title": "List of Communities",
   "communityList.title": "Liste der Bereiche",
@@ -1373,7 +1385,7 @@
   "community.create.notifications.success": "Bereich erfolgreich angelegt",
 
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
-  "community.create.sub-head": "Teilbeirech im Bereich {{ parent }} anlegen",
+  "community.create.sub-head": "Teilbereich im Bereich {{ parent }} anlegen",
 
   // "community.curate.header": "Curate Community: {{community}}",
   "community.curate.header": "Bereich: {{community}} pflegen",
@@ -1560,7 +1572,7 @@
   "community.form.errors.title.required": "Bitte geben Sie einen Namen für den Bereich ein.",
 
   // "community.form.rights": "Copyright text (HTML)",
-  "community.form.rights": "Copyrighterklärung (HTML)",
+  "community.form.rights": "Copyright Text (HTML)",
 
   // "community.form.tableofcontents": "News (HTML)",
   "community.form.tableofcontents": "Neuigkeiten (HTML)",
@@ -1753,7 +1765,7 @@
   "dso-selector.create.community.sub-level": "Einen neuen Bereich anlegen in",
 
   // "dso-selector.create.community.top-level": "Create a new top-level community",
-  "dso-selector.create.community.top-level": "Einen neuen Bereich auf oberster Ebene anlgen",
+  "dso-selector.create.community.top-level": "Einen neuen Bereich auf oberster Ebene anlegen",
 
   // "dso-selector.create.item.head": "New item",
   "dso-selector.create.item.head": "Neues Item",
@@ -1781,6 +1793,18 @@
 
   // "dso-selector.placeholder": "Search for a {{ type }}",
   "dso-selector.placeholder": "Suche nach {{ type }}",
+
+  // "dso-selector.select.collection.head": "Select a collection",
+  "dso-selector.select.collection.head": "Sammlung auswählen",
+
+  // "dso-selector.set-scope.community.head": "Select a search scope",
+  "dso-selector.set-scope.community.head": "Suchbereich auswählen",
+
+  // "dso-selector.set-scope.community.button": "Search all of DSpace",
+  "dso-selector.set-scope.community.button": "Alles durchsuchen",
+
+  // "dso-selector.set-scope.community.input-header": "Search for a community or collection",
+  "dso-selector.set-scope.community.input-header": "Suche Bereich oder Sammlung",
 
 
 
@@ -1876,7 +1900,7 @@
   "error.validation.groupExists": "Diese Gruppe existiert schon.",
 
   // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.notgranted": "Um die Veröffentlichung abzuschließen, müssen Sie die Lizenzbedingungen akzeptieren. Wenn Sie zur Zeit dazu nicht in der Lage sind, können Sie Ihre Arbeit sichern und später dazu zurückgkehren, um zuzustimmen oder die Einreichung zu löschen.",
+  "error.validation.license.notgranted": "Um die Veröffentlichung abzuschließen, müssen Sie die Lizenzbedingungen akzeptieren. Wenn Sie zur Zeit dazu nicht in der Lage sind, können Sie Ihre Arbeit sichern und später dazu zurückkehren, um zuzustimmen oder die Einreichung zu löschen.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "Die Eingabe muss dem folgenden Muster entsprechen: {{ pattern }}.",
@@ -1958,8 +1982,8 @@
   // "forgot-password.form.head": "Forgot Password",
   "forgot-password.form.head": "Passwort vergessen",
 
-  // "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  "forgot-password.form.info": "Bitte geben Sie ein neues Passwort (mindestens sechs Zeichen) ein und bestätigen Sie es erneut.",
+  // "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box.",
+  "forgot-password.form.info": "Bitte geben Sie ein neues Passwort ein und bestätigen Sie es erneut.",
 
   // "forgot-password.form.card.security": "Security",
   "forgot-password.form.card.security": "Sicherheit",
@@ -2127,8 +2151,8 @@
   // "home.search-form.placeholder": "Search the repository ...",
   "home.search-form.placeholder": "Durchsuche Repositorium",
 
-  // "home.title": "DSpace Angular :: Home",
-  "home.title": "DSpace Angular :: Startseite",
+  // "home.title": "Home",
+  "home.title": "Startseite",
 
   // "home.top-level-communities.head": "Communities in DSpace",
   "home.top-level-communities.head": "Hauptbereiche in DSpace",
@@ -2674,8 +2698,8 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Gespiegelte Sammlungen bearbeiten",
 
-  // "item.edit.tabs.status.buttons.move.button": "Move...",
-  "item.edit.tabs.status.buttons.move.button": "Verschieben...",
+  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
+  "item.edit.tabs.status.buttons.move.button": "Verschieben Sie diesen Artikel in eine andere Sammlung",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
   "item.edit.tabs.status.buttons.move.label": "Item in eine andere Sammlung verschieben",
@@ -2698,8 +2722,8 @@
   // "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
   "item.edit.tabs.status.buttons.reinstate.label": "Item im Repositorium wiederherstellen",
 
-  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  "item.edit.tabs.status.buttons.withdraw.button": "Zurückziehen...",
+  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
+  "item.edit.tabs.status.buttons.withdraw.button": "Ziehen Sie diesen Artikel zurück",
 
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
   "item.edit.tabs.status.buttons.withdraw.label": "Item aus dem Repositorium zurückziehen",
@@ -2789,8 +2813,8 @@
   // "item.search.results.head": "Item Search Results",
   "item.search.results.head": "Item-Suchergebnisse",
 
-  // "item.search.title": "DSpace Angular :: Item Search",
-  "item.search.title": "DSpace Angular :: Item-Suche",
+  // "item.search.title": "Item Search",
+  "item.search.title": "Item-Suche",
 
 
 
@@ -2986,8 +3010,8 @@
   // "journal.search.results.head": "Journal Search Results",
   "journal.search.results.head": "Suchergebnisse für Zeitschriften",
 
-  // "journal.search.title": "DSpace Angular :: Journal Search",
-  "journal.search.title": "DSpace Angular :: Zeitschriftensuche",
+  // "journal.search.title": "Journal Search",
+  "journal.search.title": "Zeitschriftensuche",
 
 
 
@@ -3615,8 +3639,8 @@
   // "person.search.results.head": "Person Search Results",
   "person.search.results.head": "Ergebnisse der Personensuche",
 
-  // "person.search.title": "DSpace Angular :: Person Search",
-  "person.search.title": "DSpace Angular :: Personensuche",
+  // "person.search.title": "Person Search",
+  "person.search.title": "Personensuche",
 
 
 
@@ -3814,17 +3838,17 @@
   // "profile.security.form.error.matching-passwords": "The passwords do not match.",
   "profile.security.form.error.matching-passwords": "Die Passwörter stimmen nicht überein.",
 
-  // "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
-  "profile.security.form.error.password-length": "Das Passwort sollte mindestens 6 Zeichen lang sein.",
-
-  // "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  "profile.security.form.info": "Optional können Sie ein neues Passwort in das Feld darunter eingeben und es durch erneute Eingabe in das zweite Feld bestätigen. Es sollte mindestens sechs Zeichen lang sein.",
+  // "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box.",
+  "profile.security.form.info": "Im nachfolgenden Feld können Sie bei Bedarf ein neues Passwort eingeben und es durch erneute Eingabe in das zweite Feld bestätigen.",
 
   // "profile.security.form.label.password": "Password",
   "profile.security.form.label.password": "Passwort",
 
   // "profile.security.form.label.passwordrepeat": "Retype to confirm",
-  "profile.security.form.label.passwordrepeat": "Zum Bestätigen erneut eingeben",
+  "profile.security.form.label.passwordrepeat": "Zum Bestätigen das Passwort erneut eingeben",
+
+  // "profile.security.form.label.current-password": "Current password",
+  "profile.security.form.label.current-password": "Ihr aktuelles Passwort",
 
   // "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
   "profile.security.form.notifications.success.content": "Ihr geändertes Passwort wurde gespeichert.",
@@ -3838,8 +3862,14 @@
   // "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
   "profile.security.form.notifications.error.not-long-enough": "Das Passwort sollte mindestens 6 Zeichen lang sein.",
 
+  // "profile.security.form.notifications.error.change-failed": "An error occurred while trying to change the password. Please check if the current password is correct.",
+  "profile.security.form.notifications.error.change-failed": "Es ist ein Fehler beim Ändern des Passworts aufgetreten. Bitte überprüfen Sie, ob Ihr aktuelles Passwort korrekt eingegeben wurde.",
+
   // "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
   "profile.security.form.notifications.error.not-same": "Die angegebenen Passwörter sind nicht identisch.",
+
+  // "profile.security.form.notifications.error.general": "Please fill required fields of security form.",
+  "profile.security.form.notifications.error.general": "Bitte füllen Sie alle Pflichtfelder im Formular aus.",
 
   // "profile.title": "Update Profile",
   "profile.title": "Profil aktualisieren",
@@ -3908,8 +3938,8 @@
   // "publication.search.results.head": "Publication Search Results",
   "publication.search.results.head": "Suchergebnisse Publikationen",
 
-  // "publication.search.title": "DSpace Angular :: Publication Search",
-  "publication.search.title": "DSpace Angular :: Publikationssuche",
+  // "publication.search.title": "Publication Search",
+  "publication.search.title": "Publikationssuche",
 
 
   // "register-email.title": "New user registration",
@@ -3945,8 +3975,8 @@
   // "register-page.create-profile.security.header": "Security",
   "register-page.create-profile.security.header": "Sicherheit",
 
-  // "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  "register-page.create-profile.security.info": "Bitte geben Sie ein Passwort in das unten stehende Feld ein und bestätigen Sie es, indem Sie es in das zweite Feld erneut eingeben. Es sollte mindestens sechs Zeichen lang sein.",
+  // "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box.",
+  "register-page.create-profile.security.info": "Bitte geben Sie ein Passwort in das unten stehende Feld ein und bestätigen Sie es, indem Sie es in das zweite Feld erneut eingeben.",
 
   // "register-page.create-profile.security.label.password": "Password *",
   "register-page.create-profile.security.label.password": "Passwort *",
@@ -4068,6 +4098,24 @@
   // "relationships.isContributorOf": "Contributors",
   "relationships.isContributorOf": "Beteiligte",
 
+  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+  "relationships.isContributorOf.OrgUnit": "Beteiligte (Organisationseinheit)",
+
+  // "relationships.isContributorOf.Person": "Contributor",
+  "relationships.isContributorOf.Person": "Beteiligte (Person)",
+
+  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+  "relationships.isFundingAgencyOf.OrgUnit": "Förderer",
+
+
+  // "repository.image.logo": "Repository logo",
+  "repository.image.logo": "Repository Logo",
+
+  // "repository.title.prefix": "DSpace Angular :: ",
+  "repository.title.prefix": "DSpace Angular :: ",
+
+  // "repository.title.prefixDSpace": "DSpace Angular ::",
+  "repository.title.prefixDSpace": "DSpace Angular ::",
 
 
   // "resource-policies.add.button": "Add",
@@ -4231,8 +4279,8 @@
   // "search.switch-configuration.title": "Show",
   "search.switch-configuration.title": "Zeige",
 
-  // "search.title": "DSpace Angular :: Search",
-  "search.title": "DSpace Angular :: Suche",
+  // "search.title": "Search",
+  "search.title": "Suche",
 
   // "search.breadcrumbs": "Search",
   "search.breadcrumbs": "Suche",
@@ -4292,6 +4340,9 @@
 
   // "search.filters.filter.author.placeholder": "Author name",
   "search.filters.filter.author.placeholder": "Autor:innenname",
+
+  // "search.filters.filter.author.label": "Search author name",
+  "search.filters.filter.author.label": "Autorensuche",
 
   // "search.filters.filter.birthDate.head": "Birth Date",
   "search.filters.filter.birthDate.head": "Geburtsdatum",
@@ -4472,6 +4523,8 @@
   // "search.form.search_mydspace": "Search MyDSpace",
   "search.form.search_mydspace": "Suche im persönlichen Arbeitsbereich",
 
+  // "search.form.scope.all": "All of DSpace",
+  "search.form.scope.all": "Alles durchsuchen",
 
 
   // "search.results.head": "Search Results",
@@ -4486,7 +4539,11 @@
   // "search.results.empty": "Your search returned no results.",
   "search.results.empty": "Ihre Suche führte zu keinem Ergebnis.",
 
+  // "search.results.view-result": "View",
+  "search.results.view-result": "Anzeigen",
 
+  // "default.search.results.head": "Search Results",
+  "default.search.results.head": "Suchergebnisse",
 
   // "search.sidebar.close": "Back to results",
   "search.sidebar.close": "Zurück zu den Ergebnissen",
@@ -4534,10 +4591,29 @@
   // "sorting.dc.title.DESC": "Title Descending",
   "sorting.dc.title.DESC": "Titel absteigend",
 
-  // "sorting.score.DESC": "Relevance",
-  "sorting.score.DESC": "Relevanz",
+  // "sorting.score.ASC": "Least Relevant",
+  "sorting.score.ASC": "Relevanz aufsteigend",
 
+  // "sorting.score.DESC": "Most Relevant",
+  "sorting.score.DESC": "Relevanz absteigend",
 
+  // "sorting.dc.date.issued.ASC": "Date Issued Ascending",
+  "sorting.dc.date.issued.ASC": "Erscheinungsdatum aufsteigend",
+
+  // "sorting.dc.date.issued.DESC": "Date Issued Descending",
+  "sorting.dc.date.issued.DESC": "Erscheinungsdatum absteigend",
+
+  // "sorting.dc.date.accessioned.ASC": "Accessioned Date Ascending",
+  "sorting.dc.date.accessioned.ASC": "Freischaltungsdatum aufsteigend",
+
+  // "sorting.dc.date.accessioned.DESC": "Accessioned Date Descending",
+  "sorting.dc.date.accessioned.DESC": "Freischaltungsdatum absteigend",
+
+  // "sorting.lastModified.ASC": "Last modified Ascending",
+  "sorting.lastModified.ASC": "Änderungsdatum aufsteigend",
+
+  // "sorting.lastModified.DESC": "Last modified Descending",
+  "sorting.lastModified.DESC": "Änderungsdatum absteigend",
 
   // "statistics.title": "Statistics",
   "statistics.title": "Statistiken",
@@ -4573,6 +4649,8 @@
   "statistics.table.header.views": "Aufrufe",
 
 
+  // "submission.edit.breadcrumbs": "Edit Submission",
+  "submission.edit.breadcrumbs": "Einreichung bearbeiten",
 
   // "submission.edit.title": "Edit Submission",
   "submission.edit.title": "Einreichung bearbeiten",
@@ -4597,6 +4675,12 @@
 
   // "submission.general.discard.submit": "Discard",
   "submission.general.discard.submit": "Verwerfen",
+
+  // "submission.general.info.saved": "Saved",
+  "submission.general.info.saved": "Gespeichert",
+
+  // "submission.general.info.pending-changes": "Unsaved changes",
+  "submission.general.info.pending-changes": "Ungespeicherte Änderungen",
 
   // "submission.general.save": "Save",
   "submission.general.save": "Speichern",
@@ -5125,7 +5209,7 @@
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
   "submission.sections.upload.header.policy.default.withlist": "Bitte beachten Sie, dass in diese Sammlung {{collectionName}} hochgeladene Dateien zugüglich zu dem, was für einzelne Dateien entschieden wurde, für folgende Gruppe(n) zugänglich sein:",
 
-  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "Hier finden Sie alle Dateien, die aktuell zum Item gehören. Sie können ihre Metadaten und Zugriffsrechte bearbeiten oder <strong>weitere Dateien per Drag & Drop hinzufügen.</strong>",
 
   // "submission.sections.upload.no-entry": "No",
@@ -5157,7 +5241,7 @@
   "submission.workflow.generic.delete": "Löschen",
 
   // "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
-  "submission.workflow.generic.delete-help": "Wenn Sie dieses Item möchten, wählen Sie bitte \"Löschen\". Sie werden danach um Bestätigung gebeten.",
+  "submission.workflow.generic.delete-help": "Wenn Sie dieses Item verwerfen möchten, wählen Sie bitte \"Löschen\". Sie werden danach um Bestätigung gebeten.",
 
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Bearbeiten",
@@ -5237,6 +5321,37 @@
   // "submission.workflow.tasks.pool.show-detail": "Show detail",
   "submission.workflow.tasks.pool.show-detail": "Details anzeigen",
 
+  // "submission.workspace.generic.view": "View",
+  "submission.workspace.generic.view": "Anzeige",
+
+  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+  "submission.workspace.generic.view-help": "Wählen Sie diese Option, um die Metadaten des Items anzuzeigen.",
+
+
+
+  // "thumbnail.default.alt": "Thumbnail Image",
+  "thumbnail.default.alt": "Vorschaubild",
+
+  // "thumbnail.default.placeholder": "No Thumbnail Available",
+  "thumbnail.default.placeholder": "Vorschaubild nicht verfügbar",
+
+  // "thumbnail.project.alt": "Project Logo",
+  "thumbnail.project.alt": "Logo des Projekt",
+
+  // "thumbnail.project.placeholder": "Project Placeholder Image",
+  "thumbnail.project.placeholder": "Platzhalterbild des Projekts",
+
+  // "thumbnail.orgunit.alt": "OrgUnit Logo",
+  "thumbnail.orgunit.alt": "Logo der Organisationseinheit",
+
+  // "thumbnail.orgunit.placeholder": "OrgUnit Placeholder Image",
+  "thumbnail.orgunit.placeholder": "Platzhalterbild der Organisationseinheit",
+
+  // "thumbnail.person.alt": "Profile Picture",
+  "thumbnail.person.alt": "Profilbild",
+
+  // "thumbnail.person.placeholder": "No Profile Picture Available",
+  "thumbnail.person.placeholder": "Profilbild nicht verfügbar",
 
 
   // "title": "DSpace",
@@ -5276,7 +5391,8 @@
   // "uploader.or": ", or ",
   "uploader.or": ", oder",
 
-  // "uploader.processing": "Processing",
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
+  // TODO Source message changed - Revise the translation
   "uploader.processing": "In Arbeit...",
 
   // "uploader.queue-length": "Queue length",
@@ -5292,10 +5408,14 @@
   "virtual-metadata.delete-relationship.modal-head": "Wählen Sie die Items aus, deren virtuelle Metadaten Sie als echte Metadaten speichern möchten.",
 
 
+  // "workspace.search.results.head": "Your submissions",
+  "workspace.search.results.head": "Ihre Veröffentlichungen",
 
   // "workflowAdmin.search.results.head": "Administer Workflow",
   "workflowAdmin.search.results.head": "Workflow verwalten",
 
+  // "workflow.search.results.head": "Workflow tasks",
+  "workflow.search.results.head": "Workflow-Aufgaben",
 
 
   // "workflow-item.delete.notification.success.title": "Deleted",
@@ -5345,6 +5465,465 @@
   "workflow-item.send-back.button.cancel": "Abbrechen",
 
   // "workflow-item.send-back.button.confirm": "Send back"
-  "workflow-item.send-back.button.confirm": "Zurücksenden"
+  "workflow-item.send-back.button.confirm": "Zurücksenden",
+
+  "submission.sections.submit.progressbar.describe.product_contributor": "Autoren",
+
+  "submission.sections.submit.progressbar.describe.product_bibliographic_details": "Bibliografische Informationen",
+
+  "submission.sections.submit.progressbar.describe.product_ou_pj": "Zugehörigkeit zu Organisation und Projekt",
+
+  "submission.sections.submit.progressbar.describe.product_general": "Allgemeine Beschreibung Forschungsdaten",
+
+  "submission.sections.submit.progressbar.describe.product_method": "Methode",
+
+  "submission.sections.submit.progressbar.describe.product_rights": "Rechte und Zugriff",
+
+  "submission.sections.submit.progressbar.describe.product_references": "Verbindungen",
+
+  "submission.sections.submit.progressbar.describe.publication_contributor": "Autoren",
+
+  "submission.sections.submit.progressbar.describe.publication_bibliographic_details": "Bibliografische Informationen",
+
+  "submission.sections.submit.progressbar.describe.publication_ou_pj": "Zugehörigkeit zu Organisation und Projekt",
+
+  "submission.sections.submit.progressbar.describe.publication_desc": "Publikation Beschreibung",
+
+  "submission.sections.submit.progressbar.describe.publication_conference": "Konferenzinformationen",
+
+  "submission.sections.submit.progressbar.describe.publication_oa": "Open Access",
+
+  "submission.sections.submit.progressbar.describe.publication_review": "Besprochener Titel",
+
+  "submission.sections.submit.progressbar.describe.publication_rights": "Zugänglichkeit und Rechte",
+
+  "submission.sections.submit.progressbar.describe.publication_references": "Verbindungen",
+
+  "submission.sections.submit.progressbar.describe.publication_qm": "Metriken",
+
+  "layout.tab.header.Person.details": "Profil",
+
+  "layout.tab.header.Person.publications": "Publikationen",
+
+  "layout.tab.header.Person.projects": "Projekte",
+
+  "layout.tab.header.Person.orcid": "ORCID",
+
+  "layout.tab.header.Person.otherinfo": "Andere",
+
+  "layout.tab.header.Person.indicators": "Metriken",
+
+  "layout.tab.header.Person.secure": "Secured Tab",
+
+  "layout.tab.header.OrgUnit.maininformation": "Informationen",
+
+  "layout.tab.header.OrgUnit.details": "Details",
+
+  "layout.tab.header.OrgUnit.organizations": "Organisationen",
+
+  "layout.tab.header.OrgUnit.publications": "Publikationen",
+
+  "layout.tab.header.OrgUnit.rppublications": "Publikationen von Forschern",
+
+  "layout.tab.header.OrgUnit.projects": "Projekte",
+
+  "layout.tab.header.OrgUnit.rpprojects": "Forscherprojekte",
+
+  "layout.tab.header.OrgUnit.people": "Personen",
+
+  "layout.tab.header.Project.details": "Details",
+
+  "layout.tab.header.Project.outputs::projectoutputs": "Outputs::Publikationen",
+
+  "layout.tab.header.Project.outputs::fundings": "Outputs::Finanzierung",
+
+  "layout.tab.header.Journal.details": "Details",
+
+  "layout.tab.header.Event.details": "Details",
+
+  "layout.tab.header.Equipment.details": "Details",
+
+  "layout.tab.header.Funding.details": "Details",
+
+  "layout.tab.header.Publication.details": "Details",
+
+  "layout.tab.header.Product.details": "Details",
+
+  "layout.tab.header.Patent.details": "Details",
+
+  "layout.box.header.Person.projects": "Projekte",
+
+  "layout.box.header.Person.researchoutputs": "Publikationen",
+
+  "layout.box.header.Person.qualifications": "Berüfliche Qualifikationen",
+
+  "layout.box.header.Person.media": "Medienkontakt Directory",
+
+  "layout.box.header.Person.orcidsyncqueue": "ORCID-Registrierungswarteschlange",
+
+  "layout.box.header.Person.namecard": "Namenskarte",
+
+  "layout.box.header.Person.orcidsyncsettings": "ORCID-Synchronisierungseinstellungen",
+
+  "layout.box.header.Person.researcherprofile": "Profil",
+
+  "layout.box.header.Person.orcidauthorizations": "ORCID-Berechtigungen",
+
+  "layout.box.header.Person.metrics": "Metriken",
+
+  "layout.box.header.Person.usagemetrics": "Nutzungsmetriken",
+
+  "layout.box.header.Person.secure": "Secured Box",
+
+  "layout.box.header.OrgUnit.rpprojects": "Forschungsprojekte der OrgUnit",
+
+  "layout.box.header.OrgUnit.publications": "Publikationen der OrgUnit",
+
+  "layout.box.header.OrgUnit.rppublications": "Publikationen von Forschern der OrgUnit",
+
+  "layout.box.header.OrgUnit.people": "Forscher der OrgUnit",
+
+  "layout.box.header.OrgUnit.projects": "OrgUnit finanzierte Projekte",
+
+  "layout.box.header.OrgUnit.description": "Beschreibung",
+
+  "layout.box.header.OrgUnit.organizations": "SubOrgUnits",
+
+  "layout.box.header.OrgUnit.details": "Details",
+
+  "layout.box.header.OrgUnit.orgcard": "Karte",
+
+  "layout.box.header.OrgUnit.metrics": "Metriken",
+
+  "layout.box.header.Project.description": "Beschreibung",
+
+  "layout.box.header.Project.researchoutputs": "Publikationen",
+
+  "layout.box.header.Project.fundings": "Finanzierungen",
+
+  "layout.box.header.Project.primarydata": "Primärdaten",
+
+  "layout.box.header.Project.projectcard": "Projektkarte",
+
+  "layout.box.header.Project.metrics": "Metriken",
+
+  "layout.box.header.Funding.primarydata": "Primärdaten",
+
+  "layout.box.header.Funding.financialdata": "Finanzdaten",
+
+  "layout.box.header.Funding.metrics": "Metriken",
+
+  "layout.box.header.Journal.details": "Journalbeschreibung",
+
+  "layout.box.header.Journal.metrics": "Metriken",
+
+  "layout.box.header.Event.details": "Beschreibung",
+
+  "layout.box.header.Event.metrics": "Metriken",
+
+  "layout.box.header.Equipment.details": "Equipmentbeschreibung",
+
+  "layout.box.header.Equipment.metrics": "Metriken",
+
+  "layout.box.header.Publication.iiifviewer": "IIIF-Viewer",
+
+  "layout.box.header.Publication.details": "Details",
+
+  "layout.box.header.Publication.metrics": "Metriken",
+
+  "layout.box.header.Publication.altmetrics": "Alternative Metriken",
+
+  "layout.box.header.Publication.usagemetrics": "Nutzungsmetriken",
+
+  "layout.box.header.Patent.details": "Details",
+
+  "layout.box.header.Patent.metrics": "Metriken",
+
+  "layout.box.header.Patent.altmetrics": "Metriken",
+
+  "layout.box.header.Patent.usagemetrics": "Metriken",
+
+  "layout.box.header.Product.details": "Details",
+
+  "layout.box.header.Product.metrics": "Metriken",
+
+  "layout.box.header.Product.altmetrics": "Metriken",
+
+  "layout.box.header.Product.usagemetrics": "Metriken",
+
+  "layout.field.label.OrgUnit.organization.address.addressCountry": "Land",
+
+  "layout.field.label.OrgUnit.organization.address.addressLocality": "Stadt",
+
+  "layout.field.label.OrgUnit.dc.description.abstract": "Beschreibung",
+
+  "layout.field.label.OrgUnit.crisou.director": "Direktor",
+
+  "layout.field.label.OrgUnit.organization.parentOrganization": "Mutter Organisation",
+
+  "layout.field.label.OrgUnit.organization.foundingDate": "Gründungsdatum",
+
+  "layout.field.label.OrgUnit.crisou.boards": "Boards",
+
+  "layout.field.label.OrgUnit.dc.title": "Organisationsname",
+
+  "layout.field.label.OrgUnit.crisou.director": "Direktor",
+
+  "layout.field.label.OrgUnit.organization.parentOrganization": "Mutter Organisation",
+
+  "layout.field.label.OrgUnit.organization.foundingDate": "Gründungsdatum",
+
+  "layout.field.label.OrgUnit.organization.address.addressLocality": "Stadt",
+
+  "layout.field.label.OrgUnit.organization.address.addressCountry": "Land",
+
+  "layout.field.label.Project.dc.description.abstract": "Beschreibung",
+
+  "layout.field.label.Project.dc.subject": "Keywords",
+
+  "layout.field.label.Project.oairecerif.acronym": "Akronym",
+
+  "layout.field.label.Project.dc.title": "Projekttitel",
+
+  "layout.field.label.Project.crispj.coordinator": "Koordinator des Konsortiums",
+
+  "layout.field.label.Project.crispj.partnerou": "Partnerorganisationen",
+
+  "layout.field.label.Project.oairecerif.internalid": "Internal ID",
+
+  "layout.field.label.Project.crispj.investigator": "Hauptermittler",
+
+  "layout.field.label.Project.oairecerif.project.status": "Status",
+
+  "layout.field.label.Project.oairecerif.project.startDate": "Startdatum",
+
+  "layout.field.label.Project.oairecerif.project.endDate": "Enddatum",
+
+  "layout.field.label.Project.crispj.coinvestigators": "Ermittler",
+
+  "layout.field.label.Project.crispj.organization": "Organisationen",
+
+  "layout.field.label.Project.dc.relation.equipment": "Nutzungen",
+
+  "layout.field.label.Project.oairecerif.identifier.url": "Projekt-Website",
+
+  "layout.field.label.Project.crispj.openaireid": "OpenAIRE-ID",
+
+  "layout.field.label.Project.dc.title": "Projekttitel",
+
+  "layout.field.label.Project.oairecerif.internalid": "Internal ID",
+
+  "layout.field.label.Project.oairecerif.project.status": "Status",
+
+  "layout.field.label.Project.oairecerif.project.startDate": "Startdatum",
+
+  "layout.field.label.Project.oairecerif.project.endDate": "Enddatum",
+
+  "layout.field.label.Funding.dc.relation.project": "Projekt",
+
+  "layout.field.label.Funding.dc.type": "Typ",
+
+  "layout.field.label.Funding.oairecerif.funder": "Finanzier",
+
+  "layout.field.label.Funding.oairecerif.fundingParent": "Finanzierungsprogramm",
+
+  "layout.field.label.Funding.oairecerif.identifier.url": "Award-URL",
+
+  "layout.field.label.Funding.oairecerif.oamandate": "OA-Mandat",
+
+  "layout.field.label.Funding.oairecerif.internalid": "Finanzierungscode",
+
+  "layout.field.label.Funding.dc.title": "Finanzierungstitel",
+
+  "layout.field.label.Funding.oairecerif.amount.currency": "Währung",
+
+  "layout.field.label.Person.dc.subject": "Forschungsinteressen",
+
+  "layout.field.label.Person.person.knowsLanguage": "Kann Sprache",
+
+  "layout.field.label.Person.crisrp.qualification": "Qualifikation",
+
+  "layout.field.label.Person.dc.title": "Bevorzugter Name",
+
+  "layout.field.label.Person.crisrp.name": "Offizieller Name",
+
+  "layout.field.label.Person.crisrp.name.translated": "Übersetzter Name",
+
+  "layout.field.label.Person.crisrp.name.variant": "Alternativer Name",
+
+  "layout.field.label.Person.person.affiliation.name": "Hauptzugehörigkeit",
+
+  "layout.field.label.Person.oairecerif.identifier.url": "Web Site",
+
+  "layout.field.label.Person.person.email": "E-Mail",
+
+  "layout.field.label.Person.person.identifier.orcid": "ORCID",
+
+  "layout.field.label.Person.person.identifier.scopus-author-id": "Scopus-Autoren-ID",
+
+  "layout.field.label.Person.person.identifier.rid": "Forscher-ID",
+
+  "layout.field.label.Person.dc.description.abstract": "Biographie",
+
+  "layout.field.label.Person.oairecerif.person.affiliation": "Zugehörigkeit",
+
+  "layout.field.label.Person.crisrp.education": "Bildung",
+
+  "layout.field.label.Person.crisrp.qualification": "Qualifikation",
+
+  "layout.field.label.Person.crisrp.country": "Land",
+
+  "layout.field.label.Person.person.birthDate": "Geburtsdatum",
+
+  "layout.field.label.Journal.dc.title": "Titel der Zeitschrift",
+
+  "layout.field.label.Journal.dc.subject": "Keywords",
+
+  "layout.field.label.Journal.dc.identifier.issn": "ISSN",
+
+  "layout.field.label.Event.dc.title": "Titel",
+
+  "layout.field.label.Event.oairecerif.event.startDate": "Startdatum",
+
+  "layout.field.label.Event.oairecerif.event.endDate": "Enddatum",
+
+  "layout.field.label.Event.oairecerif.event.place": "Ort",
+
+  "layout.field.label.Event.dc.type": "Typ",
+
+  "layout.field.label.Event.crisevent.organizerou": "Organisator",
+
+  "layout.field.label.Event.crisevent.organizerpj": "Organisator",
+
+  "layout.field.label.Event.crisevent.sponsorou": "Sponsor",
+
+  "layout.field.label.Event.crisevent.sponsorpj": "Sponsor",
+
+  "layout.field.label.Event.crisevent.partnerou": "Partnerorganisation",
+
+  "layout.field.label.Event.crisevent.partnerpj": "Partnerprojekt",
+
+  "layout.field.label.Event.oairecerif.acronym": "Akronym",
+
+  "layout.field.label.Event.dc.description.abstract": "Abstract",
+
+  "layout.field.label.Event.dc.subject": "Keywords",
+
+  "layout.field.label.Event.oairecerif.event.country": "Land",
+
+  "layout.field.label.Equipment.oairecerif.acronym": "Akronym",
+
+  "layout.field.label.Equipment.dc.description": "Beschreibung",
+
+  "layout.field.label.Equipment.oairecerif.internalid": "Internal ID",
+
+  "layout.field.label.Equipment.dc.title": "Name",
+
+  "layout.field.label.Equipment.crisequipment.ownerou": "Eigentümerorganisation",
+
+  "layout.field.label.Publication.dc.relation.ispartof": "Zeitschrift",
+
+  "layout.field.label.Publication.dc.relation.issn": "ISSN",
+
+  "layout.field.label.Publication.dc.date.issued": "Ausgabedatum",
+
+  "layout.field.label.Publication.dc.contributor.author": "Autor(en)",
+
+  "layout.field.label.Publication.dc.contributor.editor": "Herausgeber",
+
+  "layout.field.label.Publication.dc.identifier.doi": "DOI",
+
+  "layout.field.label.Publication.dc.description.abstract": "Abstract",
+
+  "layout.field.label.Publication.dc.relation.project": "Projekt(e)",
+
+  "layout.field.label.Publication.dc.relation.funding": "Finanzierung(en)",
+
+  "layout.field.label.Publication.dc.subject": "Themen",
+
+  "layout.field.label.Publication.BITSTREAM": "File(s)",
+
+  "layout.field.label.Product.dc.title": "Titel",
+
+  "layout.field.label.Product.dc.relation.ispartof": "Zeitschrift",
+
+  "layout.field.label.Product.dc.relation.issn": "ISSN",
+
+  "layout.field.label.Product.dc.date.issued": "Ausgabedatum",
+
+  "layout.field.label.Product.dc.contributor.author": "Autor(en)",
+
+  "layout.field.label.Product.dc.identifier.doi": "DOI",
+
+  "layout.field.label.Product.dc.description.abstract": "Abstract",
+
+  "layout.field.label.Product.dc.relation.project": "Projekt(e)",
+
+  "layout.field.label.Product.dc.relation.funding": "Finanzierung(en)",
+
+  "layout.field.label.Product.dc.subject": "Themen",
+
+  "layout.field.label.Product.BITSTREAM": "File(s)",
+
+  "layout.field.label.Patent.dc.title": "Titel",
+
+  "layout.field.label.Patent.dc.relation.ispartof": "Zeitschrift",
+
+  "layout.field.label.Patent.dc.relation.issn": "ISSN",
+
+  "layout.field.label.Patent.dc.date.issued": "Ausgabedatum",
+
+  "layout.field.label.Patent.dc.contributor.author": "Autor(en)",
+
+  "layout.field.label.Patent.dc.identifier.patentno": "DOI",
+
+  "layout.field.label.Patent.dc.description.abstract": "Abstract",
+
+  "layout.field.label.Patent.dc.relation.project": "Projekt(e)",
+
+  "layout.field.label.Patent.dc.relation.funding": "Finanzierung(en)",
+
+  "layout.field.label.Patent.dc.subject": "Themen",
+
+  "layout.field.label.Patent.BITSTREAM": "File(s)",
+
+  "layout.field.label.Person.crisrp.qualification": "Titel",
+
+  "layout.field.label.Person.crisrp.qualification.start": "Startdatum",
+
+  "layout.field.label.Person.crisrp.qualification.end": "Enddatum",
+
+  "layout.field.label.Person.oairecerif.affiliation.role": "Rolle",
+
+  "layout.field.label.Person.oairecerif.person.affiliation": "Organisation",
+
+  "layout.field.label.Person.oairecerif.affiliation.startDate": "Startdatum",
+
+  "layout.field.label.Person.oairecerif.affiliation.endDate": "Enddatum",
+
+  "layout.field.label.Person.crisrp.education.role": "Rolle",
+
+  "layout.field.label.Person.crisrp.education": "Organisation",
+
+  "layout.field.label.Person.crisrp.education.start": "Startdatum",
+
+  "layout.field.label.Person.crisrp.education.end": "Enddatum",
+
+  "layout.field.label.Publication.dc.contributor.author": "Autor",
+
+  "layout.field.label.Publication.oairecerif.author.affiliation": "Zugehörigkeit",
+
+  "layout.field.label.Publication.dc.contributor.editor": "Herausgeber",
+
+  "layout.field.label.Publication.oairecerif.editor.affiliation": "Zugehörigkeit",
+
+  "layout.field.label.Product.dc.contributor.author": "Autor",
+
+  "layout.field.label.Product.oairecerif.author.affiliation": "Zugehörigkeit",
+
+  "layout.field.label.Patent.dc.contributor.author": "Autor",
+
+  "layout.field.label.Patent.oairecerif.author.affiliation": "Zugehörigkeit"
+
 
 }

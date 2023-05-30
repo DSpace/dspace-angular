@@ -13,18 +13,22 @@ import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { SharedModule } from '../../shared/shared.module';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { FindListOptions } from '../../core/data/request.models';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { of as observableOf } from 'rxjs';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import { GroupDataService } from '../../core/eperson/group-data.service';
+import { LinkHeadService } from '../../core/services/link-head.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service.stub';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 
 describe('CommunityPageSubCommunityListComponent Component', () => {
   let comp: CommunityPageSubCommunityListComponent;
@@ -119,6 +123,25 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
     }
   };
 
+  const linkHeadService = jasmine.createSpyObj('linkHeadService', {
+    addTag: ''
+  });
+
+  const groupDataService = jasmine.createSpyObj('groupsDataService', {
+    findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    getGroupRegistryRouterLink: '',
+    getUUIDFromString: '',
+  });
+
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'test',
+      values: [
+        'org.dspace.ctask.general.ProfileFormats = test'
+      ]
+    }))
+  });
+
   const paginationService = new PaginationServiceStub();
 
   themeService = getMockThemeService();
@@ -139,6 +162,10 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: SelectableListService, useValue: {} },
         { provide: ThemeService, useValue: themeService },
+        { provide: GroupDataService, useValue: groupDataService },
+        { provide: LinkHeadService, useValue: linkHeadService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -151,17 +178,20 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
 
   });
 
-  it('should display a list of sub-communities', () => {
-    subCommList = subcommunities;
-    fixture.detectChanges();
 
-    const subComList = fixture.debugElement.queryAll(By.css('li'));
-    expect(subComList.length).toEqual(5);
-    expect(subComList[0].nativeElement.textContent).toContain('SubCommunity 1');
-    expect(subComList[1].nativeElement.textContent).toContain('SubCommunity 2');
-    expect(subComList[2].nativeElement.textContent).toContain('SubCommunity 3');
-    expect(subComList[3].nativeElement.textContent).toContain('SubCommunity 4');
-    expect(subComList[4].nativeElement.textContent).toContain('SubCommunity 5');
+  it('should display a list of sub-communities', () => {
+    waitForAsync(() => {
+      subCommList = subcommunities;
+      fixture.detectChanges();
+
+      const subComList = fixture.debugElement.queryAll(By.css('li'));
+      expect(subComList.length).toEqual(5);
+      expect(subComList[0].nativeElement.textContent).toContain('SubCommunity 1');
+      expect(subComList[1].nativeElement.textContent).toContain('SubCommunity 2');
+      expect(subComList[2].nativeElement.textContent).toContain('SubCommunity 3');
+      expect(subComList[3].nativeElement.textContent).toContain('SubCommunity 4');
+      expect(subComList[4].nativeElement.textContent).toContain('SubCommunity 5');
+    });
   });
 
   it('should not display the header when list of sub-communities is empty', () => {

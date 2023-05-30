@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -17,7 +17,7 @@ import { NotificationsServiceStub } from '../../testing/notifications-service.st
 import { RequestService } from '../../../core/data/request.service';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { Collection } from '../../../core/shared/collection.model';
-import { RequestEntry } from '../../../core/data/request.reducer';
+import { RequestEntry } from '../../../core/data/request-entry.model';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { Process } from '../../../process-page/processes/process.model';
 

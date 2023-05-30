@@ -1,0 +1,54 @@
+<ng-container *ngIf="attachment">
+  <div class="row my-3 mx-0 py-0 card-container" data-test="attachment-info">
+    <div class="col-3 py-3">
+      <ds-thumbnail [thumbnail]="attachment.thumbnail | async"></ds-thumbnail>
+    </div>
+    <div class="col-5 py-3">
+
+      <ng-container *ngFor="let attachmentConf of envMetadata">
+
+        <div class="content" [attr.data-test]="attachmentConf.name"
+             *ngIf="attachment.firstMetadataValue(attachmentConf.name) || attachmentConf.type == AdvancedAttachmentElementType.Attribute">
+          <strong>{{ 'cris-layout.advanced-attachment.'+attachmentConf.name | translate }}</strong>
+
+          <ng-container *ngIf="attachmentConf.type == AdvancedAttachmentElementType.Metadata">
+
+            <p class="word-break m-0" *ngIf="!attachmentConf.truncatable">
+              {{attachment.firstMetadataValue(attachmentConf.name)}}
+            </p>
+
+            <ds-truncatable *ngIf="attachmentConf.truncatable" [id]=" attachment.id">
+              <ds-truncatable-part [id]="attachment.id" [minLines]="1">
+                {{attachment.firstMetadataValue(attachmentConf.name)}}
+              </ds-truncatable-part>
+            </ds-truncatable>
+
+          </ng-container>
+
+          <ng-container *ngIf="attachmentConf.type == AdvancedAttachmentElementType.Attribute">
+            <ng-container *ngIf="attachmentConf.name == 'format'">
+              <p class="word-break m-0">{{getFormat(attachment) | async}}</p>
+            </ng-container>
+
+            <ng-container *ngIf="attachmentConf.name == 'size'">
+              <p class="word-break m-0">{{getSize(attachment) | dsFileSize}}</p>
+            </ng-container>
+          </ng-container>
+
+        </div>
+      </ng-container>
+
+    </div>
+    <div class="divider col-4 text-right">
+      <ng-container *ngFor="let renderingType of allAttachmentProviders">
+          <div class="my-3">
+            <ds-attachment-render [renderingType]="renderingType" [bitstream]="attachment" [item]="item"></ds-attachment-render>
+          </div>
+      </ng-container>
+        <!-- Default download button -->
+      <div class="my-3">
+        <ds-attachment-render [renderingType]="'DOWNLOAD'" [bitstream]="attachment" [item]="item"></ds-attachment-render>
+      </div>
+    </div>
+  </div>
+</ng-container>

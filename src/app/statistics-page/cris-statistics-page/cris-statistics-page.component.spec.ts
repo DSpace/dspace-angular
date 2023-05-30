@@ -11,9 +11,9 @@ import { CrisStatisticsPageComponent } from './cris-statistics-page.component';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { AuthService } from '../../core/auth/auth.service';
-import { StatisticsCategoriesService } from '../../core/statistics/statistics-categories.service';
+import { StatisticsCategoriesDataService } from '../../core/statistics/statistics-categories-data.service';
 import { SiteDataService } from '../../core/data/site-data.service';
-import { UsageReportService } from '../../core/statistics/usage-report-data.service';
+import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 import { SharedModule } from '../../shared/shared.module';
 import { UsageReportServiceStub } from '../../shared/testing/usage-report-service.stub';
 import { StatisticsCategoriesServiceStub } from '../../shared/testing/statistics-category-service.stub';
@@ -70,8 +70,8 @@ describe('CrisStatisticsPageComponent', () => {
       providers: [
         provideMockStore({ initialState }),
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: UsageReportService, useValue: usageReportServiceStub },
-        { provide: StatisticsCategoriesService, useValue: statisticsCategoriesServiceStub },
+        { provide: UsageReportDataService, useValue: usageReportServiceStub },
+        { provide: StatisticsCategoriesDataService, useValue: statisticsCategoriesServiceStub },
         { provide: SiteDataService, useValue: siteDataServiceStub },
         { provide: AuthService, useValue: authServiceStub },
       ],
