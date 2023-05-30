@@ -1,8 +1,9 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
-import { GoogleChartComponent, GoogleChartInterface } from 'ng2-google-charts';
+import { GoogleChartComponent, GoogleChartInterface, GoogleChartType } from 'ng2-google-charts';
 import { ExportImageType, ExportService } from '../../../core/export-service/export.service';
 import { BehaviorSubject } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 @Component({
   selector: 'ds-statistics-map',
   templateUrl: './statistics-map.component.html',
@@ -49,9 +50,20 @@ export class StatisticsMapComponent implements OnInit {
     { type: ExportImageType.jpeg, label: 'JPEG/JPG' }
   ];
 
+  protected exportService: ExportService;
+
   constructor(
-    private exportService: ExportService
+    @Inject(PLATFORM_ID) protected platformId: Object
   ) {
+    if (isPlatformBrowser(this.platformId)) {
+      import('../../../core/export-service/browser-export.service').then((s) => {
+        this.exportService = new s.BrowserExportService();
+      });
+    } else {
+      import('../../../core/export-service/server-export.service').then((s) => {
+        this.exportService = new s.ServerExportService();
+      });
+    }
   }
 
   ngOnInit(): void {
@@ -77,7 +89,7 @@ export class StatisticsMapComponent implements OnInit {
     });
 
     this.geoChart = {
-      chartType: 'GeoChart',
+      chartType: GoogleChartType.GeoChart,
       dataTable: [
         this.chartColumns,
         ...this.data
