@@ -13,7 +13,7 @@ import { MetadataService } from '../core/metadata/metadata.service';
 
 import { fadeInOut } from '../shared/animations/fade';
 import { hasValue } from '../shared/empty.util';
-import { getAllSucceededRemoteDataPayload} from '../core/shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData } from '../core/shared/operators';
 import { AuthService } from '../core/auth/auth.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
@@ -61,7 +61,6 @@ export class CommunityPageComponent implements OnInit {
     private authorizationDataService: AuthorizationDataService,
     public dsoNameService: DSONameService,
   ) {
-
   }
 
   ngOnInit(): void {
@@ -69,6 +68,9 @@ export class CommunityPageComponent implements OnInit {
       map((data) => data.dso as RemoteData<Community>),
       redirectOn4xx(this.router, this.authService)
     );
+    this.communityRD$.pipe(getFirstSucceededRemoteData()).subscribe((rd: RemoteData<Community>) => {
+      this.router.navigate([], { queryParams: { scope: rd.payload.id }, queryParamsHandling: 'merge' });
+    });
     this.logoRD$ = this.communityRD$.pipe(
       map((rd: RemoteData<Community>) => rd.payload),
       filter((community: Community) => hasValue(community)),

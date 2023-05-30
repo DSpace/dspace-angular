@@ -62,6 +62,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   searchLink: string;
   searchConfig: SearchConfig;
   subs = [];
+  filterLable = 'search';
 
   /**
    * Initialize instance variables
@@ -78,6 +79,9 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if (!this.inPlaceSearch) {
+      this.filterLable = 'discover';
+    }
     this.clearParams = this.searchConfigService.getCurrentFrontendFilters().pipe(map((filters) => {
       Object.keys(filters).forEach((f) => filters[f] = null);
       return filters;

@@ -1,4 +1,4 @@
-<h3>{{"search.filters.head" | translate}}</h3>
+<h3>{{filterLable+'.filters.head' | translate}}</h3>
 <div *ngIf="(filters | async)?.hasSucceeded">
     <div *ngFor="let filter of (filters | async)?.payload; trackBy: trackUpdate">
         <ds-search-filter [filter]="filter" [inPlaceSearch]="inPlaceSearch" [refreshFilters]="refreshFilters"></ds-search-filter>
@@ -7,4 +7,5 @@
 <ds-advanced-search [currentScope]="currentScope" [searchConfig]="searchConfig"
     [currentConfiguration]="currentConfiguration" [filters]="filters" [refreshFilters]="refreshFilters"
     [searchOptions]="searchOptions" [inPlaceSearch]="inPlaceSearch"></ds-advanced-search>
-<a class="btn btn-primary" [routerLink]="[searchLink]" [queryParams]="clearParams | async" queryParamsHandling="merge" role="button"><i class="fas fa-undo"></i> {{"search.filters.reset" | translate}}</a>
+<a class="btn btn-primary" *ngIf="inPlaceSearch" [routerLink]="[searchLink]" [queryParams]="clearParams | async"
+    queryParamsHandling="merge" role="button"><i class="fas fa-undo"></i> {{"search.filters.reset" | translate}}</a>
