@@ -13,6 +13,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.co
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+import { SequenceService } from '../../../core/shared/sequence.service';
 @Component({
   selector: 'ds-advanced-search',
   templateUrl: './advanced-search.component.html',
@@ -62,7 +63,7 @@ export class AdvancedSearchComponent implements OnInit {
   closed: boolean;
   collapsedSearch = false;
   focusBox = false;
-
+  private readonly sequenceId: number;
   advSearchForm: FormGroup;
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
@@ -71,7 +72,9 @@ export class AdvancedSearchComponent implements OnInit {
     protected filterService: SearchFilterService,
     protected router: Router,
     protected rdbs: RemoteDataBuildService,
+    private sequenceService: SequenceService,
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService) {
+    this.sequenceId = this.sequenceService.next();
   }
 
   ngOnInit(): void {
@@ -145,6 +148,14 @@ export class AdvancedSearchComponent implements OnInit {
   }
   isActive(name): Boolean {
     return this.appConfig.advancefilter.some(item => item.filter === name);
+  }
+
+  get regionId(): string {
+    return `search-advance-filter-region-${this.sequenceId}`;
+  }
+
+  get toggleId(): string {
+    return `search-advance-filter-toggle-${this.sequenceId}`;
   }
 }
 

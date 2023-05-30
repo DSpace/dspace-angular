@@ -58,11 +58,10 @@ export class CollectionPageComponent implements OnInit {
     public dsoNameService: DSONameService,
     public searchConfigurationService: SearchConfigurationService,
   ) {
-    this.collectionRD$ = this.route.data.pipe(
-      map((data) => data.dso as RemoteData<Collection>),
-      redirectOn4xx(this.router, this.authService),
-      take(1)
-    );
+
+  }
+
+  ngOnInit(): void {
     this.collectionRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Collection>),
       redirectOn4xx(this.router, this.authService),
@@ -75,10 +74,6 @@ export class CollectionPageComponent implements OnInit {
         page: 1
       }, { scope: rd.payload.id });
     });
-  }
-
-  ngOnInit(): void {
-
     this.logoRD$ = this.collectionRD$.pipe(
       map((rd: RemoteData<Collection>) => rd.payload),
       filter((collection: Collection) => hasValue(collection)),
