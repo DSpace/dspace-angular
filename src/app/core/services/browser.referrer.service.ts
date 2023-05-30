@@ -1,7 +1,7 @@
 import { ReferrerService } from './referrer.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { isEmpty } from '../../shared/empty.util';
+import { isEmpty, hasNoValue } from '../../shared/empty.util';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
@@ -33,13 +33,19 @@ export class BrowserReferrerService extends ReferrerService {
    * in the store yet, document.referrer will be used
    */
   public getReferrer(): Observable<string> {
-    return this.routeService.getPreviousUrl().pipe(
-      map((prevUrl: string) => {
-        // if we don't have anything in the history yet, return document.referrer
-        // (note that that may be empty too, e.g. if you've just opened a new browser tab)
-        if (isEmpty(prevUrl)) {
+    return this.routeService.getHistory().pipe(
+      map((history: string[]) => {
+        const currentURL = history[history.length - 1];
+        // if the current URL isn't set yet, or the only URL in the history is the current one,
+        // return document.referrer (note that that may be empty too, e.g. if you've just opened a
+        // new browser tab)
+        if (hasNoValue(currentURL) || history.every((url: string) => url === currentURL)) {
           return this.document.referrer;
         } else {
+          // reverse the history
+          const reversedHistory = [...history].reverse();
+          // and find the first URL that differs from the current one
+          const prevUrl = reversedHistory.find((url: string) => url !== currentURL);
           return new URLCombiner(this.hardRedirectService.getCurrentOrigin(), prevUrl).toString();
         }
       })

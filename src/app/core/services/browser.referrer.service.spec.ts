@@ -10,7 +10,7 @@ describe(`BrowserReferrerService`, () => {
 
   beforeEach(() => {
     routeService = {
-      getPreviousUrl: () => observableOf('')
+      getHistory: () => observableOf([])
     } as any;
     service = new BrowserReferrerService(
       { referrer: documentReferrer },
@@ -20,12 +20,9 @@ describe(`BrowserReferrerService`, () => {
   });
 
   describe(`getReferrer`, () => {
-    let prevUrl: string;
-
-    describe(`when getPreviousUrl is an empty string`, () => {
+    describe(`when the history is an empty`, () => {
       beforeEach(() => {
-        prevUrl = '';
-        spyOn(routeService, 'getPreviousUrl').and.returnValue(observableOf(prevUrl));
+        spyOn(routeService, 'getHistory').and.returnValue(observableOf([]));
       });
 
       it(`should return document.referrer`, (done: DoneFn) => {
@@ -36,13 +33,31 @@ describe(`BrowserReferrerService`, () => {
       });
     });
 
-    describe(`when getPreviousUrl is not empty`, () => {
+    describe(`when the history only contains the current route`, () => {
       beforeEach(() => {
-        prevUrl = '/some/local/route';
-        spyOn(routeService, 'getPreviousUrl').and.returnValue(observableOf(prevUrl));
+        spyOn(routeService, 'getHistory').and.returnValue(observableOf(['/current/route']));
       });
 
-      it(`should return the value emitted by getPreviousUrl combined with the origin from HardRedirectService`, (done: DoneFn) => {
+      it(`should return document.referrer`, (done: DoneFn) => {
+        service.getReferrer().subscribe((emittedReferrer: string) => {
+          expect(emittedReferrer).toBe(documentReferrer);
+          done();
+        });
+      });
+    });
+
+    describe(`when the history contains multiple routes`, () => {
+      const prevUrl = '/the/route/we/need';
+      beforeEach(() => {
+        spyOn(routeService, 'getHistory').and.returnValue(observableOf([
+          '/first/route',
+          '/second/route',
+          prevUrl,
+          '/current/route'
+        ]));
+      });
+
+      it(`should return the last route before the current one combined with the origin from HardRedirectService`, (done: DoneFn) => {
         service.getReferrer().subscribe((emittedReferrer: string) => {
           expect(emittedReferrer).toBe(origin + prevUrl);
           done();
