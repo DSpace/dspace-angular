@@ -1,4 +1,3 @@
-import { MetadataSecurityConfiguration } from './../../../core/submission/models/metadata-security-configuration';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';

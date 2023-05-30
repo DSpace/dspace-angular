@@ -26,8 +26,7 @@ import { Bitstream } from '../shared/bitstream.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
 import {
-  debounceTimeWorkaround,
-  getFirstCompletedRemoteData, getFirstSucceededRemoteData,
+  getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload
 } from '../shared/operators';
 import { RootDataService } from '../data/root-data.service';

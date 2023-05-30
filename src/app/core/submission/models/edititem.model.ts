@@ -3,7 +3,6 @@ import { typedObject, inheritLinkAnnotations, link } from '../../cache/builders/
 import { inheritSerialization, deserializeAs } from 'cerialize';
 import { SubmissionObject } from './submission-object.model';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
-import { HALLink } from '../../shared/hal-link.model';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../data/remote-data';
 import { EditItemMode } from './edititem-mode.model';

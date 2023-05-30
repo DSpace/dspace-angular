@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {
   NgbCollapseModule,
-  NgbDatepickerModule,
   NgbDropdownModule,
   NgbModule,
   NgbNavModule,
@@ -15,7 +14,6 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FileUploadModule } from 'ng2-file-upload';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import {
