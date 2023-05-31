@@ -194,8 +194,8 @@
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Nome",
   
-  // "admin.registries.bitstream-formats.table.id" : "ID",
-  "admin.registries.bitstream-formats.table.id" : "ID",
+  // "admin.registries.bitstream-formats.table.id": "ID",
+  "admin.registries.bitstream-formats.table.id": "ID",
   
   // "admin.registries.bitstream-formats.table.return": "Back",
   "admin.registries.bitstream-formats.table.return": "Voltar",
@@ -272,8 +272,8 @@
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Campo",
   
-  // "admin.registries.schema.fields.table.id" : "ID",
-  "admin.registries.schema.fields.table.id" : "ID",
+  // "admin.registries.schema.fields.table.id": "ID",
+  "admin.registries.schema.fields.table.id": "ID",
   
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Descrição",
@@ -2195,8 +2195,8 @@
   // "supervision-group-selector.notification.create.failure.title": "error",
   "supervision-group-selector.notification.create.failure.title": "erro",
 
-  // "supervision-group-selector.notification.create.already-existing" : "A supervision order already exists on this item for selected group",
-  "supervision-group-selector.notification.create.already-existing" : "Já existe uma ordem de supervisão sobre este item para grupo selecionado",
+  // "supervision-group-selector.notification.create.already-existing": "A supervision order already exists on this item for selected group",
+  "supervision-group-selector.notification.create.already-existing": "Já existe uma ordem de supervisão sobre este item para grupo selecionado",
 
   // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
   "confirmation-modal.export-metadata.header": "Exportar metadados para {{ dsoName }}",
@@ -2651,9 +2651,9 @@
   // "home.title": "Home",
   "home.title": "Página inicial",
   
-   // "home.top-level-communities.head": "Communities in DSpace",
+  // "home.top-level-communities.head": "Communities in DSpace",
   "home.top-level-communities.head": "Comunidades",
-
+  
   // "home.top-level-communities.help": "Select a community to browse its collections.",
   "home.top-level-communities.help": "Selecione uma comunidade para navegar nas suas coleções",
 
@@ -2714,20 +2714,20 @@
   // "info.feedback.email-label": "Your Email",
   "info.feedback.email-label": "O seu endereço de correio electrónico:",
 
-  // "info.feedback.create.success" : "Feedback Sent Successfully!",
-  "info.feedback.create.success" : "Mensagem enviada com sucesso!",
+  // "info.feedback.create.success": "Feedback Sent Successfully!",
+  "info.feedback.create.success": "Mensagem enviada com sucesso!",
 
-  // "info.feedback.error.email.required" : "A valid email address is required",
-  "info.feedback.error.email.required" : "Deve inserir um endereço de correio electrónico válido",
+  // "info.feedback.error.email.required": "A valid email address is required",
+  "info.feedback.error.email.required": "Deve inserir um endereço de correio electrónico válido",
 
-  // "info.feedback.error.message.required" : "A comment is required",
-  "info.feedback.error.message.required" : "Deve inserir uma mensagem",
+  // "info.feedback.error.message.required": "A comment is required",
+  "info.feedback.error.message.required": "Deve inserir uma mensagem",
+  
+  // "info.feedback.page-label": "Page",
+  "info.feedback.page-label": "Página/URL de contexo:",
 
-  // "info.feedback.page-label" : "Page",
-  "info.feedback.page-label" : "Página/URL de contexo:",
-
-  // "info.feedback.page_help" : "The page related to your feedback",  
-  "info.feedback.page_help" : "Esta é a página/URL que contextualiza o seu contacto.",
+  // "info.feedback.page_help": "The page related to your feedback",  
+  "info.feedback.page_help": "Esta é a página/URL que contextualiza o seu contacto.",
  
   // "item.alerts.private": "This item is non-discoverable",
   "item.alerts.private": "Este item é privado",
@@ -3533,11 +3533,11 @@
   // "item.page.bitstreams.collapse": "Collapse",
   "item.page.bitstreams.collapse": "Fechar",
 
-  // "item.page.filesection.original.bundle" : "Original bundle",
+  // "item.page.filesection.original.bundle": "Original bundle",
   "item.page.filesection.original.bundle": "Principais",
 
-  // "item.page.filesection.license.bundle" : "License bundle",
-  "item.page.filesection.license.bundle" : "Licença",
+  // "item.page.filesection.license.bundle": "License bundle",
+  "item.page.filesection.license.bundle": "Licença",
   
   // "item.page.return": "Back",
   "item.page.return": "Voltar",
@@ -3581,35 +3581,35 @@
   // "item.preview.dc.type": "Type:",
   "item.preview.dc.type": "Tipo:",
   
-  // "item.preview.oaire.citation.issue" : "Issue",
-  "item.preview.oaire.citation.issue" : "Issue",
+  // "item.preview.oaire.citation.issue": "Issue",
+  "item.preview.oaire.citation.issue": "Issue",
 
-  // "item.preview.oaire.citation.volume" : "Volume",
-  "item.preview.oaire.citation.volume" : "Volume",
+  // "item.preview.oaire.citation.volume": "Volume",
+  "item.preview.oaire.citation.volume": "Volume",
 
-  // "item.preview.dc.relation.issn" : "ISSN",
-  "item.preview.dc.relation.issn" : "ISSN", 					
+  // "item.preview.dc.relation.issn": "ISSN",
+  "item.preview.dc.relation.issn": "ISSN", 					
   
-  // "item.preview.dc.relation.eissn" : "EISSN",
-  "item.preview.dc.relation.eissn" : "EISSN",
+  // "item.preview.dc.relation.eissn": "EISSN",
+  "item.preview.dc.relation.eissn": "EISSN",
 
-  // "item.preview.dc.identifier.isbn" : "ISBN",
-  "item.preview.dc.identifier.isbn" : "ISBN",		 
+  // "item.preview.dc.identifier.isbn": "ISBN",
+  "item.preview.dc.identifier.isbn": "ISBN",		 
   
-  // "item.preview.dc.identifier.eisbn" : "EISBN",
-  "item.preview.dc.identifier.eisbn" : "EISBN",
+  // "item.preview.dc.identifier.eisbn": "EISBN",
+  "item.preview.dc.identifier.eisbn": "EISBN",
   
-  // "item.preview.dc.identifier.tid" : "TID",
-  "item.preview.dc.identifier.tid" : "TID",
+  // "item.preview.dc.identifier.tid": "TID",
+  "item.preview.dc.identifier.tid": "TID",
 
   // "item.preview.dc.identifier": "Identifier:",
   "itemm.preview.dc.identifier": "Identificador:",
 
-  // "item.preview.dc.relation.ispartof" : "Journal or Serie",
-  "item.preview.dc.relation.ispartof" : "Revista ou Série",
+  // "item.preview.dc.relation.ispartof": "Journal or Serie",
+  "item.preview.dc.relation.ispartof": "Revista ou Série",
 
-  // "item.preview.dc.identifier.doi" : "DOI",
-  "item.preview.dc.identifier.doi" : "DOI",	  
+  // "item.preview.dc.identifier.doi": "DOI",
+  "item.preview.dc.identifier.doi": "DOI",	  
   
   // "item.preview.person.familyName": "Surname:",
   "item.preview.person.familyName": "Apelido:",
@@ -4475,14 +4475,14 @@
   // "nav.stop-impersonating": "Stop impersonating EPerson",
   "nav.stop-impersonating": "Deixar de assumir o papel do utilizador",
 
-  // "nav.subscriptions" : "Subscriptions",
-  "nav.subscriptions" : "Subscrições de alertas",  
+  // "nav.subscriptions": "Subscriptions",
+  "nav.subscriptions": "Subscrições de alertas",  
   
-  // "nav.toggle" : "Toggle navigation",
-  "nav.toggle" : "Alternar a navegação",
+  // "nav.toggle": "Toggle navigation",
+  "nav.toggle": "Alternar a navegação",
 
-  // "nav.user.description" : "User profile bar",
-  "nav.user.description" : "Barra do perfil de utilizador",
+  // "nav.user.description": "User profile bar",
+  "nav.user.description": "Barra do perfil de utilizador",
 
   // "none.listelement.badge": "Item",
   "none.listelement.badge": "Item",
@@ -4634,16 +4634,16 @@
   // "process.new.breadcrumbs": "Create a new process",
   "process.new.breadcrumbs": "Criar um novo processo",
 
-  // "process.detail.arguments" : "Arguments",
+  // "process.detail.arguments": "Arguments",
   "process.detail.arguments": "Argumentos",
 
-  // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
+  // "process.detail.arguments.empty": "This process doesn't contain any arguments",
   "process.detail.arguments.empty": "Este processo não contém argumentos",
 
-  // "process.detail.back" : "Back",
+  // "process.detail.back": "Back",
   "process.detail.back": "Voltar",
 
-  // "process.detail.output" : "Process Output",
+  // "process.detail.output": "Process Output",
   "process.detail.output": "Output do Processo",
 
   // "process.detail.logs.button": "Retrieve process output",
@@ -4655,29 +4655,29 @@
   // "process.detail.logs.none": "This process has no output",
   "process.detail.logs.none": "Este processo não tem output",
 
-  // "process.detail.output-files" : "Output Files",
+  // "process.detail.output-files": "Output Files",
   "process.detail.output-files": "Ficheiros do Output",
 
-  // "process.detail.output-files.empty" : "This process doesn't contain any output files",
+  // "process.detail.output-files.empty": "This process doesn't contain any output files",
   "process.detail.output-files.empty": "Este processo não possui nenhum ficheiro de output",
 
-  // "process.detail.script" : "Script",
+  // "process.detail.script": "Script",
   "process.detail.script": "Script",
 
-  // "process.detail.title" : "Process: {{ id }} - {{ name }}",
+  // "process.detail.title": "Process: {{ id }} - {{ name }}",
   "process.detail.title": "Processo: {{ id }} - {{ name }}",
 
-  // "process.detail.start-time" : "Start time",
+  // "process.detail.start-time": "Start time",
   "process.detail.start-time": "Início",
 
-  // "process.detail.end-time" : "Finish time",
+  // "process.detail.end-time": "Finish time",
   "process.detail.end-time": "Fim",
 
-  // "process.detail.status" : "Status",
+  // "process.detail.status": "Status",
   "process.detail.status": "Estado",
 
-  // "process.detail.create" : "Create similar process",
-  "process.detail.create" : "Criar processo similar",
+  // "process.detail.create": "Create similar process",
+  "process.detail.create": "Criar processo similar",
   
   // "process.detail.actions": "Actions",
   "process.detail.actions": "Ações",
@@ -4703,22 +4703,22 @@
   // "process.detail.delete.error": "Something went wrong when deleting the process",	
   "process.detail.delete.error": "Ocorreu algum erro ao remover o processo",   
   
-  // "process.overview.table.finish" : "Finish time (UTC)",
-  "process.overview.table.finish" : "Hora de término (UTC)",
+  // "process.overview.table.finish": "Finish time (UTC)",
+  "process.overview.table.finish": "Hora de término (UTC)",
   
-  // "process.overview.table.id" : "Process ID",
+  // "process.overview.table.id": "Process ID",
   "process.overview.table.id": "ID do Processo",
 
-  // "process.overview.table.name" : "Name",
-  "process.overview.table.name" : "Nome",
+  // "process.overview.table.name": "Name",
+  "process.overview.table.name": "Nome",
   
-   // "process.overview.table.start" : "Start time (UTC)",
-  "process.overview.table.start" : "Hora de início (UTC)",
+  // "process.overview.table.start": "Start time (UTC)",
+  "process.overview.table.start": "Hora de início (UTC)",
   
-  // "process.overview.table.status" : "Status",
+  // "process.overview.table.status": "Status",
   "process.overview.table.status": "Estado",
 
-  // "process.overview.table.user" : "User",
+  // "process.overview.table.user": "User",
   "process.overview.table.user": "Utilizador",
 
   // "process.overview.title": "Processes Overview",
@@ -5303,7 +5303,7 @@
   // "search.title": "Search",
   "search.title": "Pesquisa",
   
-   // "search.breadcrumbs": "Search",
+  // "search.breadcrumbs": "Search",
   "search.breadcrumbs": "Pesquisar",
   
   // "search.search-form.placeholder": "Search the repository ...",
@@ -5935,8 +5935,8 @@
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Import remote author",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Importar autor remoto",
- 
- // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Import remote journal",
+  
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Import remote journal",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Importar revista remota",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Import remote journal issue",
@@ -6484,9 +6484,9 @@
 
   // "submission.sections.status.warnings.aria": "has warnings",
   "submission.sections.status.warnings.aria": "tem avisos",
-
+  
   // "submission.sections.status.info.title": "Additional Information",
- "submission.sections.status.info.title": "Informação adicional",
+  "submission.sections.status.info.title": "Informação adicional",
 
   // "submission.sections.status.info.aria": "Additional Information",
   "submission.sections.status.info.aria": "Informação adicional",  
@@ -6644,8 +6644,8 @@
   // "submission.sections.license.required": "You must accept the license",
   "submission.sections.license.required": "A aceitação da licença constitui um requisito",
 
-  // "submission.sections.license.notgranted":  "You must accept the license",
-  "submission.sections.license.notgranted":  "Deve aceitar a licença",
+  // "submission.sections.license.notgranted": "You must accept the license",
+  "submission.sections.license.notgranted": "Deve aceitar a licença",
 
   // "submission.sections.sherpa.publication.information": "Publication information",
   "submission.sections.sherpa.publication.information": "Informação sobre a publicação",
@@ -7157,8 +7157,8 @@
   // "idle-modal.extend-session": "Extend session",
   "idle-modal.extend-session": "Prolongar sessão",
 	
-  // "researcher.profile.action.processing" : "Processing...",
-  "researcher.profile.action.processing" : "A processar...",
+  // "researcher.profile.action.processing": "Processing...",
+  "researcher.profile.action.processing": "A processar...",
 
   // "researcher.profile.associated": "Researcher profile associated",
   "researcher.profile.associated": "Perfil do investigador associado",  
@@ -7190,11 +7190,11 @@
   // "researcher.profile.view": "View",
   "researcher.profile.view": "Ver",
   
-  // "researcher.profile.private.visibility" : "PRIVATE",
-  "researcher.profile.private.visibility" : "PRIVADO",
+  // "researcher.profile.private.visibility": "PRIVATE",
+  "researcher.profile.private.visibility": "PRIVADO",
   
-  // "researcher.profile.public.visibility" : "PUBLIC",
-  "researcher.profile.public.visibility" : "PÚBLICO",
+  // "researcher.profile.public.visibility": "PUBLIC",
+  "researcher.profile.public.visibility": "PÚBLICO",
   
   // "researcher.profile.status": "Status:",
   "researcher.profile.status": "Estado:",
@@ -7202,17 +7202,17 @@
   // "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
   "researcherprofile.claim.not-authorized": "Não possui autorização para reinvindicar este artigo. Para mais pormenores, contactar o(s) administrador(es).",
   
-  // "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
-  "researcherprofile.error.claim.body" : "Ocorreu um erro ao reclamar o perfil, por favor tente novamente mais tarde",
+  // "researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
+  "researcherprofile.error.claim.body": "Ocorreu um erro ao reclamar o perfil, por favor tente novamente mais tarde",
 	
-  // "researcherprofile.error.claim.title" : "Error",
-  "researcherprofile.error.claim.title" : "Erro",		   
+  // "researcherprofile.error.claim.title": "Error",
+  "researcherprofile.error.claim.title": "Erro",		   
 
-  // "researcherprofile.success.claim.body" : "Profile claimed with success",
-  "researcherprofile.success.claim.body" : "Perfil reivindicado com sucesso",
+  // "researcherprofile.success.claim.body": "Profile claimed with success",
+  "researcherprofile.success.claim.body": "Perfil reivindicado com sucesso",
 
-  // "researcherprofile.success.claim.title" : "Success",
-  "researcherprofile.success.claim.title" : "Sucesso",
+  // "researcherprofile.success.claim.title": "Success",
+  "researcherprofile.success.claim.title": "Sucesso",
   
   // "person.page.orcid.create": "Create an ORCID iD",
   "person.page.orcid.create": "Criar um ORCID iD",
@@ -7220,8 +7220,8 @@
   // "person.page.orcid.granted-authorizations": "Granted authorizations",
   "person.page.orcid.granted-authorizations": "Autorizações concedidas",												
 
-  // "person.page.orcid.grant-authorizations" : "Grant authorizations",
-  "person.page.orcid.grant-authorizations" : "Conceder autorizações",
+  // "person.page.orcid.grant-authorizations": "Grant authorizations",
+  "person.page.orcid.grant-authorizations": "Conceder autorizações",
   
   // "person.page.orcid.link": "Connect to ORCID iD",
   "person.page.orcid.link": "Ligar ao ORCID iD",
@@ -7268,44 +7268,44 @@
   // "person.page.orcid.save.preference.changes": "Update settings",
   "person.page.orcid.save.preference.changes": "Atualizar configurações",
 
-  // "person.page.orcid.sync-profile.affiliation" : "Affiliation",
-  "person.page.orcid.sync-profile.affiliation" : "Afiliação",
+  // "person.page.orcid.sync-profile.affiliation": "Affiliation",
+  "person.page.orcid.sync-profile.affiliation": "Afiliação",
 
-  // "person.page.orcid.sync-profile.biographical" : "Biographical data",
-  "person.page.orcid.sync-profile.biographical" : "Dados biográficos",	  
+  // "person.page.orcid.sync-profile.biographical": "Biographical data",
+  "person.page.orcid.sync-profile.biographical": "Dados biográficos",	  
 
-  // "person.page.orcid.sync-profile.education" : "Education",
-  "person.page.orcid.sync-profile.education" : "Educação",
+  // "person.page.orcid.sync-profile.education": "Education",
+  "person.page.orcid.sync-profile.education": "Educação",
   
-  // "person.page.orcid.sync-profile.identifiers" : "Identifiers",
-  "person.page.orcid.sync-profile.identifiers" : "Identificadores",
+  // "person.page.orcid.sync-profile.identifiers": "Identifiers",
+  "person.page.orcid.sync-profile.identifiers": "Identificadores",
   
-  // "person.page.orcid.sync-fundings.all" : "All fundings",
-  "person.page.orcid.sync-fundings.all" : "Todos financiamentos",
+  // "person.page.orcid.sync-fundings.all": "All fundings",
+  "person.page.orcid.sync-fundings.all": "Todos financiamentos",
 
-  // "person.page.orcid.sync-fundings.mine" : "My fundings",
-  "person.page.orcid.sync-fundings.mine" : "Meus financiamentos",
+  // "person.page.orcid.sync-fundings.mine": "My fundings",
+  "person.page.orcid.sync-fundings.mine": "Meus financiamentos",
 
-  // "person.page.orcid.sync-fundings.my_selected" : "Selected fundings",
-  "person.page.orcid.sync-fundings.my_selected" : "Financiamentos selecionados",
+  // "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
+  "person.page.orcid.sync-fundings.my_selected": "Financiamentos selecionados",
   
-  // "person.page.orcid.sync-fundings.disabled" : "Disabled",
-  "person.page.orcid.sync-fundings.disabled" : "Desligado",  
+  // "person.page.orcid.sync-fundings.disabled": "Disabled",
+  "person.page.orcid.sync-fundings.disabled": "Desligado",  
 
-  // "person.page.orcid.sync-publications.all" : "All publications",
-  "person.page.orcid.sync-publications.all" : "Todas as publicações",
+  // "person.page.orcid.sync-publications.all": "All publications",
+  "person.page.orcid.sync-publications.all": "Todas as publicações",
   
-  // "person.page.orcid.sync-publications.mine" : "My publications",
-  "person.page.orcid.sync-publications.mine" : "As minhas publicações",
+  // "person.page.orcid.sync-publications.mine": "My publications",
+  "person.page.orcid.sync-publications.mine": "As minhas publicações",
 				
-  // "person.page.orcid.sync-publications.my_selected" : "Selected publications",
-  "person.page.orcid.sync-publications.my_selected" : "Publicações selecionadas",
+  // "person.page.orcid.sync-publications.my_selected": "Selected publications",
+  "person.page.orcid.sync-publications.my_selected": "Publicações selecionadas",
 
-  // "person.page.orcid.sync-publications.disabled" : "Disabled",
-  "person.page.orcid.sync-publications.disabled" : "Desligado",
+  // "person.page.orcid.sync-publications.disabled": "Disabled",
+  "person.page.orcid.sync-publications.disabled": "Desligado",
 
-  // "person.page.orcid.sync-queue.discard" : "Discard the change and do not synchronize with the ORCID registry",
-  "person.page.orcid.sync-queue.discard" : "Cancelar a alteração e não sincronizar com o registo ORCID",
+  // "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
+  "person.page.orcid.sync-queue.discard": "Cancelar a alteração e não sincronizar com o registo ORCID",
 
   // "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
   "person.page.orcid.sync-queue.discard.error": "A eliminação do registo da fila do ORCID falhou",
@@ -7316,14 +7316,14 @@
   // "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
   "person.page.orcid.sync-queue.empty-message": "O registo de filas do ORCID está vazio",	  
 
-  // "person.page.orcid.sync-queue.table.header.type" : "Type",
-  "person.page.orcid.sync-queue.table.header.type" : "Tipo",  
+  // "person.page.orcid.sync-queue.table.header.type": "Type",
+  "person.page.orcid.sync-queue.table.header.type": "Tipo",  
 
-  // "person.page.orcid.sync-queue.table.header.description" : "Description",
-  "person.page.orcid.sync-queue.table.header.description" : "Descrição",  
+  // "person.page.orcid.sync-queue.table.header.description": "Description",
+  "person.page.orcid.sync-queue.table.header.description": "Descrição",  
 
-  // "person.page.orcid.sync-queue.table.header.action" : "Action",
-  "person.page.orcid.sync-queue.table.header.action" : "Ação",  
+  // "person.page.orcid.sync-queue.table.header.action": "Action",
+  "person.page.orcid.sync-queue.table.header.action": "Ação",  
 
   // "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
   "person.page.orcid.sync-queue.description.affiliation": "Afiliações",
@@ -7388,8 +7388,8 @@
   // "person.page.orcid.sync-queue.tooltip.researcher_urls": "Researcher url",
   "person.page.orcid.sync-queue.tooltip.researcher_urls": "URL do investigador",  
 
-  // "person.page.orcid.sync-queue.send" : "Synchronize with ORCID registry",
-  "person.page.orcid.sync-queue.send" : "Sincronizar com o registo ORCID",
+  // "person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
+  "person.page.orcid.sync-queue.send": "Sincronizar com o registo ORCID",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
   "person.page.orcid.sync-queue.send.unauthorized-error.title": "A submissão ao ORCID falhou por falta de autorizações.",
@@ -7442,8 +7442,8 @@
   // "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "The organization's name is required",
   "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "O nome da organização é obrigatório", 
 
-  // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "The publication date must be one year after 1900",
-  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "A data de publicação deve ser um ano após 1900",
+  // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "A data de publicação deve ser um ano após 1900",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
   "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "A organização a ser enviada requer um endereço",
