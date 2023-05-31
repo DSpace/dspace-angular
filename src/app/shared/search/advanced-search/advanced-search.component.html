@@ -1,5 +1,4 @@
-<div class="facet-filter d-block mb-3 p-3" [ngClass]="{ 'focus': focusBox }" role="region" [id]="regionId"
-    [attr.aria-labelledby]="toggleId">
+<div class="facet-filter d-block mb-3 p-3" [ngClass]="{ 'focus': focusBox }">
     <button (click)="toggle()" (focusin)="focusBox = true" (focusout)="focusBox = false" class="filter-name d-flex"
         [attr.aria-expanded]="false" [attr.data-test]="'filter-toggle' | dsBrowserOnly">
         <h5 class="d-inline-block mb-0">
