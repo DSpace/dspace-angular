@@ -567,4 +567,41 @@ describe('MenuService', () => {
     });
   });
 
+  describe(`resolveSubstitutions`, () => {
+    let linkPrefix;
+    let link;
+    let uuid;
+
+    beforeEach(() => {
+      linkPrefix = 'statistics_collection_';
+      link = `${linkPrefix}:id`;
+      uuid = 'f7cc3ca4-3c2c-464d-8af8-add9f84f711c';
+    });
+
+    it(`shouldn't do anything when there are no params`, () => {
+      let result = (service as any).resolveSubstitutions(link, undefined);
+      expect(result).toEqual(link);
+      result = (service as any).resolveSubstitutions(link, null);
+      expect(result).toEqual(link);
+      result = (service as any).resolveSubstitutions(link, {});
+      expect(result).toEqual(link);
+    });
+
+    it(`should replace link params that are also route params`, () => {
+      const result = (service as any).resolveSubstitutions(link,{ 'id': uuid });
+      expect(result).toEqual(linkPrefix + uuid);
+    });
+
+    it(`should not replace link params that aren't route params`, () => {
+      const result = (service as any).resolveSubstitutions(link,{ 'something': 'else' });
+      expect(result).toEqual(link);
+    });
+
+    it(`should gracefully deal with routes that contain the name of the route param`, () => {
+      const selfReferentialParam = `:id:something`;
+      const result = (service as any).resolveSubstitutions(link,{ 'id': selfReferentialParam });
+      expect(result).toEqual(linkPrefix + selfReferentialParam);
+    });
+  });
+
 });
