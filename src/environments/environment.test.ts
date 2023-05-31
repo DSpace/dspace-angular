@@ -532,6 +532,7 @@ export const environment: BuildConfig = {
         metadataConfiguration: []
       }
     ]
-  }
+  },
 
+  breadcrumbCharLimit: 10,
 };

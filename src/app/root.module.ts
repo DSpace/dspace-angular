@@ -42,6 +42,8 @@ import {
 import { FooterModule } from './footer/footer.module';
 import { SocialModule } from './social/social.module';
 import { ExploreModule } from './shared/explore/explore.module';
+import { IsTextTruncatedPipe } from './breadcrumbs/breadcrumb/is-text-truncated.pipe';
+import { TruncateBreadcrumbItemCharactersPipe } from './breadcrumbs/breadcrumb/truncate-breadcrumb-item-characters.pipe';
 
 const IMPORTS = [
   CommonModule,
@@ -83,6 +85,8 @@ const DECLARATIONS = [
   ThemedPageErrorComponent,
   PageErrorComponent,
   ContextHelpToggleComponent,
+  TruncateBreadcrumbItemCharactersPipe,
+  IsTextTruncatedPipe
 ];
 
 const EXPORTS = [
