@@ -14,6 +14,7 @@ import { hasNoValue, hasValue } from '../../../../empty.util';
 import { NoContent } from '../../../../../core/shared/NoContent.model';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * Component for managing a community or collection role.
@@ -76,6 +77,7 @@ export class ComcolRoleComponent implements OnInit {
     protected groupService: GroupDataService,
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
+    public dsoNameService: DSONameService,
   ) {
   }
 

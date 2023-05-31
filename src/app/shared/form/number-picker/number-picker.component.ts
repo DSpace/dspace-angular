@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, } from '@angular/core';
-import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isEmpty } from '../../empty.util';
 
 @Component({
@@ -31,7 +31,7 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
 
   startValue: number;
 
-  constructor(private fb: FormBuilder, private cd: ChangeDetectorRef) {
+  constructor(private fb: UntypedFormBuilder, private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {

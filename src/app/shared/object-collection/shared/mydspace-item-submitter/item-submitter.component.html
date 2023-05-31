@@ -1,3 +1,13 @@
-<div class="mt-2 mb-2" *ngIf="(submitter$ | async)">
-  <span class="text-muted">{{'submission.workflow.tasks.generic.submitter' | translate}} : <span class="badge badge-info">{{(submitter$ | async)?.name}}</span></span>
+<div class="mt-2 mb-2">
+  <span class="text-muted">
+    {{'submission.workflow.tasks.generic.submitter' | translate}}:
+    <span class="badge badge-info">
+      <ng-container *ngIf="submitter$ | async as submitter; else noSubmitter">
+        {{ dsoNameService.getName(submitter) }}
+      </ng-container>
+      <ng-template #noSubmitter>
+        {{ 'submitter.empty' | translate }}
+      </ng-template>
+    </span>
+  </span>
 </div>

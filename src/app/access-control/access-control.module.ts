@@ -27,7 +27,10 @@ export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
     SharedModule,
     RouterModule,
     AccessControlRoutingModule,
-    FormModule
+    FormModule,
+  ],
+  exports: [
+    MembersListComponent,
   ],
   declarations: [
     EPeopleRegistryComponent,
@@ -35,7 +38,7 @@ export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
     GroupsRegistryComponent,
     GroupFormComponent,
     SubgroupsListComponent,
-    MembersListComponent
+    MembersListComponent,
   ],
   providers: [
     {

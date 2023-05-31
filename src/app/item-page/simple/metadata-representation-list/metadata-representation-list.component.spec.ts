@@ -4,11 +4,15 @@ import { By } from '@angular/platform-browser';
 import { MetadataRepresentationListComponent } from './metadata-representation-list.component';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { Item } from '../../../core/shared/item.model';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { createSuccessfulRemoteDataObject$, createFailedRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { of as observableOf } from 'rxjs';
+import { MetadataValue } from '../../../core/shared/metadata.models';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { MetadatumRepresentation } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import { BrowseDefinitionDataService } from '../../../core/browse/browse-definition-data.service';
+import { BrowseDefinitionDataServiceStub } from '../../../shared/testing/browse-definition-data-service.stub';
 
 const itemType = 'Person';
 const metadataFields = ['dc.contributor.author', 'dc.creator'];
@@ -73,44 +77,37 @@ const relatedCreator: Item = Object.assign(new Item(), {
     'dspace.entity.type': 'Person',
   }
 });
-const authorRelation: Relationship = Object.assign(new Relationship(), {
-  leftItem: createSuccessfulRemoteDataObject$(parentItem),
-  rightItem: createSuccessfulRemoteDataObject$(relatedAuthor)
-});
-const creatorRelation: Relationship = Object.assign(new Relationship(), {
-  leftItem: createSuccessfulRemoteDataObject$(parentItem),
-  rightItem: createSuccessfulRemoteDataObject$(relatedCreator),
-});
-const creatorRelationUnauthorized: Relationship = Object.assign(new Relationship(), {
-  leftItem: createSuccessfulRemoteDataObject$(parentItem),
-  rightItem: createFailedRemoteDataObject$('Unauthorized', 401),
-});
-let relationshipService;
 
 describe('MetadataRepresentationListComponent', () => {
   let comp: MetadataRepresentationListComponent;
   let fixture: ComponentFixture<MetadataRepresentationListComponent>;
 
-  relationshipService = {
-    findById: (id: string) => {
-      if (id === 'related-author') {
-        return createSuccessfulRemoteDataObject$(authorRelation);
-      }
-      if (id === 'related-creator') {
-        return createSuccessfulRemoteDataObject$(creatorRelation);
-      }
-      if (id === 'related-creator-unauthorized') {
-        return createSuccessfulRemoteDataObject$(creatorRelationUnauthorized);
-      }
-    },
-  };
+  let relationshipService;
 
   beforeEach(waitForAsync(() => {
+    relationshipService = {
+      resolveMetadataRepresentation: (metadatum: MetadataValue, parent: DSpaceObject, type: string) => {
+        if (metadatum.value === 'Related Author with authority') {
+          return observableOf(Object.assign(new ItemMetadataRepresentation(metadatum), relatedAuthor));
+        }
+        if (metadatum.value === 'Author without authority') {
+          return observableOf(Object.assign(new MetadatumRepresentation(type), metadatum));
+        }
+        if (metadatum.value === 'Related Creator with authority') {
+          return observableOf(Object.assign(new ItemMetadataRepresentation(metadatum), relatedCreator));
+        }
+        if (metadatum.value === 'Related Creator with authority - unauthorized') {
+          return observableOf(Object.assign(new MetadatumRepresentation(type), metadatum));
+        }
+      },
+    };
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [MetadataRepresentationListComponent, VarDirective],
       providers: [
-        { provide: RelationshipDataService, useValue: relationshipService }
+        { provide: RelationshipDataService, useValue: relationshipService },
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MetadataRepresentationListComponent, {
