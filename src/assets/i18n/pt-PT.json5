@@ -1,26 +1,25 @@
 {
 
-  // Dspace v7.5 > i18n pt-PT > reviewed 30-05-2023 
-
-
+  // Dspace v7.5 > i18n pt-PT > reviewed 30-05-2023
+  
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Não está autorizado a aceder a esta página. Pode utilizar o botão em baixo para voltar à página de início.",
   
   // "401.link.home-page": "Take me to the home page",
   "401.link.home-page": "Voltar à página de início",
-
+  
   // "401.unauthorized": "unauthorized",
   "401.unauthorized": "Não autorizado",
-
+  
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
   "403.help": "Não possui permissões para aceder a esta página. Pode utilizar o botão em baixo para voltar à página de início.",
-
+  
   // "403.link.home-page": "Take me to the home page",
   "403.link.home-page": "Voltar à página de início",
-
+  
   // "403.forbidden": "forbidden",
   "403.forbidden": "Proibido",
-
+  
   // "500.page-internal-server-error": "Service Unavailable",
   "500.page-internal-server-error": "Serviço indisponível",
   
@@ -29,16 +28,16 @@
   
   // "500.link.home-page": "Take me to the home page",
   "500.link.home-page": "Voltar à página de início",
-
+  
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   "404.help": "Não encontramos a página que procura. A página pode ter sido movida ou eliminada. Pode utilizar o botão em baixo para voltar à página de início. ",
-
+  
   // "404.link.home-page": "Take me to the home page",
   "404.link.home-page": "Voltar à página de início",
   
   // "404.page-not-found": "page not found",
   "404.page-not-found": "página não encontrada",
- 
+  
   // "error-page.description.401": "unauthorized",
   "error-page.description.401": "Não autorizado",
   
@@ -46,10 +45,10 @@
   "error-page.description.403": "Proibido",
   
   // "error-page.description.500": "Service Unavailable",
-  "error-page.description.500": "Serviço indisponível",					  
-
+  "error-page.description.500": "Serviço indisponível",
+  
   // "error-page.description.404": "page not found",
-  "error-page.description.404": "página não encontrada", 
+  "error-page.description.404": "página não encontrada",
   
   // "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
   "error-page.orcid.generic-error": "Ocorreu um erro com a sua autenticação via ORCID. Certifique-se que partilhou o seu endereço de email associado à sua conta ORCID com o repositório. Se o erro persistir, por favor contacte o administrador do sistema.",
@@ -58,8 +57,8 @@
   "access-status.embargo.listelement.badge": "Embargado",
   
   // "access-status.metadata.only.listelement.badge": "Metadata only",
-  "access-status.metadata.only.listelement.badge": "Apenas Metadados", 
-
+  "access-status.metadata.only.listelement.badge": "Apenas Metadados",
+  
   // "access-status.open.access.listelement.badge": "Open Access",
   "access-status.open.access.listelement.badge": "Acesso Aberto",
   
@@ -68,16 +67,16 @@
   
   // "access-status.unknown.listelement.badge": "Unknown",
   "access-status.unknown.listelement.badge": "Desconhecido",
-
+  
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
   "admin.curation-tasks.breadcrumbs": "Tarefas de curadoria",
   
   // "admin.curation-tasks.title": "System curation tasks",
   "admin.curation-tasks.title": "Tarefas de curadoria",
-
+  
   // "admin.curation-tasks.header": "System curation tasks",
   "admin.curation-tasks.header": "Tarefas de curadoria",
-
+  
   // "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
   "admin.registries.bitstream-formats.breadcrumbs": "Registo de formatos",
   
@@ -89,31 +88,31 @@
   
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
   "admin.registries.bitstream-formats.create.failure.head": "Falha",
-
+  
   // "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
   "admin.registries.bitstream-formats.create.head": "Criar formato de ficheiro",
   
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
   "admin.registries.bitstream-formats.create.new": "Adicionar um novo formato de ficheiro",
-
+  
   // "admin.registries.bitstream-formats.create.success.content": "The new bitstream format was successfully created.",
   "admin.registries.bitstream-formats.create.success.content": "O novo formato de ficheiro foi criado com sucesso.",
-
+  
   // "admin.registries.bitstream-formats.create.success.head": "Success",
   "admin.registries.bitstream-formats.create.success.head": "Sucesso",
-
+  
   // "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
   "admin.registries.bitstream-formats.delete.failure.amount": "Falha ao remover {{ amount }} formato(s)",
-
+  
   // "admin.registries.bitstream-formats.delete.failure.head": "Failure",
   "admin.registries.bitstream-formats.delete.failure.head": "Falha",
-
+  
   // "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
   "admin.registries.bitstream-formats.delete.success.amount": "Removeu {{ amount }} formato(s) com sucesso",
-
+  
   // "admin.registries.bitstream-formats.delete.success.head": "Success",
   "admin.registries.bitstream-formats.delete.success.head": "Sucesso",
-
+  
   // "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
   "admin.registries.bitstream-formats.description": "Esta lista de formatos de ficheiro apresenta informações sobre formatos conhecidos e os seus níveis de suporte.",
   
@@ -122,76 +121,76 @@
   
   // "admin.registries.bitstream-formats.edit.description.hint": "",
   "admin.registries.bitstream-formats.edit.description.hint": "",
-
+  
   // "admin.registries.bitstream-formats.edit.description.label": "Description",
   "admin.registries.bitstream-formats.edit.description.label": "Descrição",
-
+  
   // "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
   "admin.registries.bitstream-formats.edit.extensions.hint": "Extensões são extensões de ficheiro que são usadas para identificar automaticamente o formato dos ficheiros enviados. Pode informar várias extensões para cada formato.",
-
+  
   // "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
   "admin.registries.bitstream-formats.edit.extensions.label": "Extensões de ficheiro",
-
+  
   // "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extension without the dot",
   "admin.registries.bitstream-formats.edit.extensions.placeholder": "Indique uma extenção de ficheiro sem o ponto",
-
+  
   // "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
   "admin.registries.bitstream-formats.edit.failure.content": "Ocorreu um erro ao editar o formato de bitstream.",
-
+  
   // "admin.registries.bitstream-formats.edit.failure.head": "Failure",
   "admin.registries.bitstream-formats.edit.failure.head": "Falha",
-
+  
   // "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
   "admin.registries.bitstream-formats.edit.head": "Formato de bitstream: {{ format }}",
-
+  
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
   "admin.registries.bitstream-formats.edit.internal.hint": "Formatos marcados como internos são ocultos para o utilizador, usados por motivos administrativos.",
   
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
   "admin.registries.bitstream-formats.edit.internal.label": "Interno",
-
+  
   // "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
   "admin.registries.bitstream-formats.edit.mimetype.hint": "O MIME type associado a este formato não tem que ser único.",
-
+  
   // "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Type",
   "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Type",
-
+  
   // "admin.registries.bitstream-formats.edit.shortDescription.hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)",
   "admin.registries.bitstream-formats.edit.shortDescription.hint": "Um nome único para este formato (exemplo. Microsoft Word XP ou Microsoft Word 2000)",
-
+  
   // "admin.registries.bitstream-formats.edit.shortDescription.label": "Name",
   "admin.registries.bitstream-formats.edit.shortDescription.label": "Nome",
-
+  
   // "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
   "admin.registries.bitstream-formats.edit.success.content": "O formato de bitstream foi editado com sucesso.",
-
+  
   // "admin.registries.bitstream-formats.edit.success.head": "Success",
   "admin.registries.bitstream-formats.edit.success.head": "Sucesso",
-
+  
   // "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
   "admin.registries.bitstream-formats.edit.supportLevel.hint": "O nível de suporte que a sua instituição promete para este formato.",
-
+  
   // "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
   "admin.registries.bitstream-formats.edit.supportLevel.label": "Nível de suporte",
-
+  
   // "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
   "admin.registries.bitstream-formats.head": "Registo de formatos de ficheiros",
   
   // "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
   "admin.registries.bitstream-formats.no-items": "Nenhum formato de bitstream para exibir.",
-
+  
   // "admin.registries.bitstream-formats.table.delete": "Delete selected",
   "admin.registries.bitstream-formats.table.delete": "Apagar selecionado(s)",
-
+  
   // "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
   "admin.registries.bitstream-formats.table.deselect-all": "Desselecionar todos",
-
+  
   // "admin.registries.bitstream-formats.table.internal": "internal",
   "admin.registries.bitstream-formats.table.internal": "Interno",
-
+  
   // "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
   "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
-
+  
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Nome",
   
@@ -200,76 +199,76 @@
   
   // "admin.registries.bitstream-formats.table.return": "Back",
   "admin.registries.bitstream-formats.table.return": "Voltar",
-
+  
   // "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
   "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Conhecido",
- 
+  
   // "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Supported",
   "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Suportado",
-
+  
   // "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Unknown",
   "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Desconhecido",
-
+  
   // "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
   "admin.registries.bitstream-formats.table.supportLevel.head": "Nível de suporte",
   
   // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
   "admin.registries.bitstream-formats.title": "Registo de formatos de ficheiro",
-    
+  
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
   "admin.registries.metadata.breadcrumbs": "Registo de metadados",
   
   // "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
   "admin.registries.metadata.description": "O registo de metadados mantém a lista de todos os campos de metadados disponíveis no repositório. Estes campos podem ser divididos em multiplos esquemas. No entanto, o DSpace requer esquemas de Dublin Core qualificados.",
-
+  
   // "admin.registries.metadata.form.create": "Create metadata schema",
   "admin.registries.metadata.form.create": "Criar esquema de metadados",
   
   // "admin.registries.metadata.form.edit": "Edit metadata schema",
   "admin.registries.metadata.form.edit": "Editar esquema de metadados",
-
+  
   // "admin.registries.metadata.form.name": "Name",
   "admin.registries.metadata.form.name": "Nome",
-
+  
   // "admin.registries.metadata.form.namespace": "Namespace",
   "admin.registries.metadata.form.namespace": "Namespace",
-
+  
   // "admin.registries.metadata.head": "Metadata Registry",
   "admin.registries.metadata.head": "Registo de metadados",
-
+  
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
   "admin.registries.metadata.schemas.no-items": "Nenhum esquema de metadados para mostrar.",
-
+  
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
   "admin.registries.metadata.schemas.table.delete": "Apagar selecionado(s)",
-
+  
   // "admin.registries.metadata.schemas.table.id": "ID",
   "admin.registries.metadata.schemas.table.id": "ID",
-
+  
   // "admin.registries.metadata.schemas.table.name": "Name",
   "admin.registries.metadata.schemas.table.name": "Nome",
-
+  
   // "admin.registries.metadata.schemas.table.namespace": "Namespace",
   "admin.registries.metadata.schemas.table.namespace": "Namespace",
   
   // "admin.registries.metadata.title": "Metadata Registry",
   "admin.registries.metadata.title": "Registo de metadados",
-
+  
   // "admin.registries.schema.breadcrumbs": "Metadata schema",
   "admin.registries.schema.breadcrumbs": "Esquema de metadados",
-
+  
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
   "admin.registries.schema.description": "Este é o esquema de metadados para \"{{namespace}}\".",
-
+  
   // "admin.registries.schema.fields.head": "Schema metadata fields",
   "admin.registries.schema.fields.head": "Campos do esquema de metadados",
   
   // "admin.registries.schema.fields.no-items": "No metadata fields to show.",
   "admin.registries.schema.fields.no-items": "Nenhum campo de metadado para exibir.",
-
+  
   // "admin.registries.schema.fields.table.delete": "Delete selected",
   "admin.registries.schema.fields.table.delete": "Apagar selecionado(s)",
-
+  
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Campo",
   
@@ -278,7 +277,7 @@
   
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Descrição",
-
+  
   // "admin.registries.schema.form.create": "Create metadata field",
   "admin.registries.schema.form.create": "Criar elemento de metadados",
   
@@ -287,10 +286,10 @@
   
   // "admin.registries.schema.form.element": "Element",
   "admin.registries.schema.form.element": "Elemento",
-
+  
   // "admin.registries.schema.form.qualifier": "Qualifier",
   "admin.registries.schema.form.qualifier": "Qualificador",
-
+  
   // "admin.registries.schema.form.scopenote": "Scope Note",
   "admin.registries.schema.form.scopenote": "Nota de âmbito",
   
@@ -299,28 +298,28 @@
   
   // "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
   "admin.registries.schema.notification.created": "Criou o esquema de metadados \"{{prefix}}\" com sucesso",
-
+  
   // "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
   "admin.registries.schema.notification.deleted.failure": "Falhou ao apagar {{amount}} esquema(s) de metadados",
-
+  
   // "admin.registries.schema.notification.deleted.success": "Successfully deleted {{amount}} metadata schemas",
   "admin.registries.schema.notification.deleted.success": "Apagou {{amount}} esquema(s) de metadados com sucesso",
-
+  
   // "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
   "admin.registries.schema.notification.edited": "Editou o esquema de metadados \"{{prefix}}\" com sucesso",
-
+  
   // "admin.registries.schema.notification.failure": "Error",
   "admin.registries.schema.notification.failure": "Erro",
-
+  
   // "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
   "admin.registries.schema.notification.field.created": "Criou o campo de metadado \"{{field}}\" com sucesso",
-
+  
   // "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
   "admin.registries.schema.notification.field.deleted.failure": "Falhou ao apagar {{amount}} campo(s) de metadados",
-
+  
   // "admin.registries.schema.notification.field.deleted.success": "Successfully deleted {{amount}} metadata fields",
   "admin.registries.schema.notification.field.deleted.success": "Apagou {{amount}} campo(s) de metadados com sucesso",
-
+  
   // "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
   "admin.registries.schema.notification.field.edited": "Editou o campo de metadado \"{{field}}\" com sucesso",
   
@@ -338,16 +337,16 @@
   
   // "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
   "admin.access-control.epeople.actions.impersonate": "Assumir o papel do Utilizador",
-
+  
   // "admin.access-control.epeople.actions.reset": "Reset password",
-  "admin.access-control.epeople.actions.reset": "Redefinir password",	
+  "admin.access-control.epeople.actions.reset": "Redefinir password",
   
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
   "admin.access-control.epeople.actions.stop-impersonating": "Deixar de assumir o papel do utilizador",
   
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
   "admin.access-control.epeople.breadcrumbs": "Utilizadores",
-
+  
   // "admin.access-control.epeople.title": "EPeople",
   "admin.access-control.epeople.title": "Utilizadores",
   
@@ -356,46 +355,46 @@
   
   // "admin.access-control.epeople.search.head": "Search",
   "admin.access-control.epeople.search.head": "Pesquisar",
-
+  
   // "admin.access-control.epeople.button.see-all": "Browse All",
   "admin.access-control.epeople.button.see-all": "Pesquisar tudo",
   
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
   "admin.access-control.epeople.search.scope.metadata": "Metadados",
-
+  
   // "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
   "admin.access-control.epeople.search.scope.email": "Email (exato)",
-
+  
   // "admin.access-control.epeople.search.button": "Search",
   "admin.access-control.epeople.search.button": "Pesquisar",
   
   // "admin.access-control.epeople.search.placeholder": "Search people...",
   "admin.access-control.epeople.search.placeholder": "Pesquisar utilizadores...",
-
+  
   // "admin.access-control.epeople.button.add": "Add EPerson", 
   "admin.access-control.epeople.button.add": "Adicionar utilizador",
   
   // "admin.access-control.epeople.table.id": "ID",
-  "admin.access-control.epeople.table.id": "ID",																	  
-
+  "admin.access-control.epeople.table.id": "ID",
+  
   // "admin.access-control.epeople.table.name": "Name",
   "admin.access-control.epeople.table.name": "Nome",
-
+  
   // "admin.access-control.epeople.table.email": "E-mail (exact)",
   "admin.access-control.epeople.table.email": "Email (exato)",
-
+  
   // "admin.access-control.epeople.table.edit": "Edit",
   "admin.access-control.epeople.table.edit": "Editar",
-
+  
   // "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
   "admin.access-control.epeople.table.edit.buttons.edit": "Editar \"{{name}}\"",
   
   // "admin.access-control.epeople.table.edit.buttons.edit-disabled": "You are not authorized to edit this group",
   "admin.access-control.epeople.table.edit.buttons.edit-disabled": "Não possui autorização para editar este grupo",
-
+  
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
   "admin.access-control.epeople.table.edit.buttons.remove": "Apagar \"{{name}}\"",
-
+  
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
   "admin.access-control.epeople.no-items": "Sem utilizadores para mostrar.",
   
@@ -407,43 +406,43 @@
   
   // "admin.access-control.epeople.form.firstName": "First name",
   "admin.access-control.epeople.form.firstName": "Nome",
-
+  
   // "admin.access-control.epeople.form.lastName": "Last name",
   "admin.access-control.epeople.form.lastName": "Apelido",
-
+  
   // "admin.access-control.epeople.form.email": "E-mail",
   "admin.access-control.epeople.form.email": "Email",
-
+  
   // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
   "admin.access-control.epeople.form.emailHint": "Deve conter um email válido",
-
+  
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
   "admin.access-control.epeople.form.canLogIn": "Pode iniciar sessão",
-
+  
   // "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
   "admin.access-control.epeople.form.requireCertificate": "Requer certificado",
-
+  
   // "admin.access-control.epeople.form.return": "Back",
   "admin.access-control.epeople.form.return": "Voltar",
   
   // "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.created.success": "Utilizador criado com sucesso \"{{name}}\"",
-
+  
   // "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.created.failure": "Falha ao criar o Utilizador \"{{name}}\"",
-
+  
   // "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
   "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Falha ao criar o Utilizador \"{{name}}\", o email \"{{email}}\" já está registado no repositório.",
-
+  
   // "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
   "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Falha ao editar o Utilizador \"{{name}}\", o email \"{{email}}\" já está registado no repositório.",
-
+  
   // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.edited.success": "Utilizador editado com successo \"{{name}}\"",
-
+  
   // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.edited.failure": "Falha ao editor Utilizador \"{{name}}\"",
-
+  
   // "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.deleted.success": "Utilizador removido com sucesso \"{{name}}\"",
   
@@ -452,13 +451,13 @@
   
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Membro dos grupos:",
-
+  
   // "admin.access-control.epeople.form.table.id": "ID",
   "admin.access-control.epeople.form.table.id": "ID",
-
+  
   // "admin.access-control.epeople.form.table.name": "Name",
   "admin.access-control.epeople.form.table.name": "Nome",
-
+  
   // "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
   "admin.access-control.epeople.form.table.collectionOrCommunity": "Coleção/Comunidade",
   
@@ -467,7 +466,7 @@
   
   // "admin.access-control.epeople.form.goToGroups": "Add to groups",
   "admin.access-control.epeople.form.goToGroups": "Adicionar a grupos",
-
+  
   // "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
   "admin.access-control.epeople.notification.deleted.failure": "Falha ao apagar utilizador: \"{{name}}\"",
   
@@ -481,8 +480,8 @@
   "admin.access-control.groups.breadcrumbs": "Grupos",
   
   // "admin.access-control.groups.singleGroup.breadcrumbs": "Edit Group",
-  "admin.access-control.groups.singleGroup.breadcrumbs": "Editar grupo", 
- 
+  "admin.access-control.groups.singleGroup.breadcrumbs": "Editar grupo",
+  
   // "admin.access-control.groups.title.singleGroup": "Edit Group",
   "admin.access-control.groups.title.singleGroup": "Editar grupo",
   
@@ -491,13 +490,13 @@
   
   // "admin.access-control.groups.addGroup.breadcrumbs": "New Group",
   "admin.access-control.groups.addGroup.breadcrumbs": "Novo grupo",
-
+  
   // "admin.access-control.groups.head": "Groups",
   "admin.access-control.groups.head": "Grupos",
-
+  
   // "admin.access-control.groups.button.add": "Add group",
   "admin.access-control.groups.button.add": "Adicionar grupo",
-
+  
   // "admin.access-control.groups.search.head": "Search groups",
   "admin.access-control.groups.search.head": "Pesquisar grupos",
 
