@@ -38,6 +38,9 @@
               <button type="button" class="btn btn-danger" title="{{'uploader.delete.btn-title' | translate}}" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
                 <i class="fas fa-trash" aria-hidden="true"></i>
               </button>
+              <button type="submit" class="btn btn-primary" (click)="uploader.uploadAll()">
+                <i class="fas fa-square-plus"></i> {{ "community.edit.logo.add.title" | translate}}
+              </button>
             </div>
             <span *ngIf="uploader.progress < 100 && !(uploader.progress === 0 && !uploader.options.autoUpload)" class="float-right mr-3">{{ uploader.progress }}%</span>
             <span *ngIf="uploader.progress === 100" class="float-right mr-3">{{'uploader.processing' | translate}}</span>
