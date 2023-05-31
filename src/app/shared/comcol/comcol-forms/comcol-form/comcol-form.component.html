@@ -21,6 +21,9 @@
                       (click)="undoDeleteLogo()">
                 <i class="fas fa-undo" aria-hidden="true"></i>
               </button>
+              <button *ngIf="markLogoForDeletion" type="submit" class="btn btn-primary" (click)="onSubmit()">
+                <i class="fas fa-square-minus"></i> {{ "community.edit.logo.delete.title" | translate}}
+              </button>
             </div>
           </div>
         </div>
