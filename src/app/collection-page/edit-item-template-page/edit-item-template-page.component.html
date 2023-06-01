@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-12" *ngVar="(itemRD$ | async) as itemRD">
       <ng-container *ngIf="itemRD?.hasSucceeded">
-        <h2 class="border-bottom">{{ 'collection.edit.template.head' | translate:{ collection: collection?.name } }}</h2>
-        <ds-themed-item-metadata [updateService]="itemTemplateService" [item]="itemRD?.payload"></ds-themed-item-metadata>
+        <h2 class="border-bottom">{{ 'collection.edit.template.head' | translate:{ collection: dsoNameService.getName(collection) } }}</h2>
+        <ds-themed-dso-edit-metadata [updateDataService]="itemTemplateService" [dso]="itemRD?.payload"></ds-themed-dso-edit-metadata>
         <button [routerLink]="getCollectionEditUrl(collection)" class="btn btn-outline-secondary">{{ 'collection.edit.template.cancel' | translate }}</button>
       </ng-container>
       <ds-themed-loading *ngIf="itemRD?.isLoading" [message]="'collection.edit.template.loading' | translate"></ds-themed-loading>

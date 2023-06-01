@@ -178,8 +178,8 @@ describe('ItemListPreviewComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should show the entity type span', () => {
-      const entityField = fixture.debugElement.query(By.css('ds-type-badge'));
+    it('should show the badges', () => {
+      const entityField = fixture.debugElement.query(By.css('ds-themed-badges'));
       expect(entityField).not.toBeNull();
     });
   });

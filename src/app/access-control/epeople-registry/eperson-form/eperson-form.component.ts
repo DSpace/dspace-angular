@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicCheckboxModel,
   DynamicFormControlModel,
@@ -36,6 +36,8 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 import { Registration } from '../../../core/shared/registration.model';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
+import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-eperson-form',
@@ -107,7 +109,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   /**
    * A FormGroup that combines all inputs
    */
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   /**
    * An EventEmitter that's fired whenever the form is being submitted
@@ -165,6 +167,15 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   isImpersonated = false;
 
   /**
+   * A boolean that indicate if to display EPersonForm's Rest password button
+   */
+  displayResetPassword = false;
+
+  /**
+   * A string that indicate the label of Submit button
+   */
+  submitLabel = 'form.create';
+  /**
    * Subscription to email field value change
    */
   emailValueChangeSubscribe: Subscription;
@@ -182,11 +193,14 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     private paginationService: PaginationService,
     public requestService: RequestService,
     private epersonRegistrationService: EpersonRegistrationService,
+    public dsoNameService: DSONameService,
   ) {
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
       this.epersonInitial = eperson;
       if (hasValue(eperson)) {
         this.isImpersonated = this.authService.isImpersonatingUser(eperson.id);
+        this.displayResetPassword = true;
+        this.submitLabel = 'form.submit';
       }
     }));
   }
@@ -200,14 +214,14 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   initialisePage() {
 
-    observableCombineLatest(
+    observableCombineLatest([
       this.translateService.get(`${this.messagePrefix}.firstName`),
       this.translateService.get(`${this.messagePrefix}.lastName`),
       this.translateService.get(`${this.messagePrefix}.email`),
       this.translateService.get(`${this.messagePrefix}.canLogIn`),
       this.translateService.get(`${this.messagePrefix}.requireCertificate`),
       this.translateService.get(`${this.messagePrefix}.emailHint`),
-    ).subscribe(([firstName, lastName, email, canLogIn, requireCertificate, emailHint]) => {
+    ]).subscribe(([firstName, lastName, email, canLogIn, requireCertificate, emailHint]) => {
       this.firstName = new DynamicInputModel({
         id: 'firstName',
         label: firstName,
@@ -374,10 +388,10 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       getFirstCompletedRemoteData()
     ).subscribe((rd: RemoteData<EPerson>) => {
       if (rd.hasSucceeded) {
-        this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.created.success', { name: ePersonToCreate.name }));
+        this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.created.success', { name: this.dsoNameService.getName(ePersonToCreate) }));
         this.submitForm.emit(ePersonToCreate);
       } else {
-        this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.created.failure', { name: ePersonToCreate.name }));
+        this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.created.failure', { name: this.dsoNameService.getName(ePersonToCreate) }));
         this.cancelForm.emit();
       }
     });
@@ -413,10 +427,10 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     const response = this.epersonService.updateEPerson(editedEperson);
     response.pipe(getFirstCompletedRemoteData()).subscribe((rd: RemoteData<EPerson>) => {
       if (rd.hasSucceeded) {
-        this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.edited.success', { name: editedEperson.name }));
+        this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.edited.success', { name: this.dsoNameService.getName(editedEperson) }));
         this.submitForm.emit(editedEperson);
       } else {
-        this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.edited.failure', { name: editedEperson.name }));
+        this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.edited.failure', { name: this.dsoNameService.getName(editedEperson) }));
         this.cancelForm.emit();
       }
     });
@@ -464,7 +478,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
           if (hasValue(eperson.id)) {
             this.epersonService.deleteEPerson(eperson).pipe(getFirstCompletedRemoteData()).subscribe((restResponse: RemoteData<NoContent>) => {
               if (restResponse.hasSucceeded) {
-                this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { name: eperson.name }));
+                this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { name: this.dsoNameService.getName(eperson) }));
                 this.submitForm.emit();
               } else {
                 this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + eperson.id + ' with code: ' + restResponse.statusCode + ' and message: ' + restResponse.errorMessage);
@@ -491,7 +505,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   resetPassword() {
     if (hasValue(this.epersonInitial.email)) {
-      this.epersonRegistrationService.registerEmail(this.epersonInitial.email).pipe(getFirstCompletedRemoteData())
+      this.epersonRegistrationService.registerEmail(this.epersonInitial.email, null, TYPE_REQUEST_FORGOT).pipe(getFirstCompletedRemoteData())
         .subscribe((response: RemoteData<Registration>) => {
             if (response.hasSucceeded) {
               this.notificationsService.success(this.translateService.get('admin.access-control.epeople.actions.reset'),
@@ -542,7 +556,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       .subscribe((list: PaginatedList<EPerson>) => {
         if (list.totalElements > 0) {
           this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.' + notificationSection + '.failure.emailInUse', {
-            name: ePerson.name,
+            name: this.dsoNameService.getName(ePerson),
             email: ePerson.email
           }));
         }

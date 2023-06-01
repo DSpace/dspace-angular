@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { DynamicDsDatePickerModel } from './date-picker.model';
 import { hasValue } from '../../../../../empty.util';
 import {
@@ -18,7 +18,7 @@ export const DS_DATE_PICKER_SEPARATOR = '-';
 
 export class DsDatePickerComponent extends DynamicFormControlComponent implements OnInit {
   @Input() bindId = true;
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() model: DynamicDsDatePickerModel;
   @Input() legend: string;
 

@@ -141,7 +141,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
       comp.selectedItem = currentValue;
       fixture.detectChanges();
       expect(comp.dataSource.data).toEqual([]);
-      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), 'entryID');
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), null);
     });
 
     it('should should init component properly with init value as VocabularyEntry', () => {
@@ -153,7 +153,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
       comp.selectedItem = currentValue;
       fixture.detectChanges();
       expect(comp.dataSource.data).toEqual([]);
-      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), 'entryID');
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), null);
     });
 
     it('should call loadMore function', () => {
