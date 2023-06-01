@@ -18,7 +18,7 @@
         <tbody>
           <tr *ngFor="let collection of collectionsRD?.payload?.page">
             <td><input class="collection-checkbox" [ngModel]="getSelected(collection.id) | async" (change)="switch(collection.id)" type="checkbox" name="{{collection.id}}"></td>
-            <td><a [routerLink]="['/collections', collection.id]">{{collection.name}}</a></td>
+            <td><a [routerLink]="['/collections', collection.id]">{{ dsoNameService.getName(collection) }}</a></td>
           </tr>
         </tbody>
       </table>
