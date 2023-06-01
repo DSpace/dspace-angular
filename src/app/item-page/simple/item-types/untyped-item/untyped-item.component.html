@@ -55,15 +55,7 @@
                                      [label]="'relationships.isAuthorOf' | translate">
     </ds-metadata-representation-list>
 
-    <ds-generic-item-page-field [item]="object"
-                                [fields]="['dc.description.audio']"
-                                [label]="''">
-    </ds-generic-item-page-field>
-
-    <ds-generic-item-page-field [item]="object"
-                                [fields]="['dc.description.viewer']"
-                                [label]="''">
-    </ds-generic-item-page-field>
+    <ds-item-page-kaltura-field [item]="object"></ds-item-page-kaltura-field>
 
     <ds-item-page-abstract-field [item]="object"></ds-item-page-abstract-field>
 
