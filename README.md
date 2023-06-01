@@ -413,8 +413,7 @@ dspace-angular
 │   ├── merge-i18n-files.ts                             *
 │   ├── serve.ts                                        *
 │   ├── sync-i18n-files.ts                              *
-│   ├── test-rest.ts                                    *
-│   └── webpack.js                                      *
+│   └── test-rest.ts                                    *
 ├── src                                                 * The source of the application
 │   ├── app                                             * The source code of the application, subdivided by module/page.
 │   ├── assets                                          * Folder for static resources
