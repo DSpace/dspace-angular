@@ -53,6 +53,7 @@
 
             <ds-access-control-array-form
               #itemAccessCmp
+              [type]="'item'"
               [mode]="state.item.accessMode"
               [dropdownOptions]="(dropdownData$ | async)?.itemAccessConditionOptions || []">
             </ds-access-control-array-form>
@@ -141,6 +142,7 @@
 
             <ds-access-control-array-form
               #bitstreamAccessCmp
+              [type]="'bitstream'"
               [mode]="state.bitstream.accessMode"
               [dropdownOptions]="(dropdownData$ | async)?.bitstreamAccessConditionOptions || []">
             </ds-access-control-array-form>
@@ -152,7 +154,7 @@
 
       <div *ngIf="showSubmit" class="d-flex justify-content-end">
         <button class="btn btn-outline-primary mr-3" (click)="reset()">
-          {{ 'access-control-reset' | translate }}
+          {{ 'access-control-cancel' | translate }}
         </button>
         <button class="btn btn-primary"
                 [disabled]="!state.item.toggleStatus && !state.bitstream.toggleStatus"

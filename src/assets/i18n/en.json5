@@ -227,17 +227,17 @@
 
 
 
-  "admin.access-control.bulk-access": "Bulk access",
+  "admin.access-control.bulk-access": "Bulk Access Management",
 
-  "admin.access-control.bulk-access.title": "Bulk Access",
+  "admin.access-control.bulk-access.title": "Bulk Access Management",
 
-  "admin.access-control.bulk-access-browse.header": "Step 1: select objects",
+  "admin.access-control.bulk-access-browse.header": "Step 1: Select Objects",
 
   "admin.access-control.bulk-access-browse.search.header": "Search",
 
   "admin.access-control.bulk-access-browse.selected.header": "Current selection({{number}})",
 
-  "admin.access-control.bulk-access-settings.header": "Step 2: operation to perform",
+  "admin.access-control.bulk-access-settings.header": "Step 2: Operation to Perform",
 
   "admin.access-control.epeople.actions.delete": "Delete EPerson",
 
@@ -2903,7 +2903,7 @@
 
   "menu.section.access_control_authorizations": "Authorizations",
 
-  "menu.section.access_control_bulk": "Bulk access",
+  "menu.section.access_control_bulk": "Bulk Access Management",
 
   "menu.section.access_control_groups": "Groups",
 
@@ -5357,11 +5357,11 @@
 
   "admin.system-wide-alert.title": "System-wide Alerts",
 
-  "item-access-control-title": "This form allows you to perform changes to the access condition of all the item's metadata and all its bitstreams.",
+  "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
 
-  "collection-access-control-title": "This form allows you to perform changes to the access condition of all the items owned by collection under this community. Changes can be performed on the access condition for the metadata (item) or for the content (bitstream).",
+  "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
 
-  "community-access-control-title": "This form allows you to perform changes to the access condition of all the items owned by collection under this community. Changes can be performed on the access condition for the metadata (item) or for the content (bitstream).",
+  "community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).",
 
   "access-control-item-header-toggle": "Item's Metadata",
 
@@ -5371,7 +5371,7 @@
 
   "access-control-access-conditions": "Access conditions",
 
-  "access-control-no-access-conditions-warning-message": "You have not specified any access conditions, the new items access conditions will be inherited from the owning collection.",
+  "access-control-no-access-conditions-warning-message": "Currently, no access conditions are specified below. If executed, this will replace the current access conditions with the default access conditions inherited from the owning collection.",
 
   "access-control-replace-all": "Replace access conditions",
 
@@ -5379,11 +5379,11 @@
 
   "access-control-limit-to-specific": "Limit the changes to specific bitstreams",
 
-  "access-control-process-all-bitstreams": "process all the bitstreams in the item",
+  "access-control-process-all-bitstreams": "Update all the bitstreams in the item",
 
   "access-control-bitstreams-selected": "bitstreams selected",
 
-  "access-control-reset": "Reset",
+  "access-control-cancel": "Cancel",
 
   "access-control-execute": "Execute",
 

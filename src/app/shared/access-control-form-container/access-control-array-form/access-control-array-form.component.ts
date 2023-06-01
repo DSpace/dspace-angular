@@ -1,46 +1,35 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl } from '@angular/forms';
-
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-import { AccessesConditionOption } from '../../../core/config/models/config-accesses-conditions-options.model';
-import { dateToISOFormat } from '../../date.util';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {AccessesConditionOption} from '../../../core/config/models/config-accesses-conditions-options.model';
+import {dateToISOFormat} from '../../date.util';
 
 @Component({
   selector: 'ds-access-control-array-form',
   templateUrl: './access-control-array-form.component.html',
-  styleUrls: [ './access-control-array-form.component.scss' ],
+  styleUrls: ['./access-control-array-form.component.scss'],
   exportAs: 'accessControlArrayForm'
 })
-export class AccessControlArrayFormComponent implements OnInit, OnDestroy {
+export class AccessControlArrayFormComponent implements OnInit {
   @Input() dropdownOptions: AccessesConditionOption[] = [];
   @Input() mode!: 'add' | 'replace';
+  @Input() type!: 'item' | 'bitstream';
 
-  private destroy$ = new Subject<void>();
+  @ViewChild('ngForm', {static: true}) ngForm!: NgForm;
 
-  form = this.fb.group({
-    accessControl: this.fb.array([])
-  });
-
-  constructor(private fb: FormBuilder) {}
+  form: { accessControls: AccessControlItem[] } = {
+    accessControls: []
+  };
 
   ngOnInit(): void {
     this.addAccessControlItem();
-    this.handleValidationOnFormArrayChanges();
-  }
 
-  /**
-   * Get the access control form array.
-   */
-  get accessControl() {
-    return this.form.get('accessControl') as FormArray;
+    // Disable the form by default
+    setTimeout(() => this.disable(), 0);
   }
 
   get allControlsAreEmpty() {
-    if (this.accessControl.length === 0) {
-      return true;
-    }
-    return this.accessControl.value.every(x => x.itemName === null || x.itemName === '');
+    return this.form.accessControls
+      .every(x => x.itemName === null || x.itemName === '');
   }
 
   /**
@@ -49,11 +38,15 @@ export class AccessControlArrayFormComponent implements OnInit, OnDestroy {
    * @param itemName The name of the item to add
    */
   addAccessControlItem(itemName: string = null) {
-    this.accessControl.push(this.fb.group({
+    this.form.accessControls.push({
       itemName,
-      startDate: new FormControl({ value: null, disabled: true }),
-      endDate: new FormControl({ value: null, disabled: true })
-    }));
+      startDate: null,
+      hasStartDate: false,
+      maxStartDate: null,
+      endDate: null,
+      hasEndDate: false,
+      maxEndDate: null,
+    });
   }
 
   /**
@@ -61,7 +54,7 @@ export class AccessControlArrayFormComponent implements OnInit, OnDestroy {
    * @param index
    */
   removeAccessControlItem(index: number) {
-    this.accessControl.removeAt(index);
+    this.form.accessControls.splice(index, 1);
   }
 
   /**
@@ -70,7 +63,7 @@ export class AccessControlArrayFormComponent implements OnInit, OnDestroy {
    * @return The form value
    */
   getValue() {
-    return (this.form.value.accessControl as any[])
+    return this.form.accessControls
       .filter(x => x.itemName !== null && x.itemName !== '')
       .map(x => ({
         name: x.itemName,
@@ -83,77 +76,45 @@ export class AccessControlArrayFormComponent implements OnInit, OnDestroy {
    * Set the value of the form from the parent component.
    */
   reset() {
-    this.accessControl.reset([]);
+    this.form.accessControls = [];
   }
 
   /**
    * Disable the form.
    * This will be used to disable the form from the parent component.
-   * This will also disable all date controls.
    */
-  disable() {
-    this.form.disable();
-
-    // disable all date controls
-    for (const control of this.accessControl.controls) {
-      control.get('startDate').disable();
-      control.get('endDate').disable();
-    }
-  }
+  disable = () => this.ngForm.control.disable();
 
   /**
    * Enable the form.
    * This will be used to enable the form from the parent component.
-   * This will also enable all date controls.
    */
-  enable() {
-    this.form.enable();
+  enable = () => this.ngForm.control.enable();
 
-    // enable date controls
-    for (const control of this.accessControl.controls) {
-      control.get('startDate').enable();
-      control.get('endDate').enable();
-    }
+  accessControlChanged(control: AccessControlItem, selectedItem: string) {
+    const item = this.dropdownOptions
+      .find((x) => x.name === selectedItem);
+
+    control.startDate = null;
+    control.endDate = null;
+
+    control.hasStartDate = item?.hasStartDate || false;
+    control.hasEndDate = item?.hasEndDate || false;
+
+    control.maxStartDate = item?.maxStartDate || null;
+    control.maxEndDate = item?.maxEndDate || null;
   }
 
-  /**
-   * Handle validation on form array changes.
-   * This will be used to enable/disable date controls based on the selected item.
-   * @private
-   */
-  private handleValidationOnFormArrayChanges() {
-    this.accessControl.valueChanges
-      .pipe(
-        distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
-        takeUntil(this.destroy$)
-      )
-      .subscribe((value) => {
-        for (const [ index, controlValue ] of value.entries()) {
-          if (controlValue.itemName) {
-            const item = this.dropdownOptions.find((x) => x.name === controlValue.itemName);
-            const startDateCtrl = this.accessControl.controls[index].get('startDate');
-            const endDateCtrl = this.accessControl.controls[index].get('endDate');
+}
 
-            if (item?.hasStartDate) {
-              startDateCtrl.enable({ emitEvent: false });
-            } else {
-              startDateCtrl.patchValue(null);
-              startDateCtrl.disable({ emitEvent: false });
-            }
-            if (item?.hasEndDate) {
-              endDateCtrl.enable({ emitEvent: false });
-            } else {
-              endDateCtrl.patchValue(null);
-              endDateCtrl.disable({ emitEvent: false });
-            }
-          }
-        }
-      });
-  }
+export interface AccessControlItem {
+  itemName: string | null;
 
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+  hasStartDate?: boolean;
+  startDate: string | null;
+  maxStartDate?: string | null;
 
+  hasEndDate?: boolean;
+  endDate: string | null;
+  maxEndDate?: string | null;
 }
