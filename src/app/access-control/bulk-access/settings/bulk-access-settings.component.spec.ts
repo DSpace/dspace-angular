@@ -70,6 +70,7 @@ describe('BulkAccessSettingsComponent', () => {
     const expectedValue = mockFormState;
     (component.controlForm as any).getFormValue.and.returnValue(mockFormState);
     const actualValue = component.getValue();
+    // @ts-ignore
     expect(actualValue).toEqual(expectedValue);
   });
 
