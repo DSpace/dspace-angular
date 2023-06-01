@@ -1,9 +1,9 @@
 <div class="facet-filter d-block mb-3 p-3" [ngClass]="{ 'focus': focusBox }">
     <button (click)="toggle()" (focusin)="focusBox = true" (focusout)="focusBox = false" class="filter-name d-flex"
         [attr.aria-expanded]="false" [attr.data-test]="'filter-toggle' | dsBrowserOnly">
-        <h5 class="d-inline-block mb-0">
+        <label class="h5 d-inline-block mb-0">
             {{'search.advanced.filters.head' | translate}}
-        </h5>
+        </label>
         <span class="filter-toggle flex-grow-1 fas p-auto" [ngClass]="collapsedSearch ? 'fa-plus' : 'fa-minus'">
         </span>
     </button>
