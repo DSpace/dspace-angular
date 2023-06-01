@@ -71,6 +71,12 @@ windowSettings.manifestId = manifest;
               primary: '#ffff00',
               secondary: '#00BFFF',
             },
+            annotations: {
+              hidden: { globalAlpha: 0 },
+              default: { strokeStyle: '#00BFFF', globalAlpha: 1 },
+              hovered: { strokeStyle: '#BF00FF', globalAlpha: 1 },
+              selected: { strokeStyle: '#ffff00', globalAlpha: 1 },
+            },
             search: {
               default: { fillStyle: '#00BFFF', globalAlpha: 0.3 },
               hovered: { fillStyle: '#00FFFF', globalAlpha: 0.3 },
@@ -122,6 +128,10 @@ windowSettings.manifestId = manifest;
       miradorDownloadPlugin: {
         restrictDownloadOnSizeDefinition: false
       },
+      annotations: {
+        htmlSanitizationRuleSet: 'iiif', // See src/lib/htmlRules.js for acceptable values
+        filteredMotivations: ['oa:commenting', 'oa:tagging', 'sc:painting', 'commenting', 'tagging'],
+      },
       window: {
         allowClose: false,
         // sideBarOpenByDefault: false,
@@ -132,6 +142,8 @@ windowSettings.manifestId = manifest;
         allowTopMenuButton: true,
         defaultSidebarPanelWidth: 230,
         switchCanvasOnSearch: true,
+        forceDrawAnnotations: false,
+        highlightAllAnnotations: false,
         views: [
           { key: 'single', behaviors: ['individuals'] },
           { key: 'book', behaviors: ['paged'] },

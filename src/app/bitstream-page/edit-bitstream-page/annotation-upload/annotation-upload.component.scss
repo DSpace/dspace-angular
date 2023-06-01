@@ -1,0 +1,25 @@
+:host ::ng-deep ds-uploader .well {
+  background-color: var(--bs-white);
+}
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.4) !important;
+}
+.container-background {
+  background-color: var(--bs-gray-100);
+}
+.annotation-row {
+  background-color: var(--bs-white);
+  border: 1px solid var(--bs-gray-300);
+  border-radius: var(--bs-border-radius-sm);
+}
+.delete-selected {
+  background-color: var(--bs-white);
+  border: 1px solid var(--bs-danger);
+  border-radius: var(--bs-border-radius-sm);
+}
+.close-button {
+  position: absolute;
+  border: 0;
+  top: 0.3rem;
+  right: 0.5rem;
+}

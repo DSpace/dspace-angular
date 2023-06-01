@@ -313,8 +313,13 @@ describe('EditBitstreamPageComponent', () => {
           'iiif.image.height': [
             {
               value: '2800'
-            }
+            },
           ],
+          'iiif.description': [
+            {
+              value: '{@id: "test"}'
+            }
+            ]
         },
         format: createSuccessfulRemoteDataObject$(allFormats[1]),
         _links: {
@@ -392,6 +397,9 @@ describe('EditBitstreamPageComponent', () => {
       });
       it('should fill in the iiif height', () => {
         expect(rawForm.iiifHeightContainer.iiifHeight).toEqual('2800');
+      });
+      it('should fill in the iiif description value', () => {
+        expect(rawForm.iiifDescriptionContainer.iiifDescription).toEqual('{@id: "test"}');
       });
     });
   });

@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col mb-2 ">
+    <button *ngIf="showButton" (click)="toggleComponent()" [ngClass]="uploadButton ? 'btn-success' : 'btn-primary'" class="btn btn-sm float-right">
+      <i _ngcontent-dspace-angular-c489="" [ngClass]="uploadButton ? 'fas fa-upload' : 'fas fa-bars-staggered'" class="mr-2"></i>
+      <span class="d-sm-inline">{{'iiif.image.annotation.notifications.button.label' | translate}}</span>
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <ds-iiif-annotation-upload *ngIf="showComponent"
+                               [annotationBundle]="annotationBundle"
+                               [annotationFile]="annotationFile"
+                               [item]="item$| async"
+                               [annotationFileTitle]="annotationFileTitle"
+                               (closeDialog)="toggleComponent()"
+                               (changeStatusEvent)="changeStatus($event)"
+    ></ds-iiif-annotation-upload>
+  </div>
+</div>

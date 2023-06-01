@@ -122,6 +122,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   IMAGE_HEIGHT_METADATA = 'iiif.image.height';
 
   /**
+   * IIIF description key
+   */
+  IIIF_DESCRIPTION_METADATA = 'iiif.description';
+
+  /**
    * IIIF table of contents metadata key
    */
   IIIF_TOC_METADATA = 'iiif.toc';
@@ -262,7 +267,16 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       host: 'form-row'
     }
   });
-
+  iiifDescriptionModel = new DsDynamicTextAreaModel({
+    hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
+    id: 'iiifDescription',
+    name: 'iiifDescription',
+    rows: 10
+  });
+  iiifDescriptionContainer = new DynamicFormGroupModel({
+    id: 'iiifDescriptionContainer',
+    group: [this.iiifDescriptionModel]
+  });
   /**
    * All input models in a simple array for easier iterations
    */
@@ -339,12 +353,22 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         host: this.newFormatBaseLayout + ' invisible'
       }
     },
+    iiifDescription: {
+      grid: {
+        host: 'col-12 d-inline-block'
+      }
+    },
     fileNamePrimaryContainer: {
       grid: {
         host: 'row position-relative'
       }
     },
     descriptionContainer: {
+      grid: {
+        host: 'row'
+      }
+    },
+    iiifDescriptionContainer: {
       grid: {
         host: 'row'
       }
@@ -407,7 +431,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * - Translate the form labels and hints
    */
   ngOnInit(): void {
-
     this.itemId = this.route.snapshot.queryParams.itemId;
     this.entityType = this.route.snapshot.queryParams.entityType;
     this.bitstreamRD$ = this.route.data.pipe(map((data) => data.bitstream));
@@ -482,6 +505,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         },
         iiifHeightContainer: {
           iiifHeight: bitstream.firstMetadataValue(this.IMAGE_HEIGHT_METADATA)
+        },
+        iiifDescriptionContainer: {
+          iiifDescription: bitstream.firstMetadataValue(this.IIIF_DESCRIPTION_METADATA)
         }
       });
     }
@@ -648,6 +674,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       } else {
         Metadata.setFirstValue(newMetadata, this.IMAGE_HEIGHT_METADATA, rawForm.iiifHeightContainer.iiifHeight);
       }
+      if (isEmpty(rawForm.iiifDescriptionContainer.iiifDescription)) {
+        delete newMetadata[this.IIIF_DESCRIPTION_METADATA];
+      } else {
+        Metadata.setFirstValue(newMetadata, this.IIIF_DESCRIPTION_METADATA, rawForm.iiifDescriptionContainer.iiifDescription);
+      }
     }
     if (isNotEmpty(rawForm.formatContainer.newFormat)) {
       Metadata.setFirstValue(newMetadata, 'dc.format', rawForm.formatContainer.newFormat);
@@ -722,6 +753,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         this.formModel.push(this.iiifWidthContainer);
         this.inputModels.push(this.iiifHeightModel);
         this.formModel.push(this.iiifHeightContainer);
+        this.inputModels.push(this.iiifDescriptionModel);
+        this.formModel.push(this.iiifDescriptionContainer);
       }
       this.setForm();
       this.changeDetectorRef.detectChanges();
