@@ -145,6 +145,15 @@ import {
   MediaViewerVideoComponent
 } from './app/item-page/media-viewer/media-viewer-video/media-viewer-video.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import {
+    DenyRequestCopyComponent
+} from './app/request-copy/deny-request-copy/deny-request-copy.component';
+import {
+    EmailRequestCopyComponent
+} from './app/request-copy/email-request-copy/email-request-copy.component';
+import {
+    GrantRequestCopyComponent
+} from './app/request-copy/grant-request-copy/grant-request-copy.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -212,6 +221,9 @@ const DECLARATIONS = [
   MediaViewerComponent,
   MediaViewerImageComponent,
   MediaViewerVideoComponent,
+  DenyRequestCopyComponent,
+  EmailRequestCopyComponent,
+  GrantRequestCopyComponent,
 ];
 
 @NgModule({
