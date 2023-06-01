@@ -1450,6 +1450,8 @@
 
   "dso.name.untitled": "Untitled",
 
+  "dso.name.unnamed": "Unnamed",
+
 
 
   "dso-selector.create.collection.head": "New collection",
@@ -1739,7 +1741,17 @@
 
   "form.no-value": "No value entered",
 
-  "form.other-information": {},
+  "form.other-information.email": "Email",
+
+  "form.other-information.first-name": "First Name",
+
+  "form.other-information.insolr": "In Solr Index",
+
+  "form.other-information.institution": "Institution",
+
+  "form.other-information.last-name": "Last Name",
+
+  "form.other-information.orcid": "ORCID",
 
   "form.remove": "Remove",
 
@@ -4780,6 +4792,7 @@
 
   "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
 
+  "submitter.empty": "N/A",
 
   "subscriptions.title": "Subscriptions",
 

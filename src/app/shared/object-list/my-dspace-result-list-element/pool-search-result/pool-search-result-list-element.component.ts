@@ -20,7 +20,7 @@ import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interfac
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { Item } from '../../../../core/shared/item.model';
-import { isNotEmpty } from '../../../empty.util';
+import { isNotEmpty, hasValue } from '../../../empty.util';
 import { Context } from '../../../../core/shared/context.model';
 
 /**
@@ -68,7 +68,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
   constructor(
     protected linkService: LinkService,
     protected truncatableService: TruncatableService,
-    protected dsoNameService: DSONameService,
+    public dsoNameService: DSONameService,
     protected objectCache: ObjectCacheService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
@@ -109,6 +109,8 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
 
   ngOnDestroy() {
     // This ensures the object is removed from cache, when action is performed on task
-    this.objectCache.remove(this.dso._links.workflowitem.href);
+    if (hasValue(this.dso)) {
+      this.objectCache.remove(this.dso._links.workflowitem.href);
+    }
   }
 }

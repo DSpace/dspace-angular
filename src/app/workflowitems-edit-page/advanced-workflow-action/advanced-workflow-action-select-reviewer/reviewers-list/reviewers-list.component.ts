@@ -17,6 +17,7 @@ import {
   MembersListComponent,
   EPersonListActionConfig,
 } from '../../../../access-control/group-registry/group-form/members-list/members-list.component';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -51,14 +52,17 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
 
   selectedReviewers: EpersonDtoModel[] = [];
 
-  constructor(protected groupService: GroupDataService,
-              public ePersonDataService: EPersonDataService,
-              translateService: TranslateService,
-              notificationsService: NotificationsService,
-              formBuilder: UntypedFormBuilder,
-              paginationService: PaginationService,
-              router: Router) {
-    super(groupService, ePersonDataService, translateService, notificationsService, formBuilder, paginationService, router);
+  constructor(
+    protected groupService: GroupDataService,
+    public ePersonDataService: EPersonDataService,
+    protected translateService: TranslateService,
+    protected notificationsService: NotificationsService,
+    protected formBuilder: UntypedFormBuilder,
+    protected paginationService: PaginationService,
+    protected router: Router,
+    public dsoNameService: DSONameService,
+  ) {
+    super(groupService, ePersonDataService, translateService, notificationsService, formBuilder, paginationService, router, dsoNameService);
   }
 
   ngOnInit() {

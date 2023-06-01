@@ -4,10 +4,12 @@ import { ObjectSelectComponent } from '../object-select/object-select.component'
 import { isNotEmpty } from '../../empty.util';
 import { ObjectSelectService } from '../object-select.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-collection-select',
-  templateUrl: './collection-select.component.html'
+  templateUrl: './collection-select.component.html',
+  styleUrls: ['./collection-select.component.scss'],
 })
 
 /**
@@ -15,8 +17,11 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
  */
 export class CollectionSelectComponent extends ObjectSelectComponent<Collection> {
 
-  constructor(protected objectSelectService: ObjectSelectService,
-              protected authorizationService: AuthorizationDataService) {
+  constructor(
+    protected objectSelectService: ObjectSelectService,
+    protected authorizationService: AuthorizationDataService,
+    public dsoNameService: DSONameService,
+  ) {
     super(objectSelectService, authorizationService);
   }
 

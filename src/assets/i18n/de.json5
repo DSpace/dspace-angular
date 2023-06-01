@@ -950,6 +950,9 @@
   // "browse.previous.button": "Previous",
   "browse.previous.button": "Zurück",
 
+  // "browse.startsWith": ", starting with {{ startsWith }}",
+  "browse.startsWith": ", beginnend mit {{ startsWith }}",
+
   // "browse.startsWith.choose_start": "(Choose start)",
   "browse.startsWith.choose_start": "(Startpunkt wählen)",
 
@@ -2076,9 +2079,6 @@
 
   // "form.no-value": "No value entered",
   "form.no-value": "Kein Wert eingegeben",
-
-  // "form.other-information": {},
-  "form.other-information": {},
 
   // "form.remove": "Remove",
   "form.remove": "Entfernen",
