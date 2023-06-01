@@ -43,7 +43,7 @@
   font-size: 75%;
   font-weight: bold;
   line-height: 1;
-  color: #fff;
+  color: #fff !important;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
@@ -56,11 +56,11 @@
 }
 
 .label-ACA, .label-PDT {
-  background-color: #ffab23;
+  background-color: #ffab23 !important;;
 }
 
 .label-RES {
-  background-color: #c62d1f;
+  background-color: #c62d1f !important;;
 }
 
 .clarin-select-input {
