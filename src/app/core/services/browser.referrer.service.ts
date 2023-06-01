@@ -1,7 +1,7 @@
 import { ReferrerService } from './referrer.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { isEmpty, hasNoValue } from '../../shared/empty.util';
+import { hasNoValue } from '../../shared/empty.util';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
