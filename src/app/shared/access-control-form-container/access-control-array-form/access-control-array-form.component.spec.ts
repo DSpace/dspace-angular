@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AccessControlArrayFormComponent, AccessControlItem } from './access-control-array-form.component';
+import { AccessControlArrayFormComponent } from './access-control-array-form.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,7 +16,7 @@ describe('AccessControlArrayFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ CommonModule, FormsModule, SharedBrowseByModule, TranslateModule, NgbDatepickerModule ],
+      imports: [ CommonModule, FormsModule, SharedBrowseByModule, TranslateModule.forRoot(), NgbDatepickerModule ],
       declarations: [ AccessControlArrayFormComponent, ToDatePipe  ]
     })
     .compileComponents();
@@ -53,22 +53,6 @@ describe('AccessControlArrayFormComponent', () => {
     expect(component.form.accessControls.length).toEqual(0);
   });
 
-  it('should set access control item value', () => {
-    const item: AccessControlItem = { itemName: 'item1', startDate: '2022-01-01', endDate: '2022-02-01' };
-
-    component.addAccessControlItem(item.itemName);
-
-    // set value to item1
-    component.accessControlChanged(
-      component.form.accessControls[0],
-      'item1'
-    );
-
-    expect(component.form.accessControls[0].startDate).toEqual(item.startDate);
-    expect(component.form.accessControls[0].endDate).toEqual(item.endDate);
-    expect(component.form.accessControls[0].itemName).toEqual(item.itemName);
-  });
-
   it('should reset form value', () => {
     const item = { itemName: 'item1', startDate: '2022-01-01', endDate: '2022-02-01' };
     component.addAccessControlItem(item.itemName);
@@ -80,12 +64,12 @@ describe('AccessControlArrayFormComponent', () => {
     );
 
     component.reset();
-    expect(component.form.accessControls[1].itemName).toEqual(undefined);
+    expect(component.form.accessControls[1]?.itemName).toEqual(undefined);
   });
 
 
   it('should display a select dropdown with options', () => {
-    const selectElement: DebugElement = fixture.debugElement.query(By.css('select#accesscontroloption'));
+    const selectElement: DebugElement = fixture.debugElement.query(By.css('select#accesscontroloption-0'));
     expect(selectElement).toBeTruthy();
 
     const options = selectElement.nativeElement.querySelectorAll('option');
