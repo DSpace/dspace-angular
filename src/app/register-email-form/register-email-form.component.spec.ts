@@ -4,7 +4,7 @@ import { RestResponse } from '../core/cache/response.models';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -67,7 +67,7 @@ describe('RegisterEmailFormComponent', () => {
         {provide: Router, useValue: router},
         {provide: EpersonRegistrationService, useValue: epersonRegistrationService},
         {provide: ConfigurationDataService, useValue: configurationDataService},
-        {provide: FormBuilder, useValue: new FormBuilder()},
+        {provide: UntypedFormBuilder, useValue: new UntypedFormBuilder()},
         {provide: NotificationsService, useValue: notificationsService},
         {provide: CookieService, useValue: new CookieServiceMock()},
         {provide: GoogleRecaptchaService, useValue: googleRecaptchaService},

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { languageHelper } from './language-helper';
 import { CaptionInfo } from './caption-info';
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
@@ -25,6 +26,11 @@ export class MediaViewerVideoComponent {
     video: './assets/images/replacement_video.svg',
     audio: './assets/images/replacement_audio.svg',
   };
+
+  constructor(
+    public dsoNameService: DSONameService,
+  ) {
+  }
 
   /**
    * This method check if there is caption file for the media

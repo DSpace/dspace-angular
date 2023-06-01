@@ -21,6 +21,7 @@ import { Bitstream } from '../../core/shared/bitstream.model';
 import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -126,7 +127,9 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
                      protected dsoService: DSpaceObjectDataService,
                      protected paginationService: PaginationService,
                      protected router: Router,
-                     @Inject(APP_CONFIG) public appConfig: AppConfig) {
+                     @Inject(APP_CONFIG) public appConfig: AppConfig,
+                     public dsoNameService: DSONameService,
+  ) {
 
     this.fetchThumbnails = this.appConfig.browseBy.showThumbnails;
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
