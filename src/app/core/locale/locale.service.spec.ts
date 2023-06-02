@@ -28,7 +28,7 @@ describe('LocaleService test suite', () => {
     isAuthenticationLoaded: jasmine.createSpy('isAuthenticationLoaded')
   });
 
-  const langList = ['en', 'it', 'de'];
+  const langList = ['en', 'xx', 'de'];
 
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
@@ -82,8 +82,8 @@ describe('LocaleService test suite', () => {
     });
 
     it('should return language from browser setting', () => {
-      spyOn(translateService, 'getBrowserLang').and.returnValue('it');
-      expect(service.getCurrentLanguageCode()).toBe('it');
+      spyOn(translateService, 'getBrowserLang').and.returnValue('xx');
+      expect(service.getCurrentLanguageCode()).toBe('xx');
     });
 
     it('should return default language from config', () => {
@@ -114,9 +114,9 @@ describe('LocaleService test suite', () => {
     });
 
     it('should set the given language', () => {
-      service.setCurrentLanguageCode('it');
-      expect(translateService.use).toHaveBeenCalledWith('it');
-      expect(service.saveLanguageCodeToCookie).toHaveBeenCalledWith('it');
+      service.setCurrentLanguageCode('xx');
+      expect(translateService.use).toHaveBeenCalledWith('xx');
+      expect(service.saveLanguageCodeToCookie).toHaveBeenCalledWith('xx');
     });
 
     it('should set the current language', () => {
@@ -135,7 +135,7 @@ describe('LocaleService test suite', () => {
 
   describe('', () => {
     it('should set quality to current language list', () => {
-      const langListWithQuality = ['en;q=1', 'it;q=0.9', 'de;q=0.8'];
+      const langListWithQuality = ['en;q=1', 'xx;q=0.9', 'de;q=0.8'];
       spyOn(service, 'setQuality').and.returnValue(langListWithQuality);
       service.setQuality(langList, LANG_ORIGIN.BROWSER, false);
       expect(service.setQuality).toHaveBeenCalledWith(langList, LANG_ORIGIN.BROWSER, false);

@@ -31,6 +31,8 @@ import { SearchObjects } from './models/search-objects.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { FilterType } from './models/filter-type.model';
+import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
+import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
@@ -101,8 +103,9 @@ const searchServiceStub = jasmine.createSpyObj('SearchService', {
   search: mockResultsRD$,
   getSearchLink: '/search',
   getScopes: observableOf(['test-scope']),
-  getSearchConfigurationFor: createSuccessfulRemoteDataObject$(searchConfig)
-});
+  getSearchConfigurationFor: createSuccessfulRemoteDataObject$(searchConfig),
+  trackSearch: {},
+}) as SearchService;
 const configurationParam = 'default';
 const queryParam = 'test query';
 const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
@@ -326,5 +329,65 @@ describe('SearchComponent', () => {
       expect(comp.openSidebar).toHaveBeenCalled();
     }));
 
+  });
+
+  describe('getDsoUUIDFromUrl', () => {
+    let url: string;
+    let result: string;
+
+    describe('when the navigated URL is an entity route', () => {
+      beforeEach(() => {
+        url = '/entities/publication/9a364471-3f19-4e7b-916a-a24a44ff48e3';
+        result = (comp as any).getDsoUUIDFromUrl(url);
+      });
+
+      it('should return the UUID', () => {
+        expect(result).toEqual('9a364471-3f19-4e7b-916a-a24a44ff48e3');
+      });
+    });
+
+    describe('when the navigated URL is a community route', () => {
+      beforeEach(() => {
+        url = `${getCommunityPageRoute('9a364471-3f19-4e7b-916a-a24a44ff48e3')}`;
+        result = (comp as any).getDsoUUIDFromUrl(url);
+      });
+
+      it('should return the UUID', () => {
+        expect(result).toEqual('9a364471-3f19-4e7b-916a-a24a44ff48e3');
+      });
+    });
+
+    describe('when the navigated URL is a collection route', () => {
+      beforeEach(() => {
+        url = `${getCollectionPageRoute('9a364471-3f19-4e7b-916a-a24a44ff48e3')}`;
+        result = (comp as any).getDsoUUIDFromUrl(url);
+      });
+
+      it('should return the UUID', () => {
+        expect(result).toEqual('9a364471-3f19-4e7b-916a-a24a44ff48e3');
+      });
+    });
+
+    describe('when the navigated URL is an item route', () => {
+      beforeEach(() => {
+        url = '/items/9a364471-3f19-4e7b-916a-a24a44ff48e3';
+        result = (comp as any).getDsoUUIDFromUrl(url);
+      });
+
+      it('should return the UUID', () => {
+        expect(result).toEqual('9a364471-3f19-4e7b-916a-a24a44ff48e3');
+      });
+    });
+
+    describe('when the navigated URL is an invalid route', () => {
+      beforeEach(() => {
+        url = '/invalid/object/route/9a364471-3f19-4e7b-916a-a24a44ff48e3';
+        result = (comp as any).getDsoUUIDFromUrl(url);
+      });
+
+      it('should return null', () => {
+        expect(result).toBeNull();
+      });
+    });
   });
 });

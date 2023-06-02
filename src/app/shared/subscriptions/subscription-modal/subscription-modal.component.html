@@ -6,8 +6,8 @@
     </button>
   </div>
   <div class="modal-body">
-    <p class="mb-3"><strong>{{dso.name}}</strong>
-      <span *ngIf="!!dso" class="float-right"><ds-type-badge *ngIf="!!dso" [object]="dso"></ds-type-badge></span>
+    <p class="mb-3"><strong>{{ dsoNameService.getName(dso) }}</strong>
+      <span *ngIf="!!dso" class="float-right"><ds-themed-type-badge *ngIf="!!dso" [object]="dso"></ds-themed-type-badge></span>
     </p>
     <div>
       <fieldset *ngFor="let subscriptionType of subscriptionForm?.controls | keyvalue" formGroupName="{{subscriptionType.key}}" class="form-group form-row">

@@ -1,6 +1,6 @@
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -13,7 +13,7 @@ describe('EpersonSearchBoxComponent test suite', () => {
   let compAsAny: any;
   let fixture: ComponentFixture<EpersonSearchBoxComponent>;
   let de;
-  let formBuilder: FormBuilder;
+  let formBuilder: UntypedFormBuilder;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -27,7 +27,7 @@ describe('EpersonSearchBoxComponent test suite', () => {
         TestComponent
       ],
       providers: [
-        FormBuilder,
+        UntypedFormBuilder,
         EpersonSearchBoxComponent
       ],
       schemas: [
@@ -64,7 +64,7 @@ describe('EpersonSearchBoxComponent test suite', () => {
     beforeEach(() => {
       // initTestScheduler();
       fixture = TestBed.createComponent(EpersonSearchBoxComponent);
-      formBuilder = TestBed.inject(FormBuilder);
+      formBuilder = TestBed.inject(UntypedFormBuilder);
       comp = fixture.componentInstance;
       compAsAny = fixture.componentInstance;
     });

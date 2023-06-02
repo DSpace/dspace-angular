@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnChanges } from '@angular/core';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
 import { isNotEmpty } from '../empty.util';
@@ -12,23 +12,17 @@ import { take } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-
-/**
- * This component renders a simple item page.
- * The route parameter 'id' is used to request the item it represents.
- * All fields of the item that should be displayed, are defined in its template.
- */
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-search-form',
   styleUrls: ['./search-form.component.scss'],
   templateUrl: './search-form.component.html'
 })
-
 /**
  * Component that represents the search form
  */
-export class SearchFormComponent implements OnInit {
+export class SearchFormComponent implements OnChanges {
   /**
    * The search query
    */
@@ -81,13 +75,14 @@ export class SearchFormComponent implements OnInit {
     protected searchConfig: SearchConfigurationService,
     protected modalService: NgbModal,
     protected dsoService: DSpaceObjectDataService,
+    public dsoNameService: DSONameService,
   ) {
   }
 
   /**
    * Retrieve the scope object from the URL so we can show its name
    */
-  ngOnInit(): void {
+  ngOnChanges(): void {
     if (isNotEmpty(this.scope)) {
       this.dsoService.findById(this.scope).pipe(getFirstSucceededRemoteDataPayload())
         .subscribe((scope: DSpaceObject) => this.selectedScope.next(scope));
@@ -125,13 +120,6 @@ export class SearchFormComponent implements OnInit {
       queryParams: queryParams,
       queryParamsHandling: 'merge'
     });
-  }
-
-  /**
-   * For usage of the isNotEmpty function in the template
-   */
-  isNotEmpty(object: any) {
-    return isNotEmpty(object);
   }
 
   /**

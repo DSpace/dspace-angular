@@ -17,11 +17,11 @@
                                             [defaultConfiguration]="configuration"
                                             [inPlaceSearch]="inPlaceSearch"
                                             (changeConfiguration)="changeConfiguration.emit($event)"></ds-search-switch-configuration>
-            <ds-search-filters [currentScope]="currentScope"
+            <ds-themed-search-filters [currentScope]="currentScope"
                                [currentConfiguration]="configuration"
                                [filters]="filters"
                                [refreshFilters]="refreshFilters"
-                               [inPlaceSearch]="inPlaceSearch"></ds-search-filters>
+                               [inPlaceSearch]="inPlaceSearch"></ds-themed-search-filters>
             <ds-themed-search-settings [currentSortOption]="currentSortOption"
                                        [sortOptionsList]="sortOptionsList"></ds-themed-search-settings>
         </div>

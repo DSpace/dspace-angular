@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
@@ -127,7 +127,7 @@ export class OrcidSyncSettingsComponent implements OnInit {
    *
    * @param form The form group
    */
-  onSubmit(form: FormGroup): void {
+  onSubmit(form: UntypedFormGroup): void {
     const operations: Operation[] = [];
     this.fillOperationsFor(operations, '/orcid/mode', form.value.syncMode);
     this.fillOperationsFor(operations, '/orcid/publications', form.value.syncPublications);
