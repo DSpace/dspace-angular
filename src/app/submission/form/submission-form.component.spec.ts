@@ -25,6 +25,7 @@ import { createTestComponent } from '../../shared/testing/utils.test';
 import { Item } from '../../core/shared/item.model';
 import { TestScheduler } from 'rxjs/testing';
 import { SectionsService } from '../sections/sections.service';
+import { VisibilityType } from '../sections/visibility-type';
 
 describe('SubmissionFormComponent Component', () => {
 
@@ -154,6 +155,32 @@ describe('SubmissionFormComponent Component', () => {
         null);
       expect(submissionServiceStub.startAutoSave).toHaveBeenCalled();
       done();
+    });
+
+    it('should return the visibility object of the collection section', () => {
+      comp.submissionDefinition = submissionDefinition;
+      fixture.detectChanges();
+      const result = compAsAny.getCollectionVisibility();
+      expect(result).toEqual({
+        main: VisibilityType.HIDDEN,
+        other: VisibilityType.HIDDEN,
+      });
+    });
+
+    it('should return true if collection section visibility is hidden', () => {
+      comp.submissionDefinition = submissionDefinition;
+      fixture.detectChanges();
+      expect(comp.isSectionHidden).toBe(true);
+    });
+
+    it('should return false for isSectionReadonly when collection section visibility is not READONLY', () => {
+      const visibility = {
+        main: VisibilityType.READONLY,
+        other: VisibilityType.READONLY,
+      };
+      comp.submissionDefinition = Object.assign({}, submissionDefinition, { visibility: visibility });
+      fixture.detectChanges();
+      expect(comp.isSectionReadonly).toBe(false);
     });
 
     it('should update properly on collection change', (done) => {
