@@ -11,7 +11,7 @@
         (@slide.done)="finishSlide($event)" class="search-filter-wrapper"
         [ngClass]="{ 'closed' : closed, 'notab': notab }">
         <form [class]="'ng-invalid'" [formGroup]="advSearchForm" (ngSubmit)="onSubmit(advSearchForm.value)"
-            [action]="currentURL">
+            >
             <div class="row">
                 <div class="col-lg-12">
                     <select

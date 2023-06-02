@@ -8,7 +8,6 @@ import { CollectionPageConfig } from './collection-page-config.interface';
 import { FormConfig } from './form-config.interfaces';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
-import { AdvancedSearchConfig } from './advance-search-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { ServerConfig } from './server-config.interface';
@@ -23,7 +22,7 @@ import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
-import { SearchConfig } from './search-page-config.interface'
+import { SearchConfig } from './search-page-config.interface';
 export class DefaultAppConfig implements AppConfig {
   production = false;
 
@@ -436,5 +435,5 @@ export class DefaultAppConfig implements AppConfig {
       enabled: false,
       filter: ['title', 'author', 'subject', 'entityType']
     }
-  }
+  };
 }

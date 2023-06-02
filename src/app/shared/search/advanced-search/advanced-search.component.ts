@@ -47,7 +47,6 @@ export class AdvancedSearchComponent implements OnInit {
   /**
    * Link to the search page
    */
-  currentURL: string;
   notab: boolean;
   @Input() searchConfig;
   closed: boolean;
@@ -76,8 +75,6 @@ export class AdvancedSearchComponent implements OnInit {
         { validators: [Validators.required], }),
 
     });
-
-    this.currentURL = this.router.url;
     this.collapsedSearch = this.isCollapsed();
 
   }
