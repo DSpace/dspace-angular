@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Inject, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DynamicDsDatePickerModel } from './date-picker.model';
 import { hasValue } from '../../../../../empty.util';
@@ -7,6 +7,8 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
+import { DOCUMENT } from '@angular/common';
+import { isEqual } from 'lodash';
 
 
 export const DS_DATE_PICKER_SEPARATOR = '-';
@@ -51,7 +53,9 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
   disabledMonth = true;
   disabledDay = true;
   constructor(protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
+              protected validationService: DynamicFormValidationService,
+              private renderer: Renderer2,
+              @Inject(DOCUMENT) private _document: Document
   ) {
     super(layoutService, validationService);
   }
@@ -162,6 +166,46 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
 
     this.model.value = value;
     this.change.emit(value);
+  }
+
+  /**
+   * Listen to keydown Tab event.
+   * Get the active element and blur it, in order to focus the next input field.
+   */
+  @HostListener('keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      const activeElement: Element = this._document.activeElement;
+      (activeElement as any).blur();
+      if (isEqual(activeElement.id, this.model.id.concat('_year')) ) {
+        this.focusInput('_month');
+      } else if (isEqual(activeElement.id, this.model.id.concat('_month'))) {
+        this.focusInput('_day');
+      }
+    }
+  }
+
+  /**
+   * Focus the input field for the given type
+   * based on the model id.
+   * Used to focus the next input field
+   * in case of a disabled field.
+   * @param type '_month' | '_day'
+   */
+  focusInput(type: '_month' | '_day') {
+    const field = this._document.getElementById(this.model.id.concat(type));
+    if (field) {
+
+      if (hasValue(this.year) && isEqual(type, '_month')) {
+        this.disabledMonth = false;
+      } else if (hasValue(this.month) && isEqual(type, '_day')) {
+        this.disabledDay = false;
+      }
+      setTimeout(() => {
+        this.renderer.selectRootElement(field).focus();
+      }, 100);
+    }
   }
 
   onFocus(event) {
