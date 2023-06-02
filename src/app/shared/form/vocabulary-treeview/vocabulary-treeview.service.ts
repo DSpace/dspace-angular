@@ -25,7 +25,9 @@ import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/mod
 /**
  * A service that provides methods to deal with vocabulary tree
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class VocabularyTreeviewService {
 
   /**

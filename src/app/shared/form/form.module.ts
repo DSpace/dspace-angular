@@ -32,7 +32,6 @@ import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { AuthorityConfidenceStateDirective } from './directives/authority-confidence-state.directive';
 import { SortablejsModule } from 'ngx-sortablejs';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
-import { VocabularyTreeviewService } from './vocabulary-treeview/vocabulary-treeview.service';
 import { VocabularyTreeviewModalComponent } from './vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FormBuilderService } from './builder/form-builder.service';
 import { DsDynamicTypeBindRelationService } from './builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
@@ -104,7 +103,6 @@ const DIRECTIVES = [
       useValue: dsDynamicFormControlMapFn
     },
     ...DYNAMIC_MATCHER_PROVIDERS,
-    VocabularyTreeviewService,
     DynamicFormLayoutService,
     DynamicFormService,
     DynamicFormValidationService,

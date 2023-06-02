@@ -13,7 +13,7 @@ import { BrowseByGuard } from './browse-by-guard';
   providers: [
     ItemDataService,
     BrowseService,
-    BrowseByGuard
+    BrowseByGuard,
   ]
 })
 export class BrowseByPageModule {

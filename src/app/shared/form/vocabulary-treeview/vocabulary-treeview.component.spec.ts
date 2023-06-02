@@ -21,6 +21,7 @@ import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
 import { authReducer } from '../../../core/auth/auth.reducer';
 import { storeModuleConfig } from '../../../app.reducer';
 import { By } from '@angular/platform-browser';
+import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
 
 describe('VocabularyTreeviewComponent test suite', () => {
 
@@ -48,6 +49,14 @@ describe('VocabularyTreeviewComponent test suite', () => {
     searchByQuery: jasmine.createSpy('searchByQuery'),
     restoreNodes: jasmine.createSpy('restoreNodes'),
     cleanTree: jasmine.createSpy('cleanTree'),
+  });
+  const vocabularyServiceStub = jasmine.createSpyObj('VocabularyService', {
+    getVocabularyEntriesByValue: jasmine.createSpy('getVocabularyEntriesByValue'),
+    getEntryDetailParent: jasmine.createSpy('getEntryDetailParent'),
+    findEntryDetailById: jasmine.createSpy('findEntryDetailById'),
+    searchTopEntries: jasmine.createSpy('searchTopEntries'),
+    getEntryDetailChildren: jasmine.createSpy('getEntryDetailChildren'),
+    clearSearchTopRequests: jasmine.createSpy('clearSearchTopRequests')
   });
 
   initialState = {
@@ -77,6 +86,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
       ],
       providers: [
         { provide: VocabularyTreeviewService, useValue: vocabularyTreeviewServiceStub },
+        { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: NgbActiveModal, useValue: modalStub },
         provideMockStore({ initialState }),
         ChangeDetectorRef,
