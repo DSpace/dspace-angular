@@ -4061,7 +4061,7 @@
 
   "submission.general.cancel": "Cancel",
 
-  "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
+  "submission.general.cannot_submit": "You don't have permission to make a new submission.",
 
   "submission.general.deposit": "Deposit",
 
