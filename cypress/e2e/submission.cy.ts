@@ -1,13 +1,11 @@
-import { Options } from 'cypress-axe';
-import { TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD, TEST_SUBMIT_COLLECTION_NAME, TEST_SUBMIT_COLLECTION_UUID } from 'cypress/support';
-import { testA11y } from 'cypress/support/utils';
+import { TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD, TEST_SUBMIT_COLLECTION_NAME, TEST_SUBMIT_COLLECTION_UUID } from 'cypress/support/e2e';
 
 describe('New Submission page', () => {
     // NOTE: We already test that new submissions can be started from MyDSpace in my-dspace.spec.ts
 
     it('should create a new submission when using /submit path & pass accessibility', () => {
         // Test that calling /submit with collection & entityType will create a new submission
-        cy.visit('/submit?collection=' + TEST_SUBMIT_COLLECTION_UUID + '&entityType=none');
+        cy.visit('/submit?collection='.concat(TEST_SUBMIT_COLLECTION_UUID).concat('&entityType=none'));
 
         // This page is restricted, so we will be shown the login form. Fill it out & submit.
         cy.loginViaForm(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
@@ -35,7 +33,7 @@ describe('New Submission page', () => {
 
     it('should block submission & show errors if required fields are missing', () => {
         // Create a new submission
-        cy.visit('/submit?collection=' + TEST_SUBMIT_COLLECTION_UUID + '&entityType=none');
+        cy.visit('/submit?collection='.concat(TEST_SUBMIT_COLLECTION_UUID).concat('&entityType=none'));
 
         // This page is restricted, so we will be shown the login form. Fill it out & submit.
         cy.loginViaForm(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
@@ -95,7 +93,7 @@ describe('New Submission page', () => {
 
     it('should allow for deposit if all required fields completed & file uploaded', () => {
         // Create a new submission
-        cy.visit('/submit?collection=' + TEST_SUBMIT_COLLECTION_UUID + '&entityType=none');
+        cy.visit('/submit?collection='.concat(TEST_SUBMIT_COLLECTION_UUID).concat('&entityType=none'));
 
         // This page is restricted, so we will be shown the login form. Fill it out & submit.
         cy.loginViaForm(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
@@ -124,8 +122,6 @@ describe('New Submission page', () => {
 
         // Wait for upload to complete before proceeding
         cy.wait('@upload');
-        // Close the upload success notice
-        cy.get('[data-dismiss="alert"]').click({multiple: true});
 
         // Wait for deposit button to not be disabled & click it.
         cy.get('button#deposit').should('not.be.disabled').click();
