@@ -17,6 +17,8 @@ import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
 import { CoreState } from '../../../core/core-state.model';
 import { lowerCase } from 'lodash/string';
+import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 
 /**
  * Component that shows a hierarchical vocabulary in a tree view
@@ -114,11 +116,13 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    * Initialize instance variables
    *
    * @param {VocabularyTreeviewService} vocabularyTreeviewService
+   * @param {vocabularyService} vocabularyService
    * @param {Store<CoreState>} store
    * @param {TranslateService} translate
    */
   constructor(
     private vocabularyTreeviewService: VocabularyTreeviewService,
+    private vocabularyService: VocabularyService,
     private store: Store<CoreState>,
     private translate: TranslateService
   ) {
@@ -284,13 +288,22 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    * Reset tree resulting from a previous search
    */
   reset() {
+    this.searchText = '';
+    for (const item of this.selectedItems) {
+      this.subs.push(this.vocabularyService.findEntryDetailById(item, this.vocabularyOptions.name, true, true, false).pipe(
+        getFirstSucceededRemoteDataPayload(),
+      ).subscribe((detail: VocabularyEntryDetail) => {
+        this.deselect.emit(detail);
+      }));
+      this.nodeMap.get(item).isSelected = false;
+    }
+    this.selectedItems = [];
+
     if (isNotEmpty(this.storedNodeMap)) {
       this.nodeMap = this.storedNodeMap;
       this.storedNodeMap = new Map<string, TreeviewFlatNode>();
       this.vocabularyTreeviewService.restoreNodes();
     }
-
-    this.searchText = '';
   }
 
   /**
