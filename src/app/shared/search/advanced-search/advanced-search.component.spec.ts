@@ -48,5 +48,7 @@ describe('AdvancedSearchComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
+  it('should call getSearchLink on the searchService', () => {
+    expect(searchService.getSearchLink).toHaveBeenCalled();
+  });
 });

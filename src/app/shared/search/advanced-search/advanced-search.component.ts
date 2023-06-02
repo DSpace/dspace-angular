@@ -1,16 +1,14 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { slide } from '../../animations/slide';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 @Component({
@@ -19,19 +17,16 @@ import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
   styleUrls: ['./advanced-search.component.scss'],
   animations: [slide],
 })
-
-
+  /**
+   * This component represents the part of the search sidebar that contains advanced filters.
+   */
 export class AdvancedSearchComponent implements OnInit {
   /**
     * An observable containing configuration about which filters are shown and how they are shown
     */
   @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
   @Input() searchOptions: PaginatedSearchOptions;
-  /**
-   * List of all filters that are currently active with their value set to null.
-   * Used to reset all filters at once
-   */
-  clearParams;
+
 
   /**
    * The configuration to use for the search options
@@ -48,10 +43,6 @@ export class AdvancedSearchComponent implements OnInit {
    */
   @Input() inPlaceSearch;
 
-  /**
-   * Emits when the search filters values may be stale, and so they must be refreshed.
-   */
-  @Input() refreshFilters: BehaviorSubject<boolean>;
 
   /**
    * Link to the search page
@@ -68,9 +59,7 @@ export class AdvancedSearchComponent implements OnInit {
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     private formBuilder: FormBuilder,
     protected searchService: SearchService,
-    protected filterService: SearchFilterService,
     protected router: Router,
-    protected rdbs: RemoteDataBuildService,
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService) {
   }
 
@@ -144,7 +133,7 @@ export class AdvancedSearchComponent implements OnInit {
     return !this.collapsedSearch;
   }
   isActive(name): Boolean {
-    return this.appConfig.advancefilter.some(item => item.filter === name);
+    return this.appConfig.search.advancedFilters.filter.some(filter => filter === name);
   }
 }
 

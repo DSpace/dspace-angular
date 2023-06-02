@@ -381,8 +381,10 @@ comcolSelectionSort:
   sortField: 'dc.title'
   sortDirection: 'ASC'
 
-advancefilter:
-  - filter: title
-  - filter: author
-  - filter: subject
-  - filter: entityType
+# Search settings
+search: 
+  # Settings to enable/disable or configure advanced search filters.
+  advancedFilters:
+    enabled: true
+    # List of filters to enable in "Advanced Search" dropdown
+    filters: [ 'title', 'author', 'subject', 'entityType' ]

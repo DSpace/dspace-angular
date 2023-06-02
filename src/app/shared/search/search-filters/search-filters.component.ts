@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, distinctUntilChanged } from 'rxjs/operators';
-
+import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
@@ -71,6 +71,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    * @param {SearchConfigurationService} searchConfigService
    */
   constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
     private searchService: SearchService,
     private filterService: SearchFilterService,
     private router: Router,
