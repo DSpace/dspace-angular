@@ -17,7 +17,7 @@ import {
   ToggleActiveMenuSectionAction,
   ToggleMenuAction,
 } from './menu.actions';
-import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '../empty.util';
+import { hasNoValue, hasValue, hasValueOperator, isNotEmpty, isEmpty } from '../empty.util';
 import { MenuState } from './menu-state.model';
 import { MenuSections } from './menu-sections.model';
 import { MenuSection } from './menu-section.model';
@@ -409,20 +409,14 @@ export class MenuService {
   }
 
   protected resolveSubstitutions(object, params) {
-
     let resolved;
-    if (typeof object === 'string') {
+    if (isEmpty(params)) {
       resolved = object;
-      let match: RegExpMatchArray;
-      do {
-        match = resolved.match(/:(\w+)/);
-        if (match) {
-          const substitute = params[match[1]];
-          if (hasValue(substitute)) {
-            resolved = resolved.replace(match[0], `${substitute}`);
-          }
-        }
-      } while (match);
+    } else if (typeof object === 'string') {
+      resolved = object;
+      Object.entries(params).forEach(([key, value]: [string, string]) =>
+        resolved = resolved.replaceAll(`:${key}`, value)
+      );
     } else if (Array.isArray(object)) {
       resolved = [];
       object.forEach((entry, index) => {

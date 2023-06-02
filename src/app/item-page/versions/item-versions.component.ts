@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Item } from '../../core/shared/item.model';
 import { Version } from '../../core/shared/version.model';
 import { RemoteData } from '../../core/data/remote-data';
@@ -32,7 +32,7 @@ import {
   getItemPageRoute,
   getItemVersionRoute
 } from '../item-page-routing-paths';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -58,7 +58,7 @@ import { ConfigurationDataService } from '../../core/data/configuration-data.ser
 /**
  * Component listing all available versions of the history the provided item is a part of
  */
-export class ItemVersionsComponent implements OnInit {
+export class ItemVersionsComponent implements OnDestroy, OnInit {
 
   /**
    * The item to display a version history for
@@ -171,7 +171,7 @@ export class ItemVersionsComponent implements OnInit {
               private versionService: VersionDataService,
               private itemService: ItemDataService,
               private paginationService: PaginationService,
-              private formBuilder: FormBuilder,
+              private formBuilder: UntypedFormBuilder,
               private modalService: NgbModal,
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
