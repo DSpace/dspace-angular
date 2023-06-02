@@ -47,6 +47,8 @@ describe('BrowseByTaxonomyPageComponent', () => {
     detail2 = new VocabularyEntryDetail();
     detail1.value = 'HUMANITIES and RELIGION';
     detail2.value = 'TECHNOLOGY';
+    detail1.id = 'id-1';
+    detail2.id = 'id-2';
   });
 
   it('should create', () => {

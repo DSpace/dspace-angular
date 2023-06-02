@@ -98,7 +98,7 @@ export class BrowseByTaxonomyPageComponent implements OnInit, OnDestroy {
    * @param detail VocabularyEntryDetail to be removed
    */
   onDeselect(detail: VocabularyEntryDetail): void {
-    this.selectedItems = this.selectedItems.filter((entry: VocabularyEntryDetail) => { return entry !== detail; });
+    this.selectedItems = this.selectedItems.filter((entry: VocabularyEntryDetail) => { return entry.id !== detail.id; });
     this.filterValues = this.filterValues.filter((value: string) => { return value !== `${detail.value},equals`; });
     this.updateQueryParams();
   }
