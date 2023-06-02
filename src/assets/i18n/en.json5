@@ -851,6 +851,8 @@
 
   "browse.startsWith.type_text": "Filter results by typing the first few letters",
 
+  "browse.startsWith.input": "Filter",
+
   "browse.taxonomy.button": "Browse",
 
   "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
@@ -4067,7 +4069,7 @@
 
   "submission.general.cancel": "Cancel",
 
-  "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
+  "submission.general.cannot_submit": "You don't have permission to make a new submission.",
 
   "submission.general.deposit": "Deposit",
 

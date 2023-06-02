@@ -7,6 +7,7 @@ import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bit
 import { FormModule } from '../shared/form/form.module';
 import { ResourcePoliciesModule } from '../shared/resource-policies/resource-policies.module';
 import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
+import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-edit-bitstream-page.component';
 
 /**
  * This module handles all components that are necessary for Bitstream related pages
@@ -22,6 +23,7 @@ import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstr
   declarations: [
     BitstreamAuthorizationsComponent,
     EditBitstreamPageComponent,
+    ThemedEditBitstreamPageComponent,
     BitstreamDownloadPageComponent,
   ]
 })
