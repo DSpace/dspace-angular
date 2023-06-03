@@ -141,6 +141,7 @@ import {
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { WorkspaceItemsDeletePageComponent } from './app/workspace-items-delete-page/workspace-items-delete/workspace-items-delete.component';
 import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
+import { SubmissionSectionUploadFileComponent } from './app/submission/sections/upload/file/section-upload-file.component';
 import { ItemStatusComponent } from './app/item-page/edit-item-page/item-status/item-status.component';
 import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
 import { FormModule } from '../../app/shared/form/form.module';
@@ -220,6 +221,7 @@ const DECLARATIONS = [
   MediaViewerVideoComponent,
   WorkspaceItemsDeletePageComponent,
   ThumbnailComponent,
+  SubmissionSectionUploadFileComponent,
   ItemStatusComponent,
   EditBitstreamPageComponent,
 ];
