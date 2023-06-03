@@ -175,7 +175,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     it('should init file data properly', () => {
       uploadService.getFileData.and.returnValue(observableOf(fileData));
 
-      comp.ngOnChanges();
+      comp.ngOnChanges({});
 
       expect(comp.fileData).toEqual(fileData);
     });
