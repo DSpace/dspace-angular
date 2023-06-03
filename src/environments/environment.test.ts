@@ -313,10 +313,11 @@ export const environment: BuildConfig = {
       enabled: true
     }
   ],
-  advancefilter: [
-    { filter: 'title' },
-    { filter: 'author' },
-    { filter: 'subject' },
-    { filter: 'entityType' }
-  ]
+  search: {
+    advancedFilters: {
+      enabled: false,
+      filter: ['title', 'author', 'subject', 'entityType']
+    }
+  }
+
 };

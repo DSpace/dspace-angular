@@ -99,7 +99,11 @@ export class AdvancedSearchComponent implements OnInit {
       if (!this.inPlaceSearch) {
         this.router.navigate([this.searchService.getSearchLink()], { queryParams: queryParams, queryParamsHandling: 'merge' });
       } else {
-        this.router.navigate([], { queryParams: queryParams, queryParamsHandling: 'merge' });
+        if (!this.router.url.includes('?')) {
+          this.router.navigateByUrl(this.router.url + '?f.' + data.filter + '=' + data.textsearch + ',' + data.operator);
+        } else {
+          this.router.navigateByUrl(this.router.url + '&f.' + data.filter + '=' + data.textsearch + ',' + data.operator);
+        }
       }
 
       this.advSearchForm.reset({ operator: data.operator, filter: data.filter, textsearch: '' });
