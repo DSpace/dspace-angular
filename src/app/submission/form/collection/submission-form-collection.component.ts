@@ -66,6 +66,11 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   @Input() submissionId;
 
   /**
+   * Flag to indicate if the submission dropdown is read only
+   */
+  @Input() isReadonly = false;
+
+  /**
    * An event fired when a different collection is selected.
    * Event's payload equals to new SubmissionObject.
    */
