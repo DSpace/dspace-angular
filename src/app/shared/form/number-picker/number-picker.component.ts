@@ -23,7 +23,6 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
   @Input() invalid: boolean;
   @Input() value: number;
   @Input() widthClass: 'four-digits' | 'two-digits' | undefined;
-  @Input() tabindex: number;
 
   @Output() selected = new EventEmitter<number>();
   @Output() remove = new EventEmitter<number>();
