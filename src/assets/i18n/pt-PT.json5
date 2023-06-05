@@ -1,6 +1,6 @@
 {
 
-  // Dspace v7.5 > i18n pt-PT > reviewed 30-05-2023
+  // Dspace v7.x > i18n pt-PT > reviewed 05-06-2023
 
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Não está autorizado a aceder a esta página. Pode utilizar o botão em baixo para voltar à página de início.",
@@ -842,7 +842,7 @@
   // "admin.batch-import.page.dropMsgReplace": "Drop to replace the batch ZIP to import",
   "admin.batch-import.page.dropMsgReplace": "Arraste ficheiro .zip para substituir importação em lote",
 
-  // "admin.metadata-import.page.button.return": "Return",
+  // "admin.metadata-import.page.button.return": "Back",
   "admin.metadata-import.page.button.return": "Voltar",
 
   // "admin.metadata-import.page.button.proceed": "Proceed",
@@ -1286,7 +1286,7 @@
   // "collection.delete.head": "Delete Collection",
   "collection.delete.head": "Apagar coleção",
 
-  // "collection.delete.notification.fail": "collection could not be deleted",
+  // "collection.delete.notification.fail": "Collection could not be deleted",
   "collection.delete.notification.fail": "Coleção não pode ser apagada",
 
   // "collection.delete.notification.success": "Successfully deleted collection",
@@ -1307,13 +1307,13 @@
   // "collection.edit.tabs.mapper.head": "Item Mapper",
   "collection.edit.tabs.mapper.head": "Mapeamentos",
 
-  // "collection.edit.tabs.item-mapper.title": "collection Edit - Item Mapper",
+  // "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
   "collection.edit.tabs.item-mapper.title": "Editar coleção - mapeamentos",
 
   // "collection.edit.item-mapper.cancel": "Cancel",
   "collection.edit.item-mapper.cancel": "Cancelar",
 
-  // "collection.edit.item-mapper.collection": "collection: \"<b>{{name}}</b>\"",
+  // "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
   "collection.edit.item-mapper.collection": "Coleção: \"<b>{{name}}</b>\"",
 
   // "collection.edit.item-mapper.confirm": "Map selected items",
@@ -1547,8 +1547,8 @@
   // "collection.form.entityType": "Entity Type",
   "collection.form.entityType": "Tipo de entidade",
 
-  // "collection.listelement.badge": "collection",
-  "collection.listelement.badge": "coleção",
+  // "collection.listelement.badge": "Collection",
+  "collection.listelement.badge": "Coleção",
 
   // "collection.page.browse.recent.head": "Recent Submissions",
   "collection.page.browse.recent.head": "Entradas recentes",
@@ -2074,6 +2074,9 @@
 
   // "dso.name.untitled": "Untitled",
   "dso.name.untitled": "Sem título",
+  
+  // "dso.name.unnamed": "Unnamed",
+  "dso.name.unnamed": "Sem nome",
 
   // "dso-selector.create.collection.head": "New collection",
   "dso-selector.create.collection.head": "Nova coleção",
@@ -2159,7 +2162,7 @@
   // "dso-selector.results-could-not-be-retrieved": "Something went wrong, please refresh again",
   "dso-selector.results-could-not-be-retrieved": "Algo correu mal, por favor repita",
 
-  // "supervision-group-selector.header": "supervision Group Selector",
+  // "supervision-group-selector.header": "Supervision Group Selector",
   "supervision-group-selector.header": "Seletor de grupos de supervisão",
 
   // "supervision-group-selector.select.type-of-order.label": "Select a type of Order",
@@ -2192,8 +2195,8 @@
   // "supervision-group-selector.notification.create.success.title": "Successfully created supervision order for group {{ name }}",
   "supervision-group-selector.notification.create.success.title": "Criada com sucesso ordem de supervisão para o grupo {{ name }}",
 
-  // "supervision-group-selector.notification.create.failure.title": "error",
-  "supervision-group-selector.notification.create.failure.title": "erro",
+  // "supervision-group-selector.notification.create.failure.title": "Error",
+  "supervision-group-selector.notification.create.failure.title": "Erro",
 
   // "supervision-group-selector.notification.create.already-existing": "A supervision order already exists on this item for selected group",
   "supervision-group-selector.notification.create.already-existing": "Já existe uma ordem de supervisão sobre este item para grupo selecionado",
@@ -2491,9 +2494,24 @@
 
   // "form.no-value": "No value entered",
   "form.no-value": "Nenhum valor informado",
+  
+  // "form.other-information.email": "Email",
+  "form.other-information.email": "Email",
+ 
+  // "form.other-information.first-name": "First Name",
+  "form.other-information.first-name": "Nome",
+ 
+  // "form.other-information.insolr": "In Solr Index",
+  "form.other-information.insolr": "No índice SOLR",
+ 
+  // "form.other-information.institution": "Institution",
+  "form.other-information.institution": "Instituição", 
+ 
+  // "form.other-information.last-name": "Last Name",
+  "form.other-information.last-name": "Apelido",
 
-  // "form.other-information": {},
-  "form.other-information": {},
+  // "form.other-information.orcid": "ORCID",
+  "form.other-information.orcid": "ORCID",
 
   // "form.remove": "Remove",
   "form.remove": "Apagar",
@@ -2513,6 +2531,9 @@
   // "form.submit": "Save",
   "form.submit": "Guardar",
 
+  // "form.create": "Create",
+  "form.create": "Criar",
+  
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "Largue o item na nova posição",
 
@@ -2741,7 +2762,7 @@
   // "item.edit.authorizations.title": "Edit item's Policies",
   "item.edit.authorizations.title": "Editar políticas dos itens",
 
-  // "item.badge.private": "Private",
+  // "item.badge.private": "Non-discoverable",
   "item.badge.private": "Privado",
 
   // "item.badge.withdrawn": "Withdrawn",
@@ -2960,8 +2981,8 @@
   // "item.edit.register-doi.success": "DOI queued for registration successfully.",
   "item.edit.register-doi.success": "DOI colocado em fila de espera para o registo com sucesso.",
 
-  // "item.edit.register-doi.error": "error registering DOI",
-  "item.edit.register-doi.error": "erro ao registar DOI",
+  // "item.edit.register-doi.error": "Error registering DOI",
+  "item.edit.register-doi.error": "Erro ao registar DOI",
 
   // "item.edit.register-doi.to-update": "The following DOI has already been minted and will be queued for registration online",
   "item.edit.register-doi.to-update": "O seguinte DOI já foi criado e será colocado em fila de espera para registo online",
@@ -3265,6 +3286,9 @@
 
   // "item.edit.tabs.curate.title": "Item Edit - Curate",
   "item.edit.tabs.curate.title": "Editar item - Curadoria",
+  
+  // "item.edit.curate.title": "Curate Item: {{item}}",
+  "item.edit.curate.title": "Curar item: {{item}}",
 
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "Metadados do item",
@@ -3836,7 +3860,7 @@
   // "itemtemplate.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
   "itemtemplate.edit.metadata.notifications.discarded.content": "As sua alterações foram descartadas. Para repor as suas alterações clique no botão 'Desfazer'",
 
-  // "itemtemplate.edit.metadata.notifications.discarded.title": "Changed discarded",
+  // "itemtemplate.edit.metadata.notifications.discarded.title": "Changes discarded",
   "itemtemplate.edit.metadata.notifications.discarded.title": "Alterações descartadas",
 
   // "itemtemplate.edit.metadata.notifications.error.title": "An error occurred",
@@ -3851,7 +3875,7 @@
   // "itemtemplate.edit.metadata.notifications.outdated.content": "The item template you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
   "itemtemplate.edit.metadata.notifications.outdated.content": "O modelo do item que está atualmente a trabalhar foi alterado por outro utilizador. As suas alterações serão descartadas para evitar conflitos",
 
-  // "itemtemplate.edit.metadata.notifications.outdated.title": "Changed outdated",
+  // "itemtemplate.edit.metadata.notifications.outdated.title": "Changes outdated",
   "itemtemplate.edit.metadata.notifications.outdated.title": "Alterações desatualizadas",
 
   // "itemtemplate.edit.metadata.notifications.saved.content": "Your changes to this item template's metadata were saved.",
@@ -4217,7 +4241,7 @@
   // "menu.section.import": "Import",
   "menu.section.import": "Importar",
 
-  // "menu.section.import_batch": "Batch import (ZIP)",
+  // "menu.section.import_batch": "Batch Import (ZIP)",
   "menu.section.import_batch": "Importação em lote (ZIP)",
 
   // "menu.section.import_metadata": "Metadata",
@@ -4403,20 +4427,20 @@
   // "mydspace.show.supervisedWorkspace": "Supervised items",
   "mydspace.show.supervisedWorkspace": "Itens supervisionados",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Depósito aceite",
-
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Em validação",
-
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Aguarda validador",
-
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Em fluxo de trabalho",
-
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Depósito por terminar",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Depósito aceite",
+  
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Em validação",
+  
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Aguarda validador",
+  
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Em fluxo de trabalho",
+  
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Depósito por terminar",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "Área Pessoal",
@@ -4468,6 +4492,9 @@
 
   // "nav.search": "Search",
   "nav.search": "Pesquisar",
+  
+  // "nav.search.button": "Submit search",
+  "nav.search.button": "Pesquisar",
 
   // "nav.statistics.header": "Statistics",
   "nav.statistics.header": "Estatísticas",
@@ -4624,6 +4651,9 @@
 
   // "process.new.notification.error.content": "An error occurred while creating this process",
   "process.new.notification.error.content": "Ocorreu um erro ao criar este processo",
+  
+  // "process.new.notification.error.max-upload.content": "The file exceeds the maximum upload size",
+  "process.new.notification.error.max-upload.content": "O ficheiro excede o tamanho máximo de carregamento!",
 
   // "process.new.header": "Create a new process",
   "process.new.header": "Criar um novo processo",
@@ -5324,7 +5354,7 @@
   // "search.filters.applied.f.discoverable": "Non-discoverable",
   "search.filters.applied.f.discoverable": "Privado",
 
-  // "search.filters.applied.f.entityType": "Item type",
+  // "search.filters.applied.f.entityType": "Item Type",
   "search.filters.applied.f.entityType": "Tipo de item",
 
   // "search.filters.applied.f.has_content_in_original_bundle": "Has files",
@@ -5564,7 +5594,7 @@
   // "search.filters.filter.submitter.label": "Search submitter",
   "search.filters.filter.submitter.label": "Procurar depositante",
 
-  // "search.filters.filter.show-tree": "browse {{ name }} tree",
+  // "search.filters.filter.show-tree": "Browse {{ name }} tree",
   "search.filters.filter.show-tree": "Percorrer por hierarquia de {{ name }}",
 
   // "search.filters.filter.supervisedBy.head": "Supervised By",
@@ -5573,8 +5603,8 @@
   // "search.filters.filter.supervisedBy.placeholder": "Supervised By",
   "search.filters.filter.supervisedBy.placeholder": "Supervisionado por",
 
-  // "search.filters.filter.supervisedBy.label": "search Supervised By",
-  "search.filters.filter.supervisedBy.label": "pesquisar supervisionado por",
+  // "search.filters.filter.supervisedBy.label": "Search Supervised By",
+  "search.filters.filter.supervisedBy.label": "Pesquisar supervisionado por",
 
   // "search.filters.entityType.JournalIssue": "Journal Issue",
   "search.filters.entityType.JournalIssue": "Número de revista",
@@ -5743,6 +5773,9 @@
 
   // "statistics.table.header.views": "Views",
   "statistics.table.header.views": "Consultas",
+  
+  // "statistics.table.no-name": "(object name could not be loaded)",
+  "statistics.table.no-name": "(não foi possível carregar o nome do objeto)",
 
   // "submission.edit.breadcrumbs": "Edit Submission",
   "submission.edit.breadcrumbs": "Editar depósito",
@@ -6335,8 +6368,8 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Resultados da pesquisa",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
-  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Pretende guardar \"{{ value }}\" como um nome alternativo para esta pessoa permitindo a sua reutilização por outros em futuros depósitos? Se não, pode usar apenas neste depósito.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
+  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Pretende guardar \"{{ value }}\" como um nome alternativo para esta pessoa permitindo a sua reutilização por si e outros em futuros depósitos? Se não, pode usar apenas neste depósito.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
   "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Guardar um Nome alternativo",
@@ -6733,10 +6766,10 @@
 
   // "submission.workflow.generic.delete": "Delete",
   "submission.workflow.generic.delete": "Remover",
-
-  // "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\". You will then be asked to confirm it.",
-  "submission.workflow.generic.delete-help": "Se pretende remover definitivamente este item, selecione 'Apagar'. Será solicitada confirmação.",
-
+  
+  // "submission.workflow.generic.delete-help": "Select this option to discard this item. You will then be asked to confirm it.",
+  "submission.workflow.generic.delete-help": "Selecione esta opção para rejeitar este item. Ser-lhe-á pedida confirmação.",
+  
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Editar",
 
@@ -6832,17 +6865,20 @@
 
   // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
   "submission.workspace.generic.view-help": "Selecione esta opção para ver os metadados do item.",
+  
+  // "submitter.empty": "N/A",
+  "submitter.empty": "N/E",
 
-  // "subscriptions.title": "subscriptions",
+  // "subscriptions.title": "Subscriptions",
   "subscriptions.title": "Subscrições de alertas",
 
-  // "subscriptions.item": "subscriptions for items",
+  // "subscriptions.item": "Subscriptions for items",
   "subscriptions.item": "Subscrições para itens",
 
-  // "subscriptions.collection": "subscriptions for collections",
+  // "subscriptions.collection": "Subscriptions for collections",
   "subscriptions.collection": "Subscrições para coleções",
 
-  // "subscriptions.community": "subscriptions for communities",
+  // "subscriptions.community": "Subscriptions for communities",
   "subscriptions.community": "Subscrições para comunidades",
 
   // "subscriptions.subscription_type": "Subscription type",
@@ -6863,7 +6899,7 @@
   // "subscriptions.tooltip": "Subscribe",
   "subscriptions.tooltip": "Subscrever",
 
-  // "subscriptions.modal.title": "subscriptions",
+  // "subscriptions.modal.title": "Subscriptions",
   "subscriptions.modal.title": "Subscrições de alertas",
 
   // "subscriptions.modal.type-frequency": "Type and frequency",
@@ -6872,7 +6908,7 @@
   // "subscriptions.modal.close": "Close",
   "subscriptions.modal.close": "Fechar",
 
-  // "subscriptions.modal.delete-info": "To remove this subscription, please visit the \// "subscriptions\" page under your user profile",
+  // "subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
   "subscriptions.modal.delete-info": "Para remover esta subscrição, por favor aceda à página de 'subscrições' debaixo do seu perfil de utilizador",
 
   // "subscriptions.modal.new-subscription-form.type.content": "Content",
@@ -6890,7 +6926,7 @@
   // "subscriptions.modal.new-subscription-form.submit": "Submit",
   "subscriptions.modal.new-subscription-form.submit": "Submeter",
 
-  // "subscriptions.modal.new-subscription-form.processing": "processing...",
+  // "subscriptions.modal.new-subscription-form.processing": "Processing...",
   "subscriptions.modal.new-subscription-form.processing": "A processar...",
 
   // "subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
@@ -7093,6 +7129,30 @@
 
   // "workspace-item.view.title": "Workspace View",
   "workspace-item.view.title": "Vista das tarefas",
+  
+  // "workspace-item.delete.breadcrumbs": "Workspace Delete",
+  "workspace-item.delete.breadcrumbs": "Apagar da área de trabalho",
+  
+  // "workspace-item.delete.header": "Delete workspace item",
+  "workspace-item.delete.header": "Apagar item da área de trabalho",
+
+  // "workspace-item.delete.button.confirm": "Delete",
+  "workspace-item.delete.button.confirm": "Apagar",
+ 
+  // "workspace-item.delete.button.cancel": "Cancel",
+  "workspace-item.delete.button.cancel": "Cancelar",
+ 
+  // "workspace-item.delete.notification.success.title": "Deleted",
+  "workspace-item.delete.notification.success.title": "Apagado",
+ 
+  // "workspace-item.delete.title": "This workspace item was successfully deleted",
+  "workspace-item.delete.title": "Este item foi removido da área de trabalho com êxito",
+ 
+  // "workspace-item.delete.notification.error.title": "Something went wrong",
+  "workspace-item.delete.notification.error.title": "Ocorreu algum erro!",
+ 
+  // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
+  "workspace-item.delete.notification.error.content": "Não foi possível remover o item da área de trabalho",
 
   // "workflow-item.advanced.title": "Advanced workflow",
   "workflow-item.advanced.title": "Fluxo de trabalho avançado",
@@ -7577,7 +7637,7 @@
   // "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
   "system-wide-alert.form.label.countdownTo.hint": "Dica: Defina um temporizador de contagem decrescente. Quando ativado, pode ser definida uma data no futuro e o 'banner' de alerta geral do sistema irá realizar uma contagem decrescente para a data definida. Quando este temporizador terminar, desaparecerá do alerta. O servidor NÃO pára automaticamente.",
 
-  // "system-wide-alert.form.label.preview": "system-wide alert preview",
+  // "system-wide-alert.form.label.preview": "System-wide alert preview",
   "system-wide-alert.form.label.preview": "Pré-visualização de alerta geral do sistema",
 
   // "system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
