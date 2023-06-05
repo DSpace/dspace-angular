@@ -29,7 +29,6 @@ export class SignpostingDataService {
 
     return this.restService.get(`${baseUrl}/signposting/links/${uuid}`).pipe(
       catchError((err) => {
-        console.error(err);
         return observableOf([]);
       }),
       map((res: RawRestResponse) => res.statusCode === 200 ? res.payload as SignpostingLink[] : [])
