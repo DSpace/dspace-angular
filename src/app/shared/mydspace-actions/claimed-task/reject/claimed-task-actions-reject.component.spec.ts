@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -25,7 +25,7 @@ import { ClaimedDeclinedTaskSearchResult } from '../../../object-collection/shar
 
 let component: ClaimedTaskActionsRejectComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsRejectComponent>;
-let formBuilder: FormBuilder;
+let formBuilder: UntypedFormBuilder;
 let modalService: NgbModal;
 
 const searchService = getMockSearchService();
@@ -63,7 +63,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
-        FormBuilder,
+        UntypedFormBuilder,
         NgbModal,
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -72,7 +72,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
     }).compileComponents();
     fixture = TestBed.createComponent(ClaimedTaskActionsRejectComponent);
     component = fixture.componentInstance;
-    formBuilder = TestBed.inject(FormBuilder);
+    formBuilder = TestBed.inject(UntypedFormBuilder);
     modalService = TestBed.inject(NgbModal);
     component.object = object;
     component.modalRef = modalService.open('ok');
@@ -82,7 +82,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
 
   it('should init reject form properly', () => {
     expect(component.rejectForm).toBeDefined();
-    expect(component.rejectForm instanceof FormGroup).toBeTruthy();
+    expect(component.rejectForm instanceof UntypedFormGroup).toBeTruthy();
     expect(component.rejectForm.controls.reason).toBeDefined();
   });
 

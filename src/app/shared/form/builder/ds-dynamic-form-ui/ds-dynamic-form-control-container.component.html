@@ -16,7 +16,7 @@
         <ng-container #componentViewContainer></ng-container>
       </div>
 
-      <small *ngIf="hasHint && ((!model.repeatable && (isRelationship === false || value?.value === null)) || (model.repeatable === true && context?.index === context?.context?.groups?.length - 1)) && (!showErrorMessages || errorMessages.length === 0)"
+      <small *ngIf="hasHint && (formBuilderService.hasArrayGroupValue(model) || (!model.repeatable && (isRelationship === false || value?.value === null)) || (model.repeatable === true && context?.index === context?.context?.groups?.length - 1)) && (!showErrorMessages || errorMessages.length === 0)"
              class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
       <!-- In case of repeatable fields show empty space for all elements except the first -->
       <div *ngIf="context?.index !== null

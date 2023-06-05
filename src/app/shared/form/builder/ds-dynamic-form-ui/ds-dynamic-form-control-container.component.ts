@@ -17,7 +17,7 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { UntypedFormArray, UntypedFormGroup } from '@angular/forms';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -199,12 +199,12 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;
   @Input() hasMetadataModel: any;
   @Input() formId: string;
-  @Input() formGroup: FormGroup;
+  @Input() formGroup: UntypedFormGroup;
   @Input() formModel: DynamicFormControlModel[];
   @Input() asBootstrapFormGroup = false;
   @Input() bindId = true;
   @Input() context: any | null = null;
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() hostClass: string[];
   @Input() hasErrorMessaging = false;
   @Input() layout = null as DynamicFormLayout;
@@ -259,7 +259,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private submissionObjectService: SubmissionObjectDataService,
     private ref: ChangeDetectorRef,
     private formService: FormService,
-    private formBuilderService: FormBuilderService,
+    public formBuilderService: FormBuilderService,
     private submissionService: SubmissionService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
@@ -475,7 +475,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   onRemove(): void {
     const arrayContext: DynamicFormArrayModel = (this.context as DynamicFormArrayGroupModel).context;
     const path = this.formBuilderService.getPath(arrayContext);
-    const formArrayControl = this.group.root.get(path) as FormArray;
+    const formArrayControl = this.group.root.get(path) as UntypedFormArray;
     this.formBuilderService.removeFormArrayGroup(this.context.index, formArrayControl, arrayContext);
     if (this.model.parent.context.groups.length === 0) {
       this.formBuilderService.addFormArrayGroup(formArrayControl, arrayContext);

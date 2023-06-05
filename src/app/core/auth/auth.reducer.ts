@@ -10,7 +10,7 @@ import {
   RedirectWhenTokenExpiredAction,
   RefreshTokenSuccessAction,
   RetrieveAuthenticatedEpersonSuccessAction,
-  RetrieveAuthMethodsSuccessAction,
+  RetrieveAuthMethodsSuccessAction, SetAuthCookieStatus,
   SetRedirectUrlAction
 } from './auth.actions';
 // import models
@@ -59,6 +59,8 @@ export interface AuthState {
   // all authentication Methods enabled at the backend
   authMethods?: AuthMethod[];
 
+  externalAuth?: boolean,
+
   // true when the current user is idle
   idle: boolean;
 
@@ -73,6 +75,7 @@ const initialState: AuthState = {
   blocking: true,
   loading: false,
   authMethods: [],
+  externalAuth: false,
   idle: false
 };
 
@@ -102,6 +105,11 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE:
       return Object.assign({}, state, {
         loading: true,
+      });
+
+    case AuthActionTypes.SET_AUTH_COOKIE_STATUS:
+      return Object.assign({}, state, {
+        externalAuth: (action as SetAuthCookieStatus).payload
       });
 
     case AuthActionTypes.AUTHENTICATED_ERROR:

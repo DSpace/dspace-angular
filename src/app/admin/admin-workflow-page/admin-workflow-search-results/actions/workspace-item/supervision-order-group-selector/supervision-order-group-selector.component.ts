@@ -82,7 +82,7 @@ export class SupervisionOrderGroupSelectorComponent {
         getFirstCompletedRemoteData(),
       ).subscribe((rd: RemoteData<SupervisionOrder>) => {
         if (rd.state === 'Success') {
-          this.notificationsService.success(this.translateService.get('supervision-group-selector.notification.create.success.title', { name: this.selectedGroup.name }));
+          this.notificationsService.success(this.translateService.get('supervision-group-selector.notification.create.success.title', { name: this.dsoNameService.getName(this.selectedGroup) }));
           this.create.emit(rd.payload);
           this.close();
         } else {

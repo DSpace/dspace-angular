@@ -34,8 +34,11 @@ import { ResearchEntitiesModule } from '../entity-groups/research-entities/resea
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { MediaViewerComponent } from './media-viewer/media-viewer.component';
+import { ThemedMediaViewerComponent } from './media-viewer/themed-media-viewer.component';
 import { MediaViewerVideoComponent } from './media-viewer/media-viewer-video/media-viewer-video.component';
+import { ThemedMediaViewerVideoComponent } from './media-viewer/media-viewer-video/themed-media-viewer-video.component';
 import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/media-viewer-image.component';
+import { ThemedMediaViewerImageComponent } from './media-viewer/media-viewer-image/themed-media-viewer-image.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { MiradorViewerComponent } from './mirador-viewer/mirador-viewer.component';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
@@ -60,7 +63,6 @@ import {
 import {
   ItemPageKalturaFieldComponent
 } from "./simple/field-components/specific-field/kaltura/item-page-kaltura-field.component";
-
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -90,8 +92,11 @@ const DECLARATIONS = [
   UploadBitstreamComponent,
   AbstractIncrementalListComponent,
   MediaViewerComponent,
+  ThemedMediaViewerComponent,
   MediaViewerVideoComponent,
+  ThemedMediaViewerVideoComponent,
   MediaViewerImageComponent,
+  ThemedMediaViewerImageComponent,
   MiradorViewerComponent,
   VersionPageComponent,
   OrcidPageComponent,

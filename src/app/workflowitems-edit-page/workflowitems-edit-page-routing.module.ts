@@ -34,7 +34,11 @@ import {
             resolve: {
               breadcrumb: I18nBreadcrumbResolver
             },
-            data: { title: 'workflow-item.edit.title', breadcrumbKey: 'workflow-item.edit' }
+            data: {
+              title: 'workflow-item.edit.title',
+              breadcrumbKey: 'workflow-item.edit',
+              collectionModifiable: false
+            }
           },
           {
             canActivate: [AuthenticatedGuard],

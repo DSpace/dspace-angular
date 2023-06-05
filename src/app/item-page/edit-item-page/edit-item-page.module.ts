@@ -38,6 +38,8 @@ import { IdentifierDataService } from '../../core/data/identifier-data.service';
 import { IdentifierDataComponent } from '../../shared/object-list/identifier-data/identifier-data.component';
 import { ItemRegisterDoiComponent } from './item-register-doi/item-register-doi.component';
 import { DsoSharedModule } from '../../dso-shared/dso-shared.module';
+import { ItemCurateComponent } from './item-curate/item-curate.component';
+import { ThemedItemStatusComponent } from './item-status/themed-item-status.component';
 
 
 /**
@@ -67,6 +69,7 @@ import { DsoSharedModule } from '../../dso-shared/dso-shared.module';
     ItemPublicComponent,
     ItemDeleteComponent,
     ItemStatusComponent,
+    ThemedItemStatusComponent,
     ItemRelationshipsComponent,
     ItemBitstreamsComponent,
     ItemVersionHistoryComponent,
@@ -81,13 +84,17 @@ import { DsoSharedModule } from '../../dso-shared/dso-shared.module';
     VirtualMetadataComponent,
     ItemAuthorizationsComponent,
     IdentifierDataComponent,
-    ItemRegisterDoiComponent
+    ItemRegisterDoiComponent,
+    ItemCurateComponent
   ],
   providers: [
     BundleDataService,
     IdentifierDataService,
     ObjectValuesPipe
   ],
+  exports: [
+    ItemOperationComponent,
+  ]
 })
 export class EditItemPageModule {
 

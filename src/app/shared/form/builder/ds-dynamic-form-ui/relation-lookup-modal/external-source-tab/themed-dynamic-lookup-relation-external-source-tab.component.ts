@@ -4,27 +4,14 @@ import { RelationshipOptions } from '../../../models/relationship-options.model'
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { Context } from '../../../../../../core/shared/context.model';
 import { Item } from '../../../../../../core/shared/item.model';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { Collection } from '../../../../../../core/shared/collection.model';
 import { ExternalSource } from '../../../../../../core/shared/external-source.model';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-lookup-relation-external-source-tab.component';
-import { fadeIn, fadeInOut } from '../../../../../animations/fade';
 
 @Component({
   selector: 'ds-themed-dynamic-lookup-relation-external-source-tab',
   styleUrls: [],
   templateUrl: '../../../../../theme-support/themed.component.html',
-  providers: [
-    {
-      provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ],
-  animations: [
-    fadeIn,
-    fadeInOut
-  ]
 })
 export class ThemedDynamicLookupRelationExternalSourceTabComponent extends ThemedComponent<DsDynamicLookupRelationExternalSourceTabComponent> {
   protected inAndOutputNames: (keyof DsDynamicLookupRelationExternalSourceTabComponent & keyof this)[] = ['label', 'listId',
@@ -44,7 +31,7 @@ export class ThemedDynamicLookupRelationExternalSourceTabComponent extends Theme
 
   @Input() repeatable: boolean;
 
-  @Output() importedObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() importedObject: EventEmitter<ListableObject> = new EventEmitter();
 
   @Input() externalSource: ExternalSource;
 
