@@ -2536,6 +2536,8 @@
 
   "item.preview.dc.identifier.doi": "DOI",
 
+  "item.preview.dc.publisher": "Publisher:",
+
   "item.preview.person.familyName": "Surname:",
 
   "item.preview.person.givenName": "Name:",
