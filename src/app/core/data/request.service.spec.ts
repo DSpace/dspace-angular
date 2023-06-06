@@ -627,11 +627,8 @@ describe('RequestService', () => {
 
     it('should return an Observable that emits true as soon as the request is stale', fakeAsync(() => {
       dispatchSpy.and.callFake(() => { /* empty */ });   // don't actually set as stale
-      getByUUIDSpy.and.returnValue(cold('a-b--c--d-', {  // but fake the state in the cache
-        a: { state: RequestEntryState.ResponsePending },
-        b: { state: RequestEntryState.Success },
-        c: { state: RequestEntryState.SuccessStale },
-        d: { state: RequestEntryState.Error },
+      getByUUIDSpy.and.returnValue(cold('-----(a|)', {  // but fake the state in the cache
+        a: { state: RequestEntryState.SuccessStale },
       }));
 
       const done$ = service.setStaleByUUID('something');
