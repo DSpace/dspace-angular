@@ -87,11 +87,13 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
           name: 'name',
           validators: {
             required: null,
-            pattern: '^[^. ,_]{1,32}$',
+            pattern: '^[^. ,]*$',
+            maxLength: 32,
           },
           required: true,
           errorMessages: {
-            pattern: 'error.validation.metadata.namespace.invalid-pattern',
+            pattern: 'error.validation.metadata.name.invalid-pattern',
+            maxLength: 'error.validation.metadata.name.max-length',
           },
         });
       this.namespace = new DynamicInputModel({
@@ -100,8 +102,12 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
           name: 'namespace',
           validators: {
             required: null,
+            maxLength: 256,
           },
           required: true,
+          errorMessages: {
+            maxLength: 'error.validation.metadata.namespace.max-length',
+          },
         });
       this.formModel = [
         new DynamicFormGroupModel(

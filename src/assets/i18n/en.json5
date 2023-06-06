@@ -1620,12 +1620,19 @@
 
   "error.validation.groupExists": "This group already exists",
 
-  "error.validation.metadata.namespace.invalid-pattern": "This field cannot contain dots, please use the Element & Qualifier fields instead",
+  "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
 
-  "error.validation.metadata.element.invalid-pattern": "This field cannot contain dots, please use the Qualifier field instead",
+  "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
 
-  "error.validation.metadata.qualifier.invalid-pattern": "This field cannot contain dots",
+  "error.validation.metadata.namespace.max-length": "This field may not contain more than 256 characters",
 
+  "error.validation.metadata.element.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Qualifier field instead",
+
+  "error.validation.metadata.element.max-length": "This field may not contain more than 64 characters",
+
+  "error.validation.metadata.qualifier.invalid-pattern": "This field cannot contain dots, commas or spaces",
+
+  "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
 
   "feed.description": "Syndication feed",
 

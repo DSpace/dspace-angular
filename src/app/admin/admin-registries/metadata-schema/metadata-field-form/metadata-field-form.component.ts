@@ -109,11 +109,13 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
         name: 'element',
         validators: {
           required: null,
-          pattern: '^[^.]*$',
+          pattern: '^[^. ,]*$',
+          maxLength: 64,
         },
         required: true,
         errorMessages: {
           pattern: 'error.validation.metadata.element.invalid-pattern',
+          maxLength: 'error.validation.metadata.element.max-length',
         },
       });
       this.qualifier = new DynamicInputModel({
@@ -121,11 +123,13 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
         label: qualifier,
         name: 'qualifier',
         validators: {
-          pattern: '^[^.]*$',
+          pattern: '^[^. ,]*$',
+          maxLength: 64,
         },
         required: false,
         errorMessages: {
           pattern: 'error.validation.metadata.qualifier.invalid-pattern',
+          maxLength: 'error.validation.metadata.qualifier.max-length',
         },
       });
       this.scopeNote = new DynamicInputModel({
