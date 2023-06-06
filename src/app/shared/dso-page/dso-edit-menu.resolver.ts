@@ -50,27 +50,32 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
     if (hasNoValue(id) && hasValue(route.queryParams.scope)) {
       id = route.queryParams.scope;
     }
-    return this.dSpaceObjectDataService.findById(id, true, false).pipe(
-      getFirstCompletedRemoteData(),
-      switchMap((dsoRD) => {
-        if (dsoRD.hasSucceeded) {
-          const dso = dsoRD.payload;
-          return combineLatest(this.getDsoMenus(dso, route, state)).pipe(
-            // Menu sections are retrieved as an array of arrays and flattened into a single array
-            map((combinedMenus) => [].concat.apply([], combinedMenus)),
-            map((menus) => this.addDsoUuidToMenuIDs(menus, dso)),
-            map((menus) => {
-              return {
-                ...route.data?.menu,
-                [MenuID.DSO_EDIT]: menus
-              };
-            })
-          );
-        } else {
-          return observableOf({...route.data?.menu});
-        }
-      })
-    );
+    if (hasNoValue(id)) {
+      // If there's no ID, we're not on a DSO homepage, so pass on any pre-existing menu route data
+      return observableOf({ ...route.data?.menu });
+    } else {
+      return this.dSpaceObjectDataService.findById(id, true, false).pipe(
+        getFirstCompletedRemoteData(),
+        switchMap((dsoRD) => {
+          if (dsoRD.hasSucceeded) {
+            const dso = dsoRD.payload;
+            return combineLatest(this.getDsoMenus(dso, route, state)).pipe(
+              // Menu sections are retrieved as an array of arrays and flattened into a single array
+              map((combinedMenus) => [].concat.apply([], combinedMenus)),
+              map((menus) => this.addDsoUuidToMenuIDs(menus, dso)),
+              map((menus) => {
+                return {
+                  ...route.data?.menu,
+                  [MenuID.DSO_EDIT]: menus
+                };
+              })
+            );
+          } else {
+            return observableOf({...route.data?.menu});
+          }
+        })
+      );
+    }
   }
 
   /**
