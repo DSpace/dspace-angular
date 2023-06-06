@@ -495,7 +495,6 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     ).subscribe(({ restResponse, eperson }: { restResponse: RemoteData<NoContent> | null, eperson: EPerson }) => {
       if (restResponse?.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { name: this.dsoNameService.getName(eperson) }));
-        this.submitForm.emit();
       } else {
         this.notificationsService.error(`Error occurred when trying to delete EPerson with id: ${eperson?.id} with code: ${restResponse?.statusCode} and message: ${restResponse?.errorMessage}`);
       }
