@@ -39,6 +39,8 @@ import { IdentifierDataComponent } from '../../shared/object-list/identifier-dat
 import { ItemRegisterDoiComponent } from './item-register-doi/item-register-doi.component';
 import { DsoSharedModule } from '../../dso-shared/dso-shared.module';
 import { ItemCurateComponent } from './item-curate/item-curate.component';
+import { ThemedItemStatusComponent } from './item-status/themed-item-status.component';
+
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -67,6 +69,7 @@ import { ItemCurateComponent } from './item-curate/item-curate.component';
     ItemPublicComponent,
     ItemDeleteComponent,
     ItemStatusComponent,
+    ThemedItemStatusComponent,
     ItemRelationshipsComponent,
     ItemBitstreamsComponent,
     ItemVersionHistoryComponent,
@@ -89,6 +92,9 @@ import { ItemCurateComponent } from './item-curate/item-curate.component';
     IdentifierDataService,
     ObjectValuesPipe
   ],
+  exports: [
+    ItemOperationComponent,
+  ]
 })
 export class EditItemPageModule {
 

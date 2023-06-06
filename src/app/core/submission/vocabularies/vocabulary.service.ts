@@ -223,13 +223,15 @@ export class VocabularyService {
    *                                    no valid cached version. Defaults to true
    * @param reRequestOnStale            Whether or not the request should automatically be re-
    *                                    requested after the response becomes stale
+   * @param constructId                 Whether constructing the full vocabularyDetail ID
+   *                                    ({vocabularyName}:{detailName}) is still necessary
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
    *                                    {@link HALLink}s should be automatically resolved
    * @return {Observable<RemoteData<VocabularyEntryDetail>>}
    *    Return an observable that emits VocabularyEntryDetail object
    */
-  findEntryDetailById(id: string, name: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<VocabularyEntryDetail>[]): Observable<RemoteData<VocabularyEntryDetail>> {
-    const findId = `${name}:${id}`;
+  findEntryDetailById(id: string, name: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, constructId: boolean = true, ...linksToFollow: FollowLinkConfig<VocabularyEntryDetail>[]): Observable<RemoteData<VocabularyEntryDetail>> {
+    const findId: string = (constructId ? `${name}:${id}` : id);
     return this.vocabularyEntryDetailDataService.findById(findId, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
