@@ -97,9 +97,15 @@ export class BatchImportPageComponent {
             this.router.navigateByUrl(getProcessDetailRoute(rd.payload.processId));
           }
         } else {
-          const title = this.translate.get('process.new.notification.error.title');
-          const content = this.translate.get('process.new.notification.error.content');
-          this.notificationsService.error(title, content);
+          if (rd.statusCode === 413) {
+            const title = this.translate.get('process.new.notification.error.title');
+            const content = this.translate.get('process.new.notification.error.max-upload.content');
+            this.notificationsService.error(title, content);
+          } else {
+            const title = this.translate.get('process.new.notification.error.title');
+            const content = this.translate.get('process.new.notification.error.content');
+            this.notificationsService.error(title, content);
+          }
         }
       });
     }

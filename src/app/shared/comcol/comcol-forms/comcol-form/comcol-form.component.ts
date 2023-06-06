@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FileUploader } from 'ng2-file-upload';
@@ -17,8 +17,8 @@ import { MetadataMap, MetadataValue } from '../../../../core/shared/metadata.mod
 import { ResourceType } from '../../../../core/shared/resource-type';
 import { hasValue, isNotEmpty } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { UploaderOptions } from '../../../uploader/uploader-options.model';
-import { UploaderComponent } from '../../../uploader/uploader.component';
+import { UploaderOptions } from '../../../upload/uploader/uploader-options.model';
+import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { Operation } from 'fast-json-patch';
 import { NoContent } from '../../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
@@ -66,7 +66,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   /**
    * The form group of this form
    */
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   /**
    * The uploader configuration options

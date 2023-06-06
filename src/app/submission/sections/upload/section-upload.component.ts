@@ -30,6 +30,7 @@ import { Collection } from '../../../core/shared/collection.model';
 import { AccessConditionOption } from '../../../core/config/models/config-access-condition-option.model';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
 export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
@@ -138,6 +139,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
               protected sectionService: SectionsService,
               private submissionService: SubmissionService,
               private uploadsConfigService: SubmissionUploadsConfigDataService,
+              public dsoNameService: DSONameService,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
               @Inject('submissionIdProvider') public injectedSubmissionId: string) {
     super(undefined, injectedSectionData, injectedSubmissionId);
@@ -167,7 +169,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
         tap((submissionObject: SubmissionObjectEntry) => this.collectionId = submissionObject.collection),
         mergeMap((submissionObject: SubmissionObjectEntry) => this.collectionDataService.findById(submissionObject.collection)),
         filter((rd: RemoteData<Collection>) => isNotUndefined((rd.payload))),
-        tap((collectionRemoteData: RemoteData<Collection>) => this.collectionName = collectionRemoteData.payload.name),
+        tap((collectionRemoteData: RemoteData<Collection>) => this.collectionName = this.dsoNameService.getName(collectionRemoteData.payload)),
         // TODO review this part when https://github.com/DSpace/dspace-angular/issues/575 is resolved
 /*        mergeMap((collectionRemoteData: RemoteData<Collection>) => {
           return this.resourcePolicyService.findByHref(

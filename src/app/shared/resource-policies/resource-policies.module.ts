@@ -10,9 +10,6 @@ import { ResourcePolicyCreateComponent } from './create/resource-policy-create.c
 import { FormModule } from '../form/form.module';
 import { ResourcePolicyResolver } from './resolvers/resource-policy.resolver';
 import { ResourcePolicyTargetResolver } from './resolvers/resource-policy-target.resolver';
-import { EpersonGroupListComponent } from './form/eperson-group-list/eperson-group-list.component';
-import { GroupSearchBoxComponent } from './form/eperson-group-list/group-search-box/group-search-box.component';
-import { EpersonSearchBoxComponent } from './form/eperson-group-list/eperson-search-box/eperson-search-box.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../shared.module';
 import { ResourcePolicyEntryComponent } from './entry/resource-policy-entry.component';
@@ -23,9 +20,6 @@ const COMPONENTS = [
   ResourcePolicyFormComponent,
   ResourcePolicyEditComponent,
   ResourcePolicyCreateComponent,
-  EpersonGroupListComponent,
-  EpersonSearchBoxComponent,
-  GroupSearchBoxComponent
 ];
 
 const PROVIDERS = [

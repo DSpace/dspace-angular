@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { NgbDatepicker, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicDatePickerModel,
@@ -16,7 +16,7 @@ import {
 export class DsDatePickerInlineComponent extends DynamicFormControlComponent {
 
   @Input() bindId = true;
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() layout: DynamicFormControlLayout;
   @Input() model: DynamicDatePickerModel;
 

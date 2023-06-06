@@ -1,9 +1,8 @@
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-
-import { isObject } from 'lodash';
-import * as moment from 'moment';
-
-import { isNull, isUndefined } from './empty.util';
+import { formatInTimeZone }  from 'date-fns-tz';
+import { isValid } from 'date-fns';
+import isObject from 'lodash/isObject';
+import { hasNoValue } from './empty.util';
 
 /**
  * Returns true if the passed value is a NgbDateStruct.
@@ -31,21 +30,7 @@ export function dateToISOFormat(date: Date | NgbDateStruct | string): string {
   const dateObj: Date = (date instanceof Date) ? date :
     ((typeof date === 'string') ? ngbDateStructToDate(stringToNgbDateStruct(date)) : ngbDateStructToDate(date));
 
-  let year = dateObj.getUTCFullYear().toString();
-  let month = (dateObj.getUTCMonth() + 1).toString();
-  let day = dateObj.getUTCDate().toString();
-  let hour = dateObj.getHours().toString();
-  let min = dateObj.getMinutes().toString();
-  let sec = dateObj.getSeconds().toString();
-
-  year = (year.length === 1) ? '0' + year : year;
-  month = (month.length === 1) ? '0' + month : month;
-  day = (day.length === 1) ? '0' + day : day;
-  hour = (hour.length === 1) ? '0' + hour : hour;
-  min = (min.length === 1) ? '0' + min : min;
-  sec = (sec.length === 1) ? '0' + sec : sec;
-  const dateStr = `${year}${month}${day}${hour}${min}${sec}`;
-  return moment.utc(dateStr, 'YYYYMMDDhhmmss').format();
+  return formatInTimeZone(dateObj, 'UTC', "yyyy-MM-dd'T'HH:mm:ss'Z'");
 }
 
 /**
@@ -81,7 +66,7 @@ export function stringToNgbDateStruct(date: string): NgbDateStruct {
  *    the NgbDateStruct object
  */
 export function dateToNgbDateStruct(date?: Date): NgbDateStruct {
-  if (isNull(date) || isUndefined(date)) {
+  if (hasNoValue(date)) {
     date = new Date();
   }
 
@@ -102,16 +87,7 @@ export function dateToNgbDateStruct(date?: Date): NgbDateStruct {
  */
 export function dateToString(date: Date | NgbDateStruct): string {
   const dateObj: Date = (date instanceof Date) ? date : ngbDateStructToDate(date);
-
-  let year = dateObj.getUTCFullYear().toString();
-  let month = (dateObj.getUTCMonth() + 1).toString();
-  let day = dateObj.getUTCDate().toString();
-
-  year = (year.length === 1) ? '0' + year : year;
-  month = (month.length === 1) ? '0' + month : month;
-  day = (day.length === 1) ? '0' + day : day;
-  const dateStr = `${year}-${month}-${day}`;
-  return moment.utc(dateStr, 'YYYYMMDD').format('YYYY-MM-DD');
+  return formatInTimeZone(dateObj, 'UTC', 'yyyy-MM-dd');
 }
 
 /**
@@ -119,5 +95,15 @@ export function dateToString(date: Date | NgbDateStruct): string {
  * @param date the string to be checked
  */
 export function isValidDate(date: string) {
-  return moment(date).isValid();
+  return (hasNoValue(date)) ? false : isValid(new Date(date));
 }
+
+/**
+ * Parse given date string to a year number based on expected formats
+ * @param date the string to be parsed
+ * @param formats possible formats the string may align with. MUST be valid date-fns formats
+ */
+export function yearFromString(date: string) {
+  return isValidDate(date) ? new Date(date).getUTCFullYear() : null;
+}
+

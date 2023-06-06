@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { of as observableOf } from 'rxjs';
@@ -135,7 +135,7 @@ describe('CreateProfileComponent', () => {
         {provide: ActivatedRoute, useValue: route},
         {provide: Store, useValue: store},
         {provide: EPersonDataService, useValue: ePersonDataService},
-        {provide: FormBuilder, useValue: new FormBuilder()},
+        {provide: UntypedFormBuilder, useValue: new UntypedFormBuilder()},
         {provide: NotificationsService, useValue: notificationsService},
         {provide: EndUserAgreementService, useValue: endUserAgreementService},
       ],

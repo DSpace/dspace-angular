@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-2">
   <div class="row">
     <div class="col-12">
       <h2>{{'item.edit.item-mapper.head' | translate}}</h2>
@@ -27,13 +27,13 @@
           <ng-template ngbNavContent>
             <div class="row mt-2">
               <div class="col-12 col-lg-6">
-                <ds-search-form id="search-form"
+                <ds-themed-search-form id="search-form"
                                 [query]="(searchOptions$ | async)?.query"
                                 [currentUrl]="'./'"
                                 [inPlaceSearch]="true"
                                 [searchPlaceholder]="'item.edit.item-mapper.search-form.placeholder' | translate"
                                 (submitSearch)="performedSearch = true">
-                </ds-search-form>
+                </ds-themed-search-form>
               </div>
             </div>
 

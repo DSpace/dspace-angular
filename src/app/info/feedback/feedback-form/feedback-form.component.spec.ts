@@ -7,7 +7,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { RouteService } from '../../../core/services/route.service';
 import { routeServiceStub } from '../../../shared/testing/route-service.stub';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -41,7 +41,7 @@ describe('FeedbackFormComponent', () => {
       declarations: [FeedbackFormComponent],
       providers: [
         { provide: RouteService, useValue: routeServiceStub },
-        { provide: FormBuilder, useValue: new FormBuilder() },
+        { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
         { provide: NotificationsService, useValue: notificationService },
         { provide: FeedbackDataService, useValue: feedbackDataServiceStub },
         { provide: AuthService, useValue: authService },

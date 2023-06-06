@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { Observable, of as observableOf } from 'rxjs';
 import { catchError, distinctUntilChanged, map, tap } from 'rxjs/operators';
@@ -29,7 +29,7 @@ import { FormFieldMetadataValueObject } from '../../../models/form-field-metadat
 })
 export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyComponent implements OnInit {
   @Input() bindId = true;
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() model: DynamicScrollableDropdownModel;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
