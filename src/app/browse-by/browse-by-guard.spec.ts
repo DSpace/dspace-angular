@@ -2,8 +2,8 @@ import { first } from 'rxjs/operators';
 import { BrowseByGuard } from './browse-by-guard';
 import { of as observableOf } from 'rxjs';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { BrowseDefinition } from '../core/shared/browse-definition.model';
 import { BrowseByDataType } from './browse-by-switcher/browse-by-decorator';
+import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
 import { DSONameServiceMock } from '../shared/mocks/dso-name.service.mock';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 
@@ -20,7 +20,7 @@ describe('BrowseByGuard', () => {
     const id = 'author';
     const scope = '1234-65487-12354-1235';
     const value = 'Filter';
-    const browseDefinition = Object.assign(new BrowseDefinition(), { type: BrowseByDataType.Metadata, metadataKeys: ['dc.contributor'] });
+    const browseDefinition = Object.assign(new ValueListBrowseDefinition(), { type: BrowseByDataType.Metadata, metadataKeys: ['dc.contributor'] });
 
     beforeEach(() => {
       dsoService = {

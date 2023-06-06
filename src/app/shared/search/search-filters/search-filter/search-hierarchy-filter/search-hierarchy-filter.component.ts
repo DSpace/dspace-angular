@@ -3,7 +3,6 @@ import { renderFacetFor } from '../search-filter-type-decorator';
 import { FilterType } from '../../../models/filter-type.model';
 import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { VocabularyTreeviewComponent } from '../../../../form/vocabulary-treeview/vocabulary-treeview.component';
 import {
   VocabularyEntryDetail
 } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
@@ -26,6 +25,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { environment } from '../../../../../../environments/environment';
 import { addOperatorToFilterValue } from '../../../search.utils';
+import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',
@@ -83,7 +83,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
    * When an entry is selected, add the filter query to the search options.
    */
   showVocabularyTree() {
-    const modalRef: NgbModalRef = this.modalService.open(VocabularyTreeviewComponent, {
+    const modalRef: NgbModalRef = this.modalService.open(VocabularyTreeviewModalComponent, {
       size: 'lg',
       windowClass: 'treeview'
     });
@@ -91,7 +91,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
       name: this.getVocabularyEntry(),
       closed: true
     };
-    modalRef.componentInstance.select.subscribe((detail: VocabularyEntryDetail) => {
+    modalRef.result.then((detail: VocabularyEntryDetail) => {
       this.selectedValues$
         .pipe(take(1))
         .subscribe((selectedValues) => {
@@ -106,7 +106,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
             },
           );
         });
-    });
+    }).catch();
   }
 
   /**
