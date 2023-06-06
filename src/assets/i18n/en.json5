@@ -795,6 +795,8 @@
 
   "browse.metadata.subject.breadcrumbs": "Browse by Subject",
 
+  "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
+
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
   "pagination.next.button": "Next",
@@ -850,6 +852,8 @@
   "browse.startsWith.type_text": "Filter results by typing the first few letters",
 
   "browse.startsWith.input": "Filter",
+
+  "browse.taxonomy.button": "Browse",
 
   "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
 
@@ -2536,6 +2540,8 @@
 
   "item.preview.dc.identifier.doi": "DOI",
 
+  "item.preview.dc.publisher": "Publisher:",
+
   "item.preview.person.familyName": "Surname:",
 
   "item.preview.person.givenName": "Name:",
@@ -2906,6 +2912,8 @@
   "menu.section.browse_global_by_dateissued": "By Issue Date",
 
   "menu.section.browse_global_by_subject": "By Subject",
+
+  "menu.section.browse_global_by_srsc": "By Subject Category",
 
   "menu.section.browse_global_by_title": "By Title",
 
