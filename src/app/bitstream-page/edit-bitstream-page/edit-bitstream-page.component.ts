@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, filter } from 'rxjs/operators';
 import { combineLatest, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { DynamicFormControlModel, DynamicFormGroupModel, DynamicFormLayout, DynamicFormService, DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
 import { UntypedFormGroup } from '@angular/forms';
@@ -14,7 +14,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
-import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, hasValueOperator } from '../../shared/empty.util';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { Location } from '@angular/common';
 import { RemoteData } from '../../core/data/remote-data';
@@ -27,6 +27,8 @@ import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-u
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { BundleDataService } from '../../core/data/bundle-data.service';
 import { Operation } from 'fast-json-patch';
+import { PrimaryBitstreamService } from '../../core/data/primary-bitstream-data.service';
+import { hasSucceeded } from '../../core/data/request-entry-state.model';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -50,6 +52,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * Tracks changes and updates the view
    */
   bitstreamFormatsRD$: Observable<RemoteData<PaginatedList<BitstreamFormat>>>;
+
+  /**
+   * The UUID of the primary bitstream for this bundle
+   */
+  primaryBitstreamUUID: string;
 
   /**
    * The bitstream to edit
@@ -383,6 +390,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
               public dsoNameService: DSONameService,
               private notificationsService: NotificationsService,
               private bitstreamFormatService: BitstreamFormatDataService,
+              private primaryBitstreamService: PrimaryBitstreamService,
               private bundleService: BundleDataService) {
   }
 
@@ -414,6 +422,12 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       getFirstSucceededRemoteDataPayload(),
     );
 
+    const primaryBitstream$ = bundle$.pipe(
+      hasValueOperator(),
+      switchMap((bundle: Bundle) => this.bitstreamService.findByHref(bundle._links.primaryBitstream.href)),
+      getFirstSucceededRemoteDataPayload()
+    );
+
     const item$ = bundle$.pipe(
       switchMap((bundle: Bundle) => bundle.item),
       getFirstSucceededRemoteDataPayload()
@@ -423,12 +437,16 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         bitstream$,
         allFormats$,
         bundle$,
+        primaryBitstream$,
         item$,
       ).pipe()
-        .subscribe(([bitstream, allFormats, bundle, item]) => {
+        .subscribe(([bitstream, allFormats, bundle, primaryBitstream, item]) => {
           this.bitstream = bitstream as Bitstream;
           this.formats = allFormats.page;
           this.bundle = bundle;
+          // hasValue(primaryBitstream) because if there's no primaryBitstream on the bundle it will
+          // be a success response, but empty
+          this.primaryBitstreamUUID = hasValue(primaryBitstream) ? primaryBitstream.uuid : null;
           this.itemId = item.uuid;
           this.setIiifStatus(this.bitstream);
         })
@@ -460,7 +478,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     this.formGroup.patchValue({
       fileNamePrimaryContainer: {
         fileName: bitstream.name,
-        primaryBitstream: this.bundle.primaryBitstreamUUID === bitstream.uuid
+        primaryBitstream: this.primaryBitstreamUUID === bitstream.uuid
       },
       descriptionContainer: {
         description: bitstream.firstMetadataValue('dc.description')
@@ -572,26 +590,52 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     const selectedFormat = this.formats.find((f: BitstreamFormat) => f.id === updatedValues.formatContainer.selectedFormat);
     const isNewFormat = selectedFormat.id !== this.originalFormat.id;
     const isPrimary = updatedValues.fileNamePrimaryContainer.primaryBitstream;
-    const wasPrimary = this.bundle.primaryBitstreamUUID === this.bitstream.uuid;
+    const wasPrimary = this.primaryBitstreamUUID === this.bitstream.uuid;
 
     let bitstream$;
     let bundle$: Observable<Bundle>;
+    let errorWhileSaving = false;
 
     if (wasPrimary !== isPrimary) {
-      const patchOperations: Operation[] = this.retrieveBundlePatch(wasPrimary);
-      bundle$ = this.bundleService.patch(this.bundle, patchOperations).pipe(
-        getFirstCompletedRemoteData(),
-        map((bundleResponse: RemoteData<Bundle>) => {
-          if (hasValue(bundleResponse) && bundleResponse.hasFailed) {
-            this.notificationsService.error(
-              this.translate.instant(this.NOTIFICATIONS_PREFIX + 'error.primaryBitstream.title'),
-              bundleResponse.errorMessage
-            );
+      let bundleRd$: Observable<RemoteData<Bundle>>;
+      if (wasPrimary) {
+        bundleRd$ = this.primaryBitstreamService.delete(this.bundle);
+      } else if (hasValue(this.primaryBitstreamUUID)) {
+        bundleRd$ = this.primaryBitstreamService.put(this.bitstream, this.bundle);
+      } else {
+        bundleRd$ = this.primaryBitstreamService.create(this.bitstream, this.bundle);
+      }
+
+      const completedBundleRd$ = bundleRd$.pipe(getFirstCompletedRemoteData());
+
+      this.subs.push(completedBundleRd$.pipe(
+        filter((bundleRd: RemoteData<Bundle>) => bundleRd.hasFailed)
+      ).subscribe((bundleRd: RemoteData<Bundle>) => {
+        this.notificationsService.error(
+          this.translate.instant(this.NOTIFICATIONS_PREFIX + 'error.primaryBitstream.title'),
+          bundleRd.errorMessage
+        );
+        errorWhileSaving = true;
+      }));
+
+      bundle$ = completedBundleRd$.pipe(
+        map((bundleRd: RemoteData<Bundle>) => {
+          if (bundleRd.hasSucceeded) {
+            return bundleRd.payload
           } else {
-            return bundleResponse.payload;
+            return this.bundle;
           }
         })
       );
+
+      this.subs.push(bundle$.pipe(
+        hasValueOperator(),
+        switchMap((bundle: Bundle) => this.bitstreamService.findByHref(bundle._links.primaryBitstream.href, false)),
+        getFirstSucceededRemoteDataPayload()
+      ).subscribe((bitstream: Bitstream) => {
+        this.primaryBitstreamUUID = hasValue(bitstream) ? bitstream.uuid : null;
+      }));
+
     } else {
       bundle$ = observableOf(this.bundle);
     }
@@ -626,26 +670,10 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.title'),
         this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.content')
       );
-      this.navigateToItemEditBitstreams();
+      if (!errorWhileSaving) {
+        this.navigateToItemEditBitstreams();
+      }
     });
-  }
-
-  private retrieveBundlePatch(wasPrimary: boolean): Operation[] {
-    // No longer primary bitstream: remove
-    if (wasPrimary) {
-      return [{
-        path: this.primaryBitstreamPath,
-        op: 'remove'
-      }];
-    } else {
-      // Has become primary bitstream
-      // If it already had a value: replace, otherwise: add
-      return [{
-        path: this.primaryBitstreamPath,
-        op: hasValue(this.bundle.primaryBitstreamUUID) ? 'replace' : 'add',
-        value: this.bitstream.uuid
-      }];
-    }
   }
 
   /**

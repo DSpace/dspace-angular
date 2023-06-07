@@ -30,12 +30,6 @@ export class Bundle extends DSpaceObject {
   };
 
   /**
-   * The UUID of the primaryBitstream of this Bundle
-   */
-  @autoserialize
-  primaryBitstreamUUID: string;
-
-  /**
    * The primary Bitstream of this Bundle
    * Will be undefined unless the primaryBitstream {@link HALLink} has been resolved.
    */
