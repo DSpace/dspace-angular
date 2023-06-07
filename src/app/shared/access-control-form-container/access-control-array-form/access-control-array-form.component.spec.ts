@@ -45,12 +45,14 @@ describe('AccessControlArrayFormComponent', () => {
   });
 
   it('should remove access control item', () => {
-    component.removeAccessControlItem(0);
-    expect(component.form.accessControls.length).toEqual(0);
+    expect(component.form.accessControls.length).toEqual(1);
 
     component.addAccessControlItem();
-    component.removeAccessControlItem(0);
-    expect(component.form.accessControls.length).toEqual(0);
+    expect(component.form.accessControls.length).toEqual(2);
+
+    const id = component.form.accessControls[0].id;
+    component.removeAccessControlItem(id);
+    expect(component.form.accessControls.length).toEqual(1);
   });
 
   it('should reset form value', () => {
@@ -69,7 +71,12 @@ describe('AccessControlArrayFormComponent', () => {
 
 
   it('should display a select dropdown with options', () => {
-    const selectElement: DebugElement = fixture.debugElement.query(By.css('select#accesscontroloption-0'));
+    component.enable();
+    fixture.detectChanges();
+
+    const id = component.form.accessControls[0].id;
+
+    const selectElement: DebugElement = fixture.debugElement.query(By.css(`select#accesscontroloption-${id}`));
     expect(selectElement).toBeTruthy();
 
     const options = selectElement.nativeElement.querySelectorAll('option');
@@ -81,6 +88,9 @@ describe('AccessControlArrayFormComponent', () => {
   });
 
   it('should add new access control items when clicking "Add more" button', () => {
+    component.enable();
+    fixture.detectChanges();
+
     const addButton: DebugElement = fixture.debugElement.query(By.css(`button#add-btn-${component.type}`));
     addButton.nativeElement.click();
     fixture.detectChanges();
@@ -90,11 +100,17 @@ describe('AccessControlArrayFormComponent', () => {
   });
 
   it('should remove access control items when clicking remove button', () => {
-    const removeButton: DebugElement = fixture.debugElement.query(By.css('button.btn-outline-danger'));
-    removeButton.nativeElement.click();
+    component.enable();
+
+    component.addAccessControlItem('test');
+
+    fixture.detectChanges();
+
+    const removeButton: DebugElement[] = fixture.debugElement.queryAll(By.css('button.btn-outline-danger'));
+    removeButton[1].nativeElement.click();
     fixture.detectChanges();
 
     const accessControlItems = fixture.debugElement.queryAll(By.css('.access-control-item'));
-    expect(accessControlItems.length).toEqual(0);
+    expect(accessControlItems.length).toEqual(1);
   });
 });

@@ -58,7 +58,7 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
   constructor(
     private bulkAccessConfigService: BulkAccessConfigDataService,
     private bulkAccessControlService: BulkAccessControlService,
-    private selectableListService: SelectableListService,
+    public selectableListService: SelectableListService,
     protected modalService: NgbModal,
     private cdr: ChangeDetectorRef
   ) {}

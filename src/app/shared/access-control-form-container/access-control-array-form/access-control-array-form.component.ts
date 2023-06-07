@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {NgForm, NgModelGroup} from '@angular/forms';
+import {NgForm} from '@angular/forms';
 import {AccessesConditionOption} from '../../../core/config/models/config-accesses-conditions-options.model';
 import {dateToISOFormat} from '../../date.util';
 
@@ -52,9 +52,7 @@ export class AccessControlArrayFormComponent implements OnInit {
    * @param ngModelGroup
    * @param index
    */
-  removeAccessControlItem(ngModelGroup: NgModelGroup, id: number) {
-    this.ngForm.removeFormGroup(ngModelGroup);
-
+  removeAccessControlItem(id: number) {
     this.form.accessControls = this.form.accessControls.filter(item => item.id !== id);
   }
 

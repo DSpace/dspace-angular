@@ -4,7 +4,7 @@
   </div>
 
   <ng-container *ngFor="let control of form.accessControls; trackBy: trackById">
-    <div #ngModelGroup="ngModelGroup" ngModelGroup="access-control-item-{{control.id}}" class="access-control-item mt-3">
+    <div ngModelGroup="access-control-item-{{control.id}}" class="access-control-item mt-3">
 
       <div class="d-flex flex-column">
         <div>
@@ -91,7 +91,7 @@
 
           <button type="button" class="btn btn-outline-danger"
                   [disabled]="ngForm.disabled || form.accessControls.length === 1"
-                  (click)="removeAccessControlItem(ngModelGroup, control.id)">
+                  (click)="removeAccessControlItem(control.id)">
             <i class="fas fa-trash"></i>
           </button>
         </div>
