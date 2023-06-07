@@ -19,6 +19,8 @@ import {
   SUBMISSION_ID
 } from './field-parser';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { VisibilityType } from '../../../../submission/sections/visibility-type';
+import isEqual from 'lodash/isEqual';
 
 export class ConcatFieldParser extends FieldParser {
 
@@ -81,6 +83,10 @@ export class ConcatFieldParser extends FieldParser {
     if (this.configData.mandatory) {
       concatGroup.required = true;
       input1ModelConfig.required = true;
+    }
+
+    if (isNotEmpty(this.configData.visibility) && isEqual(this.configData.visibility.main, VisibilityType.READONLY)) {
+      concatGroup.disabled = true;
     }
 
     if (isNotEmpty(this.firstPlaceholder)) {

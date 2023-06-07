@@ -1,3 +1,5 @@
+import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
+import { VisibilityType } from './../../../../submission/sections/visibility-type';
 import { Inject, InjectionToken } from '@angular/core';
 
 import uniqueId from 'lodash/uniqueId';
@@ -280,8 +282,8 @@ export abstract class FieldParser {
     controlModel.id = (this.fieldId).replace(/\./g, '_');
 
     // Set read only option
-    controlModel.readOnly = this.parserOptions.readOnly;
-    controlModel.disabled = this.parserOptions.readOnly;
+    controlModel.readOnly = this.parserOptions.readOnly || this.isFieldReadOnly(this.configData.visibility, this.parserOptions.submissionScope);
+    controlModel.disabled = controlModel.readOnly;
     if (hasValue(this.configData.selectableRelationship)) {
       controlModel.relationship = Object.assign(new RelationshipOptions(), this.configData.selectableRelationship);
     }
@@ -317,6 +319,17 @@ export abstract class FieldParser {
     }
 
     return controlModel;
+  }
+
+  /**
+   * Check if a field is read-only with the given scope
+   * @param visibility
+   * @param submissionScope
+   */
+  private isFieldReadOnly(visibility: SectionVisibility, submissionScope: string) {
+    return isNotEmpty(submissionScope)
+    && isNotEmpty(visibility)
+    && visibility.main === VisibilityType.READONLY;
   }
 
   /**
