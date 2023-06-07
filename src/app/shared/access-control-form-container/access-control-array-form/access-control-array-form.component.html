@@ -1,22 +1,22 @@
 <form #ngForm="ngForm">
-  <div *ngIf="mode === 'replace' && allControlsAreEmpty && ngForm.enabled"
-       class="alert alert-warning">
+  <div *ngIf="showWarning" class="alert alert-warning">
     {{'access-control-no-access-conditions-warning-message' | translate}}
   </div>
 
-  <ng-container *ngFor="let control of form.accessControls; let i = index">
-    <div ngModelGroup="access-control-item-{{i}}" class="access-control-item mt-3">
+  <ng-container *ngFor="let control of form.accessControls; trackBy: trackById">
+    <div #ngModelGroup="ngModelGroup" ngModelGroup="access-control-item-{{control.id}}" class="access-control-item mt-3">
 
       <div class="d-flex flex-column">
         <div>
-          <label for="accesscontroloption-{{i}}">
+          <label for="accesscontroloption-{{control.id}}">
             {{'access-control-option-label' | translate}}
           </label>
           <select
-            id="accesscontroloption-{{i}}"
+            id="accesscontroloption-{{control.id}}"
+            [disabled]="ngForm.disabled"
             [(ngModel)]="control.itemName"
             (ngModelChange)="accessControlChanged(control, $event)"
-            name="itemName-{{i}}"
+            name="itemName-{{control.id}}"
             class="form-control">
             <option value=""></option>
             <option *ngFor="let option of dropdownOptions" [value]="option.name">
@@ -29,16 +29,16 @@
         </div>
 
         <div *ngIf="control.hasStartDate" class="mt-3">
-          <label for="accesscontrolstartdate-{{i}}">
+          <label for="accesscontrolstartdate-{{control.id}}">
             {{'access-control-option-start-date' | translate}}
           </label>
           <div class="input-group">
             <input
-              id="accesscontrolstartdate-{{i}}"
+              id="accesscontrolstartdate-{{control.id}}"
               class="form-control"
               placeholder="yyyy-mm-dd"
               [(ngModel)]="control.startDate"
-              name="startDate-{{i}}"
+              name="startDate-{{control.id}}"
               [minDate]="control.maxStartDate | toDate"
               ngbDatepicker
               #d="ngbDatepicker"
@@ -57,16 +57,16 @@
         </div>
 
         <div *ngIf="control.hasEndDate" class="mt-3">
-          <label for="accesscontrolenddate-{{i}}">
+          <label for="accesscontrolenddate-{{control.id}}">
             {{'access-control-option-end-date' | translate}}
           </label>
           <div class="input-group">
             <input
-              id="accesscontrolenddate-{{i}}"
+              id="accesscontrolenddate-{{control.id}}"
               class="form-control"
               placeholder="yyyy-mm-dd"
               [(ngModel)]="control.endDate"
-              name="endDate-{{i}}"
+              name="endDate-{{control.id}}"
               [maxDate]="control.maxEndDate | toDate"
               ngbDatepicker
               #d1="ngbDatepicker"
@@ -90,8 +90,8 @@
         <div class="input-group">
 
           <button type="button" class="btn btn-outline-danger"
-                  [disabled]="ngForm.disabled"
-                  (click)="removeAccessControlItem(i)">
+                  [disabled]="ngForm.disabled || form.accessControls.length === 1"
+                  (click)="removeAccessControlItem(ngModelGroup, control.id)">
             <i class="fas fa-trash"></i>
           </button>
         </div>

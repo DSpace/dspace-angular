@@ -21,6 +21,9 @@ export interface BulkAccessPayload {
   itemAccess: any;
 }
 
+/**
+ * This service is used to create a payload file and execute the bulk access control script
+ */
 @Injectable({ providedIn: 'root' })
 export class BulkAccessControlService {
   constructor(
@@ -28,10 +31,13 @@ export class BulkAccessControlService {
     private router: Router,
     private scriptService: ScriptDataService,
     private translationService: TranslateService
-  ) {
+  ) {}
 
-  }
-
+  /**
+   * Create a payload file from the given payload and return the file and the url to the file
+   * The created file will be used as input for the bulk access control script
+   * @param payload The payload to create the file from
+   */
   createPayloadFile(payload: BulkAccessPayload) {
     const content = convertToBulkAccessControlFileModel(payload);
 
@@ -48,6 +54,11 @@ export class BulkAccessControlService {
     return { url, file };
   }
 
+  /**
+   * Execute the bulk access control script with the given uuids and file
+   * @param uuids
+   * @param file
+   */
   executeScript(uuids: string[], file: File): Observable<boolean> {
     console.log('execute', { uuids, file });
 
@@ -80,6 +91,10 @@ export class BulkAccessControlService {
   }
 }
 
+/**
+ * Convert the given payload to a BulkAccessControlFileModel
+ * @param payload
+ */
 export const convertToBulkAccessControlFileModel = (payload: { state: AccessControlFormState, bitstreamAccess: AccessCondition[], itemAccess: AccessCondition[] }): BulkAccessControlFileModel => {
   let finalPayload: BulkAccessControlFileModel = {};
 

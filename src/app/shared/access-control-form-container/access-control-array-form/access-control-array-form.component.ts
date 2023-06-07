@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {NgForm} from '@angular/forms';
+import {NgForm, NgModelGroup} from '@angular/forms';
 import {AccessesConditionOption} from '../../../core/config/models/config-accesses-conditions-options.model';
 import {dateToISOFormat} from '../../date.util';
 
@@ -17,19 +17,22 @@ export class AccessControlArrayFormComponent implements OnInit {
   @ViewChild('ngForm', {static: true}) ngForm!: NgForm;
 
   form: { accessControls: AccessControlItem[] } = {
-    accessControls: []
+    accessControls: [emptyAccessControlItem()] // Start with one empty access control item
   };
 
-  ngOnInit(): void {
-    this.addAccessControlItem();
+  formDisabled = true;
 
-    // Disable the form by default
-    setTimeout(() => this.disable(), 0);
+  ngOnInit(): void {
+    this.disable(); // Disable the form by default
   }
 
   get allControlsAreEmpty() {
     return this.form.accessControls
       .every(x => x.itemName === null || x.itemName === '');
+  }
+
+  get showWarning() {
+    return this.mode === 'replace' && this.allControlsAreEmpty && !this.formDisabled;
   }
 
   /**
@@ -38,23 +41,21 @@ export class AccessControlArrayFormComponent implements OnInit {
    * @param itemName The name of the item to add
    */
   addAccessControlItem(itemName: string = null) {
-    this.form.accessControls.push({
-      itemName,
-      startDate: null,
-      hasStartDate: false,
-      maxStartDate: null,
-      endDate: null,
-      hasEndDate: false,
-      maxEndDate: null,
-    });
+    this.form.accessControls = [
+      ...this.form.accessControls,
+      {...emptyAccessControlItem(), itemName}
+    ];
   }
 
   /**
    * Remove an access control item from the form.
+   * @param ngModelGroup
    * @param index
    */
-  removeAccessControlItem(index: number) {
-    this.form.accessControls.splice(index, 1);
+  removeAccessControlItem(ngModelGroup: NgModelGroup, id: number) {
+    this.ngForm.removeFormGroup(ngModelGroup);
+
+    this.form.accessControls = this.form.accessControls.filter(item => item.id !== id);
   }
 
   /**
@@ -77,19 +78,30 @@ export class AccessControlArrayFormComponent implements OnInit {
    */
   reset() {
     this.form.accessControls = [];
+
+    // Add an empty access control item by default
+    this.addAccessControlItem();
+
+    this.disable();
   }
 
   /**
    * Disable the form.
    * This will be used to disable the form from the parent component.
    */
-  disable = () => this.ngForm.control.disable();
+  disable = () => {
+    this.ngForm.form.disable();
+    this.formDisabled = true;
+  };
 
   /**
    * Enable the form.
    * This will be used to enable the form from the parent component.
    */
-  enable = () => this.ngForm.control.enable();
+  enable = () => {
+    this.ngForm.form.enable();
+    this.formDisabled = false;
+  };
 
   accessControlChanged(control: AccessControlItem, selectedItem: string) {
     const item = this.dropdownOptions
@@ -105,9 +117,16 @@ export class AccessControlArrayFormComponent implements OnInit {
     control.maxEndDate = item?.maxEndDate || null;
   }
 
+  trackById(index: number, item: AccessControlItem) {
+    return item.id;
+  }
+
 }
 
+
 export interface AccessControlItem {
+  id: number; // will be used only locally
+
   itemName: string | null;
 
   hasStartDate?: boolean;
@@ -118,3 +137,16 @@ export interface AccessControlItem {
   endDate: string | null;
   maxEndDate?: string | null;
 }
+
+const emptyAccessControlItem = (): AccessControlItem => ({
+  id: randomID(),
+  itemName: null,
+  startDate: null,
+  hasStartDate: false,
+  maxStartDate: null,
+  endDate: null,
+  hasEndDate: false,
+  maxEndDate: null,
+});
+
+const randomID = () => Math.floor(Math.random() * 1000000);

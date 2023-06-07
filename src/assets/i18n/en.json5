@@ -225,7 +225,9 @@
 
   "admin.registries.schema.title": "Metadata Schema Registry",
 
+  "admin.access-control.bulk-access.breadcrumbs": "Bulk Access Management",
 
+  "administrativeBulkAccess.search.results.head": "Search Results",
 
   "admin.access-control.bulk-access": "Bulk Access Management",
 
@@ -5399,14 +5401,14 @@
 
   "access-control-option-label": "Access condition type",
 
-  "access-control-option-note": "Select an access condition to apply on the bitstream once the item is deposited",
+  "access-control-option-note": "Choose an access condition to apply to selected objects.",
 
   "access-control-option-start-date": "Grant access from",
 
-  "access-control-option-start-date-note": "Select the date from which the relate access condition is applied",
+  "access-control-option-start-date-note": "Select the date from which the related access condition is applied",
 
   "access-control-option-end-date": "Grant access until",
 
-  "access-control-option-end-date-note": "Select the date until which the relate access condition is applied",
+  "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
 
 }

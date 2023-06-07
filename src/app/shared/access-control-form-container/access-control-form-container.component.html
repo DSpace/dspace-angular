@@ -153,12 +153,12 @@
       <hr *ngIf="showSubmit">
 
       <div *ngIf="showSubmit" class="d-flex justify-content-end">
-        <button class="btn btn-outline-primary mr-3" (click)="reset()">
+        <button class="btn btn-outline-primary mr-3" (click)="reset()" type="button">
           {{ 'access-control-cancel' | translate }}
         </button>
         <button class="btn btn-primary"
                 [disabled]="!state.item.toggleStatus && !state.bitstream.toggleStatus"
-                (click)="submit()">
+                (click)="submit()" type="submit">
           {{ 'access-control-execute' | translate }}
         </button>
       </div>
