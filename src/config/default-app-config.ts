@@ -21,7 +21,7 @@ import { CommunityListConfig } from './community-list-config.interface';
 import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
-import { AddThisPluginConfig } from './addThisPlugin-config';
+import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
 import { CmsMetadata } from './cms-metadata';
 import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-config.interfaces';
 import { MetadataSecurityConfig } from './metadata-security-config';
@@ -617,10 +617,13 @@ export class DefaultAppConfig implements AppConfig {
     ]
   };
 
-  addThisPlugin: AddThisPluginConfig = {
-    siteId: '',
-    scriptUrl: 'http://s7.addthis.com/js/300/addthis_widget.js#pubid=',
-    socialNetworksEnabled: false
+  addToAnyPlugin: AddToAnyPluginConfig = {
+    scriptUrl: 'https://static.addtoany.com/menu/page.js',
+    socialNetworksEnabled: false,
+    buttons: [],
+    showPlusButton: true,
+    showCounters: true,
+    title: 'DSpace CRIS 7 demo',
   };
 
   metricVisualizationConfig: MetricVisualizationConfig[] = [
