@@ -39,7 +39,7 @@
               placeholder="yyyy-mm-dd"
               [(ngModel)]="control.startDate"
               name="startDate-{{control.id}}"
-              [minDate]="control.maxStartDate | toDate"
+              [maxDate]="control.maxStartDate | toDate"
               ngbDatepicker
               #d="ngbDatepicker"
             />
