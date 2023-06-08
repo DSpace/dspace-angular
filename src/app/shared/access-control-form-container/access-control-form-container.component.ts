@@ -147,7 +147,7 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
       concatMap(() => this.selectableListService.getSelectableList(ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID)),
       take(1)
     ).subscribe((list) => {
-      this.state.bitstream.selectedBitstreams = list.selection;
+      this.state.bitstream.selectedBitstreams = list?.selection || [];
       this.cdr.detectChanges();
     });
   }
