@@ -1701,10 +1701,6 @@
 
   "cookies.consent.app.disable-all.title": "Enable or disable all services",
 
-  "cookies.consent.app.title.add-this": "AddThis",
-
-  "cookies.consent.app.description.add-this" : "Allows us to enable sharing via AddThis",
-
   "cookies.consent.update": "There were changes since your last visit, please update your consent.",
 
   "cookies.consent.close": "Close",
