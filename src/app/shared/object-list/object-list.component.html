@@ -16,46 +16,22 @@
         (prev)="goPrev()"
         (next)="goNext()">
     <ul *ngIf="objects?.hasSucceeded" class="list-unstyled" [ngClass]="{'ml-4': selectable}">
-        <ng-container *ngIf="listToPaginate">
-          <li *ngFor='let object of objects?.payload?.page | paginate: { itemsPerPage: config.pageSize,
-                        currentPage: config.currentPage, totalItems: objects?.payload?.page.length }; let i = index; let last = last ' class="mt-4 mb-4 d-flex" [class.border-bottom]="hasBorder && !last" [attr.data-test]="'list-object' | dsBrowserOnly">
-            <ds-selectable-list-item-control *ngIf="selectable" [index]="i"
-                                             [object]="object"
-                                             [selectionConfig]="selectionConfig"
-                                             (deselectObject)="deselectObject.emit($event)"
-                                             (selectObject)="selectObject.emit($event)"></ds-selectable-list-item-control>
-            <ds-importable-list-item-control *ngIf="importable" [object]="object"
-                                             [importConfig]="importConfig"
-                                             (importObject)="importObject.emit($event)"></ds-importable-list-item-control>
-            <ds-listable-object-component-loader [context]="context"
-                                                 [linkType]="linkType"
-                                                 [listID]="selectionConfig?.listId"
-                                                 [index]="i"
-                                                 [object]="object"
-                                                 [showThumbnails]="showThumbnails"
-                                                 [viewMode]="viewMode"
-                                                 (contentChange)="contentChange.emit($event)"></ds-listable-object-component-loader>
-          </li>
-        </ng-container>
-        <ng-container *ngIf="!listToPaginate">
-          <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4 d-flex" [class.border-bottom]="hasBorder && !last" [attr.data-test]="'list-object' | dsBrowserOnly">
-            <ds-selectable-list-item-control *ngIf="selectable" [index]="i"
-                                             [object]="object"
-                                             [selectionConfig]="selectionConfig"
-                                             (deselectObject)="deselectObject.emit($event)"
-                                             (selectObject)="selectObject.emit($event)"></ds-selectable-list-item-control>
-            <ds-importable-list-item-control *ngIf="importable" [object]="object"
-                                             [importConfig]="importConfig"
-                                             (importObject)="importObject.emit($event)"></ds-importable-list-item-control>
-            <ds-listable-object-component-loader [context]="context"
-                                                 [linkType]="linkType"
-                                                 [listID]="selectionConfig?.listId"
-                                                 [index]="i"
-                                                 [object]="object"
-                                                 [showThumbnails]="showThumbnails"
-                                                 [viewMode]="viewMode"
-                                                 (contentChange)="contentChange.emit($event)"></ds-listable-object-component-loader>
-          </li>
-        </ng-container>
+        <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4 d-flex" [class.border-bottom]="hasBorder && !last" [attr.data-test]="'list-object' | dsBrowserOnly">
+          <ds-selectable-list-item-control *ngIf="selectable" [index]="i"
+                                           [object]="object"
+                                           [selectionConfig]="selectionConfig"
+                                           (deselectObject)="deselectObject.emit($event)"
+                                           (selectObject)="selectObject.emit($event)"></ds-selectable-list-item-control>
+          <ds-importable-list-item-control *ngIf="importable" [object]="object"
+                                           [importConfig]="importConfig"
+                                           (importObject)="importObject.emit($event)"></ds-importable-list-item-control>
+          <ds-listable-object-component-loader [object]="object"
+                                               [viewMode]="viewMode"
+                                               [index]="i"
+                                               [context]="context"
+                                               [linkType]="linkType"
+                                               [listID]="selectionConfig?.listId"
+                                               (contentChange)="contentChange.emit($event)"></ds-listable-object-component-loader>
+        </li>
     </ul>
 </ds-pagination>

@@ -77,11 +77,6 @@ export class ObjectListComponent {
   @Input() importConfig: { buttonLabel: string };
 
   /**
-   * If true the object list provided needs to be paginated using the `paginate` pipe
-   */
-  @Input() listToPaginate = false;
-
-  /**
    * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
    */
   @Input() showPaginator = true;
