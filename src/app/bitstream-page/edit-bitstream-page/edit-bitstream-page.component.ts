@@ -25,7 +25,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../core/shared/item.model';
 import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
-import { PrimaryBitstreamService } from '../../core/data/primary-bitstream-data.service';
+import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
 
 @Component({
   selector: 'ds-edit-bitstream-page',

@@ -97,7 +97,7 @@ export class PrimaryBitstreamService {
   }
 
   /**
-   * Update an exiting primaryBitstream
+   * Update an existing primaryBitstream
    *
    * @param primaryBitstream  The object to update
    * @param bundle            The bundle to update it on
@@ -111,7 +111,7 @@ export class PrimaryBitstreamService {
   }
 
   /**
-   * Delete an exiting primaryBitstream
+   * Delete an existing primaryBitstream
    *
    * @param bundle The bundle to delete it from
    */
@@ -125,7 +125,7 @@ export class PrimaryBitstreamService {
         if (rd.hasSucceeded) {
           return this.bundleDataService.findByHref(bundle.self, false);
         } else {
-          [bundle];
+          return this.rdbService.buildSingle<Bundle>(bundle.self);
         }
       })
     );

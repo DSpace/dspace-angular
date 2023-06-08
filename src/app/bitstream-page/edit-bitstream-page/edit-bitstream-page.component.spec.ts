@@ -24,7 +24,7 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { Item } from '../../core/shared/item.model';
 import { MetadataValueFilter } from '../../core/shared/metadata.models';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { PrimaryBitstreamService } from '../../core/data/primary-bitstream-data.service';
+import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
