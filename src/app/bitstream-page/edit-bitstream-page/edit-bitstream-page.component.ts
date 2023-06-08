@@ -401,33 +401,27 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     const bitstream$ = this.bitstreamRD$.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-      tap(t => console.log(t)),
     );
 
     const allFormats$ = this.bitstreamFormatsRD$.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-      tap(t => console.log(t)),
     );
 
     const bundle$ = bitstream$.pipe(
       switchMap((bitstream: Bitstream) => bitstream.bundle),
       getFirstSucceededRemoteDataPayload(),
-      tap(t => console.log(t)),
     );
 
     const primaryBitstream$ = bundle$.pipe(
       hasValueOperator(),
-      tap(t => console.log(t._links.primaryBitstream.href)),
       switchMap((bundle: Bundle) => this.bitstreamService.findByHref(bundle._links.primaryBitstream.href)),
       getFirstSucceededRemoteDataPayload(),
-      tap(t => console.log(t)),
     );
 
     const item$ = bundle$.pipe(
       switchMap((bundle: Bundle) => bundle.item),
       getFirstSucceededRemoteDataPayload(),
-      tap(t => console.log(t)),
     );
     this.subs.push(
       observableCombineLatest(

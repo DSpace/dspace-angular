@@ -47,7 +47,7 @@ let bundle;
 let comp: EditBitstreamPageComponent;
 let fixture: ComponentFixture<EditBitstreamPageComponent>;
 
-fdescribe('EditBitstreamPageComponent', () => {
+describe('EditBitstreamPageComponent', () => {
 
   beforeEach(() => {
     bitstreamID = 'current-bitstream-id';
@@ -223,7 +223,7 @@ fdescribe('EditBitstreamPageComponent', () => {
       spyOn(router, 'navigate');
     });
 
-    fdescribe('on startup', () => {
+    describe('on startup', () => {
       let rawForm;
 
       beforeEach(() => {
@@ -454,13 +454,18 @@ fdescribe('EditBitstreamPageComponent', () => {
           self: 'bitstream-selflink'
         },
         bundle: createSuccessfulRemoteDataObject$({
+          _links: {
+            primaryBitstream: {
+              href: 'bundle-selflink'
+            }
+          },
           item: createSuccessfulRemoteDataObject$(Object.assign(new Item(), {
             uuid: 'some-uuid',
             firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
               return 'True';
             }
           }))
-        })
+        }),
       });
       bitstreamService = jasmine.createSpyObj('bitstreamService', {
         findById: createSuccessfulRemoteDataObject$(bitstream),
@@ -574,16 +579,22 @@ fdescribe('EditBitstreamPageComponent', () => {
             self: 'bitstream-selflink'
           },
           bundle: createSuccessfulRemoteDataObject$({
+            _links: {
+              primaryBitstream: {
+                href: 'bundle-selflink'
+              }
+            },
             item: createSuccessfulRemoteDataObject$(Object.assign(new Item(), {
               uuid: 'some-uuid',
               firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
                 return 'True';
               }
             }))
-          })
+          }),
         });
         bitstreamService = jasmine.createSpyObj('bitstreamService', {
           findById: createSuccessfulRemoteDataObject$(bitstream),
+          findByHref: createSuccessfulRemoteDataObject$(bitstream),
           update: createSuccessfulRemoteDataObject$(bitstream),
           updateFormat: createSuccessfulRemoteDataObject$(bitstream),
           commitUpdates: {},
