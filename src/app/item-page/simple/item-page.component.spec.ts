@@ -49,7 +49,7 @@ const mocklink = {
 const mocklink2 = {
   href: 'http://test2.org',
   rel: 'rel2',
-  type: 'type2'
+  type: undefined
 };
 
 const mockSignpostingLinks: SignpostingLink[] = [mocklink, mocklink2];
@@ -176,13 +176,18 @@ describe('ItemPageComponent', () => {
 
       // Check if linkHeadService.addTag() was called with the correct arguments
       expect(linkHeadService.addTag).toHaveBeenCalledTimes(mockSignpostingLinks.length);
-      expect(linkHeadService.addTag).toHaveBeenCalledWith(mockSignpostingLinks[0] as LinkDefinition);
-      expect(linkHeadService.addTag).toHaveBeenCalledWith(mockSignpostingLinks[1] as LinkDefinition);
+      let expected: LinkDefinition = mockSignpostingLinks[0] as LinkDefinition;
+      expect(linkHeadService.addTag).toHaveBeenCalledWith(expected);
+      expected = {
+        href: 'http://test2.org',
+        rel: 'rel2'
+      };
+      expect(linkHeadService.addTag).toHaveBeenCalledWith(expected);
     });
 
     it('should set Link header on the server', () => {
 
-      expect(serverResponseService.setHeader).toHaveBeenCalledWith('Link', '<http://test.org> ; rel="rel1" ; type="type1" , <http://test2.org> ; rel="rel2" ; type="type2" ');
+      expect(serverResponseService.setHeader).toHaveBeenCalledWith('Link', '<http://test.org> ; rel="rel1" ; type="type1" , <http://test2.org> ; rel="rel2" ');
     });
 
   });

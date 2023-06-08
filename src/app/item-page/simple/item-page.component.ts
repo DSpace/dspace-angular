@@ -20,7 +20,7 @@ import { ServerResponseService } from '../../core/services/server-response.servi
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
 import { isNotEmpty } from '../../shared/empty.util';
-import { LinkHeadService } from '../../core/services/link-head.service';
+import { LinkDefinition, LinkHeadService } from '../../core/services/link-head.service';
 
 /**
  * This component renders a simple item page.
@@ -111,12 +111,17 @@ export class ItemPageComponent implements OnInit, OnDestroy {
         this.signpostingLinks = signpostingLinks;
 
         signpostingLinks.forEach((link: SignpostingLink) => {
-          links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}" ; type="${link.type}" `;
-          this.linkHeadService.addTag({
+          links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ');
+          let tag: LinkDefinition = {
             href: link.href,
-            type: link.type,
             rel: link.rel
-          });
+          };
+          if (isNotEmpty(link.type)) {
+            tag = Object.assign(tag, {
+              type: link.type
+            });
+          }
+          this.linkHeadService.addTag(tag);
         });
 
         if (isPlatformServer(this.platformId)) {

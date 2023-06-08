@@ -107,6 +107,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
           let links = '';
 
           signpostingLinks.forEach((link: SignpostingLink) => {
+            links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ');
             links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}" ; type="${link.type}" `;
           });
 
