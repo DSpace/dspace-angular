@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap, tap, filter } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { combineLatest, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { DynamicFormControlModel, DynamicFormGroupModel, DynamicFormLayout, DynamicFormService, DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
 import { UntypedFormGroup } from '@angular/forms';
@@ -14,7 +14,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
-import { hasValue, isEmpty, isNotEmpty, hasValueOperator } from '../../shared/empty.util';
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { Location } from '@angular/common';
 import { RemoteData } from '../../core/data/remote-data';
@@ -25,10 +25,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../core/shared/item.model';
 import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
-import { BundleDataService } from '../../core/data/bundle-data.service';
-import { Operation } from 'fast-json-patch';
 import { PrimaryBitstreamService } from '../../core/data/primary-bitstream-data.service';
-import { hasSucceeded } from '../../core/data/request-entry-state.model';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -374,12 +371,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   private bundle: Bundle;
 
-  /**
-   * Path to patch primary bitstream on the bundle
-   * @private
-   */
-  private readonly primaryBitstreamPath = '/primaryBitstreamUUID';
-
   constructor(private route: ActivatedRoute,
               private router: Router,
               private changeDetectorRef: ChangeDetectorRef,
@@ -391,7 +382,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
               private notificationsService: NotificationsService,
               private bitstreamFormatService: BitstreamFormatDataService,
               private primaryBitstreamService: PrimaryBitstreamService,
-              private bundleService: BundleDataService) {
+              ) {
   }
 
   /**
@@ -404,33 +395,39 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
 
     this.itemId = this.route.snapshot.queryParams.itemId;
     this.entityType = this.route.snapshot.queryParams.entityType;
-    this.bitstreamRD$ = this.route.data.pipe(map((data) => data.bitstream));
+    this.bitstreamRD$ = this.route.data.pipe(map((data: any) => data.bitstream));
     this.bitstreamFormatsRD$ = this.bitstreamFormatService.findAll(this.findAllOptions);
 
     const bitstream$ = this.bitstreamRD$.pipe(
       getFirstSucceededRemoteData(),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
+      tap(t => console.log(t)),
     );
 
     const allFormats$ = this.bitstreamFormatsRD$.pipe(
       getFirstSucceededRemoteData(),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
+      tap(t => console.log(t)),
     );
 
     const bundle$ = bitstream$.pipe(
       switchMap((bitstream: Bitstream) => bitstream.bundle),
       getFirstSucceededRemoteDataPayload(),
+      tap(t => console.log(t)),
     );
 
     const primaryBitstream$ = bundle$.pipe(
       hasValueOperator(),
+      tap(t => console.log(t._links.primaryBitstream.href)),
       switchMap((bundle: Bundle) => this.bitstreamService.findByHref(bundle._links.primaryBitstream.href)),
-      getFirstSucceededRemoteDataPayload()
+      getFirstSucceededRemoteDataPayload(),
+      tap(t => console.log(t)),
     );
 
     const item$ = bundle$.pipe(
       switchMap((bundle: Bundle) => bundle.item),
-      getFirstSucceededRemoteDataPayload()
+      getFirstSucceededRemoteDataPayload(),
+      tap(t => console.log(t)),
     );
     this.subs.push(
       observableCombineLatest(
