@@ -1,12 +1,12 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SocialService } from './social.service';
-import { DOCUMENT } from '@angular/common';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ds-social',
   templateUrl: './social.component.html',
   styleUrls: ['./social.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**
  * Component to render dynamically the social2 buttons using addToAny plugin
@@ -26,10 +26,8 @@ export class SocialComponent implements OnInit {
   showCounters: boolean;
 
   constructor(
-    @Inject(DOCUMENT) private _document: Document,
-    private socialService: SocialService,
-  ) {
-  }
+    private socialService: SocialService
+  ) {}
 
   ngOnInit() {
     if (this.socialService.enabled) {
@@ -37,7 +35,7 @@ export class SocialComponent implements OnInit {
       this.showPlusButton = this.socialService.configuration.showPlusButton;
       this.showCounters = this.socialService.configuration.showCounters;
       this.title = this.socialService.configuration.title;
-      this.socialService.initializeAddToAnyScript(this._document);
+      this.socialService.initializeAddToAnyScript();
       this.showOnCurrentRoute$ = this.socialService.showOnCurrentRoute$;
     }
   }

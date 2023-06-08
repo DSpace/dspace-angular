@@ -1,25 +1,44 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
-import { BehaviorSubject, Observable } from 'rxjs';
-import { distinctUntilChanged, tap } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { ChildActivationEnd, Router } from '@angular/router';
 
 @Injectable( { providedIn: 'root' } )
 export class SocialService {
 
-  private showOnCurrentRouteSubject: BehaviorSubject<boolean>;
+  private showOnCurrentRouteSubject = new BehaviorSubject(false);
+
+  /**
+   * Show/hide the social buttons according to the activated route
+   */
+  showOnCurrentRoute$ = this.showOnCurrentRouteSubject.asObservable();
 
   private readonly isSocialEnabled: boolean;
 
   constructor(
     @Inject(PLATFORM_ID) protected platformId: Object,
+    @Inject(DOCUMENT) private _document: Document,
+    private router: Router,
   ) {
-    this.showOnCurrentRouteSubject = new BehaviorSubject(false);
     this.isSocialEnabled = isPlatformBrowser(this.platformId) && environment.addToAnyPlugin.socialNetworksEnabled;
-    this.initialize();
   }
+
+  activatedRouteDataChanges$ = this.router.events.pipe(
+    filter(events => events instanceof ChildActivationEnd),
+    map((event: ChildActivationEnd) => event.snapshot),
+    map(route => {
+      while (route.firstChild) {
+        route = route.firstChild;
+      }
+      return route;
+    }),
+    filter(route => route.outlet === 'primary'),
+    map(route => route.data)
+  );
 
   /**
    * Returns whether the social network buttons are enabled
@@ -36,33 +55,31 @@ export class SocialService {
   }
 
   /**
-   * Show/hide the social buttons according to the activated route
+   * Import the AddToAny JavaScript
    */
-  get showOnCurrentRoute$(): Observable<boolean> {
-    return this.showOnCurrentRouteSubject.asObservable().pipe(
-      tap((res) => {
-        console.log('subject', res);
-      }),
-      distinctUntilChanged());
-  }
-
-  initializeAddToAnyScript(_document: Document): any {
+  initializeAddToAnyScript(): any {
     // Initializing the addThisCookie script
-    const script = _document.createElement('script');
+    const script = this._document.createElement('script');
     script.type = 'text/javascript';
     script.src = environment.addToAnyPlugin.scriptUrl;
     script.async = true;
-    _document.body.appendChild(script);
+    this._document.body.appendChild(script);
   }
 
-  private initialize() {
-
+  /**
+   * Initialize the Social service. This method must be called only inside app component.
+   */
+  initialize() {
     if (!this.enabled) {
       return;
     }
 
-    // TODO observable below should emit the value of current route's "showSocialButton" data
-    this.showOnCurrentRouteSubject.next(true);
+    const showSocialButtons = this.activatedRouteDataChanges$.pipe(
+      map(data => data?.showSocialButtons === true),
+      distinctUntilChanged(),
+    );
+
+    showSocialButtons.subscribe(this.showOnCurrentRouteSubject);
   }
 
 }
