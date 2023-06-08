@@ -122,11 +122,7 @@ export class PrimaryBitstreamService {
     ).pipe(
       getAllCompletedRemoteData(),
       switchMap((rd: RemoteData<NoContent>) => {
-        if (rd.hasSucceeded) {
-          return this.bundleDataService.findByHref(bundle.self, false);
-        } else {
-          return this.rdbService.buildSingle<Bundle>(bundle.self);
-        }
+        return this.bundleDataService.findByHref(bundle.self, rd.hasFailed);
       })
     );
   }

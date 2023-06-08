@@ -16,7 +16,7 @@ import { Bundle } from '../shared/bundle.model';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-fdescribe('PrimaryBitstreamService', () => {
+describe('PrimaryBitstreamService', () => {
   let service: PrimaryBitstreamService;
   let objectCache: ObjectCacheService;
   let requestService: RequestService;
@@ -57,7 +57,7 @@ fdescribe('PrimaryBitstreamService', () => {
 
   describe('getHttpOptions', () => {
     it('should return a HttpOptions object with text/url-list Context-Type header', () => {
-      const result = (service as any).getHttpOptions()
+      const result = (service as any).getHttpOptions();
       expect(result.headers.get('Content-Type')).toEqual('text/uri-list');
     });
   });
@@ -118,9 +118,20 @@ fdescribe('PrimaryBitstreamService', () => {
     });
   });
   describe('delete', () => {
+    const testBundle = Object.assign(new Bundle(), {
+      _links: {
+        self: {
+          href: 'test-href'
+        },
+        primaryBitstream: {
+          href: 'test-primaryBitstream-href'
+        }
+      }
+    });
+
     describe('when the delete request succeeds', () => {
       const testResult = createSuccessfulRemoteDataObject(new Bundle());
-      const bundleServiceResult = createSuccessfulRemoteDataObject(bundle);
+      const bundleServiceResult = createSuccessfulRemoteDataObject(testBundle);
 
       beforeEach(() => {
         spyOn((service as any), 'createAndSendRequest').and.returnValue(observableOf(testResult));
@@ -128,30 +139,42 @@ fdescribe('PrimaryBitstreamService', () => {
       });
 
       it('should delegate the call to createAndSendRequest', () => {
-        const result = service.delete(bundle);
-        getTestScheduler().expectObservable(result).toBe('(a|)', { a: testResult });
+        const result = service.delete(testBundle);
+        getTestScheduler().expectObservable(result).toBe('(a|)', { a: bundleServiceResult });
+
+        result.subscribe();
+
+        expect(bundleDataService.findByHref).toHaveBeenCalledWith(testBundle.self, false);
 
         expect((service as any).createAndSendRequest).toHaveBeenCalledWith(
           DeleteRequest,
-          bundle._links.primaryBitstream.href,
+          testBundle._links.primaryBitstream.href,
         );
       });
     });
     describe('when the delete request fails', () => {
       const testResult = createFailedRemoteDataObject();
+      const bundleServiceResult = createSuccessfulRemoteDataObject(testBundle);
 
       beforeEach(() => {
         spyOn((service as any), 'createAndSendRequest').and.returnValue(observableOf(testResult));
+        (bundleDataService.findByHref as jasmine.Spy<any>).and.returnValue(observableOf(bundleServiceResult));
       });
 
-      it('should delegate the call to createAndSendRequest and retrieve the bundle from the rdbService', () => {
-        const result = service.delete(bundle);
-        getTestScheduler().expectObservable(result).toBe('(a|)', { a: bundle });
-
+      it('should delegate the call to createAndSendRequest and request the bundle from the bundleDataService', () => {
+        const result = service.delete(testBundle);
+        result.subscribe();
         expect((service as any).createAndSendRequest).toHaveBeenCalledWith(
           DeleteRequest,
-          bundle._links.primaryBitstream.href,
+          testBundle._links.primaryBitstream.href,
         );
+        expect(bundleDataService.findByHref).toHaveBeenCalledWith(testBundle.self, true);
+
+      });
+
+      it('should delegate the call to createAndSendRequest and', () => {
+        const result = service.delete(bundle);
+        getTestScheduler().expectObservable(result).toBe('(a|)', { a: bundleServiceResult });
       });
     });
   });

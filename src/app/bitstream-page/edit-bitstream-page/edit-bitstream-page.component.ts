@@ -612,7 +612,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       bundle$ = completedBundleRd$.pipe(
         map((bundleRd: RemoteData<Bundle>) => {
           if (bundleRd.hasSucceeded) {
-            return bundleRd.payload
+            return bundleRd.payload;
           } else {
             return this.bundle;
           }

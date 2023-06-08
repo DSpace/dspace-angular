@@ -1,4 +1,4 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import { deserialize, inheritSerialization } from 'cerialize';
 
 import { Observable } from 'rxjs';
 
