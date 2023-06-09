@@ -1,57 +1,45 @@
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, } from '@angular/core';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SocialService } from './social.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ds-social',
   templateUrl: './social.component.html',
-  styleUrls: ['./social.component.scss']
+  styleUrls: ['./social.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**
- * Component to render dynamically the social2 buttons using addThis plugin
+ * Component to render dynamically the social2 buttons using addToAny plugin
  */
-export class SocialComponent implements OnInit, OnDestroy {
+export class SocialComponent implements OnInit {
 
   /**
    * The script containing the profile ID
    */
   script: HTMLScriptElement;
 
-  subscription;
+  showOnCurrentRoute$: Observable<boolean>;
 
-  constructor(@Inject(DOCUMENT) private _document: Document,
-              @Inject(PLATFORM_ID) protected platformId: Object,
-              private socialService: SocialService,
-              private activatedRoute: ActivatedRoute,
-  ) {
-  }
+  buttonList: string[];
+  showPlusButton: boolean;
+  title: string;
+  url: string;
+  showCounters: boolean;
+
+  constructor(
+    private socialService: SocialService,
+  ) {}
 
   ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.subscription = this.socialService.showSocialButtons(this.activatedRoute).subscribe((show) => {
-        if (show) {
-          this.showSocialButtons();
-        } else {
-          this.hideSocialButtons();
-        }
-      });
+    if (this.socialService.enabled) {
+      this.buttonList = this.socialService.configuration.buttons;
+      this.showPlusButton = this.socialService.configuration.showPlusButton;
+      this.showCounters = this.socialService.configuration.showCounters;
+      this.title = this.socialService.configuration.title;
+      this.url = this.socialService.link;
+      this.socialService.initializeAddToAnyScript();
+      this.showOnCurrentRoute$ = this.socialService.showOnCurrentRoute$;
     }
-  }
-
-  showSocialButtons() {
-    if (!this.script) {
-      this.script = this.socialService.initializeAddThisScript(this._document);
-    }
-    this.socialService.show(this._document);
-  }
-
-  hideSocialButtons() {
-    this.socialService.hide(this._document);
-  }
-
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
   }
 
 }
