@@ -59,7 +59,7 @@ export class SocialService {
    * If no link is provided in the configuration then the current page url will be used.
    */
   get link(): string {
-    return environment.addToAnyPlugin.link ?? document.location.origin;
+    return environment.addToAnyPlugin.link ?? null;
   }
 
   /**
