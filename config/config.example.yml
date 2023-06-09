@@ -483,3 +483,5 @@ addToAnyPlugin:
   showPlusButton: true
   showCounters: true
   title: DSpace CRIS 7 demo
+  # The link to be shown in the shared post, if different from document.location.origin (optional)
+  # link: https://dspacecris7.4science.cloud/

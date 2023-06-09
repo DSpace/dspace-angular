@@ -8,4 +8,5 @@ export interface AddToAnyPluginConfig extends Config {
   buttons: string[];
   showPlusButton: boolean;
   showCounters: boolean;
+  link?: string;
 }

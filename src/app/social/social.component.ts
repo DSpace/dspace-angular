@@ -23,10 +23,11 @@ export class SocialComponent implements OnInit {
   buttonList: string[];
   showPlusButton: boolean;
   title: string;
+  url: string;
   showCounters: boolean;
 
   constructor(
-    private socialService: SocialService
+    private socialService: SocialService,
   ) {}
 
   ngOnInit() {
@@ -35,6 +36,7 @@ export class SocialComponent implements OnInit {
       this.showPlusButton = this.socialService.configuration.showPlusButton;
       this.showCounters = this.socialService.configuration.showCounters;
       this.title = this.socialService.configuration.title;
+      this.url = this.socialService.link;
       this.socialService.initializeAddToAnyScript();
       this.showOnCurrentRoute$ = this.socialService.showOnCurrentRoute$;
     }
