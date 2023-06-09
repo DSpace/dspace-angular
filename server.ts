@@ -182,8 +182,8 @@ export function app() {
   /**
    * Proxy the linksets
    */
-  router.use('/links**', createProxyMiddleware({
-    target: `${environment.rest.baseUrl}/signposting`,
+  router.use('/signposting**', createProxyMiddleware({
+    target: `${environment.rest.baseUrl}`,
     pathRewrite: path => path.replace(environment.ui.nameSpace, '/'),
     changeOrigin: true
   }));
