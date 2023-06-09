@@ -229,8 +229,10 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
 
     const sectionDataToCheck = {};
     Object.keys(sectionData).forEach((key) => {
-      if (this.sectionData.data && hasValue(this.sectionData.data[key]) && this.inCurrentSubmissionScope(key)) {
-        sectionDataToCheck[key] = this.sectionData.data[key];
+      // todo: removing Relationships works due to a bug -- dspace.entity.type is included in sectionData, which is what triggers the update;
+      //       if we use this.sectionMetadata.includes(key), this field is filtered out and removed Relationships won't disappear from the form.
+      if (this.inCurrentSubmissionScope(key)) {
+        sectionDataToCheck[key] = sectionData[key];
       }
     });
 
