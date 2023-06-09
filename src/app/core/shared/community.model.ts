@@ -21,7 +21,7 @@ export class Community extends DSpaceObject implements ChildHALResource, HandleO
 
   @excludeFromEquals
   @autoserialize
-  archivedItems: number;
+  archivedItemsCount: number;
 
   /**
    * The {@link HALLink}s for this Community

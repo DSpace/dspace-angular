@@ -15,7 +15,7 @@ const mockCollectionWithArchivedItems: Collection = Object.assign(new Collection
         value: 'Test title'
       }
     ]
-  }, archivedItems: 1
+  }, archivedItemsCount: 1
 });
 
 const mockCollectionWithoutArchivedItems: Collection = Object.assign(new Collection(), {
@@ -26,7 +26,7 @@ const mockCollectionWithoutArchivedItems: Collection = Object.assign(new Collect
         value: 'Test title'
       }
     ]
-  }, archivedItems: 0
+  }, archivedItemsCount: 0
 });
 
 
@@ -38,7 +38,7 @@ const mockCollectionWithAbstract: Collection = Object.assign(new Collection(), {
         value: 'Short description'
       }
     ]
-  }, archivedItems: 1
+  }, archivedItemsCount: 1
 });
 
 const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection(), {
@@ -49,7 +49,7 @@ const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection()
         value: 'Test title'
       }
     ]
-  }, archivedItems: 1
+  }, archivedItemsCount: 1
 });
 
 describe('CollectionListElementComponent', () => {

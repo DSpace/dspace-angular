@@ -16,7 +16,7 @@ import { COMMUNITY } from './community.resource-type';
 import { Community } from './community.model';
 import { ChildHALResource } from './child-hal-resource.model';
 import { HandleObject } from './handle-object.model';
-import {excludeFromEquals} from '../utilities/equals.decorators';
+import { excludeFromEquals } from '../utilities/equals.decorators';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
@@ -25,7 +25,7 @@ export class Collection extends DSpaceObject implements ChildHALResource, Handle
 
   @excludeFromEquals
   @autoserialize
-  archivedItems: number;
+  archivedItemsCount: number;
 
   /**
    * The {@link HALLink}s for this Collection
