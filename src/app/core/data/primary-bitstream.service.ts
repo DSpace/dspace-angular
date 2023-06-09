@@ -1,7 +1,4 @@
 import { Bitstream } from '../shared/bitstream.model';
-import { DeleteDataImpl } from './base/delete-data';
-import { PutDataImpl } from './base/put-data';
-import { CreateDataImpl } from './base/create-data';
 import { Injectable } from '@angular/core';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -11,7 +8,6 @@ import { Observable, switchMap } from 'rxjs';
 import { RemoteData } from './remote-data';
 import { Bundle } from '../shared/bundle.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { constructIdEndpointDefault } from './base/identifiable-data.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HttpHeaders } from '@angular/common/http';
 import { GenericConstructor } from '../shared/generic-constructor';
@@ -24,9 +20,6 @@ import { BundleDataService } from './bundle-data.service';
   providedIn: 'root',
 })
 export class PrimaryBitstreamService {
-  private createData: CreateDataImpl<any>;
-  private putData: PutDataImpl<any>;
-  private deleteData: DeleteDataImpl<any>;
 
   constructor(
     protected requestService: RequestService,
@@ -36,10 +29,6 @@ export class PrimaryBitstreamService {
     protected notificationsService: NotificationsService,
     protected bundleDataService: BundleDataService,
   ) {
-    // linkPath can be undefined because we'll only use them to do things "byHref"
-    this.createData = new CreateDataImpl(undefined, requestService, rdbService, objectCache, halService, notificationsService, undefined);
-    this.putData = new PutDataImpl(undefined, requestService, rdbService, objectCache, halService, undefined);
-    this.deleteData = new DeleteDataImpl(undefined, requestService, rdbService, objectCache, halService, notificationsService, undefined, constructIdEndpointDefault);
   }
 
   /**
