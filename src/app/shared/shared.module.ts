@@ -197,7 +197,6 @@ import { FileValueAccessorDirective } from './utils/file-value-accessor.directiv
 import {
   ModifyItemOverviewComponent
 } from '../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
-import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/switcher/claimed-task-actions.directive';
 import { ImpersonateNavbarComponent } from './impersonate-navbar/impersonate-navbar.component';
 import { NgForTrackByIdDirective } from './ng-for-track-by-id.directive';
 import { FileDownloadLinkComponent } from './file-download-link/file-download-link.component';
@@ -483,7 +482,6 @@ const DIRECTIVES = [
   AutoFocusDirective,
   RoleDirective,
   MetadataRepresentationDirective,
-  ClaimedTaskActionsDirective,
   FileValueAccessorDirective,
   FileValidator,
   NgForTrackByIdDirective,
