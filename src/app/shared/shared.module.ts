@@ -170,7 +170,6 @@ import { AccessStatusBadgeComponent } from './object-collection/shared/badges/ac
 import {
   MetadataRepresentationLoaderComponent
 } from './metadata-representation/metadata-representation-loader.component';
-import { MetadataRepresentationDirective } from './metadata-representation/metadata-representation.directive';
 import {
   ListableObjectComponentLoaderComponent
 } from './object-collection/shared/listable-object/listable-object-component-loader.component';
@@ -481,7 +480,6 @@ const DIRECTIVES = [
   InListValidator,
   AutoFocusDirective,
   RoleDirective,
-  MetadataRepresentationDirective,
   FileValueAccessorDirective,
   FileValidator,
   NgForTrackByIdDirective,
