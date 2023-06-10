@@ -11,7 +11,7 @@ import { SearchResultGridElementComponent } from '../../../../../shared/object-g
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
-import { ListableObjectDirective } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
+import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 
@@ -25,7 +25,7 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
  * The component for displaying a list element for an item search result on the admin search page
  */
 export class ItemAdminSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> implements OnInit {
-  @ViewChild(ListableObjectDirective, { static: true }) listableObjectDirective: ListableObjectDirective;
+  @ViewChild(DynamicComponentLoaderDirective, { static: true }) dynamicComponentLoaderDirective: DynamicComponentLoaderDirective;
   @ViewChild('badges', { static: true }) badges: ElementRef;
   @ViewChild('buttons', { static: true }) buttons: ElementRef;
 
@@ -46,7 +46,7 @@ export class ItemAdminSearchResultGridElementComponent extends SearchResultGridE
     super.ngOnInit();
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent());
 
-    const viewContainerRef = this.listableObjectDirective.viewContainerRef;
+    const viewContainerRef = this.dynamicComponentLoaderDirective.viewContainerRef;
     viewContainerRef.clear();
 
     const componentRef = viewContainerRef.createComponent(

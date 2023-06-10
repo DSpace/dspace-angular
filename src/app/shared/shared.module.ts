@@ -177,7 +177,6 @@ import {
 import {
   ItemSearchResultListElementComponent
 } from './object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
-import { ListableObjectDirective } from './object-collection/shared/listable-object/listable-object.directive';
 import {
   ItemMetadataRepresentationListElementComponent
 } from './object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
@@ -484,7 +483,6 @@ const DIRECTIVES = [
   AutoFocusDirective,
   RoleDirective,
   MetadataRepresentationDirective,
-  ListableObjectDirective,
   ClaimedTaskActionsDirective,
   FileValueAccessorDirective,
   FileValidator,

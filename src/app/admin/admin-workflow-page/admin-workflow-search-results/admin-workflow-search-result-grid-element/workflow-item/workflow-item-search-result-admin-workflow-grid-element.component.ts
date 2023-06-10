@@ -10,7 +10,7 @@ import { SearchResultGridElementComponent } from '../../../../../shared/object-g
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
-import { ListableObjectDirective } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
+import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { Observable } from 'rxjs';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
@@ -38,7 +38,7 @@ export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends S
   /**
    * Directive used to render the dynamic component in
    */
-  @ViewChild(ListableObjectDirective, { static: true }) listableObjectDirective: ListableObjectDirective;
+  @ViewChild(DynamicComponentLoaderDirective, { static: true }) dynamicComponentLoaderDirective: DynamicComponentLoaderDirective;
 
   /**
    * The html child that contains the badges html
@@ -77,7 +77,7 @@ export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends S
     this.item$.pipe(take(1)).subscribe((item: Item) => {
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent(item));
 
-        const viewContainerRef = this.listableObjectDirective.viewContainerRef;
+        const viewContainerRef = this.dynamicComponentLoaderDirective.viewContainerRef;
         viewContainerRef.clear();
 
         const componentRef = viewContainerRef.createComponent(
