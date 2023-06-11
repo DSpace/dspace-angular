@@ -29,6 +29,7 @@ import { CollectionDropdownComponent } from '../../../shared/collection-dropdown
 import { SectionsService } from '../../sections/sections.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { SectionsType } from '../../sections/sections-type';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component allows to show the current collection the submission belonging to and to change it.
@@ -53,10 +54,21 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   @Input() currentDefinition: string;
 
   /**
+   * Checks if the collection can be modifiable by the user
+   * @type {booelan}
+   */
+  @Input() collectionModifiable: boolean | null = null;
+
+  /**
    * The submission id
    * @type {string}
    */
   @Input() submissionId;
+
+  /**
+   * Flag to indicate if the submission dropdown is read only
+   */
+  @Input() isReadonly = false;
 
   /**
    * An event fired when a different collection is selected.
@@ -105,22 +117,14 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   available$: Observable<boolean>;
 
-  /**
-   * Initialize instance variables
-   *
-   * @param {ChangeDetectorRef} cdr
-   * @param {CollectionDataService} collectionDataService
-   * @param {JsonPatchOperationsBuilder} operationsBuilder
-   * @param {SubmissionJsonPatchOperationsService} operationsService
-   * @param {SubmissionService} submissionService
-   * @param {SectionsService} sectionsService
-   */
   constructor(protected cdr: ChangeDetectorRef,
               private collectionDataService: CollectionDataService,
               private operationsBuilder: JsonPatchOperationsBuilder,
               private operationsService: SubmissionJsonPatchOperationsService,
               private submissionService: SubmissionService,
-              private sectionsService: SectionsService) {
+              private sectionsService: SectionsService,
+              public dsoNameService: DSONameService,
+  ) {
   }
 
   /**
@@ -133,7 +137,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
 
       this.selectedCollectionName$ = this.collectionDataService.findById(this.currentCollectionId).pipe(
         find((collectionRD: RemoteData<Collection>) => isNotEmpty(collectionRD.payload)),
-        map((collectionRD: RemoteData<Collection>) => collectionRD.payload.name)
+        map((collectionRD: RemoteData<Collection>) => this.dsoNameService.getName(collectionRD.payload))
       );
     }
   }
@@ -188,7 +192,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    * Reset search form control on dropdown menu close
    */
   onClose() {
-    this.collectionDropdown.reset();
+    this.collectionDropdown?.reset();
   }
 
   /**
@@ -199,7 +203,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   toggled(isOpen: boolean) {
     if (!isOpen) {
-      this.collectionDropdown.reset();
+      this.collectionDropdown?.reset();
     }
   }
 }

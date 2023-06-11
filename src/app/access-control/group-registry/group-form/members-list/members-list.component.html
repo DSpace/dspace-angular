@@ -1,9 +1,19 @@
 <ng-container>
   <h3 class="border-bottom pb-2">{{messagePrefix + '.head' | translate}}</h3>
 
-  <h4 id="search" class="border-bottom pb-2">{{messagePrefix + '.search.head' | translate}}
-
+  <h4 id="search" class="border-bottom pb-2">
+    <span
+      *dsContextHelp="{
+        content: 'admin.access-control.groups.form.tooltip.editGroup.addEpeople',
+        id: 'edit-group-add-epeople',
+        iconPlacement: 'right',
+        tooltipPlacement: ['top', 'right', 'bottom']
+      }"
+    >
+      {{messagePrefix + '.search.head' | translate}}
+    </span>
   </h4>
+
   <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)" class="d-flex justify-content-between">
     <div>
       <select name="scope" id="scope" formControlName="scope" class="form-control" aria-label="Search scope">
@@ -47,26 +57,32 @@
         <tbody>
         <tr *ngFor="let ePerson of (ePeopleSearchDtos | async)?.page">
           <td class="align-middle">{{ePerson.eperson.id}}</td>
-          <td class="align-middle"><a (click)="ePersonDataService.startEditingNewEPerson(ePerson.eperson)"
-                 [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">{{ePerson.eperson.name}}</a></td>
+          <td class="align-middle">
+            <a (click)="ePersonDataService.startEditingNewEPerson(ePerson.eperson)"
+               [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">
+              {{ dsoNameService.getName(ePerson.eperson) }}
+            </a>
+          </td>
           <td class="align-middle">
             {{messagePrefix + '.table.email' | translate}}: {{ ePerson.eperson.email ? ePerson.eperson.email : '-' }}<br/>
             {{messagePrefix + '.table.netid' | translate}}: {{ ePerson.eperson.netid ? ePerson.eperson.netid : '-' }}
           </td>
           <td class="align-middle">
             <div class="btn-group edit-field">
-              <button *ngIf="(ePerson.memberOfGroup)"
+              <button *ngIf="ePerson.memberOfGroup"
                       (click)="deleteMemberFromGroup(ePerson)"
-                      class="btn btn-outline-danger btn-sm"
-                      title="{{messagePrefix + '.table.edit.buttons.remove' | translate: {name: ePerson.eperson.name} }}">
-                <i class="fas fa-trash-alt fa-fw"></i>
+                      [disabled]="actionConfig.remove.disabled"
+                      [ngClass]="['btn btn-sm', actionConfig.remove.css]"
+                      title="{{messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(ePerson.eperson) } }}">
+                <i [ngClass]="actionConfig.remove.icon"></i>
               </button>
 
-              <button *ngIf="!(ePerson.memberOfGroup)"
+              <button *ngIf="!ePerson.memberOfGroup"
                       (click)="addMemberToGroup(ePerson)"
-                      class="btn btn-outline-primary btn-sm"
-                      title="{{messagePrefix + '.table.edit.buttons.add' | translate: {name: ePerson.eperson.name} }}">
-                <i class="fas fa-plus fa-fw"></i>
+                      [disabled]="actionConfig.add.disabled"
+                      [ngClass]="['btn btn-sm', actionConfig.add.css]"
+                      title="{{messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(ePerson.eperson) } }}">
+                <i [ngClass]="actionConfig.add.icon"></i>
               </button>
             </div>
           </td>
@@ -105,18 +121,31 @@
         <tbody>
         <tr *ngFor="let ePerson of (ePeopleMembersOfGroupDtos | async)?.page">
           <td class="align-middle">{{ePerson.eperson.id}}</td>
-          <td class="align-middle"><a (click)="ePersonDataService.startEditingNewEPerson(ePerson.eperson)"
-                 [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">{{ePerson.eperson.name}}</a></td>
+          <td class="align-middle">
+            <a (click)="ePersonDataService.startEditingNewEPerson(ePerson.eperson)"
+               [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">
+              {{ dsoNameService.getName(ePerson.eperson) }}
+            </a>
+          </td>
           <td class="align-middle">
             {{messagePrefix + '.table.email' | translate}}: {{ ePerson.eperson.email ? ePerson.eperson.email : '-' }}<br/>
             {{messagePrefix + '.table.netid' | translate}}: {{ ePerson.eperson.netid ? ePerson.eperson.netid : '-' }}
           </td>
           <td class="align-middle">
             <div class="btn-group edit-field">
-              <button (click)="deleteMemberFromGroup(ePerson)"
-                      class="btn btn-outline-danger btn-sm"
-                      title="{{messagePrefix + '.table.edit.buttons.remove' | translate: {name: ePerson.eperson.name} }}">
-                <i class="fas fa-trash-alt fa-fw"></i>
+              <button *ngIf="ePerson.memberOfGroup"
+                      (click)="deleteMemberFromGroup(ePerson)"
+                      [disabled]="actionConfig.remove.disabled"
+                      [ngClass]="['btn btn-sm', actionConfig.remove.css]"
+                      title="{{messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(ePerson.eperson) } }}">
+                <i [ngClass]="actionConfig.remove.icon"></i>
+              </button>
+              <button *ngIf="!ePerson.memberOfGroup"
+                      (click)="addMemberToGroup(ePerson)"
+                      [disabled]="actionConfig.add.disabled"
+                      [ngClass]="['btn btn-sm', actionConfig.add.css]"
+                      title="{{messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(ePerson.eperson) } }}">
+                <i [ngClass]="actionConfig.add.icon"></i>
               </button>
             </div>
           </td>

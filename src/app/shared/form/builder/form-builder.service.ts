@@ -1,5 +1,5 @@
 import {Injectable, Optional} from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -18,7 +18,9 @@ import {
   DynamicPathable,
   parseReviver,
 } from '@ng-dynamic-forms/core';
-import { isObject, isString, mergeWith } from 'lodash';
+import isObject from 'lodash/isObject';
+import isString from 'lodash/isString';
+import mergeWith from 'lodash/mergeWith';
 
 import {
   hasNoValue,
@@ -57,7 +59,7 @@ export class FormBuilderService extends DynamicFormService {
   /**
    * This map contains the active forms control groups
    */
-  private formGroups: Map<string, FormGroup>;
+  private formGroups: Map<string, UntypedFormGroup>;
 
   /**
    * This is the field to use for type binding
@@ -81,7 +83,7 @@ export class FormBuilderService extends DynamicFormService {
 
   }
 
-  createDynamicFormControlEvent(control: FormControl, group: FormGroup, model: DynamicFormControlModel, type: string): DynamicFormControlEvent {
+  createDynamicFormControlEvent(control: UntypedFormControl, group: UntypedFormGroup, model: DynamicFormControlModel, type: string): DynamicFormControlEvent {
     const $event = {
       value: (model as any).value,
       autoSave: false
@@ -367,12 +369,12 @@ export class FormBuilderService extends DynamicFormService {
     return model.type === DYNAMIC_FORM_CONTROL_TYPE_INPUT;
   }
 
-  getFormControlById(id: string, formGroup: FormGroup, groupModel: DynamicFormControlModel[], index = 0): AbstractControl {
+  getFormControlById(id: string, formGroup: UntypedFormGroup, groupModel: DynamicFormControlModel[], index = 0): AbstractControl {
     const fieldModel = this.findById(id, groupModel, index);
     return isNotEmpty(fieldModel) ? formGroup.get(this.getPath(fieldModel)) : null;
   }
 
-  getFormControlByModel(formGroup: FormGroup, fieldModel: DynamicFormControlModel): AbstractControl {
+  getFormControlByModel(formGroup: UntypedFormGroup, fieldModel: DynamicFormControlModel): AbstractControl {
     return isNotEmpty(fieldModel) ? formGroup.get(this.getPath(fieldModel)) : null;
   }
 
@@ -410,7 +412,7 @@ export class FormBuilderService extends DynamicFormService {
    * @param id id of model
    * @param formGroup FormGroup
    */
-  addFormGroups(id: string, formGroup: FormGroup): void {
+  addFormGroups(id: string, formGroup: UntypedFormGroup): void {
     this.formGroups.set(id, formGroup);
   }
 

@@ -3,7 +3,6 @@ import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
 import { map, switchMap, take } from 'rxjs/operators';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../../data/paginated-list.model';
 import { ResponseParsingService } from '../../data/parsing.service';
 import { RemoteData } from '../../data/remote-data';
 import { GetRequest } from '../../data/request.models';
@@ -271,7 +270,7 @@ export class SearchService implements OnDestroy {
     let href;
     let args: string[] = [];
     if (hasValue(filterQuery)) {
-      args.push(`prefix=${filterQuery}`);
+      args.push(`prefix=${encodeURIComponent(filterQuery)}`);
     }
     if (hasValue(searchOptions)) {
       searchOptions = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
@@ -334,8 +333,9 @@ export class SearchService implements OnDestroy {
    * Send search event to rest api using angularitics
    * @param config              Paginated search options used
    * @param searchQueryResponse The response objects of the performed search
+   * @param clickedObject       Optional UUID of an object a search was performed and clicked for
    */
-  trackSearch(config: PaginatedSearchOptions, searchQueryResponse: SearchObjects<DSpaceObject>) {
+  trackSearch(config: PaginatedSearchOptions, searchQueryResponse: SearchObjects<DSpaceObject>, clickedObject?: string) {
     const filters: { filter: string, operator: string, value: string, label: string; }[] = [];
     const appliedFilters = searchQueryResponse.appliedFilters || [];
     for (let i = 0, filtersLength = appliedFilters.length; i < filtersLength; i++) {
@@ -357,6 +357,7 @@ export class SearchService implements OnDestroy {
           order: config.sort.direction
         },
         filters: filters,
+        clickedObject,
       },
     });
   }

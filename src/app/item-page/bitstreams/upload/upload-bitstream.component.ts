@@ -4,7 +4,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { map, take, switchMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UploaderOptions } from '../../../shared/uploader/uploader-options.model';
+import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -14,11 +14,12 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { getFirstSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { UploaderComponent } from '../../../shared/uploader/uploader.component';
+import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { RequestService } from '../../../core/data/request.service';
 import { getBitstreamModuleRoute } from '../../../app-routing-paths';
 import { getEntityEditRoute } from '../../item-page-routing-paths';
 import { environment } from '../../../../environments/environment';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-upload-bitstream',
@@ -94,7 +95,9 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
               protected authService: AuthService,
               protected notificationsService: NotificationsService,
               protected translate: TranslateService,
-              protected requestService: RequestService) {
+              protected requestService: RequestService,
+              public dsoNameService: DSONameService,
+  ) {
   }
 
   /**

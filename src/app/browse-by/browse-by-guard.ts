@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 import { DSpaceObjectDataService } from '../core/data/dspace-object-data.service';
 import { hasNoValue, hasValue } from '../shared/empty.util';
 import { map, switchMap } from 'rxjs/operators';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, } from '../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { BrowseDefinitionDataService } from '../core/browse/browse-definition-data.service';
 import { BrowseDefinition } from '../core/shared/browse-definition.model';
+import { DSONameService } from '../core/breadcrumbs/dso-name.service';
+import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { RemoteData } from '../core/data/remote-data';
 import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
 
@@ -20,6 +22,7 @@ export class BrowseByGuard implements CanActivate {
   constructor(protected dsoService: DSpaceObjectDataService,
               protected translate: TranslateService,
               protected browseDefinitionService: BrowseDefinitionDataService,
+              protected dsoNameService: DSONameService,
               protected router: Router,
   ) {
   }
@@ -38,15 +41,15 @@ export class BrowseByGuard implements CanActivate {
     }
     const scope = route.queryParams.scope;
     const value = route.queryParams.value;
-    const metadataTranslated = this.translate.instant('browse.metadata.' + id);
+    const metadataTranslated = this.translate.instant(`browse.metadata.${id}`);
     return browseDefinition$.pipe(
       switchMap((browseDefinition: BrowseDefinition | undefined) => {
         if (hasValue(browseDefinition)) {
           if (hasValue(scope)) {
-            const dsoAndMetadata$ = this.dsoService.findById(scope).pipe(getFirstSucceededRemoteData());
-            return dsoAndMetadata$.pipe(
-              map((dsoRD) => {
-                const name = dsoRD.payload.name;
+            const dso$: Observable<DSpaceObject> = this.dsoService.findById(scope).pipe(getFirstSucceededRemoteDataPayload());
+            return dso$.pipe(
+              map((dso: DSpaceObject) => {
+                const name = this.dsoNameService.getName(dso);
                 route.data = this.createData(title, id, browseDefinition, name, metadataTranslated, value, route);
                 return true;
               })

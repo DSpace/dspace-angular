@@ -9,8 +9,8 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
+import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 import { SectionDataObject } from '../sections/models/section-data.model';
 import { SubmissionService } from '../submission.service';
@@ -18,6 +18,10 @@ import { Item } from '../../core/shared/item.model';
 import { SectionsType } from '../sections/sections-type';
 import { SectionsService } from '../sections/sections.service';
 import { SubmissionError } from '../objects/submission-error.model';
+import { SubmissionSectionVisibility } from './../../core/config/models/config-submission-section.model';
+import { SubmissionSectionModel } from './../../core/config/models/config-submission-section.model';
+import { VisibilityType } from '../sections/visibility-type';
+import isEqual from 'lodash/isEqual';
 
 /**
  * This component represents the submission form.
@@ -34,7 +38,15 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    * @type {string}
    */
   @Input() collectionId: string;
+
   @Input() item: Item;
+
+  /**
+   * Checks if the collection can be modifiable by the user
+   * @type {booelan}
+   */
+  @Input() collectionModifiable: boolean | null = null;
+
 
   /**
    * The list of submission's sections
@@ -181,6 +193,42 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   }
 
   /**
+   *  Returns the visibility object of the collection section
+   */
+  private getCollectionVisibility(): SubmissionSectionVisibility {
+    const submissionSectionModel: SubmissionSectionModel =
+      this.submissionDefinition.sections.page.find(
+        (section) => isEqual(section.sectionType, SectionsType.Collection)
+      );
+
+   return isNotUndefined(submissionSectionModel.visibility) ? submissionSectionModel.visibility : null;
+  }
+
+  /**
+   * Getter to see if the collection section visibility is hidden
+   */
+  get isSectionHidden(): boolean {
+    const visibility = this.getCollectionVisibility();
+    return (
+      hasValue(visibility) &&
+      isEqual(visibility.main, VisibilityType.HIDDEN) &&
+      isEqual(visibility.other, VisibilityType.HIDDEN)
+    );
+  }
+
+  /**
+   * Getter to see if the collection section visibility is readonly
+   */
+  get isSectionReadonly(): boolean {
+    const visibility = this.getCollectionVisibility();
+    return (
+      hasValue(visibility) &&
+      isEqual(visibility.main, VisibilityType.READONLY) &&
+      isEqual(visibility.other, VisibilityType.READONLY)
+    );
+  }
+
+  /**
    * Unsubscribe from all subscriptions, destroy instance variables
    * and reset submission state
    */
@@ -231,6 +279,8 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   protected getSectionsList(): Observable<any> {
     return this.submissionService.getSubmissionSections(this.submissionId).pipe(
       filter((sections: SectionDataObject[]) => isNotEmpty(sections)),
-      map((sections: SectionDataObject[]) => sections));
+      map((sections: SectionDataObject[]) =>
+        sections.filter((section: SectionDataObject) => !isEqual(section.sectionType,SectionsType.Collection))),
+    );
   }
 }

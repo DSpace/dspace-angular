@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { AppState, keySelector } from '../../app.reducer';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,
@@ -11,17 +11,18 @@ import {
   DeactivateMenuSectionAction,
   ExpandMenuAction,
   ExpandMenuPreviewAction,
-  HideMenuAction,
+  HideMenuAction, HideMenuSectionAction,
   RemoveMenuSectionAction,
-  ShowMenuAction,
+  ShowMenuAction, ShowMenuSectionAction,
   ToggleActiveMenuSectionAction,
   ToggleMenuAction,
 } from './menu.actions';
-import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '../empty.util';
+import { hasNoValue, hasValue, hasValueOperator, isNotEmpty, isEmpty } from '../empty.util';
 import { MenuState } from './menu-state.model';
 import { MenuSections } from './menu-sections.model';
 import { MenuSection } from './menu-section.model';
 import { MenuID } from './menu-id.model';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 export function menuKeySelector<T>(key: string, selector): MemoizedSelector<MenuState, T> {
   return createSelector(selector, (state) => {
@@ -54,7 +55,11 @@ const getSubSectionsFromSectionSelector = (id: string): MemoizedSelector<MenuSta
 @Injectable()
 export class MenuService {
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    protected store: Store<AppState>,
+    protected route: ActivatedRoute,
+    protected router: Router,
+  ) {
   }
 
   /**
@@ -182,6 +187,18 @@ export class MenuService {
   }
 
   /**
+   * Check if a given menu is visible and has visible top-level (!) sections
+   * @param {MenuID} menuID The ID of the menu that is to be checked
+   * @returns {Observable<boolean>} Emits true if the given menu is
+   *   visible and has visible sections, emits false when it's hidden
+   */
+  isMenuVisibleWithVisibleSections(menuID: MenuID): Observable<boolean> {
+    return observableCombineLatest([this.isMenuVisible(menuID), this.menuHasVisibleSections(menuID)]).pipe(
+      map(([menuVisible, visibleSections]) => menuVisible && visibleSections)
+    );
+  }
+
+  /**
    * Check if a given menu is visible
    * @param {MenuID} menuID The ID of the menu that is to be checked
    * @returns {Observable<boolean>} Emits true if the given menu is visible, emits falls when it's hidden
@@ -189,6 +206,20 @@ export class MenuService {
   isMenuVisible(menuID: MenuID): Observable<boolean> {
     return this.getMenu(menuID).pipe(
       map((state: MenuState) => hasValue(state) ? state.visible : undefined)
+    );
+  }
+
+  /**
+   * Check if a menu has at least one top-level (!) section that is visible.
+   * @param {MenuID} menuID The ID of the menu that is to be checked
+   * @returns {Observable<boolean>} Emits true if the given menu has visible sections, emits false otherwise
+   */
+  menuHasVisibleSections(menuID: MenuID): Observable<boolean> {
+    return this.getMenu(menuID).pipe(
+      map((state: MenuState) => hasValue(state)
+        ? Object.values(state.sections)
+          .some(section => section.visible && section.parentID === undefined)
+        : undefined)
     );
   }
 
@@ -241,11 +272,29 @@ export class MenuService {
   }
 
   /**
+   * Show a given menu section
+   * @param {MenuID} menuID The ID of the menu
+   * @param id The ID of the section
+   */
+  showMenuSection(menuID: MenuID, id: string): void {
+    this.store.dispatch(new ShowMenuSectionAction(menuID, id));
+  }
+
+  /**
    * Hide a given menu
    * @param {MenuID} menuID The ID of the menu
    */
   hideMenu(menuID: MenuID): void {
     this.store.dispatch(new HideMenuAction(menuID));
+  }
+
+  /**
+   * Hide a given menu section
+   * @param {MenuID} menuID The ID of the menu
+   * @param id The ID of the section
+   */
+  hideMenuSection(menuID: MenuID, id: string): void {
+    this.store.dispatch(new HideMenuSectionAction(menuID, id));
   }
 
   /**
@@ -294,5 +343,95 @@ export class MenuService {
   isSectionVisible(menuID: MenuID, id: string): Observable<boolean> {
     return this.getMenuSection(menuID, id).pipe(map((section) => section.visible));
   }
+
+  listenForRouteChanges(): void {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+    ).subscribe(() => {
+      Object.values(MenuID).forEach((menuID) => {
+        this.buildRouteMenuSections(menuID);
+      });
+    });
+  }
+
+  /**
+   * Build menu sections depending on the current route
+   * - Adds sections found in the current route data that aren't active yet
+   * - Removes sections that are active, but not present in the current route data
+   * @param menuID  The menu to add/remove sections to/from
+   */
+  buildRouteMenuSections(menuID: MenuID) {
+    this.getNonPersistentMenuSections(menuID).pipe(
+      map((sections) => sections.map((section) => section.id)),
+      take(1)
+    ).subscribe((shouldNotPersistIDs: string[]) => {
+      const resolvedSections = this.resolveRouteMenuSections(this.route.root, menuID);
+      resolvedSections.forEach((section) => {
+        const index = shouldNotPersistIDs.indexOf(section.id);
+        if (index > -1) {
+          shouldNotPersistIDs.splice(index, 1);
+        } else {
+          this.addSection(menuID, section);
+        }
+      });
+      shouldNotPersistIDs.forEach((id) => {
+        this.removeSection(menuID, id);
+      });
+    });
+  }
+
+  /**
+   * Resolve menu sections defined in the current route data (including parent routes)
+   * @param route   The route to resolve data for
+   * @param menuID  The menu to resolve data for
+   */
+  resolveRouteMenuSections(route: ActivatedRoute, menuID: MenuID): MenuSection[] {
+    const data = route.snapshot.data;
+    const params = route.snapshot.params;
+    const last: boolean = hasNoValue(route.firstChild);
+
+    if (hasValue(data) && hasValue(data.menu) && hasValue(data.menu[menuID])) {
+      let menuSections: MenuSection[] | MenuSection = data.menu[menuID];
+      menuSections = this.resolveSubstitutions(menuSections, params);
+
+      if (!Array.isArray(menuSections)) {
+        menuSections = [menuSections];
+      }
+
+      if (!last) {
+        return [...menuSections, ...this.resolveRouteMenuSections(route.firstChild, menuID)];
+      } else {
+        return [...menuSections];
+      }
+    }
+
+    return !last ? this.resolveRouteMenuSections(route.firstChild, menuID) : [];
+  }
+
+  protected resolveSubstitutions(object, params) {
+    let resolved;
+    if (isEmpty(params)) {
+      resolved = object;
+    } else if (typeof object === 'string') {
+      resolved = object;
+      Object.entries(params).forEach(([key, value]: [string, string]) =>
+        resolved = resolved.replaceAll(`:${key}`, value)
+      );
+    } else if (Array.isArray(object)) {
+      resolved = [];
+      object.forEach((entry, index) => {
+        resolved[index] = this.resolveSubstitutions(object[index], params);
+      });
+    } else if (typeof object === 'object') {
+      resolved = {};
+      Object.keys(object).forEach((key) => {
+        resolved[key] = this.resolveSubstitutions(object[key], params);
+      });
+    } else {
+      resolved = object;
+    }
+    return resolved;
+  }
+
 
 }

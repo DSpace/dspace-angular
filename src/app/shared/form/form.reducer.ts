@@ -11,7 +11,8 @@ import {
   FormStatusChangeAction
 } from './form.actions';
 import { hasValue } from '../empty.util';
-import { isEqual, uniqWith } from 'lodash';
+import isEqual from 'lodash/isEqual';
+import uniqWith from 'lodash/uniqWith';
 
 export interface FormError {
   message: string;

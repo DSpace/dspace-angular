@@ -14,6 +14,7 @@ import { CommunityPageAdministratorGuard } from './community-page-administrator.
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { MenuItemType } from '../shared/menu/menu-item-type.model';
         path: ':id',
         resolve: {
           dso: CommunityPageResolver,
-          breadcrumb: CommunityBreadcrumbResolver
+          breadcrumb: CommunityBreadcrumbResolver,
+          menu: DSOEditMenuResolver
         },
         runGuardsAndResolvers: 'always',
         children: [
@@ -55,6 +57,7 @@ import { MenuItemType } from '../shared/menu/menu-item-type.model';
               id: 'statistics_community_:id',
               active: true,
               visible: true,
+              index: 2,
               model: {
                 type: MenuItemType.LINK,
                 text: 'menu.section.statistics',
@@ -72,7 +75,7 @@ import { MenuItemType } from '../shared/menu/menu-item-type.model';
     DSOBreadcrumbsService,
     LinkService,
     CreateCommunityPageGuard,
-    CommunityPageAdministratorGuard
+    CommunityPageAdministratorGuard,
   ]
 })
 export class CommunityPageRoutingModule {

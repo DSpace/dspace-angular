@@ -5,32 +5,23 @@
     [showMessage]="false"
   ></ds-themed-loading>
   <div class="media-viewer" *ngIf="!isLoading">
-    <ng-container *ngIf="mediaList.length > 0">
-      <ng-container *ngIf="videoOptions">
-        <ng-container
-          *ngIf="
-            mediaList[0]?.format === 'video' || mediaList[0]?.format === 'audio'
-          "
-        >
-          <ds-media-viewer-video [medias]="mediaList"></ds-media-viewer-video>
+    <ng-container *ngIf="mediaList.length > 0; else showThumbnail">
+      <ng-container *ngVar="mediaOptions.video && ['audio', 'video'].includes(mediaList[0]?.format) as showVideo">
+        <ng-container *ngVar="mediaOptions.image && mediaList[0]?.format === 'image' as showImage">
+          <ds-themed-media-viewer-video *ngIf="showVideo" [medias]="mediaList" [captions]="captions$ | async"></ds-themed-media-viewer-video>
+          <ds-themed-media-viewer-image *ngIf="showImage" [images]="mediaList"></ds-themed-media-viewer-image>
+          <ng-container *ngIf="showImage || showVideo; else showThumbnail"></ng-container>
         </ng-container>
       </ng-container>
-        <ng-container *ngIf="mediaList[0]?.format === 'image'">
-          <ds-media-viewer-image [images]="mediaList"></ds-media-viewer-image>
-        </ng-container>
-    </ng-container>
-    <ng-container
-      *ngIf="
-        ((mediaList[0]?.format !== 'image') &&
-          (!videoOptions || mediaList[0]?.format !== 'video') &&
-          (!videoOptions || mediaList[0]?.format !== 'audio')) ||
-        mediaList.length === 0
-      "
-    >
-      <ds-media-viewer-image
-        [image]="mediaList[0]?.thumbnail || thumbnailPlaceholder"
-        [preview]="false"
-      ></ds-media-viewer-image>
     </ng-container>
   </div>
+  <ng-template #showThumbnail>
+    <ds-themed-media-viewer-image *ngIf="mediaOptions.image && mediaOptions.video"
+      [image]="(thumbnailsRD$ | async)?.payload?.page[0]?._links.content.href || thumbnailPlaceholder"
+      [preview]="false"
+    ></ds-themed-media-viewer-image>
+    <ds-thumbnail *ngIf="!(mediaOptions.image && mediaOptions.video)"
+                  [thumbnail]="(thumbnailsRD$ | async)?.payload?.page[0]">
+    </ds-thumbnail>
+  </ng-template>
 </ng-container>

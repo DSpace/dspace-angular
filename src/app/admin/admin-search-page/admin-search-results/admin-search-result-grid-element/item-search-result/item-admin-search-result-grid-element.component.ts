@@ -13,6 +13,7 @@ import { BitstreamDataService } from '../../../../../core/data/bitstream-data.se
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import { ListableObjectDirective } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement, Context.AdminSearch)
 @Component({
@@ -28,12 +29,14 @@ export class ItemAdminSearchResultGridElementComponent extends SearchResultGridE
   @ViewChild('badges', { static: true }) badges: ElementRef;
   @ViewChild('buttons', { static: true }) buttons: ElementRef;
 
-  constructor(protected truncatableService: TruncatableService,
-              protected bitstreamDataService: BitstreamDataService,
-              private themeService: ThemeService,
-              private componentFactoryResolver: ComponentFactoryResolver
+  constructor(
+    public dsoNameService: DSONameService,
+    protected truncatableService: TruncatableService,
+    protected bitstreamDataService: BitstreamDataService,
+    private themeService: ThemeService,
+    private componentFactoryResolver: ComponentFactoryResolver,
   ) {
-    super(truncatableService, bitstreamDataService);
+    super(dsoNameService, truncatableService, bitstreamDataService);
   }
 
   /**

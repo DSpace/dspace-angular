@@ -1,5 +1,4 @@
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { MetadataSchemaFormComponent } from './metadata-schema-form.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -29,14 +28,16 @@ describe('MetadataSchemaFormComponent', () => {
     createFormGroup: () => {
       return {
         patchValue: () => {
-        }
+        },
+        reset(_value?: any, _options?: { onlySelf?: boolean; emitEvent?: boolean; }): void {
+        },
       };
     }
   };
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [MetadataSchemaFormComponent, EnumKeysPipe],
       providers: [
@@ -64,7 +65,7 @@ describe('MetadataSchemaFormComponent', () => {
     const expected = Object.assign(new MetadataSchema(), {
       namespace: namespace,
       prefix: prefix
-    });
+    } as MetadataSchema);
 
     beforeEach(() => {
       spyOn(component.submitForm, 'emit');
@@ -79,11 +80,10 @@ describe('MetadataSchemaFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit a new schema using the correct values', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.submitForm.emit).toHaveBeenCalledWith(expected);
-        });
-      }));
+      it('should emit a new schema using the correct values', async () => {
+        await fixture.whenStable();
+        expect(component.submitForm.emit).toHaveBeenCalledWith(expected);
+      });
     });
 
     describe('with an active schema', () => {
@@ -91,7 +91,7 @@ describe('MetadataSchemaFormComponent', () => {
         id: 1,
         namespace: namespace,
         prefix: prefix
-      });
+      } as MetadataSchema);
 
       beforeEach(() => {
         spyOn(registryService, 'getActiveMetadataSchema').and.returnValue(observableOf(expectedWithId));
@@ -99,11 +99,10 @@ describe('MetadataSchemaFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should edit the existing schema using the correct values', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.submitForm.emit).toHaveBeenCalledWith(expectedWithId);
-        });
-      }));
+      it('should edit the existing schema using the correct values', async () => {
+        await fixture.whenStable();
+        expect(component.submitForm.emit).toHaveBeenCalledWith(expectedWithId);
+      });
     });
   });
 });
