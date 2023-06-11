@@ -1,10 +1,10 @@
 import { first } from 'rxjs/operators';
 import { BrowseByGuard } from './browse-by-guard';
 import { of as observableOf } from 'rxjs';
-import { BrowseDefinitionDataService } from '../core/browse/browse-definition-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { BrowseDefinition } from '../core/shared/browse-definition.model';
 import { BrowseByDataType } from './browse-by-switcher/browse-by-decorator';
+import { RouterStub } from '../shared/testing/router.stub';
 
 describe('BrowseByGuard', () => {
   describe('canActivate', () => {
@@ -12,6 +12,7 @@ describe('BrowseByGuard', () => {
     let dsoService: any;
     let translateService: any;
     let browseDefinitionService: any;
+    let router: any;
 
     const name = 'An interesting DSO';
     const title = 'Author';
@@ -34,7 +35,9 @@ describe('BrowseByGuard', () => {
         findById: () => createSuccessfulRemoteDataObject$(browseDefinition)
       };
 
-      guard = new BrowseByGuard(dsoService, translateService, browseDefinitionService);
+      router = new RouterStub() as any;
+
+      guard = new BrowseByGuard(dsoService, translateService, browseDefinitionService, router);
     });
 
     it('should return true, and sets up the data correctly, with a scope and value', () => {
@@ -64,6 +67,7 @@ describe('BrowseByGuard', () => {
               value: '"' + value + '"'
             };
             expect(scopedRoute.data).toEqual(result);
+            expect(router.navigate).not.toHaveBeenCalled();
             expect(canActivate).toEqual(true);
           }
         );
@@ -96,6 +100,7 @@ describe('BrowseByGuard', () => {
               value: ''
             };
             expect(scopedNoValueRoute.data).toEqual(result);
+            expect(router.navigate).not.toHaveBeenCalled();
             expect(canActivate).toEqual(true);
           }
         );
@@ -127,9 +132,33 @@ describe('BrowseByGuard', () => {
               value: '"' + value + '"'
             };
             expect(route.data).toEqual(result);
+            expect(router.navigate).not.toHaveBeenCalled();
             expect(canActivate).toEqual(true);
           }
         );
+    });
+
+    it('should return false, and sets up the data correctly, without a scope and with a value', () => {
+      jasmine.getEnv().allowRespy(true);
+      spyOn(browseDefinitionService, 'findById').and.returnValue(createFailedRemoteDataObject$());
+      const scopedRoute = {
+        data: {
+          title: field,
+        },
+        params: {
+          id,
+        },
+        queryParams: {
+          scope,
+          value
+        }
+      };
+      guard.canActivate(scopedRoute as any, undefined)
+        .pipe(first())
+        .subscribe((canActivate) => {
+          expect(router.navigate).toHaveBeenCalled();
+          expect(canActivate).toEqual(false);
+        });
     });
   });
 });
