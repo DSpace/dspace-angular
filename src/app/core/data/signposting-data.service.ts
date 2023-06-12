@@ -25,7 +25,8 @@ export class SignpostingDataService {
    * @param uuid
    */
   getLinks(uuid: string): Observable<SignpostingLink[]> {
-    const baseUrl = this.halService.getRootHref().replace('/api', '');
+    const regex = /\/api$/gm;
+    const baseUrl = this.halService.getRootHref().replace(regex, '');
 
     return this.restService.get(`${baseUrl}/signposting/links/${uuid}`).pipe(
       catchError((err) => {
