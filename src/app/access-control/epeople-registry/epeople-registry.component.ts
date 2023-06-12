@@ -287,14 +287,17 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   /**
    * This method will set everything to stale, which will cause the lists on this page to update.
    */
-  reset() {
+  reset(): void {
     this.epersonService.getBrowseEndpoint().pipe(
-      take(1)
-    ).subscribe((href: string) => {
-      this.requestService.setStaleByHrefSubstring(href).pipe(take(1)).subscribe(() => {
-        this.epersonService.cancelEditEPerson();
-        this.isEPersonFormShown = false;
-      });
+      take(1),
+      switchMap((href: string) => {
+        return this.requestService.setStaleByHrefSubstring(href).pipe(
+          take(1),
+        );
+      })
+    ).subscribe(()=>{
+      this.epersonService.cancelEditEPerson();
+      this.isEPersonFormShown = false;
     });
   }
 }

@@ -26,7 +26,6 @@ import * as ejs from 'ejs';
 import * as compression from 'compression';
 import * as expressStaticGzip from 'express-static-gzip';
 /* eslint-enable import/no-namespace */
-
 import axios from 'axios';
 import LRU from 'lru-cache';
 import isbot from 'isbot';
@@ -34,7 +33,7 @@ import { createCertificate } from 'pem';
 import { createServer } from 'https';
 import { json } from 'body-parser';
 
-import { existsSync, readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import { join } from 'path';
 
 import { enableProdMode } from '@angular/core';
@@ -176,6 +175,15 @@ export function app() {
    */
   router.use('/sitemap**', createProxyMiddleware({
     target: `${environment.rest.baseUrl}/sitemaps`,
+    pathRewrite: path => path.replace(environment.ui.nameSpace, '/'),
+    changeOrigin: true
+  }));
+
+  /**
+   * Proxy the linksets
+   */
+  router.use('/signposting**', createProxyMiddleware({
+    target: `${environment.rest.baseUrl}`,
     pathRewrite: path => path.replace(environment.ui.nameSpace, '/'),
     changeOrigin: true
   }));
