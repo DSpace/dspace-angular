@@ -1,14 +1,16 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+
+import { of } from 'rxjs';
+
 import { SignpostingDataService } from './signposting-data.service';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { of } from 'rxjs';
 import { SignpostingLink } from './signposting-links.model';
+import { APP_CONFIG } from '../../../config/app-config.interface';
 
 describe('SignpostingDataService', () => {
   let service: SignpostingDataService;
   let restServiceSpy: jasmine.SpyObj<DspaceRestService>;
-  let halServiceSpy: jasmine.SpyObj<HALEndpointService>;
+
   const mocklink = {
     href: 'http://test.org',
     rel: 'test',
@@ -30,21 +32,25 @@ describe('SignpostingDataService', () => {
     statusCode: 500
   };
 
+  const environmentRest = {
+    rest: {
+      baseUrl: 'http://localhost:8080'
+    }
+  };
+
   beforeEach(() => {
     const restSpy = jasmine.createSpyObj('DspaceRestService', ['get', 'getWithHeaders']);
-    const halSpy = jasmine.createSpyObj('HALEndpointService', ['getRootHref']);
 
     TestBed.configureTestingModule({
       providers: [
         SignpostingDataService,
-        { provide: DspaceRestService, useValue: restSpy },
-        { provide: HALEndpointService, useValue: halSpy }
+        { provide: APP_CONFIG, useValue: environmentRest },
+        { provide: DspaceRestService, useValue: restSpy }
       ]
     });
 
     service = TestBed.inject(SignpostingDataService);
     restServiceSpy = TestBed.inject(DspaceRestService) as jasmine.SpyObj<DspaceRestService>;
-    halServiceSpy = TestBed.inject(HALEndpointService) as jasmine.SpyObj<HALEndpointService>;
   });
 
   it('should be created', () => {
@@ -54,8 +60,6 @@ describe('SignpostingDataService', () => {
   it('should return signposting links', fakeAsync(() => {
     const uuid = '123';
     const baseUrl = 'http://localhost:8080';
-
-    halServiceSpy.getRootHref.and.returnValue(`${baseUrl}/api`);
 
     restServiceSpy.get.and.returnValue(of(mockResponse));
 
@@ -70,15 +74,12 @@ describe('SignpostingDataService', () => {
     tick();
 
     expect(result).toEqual(expectedResult);
-    expect(halServiceSpy.getRootHref).toHaveBeenCalled();
     expect(restServiceSpy.get).toHaveBeenCalledWith(`${baseUrl}/signposting/links/${uuid}`);
   }));
 
   it('should handle error and return an empty array', fakeAsync(() => {
     const uuid = '123';
     const baseUrl = 'http://localhost:8080';
-
-    halServiceSpy.getRootHref.and.returnValue(`${baseUrl}/api`);
 
     restServiceSpy.get.and.returnValue(of(mockErrResponse));
 
@@ -91,7 +92,6 @@ describe('SignpostingDataService', () => {
     tick();
 
     expect(result).toEqual([]);
-    expect(halServiceSpy.getRootHref).toHaveBeenCalled();
     expect(restServiceSpy.get).toHaveBeenCalledWith(`${baseUrl}/signposting/links/${uuid}`);
   }));
 });
