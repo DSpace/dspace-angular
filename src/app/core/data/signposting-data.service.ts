@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of as observableOf } from 'rxjs';
 
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { SignpostingLink } from './signposting-links.model';
+import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 
 /**
  * Service responsible for handling requests related to the Signposting endpoint
@@ -16,7 +16,7 @@ import { SignpostingLink } from './signposting-links.model';
 })
 export class SignpostingDataService {
 
-  constructor(private restService: DspaceRestService, protected halService: HALEndpointService) {
+  constructor(@Inject(APP_CONFIG) protected appConfig: AppConfig, private restService: DspaceRestService) {
   }
 
   /**
@@ -25,8 +25,7 @@ export class SignpostingDataService {
    * @param uuid
    */
   getLinks(uuid: string): Observable<SignpostingLink[]> {
-    const regex = /\/api$/gm;
-    const baseUrl = this.halService.getRootHref().replace(regex, '');
+    const baseUrl = `${this.appConfig.rest.baseUrl}`;
 
     return this.restService.get(`${baseUrl}/signposting/links/${uuid}`).pipe(
       catchError((err) => {
