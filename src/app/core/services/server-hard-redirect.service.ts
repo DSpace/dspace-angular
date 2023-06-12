@@ -46,6 +46,7 @@ export class ServerHardRedirectService extends HardRedirectService {
       }
 
       console.log(`Redirecting from ${this.req.url} to ${url} with ${status}`);
+
       this.res.redirect(status, url);
       this.res.end();
       // I haven't found a way to correctly stop Angular rendering.

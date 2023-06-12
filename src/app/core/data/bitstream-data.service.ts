@@ -1,7 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { find, map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -14,7 +14,7 @@ import { Item } from '../shared/item.model';
 import { BundleDataService } from './bundle-data.service';
 import { buildPaginatedList, PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { PutRequest } from './request.models';
+import { PatchRequest, PutRequest } from './request.models';
 import { RequestService } from './request.service';
 import { BitstreamFormatDataService } from './bitstream-format-data.service';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
@@ -33,7 +33,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { NoContent } from '../shared/NoContent.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { dataService } from './base/data-service.decorator';
-import { Operation } from 'fast-json-patch';
+import { Operation, RemoveOperation } from 'fast-json-patch';
 
 /**
  * A service to retrieve {@link Bitstream}s from the REST API
@@ -277,4 +277,34 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
   deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
     return this.deleteData.deleteByHref(href, copyVirtualMetadata);
   }
+
+  /**
+   * Delete multiple {@link Bitstream}s at once by sending a PATCH request to the backend
+   *
+   * @param bitstreams The bitstreams that should be removed
+   */
+  removeMultiple(bitstreams: Bitstream[]): Observable<RemoteData<NoContent>> {
+    const operations: RemoveOperation[] = bitstreams.map((bitstream: Bitstream) => {
+      return {
+        op: 'remove',
+        path: `/bitstreams/${bitstream.id}`,
+      };
+    });
+    const requestId: string = this.requestService.generateRequestId();
+
+    const hrefObs: Observable<string> = this.halService.getEndpoint(this.linkPath);
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+    ).subscribe((href: string) => {
+      const request = new PatchRequest(requestId, href, operations);
+      if (hasValue(this.responseMsToLive)) {
+        request.responseMsToLive = this.responseMsToLive;
+      }
+      this.requestService.send(request);
+    });
+
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => observableCombineLatest(bitstreams.map((bitstream: Bitstream) => this.invalidateByHref(bitstream._links.self.href))));
+  }
+
 }

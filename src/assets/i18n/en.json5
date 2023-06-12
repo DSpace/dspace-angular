@@ -785,6 +785,8 @@
 
   "browse.comcol.by.subject": "By Subject",
 
+  "browse.comcol.by.srsc": "By Subject Category",
+
   "browse.comcol.by.title": "By Title",
 
   "browse.comcol.head": "Browse",
@@ -804,6 +806,8 @@
   "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
 
   "browse.metadata.subject.breadcrumbs": "Browse by Subject",
+
+  "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
@@ -858,6 +862,10 @@
   "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
 
   "browse.startsWith.type_text": "Filter results by typing the first few letters",
+
+  "browse.startsWith.input": "Filter",
+
+  "browse.taxonomy.button": "Browse",
 
   "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
 
@@ -1632,6 +1640,19 @@
 
   "error.validation.groupExists": "This group already exists",
 
+  "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
+
+  "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
+
+  "error.validation.metadata.namespace.max-length": "This field may not contain more than 256 characters",
+
+  "error.validation.metadata.element.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Qualifier field instead",
+
+  "error.validation.metadata.element.max-length": "This field may not contain more than 64 characters",
+
+  "error.validation.metadata.qualifier.invalid-pattern": "This field cannot contain dots, commas or spaces",
+
+  "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
 
   "feed.description": "Syndication feed",
 
@@ -2544,6 +2565,8 @@
 
   "item.preview.dc.identifier.doi": "DOI",
 
+  "item.preview.dc.publisher": "Publisher:",
+
   "item.preview.person.familyName": "Surname:",
 
   "item.preview.person.givenName": "Name:",
@@ -2914,6 +2937,8 @@
   "menu.section.browse_global_by_dateissued": "By Issue Date",
 
   "menu.section.browse_global_by_subject": "By Subject",
+
+  "menu.section.browse_global_by_srsc": "By Subject Category",
 
   "menu.section.browse_global_by_title": "By Title",
 
@@ -4071,7 +4096,7 @@
 
   "submission.general.cancel": "Cancel",
 
-  "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
+  "submission.general.cannot_submit": "You don't have permission to make a new submission.",
 
   "submission.general.deposit": "Deposit",
 
