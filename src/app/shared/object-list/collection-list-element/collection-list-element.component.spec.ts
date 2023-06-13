@@ -18,7 +18,7 @@ const mockCollectionWithArchivedItems: Collection = Object.assign(new Collection
   }, archivedItemsCount: 1
 });
 
-const mockCollectionWithoutArchivedItems: Collection = Object.assign(new Collection(), {
+const mockCollectionWithArchivedItemsDisabledAtBackend: Collection = Object.assign(new Collection(), {
   metadata: {
     'dc.title': [
       {
@@ -26,7 +26,7 @@ const mockCollectionWithoutArchivedItems: Collection = Object.assign(new Collect
         value: 'Test title'
       }
     ]
-  }, archivedItemsCount: 0
+  }, archivedItemsCount: -1
 });
 
 
@@ -108,9 +108,9 @@ describe('CollectionListElementComponent', () => {
     });
   });
 
-  describe('When the collection has no archived items', () => {
+  describe('When the collection archived items are disabled at backend', () => {
     beforeEach(() => {
-      collectionListElementComponent.object = mockCollectionWithoutArchivedItems;
+      collectionListElementComponent.object = mockCollectionWithArchivedItemsDisabledAtBackend;
       fixture.detectChanges();
     });
 

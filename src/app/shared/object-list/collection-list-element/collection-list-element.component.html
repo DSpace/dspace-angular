@@ -4,7 +4,7 @@
 <span *ngIf="linkType == linkTypes.None" class="lead">
     {{object.name}}
 </span>
-<span *ngIf="object.archivedItemsCount" class="archived-items-lead">[{{object.archivedItemsCount}}]<span>
+<span *ngIf="object.archivedItemsCount >= 0" class="lead archived-items-lead">[{{object.archivedItemsCount}}]</span>
 <div *ngIf="object.shortDescription" class="text-muted abstract-text">
     {{object.shortDescription}}
 </div>
