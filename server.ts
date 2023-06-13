@@ -377,8 +377,12 @@ function cacheCheck(req, res, next) {
   if (cachedCopy && cachedCopy.page) {
     if (cachedCopy.headers && Array.isArray(environment.cache.serverSide.headers) && environment.cache.serverSide.headers.length > 0) {
       environment.cache.serverSide.headers.forEach((header) => {
-        if (environment.cache.serverSide.debug) { console.log(`Restore cached ${header} header`); }
-        res.setHeader(header, cachedCopy.headers[header.toLowerCase()]);
+        if (cachedCopy.headers[header.toLowerCase()]) {
+          if (environment.cache.serverSide.debug) {
+            console.log(`Restore cached ${header} header`);
+          }
+          res.setHeader(header, cachedCopy.headers[header.toLowerCase()]);
+        }
       });
     }
     res.locals.ssr = true;  // mark response as SSR-generated (enables text compression)
