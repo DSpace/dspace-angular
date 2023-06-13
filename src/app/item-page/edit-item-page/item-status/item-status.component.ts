@@ -82,7 +82,6 @@ export class ItemStatusComponent implements OnInit {
   ngOnInit(): void {
     this.itemRD$ = this.route.parent.data.pipe(map((data) => data.dso));
     this.itemRD$.pipe(
-      first(),
       map((data: RemoteData<Item>) => data.payload)
     ).subscribe((item: Item) => {
       this.statusData = Object.assign({
