@@ -1916,6 +1916,8 @@
 
   "info.end-user-agreement.title": "End User Agreement",
 
+  "info.end-user-agreement.hosting-country": "the United States",
+
   "info.privacy.breadcrumbs": "Privacy Statement",
 
   "info.privacy.head": "Privacy Statement",
@@ -3649,9 +3651,9 @@
 
   "repository.image.logo": "Repository logo",
 
-  "repository.title.prefix": "DSpace Angular :: ",
+  "repository.title": "DSpace Repository",
 
-  "repository.title.prefixDSpace": "DSpace Angular ::",
+  "repository.title.prefix": "DSpace Repository :: ",
 
 
   "resource-policies.add.button": "Add",
