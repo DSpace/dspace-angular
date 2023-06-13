@@ -1921,7 +1921,12 @@
 
   // "home.breadcrumbs": "Home",
   "home.breadcrumbs": "Etusivu",
-
+  
+  
+  //  "home.search-form.placeholder": "Search the repository ...",
+  "home.search-form.placeholder": "Hae julkaisuarkistosta ...",
+  
+  
   // "home.title": "DSpace Angular :: Home",
   "home.title": "DSpace Angular :: Etusivu",
 
@@ -4020,6 +4025,8 @@
   // "search.breadcrumbs": "Search",
   "search.breadcrumbs": "Hae",
 
+  //  "search.search-form.placeholder": "Search the repository ...",
+   "search.search-form.placeholder": "Hae julkaisuarkistosta ...",
 
   // "search.filters.applied.f.author": "Author",
   "search.filters.applied.f.author": "Tekijä",
