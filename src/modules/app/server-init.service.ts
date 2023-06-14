@@ -38,7 +38,7 @@ export class ServerInitService extends InitService {
     protected metadata: MetadataService,
     protected breadcrumbsService: BreadcrumbsService,
     protected themeService: ThemeService,
-    protected menuService: MenuService,
+    protected menuService: MenuService
   ) {
     super(
       store,
