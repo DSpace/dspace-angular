@@ -23,7 +23,7 @@ import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators'
 import { collectionFormEntityTypeSelectionConfig, collectionFormModels, } from './collection-form.models';
 import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
 import { hasNoValue, isNotNull } from 'src/app/shared/empty.util';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 /**
  * Form used for creating and editing collections
@@ -64,8 +64,10 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService,
                      protected entityTypeService: EntityTypeDataService,
-                     protected chd: ChangeDetectorRef) {
-    super(formService, translate, notificationsService, authService, requestService, objectCache);
+                     protected chd: ChangeDetectorRef,
+                     protected submissionDefinitionService: SubmissionDefinitionsConfigDataService,
+                     protected modalService: NgbModal) {
+    super(formService, translate, notificationsService, authService, requestService, objectCache, modalService);
   }
 
   ngOnInit(): void {
