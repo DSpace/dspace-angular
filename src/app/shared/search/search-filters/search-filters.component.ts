@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, distinctUntilChanged } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -13,7 +13,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.co
 import { currentPath } from '../../utils/route.utils';
 import { hasValue } from '../../empty.util';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
-import { SearchConfig } from '../../../core/shared/search/search-filters/search-config.model';
+
 @Component({
   selector: 'ds-search-filters',
   styleUrls: ['./search-filters.component.scss'],
@@ -60,7 +60,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    * Link to the search page
    */
   searchLink: string;
-  searchConfig: SearchConfig;
+
   subs = [];
 
   /**
@@ -84,10 +84,6 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
       return filters;
     }));
     this.searchLink = this.getSearchLink();
-    this.searchConfigService.getConfigurationSearchConfig(this.currentConfiguration).pipe(distinctUntilChanged()).subscribe(searchConfig => {
-      this.searchConfig = searchConfig;
-    });
-
   }
 
   /**

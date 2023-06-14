@@ -5,9 +5,10 @@ import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-se
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
-import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { FormBuilder } from '@angular/forms';
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment';
 describe('AdvancedSearchComponent', () => {
   let component: AdvancedSearchComponent;
   let fixture: ComponentFixture<AdvancedSearchComponent>;
@@ -23,19 +24,14 @@ describe('AdvancedSearchComponent', () => {
     getConfigurationSearchConfig: () => { },
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   };
-  const searchFiltersStub = {
-    getSelectedValuesForFilter: (filter) =>
-      []
-  };
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AdvancedSearchComponent],
       providers: [
         FormBuilder,
+        { provide: APP_CONFIG, useValue: environment },
         { provide: FormBuilderService, useValue: builderService },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
-        { provide: SearchFilterService, useValue: searchFiltersStub },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: SearchService, useValue: searchServiceStub },
       ],
@@ -47,5 +43,19 @@ describe('AdvancedSearchComponent', () => {
     fixture = TestBed.createComponent(AdvancedSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+  describe('when the getSearchLink method is called', () => {
+    beforeEach(() => {
+      spyOn(searchService, 'getSearchLink');
+      (component as any).getSearchLink();
+    });
+  });
+  describe('onSubmit', () => {
+    let data = { filter: 'title', textsearch: 'demo', operator: 'equals' };
+    describe('when selected format hasn\'t changed', () => {
+      beforeEach(() => {
+        component.onSubmit(data);
+      });
+    });
   });
 });

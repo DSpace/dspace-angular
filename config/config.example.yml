@@ -385,6 +385,6 @@ comcolSelectionSort:
 search: 
   # Settings to enable/disable or configure advanced search filters.
   advancedFilters:
-    enabled: true
+    enabled: false
     # List of filters to enable in "Advanced Search" dropdown
     filters: [ 'title', 'author', 'subject', 'entityType' ]

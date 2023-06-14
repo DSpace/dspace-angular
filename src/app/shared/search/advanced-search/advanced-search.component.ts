@@ -1,15 +1,11 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { slide } from '../../animations/slide';
-import { Observable } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SearchService } from '../../../core/shared/search/search.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 @Component({
   selector: 'ds-advanced-search',
@@ -21,24 +17,7 @@ import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
    * This component represents the part of the search sidebar that contains advanced filters.
    */
 export class AdvancedSearchComponent implements OnInit {
-  /**
-    * An observable containing configuration about which filters are shown and how they are shown
-    */
-  @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
-  @Input() searchOptions: PaginatedSearchOptions;
-
-
-  /**
-   * The configuration to use for the search options
-   */
-  @Input() currentConfiguration;
-
-  /**
-   * The current search scope
-   */
-  @Input() currentScope: string;
-
-  /**
+   /**
    * True when the search component should show results on the current page
    */
   @Input() inPlaceSearch;
@@ -48,7 +27,7 @@ export class AdvancedSearchComponent implements OnInit {
    * Link to the search page
    */
   notab: boolean;
-  @Input() searchConfig;
+
   closed: boolean;
   collapsedSearch = false;
   focusBox = false;
@@ -110,7 +89,6 @@ export class AdvancedSearchComponent implements OnInit {
     }
   }
   startSlide(event: any): void {
-    //debugger;
     if (event.toState === 'collapsed') {
       this.closed = true;
     }
@@ -119,7 +97,6 @@ export class AdvancedSearchComponent implements OnInit {
     }
   }
   finishSlide(event: any): void {
-    // debugger;
     if (event.fromState === 'collapsed') {
       this.closed = false;
     }
@@ -133,8 +110,6 @@ export class AdvancedSearchComponent implements OnInit {
   private isCollapsed(): boolean {
     return !this.collapsedSearch;
   }
-  isActive(name): Boolean {
-    return this.appConfig.search.advancedFilters.filter.some(filter => filter === name);
-  }
+
 }
 
