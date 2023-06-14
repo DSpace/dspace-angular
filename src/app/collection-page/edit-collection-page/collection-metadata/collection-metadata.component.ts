@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { Collection } from '../../../core/shared/collection.model';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
@@ -40,6 +40,7 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
     protected requestService: RequestService,
+    protected chd: ChangeDetectorRef
   ) {
     super(collectionDataService, router, route, notificationsService, translate);
   }
@@ -57,6 +58,7 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
       ) {
         super.ngOnInit();
         this.initTemplateItem();
+        this.chd.detectChanges();
       }
     });
   }
