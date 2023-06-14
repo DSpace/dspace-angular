@@ -375,13 +375,13 @@ function cacheCheck(req, res, next) {
 
   // If cached copy exists, return it to the user.
   if (cachedCopy && cachedCopy.page) {
-    if (cachedCopy.headers && Array.isArray(environment.cache.serverSide.headers) && environment.cache.serverSide.headers.length > 0) {
-      environment.cache.serverSide.headers.forEach((header) => {
-        if (cachedCopy.headers[header.toLowerCase()]) {
+    if (cachedCopy.headers) {
+      Object.keys(cachedCopy.headers).forEach((header) => {
+        if (cachedCopy.headers[header]) {
           if (environment.cache.serverSide.debug) {
             console.log(`Restore cached ${header} header`);
           }
-          res.setHeader(header, cachedCopy.headers[header.toLowerCase()]);
+          res.setHeader(header, cachedCopy.headers[header]);
         }
       });
     }
@@ -462,8 +462,8 @@ function saveToCache(req, page: any) {
     // Avoid caching "/reload/[random]" paths (these are hard refreshes after logout)
     if (key.startsWith('/reload')) { return; }
 
-    // Retrieve response headers
-    const headers = req.res.getHeaders();
+    // Retrieve response headers to save, if any
+    const headers = retrieveHeaders(req.res);
     // If bot cache is enabled, save it to that cache if it doesn't exist or is expired
     // (NOTE: has() will return false if page is expired in cache)
     if (botCacheEnabled() && !botCache.has(key)) {
@@ -479,6 +479,21 @@ function saveToCache(req, page: any) {
   }
 }
 
+function retrieveHeaders(response) {
+  const headers = Object.create({});
+  if (Array.isArray(environment.cache.serverSide.headers) && environment.cache.serverSide.headers.length > 0) {
+    environment.cache.serverSide.headers.forEach((header) => {
+      if (response.hasHeader(header)) {
+        if (environment.cache.serverSide.debug) {
+          console.log(`Save ${header} header to cache`);
+        }
+        headers[header] = response.getHeader(header);
+      }
+    });
+  }
+
+  return headers;
+}
 /**
  * Whether a user is authenticated or not
  */

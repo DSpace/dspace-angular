@@ -13,7 +13,7 @@ export interface CacheConfig extends Config {
   serverSide: {
     // Debug server-side caching.  Set to true to see cache hits/misses/refreshes in console logs.
     debug: boolean,
-    // List of headers to restore from the cache hit
+    // List of response headers to save into the cache
     headers: string[],
     // Cache specific to known bots.  Allows you to serve cached contents to bots only.
     botCache: {
