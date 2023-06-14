@@ -22,7 +22,7 @@ import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { Operation } from 'fast-json-patch';
 import { NoContent } from '../../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 /**
  * A form for creating and editing Communities or Collections
  */
@@ -118,12 +118,15 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    */
   protected dsoService: ComColDataService<Community | Collection>;
 
+  public uploader = new FileUploader(this.uploadFilesOptions);
+
   public constructor(protected formService: DynamicFormService,
                      protected translate: TranslateService,
                      protected notificationsService: NotificationsService,
                      protected authService: AuthService,
                      protected requestService: RequestService,
-                     protected objectCache: ObjectCacheService) {
+                     protected objectCache: ObjectCacheService,
+                     protected modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -263,6 +266,30 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    */
   undoDeleteLogo() {
     this.markLogoForDeletion = false;
+  }
+
+  openModal(content: any) {
+    this.modalService.open(content);
+  }
+
+  confirmLogoDelete(removeLogo: any) {
+    this.modalService.open(removeLogo).result.then( (result) => {
+      if (result === 'delete') {
+        this.deleteLogo();
+        this.onSubmit();
+      } else if (result === 'cancel') {
+        return;
+      }
+    });
+  }
+
+  handleLogoReplace(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      this.markLogoForDeletion = true;
+      this.onSubmit();
+      this.uploader.uploadAll();
+    }
   }
 
   /**

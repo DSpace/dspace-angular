@@ -1221,6 +1221,8 @@
 
   "collection.edit.item-mapper.tabs.map": "Map new items",
 
+  "collection.edit.logo.replace.title": "Replace logo",
+
   "collection.edit.logo.delete.title": "Delete logo",
 
   "collection.edit.logo.delete-undo.title": "Undo delete",

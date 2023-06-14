@@ -34,7 +34,7 @@ import { SubmissionDefinitionsConfigDataService } from '../../core/config/submis
 import { ConfigObject } from '../../core/config/models/config.model';
 import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
 import { hasNoValue, isNotNull } from 'src/app/shared/empty.util';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 /**
  * Form used for creating and editing collections
@@ -90,8 +90,9 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected objectCache: ObjectCacheService,
                      protected entityTypeService: EntityTypeDataService,
                      protected chd: ChangeDetectorRef,
-                     protected submissionDefinitionService: SubmissionDefinitionsConfigDataService) {
-    super(formService, translate, notificationsService, authService, requestService, objectCache);
+                     protected submissionDefinitionService: SubmissionDefinitionsConfigDataService,
+                     protected modalService: NgbModal) {
+    super(formService, translate, notificationsService, authService, requestService, objectCache, modalService);
   }
 
   ngOnInit(): void {
