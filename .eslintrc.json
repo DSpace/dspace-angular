@@ -234,7 +234,17 @@
         "plugin:jsonc/recommended-with-json5"
       ],
       "rules": {
-        "no-irregular-whitespace": "error",
+        // ESLint core no-irregular-whitespace rule doesn't work well in JSON
+        "no-irregular-whitespace": "off",
+        "jsonc/no-irregular-whitespace": [
+          "error",
+          {
+            "skipStrings": true,
+            "skipComments": false,
+            "skipRegExps": true,
+            "skipTemplates": false
+          }
+        ],
         "no-trailing-spaces": "error",
         "jsonc/comma-dangle": [
           "error",
