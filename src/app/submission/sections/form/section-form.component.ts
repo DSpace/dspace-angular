@@ -39,6 +39,7 @@ import { WorkflowItem } from '../../../core/submission/models/workflowitem.model
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
+import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
 
 /**
  * This component represents a section that contains a Form.
@@ -228,7 +229,9 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
 
     const sectionDataToCheck = {};
     Object.keys(sectionData).forEach((key) => {
-      if (this.sectionMetadata && this.sectionMetadata.includes(key) && this.inCurrentSubmissionScope(key)) {
+      // todo: removing Relationships works due to a bug -- dspace.entity.type is included in sectionData, which is what triggers the update;
+      //       if we use this.sectionMetadata.includes(key), this field is filtered out and removed Relationships won't disappear from the form.
+      if (this.inCurrentSubmissionScope(key)) {
         sectionDataToCheck[key] = sectionData[key];
       }
     });
@@ -256,9 +259,15 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    * @private
    */
   private inCurrentSubmissionScope(field: string): boolean {
-    const scope = this.formConfig?.rows.find(row => {
-      return row.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
-    }).fields?.[0]?.scope;
+    const scope = this.formConfig?.rows.find((row: FormRowModel) => {
+      if (row.fields?.[0]?.selectableMetadata) {
+        return row.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
+      } else if (row.fields?.[0]?.selectableRelationship) {
+        return row.fields?.[0]?.selectableRelationship.relationshipType === field.replace(/^relationship\./g, '');
+      } else {
+        return false;
+      }
+    })?.fields?.[0]?.scope;
 
     switch (scope) {
       case SubmissionScopeType.WorkspaceItem: {
