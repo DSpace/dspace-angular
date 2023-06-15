@@ -451,7 +451,8 @@ crisLayout:
         default:
           icon: fas fa-project-diagram
           style: text-success
-  crisRefStyleMetadata: "cris.entity.style"
+  crisRefStyleMetadata:
+    default: cris.entity.style
   itemPage:
     OrgUnit:
       orientation: vertical

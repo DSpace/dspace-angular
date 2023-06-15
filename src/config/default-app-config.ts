@@ -558,8 +558,6 @@ export class DefaultAppConfig implements AppConfig {
     ],
     crisRefStyleMetadata: {
       default: 'cris.entity.style',
-      // person: 'cris.entity.style.person',
-      // orgunit: 'cris.entity.style.orgunit',
     },
     itemPage: {
       OrgUnit: {

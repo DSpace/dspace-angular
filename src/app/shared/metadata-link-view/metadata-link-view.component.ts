@@ -74,14 +74,13 @@ export class MetadataLinkViewComponent implements OnInit {
             getFirstCompletedRemoteData(),
             map((itemRD: RemoteData<Item>) => {
               if (itemRD.hasSucceeded) {
-                const entityStyle = itemRD.payload?.firstMetadataValue(this.crisRefMetadata[itemRD.payload?.entityType.toLowerCase()])
-                                    ?? this.crisRefMetadata.default;
+                const entityStyleValue = this.crisRefMetadata[itemRD.payload?.entityType?.toLowerCase()] ?? this.crisRefMetadata.default;
                 return {
                   authority: metadataValue.authority,
                   value: metadataValue.value,
                   orcidAuthenticated: this.getOrcid(itemRD.payload),
                   entityType: itemRD.payload?.entityType,
-                  entityStyle: entityStyle
+                  entityStyle: itemRD.payload?.firstMetadataValue(entityStyleValue)
                 };
               } else {
                 return {
