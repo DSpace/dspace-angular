@@ -78,6 +78,8 @@ export class DefaultAppConfig implements AppConfig {
     // In-memory cache of server-side rendered content
     serverSide: {
       debug: false,
+      // Link header is used for signposting functionality
+      headers: ['Link'],
       // Cache specific to known bots.  Allows you to serve cached contents to bots only.
       // Defaults to caching 1,000 pages. Each page expires after 1 day
       botCache: {
