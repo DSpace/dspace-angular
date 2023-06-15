@@ -290,6 +290,12 @@
             "maxEOF": 1
           }
         ],
+        "comma-spacing": ["error",
+          {
+            "before": false,
+            "after": true
+          }
+        ],
         "jsonc/comma-dangle": [
           "error",
           "always-multiline"
