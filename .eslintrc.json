@@ -302,7 +302,7 @@
         "*.json5"
       ],
       "extends": [
-        "plugin:jsonc/recommended-with-jsonc"
+        "plugin:jsonc/recommended-with-json5"
       ],
       "rules": {
         "no-irregular-whitespace": "error",
