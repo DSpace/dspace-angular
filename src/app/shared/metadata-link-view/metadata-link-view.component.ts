@@ -46,7 +46,7 @@ export class MetadataLinkViewComponent implements OnInit {
   /**
    * The metadata name from where to take the value of the cris style
    */
-  crisRefMetadata = environment.crisLayout.crisRefStyleMetadata || 'cris.entity.style';
+  crisRefMetadata = environment.crisLayout.crisRefStyleMetadata;
 
   /**
    * Processed metadata to create MetadataOrcid with the information needed to show
@@ -74,12 +74,14 @@ export class MetadataLinkViewComponent implements OnInit {
             getFirstCompletedRemoteData(),
             map((itemRD: RemoteData<Item>) => {
               if (itemRD.hasSucceeded) {
+                const entityStyle = itemRD.payload?.firstMetadataValue(this.crisRefMetadata[itemRD.payload?.entityType.toLowerCase()])
+                                    ?? this.crisRefMetadata.default;
                 return {
                   authority: metadataValue.authority,
                   value: metadataValue.value,
                   orcidAuthenticated: this.getOrcid(itemRD.payload),
                   entityType: itemRD.payload?.entityType,
-                  entityStyle: itemRD.payload?.firstMetadataValue(this.crisRefMetadata)
+                  entityStyle: entityStyle
                 };
               } else {
                 return {

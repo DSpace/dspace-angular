@@ -556,7 +556,11 @@ export class DefaultAppConfig implements AppConfig {
         }
       }
     ],
-    crisRefStyleMetadata: 'cris.entity.style',
+    crisRefStyleMetadata: {
+      default: 'cris.entity.style',
+      // person: 'cris.entity.style.person',
+      // orgunit: 'cris.entity.style.orgunit',
+    },
     itemPage: {
       OrgUnit: {
         orientation: 'vertical'
