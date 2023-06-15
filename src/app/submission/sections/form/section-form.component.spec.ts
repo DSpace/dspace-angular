@@ -249,6 +249,8 @@ describe('SubmissionSectionFormComponent test suite', () => {
       formConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(testFormConfiguration));
       sectionsServiceStub.getSectionData.and.returnValue(observableOf(sectionData));
       sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf([]));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+
       spyOn(comp, 'initForm');
       spyOn(comp, 'subscriptions');
 

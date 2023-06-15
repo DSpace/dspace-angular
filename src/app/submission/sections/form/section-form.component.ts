@@ -118,6 +118,12 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
   protected subs: Subscription[] = [];
 
   protected submissionObject: SubmissionObject;
+
+  /**
+   * A flag representing if this section is readonly
+   */
+  protected isSectionReadonly = false;
+
   /**
    * The FormComponent reference
    */
@@ -175,13 +181,15 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
           this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
           this.submissionObjectService.findById(this.submissionId, true, false, followLink('item')).pipe(
             getFirstSucceededRemoteData(),
-            getRemoteDataPayload())
+            getRemoteDataPayload()),
+            this.sectionService.isSectionReadOnly(this.submissionId, this.sectionData.id, this.submissionService.getSubmissionScope())
         ])),
       take(1))
-      .subscribe(([sectionData, submissionObject]: [WorkspaceitemSectionFormObject, SubmissionObject]) => {
+      .subscribe(([sectionData, submissionObject, isSectionReadOnly]: [WorkspaceitemSectionFormObject, SubmissionObject, boolean]) => {
         if (isUndefined(this.formModel)) {
           // this.sectionData.errorsToShow = [];
           this.submissionObject = submissionObject;
+          this.isSectionReadonly = isSectionReadOnly;
           // Is the first loading so init form
           this.initForm(sectionData);
           this.sectionData.data = sectionData;
@@ -286,11 +294,11 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
         this.formConfig,
         this.collectionId,
         sectionData,
-        this.submissionService.getSubmissionScope()
+        this.submissionService.getSubmissionScope(),
+        this.isSectionReadonly
       );
       const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
       this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors, sectionMetadata);
-
     } catch (e) {
       const msg: string = this.translate.instant('error.submission.sections.init-form-error') + e.toString();
       const sectionError: SubmissionSectionError = {
