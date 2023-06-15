@@ -86,8 +86,16 @@ describe('BatchImportPageComponent', () => {
     let fileMock: File;
 
     beforeEach(() => {
+      component.isUpload = true;
       fileMock = new File([''], 'filename.zip', { type: 'application/zip' });
       component.setFile(fileMock);
+    });
+
+    it('should show the file dropzone', () => {
+      const fileDropzone = fixture.debugElement.query(By.css('[data-test="file-dropzone"]'));
+      const fileUrlInput = fixture.debugElement.query(By.css('[data-test="file-url-input"]'));
+      expect(fileDropzone).toBeTruthy();
+      expect(fileUrlInput).toBeFalsy();
     });
 
     describe('if proceed button is pressed without validate only', () => {
@@ -99,9 +107,9 @@ describe('BatchImportPageComponent', () => {
       }));
       it('metadata-import script is invoked with --zip fileName and the mockFile', () => {
         const parameterValues: ProcessParameter[] = [
-          Object.assign(new ProcessParameter(), { name: '--zip', value: 'filename.zip' }),
+          Object.assign(new ProcessParameter(), { name: '--add' }),
+          Object.assign(new ProcessParameter(), { name: '--zip', value: 'filename.zip' })
         ];
-        parameterValues.push(Object.assign(new ProcessParameter(), { name: '--add' }));
         expect(scriptService.invoke).toHaveBeenCalledWith(BATCH_IMPORT_SCRIPT_NAME, parameterValues, [fileMock]);
       });
       it('success notification is shown', () => {
@@ -121,11 +129,84 @@ describe('BatchImportPageComponent', () => {
       }));
       it('metadata-import script is invoked with --zip fileName and the mockFile and -v validate-only', () => {
         const parameterValues: ProcessParameter[] = [
-          Object.assign(new ProcessParameter(), { name: '--zip', value: 'filename.zip' }),
           Object.assign(new ProcessParameter(), { name: '--add' }),
+          Object.assign(new ProcessParameter(), { name: '--zip', value: 'filename.zip' }),
           Object.assign(new ProcessParameter(), { name: '-v', value: true }),
         ];
         expect(scriptService.invoke).toHaveBeenCalledWith(BATCH_IMPORT_SCRIPT_NAME, parameterValues, [fileMock]);
+      });
+      it('success notification is shown', () => {
+        expect(notificationService.success).toHaveBeenCalled();
+      });
+      it('redirected to process page', () => {
+        expect(router.navigateByUrl).toHaveBeenCalledWith('/processes/46');
+      });
+    });
+
+    describe('if proceed is pressed; but script invoke fails', () => {
+      beforeEach(fakeAsync(() => {
+        jasmine.getEnv().allowRespy(true);
+        spyOn(scriptService, 'invoke').and.returnValue(createFailedRemoteDataObject$('Error', 500));
+        const proceed = fixture.debugElement.query(By.css('#proceedButton')).nativeElement;
+        proceed.click();
+        fixture.detectChanges();
+      }));
+      it('error notification is shown', () => {
+        expect(notificationService.error).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('if url is set', () => {
+    beforeEach(fakeAsync(() => {
+      component.isUpload = false;
+      component.fileURL = 'example.fileURL.com';
+      fixture.detectChanges();
+    }));
+
+    it('should show the file url input', () => {
+      const fileDropzone = fixture.debugElement.query(By.css('[data-test="file-dropzone"]'));
+      const fileUrlInput = fixture.debugElement.query(By.css('[data-test="file-url-input"]'));
+      expect(fileDropzone).toBeFalsy();
+      expect(fileUrlInput).toBeTruthy();
+    });
+
+    describe('if proceed button is pressed without validate only', () => {
+      beforeEach(fakeAsync(() => {
+        component.validateOnly = false;
+        const proceed = fixture.debugElement.query(By.css('#proceedButton')).nativeElement;
+        proceed.click();
+        fixture.detectChanges();
+      }));
+      it('metadata-import script is invoked with --url and the file url', () => {
+        const parameterValues: ProcessParameter[] = [
+          Object.assign(new ProcessParameter(), { name: '--add' }),
+          Object.assign(new ProcessParameter(), { name: '--url', value: 'example.fileURL.com' })
+        ];
+        expect(scriptService.invoke).toHaveBeenCalledWith(BATCH_IMPORT_SCRIPT_NAME, parameterValues, [null]);
+      });
+      it('success notification is shown', () => {
+        expect(notificationService.success).toHaveBeenCalled();
+      });
+      it('redirected to process page', () => {
+        expect(router.navigateByUrl).toHaveBeenCalledWith('/processes/46');
+      });
+    });
+
+    describe('if proceed button is pressed with validate only', () => {
+      beforeEach(fakeAsync(() => {
+        component.validateOnly = true;
+        const proceed = fixture.debugElement.query(By.css('#proceedButton')).nativeElement;
+        proceed.click();
+        fixture.detectChanges();
+      }));
+      it('metadata-import script is invoked with --url and the file url and -v validate-only', () => {
+        const parameterValues: ProcessParameter[] = [
+          Object.assign(new ProcessParameter(), { name: '--add' }),
+          Object.assign(new ProcessParameter(), { name: '--url', value: 'example.fileURL.com' }),
+          Object.assign(new ProcessParameter(), { name: '-v', value: true }),
+        ];
+        expect(scriptService.invoke).toHaveBeenCalledWith(BATCH_IMPORT_SCRIPT_NAME, parameterValues, [null]);
       });
       it('success notification is shown', () => {
         expect(notificationService.success).toHaveBeenCalled();

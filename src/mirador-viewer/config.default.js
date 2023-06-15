@@ -1,4 +1,17 @@
 import Mirador from 'mirador/dist/es/src/index';
+
+// You can modify this default Mirador configuration file. However,
+// you should consider creating a copy of this file named
+// 'config.local.js'. If that file exists it will be used to build
+// your local Mirador instance. This allows you to keep local
+// Mirador configuration separate from this default distribution
+// copy.
+
+// For an example of all Mirador configuration options, see
+// https://github.com/ProjectMirador/mirador/blob/master/src/config/settings.js
+
+// You can add or remove plugins. When adding new plugins be sure to also
+// import them into the project via your package.json dependencies.
 import miradorShareDialogPlugin from 'mirador-share-plugin/es/MiradorShareDialog';
 import miradorSharePlugin from 'mirador-share-plugin/es/miradorSharePlugin';
 import miradorDownloadPlugin from 'mirador-dl-plugin/es/miradorDownloadPlugin';
