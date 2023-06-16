@@ -9,8 +9,6 @@
   // "401.unauthorized": "unauthorized",
   "401.unauthorized": "no autoritzat",
 
-
-
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
   "403.help": "No teniu permisos per accedir a aquesta pàgina. Podeu utilitzar el botó de sota per tornar a la pàgina inicial.",
 
@@ -28,7 +26,6 @@
 
   // "500.link.home-page": "Take me to the home page",
   "500.link.home-page": "Porta'm a la pàgina d'inici",
-
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   "404.help": "No podem trobar la pàgina que busqueu. La pàgina pot haver estat moguda o eliminada. Podeu utilitzar el botó de sota per tornar a la pàgina d'inici. ",
@@ -194,7 +191,9 @@
 
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Nom",
-  // "admin.registries.bitstream-formats.table.id" : "ID",
+
+  // "admin.registries.bitstream-formats.table.id": "ID",
+  // TODO Source message changed - Revise the translation
   "admin.registries.bitstream-formats.table.id": "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
@@ -214,8 +213,6 @@
 
   // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
   "admin.registries.bitstream-formats.title": "Registre de format Fitxer",
-
-
 
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
   "admin.registries.metadata.breadcrumbs": "Registre de metadades",
@@ -256,8 +253,6 @@
   // "admin.registries.metadata.title": "Metadata Registry",
   "admin.registries.metadata.title": "Registre de metadades",
 
-
-
   // "admin.registries.schema.breadcrumbs": "Metadata schema",
   "admin.registries.schema.breadcrumbs": "Esquema de metadades",
 
@@ -275,7 +270,9 @@
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Camp",
-  // "admin.registries.schema.fields.table.id" : "ID",
+
+  // "admin.registries.schema.fields.table.id": "ID",
+  // TODO Source message changed - Revise the translation
   "admin.registries.schema.fields.table.id": "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
@@ -334,8 +331,6 @@
 
   // "admin.registries.schema.title": "Metadata Schema Registry",
   "admin.registries.schema.title": "Registre d'esquemes de metadades",
-
-
 
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
   "admin.access-control.epeople.actions.delete": "Eliminar usuari",
@@ -478,8 +473,6 @@
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
   "admin.access-control.epeople.notification.deleted.success": "Usuari eliminat correctament: \"{{ name }}\"",
 
-
-
   // "admin.access-control.groups.title": "Groups",
   "admin.access-control.groups.title": "Grups",
 
@@ -548,8 +541,6 @@
 
   // "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
   "admin.access-control.groups.notification.deleted.failure.content": "Causa: \"{{ cause }}\"",
-
-
 
   // "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
   "admin.access-control.groups.form.alert.permanent": "Aquest grup és permanent, per la qual cosa no es pot editar ni eliminar. Però podeu afegir i eliminar membres del grup utilitzant aquesta pàgina.",
@@ -746,7 +737,17 @@
   // "admin.access-control.groups.form.return": "Back",
   "admin.access-control.groups.form.return": "Enrere",
 
+  // "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
+  // TODO New key - Add a translation
+  "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
 
+  // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+  // TODO New key - Add a translation
+  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+
+  // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+  // TODO New key - Add a translation
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
 
   // "admin.search.breadcrumbs": "Administrative Search",
   "admin.search.breadcrumbs": "Cerca administrativa",
@@ -784,9 +785,6 @@
   // "administrativeView.search.results.head": "Administrative Search",
   "administrativeView.search.results.head": "Cerca administrativa",
 
-
-
-
   // "admin.workflow.breadcrumbs": "Administer Workflow",
   "admin.workflow.breadcrumbs": "Administrar flux de treball",
 
@@ -796,13 +794,23 @@
   // "admin.workflow.item.workflow": "Workflow",
   "admin.workflow.item.workflow": "Flux de treball",
 
+  // "admin.workflow.item.workspace": "Workspace",
+  // TODO New key - Add a translation
+  "admin.workflow.item.workspace": "Workspace",
+
   // "admin.workflow.item.delete": "Delete",
   "admin.workflow.item.delete": "Esborrar",
 
   // "admin.workflow.item.send-back": "Send back",
   "admin.workflow.item.send-back": "Tornar",
 
+  // "admin.workflow.item.policies": "Policies",
+  // TODO New key - Add a translation
+  "admin.workflow.item.policies": "Policies",
 
+  // "admin.workflow.item.supervision": "Supervision",
+  // TODO New key - Add a translation
+  "admin.workflow.item.supervision": "Supervision",
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
   "admin.metadata-import.breadcrumbs": "Importa metadades",
@@ -828,6 +836,10 @@
   // "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
   "admin.batch-import.page.help": "Seleccioneu la Col·lecció a la qual importar. Després, deixeu anar o busqueu el fitxer zip en format Simple Archive Format (SAF) que inclou els ítems a importar",
 
+  // "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
+  // TODO New key - Add a translation
+  "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
+
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
   "admin.metadata-import.page.dropMsg": "Deixeu anar un CSV de metadades per importar",
 
@@ -852,14 +864,154 @@
   // "admin.metadata-import.page.error.addFile": "Select file first!",
   "admin.metadata-import.page.error.addFile": "Seleccioneu el fitxer primer!",
 
+  // "admin.metadata-import.page.error.addFileUrl": "Insert file url first!",
+  // TODO New key - Add a translation
+  "admin.metadata-import.page.error.addFileUrl": "Insert file url first!",
+
   // "admin.batch-import.page.error.addFile": "Select Zip file first!",
   "admin.batch-import.page.error.addFile": "Seleccioneu el fitxer ZIP primer!",
+
+  // "admin.metadata-import.page.toggle.upload": "Upload",
+  // TODO New key - Add a translation
+  "admin.metadata-import.page.toggle.upload": "Upload",
+
+  // "admin.metadata-import.page.toggle.url": "URL",
+  // TODO New key - Add a translation
+  "admin.metadata-import.page.toggle.url": "URL",
+
+  // "admin.metadata-import.page.urlMsg": "Insert the batch ZIP url to import",
+  // TODO New key - Add a translation
+  "admin.metadata-import.page.urlMsg": "Insert the batch ZIP url to import",
 
   // "admin.metadata-import.page.validateOnly": "Validate Only",
   "admin.metadata-import.page.validateOnly": "Només Validar",
 
   // "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
   "admin.metadata-import.page.validateOnly.hint": "En seleccionar, es validarà el CSV pujat. Rebreu un informe amb els canvis detectats, però no s'efectuaran aquests canvis.",
+
+  // "advanced-workflow-action.rating.form.rating.label": "Rating",
+  // TODO New key - Add a translation
+  "advanced-workflow-action.rating.form.rating.label": "Rating",
+
+  // "advanced-workflow-action.rating.form.rating.error": "You must rate the item",
+  // TODO New key - Add a translation
+  "advanced-workflow-action.rating.form.rating.error": "You must rate the item",
+
+  // "advanced-workflow-action.rating.form.review.label": "Review",
+  // TODO New key - Add a translation
+  "advanced-workflow-action.rating.form.review.label": "Review",
+
+  // "advanced-workflow-action.rating.form.review.error": "You must enter a review to submit this rating",
+  // TODO New key - Add a translation
+  "advanced-workflow-action.rating.form.review.error": "You must enter a review to submit this rating",
+
+  // "advanced-workflow-action.rating.description": "Please select a rating below",
+  // TODO New key - Add a translation
+  "advanced-workflow-action.rating.description": "Please select a rating below",
+
+  // "advanced-workflow-action.rating.description-requiredDescription": "Please select a rating below and also add a review",
+  // TODO New key - Add a translation
+  "advanced-workflow-action.rating.description-requiredDescription": "Please select a rating below and also add a review",
+
+  // "advanced-workflow-action.select-reviewer.description-single": "Please select a single reviewer below before submitting",
+  // TODO New key - Add a translation
+  "advanced-workflow-action.select-reviewer.description-single": "Please select a single reviewer below before submitting",
+
+  // "advanced-workflow-action.select-reviewer.description-multiple": "Please select one or more reviewers below before submitting",
+  // TODO New key - Add a translation
+  "advanced-workflow-action.select-reviewer.description-multiple": "Please select one or more reviewers below before submitting",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.head": "EPeople",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.head": "EPeople",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "Add EPeople",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "Add EPeople",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Browse All",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Browse All",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "E-mail (exact)",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "E-mail (exact)",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.id": "ID",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.id": "ID",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "Name",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "Name",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "Identity",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "Identity",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Email",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Email",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "NetID",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "NetID",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Remove / Add",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Remove / Add",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "No members in group yet, search and add.",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "No members in group yet, search and add.",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "No EPeople found in that search",
+  // TODO New key - Add a translation
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "No EPeople found in that search",
+
+  // "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "No reviewer selected.",
+  // TODO New key - Add a translation
+  "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "No reviewer selected.",
 
   // "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
   "admin.batch-import.page.validateOnly.hint": "En seleccionar, es validarà el fitxer ZIP pujat. Rebreu un informe amb els canvis detectats, però no s'efectuaran aquests canvis.",
@@ -876,14 +1028,13 @@
   // "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
   "auth.messages.token-refresh-failed": "No s'ha pogut actualitzar el token de la sessió. Inicieu sessió de nou.",
 
-
-
-  // "bitstream.download.page": "Now downloading {{bitstream}}..." ,
+  // "bitstream.download.page": "Now downloading {{bitstream}}...",
+  // TODO Source message changed - Revise the translation
   "bitstream.download.page": "Descarregant {{ bitstream }}...",
 
-  // "bitstream.download.page.back": "Back" ,
+  // "bitstream.download.page.back": "Back",
+  // TODO Source message changed - Revise the translation
   "bitstream.download.page.back": "Enrere",
-
 
   // "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
   "bitstream.edit.authorizations.link": "Editar les polítiques del fitxer",
@@ -936,6 +1087,10 @@
   // "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
   "bitstream.edit.notifications.error.format.title": "S'ha produït un error en desar el format del fitxer.",
 
+  // "bitstream.edit.notifications.error.primaryBitstream.title": "An error occurred saving the primary bitstream",
+  // TODO New key - Add a translation
+  "bitstream.edit.notifications.error.primaryBitstream.title": "An error occurred saving the primary bitstream",
+
   // "bitstream.edit.form.iiifLabel.label": "IIIF Label",
   "bitstream.edit.form.iiifLabel.label": "Etiqueta IIIF",
 
@@ -960,7 +1115,6 @@
   // "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
   "bitstream.edit.form.iiifHeight.hint": "L'alçada del marc normalment hauria de coincidir amb l'alçada de la imatge",
 
-
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
   "bitstream.edit.notifications.saved.content": "S'han desat els canvis en aquest fitxer.",
 
@@ -984,6 +1138,7 @@
 
   // "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
   "bitstream-request-a-copy.intro.bitstream.one": "Sol·licitant el fitxer següent: ",
+
   // "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
   "bitstream-request-a-copy.intro.bitstream.all": "Sol·licitant tots els fitxers. ",
 
@@ -1026,8 +1181,6 @@
   // "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
   "bitstream-request-a-copy.submit.error": "S'ha produït un error en l'enviament de la sol·licitud de còpia.",
 
-
-
   // "browse.back.all-results": "All browse results",
   "browse.back.all-results": "Tots els resultats de la cerca",
 
@@ -1039,6 +1192,10 @@
 
   // "browse.comcol.by.subject": "By Subject",
   "browse.comcol.by.subject": "Per matèria",
+
+  // "browse.comcol.by.srsc": "By Subject Category",
+  // TODO New key - Add a translation
+  "browse.comcol.by.srsc": "By Subject Category",
 
   // "browse.comcol.by.title": "By Title",
   "browse.comcol.by.title": "Per títol",
@@ -1069,6 +1226,10 @@
 
   // "browse.metadata.subject.breadcrumbs": "Browse by Subject",
   "browse.metadata.subject.breadcrumbs": "Examinar per matèria",
+
+  // "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
+  // TODO New key - Add a translation
+  "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
 
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   "browse.metadata.title.breadcrumbs": "Examinar per títol",
@@ -1151,17 +1312,38 @@
   // "browse.startsWith.type_text": "Filter results by typing the first few letters",
   "browse.startsWith.type_text": "Seleccioneu resultats teclejant les primeres lletres",
 
+  // "browse.startsWith.input": "Filter",
+  // TODO New key - Add a translation
+  "browse.startsWith.input": "Filter",
+
+  // "browse.taxonomy.button": "Browse",
+  // TODO New key - Add a translation
+  "browse.taxonomy.button": "Browse",
+
   // "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
   "browse.title": "Examinant {{ collection }} per {{ field }}{{ startsWith }} {{ value }}",
 
   // "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
   "browse.title.page": "Examinant {{ collection }} per {{ field }} {{ value }}",
 
+  // "search.browse.item-back": "Back to Results",
+  // TODO New key - Add a translation
+  "search.browse.item-back": "Back to Results",
 
   // "chips.remove": "Remove chip",
   "chips.remove": "Treu xip",
 
+  // "claimed-approved-search-result-list-element.title": "Approved",
+  // TODO New key - Add a translation
+  "claimed-approved-search-result-list-element.title": "Approved",
 
+  // "claimed-declined-search-result-list-element.title": "Rejected, sent back to submitter",
+  // TODO New key - Add a translation
+  "claimed-declined-search-result-list-element.title": "Rejected, sent back to submitter",
+
+  // "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
+  // TODO New key - Add a translation
+  "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
 
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "Crear una col·lecció",
@@ -1196,8 +1378,6 @@
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
   "collection.delete.text": "Estàs segur que vols eliminar la col·lecció \"{{ dso }}\"?",
 
-
-
   // "collection.edit.delete": "Delete this collection",
   "collection.edit.delete": "Eliminar aquesta col·lecció",
 
@@ -1206,8 +1386,6 @@
 
   // "collection.edit.breadcrumbs": "Edit Collection",
   "collection.edit.breadcrumbs": "Editar col·lecció",
-
-
 
   // "collection.edit.tabs.mapper.head": "Item Mapper",
   "collection.edit.tabs.mapper.head": "Mapeig d'ítems",
@@ -1269,7 +1447,6 @@
   // "collection.edit.item-mapper.tabs.map": "Map new items",
   "collection.edit.item-mapper.tabs.map": "Assignar nous ítems",
 
-
   // "collection.edit.logo.delete.title": "Delete logo",
   "collection.edit.logo.delete.title": "Eliminar logo",
 
@@ -1297,15 +1474,11 @@
   // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
   "collection.edit.logo.upload": "Deixeu anar un logotip de col·lecció per carregar-lo",
 
-
-
   // "collection.edit.notifications.success": "Successfully edited the Collection",
   "collection.edit.notifications.success": "Col·lecció editada amb èxit",
 
   // "collection.edit.return": "Back",
   "collection.edit.return": "Enrere",
-
-
 
   // "collection.edit.tabs.curate.head": "Curate",
   "collection.edit.tabs.curate.head": "Curar",
@@ -1394,8 +1567,6 @@
   // "collection.edit.tabs.source.title": "Collection Edit - Content Source",
   "collection.edit.tabs.source.title": "Edició de col·lecció: font de contingut",
 
-
-
   // "collection.edit.template.add-button": "Add",
   "collection.edit.template.add-button": "Afegir",
 
@@ -1432,8 +1603,6 @@
   // "collection.edit.template.title": "Edit Template Item",
   "collection.edit.template.title": "Editar plantilla d'ítem",
 
-
-
   // "collection.form.abstract": "Short Description",
   "collection.form.abstract": "Breu descripció",
 
@@ -1461,12 +1630,8 @@
   // "collection.form.entityType": "Entity Type",
   "collection.form.entityType": "Tipus d'Entitat",
 
-
-
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "Col·lecció",
-
-
 
   // "collection.page.browse.recent.head": "Recent Submissions",
   "collection.page.browse.recent.head": "Enviaments recents",
@@ -1486,8 +1651,6 @@
   // "collection.page.news": "News",
   "collection.page.news": "Notícies",
 
-
-
   // "collection.select.confirm": "Confirm selected",
   "collection.select.confirm": "Confirmar selecció",
 
@@ -1497,62 +1660,80 @@
   // "collection.select.table.title": "Title",
   "collection.select.table.title": "Títol",
 
-
   // "collection.source.controls.head": "Harvest Controls",
   "collection.source.controls.head": "Controls de recol·lecció",
+
   // "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
   "collection.source.controls.test.submit.error": "Hi ha hagut errors en realitzar les proves de comprovació de la configuració",
+
   // "collection.source.controls.test.failed": "The script to test the settings has failed",
   "collection.source.controls.test.failed": "La prova de la configuració ha fallat",
+
   // "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
   "collection.source.controls.test.completed": "L'script de prova de la configuració s'ha acabat correctament",
+
   // "collection.source.controls.test.submit": "Test configuration",
   "collection.source.controls.test.submit": "Proveu la configuració",
+
   // "collection.source.controls.test.running": "Testing configuration...",
   "collection.source.controls.test.running": "Provant la configuració...",
+
   // "collection.source.controls.import.submit.success": "The import has been successfully initiated",
   "collection.source.controls.import.submit.success": "La importació ha començat correctament",
+
   // "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
   "collection.source.controls.import.submit.error": "Hi ha hagut alguna errada en iniciar la importació",
+
   // "collection.source.controls.import.submit": "Import now",
   "collection.source.controls.import.submit": "Importa ara",
+
   // "collection.source.controls.import.running": "Importing...",
   "collection.source.controls.import.running": "Important...",
+
   // "collection.source.controls.import.failed": "An error occurred during the import",
   "collection.source.controls.import.failed": "S'ha produït un error durant la importació",
+
   // "collection.source.controls.import.completed": "The import completed",
   "collection.source.controls.import.completed": "La importació ha finalitzat",
+
   // "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
   "collection.source.controls.reset.submit.success": "La restauració i reimportació ha començat correctament",
+
   // "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
   "collection.source.controls.reset.submit.error": "S'ha produït un error en iniciar la restauració i reimportació",
+
   // "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
   "collection.source.controls.reset.failed": "S'ha produït un error en la restauració i reimportació",
+
   // "collection.source.controls.reset.completed": "The reset and reimport completed",
   "collection.source.controls.reset.completed": "Restauració i reimportació finalitzades",
+
   // "collection.source.controls.reset.submit": "Reset and reimport",
   "collection.source.controls.reset.submit": "Restauració i reimportació",
+
   // "collection.source.controls.reset.running": "Resetting and reimporting...",
   "collection.source.controls.reset.running": "Restaurant i reimportant...",
+
   // "collection.source.controls.harvest.status": "Harvest status:",
   "collection.source.controls.harvest.status": "Estat de la Recol·lecció:",
+
   // "collection.source.controls.harvest.start": "Harvest start time:",
   "collection.source.controls.harvest.start": "Inici de la recol·lecció:",
+
   // "collection.source.controls.harvest.last": "Last time harvested:",
   "collection.source.controls.harvest.last": "Data de la darrera recol·lecció:",
+
   // "collection.source.controls.harvest.message": "Harvest info:",
   "collection.source.controls.harvest.message": "Informació de recol·lecció:",
+
   // "collection.source.controls.harvest.no-information": "N/A",
   "collection.source.controls.harvest.no-information": "N/A",
-
 
   // "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
   "collection.source.update.notifications.error.content": "La configuració proporcionada s'ha provat i no ha funcionat.",
 
   // "collection.source.update.notifications.error.title": "Server Error",
   "collection.source.update.notifications.error.title": "Error del servidor",
-
-
 
   // "communityList.breadcrumbs": "Community List",
   "communityList.breadcrumbs": "Llista de comunitats",
@@ -1565,8 +1746,6 @@
 
   // "communityList.showMore": "Show More",
   "communityList.showMore": "Mostrar més",
-
-
 
   // "community.create.head": "Create a Community",
   "community.create.head": "Crear una comunitat",
@@ -1610,7 +1789,6 @@
   // "community.edit.breadcrumbs": "Edit Community",
   "community.edit.breadcrumbs": "Editar comunitat",
 
-
   // "community.edit.logo.delete.title": "Delete logo",
   "community.edit.logo.delete.title": "Eliminar logo",
 
@@ -1638,8 +1816,6 @@
   // "community.edit.logo.upload": "Drop a Community Logo to upload",
   "community.edit.logo.upload": "Deixeu anar un logotip de la comunitat per carregar",
 
-
-
   // "community.edit.notifications.success": "Successfully edited the Community",
   "community.edit.notifications.success": "Comunitat editada amb èxit",
 
@@ -1651,8 +1827,6 @@
 
   // "community.edit.return": "Back",
   "community.edit.return": "Enrere",
-
-
 
   // "community.edit.tabs.curate.head": "Curate",
   "community.edit.tabs.curate.head": "Curar",
@@ -1678,12 +1852,8 @@
   // "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
   "community.edit.tabs.authorizations.title": "Edició de la comunitat: autoritzacions",
 
-
-
   // "community.listelement.badge": "Community",
   "community.listelement.badge": "Comunitat",
-
-
 
   // "comcol-role.edit.no-group": "None",
   "comcol-role.edit.no-group": "Cap",
@@ -1703,13 +1873,11 @@
   // "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
   "comcol-role.edit.delete.error.title": "Error en esborrar el grup del rol '{{ role }}'",
 
-
   // "comcol-role.edit.community-admin.name": "Administrators",
   "comcol-role.edit.community-admin.name": "Administradors",
 
   // "comcol-role.edit.collection-admin.name": "Administrators",
   "comcol-role.edit.collection-admin.name": "Administradors",
-
 
   // "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
   "comcol-role.edit.community-admin.description": "Els administradors de la comunitat poden crear subcomunitats o col·leccions i gestionar o assignar la gestió per a aquestes subcomunitats o col·leccions. A més, decideixen qui pot enviar ítems a les subcol·leccions, editar les metadades de l'ítem (un cop publicats) i afegir (mapejar) ítems existents d'altres col·leccions (subjecte a autorització).",
@@ -1717,13 +1885,11 @@
   // "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
   "comcol-role.edit.collection-admin.description": "Els administradors de la col·lecció decideixen qui pot enviar ítems a la col·lecció, editar les metadades de l'ítem (un cop publicats) i afegir (mapejar) ítems existents d'altres col·leccions a aquesta col·lecció (subjecte a autorització).",
 
-
   // "comcol-role.edit.submitters.name": "Submitters",
   "comcol-role.edit.submitters.name": "Remitents",
 
   // "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
   "comcol-role.edit.submitters.description": "Els Usuaris i Grups que tenen permís per enviar nous ítems a aquesta col·lecció.",
-
 
   // "comcol-role.edit.item_read.name": "Default item read access",
   "comcol-role.edit.item_read.name": "Accés de lectura predeterminat de l'ítem",
@@ -1734,7 +1900,6 @@
   // "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
   "comcol-role.edit.item_read.anonymous-group": "La lectura predeterminada per als ítems entrants està configurada actualment com a Anònim.",
 
-
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
   "comcol-role.edit.bitstream_read.name": "Accés de lectura per defecte de fitxers",
 
@@ -1744,13 +1909,11 @@
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
   "comcol-role.edit.bitstream_read.anonymous-group": "La lectura predeterminada per als fitxers entrants s'estableix actualment a Anònim.",
 
-
   // "comcol-role.edit.editor.name": "Editors",
   "comcol-role.edit.editor.name": "Editors",
 
   // "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
   "comcol-role.edit.editor.description": "Els editors poden editar les metadades dels enviaments entrants i després acceptar-los o rebutjar-los.",
-
 
   // "comcol-role.edit.finaleditor.name": "Final editors",
   "comcol-role.edit.finaleditor.name": "Editors finals",
@@ -1758,14 +1921,19 @@
   // "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
   "comcol-role.edit.finaleditor.description": "Els editors finals poden editar les metadades dels enviaments entrants, però no els poden rebutjar.",
 
-
   // "comcol-role.edit.reviewer.name": "Reviewers",
   "comcol-role.edit.reviewer.name": "Revisors",
 
   // "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
   "comcol-role.edit.reviewer.description": "Els revisors poden acceptar o rebutjar enviaments entrants. No obstant això, no poden editar les metadades de l'enviament.",
 
+  // "comcol-role.edit.scorereviewers.name": "Score Reviewers",
+  // TODO New key - Add a translation
+  "comcol-role.edit.scorereviewers.name": "Score Reviewers",
 
+  // "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
+  // TODO New key - Add a translation
+  "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
 
   // "community.form.abstract": "Short Description",
   "community.form.abstract": "Breu descripció",
@@ -1805,8 +1973,6 @@
 
   // "community.sub-community-list.head": "Communities of this Community",
   "community.sub-community-list.head": "Comunitats d'aquesta comunitat",
-
-
 
   // "cookies.consent.accept-all": "Accept all",
   "cookies.consent.accept-all": "Acceptar tot",
@@ -1886,14 +2052,11 @@
   // "cookies.consent.app.description.authentication": "Required for signing you in",
   "cookies.consent.app.description.authentication": "Requerit per iniciar sessió",
 
-
   // "cookies.consent.app.title.preferences": "Preferences",
   "cookies.consent.app.title.preferences": "Preferències",
 
   // "cookies.consent.app.description.preferences": "Required for saving your preferences",
   "cookies.consent.app.description.preferences": "Requerit per desar les vostres preferències",
-
-
 
   // "cookies.consent.app.title.acknowledgement": "Acknowledgement",
   "cookies.consent.app.title.acknowledgement": "Reconeixement",
@@ -1901,22 +2064,17 @@
   // "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
   "cookies.consent.app.description.acknowledgement": "Requerit per guardar els seus reconeixements i consentiments",
 
-
-
   // "cookies.consent.app.title.google-analytics": "Google Analytics",
   "cookies.consent.app.title.google-analytics": "Google Analytics",
 
   // "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
   "cookies.consent.app.description.google-analytics": "Ens permet rastrejar dades estadístiques",
 
-
-
   // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
   "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
 
   // "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
   "cookies.consent.app.description.google-recaptcha": "Utilitzem el servei google reCAPTCHA durant el registre i la recuperació de contrasenya",
-
 
   // "cookies.consent.purpose.functional": "Functional",
   "cookies.consent.purpose.functional": "Funcional",
@@ -1930,10 +2088,12 @@
   // "cookies.consent.purpose.sharing": "Sharing",
   "cookies.consent.purpose.sharing": "Compartició",
 
-  // "curation-task.task.citationpage.label":  "Generate Citation Page",
+  // "curation-task.task.citationpage.label": "Generate Citation Page",
+  // TODO Source message changed - Revise the translation
   "curation-task.task.citationpage.label": "Generar pàgina de cita",
 
-  // "curation-task.task.checklinks.label":  "Check Links in Metadata",
+  // "curation-task.task.checklinks.label": "Check Links in Metadata",
+  // TODO Source message changed - Revise the translation
   "curation-task.task.checklinks.label": "Comprovar enllaços a metadades",
 
   // "curation-task.task.noop.label": "NOOP",
@@ -1951,10 +2111,9 @@
   // "curation-task.task.vscan.label": "Virus Scan",
   "curation-task.task.vscan.label": "Comprovacio de virus",
 
-  // "curation-task.task.registerdoi.label": "Register DOI",
-  "curation-task.task.registerdoi.label": "Registrar DOI",
-
-
+  // "curation-task.task.register-doi.label": "Register DOI",
+  // TODO New key - Add a translation
+  "curation-task.task.register-doi.label": "Register DOI",
 
   // "curation.form.task-select.label": "Task:",
   "curation.form.task-select.label": "Tasca:",
@@ -1983,8 +2142,6 @@
   // "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
   "curation.form.handle.hint": "Suggeriment: Introduïu [el-vostre-prefix-handle]/0 per executar una tasca en tota la instal·lació (no totes les tasques permeten aquesta opció)",
 
-
-
   // "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
   "deny-request-copy.email.message": "Estimat {{ recipientName }},\nEn resposta a la vostra sol·licitud, lamento informar-vos que no és possible enviar-vos una còpia dels fitxers que heu sol·licitat, en relació amb el document: \"{{ itemUrl }}\" ({{ itemName }}), del qual sóc autor.\n\nSalutacions cordials,\n{{ authorName }} <{{ authorEmail }}>",
 
@@ -2003,12 +2160,12 @@
   // "deny-request-copy.success": "Successfully denied item request",
   "deny-request-copy.success": "Sol·licitud de còpia de document denegada",
 
-
-
   // "dso.name.untitled": "Untitled",
   "dso.name.untitled": "Sense títol",
 
-
+  // "dso.name.unnamed": "Unnamed",
+  // TODO New key - Add a translation
+  "dso.name.unnamed": "Unnamed",
 
   // "dso-selector.create.collection.head": "New collection",
   "dso-selector.create.collection.head": "Nova col·lecció",
@@ -2094,6 +2251,58 @@
   // "dso-selector.results-could-not-be-retrieved": "Something went wrong, please refresh again ↻",
   "dso-selector.results-could-not-be-retrieved": "S'ha produït un error, si us plau, actualitzeu de nou ↻",
 
+  // "supervision-group-selector.header": "Supervision Group Selector",
+  // TODO New key - Add a translation
+  "supervision-group-selector.header": "Supervision Group Selector",
+
+  // "supervision-group-selector.select.type-of-order.label": "Select a type of Order",
+  // TODO New key - Add a translation
+  "supervision-group-selector.select.type-of-order.label": "Select a type of Order",
+
+  // "supervision-group-selector.select.type-of-order.option.none": "NONE",
+  // TODO New key - Add a translation
+  "supervision-group-selector.select.type-of-order.option.none": "NONE",
+
+  // "supervision-group-selector.select.type-of-order.option.editor": "EDITOR",
+  // TODO New key - Add a translation
+  "supervision-group-selector.select.type-of-order.option.editor": "EDITOR",
+
+  // "supervision-group-selector.select.type-of-order.option.observer": "OBSERVER",
+  // TODO New key - Add a translation
+  "supervision-group-selector.select.type-of-order.option.observer": "OBSERVER",
+
+  // "supervision-group-selector.select.group.label": "Select a Group",
+  // TODO New key - Add a translation
+  "supervision-group-selector.select.group.label": "Select a Group",
+
+  // "supervision-group-selector.button.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "supervision-group-selector.button.cancel": "Cancel",
+
+  // "supervision-group-selector.button.save": "Save",
+  // TODO New key - Add a translation
+  "supervision-group-selector.button.save": "Save",
+
+  // "supervision-group-selector.select.type-of-order.error": "Please select a type of order",
+  // TODO New key - Add a translation
+  "supervision-group-selector.select.type-of-order.error": "Please select a type of order",
+
+  // "supervision-group-selector.select.group.error": "Please select a group",
+  // TODO New key - Add a translation
+  "supervision-group-selector.select.group.error": "Please select a group",
+
+  // "supervision-group-selector.notification.create.success.title": "Successfully created supervision order for group {{ name }}",
+  // TODO New key - Add a translation
+  "supervision-group-selector.notification.create.success.title": "Successfully created supervision order for group {{ name }}",
+
+  // "supervision-group-selector.notification.create.failure.title": "Error",
+  // TODO New key - Add a translation
+  "supervision-group-selector.notification.create.failure.title": "Error",
+
+  // "supervision-group-selector.notification.create.already-existing": "A supervision order already exists on this item for selected group",
+  // TODO New key - Add a translation
+  "supervision-group-selector.notification.create.already-existing": "A supervision order already exists on this item for selected group",
+
   // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
   "confirmation-modal.export-metadata.header": "Exporta metadades per a {{ dsoName }}",
 
@@ -2142,6 +2351,21 @@
   // "confirmation-modal.delete-profile.confirm": "Delete",
   "confirmation-modal.delete-profile.confirm": "Esborrar",
 
+  // "confirmation-modal.delete-subscription.header": "Delete Subscription",
+  // TODO New key - Add a translation
+  "confirmation-modal.delete-subscription.header": "Delete Subscription",
+
+  // "confirmation-modal.delete-subscription.info": "Are you sure you want to delete subscription for \"{{ dsoName }}\"",
+  // TODO New key - Add a translation
+  "confirmation-modal.delete-subscription.info": "Are you sure you want to delete subscription for \"{{ dsoName }}\"",
+
+  // "confirmation-modal.delete-subscription.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "confirmation-modal.delete-subscription.cancel": "Cancel",
+
+  // "confirmation-modal.delete-subscription.confirm": "Delete",
+  // TODO New key - Add a translation
+  "confirmation-modal.delete-subscription.confirm": "Delete",
 
   // "error.bitstream": "Error fetching bitstream",
   "error.bitstream": "Error en obtenir el fitxer",
@@ -2215,15 +2439,39 @@
   // "error.validation.groupExists": "This group already exists",
   "error.validation.groupExists": "Aquest grup ja existeix",
 
+  // "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
+  // TODO New key - Add a translation
+  "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
+
+  // "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
+  // TODO New key - Add a translation
+  "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
+
+  // "error.validation.metadata.namespace.max-length": "This field may not contain more than 256 characters",
+  // TODO New key - Add a translation
+  "error.validation.metadata.namespace.max-length": "This field may not contain more than 256 characters",
+
+  // "error.validation.metadata.element.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Qualifier field instead",
+  // TODO New key - Add a translation
+  "error.validation.metadata.element.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Qualifier field instead",
+
+  // "error.validation.metadata.element.max-length": "This field may not contain more than 64 characters",
+  // TODO New key - Add a translation
+  "error.validation.metadata.element.max-length": "This field may not contain more than 64 characters",
+
+  // "error.validation.metadata.qualifier.invalid-pattern": "This field cannot contain dots, commas or spaces",
+  // TODO New key - Add a translation
+  "error.validation.metadata.qualifier.invalid-pattern": "This field cannot contain dots, commas or spaces",
+
+  // "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
+  // TODO New key - Add a translation
+  "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
 
   // "feed.description": "Syndication feed",
   "feed.description": "Fil de sindicació",
 
-
   // "file-section.error.header": "Error obtaining files for this item",
   "file-section.error.header": "Error en obtenir els fitxers per a aquest ítem",
-
-
 
   // "footer.copyright": "copyright © 2002-{{ year }}",
   "footer.copyright": "copyright © 2002-{{ year }}",
@@ -2240,13 +2488,13 @@
   // "footer.link.privacy-policy": "Privacy policy",
   "footer.link.privacy-policy": "Política de privadesa",
 
-  // "footer.link.end-user-agreement":"End User Agreement",
+  // "footer.link.end-user-agreement": "End User Agreement",
+  // TODO Source message changed - Revise the translation
   "footer.link.end-user-agreement": "Acord d'usuari final",
 
-  // "footer.link.feedback":"Send Feedback",
+  // "footer.link.feedback": "Send Feedback",
+  // TODO Source message changed - Revise the translation
   "footer.link.feedback": "Enviar Suggeriments",
-
-
 
   // "forgot-email.form.header": "Forgot Password",
   "forgot-email.form.header": "Oblit de contrasenya",
@@ -2260,8 +2508,9 @@
   // "forgot-email.form.email.error.required": "Please fill in an email address",
   "forgot-email.form.email.error.required": "Si us plau introduïu una adreça de correu electrònic",
 
-  // "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
-  "forgot-email.form.email.error.pattern": "Si us plau introduïu una adreça de correu electrònic vàlida",
+  // "forgot-email.form.email.error.not-email-form": "Please fill in a valid email address",
+  // TODO New key - Add a translation
+  "forgot-email.form.email.error.not-email-form": "Please fill in a valid email address",
 
   // "forgot-email.form.email.hint": "An email will be sent to this address with a further instructions.",
   "forgot-email.form.email.hint": "Se us enviarà un missatge a aquesta adreça amb les instruccions pertinents.",
@@ -2280,8 +2529,6 @@
 
   // "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
   "forgot-email.form.error.content": "S'ha produït un error intentant restablir la contrasenya del compte associat al correu electrònic: {{ email }}",
-
-
 
   // "forgot-password.title": "Forgot Password",
   "forgot-password.title": "Oblit de contrasenya",
@@ -2324,7 +2571,6 @@
 
   // "forgot-password.form.submit": "Submit password",
   "forgot-password.form.submit": "Envia contrasenya",
-
 
   // "form.add": "Add more",
   "form.add": "Afegir més",
@@ -2386,6 +2632,30 @@
   // "form.no-value": "No value entered",
   "form.no-value": "No s'ha introduït cap valor",
 
+  // "form.other-information.email": "Email",
+  // TODO New key - Add a translation
+  "form.other-information.email": "Email",
+
+  // "form.other-information.first-name": "First Name",
+  // TODO New key - Add a translation
+  "form.other-information.first-name": "First Name",
+
+  // "form.other-information.insolr": "In Solr Index",
+  // TODO New key - Add a translation
+  "form.other-information.insolr": "In Solr Index",
+
+  // "form.other-information.institution": "Institution",
+  // TODO New key - Add a translation
+  "form.other-information.institution": "Institution",
+
+  // "form.other-information.last-name": "Last Name",
+  // TODO New key - Add a translation
+  "form.other-information.last-name": "Last Name",
+
+  // "form.other-information.orcid": "ORCID",
+  // TODO New key - Add a translation
+  "form.other-information.orcid": "ORCID",
+
   // "form.remove": "Remove",
   "form.remove": "Eliminar",
 
@@ -2404,10 +2674,12 @@
   // "form.submit": "Save",
   "form.submit": "Guardar",
 
+  // "form.create": "Create",
+  // TODO New key - Add a translation
+  "form.create": "Create",
+
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "Deixeu anar l'ítem a la nova posició",
-
-
 
   // "grant-deny-request-copy.deny": "Don't send copy",
   "grant-deny-request-copy.deny": "No envieu còpia",
@@ -2415,7 +2687,8 @@
   // "grant-deny-request-copy.email.back": "Back",
   "grant-deny-request-copy.email.back": "Enrere",
 
-  // "grant-deny-request-copy.email.message": "Message",
+  // "grant-deny-request-copy.email.message": "Optional additional message",
+  // TODO Source message changed - Revise the translation
   "grant-deny-request-copy.email.message": "Missatge",
 
   // "grant-deny-request-copy.email.message.empty": "Please enter a message",
@@ -2454,11 +2727,6 @@
   // "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
   "grant-deny-request-copy.processed": "Aquesta sol·licitud ja ha estat processada. Podeu utilitzar els botons inferiors per tornar a la pàgina inicial",
 
-
-
-  // "grant-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
-  "grant-request-copy.email.message": "Estimat {{ recipientName }},\nResponent a la vostra sol·licitud, us envio annexada una còpia del fitxer corresponent al document: \"{{ itemUrl }}\" ({{ itemName }} .\n\nUna cordial salutació,\n{{ authorName }} <{{ authorEmail }}>",
-
   // "grant-request-copy.email.subject": "Request copy of document",
   "grant-request-copy.email.subject": "Sol·licitar còpia de document",
 
@@ -2468,23 +2736,26 @@
   // "grant-request-copy.header": "Grant document copy request",
   "grant-request-copy.header": "Concedir sol·licitud de còpia de document",
 
-  // "grant-request-copy.intro": "This message will be sent to the applicant of the request. The requested document(s) will be attached.",
+  // "grant-request-copy.intro": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
+  // TODO Source message changed - Revise the translation
   "grant-request-copy.intro": "Aquest missatge s'enviarà al sol·licitant de la còpia. Se us annexarà una còpia del document.",
 
   // "grant-request-copy.success": "Successfully granted item request",
   "grant-request-copy.success": "Sol·licitud d'ítem concedida amb èxit",
 
-
   // "health.breadcrumbs": "Health",
   "health.breadcrumbs": "Revisió de salut",
 
-  // "health-page.heading" : "Health",
+  // "health-page.heading": "Health",
+  // TODO Source message changed - Revise the translation
   "health-page.heading": "Revisió de salut",
 
-  // "health-page.info-tab" : "Info",
+  // "health-page.info-tab": "Info",
+  // TODO Source message changed - Revise the translation
   "health-page.info-tab": "Informació",
 
-  // "health-page.status-tab" : "Status",
+  // "health-page.status-tab": "Status",
+  // TODO Source message changed - Revise the translation
   "health-page.status-tab": "Estat",
 
   // "health-page.error.msg": "The health check service is temporarily unavailable",
@@ -2535,7 +2806,6 @@
   // "health-page.section.no-issues": "No issues detected",
   "health-page.section.no-issues": "No s'han detectat problemes",
 
-
   // "home.description": "",
   "home.description": "",
 
@@ -2553,8 +2823,6 @@
 
   // "home.top-level-communities.help": "Select a community to browse its collections.",
   "home.top-level-communities.help": "Seleccioneu una comunitat per explorar les seves col·leccions.",
-
-
 
   // "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
   "info.end-user-agreement.accept": "He llegit i accepto l'Acord d'usuari final.",
@@ -2579,6 +2847,10 @@
 
   // "info.end-user-agreement.title": "End User Agreement",
   "info.end-user-agreement.title": "Acord d'usuari final",
+
+  // "info.end-user-agreement.hosting-country": "the United States",
+  // TODO New key - Add a translation
+  "info.end-user-agreement.hosting-country": "the United States",
 
   // "info.privacy.breadcrumbs": "Privacy Statement",
   "info.privacy.breadcrumbs": "Declaració de privadesa",
@@ -2613,22 +2885,25 @@
   // "info.feedback.email-label": "Your Email",
   "info.feedback.email-label": "El vostre correu electrònic",
 
-  // "info.feedback.create.success" : "Feedback Sent Successfully!",
+  // "info.feedback.create.success": "Feedback Sent Successfully!",
+  // TODO Source message changed - Revise the translation
   "info.feedback.create.success": "Enviament exitós de suggeriment",
 
-  // "info.feedback.error.email.required" : "A valid email address is required",
+  // "info.feedback.error.email.required": "A valid email address is required",
+  // TODO Source message changed - Revise the translation
   "info.feedback.error.email.required": "es requereix una adreça vàlida de correu electrònic",
 
-  // "info.feedback.error.message.required" : "A comment is required",
+  // "info.feedback.error.message.required": "A comment is required",
+  // TODO Source message changed - Revise the translation
   "info.feedback.error.message.required": "Es requereix un comentari",
 
-  // "info.feedback.page-label" : "Page",
+  // "info.feedback.page-label": "Page",
+  // TODO Source message changed - Revise the translation
   "info.feedback.page-label": "Pàgina",
 
-  // "info.feedback.page_help" : "Tha page related to your feedback",
+  // "info.feedback.page_help": "Tha page related to your feedback",
+  // TODO Source message changed - Revise the translation
   "info.feedback.page_help": "La pàgina relacionada amb el vostre suggeriment",
-
-
 
   // "item.alerts.private": "This item is non-discoverable",
   "item.alerts.private": "Aquest ítem és privat",
@@ -2636,23 +2911,17 @@
   // "item.alerts.withdrawn": "This item has been withdrawn",
   "item.alerts.withdrawn": "Aquest ítem ha estat retirat",
 
-
-
   // "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
   "item.edit.authorizations.heading": "Amb aquest editor pot veure i modificar les polítiques d'un ítem, a més de modificar les polítiques dels components individuals de l'ítem: paquets i fitxers. Breument, un ítem és un contenidor de paquets i els paquets són contenidors d'arxius. Els contenidors solen tenir polítiques AFEGIR/ELIMINAR/LLEGIR/ESCRIURE, mentre que els fitxers només tenen polítiques LLEGIR/ESCRIURE.",
 
   // "item.edit.authorizations.title": "Edit item's Policies",
   "item.edit.authorizations.title": "Editar les polítiques de l'ítem",
 
-
-
   // "item.badge.private": "Non-discoverable",
   "item.badge.private": "Privat",
 
   // "item.badge.withdrawn": "Withdrawn",
   "item.badge.withdrawn": "Retirat",
-
-
 
   // "item.bitstreams.upload.bundle": "Bundle",
   "item.bitstreams.upload.bundle": "Paquet",
@@ -2686,8 +2955,6 @@
 
   // "item.bitstreams.upload.title": "Upload bitstream",
   "item.bitstreams.upload.title": "Pujar fitxer",
-
-
 
   // "item.edit.bitstreams.bundle.edit.buttons.upload": "Upload",
   "item.edit.bitstreams.bundle.edit.buttons.upload": "Pujar",
@@ -2779,8 +3046,6 @@
   // "item.edit.bitstreams.upload-button": "Upload",
   "item.edit.bitstreams.upload-button": "Pujar",
 
-
-
   // "item.edit.delete.cancel": "Cancel",
   "item.edit.delete.cancel": "Cancel·lar",
 
@@ -2808,12 +3073,95 @@
   // "item.edit.tabs.disabled.tooltip": "You're not authorized to access this tab",
   "item.edit.tabs.disabled.tooltip": "No tens autorització per accedir a aquesta pestanya",
 
-
   // "item.edit.tabs.mapper.head": "Collection Mapper",
   "item.edit.tabs.mapper.head": "Mapejador de col·leccions",
 
   // "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
   "item.edit.tabs.item-mapper.title": "Edició d'ítem - Mapeador de col·leccions",
+
+  // "item.edit.identifiers.doi.status.UNKNOWN": "Unknown",
+  // TODO New key - Add a translation
+  "item.edit.identifiers.doi.status.UNKNOWN": "Unknown",
+
+  // "item.edit.identifiers.doi.status.TO_BE_REGISTERED": "Queued for registration",
+  // TODO New key - Add a translation
+  "item.edit.identifiers.doi.status.TO_BE_REGISTERED": "Queued for registration",
+
+  // "item.edit.identifiers.doi.status.TO_BE_RESERVED": "Queued for reservation",
+  // TODO New key - Add a translation
+  "item.edit.identifiers.doi.status.TO_BE_RESERVED": "Queued for reservation",
+
+  // "item.edit.identifiers.doi.status.IS_REGISTERED": "Registered",
+  // TODO New key - Add a translation
+  "item.edit.identifiers.doi.status.IS_REGISTERED": "Registered",
+
+  // "item.edit.identifiers.doi.status.IS_RESERVED": "Reserved",
+  // TODO New key - Add a translation
+  "item.edit.identifiers.doi.status.IS_RESERVED": "Reserved",
+
+  // "item.edit.identifiers.doi.status.UPDATE_RESERVED": "Reserved (update queued)",
+  // TODO New key - Add a translation
+  "item.edit.identifiers.doi.status.UPDATE_RESERVED": "Reserved (update queued)",
+
+  // "item.edit.identifiers.doi.status.UPDATE_REGISTERED": "Registered (update queued)",
+  // TODO New key - Add a translation
+  "item.edit.identifiers.doi.status.UPDATE_REGISTERED": "Registered (update queued)",
+
+  // "item.edit.identifiers.doi.status.UPDATE_BEFORE_REGISTRATION": "Queued for update and registration",
+  // TODO New key - Add a translation
+  "item.edit.identifiers.doi.status.UPDATE_BEFORE_REGISTRATION": "Queued for update and registration",
+
+  // "item.edit.identifiers.doi.status.TO_BE_DELETED": "Queued for deletion",
+  // TODO New key - Add a translation
+  "item.edit.identifiers.doi.status.TO_BE_DELETED": "Queued for deletion",
+
+  // "item.edit.identifiers.doi.status.DELETED": "Deleted",
+  // TODO New key - Add a translation
+  "item.edit.identifiers.doi.status.DELETED": "Deleted",
+
+  // "item.edit.identifiers.doi.status.PENDING": "Pending (not registered)",
+  // TODO New key - Add a translation
+  "item.edit.identifiers.doi.status.PENDING": "Pending (not registered)",
+
+  // "item.edit.identifiers.doi.status.MINTED": "Minted (not registered)",
+  // TODO New key - Add a translation
+  "item.edit.identifiers.doi.status.MINTED": "Minted (not registered)",
+
+  // "item.edit.tabs.status.buttons.register-doi.label": "Register a new or pending DOI",
+  // TODO New key - Add a translation
+  "item.edit.tabs.status.buttons.register-doi.label": "Register a new or pending DOI",
+
+  // "item.edit.tabs.status.buttons.register-doi.button": "Register DOI...",
+  // TODO New key - Add a translation
+  "item.edit.tabs.status.buttons.register-doi.button": "Register DOI...",
+
+  // "item.edit.register-doi.header": "Register a new or pending DOI",
+  // TODO New key - Add a translation
+  "item.edit.register-doi.header": "Register a new or pending DOI",
+
+  // "item.edit.register-doi.description": "Review any pending identifiers and item metadata below and click Confirm to proceed with DOI registration, or Cancel to back out",
+  // TODO New key - Add a translation
+  "item.edit.register-doi.description": "Review any pending identifiers and item metadata below and click Confirm to proceed with DOI registration, or Cancel to back out",
+
+  // "item.edit.register-doi.confirm": "Confirm",
+  // TODO New key - Add a translation
+  "item.edit.register-doi.confirm": "Confirm",
+
+  // "item.edit.register-doi.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "item.edit.register-doi.cancel": "Cancel",
+
+  // "item.edit.register-doi.success": "DOI queued for registration successfully.",
+  // TODO New key - Add a translation
+  "item.edit.register-doi.success": "DOI queued for registration successfully.",
+
+  // "item.edit.register-doi.error": "Error registering DOI",
+  // TODO New key - Add a translation
+  "item.edit.register-doi.error": "Error registering DOI",
+
+  // "item.edit.register-doi.to-update": "The following DOI has already been minted and will be queued for registration online",
+  // TODO New key - Add a translation
+  "item.edit.register-doi.to-update": "The following DOI has already been minted and will be queued for registration online",
 
   // "item.edit.item-mapper.buttons.add": "Map item to selected collections",
   "item.edit.item-mapper.buttons.add": "Assignar ítem a col·leccions seleccionades",
@@ -2869,13 +3217,19 @@
   // "item.edit.item-mapper.tabs.map": "Map new collections",
   "item.edit.item-mapper.tabs.map": "Mapejar noves col·leccions",
 
-
-
   // "item.edit.metadata.add-button": "Add",
   "item.edit.metadata.add-button": "Afegir",
 
   // "item.edit.metadata.discard-button": "Discard",
   "item.edit.metadata.discard-button": "Descartar",
+
+  // "item.edit.metadata.edit.buttons.confirm": "Confirm",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.buttons.confirm": "Confirm",
+
+  // "item.edit.metadata.edit.buttons.drag": "Drag to reorder",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.buttons.drag": "Drag to reorder",
 
   // "item.edit.metadata.edit.buttons.edit": "Edit",
   "item.edit.metadata.edit.buttons.edit": "Editar",
@@ -2888,6 +3242,10 @@
 
   // "item.edit.metadata.edit.buttons.unedit": "Stop editing",
   "item.edit.metadata.edit.buttons.unedit": "Deixar d'editar",
+
+  // "item.edit.metadata.edit.buttons.virtual": "This is a virtual metadata value, i.e. a value inherited from a related entity. It can’t be modified directly. Add or remove the corresponding relationship in the \"Relationships\" tab",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.buttons.virtual": "This is a virtual metadata value, i.e. a value inherited from a related entity. It can’t be modified directly. Add or remove the corresponding relationship in the \"Relationships\" tab",
 
   // "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
   "item.edit.metadata.empty": "Actualment, l'ítem no conté metadades. Feu clic a Afegir per començar a afegir un valor de metadades.",
@@ -2903,6 +3261,10 @@
 
   // "item.edit.metadata.headers.value": "Value",
   "item.edit.metadata.headers.value": "Valor",
+
+  // "item.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
+  // TODO New key - Add a translation
+  "item.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
 
   // "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
   "item.edit.metadata.metadatafield.invalid": "Trieu un camp de metadades vàlid",
@@ -2937,10 +3299,12 @@
   // "item.edit.metadata.reinstate-button": "Undo",
   "item.edit.metadata.reinstate-button": "Desfer",
 
+  // "item.edit.metadata.reset-order-button": "Undo reorder",
+  // TODO New key - Add a translation
+  "item.edit.metadata.reset-order-button": "Undo reorder",
+
   // "item.edit.metadata.save-button": "Save",
   "item.edit.metadata.save-button": "Guardar",
-
-
 
   // "item.edit.modify.overview.field": "Field",
   "item.edit.modify.overview.field": "Camp",
@@ -2950,8 +3314,6 @@
 
   // "item.edit.modify.overview.value": "Value",
   "item.edit.modify.overview.value": "Valor",
-
-
 
   // "item.edit.move.cancel": "Back",
   "item.edit.move.cancel": "Enrere",
@@ -2992,8 +3354,6 @@
   // "item.edit.move.title": "Move item",
   "item.edit.move.title": "Moure ítem",
 
-
-
   // "item.edit.private.cancel": "Cancel",
   "item.edit.private.cancel": "Cancel·lar",
 
@@ -3011,8 +3371,6 @@
 
   // "item.edit.private.success": "The item is now non-discoverable",
   "item.edit.private.success": "L'ítem ara és privat",
-
-
 
   // "item.edit.public.cancel": "Cancel",
   "item.edit.public.cancel": "Cancel·lar",
@@ -3032,8 +3390,6 @@
   // "item.edit.public.success": "The item is now discoverable",
   "item.edit.public.success": "L'ítem ara és públic",
 
-
-
   // "item.edit.reinstate.cancel": "Cancel",
   "item.edit.reinstate.cancel": "Cancel·lar",
 
@@ -3051,8 +3407,6 @@
 
   // "item.edit.reinstate.success": "The item was reinstated successfully",
   "item.edit.reinstate.success": "L'ítem s'ha reintegrat correctament",
-
-
 
   // "item.edit.relationships.discard-button": "Discard",
   "item.edit.relationships.discard-button": "Descartar",
@@ -3099,10 +3453,8 @@
   // "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
   "item.edit.relationships.no-entity-type": "Afegiu la metadada 'dspace.entity.type' per habilitar les relacions per a aquest ítem",
 
-
   // "item.edit.return": "Back",
   "item.edit.return": "Enrere",
-
 
   // "item.edit.tabs.bitstreams.head": "Bitstreams",
   "item.edit.tabs.bitstreams.head": "Fitxers",
@@ -3115,6 +3467,10 @@
 
   // "item.edit.tabs.curate.title": "Item Edit - Curate",
   "item.edit.tabs.curate.title": "Edició d'ítem: Curar",
+
+  // "item.edit.curate.title": "Curate Item: {{item}}",
+  // TODO New key - Add a translation
+  "item.edit.curate.title": "Curate Item: {{item}}",
 
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "Metadades",
@@ -3146,7 +3502,8 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Administra col·leccions mapejades",
 
-  // "item.edit.tabs.status.buttons.move.button": "Move...",
+  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.status.buttons.move.button": "Moure...",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
@@ -3173,7 +3530,8 @@
   // "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
   "item.edit.tabs.status.buttons.unauthorized": "No estàs autoritzat a realitzar aquesta acció.",
 
-  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
+  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.status.buttons.withdraw.button": "Retira...",
 
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
@@ -3215,8 +3573,6 @@
   // "item.edit.tabs.view.title": "Item Edit -  View",
   "item.edit.tabs.view.title": "Edició d'ítem - Visualitza",
 
-
-
   // "item.edit.withdraw.cancel": "Cancel",
   "item.edit.withdraw.cancel": "Cancel·lar",
 
@@ -3237,7 +3593,6 @@
 
   // "item.orcid.return": "Back",
   "item.orcid.return": "Enrere",
-
 
   // "item.listelement.badge": "Item",
   "item.listelement.badge": "Ítem",
@@ -3272,7 +3627,37 @@
   // "item.truncatable-part.show-less": "Collapse",
   "item.truncatable-part.show-less": "Contraure",
 
+  // "workflow-item.search.result.delete-supervision.modal.header": "Delete Supervision Order",
+  // TODO New key - Add a translation
+  "workflow-item.search.result.delete-supervision.modal.header": "Delete Supervision Order",
 
+  // "workflow-item.search.result.delete-supervision.modal.info": "Are you sure you want to delete Supervision Order",
+  // TODO New key - Add a translation
+  "workflow-item.search.result.delete-supervision.modal.info": "Are you sure you want to delete Supervision Order",
+
+  // "workflow-item.search.result.delete-supervision.modal.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "workflow-item.search.result.delete-supervision.modal.cancel": "Cancel",
+
+  // "workflow-item.search.result.delete-supervision.modal.confirm": "Delete",
+  // TODO New key - Add a translation
+  "workflow-item.search.result.delete-supervision.modal.confirm": "Delete",
+
+  // "workflow-item.search.result.notification.deleted.success": "Successfully deleted supervision order \"{{name}}\"",
+  // TODO New key - Add a translation
+  "workflow-item.search.result.notification.deleted.success": "Successfully deleted supervision order \"{{name}}\"",
+
+  // "workflow-item.search.result.notification.deleted.failure": "Failed to delete supervision order \"{{name}}\"",
+  // TODO New key - Add a translation
+  "workflow-item.search.result.notification.deleted.failure": "Failed to delete supervision order \"{{name}}\"",
+
+  // "workflow-item.search.result.list.element.supervised-by": "Supervised by:",
+  // TODO New key - Add a translation
+  "workflow-item.search.result.list.element.supervised-by": "Supervised by:",
+
+  // "workflow-item.search.result.list.element.supervised.remove-tooltip": "Remove supervision group",
+  // TODO New key - Add a translation
+  "workflow-item.search.result.list.element.supervised.remove-tooltip": "Remove supervision group",
 
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Resum",
@@ -3364,10 +3749,12 @@
   // "item.page.bitstreams.collapse": "Collapse",
   "item.page.bitstreams.collapse": "Contraure",
 
-  // "item.page.filesection.original.bundle" : "Original bundle",
+  // "item.page.filesection.original.bundle": "Original bundle",
+  // TODO Source message changed - Revise the translation
   "item.page.filesection.original.bundle": "Paquet original",
 
-  // "item.page.filesection.license.bundle" : "License bundle",
+  // "item.page.filesection.license.bundle": "License bundle",
+  // TODO Source message changed - Revise the translation
   "item.page.filesection.license.bundle": "Paquet de llicències",
 
   // "item.page.return": "Back",
@@ -3412,26 +3799,36 @@
   // "item.preview.dc.type": "Type:",
   "item.preview.dc.type": "Tipus:",
 
-  // "item.preview.oaire.citation.issue" : "Issue",
+  // "item.preview.oaire.citation.issue": "Issue",
+  // TODO Source message changed - Revise the translation
   "item.preview.oaire.citation.issue": "Número",
 
-  // "item.preview.oaire.citation.volume" : "Volume",
+  // "item.preview.oaire.citation.volume": "Volume",
+  // TODO Source message changed - Revise the translation
   "item.preview.oaire.citation.volume": "Volum",
 
-  // "item.preview.dc.relation.issn" : "ISSN",
+  // "item.preview.dc.relation.issn": "ISSN",
+  // TODO Source message changed - Revise the translation
   "item.preview.dc.relation.issn": "ISSN",
 
-  // "item.preview.dc.identifier.isbn" : "ISBN",
+  // "item.preview.dc.identifier.isbn": "ISBN",
+  // TODO Source message changed - Revise the translation
   "item.preview.dc.identifier.isbn": "ISBN",
 
   // "item.preview.dc.identifier": "Identifier:",
   "item.preview.dc.identifier": "Identificador:",
 
-  // "item.preview.dc.relation.ispartof" : "Journal or Serie",
+  // "item.preview.dc.relation.ispartof": "Journal or Serie",
+  // TODO Source message changed - Revise the translation
   "item.preview.dc.relation.ispartof": "Revista o Sèrie",
 
-  // "item.preview.dc.identifier.doi" : "DOI",
+  // "item.preview.dc.identifier.doi": "DOI",
+  // TODO Source message changed - Revise the translation
   "item.preview.dc.identifier.doi": "DOI",
+
+  // "item.preview.dc.publisher": "Publisher:",
+  // TODO New key - Add a translation
+  "item.preview.dc.publisher": "Publisher:",
 
   // "item.preview.person.familyName": "Surname:",
   "item.preview.person.familyName": "Cognoms:",
@@ -3460,8 +3857,6 @@
   // "item.preview.oaire.fundingStream": "Funding Stream:",
   "item.preview.oaire.fundingStream": "Línia de finançament:",
 
-
-
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Confirmar seleccionat",
 
@@ -3476,7 +3871,6 @@
 
   // "item.select.table.title": "Title",
   "item.select.table.title": "Títol",
-
 
   // "item.version.history.empty": "There are no other versions for this item yet.",
   "item.version.history.empty": "Encara no hi ha altres versions per a aquest ítem.",
@@ -3538,10 +3932,8 @@
   // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
   "item.version.history.table.action.hasDraft": "No és possible crear una nova versió ja que existeix a l'historial de versions un enviament pendent",
 
-
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
   "item.version.notice": "Aquesta no és l'última versió d'aquest ítem. L'última versió es pot trobar <a href='{{destination}}'>aquí</a>.",
-
 
   // "item.version.create.modal.header": "New version",
   "item.version.create.modal.header": "Nova versió",
@@ -3576,15 +3968,17 @@
   // "item.version.create.modal.submitted.text": "The new version is being created. This may take some time if the item has a lot of relationships.",
   "item.version.create.modal.submitted.text": "S'està creant la nova versió. Si l'ítem té moltes relacions, aquest procés podria trigar.",
 
-  // "item.version.create.notification.success" : "New version has been created with version number {{version}}",
+  // "item.version.create.notification.success": "New version has been created with version number {{version}}",
+  // TODO Source message changed - Revise the translation
   "item.version.create.notification.success": "S'ha creat una nova versió amb número {{version}}",
 
-  // "item.version.create.notification.failure" : "New version has not been created",
+  // "item.version.create.notification.failure": "New version has not been created",
+  // TODO Source message changed - Revise the translation
   "item.version.create.notification.failure": "No s'ha creat una nova versió",
 
-  // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
+  // TODO Source message changed - Revise the translation
   "item.version.create.notification.inProgress": "No és possible crear una nova versió ja que existeix a l'historial de versions un enviament pendent",
-
 
   // "item.version.delete.modal.header": "Delete version",
   "item.version.delete.modal.header": "Esborrar versió",
@@ -3604,20 +3998,129 @@
   // "item.version.delete.modal.button.cancel.tooltip": "Do not delete this version",
   "item.version.delete.modal.button.cancel.tooltip": "No esborrar aquesta versió",
 
-  // "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
+  // "item.version.delete.notification.success": "Version number {{version}} has been deleted",
+  // TODO Source message changed - Revise the translation
   "item.version.delete.notification.success": "S'ha esborrat la versió número {{version}}",
 
-  // "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
+  // "item.version.delete.notification.failure": "Version number {{version}} has not been deleted",
+  // TODO Source message changed - Revise the translation
   "item.version.delete.notification.failure": "No s'ha esborrat la versió número {{version}}",
 
-
-  // "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
+  // "item.version.edit.notification.success": "The summary of version number {{version}} has been changed",
+  // TODO Source message changed - Revise the translation
   "item.version.edit.notification.success": "Ha canviat el resum de la versió número {{version}}",
 
-  // "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
+  // "item.version.edit.notification.failure": "The summary of version number {{version}} has not been changed",
+  // TODO Source message changed - Revise the translation
   "item.version.edit.notification.failure": "No ha canviat el resum de la versió número {{version}}",
 
+  // "itemtemplate.edit.metadata.add-button": "Add",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.add-button": "Add",
 
+  // "itemtemplate.edit.metadata.discard-button": "Discard",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.discard-button": "Discard",
+
+  // "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
+
+  // "itemtemplate.edit.metadata.edit.buttons.drag": "Drag to reorder",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.buttons.drag": "Drag to reorder",
+
+  // "itemtemplate.edit.metadata.edit.buttons.edit": "Edit",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.buttons.edit": "Edit",
+
+  // "itemtemplate.edit.metadata.edit.buttons.remove": "Remove",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.buttons.remove": "Remove",
+
+  // "itemtemplate.edit.metadata.edit.buttons.undo": "Undo changes",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.buttons.undo": "Undo changes",
+
+  // "itemtemplate.edit.metadata.edit.buttons.unedit": "Stop editing",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.buttons.unedit": "Stop editing",
+
+  // "itemtemplate.edit.metadata.empty": "The item template currently doesn't contain any metadata. Click Add to start adding a metadata value.",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.empty": "The item template currently doesn't contain any metadata. Click Add to start adding a metadata value.",
+
+  // "itemtemplate.edit.metadata.headers.edit": "Edit",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.headers.edit": "Edit",
+
+  // "itemtemplate.edit.metadata.headers.field": "Field",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.headers.field": "Field",
+
+  // "itemtemplate.edit.metadata.headers.language": "Lang",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.headers.language": "Lang",
+
+  // "itemtemplate.edit.metadata.headers.value": "Value",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.headers.value": "Value",
+
+  // "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
+
+  // "itemtemplate.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
+
+  // "itemtemplate.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+
+  // "itemtemplate.edit.metadata.notifications.discarded.title": "Changes discarded",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.notifications.discarded.title": "Changes discarded",
+
+  // "itemtemplate.edit.metadata.notifications.error.title": "An error occurred",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.notifications.error.title": "An error occurred",
+
+  // "itemtemplate.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
+
+  // "itemtemplate.edit.metadata.notifications.invalid.title": "Metadata invalid",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.notifications.invalid.title": "Metadata invalid",
+
+  // "itemtemplate.edit.metadata.notifications.outdated.content": "The item template you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.notifications.outdated.content": "The item template you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
+
+  // "itemtemplate.edit.metadata.notifications.outdated.title": "Changes outdated",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.notifications.outdated.title": "Changes outdated",
+
+  // "itemtemplate.edit.metadata.notifications.saved.content": "Your changes to this item template's metadata were saved.",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.notifications.saved.content": "Your changes to this item template's metadata were saved.",
+
+  // "itemtemplate.edit.metadata.notifications.saved.title": "Metadata saved",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.notifications.saved.title": "Metadata saved",
+
+  // "itemtemplate.edit.metadata.reinstate-button": "Undo",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.reinstate-button": "Undo",
+
+  // "itemtemplate.edit.metadata.reset-order-button": "Undo reorder",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.reset-order-button": "Undo reorder",
+
+  // "itemtemplate.edit.metadata.save-button": "Save",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.save-button": "Save",
 
   // "journal.listelement.badge": "Journal",
   "journal.listelement.badge": "Revista",
@@ -3649,8 +4152,6 @@
   // "journal.search.title": "Journal Search",
   "journal.search.title": "Cerca de revistes",
 
-
-
   // "journalissue.listelement.badge": "Journal Issue",
   "journalissue.listelement.badge": "Número de la revista",
 
@@ -3678,8 +4179,6 @@
   // "journalissue.page.titleprefix": "Journal Issue: ",
   "journalissue.page.titleprefix": "Número de la revista: ",
 
-
-
   // "journalvolume.listelement.badge": "Journal Volume",
   "journalvolume.listelement.badge": "Volum de la revista",
 
@@ -3697,7 +4196,6 @@
 
   // "journalvolume.page.volume": "Volume",
   "journalvolume.page.volume": "Volum",
-
 
   // "iiifsearchable.listelement.badge": "Document Media",
   "iiifsearchable.listelement.badge": "Suport del document",
@@ -3731,7 +4229,6 @@
 
   // "iiif.page.description": "Description: ",
   "iiif.page.description": "Descripció: ",
-
 
   // "loading.bitstream": "Loading bitstream...",
   "loading.bitstream": "Carregant fitxer...",
@@ -3787,8 +4284,6 @@
   // "loading.top-level-communities": "Loading top-level communities...",
   "loading.top-level-communities": "Carregant comunitats de primer nivell...",
 
-
-
   // "login.form.email": "Email address",
   "login.form.email": "Correu electrònic",
 
@@ -3825,8 +4320,6 @@
   // "login.breadcrumbs": "Login",
   "login.breadcrumbs": "Iniciar sessió",
 
-
-
   // "logout.form.header": "Log out from DSpace",
   "logout.form.header": "Tancar sessió a DSpace",
 
@@ -3836,8 +4329,6 @@
   // "logout.title": "Logout",
   "logout.title": "Tancar sessió",
 
-
-
   // "menu.header.admin": "Management",
   "menu.header.admin": "Administració",
 
@@ -3846,8 +4337,6 @@
 
   // "menu.header.admin.description": "Management menu",
   "menu.header.admin.description": "Menú d'administració",
-
-
 
   // "menu.section.access_control": "Access Control",
   "menu.section.access_control": "Control d'accés",
@@ -3861,12 +4350,8 @@
   // "menu.section.access_control_people": "People",
   "menu.section.access_control_people": "Usuaris",
 
-
-
   // "menu.section.admin_search": "Admin Search",
   "menu.section.admin_search": "Cerca d'administrador",
-
-
 
   // "menu.section.browse_community": "This Community",
   "menu.section.browse_community": "Aquesta comunitat",
@@ -3892,21 +4377,21 @@
   // "menu.section.browse_global_by_subject": "By Subject",
   "menu.section.browse_global_by_subject": "Per tema",
 
+  // "menu.section.browse_global_by_srsc": "By Subject Category",
+  // TODO New key - Add a translation
+  "menu.section.browse_global_by_srsc": "By Subject Category",
+
   // "menu.section.browse_global_by_title": "By Title",
   "menu.section.browse_global_by_title": "Per títol",
 
   // "menu.section.browse_global_communities_and_collections": "Communities & Collections",
   "menu.section.browse_global_communities_and_collections": "Comunitats i col·leccions",
 
-
-
   // "menu.section.control_panel": "Control Panel",
   "menu.section.control_panel": "Panel de control",
 
   // "menu.section.curation_task": "Curation Task",
   "menu.section.curation_task": "Tasques de curació",
-
-
 
   // "menu.section.edit": "Edit",
   "menu.section.edit": "Editar",
@@ -3919,8 +4404,6 @@
 
   // "menu.section.edit_item": "Item",
   "menu.section.edit_item": "Ítem",
-
-
 
   // "menu.section.export": "Export",
   "menu.section.export": "Exportar",
@@ -3939,7 +4422,6 @@
 
   // "menu.section.export_batch": "Batch Export (ZIP)",
   "menu.section.export_batch": "Exportació per lots (ZIP)",
-
 
   // "menu.section.icon.access_control": "Access Control menu section",
   "menu.section.icon.access_control": "Secció del menú de control d'accés",
@@ -3989,8 +4471,6 @@
   // "menu.section.icon.unpin": "Unpin sidebar",
   "menu.section.icon.unpin": "Desanclar la barra lateral",
 
-
-
   // "menu.section.import": "Import",
   "menu.section.import": "Importar",
 
@@ -3999,8 +4479,6 @@
 
   // "menu.section.import_metadata": "Metadata",
   "menu.section.import_metadata": "Metadades",
-
-
 
   // "menu.section.new": "New",
   "menu.section.new": "Nou",
@@ -4020,23 +4498,17 @@
   // "menu.section.new_process": "Process",
   "menu.section.new_process": "Procés",
 
-
-
   // "menu.section.pin": "Pin sidebar",
   "menu.section.pin": "Ancorar barra lateral",
 
   // "menu.section.unpin": "Unpin sidebar",
   "menu.section.unpin": "Desancorar la barra lateral",
 
-
-
   // "menu.section.processes": "Processes",
   "menu.section.processes": "Processos",
 
   // "menu.section.health": "Health",
   "menu.section.health": "Revisió de salut",
-
-
 
   // "menu.section.registries": "Registries",
   "menu.section.registries": "Registres",
@@ -4047,15 +4519,11 @@
   // "menu.section.registries_metadata": "Metadata",
   "menu.section.registries_metadata": "Metadades",
 
-
-
   // "menu.section.statistics": "Statistics",
   "menu.section.statistics": "Estadístiques",
 
   // "menu.section.statistics_task": "Statistics Task",
   "menu.section.statistics_task": "Tasques d'estadístiques",
-
-
 
   // "menu.section.toggle.access_control": "Toggle Access Control section",
   "menu.section.toggle.access_control": "Alternar secció de Control d'accés",
@@ -4087,18 +4555,17 @@
   // "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
   "menu.section.toggle.statistics_task": "Alternar secció de Tasca d'estadístiques",
 
-
   // "menu.section.workflow": "Administer Workflow",
   "menu.section.workflow": "Administrar flux de treball",
 
-
   // "metadata-export-search.tooltip": "Export search results as CSV",
   "metadata-export-search.tooltip": "Exporta els resultats de cerca a CSV",
+
   // "metadata-export-search.submit.success": "The export was started successfully",
   "metadata-export-search.submit.success": "L'exportació s'ha iniciat satisfactòriament",
+
   // "metadata-export-search.submit.error": "Starting the export has failed",
   "metadata-export-search.submit.error": "Ha fallat l'inici de l'exportació",
-
 
   // "mydspace.breadcrumbs": "MyDSpace",
   "mydspace.breadcrumbs": "El meu DSpace",
@@ -4190,20 +4657,29 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Els seus enviaments",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Arxivat",
+  // "mydspace.show.supervisedWorkspace": "Supervised items",
+  // TODO New key - Add a translation
+  "mydspace.show.supervisedWorkspace": "Supervised items",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Validació",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  // TODO New key - Add a translation
+  "mydspace.status.mydspaceArchived": "Archived",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Esperant el controlador",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  // TODO New key - Add a translation
+  "mydspace.status.mydspaceValidation": "Validation",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Flux de treball",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  // TODO New key - Add a translation
+  "mydspace.status.mydspaceWaitingController": "Waiting for controller",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Espai de treball",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  // TODO New key - Add a translation
+  "mydspace.status.mydspaceWorkflow": "Workflow",
+
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  // TODO New key - Add a translation
+  "mydspace.status.mydspaceWorkspace": "Workspace",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "El meu DSpace",
@@ -4223,13 +4699,15 @@
   // "mydspace.view-btn": "View",
   "mydspace.view-btn": "Veure",
 
-
-
   // "nav.browse.header": "All of DSpace",
   "nav.browse.header": "Tot DSpace",
 
   // "nav.community-browse.header": "By Community",
   "nav.community-browse.header": "Per comunitat",
+
+  // "nav.context-help-toggle": "Toggle context help",
+  // TODO New key - Add a translation
+  "nav.context-help-toggle": "Toggle context help",
 
   // "nav.language": "Language switch",
   "nav.language": "Canvi d'idioma",
@@ -4255,21 +4733,30 @@
   // "nav.search": "Search",
   "nav.search": "Cerca",
 
+  // "nav.search.button": "Submit search",
+  // TODO New key - Add a translation
+  "nav.search.button": "Submit search",
+
   // "nav.statistics.header": "Statistics",
   "nav.statistics.header": "Estadístiques",
 
   // "nav.stop-impersonating": "Stop impersonating EPerson",
   "nav.stop-impersonating": "Deixeu de fer-vos passar per usuari",
 
-  // "nav.toggle" : "Toggle navigation",
+  // "nav.subscriptions": "Subscriptions",
+  // TODO New key - Add a translation
+  "nav.subscriptions": "Subscriptions",
+
+  // "nav.toggle": "Toggle navigation",
+  // TODO Source message changed - Revise the translation
   "nav.toggle": "Alternar navegació",
 
-  // "nav.user.description" : "User profile bar",
+  // "nav.user.description": "User profile bar",
+  // TODO Source message changed - Revise the translation
   "nav.user.description": "Barra de perfil d'usuari",
 
   // "none.listelement.badge": "Item",
   "none.listelement.badge": "Ítem",
-
 
   // "orgunit.listelement.badge": "Organizational Unit",
   "orgunit.listelement.badge": "Unitat organitzativa",
@@ -4298,8 +4785,6 @@
   // "orgunit.page.titleprefix": "Organizational Unit: ",
   "orgunit.page.titleprefix": "Unitat organitzativa: ",
 
-
-
   // "pagination.options.description": "Pagination options",
   "pagination.options.description": "Opcions de paginació",
 
@@ -4314,8 +4799,6 @@
 
   // "pagination.sort-direction": "Sort Options",
   "pagination.sort-direction": "Opcions d'ordenació",
-
-
 
   // "person.listelement.badge": "Person",
   "person.listelement.badge": "Persona",
@@ -4365,8 +4848,6 @@
   // "person.search.title": "Person Search",
   "person.search.title": "Cerca de persones",
 
-
-
   // "process.new.select-parameters": "Parameters",
   "process.new.select-parameters": "Paràmetres",
 
@@ -4415,6 +4896,10 @@
   // "process.new.notification.error.content": "An error occurred while creating this process",
   "process.new.notification.error.content": "S'ha produït un error en crear aquest procés.",
 
+  // "process.new.notification.error.max-upload.content": "The file exceeds the maximum upload size",
+  // TODO New key - Add a translation
+  "process.new.notification.error.max-upload.content": "The file exceeds the maximum upload size",
+
   // "process.new.header": "Create a new process",
   "process.new.header": "Crea un nou procés",
 
@@ -4424,18 +4909,20 @@
   // "process.new.breadcrumbs": "Create a new process",
   "process.new.breadcrumbs": "Crea un nou procés",
 
-
-
-  // "process.detail.arguments" : "Arguments",
+  // "process.detail.arguments": "Arguments",
+  // TODO Source message changed - Revise the translation
   "process.detail.arguments": "Arguments",
 
-  // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
+  // "process.detail.arguments.empty": "This process doesn't contain any arguments",
+  // TODO Source message changed - Revise the translation
   "process.detail.arguments.empty": "Aquest procés no conté cap argument",
 
-  // "process.detail.back" : "Back",
+  // "process.detail.back": "Back",
+  // TODO Source message changed - Revise the translation
   "process.detail.back": "Enrere",
 
-  // "process.detail.output" : "Process Output",
+  // "process.detail.output": "Process Output",
+  // TODO Source message changed - Revise the translation
   "process.detail.output": "Sortida del procés",
 
   // "process.detail.logs.button": "Retrieve process output",
@@ -4447,28 +4934,36 @@
   // "process.detail.logs.none": "This process has no output",
   "process.detail.logs.none": "Aquest procés no té sortida",
 
-  // "process.detail.output-files" : "Output Files",
+  // "process.detail.output-files": "Output Files",
+  // TODO Source message changed - Revise the translation
   "process.detail.output-files": "Fitxers de sortida",
 
-  // "process.detail.output-files.empty" : "This process doesn't contain any output files",
+  // "process.detail.output-files.empty": "This process doesn't contain any output files",
+  // TODO Source message changed - Revise the translation
   "process.detail.output-files.empty": "Aquest procés no conté cap fitxer de sortida",
 
-  // "process.detail.script" : "Script",
+  // "process.detail.script": "Script",
+  // TODO Source message changed - Revise the translation
   "process.detail.script": "Seqüència d'ordres",
 
-  // "process.detail.title" : "Process: {{ id }} - {{ name }}",
-  "process.detail.title": "Procés: {{ id }} - {{ name }}",
+  // "process.detail.title": "Process: {{ id }} - {{ name }}",
+  // TODO New key - Add a translation
+  "process.detail.title": "Process: {{ id }} - {{ name }}",
 
-  // "process.detail.start-time" : "Start time",
+  // "process.detail.start-time": "Start time",
+  // TODO Source message changed - Revise the translation
   "process.detail.start-time": "Hora d'inici",
 
-  // "process.detail.end-time" : "Finish time",
+  // "process.detail.end-time": "Finish time",
+  // TODO Source message changed - Revise the translation
   "process.detail.end-time": "Hora de finalització",
 
-  // "process.detail.status" : "Status",
+  // "process.detail.status": "Status",
+  // TODO Source message changed - Revise the translation
   "process.detail.status": "Estat",
 
-  // "process.detail.create" : "Create similar process",
+  // "process.detail.create": "Create similar process",
+  // TODO Source message changed - Revise the translation
   "process.detail.create": "Crear un procés similar",
 
   // "process.detail.actions": "Actions",
@@ -4495,24 +4990,28 @@
   // "process.detail.delete.error": "Something went wrong when deleting the process",
   "process.detail.delete.error": "Alguna cosa ha fallat eliminant el procés",
 
-
-
-  // "process.overview.table.finish" : "Finish time (UTC)",
+  // "process.overview.table.finish": "Finish time (UTC)",
+  // TODO Source message changed - Revise the translation
   "process.overview.table.finish": "Hora de finalització (UTC)",
 
-  // "process.overview.table.id" : "Process ID",
+  // "process.overview.table.id": "Process ID",
+  // TODO Source message changed - Revise the translation
   "process.overview.table.id": "ID de procés",
 
-  // "process.overview.table.name" : "Name",
+  // "process.overview.table.name": "Name",
+  // TODO Source message changed - Revise the translation
   "process.overview.table.name": "Nom",
 
-  // "process.overview.table.start" : "Start time (UTC)",
+  // "process.overview.table.start": "Start time (UTC)",
+  // TODO Source message changed - Revise the translation
   "process.overview.table.start": "Hora d'inici (UTC)",
 
-  // "process.overview.table.status" : "Status",
+  // "process.overview.table.status": "Status",
+  // TODO Source message changed - Revise the translation
   "process.overview.table.status": "Estat",
 
-  // "process.overview.table.user" : "User",
+  // "process.overview.table.user": "User",
+  // TODO Source message changed - Revise the translation
   "process.overview.table.user": "Usuari",
 
   // "process.overview.title": "Processes Overview",
@@ -4550,8 +5049,6 @@
 
   // "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
   "process.bulk.delete.success": "{{count}} procés(sos) s'han eliminat correctament",
-
-
 
   // "profile.breadcrumbs": "Update Profile",
   "profile.breadcrumbs": "Actualització del perfil",
@@ -4682,8 +5179,6 @@
   // "project-relationships.search.results.head": "Project Search Results",
   "project-relationships.search.results.head": "Resultats de cerca de projectes",
 
-
-
   // "publication.listelement.badge": "Publication",
   "publication.listelement.badge": "Publicació",
 
@@ -4717,7 +5212,6 @@
   // "publication.search.title": "Publication Search",
   "publication.search.title": "Cerca de publicacions",
 
-
   // "media-viewer.next": "Next",
   "media-viewer.next": "Següent",
 
@@ -4726,7 +5220,6 @@
 
   // "media-viewer.playlist": "Playlist",
   "media-viewer.playlist": "Llista de reproducció",
-
 
   // "register-email.title": "New user registration",
   "register-email.title": "Registre de nou usuari",
@@ -4791,7 +5284,6 @@
   // "register-page.create-profile.submit.success.head": "Registration completed",
   "register-page.create-profile.submit.success.head": "Registre completat",
 
-
   // "register-page.registration.header": "New user registration",
   "register-page.registration.header": "Registre de nou usuari",
 
@@ -4804,8 +5296,13 @@
   // "register-page.registration.email.error.required": "Please fill in an email address",
   "register-page.registration.email.error.required": "Si us plau, introduïu una adreça de correu electrònic",
 
-  // "register-page.registration.email.error.pattern": "Please fill in a valid email address",
-  "register-page.registration.email.error.pattern": "Si us plau, introduïu una adreça de correu electrònic vàlida",
+  // "register-page.registration.email.error.not-email-form": "Please fill in a valid email address.",
+  // TODO New key - Add a translation
+  "register-page.registration.email.error.not-email-form": "Please fill in a valid email address.",
+
+  // "register-page.registration.email.error.not-valid-domain": "Use email with allowed domains: {{ domains }}",
+  // TODO New key - Add a translation
+  "register-page.registration.email.error.not-valid-domain": "Use email with allowed domains: {{ domains }}",
 
   // "register-page.registration.email.hint": "This address will be verified and used as your login name.",
   "register-page.registration.email.hint": "Aquesta adreça serà verificada i utilitzada com a nom d'inici de sessió.",
@@ -4831,6 +5328,10 @@
   // "register-page.registration.google-recaptcha.must-accept-cookies": "In order to register you must accept the <b>Registration and Password recovery</b> (Google reCaptcha) cookies.",
   "register-page.registration.google-recaptcha.must-accept-cookies": "Per registrar-se heu d'acceptar les cookies de <b>Registre i recuperació de contrasenya</b> (Google reCaptcha).",
 
+  // "register-page.registration.error.maildomain": "This email address is not on the list of domains who can register. Allowed domains are {{ domains }}",
+  // TODO New key - Add a translation
+  "register-page.registration.error.maildomain": "This email address is not on the list of domains who can register. Allowed domains are {{ domains }}",
+
   // "register-page.registration.google-recaptcha.open-cookie-settings": "Open cookie settings",
   "register-page.registration.google-recaptcha.open-cookie-settings": "Obrir configuració de cookies",
 
@@ -4842,6 +5343,10 @@
 
   // "register-page.registration.google-recaptcha.notification.message.expired": "Verification expired. Please verify again.",
   "register-page.registration.google-recaptcha.notification.message.expired": "Verificació caducada. Verifiqueu de nou.",
+
+  // "register-page.registration.info.maildomain": "Accounts can be registered for mail addresses of the domains",
+  // TODO New key - Add a translation
+  "register-page.registration.info.maildomain": "Accounts can be registered for mail addresses of the domains",
 
   // "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
   "relationships.add.error.relationship-type.content": "No s'ha pogut trobar una coincidència adequada per al tipus de relació {{ type }} entre els dos ítems",
@@ -4906,16 +5411,16 @@
   // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
   "relationships.isFundingAgencyOf.OrgUnit": "Finançador",
 
-
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Logotip del repositori",
 
-  // "repository.title.prefix": "DSpace Angular :: ",
-  "repository.title.prefix": "DSpace Angular :: ",
+  // "repository.title": "DSpace Repository",
+  // TODO New key - Add a translation
+  "repository.title": "DSpace Repository",
 
-  // "repository.title.prefixDSpace": "DSpace Angular ::",
-  "repository.title.prefixDSpace": "DSpace Angular ::",
-
+  // "repository.title.prefix": "DSpace Repository :: ",
+  // TODO New key - Add a translation
+  "repository.title.prefix": "DSpace Repository :: ",
 
   // "resource-policies.add.button": "Add",
   "resource-policies.add.button": "Afegir",
@@ -5088,8 +5593,6 @@
   // "resource-policies.table.headers.title.for.collection": "Policies for Collection",
   "resource-policies.table.headers.title.for.collection": "Polítiques per a la col·lecció",
 
-
-
   // "search.description": "",
   "search.description": "",
 
@@ -5104,7 +5607,6 @@
 
   // "search.search-form.placeholder": "Search the repository ...",
   "search.search-form.placeholder": "Cerca al repositori ...",
-
 
   // "search.filters.applied.f.author": "Author",
   "search.filters.applied.f.author": "Autor",
@@ -5148,10 +5650,12 @@
   // "search.filters.applied.f.birthDate.min": "Start birth date",
   "search.filters.applied.f.birthDate.min": "Data de naixement, inicial",
 
+  // "search.filters.applied.f.supervisedBy": "Supervised by",
+  // TODO New key - Add a translation
+  "search.filters.applied.f.supervisedBy": "Supervised by",
+
   // "search.filters.applied.f.withdrawn": "Withdrawn",
   "search.filters.applied.f.withdrawn": "Retirat",
-
-
 
   // "search.filters.filter.author.head": "Author",
   "search.filters.filter.author.head": "Autor",
@@ -5363,6 +5867,17 @@
   // "search.filters.filter.show-tree": "Browse {{ name }} tree",
   "search.filters.filter.show-tree": "Navega per l'arbre {{ name }}",
 
+  // "search.filters.filter.supervisedBy.head": "Supervised By",
+  // TODO New key - Add a translation
+  "search.filters.filter.supervisedBy.head": "Supervised By",
+
+  // "search.filters.filter.supervisedBy.placeholder": "Supervised By",
+  // TODO New key - Add a translation
+  "search.filters.filter.supervisedBy.placeholder": "Supervised By",
+
+  // "search.filters.filter.supervisedBy.label": "Search Supervised By",
+  // TODO New key - Add a translation
+  "search.filters.filter.supervisedBy.label": "Search Supervised By",
 
   // "search.filters.entityType.JournalIssue": "Journal Issue",
   "search.filters.entityType.JournalIssue": "Número de la revista",
@@ -5391,7 +5906,6 @@
   // "search.filters.withdrawn.false": "No",
   "search.filters.withdrawn.false": "No",
 
-
   // "search.filters.head": "Filters",
   "search.filters.head": "Filtres",
 
@@ -5401,8 +5915,6 @@
   // "search.filters.search.submit": "Submit",
   "search.filters.search.submit": "Enviar",
 
-
-
   // "search.form.search": "Search",
   "search.form.search": "Cerca",
 
@@ -5411,8 +5923,6 @@
 
   // "search.form.scope.all": "All of DSpace",
   "search.form.scope.all": "Tot DSpace",
-
-
 
   // "search.results.head": "Search Results",
   "search.results.head": "Resultats de la cerca",
@@ -5438,7 +5948,6 @@
   // "default-relationships.search.results.head": "Search Results",
   "default-relationships.search.results.head": "Resultats de la cerca",
 
-
   // "search.sidebar.close": "Back to results",
   "search.sidebar.close": "Tornar a resultats",
 
@@ -5460,8 +5969,6 @@
   // "search.sidebar.settings.title": "Settings",
   "search.sidebar.settings.title": "Configuració",
 
-
-
   // "search.view-switch.show-detail": "Show detail",
   "search.view-switch.show-detail": "Mostrar detall",
 
@@ -5470,8 +5977,6 @@
 
   // "search.view-switch.show-list": "Show as list",
   "search.view-switch.show-list": "Mostra com a llista",
-
-
 
   // "sorting.ASC": "Ascending",
   "sorting.ASC": "Ascendent",
@@ -5509,7 +6014,6 @@
   // "sorting.lastModified.DESC": "Last modified Descending",
   "sorting.lastModified.DESC": "Última modificació Descendent",
 
-
   // "statistics.title": "Statistics",
   "statistics.title": "Estadístiques",
 
@@ -5543,7 +6047,9 @@
   // "statistics.table.header.views": "Views",
   "statistics.table.header.views": "Visites",
 
-
+  // "statistics.table.no-name": "(object name could not be loaded)",
+  // TODO New key - Add a translation
+  "statistics.table.no-name": "(object name could not be loaded)",
 
   // "submission.edit.breadcrumbs": "Edit Submission",
   "submission.edit.breadcrumbs": "Editar enviament",
@@ -5554,7 +6060,8 @@
   // "submission.general.cancel": "Cancel",
   "submission.general.cancel": "Cancel·lar",
 
-  // "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
+  // "submission.general.cannot_submit": "You don't have permission to make a new submission.",
+  // TODO Source message changed - Revise the translation
   "submission.general.cannot_submit": "No teniu els permisos per fer un enviament nou.",
 
   // "submission.general.deposit": "Deposit",
@@ -5586,7 +6093,6 @@
 
   // "submission.general.save-later": "Save for later",
   "submission.general.save-later": "Desa per més endavant",
-
 
   // "submission.import-external.page.title": "Import metadata from an external source",
   "submission.import-external.page.title": "Importar metadades des d'una font externa",
@@ -5899,6 +6405,7 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Revistes locals ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Local Projects ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Projectes locals ({{ count }})",
 
@@ -5922,11 +6429,13 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Números de revista locals ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Números de revista locals ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Volums de revista locals ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Volums de revista locals ({{ count }})",
 
@@ -5981,9 +6490,6 @@
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Finançador del Projecte",
 
-
-
-
   // "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
   "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Cerca...",
 
@@ -5992,11 +6498,13 @@
 
   // "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Números de revista",
+
   // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Números de revista",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Volums de revista",
+
   // "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.JournalVolume": "Volums de revista",
 
@@ -6008,6 +6516,7 @@
 
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Agència finançadora",
+
   // "submission.sections.describe.relationship-lookup.title.Project": "Projects",
   "submission.sections.describe.relationship-lookup.title.Project": "Projectes",
 
@@ -6055,6 +6564,7 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Volum de revista seleccionada",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
   "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Projectes seleccionats",
 
@@ -6078,6 +6588,7 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Número de revista seleccionat",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Volums de revista seleccionats",
 
@@ -6086,6 +6597,7 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Finançaments seleccionats",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Selected Issue",
   "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Número seleccionat",
 
@@ -6206,7 +6718,29 @@
   // "submission.sections.general.sections_not_valid": "There are incomplete sections.",
   "submission.sections.general.sections_not_valid": "Hi ha seccions incompletes.",
 
+  // "submission.sections.identifiers.info": "The following identifiers will be created for your item:",
+  // TODO New key - Add a translation
+  "submission.sections.identifiers.info": "The following identifiers will be created for your item:",
 
+  // "submission.sections.identifiers.no_handle": "No handles have been minted for this item.",
+  // TODO New key - Add a translation
+  "submission.sections.identifiers.no_handle": "No handles have been minted for this item.",
+
+  // "submission.sections.identifiers.no_doi": "No DOIs have been minted for this item.",
+  // TODO New key - Add a translation
+  "submission.sections.identifiers.no_doi": "No DOIs have been minted for this item.",
+
+  // "submission.sections.identifiers.handle_label": "Handle: ",
+  // TODO New key - Add a translation
+  "submission.sections.identifiers.handle_label": "Handle: ",
+
+  // "submission.sections.identifiers.doi_label": "DOI: ",
+  // TODO New key - Add a translation
+  "submission.sections.identifiers.doi_label": "DOI: ",
+
+  // "submission.sections.identifiers.otherIdentifiers_label": "Other identifiers: ",
+  // TODO New key - Add a translation
+  "submission.sections.identifiers.otherIdentifiers_label": "Other identifiers: ",
 
   // "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
   "submission.sections.submit.progressbar.accessCondition": "Condicions d'accés a l'ítem",
@@ -6229,6 +6763,10 @@
   // "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
   "submission.sections.submit.progressbar.detect-duplicate": "Possibles duplicats",
 
+  // "submission.sections.submit.progressbar.identifiers": "Identifiers",
+  // TODO New key - Add a translation
+  "submission.sections.submit.progressbar.identifiers": "Identifiers",
+
   // "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.license": "Llicència de dipòsit",
 
@@ -6240,7 +6778,6 @@
 
   // "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
   "submission.sections.submit.progressbar.sherpaPolicies": "Informació sobre polítiques editorials d'accés obert",
-
 
   // "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   "submission.sections.sherpa-policy.title-empty": "No es troba disponible la informació sobre política editorial. Si teniu un ISSN associat, introduïu-lo a dalt per veure informació sobre polítiques editorials d'accés obert.",
@@ -6422,9 +6959,9 @@
   // "submission.sections.license.required": "You must accept the license",
   "submission.sections.license.required": "Ha d'acceptar la llicència",
 
-  // "submission.sections.license.notgranted":  "You must accept the license",
+  // "submission.sections.license.notgranted": "You must accept the license",
+  // TODO Source message changed - Revise the translation
   "submission.sections.license.notgranted": "Heu d'acceptar la llicència",
-
 
   // "submission.sections.sherpa.publication.information": "Publication information",
   "submission.sections.sherpa.publication.information": "Informació de la Publicació",
@@ -6504,20 +7041,17 @@
   // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
   "submission.sections.sherpa.error.message": "S'ha produït un error recuperant la informació de Sherpa",
 
-
-
   // "submission.submit.breadcrumbs": "New submission",
   "submission.submit.breadcrumbs": "Nou enviament",
 
   // "submission.submit.title": "New submission",
   "submission.submit.title": "Nou enviament",
 
-
-
   // "submission.workflow.generic.delete": "Delete",
   "submission.workflow.generic.delete": "Eliminar",
 
-  // "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
+  // "submission.workflow.generic.delete-help": "Select this option to discard this item. You will then be asked to confirm it.",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.delete-help": "Si voleu descartar aquest element, seleccioneu \"Eliminar\". Després se us demanarà que ho confirmeu.",
 
   // "submission.workflow.generic.edit": "Edit",
@@ -6532,7 +7066,21 @@
   // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
   "submission.workflow.generic.view-help": "Seleccioneu aquesta opció per veure les metadades de l'ítem.",
 
+  // "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
+  // TODO New key - Add a translation
+  "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
 
+  // "submission.workflow.generic.submit_select_reviewer-help": "",
+  // TODO New key - Add a translation
+  "submission.workflow.generic.submit_select_reviewer-help": "",
+
+  // "submission.workflow.generic.submit_score": "Rate",
+  // TODO New key - Add a translation
+  "submission.workflow.generic.submit_score": "Rate",
+
+  // "submission.workflow.generic.submit_score-help": "",
+  // TODO New key - Add a translation
+  "submission.workflow.generic.submit_score-help": "",
 
   // "submission.workflow.tasks.claimed.approve": "Approve",
   "submission.workflow.tasks.claimed.approve": "Aprovar",
@@ -6545,6 +7093,14 @@
 
   // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
   "submission.workflow.tasks.claimed.edit_help": "Seleccioneu aquesta opció per canviar les metadades de l'ítem.",
+
+  // "submission.workflow.tasks.claimed.decline": "Decline",
+  // TODO New key - Add a translation
+  "submission.workflow.tasks.claimed.decline": "Decline",
+
+  // "submission.workflow.tasks.claimed.decline_help": "",
+  // TODO New key - Add a translation
+  "submission.workflow.tasks.claimed.decline_help": "",
 
   // "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
   "submission.workflow.tasks.claimed.reject.reason.info": "Introduïu el vostre motiu per rebutjar l'enviament al quadre a continuació, indicant si el remitent pot solucionar el problema i tornar-lo a enviar.",
@@ -6570,8 +7126,6 @@
   // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
   "submission.workflow.tasks.claimed.return_help": "Torneu la tasca al pool perquè un altre usuari pugui realitzar-la.",
 
-
-
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
   "submission.workflow.tasks.generic.error": "S'ha produït un error durant l'operació...",
 
@@ -6583,8 +7137,6 @@
 
   // "submission.workflow.tasks.generic.success": "Operation successful",
   "submission.workflow.tasks.generic.success": "Operació completada amb èxit",
-
-
 
   // "submission.workflow.tasks.pool.claim": "Claim",
   "submission.workflow.tasks.pool.claim": "Assumir tasca",
@@ -6598,13 +7150,155 @@
   // "submission.workflow.tasks.pool.show-detail": "Show detail",
   "submission.workflow.tasks.pool.show-detail": "Mostrar detalls",
 
-
   // "submission.workspace.generic.view": "View",
   "submission.workspace.generic.view": "Veure",
 
   // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
   "submission.workspace.generic.view-help": "Seleccioneu aquesta opció per veure les metadades de l'ítem.",
 
+  // "submitter.empty": "N/A",
+  // TODO New key - Add a translation
+  "submitter.empty": "N/A",
+
+  // "subscriptions.title": "Subscriptions",
+  // TODO New key - Add a translation
+  "subscriptions.title": "Subscriptions",
+
+  // "subscriptions.item": "Subscriptions for items",
+  // TODO New key - Add a translation
+  "subscriptions.item": "Subscriptions for items",
+
+  // "subscriptions.collection": "Subscriptions for collections",
+  // TODO New key - Add a translation
+  "subscriptions.collection": "Subscriptions for collections",
+
+  // "subscriptions.community": "Subscriptions for communities",
+  // TODO New key - Add a translation
+  "subscriptions.community": "Subscriptions for communities",
+
+  // "subscriptions.subscription_type": "Subscription type",
+  // TODO New key - Add a translation
+  "subscriptions.subscription_type": "Subscription type",
+
+  // "subscriptions.frequency": "Subscription frequency",
+  // TODO New key - Add a translation
+  "subscriptions.frequency": "Subscription frequency",
+
+  // "subscriptions.frequency.D": "Daily",
+  // TODO New key - Add a translation
+  "subscriptions.frequency.D": "Daily",
+
+  // "subscriptions.frequency.M": "Monthly",
+  // TODO New key - Add a translation
+  "subscriptions.frequency.M": "Monthly",
+
+  // "subscriptions.frequency.W": "Weekly",
+  // TODO New key - Add a translation
+  "subscriptions.frequency.W": "Weekly",
+
+  // "subscriptions.tooltip": "Subscribe",
+  // TODO New key - Add a translation
+  "subscriptions.tooltip": "Subscribe",
+
+  // "subscriptions.modal.title": "Subscriptions",
+  // TODO New key - Add a translation
+  "subscriptions.modal.title": "Subscriptions",
+
+  // "subscriptions.modal.type-frequency": "Type and frequency",
+  // TODO New key - Add a translation
+  "subscriptions.modal.type-frequency": "Type and frequency",
+
+  // "subscriptions.modal.close": "Close",
+  // TODO New key - Add a translation
+  "subscriptions.modal.close": "Close",
+
+  // "subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
+  // TODO New key - Add a translation
+  "subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
+
+  // "subscriptions.modal.new-subscription-form.type.content": "Content",
+  // TODO New key - Add a translation
+  "subscriptions.modal.new-subscription-form.type.content": "Content",
+
+  // "subscriptions.modal.new-subscription-form.frequency.D": "Daily",
+  // TODO New key - Add a translation
+  "subscriptions.modal.new-subscription-form.frequency.D": "Daily",
+
+  // "subscriptions.modal.new-subscription-form.frequency.W": "Weekly",
+  // TODO New key - Add a translation
+  "subscriptions.modal.new-subscription-form.frequency.W": "Weekly",
+
+  // "subscriptions.modal.new-subscription-form.frequency.M": "Monthly",
+  // TODO New key - Add a translation
+  "subscriptions.modal.new-subscription-form.frequency.M": "Monthly",
+
+  // "subscriptions.modal.new-subscription-form.submit": "Submit",
+  // TODO New key - Add a translation
+  "subscriptions.modal.new-subscription-form.submit": "Submit",
+
+  // "subscriptions.modal.new-subscription-form.processing": "Processing...",
+  // TODO New key - Add a translation
+  "subscriptions.modal.new-subscription-form.processing": "Processing...",
+
+  // "subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
+  // TODO New key - Add a translation
+  "subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
+
+  // "subscriptions.modal.delete.success": "Subscription deleted successfully",
+  // TODO New key - Add a translation
+  "subscriptions.modal.delete.success": "Subscription deleted successfully",
+
+  // "subscriptions.modal.update.success": "Subscription to {{ type }} updated successfully",
+  // TODO New key - Add a translation
+  "subscriptions.modal.update.success": "Subscription to {{ type }} updated successfully",
+
+  // "subscriptions.modal.create.error": "An error occurs during the subscription creation",
+  // TODO New key - Add a translation
+  "subscriptions.modal.create.error": "An error occurs during the subscription creation",
+
+  // "subscriptions.modal.delete.error": "An error occurs during the subscription delete",
+  // TODO New key - Add a translation
+  "subscriptions.modal.delete.error": "An error occurs during the subscription delete",
+
+  // "subscriptions.modal.update.error": "An error occurs during the subscription update",
+  // TODO New key - Add a translation
+  "subscriptions.modal.update.error": "An error occurs during the subscription update",
+
+  // "subscriptions.table.dso": "Subject",
+  // TODO New key - Add a translation
+  "subscriptions.table.dso": "Subject",
+
+  // "subscriptions.table.subscription_type": "Subscription Type",
+  // TODO New key - Add a translation
+  "subscriptions.table.subscription_type": "Subscription Type",
+
+  // "subscriptions.table.subscription_frequency": "Subscription Frequency",
+  // TODO New key - Add a translation
+  "subscriptions.table.subscription_frequency": "Subscription Frequency",
+
+  // "subscriptions.table.action": "Action",
+  // TODO New key - Add a translation
+  "subscriptions.table.action": "Action",
+
+  // "subscriptions.table.edit": "Edit",
+  // TODO New key - Add a translation
+  "subscriptions.table.edit": "Edit",
+
+  // "subscriptions.table.delete": "Delete",
+  // TODO New key - Add a translation
+  "subscriptions.table.delete": "Delete",
+
+  // "subscriptions.table.not-available": "Not available",
+  // TODO New key - Add a translation
+  "subscriptions.table.not-available": "Not available",
+
+  // "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
+  // TODO New key - Add a translation
+  "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
+
+  // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
+  // TODO New key - Add a translation
+  "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
 
   // "thumbnail.default.alt": "Thumbnail Image",
   "thumbnail.default.alt": "Miniatura",
@@ -6630,12 +7324,8 @@
   // "thumbnail.person.placeholder": "No Profile Picture Available",
   "thumbnail.person.placeholder": "No hi ha imatge de perfil disponible",
 
-
-
   // "title": "DSpace",
   "title": "DSpace",
-
-
 
   // "vocabulary-treeview.header": "Hierarchical tree view",
   "vocabulary-treeview.header": "Vista d'arbre jeràrquic",
@@ -6688,7 +7378,9 @@
   // "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
   "virtual-metadata.delete-relationship.modal-head": "Seleccioneu els ítems per als quals voleu desar les metadades virtuals com a metadades reals",
 
-
+  // "supervisedWorkspace.search.results.head": "Supervised Items",
+  // TODO New key - Add a translation
+  "supervisedWorkspace.search.results.head": "Supervised Items",
 
   // "workspace.search.results.head": "Your submissions",
   "workspace.search.results.head": "Els teus enviaments",
@@ -6699,7 +7391,9 @@
   // "workflow.search.results.head": "Workflow tasks",
   "workflow.search.results.head": "Tasques del flux de treball",
 
-
+  // "supervision.search.results.head": "Workflow and Workspace tasks",
+  // TODO New key - Add a translation
+  "supervision.search.results.head": "Workflow and Workspace tasks",
 
   // "workflow-item.edit.breadcrumbs": "Edit workflowitem",
   "workflow-item.edit.breadcrumbs": "Editar ítem del flux de treball",
@@ -6730,7 +7424,6 @@
 
   // "workflow-item.delete.button.confirm": "Delete",
   "workflow-item.delete.button.confirm": "Esborrar",
-
 
   // "workflow-item.send-back.notification.success.title": "Sent back to submitter",
   "workflow-item.send-back.notification.success.title": "Tornar al remitent",
@@ -6765,6 +7458,106 @@
   // "workspace-item.view.title": "Workspace View",
   "workspace-item.view.title": "Vista del flux de treball",
 
+  // "workspace-item.delete.breadcrumbs": "Workspace Delete",
+  // TODO New key - Add a translation
+  "workspace-item.delete.breadcrumbs": "Workspace Delete",
+
+  // "workspace-item.delete.header": "Delete workspace item",
+  // TODO New key - Add a translation
+  "workspace-item.delete.header": "Delete workspace item",
+
+  // "workspace-item.delete.button.confirm": "Delete",
+  // TODO New key - Add a translation
+  "workspace-item.delete.button.confirm": "Delete",
+
+  // "workspace-item.delete.button.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "workspace-item.delete.button.cancel": "Cancel",
+
+  // "workspace-item.delete.notification.success.title": "Deleted",
+  // TODO New key - Add a translation
+  "workspace-item.delete.notification.success.title": "Deleted",
+
+  // "workspace-item.delete.title": "This workspace item was successfully deleted",
+  // TODO New key - Add a translation
+  "workspace-item.delete.title": "This workspace item was successfully deleted",
+
+  // "workspace-item.delete.notification.error.title": "Something went wrong",
+  // TODO New key - Add a translation
+  "workspace-item.delete.notification.error.title": "Something went wrong",
+
+  // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
+  // TODO New key - Add a translation
+  "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
+
+  // "workflow-item.advanced.title": "Advanced workflow",
+  // TODO New key - Add a translation
+  "workflow-item.advanced.title": "Advanced workflow",
+
+  // "workflow-item.selectrevieweraction.notification.success.title": "Selected reviewer",
+  // TODO New key - Add a translation
+  "workflow-item.selectrevieweraction.notification.success.title": "Selected reviewer",
+
+  // "workflow-item.selectrevieweraction.notification.success.content": "The reviewer for this workflow item has been successfully selected",
+  // TODO New key - Add a translation
+  "workflow-item.selectrevieweraction.notification.success.content": "The reviewer for this workflow item has been successfully selected",
+
+  // "workflow-item.selectrevieweraction.notification.error.title": "Something went wrong",
+  // TODO New key - Add a translation
+  "workflow-item.selectrevieweraction.notification.error.title": "Something went wrong",
+
+  // "workflow-item.selectrevieweraction.notification.error.content": "Couldn't select the reviewer for this workflow item",
+  // TODO New key - Add a translation
+  "workflow-item.selectrevieweraction.notification.error.content": "Couldn't select the reviewer for this workflow item",
+
+  // "workflow-item.selectrevieweraction.title": "Select Reviewer",
+  // TODO New key - Add a translation
+  "workflow-item.selectrevieweraction.title": "Select Reviewer",
+
+  // "workflow-item.selectrevieweraction.header": "Select Reviewer",
+  // TODO New key - Add a translation
+  "workflow-item.selectrevieweraction.header": "Select Reviewer",
+
+  // "workflow-item.selectrevieweraction.button.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "workflow-item.selectrevieweraction.button.cancel": "Cancel",
+
+  // "workflow-item.selectrevieweraction.button.confirm": "Confirm",
+  // TODO New key - Add a translation
+  "workflow-item.selectrevieweraction.button.confirm": "Confirm",
+
+  // "workflow-item.scorereviewaction.notification.success.title": "Rating review",
+  // TODO New key - Add a translation
+  "workflow-item.scorereviewaction.notification.success.title": "Rating review",
+
+  // "workflow-item.scorereviewaction.notification.success.content": "The rating for this item workflow item has been successfully submitted",
+  // TODO New key - Add a translation
+  "workflow-item.scorereviewaction.notification.success.content": "The rating for this item workflow item has been successfully submitted",
+
+  // "workflow-item.scorereviewaction.notification.error.title": "Something went wrong",
+  // TODO New key - Add a translation
+  "workflow-item.scorereviewaction.notification.error.title": "Something went wrong",
+
+  // "workflow-item.scorereviewaction.notification.error.content": "Couldn't rate this item",
+  // TODO New key - Add a translation
+  "workflow-item.scorereviewaction.notification.error.content": "Couldn't rate this item",
+
+  // "workflow-item.scorereviewaction.title": "Rate this item",
+  // TODO New key - Add a translation
+  "workflow-item.scorereviewaction.title": "Rate this item",
+
+  // "workflow-item.scorereviewaction.header": "Rate this item",
+  // TODO New key - Add a translation
+  "workflow-item.scorereviewaction.header": "Rate this item",
+
+  // "workflow-item.scorereviewaction.button.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "workflow-item.scorereviewaction.button.cancel": "Cancel",
+
+  // "workflow-item.scorereviewaction.button.confirm": "Confirm",
+  // TODO New key - Add a translation
+  "workflow-item.scorereviewaction.button.confirm": "Confirm",
+
   // "idle-modal.header": "Session will expire soon",
   "idle-modal.header": "La sessió caducarà aviat",
 
@@ -6777,7 +7570,8 @@
   // "idle-modal.extend-session": "Extend session",
   "idle-modal.extend-session": "Prolongar la sessió",
 
-  // "researcher.profile.action.processing" : "Processing...",
+  // "researcher.profile.action.processing": "Processing...",
+  // TODO Source message changed - Revise the translation
   "researcher.profile.action.processing": "Processant...",
 
   // "researcher.profile.associated": "Researcher profile associated",
@@ -6810,10 +7604,12 @@
   // "researcher.profile.view": "View",
   "researcher.profile.view": "Veure",
 
-  // "researcher.profile.private.visibility" : "PRIVATE",
+  // "researcher.profile.private.visibility": "PRIVATE",
+  // TODO Source message changed - Revise the translation
   "researcher.profile.private.visibility": "PRIVAT",
 
-  // "researcher.profile.public.visibility" : "PUBLIC",
+  // "researcher.profile.public.visibility": "PUBLIC",
+  // TODO Source message changed - Revise the translation
   "researcher.profile.public.visibility": "PÚBLIC",
 
   // "researcher.profile.status": "Status:",
@@ -6822,16 +7618,20 @@
   // "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
   "researcherprofile.claim.not-authorized": "No està autoritzat per reclamar aquest ítem. Contacteu amb l'administrador per a més detalls.",
 
-  // "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
+  // "researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
+  // TODO Source message changed - Revise the translation
   "researcherprofile.error.claim.body": "S'ha produït un error reclamant el perfil, si us plau, intenteu-ho més tard",
 
-  // "researcherprofile.error.claim.title" : "Error",
+  // "researcherprofile.error.claim.title": "Error",
+  // TODO Source message changed - Revise the translation
   "researcherprofile.error.claim.title": "Error",
 
-  // "researcherprofile.success.claim.body" : "Profile claimed with success",
+  // "researcherprofile.success.claim.body": "Profile claimed with success",
+  // TODO Source message changed - Revise the translation
   "researcherprofile.success.claim.body": "Perfil reclamat amb èxit",
 
-  // "researcherprofile.success.claim.title" : "Success",
+  // "researcherprofile.success.claim.title": "Success",
+  // TODO Source message changed - Revise the translation
   "researcherprofile.success.claim.title": "Èxit",
 
   // "person.page.orcid.create": "Create an ORCID ID",
@@ -6840,7 +7640,8 @@
   // "person.page.orcid.granted-authorizations": "Granted authorizations",
   "person.page.orcid.granted-authorizations": "Autoritzacions concedides",
 
-  // "person.page.orcid.grant-authorizations" : "Grant authorizations",
+  // "person.page.orcid.grant-authorizations": "Grant authorizations",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.grant-authorizations": "Concedir autoritzacions",
 
   // "person.page.orcid.link": "Connect to ORCID ID",
@@ -6888,43 +7689,56 @@
   // "person.page.orcid.save.preference.changes": "Update settings",
   "person.page.orcid.save.preference.changes": "Actualitzar configuració",
 
-  // "person.page.orcid.sync-profile.affiliation" : "Affiliation",
+  // "person.page.orcid.sync-profile.affiliation": "Affiliation",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.sync-profile.affiliation": "Afiliació",
 
-  // "person.page.orcid.sync-profile.biographical" : "Biographical data",
+  // "person.page.orcid.sync-profile.biographical": "Biographical data",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.sync-profile.biographical": "Biografia",
 
-  // "person.page.orcid.sync-profile.education" : "Education",
+  // "person.page.orcid.sync-profile.education": "Education",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.sync-profile.education": "Titulació",
 
-  // "person.page.orcid.sync-profile.identifiers" : "Identifiers",
+  // "person.page.orcid.sync-profile.identifiers": "Identifiers",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.sync-profile.identifiers": "Identificadors",
 
-  // "person.page.orcid.sync-fundings.all" : "All fundings",
+  // "person.page.orcid.sync-fundings.all": "All fundings",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.sync-fundings.all": "Tots els finançaments",
 
-  // "person.page.orcid.sync-fundings.mine" : "My fundings",
+  // "person.page.orcid.sync-fundings.mine": "My fundings",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.sync-fundings.mine": "El meu finançament",
 
-  // "person.page.orcid.sync-fundings.my_selected" : "Selected fundings",
+  // "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.sync-fundings.my_selected": "Finançaments seleccionats",
 
-  // "person.page.orcid.sync-fundings.disabled" : "Disabled",
+  // "person.page.orcid.sync-fundings.disabled": "Disabled",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.sync-fundings.disabled": "Deshabilitat",
 
-  // "person.page.orcid.sync-publications.all" : "All publications",
+  // "person.page.orcid.sync-publications.all": "All publications",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.sync-publications.all": "Totes les publicacions",
 
-  // "person.page.orcid.sync-publications.mine" : "My publications",
+  // "person.page.orcid.sync-publications.mine": "My publications",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.sync-publications.mine": "Les meves publicacions",
 
-  // "person.page.orcid.sync-publications.my_selected" : "Selected publications",
+  // "person.page.orcid.sync-publications.my_selected": "Selected publications",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.sync-publications.my_selected": "Publicacions seleccionades",
 
-  // "person.page.orcid.sync-publications.disabled" : "Disabled",
+  // "person.page.orcid.sync-publications.disabled": "Disabled",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.sync-publications.disabled": "Deshabilitat",
 
-  // "person.page.orcid.sync-queue.discard" : "Discard the change and do not synchronize with the ORCID registry",
+  // "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.sync-queue.discard": "Desfer el canvi i no sincronitzar amb ORCID",
 
   // "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
@@ -6936,13 +7750,16 @@
   // "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
   "person.page.orcid.sync-queue.empty-message": "La cua del registre d'ORCID és buida",
 
-  // "person.page.orcid.sync-queue.table.header.type" : "Type",
+  // "person.page.orcid.sync-queue.table.header.type": "Type",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.sync-queue.table.header.type": "Tipus",
 
-  // "person.page.orcid.sync-queue.table.header.description" : "Description",
+  // "person.page.orcid.sync-queue.table.header.description": "Description",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.sync-queue.table.header.description": "Descripció",
 
-  // "person.page.orcid.sync-queue.table.header.action" : "Action",
+  // "person.page.orcid.sync-queue.table.header.action": "Action",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.sync-queue.table.header.action": "Acció",
 
   // "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
@@ -7008,7 +7825,8 @@
   // "person.page.orcid.sync-queue.tooltip.researcher_urls": "Researcher url",
   "person.page.orcid.sync-queue.tooltip.researcher_urls": "URL de l'investigador",
 
-  // "person.page.orcid.sync-queue.send" : "Synchronize with ORCID registry",
+  // "person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.sync-queue.send": "Sincronitzar amb el registre ORCID",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
@@ -7062,7 +7880,8 @@
   // "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "The organization's name is required",
   "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "Es requereix el nom de l'organització",
 
-  // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "The publication date must be one year after 1900",
+  // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "la data de la publicació ha de ser posterior a 1900",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
@@ -7142,11 +7961,103 @@
 
   // "person.orcid.registry.auth": "ORCID Authorizations",
   "person.orcid.registry.auth": "Autoritzacions ORCID",
+
   // "home.recent-submissions.head": "Recent Submissions",
   "home.recent-submissions.head": "Enviaments recents",
 
   // "listable-notification-object.default-message": "This object couldn't be retrieved",
   "listable-notification-object.default-message": "Aquest objecte no s'ha pogut recuperar",
 
+  // "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
+  // TODO New key - Add a translation
+  "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
+
+  // "system-wide-alert-banner.countdown.prefix": "In",
+  // TODO New key - Add a translation
+  "system-wide-alert-banner.countdown.prefix": "In",
+
+  // "system-wide-alert-banner.countdown.days": "{{days}} day(s),",
+  // TODO New key - Add a translation
+  "system-wide-alert-banner.countdown.days": "{{days}} day(s),",
+
+  // "system-wide-alert-banner.countdown.hours": "{{hours}} hour(s) and",
+  // TODO New key - Add a translation
+  "system-wide-alert-banner.countdown.hours": "{{hours}} hour(s) and",
+
+  // "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
+  // TODO New key - Add a translation
+  "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
+
+  // "menu.section.system-wide-alert": "System-wide Alert",
+  // TODO New key - Add a translation
+  "menu.section.system-wide-alert": "System-wide Alert",
+
+  // "system-wide-alert.form.header": "System-wide Alert",
+  // TODO New key - Add a translation
+  "system-wide-alert.form.header": "System-wide Alert",
+
+  // "system-wide-alert-form.retrieval.error": "Something went wrong retrieving the system-wide alert",
+  // TODO New key - Add a translation
+  "system-wide-alert-form.retrieval.error": "Something went wrong retrieving the system-wide alert",
+
+  // "system-wide-alert.form.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "system-wide-alert.form.cancel": "Cancel",
+
+  // "system-wide-alert.form.save": "Save",
+  // TODO New key - Add a translation
+  "system-wide-alert.form.save": "Save",
+
+  // "system-wide-alert.form.label.active": "ACTIVE",
+  // TODO New key - Add a translation
+  "system-wide-alert.form.label.active": "ACTIVE",
+
+  // "system-wide-alert.form.label.inactive": "INACTIVE",
+  // TODO New key - Add a translation
+  "system-wide-alert.form.label.inactive": "INACTIVE",
+
+  // "system-wide-alert.form.error.message": "The system wide alert must have a message",
+  // TODO New key - Add a translation
+  "system-wide-alert.form.error.message": "The system wide alert must have a message",
+
+  // "system-wide-alert.form.label.message": "Alert message",
+  // TODO New key - Add a translation
+  "system-wide-alert.form.label.message": "Alert message",
+
+  // "system-wide-alert.form.label.countdownTo.enable": "Enable a countdown timer",
+  // TODO New key - Add a translation
+  "system-wide-alert.form.label.countdownTo.enable": "Enable a countdown timer",
+
+  // "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
+  // TODO New key - Add a translation
+  "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
+
+  // "system-wide-alert.form.label.preview": "System-wide alert preview",
+  // TODO New key - Add a translation
+  "system-wide-alert.form.label.preview": "System-wide alert preview",
+
+  // "system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
+  // TODO New key - Add a translation
+  "system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
+
+  // "system-wide-alert.form.update.error": "Something went wrong when updating the system-wide alert",
+  // TODO New key - Add a translation
+  "system-wide-alert.form.update.error": "Something went wrong when updating the system-wide alert",
+
+  // "system-wide-alert.form.create.success": "The system-wide alert was successfully created",
+  // TODO New key - Add a translation
+  "system-wide-alert.form.create.success": "The system-wide alert was successfully created",
+
+  // "system-wide-alert.form.create.error": "Something went wrong when creating the system-wide alert",
+  // TODO New key - Add a translation
+  "system-wide-alert.form.create.error": "Something went wrong when creating the system-wide alert",
+
+  // "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
+  // TODO New key - Add a translation
+  "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
+
+  // "admin.system-wide-alert.title": "System-wide Alerts",
+  // TODO New key - Add a translation
+  "admin.system-wide-alert.title": "System-wide Alerts",
 
 }

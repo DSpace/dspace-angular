@@ -1,7 +1,5 @@
 {
 
-  // Dspace v7.5 > i18n pt-PT > reviewed 30-05-2023
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Não está autorizado a aceder a esta página. Pode utilizar o botão em baixo para voltar à página de início.",
 
@@ -830,6 +828,10 @@
   // "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
   "admin.batch-import.page.help": "Selecione a coleção para a qual pretende importar. Em seguida, largue ou selecione ficheiro .zip em formato Simple Archive Format (SAF) que inclua os itens a importar.",
 
+  // "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
+  // TODO New key - Add a translation
+  "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
+
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
   "admin.metadata-import.page.dropMsg": "Arraste ficheiro .csv para importar metadados",
 
@@ -842,7 +844,8 @@
   // "admin.batch-import.page.dropMsgReplace": "Drop to replace the batch ZIP to import",
   "admin.batch-import.page.dropMsgReplace": "Arraste ficheiro .zip para substituir importação em lote",
 
-  // "admin.metadata-import.page.button.return": "Return",
+  // "admin.metadata-import.page.button.return": "Back",
+  // TODO Source message changed - Revise the translation
   "admin.metadata-import.page.button.return": "Voltar",
 
   // "admin.metadata-import.page.button.proceed": "Proceed",
@@ -854,8 +857,24 @@
   // "admin.metadata-import.page.error.addFile": "Select file first!",
   "admin.metadata-import.page.error.addFile": "Selecione um ficheiro!",
 
+  // "admin.metadata-import.page.error.addFileUrl": "Insert file url first!",
+  // TODO New key - Add a translation
+  "admin.metadata-import.page.error.addFileUrl": "Insert file url first!",
+
   // "admin.batch-import.page.error.addFile": "Select Zip file first!",
   "admin.batch-import.page.error.addFile": "Selecione primeiro o ficheiro .zip!",
+
+  // "admin.metadata-import.page.toggle.upload": "Upload",
+  // TODO New key - Add a translation
+  "admin.metadata-import.page.toggle.upload": "Upload",
+
+  // "admin.metadata-import.page.toggle.url": "URL",
+  // TODO New key - Add a translation
+  "admin.metadata-import.page.toggle.url": "URL",
+
+  // "admin.metadata-import.page.urlMsg": "Insert the batch ZIP url to import",
+  // TODO New key - Add a translation
+  "admin.metadata-import.page.urlMsg": "Insert the batch ZIP url to import",
 
   // "admin.metadata-import.page.validateOnly": "Validate Only",
   "admin.metadata-import.page.validateOnly": "Validar",
@@ -1028,6 +1047,10 @@
   // "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
   "bitstream.edit.notifications.error.format.title": "Ocorreu um erro ao guardar o formato do ficheiro",
 
+  // "bitstream.edit.notifications.error.primaryBitstream.title": "An error occurred saving the primary bitstream",
+  // TODO New key - Add a translation
+  "bitstream.edit.notifications.error.primaryBitstream.title": "An error occurred saving the primary bitstream",
+
   // "bitstream.edit.form.iiifLabel.label": "IIIF Label",
   "bitstream.edit.form.iiifLabel.label": "IIIF Label",
 
@@ -1130,6 +1153,10 @@
   // "browse.comcol.by.subject": "By Subject",
   "browse.comcol.by.subject": "Por assunto",
 
+  // "browse.comcol.by.srsc": "By Subject Category",
+  // TODO New key - Add a translation
+  "browse.comcol.by.srsc": "By Subject Category",
+
   // "browse.comcol.by.title": "By Title",
   "browse.comcol.by.title": "Por título",
 
@@ -1159,6 +1186,10 @@
 
   // "browse.metadata.subject.breadcrumbs": "Browse by Subject",
   "browse.metadata.subject.breadcrumbs": "Percorrer por assunto",
+
+  // "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
+  // TODO New key - Add a translation
+  "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
 
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   "browse.metadata.title.breadcrumbs": "Percorrer por título",
@@ -1241,6 +1272,14 @@
   // "browse.startsWith.type_text": "Filter results by typing the first few letters",
   "browse.startsWith.type_text": "Filtrar resultados inserindo as primeiras letras",
 
+  // "browse.startsWith.input": "Filter",
+  // TODO New key - Add a translation
+  "browse.startsWith.input": "Filter",
+
+  // "browse.taxonomy.button": "Browse",
+  // TODO New key - Add a translation
+  "browse.taxonomy.button": "Browse",
+
   // "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
   "browse.title": "Percorrer {{ collection }} por {{ field }}{{ startsWith }} {{ value }}",
 
@@ -1286,7 +1325,8 @@
   // "collection.delete.head": "Delete Collection",
   "collection.delete.head": "Apagar coleção",
 
-  // "collection.delete.notification.fail": "collection could not be deleted",
+  // "collection.delete.notification.fail": "Collection could not be deleted",
+  // TODO Source message changed - Revise the translation
   "collection.delete.notification.fail": "Coleção não pode ser apagada",
 
   // "collection.delete.notification.success": "Successfully deleted collection",
@@ -1307,14 +1347,16 @@
   // "collection.edit.tabs.mapper.head": "Item Mapper",
   "collection.edit.tabs.mapper.head": "Mapeamentos",
 
-  // "collection.edit.tabs.item-mapper.title": "collection Edit - Item Mapper",
+  // "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
+  // TODO Source message changed - Revise the translation
   "collection.edit.tabs.item-mapper.title": "Editar coleção - mapeamentos",
 
   // "collection.edit.item-mapper.cancel": "Cancel",
   "collection.edit.item-mapper.cancel": "Cancelar",
 
-  // "collection.edit.item-mapper.collection": "collection: \"<b>{{name}}</b>\"",
-  "collection.edit.item-mapper.collection": "Coleção: \"<b>{{name}}</b>\"",
+  // "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
+  // TODO New key - Add a translation
+  "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
 
   // "collection.edit.item-mapper.confirm": "Map selected items",
   "collection.edit.item-mapper.confirm": "Mapear itens selecionados",
@@ -1547,7 +1589,8 @@
   // "collection.form.entityType": "Entity Type",
   "collection.form.entityType": "Tipo de entidade",
 
-  // "collection.listelement.badge": "collection",
+  // "collection.listelement.badge": "Collection",
+  // TODO Source message changed - Revise the translation
   "collection.listelement.badge": "coleção",
 
   // "collection.page.browse.recent.head": "Recent Submissions",
@@ -1559,7 +1602,8 @@
   // "collection.page.edit": "Edit this collection",
   "collection.page.edit": "Editar esta coleção",
 
-  // "collection.page.handle": "Permanent URI for this collection:",
+  // "collection.page.handle": "Permanent URI for this collection",
+  // TODO Source message changed - Revise the translation
   "collection.page.handle": "URI permanente para esta coleção:",
 
   // "collection.page.license": "License",
@@ -1955,10 +1999,12 @@
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Informação que recolhemos",
 
-  // "cookies.consent.content-modal.services": "Services",
+  // "cookies.consent.content-modal.services": "services",
+  // TODO Source message changed - Revise the translation
   "cookies.consent.content-modal.services": "Serviços",
 
-  // "cookies.consent.content-modal.service": "Service",
+  // "cookies.consent.content-modal.service": "service",
+  // TODO Source message changed - Revise the translation
   "cookies.consent.content-modal.service": "Serviço",
 
   // "cookies.consent.app.title.authentication": "Authentication",
@@ -2075,6 +2121,10 @@
   // "dso.name.untitled": "Untitled",
   "dso.name.untitled": "Sem título",
 
+  // "dso.name.unnamed": "Unnamed",
+  // TODO New key - Add a translation
+  "dso.name.unnamed": "Unnamed",
+
   // "dso-selector.create.collection.head": "New collection",
   "dso-selector.create.collection.head": "Nova coleção",
 
@@ -2156,10 +2206,12 @@
   // "dso-selector.claim.item.create-from-scratch": "Create a new one",
   "dso-selector.claim.item.create-from-scratch": "Criar novo",
 
-  // "dso-selector.results-could-not-be-retrieved": "Something went wrong, please refresh again",
+  // "dso-selector.results-could-not-be-retrieved": "Something went wrong, please refresh again ↻",
+  // TODO Source message changed - Revise the translation
   "dso-selector.results-could-not-be-retrieved": "Algo correu mal, por favor repita",
 
-  // "supervision-group-selector.header": "supervision Group Selector",
+  // "supervision-group-selector.header": "Supervision Group Selector",
+  // TODO Source message changed - Revise the translation
   "supervision-group-selector.header": "Seletor de grupos de supervisão",
 
   // "supervision-group-selector.select.type-of-order.label": "Select a type of Order",
@@ -2192,7 +2244,8 @@
   // "supervision-group-selector.notification.create.success.title": "Successfully created supervision order for group {{ name }}",
   "supervision-group-selector.notification.create.success.title": "Criada com sucesso ordem de supervisão para o grupo {{ name }}",
 
-  // "supervision-group-selector.notification.create.failure.title": "error",
+  // "supervision-group-selector.notification.create.failure.title": "Error",
+  // TODO Source message changed - Revise the translation
   "supervision-group-selector.notification.create.failure.title": "erro",
 
   // "supervision-group-selector.notification.create.already-existing": "A supervision order already exists on this item for selected group",
@@ -2329,6 +2382,34 @@
 
   // "error.validation.groupExists": "This group already exists",
   "error.validation.groupExists": "Este grupo já existe!",
+
+  // "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
+  // TODO New key - Add a translation
+  "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
+
+  // "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
+  // TODO New key - Add a translation
+  "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
+
+  // "error.validation.metadata.namespace.max-length": "This field may not contain more than 256 characters",
+  // TODO New key - Add a translation
+  "error.validation.metadata.namespace.max-length": "This field may not contain more than 256 characters",
+
+  // "error.validation.metadata.element.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Qualifier field instead",
+  // TODO New key - Add a translation
+  "error.validation.metadata.element.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Qualifier field instead",
+
+  // "error.validation.metadata.element.max-length": "This field may not contain more than 64 characters",
+  // TODO New key - Add a translation
+  "error.validation.metadata.element.max-length": "This field may not contain more than 64 characters",
+
+  // "error.validation.metadata.qualifier.invalid-pattern": "This field cannot contain dots, commas or spaces",
+  // TODO New key - Add a translation
+  "error.validation.metadata.qualifier.invalid-pattern": "This field cannot contain dots, commas or spaces",
+
+  // "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
+  // TODO New key - Add a translation
+  "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
 
   // "feed.description": "Syndication feed",
   "feed.description": "Feed",
@@ -2492,8 +2573,29 @@
   // "form.no-value": "No value entered",
   "form.no-value": "Nenhum valor informado",
 
-  // "form.other-information": {},
-  "form.other-information": {},
+  // "form.other-information.email": "Email",
+  // TODO New key - Add a translation
+  "form.other-information.email": "Email",
+
+  // "form.other-information.first-name": "First Name",
+  // TODO New key - Add a translation
+  "form.other-information.first-name": "First Name",
+
+  // "form.other-information.insolr": "In Solr Index",
+  // TODO New key - Add a translation
+  "form.other-information.insolr": "In Solr Index",
+
+  // "form.other-information.institution": "Institution",
+  // TODO New key - Add a translation
+  "form.other-information.institution": "Institution",
+
+  // "form.other-information.last-name": "Last Name",
+  // TODO New key - Add a translation
+  "form.other-information.last-name": "Last Name",
+
+  // "form.other-information.orcid": "ORCID",
+  // TODO New key - Add a translation
+  "form.other-information.orcid": "ORCID",
 
   // "form.remove": "Remove",
   "form.remove": "Apagar",
@@ -2513,6 +2615,10 @@
   // "form.submit": "Save",
   "form.submit": "Guardar",
 
+  // "form.create": "Create",
+  // TODO New key - Add a translation
+  "form.create": "Create",
+
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "Largue o item na nova posição",
 
@@ -2522,7 +2628,8 @@
   // "grant-deny-request-copy.email.back": "Back",
   "grant-deny-request-copy.email.back": "Voltar",
 
-  // "grant-deny-request-copy.email.message": "Message",
+  // "grant-deny-request-copy.email.message": "Optional additional message",
+  // TODO Source message changed - Revise the translation
   "grant-deny-request-copy.email.message": "Mensagem",
 
   // "grant-deny-request-copy.email.message.empty": "Please enter a message",
@@ -2561,9 +2668,6 @@
   // "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
   "grant-deny-request-copy.processed": "Este pedido já foi processado. Pode utilizar o botão em baixo para voltar para a página principal.",
 
-  // "grant-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
-  "grant-request-copy.email.message": "Caro {{ recipientName }},\nEm resposta ao seu pedido de cópia, tenho o prazer de lhe enviar em anexo uma cópia do(s) ficheiro(s) relativo(s) ao documento: \"{{ itemUrl }}\" ({{ itemName }}), do qual sou autor.\n\nCom os melhores cumprimentos,\n{{ authorName }} <{{ authorEmail }}>",
-
   // "grant-request-copy.email.subject": "Request copy of document",
   "grant-request-copy.email.subject": "Pedido de cópia de documento",
 
@@ -2573,7 +2677,8 @@
   // "grant-request-copy.header": "Grant document copy request",
   "grant-request-copy.header": "Conceder cópia de documento",
 
-  // "grant-request-copy.intro": "This message will be sent to the applicant of the request. The requested document(s) will be attached.",
+  // "grant-request-copy.intro": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
+  // TODO Source message changed - Revise the translation
   "grant-request-copy.intro": "Esta mensagem será enviada ao requerente do pedido de cópia. Os ficheiros solicitado(s) serão anexado(s) à mensagem.",
 
   // "grant-request-copy.success": "Successfully granted item request",
@@ -2645,7 +2750,8 @@
   // "home.breadcrumbs": "Home",
   "home.breadcrumbs": "Página inicial",
 
-  //"home.search-form.placeholder": "Search the repository...",
+  // "home.search-form.placeholder": "Search the repository ...",
+  // TODO Source message changed - Revise the translation
   "home.search-form.placeholder": "pesquisar no repositório...",
 
   // "home.title": "Home",
@@ -2680,6 +2786,10 @@
 
   // "info.end-user-agreement.title": "End User Agreement",
   "info.end-user-agreement.title": "Termos de Uso",
+
+  // "info.end-user-agreement.hosting-country": "the United States",
+  // TODO New key - Add a translation
+  "info.end-user-agreement.hosting-country": "the United States",
 
   // "info.privacy.breadcrumbs": "Privacy Statement",
   "info.privacy.breadcrumbs": "Política de Privacidade",
@@ -2726,7 +2836,8 @@
   // "info.feedback.page-label": "Page",
   "info.feedback.page-label": "Página/URL de contexo:",
 
-  // "info.feedback.page_help": "The page related to your feedback",
+  // "info.feedback.page_help": "Tha page related to your feedback",
+  // TODO Source message changed - Revise the translation
   "info.feedback.page_help": "Esta é a página/URL que contextualiza o seu contacto.",
 
   // "item.alerts.private": "This item is non-discoverable",
@@ -2741,7 +2852,8 @@
   // "item.edit.authorizations.title": "Edit item's Policies",
   "item.edit.authorizations.title": "Editar políticas dos itens",
 
-  // "item.badge.private": "Private",
+  // "item.badge.private": "Non-discoverable",
+  // TODO Source message changed - Revise the translation
   "item.badge.private": "Privado",
 
   // "item.badge.withdrawn": "Withdrawn",
@@ -2960,7 +3072,8 @@
   // "item.edit.register-doi.success": "DOI queued for registration successfully.",
   "item.edit.register-doi.success": "DOI colocado em fila de espera para o registo com sucesso.",
 
-  // "item.edit.register-doi.error": "error registering DOI",
+  // "item.edit.register-doi.error": "Error registering DOI",
+  // TODO Source message changed - Revise the translation
   "item.edit.register-doi.error": "erro ao registar DOI",
 
   // "item.edit.register-doi.to-update": "The following DOI has already been minted and will be queued for registration online",
@@ -3265,6 +3378,10 @@
 
   // "item.edit.tabs.curate.title": "Item Edit - Curate",
   "item.edit.tabs.curate.title": "Editar item - Curadoria",
+
+  // "item.edit.curate.title": "Curate Item: {{item}}",
+  // TODO New key - Add a translation
+  "item.edit.curate.title": "Curate Item: {{item}}",
 
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "Metadados do item",
@@ -3590,17 +3707,8 @@
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
 
-  // "item.preview.dc.relation.eissn": "EISSN",
-  "item.preview.dc.relation.eissn": "EISSN",
-
   // "item.preview.dc.identifier.isbn": "ISBN",
   "item.preview.dc.identifier.isbn": "ISBN",
-
-  // "item.preview.dc.identifier.eisbn": "EISBN",
-  "item.preview.dc.identifier.eisbn": "EISBN",
-
-  // "item.preview.dc.identifier.tid": "TID",
-  "item.preview.dc.identifier.tid": "TID",
 
   // "item.preview.dc.identifier": "Identifier:",
   "itemm.preview.dc.identifier": "Identificador:",
@@ -3610,6 +3718,10 @@
 
   // "item.preview.dc.identifier.doi": "DOI",
   "item.preview.dc.identifier.doi": "DOI",
+
+  // "item.preview.dc.publisher": "Publisher:",
+  // TODO New key - Add a translation
+  "item.preview.dc.publisher": "Publisher:",
 
   // "item.preview.person.familyName": "Surname:",
   "item.preview.person.familyName": "Apelido:",
@@ -3836,7 +3948,8 @@
   // "itemtemplate.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
   "itemtemplate.edit.metadata.notifications.discarded.content": "As sua alterações foram descartadas. Para repor as suas alterações clique no botão 'Desfazer'",
 
-  // "itemtemplate.edit.metadata.notifications.discarded.title": "Changed discarded",
+  // "itemtemplate.edit.metadata.notifications.discarded.title": "Changes discarded",
+  // TODO Source message changed - Revise the translation
   "itemtemplate.edit.metadata.notifications.discarded.title": "Alterações descartadas",
 
   // "itemtemplate.edit.metadata.notifications.error.title": "An error occurred",
@@ -3851,7 +3964,8 @@
   // "itemtemplate.edit.metadata.notifications.outdated.content": "The item template you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
   "itemtemplate.edit.metadata.notifications.outdated.content": "O modelo do item que está atualmente a trabalhar foi alterado por outro utilizador. As suas alterações serão descartadas para evitar conflitos",
 
-  // "itemtemplate.edit.metadata.notifications.outdated.title": "Changed outdated",
+  // "itemtemplate.edit.metadata.notifications.outdated.title": "Changes outdated",
+  // TODO Source message changed - Revise the translation
   "itemtemplate.edit.metadata.notifications.outdated.title": "Alterações desatualizadas",
 
   // "itemtemplate.edit.metadata.notifications.saved.content": "Your changes to this item template's metadata were saved.",
@@ -4124,6 +4238,10 @@
   // "menu.section.browse_global_by_subject": "By Subject",
   "menu.section.browse_global_by_subject": "Por assunto",
 
+  // "menu.section.browse_global_by_srsc": "By Subject Category",
+  // TODO New key - Add a translation
+  "menu.section.browse_global_by_srsc": "By Subject Category",
+
   // "menu.section.browse_global_by_title": "By Title",
   "menu.section.browse_global_by_title": "Por título",
 
@@ -4217,7 +4335,8 @@
   // "menu.section.import": "Import",
   "menu.section.import": "Importar",
 
-  // "menu.section.import_batch": "Batch import (ZIP)",
+  // "menu.section.import_batch": "Batch Import (ZIP)",
+  // TODO Source message changed - Revise the translation
   "menu.section.import_batch": "Importação em lote (ZIP)",
 
   // "menu.section.import_metadata": "Metadata",
@@ -4403,20 +4522,25 @@
   // "mydspace.show.supervisedWorkspace": "Supervised items",
   "mydspace.show.supervisedWorkspace": "Itens supervisionados",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Depósito aceite",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  // TODO New key - Add a translation
+  "mydspace.status.mydspaceArchived": "Archived",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Em validação",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  // TODO New key - Add a translation
+  "mydspace.status.mydspaceValidation": "Validation",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Aguarda validador",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  // TODO New key - Add a translation
+  "mydspace.status.mydspaceWaitingController": "Waiting for controller",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Em fluxo de trabalho",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  // TODO New key - Add a translation
+  "mydspace.status.mydspaceWorkflow": "Workflow",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Depósito por terminar",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  // TODO New key - Add a translation
+  "mydspace.status.mydspaceWorkspace": "Workspace",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "Área Pessoal",
@@ -4468,6 +4592,10 @@
 
   // "nav.search": "Search",
   "nav.search": "Pesquisar",
+
+  // "nav.search.button": "Submit search",
+  // TODO New key - Add a translation
+  "nav.search.button": "Submit search",
 
   // "nav.statistics.header": "Statistics",
   "nav.statistics.header": "Estatísticas",
@@ -4624,6 +4752,10 @@
 
   // "process.new.notification.error.content": "An error occurred while creating this process",
   "process.new.notification.error.content": "Ocorreu um erro ao criar este processo",
+
+  // "process.new.notification.error.max-upload.content": "The file exceeds the maximum upload size",
+  // TODO New key - Add a translation
+  "process.new.notification.error.max-upload.content": "The file exceeds the maximum upload size",
 
   // "process.new.header": "Create a new process",
   "process.new.header": "Criar um novo processo",
@@ -5117,11 +5249,13 @@
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Logótipo do repositório",
 
-  // "repository.title.prefix": "DSpace Angular :: ",
-  "repository.title.prefix": "Repositório :: ",
+  // "repository.title": "DSpace Repository",
+  // TODO New key - Add a translation
+  "repository.title": "DSpace Repository",
 
-  // "repository.title.prefixDSpace": "DSpace Angular ::",
-  "repository.title.prefixDSpace": "Repositório ::",
+  // "repository.title.prefix": "DSpace Repository :: ",
+  // TODO New key - Add a translation
+  "repository.title.prefix": "DSpace Repository :: ",
 
   // "resource-policies.add.button": "Add",
   "resource-policies.add.button": "Adicionar",
@@ -5324,7 +5458,8 @@
   // "search.filters.applied.f.discoverable": "Non-discoverable",
   "search.filters.applied.f.discoverable": "Privado",
 
-  // "search.filters.applied.f.entityType": "Item type",
+  // "search.filters.applied.f.entityType": "Item Type",
+  // TODO Source message changed - Revise the translation
   "search.filters.applied.f.entityType": "Tipo de item",
 
   // "search.filters.applied.f.has_content_in_original_bundle": "Has files",
@@ -5564,7 +5699,8 @@
   // "search.filters.filter.submitter.label": "Search submitter",
   "search.filters.filter.submitter.label": "Procurar depositante",
 
-  // "search.filters.filter.show-tree": "browse {{ name }} tree",
+  // "search.filters.filter.show-tree": "Browse {{ name }} tree",
+  // TODO Source message changed - Revise the translation
   "search.filters.filter.show-tree": "Percorrer por hierarquia de {{ name }}",
 
   // "search.filters.filter.supervisedBy.head": "Supervised By",
@@ -5573,7 +5709,8 @@
   // "search.filters.filter.supervisedBy.placeholder": "Supervised By",
   "search.filters.filter.supervisedBy.placeholder": "Supervisionado por",
 
-  // "search.filters.filter.supervisedBy.label": "search Supervised By",
+  // "search.filters.filter.supervisedBy.label": "Search Supervised By",
+  // TODO Source message changed - Revise the translation
   "search.filters.filter.supervisedBy.label": "pesquisar supervisionado por",
 
   // "search.filters.entityType.JournalIssue": "Journal Issue",
@@ -5744,6 +5881,10 @@
   // "statistics.table.header.views": "Views",
   "statistics.table.header.views": "Consultas",
 
+  // "statistics.table.no-name": "(object name could not be loaded)",
+  // TODO New key - Add a translation
+  "statistics.table.no-name": "(object name could not be loaded)",
+
   // "submission.edit.breadcrumbs": "Edit Submission",
   "submission.edit.breadcrumbs": "Editar depósito",
 
@@ -5753,7 +5894,8 @@
   // "submission.general.cancel": "Cancel",
   "submission.general.cancel": "Cancelar",
 
-  // "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
+  // "submission.general.cannot_submit": "You don't have permission to make a new submission.",
+  // TODO Source message changed - Revise the translation
   "submission.general.cannot_submit": "Não possui permissões para fazer um novo depósito.",
 
   // "submission.general.deposit": "Deposit",
@@ -5858,7 +6000,8 @@
   // "submission.import-external.source.vufind": "VuFind",
   "submission.import-external.source.vufind": "VuFind",
 
-  // "submission.import-external.source.wos": "Web of Science",
+  // "submission.import-external.source.wos": "Web Of Science",
+  // TODO Source message changed - Revise the translation
   "submission.import-external.source.wos": "Web of Science",
 
   // "submission.import-external.source.orcidWorks": "ORCID",
@@ -5885,10 +6028,12 @@
   // "submission.import-external.source.orcid": "ORCID",
   "submission.import-external.source.orcid": "ORCID",
 
-  // "submission.import-external.source.pubmed": "PubMed",
+  // "submission.import-external.source.pubmed": "Pubmed",
+  // TODO Source message changed - Revise the translation
   "submission.import-external.source.pubmed": "PubMed",
 
-  // "submission.import-external.source.pubmedeu": "PubMed Europe",
+  // "submission.import-external.source.pubmedeu": "Pubmed Europe",
+  // TODO Source message changed - Revise the translation
   "submission.import-external.source.pubmedeu": "PubMed Europa",
 
   // "submission.import-external.source.lcname": "Library of Congress Names",
@@ -6182,7 +6327,7 @@
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Financiador do projeto",
 
-  //"submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
+  // "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
   "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Pesquisar...",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
@@ -6335,7 +6480,8 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Resultados da pesquisa",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
+  // TODO Source message changed - Revise the translation
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Pretende guardar \"{{ value }}\" como um nome alternativo para esta pessoa permitindo a sua reutilização por outros em futuros depósitos? Se não, pode usar apenas neste depósito.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
@@ -6734,7 +6880,8 @@
   // "submission.workflow.generic.delete": "Delete",
   "submission.workflow.generic.delete": "Remover",
 
-  // "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\". You will then be asked to confirm it.",
+  // "submission.workflow.generic.delete-help": "Select this option to discard this item. You will then be asked to confirm it.",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.delete-help": "Se pretende remover definitivamente este item, selecione 'Apagar'. Será solicitada confirmação.",
 
   // "submission.workflow.generic.edit": "Edit",
@@ -6833,16 +6980,24 @@
   // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
   "submission.workspace.generic.view-help": "Selecione esta opção para ver os metadados do item.",
 
-  // "subscriptions.title": "subscriptions",
+  // "submitter.empty": "N/A",
+  // TODO New key - Add a translation
+  "submitter.empty": "N/A",
+
+  // "subscriptions.title": "Subscriptions",
+  // TODO Source message changed - Revise the translation
   "subscriptions.title": "Subscrições de alertas",
 
-  // "subscriptions.item": "subscriptions for items",
+  // "subscriptions.item": "Subscriptions for items",
+  // TODO Source message changed - Revise the translation
   "subscriptions.item": "Subscrições para itens",
 
-  // "subscriptions.collection": "subscriptions for collections",
+  // "subscriptions.collection": "Subscriptions for collections",
+  // TODO Source message changed - Revise the translation
   "subscriptions.collection": "Subscrições para coleções",
 
-  // "subscriptions.community": "subscriptions for communities",
+  // "subscriptions.community": "Subscriptions for communities",
+  // TODO Source message changed - Revise the translation
   "subscriptions.community": "Subscrições para comunidades",
 
   // "subscriptions.subscription_type": "Subscription type",
@@ -6863,7 +7018,8 @@
   // "subscriptions.tooltip": "Subscribe",
   "subscriptions.tooltip": "Subscrever",
 
-  // "subscriptions.modal.title": "subscriptions",
+  // "subscriptions.modal.title": "Subscriptions",
+  // TODO Source message changed - Revise the translation
   "subscriptions.modal.title": "Subscrições de alertas",
 
   // "subscriptions.modal.type-frequency": "Type and frequency",
@@ -6872,7 +7028,8 @@
   // "subscriptions.modal.close": "Close",
   "subscriptions.modal.close": "Fechar",
 
-  // "subscriptions.modal.delete-info": "To remove this subscription, please visit the \// "subscriptions\" page under your user profile",
+  // "subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
+  // TODO Source message changed - Revise the translation
   "subscriptions.modal.delete-info": "Para remover esta subscrição, por favor aceda à página de 'subscrições' debaixo do seu perfil de utilizador",
 
   // "subscriptions.modal.new-subscription-form.type.content": "Content",
@@ -6890,7 +7047,8 @@
   // "subscriptions.modal.new-subscription-form.submit": "Submit",
   "subscriptions.modal.new-subscription-form.submit": "Submeter",
 
-  // "subscriptions.modal.new-subscription-form.processing": "processing...",
+  // "subscriptions.modal.new-subscription-form.processing": "Processing...",
+  // TODO Source message changed - Revise the translation
   "subscriptions.modal.new-subscription-form.processing": "A processar...",
 
   // "subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
@@ -7094,6 +7252,38 @@
   // "workspace-item.view.title": "Workspace View",
   "workspace-item.view.title": "Vista das tarefas",
 
+  // "workspace-item.delete.breadcrumbs": "Workspace Delete",
+  // TODO New key - Add a translation
+  "workspace-item.delete.breadcrumbs": "Workspace Delete",
+
+  // "workspace-item.delete.header": "Delete workspace item",
+  // TODO New key - Add a translation
+  "workspace-item.delete.header": "Delete workspace item",
+
+  // "workspace-item.delete.button.confirm": "Delete",
+  // TODO New key - Add a translation
+  "workspace-item.delete.button.confirm": "Delete",
+
+  // "workspace-item.delete.button.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "workspace-item.delete.button.cancel": "Cancel",
+
+  // "workspace-item.delete.notification.success.title": "Deleted",
+  // TODO New key - Add a translation
+  "workspace-item.delete.notification.success.title": "Deleted",
+
+  // "workspace-item.delete.title": "This workspace item was successfully deleted",
+  // TODO New key - Add a translation
+  "workspace-item.delete.title": "This workspace item was successfully deleted",
+
+  // "workspace-item.delete.notification.error.title": "Something went wrong",
+  // TODO New key - Add a translation
+  "workspace-item.delete.notification.error.title": "Something went wrong",
+
+  // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
+  // TODO New key - Add a translation
+  "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
+
   // "workflow-item.advanced.title": "Advanced workflow",
   "workflow-item.advanced.title": "Fluxo de trabalho avançado",
 
@@ -7214,7 +7404,8 @@
   // "researcherprofile.success.claim.title": "Success",
   "researcherprofile.success.claim.title": "Sucesso",
 
-  // "person.page.orcid.create": "Create an ORCID iD",
+  // "person.page.orcid.create": "Create an ORCID ID",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.create": "Criar um ORCID iD",
 
   // "person.page.orcid.granted-authorizations": "Granted authorizations",
@@ -7223,7 +7414,8 @@
   // "person.page.orcid.grant-authorizations": "Grant authorizations",
   "person.page.orcid.grant-authorizations": "Conceder autorizações",
 
-  // "person.page.orcid.link": "Connect to ORCID iD",
+  // "person.page.orcid.link": "Connect to ORCID ID",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.link": "Ligar ao ORCID iD",
 
   // "person.page.orcid.link.processing": "Linking profile to ORCID...",
@@ -7475,7 +7667,8 @@
   // "person.page.orcid.synchronization-mode.label": "Synchronization mode",
   "person.page.orcid.synchronization-mode.label": "Modo sincronização",
 
-  // "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include 'Manual' (you must send your data to ORCID manually), or 'Batch' (the system will send your data to ORCID via a scheduled script).",
+  // "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
+  // TODO Source message changed - Revise the translation
   "person.page.orcid.synchronization-mode-message": "Por favor, selecione a forma como deseja que a sincronização com ORCID ocorra. As opções incluem 'Manual' (deve enviar os seus dados para o ORCID manualmente), ou 'Batch' (o sistema enviará os seus dados para o ORCID através de um script agendado).",
 
   // "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
@@ -7577,7 +7770,8 @@
   // "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
   "system-wide-alert.form.label.countdownTo.hint": "Dica: Defina um temporizador de contagem decrescente. Quando ativado, pode ser definida uma data no futuro e o 'banner' de alerta geral do sistema irá realizar uma contagem decrescente para a data definida. Quando este temporizador terminar, desaparecerá do alerta. O servidor NÃO pára automaticamente.",
 
-  // "system-wide-alert.form.label.preview": "system-wide alert preview",
+  // "system-wide-alert.form.label.preview": "System-wide alert preview",
+  // TODO Source message changed - Revise the translation
   "system-wide-alert.form.label.preview": "Pré-visualização de alerta geral do sistema",
 
   // "system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
@@ -7597,94 +7791,5 @@
 
   // "admin.system-wide-alert.title": "System-wide Alerts",
   "admin.system-wide-alert.title": "Alertas gerais do sistema",
-
-
-
-  // Other strings...
-  // Missing, Duplicate or Redundant ???
-
-  // NOT FOUND 30-05-2023
-
-
-  // "datafile.listelement.badge": "Data file",
-  "datafile.listelement.badge": "Ficheiro de dados",
-
-  // "datapackage.listelement.badge": "Data package",
-  "datapackage.listelement.badge": "Pacote de dados",
-
-  // "browse.next.button": "Next",
-  "browse.next.button": "Próximo",
-
-  // "browse.previous.button": "Previous",
-  "browse.previous.button": "Anterior",
-
-  // "curation-task.task.registerdoi.label": "DOI check",
-  "curation-task.task.registerdoi.label": "Verificação de DOIs",
-
-  // "mydspace.general.text-here": "here",
-  "mydspace.general.text-here": "aqui",
-
-  // "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
-  "mydspace.upload.upload-successful": "Novo item de espaço de trabalho criado. Clique {{here}} para o editar.",
-
-  // "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
-  "profile.security.form.notifications.error.not-long-enough": "A senha deve ter pelo menos 6 caracteres.",
-
-  // "register-page.create-profile.security.error.password-length": "The password should be at least 6 characters long.",
-  "register-page.create-profile.security.error.password-length": "A senha deve possuir pelo menos 6 caracteres.",
-
-  // "search.form.search_mydspace": "Search MyDSpace",
-  "search.form.search_mydspace": "Pesquisar na Área Pessoal",
-
-  // "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
-  "forgot-password.form.error.password-length": "A senha deve ter pelo menos 6 caracteres.",
-
-  // "search.filters.entityType.Publication": "Publicação",
-  "search.filters.entityType.Publication": "Publicação",
-
-  // "search.filters.entityType.Person": "Pessoa",
-  "search.filters.entityType.Person": "Pessoa",
-
-  // "search.filters.entityType.Project": "Projecto",
-  "search.filters.entityType.Project": "Projeto",
-
-  // "search.filters.entityType.Journal": "Revista",
-  "search.filters.entityType.Journal": "Revista",
-
-  // "search.filters.entityType.DataFile": "Data File",
-  "search.filters.entityType.DataFile": "Ficheiro de dados",
-
-  // "forgot-email.form.google-recaptcha.must-accept-cookies": "Must accept cookies",
-  "forgot-email.form.google-recaptcha.must-accept-cookies": "Deve aceitar cookies",
-
-  // "forgot-email.form.google-recaptcha.open-cookie-settings": "Cookie settings",
-  "forgot-email.form.google-recaptcha.open-cookie-settings": "Configurar cookies",
-
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.local-entity": "Successfully imported and added external project to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.local-entity": "Importado com sucesso e adicionado autor à seleção",
-
-  // "search.filters.namedresourcetype.Archived": "Archived",
-  "search.filters.namedresourcetype.Archived": "Aceites",
-
-  // "search.filters.namedresourcetype.Workspace": "Workspace",
-  "search.filters.namedresourcetype.Workspace": "Por terminar",
-
-  // "search.filters.namedresourcetype.Workflow": "Workflow",
-  "search.filters.namedresourcetype.Workflow": "Em fluxo de trabalho",
-
-  // "search.filters.namedresourcetype.Validation": "Validation",
-  "search.filters.namedresourcetype.Validation": "Em validação",
-
-  // "orgunit.search.results.head": "Organizational Unit Search Results",
-  "orgunit.search.results.head": "Resultados da pesquisa de organizações",
-
-  // "orgunit-relationships.search.results.head": "Organizational Unit Search Results",
-  "orgunit-relationships.search.results.head": "Resultados da pesquisa de organizações",
-
-  // "journalissue.search.results.head": "Journal Issue Search Results",
-  "journalissue.search.results.head": "Resultados da pesquisa de números",
-
-  // "journalissue-relationships.search.results.head": "Journal Issue Search Results",
-  "journalissue-relationships.search.results.head": "Resultados da pesquisa de números",
 
 }
