@@ -12,7 +12,6 @@ import { RequestCopyEmail } from './request-copy-email.model';
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
 })
-
 export class ThemedEmailRequestCopyComponent extends ThemedComponent<EmailRequestCopyComponent> {
   /**
    * Event emitter for sending the email

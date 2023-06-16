@@ -8,7 +8,7 @@ import {
     // styleUrls: ['./grant-request-copy.component.scss'],
     styleUrls: [],
     // templateUrl: './grant-request-copy.component.html',
-    templateUrl: './../../request-copy/grant-request-copy/grant-request-copy.component.html',
+    templateUrl: './../../../../../app/request-copy/grant-request-copy/grant-request-copy.component.html',
 })
 export class GrantRequestCopyComponent
     extends BaseComponent {

@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { RequestCopyResolver } from './request-copy.resolver';
 import { GrantDenyRequestCopyComponent } from './grant-deny-request-copy/grant-deny-request-copy.component';
 import { REQUEST_COPY_DENY_PATH, REQUEST_COPY_GRANT_PATH } from './request-copy-routing-paths';
-import { DenyRequestCopyComponent } from './deny-request-copy/deny-request-copy.component';
+import { ThemedDenyRequestCopyComponent } from './deny-request-copy/themed-deny-request-copy.component';
 import { ThemedGrantRequestCopyComponent } from './grant-request-copy/themed-grant-request-copy.component';
 
 @NgModule({
@@ -21,7 +21,7 @@ import { ThemedGrantRequestCopyComponent } from './grant-request-copy/themed-gra
           },
           {
             path: REQUEST_COPY_DENY_PATH,
-            component: DenyRequestCopyComponent,
+            component: ThemedDenyRequestCopyComponent,
           },
           {
             path: REQUEST_COPY_GRANT_PATH,
