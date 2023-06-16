@@ -1,3 +1,4 @@
+import { SubmissionFieldScopeType } from './../../../../core/submission/submission-field-scope-type';
 import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
 import { Injectable, Injector } from '@angular/core';
 
@@ -13,7 +14,7 @@ import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
 import { setLayout } from './parser.utils';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { VisibilityType } from '../../../../submission/sections/visibility-type';
+import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 
@@ -125,18 +126,25 @@ export class RowParser {
   }
 
   /**
-   * Check if the field is hidden or not, based on the visibility and the submission scope
+   * Check if the field is hidden or not.
+   * It is hidden when we do have the scope,
+   * but we do not have the visibility,
+   * also the field scope should be different from the submissionScope.
    * @param visibility The visibility of the field
    * @param scope the scope of the field
    * @param submissionScope the scope of the submission
    * @returns If the field is hidden or not
    */
   private isHidden(visibility: SectionVisibility, scope: string, submissionScope: string): boolean {
-    return isEmpty(visibility)
-      || (isNotEmpty(visibility) && visibility.main !== VisibilityType.READONLY)
-      && isNotEmpty(submissionScope)
-      && (isNotEmpty(scope)
-      && scope !== submissionScope);
+    return isNotEmpty(scope)
+      && (
+        isEmpty(visibility)
+        && (
+          submissionScope === SubmissionScopeType.WorkspaceItem && scope !== SubmissionFieldScopeType.WorkspaceItem
+          ||
+          submissionScope === SubmissionScopeType.WorkflowItem && scope !== SubmissionFieldScopeType.WorkflowItem
+        )
+      );
   }
 
   filterScopedFields(fields: FormFieldModel[], submissionScope): FormFieldModel[] {
