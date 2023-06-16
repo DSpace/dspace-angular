@@ -30,6 +30,10 @@ import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/ope
 import { followLink } from '../../../../utils/follow-link-config.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { FindListOptions } from '../../../../../core/data/request.models';
+import { RequestParam } from '../../../../../core/cache/models/request-param.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
+import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -202,6 +206,19 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
       ).pipe(
         getAllSucceededRemoteDataPayload()
       );
+    } else {
+      const findListOptions = Object.assign({}, new FindListOptions(), {
+        elementsPerPage: 5,
+        currentPage: 1,
+        searchParams: [
+          new RequestParam('entityType', this.relationshipOptions.relationshipType)
+        ]
+      });
+      this.externalSourcesRD$ = this.externalSourceService.searchBy('findByEntityType', findListOptions,
+        true, true, followLink('entityTypes'))
+        .pipe(getFirstSucceededRemoteDataPayload(), map((r: PaginatedList<ExternalSource>) => {
+          return r.page;
+        }));
     }
 
     this.setTotals();
