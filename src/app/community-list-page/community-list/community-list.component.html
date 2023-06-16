@@ -37,6 +37,7 @@
         <a [routerLink]="node.route" class="lead">
           {{ dsoNameService.getName(node.payload) }}
         </a>
+        <span *ngIf="node.payload.archivedItemsCount >= 0" class="archived-items-lead">[{{node.payload.archivedItemsCount}}]</span>
       </h5>
     </div>
     <ds-truncatable [id]="node.id">

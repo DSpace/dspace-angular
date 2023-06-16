@@ -1,4 +1,4 @@
-import { deserialize, inheritSerialization } from 'cerialize';
+import {autoserialize, deserialize, inheritSerialization} from 'cerialize';
 import { Observable } from 'rxjs';
 import { link, typedObject } from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list.model';
@@ -16,11 +16,16 @@ import { COMMUNITY } from './community.resource-type';
 import { Community } from './community.model';
 import { ChildHALResource } from './child-hal-resource.model';
 import { HandleObject } from './handle-object.model';
+import { excludeFromEquals } from '../utilities/equals.decorators';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
 export class Collection extends DSpaceObject implements ChildHALResource, HandleObject {
   static type = COLLECTION;
+
+  @excludeFromEquals
+  @autoserialize
+  archivedItemsCount: number;
 
   /**
    * The {@link HALLink}s for this Collection
