@@ -24,7 +24,7 @@
 
   // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
   // TODO New key - Add a translation
-  "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
+  "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later. ",
 
   // "500.link.home-page": "Take me to the home page",
   // TODO New key - Add a translation
