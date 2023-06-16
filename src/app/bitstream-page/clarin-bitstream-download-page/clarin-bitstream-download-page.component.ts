@@ -9,7 +9,7 @@ import { getRemoteDataPayload, redirectOn4xx } from '../../core/shared/operators
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { GetRequest } from '../../core/data/request.models';
 import { RequestService } from '../../core/data/request.service';
-import { hasFailed, RequestEntryState } from '../../core/data/request.reducer';
+import {hasCompleted, hasFailed, RequestEntryState} from '../../core/data/request.reducer';
 import {
   DOWNLOAD_TOKEN_EXPIRED_EXCEPTION,
   HTTP_STATUS_UNAUTHORIZED,
@@ -84,7 +84,7 @@ export class ClarinBitstreamDownloadPageComponent implements OnInit {
         const isLoggedIn$ = this.auth.isAuthenticated();
         return observableCombineLatest([clarinIsAuthorized$, isAuthorized$, isLoggedIn$, observableOf(bitstream)]);
       }),
-      filter(([clarinIsAuthorized, isAuthorized, isLoggedIn, bitstream]: [RemoteData<any>, boolean, boolean, Bitstream]) => hasValue(isAuthorized) && hasValue(isLoggedIn) && hasValue(clarinIsAuthorized)),
+      filter(([clarinIsAuthorized, isAuthorized, isLoggedIn, bitstream]: [RemoteData<any>, boolean, boolean, Bitstream]) => hasValue(isAuthorized) && hasValue(isLoggedIn) && hasValue(clarinIsAuthorized) && hasCompleted(clarinIsAuthorized.state)),
       take(1),
       switchMap(([clarinIsAuthorized, isAuthorized, isLoggedIn, bitstream]: [RemoteData<any>, boolean, boolean, Bitstream]) => {
         const isAuthorizedByClarin = this.processClarinAuthorization(clarinIsAuthorized);
@@ -116,7 +116,9 @@ export class ClarinBitstreamDownloadPageComponent implements OnInit {
       } else if ((isAuthorized || isAuthorizedByClarin) && !isLoggedIn) {
         this.downloadStatus.next(RequestEntryState.Success);
         this.hardRedirectService.redirect(bitstreamURL);
-      } else if (!(isAuthorized || isAuthorizedByClarin) && isLoggedIn) {
+      } else if (!(isAuthorized || isAuthorizedByClarin) && isLoggedIn &&
+          this.downloadStatus.value === RequestEntryState.Error) {
+        // this.downloadStatus is `ERROR` - no CLARIN exception is thrown up
         this.downloadStatus.next(HTTP_STATUS_UNAUTHORIZED.toString());
         this.router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});
       } else if (!(isAuthorized || isAuthorizedByClarin) && !isLoggedIn && isEmpty(this.downloadStatus.value)) {
