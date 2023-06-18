@@ -78,7 +78,7 @@ export class BrowseService {
       getBrowseDefinitionLinks(options.metadataDefinition),
       hasValueOperator(),
       map((_links: any) => {
-        const entriesLink = _links.entries.href || _links.entries;
+        const entriesLink = _links.entries ? _links.entries.href : _links.entries;
         return entriesLink;
       }),
       hasValueOperator(),
@@ -121,7 +121,12 @@ export class BrowseService {
       getBrowseDefinitionLinks(options.metadataDefinition),
       hasValueOperator(),
       map((_links: any) => {
-        const itemsLink = _links.items.href || _links.items;
+        const itemsLink = _links.items ? _links.items.href : _links.items;
+
+        //Ensure "valueList" browses do not call "items" links without a valid "fieldValue"
+        if (_links.items && _links.items_fieldValueOnly === true && !filterValue){
+          return undefined;
+        }
         return itemsLink;
       }),
       hasValueOperator(),
@@ -170,6 +175,10 @@ export class BrowseService {
       hasValueOperator(),
       map((_links: any) => {
         const itemsLink = _links.items.href || _links.items;
+        //Ensure "valueList" browses do not call "items" links
+        if (_links.items && _links.items_fieldValueOnly === true){
+          return undefined;
+        }
         return itemsLink;
       }),
       hasValueOperator(),

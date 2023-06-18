@@ -40,7 +40,12 @@ export class BrowseResponseParsingService extends DspaceRestResponseParsingServi
       } else {
         throw new Error('An error occurred while retrieving the browse definitions.');
       }
-      return serializer.deserialize(obj);
+      //DS-8879: set extra attribute as a condition for "items" link when browseType == "valueList":
+      const des_obj = serializer.deserialize(obj);
+      if (des_obj instanceof ValueListBrowseDefinition) {
+        des_obj._links.items_fieldValueOnly = true;
+      }
+      return des_obj;
     } else {
       throw new Error('An error occurred while retrieving the browse definitions.');
     }
