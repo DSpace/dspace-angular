@@ -10,6 +10,10 @@ import { CommunityAuthorizationsComponent } from './community-authorizations/com
 import { CommunityFormModule } from '../community-form/community-form.module';
 import { ResourcePoliciesModule } from '../../shared/resource-policies/resource-policies.module';
 import { ComcolModule } from '../../shared/comcol/comcol.module';
+import { CommunityAccessControlComponent } from './community-access-control/community-access-control.component';
+import {
+  AccessControlFormModule
+} from '../../shared/access-control-form-container/access-control-form.module';
 
 /**
  * Module that contains all components related to the Edit Community page administrator functionality
@@ -22,13 +26,15 @@ import { ComcolModule } from '../../shared/comcol/comcol.module';
     CommunityFormModule,
     ComcolModule,
     ResourcePoliciesModule,
+    AccessControlFormModule,
   ],
   declarations: [
     EditCommunityPageComponent,
     CommunityCurateComponent,
     CommunityMetadataComponent,
     CommunityRolesComponent,
-    CommunityAuthorizationsComponent
+    CommunityAuthorizationsComponent,
+    CommunityAccessControlComponent
   ]
 })
 export class EditCommunityPageModule {
