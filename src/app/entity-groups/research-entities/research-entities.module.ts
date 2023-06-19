@@ -19,6 +19,7 @@ import { OrgUnitSearchResultGridElementComponent } from './item-grid-elements/se
 import { ProjectSearchResultGridElementComponent } from './item-grid-elements/search-result-grid-elements/project/project-search-result-grid-element.component';
 import { PersonItemMetadataListElementComponent } from './metadata-representations/person/person-item-metadata-list-element.component';
 import { OrgUnitItemMetadataListElementComponent } from './metadata-representations/org-unit/org-unit-item-metadata-list-element.component';
+import { ProjectItemMetadataListElementComponent } from './metadata-representations/project/project-item-metadata-list-element.component';
 import { PersonSearchResultListSubmissionElementComponent } from './submission/item-list-elements/person/person-search-result-list-submission-element.component';
 import { PersonInputSuggestionsComponent } from './submission/item-list-elements/person/person-suggestions/person-input-suggestions.component';
 import { NameVariantModalComponent } from './submission/name-variant-modal/name-variant-modal.component';
@@ -36,6 +37,7 @@ const ENTRY_COMPONENTS = [
 // put only entry components that use custom decorator
   OrgUnitComponent,
   PersonComponent,
+  ProjectItemMetadataListElementComponent,
   ProjectComponent,
   OrgUnitListElementComponent,
   OrgUnitItemMetadataListElementComponent,
