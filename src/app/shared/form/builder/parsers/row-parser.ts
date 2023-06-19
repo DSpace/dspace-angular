@@ -108,6 +108,15 @@ export class RowParser {
             });
           } else {
             setLayout(fieldModel, 'grid', 'host', layoutFieldClass);
+            if (fieldData.repeatable) {
+              console.log('fieldData', fieldData);
+              // add hind and required to the field model if is is configured as repeatable
+              fieldModel = Object.assign(fieldModel, {
+                hint: fieldData?.hints,
+                required: fieldData?.mandatory
+              });
+            }
+
             config.group.push(fieldModel);
           }
         }

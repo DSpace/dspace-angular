@@ -500,6 +500,19 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   /**
+   * Check if the current field has a hint and is repeatable
+   * for specific input types such as CHECKBOX_GROUP (input-type: LIST) and RELATION (input-type: GROUP)
+   * @readonly
+   * @type {boolean}
+   * @memberof DsDynamicFormControlContainerComponent
+   */
+  get hasHintAndIsRepeatable(): boolean {
+    return this.hasHint && this.model.repeatable && (
+      this.model.type === 'CHECKBOX_GROUP' || this.model.type === 'RELATION'
+    ) ;
+  }
+
+  /**
    *  Initialize this.item$ based on this.model.submissionId
    */
   private setItem() {
