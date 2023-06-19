@@ -3220,7 +3220,7 @@
 
   "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
 
-  "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+  "process.bulk.delete.success": "{{count}} process(es) have been successfully deleted",
 
   "profile.breadcrumbs": "Update Profile",
 
