@@ -178,6 +178,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     if (!!this.currentItemIsLeftItem$) {
       this.currentItemIsLeftItem$.subscribe((isLeft) => {
         this.isLeft = isLeft;
+        this.label = this.relationshipType.leftwardType;
       });
     }
 
