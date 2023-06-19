@@ -19,16 +19,13 @@
   "403.forbidden": "kielletty",
 
   // "500.page-internal-server-error": "Service Unavailable",
-  // TODO New key - Add a translation
-  "500.page-internal-server-error": "Palvelu saavuttamattomissa",
+  "500.page-internal-server-error": "Palvelu ei ole saatavilla",
 
   // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
-  // TODO New key - Add a translation
-  "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later. ",
+  "500.help": "Palvelin ei tilapäisesti pysty käsittelemään pyyntöäsi huoltokatkon tai kapasiteettiongelmien vuoksi. Yritä myöhemmin uudelleen.",
 
   // "500.link.home-page": "Take me to the home page",
-  // TODO New key - Add a translation
-  "500.link.home-page": "Take me to the home page",
+  "500.link.home-page": "Palaa etusivulle",
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   "404.help": "Hakemaasi sivua ei löytynyt. Sivu on voitu siirtää tai poistaa. Painamalla alapuolella olevaa nappia palaat etusivulle. ",
@@ -40,44 +37,34 @@
   "404.page-not-found": "sivua ei löytynyt",
 
   // "error-page.description.401": "unauthorized",
-  // TODO New key - Add a translation
-  "error-page.description.401": "unauthorized",
+  "error-page.description.401": "valtuuttamaton",
 
   // "error-page.description.403": "forbidden",
-  // TODO New key - Add a translation
-  "error-page.description.403": "forbidden",
+  "error-page.description.403": "kielletty",
 
   // "error-page.description.500": "Service Unavailable",
-  // TODO New key - Add a translation
-  "error-page.description.500": "Service Unavailable",
+  "error-page.description.500": "Palvelu ei ole saatavilla",
 
   // "error-page.description.404": "page not found",
-  // TODO New key - Add a translation
-  "error-page.description.404": "page not found",
+  "error-page.description.404": "sivua ei löytynyt",
 
   // "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
-  // TODO New key - Add a translation
-  "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
+  "error-page.orcid.generic-error": "Virhe ORCID-kirjautumisessa. Varmista, että olet tuonut ORCID-tilisi sähköpostiosoitteen DSpaceen. Jos virhe ei poistu, ota yhteyttä ylläpitäjään.",
 
   // "access-status.embargo.listelement.badge": "Embargo",
-  // TODO New key - Add a translation
   "access-status.embargo.listelement.badge": "Embargo",
 
   // "access-status.metadata.only.listelement.badge": "Metadata only",
-  // TODO New key - Add a translation
-  "access-status.metadata.only.listelement.badge": "Metadata only",
+  "access-status.metadata.only.listelement.badge": "Vain metadata",
 
   // "access-status.open.access.listelement.badge": "Open Access",
-  // TODO New key - Add a translation
   "access-status.open.access.listelement.badge": "Open Access",
 
   // "access-status.restricted.listelement.badge": "Restricted",
-  // TODO New key - Add a translation
-  "access-status.restricted.listelement.badge": "Restricted",
+  "access-status.restricted.listelement.badge": "Rajattu",
 
   // "access-status.unknown.listelement.badge": "Unknown",
-  // TODO New key - Add a translation
-  "access-status.unknown.listelement.badge": "Unknown",
+  "access-status.unknown.listelement.badge": "Tuntematon",
 
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
   "admin.curation-tasks.breadcrumbs": "Järjestelmän kuratointitehtävät",
@@ -206,12 +193,10 @@
   "admin.registries.bitstream-formats.table.name": "Nimi",
 
   // "admin.registries.bitstream-formats.table.id": "ID",
-  // TODO Source message changed - Revise the translation
   "admin.registries.bitstream-formats.table.id": "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
-  // TODO Source message changed - Revise the translation
-  "admin.registries.bitstream-formats.table.return": "Palaa",
+  "admin.registries.bitstream-formats.table.return": "Paluu",
 
   // "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
   "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Tunnettu",
@@ -226,8 +211,7 @@
   "admin.registries.bitstream-formats.table.supportLevel.head": "Tukitaso",
 
   // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
-  // TODO Source message changed - Revise the translation
-  "admin.registries.bitstream-formats.title": "DSpace Angular :: Tiedostoformaattirekisteri",
+  "admin.registries.bitstream-formats.title": "Tiedostoformaattirekisteri",
 
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
   "admin.registries.metadata.breadcrumbs": "Metadatarekisteri",
@@ -266,8 +250,7 @@
   "admin.registries.metadata.schemas.table.namespace": "Nimiavaruus",
 
   // "admin.registries.metadata.title": "Metadata Registry",
-  // TODO Source message changed - Revise the translation
-  "admin.registries.metadata.title": "DSpace Angular :: Metadatarekisteri",
+  "admin.registries.metadata.title": "Metadatarekisteri",
 
   // "admin.registries.schema.breadcrumbs": "Metadata schema",
   "admin.registries.schema.breadcrumbs": "Metadataskeema",
@@ -342,12 +325,10 @@
   "admin.registries.schema.notification.success": "Valmis",
 
   // "admin.registries.schema.return": "Back",
-  // TODO Source message changed - Revise the translation
-  "admin.registries.schema.return": "Palaa",
+  "admin.registries.schema.return": "Paluu",
 
   // "admin.registries.schema.title": "Metadata Schema Registry",
-  // TODO Source message changed - Revise the translation
-  "admin.registries.schema.title": "DSpace Angular :: Metadataskeemarekisteri",
+  "admin.registries.schema.title": "Metadataskeemarekisteri",
 
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
   "admin.access-control.epeople.actions.delete": "Poista käyttäjä",
@@ -362,11 +343,9 @@
   "admin.access-control.epeople.actions.stop-impersonating": "Lopeta käyttäjänä esiintyminen",
 
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.breadcrumbs": "EPeople",
+  "admin.access-control.epeople.breadcrumbs": "Käyttäjät",
 
   // "admin.access-control.epeople.title": "EPeople",
-  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.title": "DSpace Angular :: Käyttäjät",
 
   // "admin.access-control.epeople.head": "EPeople",
@@ -388,8 +367,7 @@
   "admin.access-control.epeople.search.button": "Hae",
 
   // "admin.access-control.epeople.search.placeholder": "Search people...",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.search.placeholder": "Search people...",
+  "admin.access-control.epeople.search.placeholder": "Hae käyttäjiä...",
 
   // "admin.access-control.epeople.button.add": "Add EPerson",
   "admin.access-control.epeople.button.add": "Lisää käyttäjä",
@@ -410,8 +388,7 @@
   "admin.access-control.epeople.table.edit.buttons.edit": "Muokkaa \"{{name}}\"",
 
   // "admin.access-control.epeople.table.edit.buttons.edit-disabled": "You are not authorized to edit this group",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.edit-disabled": "You are not authorized to edit this group",
+  "admin.access-control.epeople.table.edit.buttons.edit-disabled": "Sinulla ei ole valtuuksia muokata tätä ryhmää",
 
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
   "admin.access-control.epeople.table.edit.buttons.remove": "Poista \"{{name}}\"",
@@ -444,8 +421,7 @@
   "admin.access-control.epeople.form.requireCertificate": "Vaatii sertifikaatin",
 
   // "admin.access-control.epeople.form.return": "Back",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.return": "Back",
+  "admin.access-control.epeople.form.return": "Paluu",
 
   // "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.created.success": "Käyttäjä \"{{name}}\" luotu",
@@ -481,8 +457,7 @@
   "admin.access-control.epeople.form.table.name": "Nimi",
 
   // "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
+  "admin.access-control.epeople.form.table.collectionOrCommunity": "Kokoelma/Yhteisö",
 
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   "admin.access-control.epeople.form.memberOfNoGroups": "Tämä käyttäjä ei kuulu mihinkään ryhmään",
@@ -497,28 +472,22 @@
   "admin.access-control.epeople.notification.deleted.success": "Käyttäjä poistettu: \"{{name}}\"",
 
   // "admin.access-control.groups.title": "Groups",
-  // TODO Source message changed - Revise the translation
-  "admin.access-control.groups.title": "DSpace Angular :: Ryhmät",
+  "admin.access-control.groups.title": "Ryhmät",
 
   // "admin.access-control.groups.breadcrumbs": "Groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.breadcrumbs": "Groups",
+  "admin.access-control.groups.breadcrumbs": "Ryhmät",
 
   // "admin.access-control.groups.singleGroup.breadcrumbs": "Edit Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.singleGroup.breadcrumbs": "Edit Group",
+  // "admin.access-control.groups.singleGroup.breadcrumbs": "Ryhmän muokkaus",
 
   // "admin.access-control.groups.title.singleGroup": "Edit Group",
-  // TODO Source message changed - Revise the translation
-  "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Ryhmän muokkaus",
+  "admin.access-control.groups.title.singleGroup": "Ryhmän muokkaus",
 
   // "admin.access-control.groups.title.addGroup": "New Group",
-  // TODO Source message changed - Revise the translation
-  "admin.access-control.groups.title.addGroup": "DSpace Angular :: Uusi ryhmä",
+  "admin.access-control.groups.title.addGroup": "Uusi ryhmä",
 
   // "admin.access-control.groups.addGroup.breadcrumbs": "New Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.addGroup.breadcrumbs": "New Group",
+  "admin.access-control.groups.addGroup.breadcrumbs": "uusi ryhmä",
 
   // "admin.access-control.groups.head": "Groups",
   "admin.access-control.groups.head": "Ryhmät",
@@ -536,8 +505,7 @@
   "admin.access-control.groups.search.button": "Hae",
 
   // "admin.access-control.groups.search.placeholder": "Search groups...",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.search.placeholder": "Search groups...",
+  "admin.access-control.groups.search.placeholder": "Hae ryhmiä...",
 
   // "admin.access-control.groups.table.id": "ID",
   "admin.access-control.groups.table.id": "ID",
@@ -546,8 +514,7 @@
   "admin.access-control.groups.table.name": "Nimi",
 
   // "admin.access-control.groups.table.collectionOrCommunity": "Collection/Community",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.collectionOrCommunity": "Collection/Community",
+  "admin.access-control.groups.table.collectionOrCommunity": "Kokoelma/Yhteisö",
 
   // "admin.access-control.groups.table.members": "Members",
   "admin.access-control.groups.table.members": "Jäsenet",
@@ -589,8 +556,7 @@
   "admin.access-control.groups.form.groupName": "Ryhmän nimi",
 
   // "admin.access-control.groups.form.groupCommunity": "Community or Collection",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.groupCommunity": "Community or Collection",
+  "admin.access-control.groups.form.groupCommunity": "Yhteisö tai kokoelma",
 
   // "admin.access-control.groups.form.groupDescription": "Description",
   "admin.access-control.groups.form.groupDescription": "Kuvaus",
@@ -665,12 +631,10 @@
   "admin.access-control.groups.form.members-list.table.name": "Nimi",
 
   // "admin.access-control.groups.form.members-list.table.identity": "Identity",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.identity": "Identity",
+  "admin.access-control.groups.form.members-list.table.identity": "Identiteetti",
 
   // "admin.access-control.groups.form.members-list.table.email": "Email",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.email": "Email",
+  "admin.access-control.groups.form.members-list.table.email": "Sähköpostiosoite",
 
   // "admin.access-control.groups.form.members-list.table.netid": "NetID",
   // TODO New key - Add a translation
@@ -731,8 +695,7 @@
   "admin.access-control.groups.form.subgroups-list.table.name": "Nimi",
 
   // "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Collection/Community",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Collection/Community",
+  "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Kokoelma/Yhteisö",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
   "admin.access-control.groups.form.subgroups-list.table.edit": "Poista / Lisää",
@@ -771,20 +734,17 @@
   "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "Ryhmällä ei ole alaryhmiä.",
 
   // "admin.access-control.groups.form.return": "Back",
-  // TODO Source message changed - Revise the translation
-  "admin.access-control.groups.form.return": "Palaa ryhmiin",
+  "admin.access-control.groups.form.return": "Paluu",
 
   // "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
+  "admin.access-control.groups.form.tooltip.editGroupPage": "Tällä sivulla voit muokata ryhmän ominaisuuksia ja jäseniä. Yläosassa voit muokata ryhmän nimeä ja kuvausta, paitsi jos kyseessä on kokoelman tai yhteisön ylläpitäjäryhmä, jolloin ryhmän nimi ja kuvaus luodaan automaattisesti, eikä niitä voi muokata. Muissa osioissa voit muokata ryhmän jäsenyyttä. Katso lisätietoja wiki-sivulta (https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group).",
 
   // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Voit lisätä tai poistaa ryhmän käyttäjän joko napsauttamalla 'Selaa kaikkia' -painiketta tai käyttämällä alla olevaa hakupalkkia käyttäjien etsimiseen (käytä hakupalkin vasemmalla puolella olevaa pudotusvalikkoa valitaksesi, haetaanko metatietojen vai sähköpostin perusteella). Napsauta sitten plus-kuvaketta jokaisen käyttäjän kohdalla, jonka haluat lisätä alla olevaan luetteloon, tai roskakorikuvaketta jokaisen käyttäjän kohdalla, jonka haluat poistaa. Alla olevassa luettelossa voi olla useita sivuja: voit siirtyä seuraaville sivuille luettelon alapuolella olevilla sivunohjaimilla. Kun olet valmis, tallenna muutokset napsauttamalla yläosassa olevaa Tallenna-painiketta.",
 
   // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+  // TODO New key - Add a translation - ree tästä tehty tiketti 2321 DSpaden githubiin
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Jos haluat lisätä alaryhmän tähän ryhmään tai poistaa alaryhmän tästä ryhmästä, napsauta joko 'Selaa kaikkia' -painiketta tai käytä alla olevaa hakupalkkia käyttäjien etsimiseen. Napsauta sitten plus-kuvaketta jokaisen käyttäjän kohdalla, jonka haluat lisätä alla olevassa luettelossa, tai roskakorikuvaketta jokaisen käyttäjän kohdalla, jonka haluat poistaa. Alla olevassa luettelossa voi olla useita sivuja: voit siirtyä seuraaville sivuille luettelon alapuolella olevilla sivunohjaimilla. Kun olet valmis, tallenna muutokset napsauttamalla yläosassa olevaa Tallenna-painiketta.",
 
   // "admin.search.breadcrumbs": "Administrative Search",
   "admin.search.breadcrumbs": "Ylläpitäjän haku",
@@ -898,7 +858,6 @@
   "admin.batch-import.page.dropMsgReplace": "Drop to replace the batch ZIP to import",
 
   // "admin.metadata-import.page.button.return": "Back",
-  // TODO Source message changed - Revise the translation
   "admin.metadata-import.page.button.return": "Paluu",
 
   // "admin.metadata-import.page.button.proceed": "Proceed",
@@ -992,48 +951,39 @@
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "E-mail (exact)",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "E-mail (exact)",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "Sähköpostiosoite (oikea)",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Hae",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.id": "ID",
-  // TODO New key - Add a translation
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.id": "ID",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "Name",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "Name",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "Nimi",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "Identity",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "Identity",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "Identiteetti",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Email",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Email",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Sähköpostiosoite",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "NetID",
   // TODO New key - Add a translation
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "NetID",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Remove / Add",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Remove / Add",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Poista / Lisää",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Poista jäsen nimellä \"{{name}}\"",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
   // TODO New key - Add a translation
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Jäsenen lisäys epäonnistui: \"{{name}}\"",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
   // TODO New key - Add a translation
@@ -1086,8 +1036,7 @@
   "bitstream.download.page": "Now downloading {{bitstream}}...",
 
   // "bitstream.download.page.back": "Back",
-  // TODO New key - Add a translation
-  "bitstream.download.page.back": "Back",
+  "bitstream.download.page.back": "Paluu",
 
   // "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
   // TODO New key - Add a translation
@@ -1098,8 +1047,7 @@
   "bitstream.edit.authorizations.title": "Edit bitstream's Policies",
 
   // "bitstream.edit.return": "Back",
-  // TODO New key - Add a translation
-  "bitstream.edit.return": "Back",
+  "bitstream.edit.return": "Paluu",
 
   // "bitstream.edit.bitstream": "Bitstream: ",
   "bitstream.edit.bitstream": "Tiedosto: ",
@@ -1249,8 +1197,7 @@
   "bitstream-request-a-copy.message.label": "Message",
 
   // "bitstream-request-a-copy.return": "Back",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.return": "Back",
+  "bitstream-request-a-copy.return": "Paluu",
 
   // "bitstream-request-a-copy.submit": "Request copy",
   // TODO New key - Add a translation
@@ -1579,8 +1526,7 @@
   "collection.edit.notifications.success": "Kokoelman muokkaus onnistui",
 
   // "collection.edit.return": "Back",
-  // TODO Source message changed - Revise the translation
-  "collection.edit.return": "Palaa",
+  "collection.edit.return": "Paluu",
 
   // "collection.edit.tabs.curate.head": "Curate",
   "collection.edit.tabs.curate.head": "Kuratoi",
@@ -1963,8 +1909,7 @@
   "community.edit.notifications.error": "Virhe muokattaessa yhteisöä",
 
   // "community.edit.return": "Back",
-  // TODO Source message changed - Revise the translation
-  "community.edit.return": "Palaa",
+  "community.edit.return": "Paluu",
 
   // "community.edit.tabs.curate.head": "Curate",
   "community.edit.tabs.curate.head": "Kuratoi",
@@ -2886,8 +2831,7 @@
   "grant-deny-request-copy.deny": "Don't send copy",
 
   // "grant-deny-request-copy.email.back": "Back",
-  // TODO New key - Add a translation
-  "grant-deny-request-copy.email.back": "Back",
+  "grant-deny-request-copy.email.back": "Paluu",
 
   // "grant-deny-request-copy.email.message": "Optional additional message",
   // TODO New key - Add a translation
@@ -2926,8 +2870,7 @@
   "grant-deny-request-copy.header": "Document copy request",
 
   // "grant-deny-request-copy.home-page": "Take me to the home page",
-  // TODO New key - Add a translation
-  "grant-deny-request-copy.home-page": "Take me to the home page",
+  "grant-deny-request-copy.home-page": "Palaa etusivulle",
 
   // "grant-deny-request-copy.intro1": "If you are one of the authors of the document <a href='{{ url }}'>{{ name }}</a>, then please use one of the options below to respond to the user's request.",
   // TODO New key - Add a translation
@@ -3567,8 +3510,7 @@
   "item.edit.modify.overview.value": "Arvo",
 
   // "item.edit.move.cancel": "Back",
-  // TODO Source message changed - Revise the translation
-  "item.edit.move.cancel": "Peruuta",
+  "item.edit.move.cancel": "Paluu",
 
   // "item.edit.move.save-button": "Save",
   // TODO New key - Add a translation
@@ -3718,8 +3660,7 @@
   "item.edit.relationships.no-entity-type": "Lisää 'dspace.entity.type' -metadataa aktivoidaksesi yhteydet tietueessa",
 
   // "item.edit.return": "Back",
-  // TODO New key - Add a translation
-  "item.edit.return": "Back",
+  "item.edit.return": "Paluu",
 
   // "item.edit.tabs.bitstreams.head": "Bitstreams",
   "item.edit.tabs.bitstreams.head": "Tietueen tiedostot",
@@ -3860,8 +3801,7 @@
   "item.edit.withdraw.success": "Tietue poistettu käytöstä",
 
   // "item.orcid.return": "Back",
-  // TODO New key - Add a translation
-  "item.orcid.return": "Back",
+  "item.orcid.return": "Paluu",
 
   // "item.listelement.badge": "Item",
   "item.listelement.badge": "Tietue",
@@ -4034,8 +3974,7 @@
   "item.page.filesection.license.bundle": "Lisenssinippu",
 
   // "item.page.return": "Back",
-  // TODO New key - Add a translation
-  "item.page.return": "Back",
+  "item.page.return": "Paluu",
 
   // "item.page.version.create": "Create new version",
   // TODO New key - Add a translation
@@ -4168,8 +4107,7 @@
   "item.version.history.head": "Versiohistoria",
 
   // "item.version.history.return": "Back",
-  // TODO Source message changed - Revise the translation
-  "item.version.history.return": "Palaa",
+  "item.version.history.return": "Paluu",
 
   // "item.version.history.selected": "Selected version",
   "item.version.history.selected": "Valittu versio",
@@ -5274,7 +5212,6 @@
   "process.detail.arguments.empty": "Prosessiin ei liity muuttujia",
 
   // "process.detail.back": "Back",
-  // TODO Source message changed - Revise the translation
   "process.detail.back": "Paluu",
 
   // "process.detail.output": "Process Output",
