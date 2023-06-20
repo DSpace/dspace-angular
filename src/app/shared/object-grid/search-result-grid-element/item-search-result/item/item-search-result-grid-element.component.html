@@ -2,7 +2,7 @@
     <div class="position-absolute ml-1">
         <ng-content></ng-content>
     </div>
-    <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="[itemPageRoute]"
+    <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="[itemPageRoute]"
         class="card-img-top full-width" [attr.title]="'search.results.view-result' | translate">
         <div>
               <ds-themed-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="false">
@@ -36,7 +36,7 @@
             </ds-truncatable-part>
         </ds-truncatable>
         <div *ngIf="linkType != linkTypes.None" class="text-center">
-            <a [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="[itemPageRoute]"
+            <a [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="[itemPageRoute]"
                 class="lead btn btn-primary viewButton">{{ 'search.results.view-result' | translate}}</a>
         </div>
     </div>
