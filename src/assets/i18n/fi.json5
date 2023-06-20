@@ -1702,20 +1702,16 @@
   "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
 
   // "collection.source.controls.import.submit": "Import now",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.submit": "Import now",
+  "collection.source.controls.import.submit": "Importoi nyt",
 
   // "collection.source.controls.import.running": "Importing...",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.running": "Importing...",
+  "collection.source.controls.import.running": "Importoidaan...",
 
   // "collection.source.controls.import.failed": "An error occurred during the import",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.failed": "An error occurred during the import",
+  "collection.source.controls.import.failed": "Virhe importoinnissa",
 
   // "collection.source.controls.import.completed": "The import completed",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.completed": "The import completed",
+  "collection.source.controls.import.completed": "Importointi valmis",
 
   // "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
   // TODO New key - Add a translation
@@ -2116,8 +2112,7 @@
   "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
 
   // "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
-  // TODO New key - Add a translation
-  "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
+  "cookies.consent.app.description.google-recaptcha": "Käytämme Googlen reCAPTCHA-palvelua rekisteröinnin ja salasanan palauttamisen yhteydessä.",
 
   // "cookies.consent.purpose.functional": "Functional",
   "cookies.consent.purpose.functional": "Toiminnallinen",
@@ -2126,8 +2121,7 @@
   "cookies.consent.purpose.statistical": "Tilastollinen",
 
   // "cookies.consent.purpose.registration-password-recovery": "Registration and Password recovery",
-  // TODO New key - Add a translation
-  "cookies.consent.purpose.registration-password-recovery": "Registration and Password recovery",
+  "cookies.consent.purpose.registration-password-recovery": "Rekisteröinti ja salasanan palauttaminen",
 
   // "cookies.consent.purpose.sharing": "Sharing",
   // TODO New key - Add a translation
@@ -2138,7 +2132,6 @@
   "curation-task.task.citationpage.label": "Generate Citation Page",
 
   // "curation-task.task.checklinks.label": "Check Links in Metadata",
-  // TODO Source message changed - Revise the translation
   "curation-task.task.checklinks.label": "Tarkista metadatan linkit",
 
   // "curation-task.task.noop.label": "NOOP",
@@ -2157,8 +2150,7 @@
   "curation-task.task.vscan.label": "Virusskannaus",
 
   // "curation-task.task.register-doi.label": "Register DOI",
-  // TODO New key - Add a translation
-  "curation-task.task.register-doi.label": "Register DOI",
+  "curation-task.task.register-doi.label": "Rekisteröi DOI",
 
   // "curation.form.task-select.label": "Task:",
   "curation.form.task-select.label": "Tehtävä:",
@@ -2183,9 +2175,11 @@
   "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
 
   // "curation.form.handle.label": "Handle:",
+  // TODO
   "curation.form.handle.label": "Handle:",
 
   // "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
+  // TODO
   "curation.form.handle.hint": "Vinkki: Syötä [oma-handle-prefix]/0 suorittaaksesi tehtävän koko sivustolla (kaikki tehtävät eivät tue tätä toimintoa)",
 
   // "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
@@ -2197,8 +2191,7 @@
   "deny-request-copy.email.subject": "Request copy of document",
 
   // "deny-request-copy.error": "An error occurred",
-  // TODO New key - Add a translation
-  "deny-request-copy.error": "An error occurred",
+  "deny-request-copy.error": "Tapahtui virhe",
 
   // "deny-request-copy.header": "Deny document copy request",
   // TODO New key - Add a translation
@@ -2837,8 +2830,7 @@
   "grant-request-copy.email.subject": "Request copy of document",
 
   // "grant-request-copy.error": "An error occurred",
-  // TODO New key - Add a translation
-  "grant-request-copy.error": "An error occurred",
+  "grant-request-copy.error": "Tapahtui virhe",
 
   // "grant-request-copy.header": "Grant document copy request",
   // TODO New key - Add a translation
@@ -3701,7 +3693,7 @@
   "item.edit.tabs.status.head": "Tietueen tila",
 
   // "item.edit.tabs.status.labels.handle": "Handle",
-  "item.edit.tabs.status.labels.handle": "Handle-tunnus",
+  "item.edit.tabs.status.labels.handle": "Handle",
 
   // "item.edit.tabs.status.labels.id": "Item Internal ID",
   "item.edit.tabs.status.labels.id": "Tietueen sisäinen ID",
