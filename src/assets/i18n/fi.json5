@@ -818,13 +818,13 @@
   "admin.metadata-import.title": "Importoi metadata",
 
   // "admin.batch-import.title": "Import Batch",
-   "admin.batch-import.title": "Importoi erä",
+  "admin.batch-import.title": "Importoi erä",
 
   // "admin.metadata-import.page.header": "Import Metadata",
   "admin.metadata-import.page.header": "Importoi metadata",
 
   // "admin.batch-import.page.header": "Import Batch",
-   "admin.batch-import.page.header": "Importoi erä",
+  "admin.batch-import.page.header": "Importoi erä",
 
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
   "admin.metadata-import.page.help": "Voit pudottaa tähän tai selata CSV-tiedostoja, joilla voit tehdä metadatatoimintoja usealle tietueelle",
@@ -919,7 +919,7 @@
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Nykyiset jäsenet",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata",
-   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "E-mail (exact)",
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "Sähköpostiosoite (oikea)",
