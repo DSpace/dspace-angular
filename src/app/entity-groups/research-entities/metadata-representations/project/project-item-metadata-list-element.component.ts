@@ -16,7 +16,7 @@ export class ProjectItemMetadataListElementComponent extends ItemMetadataReprese
   /**
    * Initialize instance variables
    *
-   * @param nameService
+   * @param dsoNameService
    */
   constructor(
     public dsoNameService: DSONameService
