@@ -49,7 +49,7 @@
   "error-page.description.404": "sivua ei löytynyt",
 
   // "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
-  "error-page.orcid.generic-error": "Virhe ORCID-kirjautumisessa. Varmista, että olet tuonut ORCID-tilisi sähköpostiosoitteen DSpaceen. Jos virhe ei poistu, ota yhteyttä ylläpitäjään.",
+  "error-page.orcid.generic-error": "Virhe ORCID-kirjautumisessa. Varmista, että olet tuonut ORCID-tilisi sähköpostiosoitteen DSpaceen. Jos virhe jatkuu, ota yhteyttä ylläpitäjään.",
 
   // "access-status.embargo.listelement.badge": "Embargo",
   "access-status.embargo.listelement.badge": "Embargo",
@@ -1163,7 +1163,7 @@
 
   // "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
+  "bitstream-request-a-copy.submit.error": "Virhe wrong with submitting the item request.",
 
   // "browse.back.all-results": "All browse results",
   // TODO New key - Add a translation
@@ -1362,8 +1362,7 @@
   "collection.delete.confirm": "Vahvista",
 
   // "collection.delete.processing": "Deleting",
-  // TODO New key - Add a translation
-  "collection.delete.processing": "Deleting",
+  "collection.delete.processing": "Poistetaan",
 
   // "collection.delete.head": "Delete Collection",
   "collection.delete.head": "Poista kokoelma",
@@ -1675,7 +1674,7 @@
 
   // "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
   // TODO New key - Add a translation
-  "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
+  "collection.source.controls.test.submit.error": "Virhe wrong with initiating the testing of the settings",
 
   // "collection.source.controls.test.failed": "The script to test the settings has failed",
   // TODO New key - Add a translation
@@ -1699,7 +1698,7 @@
 
   // "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
   // TODO New key - Add a translation
-  "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
+  "collection.source.controls.import.submit.error": "Virhe wrong with initiating the import",
 
   // "collection.source.controls.import.submit": "Import now",
   "collection.source.controls.import.submit": "Importoi nyt",
@@ -1719,7 +1718,7 @@
 
   // "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
   // TODO New key - Add a translation
-  "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
+  "collection.source.controls.reset.submit.error": "Virhe wrong with initiating the reset and reimport",
 
   // "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
   // TODO New key - Add a translation
@@ -1796,8 +1795,7 @@
   "community.delete.confirm": "Vahvista",
 
   // "community.delete.processing": "Deleting...",
-  // TODO New key - Add a translation
-  "community.delete.processing": "Deleting...",
+  "community.delete.processing": "Poistetaan...",
 
   // "community.delete.head": "Delete Community",
   "community.delete.head": "Poista yhteisö",
@@ -2175,11 +2173,9 @@
   "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
 
   // "curation.form.handle.label": "Handle:",
-  // TODO
   "curation.form.handle.label": "Handle:",
 
   // "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
-  // TODO
   "curation.form.handle.hint": "Vinkki: Syötä [oma-handle-prefix]/0 suorittaaksesi tehtävän koko sivustolla (kaikki tehtävät eivät tue tätä toimintoa)",
 
   // "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
@@ -2198,20 +2194,17 @@
   "deny-request-copy.header": "Deny document copy request",
 
   // "deny-request-copy.intro": "This message will be sent to the applicant of the request",
-  // TODO New key - Add a translation
-  "deny-request-copy.intro": "This message will be sent to the applicant of the request",
+  "deny-request-copy.intro": "Tämä viesti lähetetään pyynnön esittäjälle",
 
   // "deny-request-copy.success": "Successfully denied item request",
   // TODO New key - Add a translation
   "deny-request-copy.success": "Successfully denied item request",
 
   // "dso.name.untitled": "Untitled",
-  // TODO New key - Add a translation
-  "dso.name.untitled": "Untitled",
+  "dso.name.untitled": "Nimetön",
 
   // "dso.name.unnamed": "Unnamed",
-  // TODO New key - Add a translation
-  "dso.name.unnamed": "Unnamed",
+  "dso.name.unnamed": "Nimeämätön",
 
   // "dso-selector.create.collection.head": "New collection",
   "dso-selector.create.collection.head": "Uusi kokoelma",
@@ -2251,19 +2244,16 @@
   "dso-selector.edit.item.head": "Muokkaa tietuetta",
 
   // "dso-selector.error.title": "An error occurred searching for a {{ type }}",
-  // TODO New key - Add a translation
-  "dso-selector.error.title": "An error occurred searching for a {{ type }}",
+  "dso-selector.error.title": "Virhe etsittäessä tyyppiä {{ type }}",
 
   // "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
   "dso-selector.export-metadata.dspaceobject.head": "Eksportoi metadata täältä: ",
 
   // "dso-selector.export-batch.dspaceobject.head": "Export Batch (ZIP) from",
-  // TODO New key - Add a translation
-  "dso-selector.export-batch.dspaceobject.head": "Export Batch (ZIP) from",
+  "dso-selector.export-batch.dspaceobject.head": "Eksportoi erä (ZIP): ",
 
   // "dso-selector.import-batch.dspaceobject.head": "Import batch from",
-  // TODO New key - Add a translation
-  "dso-selector.import-batch.dspaceobject.head": "Import batch from",
+  "dso-selector.import-batch.dspaceobject.head": "Importoi erä: ",
 
   // "dso-selector.no-results": "No {{ type }} found",
   "dso-selector.no-results": "Ei {{ type }}-tyyppiä.",
@@ -2272,44 +2262,34 @@
   "dso-selector.placeholder": "Hae {{ type }}-tyyppiä",
 
   // "dso-selector.select.collection.head": "Select a collection",
-  // TODO New key - Add a translation
-  "dso-selector.select.collection.head": "Select a collection",
+  "dso-selector.select.collection.head": "Valitse kokoelma",
 
   // "dso-selector.set-scope.community.head": "Select a search scope",
-  // TODO New key - Add a translation
-  "dso-selector.set-scope.community.head": "Select a search scope",
+  "dso-selector.set-scope.community.head": "Valitse hakualue",
 
   // "dso-selector.set-scope.community.button": "Search all of DSpace",
-  // TODO New key - Add a translation
-  "dso-selector.set-scope.community.button": "Search all of DSpace",
+  "dso-selector.set-scope.community.button": "Hae koko julkaisuarkistosta",
 
   // "dso-selector.set-scope.community.or-divider": "or",
-  // TODO New key - Add a translation
-  "dso-selector.set-scope.community.or-divider": "or",
+  "dso-selector.set-scope.community.or-divider": "tai",
 
   // "dso-selector.set-scope.community.input-header": "Search for a community or collection",
-  // TODO New key - Add a translation
-  "dso-selector.set-scope.community.input-header": "Search for a community or collection",
+  "dso-selector.set-scope.community.input-header": "Hae yhteisöä tai kokoelmaa",
 
   // "dso-selector.claim.item.head": "Profile tips",
-  // TODO New key - Add a translation
-  "dso-selector.claim.item.head": "Profile tips",
+  "dso-selector.claim.item.head": "Profiilivinkkejä",
 
   // "dso-selector.claim.item.body": "These are existing profiles that may be related to you. If you recognize yourself in one of these profiles, select it and on the detail page, among the options, choose to claim it. Otherwise you can create a new profile from scratch using the button below.",
-  // TODO New key - Add a translation
-  "dso-selector.claim.item.body": "These are existing profiles that may be related to you. If you recognize yourself in one of these profiles, select it and on the detail page, among the options, choose to claim it. Otherwise you can create a new profile from scratch using the button below.",
+  "dso-selector.claim.item.body": "Nämä ovat olemassa olevia profiileja, jotka saattavat liittyä sinuun. Jos tunnistat jonkin näistä profiileista omaksesi, valitse se ja valitse tarkentavan sivun vaihtoehdoista, että otat sen itsellesi. Muussa tapauksessa voit luoda uuden profiilin käyttämällä alla olevaa painiketta.",
 
   // "dso-selector.claim.item.not-mine-label": "None of these are mine",
-  // TODO New key - Add a translation
-  "dso-selector.claim.item.not-mine-label": "None of these are mine",
+  "dso-selector.claim.item.not-mine-label": "Mikään näistä ei ole minun",
 
   // "dso-selector.claim.item.create-from-scratch": "Create a new one",
-  // TODO New key - Add a translation
-  "dso-selector.claim.item.create-from-scratch": "Create a new one",
+  "dso-selector.claim.item.create-from-scratch": "Luo uusi",
 
   // "dso-selector.results-could-not-be-retrieved": "Something went wrong, please refresh again ↻",
-  // TODO New key - Add a translation
-  "dso-selector.results-could-not-be-retrieved": "Something went wrong, please refresh again ↻",
+  "dso-selector.results-could-not-be-retrieved": "Tapahtui virhe, päivitä uudelleen ↻",
 
   // "supervision-group-selector.header": "Supervision Group Selector",
   // TODO New key - Add a translation
@@ -4990,8 +4970,7 @@
   "orgunit.listelement.badge": "Organisaatioyksikkö",
 
   // "orgunit.listelement.no-title": "Untitled",
-  // TODO New key - Add a translation
-  "orgunit.listelement.no-title": "Untitled",
+  "orgunit.listelement.no-title": "Nimetön",
 
   // "orgunit.page.city": "City",
   "orgunit.page.city": "Kaupunki",
@@ -5229,7 +5208,7 @@
 
   // "process.detail.delete.error": "Something went wrong when deleting the process",
   // TODO New key - Add a translation
-  "process.detail.delete.error": "Something went wrong when deleting the process",
+  "process.detail.delete.error": "Virhe wrong when deleting the process",
 
   // "process.overview.table.finish": "Finish time (UTC)",
   // TODO Source message changed - Revise the translation
@@ -5537,7 +5516,7 @@
   "register-page.create-profile.submit": "Viimeistele rekisteröinti",
 
   // "register-page.create-profile.submit.error.content": "Something went wrong while registering a new user.",
-  "register-page.create-profile.submit.error.content": "Tapahtui virhe uuden käyttäjän rekisteröinnissä.",
+  "register-page.create-profile.submit.error.content": "Virhe uuden käyttäjän rekisteröinnissä.",
 
   // "register-page.create-profile.submit.error.head": "Registration failed",
   "register-page.create-profile.submit.error.head": "Rekisteröinti epäonnistui",
@@ -7120,7 +7099,6 @@
   "submission.sections.identifiers.no_doi": "No DOIs have been minted for this item.",
 
   // "submission.sections.identifiers.handle_label": "Handle: ",
-  // TODO New key - Add a translation
   "submission.sections.identifiers.handle_label": "Handle: ",
 
   // "submission.sections.identifiers.doi_label": "DOI: ",
@@ -7961,8 +7939,7 @@
   "workspace-item.delete.title": "This workspace item was successfully deleted",
 
   // "workspace-item.delete.notification.error.title": "Something went wrong",
-  // TODO New key - Add a translation
-  "workspace-item.delete.notification.error.title": "Something went wrong",
+  "workspace-item.delete.notification.error.title": "Tapahtui virhe",
 
   // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
   // TODO New key - Add a translation
@@ -7981,8 +7958,7 @@
   "workflow-item.selectrevieweraction.notification.success.content": "The reviewer for this workflow item has been successfully selected",
 
   // "workflow-item.selectrevieweraction.notification.error.title": "Something went wrong",
-  // TODO New key - Add a translation
-  "workflow-item.selectrevieweraction.notification.error.title": "Something went wrong",
+  "workflow-item.selectrevieweraction.notification.error.title": "Tapahtui virhe",
 
   // "workflow-item.selectrevieweraction.notification.error.content": "Couldn't select the reviewer for this workflow item",
   // TODO New key - Add a translation
@@ -8013,8 +7989,7 @@
   "workflow-item.scorereviewaction.notification.success.content": "The rating for this item workflow item has been successfully submitted",
 
   // "workflow-item.scorereviewaction.notification.error.title": "Something went wrong",
-  // TODO New key - Add a translation
-  "workflow-item.scorereviewaction.notification.error.title": "Something went wrong",
+  "workflow-item.scorereviewaction.notification.error.title": "Tapahtui virhe",
 
   // "workflow-item.scorereviewaction.notification.error.content": "Couldn't rate this item",
   // TODO New key - Add a translation
@@ -8053,44 +8028,35 @@
   "idle-modal.extend-session": "Extend session",
 
   // "researcher.profile.action.processing": "Processing...",
-  // TODO New key - Add a translation
-  "researcher.profile.action.processing": "Processing...",
+  "researcher.profile.action.processing": "Käsitellään...",
 
   // "researcher.profile.associated": "Researcher profile associated",
   // TODO New key - Add a translation
   "researcher.profile.associated": "Researcher profile associated",
 
   // "researcher.profile.change-visibility.fail": "An unexpected error occurs while changing the profile visibility",
-  // TODO New key - Add a translation
-  "researcher.profile.change-visibility.fail": "An unexpected error occurs while changing the profile visibility",
+  "researcher.profile.change-visibility.fail": "Odottamaton virhe muutettaessa profiilin näkyvyyttä",
 
   // "researcher.profile.create.new": "Create new",
-  // TODO New key - Add a translation
-  "researcher.profile.create.new": "Create new",
+  "researcher.profile.create.new": "Luo uusi",
 
   // "researcher.profile.create.success": "Researcher profile created successfully",
-  // TODO New key - Add a translation
-  "researcher.profile.create.success": "Researcher profile created successfully",
+  "researcher.profile.create.success": "Tutkijaprofiili luotu",
 
   // "researcher.profile.create.fail": "An error occurs during the researcher profile creation",
-  // TODO New key - Add a translation
-  "researcher.profile.create.fail": "An error occurs during the researcher profile creation",
+  "researcher.profile.create.fail": "Virhe luotaessa tutkijaprofiilia",
 
   // "researcher.profile.delete": "Delete",
-  // TODO New key - Add a translation
-  "researcher.profile.delete": "Delete",
+  "researcher.profile.delete": "Poista",
 
   // "researcher.profile.expose": "Expose",
-  // TODO New key - Add a translation
-  "researcher.profile.expose": "Expose",
+  "researcher.profile.expose": "Paljasta",
 
   // "researcher.profile.hide": "Hide",
-  // TODO New key - Add a translation
-  "researcher.profile.hide": "Hide",
+  "researcher.profile.hide": "Piilota",
 
   // "researcher.profile.not.associated": "Researcher profile not yet associated",
-  // TODO New key - Add a translation
-  "researcher.profile.not.associated": "Researcher profile not yet associated",
+  "researcher.profile.not.associated": "Tutkijaprofiilia ei ole vielä liitetty",
 
   // "researcher.profile.view": "View",
   // TODO New key - Add a translation
@@ -8149,8 +8115,7 @@
   "person.page.orcid.link.processing": "Linking profile to ORCID...",
 
   // "person.page.orcid.link.error.message": "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator.",
-  // TODO New key - Add a translation
-  "person.page.orcid.link.error.message": "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator.",
+  "person.page.orcid.link.error.message": "Virhe yhdistettäessä profiilia ORCID-tunnisteeseen. Jos virhe jatkuu, ota yhteyttä ylläpitäjään.",
 
   // "person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
   // TODO New key - Add a translation
@@ -8161,8 +8126,7 @@
   "person.page.orcid.unlink": "Disconnect from ORCID",
 
   // "person.page.orcid.unlink.processing": "Processing...",
-  // TODO New key - Add a translation
-  "person.page.orcid.unlink.processing": "Processing...",
+  "person.page.orcid.unlink.processing": "Käsitellään...",
 
   // "person.page.orcid.missing-authorizations": "Missing authorizations",
   // TODO New key - Add a translation
@@ -8177,28 +8141,22 @@
   "person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
 
   // "person.page.orcid.no-orcid-message": "No ORCID iD associated yet. By clicking on the button below it is possible to link this profile with an ORCID account.",
-  // TODO New key - Add a translation
-  "person.page.orcid.no-orcid-message": "No ORCID iD associated yet. By clicking on the button below it is possible to link this profile with an ORCID account.",
+  "person.page.orcid.no-orcid-message": "ORCID-tunnistetta ei ole vielä liitetty. Painamalla alapuolella olevaa nappia voit yhdistää tämän profiilin ORCID-tiliin.",
 
   // "person.page.orcid.profile-preferences": "Profile preferences",
-  // TODO New key - Add a translation
-  "person.page.orcid.profile-preferences": "Profile preferences",
+  "person.page.orcid.profile-preferences": "Profiiliasetukset",
 
   // "person.page.orcid.funding-preferences": "Funding preferences",
-  // TODO New key - Add a translation
-  "person.page.orcid.funding-preferences": "Funding preferences",
+  "person.page.orcid.funding-preferences": "Rahoitusasetukset",
 
   // "person.page.orcid.publications-preferences": "Publication preferences",
-  // TODO New key - Add a translation
-  "person.page.orcid.publications-preferences": "Publication preferences",
+  "person.page.orcid.publications-preferences": "Julkaisuasetukset",
 
   // "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
-  // TODO New key - Add a translation
-  "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
+  "person.page.orcid.remove-orcid-message": "Jos haluat poistaa ORCID-tunnuksesi, ota yhteyttä julkaisuarkiston ylläpitäjään",
 
   // "person.page.orcid.save.preference.changes": "Update settings",
-  // TODO New key - Add a translation
-  "person.page.orcid.save.preference.changes": "Update settings",
+  "person.page.orcid.save.preference.changes": "Muokkaa asetuksia",
 
   // "person.page.orcid.sync-profile.affiliation": "Affiliation",
   // TODO New key - Add a translation
@@ -8209,168 +8167,133 @@
   "person.page.orcid.sync-profile.biographical": "Biographical data",
 
   // "person.page.orcid.sync-profile.education": "Education",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.education": "Education",
+  "person.page.orcid.sync-profile.education": "Koulutus",
 
   // "person.page.orcid.sync-profile.identifiers": "Identifiers",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.identifiers": "Identifiers",
+  "person.page.orcid.sync-profile.identifiers": "Tunnisteet",
 
   // "person.page.orcid.sync-fundings.all": "All fundings",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.all": "All fundings",
+  "person.page.orcid.sync-fundings.all": "Kaikki rahoitukset",
 
   // "person.page.orcid.sync-fundings.mine": "My fundings",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.mine": "My fundings",
+  "person.page.orcid.sync-fundings.mine": "Omat rahoitukset",
 
   // "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
+  "person.page.orcid.sync-fundings.my_selected": "Valitut rahoitukset",
 
   // "person.page.orcid.sync-fundings.disabled": "Disabled",
   // TODO New key - Add a translation
   "person.page.orcid.sync-fundings.disabled": "Disabled",
 
   // "person.page.orcid.sync-publications.all": "All publications",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.all": "All publications",
+  "person.page.orcid.sync-publications.all": "Kaikki julkaisut",
 
   // "person.page.orcid.sync-publications.mine": "My publications",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.mine": "My publications",
+  "person.page.orcid.sync-publications.mine": "Omat julkaisut",
 
   // "person.page.orcid.sync-publications.my_selected": "Selected publications",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.my_selected": "Selected publications",
+  "person.page.orcid.sync-publications.my_selected": "Valitut julkaisut",
 
   // "person.page.orcid.sync-publications.disabled": "Disabled",
   // TODO New key - Add a translation
   "person.page.orcid.sync-publications.disabled": "Disabled",
 
   // "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
+  "person.page.orcid.sync-queue.discard": "Hylkää muutos. Älä synkronoi ORCID-rekisterin kanssa.",
 
   // "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
+  "person.page.orcid.sync-queue.discard.error": "ORCID-jonotietueen hylkääminen epäonnistui",
 
   // "person.page.orcid.sync-queue.discard.success": "The ORCID queue record have been discarded successfully",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.discard.success": "The ORCID queue record have been discarded successfully",
+  "person.page.orcid.sync-queue.discard.success": "ORCID-jonotietue hylätty",
 
   // "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
+  "person.page.orcid.sync-queue.empty-message": "ORCID-jonorekisteri on tyhjä",
 
   // "person.page.orcid.sync-queue.table.header.type": "Type",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.table.header.type": "Type",
+  "person.page.orcid.sync-queue.table.header.type": "Tyyppi",
 
   // "person.page.orcid.sync-queue.table.header.description": "Description",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.table.header.description": "Description",
+  "person.page.orcid.sync-queue.table.header.description": "Kuvaus",
 
   // "person.page.orcid.sync-queue.table.header.action": "Action",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.table.header.action": "Action",
+  "person.page.orcid.sync-queue.table.header.action": "Toiminto",
 
   // "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
   // TODO New key - Add a translation
   "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
 
   // "person.page.orcid.sync-queue.description.country": "Country",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.description.country": "Country",
+  "person.page.orcid.sync-queue.description.country": "Maa",
 
   // "person.page.orcid.sync-queue.description.education": "Educations",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.description.education": "Educations",
+  "person.page.orcid.sync-queue.description.education": "Koulutukset",
 
   // "person.page.orcid.sync-queue.description.external_ids": "External ids",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.description.external_ids": "External ids",
+  "person.page.orcid.sync-queue.description.external_ids": "Ulkoiset tunnisteet",
 
   // "person.page.orcid.sync-queue.description.other_names": "Other names",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.description.other_names": "Other names",
+  "person.page.orcid.sync-queue.description.other_names": "Muut nimet",
 
   // "person.page.orcid.sync-queue.description.qualification": "Qualifications",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.description.qualification": "Qualifications",
+  "person.page.orcid.sync-queue.description.qualification": "Pätevyydet",
 
   // "person.page.orcid.sync-queue.description.researcher_urls": "Researcher urls",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.description.researcher_urls": "Researcher urls",
+  "person.page.orcid.sync-queue.description.researcher_urls": "Tutkijan URL-osoitteet",
 
   // "person.page.orcid.sync-queue.description.keywords": "Keywords",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.description.keywords": "Keywords",
+  "person.page.orcid.sync-queue.description.keywords": "Avainsanat",
 
   // "person.page.orcid.sync-queue.tooltip.insert": "Add a new entry in the ORCID registry",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.insert": "Add a new entry in the ORCID registry",
+  "person.page.orcid.sync-queue.tooltip.insert": "Lisää uusi kohde ORCID-rekisteriin",
 
   // "person.page.orcid.sync-queue.tooltip.update": "Update this entry on the ORCID registry",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.update": "Update this entry on the ORCID registry",
+  "person.page.orcid.sync-queue.tooltip.update": "Päivitä tämä kohde ORCID-rekisterissä",
 
   // "person.page.orcid.sync-queue.tooltip.delete": "Remove this entry from the ORCID registry",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.delete": "Remove this entry from the ORCID registry",
+  "person.page.orcid.sync-queue.tooltip.delete": "Poista tämä kohde ORCID-rekisteristä",
 
   // "person.page.orcid.sync-queue.tooltip.publication": "Publication",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.publication": "Publication",
+  "person.page.orcid.sync-queue.tooltip.publication": "Julkaisu",
 
   // "person.page.orcid.sync-queue.tooltip.project": "Project",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.project": "Project",
+  "person.page.orcid.sync-queue.tooltip.project": "Projekti",
 
   // "person.page.orcid.sync-queue.tooltip.affiliation": "Affiliation",
   // TODO New key - Add a translation
   "person.page.orcid.sync-queue.tooltip.affiliation": "Affiliation",
 
   // "person.page.orcid.sync-queue.tooltip.education": "Education",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.education": "Education",
+  "person.page.orcid.sync-queue.tooltip.education": "Koulutus",
 
   // "person.page.orcid.sync-queue.tooltip.qualification": "Qualification",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.qualification": "Qualification",
+  "person.page.orcid.sync-queue.tooltip.qualification": "Pätevyys",
 
   // "person.page.orcid.sync-queue.tooltip.other_names": "Other name",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.other_names": "Other name",
+  "person.page.orcid.sync-queue.tooltip.other_names": "Toinen nimi",
 
   // "person.page.orcid.sync-queue.tooltip.country": "Country",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.country": "Country",
+  "person.page.orcid.sync-queue.tooltip.country": "Maa",
 
   // "person.page.orcid.sync-queue.tooltip.keywords": "Keyword",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.keywords": "Keyword",
+  "person.page.orcid.sync-queue.tooltip.keywords": "Asiasana",
 
   // "person.page.orcid.sync-queue.tooltip.external_ids": "External identifier",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.external_ids": "External identifier",
+  "person.page.orcid.sync-queue.tooltip.external_ids": "Ulkoinen tunniste",
 
   // "person.page.orcid.sync-queue.tooltip.researcher_urls": "Researcher url",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.researcher_urls": "Researcher url",
+  "person.page.orcid.sync-queue.tooltip.researcher_urls": "Tutkijan URL-osoite",
 
   // "person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
+  "person.page.orcid.sync-queue.send": "Synkronoi ORCID-rekisterin kanssa",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
+  "person.page.orcid.sync-queue.send.unauthorized-error.title": "ORCID-tunnisteen lähettäminen epäonnistui puuttuvien käyttöoikeuksien takia.",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.content": "Click <a href='{{orcid}}'>here</a> to grant again the required permissions. If the problem persists, contact the administrator",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.unauthorized-error.content": "Click <a href='{{orcid}}'>here</a> to grant again the required permissions. If the problem persists, contact the administrator",
+  "person.page.orcid.sync-queue.send.unauthorized-error.content": "KESKEN Napsauta <a href='{{orcid}}'>tästä</a> to. Jos virhe jatkuu, ota yhteyttä ylläpitäjään.persists, contact the administrator",
 
   // "person.page.orcid.sync-queue.send.bad-request-error": "The submission to ORCID failed because the resource sent to ORCID registry is not valid",
   // TODO New key - Add a translation
@@ -8550,7 +8473,7 @@
 
   // "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
   // TODO New key - Add a translation
-  "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
+  "system-wide-alert-banner.retrieval.error": "Virhe wrong retrieving the system-wide alert banner",
 
   // "system-wide-alert-banner.countdown.prefix": "In",
   // TODO New key - Add a translation
@@ -8578,7 +8501,7 @@
 
   // "system-wide-alert-form.retrieval.error": "Something went wrong retrieving the system-wide alert",
   // TODO New key - Add a translation
-  "system-wide-alert-form.retrieval.error": "Something went wrong retrieving the system-wide alert",
+  "system-wide-alert-form.retrieval.error": "Virhe wrong retrieving the system-wide alert",
 
   // "system-wide-alert.form.cancel": "Cancel",
   // TODO New key - Add a translation
@@ -8622,7 +8545,7 @@
 
   // "system-wide-alert.form.update.error": "Something went wrong when updating the system-wide alert",
   // TODO New key - Add a translation
-  "system-wide-alert.form.update.error": "Something went wrong when updating the system-wide alert",
+  "system-wide-alert.form.update.error": "Virhe wrong when updating the system-wide alert",
 
   // "system-wide-alert.form.create.success": "The system-wide alert was successfully created",
   // TODO New key - Add a translation
@@ -8630,7 +8553,7 @@
 
   // "system-wide-alert.form.create.error": "Something went wrong when creating the system-wide alert",
   // TODO New key - Add a translation
-  "system-wide-alert.form.create.error": "Something went wrong when creating the system-wide alert",
+  "system-wide-alert.form.create.error": "Virhe wrong when creating the system-wide alert",
 
   // "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
   // TODO New key - Add a translation
