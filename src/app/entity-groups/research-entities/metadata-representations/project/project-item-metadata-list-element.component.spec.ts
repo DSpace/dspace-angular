@@ -9,7 +9,6 @@ import { Item } from '../../../../core/shared/item.model';
 import { ProjectItemMetadataListElementComponent } from './project-item-metadata-list-element.component';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 
 const projectTitle = 'Lorem ipsum dolor sit amet';
 const mockItem = Object.assign(new Item(), { metadata: { 'dc.title': [{ value: projectTitle }] } });
@@ -28,7 +27,7 @@ describe('ProjectItemMetadataListElementComponent', () => {
       ],
       declarations: [ProjectItemMetadataListElementComponent],
       providers: [
-        { provide: DSONameService, useValue: new DSONameServiceMock() }
+        { provide: DSONameService, useValue: dsoNameService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ProjectItemMetadataListElementComponent, {
@@ -41,6 +40,9 @@ describe('ProjectItemMetadataListElementComponent', () => {
     comp = fixture.componentInstance;
     comp.mdRepresentation = mockItemMetadataRepresentation;
     fixture.detectChanges();
+    dsoNameService = jasmine.createSpyObj({
+      getName: projectTitle
+    });
   });
 
   it('should show the project\'s name as a link', () => {
