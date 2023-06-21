@@ -15,8 +15,20 @@
       <div>
         <ng-container #componentViewContainer></ng-container>
       </div>
-      <small *ngIf="hasHint && (((!model.repeatable && (!(model?.isModelOfNotRepeatableGroup) || model?.isModelOfNotRepeatableGroup && context?.index === context?.context?.groups?.length - 1)) && (isRelationship === false || value?.value === null)) || (model.repeatable === true && context?.index === context?.context?.groups?.length - 1) || (model.type==='TAG')) && (!showErrorMessages || errorMessages.length === 0)"
-        class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
+        <small
+          *ngIf="hasHint &&
+           (
+            (
+              (!model.repeatable
+                && (!(model?.isModelOfNotRepeatableGroup) || model?.isModelOfNotRepeatableGroup && context?.index === context?.context?.groups?.length - 1)
+              )
+             && (isRelationship === false || value?.value === null)
+           )
+           || (model.repeatable === true && context?.index === context?.context?.groups?.length - 1 )
+           || hasHintAndIsRepeatable
+           || (model.type==='TAG')) && (!showErrorMessages || errorMessages.length === 0)"
+          class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"
+        ></small>
       <!-- In case of repeatable fields show empty space for all elements except the first -->
       <!-- In case of not repeatable field with multiple values show empty space for all elements except the last -->
       <div *ngIf="(context?.index !== null && (!showErrorMessages || errorMessages.length === 0)) || (!hasHint && !showErrorMessages) ||
