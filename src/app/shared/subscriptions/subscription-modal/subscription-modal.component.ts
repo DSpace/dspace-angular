@@ -114,7 +114,12 @@ export class SubscriptionModalComponent implements OnInit {
     this.subscriptionForm.valueChanges.subscribe((newValue) => {
       let anyFrequencySelected = false;
       for (let f of this.frequencyDefaultValues) {
-        anyFrequencySelected = anyFrequencySelected || newValue.content.frequencies[f];
+        for (let type of this.subscriptionDefaultTypes) {
+          anyFrequencySelected = anyFrequencySelected || newValue[type].frequencies[f];
+        }
+        if (anyFrequencySelected) {
+          break;
+        }
       }
       this.isValid = anyFrequencySelected;
     });
