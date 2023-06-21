@@ -82,6 +82,6 @@ describe('ClarinLicenseInfoComponent', () => {
   });
 
   it('should load license label icons', () => {
-    expect(component.licenseLabelIcons.length).toEqual(2);
+    expect(component.licenseLabelIcons.length).toEqual(1);
   });
 });
