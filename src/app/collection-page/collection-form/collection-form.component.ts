@@ -67,6 +67,14 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
   }
 
   /**
+   * Initialize form for "New -> Collection"
+   */
+  ngOnInit() {
+    this.initializeForm();
+  }
+
+  /**
+   * Initialize form for "Edit -> Collection"
    * Detect changes to the dso and initialize the form,
    * if the dso changes, exists and it is not the first change
    */
