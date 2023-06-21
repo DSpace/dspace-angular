@@ -27,6 +27,9 @@ describe('DsoRedirectService', () => {
   const requestUUIDURL = `https://rest.api/rest/api/pid/find?id=${dsoUUID}`;
   const requestUUID = '34cfed7c-f597-49ef-9cbe-ea351f0023c2';
   const objectCache = {} as ObjectCacheService;
+  const mockResponse = jasmine.createSpyObj(['redirect']);
+  const mockPlatformBrowser = 'browser';
+  const mockPlatformServer = 'server';
 
   beforeEach(() => {
     scheduler = getTestScheduler();
@@ -58,6 +61,8 @@ describe('DsoRedirectService', () => {
       objectCache,
       halService,
       router,
+      mockResponse,
+      mockPlatformBrowser  // default to CSR except where explicitly SSR below
     );
   });
 
@@ -140,6 +145,25 @@ describe('DsoRedirectService', () => {
       scheduler.schedule(() => redir);
       scheduler.flush();
       expect(router.navigate).toHaveBeenCalledWith(['/communities/' + remoteData.payload.uuid]);
+    });
+
+    it('should return 301 redirect when SSR is used', () => {
+      service = new DsoRedirectService(
+        requestService,
+        rdbService,
+        objectCache,
+        halService,
+        router,
+        mockResponse,
+        mockPlatformServer  // explicitly SSR mode
+      );
+      remoteData.payload.type = 'item';
+      const redir = service.findByIdAndIDType(dsoHandle, IdentifierType.HANDLE);
+      // The framework would normally subscribe but do it here so we can test navigation.
+      redir.subscribe();
+      scheduler.schedule(() => redir);
+      scheduler.flush();
+      expect(mockResponse.redirect).toHaveBeenCalledWith(301, '/items/' + remoteData.payload.uuid);
     });
   });
 
