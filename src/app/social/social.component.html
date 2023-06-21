@@ -1,0 +1,5 @@
+<div id="a2a" [class.d-none]="!(showOnCurrentRoute$ | async)" data-a2a-scroll-show="0,60"
+     class="a2a_kit a2a_kit_size_32 a2a_floating_style a2a_default_style" [attr.data-a2a-title]="title" [attr.data-a2a-url]="url">
+  <a *ngFor="let button of buttonList" [class]="'a2a_button_' + button" [class.a2a_counter]="showCounters && button !== 'facebook'"></a>
+  <a *ngIf="showPlusButton" class="a2a_dd" href="https://www.addtoany.com/share"></a>
+</div>

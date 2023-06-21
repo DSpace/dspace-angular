@@ -384,7 +384,9 @@ export const environment: BuildConfig = {
         }
       }
     ],
-    crisRefStyleMetadata: 'cris.entity.style',
+    crisRefStyleMetadata: {
+      default: 'cris.entity.style',
+    },
     itemPage: {
       Person: {
         orientation: 'horizontal'
@@ -434,10 +436,13 @@ export const environment: BuildConfig = {
       'cris.cms.footer',
     ]
   },
-  addThisPlugin: {
-    siteId: '',
-    scriptUrl: 'http://s7.addthis.com/js/300/addthis_widget.js#pubid=',
-    socialNetworksEnabled: false
+  addToAnyPlugin: {
+    scriptUrl: 'https://static.addtoany.com/menu/page.js',
+    socialNetworksEnabled: false,
+    buttons: ['btn1', 'btn2'],
+    showPlusButton: true,
+    showCounters: true,
+    title: 'DSpace CRIS 7 demo',
   },
   metricVisualizationConfig: [
     {

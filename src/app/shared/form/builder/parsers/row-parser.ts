@@ -108,6 +108,7 @@ export class RowParser {
             });
           } else {
             setLayout(fieldModel, 'grid', 'host', layoutFieldClass);
+
             config.group.push(fieldModel);
           }
         }

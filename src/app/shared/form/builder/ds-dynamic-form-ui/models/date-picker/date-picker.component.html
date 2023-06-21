@@ -1,6 +1,8 @@
 <div>
   <fieldset class="d-flex justify-content-start">
-    <legend [id]="'legend_' + model.id" [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]">
+    <legend *ngIf="model.legend"
+            [id]="'legend_' + model.id"
+            [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]">
       {{model.placeholder}} <span *ngIf="model.required">*</span>
     </legend>
     <ds-number-picker

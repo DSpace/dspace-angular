@@ -21,7 +21,7 @@ import { CommunityListConfig } from './community-list-config.interface';
 import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
-import { AddThisPluginConfig } from './addThisPlugin-config';
+import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
 import { CmsMetadata } from './cms-metadata';
 import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-config.interfaces';
 import { MetadataSecurityConfig } from './metadata-security-config';
@@ -556,7 +556,9 @@ export class DefaultAppConfig implements AppConfig {
         }
       }
     ],
-    crisRefStyleMetadata: 'cris.entity.style',
+    crisRefStyleMetadata: {
+      default: 'cris.entity.style',
+    },
     itemPage: {
       OrgUnit: {
         orientation: 'vertical'
@@ -617,10 +619,15 @@ export class DefaultAppConfig implements AppConfig {
     ]
   };
 
-  addThisPlugin: AddThisPluginConfig = {
-    siteId: '',
-    scriptUrl: 'http://s7.addthis.com/js/300/addthis_widget.js#pubid=',
-    socialNetworksEnabled: false
+  addToAnyPlugin: AddToAnyPluginConfig = {
+    scriptUrl: 'https://static.addtoany.com/menu/page.js',
+    socialNetworksEnabled: false,
+    buttons: ['facebook', 'twitter', 'linkedin', 'email', 'copy_link'],
+    showPlusButton: true,
+    showCounters: true,
+    title: 'DSpace CRIS 7 demo',
+    // link: 'https://dspacecris7.4science.cloud/',
+    // The link to be shown in the shared post, if different from document.location.origin
   };
 
   metricVisualizationConfig: MetricVisualizationConfig[] = [
