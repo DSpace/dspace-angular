@@ -41,6 +41,7 @@ export const ClarinLicenseRequiredInfoSerializer = {
       if (isEmpty(requiredInfo)) {
         return;
       }
+      requiredInfo = requiredInfo.trim();
       clarinLicenseRequiredInfo.push(
        Object.assign(new ClarinLicenseRequiredInfo(), {
          id: clarinLicenseRequiredInfo.length,

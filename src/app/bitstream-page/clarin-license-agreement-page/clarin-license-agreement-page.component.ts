@@ -335,7 +335,7 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
   private checkFilledInRequiredInfo() {
     const areFilledIn = [];
     // Every requiredInfo.name === userMetadata.metadataKey must have the value in the userMetadata.metadataValue
-    this.requiredInfo$?.value.forEach(requiredInfo => {
+    this.requiredInfo$?.value?.forEach(requiredInfo => {
       let hasMetadataValue = false;
       this.userMetadata$?.value?.page?.forEach(userMetadata => {
         if (userMetadata.metadataKey === requiredInfo.name) {
