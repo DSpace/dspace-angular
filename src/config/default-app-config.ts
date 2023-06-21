@@ -556,7 +556,9 @@ export class DefaultAppConfig implements AppConfig {
         }
       }
     ],
-    crisRefStyleMetadata: 'cris.entity.style',
+    crisRefStyleMetadata: {
+      default: 'cris.entity.style',
+    },
     itemPage: {
       OrgUnit: {
         orientation: 'vertical'
