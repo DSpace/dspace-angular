@@ -23,7 +23,7 @@
            (blur)="onBlur($event)"
            (click)="$event.stopPropagation(); openDropdown(sdRef);"
            (focus)="onFocus($event)"
-           (keypress)="$event.preventDefault()">
+           (keydown)="selectOnKeyDown($event, sdRef)">
   </div>
 
   <div ngbDropdownMenu
