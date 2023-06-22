@@ -10,6 +10,7 @@ import { RequestService } from './request.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { Item } from '../shared/item.model';
 import { EMBED_SEPARATOR } from './base/base-data.service';
+import { HardRedirectService } from '../services/hard-redirect.service';
 
 describe('DsoRedirectService', () => {
   let scheduler: TestScheduler;
@@ -17,7 +18,7 @@ describe('DsoRedirectService', () => {
   let halService: HALEndpointService;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
-  let router;
+  let redirectService: HardRedirectService;
   let remoteData;
   const dsoUUID = '9b4f22f4-164a-49db-8817-3316b6ee5746';
   const dsoHandle = '1234567789/22';
@@ -27,9 +28,6 @@ describe('DsoRedirectService', () => {
   const requestUUIDURL = `https://rest.api/rest/api/pid/find?id=${dsoUUID}`;
   const requestUUID = '34cfed7c-f597-49ef-9cbe-ea351f0023c2';
   const objectCache = {} as ObjectCacheService;
-  const mockResponse = jasmine.createSpyObj(['redirect']);
-  const mockPlatformBrowser = 'browser';
-  const mockPlatformServer = 'server';
 
   beforeEach(() => {
     scheduler = getTestScheduler();
@@ -41,9 +39,6 @@ describe('DsoRedirectService', () => {
       generateRequestId: requestUUID,
       send: true
     });
-    router = {
-      navigate: jasmine.createSpy('navigate')
-    };
 
     remoteData = createSuccessfulRemoteDataObject(Object.assign(new Item(), {
       type: 'item',
@@ -55,14 +50,17 @@ describe('DsoRedirectService', () => {
         a: remoteData
       })
     });
+
+    redirectService = jasmine.createSpyObj('redirectService', {
+      redirect: {}
+    });
+
     service = new DsoRedirectService(
       requestService,
       rdbService,
       objectCache,
       halService,
-      router,
-      mockResponse,
-      mockPlatformBrowser  // default to CSR except where explicitly SSR below
+      redirectService
     );
   });
 
@@ -109,7 +107,7 @@ describe('DsoRedirectService', () => {
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
-      expect(router.navigate).toHaveBeenCalledWith(['/items/' + remoteData.payload.uuid]);
+      expect(redirectService.redirect).toHaveBeenCalledWith('/items/' + remoteData.payload.uuid, 301);
     });
     it('should navigate to entities route with the corresponding entity type', () => {
       remoteData.payload.type = 'item';
@@ -126,7 +124,7 @@ describe('DsoRedirectService', () => {
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
-      expect(router.navigate).toHaveBeenCalledWith(['/entities/publication/' + remoteData.payload.uuid]);
+      expect(redirectService.redirect).toHaveBeenCalledWith('/entities/publication/' + remoteData.payload.uuid, 301);
     });
 
     it('should navigate to collections route', () => {
@@ -135,7 +133,7 @@ describe('DsoRedirectService', () => {
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
-      expect(router.navigate).toHaveBeenCalledWith(['/collections/' + remoteData.payload.uuid]);
+      expect(redirectService.redirect).toHaveBeenCalledWith('/collections/' + remoteData.payload.uuid, 301);
     });
 
     it('should navigate to communities route', () => {
@@ -144,26 +142,7 @@ describe('DsoRedirectService', () => {
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
-      expect(router.navigate).toHaveBeenCalledWith(['/communities/' + remoteData.payload.uuid]);
-    });
-
-    it('should return 301 redirect when SSR is used', () => {
-      service = new DsoRedirectService(
-        requestService,
-        rdbService,
-        objectCache,
-        halService,
-        router,
-        mockResponse,
-        mockPlatformServer  // explicitly SSR mode
-      );
-      remoteData.payload.type = 'item';
-      const redir = service.findByIdAndIDType(dsoHandle, IdentifierType.HANDLE);
-      // The framework would normally subscribe but do it here so we can test navigation.
-      redir.subscribe();
-      scheduler.schedule(() => redir);
-      scheduler.flush();
-      expect(mockResponse.redirect).toHaveBeenCalledWith(301, '/items/' + remoteData.payload.uuid);
+      expect(redirectService.redirect).toHaveBeenCalledWith('/communities/' + remoteData.payload.uuid, 301);
     });
   });
 

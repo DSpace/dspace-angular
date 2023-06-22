@@ -6,8 +6,7 @@
  * http://www.dspace.org/license/
  */
 /* eslint-disable max-classes-per-file */
-import { Inject, Injectable, Optional, PLATFORM_ID } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
@@ -21,8 +20,7 @@ import { getFirstCompletedRemoteData } from '../shared/operators';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { getDSORoute } from '../../app-routing-paths';
-import { RESPONSE } from '@nguniversal/express-engine/tokens';
-import { isPlatformServer } from '@angular/common';
+import { HardRedirectService } from '../services/hard-redirect.service';
 
 const ID_ENDPOINT = 'pid';
 const UUID_ENDPOINT = 'dso';
@@ -76,9 +74,7 @@ export class DsoRedirectService {
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    private router: Router,
-    @Optional() @Inject(RESPONSE) private response: any,
-    @Inject(PLATFORM_ID) private platformId: any
+    private hardRedirectService: HardRedirectService
   ) {
     this.dataService = new DsoByIdOrUUIDDataService(requestService, rdbService, objectCache, halService);
   }
@@ -87,9 +83,6 @@ export class DsoRedirectService {
    * Redirect to a DSpaceObject's path using the given identifier type and ID.
    * This is used to redirect paths like "/handle/[prefix]/[suffix]" to the object's path (e.g. /items/[uuid]).
    * See LookupGuard for more examples.
-   *
-   * If this is called server side (via SSR), it performs a 301 Redirect.
-   * If this is called client side (via CSR), it simply uses the Angular router to do the redirect.
    *
    * @param id              the identifier of the object to retrieve
    * @param identifierType  the type of the given identifier (defaults to UUID)
@@ -104,12 +97,8 @@ export class DsoRedirectService {
           if (hasValue(dso.uuid)) {
             let newRoute = getDSORoute(dso);
             if (hasValue(newRoute)) {
-              // If running via SSR, perform a "301 Moved Permanently" redirect for SEO purposes.
-              if (isPlatformServer(this.platformId)) {
-                this.response.redirect(301, newRoute);
-              } else {
-                this.router.navigate([newRoute]);
-              }
+              // Use a "301 Moved Permanently" redirect for SEO purposes
+              this.hardRedirectService.redirect(newRoute, 301);
             }
           }
         }
