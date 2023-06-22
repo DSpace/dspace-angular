@@ -28,7 +28,7 @@
   "500.link.home-page": "Palaa etusivulle",
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
-  "404.help": "Hakemaasi sivua ei löytynyt. Sivu on voitu siirtää tai poistaa. Painamalla alapuolella olevaa nappia palaat etusivulle. ",
+  "404.help": "Hakemaasi sivua ei löytynyt. Sivu on voitu siirtää tai poistaa. Painamalla alapuolella olevaa painiketta palaat etusivulle. ",
 
   // "404.link.home-page": "Take me to the home page",
   "404.link.home-page": "Palaa etusivulle",
@@ -761,11 +761,9 @@
   "admin.search.item.edit": "Muokkaa",
 
   // "admin.search.item.make-private": "Make non-discoverable",
-  // TODO Source message changed - Revise the translation
   "admin.search.item.make-private": "Tee yksityiseksi",
 
   // "admin.search.item.make-public": "Make discoverable",
-  // TODO Source message changed - Revise the translation
   "admin.search.item.make-public": "Tee julkiseksi",
 
   // "admin.search.item.move": "Move",
@@ -811,8 +809,7 @@
   "admin.metadata-import.breadcrumbs": "Importoi metadata",
 
   // "admin.batch-import.breadcrumbs": "Import Batch",
-  // TODO New key - Add a translation
-  "admin.batch-import.breadcrumbs": "Import Batch",
+  "admin.batch-import.breadcrumbs": "Importoi erä",
 
   // "admin.metadata-import.title": "Import Metadata",
   "admin.metadata-import.title": "Importoi metadata",
@@ -830,24 +827,22 @@
   "admin.metadata-import.page.help": "Voit pudottaa tähän tai selata CSV-tiedostoja, joilla voit tehdä metadatatoimintoja usealle tietueelle",
 
   // "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.help": "Valitse kokoelma, johon importoidaan. Pudota tai selaa",
+  "admin.batch-import.page.help": "Valitse kokoelma, johon tietueet importoidaan. Sen jälkeen pudota tai selaa esiin importoitavat tietueet sisältävä Simple Archive Format (SAF) -ZIP-tiedosto.",
 
   // "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
+  "admin.batch-import.page.toggle.help": "Importoinnin voi tehdä joko lataamalla tiedoston tai URL-osoitteen kautta. Käytä yllä olevaa kytkintä valitaksesi syöttötavan.",
 
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
   "admin.metadata-import.page.dropMsg": "Pudota CSV-metadata importoimista varten",
 
   // "admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
-  "admin.batch-import.page.dropMsg": "Pudota erän ZIP importoimista varten",
+  "admin.batch-import.page.dropMsg": "Pudota erän ZIP-tiedosto importoimista varten",
 
   // "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
   "admin.metadata-import.page.dropMsgReplace": "Pudota korvataksesi importoitava CSV-metadata",
 
   // "admin.batch-import.page.dropMsgReplace": "Drop to replace the batch ZIP to import",
-  "admin.batch-import.page.dropMsgReplace": "Pudota korvataksesi importoitava erän ZIP",
+  "admin.batch-import.page.dropMsgReplace": "Pudota korvataksesi importoitava erän ZIP-tiedosto",
 
   // "admin.metadata-import.page.button.return": "Back",
   "admin.metadata-import.page.button.return": "Paluu",
@@ -883,7 +878,7 @@
   "admin.metadata-import.page.validateOnly.hint": "Kun tämä valitaan, ladattu CSV-tiedosto validoidaan. Saat raportin havaituista muutoksista, mutta muutoksia ei tallenneta.",
 
   // "advanced-workflow-action.rating.form.rating.label": "Rating",
-  "advanced-workflow-action.rating.form.rating.label": "Arvio",
+  "advanced-workflow-action.rating.form.rating.label": "Arviointi",
 
   // "advanced-workflow-action.rating.form.rating.error": "You must rate the item",
   "advanced-workflow-action.rating.form.rating.error": "Sinun on arvioitava tietua",
@@ -892,13 +887,13 @@
   "advanced-workflow-action.rating.form.review.label": "Tarkasta",
 
   // "advanced-workflow-action.rating.form.review.error": "You must enter a review to submit this rating",
-  "advanced-workflow-action.rating.form.review.error": "Sinun on annettava arvostelu lähettääksesi tämän arvion",
+  "advanced-workflow-action.rating.form.review.error": "Sinun on annettava arvostelu lähettääksesi tämän arvioinnin",
 
   // "advanced-workflow-action.rating.description": "Please select a rating below",
-  "advanced-workflow-action.rating.description": "Valitse arvio alapuolelta",
+  "advanced-workflow-action.rating.description": "Valitse arviointi alapuolelta",
 
   // "advanced-workflow-action.rating.description-requiredDescription": "Please select a rating below and also add a review",
-  "advanced-workflow-action.rating.description-requiredDescription": "Valitse arvio alapuolelta. Lisää myös arvostelu",
+  "advanced-workflow-action.rating.description-requiredDescription": "Valitse arviointi alapuolelta. Lisää myös arvostelu",
 
   // "advanced-workflow-action.select-reviewer.description-single": "Please select a single reviewer below before submitting",
   "advanced-workflow-action.select-reviewer.description-single": "Valitse yksi tarkastaja alapuolelta ennen lähettämistä",
@@ -976,7 +971,7 @@
   "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "Ei valittua tarkastajaa.",
 
   // "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
-  "admin.batch-import.page.validateOnly.hint": "Kun tämä valitaan, ladatti ZIP-tiedosto validoidaan.  the uploaded ZIP will be validated. Saat raportin havaituista muutoksista, mutta muutoksia ei tallenneta.",
+  "admin.batch-import.page.validateOnly.hint": "Kun tämä valitaan, ladattu ZIP-tiedosto validoidaan.  the uploaded ZIP will be validated. Saat raportin havaituista muutoksista, mutta muutoksia ei tallenneta.",
 
   // "admin.batch-import.page.remove": "remove",
   "admin.batch-import.page.remove": "poista",
@@ -1051,36 +1046,28 @@
   "bitstream.edit.notifications.error.primaryBitstream.title": "Virhe tallennettaessa päätiedostoa",
 
   // "bitstream.edit.form.iiifLabel.label": "IIIF Label",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifLabel.label": "IIIF Label",
+  "bitstream.edit.form.iiifLabel.label": "IIIF-nimike",
 
   // "bitstream.edit.form.iiifLabel.hint": "Canvas label for this image. If not provided default label will be used.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifLabel.hint": "Canvas label for this image. If not provided default label will be used.",
+  "bitstream.edit.form.iiifLabel.hint": "Kuvan canvasin nimike. Ellei nimikettä anneta, käytetään oletusnimikettä.",
 
   // "bitstream.edit.form.iiifToc.label": "IIIF Table of Contents",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifToc.label": "IIIF Table of Contents",
+  "bitstream.edit.form.iiifToc.label": "IIIF-sisällysluettelo",
 
   // "bitstream.edit.form.iiifToc.hint": "Adding text here makes this the start of a new table of contents range.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifToc.hint": "Adding text here makes this the start of a new table of contents range.",
+  "bitstream.edit.form.iiifToc.hint": "Jos tekstiä lisätään tähän, tästä alkaa uusi sisällysluetteloaihe.",
 
   // "bitstream.edit.form.iiifWidth.label": "IIIF Canvas Width",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifWidth.label": "IIIF Canvas Width",
+  "bitstream.edit.form.iiifWidth.label": "IIIF-canvasin leveys",
 
   // "bitstream.edit.form.iiifWidth.hint": "The canvas width should usually match the image width.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifWidth.hint": "The canvas width should usually match the image width.",
+  "bitstream.edit.form.iiifWidth.hint": "Canvasin leveyden tulee vastata kuvan leveyttä.",
 
   // "bitstream.edit.form.iiifHeight.label": "IIIF Canvas Height",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifHeight.label": "IIIF Canvas Height",
+  "bitstream.edit.form.iiifHeight.label": "IIIF-canvasin korkeus",
 
   // "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
+  "bitstream.edit.form.iiifHeight.hint": "Canvasin korkeuden tulee vastata kuvan korkeutta.",
 
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
   "bitstream.edit.notifications.saved.content": "Muutokset tiedostoon on tallennettu.",
@@ -1092,82 +1079,64 @@
   "bitstream.edit.title": "Muokkaa tiedostoa",
 
   // "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
+  "bitstream-request-a-copy.alert.canDownload1": "Sinulla on jo pääsy tähän tiedostoon. Jos haluat ladata tiedoston, napsauta ",
 
   // "bitstream-request-a-copy.alert.canDownload2": "here",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.alert.canDownload2": "here",
+  "bitstream-request-a-copy.alert.canDownload2": "tässä",
 
   // "bitstream-request-a-copy.header": "Request a copy of the file",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.header": "Request a copy of the file",
+  "bitstream-request-a-copy.header": "Pyydä tiedostokopiota",
 
   // "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
+  "bitstream-request-a-copy.intro": "Syötä seuraavat tiedot pyytääksesi kopiota tietueesta: ",
 
   // "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
+  "bitstream-request-a-copy.intro.bitstream.one": "Pyydetään seuraavaa tiedostoa: ",
 
   // "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
+  "bitstream-request-a-copy.intro.bitstream.all": "Pyydetään kaikkia tiedostoja. ",
 
   // "bitstream-request-a-copy.name.label": "Name *",
   "bitstream-request-a-copy.name.label": "Nimi *",
 
   // "bitstream-request-a-copy.name.error": "The name is required",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.name.error": "The name is required",
+  "bitstream-request-a-copy.name.error": "Nimi on pakollinen tieto",
 
   // "bitstream-request-a-copy.email.label": "Your e-mail address *",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.email.label": "Your e-mail address *",
+  "bitstream-request-a-copy.email.label": "Sähköpostiosoite *",
 
   // "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
+  "bitstream-request-a-copy.email.hint": "Tätä sähköpostiosoitetta käytetään tiedostoa lähetettäessä.",
 
   // "bitstream-request-a-copy.email.error": "Please enter a valid email address.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.email.error": "Please enter a valid email address.",
+  "bitstream-request-a-copy.email.error": "Syötä toimiva sähköpostiosoite.",
 
   // "bitstream-request-a-copy.allfiles.label": "Files",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.allfiles.label": "Files",
+  "bitstream-request-a-copy.allfiles.label": "Tiedostot",
 
   // "bitstream-request-a-copy.files-all-false.label": "Only the requested file",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.files-all-false.label": "Only the requested file",
+  "bitstream-request-a-copy.files-all-false.label": "Vain pyydetty tiedosto",
 
   // "bitstream-request-a-copy.files-all-true.label": "All files (of this item) in restricted access",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.files-all-true.label": "All files (of this item) in restricted access",
+  "bitstream-request-a-copy.files-all-true.label": "Kaikilla (tämän tietueen) tiedostoilla on rajattu käyttöoikeus",
 
   // "bitstream-request-a-copy.message.label": "Message",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.message.label": "Message",
+  "bitstream-request-a-copy.message.label": "Viesti",
 
   // "bitstream-request-a-copy.return": "Back",
   "bitstream-request-a-copy.return": "Paluu",
 
   // "bitstream-request-a-copy.submit": "Request copy",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.submit": "Request copy",
+  "bitstream-request-a-copy.submit": "Pyydä kopio",
 
   // "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
+  "bitstream-request-a-copy.submit.success": "Tietuepyyntö on lähetetty.",
 
   // "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.submit.error": "Virhe wrong with submitting the item request.",
+  "bitstream-request-a-copy.submit.error": "Tapahtui virhe lähetettäessä tietuepyyntöä",
 
   // "browse.back.all-results": "All browse results",
-  // TODO New key - Add a translation
-  "browse.back.all-results": "All browse results",
+  "browse.back.all-results": "Kaikki selaustulokset",
 
   // "browse.comcol.by.author": "By Author",
   "browse.comcol.by.author": "Tekijän mukaan",
@@ -1179,8 +1148,7 @@
   "browse.comcol.by.subject": "Asiasanan mukaan",
 
   // "browse.comcol.by.srsc": "By Subject Category",
-  // TODO New key - Add a translation
-  "browse.comcol.by.srsc": "By Subject Category",
+  "browse.comcol.by.srsc": "Aihekategorian mukaan",
 
   // "browse.comcol.by.title": "By Title",
   "browse.comcol.by.title": "Nimekkeen mukaan",
@@ -1213,27 +1181,22 @@
   "browse.metadata.subject.breadcrumbs": "Selaa asiasanan mukaan",
 
   // "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
-  // TODO New key - Add a translation
-  "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
+  "browse.metadata.srsc.breadcrumbs": "Selaa aihekategorian luokan mukaan",
 
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   "browse.metadata.title.breadcrumbs": "Selaa nimekkeen mukaan",
 
   // "pagination.next.button": "Next",
-  // TODO New key - Add a translation
-  "pagination.next.button": "Next",
+  "pagination.next.button": "Seuraava",
 
   // "pagination.previous.button": "Previous",
-  // TODO New key - Add a translation
-  "pagination.previous.button": "Previous",
+  "pagination.previous.button": "Edellinen",
 
   // "pagination.next.button.disabled.tooltip": "No more pages of results",
-  // TODO New key - Add a translation
-  "pagination.next.button.disabled.tooltip": "No more pages of results",
+  "pagination.next.button.disabled.tooltip": "Ei enempää tulossivuja",
 
   // "browse.startsWith": ", starting with {{ startsWith }}",
-  // TODO New key - Add a translation
-  "browse.startsWith": ", starting with {{ startsWith }}",
+  "browse.startsWith": ", alkaa kirjaimella {{ startsWith }}",
 
   // "browse.startsWith.choose_start": "(Choose start)",
   "browse.startsWith.choose_start": "(Valitse alku)",
@@ -1242,12 +1205,10 @@
   "browse.startsWith.choose_year": "(Valitse vuosi)",
 
   // "browse.startsWith.choose_year.label": "Choose the issue year",
-  // TODO New key - Add a translation
-  "browse.startsWith.choose_year.label": "Choose the issue year",
+  "browse.startsWith.choose_year.label": "Valitse julkaisuvuosi",
 
   // "browse.startsWith.jump": "Filter results by year or month",
-  // TODO Source message changed - Revise the translation
-  "browse.startsWith.jump": "Hyppää indeksin kohtaan:",
+  "browse.startsWith.jump": "Suodata tulokset vuoden tai kuukauden mukaan",
 
   // "browse.startsWith.months.april": "April",
   "browse.startsWith.months.april": "Huhtikuu",
@@ -1280,8 +1241,7 @@
   "browse.startsWith.months.none": "(Valitse kuukausi)",
 
   // "browse.startsWith.months.none.label": "Choose the issue month",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.none.label": "Choose the issue month",
+  "browse.startsWith.months.none.label": "Valitse julkaisukuukausi",
 
   // "browse.startsWith.months.november": "November",
   "browse.startsWith.months.november": "Marraskuu",
@@ -1293,55 +1253,43 @@
   "browse.startsWith.months.september": "Syyskuu",
 
   // "browse.startsWith.submit": "Browse",
-  // TODO Source message changed - Revise the translation
-  "browse.startsWith.submit": "Ok",
+  "browse.startsWith.submit": "Selaa",
 
   // "browse.startsWith.type_date": "Filter results by date",
-  // TODO Source message changed - Revise the translation
-  "browse.startsWith.type_date": "Tai anna päiväys (vuosi-kuukausi):",
+  "browse.startsWith.type_date": "Suodata tulokset päivämäärän mukaan",
 
   // "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
-  // TODO New key - Add a translation
-  "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
+  "browse.startsWith.type_date.label": "Tai syötä päiväys (vuosi-kuukausi) ja napsauta Selaa-painiketta",
 
   // "browse.startsWith.type_text": "Filter results by typing the first few letters",
-  // TODO Source message changed - Revise the translation
-  "browse.startsWith.type_text": "Tai anna muutama alkukirjain:",
+  "browse.startsWith.type_text": "Suodata tuloksia antamalla muutama alkukirjain",
 
   // "browse.startsWith.input": "Filter",
-  // TODO New key - Add a translation
-  "browse.startsWith.input": "Filter",
+  "browse.startsWith.input": "Suodata",
 
   // "browse.taxonomy.button": "Browse",
-  // TODO New key - Add a translation
-  "browse.taxonomy.button": "Browse",
+  "browse.taxonomy.button": "Selaa",
 
   // "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
-  // TODO Source message changed - Revise the translation
-  "browse.title": "Selataan {{ collection }}-kokoelmaa {{ field }}-kentän arvolla {{ value }}",
+  "browse.title": "Selataan {{ collection }}-kokoelmaa {{ field }}{{ startsWith }}-kentän arvolla {{ value }}",
 
   // "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
-  // TODO New key - Add a translation
-  "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
+  "browse.title.page": "Selataan {{ collection }}-kokoelmaa {{ field }}-kentän arvolla {{ value }}",
 
   // "search.browse.item-back": "Back to Results",
-  // TODO New key - Add a translation
-  "search.browse.item-back": "Back to Results",
+  "search.browse.item-back": "Paluu tuloksiin",
 
   // "chips.remove": "Remove chip",
   "chips.remove": "Poista chip",
 
   // "claimed-approved-search-result-list-element.title": "Approved",
-  // TODO New key - Add a translation
-  "claimed-approved-search-result-list-element.title": "Approved",
+  "claimed-approved-search-result-list-element.title": "Hyväksytty",
 
   // "claimed-declined-search-result-list-element.title": "Rejected, sent back to submitter",
-  // TODO New key - Add a translation
-  "claimed-declined-search-result-list-element.title": "Rejected, sent back to submitter",
+  "claimed-declined-search-result-list-element.title": "Hylätty, lähetetty takaisin tallentajalle",
 
   // "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
-  // TODO New key - Add a translation
-  "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
+  "claimed-declined-task-search-result-list-element.title": "Kieltäydytty, lähetetty takaisin päätarkastajan työnkulkuun",
 
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "Luo kokoelma",
@@ -1437,8 +1385,7 @@
   "collection.edit.item-mapper.remove": "Poista valitut tietueliitokset",
 
   // "collection.edit.item-mapper.search-form.placeholder": "Search items...",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.search-form.placeholder": "Search items...",
+  "collection.edit.item-mapper.search-form.placeholder": "Hae tietueita...",
 
   // "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
   "collection.edit.item-mapper.tabs.browse": "Selaa liitettyjä tietueita",
@@ -1447,12 +1394,10 @@
   "collection.edit.item-mapper.tabs.map": "Liitä uusia tietueita",
 
   // "collection.edit.logo.delete.title": "Delete logo",
-  // TODO New key - Add a translation
-  "collection.edit.logo.delete.title": "Delete logo",
+  "collection.edit.logo.delete.title": "Poista logo",
 
   // "collection.edit.logo.delete-undo.title": "Undo delete",
-  // TODO New key - Add a translation
-  "collection.edit.logo.delete-undo.title": "Undo delete",
+  "collection.edit.logo.delete-undo.title": "Peru poisto",
 
   // "collection.edit.logo.label": "Collection logo",
   "collection.edit.logo.label": "Kokoelman logo",
@@ -1494,16 +1439,13 @@
   "collection.edit.tabs.authorizations.title": "Kokoelman muokkaus - Käyttöoikeudet",
 
   // "collection.edit.item.authorizations.load-bundle-button": "Load more bundles",
-  // TODO New key - Add a translation
-  "collection.edit.item.authorizations.load-bundle-button": "Load more bundles",
+  "collection.edit.item.authorizations.load-bundle-button": "Lataa lisää nippuja",
 
   // "collection.edit.item.authorizations.load-more-button": "Load more",
-  // TODO New key - Add a translation
-  "collection.edit.item.authorizations.load-more-button": "Load more",
+  "collection.edit.item.authorizations.load-more-button": "Lataa lisää",
 
   // "collection.edit.item.authorizations.show-bitstreams-button": "Show bitstream policies for bundle",
-  // TODO New key - Add a translation
-  "collection.edit.item.authorizations.show-bitstreams-button": "Show bitstream policies for bundle",
+  "collection.edit.item.authorizations.show-bitstreams-button": "Näytä nipun tiedostokäytännöt",
 
   // "collection.edit.tabs.metadata.head": "Edit Metadata",
   "collection.edit.tabs.metadata.head": "Muokkaa metadataa",
@@ -1554,7 +1496,6 @@
   "collection.edit.tabs.source.notifications.discarded.content": "Muutokset hylätty. Valitse 'Kumoa' palauttaaksesi muutokset",
 
   // "collection.edit.tabs.source.notifications.discarded.title": "Changes discarded",
-  // TODO Source message changed - Revise the translation
   "collection.edit.tabs.source.notifications.discarded.title": "Muutokset hylätty",
 
   // "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
@@ -1588,8 +1529,7 @@
   "collection.edit.template.edit-button": "Muokkaa",
 
   // "collection.edit.template.error": "An error occurred retrieving the template item",
-  // TODO New key - Add a translation
-  "collection.edit.template.error": "An error occurred retrieving the template item",
+  "collection.edit.template.error": "Virhe noudettaessa mallitietuetta",
 
   // "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
   "collection.edit.template.head": "Muokkaa kokoelman \"{{ collection }}\" mallitietuetta",
@@ -1598,8 +1538,7 @@
   "collection.edit.template.label": "Mallitietue",
 
   // "collection.edit.template.loading": "Loading template item...",
-  // TODO New key - Add a translation
-  "collection.edit.template.loading": "Loading template item...",
+  "collection.edit.template.loading": "Ladataan mallitietuetta...",
 
   // "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
   "collection.edit.template.notifications.delete.error": "Tietueen mallipohjan poisto epäonnistui",
@@ -1635,8 +1574,7 @@
   "collection.form.title": "Nimi",
 
   // "collection.form.entityType": "Entity Type",
-  // TODO New key - Add a translation
-  "collection.form.entityType": "Entity Type",
+  "collection.form.entityType": "Entiteettityyppi",
 
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "Kokoelma",
@@ -1669,36 +1607,28 @@
   "collection.select.table.title": "Nimeke",
 
   // "collection.source.controls.head": "Harvest Controls",
-  // TODO New key - Add a translation
-  "collection.source.controls.head": "Harvest Controls",
+  "collection.source.controls.head": "Harvointikontrollit",
 
   // "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.submit.error": "Virhe wrong with initiating the testing of the settings",
+  "collection.source.controls.test.submit.error": "Virhe asetusten testaamisen valmistelussa",
 
   // "collection.source.controls.test.failed": "The script to test the settings has failed",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.failed": "The script to test the settings has failed",
+  "collection.source.controls.test.failed": "Asetusten testausskripti epäonnistui",
 
   // "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
+  "collection.source.controls.test.completed": "Asetusten testausskripti suoritettu",
 
   // "collection.source.controls.test.submit": "Test configuration",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.submit": "Test configuration",
+  "collection.source.controls.test.submit": "Testikonfiguraatio",
 
   // "collection.source.controls.test.running": "Testing configuration...",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.running": "Testing configuration...",
+  "collection.source.controls.test.running": "Testataan konfiguraatiota...",
 
   // "collection.source.controls.import.submit.success": "The import has been successfully initiated",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.submit.success": "The import has been successfully initiated",
+  "collection.source.controls.import.submit.success": "Importointi valmisteltu",
 
   // "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.submit.error": "Virhe wrong with initiating the import",
+  "collection.source.controls.import.submit.error": "Virhe importoinnin valmistelussa",
 
   // "collection.source.controls.import.submit": "Import now",
   "collection.source.controls.import.submit": "Importoi nyt",
@@ -1713,48 +1643,37 @@
   "collection.source.controls.import.completed": "Importointi valmis",
 
   // "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
+  "collection.source.controls.reset.submit.success": "Nollaus ja uudelleenimportointi valmisteltu",
 
   // "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.submit.error": "Virhe wrong with initiating the reset and reimport",
+  "collection.source.controls.reset.submit.error": "Virhe nollauksen ja uudelleenimportoinnin valmistelussa",
 
   // "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
+  "collection.source.controls.reset.failed": "Virhe nollauksessa ja uudelleenimportoinnissa",
 
   // "collection.source.controls.reset.completed": "The reset and reimport completed",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.completed": "The reset and reimport completed",
+  "collection.source.controls.reset.completed": "Nollaus ja uudelleenimportointi valmis",
 
   // "collection.source.controls.reset.submit": "Reset and reimport",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.submit": "Reset and reimport",
+  "collection.source.controls.reset.submit": "Nollaus ja uudelleenimportointi",
 
   // "collection.source.controls.reset.running": "Resetting and reimporting...",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.running": "Resetting and reimporting...",
+  "collection.source.controls.reset.running": "Nollataan ja uudelleenimportoidaan...",
 
   // "collection.source.controls.harvest.status": "Harvest status:",
-  // TODO New key - Add a translation
-  "collection.source.controls.harvest.status": "Harvest status:",
+  "collection.source.controls.harvest.status": "Harvestoinnin tila:",
 
   // "collection.source.controls.harvest.start": "Harvest start time:",
-  // TODO New key - Add a translation
-  "collection.source.controls.harvest.start": "Harvest start time:",
+  "collection.source.controls.harvest.start": "Harvestoinnin aloitusaika:",
 
   // "collection.source.controls.harvest.last": "Last time harvested:",
-  // TODO New key - Add a translation
-  "collection.source.controls.harvest.last": "Last time harvested:",
+  "collection.source.controls.harvest.last": "Harvestoitu viimeksi::",
 
   // "collection.source.controls.harvest.message": "Harvest info:",
-  // TODO New key - Add a translation
-  "collection.source.controls.harvest.message": "Harvest info:",
+  "collection.source.controls.harvest.message": "Harvestointitiedot:",
 
   // "collection.source.controls.harvest.no-information": "N/A",
-  // TODO New key - Add a translation
-  "collection.source.controls.harvest.no-information": "N/A",
+  "collection.source.controls.harvest.no-information": "Ei saatavilla",
 
   // "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
   "collection.source.update.notifications.error.content": "Annetut asetukset on testattu. Ne eivät toimi.",
@@ -1763,12 +1682,10 @@
   "collection.source.update.notifications.error.title": "Palvelinvirhe",
 
   // "communityList.breadcrumbs": "Community List",
-  // TODO New key - Add a translation
-  "communityList.breadcrumbs": "Community List",
+  "communityList.breadcrumbs": "Yhteisöluettelo",
 
   // "communityList.tabTitle": "Community List",
-  // TODO Source message changed - Revise the translation
-  "communityList.tabTitle": "DSpace - Yhteisöluettelo",
+  "communityList.tabTitle": "Yhteisöluettelo",
 
   // "communityList.title": "List of Communities",
   "communityList.title": "Luettelo yhteisöistä",
@@ -1819,12 +1736,10 @@
   "community.edit.breadcrumbs": "Muokkaa yhteisöä",
 
   // "community.edit.logo.delete.title": "Delete logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.delete.title": "Delete logo",
+  "community.edit.logo.delete.title": "Poista logo",
 
   // "community.edit.logo.delete-undo.title": "Undo delete",
-  // TODO New key - Add a translation
-  "community.edit.logo.delete-undo.title": "Undo delete",
+  "community.edit.logo.delete-undo.title": "Peru poisto",
 
   // "community.edit.logo.label": "Community logo",
   "community.edit.logo.label": "Yhteisön logo",
@@ -1893,8 +1808,7 @@
   "comcol-role.edit.create": "Luo",
 
   // "comcol-role.edit.create.error.title": "Failed to create a group for the '{{ role }}' role",
-  // TODO New key - Add a translation
-  "comcol-role.edit.create.error.title": "Failed to create a group for the '{{ role }}' role",
+  "comcol-role.edit.create.error.title": "Ryhmän luonti '{{ role }}'-roolille epäonnistui",
 
   // "comcol-role.edit.restrict": "Restrict",
   "comcol-role.edit.restrict": "Rajoita",
@@ -1903,8 +1817,7 @@
   "comcol-role.edit.delete": "Poista",
 
   // "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
-  // TODO New key - Add a translation
-  "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
+  "comcol-role.edit.delete.error.title": "'{{ role }}'-roolin ryhmän poisto epäonnistui",
 
   // "comcol-role.edit.community-admin.name": "Administrators",
   "comcol-role.edit.community-admin.name": "Ylläpitäjät",
@@ -1961,12 +1874,11 @@
   "comcol-role.edit.reviewer.description": "Tarkastajat voivat hyväksyä tai hylätä uudet tallennukset. He eivät voi muokata tallennusten metadataa.",
 
   // "comcol-role.edit.scorereviewers.name": "Score Reviewers",
-  // TODO New key - Add a translation
-  "comcol-role.edit.scorereviewers.name": "Score Reviewers",
+  "comcol-role.edit.scorereviewers.name": "Arvosanatarkastajat",
 
   // "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.scorereviewers.description": "Tarkastajat voivat antaa  Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
+  // TODO New key - Add a translationree here
+  "comcol-role.edit.scorereviewers.description": "Tarkastajat voivat antaa tallennettaille julkaisuille arvosanan, joka määrittää, hylätäänkö vai hyväksytäänkö   Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
 
   // "community.form.abstract": "Short Description",
   "community.form.abstract": "Lyhyt kuvaus",
@@ -2029,12 +1941,10 @@
   "cookies.consent.app.required.title": "(aina pakollinen)",
 
   // "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
-  // TODO New key - Add a translation
-  "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
+  "cookies.consent.app.disable-all.description": "Tästä kytkimestä voit ottaa kaikki palvelut käyttöön tai poistaa ne käytöstä",
 
   // "cookies.consent.app.disable-all.title": "Enable or disable all services",
-  // TODO New key - Add a translation
-  "cookies.consent.app.disable-all.title": "Enable or disable all services",
+  "cookies.consent.app.disable-all.title": "Ota käyttöön tai poista käytöstä kaikki palvelut",
 
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   "cookies.consent.update": "Viime käyntisi jälkeen on tehty muutoksia. Ole hyvä ja päivitä suostumuksesi.",
@@ -2106,7 +2016,6 @@
   "cookies.consent.app.description.google-analytics": "Sallii tilastollisen datan seurannan",
 
   // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
-  // TODO New key - Add a translation
   "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
 
   // "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
@@ -2122,12 +2031,10 @@
   "cookies.consent.purpose.registration-password-recovery": "Rekisteröinti ja salasanan palauttaminen",
 
   // "cookies.consent.purpose.sharing": "Sharing",
-  // TODO New key - Add a translation
-  "cookies.consent.purpose.sharing": "Sharing",
+  "cookies.consent.purpose.sharing": "Jakaminen",
 
   // "curation-task.task.citationpage.label": "Generate Citation Page",
-  // TODO New key - Add a translation
-  "curation-task.task.citationpage.label": "Generate Citation Page",
+  "curation-task.task.citationpage.label": "Luo viittaussivu",
 
   // "curation-task.task.checklinks.label": "Check Links in Metadata",
   "curation-task.task.checklinks.label": "Tarkista metadatan linkit",
@@ -2169,8 +2076,7 @@
   "curation.form.submit.error.content": "Virhe kuratointitehtävää aloitettaessa.",
 
   // "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
-  // TODO New key - Add a translation
-  "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
+  "curation.form.submit.error.invalid-handle": "Objektin handlea ei voitu määrittää",
 
   // "curation.form.handle.label": "Handle:",
   "curation.form.handle.label": "Handle:",
@@ -2179,26 +2085,22 @@
   "curation.form.handle.hint": "Vinkki: Syötä [oma-handle-prefix]/0 suorittaaksesi tehtävän koko sivustolla (kaikki tehtävät eivät tue tätä toimintoa)",
 
   // "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
-  // TODO New key - Add a translation
-  "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+  "deny-request-copy.email.message": "Hyvä {{ recipientName }},\nValitettavasti emme voi lähettää kopiota pyytämistänne tiedostoista (dokumentti \"{{ itemUrl }}\" ({{ itemName }})), joiden tekijä olen. Ystävällisin terveisin \n{{ authorName }} <{{ authorEmail }}>",
 
   // "deny-request-copy.email.subject": "Request copy of document",
-  // TODO New key - Add a translation
-  "deny-request-copy.email.subject": "Request copy of document",
+  "deny-request-copy.email.subject": "Dokumenttikopion pyyntö",
 
   // "deny-request-copy.error": "An error occurred",
   "deny-request-copy.error": "Tapahtui virhe",
 
   // "deny-request-copy.header": "Deny document copy request",
-  // TODO New key - Add a translation
-  "deny-request-copy.header": "Deny document copy request",
+  "deny-request-copy.header": "Epää dokumenttikopion pyyntö",
 
   // "deny-request-copy.intro": "This message will be sent to the applicant of the request",
   "deny-request-copy.intro": "Tämä viesti lähetetään pyynnön esittäjälle",
 
   // "deny-request-copy.success": "Successfully denied item request",
-  // TODO New key - Add a translation
-  "deny-request-copy.success": "Successfully denied item request",
+  "deny-request-copy.success": "Tietuepyyntö evätty",
 
   // "dso.name.untitled": "Untitled",
   "dso.name.untitled": "Nimetön",
@@ -2216,8 +2118,7 @@
   "zxzcommunity.head": "Uusi yhteisö",
 
   // "dso-selector.create.community.or-divider": "or",
-  // TODO New key - Add a translation
-  "dso-selector.create.community.or-divider": "or",
+  "dso-selector.create.community.or-divider": "tai",
 
   // "dso-selector.create.community.sub-level": "Create a new community in",
   "dso-selector.create.community.sub-level": "Luo uusi yhteisö tänne: ",
@@ -2292,56 +2193,43 @@
   "dso-selector.results-could-not-be-retrieved": "Tapahtui virhe, päivitä uudelleen ↻",
 
   // "supervision-group-selector.header": "Supervision Group Selector",
-  // TODO New key - Add a translation
-  "supervision-group-selector.header": "Supervision Group Selector",
+  "supervision-group-selector.header": "Ohjausryhmän valitsin",
 
   // "supervision-group-selector.select.type-of-order.label": "Select a type of Order",
-  // TODO New key - Add a translation
-  "supervision-group-selector.select.type-of-order.label": "Select a type of Order",
+  "supervision-group-selector.select.type-of-order.label": "Valitse tilauksen tyyppi",
 
   // "supervision-group-selector.select.type-of-order.option.none": "NONE",
-  // TODO New key - Add a translation
-  "supervision-group-selector.select.type-of-order.option.none": "NONE",
+  "supervision-group-selector.select.type-of-order.option.none": "EI MITÄÄN",
 
   // "supervision-group-selector.select.type-of-order.option.editor": "EDITOR",
-  // TODO New key - Add a translation
-  "supervision-group-selector.select.type-of-order.option.editor": "EDITOR",
+  "supervision-group-selector.select.type-of-order.option.editor": "MUOKKAAJA",
 
   // "supervision-group-selector.select.type-of-order.option.observer": "OBSERVER",
-  // TODO New key - Add a translation
-  "supervision-group-selector.select.type-of-order.option.observer": "OBSERVER",
+  "supervision-group-selector.select.type-of-order.option.observer": "KATSELIJA",
 
   // "supervision-group-selector.select.group.label": "Select a Group",
-  // TODO New key - Add a translation
-  "supervision-group-selector.select.group.label": "Select a Group",
+  "supervision-group-selector.select.group.label": "Valitse ryhmä",
 
   // "supervision-group-selector.button.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "supervision-group-selector.button.cancel": "Cancel",
+  "supervision-group-selector.button.cancel": "Peruuta",
 
   // "supervision-group-selector.button.save": "Save",
-  // TODO New key - Add a translation
-  "supervision-group-selector.button.save": "Save",
+  "supervision-group-selector.button.save": "Tallenna",
 
   // "supervision-group-selector.select.type-of-order.error": "Please select a type of order",
-  // TODO New key - Add a translation
-  "supervision-group-selector.select.type-of-order.error": "Please select a type of order",
+  "supervision-group-selector.select.type-of-order.error": "Valitse tilauksen tyyppi",
 
   // "supervision-group-selector.select.group.error": "Please select a group",
-  // TODO New key - Add a translation
-  "supervision-group-selector.select.group.error": "Please select a group",
+  "supervision-group-selector.select.group.error": "Valitse ryhmä",
 
   // "supervision-group-selector.notification.create.success.title": "Successfully created supervision order for group {{ name }}",
-  // TODO New key - Add a translation
-  "supervision-group-selector.notification.create.success.title": "Successfully created supervision order for group {{ name }}",
+  "supervision-group-selector.notification.create.success.title": "Ohjausmääräys luotu {{ name }}-ryhmälle",
 
   // "supervision-group-selector.notification.create.failure.title": "Error",
-  // TODO New key - Add a translation
-  "supervision-group-selector.notification.create.failure.title": "Error",
+  "supervision-group-selector.notification.create.failure.title": "Virhe",
 
   // "supervision-group-selector.notification.create.already-existing": "A supervision order already exists on this item for selected group",
-  // TODO New key - Add a translation
-  "supervision-group-selector.notification.create.already-existing": "A supervision order already exists on this item for selected group",
+  "supervision-group-selector.notification.create.already-existing": "Tietueelle on jo ohjausmääräys valitulle ryhmälle",
 
   // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
   "confirmation-modal.export-metadata.header": "Eksportoi {{ dsoName }}:n metadata",
@@ -2356,26 +2244,22 @@
   "confirmation-modal.export-metadata.confirm": "Eksportoi",
 
   // "confirmation-modal.export-batch.header": "Export batch (ZIP) for {{ dsoName }}",
-  // TODO New key - Add a translation
-  "confirmation-modal.export-batch.header": "Export batch (ZIP) for {{ dsoName }}",
+  "confirmation-modal.export-batch.header": "Exportoi erä (ZIP) {{ dsoName }}",
 
   // "confirmation-modal.export-batch.info": "Are you sure you want to export batch (ZIP) for {{ dsoName }}",
-  // TODO New key - Add a translation
-  "confirmation-modal.export-batch.info": "Are you sure you want to export batch (ZIP) for {{ dsoName }}",
+  "confirmation-modal.export-batch.info": "Haluatko varmasti eksportoida erän (ZIP)  {{ dsoName }}?",
 
   // "confirmation-modal.export-batch.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "confirmation-modal.export-batch.cancel": "Cancel",
+  "confirmation-modal.export-batch.cancel": "Peruuta",
 
   // "confirmation-modal.export-batch.confirm": "Export",
-  // TODO New key - Add a translation
-  "confirmation-modal.export-batch.confirm": "Export",
+  "confirmation-modal.export-batch.confirm": "Eksportoi",
 
   // "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
   "confirmation-modal.delete-eperson.header": "Poista käyttäjä \"{{ dsoName }}\"",
 
   // "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
-  "confirmation-modal.delete-eperson.info": "Haluatko varmasti poistaa käyttäjän \"{{ dsoName }}\"",
+  "confirmation-modal.delete-eperson.info": "Haluatko varmasti poistaa käyttäjän \"{{ dsoName }}\"?",
 
   // "confirmation-modal.delete-eperson.cancel": "Cancel",
   "confirmation-modal.delete-eperson.cancel": "Peruuta",
@@ -2384,12 +2268,10 @@
   "confirmation-modal.delete-eperson.confirm": "Poista",
 
   // "confirmation-modal.delete-profile.header": "Delete Profile",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-profile.header": "Delete Profile",
+  "confirmation-modal.delete-profile.header": "Poista profiili",
 
   // "confirmation-modal.delete-profile.info": "Are you sure you want to delete your profile",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-profile.info": "Are you sure you want to delete your profile",
+  "confirmation-modal.delete-profile.info": "Haluatko varmasti poistaa profiilisi?",
 
   // "confirmation-modal.delete-profile.cancel": "Cancel",
   // TODO New key - Add a translation
@@ -2554,8 +2436,7 @@
   "forgot-email.form.header": "Unohtunut salasana",
 
   // "forgot-email.form.info": "Enter the email address associated with the account.",
-  // TODO Source message changed - Revise the translation
-  "forgot-email.form.info": "Rekisteröi käyttäjätili voidaksesi tilata sähköposti-ilmoituksia kokoelmien päivityksistä ja lisätä uusia tietueita julkaisuarkistoon.",
+  "forgot-email.form.info": "Syötä tiliin liittyvä sähköpostiosoite.",
 
   // "forgot-email.form.email": "Email Address *",
   "forgot-email.form.email": "Sähköpostiosoite *",
@@ -2634,8 +2515,7 @@
   "forgot-password.form.submit": "Lähetä salasana",
 
   // "form.add": "Add more",
-  // TODO Source message changed - Revise the translation
-  "form.add": "Lisää",
+  "form.add": "Lisää vielä",
 
   // "form.add-help": "Click here to add the current entry and to add another one",
   "form.add-help": "Valitse lisätäksesi nykyisen kohteen ja toisen kohteen",
@@ -2647,21 +2527,19 @@
   "form.clear": "Tyhjennä",
 
   // "form.clear-help": "Click here to remove the selected value",
-  "form.clear-help": "Napauta tästä poistaaksesi valitun arvon",
+  "form.clear-help": "Napsauta tästä poistaaksesi valitun arvon",
 
   // "form.discard": "Discard",
-  // TODO New key - Add a translation
-  "form.discard": "Discard",
+  "form.discard": "Hylkää",
 
   // "form.drag": "Drag",
-  // TODO New key - Add a translation
-  "form.drag": "Drag",
+  "form.drag": "Raahaa",
 
   // "form.edit": "Edit",
   "form.edit": "Muokkaa",
 
   // "form.edit-help": "Click here to edit the selected value",
-  "form.edit-help": "Napauta tästä muokataksesi valittua arvoa",
+  "form.edit-help": "Napsauta tästä muokataksesi valittua arvoa",
 
   // "form.first-name": "First name",
   "form.first-name": "Etunimi",
@@ -2697,28 +2575,22 @@
   "form.no-value": "Ei syötettyä arvoa",
 
   // "form.other-information.email": "Email",
-  // TODO New key - Add a translation
-  "form.other-information.email": "Email",
+  "form.other-information.email": "Sähköpostiosoite",
 
   // "form.other-information.first-name": "First Name",
-  // TODO New key - Add a translation
-  "form.other-information.first-name": "First Name",
+  "form.other-information.first-name": "Etunimi",
 
   // "form.other-information.insolr": "In Solr Index",
-  // TODO New key - Add a translation
-  "form.other-information.insolr": "In Solr Index",
+  "form.other-information.insolr": "Solr-indeksissä",
 
   // "form.other-information.institution": "Institution",
-  // TODO New key - Add a translation
-  "form.other-information.institution": "Institution",
+  "form.other-information.institution": "Instituutio",
 
   // "form.other-information.last-name": "Last Name",
-  // TODO New key - Add a translation
-  "form.other-information.last-name": "Last Name",
+  "form.other-information.last-name": "Sukunimi",
 
   // "form.other-information.orcid": "ORCID",
-  // TODO New key - Add a translation
-  "form.other-information.orcid": "ORCID",
+  "form.other-information.orcid": "ORCID-tunniste",
 
   // "form.remove": "Remove",
   "form.remove": "Poista",
@@ -2736,31 +2608,25 @@
   "form.search-help": "Valitse etsiäksesi olemassa olevaa vastaavuutta",
 
   // "form.submit": "Save",
-  // TODO Source message changed - Revise the translation
-  "form.submit": "Lähetä",
+  "form.submit": "Tallenna",
 
   // "form.create": "Create",
-  // TODO New key - Add a translation
-  "form.create": "Create",
+  "form.create": "Luo",
 
   // "form.repeatable.sort.tip": "Drop the item in the new position",
-  // TODO New key - Add a translation
-  "form.repeatable.sort.tip": "Drop the item in the new position",
+  "form.repeatable.sort.tip": "Pudota tietue uuteen paikkaan",
 
   // "grant-deny-request-copy.deny": "Don't send copy",
-  // TODO New key - Add a translation
-  "grant-deny-request-copy.deny": "Don't send copy",
+  "grant-deny-request-copy.deny": "Älä lähetä kopiota",
 
   // "grant-deny-request-copy.email.back": "Back",
   "grant-deny-request-copy.email.back": "Paluu",
 
   // "grant-deny-request-copy.email.message": "Optional additional message",
-  // TODO New key - Add a translation
-  "grant-deny-request-copy.email.message": "Optional additional message",
+  "grant-deny-request-copy.email.message": "Valinnainen lisäviesti",
 
   // "grant-deny-request-copy.email.message.empty": "Please enter a message",
-  // TODO New key - Add a translation
-  "grant-deny-request-copy.email.message.empty": "Please enter a message",
+  "grant-deny-request-copy.email.message.empty": "Kirjoita viesti",
 
   // "grant-deny-request-copy.email.permissions.info": "You may use this occasion to reconsider the access restrictions on the document, to avoid having to respond to these requests. If you’d like to ask the repository administrators to remove these restrictions, please check the box below.",
   // TODO New key - Add a translation
@@ -2768,109 +2634,86 @@
 
   // "grant-deny-request-copy.email.permissions.label": "Change to open access",
   // TODO New key - Add a translation
-  "grant-deny-request-copy.email.permissions.label": "Change to open access",
+  "grant-deny-request-copy.email.permissions.label": "Muuta Open Access -",
 
   // "grant-deny-request-copy.email.send": "Send",
-  // TODO New key - Add a translation
-  "grant-deny-request-copy.email.send": "Send",
+  "grant-deny-request-copy.email.send": "Lähetä",
 
   // "grant-deny-request-copy.email.subject": "Subject",
-  // TODO New key - Add a translation
-  "grant-deny-request-copy.email.subject": "Subject",
+  "grant-deny-request-copy.email.subject": "Asiasana",
 
   // "grant-deny-request-copy.email.subject.empty": "Please enter a subject",
-  // TODO New key - Add a translation
-  "grant-deny-request-copy.email.subject.empty": "Please enter a subject",
+  "grant-deny-request-copy.email.subject.empty": "Syötä asiasana",
 
   // "grant-deny-request-copy.grant": "Send copy",
-  // TODO New key - Add a translation
-  "grant-deny-request-copy.grant": "Send copy",
+  "grant-deny-request-copy.grant": "Lähetä kopio",
 
   // "grant-deny-request-copy.header": "Document copy request",
-  // TODO New key - Add a translation
-  "grant-deny-request-copy.header": "Document copy request",
+  "grant-deny-request-copy.header": "Dokumenttikopion pyyntö",
 
   // "grant-deny-request-copy.home-page": "Take me to the home page",
   "grant-deny-request-copy.home-page": "Palaa etusivulle",
 
   // "grant-deny-request-copy.intro1": "If you are one of the authors of the document <a href='{{ url }}'>{{ name }}</a>, then please use one of the options below to respond to the user's request.",
-  // TODO New key - Add a translation
-  "grant-deny-request-copy.intro1": "If you are one of the authors of the document <a href='{{ url }}'>{{ name }}</a>, then please use one of the options below to respond to the user's request.",
+  "grant-deny-request-copy.intro1": "Jos olet dokumentin <a href='{{ url }}'>{{ name }}</a> tekijä, vastaa käyttäjän pyyntöön jollakin alla olevista vaihtoehdoista.",
 
   // "grant-deny-request-copy.intro2": "After choosing an option, you will be presented with a suggested email reply which you may edit.",
-  // TODO New key - Add a translation
-  "grant-deny-request-copy.intro2": "After choosing an option, you will be presented with a suggested email reply which you may edit.",
+  "grant-deny-request-copy.intro2": "Valittuasi vaihtoehdon näet sähköpostiviestiehdotuksen. Voit muokata ehdotusta halutessasi.",
 
   // "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
-  // TODO New key - Add a translation
-  "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
+  "grant-deny-request-copy.processed": "Pyyntö on käsitelty. Voit käyttää alla olevaa painiketta palataksesi etusivulle.",
 
   // "grant-request-copy.email.subject": "Request copy of document",
-  // TODO New key - Add a translation
-  "grant-request-copy.email.subject": "Request copy of document",
+  "grant-request-copy.email.subject": "Pyydä kopiota dokumentista",
 
   // "grant-request-copy.error": "An error occurred",
   "grant-request-copy.error": "Tapahtui virhe",
 
   // "grant-request-copy.header": "Grant document copy request",
-  // TODO New key - Add a translation
-  "grant-request-copy.header": "Grant document copy request",
+  "grant-request-copy.header": "Hyväksy dokumenttikopion pyyntö",
 
   // "grant-request-copy.intro": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
-  // TODO New key - Add a translation
-  "grant-request-copy.intro": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
+  "grant-request-copy.intro": "Viesti lähetetään pyynnön esittäjälle. Pyydetyt dokumentit liitetään viestiin.",
 
   // "grant-request-copy.success": "Successfully granted item request",
-  // TODO New key - Add a translation
-  "grant-request-copy.success": "Successfully granted item request",
+  "grant-request-copy.success": "Tietuepyyntö hyväksytty",
 
   // "health.breadcrumbs": "Health",
-  // TODO New key - Add a translation
-  "health.breadcrumbs": "Health",
+  "health.breadcrumbs": "Järjestelmän kunto",
 
   // "health-page.heading": "Health",
-  // TODO New key - Add a translation
-  "health-page.heading": "Health",
+  "health-page.heading": "Järjestelmän kunto",
 
   // "health-page.info-tab": "Info",
-  // TODO New key - Add a translation
-  "health-page.info-tab": "Info",
+  "health-page.info-tab": "Tiedot",
 
   // "health-page.status-tab": "Status",
-  // TODO New key - Add a translation
-  "health-page.status-tab": "Status",
+  "health-page.status-tab": "Tila",
 
   // "health-page.error.msg": "The health check service is temporarily unavailable",
-  // TODO New key - Add a translation
-  "health-page.error.msg": "The health check service is temporarily unavailable",
+  "health-page.error.msg": "Järjestelmän kunnon tarkistus on väliaikaisesti poissa käytöstä",
 
   // "health-page.property.status": "Status code",
-  // TODO New key - Add a translation
-  "health-page.property.status": "Status code",
+  "health-page.property.status": "Tilakoodi",
 
   // "health-page.section.db.title": "Database",
-  // TODO New key - Add a translation
-  "health-page.section.db.title": "Database",
+  "health-page.section.db.title": "Tietokanta",
 
   // "health-page.section.geoIp.title": "GeoIp",
-  // TODO New key - Add a translation
   "health-page.section.geoIp.title": "GeoIp",
 
   // "health-page.section.solrAuthorityCore.title": "Solr: authority core",
-  // TODO New key - Add a translation
-  "health-page.section.solrAuthorityCore.title": "Solr: authority core",
+  "health-page.section.solrAuthorityCore.title": "Solr: auktoriteettiydin",
 
   // "health-page.section.solrOaiCore.title": "Solr: oai core",
   // TODO New key - Add a translation
-  "health-page.section.solrOaiCore.title": "Solr: oai core",
+  "health-page.section.solrOaiCore.title": "Solr: OAI-ydin",
 
   // "health-page.section.solrSearchCore.title": "Solr: search core",
-  // TODO New key - Add a translation
-  "health-page.section.solrSearchCore.title": "Solr: search core",
+  "health-page.section.solrSearchCore.title": "Solr: hakuydin",
 
   // "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
-  // TODO New key - Add a translation
-  "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
+  "health-page.section.solrStatisticsCore.title": "Solr: tilastoydin",
 
   // "health-page.section-info.app.title": "Application Backend",
   // TODO New key - Add a translation
@@ -3654,11 +3497,10 @@
   "item.edit.tabs.status.buttons.reinstate.button": "Palauta käyttöön...",
 
   // "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
-  "item.edit.tabs.status.buttons.reinstate.label": "Palauta tietue arkistoon",
+  "item.edit.tabs.status.buttons.reinstate.label": "Palauta tietue julkaisuarkistoon",
 
   // "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
+  "item.edit.tabs.status.buttons.unauthorized": "Sinulla ei ole valtuuksia suorittaa tätä toimintoa",
 
   // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
   "item.edit.tabs.status.buttons.withdraw.button": "Poista tämä kohde",
@@ -3748,48 +3590,37 @@
   "item.search.results.head": "Tietuehaun tulokset",
 
   // "item.search.title": "Item Search",
-  // TODO Source message changed - Revise the translation
-  "item.search.title": "DSpace Angular :: Tietuehaku",
+  "item.search.title": "Tietuehaku",
 
   // "item.truncatable-part.show-more": "Show more",
-  // TODO New key - Add a translation
-  "item.truncatable-part.show-more": "Show more",
+  "item.truncatable-part.show-more": "Näytä lisää",
 
   // "item.truncatable-part.show-less": "Collapse",
-  // TODO New key - Add a translation
-  "item.truncatable-part.show-less": "Collapse",
+  "item.truncatable-part.show-less": "Sulje",
 
   // "workflow-item.search.result.delete-supervision.modal.header": "Delete Supervision Order",
-  // TODO New key - Add a translation
-  "workflow-item.search.result.delete-supervision.modal.header": "Delete Supervision Order",
+  "workflow-item.search.result.delete-supervision.modal.header": "Poista ohjausmääräys",
 
   // "workflow-item.search.result.delete-supervision.modal.info": "Are you sure you want to delete Supervision Order",
-  // TODO New key - Add a translation
-  "workflow-item.search.result.delete-supervision.modal.info": "Are you sure you want to delete Supervision Order",
+  "workflow-item.search.result.delete-supervision.modal.info": "Haluatko varmasti poistaa ohjausmääräyksen?",
 
   // "workflow-item.search.result.delete-supervision.modal.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "workflow-item.search.result.delete-supervision.modal.cancel": "Cancel",
+  "workflow-item.search.result.delete-supervision.modal.cancel": "Peruuta",
 
   // "workflow-item.search.result.delete-supervision.modal.confirm": "Delete",
-  // TODO New key - Add a translation
-  "workflow-item.search.result.delete-supervision.modal.confirm": "Delete",
+  "workflow-item.search.result.delete-supervision.modal.confirm": "Poista",
 
   // "workflow-item.search.result.notification.deleted.success": "Successfully deleted supervision order \"{{name}}\"",
-  // TODO New key - Add a translation
-  "workflow-item.search.result.notification.deleted.success": "Successfully deleted supervision order \"{{name}}\"",
+  "workflow-item.search.result.notification.deleted.success": "Ohjausmääräys poistettu \"{{name}}\"",
 
   // "workflow-item.search.result.notification.deleted.failure": "Failed to delete supervision order \"{{name}}\"",
-  // TODO New key - Add a translation
-  "workflow-item.search.result.notification.deleted.failure": "Failed to delete supervision order \"{{name}}\"",
+  "workflow-item.search.result.notification.deleted.failure": "Ohjausmääräyksen poisto epäonnistui \"{{name}}\"",
 
   // "workflow-item.search.result.list.element.supervised-by": "Supervised by:",
-  // TODO New key - Add a translation
-  "workflow-item.search.result.list.element.supervised-by": "Supervised by:",
+  "workflow-item.search.result.list.element.supervised-by": "Ohjaajana:",
 
   // "workflow-item.search.result.list.element.supervised.remove-tooltip": "Remove supervision group",
-  // TODO New key - Add a translation
-  "workflow-item.search.result.list.element.supervised.remove-tooltip": "Remove supervision group",
+  "workflow-item.search.result.list.element.supervised.remove-tooltip": "Poista ohjausryhmä",
 
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Tiivistelmä",
@@ -3804,12 +3635,10 @@
   "item.page.collections": "Kokoelmat",
 
   // "item.page.collections.loading": "Loading...",
-  // TODO New key - Add a translation
-  "item.page.collections.loading": "Loading...",
+  "item.page.collections.loading": "Ladataan...",
 
   // "item.page.collections.load-more": "Load more",
-  // TODO New key - Add a translation
-  "item.page.collections.load-more": "Load more",
+  "item.page.collections.load-more": "Lataa lisää",
 
   // "item.page.date": "Date",
   "item.page.date": "Päivämäärä",
@@ -3845,12 +3674,10 @@
   "item.page.link.simple": "Tietueen suppeat tiedot",
 
   // "item.page.orcid.title": "ORCID",
-  // TODO New key - Add a translation
-  "item.page.orcid.title": "ORCID",
+  "item.page.orcid.title": "ORCID-tunniste",
 
   // "item.page.orcid.tooltip": "Open ORCID setting page",
-  // TODO New key - Add a translation
-  "item.page.orcid.tooltip": "Open ORCID setting page",
+  "item.page.orcid.tooltip": "Avaa ORCID-asetusten sivu",
 
   // "item.page.person.search.title": "Articles by this author",
   "item.page.person.search.title": "Tekijän artikkelit",
@@ -3886,19 +3713,16 @@
   "item.page.bitstreams.collapse": "Sulje",
 
   // "item.page.filesection.original.bundle": "Original bundle",
-  // TODO Source message changed - Revise the translation
   "item.page.filesection.original.bundle": "Alkuperäinen nippu",
 
   // "item.page.filesection.license.bundle": "License bundle",
-  // TODO Source message changed - Revise the translation
   "item.page.filesection.license.bundle": "Lisenssinippu",
 
   // "item.page.return": "Back",
   "item.page.return": "Paluu",
 
   // "item.page.version.create": "Create new version",
-  // TODO New key - Add a translation
-  "item.page.version.create": "Create new version",
+  "item.page.version.create": "Luo uusi versio",
 
   // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
   // TODO New key - Add a translation
@@ -4571,8 +4395,7 @@
   "menu.section.browse_global_by_subject": "Asiasanan mukaan",
 
   // "menu.section.browse_global_by_srsc": "By Subject Category",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_srsc": "By Subject Category",
+  "menu.section.browse_global_by_srsc": "Aihekategorian mukaan",
 
   // "menu.section.browse_global_by_title": "By Title",
   "menu.section.browse_global_by_title": "Nimekkeen mukaan",
@@ -4941,8 +4764,7 @@
   "nav.search": "Hae",
 
   // "nav.search.button": "Submit search",
-  // TODO New key - Add a translation
-  "nav.search.button": "Submit search",
+  "nav.search.button": "Lähetä haku",
 
   // "nav.statistics.header": "Statistics",
   "nav.statistics.header": "Tilastot",
@@ -6027,12 +5849,10 @@
   "search.filters.filter.entityType.placeholder": "Tietueen tyyppi",
 
   // "search.filters.filter.entityType.label": "Search item type",
-  // TODO New key - Add a translation
-  "search.filters.filter.entityType.label": "Search item type",
+  "search.filters.filter.entityType.label": "Hae tietueen tyyppiä",
 
   // "search.filters.filter.expand": "Expand filter",
-  // TODO New key - Add a translation
-  "search.filters.filter.expand": "Expand filter",
+  "search.filters.filter.expand": "Laajenna suodinta",
 
   // "search.filters.filter.has_content_in_original_bundle.head": "Has files",
   "search.filters.filter.has_content_in_original_bundle.head": "On tiedostoja",
@@ -6044,8 +5864,7 @@
   "search.filters.filter.itemtype.placeholder": "Tyyppi",
 
   // "search.filters.filter.itemtype.label": "Search type",
-  // TODO New key - Add a translation
-  "search.filters.filter.itemtype.label": "Search type",
+  "search.filters.filter.itemtype.label": "Hakutyyppi",
 
   // "search.filters.filter.jobTitle.head": "Job Title",
   "search.filters.filter.jobTitle.head": "Tehtävänimike",
@@ -6203,15 +6022,13 @@
   "search.filters.reset": "Tyhjennä suodattimet",
 
   // "search.filters.search.submit": "Submit",
-  // TODO New key - Add a translation
-  "search.filters.search.submit": "Submit",
+  "search.filters.search.submit": "Lähetä"
 
   // "search.form.search": "Search",
   "search.form.search": "Hae",
 
   // "search.form.search_dspace": "All repository",
-  // TODO Source message changed - Revise the translation
-  "search.form.search_dspace": "Hae arkistosta",
+  "search.form.search_dspace": "Koko julkaisuarkisto",
 
   // "search.form.scope.all": "All of DSpace",
   // TODO New key - Add a translation
@@ -6357,18 +6174,15 @@
   "statistics.table.no-name": "(object name could not be loaded)",
 
   // "submission.edit.breadcrumbs": "Edit Submission",
-  // TODO New key - Add a translation
-  "submission.edit.breadcrumbs": "Edit Submission",
+  "submission.edit.breadcrumbs": "Muokkaa tallennusta",
 
   // "submission.edit.title": "Edit Submission",
   "submission.edit.title": "Muokkaa tallennusta",
 
   // "submission.general.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "submission.general.cancel": "Cancel",
+  "submission.general.cancel": "Peruuta",
 
   // "submission.general.cannot_submit": "You don't have permission to make a new submission.",
-  // TODO Source message changed - Revise the translation
   "submission.general.cannot_submit": "Sinulla ei ole oikeuksia aineiston tallentamiseen.",
 
   // "submission.general.deposit": "Deposit",
@@ -6390,12 +6204,10 @@
   "submission.general.discard.submit": "Hylkää",
 
   // "submission.general.info.saved": "Saved",
-  // TODO New key - Add a translation
-  "submission.general.info.saved": "Saved",
+  "submission.general.info.saved": "Tallennettu",
 
   // "submission.general.info.pending-changes": "Unsaved changes",
-  // TODO New key - Add a translation
-  "submission.general.info.pending-changes": "Unsaved changes",
+  "submission.general.info.pending-changes": "Tallentamattomat muutokset",
 
   // "submission.general.save": "Save",
   "submission.general.save": "Tallenna",
@@ -6410,12 +6222,10 @@
   "submission.import-external.title": "Importoi metadata ulkoisesta lähteestä",
 
   // "submission.import-external.title.Journal": "Import a journal from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.Journal": "Import a journal from an external source",
+  "submission.import-external.title.Journal": "Importoi Muokkaa kausijulkaisu ulkoisesta lähteestä",
 
   // "submission.import-external.title.JournalIssue": "Import a journal issue from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.JournalIssue": "Import a journal issue from an external source",
+  "submission.import-external.title.JournalIssue": "Importoi kausijulkaisun numero ulkoisesta lähteestä",
 
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   // TODO New key - Add a translation
@@ -6442,7 +6252,7 @@
   "submission.import-external.title.none": "Import metadata from an external source",
 
   // "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
-  "submission.import-external.page.hint": "Anna hakulauseke etsiäksesi verkosta arkistoon importoitavia tietueita.",
+  "submission.import-external.page.hint": "Anna hakulauseke etsiäksesi verkosta julkaisuarkistoon importoitavia tietueita.",
 
   // "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
   "submission.import-external.back-to-my-dspace": "Paluu omiin tietoihin",
@@ -6590,16 +6400,13 @@
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Importoi kausijulkaisun vuosikerta ulkoisesta lähteestä",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Projekti",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Import remote item",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Import remote item",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Importoi tietue ulkoisesta lähteestä",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Import remote event",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Import remote event",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Importoi tapahtuma ulkoisesta lähteestä",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Import remote product",
   // TODO New key - Add a translation
@@ -6638,8 +6445,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Projekti",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API",
   // TODO New key - Add a translation
@@ -6739,8 +6545,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.search": "Ok",
 
   // "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Search...",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Search...",
+  "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Haetaan...",
 
   // "submission.sections.describe.relationship-lookup.search-tab.select-all": "Select all",
   "submission.sections.describe.relationship-lookup.search-tab.select-all": "Valitse kaikki",
@@ -6818,16 +6623,13 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Hae organisaatioyksiköitä",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Funding OpenAIRE API",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Funding OpenAIRE API",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "OpenAIRE API -rahoitus",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projektit",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Projektin rahoittaja",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "Publication of the Author",
   // TODO New key - Add a translation
@@ -6838,20 +6640,16 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Projekti",
 
   // "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projects",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projects",
+  "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projektit",
 
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
+  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Projektin rahoittaja",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
+  "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Haetaan...",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Nykyinen valinta ({{ count }})",
@@ -6905,8 +6703,7 @@
   "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Ylempi organisaatioyksikkö",
 
   // "submission.sections.describe.relationship-lookup.title.isPublicationOfAuthor": "Publication",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isPublicationOfAuthor": "Publication",
+  "submission.sections.describe.relationship-lookup.title.isPublicationOfAuthor": "Julkaisu",
 
   // "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Vaihda valikon tilaa",
@@ -6987,28 +6784,22 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Hakutulokset",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Hakutulokset",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Hakutulokset",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Hakutulokset",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Hakutulokset",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Hakutulokset",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title": "Hakutulokset",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Haluatko tallentaa nimen \"{{ value }}\" käyttäjän vaihtoehtoiseksi nimeksi, jota muutkin voivat käyttää uudelleen myös tulevissa tallennuksissa? Ellet tallenna nimeä, voit silti käyttää sitä tässä tallennuksessa.",
@@ -7035,10 +6826,10 @@
   "submission.sections.ccLicense.option.select": "Valitse vaihtoehto…",
 
   // "submission.sections.ccLicense.link": "You’ve selected the following license:",
-  "submission.sections.ccLicense.link": "Olet valinunt seuraavan lisenssin:",
+  "submission.sections.ccLicense.link": "Olet valinnut seuraavan lisenssin:",
 
   // "submission.sections.ccLicense.confirmation": "I grant the license above",
-  "submission.sections.ccLicense.confirmation": "Myönnän yllä olevan lisenssin",
+  "submission.sections.ccLicense.confirmation": "Hyväksyn yllä olevan lisenssin",
 
   // "submission.sections.general.add-more": "Add more",
   "submission.sections.general.add-more": "Lisää enemmän",
@@ -7087,8 +6878,7 @@
   "submission.sections.general.sections_not_valid": "Tallennuksessa keskeneräisiä osioita.",
 
   // "submission.sections.identifiers.info": "The following identifiers will be created for your item:",
-  // TODO New key - Add a translation
-  "submission.sections.identifiers.info": "The following identifiers will be created for your item:",
+  "submission.sections.identifiers.info": "Tietueellesi luodaan seuraavat tunnisteet:",
 
   // "submission.sections.identifiers.no_handle": "No handles have been minted for this item.",
   // TODO New key - Add a translation
@@ -7102,12 +6892,10 @@
   "submission.sections.identifiers.handle_label": "Handle: ",
 
   // "submission.sections.identifiers.doi_label": "DOI: ",
-  // TODO New key - Add a translation
   "submission.sections.identifiers.doi_label": "DOI: ",
 
   // "submission.sections.identifiers.otherIdentifiers_label": "Other identifiers: ",
-  // TODO New key - Add a translation
-  "submission.sections.identifiers.otherIdentifiers_label": "Other identifiers: ",
+  "submission.sections.identifiers.otherIdentifiers_label": "Muut tunnisteet: ",
 
   // "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
   // TODO New key - Add a translation
@@ -7132,8 +6920,7 @@
   "submission.sections.submit.progressbar.detect-duplicate": "Mahdollisia kaksoiskappaleita",
 
   // "submission.sections.submit.progressbar.identifiers": "Identifiers",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.identifiers": "Identifiers",
+  "submission.sections.submit.progressbar.identifiers": "Tunnisteet",
 
   // "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.license": "Tallennuslisenssi",
@@ -7238,12 +7025,10 @@
   "submission.sections.upload.form.date-required": "Päivämäärä on pakollinen tieto.",
 
   // "submission.sections.upload.form.date-required-from": "Grant access from date is required.",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.date-required-from": "Grant access from date is required.",
+  "submission.sections.upload.form.date-required-from": "Pääsyoikeuden alkupäivä on pakollinen tieto.",
 
   // "submission.sections.upload.form.date-required-until": "Grant access until date is required.",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.date-required-until": "Grant access until date is required.",
+  "submission.sections.upload.form.date-required-until": "Pääsyoikeuden loppupäivä on pakollinen tieto.",
 
   // "submission.sections.upload.form.from-label": "Grant access from",
   "submission.sections.upload.form.from-label": "Pääsyoikeus alkaa",
@@ -7265,8 +7050,7 @@
   "submission.sections.upload.form.until-label": "Pääsyoikeus päättyy",
 
   // "submission.sections.upload.form.until-hint": "Select the date until which the related access condition is applied",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.until-hint": "Select the date until which the related access condition is applied",
+  "submission.sections.upload.form.until-hint": "Valitse päivämäärä, johon asti pääsyehto on voimassa",
 
   // "submission.sections.upload.form.until-placeholder": "Until",
   "submission.sections.upload.form.until-placeholder": "Asti",
@@ -7278,7 +7062,6 @@
   "submission.sections.upload.header.policy.default.withlist": "Yksittäisten tiedostojen pääsyrajoitusten lisäksi {{collectionName}}-kokoelmaan ladatut tiedostot ovat seuraavien ryhmien saatavilla:",
 
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
-  // TODO Source message changed - Revise the translation
   "submission.sections.upload.info": "Tietueen kaikki tiedostot on lueteltu tässä. Voit päivittää tiedoston metadataa ja pääsyehtoja tai <strong>ladata lisää tiedostoja raahaamalla ne mihin hyvänsä sivun kohtaan.</strong>",
 
   // "submission.sections.upload.no-entry": "No",
@@ -7531,11 +7314,9 @@
   "submission.workflow.tasks.claimed.edit_help": "Valitse tämä muuttaaksesi tietueen metadataa.",
 
   // "submission.workflow.tasks.claimed.decline": "Decline",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.decline": "Decline",
+  "submission.workflow.tasks.claimed.decline": "Hylkää",
 
   // "submission.workflow.tasks.claimed.decline_help": "",
-  // TODO New key - Add a translation
   "submission.workflow.tasks.claimed.decline_help": "",
 
   // "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
@@ -7587,16 +7368,14 @@
   "submission.workflow.tasks.pool.show-detail": "Näytä lisätiedot",
 
   // "submission.workspace.generic.view": "View",
-  // TODO New key - Add a translation
-  "submission.workspace.generic.view": "View",
+  "submission.workspace.generic.view": "Näytå",
 
   // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
   // TODO New key - Add a translation
   "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
 
   // "submitter.empty": "N/A",
-  // TODO New key - Add a translation
-  "submitter.empty": "N/A",
+  "submitter.empty": "Ei saatavilla",
 
   // "subscriptions.title": "Subscriptions",
   // TODO New key - Add a translation
@@ -7671,8 +7450,7 @@
   "subscriptions.modal.new-subscription-form.frequency.M": "Monthly",
 
   // "subscriptions.modal.new-subscription-form.submit": "Submit",
-  // TODO New key - Add a translation
-  "subscriptions.modal.new-subscription-form.submit": "Submit",
+  "subscriptions.modal.new-subscription-form.submit": "Lähetä",
 
   // "subscriptions.modal.new-subscription-form.processing": "Processing...",
   // TODO New key - Add a translation
@@ -7857,19 +7635,19 @@
   "workflow-item.delete.notification.success.title": "Poistettu",
 
   // "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
-  "workflow-item.delete.notification.success.content": "Tarkastamaton tietue poistettu",
+  "workflow-item.delete.notification.success.content": "Työnkulun tietue poistettu",
 
   // "workflow-item.delete.notification.error.title": "Something went wrong",
   "workflow-item.delete.notification.error.title": "Tapahtui virhe",
 
   // "workflow-item.delete.notification.error.content": "The workflow item could not be deleted",
-  "workflow-item.delete.notification.error.content": "Tarkastamatonta tietuetta ei voitu poistaa",
+  "workflow-item.delete.notification.error.content": "Työnkulun tietuetta ei voitu poistaa",
 
   // "workflow-item.delete.title": "Delete workflow item",
-  "workflow-item.delete.title": "Poista tarkastamaton tietue",
+  "workflow-item.delete.title": "Poista työnkulkuun tietue",
 
   // "workflow-item.delete.header": "Delete workflow item",
-  "workflow-item.delete.header": "Poista tarkastamaton tietue",
+  "workflow-item.delete.header": "Poista työnkulkuun tietue",
 
   // "workflow-item.delete.button.cancel": "Cancel",
   "workflow-item.delete.button.cancel": "Peruuta",
@@ -7881,158 +7659,127 @@
   "workflow-item.send-back.notification.success.title": "Lähetetty takaisin tallentajalle",
 
   // "workflow-item.send-back.notification.success.content": "This workflow item was successfully sent back to the submitter",
-  "workflow-item.send-back.notification.success.content": "Tarkastamaton tietue lähetetty takaisin tallentajalle",
+  "workflow-item.send-back.notification.success.content": "Työnkulun tietue lähetetty takaisin tallentajalle",
 
   // "workflow-item.send-back.notification.error.title": "Something went wrong",
   "workflow-item.send-back.notification.error.title": "Tapahtui virhe",
 
   // "workflow-item.send-back.notification.error.content": "The workflow item could not be sent back to the submitter",
-  "workflow-item.send-back.notification.error.content": "Tarkastamatonta tietuetta ei voitu lähettää takaisin tallentajalle",
+  "workflow-item.send-back.notification.error.content": "Työnkulun tietuetta ei voitu lähettää takaisin tallentajalle",
 
   // "workflow-item.send-back.title": "Send workflow item back to submitter",
-  "workflow-item.send-back.title": "Lähetä tarkastamaton tietue takaisin tallentajalle",
+  "workflow-item.send-back.title": "Lähetä työnkulkuun tietue takaisin tallentajalle",
 
   // "workflow-item.send-back.header": "Send workflow item back to submitter",
-  "workflow-item.send-back.header": "Lähetä tarkastamaton tietue takaisin tallentajalle",
+  "workflow-item.send-back.header": "Lähetä työnkulun tietue takaisin tallentajalle",
 
   // "workflow-item.send-back.button.cancel": "Cancel",
   "workflow-item.send-back.button.cancel": "Peruuta",
 
   // "workflow-item.send-back.button.confirm": "Send back",
-  // TODO Source message changed - Revise the translation
   "workflow-item.send-back.button.confirm": "Lähetä takaisin",
 
   // "workflow-item.view.breadcrumbs": "Workflow View",
-  // TODO New key - Add a translation
-  "workflow-item.view.breadcrumbs": "Workflow View",
+  "workflow-item.view.breadcrumbs": "Työnkulkunäkymä",
 
   // "workspace-item.view.breadcrumbs": "Workspace View",
-  // TODO New key - Add a translation
-  "workspace-item.view.breadcrumbs": "Workspace View",
+  "workspace-item.view.breadcrumbs": "Työnkulkunäkymä",
 
   // "workspace-item.view.title": "Workspace View",
-  // TODO New key - Add a translation
-  "workspace-item.view.title": "Workspace View",
+  "workspace-item.view.title": "Työnkulkunäkymä",
 
   // "workspace-item.delete.breadcrumbs": "Workspace Delete",
-  // TODO New key - Add a translation
-  "workspace-item.delete.breadcrumbs": "Workspace Delete",
+  "workspace-item.delete.breadcrumbs": "Työnkulku - poisto",
 
   // "workspace-item.delete.header": "Delete workspace item",
-  // TODO New key - Add a translation
-  "workspace-item.delete.header": "Delete workspace item",
+  "workspace-item.delete.header": "Poista työnkulun tietue",
 
   // "workspace-item.delete.button.confirm": "Delete",
-  // TODO New key - Add a translation
-  "workspace-item.delete.button.confirm": "Delete",
+  "workspace-item.delete.button.confirm": "Poista",
 
   // "workspace-item.delete.button.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "workspace-item.delete.button.cancel": "Cancel",
+  "workspace-item.delete.button.cancel": "Peruuta",
 
   // "workspace-item.delete.notification.success.title": "Deleted",
-  // TODO New key - Add a translation
-  "workspace-item.delete.notification.success.title": "Deleted",
+  "workspace-item.delete.notification.success.title": "Poistettu",
 
   // "workspace-item.delete.title": "This workspace item was successfully deleted",
-  // TODO New key - Add a translation
-  "workspace-item.delete.title": "This workspace item was successfully deleted",
+  "workspace-item.delete.title": "Työnkulun tietue poistettu",
 
   // "workspace-item.delete.notification.error.title": "Something went wrong",
   "workspace-item.delete.notification.error.title": "Tapahtui virhe",
 
   // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
-  // TODO New key - Add a translation
-  "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
+  "workspace-item.delete.notification.error.content": "Työnkulun tietuetta ei voitu poistaa",
 
   // "workflow-item.advanced.title": "Advanced workflow",
-  // TODO New key - Add a translation
-  "workflow-item.advanced.title": "Advanced workflow",
+  "workflow-item.advanced.title": "Laajennettu työnkulku",
 
   // "workflow-item.selectrevieweraction.notification.success.title": "Selected reviewer",
-  // TODO New key - Add a translation
-  "workflow-item.selectrevieweraction.notification.success.title": "Selected reviewer",
+  "workflow-item.selectrevieweraction.notification.success.title": "Valittu tarkastaja",
 
   // "workflow-item.selectrevieweraction.notification.success.content": "The reviewer for this workflow item has been successfully selected",
-  // TODO New key - Add a translation
-  "workflow-item.selectrevieweraction.notification.success.content": "The reviewer for this workflow item has been successfully selected",
+  "workflow-item.selectrevieweraction.notification.success.content": "Työnkulun tarkastaja on valittu",
 
   // "workflow-item.selectrevieweraction.notification.error.title": "Something went wrong",
   "workflow-item.selectrevieweraction.notification.error.title": "Tapahtui virhe",
 
   // "workflow-item.selectrevieweraction.notification.error.content": "Couldn't select the reviewer for this workflow item",
-  // TODO New key - Add a translation
-  "workflow-item.selectrevieweraction.notification.error.content": "Couldn't select the reviewer for this workflow item",
+  "workflow-item.selectrevieweraction.notification.error.content": "Työnkulun tietueelle ei voitu valita tarkastajaa",
 
   // "workflow-item.selectrevieweraction.title": "Select Reviewer",
-  // TODO New key - Add a translation
-  "workflow-item.selectrevieweraction.title": "Select Reviewer",
+  "workflow-item.selectrevieweraction.title": "Valitse tarkastaja",
 
   // "workflow-item.selectrevieweraction.header": "Select Reviewer",
-  // TODO New key - Add a translation
-  "workflow-item.selectrevieweraction.header": "Select Reviewer",
+  "workflow-item.selectrevieweraction.header": "Valitse tarkastaja",
 
   // "workflow-item.selectrevieweraction.button.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "workflow-item.selectrevieweraction.button.cancel": "Cancel",
+  "workflow-item.selectrevieweraction.button.cancel": "Peruuta",
 
   // "workflow-item.selectrevieweraction.button.confirm": "Confirm",
-  // TODO New key - Add a translation
-  "workflow-item.selectrevieweraction.button.confirm": "Confirm",
+  "workflow-item.selectrevieweraction.button.confirm": "Vahvista",
 
   // "workflow-item.scorereviewaction.notification.success.title": "Rating review",
-  // TODO New key - Add a translation
-  "workflow-item.scorereviewaction.notification.success.title": "Rating review",
+  "workflow-item.scorereviewaction.notification.success.title": "Arviointikatselmus",
 
   // "workflow-item.scorereviewaction.notification.success.content": "The rating for this item workflow item has been successfully submitted",
-  // TODO New key - Add a translation
-  "workflow-item.scorereviewaction.notification.success.content": "The rating for this item workflow item has been successfully submitted",
+  "workflow-item.scorereviewaction.notification.success.content": "Tietueen arviointi on lähetetty",
 
   // "workflow-item.scorereviewaction.notification.error.title": "Something went wrong",
   "workflow-item.scorereviewaction.notification.error.title": "Tapahtui virhe",
 
   // "workflow-item.scorereviewaction.notification.error.content": "Couldn't rate this item",
-  // TODO New key - Add a translation
-  "workflow-item.scorereviewaction.notification.error.content": "Couldn't rate this item",
+  "workflow-item.scorereviewaction.notification.error.content": "Tietueen arviointi epäonnistui",
 
   // "workflow-item.scorereviewaction.title": "Rate this item",
-  // TODO New key - Add a translation
-  "workflow-item.scorereviewaction.title": "Rate this item",
+  "workflow-item.scorereviewaction.title": "Arvioi tietue",
 
   // "workflow-item.scorereviewaction.header": "Rate this item",
-  // TODO New key - Add a translation
-  "workflow-item.scorereviewaction.header": "Rate this item",
+  "workflow-item.scorereviewaction.header": "Arvioi tietue",
 
   // "workflow-item.scorereviewaction.button.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "workflow-item.scorereviewaction.button.cancel": "Cancel",
+  "workflow-item.scorereviewaction.button.cancel": "Peruuta",
 
   // "workflow-item.scorereviewaction.button.confirm": "Confirm",
-  // TODO New key - Add a translation
-  "workflow-item.scorereviewaction.button.confirm": "Confirm",
+  "workflow-item.scorereviewaction.button.confirm": "Vahvista",
 
   // "idle-modal.header": "Session will expire soon",
-  // TODO New key - Add a translation
-  "idle-modal.header": "Session will expire soon",
+  "idle-modal.header": "Istunto vanhenee pian",
 
   // "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
-  // TODO New key - Add a translation
-  "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
+  "idle-modal.info": "Turvallisuussyistä käyttäjän istunto vanhenee, kun käyttäjä on ollut epäaktiivinen {{ timeToExpire }} minuuttia. Istuntosi vanhenee pian. Haluatko pidentää istuntoasi vai kirjautua ulos?",
 
   // "idle-modal.log-out": "Log out",
-  // TODO New key - Add a translation
-  "idle-modal.log-out": "Log out",
+  "idle-modal.log-out": "Kirjaudu ulos",
 
   // "idle-modal.extend-session": "Extend session",
-  // TODO New key - Add a translation
-  "idle-modal.extend-session": "Extend session",
+  "idle-modal.extend-session": "Pidennä istuntoa",
 
   // "researcher.profile.action.processing": "Processing...",
   "researcher.profile.action.processing": "Käsitellään...",
 
   // "researcher.profile.associated": "Researcher profile associated",
-  // TODO New key - Add a translation
-  "researcher.profile.associated": "Researcher profile associated",
+  "researcher.profile.associated": "Tutkijaprofiili liitetty",
 
   // "researcher.profile.change-visibility.fail": "An unexpected error occurs while changing the profile visibility",
   "researcher.profile.change-visibility.fail": "Odottamaton virhe muutettaessa profiilin näkyvyyttä",
@@ -8059,89 +7806,72 @@
   "researcher.profile.not.associated": "Tutkijaprofiilia ei ole vielä liitetty",
 
   // "researcher.profile.view": "View",
-  // TODO New key - Add a translation
-  "researcher.profile.view": "View",
+  "researcher.profile.view": "Näytä",
 
   // "researcher.profile.private.visibility": "PRIVATE",
-  // TODO New key - Add a translation
-  "researcher.profile.private.visibility": "PRIVATE",
+  "researcher.profile.private.visibility": "YKSITYINEN",
 
   // "researcher.profile.public.visibility": "PUBLIC",
-  // TODO New key - Add a translation
-  "researcher.profile.public.visibility": "PUBLIC",
+  "researcher.profile.public.visibility": "JULKINEN",
 
   // "researcher.profile.status": "Status:",
-  // TODO New key - Add a translation
-  "researcher.profile.status": "Status:",
+  "researcher.profile.status": "Tila :",
 
   // "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
-  // TODO New key - Add a translation
-  "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
+  "researcherprofile.claim.not-authorized": "Sinulla ei ole valtuuksia ottaa itsellesi tätä tietuetta. Lisätietoa saat ylläpitäjiltä.",
 
   // "researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
-  // TODO New key - Add a translation
-  "researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
+  "researcherprofile.error.claim.body": "Tapahtui virhe profiilia haettaessa, yritä myöhemmin uudelleen",
 
   // "researcherprofile.error.claim.title": "Error",
-  // TODO New key - Add a translation
-  "researcherprofile.error.claim.title": "Error",
+  "researcherprofile.error.claim.title": "Virhe",
 
   // "researcherprofile.success.claim.body": "Profile claimed with success",
-  // TODO New key - Add a translation
-  "researcherprofile.success.claim.body": "Profile claimed with success",
+  "researcherprofile.success.claim.body": "Profiili haettu",
 
   // "researcherprofile.success.claim.title": "Success",
   // TODO New key - Add a translation
   "researcherprofile.success.claim.title": "Success",
 
   // "person.page.orcid.create": "Create an ORCID ID",
-  // TODO New key - Add a translation
-  "person.page.orcid.create": "Create an ORCID ID",
+  "person.page.orcid.create": "Luo ORCID-tunniste",
 
   // "person.page.orcid.granted-authorizations": "Granted authorizations",
-  // TODO New key - Add a translation
-  "person.page.orcid.granted-authorizations": "Granted authorizations",
+  "person.page.orcid.granted-authorizations": "Myönnetyt valtuudet",
 
   // "person.page.orcid.grant-authorizations": "Grant authorizations",
-  // TODO New key - Add a translation
-  "person.page.orcid.grant-authorizations": "Grant authorizations",
+  "person.page.orcid.grant-authorizations": "Myönnä valtuuksia",
 
   // "person.page.orcid.link": "Connect to ORCID ID",
-  // TODO New key - Add a translation
-  "person.page.orcid.link": "Connect to ORCID ID",
+  "person.page.orcid.link": "Yhdistä ORCID-tunniste",
 
   // "person.page.orcid.link.processing": "Linking profile to ORCID...",
-  // TODO New key - Add a translation
-  "person.page.orcid.link.processing": "Linking profile to ORCID...",
+  "person.page.orcid.link.processing": "Liitetään profiilia ORCID-tunnisteeseen...",
 
   // "person.page.orcid.link.error.message": "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator.",
   "person.page.orcid.link.error.message": "Virhe yhdistettäessä profiilia ORCID-tunnisteeseen. Jos virhe jatkuu, ota yhteyttä ylläpitäjään.",
 
   // "person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
-  // TODO New key - Add a translation
-  "person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
+  "person.page.orcid.orcid-not-linked-message": "Tämän profiilin ORCID-tunnistetta ({{ orcid }}) ei ole vielä yhdistetty tiliin ORCID-rekisterissä tai yhteys on vanhentunut.",
 
   // "person.page.orcid.unlink": "Disconnect from ORCID",
-  // TODO New key - Add a translation
-  "person.page.orcid.unlink": "Disconnect from ORCID",
+  "person.page.orcid.unlink": "Katkaise yhteys ORCIDiin",
 
   // "person.page.orcid.unlink.processing": "Processing...",
   "person.page.orcid.unlink.processing": "Käsitellään...",
 
   // "person.page.orcid.missing-authorizations": "Missing authorizations",
-  // TODO New key - Add a translation
-  "person.page.orcid.missing-authorizations": "Missing authorizations",
+  "person.page.orcid.missing-authorizations": "Puuttuvia valtuuksia",
 
   // "person.page.orcid.missing-authorizations-message": "The following authorizations are missing:",
-  // TODO New key - Add a translation
-  "person.page.orcid.missing-authorizations-message": "The following authorizations are missing:",
+  "person.page.orcid.missing-authorizations-message": "Seuraavat valtuudet puuttuvat:",
 
   // "person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
   // TODO New key - Add a translation
   "person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
 
   // "person.page.orcid.no-orcid-message": "No ORCID iD associated yet. By clicking on the button below it is possible to link this profile with an ORCID account.",
-  "person.page.orcid.no-orcid-message": "ORCID-tunnistetta ei ole vielä liitetty. Painamalla alapuolella olevaa nappia voit yhdistää tämän profiilin ORCID-tiliin.",
+  "person.page.orcid.no-orcid-message": "ORCID-tunnistetta ei ole vielä liitetty. Painamalla alapuolella olevaa painiketta voit yhdistää tämän profiilin ORCID-tiliin.",
 
   // "person.page.orcid.profile-preferences": "Profile preferences",
   "person.page.orcid.profile-preferences": "Profiiliasetukset",
@@ -8182,8 +7912,7 @@
   "person.page.orcid.sync-fundings.my_selected": "Valitut rahoitukset",
 
   // "person.page.orcid.sync-fundings.disabled": "Disabled",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.disabled": "Disabled",
+  "person.page.orcid.sync-fundings.disabled": "Poistettu käytöstä",
 
   // "person.page.orcid.sync-publications.all": "All publications",
   "person.page.orcid.sync-publications.all": "Kaikki julkaisut",
@@ -8195,8 +7924,7 @@
   "person.page.orcid.sync-publications.my_selected": "Valitut julkaisut",
 
   // "person.page.orcid.sync-publications.disabled": "Disabled",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.disabled": "Disabled",
+  "person.page.orcid.sync-publications.disabled": "Poistettu käytöstä",
 
   // "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
   "person.page.orcid.sync-queue.discard": "Hylkää muutos. Älä synkronoi ORCID-rekisterin kanssa.",
@@ -8292,8 +8020,8 @@
   "person.page.orcid.sync-queue.send.unauthorized-error.title": "ORCID-tunnisteen lähettäminen epäonnistui puuttuvien käyttöoikeuksien takia.",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.content": "Click <a href='{{orcid}}'>here</a> to grant again the required permissions. If the problem persists, contact the administrator",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.unauthorized-error.content": "KESKEN Napsauta <a href='{{orcid}}'>tästä</a> to. Jos virhe jatkuu, ota yhteyttä ylläpitäjään.persists, contact the administrator",
+  // TODO New key - Add a translation ree here
+  "person.page.orcid.sync-queue.send.unauthorized-error.content": "Napsauta <a href='{{orcid}}'>tästä</a> myöntääksesi vaaditut käyttöoikeudet. Jos virhe jatkuu, ota yhteyttä ylläpitäjään.persists, contact the administrator",
 
   // "person.page.orcid.sync-queue.send.bad-request-error": "The submission to ORCID failed because the resource sent to ORCID registry is not valid",
   // TODO New key - Add a translation
