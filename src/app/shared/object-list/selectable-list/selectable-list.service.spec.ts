@@ -11,7 +11,7 @@ import {
 } from './selectable-list.actions';
 import { AppState } from '../../../app.reducer';
 
-class SelectableObject extends ListableObject {
+export class SelectableObject extends ListableObject {
   constructor(private value: string) {
     super();
   }
