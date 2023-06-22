@@ -14,6 +14,7 @@ import {
   HostListener,
   Input,
   OnChanges,
+  OnDestroy,
   Output,
   Renderer2,
   SimpleChanges,
@@ -36,7 +37,7 @@ import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/mod
 @Directive({
   selector: '[dsAuthorityConfidenceState]'
 })
-export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewInit {
+export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewInit, OnDestroy {
 
   /**
    * The metadata value
@@ -187,12 +188,18 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
 
     const confidenceIcons: ConfidenceIconConfig[] = environment.submission.icons.authority.confidence;
 
-    const confidenceIndex: number = findIndex(confidenceIcons, {value: confidence});
+    const confidenceIndex: number = findIndex(confidenceIcons, { value: confidence });
 
-    const defaultConfidenceIndex: number = findIndex(confidenceIcons, {value: 'default' as any});
+    const defaultConfidenceIndex: number = findIndex(confidenceIcons, { value: 'default' as any });
     const defaultClass: string = (defaultConfidenceIndex !== -1) ? confidenceIcons[defaultConfidenceIndex].style : '';
 
     return (confidenceIndex !== -1) ? confidenceIcons[confidenceIndex].style : defaultClass;
+  }
+
+  public ngOnDestroy() {
+    if (this.onHoverUnsubscribe != null) {
+      this.onHoverUnsubscribe();
+    }
   }
 
 }
