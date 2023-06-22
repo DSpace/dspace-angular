@@ -67,7 +67,7 @@ export class SubscriptionModalComponent implements OnInit {
   /**
    * Types of subscription to be shown on select
    */
-  subscriptionDefaultTypes = ['content', 'statistics', 'content+statistics'];
+  subscriptionDefaultTypes = ['content', 'statistics'];
 
   /**
    * Frequencies to be shown as checkboxes
