@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { BehaviorSubject, combineLatest, from, shareReplay } from 'rxjs';
-import { map, mergeMap, take, tap } from 'rxjs/operators';
+import { map, mergeMap, take, tap, toArray } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import findIndex from 'lodash/findIndex';
@@ -224,11 +224,19 @@ export class SubscriptionModalComponent implements OnInit {
             getFirstCompletedRemoteData()
           );
         }),
-        tap((res: RemoteData<Subscription>) => {
-          if (res.hasSucceeded) {
-            const msg = this.translate.instant('subscriptions.modal.create.success', { type: res.payload.subscriptionType });
+        toArray(),
+        tap((res: RemoteData<Subscription>[]) => {
+          console.log(res);
+          const successTypes = res.filter((rd: RemoteData<Subscription>) => rd.hasSucceeded)
+                                  .map((rd: RemoteData<Subscription>) => rd.payload.subscriptionType);
+          const failedTypes = res.filter((rd: RemoteData<Subscription>) => rd.hasFailed)
+                                  .map((rd: RemoteData<Subscription>) => rd.payload.subscriptionType);
+
+          if (successTypes.length > 0) {
+            const msg = this.translate.instant('subscriptions.modal.create.success', { type: successTypes.join(',') });
             this.notificationsService.success(null, msg);
-          } else {
+          }
+          if (failedTypes.length > 0) {
             this.notificationsService.error(null, this.translate.instant('subscriptions.modal.create.error'));
           }
         })
@@ -242,14 +250,18 @@ export class SubscriptionModalComponent implements OnInit {
             getFirstCompletedRemoteData()
           );
         }),
-        tap((res: RemoteData<Subscription>) => {
-          if (res.hasSucceeded) {
-            const msg = this.translate.instant('subscriptions.modal.update.success', { type: res.payload.subscriptionType });
+        toArray(),
+        tap((res: RemoteData<Subscription>[]) => {
+          const successTypes = res.filter((rd: RemoteData<Subscription>) => rd.hasSucceeded)
+            .map((rd: RemoteData<Subscription>) => rd.payload.subscriptionType);
+          const failedTypes = res.filter((rd: RemoteData<Subscription>) => rd.hasFailed)
+            .map((rd: RemoteData<Subscription>) => rd.payload.subscriptionType);
+
+          if (successTypes.length > 0) {
+            const msg = this.translate.instant('subscriptions.modal.update.success', { type: successTypes.join(',') });
             this.notificationsService.success(null, msg);
-            if (isNotEmpty(this.subscription)) {
-              this.updateSubscription.emit(res.payload);
-            }
-          } else {
+          }
+          if (failedTypes.length > 0) {
             this.notificationsService.error(null, this.translate.instant('subscriptions.modal.update.error'));
           }
         })
