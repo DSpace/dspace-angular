@@ -1,13 +1,13 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ObjectListComponent } from './object-list.component';
 import { ThemedComponent } from '../theme-support/themed.component';
-import {PaginationComponentOptions} from '../pagination/pagination-component-options.model';
-import {SortDirection, SortOptions} from '../../core/cache/models/sort-options.model';
-import {CollectionElementLinkType} from '../object-collection/collection-element-link.type';
-import {Context} from '../../core/shared/context.model';
-import {RemoteData} from '../../core/data/remote-data';
-import {PaginatedList} from '../../core/data/paginated-list.model';
-import {ListableObject} from '../object-collection/shared/listable-object.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { Context } from '../../core/shared/context.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
 
 /**
  * Themed wrapper for ObjectListComponent
@@ -77,6 +77,11 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
    * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
    */
   @Input() showPaginator: boolean;
+
+  /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
 
   /**
    * Emit when one of the listed object has changed.
@@ -156,6 +161,7 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
     'importable',
     'importConfig',
     'showPaginator',
+    'showThumbnails',
     'contentChange',
     'prev',
     'next',
