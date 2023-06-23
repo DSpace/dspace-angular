@@ -1,7 +1,14 @@
-import {Inject, InjectionToken} from '@angular/core';
+import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
+import { VisibilityType } from './../../../../submission/sections/visibility-type';
+import { Inject, InjectionToken } from '@angular/core';
 
-import { uniqueId } from 'lodash';
-import {DynamicFormControlLayout, DynamicFormControlRelation, MATCH_VISIBLE, OR_OPERATOR} from '@ng-dynamic-forms/core';
+import uniqueId from 'lodash/uniqueId';
+import {
+  DynamicFormControlLayout,
+  DynamicFormControlRelation,
+  MATCH_VISIBLE,
+  OR_OPERATOR
+} from '@ng-dynamic-forms/core';
 
 import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
@@ -17,11 +24,18 @@ import { RelationshipOptions } from '../models/relationship-options.model';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { ParserType } from './parser-type';
 import { isNgbDateStruct } from '../../../date.util';
+import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
 export const INIT_FORM_VALUES: InjectionToken<any> = new InjectionToken<any>('initFormValues');
 export const PARSER_OPTIONS: InjectionToken<ParserOptions> = new InjectionToken<ParserOptions>('parserOptions');
+/**
+ * This pattern checks that a regex field uses the common ECMAScript format: `/{pattern}/{flags}`, in which the flags
+ * are part of the regex, or a simpler one with only pattern `/{pattern}/` or `{pattern}`.
+ * The regex itself is encapsulated inside a `RegExp` object, that will validate the pattern syntax.
+ */
+export const REGEX_FIELD_VALIDATOR = new RegExp('(\\/?)(.+)\\1([gimsuy]*)', 'i');
 
 export abstract class FieldParser {
 
@@ -43,7 +57,7 @@ export abstract class FieldParser {
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any;
 
   public parse() {
-    if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
+     if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
       && (this.configData.input.type !== ParserType.List)
       && (this.configData.input.type !== ParserType.Tag)
     ) {
@@ -269,8 +283,8 @@ export abstract class FieldParser {
     controlModel.id = (this.fieldId).replace(/\./g, '_');
 
     // Set read only option
-    controlModel.readOnly = this.parserOptions.readOnly;
-    controlModel.disabled = this.parserOptions.readOnly;
+    controlModel.readOnly = this.parserOptions.readOnly || this.isFieldReadOnly(this.configData.visibility, this.configData.scope, this.parserOptions.submissionScope);
+    controlModel.disabled = controlModel.readOnly;
     if (hasValue(this.configData.selectableRelationship)) {
       controlModel.relationship = Object.assign(new RelationshipOptions(), this.configData.selectableRelationship);
     }
@@ -309,12 +323,35 @@ export abstract class FieldParser {
   }
 
   /**
+   * Checks if a field is read-only with the given scope.
+   * The field is readonly when submissionScope is WORKSPACE and the main visibility is READONLY
+   * or when submissionScope is WORKFLOW and the other visibility is READONLY
+   * @param visibility
+   * @param submissionScope
+   */
+  private isFieldReadOnly(visibility: SectionVisibility, fieldScope: string, submissionScope: string) {
+    return isNotEmpty(submissionScope)
+      && isNotEmpty(fieldScope)
+      && isNotEmpty(visibility)
+      && ((
+          submissionScope === SubmissionScopeType.WorkspaceItem
+          && visibility.main === VisibilityType.READONLY
+          )
+        ||
+          (visibility.other === VisibilityType.READONLY
+          && submissionScope === SubmissionScopeType.WorkflowItem
+          )
+      );
+  }
+
+  /**
    * Get the type bind values from the REST data for a specific field
    * The return value is any[] in the method signature but in reality it's
    * returning the 'relation' that'll be used for a dynamic matcher when filtering
    * fields in type bind, made up of a 'match' outcome (make this field visible), an 'operator'
    * (OR) and a 'when' condition (the bindValues array).
    * @param configuredTypeBindValues  array of types from the submission definition (CONFIG_DATA)
+   * @param typeField
    * @private
    * @return DynamicFormControlRelation[] array with one relation in it, for type bind matching to show a field
    */
@@ -343,8 +380,21 @@ export abstract class FieldParser {
     return hasValue(this.configData.input.regex);
   }
 
+  /**
+   * Adds pattern validation to `controlModel`, it uses the encapsulated `configData` to test the regex,
+   * contained in the input config, against the common `ECMAScript` standard validator {@link REGEX_FIELD_VALIDATOR},
+   * and creates an equivalent `RegExp` object that will be used during form-validation against the user-input.
+   * @param controlModel
+   * @protected
+   */
   protected addPatternValidator(controlModel) {
-    const regex = new RegExp(this.configData.input.regex);
+    const validatorMatcher = this.configData.input.regex.match(REGEX_FIELD_VALIDATOR);
+    let regex;
+    if (validatorMatcher != null && validatorMatcher.length > 3) {
+      regex = new RegExp(validatorMatcher[2], validatorMatcher[3]);
+    } else {
+      regex = new RegExp(this.configData.input.regex);
+    }
     controlModel.validators = Object.assign({}, controlModel.validators, { pattern: regex });
     controlModel.errorMessages = Object.assign(
       {},

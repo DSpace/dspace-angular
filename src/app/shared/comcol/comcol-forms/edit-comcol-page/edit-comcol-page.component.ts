@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -53,7 +53,7 @@ export class EditComColPageComponent<TDomain extends DSpaceObject> implements On
     this.pages = this.route.routeConfig.children
       .map((child: any) => child.path)
       .filter((path: string) => isNotEmpty(path)); // ignore reroutes
-    this.dsoRD$ = this.route.data.pipe(first(), map((data) => data.dso));
+    this.dsoRD$ = this.route.data.pipe(map((data) => data.dso));
   }
 
   /**

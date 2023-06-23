@@ -1,4 +1,13 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    SimpleChanges,
+    ViewChild
+} from '@angular/core';
 
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -27,7 +36,7 @@ import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
   styleUrls: ['./section-upload-file.component.scss'],
   templateUrl: './section-upload-file.component.html',
 })
-export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
+export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, OnDestroy {
 
   /**
    * The list of available access condition
@@ -168,13 +177,13 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
   /**
    * Retrieve bitstream's metadata
    */
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges): void {
     if (this.availableAccessConditionOptions) {
       // Retrieve file state
       this.subscriptions.push(
         this.uploadService
-          .getFileData(this.submissionId, this.sectionId, this.fileId).pipe(
-            filter((bitstream) => isNotUndefined(bitstream)))
+          .getFileData(this.submissionId, this.sectionId, this.fileId)
+          .pipe(filter((bitstream) => isNotUndefined(bitstream)))
           .subscribe((bitstream) => {
               this.fileData = bitstream;
             }

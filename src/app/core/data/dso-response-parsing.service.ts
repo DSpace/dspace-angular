@@ -10,6 +10,10 @@ import { hasNoValue, hasValue } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { RestRequest } from './rest-request.model';
 
+/**
+ * @deprecated use DspaceRestResponseParsingService for new code, this is only left to support a
+ * few legacy use cases, and should get removed eventually
+ */
 @Injectable()
 export class DSOResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
   protected toCache = true;

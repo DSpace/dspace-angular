@@ -126,3 +126,9 @@ export function getRequestCopyModulePath() {
 }
 
 export const HEALTH_PAGE_PATH = 'health';
+
+export const SUBSCRIPTIONS_MODULE_PATH = 'subscriptions';
+
+export function getSubscriptionsModuleRoute() {
+  return `/${SUBSCRIPTIONS_MODULE_PATH}`;
+}

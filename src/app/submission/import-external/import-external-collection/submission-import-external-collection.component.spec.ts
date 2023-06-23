@@ -1,4 +1,4 @@
-import { Component, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { createTestComponent } from '../../../shared/testing/utils.test';
@@ -64,7 +64,7 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       compAsAny = null;
     });
 
-    it('should emit from selectedEvent on selectObject', () => {
+    it('should emit from selectedEvent on selectObject and set loading to true', () => {
       spyOn(comp.selectedEvent, 'emit').and.callThrough();
 
       const entry = {
@@ -79,6 +79,7 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       comp.selectObject(entry);
 
       expect(comp.selectedEvent.emit).toHaveBeenCalledWith(entry);
+      expect(comp.loading).toBeTrue();
     });
 
     it('should dismiss modal on closeCollectionModal', () => {
@@ -122,7 +123,7 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       fixture.detectChanges();
 
       fixture.whenStable().then(() => {
-        const dropdownMenu = fixture.debugElement.query(By.css('ds-collection-dropdown')).nativeElement;
+        const dropdownMenu = fixture.debugElement.query(By.css('ds-themed-collection-dropdown')).nativeElement;
         expect(dropdownMenu.classList).toContain('d-none');
       });
     }));

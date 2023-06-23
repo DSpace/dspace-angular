@@ -1,5 +1,5 @@
 import { Component, EventEmitter, HostListener, OnDestroy, OnInit, Output, ChangeDetectorRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -47,6 +47,7 @@ import { NoContent } from '../../../core/shared/NoContent.model';
 import { Operation } from 'fast-json-patch';
 import { ValidateGroupExists } from './validators/group-exists.validator';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'ds-group-form',
@@ -95,7 +96,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   /**
    * A FormGroup that combines all inputs
    */
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   /**
    * An EventEmitter that's fired whenever the form is being submitted
@@ -198,6 +199,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         label: groupDescription,
         name: 'groupDescription',
         required: false,
+        spellCheck: environment.form.spellCheck,
       });
       this.formModel = [
         this.groupName,
@@ -348,8 +350,8 @@ export class GroupFormComponent implements OnInit, OnDestroy {
 
     if (hasValue(this.groupDescription.value)) {
       operations = [...operations, {
-        op: 'replace',
-        path: '/metadata/dc.description/0/value',
+        op: 'add',
+        path: '/metadata/dc.description',
         value: this.groupDescription.value
       }];
     }

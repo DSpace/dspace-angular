@@ -64,7 +64,7 @@
       </p>
       <ul class="footer-info list-unstyled small d-flex justify-content-center mb-0">
         <li>
-          <a class="text-white" href="javascript:void(0);"
+            <a class="text-white" href="javascript:void(0);"
              (click)="showCookieSettings()">{{ 'footer.link.cookies' | translate}}</a>
         </li>
         <li *ngIf="showPrivacyPolicy">
@@ -75,7 +75,7 @@
           <a class="text-white"
              routerLink="info/end-user-agreement">{{ 'footer.link.end-user-agreement' | translate}}</a>
         </li>
-        <li>
+        <li *ngIf="showSendFeedback$ | async">
           <a class="text-white"
              routerLink="info/feedback">{{ 'footer.link.feedback' | translate}}</a>
         </li>

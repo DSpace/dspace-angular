@@ -16,15 +16,25 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BrowseService } from '../core/browse/browse.service';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { buildPaginatedList } from '../core/data/paginated-list.model';
-import { BrowseDefinition } from '../core/shared/browse-definition.model';
 import { BrowseByDataType } from '../browse-by/browse-by-switcher/browse-by-decorator';
 import { Item } from '../core/shared/item.model';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { ThemeService } from '../shared/theme-support/theme.service';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
+import { Store, StoreModule } from '@ngrx/store';
+import { AppState, storeModuleConfig } from '../app.reducer';
+import { authReducer } from '../core/auth/auth.reducer';
+import { provideMockStore } from '@ngrx/store/testing';
+import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
+import { EPersonMock } from '../shared/testing/eperson.mock';
+import { FlatBrowseDefinition } from '../core/shared/flat-browse-definition.model';
+import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
+import { HierarchicalBrowseDefinition } from '../core/shared/hierarchical-browse-definition.model';
 
 let comp: NavbarComponent;
 let fixture: ComponentFixture<NavbarComponent>;
+let store: Store<AppState>;
+let initialState: any;
 
 const authorizationService = jasmine.createSpyObj('authorizationService', {
   isAuthorized: observableOf(true)
@@ -58,35 +68,54 @@ describe('NavbarComponent', () => {
   beforeEach(waitForAsync(() => {
     browseDefinitions = [
       Object.assign(
-        new BrowseDefinition(), {
+        new FlatBrowseDefinition(), {
           id: 'title',
           dataType: BrowseByDataType.Title,
         }
       ),
       Object.assign(
-        new BrowseDefinition(), {
+        new FlatBrowseDefinition(), {
           id: 'dateissued',
           dataType: BrowseByDataType.Date,
           metadataKeys: ['dc.date.issued']
         }
       ),
       Object.assign(
-        new BrowseDefinition(), {
+        new ValueListBrowseDefinition(), {
           id: 'author',
           dataType: BrowseByDataType.Metadata,
         }
       ),
       Object.assign(
-        new BrowseDefinition(), {
+        new ValueListBrowseDefinition(), {
           id: 'subject',
           dataType: BrowseByDataType.Metadata,
         }
       ),
+      Object.assign(
+        new HierarchicalBrowseDefinition(), {
+          id: 'srsc',
+        }
+      ),
     ];
+    initialState = {
+      core: {
+        auth: {
+          authenticated: true,
+          loaded: true,
+          blocking: false,
+          loading: false,
+          authToken: new AuthTokenInfo('test_token'),
+          userId: EPersonMock.id,
+          authMethods: []
+        }
+      }
+    };
 
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
+        StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         NoopAnimationsModule,
         ReactiveFormsModule,
         RouterTestingModule],
@@ -99,6 +128,7 @@ describe('NavbarComponent', () => {
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: BrowseService, useValue: { getBrowseDefinitions: createSuccessfulRemoteDataObject$(buildPaginatedList(undefined, browseDefinitions)) } },
         { provide: AuthorizationDataService, useValue: authorizationService },
+        provideMockStore({ initialState }),
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -107,7 +137,7 @@ describe('NavbarComponent', () => {
 
   // synchronous beforeEach
   beforeEach(() => {
-
+    store = TestBed.inject(Store);
     fixture = TestBed.createComponent(NavbarComponent);
 
     comp = fixture.componentInstance;

@@ -31,11 +31,13 @@ import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.se
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { BrowserAuthRequestService } from '../../app/core/auth/browser-auth-request.service';
 import { BrowserInitService } from './browser-init.service';
+import { ReferrerService } from '../../app/core/services/referrer.service';
+import { BrowserReferrerService } from '../../app/core/services/browser.referrer.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
 export function createTranslateLoader(transferState: TransferState, http: HttpClient) {
-  return new TranslateBrowserLoader(transferState, http, 'assets/i18n/', '.json5');
+  return new TranslateBrowserLoader(transferState, http, 'assets/i18n/', '.json');
 }
 
 export function getRequest(transferState: TransferState): any {
@@ -108,9 +110,13 @@ export function getRequest(transferState: TransferState): any {
       useClass: BrowserAuthRequestService,
     },
     {
+      provide: ReferrerService,
+      useClass: BrowserReferrerService,
+    },
+    {
       provide: LocationToken,
       useFactory: locationProvider,
-    },
+    }
   ]
 })
 export class BrowserAppModule {

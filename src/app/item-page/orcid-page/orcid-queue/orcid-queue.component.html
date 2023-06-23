@@ -34,11 +34,13 @@
               <div class="btn-group edit-field">
                 <button [ngbTooltip]="getOperationTooltip(entry) | translate" container="body"
                         class="btn btn-outline-primary my-1 col-md" (click)="send(entry)">
-                  <i [ngClass]="getOperationClass(entry)"></i>
+                  <span [ngClass]="getOperationClass(entry)"></span>
+                  <span class="sr-only">{{ getOperationTooltip(entry) | translate }}</span>
                 </button>
                 <button [ngbTooltip]="'person.page.orcid.sync-queue.discard' | translate" container="body"
                         class="btn btn-outline-danger my-1 col-md" (click)="discardEntry(entry)">
-                  <i class="fas fa-unlink"></i>
+                  <span class="fas fa-unlink"></span>
+                  <span class="sr-only">{{ 'person.page.orcid.sync-queue.discard' | translate }}</span>
                 </button>
               </div>
             </td>

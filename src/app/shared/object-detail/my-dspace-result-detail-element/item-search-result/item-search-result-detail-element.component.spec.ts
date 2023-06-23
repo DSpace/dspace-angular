@@ -6,8 +6,8 @@ import { of as observableOf } from 'rxjs';
 
 import { Item } from '../../../../core/shared/item.model';
 import { ItemSearchResultDetailElementComponent } from './item-search-result-detail-element.component';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { Context } from 'src/app/core/shared/context.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 
@@ -73,7 +73,7 @@ describe('ItemSearchResultDetailElementComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should have properly status', () => {
-    expect(component.status).toEqual(MyDspaceItemStatusType.ARCHIVED);
+  it('should have the correct badge context', () => {
+    expect(component.badgeContext).toEqual(Context.MyDSpaceArchived);
   });
 });

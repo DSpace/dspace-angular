@@ -54,10 +54,21 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   @Input() currentDefinition: string;
 
   /**
+   * Checks if the collection can be modifiable by the user
+   * @type {booelan}
+   */
+  @Input() collectionModifiable: boolean | null = null;
+
+  /**
    * The submission id
    * @type {string}
    */
   @Input() submissionId;
+
+  /**
+   * Flag to indicate if the submission dropdown is read only
+   */
+  @Input() isReadonly = false;
 
   /**
    * An event fired when a different collection is selected.
@@ -181,7 +192,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    * Reset search form control on dropdown menu close
    */
   onClose() {
-    this.collectionDropdown.reset();
+    this.collectionDropdown?.reset();
   }
 
   /**
@@ -192,7 +203,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   toggled(isOpen: boolean) {
     if (!isOpen) {
-      this.collectionDropdown.reset();
+      this.collectionDropdown?.reset();
     }
   }
 }

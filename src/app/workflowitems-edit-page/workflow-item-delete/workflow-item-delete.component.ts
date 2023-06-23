@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ds-workflow-item-delete',
@@ -26,8 +27,10 @@ export class WorkflowItemDeleteComponent extends WorkflowItemActionPageComponent
               protected routeService: RouteService,
               protected notificationsService: NotificationsService,
               protected translationService: TranslateService,
-              protected requestService: RequestService) {
-    super(route, workflowItemService, router, routeService, notificationsService, translationService);
+              protected requestService: RequestService,
+              protected location: Location,
+  ) {
+    super(route, workflowItemService, router, routeService, notificationsService, translationService, requestService, location);
   }
 
   /**
@@ -42,7 +45,6 @@ export class WorkflowItemDeleteComponent extends WorkflowItemActionPageComponent
    * @param id The id of the WorkflowItem
    */
   sendRequest(id: string): Observable<boolean> {
-    this.requestService.removeByHrefSubstring('/discover');
     return this.workflowItemService.delete(id).pipe(
       getFirstCompletedRemoteData(),
       map((response: RemoteData<NoContent>) => response.hasSucceeded)

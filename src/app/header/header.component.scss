@@ -11,13 +11,12 @@
   line-height: 1.5;
 }
 
-.navbar ::ng-deep {
-  a {
-    color: var(--ds-header-icon-color);
+.navbar-toggler {
+  border: none;
+  color: var(--ds-header-icon-color);
 
-    &:hover, &focus {
-      color: var(--ds-header-icon-color-hover);
-    }
+  &:hover, &:focus {
+    color: var(--ds-header-icon-color-hover);
   }
 }
 

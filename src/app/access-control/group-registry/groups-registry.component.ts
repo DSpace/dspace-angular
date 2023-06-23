@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -100,7 +100,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               private dSpaceObjectDataService: DSpaceObjectDataService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
-              private formBuilder: FormBuilder,
+              private formBuilder: UntypedFormBuilder,
               protected routeService: RouteService,
               private router: Router,
               private authorizationService: AuthorizationDataService,

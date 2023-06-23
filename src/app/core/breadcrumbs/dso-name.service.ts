@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { hasValue, isEmpty } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { TranslateService } from '@ngx-translate/core';
+import { Metadata } from '../shared/metadata.utils';
 
 /**
  * Returns a name for a {@link DSpaceObject} based
@@ -30,7 +31,7 @@ export class DSONameService {
       const firstName = dso.firstMetadataValue('eperson.firstname');
       const lastName = dso.firstMetadataValue('eperson.lastname');
       if (isEmpty(firstName) && isEmpty(lastName)) {
-        return dso.name;
+        return this.translateService.instant('dso.name.unnamed');
       } else if (isEmpty(firstName) || isEmpty(lastName)) {
         return firstName || lastName;
       } else {
@@ -41,7 +42,7 @@ export class DSONameService {
       const familyName = dso.firstMetadataValue('person.familyName');
       const givenName = dso.firstMetadataValue('person.givenName');
       if (isEmpty(familyName) && isEmpty(givenName)) {
-        return dso.firstMetadataValue('dc.title') || dso.name;
+        return dso.firstMetadataValue('dc.title') || this.translateService.instant('dso.name.unnamed');
       } else if (isEmpty(familyName) || isEmpty(givenName)) {
         return familyName || givenName;
       } else {
@@ -80,6 +81,47 @@ export class DSONameService {
     } else {
       return '';
     }
+  }
+
+  /**
+   * Gets the Hit highlight
+   *
+   * @param object
+   * @param dso
+   *
+   * @returns {string} html embedded hit highlight.
+   */
+  getHitHighlights(object: any, dso: DSpaceObject): string {
+    const types = dso.getRenderTypes();
+    const entityType = types
+      .filter((type) => typeof type === 'string')
+      .find((type: string) => (['Person', 'OrgUnit']).includes(type)) as string;
+    if (entityType === 'Person') {
+      const familyName = this.firstMetadataValue(object, dso, 'person.familyName');
+      const givenName = this.firstMetadataValue(object, dso, 'person.givenName');
+      if (isEmpty(familyName) && isEmpty(givenName)) {
+        return this.firstMetadataValue(object, dso, 'dc.title') || dso.name;
+      } else if (isEmpty(familyName) || isEmpty(givenName)) {
+        return familyName || givenName;
+      }
+      return `${familyName}, ${givenName}`;
+    } else if (entityType === 'OrgUnit') {
+      return this.firstMetadataValue(object, dso, 'organization.legalName');
+    }
+    return this.firstMetadataValue(object, dso, 'dc.title') || dso.name || this.translateService.instant('dso.name.untitled');
+  }
+
+  /**
+   * Gets the first matching metadata string value from hitHighlights or dso metadata, preferring hitHighlights.
+   *
+   * @param object
+   * @param dso
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   *
+   * @returns {string} the first matching string value, or `undefined`.
+   */
+  firstMetadataValue(object: any, dso: DSpaceObject, keyOrKeys: string | string[]): string {
+    return Metadata.firstValue([object.hitHighlights, dso.metadata], keyOrKeys);
   }
 
 }

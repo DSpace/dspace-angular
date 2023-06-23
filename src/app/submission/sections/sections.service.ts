@@ -5,7 +5,9 @@ import { distinctUntilChanged, filter, map, mergeMap, take } from 'rxjs/operator
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
-import { findIndex, findKey, isEqual } from 'lodash';
+import findIndex from 'lodash/findIndex';
+import findKey from 'lodash/findKey';
+import isEqual from 'lodash/isEqual';
 
 import { SubmissionState } from '../submission.reducers';
 import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
@@ -332,8 +334,9 @@ export class SectionsService {
       filter((sectionObj) => hasValue(sectionObj)),
       map((sectionObj: SubmissionSectionObject) => {
         return isNotEmpty(sectionObj.visibility)
-          && sectionObj.visibility.other === 'READONLY'
-          && submissionScope !== SubmissionScopeType.WorkspaceItem;
+          && ((sectionObj.visibility.other === 'READONLY' && submissionScope !== SubmissionScopeType.WorkspaceItem)
+              || (sectionObj.visibility.main === 'READONLY' && submissionScope === SubmissionScopeType.WorkspaceItem)
+             );
       }),
       distinctUntilChanged());
   }

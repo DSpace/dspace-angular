@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { Observable, of as observableOf } from 'rxjs';
 import { catchError, distinctUntilChanged, map, tap } from 'rxjs/operators';
@@ -29,7 +29,7 @@ import { FormFieldMetadataValueObject } from '../../../models/form-field-metadat
 })
 export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyComponent implements OnInit {
   @Input() bindId = true;
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() model: DynamicScrollableDropdownModel;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
@@ -95,6 +95,23 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     if (!this.model.readOnly) {
       this.group.markAsUntouched();
       sdRef.open();
+    }
+  }
+
+  /**
+   * KeyDown handler to allow toggling the dropdown via keyboard
+   * @param event KeyboardEvent
+   * @param sdRef The reference of the NgbDropdown.
+   */
+  selectOnKeyDown(event: KeyboardEvent, sdRef: NgbDropdown) {
+    const keyName = event.key;
+
+    if (keyName === ' ' || keyName === 'Enter') {
+      event.preventDefault();
+      event.stopPropagation();
+      sdRef.toggle();
+    } else if (keyName === 'ArrowDown' || keyName === 'ArrowUp') {
+      this.openDropdown(sdRef);
     }
   }
 
