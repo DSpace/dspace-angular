@@ -14,7 +14,7 @@ export function getCommunityPageRoute(communityId: string) {
 }
 
 export function getCommunityCollectionPageRoute(id: string) {
-  return new URLCombiner(getCommunityModuleRoute(), COMMUNITY_SUB_COM_COL_PATH, id).toString();
+  return new URLCombiner(getCommunityModuleRoute(), id, COMMUNITY_SUB_COM_COL_PATH).toString();
 }
 
 export function getCommunityEditRoute(id: string) {

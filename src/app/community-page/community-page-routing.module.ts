@@ -25,16 +25,6 @@ import { SubComCollPageComponent } from './sub-com-coll-page/sub-com-coll-page.c
         canActivate: [AuthenticatedGuard, CreateCommunityPageGuard]
       },
       {
-        path: 'sub-com-col/:id',
-        pathMatch: 'full',
-        component: SubComCollPageComponent,
-        resolve: {
-          dso: CommunityPageResolver,
-          breadcrumb: CommunityBreadcrumbResolver,
-          menu: DSOEditMenuResolver
-        },
-      },
-      {
         path: ':id',
         resolve: {
           dso: CommunityPageResolver,
@@ -43,6 +33,15 @@ import { SubComCollPageComponent } from './sub-com-coll-page/sub-com-coll-page.c
         },
         runGuardsAndResolvers: 'always',
         children: [
+          {
+            path: 'sub-com-col',
+            component: SubComCollPageComponent,
+            resolve: {
+              dso: CommunityPageResolver,
+              breadcrumb: CommunityBreadcrumbResolver,
+              menu: DSOEditMenuResolver
+            },
+          },
           {
             path: COMMUNITY_EDIT_PATH,
             loadChildren: () => import('./edit-community-page/edit-community-page.module')

@@ -38,8 +38,8 @@ export class ComcolPageBrowseByComponent implements OnInit {
   currentOptionId$: Observable<string>;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
+    protected route: ActivatedRoute,
+    protected router: Router,
     private browseService: BrowseService
   ) {
   }
@@ -69,7 +69,7 @@ export class ComcolPageBrowseByComponent implements OnInit {
               label: 'community.search.head',
               routerLink: getCommunityPageRoute(this.id)
             }, {
-                id: 'subcomm-coll',
+              id: 'sub-com-col',
                 label: 'community.all-lists.head',
                 routerLink: getCommunityCollectionPageRoute(this.id),
               }, ...this.allOptions];

@@ -5165,4 +5165,74 @@
   "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
 
   "admin.system-wide-alert.title": "System-wide Alerts",
+
+  "search.advanced.filters.head": "Advanced Search",
+  "filter.search.operator.placeholder": "Operator",
+  "filter.search.text.placeholder": "Search text",
+  "filter.search.placeholder": "Select filter",
+  "search.filters.operator.equals.text": "Equals",
+  "search.filters.operator.notequals.text": "Not Equals",
+  "search.filters.operator.notcontains.text": "Not Contains",
+  "search.filters.operator.contains.text": "Contains",
+  "search.filters.filter.title.text": "Title",
+  "search.filters.filter.author.text": "Author",
+  "search.filters.filter.subject.text": "Subject",
+  "discover.filters.head": "Discover",
+  "community.search.head": "Search Within",
+  "collection.page.browse.search.head": "Search Within",
+  "search.filters.applied.f.title": "Title",
+  "search.filters.filter.entityType.text": "Item Type",
+
+
+  "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
+
+  "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
+
+  "community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).",
+
+  "access-control-item-header-toggle": "Item's Metadata",
+
+  "access-control-bitstream-header-toggle": "Bitstreams",
+
+  "access-control-mode": "Mode",
+
+  "access-control-access-conditions": "Access conditions",
+
+  "access-control-no-access-conditions-warning-message": "Currently, no access conditions are specified below. If executed, this will replace the current access conditions with the default access conditions inherited from the owning collection.",
+
+  "access-control-replace-all": "Replace access conditions",
+
+  "access-control-add-to-existing": "Add to existing ones",
+
+  "access-control-limit-to-specific": "Limit the changes to specific bitstreams",
+
+  "access-control-process-all-bitstreams": "Update all the bitstreams in the item",
+
+  "access-control-bitstreams-selected": "bitstreams selected",
+
+  "access-control-cancel": "Cancel",
+
+  "access-control-execute": "Execute",
+
+  "access-control-add-more": "Add more",
+
+  "access-control-select-bitstreams-modal.title": "Select bitstreams",
+
+  "access-control-select-bitstreams-modal.no-items": "No items to show.",
+
+  "access-control-select-bitstreams-modal.close": "Close",
+
+  "access-control-option-label": "Access condition type",
+
+  "access-control-option-note": "Choose an access condition to apply to selected objects.",
+
+  "access-control-option-start-date": "Grant access from",
+
+  "access-control-option-start-date-note": "Select the date from which the related access condition is applied",
+
+  "access-control-option-end-date": "Grant access until",
+
+  "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
+
 }
+

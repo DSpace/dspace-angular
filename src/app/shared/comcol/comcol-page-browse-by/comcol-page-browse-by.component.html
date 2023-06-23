@@ -7,7 +7,7 @@
          class="list-group-item"
          [routerLink]="option.routerLink"
          [queryParams]="option.params"
-         routerLinkActive="active">{{ option.label | translate }}</a>
+         [class.active]="option.routerLink==router.url.split('?')[0]">{{ option.label | translate }}</a>
     </div>
   </div>
 
