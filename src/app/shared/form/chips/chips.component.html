@@ -2,7 +2,7 @@
   <ul class="nav nav-pills d-flex flex-column flex-sm-row" [sortablejs]="chips.getChips()" [sortablejsOptions]="options">
     <ng-container *ngFor="let c of chips.getChips(); let i = index">
       <ng-template #tipContent>
-        <p class="text-left p-0 m-0" *ngFor="let tip of tipText">
+        <p class="text-left p-0 m-0" *ngFor="let tip of (tipText$ | async)">
           {{tip}}
         </p>
       </ng-template>
@@ -34,6 +34,7 @@
                    dsAuthorityConfidenceState
                    [authorityValue]="c.item[icon.metadata] || c.item"
                    [visibleWhenAuthorityEmpty]="icon.visibleWhenAuthorityEmpty"
+                   [showTooltip]="false"
                    aria-hidden="true"
                    (dragstart)="t.close();"
                    (mouseover)="showTooltip(t, i, icon.metadata)"

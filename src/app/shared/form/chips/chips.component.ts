@@ -8,7 +8,10 @@ import { ChipsItem } from './models/chips-item.model';
 import { DragService } from '../../../core/drag.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Options } from 'sortablejs';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, forkJoin } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+import { isNotEmpty } from '../../empty.util';
+
 const TOOLTIP_TEXT_LIMIT = 21;
 @Component({
   selector: 'ds-chips',
@@ -29,8 +32,7 @@ export class ChipsComponent implements OnChanges {
   isDragging: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   options: Options;
   dragged = -1;
-  tipText: string[];
-  isShowToolTip = false;
+  tipText$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -81,42 +83,61 @@ export class ChipsComponent implements OnChanges {
 
   showTooltip(tooltip: NgbTooltip, index, field?) {
     tooltip.close();
-    this.isShowToolTip = false;
+    let canShowToolTip = true;
     const chipsItem = this.chips.getChipByIndex(index);
     const textToDisplay: string[] = [];
     if (!chipsItem.editMode && this.dragged === -1) {
       if (field) {
         if (isObject(chipsItem.item[field])) {
           textToDisplay.push(chipsItem.item[field].display);
-          this.toolTipVisibleCheck(chipsItem.item[field].display);
-          if (chipsItem.item[field].hasOtherInformation()) {
-            Object.keys(chipsItem.item[field].otherInformation)
-              .forEach((otherField) => {
-                this.translate.get('form.other-information.' + otherField)
-                  .subscribe((label) => {
-                    const otherInformationText = chipsItem.item[field].otherInformation[otherField].split('::')[0];
-                    textToDisplay.push(label + ': ' + otherInformationText);
-                    this.toolTipVisibleCheck(label + ': ' + otherInformationText);
-                  });
-            });
+          let otherInformationKeys: string[] = null;
+          if (
+            chipsItem.item[field].hasOtherInformation() &&
+            isNotEmpty(otherInformationKeys = this.getDisplayableOtherInformationKeys(chipsItem, field))
+          ) {
+            forkJoin(
+              otherInformationKeys
+                .map((otherField) =>
+                  this.translate.get('form.other-information.' + otherField)
+                    .pipe(
+                      map((label) => `${label}: ${chipsItem.item[field].otherInformation[otherField].split('::')[0]}`),
+                      take(1)
+                    )
+                )
+            ).subscribe(entries => textToDisplay.push(...entries));
           }
           if (this.hasWillBeReferenced(chipsItem, field)) {
             textToDisplay.push(this.getWillBeReferencedContent(chipsItem, field));
           }
         } else {
           textToDisplay.push(chipsItem.item[field]);
-          this.toolTipVisibleCheck(chipsItem.item[field]);
         }
       } else {
         textToDisplay.push(chipsItem.display);
-        this.toolTipVisibleCheck(chipsItem.display);
+        canShowToolTip = this.toolTipVisibleCheck(chipsItem.display);
       }
-      this.cdr.detectChanges();
-      if ((!chipsItem.hasIcons() || !chipsItem.hasVisibleIcons() || field ) && this.isShowToolTip) {
-        this.tipText = textToDisplay;
+      if ((!chipsItem.hasIcons() || !chipsItem.hasVisibleIcons() || field) && canShowToolTip) {
+        this.tipText$.next(textToDisplay);
         tooltip.open();
       }
     }
+  }
+
+  private getDisplayableOtherInformationKeys(chipsItem: ChipsItem, field: string): string[] {
+    return Object.keys(chipsItem.item[field]?.otherInformation)
+      .filter((otherInformationKey: string) =>
+        !otherInformationKey.startsWith('data-') &&
+        this.checkOtherInformationValue(chipsItem, field, otherInformationKey)
+      );
+  }
+
+  private checkOtherInformationValue(chipsItem: ChipsItem, itemField: string, otherInformationKey: string) {
+    const otherInformationMetadataFieldKey = otherInformationKey.replace(/\_/g, '.');
+    const otherInformation = chipsItem.item[itemField]?.otherInformation;
+    const [otherInformationValue, otherInformationAuthority] = otherInformation[otherInformationKey].split('::');
+    return !chipsItem.item[otherInformationMetadataFieldKey]?.hasPlaceholder() &&
+      chipsItem.item[otherInformationMetadataFieldKey]?.value === otherInformationValue &&
+      chipsItem.item[otherInformationMetadataFieldKey]?.authority === otherInformationAuthority;
   }
 
   hasWillBeGenerated(chip: ChipsItem, metadata: string) {
@@ -137,15 +158,15 @@ export class ChipsComponent implements OnChanges {
     return metadataValue?.authority?.substring(metadataValue?.authority.indexOf('::') + 2);
   }
 
-  toolTipVisibleCheck(text: string) {
-    if (!this.isShowToolTip) {
-      this.isShowToolTip = text.length > TOOLTIP_TEXT_LIMIT;
-    }
+  toolTipVisibleCheck(text: string): boolean {
+    return text.length > TOOLTIP_TEXT_LIMIT;
   }
+
   textTruncate(text: string): string {
     if (text.length >= TOOLTIP_TEXT_LIMIT) {
-      text = `${text.substring(0,TOOLTIP_TEXT_LIMIT)}...`;
+      return `${text.substring(0, TOOLTIP_TEXT_LIMIT)}...`;
     }
     return text;
   }
+
 }
