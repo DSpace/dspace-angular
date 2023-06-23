@@ -486,7 +486,7 @@ function saveToCache(req, page: any) {
  * @param statusCode
  */
 function hasNotSucceeded(statusCode) {
-  const rgx = new RegExp(/20+/);
+  const rgx = new RegExp(/^20+/);
   return !rgx.test(statusCode)
 }
 
