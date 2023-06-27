@@ -102,7 +102,7 @@ export class ChipsComponent implements OnChanges {
                   .subscribe((label) => {
                     textToDisplay.push(label + ': ' + chipsItem.item[field].otherInformation[otherField]);
                   });
-            });
+              });
           }
         } else {
           textToDisplay.push(chipsItem.item[field]);

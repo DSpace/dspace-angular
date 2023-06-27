@@ -100,25 +100,25 @@ export class WorkspaceItemSearchResultAdminWorkflowGridElementComponent extends 
     this.dso = this.linkService.resolveLink(this.dso, followLink('item'));
     this.item$ = (this.dso.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload());
     this.item$.pipe(take(1)).subscribe((item: Item) => {
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent(item));
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent(item));
 
-        const viewContainerRef = this.listableObjectDirective.viewContainerRef;
-        viewContainerRef.clear();
+      const viewContainerRef = this.listableObjectDirective.viewContainerRef;
+      viewContainerRef.clear();
 
-        const componentRef = viewContainerRef.createComponent(
-          componentFactory,
-          0,
-          undefined,
-          [
-            [this.badges.nativeElement],
-            [this.buttons.nativeElement]
-          ]);
-        (componentRef.instance as any).object = item;
-        (componentRef.instance as any).index = this.index;
-        (componentRef.instance as any).linkType = this.linkType;
-        (componentRef.instance as any).listID = this.listID;
-        componentRef.changeDetectorRef.detectChanges();
-      }
+      const componentRef = viewContainerRef.createComponent(
+        componentFactory,
+        0,
+        undefined,
+        [
+          [this.badges.nativeElement],
+          [this.buttons.nativeElement]
+        ]);
+      (componentRef.instance as any).object = item;
+      (componentRef.instance as any).index = this.index;
+      (componentRef.instance as any).linkType = this.linkType;
+      (componentRef.instance as any).listID = this.listID;
+      componentRef.changeDetectorRef.detectChanges();
+    }
     );
 
     this.item$.pipe(

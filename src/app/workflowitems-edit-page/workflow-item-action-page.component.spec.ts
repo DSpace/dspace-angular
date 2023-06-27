@@ -106,9 +106,9 @@ describe('WorkflowItemActionPageComponent', () => {
 });
 
 @Component({
-    selector: 'ds-workflow-item-test-action-page',
-    templateUrl: 'workflow-item-action-page.component.html'
-  }
+  selector: 'ds-workflow-item-test-action-page',
+  templateUrl: 'workflow-item-action-page.component.html'
+}
 )
 class TestComponent extends WorkflowItemActionPageComponent {
   constructor(protected route: ActivatedRoute,

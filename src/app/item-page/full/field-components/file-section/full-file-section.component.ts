@@ -75,10 +75,10 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
         followLink('thumbnail'),
       )),
       tap((rd: RemoteData<PaginatedList<Bitstream>>) => {
-          if (hasValue(rd.errorMessage)) {
-            this.notificationsService.error(this.translateService.get('file-section.error.header'), `${rd.statusCode} ${rd.errorMessage}`);
-          }
+        if (hasValue(rd.errorMessage)) {
+          this.notificationsService.error(this.translateService.get('file-section.error.header'), `${rd.statusCode} ${rd.errorMessage}`);
         }
+      }
       )
     );
 
@@ -93,10 +93,10 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
         followLink('thumbnail'),
       )),
       tap((rd: RemoteData<PaginatedList<Bitstream>>) => {
-          if (hasValue(rd.errorMessage)) {
-            this.notificationsService.error(this.translateService.get('file-section.error.header'), `${rd.statusCode} ${rd.errorMessage}`);
-          }
+        if (hasValue(rd.errorMessage)) {
+          this.notificationsService.error(this.translateService.get('file-section.error.header'), `${rd.statusCode} ${rd.errorMessage}`);
         }
+      }
       )
     );
 

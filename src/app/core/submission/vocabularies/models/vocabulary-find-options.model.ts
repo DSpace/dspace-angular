@@ -15,7 +15,7 @@ export class VocabularyFindOptions extends FindListOptions {
               public elementsPerPage?: number,
               public currentPage?: number,
               public sort?: SortOptions
-              ) {
+  ) {
     super();
 
     const searchParams = [];

@@ -39,19 +39,19 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
    * The width of the sidebar (bootstrap columns)
    */
   @Input()
-  sideBarWidth: number;
+    sideBarWidth: number;
 
   /**
    * The currently applied configuration (determines title of search)
    */
   @Input()
-  configuration$: Observable<string>;
+    configuration$: Observable<string>;
 
   /**
    * The current context
    */
   @Input()
-  context: Context;
+    context: Context;
 
   protected inAndOutputNames: (keyof ConfigurationSearchPageComponent & keyof this)[] =
     ['context', 'configuration', 'fixedFilterQuery', 'inPlaceSearch', 'searchEnabled', 'sideBarWidth'];

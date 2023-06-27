@@ -11,7 +11,7 @@ import { HostWindowResizeAction } from './shared/host-window.actions';
 @Injectable()
 export class StoreEffects {
 
-   replay = createEffect(() => this.actions.pipe(
+  replay = createEffect(() => this.actions.pipe(
     ofType(StoreActionTypes.REPLAY),
     map((replayAction: Action) => {
       // TODO: should be able to replay all actions before the browser attempts to
@@ -21,7 +21,7 @@ export class StoreEffects {
       return observableOf({});
     })), { dispatch: false });
 
-   resize = createEffect(() => this.actions.pipe(
+  resize = createEffect(() => this.actions.pipe(
     ofType(StoreActionTypes.REPLAY, StoreActionTypes.REHYDRATE),
     map(() => new HostWindowResizeAction(window.innerWidth, window.innerHeight))
   ));

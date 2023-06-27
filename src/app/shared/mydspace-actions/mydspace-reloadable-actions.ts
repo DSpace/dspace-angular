@@ -138,7 +138,7 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
           return of(res);
         }
       })).pipe(map((dso) => {
-          return dso ? this.convertReloadedObject(dso) : dso;
+      return dso ? this.convertReloadedObject(dso) : dso;
     }));
   }
 

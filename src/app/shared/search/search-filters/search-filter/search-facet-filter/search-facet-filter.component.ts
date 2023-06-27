@@ -293,9 +293,9 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
               this.isLastPage$.next(hasNoValue(rd?.payload?.next));
             }),
             map((rd: RemoteData<FacetValues>) => ({
-                values: observableOf(rd),
-                page: page
-              })
+              values: observableOf(rd),
+              page: page
+            })
             )
           );
       })
@@ -324,7 +324,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
           map((selectedValues) => {
             return selectedValues.map((value: string) => {
               const fValue = [].concat(...rd.payload.map((page) => page.page))
-                               .find((facetValue: FacetValue) => this.getFacetValue(facetValue) === value);
+                .find((facetValue: FacetValue) => this.getFacetValue(facetValue) === value);
               if (hasValue(fValue)) {
                 return fValue;
               }

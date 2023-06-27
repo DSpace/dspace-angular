@@ -171,20 +171,20 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
       this.submissionId,
       'sections',
       'collection').pipe(
-        mergeMap((submissionObject: SubmissionObject[]) => {
-          // retrieve the full submission object with embeds
-          return this.submissionService.retrieveSubmission(submissionObject[0].id).pipe(
-            getFirstSucceededRemoteDataPayload()
-          );
-        })
-      ).subscribe((submissionObject: SubmissionObject) => {
-        this.selectedCollectionId = event.collection.id;
-        this.selectedCollectionName$ = observableOf(event.collection.name);
-        this.collectionChange.emit(submissionObject);
-        this.submissionService.changeSubmissionCollection(this.submissionId, event.collection.id);
-        this.processingChange$.next(false);
-        this.cdr.detectChanges();
+      mergeMap((submissionObject: SubmissionObject[]) => {
+        // retrieve the full submission object with embeds
+        return this.submissionService.retrieveSubmission(submissionObject[0].id).pipe(
+          getFirstSucceededRemoteDataPayload()
+        );
       })
+    ).subscribe((submissionObject: SubmissionObject) => {
+      this.selectedCollectionId = event.collection.id;
+      this.selectedCollectionName$ = observableOf(event.collection.name);
+      this.collectionChange.emit(submissionObject);
+      this.submissionService.changeSubmissionCollection(this.submissionId, event.collection.id);
+      this.processingChange$.next(false);
+      this.cdr.detectChanges();
+    })
     );
   }
 

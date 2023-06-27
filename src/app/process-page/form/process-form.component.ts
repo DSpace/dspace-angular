@@ -78,11 +78,11 @@ export class ProcessFormComponent implements OnInit {
     }
 
     const stringParameters: ProcessParameter[] = this.parameters.map((parameter: ProcessParameter) => {
-        return {
-          name: parameter.name,
-          value: this.checkValue(parameter)
-        };
-      }
+      return {
+        name: parameter.name,
+        value: this.checkValue(parameter)
+      };
+    }
     );
     this.scriptService.invoke(this.selectedScript.id, stringParameters, this.files)
       .pipe(getFirstCompletedRemoteData())

@@ -49,7 +49,7 @@ describe('RecentItemListComponent', () => {
         { provide: PLATFORM_ID, useValue: 'browser' },
       ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

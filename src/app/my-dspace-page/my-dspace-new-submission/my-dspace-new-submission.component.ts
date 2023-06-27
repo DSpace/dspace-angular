@@ -72,10 +72,10 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
   ngOnInit() {
     this.uploadFilesOptions.autoUpload = false;
     this.sub = this.halService.getEndpoint('workspaceitems').pipe(first()).subscribe((url) => {
-        this.uploadFilesOptions.url = url;
-        this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
-        this.changeDetectorRef.detectChanges();
-      }
+      this.uploadFilesOptions.url = url;
+      this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
+      this.changeDetectorRef.detectChanges();
+    }
     );
   }
 

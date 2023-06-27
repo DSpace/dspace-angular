@@ -48,15 +48,15 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
   });
 
   const relationshipType = {
-      'type': 'relationshiptype',
-      'id': 1,
-      'uuid': 'relationshiptype-1',
-      'leftwardType': 'isAuthorOfPublication',
-      'leftMaxCardinality': null,
-      'leftMinCardinality': 0,
-      'rightwardType': 'isPublicationOfAuthor',
-      'rightMaxCardinality': null,
-      'rightMinCardinality': 0,
+    'type': 'relationshiptype',
+    'id': 1,
+    'uuid': 'relationshiptype-1',
+    'leftwardType': 'isAuthorOfPublication',
+    'leftMaxCardinality': null,
+    'leftMinCardinality': 0,
+    'rightwardType': 'isPublicationOfAuthor',
+    'rightMaxCardinality': null,
+    'rightMinCardinality': 0,
   };
 
   function init() {

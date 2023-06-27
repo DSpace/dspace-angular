@@ -135,18 +135,18 @@ describe('ComColFormComponent', () => {
         expect(comp.submitForm.emit).toHaveBeenCalledWith(
           {
             dso: Object.assign({}, comp.dso, {
-                metadata: {
-                  'dc.title': [{
-                    value: 'New Community Title',
-                    language: null,
-                  }],
-                  'dc.description.abstract': [{
-                    value: 'Community description',
-                    language: null,
-                  }],
-                },
-                type: Community.type,
-              }
+              metadata: {
+                'dc.title': [{
+                  value: 'New Community Title',
+                  language: null,
+                }],
+                'dc.description.abstract': [{
+                  value: 'Community description',
+                  language: null,
+                }],
+              },
+              type: Community.type,
+            }
             ),
             uploader: undefined,
             deleteLogo: false,

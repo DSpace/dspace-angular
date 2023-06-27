@@ -39,13 +39,13 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
    * The message prefix
    */
   @Input()
-  MESSAGE_PREFIX: string;
+    MESSAGE_PREFIX: string;
 
   /**
    * Type of register request to be done, register new email or forgot password (same endpoint)
    */
   @Input()
-  typeRequest: string = null;
+    typeRequest: string = null;
 
   public AlertTypeEnum = AlertType;
 
@@ -165,13 +165,13 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
           }),
           take(1),
         ).subscribe((token) => {
-            if (isNotEmpty(token)) {
-              this.registration(token);
-            } else {
-              console.error('reCaptcha error');
-              this.showNotification('error');
-            }
+          if (isNotEmpty(token)) {
+            this.registration(token);
+          } else {
+            console.error('reCaptcha error');
+            this.showNotification('error');
           }
+        }
         ));
       } else {
         this.registration();
@@ -191,7 +191,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
         this.notificationService.success(this.translateService.get(`${this.MESSAGE_PREFIX}.success.head`),
           this.translateService.get(`${this.MESSAGE_PREFIX}.success.content`, {email: this.email.value}));
         this.router.navigate(['/home']);
-        } else if (response.statusCode === 422) {
+      } else if (response.statusCode === 422) {
         this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`), this.translateService.get(`${this.MESSAGE_PREFIX}.error.maildomain`, {domains: this.validMailDomains.join(', ')}));
       } else {
         this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`),

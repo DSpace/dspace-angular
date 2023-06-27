@@ -212,14 +212,14 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
         })
       );
     });
-     this.outputLogFileUrl$.pipe(take(1),
+    this.outputLogFileUrl$.pipe(take(1),
       switchMap((url: string) => {
         return this.getTextFile(url);
       }),
       finalize(() => this.zone.run(() => this.retrievingOutputLogs$.next(false)))
     ).subscribe((logs: string) => {
-       this.outputLogs$.next(logs);
-     });
+      this.outputLogs$.next(logs);
+    });
   }
 
   getTextFile(filename: string): Observable<string> {

@@ -24,7 +24,7 @@ export abstract class AuthRequestService {
   constructor(protected halService: HALEndpointService,
               protected requestService: RequestService,
               private rdbService: RemoteDataBuildService
-              ) {
+  ) {
   }
 
   /**

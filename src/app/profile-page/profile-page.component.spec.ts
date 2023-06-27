@@ -288,26 +288,26 @@ describe('ProfilePageComponent', () => {
       });
     });
 
-  describe('check for specialGroups', () => {
-    it('should contains specialGroups list', () => {
-      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
-      expect(specialGroupsEle).toBeTruthy();
-    });
+    describe('check for specialGroups', () => {
+      it('should contains specialGroups list', () => {
+        const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+        expect(specialGroupsEle).toBeTruthy();
+      });
 
-    it('should not contains specialGroups list', () => {
-      component.specialGroupsRD$ = null;
-      fixture.detectChanges();
-      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
-      expect(specialGroupsEle).toBeFalsy();
-    });
+      it('should not contains specialGroups list', () => {
+        component.specialGroupsRD$ = null;
+        fixture.detectChanges();
+        const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+        expect(specialGroupsEle).toBeFalsy();
+      });
 
-    it('should not contains specialGroups list', () => {
-      component.specialGroupsRD$ = EmptySpecialGroupDataMock$;
-      fixture.detectChanges();
-      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
-      expect(specialGroupsEle).toBeFalsy();
+      it('should not contains specialGroups list', () => {
+        component.specialGroupsRD$ = EmptySpecialGroupDataMock$;
+        fixture.detectChanges();
+        const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+        expect(specialGroupsEle).toBeFalsy();
+      });
     });
-  });
   });
 
   describe('isResearcherProfileEnabled', () => {

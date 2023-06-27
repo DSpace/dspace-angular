@@ -12,7 +12,7 @@ import { URLBaser } from '../../core/url-baser/url-baser';
 @Injectable()
 export class SidebarEffects {
   private previousPath: string;
-   routeChange$ = createEffect(() => this.actions$
+  routeChange$ = createEffect(() => this.actions$
     .pipe(
       ofType(ROUTER_NAVIGATION),
       filter((action) => this.previousPath !== this.getBaseUrl(action)),

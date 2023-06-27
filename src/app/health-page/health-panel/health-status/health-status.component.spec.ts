@@ -24,7 +24,7 @@ describe('HealthStatusComponent', () => {
       ],
       declarations: [ HealthStatusComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

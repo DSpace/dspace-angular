@@ -19,7 +19,7 @@ describe('AccessControlArrayFormComponent', () => {
       imports: [ CommonModule, FormsModule, SharedBrowseByModule, TranslateModule.forRoot(), NgbDatepickerModule ],
       declarations: [ AccessControlArrayFormComponent, ToDatePipe  ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

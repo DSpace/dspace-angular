@@ -83,10 +83,10 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
     this.parentUUID$.pipe(
       take(1),
       mergeMap((uuid: string) => {
-      const params = uuid ? [new RequestParam('parent', uuid)] : [];
-      return this.dsoDataService.create(dso, ...params)
-        .pipe(getFirstSucceededRemoteDataPayload()
-        );
+        const params = uuid ? [new RequestParam('parent', uuid)] : [];
+        return this.dsoDataService.create(dso, ...params)
+          .pipe(getFirstSucceededRemoteDataPayload()
+          );
       }))
       .subscribe((dsoRD: TDomain) => {
         if (isNotUndefined(dsoRD)) {

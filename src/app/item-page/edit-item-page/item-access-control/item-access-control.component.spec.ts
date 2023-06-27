@@ -10,7 +10,7 @@ xdescribe('ItemAccessControlComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ ItemAccessControlComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

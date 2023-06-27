@@ -109,7 +109,7 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
             } else {
               // otherwise import and return the default component
               return fromPromise(this.importUnthemedComponent()).pipe(
-            tap(() => this.usedTheme = BASE_THEME_NAME),
+                tap(() => this.usedTheme = BASE_THEME_NAME),
                 map((unthemedFile: any) => {
                   return unthemedFile[this.getComponentName()];
                 })

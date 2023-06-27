@@ -66,7 +66,7 @@ export class RelatedItemsComponent extends AbstractIncrementalListComponent<Obse
               protected elementRef: ElementRef,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
               @Inject(PLATFORM_ID) private platformId: any
-              ) {
+  ) {
     super();
     this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
   }

@@ -1,5 +1,5 @@
 import {
-    BitstreamFormatRegistryState
+  BitstreamFormatRegistryState
 } from '../admin/admin-registries/bitstream-formats/bitstream-format.reducers';
 import { ObjectCacheState } from './cache/object-cache.reducer';
 import { ServerSyncBufferState } from './cache/server-sync-buffer.reducer';

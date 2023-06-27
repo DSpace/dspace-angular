@@ -23,10 +23,10 @@ export class ChipsItem {
   private objToDisplay: string;
 
   constructor(item: any,
-              fieldToDisplay: string = 'display',
-              objToDisplay?: string,
-              icons?: ChipsItemIcon[],
-              editMode?: boolean) {
+    fieldToDisplay: string = 'display',
+    objToDisplay?: string,
+    icons?: ChipsItemIcon[],
+    editMode?: boolean) {
 
     this.id = uniqueId();
     this._item = item;
@@ -53,7 +53,7 @@ export class ChipsItem {
   }
 
   hasIcons(): boolean {
-     return isNotEmpty(this.icons);
+    return isNotEmpty(this.icons);
   }
 
   hasVisibleIcons(): boolean {

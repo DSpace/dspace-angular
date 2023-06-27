@@ -44,10 +44,10 @@ export class DebounceDirective implements OnInit, OnDestroy {
       distinctUntilChanged(),
       takeUntil(this.subject),  // todo: check if this is ok
     ).subscribe((modelValue) => {
-        if (this.model.dirty) {
-          this.onDebounce.emit(modelValue);
-        }
-      });
+      if (this.model.dirty) {
+        this.onDebounce.emit(modelValue);
+      }
+    });
   }
 
   /**

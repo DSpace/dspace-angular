@@ -157,34 +157,34 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
     }
     this.findListOptionsSub = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
       switchMap((findListOptions) => {
-          const query: string = data.query;
-          const scope: string = data.scope;
-          if (query != null && this.currentSearchQuery !== query) {
-            this.router.navigate([this.epersonService.getEPeoplePageRouterLink()], {
-              queryParamsHandling: 'merge'
-            });
-            this.currentSearchQuery = query;
-            this.paginationService.resetPage(this.config.id);
-          }
-          if (scope != null && this.currentSearchScope !== scope) {
-            this.router.navigate([this.epersonService.getEPeoplePageRouterLink()], {
-              queryParamsHandling: 'merge'
-            });
-            this.currentSearchScope = scope;
-            this.paginationService.resetPage(this.config.id);
-
-          }
-          return this.epersonService.searchByScope(this.currentSearchScope, this.currentSearchQuery, {
-            currentPage: findListOptions.currentPage,
-            elementsPerPage: findListOptions.pageSize
+        const query: string = data.query;
+        const scope: string = data.scope;
+        if (query != null && this.currentSearchQuery !== query) {
+          this.router.navigate([this.epersonService.getEPeoplePageRouterLink()], {
+            queryParamsHandling: 'merge'
           });
+          this.currentSearchQuery = query;
+          this.paginationService.resetPage(this.config.id);
         }
+        if (scope != null && this.currentSearchScope !== scope) {
+          this.router.navigate([this.epersonService.getEPeoplePageRouterLink()], {
+            queryParamsHandling: 'merge'
+          });
+          this.currentSearchScope = scope;
+          this.paginationService.resetPage(this.config.id);
+
+        }
+        return this.epersonService.searchByScope(this.currentSearchScope, this.currentSearchQuery, {
+          currentPage: findListOptions.currentPage,
+          elementsPerPage: findListOptions.pageSize
+        });
+      }
       ),
       getAllSucceededRemoteData(),
     ).subscribe((peopleRD) => {
-        this.ePeople$.next(peopleRD.payload);
-        this.pageInfoState$.next(peopleRD.payload.pageInfo);
-      }
+      this.ePeople$.next(peopleRD.payload);
+      this.pageInfoState$.next(peopleRD.payload.pageInfo);
+    }
     );
   }
 

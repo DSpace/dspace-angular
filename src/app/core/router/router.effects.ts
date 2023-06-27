@@ -11,7 +11,7 @@ export class RouterEffects {
    * Effect that fires a new RouteUpdateAction when then path of route is changed
    * @type {Observable<RouteUpdateAction>}
    */
-   routeChange$ = createEffect(() => this.actions$
+  routeChange$ = createEffect(() => this.actions$
     .pipe(
       ofType(ROUTER_NAVIGATION),
       pairwise(),

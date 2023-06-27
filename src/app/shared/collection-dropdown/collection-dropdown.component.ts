@@ -151,18 +151,18 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoading.next(false);
     this.subs.push(this.searchField.valueChanges.pipe(
-        debounceTime(500),
-        distinctUntilChanged(),
-        startWith('')
-      ).subscribe(
-        (next) => {
-          if (hasValue(next) && next !== this.currentQuery) {
-            this.resetPagination();
-            this.currentQuery = next;
-            this.populateCollectionList(this.currentQuery, this.currentPage);
-          }
+      debounceTime(500),
+      distinctUntilChanged(),
+      startWith('')
+    ).subscribe(
+      (next) => {
+        if (hasValue(next) && next !== this.currentQuery) {
+          this.resetPagination();
+          this.currentQuery = next;
+          this.populateCollectionList(this.currentQuery, this.currentPage);
         }
-      ));
+      }
+    ));
     // Workaround for prevent the scroll of main page when this component is placed in a dialog
     setTimeout(() => this.el.nativeElement.querySelector('input').focus(), 0);
   }
@@ -212,41 +212,41 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
     let searchListService$: Observable<RemoteData<PaginatedList<Collection>>>;
     if (this.entityType) {
       searchListService$ = this.collectionDataService
-      .getAuthorizedCollectionByEntityType(
-        query,
-        this.entityType,
-        findOptions,
-        true,
-        followLink('parentCommunity'));
+        .getAuthorizedCollectionByEntityType(
+          query,
+          this.entityType,
+          findOptions,
+          true,
+          followLink('parentCommunity'));
     } else {
       searchListService$ = this.collectionDataService
-      .getAuthorizedCollection(query, findOptions, true, true, followLink('parentCommunity'));
+        .getAuthorizedCollection(query, findOptions, true, true, followLink('parentCommunity'));
     }
     this.searchListCollection$ = searchListService$.pipe(
-        getFirstCompletedRemoteData(),
-        switchMap((collectionsRD: RemoteData<PaginatedList<Collection>>) => {
-          this.searchComplete.emit();
-          if (collectionsRD.hasSucceeded && collectionsRD.payload.totalElements > 0) {
-            if (this.searchListCollection.length >= collectionsRD.payload.totalElements) {
-              this.hasNextPage = false;
-            }
-            this.emitSelectionEvents(collectionsRD);
-            return observableFrom(collectionsRD.payload.page).pipe(
-              mergeMap((collection: Collection) => collection.parentCommunity.pipe(
-                getFirstSucceededRemoteDataPayload(),
-                map((community: Community) => ({
-                    communities: [{ id: community.id, name: this.dsoNameService.getName(community) }],
-                    collection: { id: collection.id, uuid: collection.id, name: this.dsoNameService.getName(collection) }
-                  })
-                ))),
-              reduce((acc: any, value: any) => [...acc, value], []),
-            );
-          } else {
+      getFirstCompletedRemoteData(),
+      switchMap((collectionsRD: RemoteData<PaginatedList<Collection>>) => {
+        this.searchComplete.emit();
+        if (collectionsRD.hasSucceeded && collectionsRD.payload.totalElements > 0) {
+          if (this.searchListCollection.length >= collectionsRD.payload.totalElements) {
             this.hasNextPage = false;
-            return observableOf([]);
           }
-        })
-        );
+          this.emitSelectionEvents(collectionsRD);
+          return observableFrom(collectionsRD.payload.page).pipe(
+            mergeMap((collection: Collection) => collection.parentCommunity.pipe(
+              getFirstSucceededRemoteDataPayload(),
+              map((community: Community) => ({
+                communities: [{ id: community.id, name: this.dsoNameService.getName(community) }],
+                collection: { id: collection.id, uuid: collection.id, name: this.dsoNameService.getName(collection) }
+              })
+              ))),
+            reduce((acc: any, value: any) => [...acc, value], []),
+          );
+        } else {
+          this.hasNextPage = false;
+          return observableOf([]);
+        }
+      })
+    );
     this.subs.push(
       this.searchListCollection$.subscribe((list: CollectionListEntry[]) => {
         this.searchListCollection.push(...list);

@@ -19,7 +19,7 @@ export function rendersSectionForMenu(menuID: MenuID, expandable: boolean, theme
       menuComponentMap.set(menuID, new Map());
     }
     if (!menuComponentMap.get(menuID).get(expandable)) {
-        menuComponentMap.get(menuID).set(expandable, new Map());
+      menuComponentMap.get(menuID).set(expandable, new Map());
     }
     menuComponentMap.get(menuID).get(expandable).set(theme, menuSectionWrapperComponent);
   };

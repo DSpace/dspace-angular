@@ -30,12 +30,12 @@ export class RowParser {
   }
 
   public parse(submissionId: string,
-               rowData,
-               scopeUUID,
-               initFormValues: any,
-               submissionScope,
-               readOnly: boolean,
-               typeField: string): DynamicRowGroupModel {
+    rowData,
+    scopeUUID,
+    initFormValues: any,
+    submissionScope,
+    readOnly: boolean,
+    typeField: string): DynamicRowGroupModel {
     let fieldModel: any = null;
     let parsedResult = null;
     const config: DynamicFormGroupModelConfig = {

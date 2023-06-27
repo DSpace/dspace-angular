@@ -91,7 +91,7 @@ describe('InitService', () => {
     it('should call resolveAppConfig() in APP_CONFIG factory', () => {
       const factory = (
         ConcreteInitServiceMock.providers()
-                               .find((p: any) => p.provide === APP_CONFIG) as any
+          .find((p: any) => p.provide === APP_CONFIG) as any
       ).useFactory;
 
       // this factory is called _before_ InitService is instantiated
@@ -103,7 +103,7 @@ describe('InitService', () => {
     it('should defer to init() in APP_INITIALIZER factory', () => {
       const factory = (
         ConcreteInitServiceMock.providers()
-                               .find((p: any) => p.provide === APP_INITIALIZER) as any
+          .find((p: any) => p.provide === APP_INITIALIZER) as any
       ).useFactory;
 
       // we don't care about the dependencies here

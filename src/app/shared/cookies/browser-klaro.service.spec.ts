@@ -342,7 +342,7 @@ describe('BrowserKlaroService', () => {
               ... new ConfigurationProperty(),
               name: googleAnalytics,
               values: [],
-              }
+            }
             )
           )
           .withArgs(REGISTRATION_VERIFICATION_ENABLED_KEY)

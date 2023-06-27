@@ -47,10 +47,10 @@ const entities: ItemType[] = [
 
 const listElementMock: ItemType = Object.assign(
   new ItemType(), {
-  id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
-  label: 'Entity_1',
-  uuid: 'UUID-ce64f48e-2c9b-411a-ac36-ee429c0e6a88'
-}
+    id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
+    label: 'Entity_1',
+    uuid: 'UUID-ce64f48e-2c9b-411a-ac36-ee429c0e6a88'
+  }
 );
 
 describe('EntityDropdownComponent', () => {

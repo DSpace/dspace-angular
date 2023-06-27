@@ -77,21 +77,21 @@ export interface EPersonListActionConfig {
 export class MembersListComponent implements OnInit, OnDestroy {
 
   @Input()
-  messagePrefix: string;
+    messagePrefix: string;
 
   @Input()
-  actionConfig: EPersonListActionConfig = {
-    add: {
-      css: 'btn-outline-primary',
-      disabled: false,
-      icon: 'fas fa-plus fa-fw',
-    },
-    remove: {
-      css: 'btn-outline-danger',
-      disabled: false,
-      icon: 'fas fa-trash-alt fa-fw'
-    },
-  };
+    actionConfig: EPersonListActionConfig = {
+      add: {
+        css: 'btn-outline-primary',
+        disabled: false,
+        icon: 'fas fa-plus fa-fw',
+      },
+      remove: {
+        css: 'btn-outline-danger',
+        disabled: false,
+        icon: 'fas fa-trash-alt fa-fw'
+      },
+    };
 
   /**
    * EPeople being displayed in search result, initially all members, after search result of search
@@ -176,9 +176,9 @@ export class MembersListComponent implements OnInit, OnDestroy {
       this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
         switchMap((currentPagination) => {
           return this.ePersonDataService.findListByHref(this.groupBeingEdited._links.epersons.href, {
-              currentPage: currentPagination.currentPage,
-              elementsPerPage: currentPagination.pageSize
-            }
+            currentPage: currentPagination.currentPage,
+            elementsPerPage: currentPagination.pageSize
+          }
           );
         }),
         getAllCompletedRemoteData(),

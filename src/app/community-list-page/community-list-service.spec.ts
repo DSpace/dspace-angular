@@ -38,10 +38,10 @@ describe('CommunityListService', () => {
       id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
       uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
     }),
-      Object.assign(new Community(), {
-        id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
-        uuid: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
-      })
+    Object.assign(new Community(), {
+      id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
+      uuid: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
+    })
     ];
     mockCollectionsPage1 = [
       Object.assign(new Collection(), {

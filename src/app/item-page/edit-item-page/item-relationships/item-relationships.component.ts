@@ -78,9 +78,9 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     const label = this.item.firstMetadataValue('dspace.entity.type');
     if (label !== undefined) {
       this.relationshipTypes$ = this.relationshipTypeService.searchByEntityType(label, true, true, ...this.getRelationshipTypeFollowLinks())
-      .pipe(
-        map((relationshipTypes: PaginatedList<RelationshipType>) => relationshipTypes.page)
-      );
+        .pipe(
+          map((relationshipTypes: PaginatedList<RelationshipType>) => relationshipTypes.page)
+        );
 
       this.entityType$ = this.entityTypeService.getEntityTypeByLabel(label).pipe(
         getFirstSucceededRemoteData(),
@@ -155,18 +155,18 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
 
   deleteRelationships(deleteRelationshipIDs: DeleteRelationship[]): Observable<RemoteData<NoContent>[]> {
     return observableZip(...deleteRelationshipIDs.map((deleteRelationship) => {
-        let copyVirtualMetadata: string;
-        if (deleteRelationship.keepLeftVirtualMetadata && deleteRelationship.keepRightVirtualMetadata) {
-          copyVirtualMetadata = 'all';
-        } else if (deleteRelationship.keepLeftVirtualMetadata) {
-          copyVirtualMetadata = 'left';
-        } else if (deleteRelationship.keepRightVirtualMetadata) {
-          copyVirtualMetadata = 'right';
-        } else {
-          copyVirtualMetadata = 'none';
-        }
-        return this.relationshipService.deleteRelationship(deleteRelationship.uuid, copyVirtualMetadata);
+      let copyVirtualMetadata: string;
+      if (deleteRelationship.keepLeftVirtualMetadata && deleteRelationship.keepRightVirtualMetadata) {
+        copyVirtualMetadata = 'all';
+      } else if (deleteRelationship.keepLeftVirtualMetadata) {
+        copyVirtualMetadata = 'left';
+      } else if (deleteRelationship.keepRightVirtualMetadata) {
+        copyVirtualMetadata = 'right';
+      } else {
+        copyVirtualMetadata = 'none';
       }
+      return this.relationshipService.deleteRelationship(deleteRelationship.uuid, copyVirtualMetadata);
+    }
     ));
   }
 

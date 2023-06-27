@@ -85,7 +85,7 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
   ngOnChanges(changes: SimpleChanges) {
     const dsoChange: SimpleChange = changes.dso;
     if (this.dso && dsoChange && !dsoChange.isFirstChange()) {
-       super.ngOnInit();
+      super.ngOnInit();
     }
   }
 }

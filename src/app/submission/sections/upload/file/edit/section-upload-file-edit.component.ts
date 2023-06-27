@@ -67,7 +67,7 @@ import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynami
   templateUrl: './section-upload-file-edit.component.html',
 })
 export class SubmissionSectionUploadFileEditComponent
-    implements OnInit, OnDestroy {
+implements OnInit, OnDestroy {
 
   /**
    * The FormComponent reference
@@ -440,10 +440,10 @@ export class SubmissionSectionUploadFileEditComponent
                 // datepicker sometimes exceeds it.
                 let startDateDate = new Date(startDate);
                 if (accessConditionOpt.maxStartDate) {
-                    const maxStartDateDate = new Date(accessConditionOpt.maxStartDate);
-                    if (startDateDate > maxStartDateDate) {
-                        startDateDate = maxStartDateDate;
-                    }
+                  const maxStartDateDate = new Date(accessConditionOpt.maxStartDate);
+                  if (startDateDate > maxStartDateDate) {
+                    startDateDate = maxStartDateDate;
+                  }
                 }
                 currentAccessCondition.startDate = dateToISOFormat(startDateDate);
               }
@@ -455,10 +455,10 @@ export class SubmissionSectionUploadFileEditComponent
                 // datepicker sometimes exceeds it.
                 let endDateDate = new Date(endDate);
                 if (accessConditionOpt.maxEndDate) {
-                    const maxEndDateDate = new Date(accessConditionOpt.maxEndDate);
-                    if (endDateDate > maxEndDateDate) {
-                        endDateDate = maxEndDateDate;
-                    }
+                  const maxEndDateDate = new Date(accessConditionOpt.maxEndDate);
+                  if (endDateDate > maxEndDateDate) {
+                    endDateDate = maxEndDateDate;
+                  }
                 }
                 currentAccessCondition.endDate = dateToISOFormat(endDateDate);
               }

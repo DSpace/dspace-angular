@@ -18,7 +18,7 @@ describe('VocabularyTreeviewModalComponent', () => {
         { provide: NgbActiveModal, useValue: modalStub },
       ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

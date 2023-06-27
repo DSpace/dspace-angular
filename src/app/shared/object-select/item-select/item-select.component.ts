@@ -24,7 +24,7 @@ export class ItemSelectComponent extends ObjectSelectComponent<Item> {
    * Whether or not to hide the collection column
    */
   @Input()
-  hideCollection = false;
+    hideCollection = false;
 
   /**
    * The routes to the items their pages

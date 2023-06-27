@@ -140,10 +140,10 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
       });
       this.formModel = [
         new DynamicFormGroupModel(
-        {
-          id: 'metadatadatafieldgroup',
-          group:[this.element, this.qualifier, this.scopeNote]
-        })
+          {
+            id: 'metadatadatafieldgroup',
+            group:[this.element, this.qualifier, this.scopeNote]
+          })
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
       this.registryService.getActiveMetadataField().subscribe((field: MetadataField): void => {

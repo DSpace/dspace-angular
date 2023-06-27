@@ -47,54 +47,54 @@ describe('TopLevelCommunityList Component', () => {
       ]
     }
   }),
-    Object.assign(new Community(), {
-      id: '123456789-2',
-      metadata: {
-        'dc.title': [
-          { language: 'en_US', value: 'TopCommunity 2' }
-        ]
-      }
-    }),
-    Object.assign(new Community(), {
-      id: '123456789-3',
-      metadata: {
-        'dc.title': [
-          { language: 'en_US', value: 'TopCommunity 3' }
-        ]
-      }
-    }),
-    Object.assign(new Community(), {
-      id: '12345678942',
-      metadata: {
-        'dc.title': [
-          { language: 'en_US', value: 'TopCommunity 4' }
-        ]
-      }
-    }),
-    Object.assign(new Community(), {
-      id: '123456789-5',
-      metadata: {
-        'dc.title': [
-          { language: 'en_US', value: 'TopCommunity 5' }
-        ]
-      }
-    }),
-    Object.assign(new Community(), {
-      id: '123456789-6',
-      metadata: {
-        'dc.title': [
-          { language: 'en_US', value: 'TopCommunity 6' }
-        ]
-      }
-    }),
-    Object.assign(new Community(), {
-      id: '123456789-7',
-      metadata: {
-        'dc.title': [
-          { language: 'en_US', value: 'TopCommunity 7' }
-        ]
-      }
-    })
+  Object.assign(new Community(), {
+    id: '123456789-2',
+    metadata: {
+      'dc.title': [
+        { language: 'en_US', value: 'TopCommunity 2' }
+      ]
+    }
+  }),
+  Object.assign(new Community(), {
+    id: '123456789-3',
+    metadata: {
+      'dc.title': [
+        { language: 'en_US', value: 'TopCommunity 3' }
+      ]
+    }
+  }),
+  Object.assign(new Community(), {
+    id: '12345678942',
+    metadata: {
+      'dc.title': [
+        { language: 'en_US', value: 'TopCommunity 4' }
+      ]
+    }
+  }),
+  Object.assign(new Community(), {
+    id: '123456789-5',
+    metadata: {
+      'dc.title': [
+        { language: 'en_US', value: 'TopCommunity 5' }
+      ]
+    }
+  }),
+  Object.assign(new Community(), {
+    id: '123456789-6',
+    metadata: {
+      'dc.title': [
+        { language: 'en_US', value: 'TopCommunity 6' }
+      ]
+    }
+  }),
+  Object.assign(new Community(), {
+    id: '123456789-7',
+    metadata: {
+      'dc.title': [
+        { language: 'en_US', value: 'TopCommunity 7' }
+      ]
+    }
+  })
   ];
 
   communityDataServiceStub = {

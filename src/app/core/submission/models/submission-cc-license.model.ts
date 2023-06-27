@@ -16,16 +16,16 @@ export class SubmissionCcLicence extends HALResource {
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   @autoserialize
-  id: string;
+    id: string;
 
   @autoserialize
-  name: string;
+    name: string;
 
   @autoserialize
-  fields: Field[];
+    fields: Field[];
 }
 
 export interface Field {

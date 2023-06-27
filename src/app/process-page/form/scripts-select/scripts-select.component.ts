@@ -95,7 +95,7 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
 
   @Input()
   set script(value: Script) {
-     this._selectedScript = value;
+    this._selectedScript = value;
   }
 
   ngOnDestroy(): void {

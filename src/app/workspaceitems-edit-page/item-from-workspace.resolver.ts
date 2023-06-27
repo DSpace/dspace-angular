@@ -11,11 +11,11 @@ import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.
  */
 @Injectable()
 export class ItemFromWorkspaceResolver extends SubmissionObjectResolver<Item> implements Resolve<RemoteData<Item>>  {
-    constructor(
+  constructor(
         private workspaceItemService: WorkspaceitemDataService,
         protected store: Store<any>
-    ) {
-        super(workspaceItemService, store);
-    }
+  ) {
+    super(workspaceItemService, store);
+  }
 
 }

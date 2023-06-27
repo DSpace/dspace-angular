@@ -59,7 +59,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
       catchError(() => observableOf(buildPaginatedList(
         new PageInfo(),
         []
-        ))
+      ))
       ))
       .subscribe((list: PaginatedList<VocabularyEntry>) => {
         this.optionsList = list.page;
@@ -132,7 +132,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
         catchError(() => observableOf(buildPaginatedList(
           new PageInfo(),
           []
-          ))
+        ))
         ),
         tap(() => this.loading = false))
         .subscribe((list: PaginatedList<VocabularyEntry>) => {

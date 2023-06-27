@@ -20,43 +20,43 @@ export class BitstreamFormat implements CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * Short description of this Bitstream Format
    */
   @autoserialize
-  shortDescription: string;
+    shortDescription: string;
 
   /**
    * Description of this Bitstream Format
    */
   @autoserialize
-  description: string;
+    description: string;
 
   /**
    * String representing the MIME type of this Bitstream Format
    */
   @autoserialize
-  mimetype: string;
+    mimetype: string;
 
   /**
    * The level of support the system offers for this Bitstream Format
    */
   @autoserialize
-  supportLevel: BitstreamFormatSupportLevel;
+    supportLevel: BitstreamFormatSupportLevel;
 
   /**
    * True if the Bitstream Format is used to store system information, rather than the content of items in the system
    */
   @autoserialize
-  internal: boolean;
+    internal: boolean;
 
   /**
    * String representing this Bitstream Format's file extension
    */
   @autoserialize
-  extensions: string[];
+    extensions: string[];
 
   /**
    * Universally unique identifier for this Bitstream Format
@@ -64,7 +64,7 @@ export class BitstreamFormat implements CacheableObject {
    * It is based on the ID, so it will be the same for each refresh.
    */
   @deserializeAs(new IDToUUIDSerializer('bitstream-format'), 'id')
-  uuid: string;
+    uuid: string;
 
   /**
    * Identifier for this Bitstream Format
@@ -72,13 +72,13 @@ export class BitstreamFormat implements CacheableObject {
    * but might not be unique across different object types
    */
   @autoserialize
-  id: string;
+    id: string;
 
   /**
    * The {@link HALLink}s for this BitstreamFormat
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
   };
 }

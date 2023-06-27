@@ -184,8 +184,8 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
   protected processArray<ObjectDomain>(data: any, request: RestRequest): ObjectDomain[] {
     let array: ObjectDomain[] = [];
     data.forEach((datum) => {
-        array = [...array, this.process(datum, request)];
-      }
+      array = [...array, this.process(datum, request)];
+    }
     );
     return array;
   }

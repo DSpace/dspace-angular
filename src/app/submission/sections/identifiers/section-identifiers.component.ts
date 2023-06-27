@@ -72,7 +72,7 @@ export class SubmissionSectionIdentifiersComponent extends SectionModelComponent
   }
 
   ngOnInit() {
-      super.ngOnInit();
+    super.ngOnInit();
   }
 
   /**

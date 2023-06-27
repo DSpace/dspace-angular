@@ -11,17 +11,17 @@ import { FeatureID } from '../feature-id';
  * management rights
  */
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class StatisticsAdministratorGuard extends SingleFeatureAuthorizationGuard {
-    constructor(protected authorizationService: AuthorizationDataService, protected router: Router, protected authService: AuthService) {
-        super(authorizationService, router, authService);
-    }
+  constructor(protected authorizationService: AuthorizationDataService, protected router: Router, protected authService: AuthService) {
+    super(authorizationService, router, authService);
+  }
 
-    /**
+  /**
      * Check group management rights
      */
-    getFeatureID(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID> {
-        return observableOf(FeatureID.CanViewUsageStatistics);
-    }
+  getFeatureID(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID> {
+    return observableOf(FeatureID.CanViewUsageStatistics);
+  }
 }

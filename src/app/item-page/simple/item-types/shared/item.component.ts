@@ -61,12 +61,12 @@ export class ItemComponent implements OnInit {
    */
   back = () => {
     this.routeService.getPreviousUrl().pipe(
-          take(1)
-        ).subscribe(
-          (url => {
-            this.router.navigateByUrl(url);
-          })
-        );
+      take(1)
+    ).subscribe(
+      (url => {
+        this.router.navigateByUrl(url);
+      })
+    );
   };
 
   ngOnInit(): void {

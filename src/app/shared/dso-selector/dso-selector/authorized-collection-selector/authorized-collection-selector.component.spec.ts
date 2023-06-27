@@ -52,10 +52,10 @@ describe('AuthorizedCollectionSelectorComponent', () => {
   describe('search', () => {
     describe('when has no entity type', () => {
       it('should call getAuthorizedCollection and return the authorized collection in a SearchResult', (done) => {
-      component.search('', 1).subscribe((resultRD) => {
+        component.search('', 1).subscribe((resultRD) => {
           expect(collectionService.getAuthorizedCollection).toHaveBeenCalled();
-        expect(resultRD.payload.page.length).toEqual(1);
-        expect(resultRD.payload.page[0].indexableObject).toEqual(collection);
+          expect(resultRD.payload.page.length).toEqual(1);
+          expect(resultRD.payload.page[0].indexableObject).toEqual(collection);
           done();
         });
       });

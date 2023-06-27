@@ -31,7 +31,7 @@ export class CurationFormComponent implements OnInit {
   form: UntypedFormGroup;
 
   @Input()
-  dsoHandle: string;
+    dsoHandle: string;
 
   constructor(
     private scriptDataService: ScriptDataService,

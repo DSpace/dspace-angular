@@ -248,7 +248,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
       initialNavigation: 'enabledBlocking',
       preloadingStrategy: NoPreloading,
       onSameUrlNavigation: 'reload',
-})
+    })
   ],
   exports: [RouterModule],
 })

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-    CreateCollectionParentSelectorComponent as BaseComponent
+  CreateCollectionParentSelectorComponent as BaseComponent
 } from '../../../../../../../app/shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 
 @Component({

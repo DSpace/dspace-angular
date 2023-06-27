@@ -150,12 +150,12 @@ export class BrowserInitService extends InitService {
   private externalAuthCheck() {
 
     this.sub = this.authService.isExternalAuthentication().pipe(
-        filter((externalAuth: boolean) => externalAuth)
-      ).subscribe(() => {
-        // Clear the transferState data.
-        this.rootDataService.invalidateRootCache();
-        this.authService.setExternalAuthStatus(false);
-      }
+      filter((externalAuth: boolean) => externalAuth)
+    ).subscribe(() => {
+      // Clear the transferState data.
+      this.rootDataService.invalidateRootCache();
+      this.authService.setExternalAuthStatus(false);
+    }
     );
 
     this.closeAuthCheckSubscription();
@@ -168,8 +168,8 @@ export class BrowserInitService extends InitService {
    */
   private closeAuthCheckSubscription() {
     firstValueFrom(this.authenticationReady$()).then(() => {
-        this.sub.unsubscribe();
-      });
+      this.sub.unsubscribe();
+    });
   }
 
 }

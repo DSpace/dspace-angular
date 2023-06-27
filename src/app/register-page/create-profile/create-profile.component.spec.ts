@@ -53,24 +53,24 @@ describe('CreateProfileComponent', () => {
             value: 'First'
           }
         ],
-          'eperson.lastname': [
+        'eperson.lastname': [
           {
             value: 'Last'
           },
         ],
-          'eperson.phone': [
+        'eperson.phone': [
           {
             value: 'Phone'
           }
         ],
-          'eperson.language': [
+        'eperson.language': [
           {
             value: 'en'
           }
         ]
       },
       email: 'test@email.org',
-        password: 'password',
+      password: 'password',
       canLogIn: true,
       requireCertificate: false
     };

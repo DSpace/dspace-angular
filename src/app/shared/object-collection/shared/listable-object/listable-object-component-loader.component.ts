@@ -194,8 +194,8 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
    * @returns {GenericConstructor<Component>}
    */
   getComponent(renderTypes: (string | GenericConstructor<ListableObject>)[],
-               viewMode: ViewMode,
-               context: Context): GenericConstructor<Component> {
+    viewMode: ViewMode,
+    context: Context): GenericConstructor<Component> {
     return getListableObjectComponent(renderTypes, viewMode, context, this.themeService.getThemeName());
   }
 

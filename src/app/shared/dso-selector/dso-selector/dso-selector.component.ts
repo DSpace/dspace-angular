@@ -70,7 +70,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    */
   @Input() types: DSpaceObjectType[];
 
-   /**
+  /**
    * The sorting options
    */
   @Input() sort: SortOptions;

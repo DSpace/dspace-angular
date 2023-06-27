@@ -46,7 +46,7 @@ export class ItemCollectionComponent implements OnInit {
     this.linkService.resolveLinks(this.object, followLink('workflowitem', {
       isOptional: true
     },
-      followLink('collection',{})
+    followLink('collection',{})
     ));
     this.collection$ = (this.object.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
       getFirstCompletedRemoteData(),

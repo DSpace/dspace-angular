@@ -159,14 +159,14 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
                 ]).pipe(
                   map(([canDelete, canManageGroup, hasLinkedDSO, subgroups, members]:
                          [boolean, boolean, boolean, RemoteData<PaginatedList<Group>>, RemoteData<PaginatedList<EPerson>>]) => {
-                      const groupDtoModel: GroupDtoModel = new GroupDtoModel();
-                      groupDtoModel.ableToDelete = canDelete && !hasLinkedDSO;
-                      groupDtoModel.ableToEdit = canManageGroup;
-                      groupDtoModel.group = group;
-                      groupDtoModel.subgroups = subgroups.payload;
-                      groupDtoModel.epersons = members.payload;
-                      return groupDtoModel;
-                    }
+                    const groupDtoModel: GroupDtoModel = new GroupDtoModel();
+                    groupDtoModel.ableToDelete = canDelete && !hasLinkedDSO;
+                    groupDtoModel.ableToEdit = canManageGroup;
+                    groupDtoModel.group = group;
+                    groupDtoModel.subgroups = subgroups.payload;
+                    groupDtoModel.epersons = members.payload;
+                    return groupDtoModel;
+                  }
                   )
                 );
               } else {
@@ -185,7 +185,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
     });
 
     this.subs.push(this.searchSub);
-      }
+  }
 
   canManageGroup$(isSiteAdmin: boolean, group: Group): Observable<boolean> {
     if (isSiteAdmin) {
@@ -210,7 +210,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: this.dsoNameService.getName(group.group) }),
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.content', { cause: rd.errorMessage }));
           }
-      });
+        });
     }
   }
 

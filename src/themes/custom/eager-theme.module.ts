@@ -21,22 +21,22 @@ import {
 import { UntypedItemComponent } from './app/item-page/simple/item-types/untyped-item/untyped-item.component';
 import { ItemSharedModule } from '../../app/item-page/item-shared.module';
 import {
-    CreateCollectionParentSelectorComponent
+  CreateCollectionParentSelectorComponent
 } from './app/shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 import {
-    CreateCommunityParentSelectorComponent
+  CreateCommunityParentSelectorComponent
 } from './app/shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
 import {
-    CreateItemParentSelectorComponent
+  CreateItemParentSelectorComponent
 } from './app/shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import {
-    EditCollectionSelectorComponent
+  EditCollectionSelectorComponent
 } from './app/shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 import {
-    EditCommunitySelectorComponent
+  EditCommunitySelectorComponent
 } from './app/shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import {
-    EditItemSelectorComponent
+  EditItemSelectorComponent
 } from './app/shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
 import { CollectionListElementComponent} from './app/shared/object-list/collection-list-element/collection-list-element.component';

@@ -71,10 +71,10 @@ export class PaginationService {
     const sortDirection$ = this.routeService.getQueryParameterValue(`${paginationId}.sd`);
     const sortField$ = this.routeService.getQueryParameterValue(`${paginationId}.sf`);
     return observableCombineLatest([sortDirection$, sortField$]).pipe(map(([sortDirection, sortField]) => {
-        const field = sortField || defaultSort?.field;
-        const direction = SortDirection[sortDirection] || defaultSort?.direction;
-        return new SortOptions(field, direction);
-      })
+      const field = sortField || defaultSort?.field;
+      const direction = SortDirection[sortDirection] || defaultSort?.direction;
+      return new SortOptions(field, direction);
+    })
     );
   }
 

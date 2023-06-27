@@ -69,8 +69,8 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
       map((item: Item) => item.metadata),);
 
     this.subs.push(this.route.data.subscribe((data: Data) => {
-        this.fromSubmissionObject = hasValue(data.wfi) || hasValue(data.wsi);
-      })
+      this.fromSubmissionObject = hasValue(data.wfi) || hasValue(data.wsi);
+    })
     );
   }
 

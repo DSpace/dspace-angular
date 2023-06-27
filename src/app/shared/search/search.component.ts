@@ -446,7 +446,7 @@ export class SearchComponent implements OnInit {
       this.useCachedVersionIfAvailable,
       true,
       ...followLinks
-      ).pipe(getFirstCompletedRemoteData())
+    ).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         if (results.hasSucceeded) {
           if (this.trackStatistics) {

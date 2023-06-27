@@ -9,8 +9,8 @@ import {
   SelectorActionType
 } from '../dso-selector-modal-wrapper.component';
 import {
-    getCommunityCreateRoute,
-    COMMUNITY_PARENT_PARAMETER
+  getCommunityCreateRoute,
+  COMMUNITY_PARENT_PARAMETER
 } from '../../../../community-page/community-page-routing-paths';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 import { environment } from '../../../../../environments/environment';

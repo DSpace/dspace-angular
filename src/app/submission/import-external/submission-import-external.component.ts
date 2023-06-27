@@ -188,16 +188,16 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     this.retrieveExternalSourcesSub = this.reload$.pipe(
       filter((sourceQueryObject: ExternalSourceData) => isNotEmpty(sourceQueryObject.sourceId) && isNotEmpty(sourceQueryObject.query)),
       switchMap((sourceQueryObject: ExternalSourceData) => {
-          const query = sourceQueryObject.query;
-          this.routeData = sourceQueryObject;
-          return this.searchConfigService.paginatedSearchOptions.pipe(
-            tap(() => this.isLoading$.next(true)),
-            filter((searchOptions) => searchOptions.query === query),
-            mergeMap((searchOptions) => this.externalService.getExternalSourceEntries(this.routeData.sourceId, searchOptions).pipe(
-              getFinishedRemoteData(),
-            ))
-          );
-        }
+        const query = sourceQueryObject.query;
+        this.routeData = sourceQueryObject;
+        return this.searchConfigService.paginatedSearchOptions.pipe(
+          tap(() => this.isLoading$.next(true)),
+          filter((searchOptions) => searchOptions.query === query),
+          mergeMap((searchOptions) => this.externalService.getExternalSourceEntries(this.routeData.sourceId, searchOptions).pipe(
+            getFinishedRemoteData(),
+          ))
+        );
+      }
       ),
     ).subscribe((rdData) => {
       this.entriesRD$.next(rdData);

@@ -42,7 +42,7 @@ class DsoByIdOrUUIDDataService extends IdentifiableDataService<DSpaceObject> {
       // interpolate id/uuid as query parameter
       (endpoint: string, resourceID: string): string => {
         return endpoint.replace(/{\?id}/, `?id=${resourceID}`)
-                       .replace(/{\?uuid}/, `?uuid=${resourceID}`);
+          .replace(/{\?uuid}/, `?uuid=${resourceID}`);
       },
     );
   }

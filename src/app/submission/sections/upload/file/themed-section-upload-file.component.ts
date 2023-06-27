@@ -4,12 +4,12 @@ import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
 import { SubmissionSectionUploadFileComponent } from './section-upload-file.component';
 
 @Component({
-    selector: 'ds-themed-submission-upload-section-file',
-    styleUrls: [],
-    templateUrl: '../../../../shared/theme-support/themed.component.html'
+  selector: 'ds-themed-submission-upload-section-file',
+  styleUrls: [],
+  templateUrl: '../../../../shared/theme-support/themed.component.html'
 })
 export class ThemedSubmissionSectionUploadFileComponent
-    extends ThemedComponent<SubmissionSectionUploadFileComponent> {
+  extends ThemedComponent<SubmissionSectionUploadFileComponent> {
 
   /**
    * The list of available access condition
@@ -77,7 +77,7 @@ export class ThemedSubmissionSectionUploadFileComponent
     'fileName',
     'sectionId',
     'submissionId'
-    ];
+  ];
 
   protected getComponentName(): string {
     return 'SubmissionSectionUploadFileComponent';

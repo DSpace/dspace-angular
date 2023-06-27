@@ -64,7 +64,7 @@ import { CollectionAccessControlComponent } from './collection-access-control/co
             component: CollectionAccessControlComponent,
             data: { title: 'collection.edit.tabs.access-control.title', showBreadcrumbs: true }
           },
-/*          {
+          /*          {
             path: 'authorizations',
             component: CollectionAuthorizationsComponent,
             data: { title: 'collection.edit.tabs.authorizations.title', showBreadcrumbs: true }

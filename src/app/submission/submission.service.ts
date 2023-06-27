@@ -505,7 +505,7 @@ export class SubmissionService {
             } else {
               this.router.navigateByUrl(previousUrl);
             }
-        })))
+          })))
     ).subscribe();
   }
 

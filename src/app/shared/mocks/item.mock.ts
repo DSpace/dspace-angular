@@ -9,30 +9,30 @@ import { Bundle } from '../../core/shared/bundle.model';
 
 export const MockBitstreamFormat1: BitstreamFormat = Object.assign(new BitstreamFormat(), {
   shortDescription: 'Microsoft Word XML',
-    description: 'Microsoft Word XML',
-    mimetype: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    supportLevel: 0,
-    internal: false,
-    extensions: null,
-    _links:{
+  description: 'Microsoft Word XML',
+  mimetype: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  supportLevel: 0,
+  internal: false,
+  extensions: null,
+  _links:{
     self: {
       href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/10'
     }
-    }
+  }
 });
 
 export const MockBitstreamFormat2: BitstreamFormat = Object.assign(new BitstreamFormat(), {
-    shortDescription: 'Adobe PDF',
-    description: 'Adobe Portable Document Format',
-    mimetype: 'application/pdf',
-    supportLevel: 0,
-    internal: false,
-    extensions: null,
-    _links:{
-      self: {
-        href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4'
-      }
+  shortDescription: 'Adobe PDF',
+  description: 'Adobe Portable Document Format',
+  mimetype: 'application/pdf',
+  supportLevel: 0,
+  internal: false,
+  extensions: null,
+  _links:{
+    self: {
+      href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4'
     }
+  }
 });
 
 export const MockBitstreamFormat3: BitstreamFormat = Object.assign(new BitstreamFormat(), {
@@ -278,19 +278,19 @@ export const ItemMock: Item = Object.assign(new Item(), {
     ]
   },
   owningCollection: observableOf({
-      _links: {
-        self: {
-          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb'
-        }
-      },
-      requestPending: false,
-      responsePending: false,
-      isSuccessful: true,
-      errorMessage: '',
-      statusCode: '202',
-      pageInfo: {},
-      payload: []
-    }
+    _links: {
+      self: {
+        href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb'
+      }
+    },
+    requestPending: false,
+    responsePending: false,
+    isSuccessful: true,
+    errorMessage: '',
+    statusCode: '202',
+    pageInfo: {},
+    payload: []
+  }
   )
 });
 /* eslint-enable @typescript-eslint/no-shadow */

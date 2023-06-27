@@ -32,7 +32,7 @@ export class ServerSyncBufferEffects {
    * Then dispatch a CommitSSBAction
    * When the delay is running, no new AddToSSBActions are processed in this effect
    */
-   setTimeoutForServerSync = createEffect(() => this.actions$
+  setTimeoutForServerSync = createEffect(() => this.actions$
     .pipe(
       ofType(ServerSyncBufferActionTypes.ADD),
       exhaustMap((action: AddToSSBAction) => {
@@ -50,7 +50,7 @@ export class ServerSyncBufferEffects {
    * When the list of actions is not empty, also dispatch an EmptySSBAction
    * When the list is empty dispatch a NO_ACTION placeholder action
    */
-   commitServerSyncBuffer = createEffect(() => this.actions$
+  commitServerSyncBuffer = createEffect(() => this.actions$
     .pipe(
       ofType(ServerSyncBufferActionTypes.COMMIT),
       switchMap((action: CommitSSBAction) => {
@@ -78,8 +78,8 @@ export class ServerSyncBufferEffects {
             /* Add extra action to array, to make sure the ServerSyncBuffer is emptied afterwards */
             if (isNotEmpty(actions) && isNotUndefined(actions[0])) {
               return observableCombineLatest(...actions).pipe(
-              switchMap((array) => [...array, new EmptySSBAction(action.payload)])
-            );
+                switchMap((array) => [...array, new EmptySSBAction(action.payload)])
+              );
             } else {
               return observableOf(new NoOpAction());
             }

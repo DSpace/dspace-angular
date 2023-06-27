@@ -116,7 +116,7 @@ export class VocabularyTreeviewService {
         .subscribe((hierarchy: string[]) => {
           this.initValueHierarchy = hierarchy;
           this.retrieveTopNodes(pageInfo, [], selectedItems);
-      });
+        });
     } else {
       this.retrieveTopNodes(pageInfo, [], selectedItems);
     }

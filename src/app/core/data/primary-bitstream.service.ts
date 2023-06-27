@@ -64,7 +64,7 @@ export class PrimaryBitstreamService {
       endpointURL,
       primaryBitstreamSelfLink,
       this.getHttpOptions()
-  );
+    );
 
     this.requestService.send(request);
 

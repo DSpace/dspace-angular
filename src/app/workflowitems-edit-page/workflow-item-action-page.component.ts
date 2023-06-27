@@ -76,18 +76,18 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
   previousPage() {
     this.routeService.getPreviousUrl().pipe(take(1))
       .subscribe((url) => {
-          let params: Params = {};
-          if (isEmpty(url)) {
-            url = '/mydspace';
-            params = this.previousQueryParameters;
-          }
-          if (url.split('?').length > 1) {
-            for (const param of url.split('?')[1].split('&')) {
-              params[param.split('=')[0]] = decodeURIComponent(param.split('=')[1]);
-            }
-          }
-          void this.router.navigate([url.split('?')[0]], { queryParams: params });
+        let params: Params = {};
+        if (isEmpty(url)) {
+          url = '/mydspace';
+          params = this.previousQueryParameters;
         }
+        if (url.split('?').length > 1) {
+          for (const param of url.split('?')[1].split('&')) {
+            params[param.split('=')[0]] = decodeURIComponent(param.split('=')[1]);
+          }
+        }
+        void this.router.navigate([url.split('?')[0]], { queryParams: params });
+      }
       );
   }
 

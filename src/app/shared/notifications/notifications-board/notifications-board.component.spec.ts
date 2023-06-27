@@ -99,10 +99,10 @@ describe('NotificationsBoardComponent', () => {
 
     it('should be passed to all notifications', () => {
       fixture.debugElement.queryAll(By.css('ds-notification'))
-                          .map(node => node.componentInstance)
-                          .forEach(notification => {
-                            expect(notification.isPaused$).toEqual(comp.isPaused$);
-                          });
+        .map(node => node.componentInstance)
+        .forEach(notification => {
+          expect(notification.isPaused$).toEqual(comp.isPaused$);
+        });
     });
   });
 

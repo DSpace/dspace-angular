@@ -58,7 +58,7 @@ import { AuthorizationDataService } from '../data/feature-authorization/authoriz
 // Action Types that do not break/prevent the user from an idle state
 const IDLE_TIMER_IGNORE_TYPES: string[]
   = [...Object.values(AuthActionTypes).filter((t: string) => t !== AuthActionTypes.UNSET_USER_AS_IDLE),
-  ...Object.values(RequestActionTypes), ...Object.values(NotificationsActionTypes)];
+    ...Object.values(RequestActionTypes), ...Object.values(NotificationsActionTypes)];
 
 @Injectable()
 export class AuthEffects {
@@ -213,7 +213,7 @@ export class AuthEffects {
    * authorizations endpoint, to be sure to have consistent responses after a login with external idp
    *
    */
-   invalidateAuthorizationsRequestCache$ = createEffect(() => this.actions$
+  invalidateAuthorizationsRequestCache$ = createEffect(() => this.actions$
     .pipe(ofType(StoreActionTypes.REHYDRATE),
       tap(() => this.authorizationsService.invalidateAuthorizationsRequestCache())
     ), { dispatch: false });

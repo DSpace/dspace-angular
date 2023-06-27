@@ -69,7 +69,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
     protected requestService: RequestService,
     private authService: AuthService,
     public authorizationService: AuthorizationDataService,
-    ) {
+  ) {
     super(WorkspaceItem.type, injector, router, notificationsService, translate, searchService, requestService);
 
   }

@@ -170,7 +170,7 @@ export class ItemStatusComponent implements OnInit {
             map((enabled: boolean) => {
               return enabled && (pending || no_doi);
             }
-          ));
+            ));
         }),
         // Switch map pushes the register DOI operation onto a copy of the base array then returns to the pipe
         switchMap((showDoi: boolean) => {

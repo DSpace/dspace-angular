@@ -50,7 +50,7 @@ describe('HealthPageComponent', () => {
         { provide: HealthService, useValue: healthService }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

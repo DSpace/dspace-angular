@@ -102,11 +102,11 @@ export class CSSVariableService {
               [...sheet.cssRules].filter(this.isStyleRule).reduce((propValArr, rule: any) => {
                 const props = [...rule.style]
                   .map((propName) => {
-                      return {
-                        key: propName.trim(),
-                        value: rule.style.getPropertyValue(propName).trim()
-                      } as KeyValuePair<string, string>;
-                    }
+                    return {
+                      key: propName.trim(),
+                      value: rule.style.getPropertyValue(propName).trim()
+                    } as KeyValuePair<string, string>;
+                  }
                   )
                   // Discard any props that don't start with "--". Custom props are required to.
                   .filter(({ key }: KeyValuePair<string, string>) => key.indexOf('--') === 0);

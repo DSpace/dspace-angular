@@ -41,7 +41,7 @@ export class DynamicRelationGroupModel extends DsDynamicInputModel {
     this.value = value;
   }
 
-/*  get value() {
+  /*  get value() {
     return (isEmpty(this.value)) ? null : this.value
   }*/
 

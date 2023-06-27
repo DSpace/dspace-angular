@@ -20,16 +20,16 @@ import { mockSubmissionCollectionId, mockSubmissionId } from '../../../shared/mo
 
 const sectionState = {
   header: 'submit.progressbar.describe.stepone',
-    config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
-    mandatory: true,
-    sectionType: SectionsType.SubmissionForm,
-    collapsed: false,
-    enabled: true,
-    data: {},
-    errorsToShow:	[],
-    serverValidationErrors:	[],
-    isLoading: false,
-    isValid: false
+  config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
+  mandatory: true,
+  sectionType: SectionsType.SubmissionForm,
+  collapsed: false,
+  enabled: true,
+  data: {},
+  errorsToShow:	[],
+  serverValidationErrors:	[],
+  isLoading: false,
+  isValid: false
 } as any;
 
 const sectionObject: SectionDataObject = {

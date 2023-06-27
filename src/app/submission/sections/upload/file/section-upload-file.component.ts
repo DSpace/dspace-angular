@@ -1,12 +1,12 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    SimpleChanges,
-    ViewChild
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  ViewChild
 } from '@angular/core';
 
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -185,8 +185,8 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
           .getFileData(this.submissionId, this.sectionId, this.fileId)
           .pipe(filter((bitstream) => isNotUndefined(bitstream)))
           .subscribe((bitstream) => {
-              this.fileData = bitstream;
-            }
+            this.fileData = bitstream;
+          }
           )
       );
     }

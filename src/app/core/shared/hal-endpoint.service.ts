@@ -17,7 +17,7 @@ export class HALEndpointService {
   constructor(
     private requestService: RequestService,
     private rdbService: RemoteDataBuildService
-) {
+  ) {
   }
 
   public getRootHref(): string {

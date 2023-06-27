@@ -298,11 +298,11 @@ export class BrowserKlaroService extends KlaroService {
       .pipe(
         take(1),
         switchMap((operations: Operation[]) => {
-            if (isNotEmpty(operations)) {
-              return this.ePersonService.patch(user, operations);
-            }
-            return observableOf(undefined);
+          if (isNotEmpty(operations)) {
+            return this.ePersonService.patch(user, operations);
           }
+          return observableOf(undefined);
+        }
         )
       ).subscribe();
   }

@@ -63,12 +63,12 @@ describe('DSOEditMenuResolver', () => {
     visible: true,
     model: null
   },
-    {
-      id: 'dummy-2',
-      active: false,
-      visible: true,
-      model: null
-    }];
+  {
+    id: 'dummy-2',
+    active: false,
+    visible: true,
+    model: null
+  }];
 
   const dummySections2 = [{
     id: 'dummy-3',
@@ -76,18 +76,18 @@ describe('DSOEditMenuResolver', () => {
     visible: true,
     model: null
   },
-    {
-      id: 'dummy-4',
-      active: false,
-      visible: true,
-      model: null
-    },
-    {
-      id: 'dummy-5',
-      active: false,
-      visible: true,
-      model: null
-    }];
+  {
+    id: 'dummy-4',
+    active: false,
+    visible: true,
+    model: null
+  },
+  {
+    id: 'dummy-5',
+    active: false,
+    visible: true,
+    model: null
+  }];
 
   beforeEach(waitForAsync(() => {
     menuService = new MenuServiceStub();

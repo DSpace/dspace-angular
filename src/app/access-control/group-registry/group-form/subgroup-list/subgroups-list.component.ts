@@ -40,7 +40,7 @@ enum SubKey {
 export class SubgroupsListComponent implements OnInit, OnDestroy {
 
   @Input()
-  messagePrefix: string;
+    messagePrefix: string;
 
   /**
    * Result of search groups, initially all groups
@@ -125,12 +125,12 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
       SubKey.Members,
       this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
         switchMap((config) => this.groupDataService.findListByHref(this.groupBeingEdited._links.subgroups.href, {
-            currentPage: config.currentPage,
-            elementsPerPage: config.pageSize
-          },
-          true,
-          true,
-          followLink('object')
+          currentPage: config.currentPage,
+          elementsPerPage: config.pageSize
+        },
+        true,
+        true,
+        followLink('object')
         ))
       ).subscribe((rd: RemoteData<PaginatedList<Group>>) => {
         this.subGroups$.next(rd);

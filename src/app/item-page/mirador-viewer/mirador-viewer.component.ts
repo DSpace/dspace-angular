@@ -104,10 +104,10 @@ export class MiradorViewerComponent implements OnInit {
       // menu by hiding it for smaller viewports. This will not be
       // responsive to resizing.
       this.hostWindowService.widthCategory
-          .pipe(take(1))
-          .subscribe((category: WidthCategory) => {
-            this.notMobile = !(category === WidthCategory.XS || category === WidthCategory.SM);
-          });
+        .pipe(take(1))
+        .subscribe((category: WidthCategory) => {
+          this.notMobile = !(category === WidthCategory.XS || category === WidthCategory.SM);
+        });
 
       // Set the multi property. The default mirador configuration adds a right
       // thumbnail navigation panel to the viewer when multi is 'true'.

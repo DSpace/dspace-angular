@@ -31,38 +31,38 @@ export abstract class SubmissionObject extends DSpaceObject implements Cacheable
 
   @excludeFromEquals
   @autoserialize
-  id: string;
+    id: string;
 
   /**
    * The SubmissionObject last modified date
    */
   @autoserialize
-  lastModified: Date;
+    lastModified: Date;
 
   /**
    * The collection this submission applies to
    * Will be undefined unless the collection {@link HALLink} has been resolved.
    */
   @link(COLLECTION)
-  collection?: Observable<RemoteData<Collection>> | Collection;
+    collection?: Observable<RemoteData<Collection>> | Collection;
 
   /**
    * The SubmissionObject's last section's data
    */
   @autoserialize
-  sections: WorkspaceitemSectionsObject;
+    sections: WorkspaceitemSectionsObject;
 
   /**
    * The SubmissionObject's last section's errors
    */
   @autoserialize
-  errors: SubmissionObjectError[];
+    errors: SubmissionObjectError[];
 
   /**
    * The {@link HALLink}s for this SubmissionObject
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
     collection: HALLink;
     item: HALLink;
@@ -81,21 +81,21 @@ export abstract class SubmissionObject extends DSpaceObject implements Cacheable
    */
   @link(ITEM)
   /* This was changed from 'Observable<RemoteData<Item>> | Item' to 'any' to prevent issues in templates with async */
-  item?: any;
+    item?: any;
 
   /**
    * The configuration object that define this submission
    * Will be undefined unless the submissionDefinition {@link HALLink} has been resolved.
    */
   @link(SubmissionDefinitionsModel.type)
-  submissionDefinition?: Observable<RemoteData<SubmissionDefinitionsModel>> | SubmissionDefinitionsModel;
+    submissionDefinition?: Observable<RemoteData<SubmissionDefinitionsModel>> | SubmissionDefinitionsModel;
 
   /**
    * The submitter for this SubmissionObject
    * Will be undefined unless the submitter {@link HALLink} has been resolved.
    */
   @link(EPERSON)
-  submitter?: Observable<RemoteData<EPerson>> | EPerson;
+    submitter?: Observable<RemoteData<EPerson>> | EPerson;
 
   /**
    * The submission supervision order
@@ -103,6 +103,6 @@ export abstract class SubmissionObject extends DSpaceObject implements Cacheable
    */
   @link(SUPERVISION_ORDER)
   /* This was changed from 'Observable<RemoteData<WorkspaceItem>> | WorkspaceItem' to 'any' to prevent issues in templates with async */
-  supervisionOrders?: Observable<RemoteData<PaginatedList<SupervisionOrder>>>;
+    supervisionOrders?: Observable<RemoteData<PaginatedList<SupervisionOrder>>>;
 
 }

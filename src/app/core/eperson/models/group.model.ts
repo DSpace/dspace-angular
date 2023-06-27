@@ -40,7 +40,7 @@ export class Group extends DSpaceObject {
    * The {@link HALLink}s for this Group
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
     subgroups: HALLink;
     epersons: HALLink;

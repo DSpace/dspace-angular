@@ -100,7 +100,7 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
               }
             }),
             distinctUntilChanged()
-        );
+          );
         }))
     );
   }

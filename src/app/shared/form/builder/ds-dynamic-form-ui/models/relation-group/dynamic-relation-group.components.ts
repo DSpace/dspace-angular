@@ -260,10 +260,10 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
         mergeMap((valueListObj: Observable<any>, index: number) => {
           return valueListObj.pipe(
             map((valueObj: any) => ({
-                index: index, value: valueObj.reduce(
+              index: index, value: valueObj.reduce(
                 (acc: any, value: any) => Object.assign({}, acc, value)
-                )
-              })
+              )
+            })
             )
           );
         }),

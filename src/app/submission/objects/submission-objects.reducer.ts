@@ -391,7 +391,7 @@ function completeInit(state: SubmissionObjectState, action: CompleteInitSubmissi
  *    the new state, with the flag set to true.
  */
 function saveSubmission(state: SubmissionObjectState,
-                        action: SaveSubmissionFormAction
+  action: SaveSubmissionFormAction
                           | SaveSubmissionSectionFormAction
                           | SaveForLaterSubmissionFormAction
                           | SaveAndDepositSubmissionAction): SubmissionObjectState {
@@ -422,7 +422,7 @@ function saveSubmission(state: SubmissionObjectState,
  *    the new state, with the flag set to false.
  */
 function completeSave(state: SubmissionObjectState,
-                      action: SaveSubmissionFormSuccessAction
+  action: SaveSubmissionFormSuccessAction
                         | SaveForLaterSubmissionFormSuccessAction
                         | SaveSubmissionSectionFormSuccessAction
                         | SaveSubmissionFormErrorAction

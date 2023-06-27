@@ -22,7 +22,7 @@ export class StatisticsTableComponent implements OnInit {
    * The usage report to display a statistics table for
    */
   @Input()
-  report: UsageReport;
+    report: UsageReport;
 
   /**
    * Boolean indicating whether the usage report has data

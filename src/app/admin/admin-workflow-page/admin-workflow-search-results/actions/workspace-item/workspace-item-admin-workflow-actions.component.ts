@@ -11,7 +11,7 @@ import {
   SupervisionOrderGroupSelectorComponent
 } from './supervision-order-group-selector/supervision-order-group-selector.component';
 import {
- getWorkspaceItemDeleteRoute
+  getWorkspaceItemDeleteRoute
 } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';

@@ -18,7 +18,7 @@ describe('BitstreamListItemComponent', () => {
       imports: [ CommonModule, SharedModule, TranslateModule, RouterTestingModule ],
       providers: [{ provide: DSONameService, useValue: new DSONameServiceMock() }]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

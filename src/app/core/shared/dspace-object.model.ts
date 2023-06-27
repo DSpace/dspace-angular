@@ -36,20 +36,20 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
    */
   @excludeFromEquals
   @autoserializeAs(String, 'uuid')
-  id: string;
+    id: string;
 
   /**
    * The universally unique ide ntifier of this DSpaceObject
    */
   @autoserializeAs(String)
-  uuid: string;
+    uuid: string;
 
   /**
    * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * A shorthand to get this DSpaceObject's self link
@@ -90,10 +90,10 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
    */
   @excludeFromEquals
   @autoserializeAs(MetadataMapSerializer)
-  metadata: MetadataMap;
+    metadata: MetadataMap;
 
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
   };
 

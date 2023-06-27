@@ -219,7 +219,7 @@ export class ThemeService {
     // create new head tags (not yet added to DOM)
     const headTagFragment = this.document.createDocumentFragment();
     this.createHeadTags(themeName)
-        .forEach(newHeadTag => headTagFragment.appendChild(newHeadTag));
+      .forEach(newHeadTag => headTagFragment.appendChild(newHeadTag));
 
     // add new head tags to DOM
     head.appendChild(headTagFragment);
@@ -278,7 +278,7 @@ export class ThemeService {
 
     if (hasValue(headTagConfig.attributes)) {
       Object.entries(headTagConfig.attributes)
-            .forEach(([key, value]) => tag.setAttribute(key, value));
+        .forEach(([key, value]) => tag.setAttribute(key, value));
     }
 
     // 'class' attribute should always be 'theme-head-tag' for removal

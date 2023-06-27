@@ -10,26 +10,26 @@ import { ValueListBrowseDefinition } from '../../core/shared/value-list-browse-d
 
 // This data is in post-serialized form (metadata -> metadataKeys)
 export const mockData: BrowseDefinition[] = [
-      Object.assign(new FlatBrowseDefinition(), {
-      'id' : 'dateissued',
-      'browseType': 'flatBrowse',
-      'dataType' : 'date',
-      'sortOptions' : EMPTY,
-      'order' : 'ASC',
-      'type' : 'browse',
-      'metadataKeys' : [ 'dc.date.issued' ],
-      '_links' : EMPTY
-     }),
-     Object.assign(new ValueListBrowseDefinition(), {
-      'id' : 'author',
-      'browseType' : 'valueList',
-      'dataType' : 'text',
-      'sortOptions' : EMPTY,
-      'order' : 'ASC',
-      'type' : 'browse',
-      'metadataKeys' : [ 'dc.contributor.*', 'dc.creator' ],
-      '_links' : EMPTY
-    })
+  Object.assign(new FlatBrowseDefinition(), {
+    'id' : 'dateissued',
+    'browseType': 'flatBrowse',
+    'dataType' : 'date',
+    'sortOptions' : EMPTY,
+    'order' : 'ASC',
+    'type' : 'browse',
+    'metadataKeys' : [ 'dc.date.issued' ],
+    '_links' : EMPTY
+  }),
+  Object.assign(new ValueListBrowseDefinition(), {
+    'id' : 'author',
+    'browseType' : 'valueList',
+    'dataType' : 'text',
+    'sortOptions' : EMPTY,
+    'order' : 'ASC',
+    'type' : 'browse',
+    'metadataKeys' : [ 'dc.contributor.*', 'dc.creator' ],
+    '_links' : EMPTY
+  })
 ];
 
 export const BrowseDefinitionDataServiceStub: any = {

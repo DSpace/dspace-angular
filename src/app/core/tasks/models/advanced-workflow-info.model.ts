@@ -6,6 +6,6 @@ import { autoserialize } from 'cerialize';
 export abstract class AdvancedWorkflowInfo {
 
   @autoserialize
-  id: string;
+    id: string;
 
 }

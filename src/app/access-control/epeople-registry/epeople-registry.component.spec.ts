@@ -99,7 +99,7 @@ describe('EPeopleRegistryComponent', () => {
       deleteEPerson(ePerson: EPerson): Observable<boolean> {
         this.allEpeople = this.allEpeople.filter((ePerson2: EPerson) => {
           return (ePerson2.uuid !== ePerson.uuid);
-            });
+        });
         return observableOf(true);
       },
       editEPerson(ePerson: EPerson) {

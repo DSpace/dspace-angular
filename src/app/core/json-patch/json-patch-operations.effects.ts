@@ -17,7 +17,7 @@ export class JsonPatchOperationsEffects {
   /**
    * Dispatches a FlushPatchOperationsAction for every dispatched CommitPatchOperationsAction
    */
-   commit$ = createEffect(() => this.actions$.pipe(
+  commit$ = createEffect(() => this.actions$.pipe(
     ofType(JsonPatchOperationsActionTypes.COMMIT_JSON_PATCH_OPERATIONS),
     map((action: CommitPatchOperationsAction) => {
       return new FlushPatchOperationsAction(action.payload.resourceType, action.payload.resourceId);

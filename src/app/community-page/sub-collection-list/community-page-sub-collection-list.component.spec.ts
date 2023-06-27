@@ -45,54 +45,54 @@ describe('CommunityPageSubCollectionList Component', () => {
       ]
     }
   }),
-    Object.assign(new Community(), {
-      id: '123456789-2',
-      metadata: {
-        'dc.title': [
-          { language: 'en_US', value: 'Collection 2' }
-        ]
-      }
-    }),
-    Object.assign(new Community(), {
-      id: '123456789-3',
-      metadata: {
-        'dc.title': [
-          { language: 'en_US', value: 'Collection 3' }
-        ]
-      }
-    }),
-    Object.assign(new Community(), {
-      id: '123456789-4',
-      metadata: {
-        'dc.title': [
-          { language: 'en_US', value: 'Collection 4' }
-        ]
-      }
-    }),
-    Object.assign(new Community(), {
-      id: '123456789-5',
-      metadata: {
-        'dc.title': [
-          { language: 'en_US', value: 'Collection 5' }
-        ]
-      }
-    }),
-    Object.assign(new Community(), {
-      id: '123456789-6',
-      metadata: {
-        'dc.title': [
-          { language: 'en_US', value: 'Collection 6' }
-        ]
-      }
-    }),
-    Object.assign(new Community(), {
-      id: '123456789-7',
-      metadata: {
-        'dc.title': [
-          { language: 'en_US', value: 'Collection 7' }
-        ]
-      }
-    })
+  Object.assign(new Community(), {
+    id: '123456789-2',
+    metadata: {
+      'dc.title': [
+        { language: 'en_US', value: 'Collection 2' }
+      ]
+    }
+  }),
+  Object.assign(new Community(), {
+    id: '123456789-3',
+    metadata: {
+      'dc.title': [
+        { language: 'en_US', value: 'Collection 3' }
+      ]
+    }
+  }),
+  Object.assign(new Community(), {
+    id: '123456789-4',
+    metadata: {
+      'dc.title': [
+        { language: 'en_US', value: 'Collection 4' }
+      ]
+    }
+  }),
+  Object.assign(new Community(), {
+    id: '123456789-5',
+    metadata: {
+      'dc.title': [
+        { language: 'en_US', value: 'Collection 5' }
+      ]
+    }
+  }),
+  Object.assign(new Community(), {
+    id: '123456789-6',
+    metadata: {
+      'dc.title': [
+        { language: 'en_US', value: 'Collection 6' }
+      ]
+    }
+  }),
+  Object.assign(new Community(), {
+    id: '123456789-7',
+    metadata: {
+      'dc.title': [
+        { language: 'en_US', value: 'Collection 7' }
+      ]
+    }
+  })
   ];
 
   const mockCommunity = Object.assign(new Community(), {

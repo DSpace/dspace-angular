@@ -373,10 +373,10 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
     return this.hasCachedResponse(href$).pipe(
       switchMap((hasCachedResponse) => {
         if (hasCachedResponse) {
-           return this.rdbService.buildSingle(href$).pipe(
-             getFirstCompletedRemoteData(),
-             map((rd => rd.hasFailed))
-           );
+          return this.rdbService.buildSingle(href$).pipe(
+            getFirstCompletedRemoteData(),
+            map((rd => rd.hasFailed))
+          );
         }
         return observableOf(false);
       })

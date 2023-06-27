@@ -80,7 +80,7 @@ export class LocaleService {
       mergeMap(([isAuthenticated, isLoaded]) => {
         // TODO to enabled again when https://github.com/DSpace/dspace-angular/issues/739 will be resolved
         const epersonLang$: Observable<string[]> = observableOf([]);
-/*        if (isAuthenticated && isLoaded) {
+        /*        if (isAuthenticated && isLoaded) {
           epersonLang$ = this.authService.getAuthenticatedUserFromStore().pipe(
             take(1),
             map((eperson) => {
@@ -176,11 +176,11 @@ export class LocaleService {
         divisor = 1;
     }
     languages.forEach( (lang) => {
-        let value = lang + ';q=';
-        let quality = (v - idx++) / v;
-        quality = ((languages.length > 10) ? quality.toFixed(2) : quality) as number;
-        value += quality / divisor;
-        langWithPrior.push(value);
+      let value = lang + ';q=';
+      let quality = (v - idx++) / v;
+      quality = ((languages.length > 10) ? quality.toFixed(2) : quality) as number;
+      value += quality / divisor;
+      langWithPrior.push(value);
     });
     return langWithPrior;
   }

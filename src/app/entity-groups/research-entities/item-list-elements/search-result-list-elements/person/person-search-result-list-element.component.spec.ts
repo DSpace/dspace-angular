@@ -69,11 +69,11 @@ describe('PersonSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock
         }
+      }
       )],
       declarations: [PersonSearchResultListElementComponent, TruncatePipe],
       providers: [
@@ -139,11 +139,11 @@ describe('PersonSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock
         }
+      }
       )],
       declarations: [PersonSearchResultListElementComponent, TruncatePipe],
       providers: [

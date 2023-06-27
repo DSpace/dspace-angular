@@ -52,36 +52,36 @@ export class WorkspaceItemsDeletePageComponent implements OnInit {
     this.previousQueryParameters = (this.location.getState() as { [key: string]: any }).previousQueryParams;
   }
 
-    /**
+  /**
    * Navigates to the previous url
    * If there's not previous url, it continues to the mydspace page instead
    */
-    previousPage() {
-      this.routeService.getPreviousUrl().pipe(take(1))
-        .subscribe((url: string) => {
-            let params: Params = {};
-            if (!url) {
-              url = '/mydspace';
-              params = this.previousQueryParameters;
-            }
-            if (url.split('?').length > 1) {
-              for (const param of url.split('?')[1].split('&')) {
-                params[param.split('=')[0]] = decodeURIComponent(param.split('=')[1]);
-              }
-            }
-            void this.router.navigate([url.split('?')[0]], { queryParams: params });
+  previousPage() {
+    this.routeService.getPreviousUrl().pipe(take(1))
+      .subscribe((url: string) => {
+        let params: Params = {};
+        if (!url) {
+          url = '/mydspace';
+          params = this.previousQueryParameters;
+        }
+        if (url.split('?').length > 1) {
+          for (const param of url.split('?')[1].split('&')) {
+            params[param.split('=')[0]] = decodeURIComponent(param.split('=')[1]);
           }
-        );
-    }
+        }
+        void this.router.navigate([url.split('?')[0]], { queryParams: params });
+      }
+      );
+  }
 
   /**
    * Open the modal to confirm the deletion of the workspaceitem
    */
   public async confirmDelete(content) {
-   await this.modalService.open(content).result.then(
+    await this.modalService.open(content).result.then(
       (result) => {
         if (result === 'ok') {
-         this.sendDeleteRequest();
+          this.sendDeleteRequest();
         }
       }
     );

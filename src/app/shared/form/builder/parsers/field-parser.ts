@@ -57,7 +57,7 @@ export abstract class FieldParser {
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any;
 
   public parse() {
-     if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
+    if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
       && (this.configData.input.type !== ParserType.List)
       && (this.configData.input.type !== ParserType.Tag)
     ) {
@@ -334,9 +334,9 @@ export abstract class FieldParser {
       && isNotEmpty(fieldScope)
       && isNotEmpty(visibility)
       && ((
-          submissionScope === SubmissionScopeType.WorkspaceItem
+        submissionScope === SubmissionScopeType.WorkspaceItem
           && visibility.main === VisibilityType.READONLY
-          )
+      )
         ||
           (visibility.other === VisibilityType.READONLY
           && submissionScope === SubmissionScopeType.WorkflowItem

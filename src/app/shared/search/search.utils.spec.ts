@@ -26,7 +26,7 @@ describe('Search Utils', () => {
       facetValueWithSearchHrefAuthority = Object.assign(new FacetValue(), {
         value: 'Value with search href',
         authorityKey: 'uuid',
-        }
+      }
       );
       facetValueWithoutSearchHref = Object.assign(new FacetValue(), {
         value: 'Value without search href'

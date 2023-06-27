@@ -124,10 +124,10 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
     }
     this.isProcessingSub = this.processBulkDeleteService.isProcessing$()
       .subscribe((isProcessing) => {
-      if (!isProcessing) {
-        this.closeModal();
-        this.setProcesses();
-      }
-    });
+        if (!isProcessing) {
+          this.closeModal();
+          this.setProcesses();
+        }
+      });
   }
 }

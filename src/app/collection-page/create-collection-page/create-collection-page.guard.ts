@@ -38,6 +38,6 @@ export class CreateCollectionPageGuard implements CanActivate {
             this.router.navigate(['/404']);
           }
         })
-    );
+      );
   }
 }

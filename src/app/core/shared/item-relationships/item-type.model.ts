@@ -19,16 +19,16 @@ export class ItemType implements CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * The identifier of this ItemType
    */
   @autoserialize
-  id: string;
+    id: string;
 
   @autoserialize
-  label: string;
+    label: string;
 
   /**
    * The universally unique identifier of this ItemType
@@ -36,13 +36,13 @@ export class ItemType implements CacheableObject {
    * It is based on the ID, so it will be the same for each refresh.
    */
   @deserializeAs(new IDToUUIDSerializer(ItemType.type.value), 'id')
-  uuid: string;
+    uuid: string;
 
   /**
    * The {@link HALLink}s for this ItemType
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink,
   };
 }

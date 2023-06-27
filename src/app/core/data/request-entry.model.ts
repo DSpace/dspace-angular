@@ -6,8 +6,8 @@ import { ResponseState } from './response-state.model';
  * An entry for a request in the NgRx store
  */
 export class RequestEntry {
-    request: RestRequestWithResponseParser;
-    state: RequestEntryState;
-    response: ResponseState;
-    lastUpdated: number;
+  request: RestRequestWithResponseParser;
+  state: RequestEntryState;
+  response: ResponseState;
+  lastUpdated: number;
 }

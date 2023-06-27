@@ -129,8 +129,8 @@ export class SubmissionObjectEffects {
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
         'sections').pipe(
-          map((response: SubmissionObject[]) => new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, action.payload.isManual, action.payload.isManual)),
-          catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
+        map((response: SubmissionObject[]) => new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, action.payload.isManual, action.payload.isManual)),
+        catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
     })));
 
   /**
@@ -143,8 +143,8 @@ export class SubmissionObjectEffects {
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
         'sections').pipe(
-          map((response: SubmissionObject[]) => new SaveForLaterSubmissionFormSuccessAction(action.payload.submissionId, response)),
-          catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
+        map((response: SubmissionObject[]) => new SaveForLaterSubmissionFormSuccessAction(action.payload.submissionId, response)),
+        catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
     })));
 
   /**
@@ -184,8 +184,8 @@ export class SubmissionObjectEffects {
         action.payload.submissionId,
         'sections',
         action.payload.sectionId).pipe(
-          map((response: SubmissionObject[]) => new SaveSubmissionSectionFormSuccessAction(action.payload.submissionId, response)),
-          catchError(() => observableOf(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId))));
+        map((response: SubmissionObject[]) => new SaveSubmissionSectionFormSuccessAction(action.payload.submissionId, response)),
+        catchError(() => observableOf(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId))));
     })));
 
   /**

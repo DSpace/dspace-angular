@@ -73,12 +73,12 @@ describe('PageSizeSelectorComponent', () => {
 
   it('it should show the size settings with the respective selectable options', (done) => {
     comp.paginationOptions$.pipe(first()).subscribe((options: PaginationComponentOptions) => {
-        const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
-        expect(pageSizeSetting).not.toBeNull();
-        const childElements = pageSizeSetting.queryAll(By.css('option'));
-        expect(childElements.length).toEqual(options.pageSizeOptions.length);
-        done();
-      }
+      const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
+      expect(pageSizeSetting).not.toBeNull();
+      const childElements = pageSizeSetting.queryAll(By.css('option'));
+      expect(childElements.length).toEqual(options.pageSizeOptions.length);
+      done();
+    }
     );
   });
 

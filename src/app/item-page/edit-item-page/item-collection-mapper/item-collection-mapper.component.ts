@@ -181,7 +181,7 @@ export class ItemCollectionMapperComponent implements OnInit {
         observableCombineLatest(
           this.filterIds(ids, excludingIds).map((id: string) =>
             this.itemDataService.mapToCollection(itemId, id).pipe(getFirstCompletedRemoteData())
-        ))
+          ))
       )
     );
 

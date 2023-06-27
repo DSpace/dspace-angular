@@ -26,13 +26,13 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
   otherInformation: OtherInformation;
 
   constructor(value: any = null,
-              language: any = null,
-              authority: string = null,
-              display: string = null,
-              place: number = 0,
-              confidence: number = null,
-              otherInformation: any = null,
-              metadata: string = null) {
+    language: any = null,
+    authority: string = null,
+    display: string = null,
+    place: number = 0,
+    confidence: number = null,
+    otherInformation: any = null,
+    metadata: string = null) {
     this.value = isNotNull(value) ? ((typeof value === 'string') ? value.trim() : value) : null;
     this.language = language;
     this.authority = authority;

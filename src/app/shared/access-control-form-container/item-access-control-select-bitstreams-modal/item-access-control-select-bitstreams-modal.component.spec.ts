@@ -10,7 +10,7 @@ xdescribe('ItemAccessControlSelectBitstreamsModalComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ ItemAccessControlSelectBitstreamsModalComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

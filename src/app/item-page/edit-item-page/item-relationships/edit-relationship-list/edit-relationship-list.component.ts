@@ -284,15 +284,15 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         const relatedItem = searchResult.indexableObject;
         subscriptions.push(this.relationshipService.getNameVariant(this.listId, relatedItem.uuid).pipe(
           map((nameVariant) => {
-          const update = {
-            uuid: this.relationshipType.id + '-' + searchResult.indexableObject.uuid,
-            nameVariant,
-            type: this.relationshipType,
-            relatedItem,
-          } as RelationshipIdentifiable;
-          this.objectUpdatesService.saveAddFieldUpdate(this.url, update);
-          return update;
-        })
+            const update = {
+              uuid: this.relationshipType.id + '-' + searchResult.indexableObject.uuid,
+              nameVariant,
+              type: this.relationshipType,
+              relatedItem,
+            } as RelationshipIdentifiable;
+            this.objectUpdatesService.saveAddFieldUpdate(this.url, update);
+            return update;
+          })
         ));
       });
 
@@ -361,21 +361,21 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         let apiCall;
         if (isLeft) {
           apiCall = this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, this.relationshipType.leftwardType ,[relatedItem.id] ).pipe(
-                      getFirstSucceededRemoteData(),
-                      getRemoteDataPayload(),
-                    );
+            getFirstSucceededRemoteData(),
+            getRemoteDataPayload(),
+          );
         } else {
           apiCall = this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, this.relationshipType.rightwardType ,[relatedItem.id] ).pipe(
-                      getFirstSucceededRemoteData(),
-                      getRemoteDataPayload(),
-                    );
+            getFirstSucceededRemoteData(),
+            getRemoteDataPayload(),
+          );
         }
 
         return apiCall.pipe(
           map( (res: PaginatedList<Relationship>) => res.page[0])
         );
       }
-    ));
+      ));
   }
 
 
@@ -398,7 +398,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
           defaultIfEmpty([]),
           map((relatedItems) => {
             return identifiables.filter( (identifiable, index) => {
-                return relatedItems[index].uuid === relatedItem.uuid;
+              return relatedItems[index].uuid === relatedItem.uuid;
             });
           }
           ),
@@ -555,7 +555,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
           toArray(),
           // if the pipe above completes without emitting anything, emit an empty array instead
           defaultIfEmpty([])
-      )),
+        )),
       switchMap((nextFields: RelationshipIdentifiable[]) => {
         // Get a list that contains the unsaved changes for the page, as well as the page of
         // RelationshipIdentifiables, as a single list of FieldUpdates

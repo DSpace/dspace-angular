@@ -48,18 +48,18 @@ export class ItemRegisterDoiComponent extends AbstractSimpleItemActionComponent 
     )as Observable<RemoteData<Item>>;
 
     this.itemRD$.pipe(first()).subscribe((rd) => {
-        this.item = rd.payload;
-        this.itemPageRoute = getItemPageRoute(this.item);
-        this.identifiers$ = this.identifierDataService.getIdentifierDataFor(this.item).pipe(
-          map((identifierRD) => {
-            if (identifierRD.statusCode !== 401 && hasValue(identifierRD.payload)) {
-              return identifierRD.payload.identifiers;
-            } else {
-              return null;
-            }
-          }),
-        );
-      }
+      this.item = rd.payload;
+      this.itemPageRoute = getItemPageRoute(this.item);
+      this.identifiers$ = this.identifierDataService.getIdentifierDataFor(this.item).pipe(
+        map((identifierRD) => {
+          if (identifierRD.statusCode !== 401 && hasValue(identifierRD.payload)) {
+            return identifierRD.payload.identifiers;
+          } else {
+            return null;
+          }
+        }),
+      );
+    }
     );
 
     this.confirmMessage = 'item.edit.' + this.messageKey + '.confirm';

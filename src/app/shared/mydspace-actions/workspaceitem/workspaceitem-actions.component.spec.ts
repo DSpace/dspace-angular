@@ -160,7 +160,7 @@ describe('WorkspaceitemActionsComponent', () => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: observableOf(true)
     });
-   await TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       imports: [
         NgbModule,
         TranslateModule.forRoot({

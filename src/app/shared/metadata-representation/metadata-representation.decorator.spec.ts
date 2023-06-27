@@ -1,4 +1,4 @@
-  /* eslint-disable max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 import {
   DEFAULT_ENTITY_TYPE,
   DEFAULT_REPRESENTATION_TYPE,

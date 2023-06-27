@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-    SubmissionSectionUploadFileComponent as BaseComponent
+  SubmissionSectionUploadFileComponent as BaseComponent
 } from 'src/app/submission/sections/upload/file/section-upload-file.component';
 
 /**
@@ -14,5 +14,5 @@ import {
   templateUrl: '../../../../../../../app/submission/sections/upload/file/section-upload-file.component.html'
 })
 export class SubmissionSectionUploadFileComponent
-    extends BaseComponent {
+  extends BaseComponent {
 }

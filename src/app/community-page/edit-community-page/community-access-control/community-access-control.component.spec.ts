@@ -10,7 +10,7 @@ xdescribe('CommunityAccessControlComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ CommunityAccessControlComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

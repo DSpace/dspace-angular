@@ -71,7 +71,7 @@ describe('Theme Models', () => {
     let handleService;
     beforeEach(() => {
       handleService = new HandleService();
-      });
+    });
     it('should return true when the DSO\'s handle matches the theme\'s handle', () => {
       theme = new HandleTheme({
         name: 'matching-handle',

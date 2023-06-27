@@ -64,7 +64,7 @@ export abstract class BaseResponseParsingService {
                 } else if (isRestDataObject(data._embedded[property])) {
                   object[property] = this.retrieveObjectOrUrl(parsedObj);
                 } else if (Array.isArray(parsedObj)) {
-                    object[property] = parsedObj.map((obj) => this.retrieveObjectOrUrl(obj));
+                  object[property] = parsedObj.map((obj) => this.retrieveObjectOrUrl(obj));
                 }
               }
             });
@@ -102,8 +102,8 @@ export abstract class BaseResponseParsingService {
   protected processArray<ObjectDomain>(data: any, request: RestRequest): ObjectDomain[] {
     let array: ObjectDomain[] = [];
     data.forEach((datum) => {
-        array = [...array, this.process(datum, request)];
-      }
+      array = [...array, this.process(datum, request)];
+    }
     );
     return array;
   }

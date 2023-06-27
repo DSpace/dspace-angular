@@ -171,7 +171,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
         filter((rd: RemoteData<Collection>) => isNotUndefined((rd.payload))),
         tap((collectionRemoteData: RemoteData<Collection>) => this.collectionName = this.dsoNameService.getName(collectionRemoteData.payload)),
         // TODO review this part when https://github.com/DSpace/dspace-angular/issues/575 is resolved
-/*        mergeMap((collectionRemoteData: RemoteData<Collection>) => {
+        /*        mergeMap((collectionRemoteData: RemoteData<Collection>) => {
           return this.resourcePolicyService.findByHref(
             (collectionRemoteData.payload as any)._links.defaultAccessConditions.href
           );
@@ -202,20 +202,20 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
         }),
         distinctUntilChanged())
         .subscribe(([configMetadataForm, fileList]: [SubmissionFormsModel, any[]]) => {
-            this.fileList = [];
-            this.fileIndexes = [];
-            this.fileNames = [];
-            this.changeDetectorRef.detectChanges();
-            if (isNotUndefined(fileList) && fileList.length > 0) {
-              fileList.forEach((file) => {
-                this.fileList.push(file);
-                this.fileIndexes.push(file.uuid);
-                this.fileNames.push(this.getFileName(configMetadataForm, file));
-              });
-            }
-
-            this.changeDetectorRef.detectChanges();
+          this.fileList = [];
+          this.fileIndexes = [];
+          this.fileNames = [];
+          this.changeDetectorRef.detectChanges();
+          if (isNotUndefined(fileList) && fileList.length > 0) {
+            fileList.forEach((file) => {
+              this.fileList.push(file);
+              this.fileIndexes.push(file.uuid);
+              this.fileNames.push(this.getFileName(configMetadataForm, file));
+            });
           }
+
+          this.changeDetectorRef.detectChanges();
+        }
         )
     );
   }

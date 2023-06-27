@@ -27,11 +27,11 @@ describe('CommunityListComponent', () => {
     uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
     name: 'subcommunity1',
   }),
-    Object.assign(new Community(), {
-      id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
-      uuid: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
-      name: 'subcommunity2',
-    })
+  Object.assign(new Community(), {
+    id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
+    uuid: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
+    name: 'subcommunity2',
+  })
   ];
   const mockCollectionsPage1 = [
     Object.assign(new Collection(), {

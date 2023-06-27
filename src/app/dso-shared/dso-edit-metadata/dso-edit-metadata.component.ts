@@ -186,8 +186,8 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
         this.notificationsService.error(this.translateService.instant(`${this.dsoType}.edit.metadata.notifications.error.title`), rd.errorMessage);
       } else {
         this.notificationsService.success(
-            this.translateService.instant(`${this.dsoType}.edit.metadata.notifications.saved.title`),
-            this.translateService.instant(`${this.dsoType}.edit.metadata.notifications.saved.content`)
+          this.translateService.instant(`${this.dsoType}.edit.metadata.notifications.saved.title`),
+          this.translateService.instant(`${this.dsoType}.edit.metadata.notifications.saved.content`)
         );
         this.dso = rd.payload;
         this.initForm();

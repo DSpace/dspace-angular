@@ -16,7 +16,7 @@ class Dog extends EquatableObject<Dog> {
 
 class Owner extends EquatableObject<Owner> {
   @excludeFromEquals
-  favouriteFood: string;
+    favouriteFood: string;
 
   constructor(
     public name: string,

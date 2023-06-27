@@ -10,7 +10,7 @@ export class NotificationsEffects {
    * Authenticate user.
    * @method authenticate
    */
- /* @Effect()
+  /* @Effect()
   public timer: Observable<Action> = this.actions$
     .pipe(ofType(NotificationsActionTypes.NEW_NOTIFICATION_WITH_TIMER),
     // .debounceTime((action: any) => action.payload.options.timeOut)

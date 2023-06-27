@@ -13,12 +13,12 @@ import { getRemoteDataPayload } from '../../../../core/shared/operators';
  */
 
 @Component({
-    templateUrl: './item-page-field.component.html'
+  templateUrl: './item-page-field.component.html'
 })
 export class ItemPageFieldComponent {
 
-    constructor(protected browseDefinitionDataService: BrowseDefinitionDataService) {
-    }
+  constructor(protected browseDefinitionDataService: BrowseDefinitionDataService) {
+  }
 
     /**
      * The item to display metadata for

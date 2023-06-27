@@ -27,19 +27,19 @@ export class TaskObject extends DSpaceObject implements CacheableObject {
    * The task identifier
    */
   @autoserialize
-  id: string;
+    id: string;
 
   /**
    * The workflow step
    */
   @autoserialize
-  step: string;
+    step: string;
 
   /**
    * The {@link HALLink}s for this TaskObject
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
     owner: HALLink;
     group: HALLink;
@@ -52,14 +52,14 @@ export class TaskObject extends DSpaceObject implements CacheableObject {
    * Will be undefined unless the eperson {@link HALLink} has been resolved.
    */
   @link(EPERSON, false, 'owner')
-  eperson?: Observable<RemoteData<EPerson>>;
+    eperson?: Observable<RemoteData<EPerson>>;
 
   /**
    * The Group for this task
    * Will be undefined unless the group {@link HALLink} has been resolved.
    */
   @link(GROUP)
-  group?: Observable<RemoteData<Group>>;
+    group?: Observable<RemoteData<Group>>;
 
   /**
    * The WorkflowItem for this task
@@ -67,13 +67,13 @@ export class TaskObject extends DSpaceObject implements CacheableObject {
    */
   @link(WORKFLOWITEM)
   /* This was changed from 'WorkflowItem | Observable<RemoteData<WorkflowItem>>' to 'any' to prevent issues in templates with async */
-  workflowitem?: any;
+    workflowitem?: any;
 
   /**
    * The task action type
    * Will be undefined unless the group {@link HALLink} has been resolved.
    */
   @link(WORKFLOW_ACTION, false, 'action')
-  action: Observable<RemoteData<WorkflowAction>>;
+    action: Observable<RemoteData<WorkflowAction>>;
 
 }

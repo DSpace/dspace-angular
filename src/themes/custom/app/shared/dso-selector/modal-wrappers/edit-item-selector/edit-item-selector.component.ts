@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-    EditItemSelectorComponent as BaseComponent
+  EditItemSelectorComponent as BaseComponent
 } from 'src/app/shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 
 @Component({

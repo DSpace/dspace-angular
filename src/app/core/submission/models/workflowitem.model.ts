@@ -19,5 +19,5 @@ export class WorkflowItem extends SubmissionObject {
    * It is based on the ID, so it will be the same for each refresh.
    */
   @deserializeAs(new IDToUUIDSerializer(WorkflowItem.type.value), 'id')
-  uuid: string;
+    uuid: string;
 }

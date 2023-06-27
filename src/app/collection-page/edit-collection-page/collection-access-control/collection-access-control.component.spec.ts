@@ -10,7 +10,7 @@ xdescribe('CollectionAccessControlComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ CollectionAccessControlComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

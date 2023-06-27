@@ -100,10 +100,10 @@ export class LogInPasswordComponent implements OnInit {
     // set error
     this.error = this.store.pipe(select(
       getAuthenticationError),
-      map((error) => {
-        this.hasError = (isNotEmpty(error));
-        return error;
-      })
+    map((error) => {
+      this.hasError = (isNotEmpty(error));
+      return error;
+    })
     );
 
     // set error

@@ -34,7 +34,7 @@ export interface ResourcePolicyCheckboxEntry {
 })
 export class ResourcePolicyEntryComponent implements OnInit {
   @Input()
-  entry: ResourcePolicyCheckboxEntry;
+    entry: ResourcePolicyCheckboxEntry;
 
   @Output()
   public toggleCheckbox: EventEmitter<boolean> = new EventEmitter();

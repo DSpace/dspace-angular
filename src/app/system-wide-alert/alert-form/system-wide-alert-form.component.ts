@@ -117,11 +117,11 @@ export class SystemWideAlertFormComponent implements OnInit {
    */
   createForm() {
     this.alertForm = new UntypedFormBuilder().group({
-        formMessage: new UntypedFormControl('', {
-          validators: [Validators.required],
-        }),
-        formActive: new UntypedFormControl(false),
-      }
+      formMessage: new UntypedFormControl('', {
+        validators: [Validators.required],
+      }),
+      formActive: new UntypedFormControl(false),
+    }
     );
     this.setDateTime(new Date());
   }

@@ -49,15 +49,15 @@ export class EditBitstreamFormatComponent implements OnInit {
     this.bitstreamFormatDataService.updateBitstreamFormat(bitstreamFormat).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((response: RemoteData<BitstreamFormat>) => {
-        if (response.hasSucceeded) {
-          this.notificationService.success(this.translateService.get('admin.registries.bitstream-formats.edit.success.head'),
-            this.translateService.get('admin.registries.bitstream-formats.edit.success.content'));
-          this.router.navigate([getBitstreamFormatsModuleRoute()]);
-        } else {
-          this.notificationService.error('admin.registries.bitstream-formats.edit.failure.head',
-            'admin.registries.bitstream-formats.create.edit.content');
-        }
+      if (response.hasSucceeded) {
+        this.notificationService.success(this.translateService.get('admin.registries.bitstream-formats.edit.success.head'),
+          this.translateService.get('admin.registries.bitstream-formats.edit.success.content'));
+        this.router.navigate([getBitstreamFormatsModuleRoute()]);
+      } else {
+        this.notificationService.error('admin.registries.bitstream-formats.edit.failure.head',
+          'admin.registries.bitstream-formats.create.edit.content');
       }
+    }
     );
   }
 }

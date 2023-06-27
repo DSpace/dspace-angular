@@ -37,7 +37,7 @@ export class Subscription extends DSpaceObject {
    * The {@link HALLink}s for this Subscription
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
     eperson: HALLink;
     resource: HALLink;
@@ -48,14 +48,14 @@ export class Subscription extends DSpaceObject {
    * Will be undefined unless the logo {@link HALLink} has been resolved.
    */
   @link(EPERSON)
-  eperson?: Observable<RemoteData<EPerson>>;
+    eperson?: Observable<RemoteData<EPerson>>;
 
   /**
    * The logo for this Community
    * Will be undefined unless the logo {@link HALLink} has been resolved.
    */
   @link(DSPACE_OBJECT)
-  resource?: Observable<RemoteData<DSpaceObject>>;
+    resource?: Observable<RemoteData<DSpaceObject>>;
   /**
    * The embedded ePerson & dSpaceObject for this Subscription
    */

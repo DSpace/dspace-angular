@@ -9,7 +9,7 @@ import { AccessControlRoutingModule } from '../../access-control/access-control-
 @NgModule({
   declarations: [
     BrowseByComponent,
-],
+  ],
   imports: [
     ResultsBackButtonModule,
     BrowseByRoutingModule,

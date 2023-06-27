@@ -61,11 +61,11 @@ describe('BrowseByDatePageComponent', () => {
     }
   });
 
-   const mockBrowseService = {
-     getBrowseEntriesFor: (options: BrowseEntrySearchOptions) => toRemoteData([]),
-     getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData([firstItem]),
-     getFirstItemFor: (definition: string, scope?: string, sortDirection?: SortDirection) => null
-   };
+  const mockBrowseService = {
+    getBrowseEntriesFor: (options: BrowseEntrySearchOptions) => toRemoteData([]),
+    getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData([firstItem]),
+    getFirstItemFor: (definition: string, scope?: string, sortDirection?: SortDirection) => null
+  };
 
   const mockDsoService = {
     findById: () => createSuccessfulRemoteDataObject$(mockCommunity)

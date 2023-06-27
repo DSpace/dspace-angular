@@ -143,8 +143,8 @@ describe('FindAllDataImpl', () => {
       options = {};
 
       (service as any).getFindAllHref(options).subscribe((value) => {
-          expect(value).toBe(endpoint);
-        },
+        expect(value).toBe(endpoint);
+      },
       );
     });
 

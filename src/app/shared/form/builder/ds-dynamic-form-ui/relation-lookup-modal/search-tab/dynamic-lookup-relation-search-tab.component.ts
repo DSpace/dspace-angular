@@ -224,7 +224,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
         mapTo(results)
       ))
     ).subscribe((results) => {
-        this.selectableListService.select(this.listId, results);
+      this.selectableListService.select(this.listId, results);
     });
   }
 
@@ -239,30 +239,30 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
       relationType = this.relationshipType.leftwardType;
     }
     this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, relationType ,idOfItems ).pipe(
-        getFirstSucceededRemoteData(),
-        getRemoteDataPayload(),
-      ).subscribe( (res: PaginatedList<Relationship>) => {
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+    ).subscribe( (res: PaginatedList<Relationship>) => {
 
-        let selectableObject = res.page.map( (relationship: any) => {
+      let selectableObject = res.page.map( (relationship: any) => {
 
-          let arrUrl = [];
-          if ( this.isLeft ) {
-            arrUrl = relationship._links.rightItem.href.split('/');
-          } else {
-            arrUrl = relationship._links.leftItem.href.split('/');
-          }
-          const uuid = arrUrl[ arrUrl.length - 1 ];
-
-          return this.getRelatedItem(uuid, resultListOfItems);
-        });
-
-        selectableObject = selectableObject.filter( (selObject) => {
-          return !this.getIfInRemove(selObject.indexableObject.uuid);
-        });
-
-        if ( selectableObject.length > 0 ) {
-          this.selectableListService.select(this.listId, selectableObject);
+        let arrUrl = [];
+        if ( this.isLeft ) {
+          arrUrl = relationship._links.rightItem.href.split('/');
+        } else {
+          arrUrl = relationship._links.leftItem.href.split('/');
         }
+        const uuid = arrUrl[ arrUrl.length - 1 ];
+
+        return this.getRelatedItem(uuid, resultListOfItems);
+      });
+
+      selectableObject = selectableObject.filter( (selObject) => {
+        return !this.getIfInRemove(selObject.indexableObject.uuid);
+      });
+
+      if ( selectableObject.length > 0 ) {
+        this.selectableListService.select(this.listId, selectableObject);
+      }
     });
   }
 

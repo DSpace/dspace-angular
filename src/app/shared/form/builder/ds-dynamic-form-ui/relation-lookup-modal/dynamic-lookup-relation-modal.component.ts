@@ -220,25 +220,25 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     this.zone.runOutsideAngular(
       () => {
         const obs: Observable<any[]> = observableCombineLatest([...selectableObjects.map((sri: SearchResult<Item>) => {
-            this.addNameVariantSubscription(sri);
-            return this.relationshipService.getNameVariant(this.listId, sri.indexableObject.uuid)
-              .pipe(
-                take(1),
-                map((nameVariant: string) => {
-                  return {
-                    item: sri.indexableObject,
-                    nameVariant
-                  };
-                })
-              );
-          })
+          this.addNameVariantSubscription(sri);
+          return this.relationshipService.getNameVariant(this.listId, sri.indexableObject.uuid)
+            .pipe(
+              take(1),
+              map((nameVariant: string) => {
+                return {
+                  item: sri.indexableObject,
+                  nameVariant
+                };
+              })
+            );
+        })
         ]);
         obs
           .subscribe((arr: any[]) => {
             return arr.forEach((object: any) => {
               const addRelationshipAction = new AddRelationshipAction(this.item, object.item, this.relationshipOptions.relationshipType, this.submissionId, object.nameVariant);
               this.store.dispatch(addRelationshipAction);
-              }
+            }
             );
           });
       });

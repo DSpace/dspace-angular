@@ -23,17 +23,17 @@ import { AuthorizationDataService } from '../../../../core/data/feature-authoriz
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
 @NgModule({
-    imports: [NgbModalModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
-        }),
-    ],
-    exports: [],
-    declarations: [ConfirmationModalComponent],
-    providers: []
+  imports: [NgbModalModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useClass: TranslateLoaderMock
+      }
+    }),
+  ],
+  exports: [],
+  declarations: [ConfirmationModalComponent],
+  providers: []
 })
 class ModelTestModule {
 }
@@ -180,7 +180,7 @@ describe('ExportBatchSelectorComponent', () => {
         Object.assign(new ProcessParameter(), { name: '--id', value: mockCollection.uuid }),
         Object.assign(new ProcessParameter(), { name: '--type', value: 'COLLECTION' })
       ];
-        expect(scriptService.invoke).toHaveBeenCalledWith(BATCH_EXPORT_SCRIPT_NAME, parameterValues, []);
+      expect(scriptService.invoke).toHaveBeenCalledWith(BATCH_EXPORT_SCRIPT_NAME, parameterValues, []);
     });
     it('success notification is shown', () => {
       expect(scriptRequestSucceeded).toBeTrue();

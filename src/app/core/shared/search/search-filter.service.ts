@@ -100,10 +100,10 @@ export class SearchFilterService {
     const sortDirection$ = this.routeService.getQueryParameterValue('sortDirection');
     const sortField$ = this.routeService.getQueryParameterValue('sortField');
     return observableCombineLatest(sortDirection$, sortField$).pipe(map(([sortDirection, sortField]) => {
-        const field = sortField || defaultSort.field;
-        const direction = SortDirection[sortDirection] || defaultSort.direction;
-        return new SortOptions(field, direction);
-      }
+      const field = sortField || defaultSort.field;
+      const direction = SortDirection[sortDirection] || defaultSort.direction;
+      return new SortOptions(field, direction);
+    }
     ));
   }
 
@@ -135,11 +135,11 @@ export class SearchFilterService {
     );
     return observableCombineLatest(values$, prefixValues$).pipe(
       map(([values, prefixValues]) => {
-          if (isNotEmpty(values)) {
-            return values;
-          }
-          return prefixValues;
+        if (isNotEmpty(values)) {
+          return values;
         }
+        return prefixValues;
+      }
       )
     );
   }

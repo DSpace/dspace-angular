@@ -86,9 +86,9 @@ export class BrowseByTaxonomyPageComponent implements OnInit, OnDestroy {
    * @param detail VocabularyEntryDetail to be added
    */
   onSelect(detail: VocabularyEntryDetail): void {
-      this.selectedItems.push(detail);
-      this.filterValues = this.selectedItems
-        .map((item: VocabularyEntryDetail) => `${item.value},equals`);
+    this.selectedItems.push(detail);
+    this.filterValues = this.selectedItems
+      .map((item: VocabularyEntryDetail) => `${item.value},equals`);
     this.updateQueryParams();
   }
 

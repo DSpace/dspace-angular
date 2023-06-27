@@ -308,11 +308,11 @@ export class MetadataService {
         true,
         followLink('primaryBitstream'),
         followLink('bitstreams', {
-            findListOptions: {
-              // limit the number of bitstreams used to find the citation pdf url to the number
-              // shown by default on an item page
-              elementsPerPage: this.appConfig.item.bitstream.pageSize
-            }
+          findListOptions: {
+            // limit the number of bitstreams used to find the citation pdf url to the number
+            // shown by default on an item page
+            elementsPerPage: this.appConfig.item.bitstream.pageSize
+          }
         }, followLink('format')),
       ).pipe(
         getFirstSucceededRemoteDataPayload(),

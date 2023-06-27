@@ -24,7 +24,7 @@ import { CoreState } from '../core-state.model';
 @Injectable()
 export class UUIDIndexEffects {
 
-   addObject$ = createEffect(() => this.actions$
+  addObject$ = createEffect(() => this.actions$
     .pipe(
       ofType(ObjectCacheActionTypes.ADD),
       filter((action: AddToObjectCacheAction) => hasValue(action.payload.objectToCache.uuid)),
@@ -41,7 +41,7 @@ export class UUIDIndexEffects {
    * Adds an alternative link to an object to the ALTERNATIVE_OBJECT_LINK index
    * When the self link of the objectToCache is not the same as the alternativeLink
    */
-   addAlternativeObjectLink$ = createEffect(() => this.actions$
+  addAlternativeObjectLink$ = createEffect(() => this.actions$
     .pipe(
       ofType(ObjectCacheActionTypes.ADD),
       map((action: AddToObjectCacheAction) => {
@@ -59,7 +59,7 @@ export class UUIDIndexEffects {
       })
     ));
 
-   removeObject$ = createEffect(() => this.actions$
+  removeObject$ = createEffect(() => this.actions$
     .pipe(
       ofType(ObjectCacheActionTypes.REMOVE),
       map((action: RemoveFromObjectCacheAction) => {
@@ -70,18 +70,18 @@ export class UUIDIndexEffects {
       })
     ));
 
-   addRequest$ = createEffect(() => this.actions$
+  addRequest$ = createEffect(() => this.actions$
     .pipe(
       ofType(RequestActionTypes.CONFIGURE),
       filter((action: RequestConfigureAction) => action.payload.method === RestRequestMethod.GET),
       switchMap((action: RequestConfigureAction) => {
         const href = getUrlWithoutEmbedParams(action.payload.href);
         return this.store.pipe(
-            select(uuidFromHrefSelector(href)),
-            take(1),
-            map((uuid: string) => [action, uuid])
-          );
-        }
+          select(uuidFromHrefSelector(href)),
+          take(1),
+          map((uuid: string) => [action, uuid])
+        );
+      }
       ),
       switchMap(([action, uuid]: [RequestConfigureAction, string]) => {
         let actions = [];

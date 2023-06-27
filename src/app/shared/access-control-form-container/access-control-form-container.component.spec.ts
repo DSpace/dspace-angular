@@ -24,12 +24,12 @@ describe('AccessControlFormContainerComponent', () => {
   let fixture: ComponentFixture<AccessControlFormContainerComponent<any>>;
 
 
-// Mock NgbModal
+  // Mock NgbModal
   @Component({selector: 'ds-ngb-modal', template: ''})
   class MockNgbModalComponent {
   }
 
-// Mock dependencies
+  // Mock dependencies
   const mockBulkAccessControlService = {
     createPayloadFile: jasmine.createSpy('createPayloadFile').and.returnValue({file: 'mocked-file'}),
     executeScript: jasmine.createSpy('executeScript').and.returnValue(of('success')),

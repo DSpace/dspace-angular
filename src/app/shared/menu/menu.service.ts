@@ -82,10 +82,10 @@ export class MenuService {
       select(menuByIDSelector(menuID)),
       select(menuSectionStateSelector),
       map((sections: MenuSections) => {
-          return Object.values(sections)
-            .filter((section: MenuSection) => hasNoValue(section.parentID))
-            .filter((section: MenuSection) => !mustBeVisible || section.visible);
-        }
+        return Object.values(sections)
+          .filter((section: MenuSection) => hasNoValue(section.parentID))
+          .filter((section: MenuSection) => !mustBeVisible || section.visible);
+      }
       )
     );
   }

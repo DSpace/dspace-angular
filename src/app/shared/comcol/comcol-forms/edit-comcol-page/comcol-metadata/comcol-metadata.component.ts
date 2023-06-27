@@ -87,6 +87,6 @@ export class ComcolMetadataComponent<TDomain extends Community | Collection> imp
       take(1)
     ).subscribe((dsoRD: RemoteData<TDomain>) => {
       this.router.navigate([this.frontendURL + dsoRD.payload.id]);
-      });
+    });
   }
 }

@@ -50,9 +50,9 @@ export class EditItemPageComponent implements OnInit {
         let enabled = observableOf(true);
         if (isNotEmpty(child.canActivate)) {
           enabled = observableCombineLatest(child.canActivate.map((guardConstructor: GenericConstructor<CanActivate>) => {
-              const guard: CanActivate = this.injector.get<CanActivate>(guardConstructor);
-              return guard.canActivate(this.route.snapshot, this.router.routerState.snapshot);
-            })
+            const guard: CanActivate = this.injector.get<CanActivate>(guardConstructor);
+            return guard.canActivate(this.route.snapshot, this.router.routerState.snapshot);
+          })
           ).pipe(
             map((canActivateOutcomes: any[]) => canActivateOutcomes.every((e) => e === true))
           );

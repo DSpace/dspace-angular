@@ -99,26 +99,26 @@ describe('FormService test suite', () => {
   }));
 
   beforeEach(inject([Store], (store: Store<AppState>) => {
-      builderService = getMockFormBuilderService();
-      store
-        .subscribe((state) => {
-          state.forms = formState;
-        });
-      const author: AbstractControl = new UntypedFormControl('test');
-      const title: AbstractControl = new UntypedFormControl(undefined, Validators.required);
-      const date: AbstractControl = new UntypedFormControl(undefined);
-      const description: AbstractControl = new UntypedFormControl(undefined);
-
-      const addressLocation: UntypedFormGroup = new UntypedFormGroup({
-        zipCode: new UntypedFormControl(undefined),
-        state: new UntypedFormControl(undefined),
-        city: new UntypedFormControl(undefined),
+    builderService = getMockFormBuilderService();
+    store
+      .subscribe((state) => {
+        state.forms = formState;
       });
+    const author: AbstractControl = new UntypedFormControl('test');
+    const title: AbstractControl = new UntypedFormControl(undefined, Validators.required);
+    const date: AbstractControl = new UntypedFormControl(undefined);
+    const description: AbstractControl = new UntypedFormControl(undefined);
 
-      formGroup = new UntypedFormGroup({ author, title, date, description, addressLocation });
-      controls = { author, title, date, description , addressLocation };
-      service = new FormService(builderService, store);
-    })
+    const addressLocation: UntypedFormGroup = new UntypedFormGroup({
+      zipCode: new UntypedFormControl(undefined),
+      state: new UntypedFormControl(undefined),
+      city: new UntypedFormControl(undefined),
+    });
+
+    formGroup = new UntypedFormGroup({ author, title, date, description, addressLocation });
+    controls = { author, title, date, description , addressLocation };
+    service = new FormService(builderService, store);
+  })
   )
   ;
 

@@ -57,9 +57,9 @@ export class SectionFormOperationsService {
    *    representing if field value related to the specified operation has stored value
    */
   public dispatchOperationsFromEvent(pathCombiner: JsonPatchOperationPathCombiner,
-                                     event: DynamicFormControlEvent,
-                                     previousValue: FormFieldPreviousValueObject,
-                                     hasStoredValue: boolean): void {
+    event: DynamicFormControlEvent,
+    previousValue: FormFieldPreviousValueObject,
+    hasStoredValue: boolean): void {
     switch (event.type) {
       case 'remove':
         this.dispatchOperationsFromRemoveEvent(pathCombiner, event, previousValue);
@@ -296,8 +296,8 @@ export class SectionFormOperationsService {
    *    the [[FormFieldPreviousValueObject]] for the specified operation
    */
   protected dispatchOperationsFromRemoveEvent(pathCombiner: JsonPatchOperationPathCombiner,
-                                              event: DynamicFormControlEvent,
-                                              previousValue: FormFieldPreviousValueObject): void {
+    event: DynamicFormControlEvent,
+    previousValue: FormFieldPreviousValueObject): void {
 
     const path = this.getFieldPathFromEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
@@ -360,11 +360,11 @@ export class SectionFormOperationsService {
    *    representing if field value related to the specified operation has stored value
    */
   protected dispatchOperationsFromChangeEvent(pathCombiner: JsonPatchOperationPathCombiner,
-                                              event: DynamicFormControlEvent,
-                                              previousValue: FormFieldPreviousValueObject,
-                                              hasStoredValue: boolean): void {
+    event: DynamicFormControlEvent,
+    previousValue: FormFieldPreviousValueObject,
+    hasStoredValue: boolean): void {
 
-   if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
+    if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
       // Model is a DynamicRowArrayModel
       this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);
       return;
@@ -448,9 +448,9 @@ export class SectionFormOperationsService {
    *    the [[FormFieldPreviousValueObject]] for the specified operation
    */
   protected dispatchOperationsFromMap(valueMap: Map<string, any>,
-                                      pathCombiner: JsonPatchOperationPathCombiner,
-                                      event: DynamicFormControlEvent,
-                                      previousValue: FormFieldPreviousValueObject): void {
+    pathCombiner: JsonPatchOperationPathCombiner,
+    event: DynamicFormControlEvent,
+    previousValue: FormFieldPreviousValueObject): void {
     const currentValueMap = valueMap;
     if (event.type === 'remove') {
       const path = this.getQualdropItemPathFromEvent(event);
@@ -493,8 +493,8 @@ export class SectionFormOperationsService {
    *    the [[FormFieldPreviousValueObject]] for the specified operation
    */
   private dispatchOperationsFromMoveEvent(pathCombiner: JsonPatchOperationPathCombiner,
-                                          event: DynamicFormControlEvent,
-                                          previousValue: FormFieldPreviousValueObject) {
+    event: DynamicFormControlEvent,
+    previousValue: FormFieldPreviousValueObject) {
 
     return this.handleArrayGroupPatch(pathCombiner, event.$event, (event as any).$event.arrayModel, previousValue);
   }
@@ -512,9 +512,9 @@ export class SectionFormOperationsService {
    *    the [[FormFieldPreviousValueObject]] for the specified operation
    */
   private handleArrayGroupPatch(pathCombiner: JsonPatchOperationPathCombiner,
-                                event,
-                                model: DynamicRowArrayModel,
-                                previousValue: FormFieldPreviousValueObject) {
+    event,
+    model: DynamicRowArrayModel,
+    previousValue: FormFieldPreviousValueObject) {
 
     const arrayValue = this.formBuilder.getValueFromModel([model]);
     const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(event);

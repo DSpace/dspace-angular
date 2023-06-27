@@ -27,7 +27,7 @@ describe('StatisticsTableComponent', () => {
         { provide: DSONameService, useValue: {} },
       ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -8,18 +8,18 @@ import { SubscriptionsPageComponent } from './subscriptions-page.component';
   imports: [
     SubscriptionsPageModule,
     RouterModule.forChild([
-        {
-          path: '',
-          data: {
-            title: 'subscriptions.title',
-          },
-          children: [
-            {
-              path: '',
-              component: SubscriptionsPageComponent,
-            },
-          ]
+      {
+        path: '',
+        data: {
+          title: 'subscriptions.title',
         },
+        children: [
+          {
+            path: '',
+            component: SubscriptionsPageComponent,
+          },
+        ]
+      },
     ])
   ]
 })

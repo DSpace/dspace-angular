@@ -264,7 +264,7 @@ describe('RelationshipDataService', () => {
             authority: 'virtual::related-creator',
             place: 3,
           }),
-            Object.assign(new MetadataValue(), {
+          Object.assign(new MetadataValue(), {
             language: null,
             value: 'Related Creator with authority - unauthorized',
             authority: 'virtual::related-creator-unauthorized',

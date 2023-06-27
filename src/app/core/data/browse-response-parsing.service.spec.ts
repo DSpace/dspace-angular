@@ -26,22 +26,22 @@ describe('BrowseResponseParsingService', () => {
 
   describe('', () => {
     const mockFlatBrowse = {
-        id: 'title',
-        browseType: 'flatBrowse',
-        type: 'browse',
-      };
+      id: 'title',
+      browseType: 'flatBrowse',
+      type: 'browse',
+    };
 
     const mockValueList = {
-        id: 'author',
-        browseType: 'valueList',
-        type: 'browse',
-      };
+      id: 'author',
+      browseType: 'valueList',
+      type: 'browse',
+    };
 
     const mockHierarchicalBrowse = {
-        id: 'srsc',
-        browseType: 'hierarchicalBrowse',
-        type: 'browse',
-      };
+      id: 'srsc',
+      browseType: 'hierarchicalBrowse',
+      type: 'browse',
+    };
 
     it('should deserialize flatBrowses correctly', () => {
       let deserialized = service.deserialize(mockFlatBrowse);

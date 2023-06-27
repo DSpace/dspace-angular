@@ -101,13 +101,13 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
 
       TestBed.configureTestingModule({
         imports: [
-            TranslateModule.forRoot({
-              loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-              }
-            }),
-            RouterTestingModule,
+          TranslateModule.forRoot({
+            loader: {
+              provide: TranslateLoader,
+              useClass: TranslateLoaderMock
+            }
+          }),
+          RouterTestingModule,
         ],
         declarations: [component, GenericItemPageFieldComponent, TruncatePipe],
         providers: [

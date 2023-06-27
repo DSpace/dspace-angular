@@ -135,9 +135,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * The Dynamic Switch Model for the file's name
    */
   primaryBitstreamModel = new DynamicCustomSwitchModel({
-      id: 'primaryBitstream',
-      name: 'primaryBitstream'
-    }
+    id: 'primaryBitstream',
+    name: 'primaryBitstream'
+  }
   );
 
   /**
@@ -170,15 +170,15 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * The Dynamic Input Model for the iiif label
    */
   iiifLabelModel = new DsDynamicInputModel({
-      hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
-      id: 'iiifLabel',
-      name: 'iiifLabel'
-    },
-    {
-      grid: {
-        host: 'col col-lg-6 d-inline-block'
-      }
-    });
+    hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
+    id: 'iiifLabel',
+    name: 'iiifLabel'
+  },
+  {
+    grid: {
+      host: 'col col-lg-6 d-inline-block'
+    }
+  });
   iiifLabelContainer = new DynamicFormGroupModel({
     id: 'iiifLabelContainer',
     group: [this.iiifLabelModel]
@@ -382,7 +382,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
               private notificationsService: NotificationsService,
               private bitstreamFormatService: BitstreamFormatDataService,
               private primaryBitstreamService: PrimaryBitstreamService,
-              ) {
+  ) {
   }
 
   /**

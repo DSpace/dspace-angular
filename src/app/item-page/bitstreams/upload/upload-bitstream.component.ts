@@ -134,9 +134,9 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
             }
           } else {
             this.bundles = environment.bundle.standardBundles.map((defaultBundle: string) => Object.assign(new Bundle(), {
-                _name: defaultBundle,
-                type: 'bundle'
-              })
+              _name: defaultBundle,
+              type: 'bundle'
+            })
             );
           }
           return observableOf(remoteData.payload.page);

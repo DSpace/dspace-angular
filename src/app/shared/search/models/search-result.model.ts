@@ -26,13 +26,13 @@ export class SearchResult<T extends DSpaceObject> extends ListableObject impleme
    */
   @excludeFromEquals
   @autoserialize
-  hitHighlights: MetadataMap;
+    hitHighlights: MetadataMap;
 
   /**
    * The {@link HALLink}s for this SearchResult
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
     indexableObject: HALLink;
   };
@@ -41,7 +41,7 @@ export class SearchResult<T extends DSpaceObject> extends ListableObject impleme
    * The DSpaceObject that was found
    */
   @fieldsForEquals('uuid')
-  indexableObject: T;
+    indexableObject: T;
 
   /**
    * Method that returns as which type of object this object should be rendered

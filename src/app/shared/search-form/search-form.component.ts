@@ -37,7 +37,7 @@ export class SearchFormComponent implements OnChanges {
    * The currently selected scope object's UUID
    */
   @Input()
-  scope = '';
+    scope = '';
 
   selectedScope: BehaviorSubject<DSpaceObject> = new BehaviorSubject<DSpaceObject>(undefined);
 

@@ -132,17 +132,17 @@ export class SubmissionUploadFilesComponent implements OnChanges {
                   const sectionData = normalizeSectionData(sections[sectionId]);
                   const sectionErrors = errorsList[sectionId];
                   this.sectionService.isSectionType(this.submissionId, sectionId, SectionsType.Upload)
-                      .pipe(take(1))
-                      .subscribe((isUpload) => {
-                        if (isUpload) {
-                          // Look for errors on upload
-                          if ((isEmpty(sectionErrors))) {
-                            this.notificationsService.success(null, this.translate.get('submission.sections.upload.upload-successful'));
-                          } else {
-                            this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed'));
-                          }
+                    .pipe(take(1))
+                    .subscribe((isUpload) => {
+                      if (isUpload) {
+                        // Look for errors on upload
+                        if ((isEmpty(sectionErrors))) {
+                          this.notificationsService.success(null, this.translate.get('submission.sections.upload.upload-successful'));
+                        } else {
+                          this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed'));
                         }
-                      });
+                      }
+                    });
                   this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData, sectionErrors, sectionErrors);
                 });
             }

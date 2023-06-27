@@ -196,9 +196,9 @@ export function isObjectEmpty(obj?: any): boolean {
   }
 
   for (const key in obj) {
-      if (obj.hasOwnProperty(key) && isNotEmpty(obj[key])) {
-        return false;
-      }
+    if (obj.hasOwnProperty(key) && isNotEmpty(obj[key])) {
+      return false;
+    }
   }
   return true;
 }

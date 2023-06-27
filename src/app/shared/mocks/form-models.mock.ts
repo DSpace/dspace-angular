@@ -323,23 +323,23 @@ export const inputWithTypeBindConfig = {
   metadataFields: [],
   hasSelectableMetadata: false,
   getTypeBindModel: new DsDynamicInputModel({
-      name: 'testWithTypeBind',
-      id: 'testWithTypeBind',
-      readOnly: false,
-      disabled: false,
-      repeatable: false,
-      value: {
-        value: 'testWithTypeBind',
-        display: 'testWithTypeBind',
-        authority: 'bound-auth-key'
-      },
-      submissionId: '1234',
-      metadataFields: [],
-      hasSelectableMetadata: false,
-      typeBindRelations: [
-        {match: 'VISIBLE', operator: 'OR', when: [{'id': 'dc.type', 'value': 'boundType'}]}
-      ]
-    }
+    name: 'testWithTypeBind',
+    id: 'testWithTypeBind',
+    readOnly: false,
+    disabled: false,
+    repeatable: false,
+    value: {
+      value: 'testWithTypeBind',
+      display: 'testWithTypeBind',
+      authority: 'bound-auth-key'
+    },
+    submissionId: '1234',
+    metadataFields: [],
+    hasSelectableMetadata: false,
+    typeBindRelations: [
+      {match: 'VISIBLE', operator: 'OR', when: [{'id': 'dc.type', 'value': 'boundType'}]}
+    ]
+  }
   )
 };
 

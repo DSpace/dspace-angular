@@ -171,9 +171,9 @@ function changeDataForm(state: FormState, action: FormChangeAction): FormState {
   if (hasValue(state[action.payload.formId])) {
     const newState = Object.assign({}, state);
     newState[action.payload.formId] = Object.assign({}, newState[action.payload.formId], {
-        data: action.payload.formData,
-        valid: state[action.payload.formId].valid
-      }
+      data: action.payload.formData,
+      valid: state[action.payload.formId].valid
+    }
     );
     return newState;
   } else {
@@ -202,9 +202,9 @@ function changeStatusForm(state: FormState, action: FormStatusChangeAction): For
   } else {
     const newState = Object.assign({}, state);
     newState[action.payload.formId] = Object.assign({}, newState[action.payload.formId], {
-        data: state[action.payload.formId].data,
-        valid: action.payload.valid
-      }
+      data: state[action.payload.formId].data,
+      valid: action.payload.valid
+    }
     );
     return newState;
   }

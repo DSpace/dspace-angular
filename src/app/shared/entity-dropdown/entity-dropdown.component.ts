@@ -163,15 +163,15 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
       searchListEntity$ = this.entityTypeService.getAllAuthorizedRelationshipTypeImport(findOptions);
     }
     this.searchListEntity$ = searchListEntity$.pipe(
-        getFirstSucceededRemoteWithNotEmptyData(),
-        switchMap((entityType: RemoteData<PaginatedList<ItemType>>) => {
-          if ( (this.searchListEntity.length + findOptions.elementsPerPage) >= entityType.payload.totalElements ) {
-            this.hasNextPage = false;
-          }
-          return entityType.payload.page;
-        }),
-        reduce((acc: any, value: any) => [...acc, value], []),
-        startWith([])
+      getFirstSucceededRemoteWithNotEmptyData(),
+      switchMap((entityType: RemoteData<PaginatedList<ItemType>>) => {
+        if ( (this.searchListEntity.length + findOptions.elementsPerPage) >= entityType.payload.totalElements ) {
+          this.hasNextPage = false;
+        }
+        return entityType.payload.page;
+      }),
+      reduce((acc: any, value: any) => [...acc, value], []),
+      startWith([])
     );
     this.subs.push(
       this.searchListEntity$.subscribe(

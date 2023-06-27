@@ -65,7 +65,7 @@ export const link = <T extends HALResource>(
   resourceType: ResourceType,
   isList = false,
   linkName?: keyof T['_links'],
-  ) => {
+) => {
   return (target: T, propertyName: string) => {
     let targetMap = linkMap.get(target.constructor);
 

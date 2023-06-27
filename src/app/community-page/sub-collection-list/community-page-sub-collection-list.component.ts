@@ -74,8 +74,8 @@ export class CommunityPageSubCollectionListComponent implements OnInit, OnDestro
    * Initialise the list of collections
    */
   initPage() {
-     const pagination$ = this.paginationService.getCurrentPagination(this.config.id, this.config);
-     const sort$ = this.paginationService.getCurrentSort(this.config.id, this.sortConfig);
+    const pagination$ = this.paginationService.getCurrentPagination(this.config.id, this.config);
+    const sort$ = this.paginationService.getCurrentSort(this.config.id, this.sortConfig);
 
     observableCombineLatest([pagination$, sort$]).pipe(
       switchMap(([currentPagination, currentSort]) => {

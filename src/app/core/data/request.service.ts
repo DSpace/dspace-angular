@@ -188,14 +188,14 @@ export class RequestService {
   private fixRequestHeaders() {
     return (source: Observable<RequestEntry>): Observable<RequestEntry> => {
       return source.pipe(map((entry: RequestEntry) => {
-          // Headers break after being retrieved from the store (because of lazy initialization)
-          // Combining them with a new object fixes this issue
-          if (hasValue(entry) && hasValue(entry.request) && hasValue(entry.request.options) && hasValue(entry.request.options.headers)) {
-            entry = cloneDeep(entry);
-            entry.request.options.headers = Object.assign(new HttpHeaders(), entry.request.options.headers);
-          }
-          return entry;
-        })
+        // Headers break after being retrieved from the store (because of lazy initialization)
+        // Combining them with a new object fixes this issue
+        if (hasValue(entry) && hasValue(entry.request) && hasValue(entry.request.options) && hasValue(entry.request.options.headers)) {
+          entry = cloneDeep(entry);
+          entry.request.options.headers = Object.assign(new HttpHeaders(), entry.request.options.headers);
+        }
+        return entry;
+      })
       );
     };
   }
@@ -331,7 +331,7 @@ export class RequestService {
       map((request: RequestEntry) => isStale(request.state)),
       filter((stale: boolean) => stale),
       take(1),
-      );
+    );
   }
 
   /**

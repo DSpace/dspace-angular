@@ -14,6 +14,6 @@ export class SelectReviewerAdvancedWorkflowInfo extends AdvancedWorkflowInfo {
   static type: ResourceType = SELECT_REVIEWER_ADVANCED_WORKFLOW_INFO;
 
   @autoserialize
-  group: string;
+    group: string;
 
 }

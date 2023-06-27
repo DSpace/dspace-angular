@@ -274,12 +274,12 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
         getFirstCompletedRemoteData(),
         getRemoteDataPayload()
       ).subscribe((remoteData) => {
-          if (remoteData === undefined || remoteData.values.length === 0) {
-            // No value configured, use blank value (International jurisdiction)
-            this.defaultJurisdiction = '';
-          } else {
-            this.defaultJurisdiction = remoteData.values[0];
-          }
+        if (remoteData === undefined || remoteData.values.length === 0) {
+          // No value configured, use blank value (International jurisdiction)
+          this.defaultJurisdiction = '';
+        } else {
+          this.defaultJurisdiction = remoteData.values[0];
+        }
       })
     );
   }

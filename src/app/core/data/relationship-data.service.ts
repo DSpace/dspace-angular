@@ -169,7 +169,7 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
       switchMap((rel: Relationship) => observableCombineLatest(
         rel.leftItem.pipe(getFirstSucceededRemoteData(), getRemoteDataPayload()),
         rel.rightItem.pipe(getFirstSucceededRemoteData(), getRemoteDataPayload())
-        )
+      )
       ),
       take(1)
     ).subscribe(([item1, item2]) => {
@@ -237,7 +237,7 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
             return relationshipType.rightwardType;
           }
         })
-        )
+      )
       ));
   }
 
@@ -346,21 +346,21 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
       followLink('leftItem'),
       followLink('rightItem')
     ).pipe(
-        getFirstSucceededRemoteData(),
-        // the mergemap below will emit all elements of the list as separate events
-        mergeMap((relationshipListRD: RemoteData<PaginatedList<Relationship>>) => relationshipListRD.payload.page),
-        mergeMap((relationship: Relationship) => {
-          return observableCombineLatest([
-            this.itemService.findByHref(relationship._links.leftItem.href).pipe(compareItemsByUUID(item2)),
-            this.itemService.findByHref(relationship._links.rightItem.href).pipe(compareItemsByUUID(item2))
-          ]).pipe(
-            map(([isLeftItem, isRightItem]) => isLeftItem || isRightItem),
-            map((isMatch) => isMatch ? relationship : undefined)
-          );
-        }),
-        filter((relationship) => hasValue(relationship)),
-        take(1)
-      );
+      getFirstSucceededRemoteData(),
+      // the mergemap below will emit all elements of the list as separate events
+      mergeMap((relationshipListRD: RemoteData<PaginatedList<Relationship>>) => relationshipListRD.payload.page),
+      mergeMap((relationship: Relationship) => {
+        return observableCombineLatest([
+          this.itemService.findByHref(relationship._links.leftItem.href).pipe(compareItemsByUUID(item2)),
+          this.itemService.findByHref(relationship._links.rightItem.href).pipe(compareItemsByUUID(item2))
+        ]).pipe(
+          map(([isLeftItem, isRightItem]) => isLeftItem || isRightItem),
+          map((isMatch) => isMatch ? relationship : undefined)
+        );
+      }),
+      filter((relationship) => hasValue(relationship)),
+      take(1)
+    );
   }
 
   /**
@@ -494,31 +494,31 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
   searchByItemsAndType(typeId: string,itemUuid: string,relationshipLabel: string, arrayOfItemIds: string[] ): Observable<RemoteData<PaginatedList<Relationship>>> {
 
     const searchParams = [
-          {
-            fieldName: 'typeId',
-            fieldValue: typeId
-          },
-          {
-            fieldName: 'focusItem',
-            fieldValue: itemUuid
-          },
-          {
-            fieldName: 'relationshipLabel',
-            fieldValue: relationshipLabel
-          },
-          {
-            fieldName: 'size',
-            fieldValue: arrayOfItemIds.length
-          },
-          {
-            fieldName: 'embed',
-            fieldValue: 'leftItem'
-          },
-          {
-            fieldName: 'embed',
-            fieldValue: 'rightItem'
-          },
-        ];
+      {
+        fieldName: 'typeId',
+        fieldValue: typeId
+      },
+      {
+        fieldName: 'focusItem',
+        fieldValue: itemUuid
+      },
+      {
+        fieldName: 'relationshipLabel',
+        fieldValue: relationshipLabel
+      },
+      {
+        fieldName: 'size',
+        fieldValue: arrayOfItemIds.length
+      },
+      {
+        fieldName: 'embed',
+        fieldValue: 'leftItem'
+      },
+      {
+        fieldName: 'embed',
+        fieldValue: 'rightItem'
+      },
+    ];
 
     arrayOfItemIds.forEach( (itemId) => {
       searchParams.push(

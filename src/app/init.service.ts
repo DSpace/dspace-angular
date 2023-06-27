@@ -158,8 +158,8 @@ export abstract class InitService {
     // Load all the languages that are defined as active from the config file
     this.translate.addLangs(
       environment.languages
-                 .filter((LangConfig) => LangConfig.active === true)
-                 .map((a) => a.code)
+        .filter((LangConfig) => LangConfig.active === true)
+        .map((a) => a.code)
     );
 
     // Load the default language from the config file

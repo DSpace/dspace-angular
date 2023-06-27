@@ -50,7 +50,7 @@ export class EmphasizePipe implements PipeTransform {
    * @param str Escape special characters in the string we're looking for
    * @returns {any} The escaped version of the input string
    */
-   escapeRegExp(str) {
+  escapeRegExp(str) {
     return str.replace(this.regex, '\\$&');
   }
 }

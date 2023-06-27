@@ -54,7 +54,7 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
 
     } else if (changes.value && changes.value.currentValue === null) {
       // When the user delete the inserted value
-        this.value = null;
+      this.value = null;
     } else if (changes.invalid) {
       this.invalid = changes.invalid.currentValue;
     }

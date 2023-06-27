@@ -208,7 +208,7 @@ export class AuthInterceptor implements HttpInterceptor {
               status: 500,
               timestamp: Date.now(),
               path: ''
-              };
+            };
           }
         } else {
           authStatus.error = error;

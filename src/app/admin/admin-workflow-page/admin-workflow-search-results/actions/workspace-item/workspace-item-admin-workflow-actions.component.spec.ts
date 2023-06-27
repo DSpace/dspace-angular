@@ -11,7 +11,7 @@ import { URLCombiner } from '../../../../../core/url-combiner/url-combiner';
 import { WorkspaceItemAdminWorkflowActionsComponent } from './workspace-item-admin-workflow-actions.component';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import {
- getWorkspaceItemDeleteRoute,
+  getWorkspaceItemDeleteRoute,
 } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { Item } from '../../../../../core/shared/item.model';
 import { RemoteData } from '../../../../../core/data/remote-data';

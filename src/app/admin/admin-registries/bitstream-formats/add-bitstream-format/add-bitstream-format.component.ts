@@ -35,16 +35,16 @@ export class AddBitstreamFormatComponent {
     this.bitstreamFormatDataService.createBitstreamFormat(bitstreamFormat).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((response: RemoteData<BitstreamFormat>) => {
-        if (response.hasSucceeded) {
-          this.notificationService.success(this.translateService.get('admin.registries.bitstream-formats.create.success.head'),
-            this.translateService.get('admin.registries.bitstream-formats.create.success.content'));
-          this.router.navigate([getBitstreamFormatsModuleRoute()]);
-          this.bitstreamFormatDataService.clearBitStreamFormatRequests().subscribe();
-        } else {
-          this.notificationService.error(this.translateService.get('admin.registries.bitstream-formats.create.failure.head'),
-            this.translateService.get('admin.registries.bitstream-formats.create.failure.content'));
-        }
+      if (response.hasSucceeded) {
+        this.notificationService.success(this.translateService.get('admin.registries.bitstream-formats.create.success.head'),
+          this.translateService.get('admin.registries.bitstream-formats.create.success.content'));
+        this.router.navigate([getBitstreamFormatsModuleRoute()]);
+        this.bitstreamFormatDataService.clearBitStreamFormatRequests().subscribe();
+      } else {
+        this.notificationService.error(this.translateService.get('admin.registries.bitstream-formats.create.failure.head'),
+          this.translateService.get('admin.registries.bitstream-formats.create.failure.content'));
       }
+    }
     );
   }
 }

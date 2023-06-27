@@ -33,11 +33,11 @@ describe('SelectableListItemControlComponent', () => {
     index = 0;
     selection = [otherObject];
     selectionService = jasmine.createSpyObj('selectionService', {
-        selectSingle: jasmine.createSpy('selectSingle'),
-        deselectSingle: jasmine.createSpy('deselectSingle'),
-        isObjectSelected: observableOf(true),
-        getSelectableList: observableOf({ selection })
-      }
+      selectSingle: jasmine.createSpy('selectSingle'),
+      deselectSingle: jasmine.createSpy('deselectSingle'),
+      isObjectSelected: observableOf(true),
+      getSelectableList: observableOf({ selection })
+    }
     );
   }
 

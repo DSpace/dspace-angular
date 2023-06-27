@@ -49,7 +49,7 @@ describe('DsoPageSubscriptionButtonComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
       ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -21,7 +21,7 @@ export class NavbarEffects {
    * Effect that collapses the public menu on window resize
    * @type {Observable<CollapseMenuAction>}
    */
-   resize$ = createEffect(() => this.actions$
+  resize$ = createEffect(() => this.actions$
     .pipe(
       ofType(HostWindowActionTypes.RESIZE),
       map(() => new CollapseMenuAction(this.menuID))
@@ -31,7 +31,7 @@ export class NavbarEffects {
    * Effect that collapses the public menu on reroute
    * @type {Observable<CollapseMenuAction>}
    */
-   routeChange$ = createEffect(() => this.actions$
+  routeChange$ = createEffect(() => this.actions$
     .pipe(
       ofType(ROUTER_NAVIGATION),
       map(() => new CollapseMenuAction(this.menuID))
@@ -40,7 +40,7 @@ export class NavbarEffects {
    * Effect that collapses the public menu when the admin sidebar opens
    * @type {Observable<CollapseMenuAction>}
    */
-   openAdminSidebar$ = createEffect(() => this.actions$
+  openAdminSidebar$ = createEffect(() => this.actions$
     .pipe(
       ofType(MenuActionTypes.EXPAND_MENU_PREVIEW),
       switchMap((action: ExpandMenuPreviewAction) => {

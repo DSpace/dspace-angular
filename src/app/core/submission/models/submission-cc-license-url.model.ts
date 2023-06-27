@@ -16,8 +16,8 @@ export class SubmissionCcLicenceUrl extends HALResource {
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   @autoserialize
-  url: string;
+    url: string;
 }

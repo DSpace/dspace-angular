@@ -42,6 +42,6 @@ export class SearchConfigurationServiceStub {
   }
 
   initializeSortOptionsFromConfiguration() {
-   /* empty */
+    /* empty */
   }
 }

@@ -86,9 +86,9 @@ function addToServerSyncQueue(state: ServerSyncBufferState, action: AddToSSBActi
  *    the new state, with a new entry added to the buffer
  */
 function emptyServerSyncQueue(state: ServerSyncBufferState, action: EmptySSBAction): ServerSyncBufferState {
-    let newBuffer = [];
-    if (hasValue(action.payload)) {
-      newBuffer = state.buffer.filter((entry) => entry.method !== action.payload);
-    }
-    return Object.assign({}, state, { buffer: newBuffer });
+  let newBuffer = [];
+  if (hasValue(action.payload)) {
+    newBuffer = state.buffer.filter((entry) => entry.method !== action.payload);
+  }
+  return Object.assign({}, state, { buffer: newBuffer });
 }

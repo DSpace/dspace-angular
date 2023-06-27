@@ -51,9 +51,9 @@ export class AbstractSimpleItemActionComponent implements OnInit {
     )as Observable<RemoteData<Item>>;
 
     this.itemRD$.pipe(first()).subscribe((rd) => {
-        this.item = rd.payload;
-        this.itemPageRoute = getItemPageRoute(this.item);
-      }
+      this.item = rd.payload;
+      this.itemPageRoute = getItemPageRoute(this.item);
+    }
     );
 
     this.confirmMessage = 'item.edit.' + this.messageKey + '.confirm';

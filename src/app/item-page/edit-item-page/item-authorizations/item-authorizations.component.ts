@@ -109,7 +109,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    * Initialize the component, setting up the bundle and bitstream within the item
    */
   ngOnInit(): void {
-   this.getBundlesPerItem();
+    this.getBundlesPerItem();
   }
 
   /**

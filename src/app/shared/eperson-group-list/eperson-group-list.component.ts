@@ -174,22 +174,22 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
     }
     this.pageConfigSub = this.paginationService.getCurrentPagination(this.paginationOptions.id, this.paginationOptions)
       .subscribe((paginationOptions) => {
-    const options: FindListOptions = Object.assign({}, new FindListOptions(), {
+        const options: FindListOptions = Object.assign({}, new FindListOptions(), {
           elementsPerPage: paginationOptions.pageSize,
           currentPage: paginationOptions.currentPage
-    });
+        });
 
-    const search$: Observable<RemoteData<PaginatedList<DSpaceObject>>> = this.isListOfEPerson ?
-      (this.dataService as EPersonDataService).searchByScope(scope, query, options) :
-      (this.dataService as GroupDataService).searchGroups(query, options);
+        const search$: Observable<RemoteData<PaginatedList<DSpaceObject>>> = this.isListOfEPerson ?
+          (this.dataService as EPersonDataService).searchByScope(scope, query, options) :
+          (this.dataService as GroupDataService).searchGroups(query, options);
 
-    this.subs.push(search$.pipe(getFirstCompletedRemoteData())
-      .subscribe((list: RemoteData<PaginatedList<DSpaceObject>>) => {
-        if (hasValue(this.list$)) {
-          this.list$.next(list);
-        }
-      })
-    );
+        this.subs.push(search$.pipe(getFirstCompletedRemoteData())
+          .subscribe((list: RemoteData<PaginatedList<DSpaceObject>>) => {
+            if (hasValue(this.list$)) {
+              this.list$.next(list);
+            }
+          })
+        );
       });
   }
 

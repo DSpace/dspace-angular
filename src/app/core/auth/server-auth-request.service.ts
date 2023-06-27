@@ -45,11 +45,11 @@ export class ServerAuthRequestService extends AuthRequestService {
       map((response: HttpResponse<any>) => response.headers.get(XSRF_RESPONSE_HEADER)),
       // Use that token to create an HttpHeaders object
       map((xsrfToken: string) => new HttpHeaders()
-          .set('Content-Type', 'application/json; charset=utf-8')
-          // set the token as the XSRF header
-          .set(XSRF_REQUEST_HEADER, xsrfToken)
-          // and as the DSPACE-XSRF-COOKIE
-          .set('Cookie', `${DSPACE_XSRF_COOKIE}=${xsrfToken}`)),
+        .set('Content-Type', 'application/json; charset=utf-8')
+      // set the token as the XSRF header
+        .set(XSRF_REQUEST_HEADER, xsrfToken)
+      // and as the DSPACE-XSRF-COOKIE
+        .set('Cookie', `${DSPACE_XSRF_COOKIE}=${xsrfToken}`)),
       map((headers: HttpHeaders) =>
         // Create a new PostRequest using those headers and the given href
         new PostRequest(

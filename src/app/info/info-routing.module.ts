@@ -21,28 +21,28 @@ const imports = [
   ])
 ];
 
-  if (environment.info.enableEndUserAgreement) {
-    imports.push(
-      RouterModule.forChild([
-        {
-          path: END_USER_AGREEMENT_PATH,
-          component: ThemedEndUserAgreementComponent,
-          resolve: { breadcrumb: I18nBreadcrumbResolver },
-          data: { title: 'info.end-user-agreement.title', breadcrumbKey: 'info.end-user-agreement' }
-        }
-      ]));
-  }
-  if (environment.info.enablePrivacyStatement) {
-    imports.push(
-      RouterModule.forChild([
-        {
-          path: PRIVACY_PATH,
-          component: ThemedPrivacyComponent,
-          resolve: { breadcrumb: I18nBreadcrumbResolver },
-          data: { title: 'info.privacy.title', breadcrumbKey: 'info.privacy' }
-        }
-      ]));
-  }
+if (environment.info.enableEndUserAgreement) {
+  imports.push(
+    RouterModule.forChild([
+      {
+        path: END_USER_AGREEMENT_PATH,
+        component: ThemedEndUserAgreementComponent,
+        resolve: { breadcrumb: I18nBreadcrumbResolver },
+        data: { title: 'info.end-user-agreement.title', breadcrumbKey: 'info.end-user-agreement' }
+      }
+    ]));
+}
+if (environment.info.enablePrivacyStatement) {
+  imports.push(
+    RouterModule.forChild([
+      {
+        path: PRIVACY_PATH,
+        component: ThemedPrivacyComponent,
+        resolve: { breadcrumb: I18nBreadcrumbResolver },
+        data: { title: 'info.privacy.title', breadcrumbKey: 'info.privacy' }
+      }
+    ]));
+}
 
 @NgModule({
   imports: [

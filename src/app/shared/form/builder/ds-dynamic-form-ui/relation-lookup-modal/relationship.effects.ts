@@ -61,41 +61,41 @@ export class RelationshipEffects {
   /**
    * Effect that makes sure all last fired RelationshipActions' types are stored in the map of this service, with the object uuid as their key
    */
-   mapLastActions$ = createEffect(() => this.actions$
+  mapLastActions$ = createEffect(() => this.actions$
     .pipe(
       ofType(RelationshipActionTypes.ADD_RELATIONSHIP, RelationshipActionTypes.REMOVE_RELATIONSHIP),
       map((action: RelationshipAction) => {
-          const { item1, item2, submissionId, relationshipType } = action.payload;
-          const identifier: string = this.createIdentifier(item1, item2, relationshipType);
-          if (hasNoValue(this.debounceMap[identifier])) {
-            this.initialActionMap[identifier] = action.type;
-            this.debounceMap[identifier] = new BehaviorSubject<string>(action.type);
-            this.debounceMap[identifier].pipe(
-              this.debounceTime(DEBOUNCE_TIME),
-              take(1)
-            ).subscribe(
-              (type) => {
-                if (this.initialActionMap[identifier] === type) {
-                  if (type === RelationshipActionTypes.ADD_RELATIONSHIP) {
-                    let nameVariant = (action as AddRelationshipAction).payload.nameVariant;
-                    if (hasValue(this.nameVariantUpdates[identifier])) {
-                      nameVariant = this.nameVariantUpdates[identifier];
-                      delete this.nameVariantUpdates[identifier];
-                    }
-                    this.addRelationship(item1, item2, relationshipType, submissionId, nameVariant);
-                  } else {
-                    this.removeRelationship(item1, item2, relationshipType, submissionId);
+        const { item1, item2, submissionId, relationshipType } = action.payload;
+        const identifier: string = this.createIdentifier(item1, item2, relationshipType);
+        if (hasNoValue(this.debounceMap[identifier])) {
+          this.initialActionMap[identifier] = action.type;
+          this.debounceMap[identifier] = new BehaviorSubject<string>(action.type);
+          this.debounceMap[identifier].pipe(
+            this.debounceTime(DEBOUNCE_TIME),
+            take(1)
+          ).subscribe(
+            (type) => {
+              if (this.initialActionMap[identifier] === type) {
+                if (type === RelationshipActionTypes.ADD_RELATIONSHIP) {
+                  let nameVariant = (action as AddRelationshipAction).payload.nameVariant;
+                  if (hasValue(this.nameVariantUpdates[identifier])) {
+                    nameVariant = this.nameVariantUpdates[identifier];
+                    delete this.nameVariantUpdates[identifier];
                   }
+                  this.addRelationship(item1, item2, relationshipType, submissionId, nameVariant);
+                } else {
+                  this.removeRelationship(item1, item2, relationshipType, submissionId);
                 }
-                delete this.debounceMap[identifier];
-                delete this.initialActionMap[identifier];
-
               }
-            );
-          } else {
-            this.debounceMap[identifier].next(action.type);
-          }
+              delete this.debounceMap[identifier];
+              delete this.initialActionMap[identifier];
+
+            }
+          );
+        } else {
+          this.debounceMap[identifier].next(action.type);
         }
+      }
       )
     ), { dispatch: false });
 
@@ -104,33 +104,33 @@ export class RelationshipEffects {
    * If the relationship is currently being added or removed, it will add the name variant to an update map so it will be sent with the next add request instead
    * Otherwise the update is done immediately
    */
-   updateNameVariantsActions$ = createEffect(() => this.actions$
+  updateNameVariantsActions$ = createEffect(() => this.actions$
     .pipe(
       ofType(RelationshipActionTypes.UPDATE_NAME_VARIANT),
       map((action: UpdateRelationshipNameVariantAction) => {
-          const { item1, item2, relationshipType, submissionId, nameVariant } = action.payload;
-          const identifier: string = this.createIdentifier(item1, item2, relationshipType);
-          const inProgress = hasValue(this.debounceMap[identifier]);
-          if (inProgress) {
-            this.nameVariantUpdates[identifier] = nameVariant;
-          } else {
-            this.relationshipService.updateNameVariant(item1, item2, relationshipType, nameVariant).pipe(
-              filter((relationshipRD: RemoteData<Relationship>) => hasValue(relationshipRD.payload)),
-              take(1)
-            ).subscribe((c) => {
-              this.updateAfterPatchSubmissionId = submissionId;
-              this.relationshipService.refreshRelationshipItemsInCache(item1);
-              this.relationshipService.refreshRelationshipItemsInCache(item2);
-            });
-          }
+        const { item1, item2, relationshipType, submissionId, nameVariant } = action.payload;
+        const identifier: string = this.createIdentifier(item1, item2, relationshipType);
+        const inProgress = hasValue(this.debounceMap[identifier]);
+        if (inProgress) {
+          this.nameVariantUpdates[identifier] = nameVariant;
+        } else {
+          this.relationshipService.updateNameVariant(item1, item2, relationshipType, nameVariant).pipe(
+            filter((relationshipRD: RemoteData<Relationship>) => hasValue(relationshipRD.payload)),
+            take(1)
+          ).subscribe((c) => {
+            this.updateAfterPatchSubmissionId = submissionId;
+            this.relationshipService.refreshRelationshipItemsInCache(item1);
+            this.relationshipService.refreshRelationshipItemsInCache(item2);
+          });
         }
+      }
       )
     ), { dispatch: false });
 
   /**
    * Save the latest submission ID, to make sure it's updated when the patch is finished
    */
-   updateRelationshipActions$ = createEffect(() => this.actions$
+  updateRelationshipActions$ = createEffect(() => this.actions$
     .pipe(
       ofType(RelationshipActionTypes.UPDATE_RELATIONSHIP),
       map((action: UpdateRelationshipAction) => {
@@ -141,7 +141,7 @@ export class RelationshipEffects {
   /**
    * Save the submission object with ID updateAfterPatchSubmissionId
    */
-   saveSubmissionSection = createEffect(() => this.actions$
+  saveSubmissionSection = createEffect(() => this.actions$
     .pipe(
       ofType(ServerSyncBufferActionTypes.EMPTY, JsonPatchOperationsActionTypes.COMMIT_JSON_PATCH_OPERATIONS),
       filter(() => hasValue(this.updateAfterPatchSubmissionId)),

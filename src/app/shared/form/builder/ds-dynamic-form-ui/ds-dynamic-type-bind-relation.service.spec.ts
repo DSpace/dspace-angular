@@ -38,19 +38,19 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
 
   beforeEach(inject([DsDynamicTypeBindRelationService, DynamicFormRelationService],
     (relationService: DsDynamicTypeBindRelationService,
-     formRelationService: DynamicFormRelationService,
+      formRelationService: DynamicFormRelationService,
     ) => {
-    service = relationService;
-    dynamicFormRelationService = formRelationService;
-  }));
+      service = relationService;
+      dynamicFormRelationService = formRelationService;
+    }));
 
   describe('Test getTypeBindValue method', () => {
     it('Should get type bind "boundType" from the given metadata object value', () => {
-        const mockMetadataValueObject: FormFieldMetadataValueObject = new FormFieldMetadataValueObject(
-          'boundType', null, null, 'Bound Type'
-        );
-        const bindType = service.getTypeBindValue(mockMetadataValueObject);
-        expect(bindType).toBe('boundType');
+      const mockMetadataValueObject: FormFieldMetadataValueObject = new FormFieldMetadataValueObject(
+        'boundType', null, null, 'Bound Type'
+      );
+      const bindType = service.getTypeBindValue(mockMetadataValueObject);
+      expect(bindType).toBe('boundType');
     });
     it('Should get type authority key "bound-auth-key" from the given metadata object value', () => {
       const mockMetadataValueObject: FormFieldMetadataValueObject = new FormFieldMetadataValueObject(

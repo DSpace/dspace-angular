@@ -129,11 +129,11 @@ describe('EditBitstreamPageComponent', () => {
 
     const result = createSuccessfulRemoteDataObject$(bundle);
     primaryBitstreamService = jasmine.createSpyObj('PrimaryBitstreamService',
-    {
-      put: result,
-      create: result,
-      delete: result,
-    });
+      {
+        put: result,
+        create: result,
+        delete: result,
+      });
 
   });
 
@@ -535,120 +535,120 @@ describe('EditBitstreamPageComponent', () => {
     });
   });
 
-    describe('ignore OTHERCONTENT bundle', () => {
+  describe('ignore OTHERCONTENT bundle', () => {
 
-      const bundleName = 'OTHERCONTENT';
+    const bundleName = 'OTHERCONTENT';
 
-      beforeEach(waitForAsync(() => {
+    beforeEach(waitForAsync(() => {
 
-        bitstream = Object.assign(new Bitstream(), {
-          metadata: {
-            'dc.description': [
-              {
-                value: 'Bitstream description'
-              }
-            ],
-            'dc.title': [
-              {
-                value: 'Bitstream title'
-              }
-            ],
-            'iiif.label': [
-              {
-                value: 'chapter one'
-              }
-            ],
-            'iiif.toc': [
-              {
-                value: 'chapter one'
-              }
-            ],
-            'iiif.image.width': [
-              {
-                value: '2400'
-              }
-            ],
-            'iiif.image.height': [
-              {
-                value: '2800'
-              }
-            ],
-          },
-          format: createSuccessfulRemoteDataObject$(allFormats[2]),
-          _links: {
-            self: 'bitstream-selflink'
-          },
-          bundle: createSuccessfulRemoteDataObject$({
-            _links: {
-              primaryBitstream: {
-                href: 'bundle-selflink'
-              }
-            },
-            item: createSuccessfulRemoteDataObject$(Object.assign(new Item(), {
-              uuid: 'some-uuid',
-              firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
-                return 'True';
-              }
-            }))
-          }),
-        });
-        bitstreamService = jasmine.createSpyObj('bitstreamService', {
-          findById: createSuccessfulRemoteDataObject$(bitstream),
-          findByHref: createSuccessfulRemoteDataObject$(bitstream),
-          update: createSuccessfulRemoteDataObject$(bitstream),
-          updateFormat: createSuccessfulRemoteDataObject$(bitstream),
-          commitUpdates: {},
-          patch: {}
-        });
-
-        dsoNameService = jasmine.createSpyObj('dsoNameService', {
-          getName: bundleName
-        });
-
-        TestBed.configureTestingModule({
-          imports: [TranslateModule.forRoot(), RouterTestingModule],
-          declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
-          providers: [
-            {provide: NotificationsService, useValue: notificationsService},
-            {provide: DynamicFormService, useValue: formService},
-            {provide: ActivatedRoute,
-              useValue: {
-                data: observableOf({bitstream: createSuccessfulRemoteDataObject(bitstream)}),
-                snapshot: {queryParams: {}}
-              }
-            },
-            {provide: BitstreamDataService, useValue: bitstreamService},
-            {provide: DSONameService, useValue: dsoNameService},
-            {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
-            { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
-            ChangeDetectorRef
+      bitstream = Object.assign(new Bitstream(), {
+        metadata: {
+          'dc.description': [
+            {
+              value: 'Bitstream description'
+            }
           ],
-          schemas: [NO_ERRORS_SCHEMA]
-        }).compileComponents();
-      }));
+          'dc.title': [
+            {
+              value: 'Bitstream title'
+            }
+          ],
+          'iiif.label': [
+            {
+              value: 'chapter one'
+            }
+          ],
+          'iiif.toc': [
+            {
+              value: 'chapter one'
+            }
+          ],
+          'iiif.image.width': [
+            {
+              value: '2400'
+            }
+          ],
+          'iiif.image.height': [
+            {
+              value: '2800'
+            }
+          ],
+        },
+        format: createSuccessfulRemoteDataObject$(allFormats[2]),
+        _links: {
+          self: 'bitstream-selflink'
+        },
+        bundle: createSuccessfulRemoteDataObject$({
+          _links: {
+            primaryBitstream: {
+              href: 'bundle-selflink'
+            }
+          },
+          item: createSuccessfulRemoteDataObject$(Object.assign(new Item(), {
+            uuid: 'some-uuid',
+            firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
+              return 'True';
+            }
+          }))
+        }),
+      });
+      bitstreamService = jasmine.createSpyObj('bitstreamService', {
+        findById: createSuccessfulRemoteDataObject$(bitstream),
+        findByHref: createSuccessfulRemoteDataObject$(bitstream),
+        update: createSuccessfulRemoteDataObject$(bitstream),
+        updateFormat: createSuccessfulRemoteDataObject$(bitstream),
+        commitUpdates: {},
+        patch: {}
+      });
+
+      dsoNameService = jasmine.createSpyObj('dsoNameService', {
+        getName: bundleName
+      });
+
+      TestBed.configureTestingModule({
+        imports: [TranslateModule.forRoot(), RouterTestingModule],
+        declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
+        providers: [
+          {provide: NotificationsService, useValue: notificationsService},
+          {provide: DynamicFormService, useValue: formService},
+          {provide: ActivatedRoute,
+            useValue: {
+              data: observableOf({bitstream: createSuccessfulRemoteDataObject(bitstream)}),
+              snapshot: {queryParams: {}}
+            }
+          },
+          {provide: BitstreamDataService, useValue: bitstreamService},
+          {provide: DSONameService, useValue: dsoNameService},
+          {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
+          { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
+          ChangeDetectorRef
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).compileComponents();
+    }));
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(EditBitstreamPageComponent);
+      comp = fixture.componentInstance;
+      fixture.detectChanges();
+      router = TestBed.inject(Router);
+      spyOn(router, 'navigate');
+    });
+
+    describe('EditBitstreamPageComponent with IIIF fields', () => {
+      let rawForm;
 
       beforeEach(() => {
-        fixture = TestBed.createComponent(EditBitstreamPageComponent);
-        comp = fixture.componentInstance;
-        fixture.detectChanges();
-        router = TestBed.inject(Router);
-        spyOn(router, 'navigate');
+        rawForm = comp.formGroup.getRawValue();
       });
 
-      describe('EditBitstreamPageComponent with IIIF fields', () => {
-        let rawForm;
-
-        beforeEach(() => {
-          rawForm = comp.formGroup.getRawValue();
-        });
-
-        it('should NOT set is IIIF to true', () => {
-          expect(comp.isIIIF).toBeFalse();
-        });
-        it('should put the \"IIIF Label\" input not to be shown', () => {
-          expect(rawForm.iiifLabelContainer).toBeFalsy();
-        });
+      it('should NOT set is IIIF to true', () => {
+        expect(comp.isIIIF).toBeFalse();
       });
+      it('should put the \"IIIF Label\" input not to be shown', () => {
+        expect(rawForm.iiifLabelContainer).toBeFalsy();
+      });
+    });
   });
 
 });

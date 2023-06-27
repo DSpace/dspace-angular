@@ -25,9 +25,9 @@ import { BrowseDefinition } from '../shared/browse-definition.model';
  * Use a GET request specific for BrowseDefinitions.
  */
 export const createAndSendBrowseDefinitionGetRequest = (requestService: RequestService,
-                                                        responseMsToLive: number,
-                                                        href$: string | Observable<string>,
-                                                        useCachedVersionIfAvailable: boolean = true): void => {
+  responseMsToLive: number,
+  href$: string | Observable<string>,
+  useCachedVersionIfAvailable: boolean = true): void => {
   if (isNotEmpty(href$)) {
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);

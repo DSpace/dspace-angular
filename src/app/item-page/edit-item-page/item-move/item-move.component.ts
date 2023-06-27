@@ -70,8 +70,8 @@ export class ItemMoveComponent implements OnInit {
       map((item) => getItemPageRoute(item))
     );
     this.itemRD$.subscribe((rd) => {
-        this.item = rd.payload;
-      }
+      this.item = rd.payload;
+    }
     );
     this.itemRD$.pipe(
       getFirstSucceededRemoteData(),
@@ -125,7 +125,7 @@ export class ItemMoveComponent implements OnInit {
           false,
           true,
           followLink('owningCollection')
-      )),
+        )),
       getFirstCompletedRemoteData()
     ).subscribe(() => {
       this.processing = false;

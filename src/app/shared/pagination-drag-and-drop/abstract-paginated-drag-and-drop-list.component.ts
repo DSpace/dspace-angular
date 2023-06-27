@@ -117,7 +117,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
                         protected elRef: ElementRef,
                         protected objectValuesPipe: ObjectValuesPipe,
                         protected paginationService: PaginationService
-                        ) {
+  ) {
   }
 
   /**

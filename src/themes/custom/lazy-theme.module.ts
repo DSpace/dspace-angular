@@ -141,13 +141,13 @@ import {
 } from './app/item-page/media-viewer/media-viewer-video/media-viewer-video.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import {
-    DenyRequestCopyComponent
+  DenyRequestCopyComponent
 } from './app/request-copy/deny-request-copy/deny-request-copy.component';
 import {
-    EmailRequestCopyComponent
+  EmailRequestCopyComponent
 } from './app/request-copy/email-request-copy/email-request-copy.component';
 import {
-    GrantRequestCopyComponent
+  GrantRequestCopyComponent
 } from './app/request-copy/grant-request-copy/grant-request-copy.component';
 import { WorkspaceItemsDeletePageComponent } from './app/workspace-items-delete-page/workspace-items-delete/workspace-items-delete.component';
 import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
@@ -306,7 +306,7 @@ const DECLARATIONS = [
   ]
 })
 
-  /**
+/**
    * This module serves as an index for all the components in this theme.
    * It should import all other modules, so the compiler knows where to find any components referenced
    * from a component in this theme

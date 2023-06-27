@@ -217,14 +217,14 @@ export class ObjectListComponent {
    * Go to the previous page
    */
   goPrev() {
-      this.prev.emit(true);
+    this.prev.emit(true);
   }
 
- /**
+  /**
   * Go to the next page
   */
   goNext() {
-      this.next.emit(true);
+    this.next.emit(true);
   }
 
 }

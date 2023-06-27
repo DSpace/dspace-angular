@@ -243,14 +243,14 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
         return this.versionService.update(updatedVersion).pipe(getFirstCompletedRemoteData<Version>());
       }),
     ).subscribe((updatedVersionRD: RemoteData<Version>) => {
-        if (updatedVersionRD.hasSucceeded) {
-          this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': this.versionBeingEditedNumber}));
-          this.getAllVersions(this.versionHistory$);
-        } else {
-          this.notificationsService.warning(null, this.translateService.get(failureMessageKey, {'version': this.versionBeingEditedNumber}));
-        }
-        this.disableVersionEditing();
+      if (updatedVersionRD.hasSucceeded) {
+        this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': this.versionBeingEditedNumber}));
+        this.getAllVersions(this.versionHistory$);
+      } else {
+        this.notificationsService.warning(null, this.translateService.get(failureMessageKey, {'version': this.versionBeingEditedNumber}));
       }
+      this.disableVersionEditing();
+    }
     );
   }
 

@@ -16,9 +16,9 @@ export class ValidateGroupExists {
   static createValidator(groupDataService: GroupDataService) {
     return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
       return groupDataService.searchGroups(control.value, {
-            currentPage: 1,
-            elementsPerPage: 100
-          })
+        currentPage: 1,
+        elementsPerPage: 100
+      })
         .pipe(
           getFirstSucceededRemoteListPayload(),
           map( (groups: Group[]) => {

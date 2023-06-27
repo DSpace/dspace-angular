@@ -41,12 +41,12 @@ export class SelectableListItemControlComponent implements OnInit {
     this.selected$ = this.selectionService.isObjectSelected(this.selectionConfig.listId, this.object);
     this.selected$
       .pipe(skip(1)).subscribe((selected: boolean) => {
-      if (selected) {
-        this.selectObject.emit(this.object);
-      } else {
-        this.deselectObject.emit(this.object);
-      }
-    });
+        if (selected) {
+          this.selectObject.emit(this.object);
+        } else {
+          this.deselectObject.emit(this.object);
+        }
+      });
   }
 
   selectCheckbox(value: boolean) {
@@ -64,14 +64,14 @@ export class SelectableListItemControlComponent implements OnInit {
         take(1),
         map((selected) => selected ? selected.selection : [])
       ).subscribe((selection) => {
-          // First deselect any existing selections, this is a radio button
-          selection.forEach((selectedObject) => {
-            this.selectionService.deselectSingle(this.selectionConfig.listId, selectedObject);
-            this.deselectObject.emit(selectedObject);
-          });
-          this.selectionService.selectSingle(this.selectionConfig.listId, this.object);
-          this.selectObject.emit(this.object);
-        }
+        // First deselect any existing selections, this is a radio button
+        selection.forEach((selectedObject) => {
+          this.selectionService.deselectSingle(this.selectionConfig.listId, selectedObject);
+          this.deselectObject.emit(selectedObject);
+        });
+        this.selectionService.selectSingle(this.selectionConfig.listId, this.object);
+        this.selectObject.emit(this.object);
+      }
       );
     }
   }

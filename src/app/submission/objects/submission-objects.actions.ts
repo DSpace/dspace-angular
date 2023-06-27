@@ -148,15 +148,15 @@ export class InitSectionAction implements Action {
    *    the section's errors
    */
   constructor(submissionId: string,
-              sectionId: string,
-              header: string,
-              config: string,
-              mandatory: boolean,
-              sectionType: SectionsType,
-              visibility: SectionVisibility,
-              enabled: boolean,
-              data: WorkspaceitemSectionDataType,
-              errors: SubmissionSectionError[]) {
+    sectionId: string,
+    header: string,
+    config: string,
+    mandatory: boolean,
+    sectionType: SectionsType,
+    visibility: SectionVisibility,
+    enabled: boolean,
+    data: WorkspaceitemSectionDataType,
+    errors: SubmissionSectionError[]) {
     this.payload = { submissionId, sectionId, header, config, mandatory, sectionType, visibility, enabled, data, errors };
   }
 }
@@ -177,7 +177,7 @@ export class EnableSectionAction implements Action {
    *    the section's ID to add
    */
   constructor(submissionId: string,
-              sectionId: string) {
+    sectionId: string) {
     this.payload = { submissionId, sectionId };
   }
 }
@@ -230,11 +230,11 @@ export class UpdateSectionDataAction implements Action {
    *    the section's metadata
    */
   constructor(submissionId: string,
-              sectionId: string,
-              data: WorkspaceitemSectionDataType,
-              errorsToShow: SubmissionSectionError[],
-              serverValidationErrors: SubmissionSectionError[],
-              metadata?: string[]) {
+    sectionId: string,
+    data: WorkspaceitemSectionDataType,
+    errorsToShow: SubmissionSectionError[],
+    serverValidationErrors: SubmissionSectionError[],
+    metadata?: string[]) {
     this.payload = { submissionId, sectionId, data, errorsToShow, serverValidationErrors, metadata };
   }
 }
@@ -334,12 +334,12 @@ export class InitSubmissionFormAction implements Action {
    *    the submission's sections errors
    */
   constructor(collectionId: string,
-              submissionId: string,
-              selfUrl: string,
-              submissionDefinition: SubmissionDefinitionsModel,
-              sections: WorkspaceitemSectionsObject,
-              item: Item,
-              errors: SubmissionError) {
+    submissionId: string,
+    selfUrl: string,
+    submissionDefinition: SubmissionDefinitionsModel,
+    sections: WorkspaceitemSectionsObject,
+    item: Item,
+    errors: SubmissionError) {
     this.payload = { collectionId, submissionId, selfUrl, submissionDefinition, sections, item, errors };
   }
 }

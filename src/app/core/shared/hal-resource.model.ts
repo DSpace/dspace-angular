@@ -12,7 +12,7 @@ export class HALResource {
    * The {@link HALLink}s for this {@link HALResource}
    */
   @deserialize
-  _links: {
+    _links: {
 
     /**
      * The {@link HALLink} that refers to this {@link HALResource}

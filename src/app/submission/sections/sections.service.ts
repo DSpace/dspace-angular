@@ -336,7 +336,7 @@ export class SectionsService {
         return isNotEmpty(sectionObj.visibility)
           && ((sectionObj.visibility.other === 'READONLY' && submissionScope !== SubmissionScopeType.WorkspaceItem)
               || (sectionObj.visibility.main === 'READONLY' && submissionScope === SubmissionScopeType.WorkspaceItem)
-             );
+          );
       }),
       distinctUntilChanged());
   }

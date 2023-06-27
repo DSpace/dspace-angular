@@ -82,33 +82,33 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
       this.translateService.get(`${this.messagePrefix}.namespace`)
     ]).subscribe(([name, namespace]) => {
       this.name = new DynamicInputModel({
-          id: 'name',
-          label: name,
-          name: 'name',
-          validators: {
-            required: null,
-            pattern: '^[^. ,]*$',
-            maxLength: 32,
-          },
-          required: true,
-          errorMessages: {
-            pattern: 'error.validation.metadata.name.invalid-pattern',
-            maxLength: 'error.validation.metadata.name.max-length',
-          },
-        });
+        id: 'name',
+        label: name,
+        name: 'name',
+        validators: {
+          required: null,
+          pattern: '^[^. ,]*$',
+          maxLength: 32,
+        },
+        required: true,
+        errorMessages: {
+          pattern: 'error.validation.metadata.name.invalid-pattern',
+          maxLength: 'error.validation.metadata.name.max-length',
+        },
+      });
       this.namespace = new DynamicInputModel({
-          id: 'namespace',
-          label: namespace,
-          name: 'namespace',
-          validators: {
-            required: null,
-            maxLength: 256,
-          },
-          required: true,
-          errorMessages: {
-            maxLength: 'error.validation.metadata.namespace.max-length',
-          },
-        });
+        id: 'namespace',
+        label: namespace,
+        name: 'namespace',
+        validators: {
+          required: null,
+          maxLength: 256,
+        },
+        required: true,
+        errorMessages: {
+          maxLength: 'error.validation.metadata.namespace.max-length',
+        },
+      });
       this.formModel = [
         new DynamicFormGroupModel(
           {

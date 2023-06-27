@@ -98,9 +98,9 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
     // retrieve all entity types to populate the dropdowns selection
     entities$.subscribe((entityTypes: ItemType[]) => {
 
-        entityTypes
-          .filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE)
-          .forEach((type: ItemType, index: number) => {
+      entityTypes
+        .filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE)
+        .forEach((type: ItemType, index: number) => {
           this.entityTypeSelection.add({
             disabled: false,
             label: type.label,
@@ -112,10 +112,10 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
           }
         });
 
-        this.formModel = [...collectionFormModels, this.entityTypeSelection];
+      this.formModel = [...collectionFormModels, this.entityTypeSelection];
 
-        super.ngOnInit();
-        this.chd.detectChanges();
+      super.ngOnInit();
+      this.chd.detectChanges();
     });
 
   }

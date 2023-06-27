@@ -50,12 +50,12 @@ export class OrcidQueueDataService extends IdentifiableDataService<OrcidQueue> {
    */
   searchByProfileItemId(itemId: string, paginationOptions: PaginationComponentOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<RemoteData<PaginatedList<OrcidQueue>>> {
     return this.searchData.searchBy('findByProfileItem', {
-        searchParams: [new RequestParam('profileItemId', itemId)],
-        elementsPerPage: paginationOptions.pageSize,
-        currentPage: paginationOptions.currentPage,
-      },
-      useCachedVersionIfAvailable,
-      reRequestOnStale,
+      searchParams: [new RequestParam('profileItemId', itemId)],
+      elementsPerPage: paginationOptions.pageSize,
+      currentPage: paginationOptions.currentPage,
+    },
+    useCachedVersionIfAvailable,
+    reRequestOnStale,
     );
   }
 
