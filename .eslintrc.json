@@ -232,11 +232,7 @@
       ],
       "extends": [
         "plugin:@angular-eslint/template/recommended"
-      ],
-      "rules": {
-        // todo: re-enable & fix errors
-        "@angular-eslint/template/eqeqeq": "off"
-      }
+      ]
     },
     {
       "files": [
