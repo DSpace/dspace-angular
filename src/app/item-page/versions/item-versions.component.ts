@@ -254,16 +254,16 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
       getFirstSucceededRemoteData(),
       switchMap((findRes: RemoteData<Version>) => {
         const payload = findRes.payload;
-        const summary = {summary: this.versionBeingEditedSummary};
+        const summary = { summary: this.versionBeingEditedSummary };
         const updatedVersion = Object.assign({}, payload, summary);
         return this.versionService.update(updatedVersion).pipe(getFirstCompletedRemoteData<Version>());
       }),
     ).subscribe((updatedVersionRD: RemoteData<Version>) => {
       if (updatedVersionRD.hasSucceeded) {
-        this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': this.versionBeingEditedNumber}));
+        this.notificationsService.success(null, this.translateService.get(successMessageKey, { 'version': this.versionBeingEditedNumber }));
         this.getAllVersions(this.versionHistory$);
       } else {
-        this.notificationsService.warning(null, this.translateService.get(failureMessageKey, {'version': this.versionBeingEditedNumber}));
+        this.notificationsService.warning(null, this.translateService.get(failureMessageKey, { 'version': this.versionBeingEditedNumber }));
       }
       this.disableVersionEditing();
     },
@@ -325,9 +325,9 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
         ).subscribe(([deleteHasSucceeded, newLatestVersionItem]: [boolean, Item]) => {
           // Notify operation result and redirect to latest item
           if (deleteHasSucceeded) {
-            this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': versionNumber}));
+            this.notificationsService.success(null, this.translateService.get(successMessageKey, { 'version': versionNumber }));
           } else {
-            this.notificationsService.error(null, this.translateService.get(failureMessageKey, {'version': versionNumber}));
+            this.notificationsService.error(null, this.translateService.get(failureMessageKey, { 'version': versionNumber }));
           }
           if (redirectToLatest) {
             const path = getItemEditVersionhistoryRoute(newLatestVersionItem);
@@ -440,7 +440,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
     combineLatest([versionHistory$, currentPagination]).pipe(
       switchMap(([versionHistory, options]: [VersionHistory, PaginationComponentOptions]) => {
         return this.versionHistoryService.getVersions(versionHistory.id,
-          new PaginatedSearchOptions({pagination: Object.assign({}, options, {currentPage: options.currentPage})}),
+          new PaginatedSearchOptions({ pagination: Object.assign({}, options, { currentPage: options.currentPage }) }),
           false, true, followLink('item'), followLink('eperson'));
       }),
       getFirstCompletedRemoteData(),

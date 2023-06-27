@@ -38,7 +38,7 @@ export class Chips {
     const icons = this.getChipsIcons(item);
     const chipsItem = new ChipsItem(item, this.displayField, this.displayObj, icons);
 
-    const duplicatedIndex = findIndex(this._items, {display: chipsItem.display.trim()});
+    const duplicatedIndex = findIndex(this._items, { display: chipsItem.display.trim() });
     if (duplicatedIndex === -1 || !isEqual(item, this.getChipByIndex(duplicatedIndex).item)) {
       this._items.push(chipsItem);
       this.chipsItems.next(this._items);
@@ -46,7 +46,7 @@ export class Chips {
   }
 
   public getChipById(id): ChipsItem {
-    const index = findIndex(this._items, {id: id});
+    const index = findIndex(this._items, { id: id });
     return this.getChipByIndex(index);
   }
 
@@ -87,7 +87,7 @@ export class Chips {
   }
 
   public remove(chipsItem: ChipsItem): void {
-    const index = findIndex(this._items, {id: chipsItem.id});
+    const index = findIndex(this._items, { id: chipsItem.id });
     this._items.splice(index, 1);
     this.chipsItems.next(this._items);
   }
@@ -112,7 +112,7 @@ export class Chips {
       return icons;
     }
 
-    const defaultConfigIndex: number = findIndex(this.iconsConfig, {name: 'default'});
+    const defaultConfigIndex: number = findIndex(this.iconsConfig, { name: 'default' });
     const defaultConfig: MetadataIconConfig = (defaultConfigIndex !== -1) ? this.iconsConfig[defaultConfigIndex] : undefined;
     let config: MetadataIconConfig;
     let configIndex: number;
@@ -122,7 +122,7 @@ export class Chips {
       .forEach((metadata) => {
 
         value = item[metadata];
-        configIndex = findIndex(this.iconsConfig, {name: metadata});
+        configIndex = findIndex(this.iconsConfig, { name: metadata });
 
         config = (configIndex !== -1) ? this.iconsConfig[configIndex] : defaultConfig;
 

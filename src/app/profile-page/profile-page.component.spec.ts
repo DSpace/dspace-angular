@@ -260,7 +260,7 @@ describe('ProfilePageComponent', () => {
           component.setInvalid(false);
           component.setCurrentPasswordValue('current-password');
           operations = [
-            { 'op': 'add', 'path': '/password', 'value': {'new_password': 'testest', 'current_password': 'current-password'  }},
+            { 'op': 'add', 'path': '/password', 'value': { 'new_password': 'testest', 'current_password': 'current-password'  } },
           ];
           result = component.updateSecurity();
           epersonService.patch(user, operations).subscribe((response) => {

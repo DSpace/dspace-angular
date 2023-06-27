@@ -35,7 +35,7 @@ export class AbstractTrackableComponent {
    * Shows a notification to remind the user that they can undo this
    */
   discard() {
-    const undoNotification = this.notificationsService.info(this.getNotificationTitle('discarded'), this.getNotificationContent('discarded'), {timeOut: this.discardTimeOut});
+    const undoNotification = this.notificationsService.info(this.getNotificationTitle('discarded'), this.getNotificationContent('discarded'), { timeOut: this.discardTimeOut });
     this.objectUpdatesService.discardFieldUpdates(this.url, undoNotification);
   }
 

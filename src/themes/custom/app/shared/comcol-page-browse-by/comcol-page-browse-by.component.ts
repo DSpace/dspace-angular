@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ComcolPageBrowseByComponent as BaseComponent} from '../../../../../app/shared/comcol/comcol-page-browse-by/comcol-page-browse-by.component';
+import { ComcolPageBrowseByComponent as BaseComponent } from '../../../../../app/shared/comcol/comcol-page-browse-by/comcol-page-browse-by.component';
 
 /**
  * A component to display the "Browse By" section of a Community or Collection page

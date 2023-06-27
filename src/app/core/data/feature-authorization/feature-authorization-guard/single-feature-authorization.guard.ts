@@ -3,7 +3,7 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { FeatureID } from '../feature-id';
 import { SomeFeatureAuthorizationGuard } from './some-feature-authorization.guard';

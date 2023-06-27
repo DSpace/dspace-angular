@@ -77,7 +77,7 @@ export class MyDspaceSearchModule {
   static withEntryComponents() {
     return {
       ngModule: MyDspaceSearchModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component})),
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component })),
     };
   }
 }

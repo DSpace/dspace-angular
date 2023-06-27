@@ -283,7 +283,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The page being navigated to.
    */
   public doPageChange(page: number) {
-    this.updateParams({page: page});
+    this.updateParams({ page: page });
     this.emitPaginationChange();
   }
 
@@ -352,7 +352,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
           } else {
             lastItem = collectionSize;
           }
-          return {range: firstItem + ' - ' + lastItem, total: collectionSize};
+          return { range: firstItem + ' - ' + lastItem, total: collectionSize };
         }),
       );
     }

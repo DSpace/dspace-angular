@@ -1,4 +1,4 @@
-import {Directive} from '@angular/core';
+import { Directive } from '@angular/core';
 import {
   NG_VALIDATORS,
   UntypedFormControl,

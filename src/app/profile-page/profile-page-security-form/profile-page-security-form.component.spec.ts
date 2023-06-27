@@ -41,8 +41,8 @@ describe('ProfilePageSecurityFormComponent', () => {
       declarations: [ProfilePageSecurityFormComponent, VarDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
-        {provide: EPersonDataService, useValue: epersonService},
-        {provide: NotificationsService, useValue: notificationsService},
+        { provide: EPersonDataService, useValue: epersonService },
+        { provide: NotificationsService, useValue: notificationsService },
         FormBuilderService,
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -58,14 +58,14 @@ describe('ProfilePageSecurityFormComponent', () => {
   describe('On value change', () => {
     describe('when the password has changed', () => {
       beforeEach(() => {
-        component.formGroup.patchValue({password: 'password'});
-        component.formGroup.patchValue({passwordrepeat: 'password'});
+        component.formGroup.patchValue({ password: 'password' });
+        component.formGroup.patchValue({ passwordrepeat: 'password' });
       });
 
       it('should emit the value and validity on password change with invalid validity', fakeAsync(() => {
         spyOn(component.passwordValue, 'emit');
         spyOn(component.isInvalid, 'emit');
-        component.formGroup.patchValue({password: 'new-password'});
+        component.formGroup.patchValue({ password: 'new-password' });
 
         tick(300);
 
@@ -75,7 +75,7 @@ describe('ProfilePageSecurityFormComponent', () => {
 
       it('should emit the value on password change', fakeAsync(() => {
         spyOn(component.passwordValue, 'emit');
-        component.formGroup.patchValue({password: 'new-password'});
+        component.formGroup.patchValue({ password: 'new-password' });
 
         tick(300);
 
@@ -87,8 +87,8 @@ describe('ProfilePageSecurityFormComponent', () => {
         spyOn(component.currentPasswordValue, 'emit');
         component.FORM_PREFIX = 'profile.security.form.';
         component.ngOnInit();
-        component.formGroup.patchValue({password: 'new-password'});
-        component.formGroup.patchValue({'current-password': 'current-password'});
+        component.formGroup.patchValue({ password: 'new-password' });
+        component.formGroup.patchValue({ 'current-password': 'current-password' });
         tick(300);
 
         expect(component.passwordValue.emit).toHaveBeenCalledWith('new-password');

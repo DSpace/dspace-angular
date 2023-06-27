@@ -52,7 +52,7 @@ import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow
         path: 'system-wide-alert',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         loadChildren: () => import('../system-wide-alert/system-wide-alert.module').then((m) => m.SystemWideAlertModule),
-        data: {title: 'admin.system-wide-alert.title', breadcrumbKey: 'admin.system-wide-alert'},
+        data: { title: 'admin.system-wide-alert.title', breadcrumbKey: 'admin.system-wide-alert' },
       },
     ]),
   ],

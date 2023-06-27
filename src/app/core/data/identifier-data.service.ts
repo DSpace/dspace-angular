@@ -18,14 +18,14 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core-state.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import {ConfigurationProperty} from '../shared/configuration-property.model';
+import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { sendRequest } from '../shared/request.operators';
 import { BaseDataService } from './base/base-data.service';
 import { dataService } from './base/data-service.decorator';
-import {ConfigurationDataService} from './configuration-data.service';
+import { ConfigurationDataService } from './configuration-data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { RemoteData } from './remote-data';
 import { PostRequest } from './request.models';

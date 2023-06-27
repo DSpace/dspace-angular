@@ -16,7 +16,7 @@ const parseSectionErrors = (errors: SubmissionObjectError[] = []): any => {
     const paths: SectionErrorPath[] = parseSectionErrorPaths(error.paths);
 
     paths.forEach((path: SectionErrorPath) => {
-      const sectionError = {path: path.originalPath, message: error.message};
+      const sectionError = { path: path.originalPath, message: error.message };
       if (!errorsList[path.sectionId]) {
         errorsList[path.sectionId] = [];
       }

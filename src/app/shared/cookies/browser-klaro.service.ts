@@ -250,7 +250,7 @@ export class BrowserKlaroService extends KlaroService {
    * Show the cookie consent form
    */
   showSettings() {
-    this.lazyKlaro.then(({show}) => show(this.klaroConfig));
+    this.lazyKlaro.then(({ show }) => show(this.klaroConfig));
   }
 
   /**

@@ -2,9 +2,9 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import {ThemedComponent} from 'src/app/shared/theme-support/themed.component';
+import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
 
-import {CreateItemParentSelectorComponent} from './create-item-parent-selector.component';
+import { CreateItemParentSelectorComponent } from './create-item-parent-selector.component';
 
 /**
  * Themed wrapper for CreateItemParentSelectorComponent

@@ -112,7 +112,7 @@ export const paginatedRelationsToItems = (thisId: string) =>
           ),
           distinctUntilChanged(compareArraysUsingIds()),
           map((relatedItems: Item[]) =>
-            Object.assign(relationshipsRD, { payload: Object.assign(relationshipsRD.payload, { page: relatedItems } )}),
+            Object.assign(relationshipsRD, { payload: Object.assign(relationshipsRD.payload, { page: relatedItems } ) }),
           ),
         );
       }),

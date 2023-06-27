@@ -111,7 +111,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
       } else if (isAuthorized && !isLoggedIn) {
         this.hardRedirectService.redirect(bitstream._links.content.href);
       } else if (!isAuthorized && isLoggedIn) {
-        this.router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});
+        this.router.navigateByUrl(getForbiddenRoute(), { skipLocationChange: true });
       } else if (!isAuthorized && !isLoggedIn) {
         this.auth.setRedirectUrl(this.router.url);
         this.router.navigateByUrl('login');

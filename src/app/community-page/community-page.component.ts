@@ -24,7 +24,7 @@ import { MetadataService } from '../core/metadata/metadata.service';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { Community } from '../core/shared/community.model';
-import { getAllSucceededRemoteDataPayload} from '../core/shared/operators';
+import { getAllSucceededRemoteDataPayload } from '../core/shared/operators';
 import { fadeInOut } from '../shared/animations/fade';
 import { hasValue } from '../shared/empty.util';
 import { getCommunityPageRoute } from './community-page-routing-paths';

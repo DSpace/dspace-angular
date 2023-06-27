@@ -91,7 +91,7 @@ describe('ItemMyDSpaceResultListElementComponent', () => {
 
   it('should forward item-actions processComplete event to reloadObject event emitter', fakeAsync(() => {
     spyOn(component.reloadedObject, 'emit').and.callThrough();
-    const actionPayload: any = { reloadedObject: {}};
+    const actionPayload: any = { reloadedObject: {} };
 
     const actionsComponent = fixture.debugElement.query(By.css('ds-item-actions'));
     actionsComponent.triggerEventHandler('processCompleted', actionPayload);

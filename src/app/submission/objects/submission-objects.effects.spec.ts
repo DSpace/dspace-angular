@@ -140,7 +140,7 @@ describe('SubmissionObjectEffects test suite', () => {
             selfUrl: selfUrl,
             submissionDefinition: submissionDefinition,
             sections: {},
-            item: {metadata: {}},
+            item: { metadata: {} },
             errors: [],
           },
         },

@@ -119,7 +119,7 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
 
   it('should forward workflowitem-actions processCompleted event to the reloadedObject event emitter', fakeAsync(() => {
     spyOn(component.reloadedObject, 'emit').and.callThrough();
-    const actionPayload: any = { reloadedObject: {}};
+    const actionPayload: any = { reloadedObject: {} };
 
     const actionsComponent = fixture.debugElement.query(By.css('ds-workflowitem-actions'));
     actionsComponent.triggerEventHandler('processCompleted', actionPayload);

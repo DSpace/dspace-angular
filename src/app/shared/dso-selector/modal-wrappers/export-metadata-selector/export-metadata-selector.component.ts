@@ -110,7 +110,7 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
     return this.authorizationDataService.isAuthorized(FeatureID.AdministratorOf).pipe(
       switchMap((isAdmin) => {
         if (isAdmin) {
-          parameterValues.push(Object.assign(new ProcessParameter(), {name: '-a'}));
+          parameterValues.push(Object.assign(new ProcessParameter(), { name: '-a' }));
         }
         return this.scriptDataService.invoke(METADATA_EXPORT_SCRIPT_NAME, parameterValues, []);
       }),

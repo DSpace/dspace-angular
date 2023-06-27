@@ -139,7 +139,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
               this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
               this.router.navigate(['/mydspace']);
             } else {
-              this.router.navigate(['/workspaceitems', submissionObject.id, 'edit'], { replaceUrl: true});
+              this.router.navigate(['/workspaceitems', submissionObject.id, 'edit'], { replaceUrl: true });
             }
           }
         }),

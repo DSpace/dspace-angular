@@ -120,7 +120,7 @@ describe('ClaimedSearchResultListElementComponent', () => {
 
   it('should forward claimed-task-actions processComplete event to reloadObject event emitter', fakeAsync(() => {
     spyOn(component.reloadedObject, 'emit').and.callThrough();
-    const actionPayload: any = { reloadedObject: {}};
+    const actionPayload: any = { reloadedObject: {} };
 
     const actionsComponent = fixture.debugElement.query(By.css('ds-claimed-task-actions'));
     actionsComponent.triggerEventHandler('processCompleted', actionPayload);

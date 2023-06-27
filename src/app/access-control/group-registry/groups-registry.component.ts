@@ -147,7 +147,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
         const query: string = data.query;
         if (query != null && this.currentSearchQuery !== query) {
           this.currentSearchQuery = query;
-          this.paginationService.updateRouteWithUrl(this.config.id, [], {page: 1});
+          this.paginationService.updateRouteWithUrl(this.config.id, [], { page: 1 });
         }
         return this.groupService.searchGroups(this.currentSearchQuery.trim(), {
           currentPage: paginationOptions.currentPage,

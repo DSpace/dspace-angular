@@ -94,9 +94,9 @@ export class MetadataValuesComponent implements OnChanges {
    * @param value the specific metadata value being linked
    */
   getQueryParams(value) {
-    const queryParams = {startsWith: value};
+    const queryParams = { startsWith: value };
     if (this.browseDefinition.getRenderType() === VALUE_LIST_BROWSE_DEFINITION.value) {
-      return {value: value};
+      return { value: value };
     }
     return queryParams;
   }

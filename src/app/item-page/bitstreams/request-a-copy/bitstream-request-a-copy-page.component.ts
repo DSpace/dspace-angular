@@ -133,7 +133,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
 
     this.subs.push(observableCombineLatest([this.canDownload$, canRequestCopy$]).subscribe(([canDownload, canRequestCopy]) => {
       if (!canDownload && !canRequestCopy) {
-        this.router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});
+        this.router.navigateByUrl(getForbiddenRoute(), { skipLocationChange: true });
       }
     }));
     this.initValues();
@@ -160,13 +160,13 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
    */
   private initValues() {
     this.getCurrentUser().pipe(take(1)).subscribe((user) => {
-      this.requestCopyForm.patchValue({allfiles: 'true'});
+      this.requestCopyForm.patchValue({ allfiles: 'true' });
       if (hasValue(user)) {
-        this.requestCopyForm.patchValue({name: user.name, email: user.email});
+        this.requestCopyForm.patchValue({ name: user.name, email: user.email });
       }
     });
     this.bitstream$.pipe(take(1)).subscribe((bitstream) => {
-      this.requestCopyForm.patchValue({allfiles: 'false'});
+      this.requestCopyForm.patchValue({ allfiles: 'false' });
     });
   }
 

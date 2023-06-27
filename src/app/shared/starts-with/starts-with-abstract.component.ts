@@ -92,7 +92,7 @@ export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
       this.startsWith = undefined;
     }
     if (resetPage) {
-      this.paginationService.updateRoute(this.paginationId, {page: 1}, { startsWith: this.startsWith });
+      this.paginationService.updateRoute(this.paginationId, { page: 1 }, { startsWith: this.startsWith });
     } else {
       this.router.navigate([], {
         queryParams: Object.assign({ startsWith: this.startsWith }),

@@ -90,11 +90,11 @@ describe('SubmissionSubmitComponent Component', () => {
 
   it('should redirect to workspaceitem edit when a not empty SubmissionObject has been retrieved',() => {
 
-    submissionServiceStub.createSubmission.and.returnValue(observableOf({ id: '1234'}));
+    submissionServiceStub.createSubmission.and.returnValue(observableOf({ id: '1234' }));
 
     fixture.detectChanges();
 
-    expect(router.navigate).toHaveBeenCalledWith(['/workspaceitems', '1234', 'edit'], { replaceUrl: true});
+    expect(router.navigate).toHaveBeenCalledWith(['/workspaceitems', '1234', 'edit'], { replaceUrl: true });
 
   });
 

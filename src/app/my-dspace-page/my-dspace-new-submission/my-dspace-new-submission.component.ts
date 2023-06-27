@@ -99,7 +99,7 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
         // To avoid confusion and ambiguity, redirect the user on the publication page.
         this.router.navigateByUrl(link);
       } else if (workspaceitems.length > 1) {
-        this.notificationsService.success(null, this.translate.get('mydspace.upload.upload-multiple-successful', {qty: workspaceitems.length}));
+        this.notificationsService.success(null, this.translate.get('mydspace.upload.upload-multiple-successful', { qty: workspaceitems.length }));
       }
 
     } else {

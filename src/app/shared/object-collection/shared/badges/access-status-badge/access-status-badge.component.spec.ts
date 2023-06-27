@@ -66,7 +66,7 @@ describe('ItemAccessStatusBadgeComponent', () => {
       declarations: [AccessStatusBadgeComponent, TruncatePipe],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
-        {provide: AccessStatusDataService, useValue: accessStatusDataService},
+        { provide: AccessStatusDataService, useValue: accessStatusDataService },
       ],
     }).compileComponents();
   }

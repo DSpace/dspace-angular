@@ -49,7 +49,7 @@ describe('CreateProfileComponent', () => {
   let store: Store<CoreState>;
   let endUserAgreementService: EndUserAgreementService;
 
-  const registration = Object.assign(new Registration(), {email: 'test@email.org', token: 'test-token'});
+  const registration = Object.assign(new Registration(), { email: 'test@email.org', token: 'test-token' });
 
   let values;
   let eperson: EPerson;
@@ -121,7 +121,7 @@ describe('CreateProfileComponent', () => {
     };
     epersonWithAgreement = Object.assign(new EPerson(), valuesWithAgreement);
 
-    route = {data: observableOf({registration: createSuccessfulRemoteDataObject(registration)})};
+    route = { data: observableOf({ registration: createSuccessfulRemoteDataObject(registration) }) };
     router = new RouterStub();
     notificationsService = new NotificationsServiceStub();
 
@@ -142,13 +142,13 @@ describe('CreateProfileComponent', () => {
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule],
       declarations: [CreateProfileComponent],
       providers: [
-        {provide: Router, useValue: router},
-        {provide: ActivatedRoute, useValue: route},
-        {provide: Store, useValue: store},
-        {provide: EPersonDataService, useValue: ePersonDataService},
-        {provide: UntypedFormBuilder, useValue: new UntypedFormBuilder()},
-        {provide: NotificationsService, useValue: notificationsService},
-        {provide: EndUserAgreementService, useValue: endUserAgreementService},
+        { provide: Router, useValue: router },
+        { provide: ActivatedRoute, useValue: route },
+        { provide: Store, useValue: store },
+        { provide: EPersonDataService, useValue: ePersonDataService },
+        { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: EndUserAgreementService, useValue: endUserAgreementService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();

@@ -66,10 +66,10 @@ describe('SystemWideAlertFormComponent', () => {
       imports: [FormsModule, SystemWideAlertModule, UiSwitchModule, TranslateModule.forRoot()],
       declarations: [SystemWideAlertFormComponent],
       providers: [
-        {provide: SystemWideAlertDataService, useValue: systemWideAlertDataService},
-        {provide: NotificationsService, useValue: notificationsService},
-        {provide: Router, useValue: router},
-        {provide: RequestService, useValue: requestService},
+        { provide: SystemWideAlertDataService, useValue: systemWideAlertDataService },
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: Router, useValue: router },
+        { provide: RequestService, useValue: requestService },
       ],
     }).compileComponents();
   }));
@@ -101,8 +101,8 @@ describe('SystemWideAlertFormComponent', () => {
       comp.createForm();
       expect(comp.formMessage.value).toEqual('');
       expect(comp.formActive.value).toEqual(false);
-      expect(comp.time).toEqual({hour: now.getHours(), minute: now.getMinutes()});
-      expect(comp.date).toEqual({year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()});
+      expect(comp.time).toEqual({ hour: now.getHours(), minute: now.getMinutes() });
+      expect(comp.date).toEqual({ year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() });
     });
   });
 
@@ -114,7 +114,7 @@ describe('SystemWideAlertFormComponent', () => {
 
       expect(comp.formMessage.value).toEqual(systemWideAlert.message);
       expect(comp.formActive.value).toEqual(true);
-      expect(comp.time).toEqual({hour: countDownTo.getHours(), minute: countDownTo.getMinutes()});
+      expect(comp.time).toEqual({ hour: countDownTo.getHours(), minute: countDownTo.getMinutes() });
       expect(comp.date).toEqual({
         year: countDownTo.getFullYear(),
         month: countDownTo.getMonth() + 1,
@@ -149,8 +149,8 @@ describe('SystemWideAlertFormComponent', () => {
       countDownDate.setHours(countDownDate.getHours() + 1);
       countDownDate.setMinutes(countDownDate.getMinutes() + 1);
 
-      comp.time = {hour: countDownDate.getHours(), minute: countDownDate.getMinutes()};
-      comp.date = {year: countDownDate.getFullYear(), month: countDownDate.getMonth() + 1, day: countDownDate.getDate()};
+      comp.time = { hour: countDownDate.getHours(), minute: countDownDate.getMinutes() };
+      comp.date = { year: countDownDate.getFullYear(), month: countDownDate.getMonth() + 1, day: countDownDate.getDate() };
 
       comp.updatePreviewTime();
 
@@ -178,8 +178,8 @@ describe('SystemWideAlertFormComponent', () => {
 
       comp.formMessage.patchValue('New message');
       comp.formActive.patchValue(true);
-      comp.time = {hour: 4, minute: 26};
-      comp.date = {year: 2023, month: 1, day: 25};
+      comp.time = { hour: 4, minute: 26 };
+      comp.date = { year: 2023, month: 1, day: 25 };
 
       const expectedAlert = new SystemWideAlert();
       expectedAlert.alertId = systemWideAlert.alertId;
@@ -201,8 +201,8 @@ describe('SystemWideAlertFormComponent', () => {
 
       comp.formMessage.patchValue('New message');
       comp.formActive.patchValue(true);
-      comp.time = {hour: 4, minute: 26};
-      comp.date = {year: 2023, month: 1, day: 25};
+      comp.time = { hour: 4, minute: 26 };
+      comp.date = { year: 2023, month: 1, day: 25 };
 
       const expectedAlert = new SystemWideAlert();
       expectedAlert.alertId = systemWideAlert.alertId;
@@ -224,8 +224,8 @@ describe('SystemWideAlertFormComponent', () => {
 
       comp.formMessage.patchValue('New message');
       comp.formActive.patchValue(true);
-      comp.time = {hour: 4, minute: 26};
-      comp.date = {year: 2023, month: 1, day: 25};
+      comp.time = { hour: 4, minute: 26 };
+      comp.date = { year: 2023, month: 1, day: 25 };
       comp.counterEnabled$.next(false);
 
       const expectedAlert = new SystemWideAlert();
@@ -248,8 +248,8 @@ describe('SystemWideAlertFormComponent', () => {
 
       comp.formMessage.patchValue('New message');
       comp.formActive.patchValue(true);
-      comp.time = {hour: 4, minute: 26};
-      comp.date = {year: 2023, month: 1, day: 25};
+      comp.time = { hour: 4, minute: 26 };
+      comp.date = { year: 2023, month: 1, day: 25 };
 
       const expectedAlert = new SystemWideAlert();
       expectedAlert.alertId = systemWideAlert.alertId;
@@ -271,8 +271,8 @@ describe('SystemWideAlertFormComponent', () => {
 
       comp.formMessage.patchValue('New message');
       comp.formActive.patchValue(true);
-      comp.time = {hour: 4, minute: 26};
-      comp.date = {year: 2023, month: 1, day: 25};
+      comp.time = { hour: 4, minute: 26 };
+      comp.date = { year: 2023, month: 1, day: 25 };
 
       const expectedAlert = new SystemWideAlert();
       expectedAlert.message = 'New message';
@@ -296,8 +296,8 @@ describe('SystemWideAlertFormComponent', () => {
 
       comp.formMessage.patchValue('New message');
       comp.formActive.patchValue(true);
-      comp.time = {hour: 4, minute: 26};
-      comp.date = {year: 2023, month: 1, day: 25};
+      comp.time = { hour: 4, minute: 26 };
+      comp.date = { year: 2023, month: 1, day: 25 };
 
       const expectedAlert = new SystemWideAlert();
       expectedAlert.message = 'New message';

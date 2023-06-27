@@ -75,7 +75,7 @@ describe('ItemPageComponent', () => {
         },
       ],
     },
-    data: observableOf({dso: createSuccessfulRemoteDataObject(new Item())}),
+    data: observableOf({ dso: createSuccessfulRemoteDataObject(new Item()) }),
   };
 
   const mockRouter = {

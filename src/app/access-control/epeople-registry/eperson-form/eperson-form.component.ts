@@ -549,10 +549,10 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         .subscribe((response: RemoteData<Registration>) => {
           if (response.hasSucceeded) {
             this.notificationsService.success(this.translateService.get('admin.access-control.epeople.actions.reset'),
-              this.translateService.get('forgot-email.form.success.content', {email: this.epersonInitial.email}));
+              this.translateService.get('forgot-email.form.success.content', { email: this.epersonInitial.email }));
           } else {
             this.notificationsService.error(this.translateService.get('forgot-email.form.error.head'),
-              this.translateService.get('forgot-email.form.error.content', {email: this.epersonInitial.email}));
+              this.translateService.get('forgot-email.form.error.content', { email: this.epersonInitial.email }));
           }
         },
         );

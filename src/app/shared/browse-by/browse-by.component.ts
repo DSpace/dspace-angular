@@ -164,7 +164,7 @@ export class BrowseByComponent implements OnInit, OnDestroy {
    */
   back = () => {
     const page = +this.previousPage$.value > 1 ? +this.previousPage$.value : 1;
-    this.paginationService.updateRoute(this.paginationConfig.id, {page: page}, {[this.paginationConfig.id + '.return']: null, value: null, startsWith: null});
+    this.paginationService.updateRoute(this.paginationConfig.id, { page: page }, { [this.paginationConfig.id + '.return']: null, value: null, startsWith: null });
   };
 
   /**
@@ -186,7 +186,7 @@ export class BrowseByComponent implements OnInit, OnDestroy {
    * @param size
    */
   doPageSizeChange(size) {
-    this.paginationService.updateRoute(this.paginationConfig.id,{pageSize: size});
+    this.paginationService.updateRoute(this.paginationConfig.id,{ pageSize: size });
   }
 
   /**
@@ -194,7 +194,7 @@ export class BrowseByComponent implements OnInit, OnDestroy {
    * @param direction
    */
   doSortDirectionChange(direction) {
-    this.paginationService.updateRoute(this.paginationConfig.id,{sortDirection: direction});
+    this.paginationService.updateRoute(this.paginationConfig.id,{ sortDirection: direction });
   }
 
   /**

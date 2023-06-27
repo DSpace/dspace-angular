@@ -141,7 +141,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
 
     const messages = observableCombineLatest(
       this.translateService.get(`${prefix}.${suffix}.head`),
-      this.translateService.get(`${prefix}.${suffix}.amount`, {amount: amount}),
+      this.translateService.get(`${prefix}.${suffix}.amount`, { amount: amount }),
     );
     messages.subscribe(([head, content]) => {
 

@@ -3,7 +3,7 @@ import {
   Component,
 } from '@angular/core';
 
-import { CommunityPageComponent as BaseComponent} from '../../../../app/community-page/community-page.component';
+import { CommunityPageComponent as BaseComponent } from '../../../../app/community-page/community-page.component';
 import { fadeInOut } from '../../../../app/shared/animations/fade';
 
 

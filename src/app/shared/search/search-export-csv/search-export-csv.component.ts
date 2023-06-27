@@ -78,13 +78,13 @@ export class SearchExportCsvComponent implements OnInit {
     const parameters = [];
     if (hasValue(this.searchConfig)) {
       if (isNotEmpty(this.searchConfig.query)) {
-        parameters.push({name: '-q', value: this.searchConfig.query});
+        parameters.push({ name: '-q', value: this.searchConfig.query });
       }
       if (isNotEmpty(this.searchConfig.scope)) {
-        parameters.push({name: '-s', value: this.searchConfig.scope});
+        parameters.push({ name: '-s', value: this.searchConfig.scope });
       }
       if (isNotEmpty(this.searchConfig.configuration)) {
-        parameters.push({name: '-c', value: this.searchConfig.configuration});
+        parameters.push({ name: '-c', value: this.searchConfig.configuration });
       }
       if (isNotEmpty(this.searchConfig.filters)) {
         this.searchConfig.filters.forEach((filter) => {
@@ -100,7 +100,7 @@ export class SearchExportCsvComponent implements OnInit {
                 filterValue = value.substring(0, value.lastIndexOf(','));
               }
               const valueToAdd = `${filter.key.substring(2)},${operator}=${filterValue}`;
-              parameters.push({name: '-f', value: valueToAdd});
+              parameters.push({ name: '-f', value: valueToAdd });
             });
           }
         });

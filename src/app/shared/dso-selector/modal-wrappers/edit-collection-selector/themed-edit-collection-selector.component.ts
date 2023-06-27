@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {ThemedComponent} from 'src/app/shared/theme-support/themed.component';
+import { Component } from '@angular/core';
+import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
 
-import {EditCollectionSelectorComponent} from './edit-collection-selector.component';
+import { EditCollectionSelectorComponent } from './edit-collection-selector.component';
 
 /**
  * Themed wrapper for EditCollectionSelectorComponent

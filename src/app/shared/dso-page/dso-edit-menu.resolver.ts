@@ -87,7 +87,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
               }),
             );
           } else {
-            return observableOf({...route.data?.menu});
+            return observableOf({ ...route.data?.menu });
           }
         }),
       );

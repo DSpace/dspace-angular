@@ -32,7 +32,7 @@ export class RouteEffects {
     .pipe(
       ofType(RouteActionTypes.RESET),
       tap(() => this.service.setCurrentRouteInfo()),
-    ), {dispatch: false });
+    ), { dispatch: false });
 
   constructor(private actions$: Actions, private service: RouteService) {
   }

@@ -70,7 +70,7 @@ export class SearchSwitchConfigurationComponent implements OnDestroy, OnInit {
   ngOnInit() {
     this.searchConfigService.getCurrentConfiguration(this.defaultConfiguration)
       .subscribe((currentConfiguration) => {
-        const index = findIndex(this.configurationList, {value: currentConfiguration });
+        const index = findIndex(this.configurationList, { value: currentConfiguration });
         this.selectedOption = this.configurationList[index];
       });
   }
@@ -80,7 +80,7 @@ export class SearchSwitchConfigurationComponent implements OnDestroy, OnInit {
    */
   onSelect() {
     const navigationExtras: NavigationExtras = {
-      queryParams: {configuration: this.selectedOption.value},
+      queryParams: { configuration: this.selectedOption.value },
     };
 
     this.changeConfiguration.emit(this.selectedOption);

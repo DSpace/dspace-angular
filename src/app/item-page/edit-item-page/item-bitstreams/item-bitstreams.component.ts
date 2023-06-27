@@ -121,7 +121,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Actions to perform after the item has been initialized
    */
   postItemInit(): void {
-    this.bundles$ = this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({pagination: this.bundlesOptions})).pipe(
+    this.bundles$ = this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({ pagination: this.bundlesOptions })).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       map((bundlePage: PaginatedList<Bundle>) => bundlePage.page),
@@ -226,7 +226,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Shows a notification to remind the user that they can undo this
    */
   discard() {
-    const undoNotification = this.notificationsService.info(this.getNotificationTitle('discarded'), this.getNotificationContent('discarded'), {timeOut: this.discardTimeOut});
+    const undoNotification = this.notificationsService.info(this.getNotificationTitle('discarded'), this.getNotificationContent('discarded'), { timeOut: this.discardTimeOut });
     this.objectUpdatesService.discardAllFieldUpdates(this.url, undoNotification);
   }
 

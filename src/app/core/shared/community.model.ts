@@ -11,7 +11,7 @@ import {
 } from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
-import {excludeFromEquals} from '../utilities/equals.decorators';
+import { excludeFromEquals } from '../utilities/equals.decorators';
 import { Bitstream } from './bitstream.model';
 import { BITSTREAM } from './bitstream.resource-type';
 import { ChildHALResource } from './child-hal-resource.model';

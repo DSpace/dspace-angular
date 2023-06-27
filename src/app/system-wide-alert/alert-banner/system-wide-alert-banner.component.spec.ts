@@ -52,8 +52,8 @@ describe('SystemWideAlertBannerComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [SystemWideAlertBannerComponent],
       providers: [
-        {provide: SystemWideAlertDataService, useValue: systemWideAlertDataService},
-        {provide: NotificationsService, useValue: new NotificationsServiceStub()},
+        { provide: SystemWideAlertDataService, useValue: systemWideAlertDataService },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
       ],
     }).compileComponents();
   }));

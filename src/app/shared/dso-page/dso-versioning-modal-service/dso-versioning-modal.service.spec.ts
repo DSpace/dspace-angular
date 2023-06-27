@@ -39,7 +39,7 @@ describe('DsoVersioningModalService', () => {
 
   beforeEach(waitForAsync(() => {
     modalService = jasmine.createSpyObj('modalService', {
-      open: {componentInstance: {firstVersion: {}, versionNumber: {}, createVersionEvent: EMPTY}},
+      open: { componentInstance: { firstVersion: {}, versionNumber: {}, createVersionEvent: EMPTY } },
     });
     versionService = jasmine.createSpyObj('versionService', {
       findByHref: createSuccessfulRemoteDataObject$<Version>(new Version()),

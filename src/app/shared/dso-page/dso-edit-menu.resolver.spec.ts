@@ -58,14 +58,14 @@ describe('DSOEditMenuResolver', () => {
         }],
       },
     },
-    params: {id: 'test-uuid'},
+    params: { id: 'test-uuid' },
   };
 
   const state = {
     url: 'test-url',
   };
 
-  const testObject = Object.assign(new Item(), {uuid: 'test-uuid', type: 'item', _links: {self: {href: 'self-link'}}});
+  const testObject = Object.assign(new Item(), { uuid: 'test-uuid', type: 'item', _links: { self: { href: 'self-link' } } });
 
   const dummySections1 = [{
     id: 'dummy-1',
@@ -129,13 +129,13 @@ describe('DSOEditMenuResolver', () => {
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
       declarations: [AdminSidebarComponent],
       providers: [
-        {provide: DSpaceObjectDataService, useValue: dSpaceObjectDataService},
-        {provide: MenuService, useValue: menuService},
-        {provide: AuthorizationDataService, useValue: authorizationService},
-        {provide: DsoVersioningModalService, useValue: dsoVersioningModalService},
-        {provide: ResearcherProfileDataService, useValue: researcherProfileService},
-        {provide: TranslateService, useValue: translate},
-        {provide: NotificationsService, useValue: notificationsService},
+        { provide: DSpaceObjectDataService, useValue: dSpaceObjectDataService },
+        { provide: MenuService, useValue: menuService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: DsoVersioningModalService, useValue: dsoVersioningModalService },
+        { provide: ResearcherProfileDataService, useValue: researcherProfileService },
+        { provide: TranslateService, useValue: translate },
+        { provide: NotificationsService, useValue: notificationsService },
         {
           provide: NgbModal, useValue: {
             open: () => {/*comment*/
@@ -164,8 +164,8 @@ describe('DSOEditMenuResolver', () => {
           {
             ...route.data.menu,
             [MenuID.DSO_EDIT]: [
-              ...dummySections1.map((menu) => Object.assign(menu, {id: menu.id + '-test-uuid'})),
-              ...dummySections2.map((menu) => Object.assign(menu, {id: menu.id + '-test-uuid'})),
+              ...dummySections1.map((menu) => Object.assign(menu, { id: menu.id + '-test-uuid' })),
+              ...dummySections2.map((menu) => Object.assign(menu, { id: menu.id + '-test-uuid' })),
             ],
           },
         );
@@ -190,7 +190,7 @@ describe('DSOEditMenuResolver', () => {
           },
         },
         params: {},
-        queryParams: {scope: 'test-scope-uuid'},
+        queryParams: { scope: 'test-scope-uuid' },
       };
 
       resolver.resolve(routeWithScope as any, null).subscribe(resolved => {
@@ -198,8 +198,8 @@ describe('DSOEditMenuResolver', () => {
           {
             ...route.data.menu,
             [MenuID.DSO_EDIT]: [
-              ...dummySections1.map((menu) => Object.assign(menu, {id: menu.id + '-test-scope-uuid'})),
-              ...dummySections2.map((menu) => Object.assign(menu, {id: menu.id + '-test-scope-uuid'})),
+              ...dummySections1.map((menu) => Object.assign(menu, { id: menu.id + '-test-scope-uuid' })),
+              ...dummySections2.map((menu) => Object.assign(menu, { id: menu.id + '-test-scope-uuid' })),
             ],
           },
         );

@@ -14,7 +14,7 @@ import {
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { isEmpty } from '../../shared/empty.util';
 import { CommunityListDatasource } from '../community-list-datasource';
-import { CommunityListService} from '../community-list-service';
+import { CommunityListService } from '../community-list-service';
 import { FlatNode } from '../flat-node.model';
 
 /**

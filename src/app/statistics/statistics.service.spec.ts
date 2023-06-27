@@ -26,7 +26,7 @@ describe('StatisticsService', () => {
     service = initTestService();
 
     it('should send a request to track an item view ', () => {
-      const mockItem: any = {uuid: 'mock-item-uuid', type: 'item'};
+      const mockItem: any = { uuid: 'mock-item-uuid', type: 'item' };
       service.trackViewEvent(mockItem, 'https://www.referrer.com');
       const request: RestRequest = requestService.send.calls.mostRecent().args[0];
       expect(request.body).toBeDefined('request.body');
@@ -51,7 +51,7 @@ describe('StatisticsService', () => {
       totalPages: 25,
       number: 4,
     };
-    const sort = {by: 'search-field', order: 'ASC'};
+    const sort = { by: 'search-field', order: 'ASC' };
     service.trackSearchEvent(mockSearch, page, sort);
     const request: RestRequest = requestService.send.calls.mostRecent().args[0];
     const body = JSON.parse(request.body);
@@ -94,7 +94,7 @@ describe('StatisticsService', () => {
       totalPages: 25,
       number: 4,
     };
-    const sort = {by: 'search-field', order: 'ASC'};
+    const sort = { by: 'search-field', order: 'ASC' };
     const filters = [
       {
         filter: 'title',

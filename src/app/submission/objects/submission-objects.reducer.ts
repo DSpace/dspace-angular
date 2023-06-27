@@ -796,7 +796,7 @@ function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileActi
   if (hasValue(filesData.files)) {
     const fileIndex: any = findKey(
       filesData.files,
-      {uuid: action.payload.fileId});
+      { uuid: action.payload.fileId });
     if (isNotNull(fileIndex)) {
       const newData = Array.from(filesData.files);
       newData.splice(fileIndex, 1);

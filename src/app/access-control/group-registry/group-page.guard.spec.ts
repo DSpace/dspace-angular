@@ -54,7 +54,7 @@ describe('GroupPageGuard', () => {
 
       it('should return true', (done) => {
         guard.canActivate(
-          routeSnapshotWithGroupId, { url: 'current-url'} as any,
+          routeSnapshotWithGroupId, { url: 'current-url' } as any,
         ).subscribe((result) => {
           expect(authorizationService.isAuthorized).toHaveBeenCalledWith(
             FeatureID.CanManageGroup, groupEndpointUrl, undefined,
@@ -72,7 +72,7 @@ describe('GroupPageGuard', () => {
 
       it('should not return true', (done) => {
         guard.canActivate(
-          routeSnapshotWithGroupId, { url: 'current-url'} as any,
+          routeSnapshotWithGroupId, { url: 'current-url' } as any,
         ).subscribe((result) => {
           expect(authorizationService.isAuthorized).toHaveBeenCalledWith(
             FeatureID.CanManageGroup, groupEndpointUrl, undefined,

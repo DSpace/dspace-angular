@@ -102,7 +102,7 @@ describe('ItemListPreviewComponent', () => {
       ],
       declarations: [ItemListPreviewComponent, TruncatePipe],
       providers: [
-        { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate }},
+        { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
       ],
 
@@ -208,13 +208,13 @@ describe('ItemListPreviewComponent', () => {
       ],
       declarations: [ItemListPreviewComponent, TruncatePipe],
       providers: [
-        {provide: 'objectElementProvider', useValue: {mockItemWithAuthorAndDate}},
-        {provide: APP_CONFIG, useValue: enviromentNoThumbs},
+        { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } },
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
       ],
 
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemListPreviewComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default},
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
   beforeEach(waitForAsync(() => {

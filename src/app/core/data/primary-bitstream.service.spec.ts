@@ -61,7 +61,7 @@ describe('PrimaryBitstreamService', () => {
 
     rdbService = getMockRemoteDataBuildService();
     notificationService = new NotificationsServiceStub() as any;
-    bundleDataService = jasmine.createSpyObj('bundleDataService', {'findByHref': createSuccessfulRemoteDataObject$(bundle)});
+    bundleDataService = jasmine.createSpyObj('bundleDataService', { 'findByHref': createSuccessfulRemoteDataObject$(bundle) });
     service = new PrimaryBitstreamService(requestService, rdbService, objectCache, halService, notificationService, bundleDataService);
   });
 

@@ -104,7 +104,7 @@ describe('WorkspaceitemsDeletePageComponent', () => {
   });
 
   it('should delete the target workspace item', () => {
-    spyOn((component as any).modalService, 'open').and.returnValue({result: Promise.resolve('ok')});
+    spyOn((component as any).modalService, 'open').and.returnValue({ result: Promise.resolve('ok') });
     component.confirmDelete(By.css('#delete-modal'));
     fixture.detectChanges();
     expect((component as any).modalService.open).toHaveBeenCalled();

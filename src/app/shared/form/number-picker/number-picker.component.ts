@@ -20,7 +20,7 @@ import { isEmpty } from '../../empty.util';
   styleUrls: ['./number-picker.component.scss'],
   templateUrl: './number-picker.component.html',
   providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: NumberPickerComponent, multi: true},
+    { provide: NG_VALUE_ACCESSOR, useExisting: NumberPickerComponent, multi: true },
   ],
 })
 
@@ -152,6 +152,6 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
   }
 
   emitChange() {
-    this.change.emit({field: this.name, value: this.value});
+    this.change.emit({ field: this.name, value: this.value });
   }
 }

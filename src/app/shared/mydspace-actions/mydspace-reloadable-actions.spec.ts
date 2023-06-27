@@ -237,7 +237,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
     it('should emit the reloaded object in case of success', (done) => {
 
       component.startActionExecution().subscribe( (result) => {
-        expect(component.processCompleted.emit).toHaveBeenCalledWith({result: true, reloadedObject: result as any});
+        expect(component.processCompleted.emit).toHaveBeenCalledWith({ result: true, reloadedObject: result as any });
         done();
       });
     });

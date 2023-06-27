@@ -111,7 +111,7 @@ function removeFormError(state: FormState, action: FormRemoveErrorAction) {
   if (hasValue(state[formId])) {
     const errors = state[formId].errors.filter((error) => error.fieldId !== fieldId || error.fieldIndex !== fieldIndex);
     const newState = Object.assign({}, state);
-    newState[formId] = Object.assign({}, state[formId], {errors});
+    newState[formId] = Object.assign({}, state[formId], { errors });
     return newState;
   } else {
     return state;
@@ -123,7 +123,7 @@ function clearsFormErrors(state: FormState, action: FormClearErrorsAction) {
   if (hasValue(state[formId])) {
     const errors = [];
     const newState = Object.assign({}, state);
-    newState[formId] = Object.assign({}, state[formId], {errors});
+    newState[formId] = Object.assign({}, state[formId], { errors });
     return newState;
   } else {
     return state;
@@ -243,7 +243,7 @@ function changeTouchedState(state: FormState, action: FormAddTouchedAction): For
     const newForm = Object.assign({}, newState[action.payload.formId]);
     newState[action.payload.formId] = newForm;
 
-    newForm.touched = { ... newForm.touched};
+    newForm.touched = { ... newForm.touched };
     action.payload.touched.forEach((field) => newForm.touched[field] = true);
 
     return newState;

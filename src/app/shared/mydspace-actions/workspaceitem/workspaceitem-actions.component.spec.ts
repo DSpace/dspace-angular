@@ -192,7 +192,7 @@ describe('WorkspaceitemActionsComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
         { provide: AuthService, useValue:  authService },
-        { provide: AuthorizationDataService, useValue: authorizationService},
+        { provide: AuthorizationDataService, useValue: authorizationService },
         NgbModal,
       ],
       schemas: [NO_ERRORS_SCHEMA],

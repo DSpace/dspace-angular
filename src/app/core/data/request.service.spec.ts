@@ -28,7 +28,7 @@ import {
   getMockUUIDService,
 } from '../../shared/mocks/uuid.service.mock';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { coreReducers} from '../core.reducers';
+import { coreReducers } from '../core.reducers';
 import { CoreState } from '../core-state.model';
 import { UUIDService } from '../shared/uuid.service';
 import {

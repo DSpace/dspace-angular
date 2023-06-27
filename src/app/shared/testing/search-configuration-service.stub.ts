@@ -37,7 +37,7 @@ export class SearchConfigurationServiceStub {
   }
 
   getAvailableConfigurationOptions() {
-    return observableOf([{value: 'test', label: 'test'}]);
+    return observableOf([{ value: 'test', label: 'test' }]);
   }
 
   getConfigurationSearchConfigObservable() {

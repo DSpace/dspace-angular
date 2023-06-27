@@ -83,7 +83,7 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
       switchMap((options: PaginationComponentOptions) => this.bitstreamDataService.findAllByItemAndBundleName(
         this.item,
         'ORIGINAL',
-        {elementsPerPage: options.pageSize, currentPage: options.currentPage},
+        { elementsPerPage: options.pageSize, currentPage: options.currentPage },
         true,
         true,
         followLink('format'),
@@ -101,7 +101,7 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
       switchMap((options: PaginationComponentOptions) => this.bitstreamDataService.findAllByItemAndBundleName(
         this.item,
         'LICENSE',
-        {elementsPerPage: options.pageSize, currentPage: options.currentPage},
+        { elementsPerPage: options.pageSize, currentPage: options.currentPage },
         true,
         true,
         followLink('format'),

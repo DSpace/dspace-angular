@@ -68,7 +68,7 @@ describe('MetadataService', () => {
 
   let appConfig: AppConfig;
 
-  const initialState = { 'core': { metaTag: { tagsInUse: ['title', 'description'] }}};
+  const initialState = { 'core': { metaTag: { tagsInUse: ['title', 'description'] } } };
 
 
   beforeEach(() => {
@@ -514,8 +514,8 @@ describe('MetadataService', () => {
         totalElements: bitstreams.length,       // announce multiple elements/pages
       },
       _links: index < bitstreams.length - 1
-        ? { next: { href: 'not empty' }}        // fake link to the next bitstream page
-        : { next: { href: undefined }},         // last page has no link
+        ? { next: { href: 'not empty' } }        // fake link to the next bitstream page
+        : { next: { href: undefined } },         // last page has no link
     }));
   };
 });

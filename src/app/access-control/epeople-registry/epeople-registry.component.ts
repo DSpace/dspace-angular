@@ -135,7 +135,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   initialisePage() {
     this.searching$.next(true);
     this.isEPersonFormShown = false;
-    this.search({scope: this.currentSearchScope, query: this.currentSearchQuery});
+    this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery });
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
       if (eperson != null && eperson.id) {
         this.isEPersonFormShown = true;
@@ -260,7 +260,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
           if (hasValue(ePerson.id)) {
             this.epersonService.deleteEPerson(ePerson).pipe(getFirstCompletedRemoteData()).subscribe((restResponse: RemoteData<NoContent>) => {
               if (restResponse.hasSucceeded) {
-                this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', {name: this.dsoNameService.getName(ePerson)}));
+                this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { name: this.dsoNameService.getName(ePerson) }));
               } else {
                 this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + ePerson.id + ' with code: ' + restResponse.statusCode + ' and message: ' + restResponse.errorMessage);
               }
@@ -301,7 +301,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
     this.searchForm.patchValue({
       query: '',
     });
-    this.search({query: ''});
+    this.search({ query: '' });
   }
 
   /**

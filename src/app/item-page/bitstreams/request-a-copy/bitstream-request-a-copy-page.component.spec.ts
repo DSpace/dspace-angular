@@ -61,8 +61,8 @@ describe('BitstreamRequestACopyPageComponent', () => {
     eperson = Object.assign(new EPerson(), {
       email: 'test@mail.org',
       metadata: {
-        'eperson.firstname': [{value: 'Test'}],
-        'eperson.lastname': [{value: 'User'}],
+        'eperson.firstname': [{ value: 'Test' }],
+        'eperson.lastname': [{ value: 'User' }],
       },
     });
     authService = jasmine.createSpyObj('authService', {
@@ -83,13 +83,13 @@ describe('BitstreamRequestACopyPageComponent', () => {
 
     notificationsService = new NotificationsServiceStub();
 
-    item = Object.assign(new Item(), {uuid: 'item-uuid'});
+    item = Object.assign(new Item(), { uuid: 'item-uuid' });
 
     bitstream = Object.assign(new Bitstream(), {
       uuid: 'bitstreamUuid',
       _links: {
-        content: {href: 'bitstream-content-link'},
-        self: {href: 'bitstream-self-link'},
+        content: { href: 'bitstream-content-link' },
+        self: { href: 'bitstream-self-link' },
       },
     });
 
@@ -116,15 +116,15 @@ describe('BitstreamRequestACopyPageComponent', () => {
       imports: [CommonModule, TranslateModule.forRoot(), FormsModule, ReactiveFormsModule],
       declarations: [BitstreamRequestACopyPageComponent],
       providers: [
-        {provide: Location, useValue: location},
-        {provide: ActivatedRoute, useValue: activatedRoute},
-        {provide: Router, useValue: router},
-        {provide: AuthorizationDataService, useValue: authorizationService},
-        {provide: AuthService, useValue: authService},
-        {provide: ItemRequestDataService, useValue: itemRequestDataService},
-        {provide: NotificationsService, useValue: notificationsService},
-        {provide: DSONameService, useValue: new DSONameServiceMock()},
-        {provide: BitstreamDataService, useValue: bitstreamDataService},
+        { provide: Location, useValue: location },
+        { provide: ActivatedRoute, useValue: activatedRoute },
+        { provide: Router, useValue: router },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: AuthService, useValue: authService },
+        { provide: ItemRequestDataService, useValue: itemRequestDataService },
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
+        { provide: BitstreamDataService, useValue: bitstreamDataService },
       ],
     })
       .compileComponents();

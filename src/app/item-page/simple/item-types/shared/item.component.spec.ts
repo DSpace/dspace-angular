@@ -468,7 +468,7 @@ describe('ItemComponent', () => {
         ],
         schemas: [NO_ERRORS_SCHEMA],
       }).overrideComponent(ItemComponent, {
-        set: {changeDetection: ChangeDetectionStrategy.Default},
+        set: { changeDetection: ChangeDetectionStrategy.Default },
       });
     }));
 

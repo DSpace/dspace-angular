@@ -186,11 +186,11 @@ describe('MenuService', () => {
     init();
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({menus: menusReducer}, storeModuleConfig),
+        StoreModule.forRoot({ menus: menusReducer }, storeModuleConfig),
       ],
       providers: [
-        provideMockStore({initialState}),
-        {provide: MenuService, useValue: service},
+        provideMockStore({ initialState }),
+        { provide: MenuService, useValue: service },
       ],
     }).compileComponents();
   }));
@@ -359,11 +359,11 @@ describe('MenuService', () => {
     });
     it('should return false when no top-level sections are visible', () => {
       const noTopLevelVisibleSections = {
-        section: {id: 's1', visible: false},
-        section_2: {id: 's2', visible: false},
-        section_3: {id: 's3', visible: false},
-        section_4: {id: 's1_1', visible: true, parentID: 's1'},
-        section_5: {id: 's2_1', visible: true, parentID: 's2'},
+        section: { id: 's1', visible: false },
+        section_2: { id: 's2', visible: false },
+        section_3: { id: 's3', visible: false },
+        section_4: { id: 's1_1', visible: true, parentID: 's1' },
+        section_5: { id: 's2_1', visible: true, parentID: 's2' },
       };
       const testMenu = {
         id: MenuID.ADMIN,
@@ -388,11 +388,11 @@ describe('MenuService', () => {
 
     it('should return true when any top-level section is visible', () => {
       const noTopLevelVisibleSections = {
-        section: {id: 's1', visible: false},
-        section_2: {id: 's2', visible: true},
-        section_3: {id: 's3', visible: false},
-        section_4: {id: 's1_1', visible: true, parentID: 's1'},
-        section_5: {id: 's2_1', visible: true, parentID: 's2'},
+        section: { id: 's1', visible: false },
+        section_2: { id: 's2', visible: true },
+        section_3: { id: 's3', visible: false },
+        section_4: { id: 's1_1', visible: true, parentID: 's1' },
+        section_5: { id: 's2_1', visible: true, parentID: 's2' },
       };
       const testMenu = {
         id: MenuID.ADMIN,

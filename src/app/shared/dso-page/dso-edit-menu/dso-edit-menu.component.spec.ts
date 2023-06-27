@@ -56,11 +56,11 @@ describe('DsoEditMenuComponent', () => {
       declarations: [DsoEditMenuComponent],
       providers: [
         Injector,
-        {provide: MenuService, useValue: menuService},
-        {provide: AuthService, useClass: AuthServiceStub},
-        {provide: ActivatedRoute, useValue: routeStub},
-        {provide: AuthorizationDataService, useValue: authorizationService},
-        {provide: ThemeService, useValue: getMockThemeService()},
+        { provide: MenuService, useValue: menuService },
+        { provide: AuthService, useClass: AuthServiceStub },
+        { provide: ActivatedRoute, useValue: routeStub },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

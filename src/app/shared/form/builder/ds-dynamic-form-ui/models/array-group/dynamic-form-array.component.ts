@@ -76,7 +76,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
 
   update(event: any, index: number) {
     const $event = Object.assign({}, event, {
-      context: { index: index - 1},
+      context: { index: index - 1 },
     });
 
     this.onChange($event);

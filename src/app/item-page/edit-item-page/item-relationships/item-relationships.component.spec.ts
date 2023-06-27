@@ -153,7 +153,7 @@ describe('ItemRelationshipsComponent', () => {
     fieldUpdate2 = {
       field: Object.assign(
         relationships[1],
-        {keepLeftVirtualMetadata: true, keepRightVirtualMetadata: false},
+        { keepLeftVirtualMetadata: true, keepRightVirtualMetadata: false },
       ),
       changeType: FieldChangeType.REMOVE,
     };

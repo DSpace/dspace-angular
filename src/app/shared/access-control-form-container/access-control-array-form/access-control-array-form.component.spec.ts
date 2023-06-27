@@ -28,7 +28,7 @@ describe('AccessControlArrayFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AccessControlArrayFormComponent);
     component = fixture.componentInstance;
-    component.dropdownOptions = [{name: 'Option1'}, {name: 'Option2'}] as any;
+    component.dropdownOptions = [{ name: 'Option1' }, { name: 'Option2' }] as any;
     component.type = 'item';
     fixture.detectChanges();
   });

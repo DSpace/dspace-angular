@@ -39,7 +39,7 @@ import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/subm
 import { SubmissionSectionContainerComponent } from './sections/container/section-container.component';
 import { SubmissionSectionFormComponent } from './sections/form/section-form.component';
 import { SectionFormOperationsService } from './sections/form/section-form-operations.service';
-import {SubmissionSectionIdentifiersComponent} from './sections/identifiers/section-identifiers.component';
+import { SubmissionSectionIdentifiersComponent } from './sections/identifiers/section-identifiers.component';
 import { SubmissionSectionLicenseComponent } from './sections/license/section-license.component';
 import { SectionsDirective } from './sections/sections.directive';
 import { SectionsService } from './sections/sections.service';

@@ -126,7 +126,7 @@ describe('PoolSearchResultListElementComponent', () => {
 
   it('should forward pool-task-actions processCompleted event to the reloadedObject event emitter', fakeAsync(() => {
     spyOn(component.reloadedObject, 'emit').and.callThrough();
-    const actionPayload: any = { reloadedObject: {}};
+    const actionPayload: any = { reloadedObject: {} };
     const actionsComponents = fixture.debugElement.query(By.css('ds-pool-task-actions'));
     actionsComponents.triggerEventHandler('processCompleted', actionPayload);
     tick();

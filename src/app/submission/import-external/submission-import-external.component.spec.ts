@@ -119,17 +119,17 @@ describe('SubmissionImportExternalComponent test suite', () => {
 
     it('Should init component properly (without route data)', () => {
       const expectedEntries = createSuccessfulRemoteDataObject(createPaginatedList([]));
-      comp.routeData = {entity: '', sourceId: '', query: '' };
+      comp.routeData = { entity: '', sourceId: '', query: '' };
       spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValue(observableOf(''));
       fixture.detectChanges();
 
-      expect(comp.routeData).toEqual({entity: '', sourceId: '', query: '' });
+      expect(comp.routeData).toEqual({ entity: '', sourceId: '', query: '' });
       expect(comp.isLoading$.value).toBe(false);
       expect(comp.entriesRD$.value).toEqual(expectedEntries);
     });
 
     it('Should init component properly (with route data)', () => {
-      comp.routeData = {entity: '', sourceId: '', query: '' };
+      comp.routeData = { entity: '', sourceId: '', query: '' };
       spyOn(compAsAny, 'retrieveExternalSources');
       spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValues(observableOf('entity'), observableOf('source'), observableOf('dummy'));
       fixture.detectChanges();
@@ -155,10 +155,10 @@ describe('SubmissionImportExternalComponent test suite', () => {
     });
 
     it('Should call \'router.navigate\'', () => {
-      comp.routeData = {entity: 'Person', sourceId: '', query: '' };
+      comp.routeData = { entity: 'Person', sourceId: '', query: '' };
       spyOn(compAsAny, 'retrieveExternalSources').and.callFake(() => null);
       compAsAny.router.navigate.and.returnValue( new Promise(() => {return;}));
-      const event = {entity: 'Person', sourceId: 'orcidV2', query: 'dummy' };
+      const event = { entity: 'Person', sourceId: 'orcidV2', query: 'dummy' };
 
       scheduler.schedule(() => comp.getExternalSourceData(event));
       scheduler.flush();
@@ -179,7 +179,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
           ],
         },
       });
-      ngbModal.open.and.returnValue({componentInstance: { externalSourceEntry: null}});
+      ngbModal.open.and.returnValue({ componentInstance: { externalSourceEntry: null } });
       comp.import(entry);
 
       expect(compAsAny.modalService.open).toHaveBeenCalledWith(SubmissionImportExternalPreviewComponent, { size: 'lg' });

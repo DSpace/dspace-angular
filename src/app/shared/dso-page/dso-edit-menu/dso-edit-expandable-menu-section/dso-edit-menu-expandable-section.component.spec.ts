@@ -40,10 +40,10 @@ describe('DsoEditMenuExpandableSectionComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [DsoEditMenuExpandableSectionComponent, TestComponent],
       providers: [
-        {provide: 'sectionDataProvider', useValue: dummySection},
-        {provide: MenuService, useValue: menuService},
-        {provide: CSSVariableService, useClass: CSSVariableServiceStub},
-        {provide: Router, useValue: new RouterStub()},
+        { provide: 'sectionDataProvider', useValue: dummySection },
+        { provide: MenuService, useValue: menuService },
+        { provide: CSSVariableService, useClass: CSSVariableServiceStub },
+        { provide: Router, useValue: new RouterStub() },
       ],
     }).overrideComponent(DsoEditMenuExpandableSectionComponent, {
       set: {

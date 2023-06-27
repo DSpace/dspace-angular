@@ -47,8 +47,8 @@ describe('BrowseEntryListElementComponent', () => {
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: 'objectElementProvider', useValue: { mockValue } },
-        {provide: PaginationService, useValue: paginationService},
-        {provide: RouteService, useValue: routeService},
+        { provide: PaginationService, useValue: paginationService },
+        { provide: RouteService, useValue: routeService },
       ],
 
       schemas: [NO_ERRORS_SCHEMA],

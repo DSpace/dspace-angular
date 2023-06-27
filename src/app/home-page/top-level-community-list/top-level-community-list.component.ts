@@ -95,7 +95,7 @@ export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
         return this.cds.findTop({
           currentPage: currentPagination.currentPage,
           elementsPerPage: currentPagination.pageSize,
-          sort: {field: currentSort.field, direction: currentSort.direction},
+          sort: { field: currentSort.field, direction: currentSort.direction },
         });
       }),
     ).subscribe((results) => {

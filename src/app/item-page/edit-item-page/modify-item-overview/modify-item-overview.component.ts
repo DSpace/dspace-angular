@@ -4,8 +4,8 @@ import {
   OnInit,
 } from '@angular/core';
 
-import {Item} from '../../../core/shared/item.model';
-import {MetadataMap} from '../../../core/shared/metadata.models';
+import { Item } from '../../../core/shared/item.model';
+import { MetadataMap } from '../../../core/shared/metadata.models';
 
 @Component({
   selector: 'ds-modify-item-overview',

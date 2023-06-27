@@ -181,7 +181,7 @@ function addFieldUpdate(state: any, action: AddFieldUpdateAction) {
   const url: string = action.payload.url;
   const field: Identifiable = action.payload.field;
   const changeType: FieldChangeType = action.payload.changeType;
-  const pageState: ObjectUpdatesEntry = state[url] || {fieldUpdates: {}};
+  const pageState: ObjectUpdatesEntry = state[url] || { fieldUpdates: {} };
 
   let states = pageState.fieldStates;
   if (changeType === FieldChangeType.ADD) {
@@ -234,7 +234,7 @@ function selectVirtualMetadata(state: any, action: SelectVirtualMetadataAction) 
   const newPageState = Object.assign(
     {},
     pageState,
-    {virtualMetadataSources: virtualMetadataSources},
+    { virtualMetadataSources: virtualMetadataSources },
   );
 
   return Object.assign(

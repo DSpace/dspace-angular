@@ -13,7 +13,7 @@ import { ComcolPageBrowseByComponent } from './comcol-page-browse-by/comcol-page
 import { ThemedComcolPageBrowseByComponent } from './comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ComcolPageContentComponent } from './comcol-page-content/comcol-page-content.component';
 import { ComcolPageHandleComponent } from './comcol-page-handle/comcol-page-handle.component';
-import { ThemedComcolPageHandleComponent} from './comcol-page-handle/themed-comcol-page-handle.component';
+import { ThemedComcolPageHandleComponent } from './comcol-page-handle/themed-comcol-page-handle.component';
 import { ComcolPageHeaderComponent } from './comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from './comcol-page-logo/comcol-page-logo.component';
 

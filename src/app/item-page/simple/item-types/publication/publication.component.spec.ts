@@ -114,7 +114,7 @@ describe('PublicationComponent', () => {
 
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PublicationComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default},
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     });
   }));
 
@@ -195,7 +195,7 @@ describe('PublicationComponent', () => {
         'dspace.iiif.enabled': [getIIIFEnabled(true)],
         'iiif.search.enabled': [getIIIFSearchEnabled(true)],
       };
-      TestBed.overrideProvider(RouteService, {useValue: localMockRouteService});
+      TestBed.overrideProvider(RouteService, { useValue: localMockRouteService });
       TestBed.compileComponents();
       fixture = TestBed.createComponent(PublicationComponent);
       comp = fixture.componentInstance;
@@ -225,7 +225,7 @@ describe('PublicationComponent', () => {
         'dspace.iiif.enabled': [getIIIFEnabled(true)],
         'iiif.search.enabled': [getIIIFSearchEnabled(true)],
       };
-      TestBed.overrideProvider(RouteService, {useValue: localMockRouteService});
+      TestBed.overrideProvider(RouteService, { useValue: localMockRouteService });
       TestBed.compileComponents();
       fixture = TestBed.createComponent(PublicationComponent);
       comp = fixture.componentInstance;

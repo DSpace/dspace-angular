@@ -104,7 +104,7 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
   handleReloadableActionResponse(result: boolean, reloadedObject: DSpaceObject): void {
     if (result) {
       if (reloadedObject) {
-        this.processCompleted.emit({result, reloadedObject});
+        this.processCompleted.emit({ result, reloadedObject });
       } else {
         this.reload();
       }

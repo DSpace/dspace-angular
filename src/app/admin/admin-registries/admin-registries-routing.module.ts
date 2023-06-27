@@ -12,7 +12,7 @@ import { MetadataSchemaComponent } from './metadata-schema/metadata-schema.compo
       {
         path: 'metadata',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
-        data: {title: 'admin.registries.metadata.title', breadcrumbKey: 'admin.registries.metadata'},
+        data: { title: 'admin.registries.metadata.title', breadcrumbKey: 'admin.registries.metadata' },
         children: [
           {
             path: '',
@@ -22,7 +22,7 @@ import { MetadataSchemaComponent } from './metadata-schema/metadata-schema.compo
             path: ':schemaName',
             resolve: { breadcrumb: I18nBreadcrumbResolver },
             component: MetadataSchemaComponent,
-            data: {title: 'admin.registries.schema.title', breadcrumbKey: 'admin.registries.schema'},
+            data: { title: 'admin.registries.schema.title', breadcrumbKey: 'admin.registries.schema' },
           },
         ],
       },
@@ -31,7 +31,7 @@ import { MetadataSchemaComponent } from './metadata-schema/metadata-schema.compo
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         loadChildren: () => import('./bitstream-formats/bitstream-formats.module')
           .then((m) => m.BitstreamFormatsModule),
-        data: {title: 'admin.registries.bitstream-formats.title', breadcrumbKey: 'admin.registries.bitstream-formats'},
+        data: { title: 'admin.registries.bitstream-formats.title', breadcrumbKey: 'admin.registries.bitstream-formats' },
       },
     ]),
   ],

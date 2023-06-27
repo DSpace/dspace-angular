@@ -57,7 +57,7 @@ export class NavbarModule {
   static withEntryComponents() {
     return {
       ngModule: NavbarModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component})),
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component })),
     };
   }
 

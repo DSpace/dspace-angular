@@ -44,7 +44,7 @@ export class AdminSearchModule {
   static withEntryComponents() {
     return {
       ngModule: SharedModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component})),
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component })),
     };
   }
 }

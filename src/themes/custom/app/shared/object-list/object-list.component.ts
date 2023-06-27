@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ObjectListComponent as BaseComponent} from '../../../../../app/shared/object-list/object-list.component';
+import { ObjectListComponent as BaseComponent } from '../../../../../app/shared/object-list/object-list.component';
 
 /**
  * A component to display the "Browse By" section of a Community or Collection page

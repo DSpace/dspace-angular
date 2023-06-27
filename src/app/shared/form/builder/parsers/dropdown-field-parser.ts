@@ -1,4 +1,4 @@
-import {Inject} from '@angular/core';
+import { Inject } from '@angular/core';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 
 import { isNotEmpty } from '../../../empty.util';

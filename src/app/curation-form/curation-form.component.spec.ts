@@ -39,7 +39,7 @@ describe('CurationFormComponent', () => {
   let notificationsService;
   let router;
 
-  const process = Object.assign(new Process(), {processId: 'process-id'});
+  const process = Object.assign(new Process(), { processId: 'process-id' });
 
   beforeEach(waitForAsync(() => {
 
@@ -79,7 +79,7 @@ describe('CurationFormComponent', () => {
         { provide: ProcessDataService, useValue: processDataService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: HandleService, useValue: handleService },
-        { provide: Router, useValue: router},
+        { provide: Router, useValue: router },
         { provide: ConfigurationDataService, useValue: configurationDataService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -121,8 +121,8 @@ describe('CurationFormComponent', () => {
       comp.submit();
 
       expect(scriptDataService.invoke).toHaveBeenCalledWith('curate', [
-        {name: '-t', value: 'profileformats'},
-        {name: '-i', value: 'test-handle'},
+        { name: '-t', value: 'profileformats' },
+        { name: '-i', value: 'test-handle' },
       ], []);
       expect(notificationsService.success).toHaveBeenCalled();
       expect(router.navigateByUrl).toHaveBeenCalledWith(getProcessDetailRoute('process-id'));
@@ -134,8 +134,8 @@ describe('CurationFormComponent', () => {
       comp.submit();
 
       expect(scriptDataService.invoke).toHaveBeenCalledWith('curate', [
-        {name: '-t', value: 'profileformats'},
-        {name: '-i', value: 'test-handle'},
+        { name: '-t', value: 'profileformats' },
+        { name: '-i', value: 'test-handle' },
       ], []);
       expect(notificationsService.error).toHaveBeenCalled();
       expect(processDataService.findByHref).not.toHaveBeenCalled();
@@ -148,8 +148,8 @@ describe('CurationFormComponent', () => {
     comp.submit();
 
     expect(scriptDataService.invoke).toHaveBeenCalledWith('curate', [
-      {name: '-t', value: 'profileformats'},
-      {name: '-i', value: 'form-handle'},
+      { name: '-t', value: 'profileformats' },
+      { name: '-i', value: 'form-handle' },
     ], []);
   });
   it('should use "all" when the handle provided by the form is empty and when no dsoHandle is provided', () => {
@@ -157,8 +157,8 @@ describe('CurationFormComponent', () => {
     comp.submit();
 
     expect(scriptDataService.invoke).toHaveBeenCalledWith('curate', [
-      {name: '-t', value: 'profileformats'},
-      {name: '-i', value: 'all'},
+      { name: '-t', value: 'profileformats' },
+      { name: '-i', value: 'all' },
     ], []);
   });
 

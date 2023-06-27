@@ -8,7 +8,7 @@ import { HALLink } from 'src/app/core/shared/hal-link.model';
 import { ResourceType } from 'src/app/core/shared/resource-type';
 import { excludeFromEquals } from 'src/app/core/utilities/equals.decorators';
 
-import {Identifier} from './identifier.model';
+import { Identifier } from './identifier.model';
 import { IDENTIFIERS } from './identifier-data.resource-type';
 
 @typedObject

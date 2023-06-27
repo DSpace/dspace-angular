@@ -54,7 +54,7 @@ export class BrowseByModule {
   static withEntryComponents() {
     return {
       ngModule: SharedBrowseByModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component})),
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component })),
     };
   }
 }

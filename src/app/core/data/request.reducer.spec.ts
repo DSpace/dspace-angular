@@ -11,7 +11,7 @@ import {
   ResetResponseTimestampsAction,
 } from './request.actions';
 import { GetRequest } from './request.models';
-import { requestReducer} from './request.reducer';
+import { requestReducer } from './request.reducer';
 import { RequestEntryState } from './request-entry-state.model';
 import { RequestState } from './request-state.model';
 

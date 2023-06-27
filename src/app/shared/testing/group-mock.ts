@@ -20,7 +20,7 @@ export const GroupMock2: Group = Object.assign(new Group(), {
   id: 'testgroupid2',
   uuid: 'testgroupid2',
   type: 'group',
-  object: createSuccessfulRemoteDataObject$({ name: 'testgroupid2objectName'}),
+  object: createSuccessfulRemoteDataObject$({ name: 'testgroupid2objectName' }),
 });
 
 export const GroupMock: Group = Object.assign(new Group(), {

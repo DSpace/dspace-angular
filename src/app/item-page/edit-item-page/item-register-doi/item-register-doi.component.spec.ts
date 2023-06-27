@@ -55,9 +55,9 @@ describe('ItemRegisterDoiComponent', () => {
     });
 
     mockIdentifierDataService = jasmine.createSpyObj('mockIdentifierDataService', {
-      getIdentifierDataFor: createSuccessfulRemoteDataObject$({'identifiers': []}),
+      getIdentifierDataFor: createSuccessfulRemoteDataObject$({ 'identifiers': [] }),
       getIdentifierRegistrationConfiguration: createSuccessfulRemoteDataObject$('true'),
-      registerIdentifier: createSuccessfulRemoteDataObject$({'identifiers': []}),
+      registerIdentifier: createSuccessfulRemoteDataObject$({ 'identifiers': [] }),
     });
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
@@ -81,7 +81,7 @@ describe('ItemRegisterDoiComponent', () => {
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
         { provide: ItemDataService, useValue: mockItemDataService },
-        { provide: IdentifierDataService, useValue: mockIdentifierDataService},
+        { provide: IdentifierDataService, useValue: mockIdentifierDataService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA,

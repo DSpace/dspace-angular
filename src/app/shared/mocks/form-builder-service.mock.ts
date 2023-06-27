@@ -3,7 +3,7 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 
-import {DsDynamicInputModel} from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { DsDynamicInputModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { FormBuilderService } from '../form/builder/form-builder.service';
 
 export function getMockFormBuilderService(): FormBuilderService {
@@ -40,7 +40,7 @@ export function getMockFormBuilderService(): FormBuilderService {
       metadataFields: ['dc.type'],
       hasSelectableMetadata: false,
       typeBindRelations: [
-        {match: 'VISIBLE', operator: 'OR', when: [{id: 'dc.type', value: 'boundType'}]},
+        { match: 'VISIBLE', operator: 'OR', when: [{ id: 'dc.type', value: 'boundType' }] },
       ],
     },
     ),

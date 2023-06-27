@@ -101,7 +101,7 @@ export class FormBuilderService extends DynamicFormService {
       autoSave: false,
     };
     const context: DynamicFormArrayGroupModel = (model?.parent instanceof DynamicFormArrayGroupModel) ? model?.parent : null;
-    return {$event, context, control: control, group: group, model: model, type};
+    return { $event, context, control: control, group: group, model: model, type };
   }
 
   getTypeBindModel() {

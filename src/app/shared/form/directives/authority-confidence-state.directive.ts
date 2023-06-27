@@ -148,9 +148,9 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
 
     const confidenceIcons: ConfidenceIconConfig[] = environment.submission.icons.authority.confidence;
 
-    const confidenceIndex: number = findIndex(confidenceIcons, {value: confidence});
+    const confidenceIndex: number = findIndex(confidenceIcons, { value: confidence });
 
-    const defaultconfidenceIndex: number = findIndex(confidenceIcons, {value: 'default' as  any});
+    const defaultconfidenceIndex: number = findIndex(confidenceIcons, { value: 'default' as  any });
     const defaultClass: string = (defaultconfidenceIndex !== -1) ? confidenceIcons[defaultconfidenceIndex].style : '';
 
     return (confidenceIndex !== -1) ? confidenceIcons[confidenceIndex].style : defaultClass;

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { LogoutPageComponent as BaseComponent} from '../../../../app/logout-page/logout-page.component';
+import { LogoutPageComponent as BaseComponent } from '../../../../app/logout-page/logout-page.component';
 
 @Component({
   selector: 'ds-logout-page',

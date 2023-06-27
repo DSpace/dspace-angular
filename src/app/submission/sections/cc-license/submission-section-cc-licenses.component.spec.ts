@@ -9,9 +9,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import {ConfigurationProperty} from '../../../core/shared/configuration-property.model';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { SUBMISSION_CC_LICENSE } from '../../../core/submission/models/submission-cc-licence.resource-type';
 import { SubmissionCcLicence } from '../../../core/submission/models/submission-cc-license.model';
 import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';

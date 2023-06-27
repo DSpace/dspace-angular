@@ -124,7 +124,7 @@ describe('ProcessBulkDeleteService', () => {
 
       expect(processDataService.delete).toHaveBeenCalledWith('error-id-3');
       expect(notificationsService.error).toHaveBeenCalled();
-      expect(mockTranslateService.get).toHaveBeenCalledWith('process.bulk.delete.error.body', {processId: 'error-id-3'});
+      expect(mockTranslateService.get).toHaveBeenCalledWith('process.bulk.delete.error.body', { processId: 'error-id-3' });
 
 
       expect(processDataService.delete).toHaveBeenCalledWith('test-id-4');
@@ -132,18 +132,18 @@ describe('ProcessBulkDeleteService', () => {
 
       expect(processDataService.delete).toHaveBeenCalledWith('error-id-5');
       expect(notificationsService.error).toHaveBeenCalled();
-      expect(mockTranslateService.get).toHaveBeenCalledWith('process.bulk.delete.error.body', {processId: 'error-id-5'});
+      expect(mockTranslateService.get).toHaveBeenCalledWith('process.bulk.delete.error.body', { processId: 'error-id-5' });
 
 
       expect(processDataService.delete).toHaveBeenCalledWith('error-id-6');
       expect(notificationsService.error).toHaveBeenCalled();
-      expect(mockTranslateService.get).toHaveBeenCalledWith('process.bulk.delete.error.body', {processId: 'error-id-6'});
+      expect(mockTranslateService.get).toHaveBeenCalledWith('process.bulk.delete.error.body', { processId: 'error-id-6' });
 
 
       expect(processDataService.delete).toHaveBeenCalledWith('test-id-7');
 
       expect(notificationsService.success).toHaveBeenCalled();
-      expect(mockTranslateService.get).toHaveBeenCalledWith('process.bulk.delete.success', {count: 4});
+      expect(mockTranslateService.get).toHaveBeenCalledWith('process.bulk.delete.success', { count: 4 });
 
       expect(service.processesToDelete).toEqual(['error-id-3', 'error-id-5', 'error-id-6']);
 

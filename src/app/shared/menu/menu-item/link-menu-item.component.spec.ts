@@ -27,7 +27,7 @@ describe('LinkMenuItemComponent', () => {
   function init() {
     text = 'HELLO';
     link = '/world/hello';
-    queryParams = {params: true};
+    queryParams = { params: true };
   }
 
   beforeEach(waitForAsync(() => {

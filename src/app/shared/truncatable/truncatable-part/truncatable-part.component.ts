@@ -58,7 +58,7 @@ export class TruncatablePartComponent implements AfterViewChecked, OnInit, OnDes
   /**
    * The view on the truncatable part
    */
-  @ViewChild('content', {static: true}) content: ElementRef;
+  @ViewChild('content', { static: true }) content: ElementRef;
 
   /**
    * Current amount of lines shown of this part

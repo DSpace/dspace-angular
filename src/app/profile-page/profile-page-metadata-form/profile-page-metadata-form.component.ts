@@ -205,7 +205,7 @@ export class ProfilePageMetadataFormComponent implements OnInit {
     });
 
     if (changed) {
-      this.epersonService.update(Object.assign(cloneDeep(this.user), {metadata: newMetadata})).pipe(
+      this.epersonService.update(Object.assign(cloneDeep(this.user), { metadata: newMetadata })).pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
       ).subscribe((user) => {

@@ -53,7 +53,7 @@ describe('MetadataUriValuesComponent', () => {
       declarations: [MetadataUriValuesComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataUriValuesComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default},
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

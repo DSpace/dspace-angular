@@ -92,7 +92,7 @@ export class CommunityPageSubCollectionListComponent implements OnInit, OnDestro
         return this.cds.findByParent(this.community.id, {
           currentPage: currentPagination.currentPage,
           elementsPerPage: currentPagination.pageSize,
-          sort: {field: currentSort.field, direction: currentSort.direction},
+          sort: { field: currentSort.field, direction: currentSort.direction },
         });
       }),
     ).subscribe((results) => {

@@ -53,8 +53,8 @@ const configMetadataFormMock = {
   rows: [{
     fields: [{
       selectableMetadata: [
-        {metadata: 'dc.title', label: null, closed: false},
-        {metadata: 'dc.description', label: null, closed: false},
+        { metadata: 'dc.title', label: null, closed: false },
+        { metadata: 'dc.description', label: null, closed: false },
       ],
     }],
   }],

@@ -25,7 +25,7 @@ describe('CollectionCurateComponent', () => {
   let dsoNameService;
 
   const collection = Object.assign(new Collection(), {
-    metadata: {'dc.title': ['Collection Name'], 'dc.identifier.uri': [ { value: '123456789/1'}]},
+    metadata: { 'dc.title': ['Collection Name'], 'dc.identifier.uri': [ { value: '123456789/1' }] },
   });
 
   beforeEach(waitForAsync(() => {
@@ -45,8 +45,8 @@ describe('CollectionCurateComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [CollectionCurateComponent],
       providers: [
-        {provide: ActivatedRoute, useValue: routeStub},
-        {provide: DSONameService, useValue: dsoNameService},
+        { provide: ActivatedRoute, useValue: routeStub },
+        { provide: DSONameService, useValue: dsoNameService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();

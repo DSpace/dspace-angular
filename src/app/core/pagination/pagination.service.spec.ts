@@ -97,13 +97,13 @@ describe('PaginationService', () => {
       spyOn(service, 'updateRoute');
       service.resetPage('test');
 
-      expect(service.updateRoute).toHaveBeenCalledWith('test', {page: 1});
+      expect(service.updateRoute).toHaveBeenCalledWith('test', { page: 1 });
     });
   });
 
   describe('updateRoute', () => {
     it('should update the route with the provided page params', () => {
-      service.updateRoute('test', {page: 2, pageSize: 5, sortField: 'title', sortDirection: SortDirection.DESC});
+      service.updateRoute('test', { page: 2, pageSize: 5, sortField: 'title', sortDirection: SortDirection.DESC });
 
       const navigateParams = {};
       navigateParams[`test.page`] = `2`;
@@ -111,10 +111,10 @@ describe('PaginationService', () => {
       navigateParams[`test.sf`] = `title`;
       navigateParams[`test.sd`] = `DESC`;
 
-      expect(router.navigate).toHaveBeenCalledWith([], {queryParams: navigateParams, queryParamsHandling: 'merge'});
+      expect(router.navigate).toHaveBeenCalledWith([], { queryParams: navigateParams, queryParamsHandling: 'merge' });
     });
     it('should update the route with the provided page params while keeping the existing non provided ones', () => {
-      service.updateRoute('test', {page: 2});
+      service.updateRoute('test', { page: 2 });
 
       const navigateParams = {};
       navigateParams[`test.page`] = `2`;
@@ -122,10 +122,10 @@ describe('PaginationService', () => {
       navigateParams[`test.sf`] = `score`;
       navigateParams[`test.sd`] = `ASC`;
 
-      expect(router.navigate).toHaveBeenCalledWith([], {queryParams: navigateParams, queryParamsHandling: 'merge'});
+      expect(router.navigate).toHaveBeenCalledWith([], { queryParams: navigateParams, queryParamsHandling: 'merge' });
     });
     it('should pass on navigationExtras to router.navigate', () => {
-      service.updateRoute('test', {page: 2}, undefined, undefined, { queryParamsHandling: 'preserve', replaceUrl: true, preserveFragment: true });
+      service.updateRoute('test', { page: 2 }, undefined, undefined, { queryParamsHandling: 'preserve', replaceUrl: true, preserveFragment: true });
 
       const navigateParams = {};
       navigateParams[`test.page`] = `2`;
@@ -133,12 +133,12 @@ describe('PaginationService', () => {
       navigateParams[`test.sf`] = `score`;
       navigateParams[`test.sd`] = `ASC`;
 
-      expect(router.navigate).toHaveBeenCalledWith([], {queryParams: navigateParams, queryParamsHandling: 'preserve', replaceUrl: true, preserveFragment: true });
+      expect(router.navigate).toHaveBeenCalledWith([], { queryParams: navigateParams, queryParamsHandling: 'preserve', replaceUrl: true, preserveFragment: true });
     });
   });
   describe('updateRouteWithUrl', () => {
     it('should update the route with the provided page params and url', () => {
-      service.updateRouteWithUrl('test', ['someUrl'], {page: 2, pageSize: 5, sortField: 'title', sortDirection: SortDirection.DESC});
+      service.updateRouteWithUrl('test', ['someUrl'], { page: 2, pageSize: 5, sortField: 'title', sortDirection: SortDirection.DESC });
 
       const navigateParams = {};
       navigateParams[`test.page`] = `2`;
@@ -146,10 +146,10 @@ describe('PaginationService', () => {
       navigateParams[`test.sf`] = `title`;
       navigateParams[`test.sd`] = `DESC`;
 
-      expect(router.navigate).toHaveBeenCalledWith(['someUrl'], {queryParams: navigateParams, queryParamsHandling: 'merge'});
+      expect(router.navigate).toHaveBeenCalledWith(['someUrl'], { queryParams: navigateParams, queryParamsHandling: 'merge' });
     });
     it('should update the route with the provided page params and url while keeping the existing non provided ones', () => {
-      service.updateRouteWithUrl('test',['someUrl'], {page: 2});
+      service.updateRouteWithUrl('test',['someUrl'], { page: 2 });
 
       const navigateParams = {};
       navigateParams[`test.page`] = `2`;
@@ -157,10 +157,10 @@ describe('PaginationService', () => {
       navigateParams[`test.sf`] = `score`;
       navigateParams[`test.sd`] = `ASC`;
 
-      expect(router.navigate).toHaveBeenCalledWith(['someUrl'], {queryParams: navigateParams, queryParamsHandling: 'merge'});
+      expect(router.navigate).toHaveBeenCalledWith(['someUrl'], { queryParams: navigateParams, queryParamsHandling: 'merge' });
     });
     it('should pass on navigationExtras to router.navigate', () => {
-      service.updateRouteWithUrl('test',['someUrl'], {page: 2}, undefined, undefined, { queryParamsHandling: 'preserve', replaceUrl: true, preserveFragment: true });
+      service.updateRouteWithUrl('test',['someUrl'], { page: 2 }, undefined, undefined, { queryParamsHandling: 'preserve', replaceUrl: true, preserveFragment: true });
 
       const navigateParams = {};
       navigateParams[`test.page`] = `2`;
@@ -168,7 +168,7 @@ describe('PaginationService', () => {
       navigateParams[`test.sf`] = `score`;
       navigateParams[`test.sd`] = `ASC`;
 
-      expect(router.navigate).toHaveBeenCalledWith(['someUrl'], {queryParams: navigateParams, queryParamsHandling: 'preserve', replaceUrl: true, preserveFragment: true });
+      expect(router.navigate).toHaveBeenCalledWith(['someUrl'], { queryParams: navigateParams, queryParamsHandling: 'preserve', replaceUrl: true, preserveFragment: true });
     });
   });
   describe('clearPagination', () => {
@@ -190,7 +190,7 @@ describe('PaginationService', () => {
 
       service.updateRoute('another-id', {});
 
-      expect(router.navigate).toHaveBeenCalledWith([], {queryParams: Object.assign({}, resetParams, navigateParams), queryParamsHandling: 'merge'});
+      expect(router.navigate).toHaveBeenCalledWith([], { queryParams: Object.assign({}, resetParams, navigateParams), queryParamsHandling: 'merge' });
     });
   });
   describe('getPageParam', () => {

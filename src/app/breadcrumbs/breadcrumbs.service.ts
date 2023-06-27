@@ -22,7 +22,7 @@ import {
   hasValue,
   isUndefined,
 } from '../shared/empty.util';
-import {Breadcrumb} from './breadcrumb/breadcrumb.model';
+import { Breadcrumb } from './breadcrumb/breadcrumb.model';
 
 @Injectable({
   providedIn: 'root',

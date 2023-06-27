@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {ThemedComponent} from 'src/app/shared/theme-support/themed.component';
+import { Component } from '@angular/core';
+import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
 
-import {EditCommunitySelectorComponent} from './edit-community-selector.component';
+import { EditCommunitySelectorComponent } from './edit-community-selector.component';
 
 /**
  * Themed wrapper for EditCommunitySelectorComponent

@@ -50,9 +50,9 @@ export class FormatFormComponent implements OnInit {
   /**
    * The different supported support level of the bitstream format
    */
-  supportLevelOptions = [{label: BitstreamFormatSupportLevel.Known, value: BitstreamFormatSupportLevel.Known},
-    {label: BitstreamFormatSupportLevel.Unknown, value: BitstreamFormatSupportLevel.Unknown},
-    {label: BitstreamFormatSupportLevel.Supported, value: BitstreamFormatSupportLevel.Supported}];
+  supportLevelOptions = [{ label: BitstreamFormatSupportLevel.Known, value: BitstreamFormatSupportLevel.Known },
+    { label: BitstreamFormatSupportLevel.Unknown, value: BitstreamFormatSupportLevel.Unknown },
+    { label: BitstreamFormatSupportLevel.Supported, value: BitstreamFormatSupportLevel.Supported }];
 
   /**
    * Styling element for repeatable field

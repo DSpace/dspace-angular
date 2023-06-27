@@ -104,9 +104,9 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
       paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
       compAsAny.externalService.searchBy.and.returnValue(observableOf(paginatedListRD));
       sourceList = [
-        {id: 'orcid', name: 'orcid'},
-        {id: 'ciencia', name: 'ciencia'},
-        {id: 'my_staff_db', name: 'my_staff_db'},
+        { id: 'orcid', name: 'orcid' },
+        { id: 'ciencia', name: 'ciencia' },
+        { id: 'my_staff_db', name: 'my_staff_db' },
       ];
     });
 
@@ -137,7 +137,7 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
     });
 
     it('Variable \'selectedElement\' should be assigned', () => {
-      const selectedElement = {id: 'orcid', name: 'orcid'};
+      const selectedElement = { id: 'orcid', name: 'orcid' };
       comp.makeSourceSelection(selectedElement);
       expect(comp.selectedElement).toEqual(selectedElement);
     });

@@ -124,7 +124,7 @@ export class SystemWideAlertFormComponent implements OnInit {
     this.createForm();
 
     const currentDate = new Date();
-    this.minDate = {year: currentDate.getFullYear(), month: currentDate.getMonth() + 1, day: currentDate.getDate()};
+    this.minDate = { year: currentDate.getFullYear(), month: currentDate.getMonth() + 1, day: currentDate.getDate() };
 
 
     this.systemWideAlert$.subscribe((alert) => {
@@ -189,8 +189,8 @@ export class SystemWideAlertFormComponent implements OnInit {
 
 
   private setDateTime(dateToSet) {
-    this.time = {hour: dateToSet.getHours(), minute: dateToSet.getMinutes()};
-    this.date = {year: dateToSet.getFullYear(), month: dateToSet.getMonth() + 1, day: dateToSet.getDate()};
+    this.time = { hour: dateToSet.getHours(), minute: dateToSet.getMinutes() };
+    this.date = { year: dateToSet.getFullYear(), month: dateToSet.getMonth() + 1, day: dateToSet.getDate() };
 
     this.updatePreviewTime();
   }

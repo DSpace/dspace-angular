@@ -141,7 +141,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       typeBindRelations: [{
         match: MATCH_VISIBLE,
         operator: OR_OPERATOR,
-        when: [{id: 'dc.type', value: 'Book'}],
+        when: [{ id: 'dc.type', value: 'Book' }],
       }],
     }),
     new DynamicScrollableDropdownModel({

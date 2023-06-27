@@ -71,18 +71,18 @@ describe('CollectionSourceControlsComponent', () => {
       ],
       oaiSource: 'oai-harvest-source',
       oaiSetId: 'oai-set-id',
-      _links: {self: {href: 'contentsource-selflink'}},
+      _links: { self: { href: 'contentsource-selflink' } },
     });
     process = Object.assign(new Process(), {
       processId: 'process-id', processStatus: 'COMPLETED',
-      _links: {output: {href: 'output-href'}},
+      _links: { output: { href: 'output-href' } },
     });
 
-    bitstream = Object.assign(new Bitstream(), {_links: {content: {href: 'content-href'}}});
+    bitstream = Object.assign(new Bitstream(), { _links: { content: { href: 'content-href' } } });
 
     collection = Object.assign(new Collection(), {
       uuid: 'fake-collection-id',
-      _links: {self: {href: 'collection-selflink'}},
+      _links: { self: { href: 'collection-selflink' } },
     });
     notificationsService = new NotificationsServiceStub();
     collectionService = jasmine.createSpyObj('collectionService', {
@@ -107,13 +107,13 @@ describe('CollectionSourceControlsComponent', () => {
       imports: [TranslateModule.forRoot(), RouterTestingModule],
       declarations: [CollectionSourceControlsComponent, VarDirective],
       providers: [
-        {provide: ScriptDataService, useValue: scriptDataService},
-        {provide: ProcessDataService, useValue: processDataService},
-        {provide: RequestService, useValue: requestService},
-        {provide: NotificationsService, useValue: notificationsService},
-        {provide: CollectionDataService, useValue: collectionService},
-        {provide: HttpClient, useValue: httpClient},
-        {provide: BitstreamDataService, useValue: bitstreamService},
+        { provide: ScriptDataService, useValue: scriptDataService },
+        { provide: ProcessDataService, useValue: processDataService },
+        { provide: RequestService, useValue: requestService },
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: CollectionDataService, useValue: collectionService },
+        { provide: HttpClient, useValue: httpClient },
+        { provide: BitstreamDataService, useValue: bitstreamService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
@@ -137,9 +137,9 @@ describe('CollectionSourceControlsComponent', () => {
       scheduler.flush();
 
       expect(scriptDataService.invoke).toHaveBeenCalledWith('harvest', [
-        {name: '-g', value: null},
-        {name: '-a', value: contentSource.oaiSource},
-        {name: '-i', value: new ContentSourceSetSerializer().Serialize(contentSource.oaiSetId)},
+        { name: '-g', value: null },
+        { name: '-a', value: contentSource.oaiSource },
+        { name: '-i', value: new ContentSourceSetSerializer().Serialize(contentSource.oaiSetId) },
       ], []);
 
       expect(processDataService.findById).toHaveBeenCalledWith(process.processId, false);
@@ -153,8 +153,8 @@ describe('CollectionSourceControlsComponent', () => {
       scheduler.flush();
 
       expect(scriptDataService.invoke).toHaveBeenCalledWith('harvest', [
-        {name: '-r', value: null},
-        {name: '-c', value: collection.uuid},
+        { name: '-r', value: null },
+        { name: '-c', value: collection.uuid },
       ], []);
       expect(processDataService.findById).toHaveBeenCalledWith(process.processId, false);
       expect(notificationsService.success).toHaveBeenCalled();
@@ -166,8 +166,8 @@ describe('CollectionSourceControlsComponent', () => {
       scheduler.flush();
 
       expect(scriptDataService.invoke).toHaveBeenCalledWith('harvest', [
-        {name: '-o', value: null},
-        {name: '-c', value: collection.uuid},
+        { name: '-o', value: null },
+        { name: '-c', value: collection.uuid },
       ], []);
       expect(processDataService.findById).toHaveBeenCalledWith(process.processId, false);
       expect(notificationsService.success).toHaveBeenCalled();

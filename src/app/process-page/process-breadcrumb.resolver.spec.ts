@@ -23,8 +23,8 @@ describe('ProcessBreadcrumbResolver', () => {
     });
 
     it('should resolve the breadcrumb config', (done) => {
-      const resolvedConfig = resolver.resolve({ data: { breadcrumbKey: process }, params: { id: id} } as any, {url: path} as any);
-      const expectedConfig = { provider: processBreadcrumbService, key: process, url: path};
+      const resolvedConfig = resolver.resolve({ data: { breadcrumbKey: process }, params: { id: id } } as any, { url: path } as any);
+      const expectedConfig = { provider: processBreadcrumbService, key: process, url: path };
       resolvedConfig.subscribe((config) => {
         expect(config).toEqual(expectedConfig);
         done();

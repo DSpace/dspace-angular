@@ -40,7 +40,7 @@ import {
   RequestExecuteAction,
   RequestStaleAction,
 } from './request.actions';
-import { GetRequest} from './request.models';
+import { GetRequest } from './request.models';
 import { RequestEntry } from './request-entry.model';
 import {
   isLoading,

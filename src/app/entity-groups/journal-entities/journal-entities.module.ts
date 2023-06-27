@@ -66,7 +66,7 @@ export class JournalEntitiesModule {
   static withEntryComponents() {
     return {
       ngModule: JournalEntitiesModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component})),
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component })),
     };
   }
 

@@ -31,7 +31,7 @@ describe('DeleteCommunityPageComponent', () => {
         { provide: CommunityDataService, useValue: {} },
         { provide: ActivatedRoute, useValue: { data: observableOf({ dso: { payload: {} } }) } },
         { provide: NotificationsService, useValue: {} },
-        { provide: RequestService, useValue: {}},
+        { provide: RequestService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

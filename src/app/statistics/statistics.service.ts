@@ -18,7 +18,7 @@ import { TrackRequest } from './track-request.model';
 /**
  * The statistics service
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class StatisticsService {
 
   constructor(

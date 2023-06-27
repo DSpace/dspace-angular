@@ -223,12 +223,12 @@ describe('Pagination component', () => {
       testFixture.detectChanges();
 
 
-      currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, {currentPage: 3}));
+      currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, { currentPage: 3 }));
       testFixture.detectChanges();
 
       expectPages(testFixture, ['« Previous', '1', '2', '+3', '-» Next']);
 
-      currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, {currentPage: 2}));
+      currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, { currentPage: 2 }));
       testFixture.detectChanges();
 
       expectPages(testFixture, ['« Previous', '1', '+2', '3', '» Next']);
@@ -252,16 +252,16 @@ describe('Pagination component', () => {
       testFixture.detectChanges();
       expectPages(testFixture, ['-« Previous', '+1', '2', '3', '» Next']);
 
-      currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, {pageSize: 5}));
+      currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, { pageSize: 5 }));
       testFixture.detectChanges();
 
       expectPages(testFixture, ['-« Previous', '+1', '2', '3', '4', '5', '6', '» Next']);
 
-      currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, {pageSize: 10}));
+      currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, { pageSize: 10 }));
       testFixture.detectChanges();
       expectPages(testFixture, ['-« Previous', '+1', '2', '3', '» Next']);
 
-      currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, {pageSize: 20}));
+      currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, { pageSize: 20 }));
       testFixture.detectChanges();
       expectPages(testFixture, ['-« Previous', '+1', '2', '» Next']);
     });
@@ -282,11 +282,11 @@ describe('Pagination component', () => {
 
       changePage(testFixture, 3);
       tick();
-      expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ page: '3'}), {},  false);
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ page: '3' }), {},  false);
 
       changePage(testFixture, 0);
       tick();
-      expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ page: '2'}), {},  false);
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ page: '2' }), {},  false);
     }));
 
     it('should set correct pageSize route parameters', fakeAsync(() => {
@@ -296,7 +296,7 @@ describe('Pagination component', () => {
 
       changePageSize(testFixture, '20');
       tick();
-      expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ pageId: 'test', page: 1, pageSize: 20}), {},  false);
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ pageId: 'test', page: 1, pageSize: 20 }), {},  false);
     }));
 
     it('should respond to windows resize', () => {

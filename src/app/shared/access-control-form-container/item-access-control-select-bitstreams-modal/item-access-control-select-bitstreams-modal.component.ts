@@ -57,7 +57,7 @@ export class ItemAccessControlSelectBitstreamsModalComponent implements OnInit {
   }
 
   loadForPage(page: number) {
-    this.bitstreamService.findAllByItemAndBundleName(this.item, 'ORIGINAL', { currentPage: page}, false)
+    this.bitstreamService.findAllByItemAndBundleName(this.item, 'ORIGINAL', { currentPage: page }, false)
       .pipe(
         getFirstCompletedRemoteData(),
       )

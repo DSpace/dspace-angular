@@ -18,7 +18,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import {

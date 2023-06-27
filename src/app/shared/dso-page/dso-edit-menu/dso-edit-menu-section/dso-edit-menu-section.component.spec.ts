@@ -24,10 +24,10 @@ function initAsync(dummySectionText: { visible: boolean; icon: string; active: b
       imports: [TranslateModule.forRoot()],
       declarations: [DsoEditMenuSectionComponent, TestComponent],
       providers: [
-        {provide: 'sectionDataProvider', useValue: dummySectionText},
-        {provide: MenuService, useValue: menuService},
-        {provide: CSSVariableService, useClass: CSSVariableServiceStub},
-        {provide: Router, useValue: new RouterStub()},
+        { provide: 'sectionDataProvider', useValue: dummySectionText },
+        { provide: MenuService, useValue: menuService },
+        { provide: CSSVariableService, useClass: CSSVariableServiceStub },
+        { provide: Router, useValue: new RouterStub() },
       ],
     }).overrideComponent(DsoEditMenuSectionComponent, {
       set: {

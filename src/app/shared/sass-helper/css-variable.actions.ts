@@ -26,7 +26,7 @@ export class AddCSSVariableAction implements Action {
   };
 
   constructor(name: string, value: string) {
-    this.payload = {name, value};
+    this.payload = { name, value };
   }
 }
 export class AddAllCSSVariablesAction implements Action {

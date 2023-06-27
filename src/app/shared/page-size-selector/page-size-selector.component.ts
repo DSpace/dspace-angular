@@ -57,7 +57,7 @@ export class PageSizeSelectorComponent implements OnInit {
     this.paginationOptions$.pipe(
       take(1),
     ).subscribe((pagination: PaginationComponentOptions) => {
-      this.paginationService.updateRoute(pagination.id, {page: 1, pageSize: +value});
+      this.paginationService.updateRoute(pagination.id, { page: 1, pageSize: +value });
     }) ;
   }
 }

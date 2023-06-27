@@ -28,9 +28,9 @@ describe('AdminSidebarSectionComponent', () => {
         imports: [NoopAnimationsModule, RouterTestingModule, TranslateModule.forRoot()],
         declarations: [AdminSidebarSectionComponent, TestComponent],
         providers: [
-          {provide: 'sectionDataProvider', useValue: {model: {link: 'google.com'}, icon: iconString}},
-          {provide: MenuService, useValue: menuService},
-          {provide: CSSVariableService, useClass: CSSVariableServiceStub},
+          { provide: 'sectionDataProvider', useValue: { model: { link: 'google.com' }, icon: iconString } },
+          { provide: MenuService, useValue: menuService },
+          { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         ],
       }).overrideComponent(AdminSidebarSectionComponent, {
         set: {
@@ -68,9 +68,9 @@ describe('AdminSidebarSectionComponent', () => {
         imports: [NoopAnimationsModule, RouterTestingModule, TranslateModule.forRoot()],
         declarations: [AdminSidebarSectionComponent, TestComponent],
         providers: [
-          {provide: 'sectionDataProvider', useValue: {model: {link: 'google.com', disabled: true}, icon: iconString}},
-          {provide: MenuService, useValue: menuService},
-          {provide: CSSVariableService, useClass: CSSVariableServiceStub},
+          { provide: 'sectionDataProvider', useValue: { model: { link: 'google.com', disabled: true }, icon: iconString } },
+          { provide: MenuService, useValue: menuService },
+          { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         ],
       }).overrideComponent(AdminSidebarSectionComponent, {
         set: {

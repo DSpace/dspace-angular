@@ -37,7 +37,7 @@ import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { Process } from '../processes/process.model';
-import {ProcessStatus} from '../processes/process-status.model';
+import { ProcessStatus } from '../processes/process-status.model';
 import { ProcessDetailComponent } from './process-detail.component';
 import { ProcessDetailFieldComponent } from './process-detail-field/process-detail-field.component';
 
@@ -283,7 +283,7 @@ describe('ProcessDetailComponent', () => {
     describe('if process is completed', () => {
       beforeEach(() => {
         process.processStatus = ProcessStatus.COMPLETED;
-        route.data = observableOf({process: createSuccessfulRemoteDataObject(process)});
+        route.data = observableOf({ process: createSuccessfulRemoteDataObject(process) });
       });
 
       it('should not show',  () => {
@@ -299,7 +299,7 @@ describe('ProcessDetailComponent', () => {
     describe('if process is not finished', () => {
       beforeEach(() => {
         process.processStatus = ProcessStatus.RUNNING;
-        route.data = observableOf({process: createSuccessfulRemoteDataObject(process)});
+        route.data = observableOf({ process: createSuccessfulRemoteDataObject(process) });
         fixture.detectChanges();
         component.stopRefreshTimer();
       });

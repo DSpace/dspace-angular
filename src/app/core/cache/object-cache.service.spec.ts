@@ -21,7 +21,7 @@ import { first } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
 import { storeModuleConfig } from '../../app.reducer';
-import { coreReducers} from '../core.reducers';
+import { coreReducers } from '../core.reducers';
 import { CoreState } from '../core-state.model';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { RemoveFromIndexBySubstringAction } from '../index/index.actions';

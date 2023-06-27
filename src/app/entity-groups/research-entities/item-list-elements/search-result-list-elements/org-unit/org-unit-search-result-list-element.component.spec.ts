@@ -158,14 +158,14 @@ describe('OrgUnitSearchResultListElementComponent', () => {
       )],
       declarations: [OrgUnitSearchResultListElementComponent, TruncatePipe],
       providers: [
-        {provide: TruncatableService, useValue: {}},
-        {provide: DSONameService, useClass: DSONameServiceMock},
+        { provide: TruncatableService, useValue: {} },
+        { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
       ],
 
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(OrgUnitSearchResultListElementComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default},
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

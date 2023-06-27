@@ -136,7 +136,7 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     this.listId = 'list-submission-external-sources';
     this.context = Context.EntitySearchModalWithNameVariants;
     this.repeatable = false;
-    this.routeData = {entity: '', sourceId: '', query: ''};
+    this.routeData = { entity: '', sourceId: '', query: '' };
     this.importConfig = {
       buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label,
     };
@@ -150,7 +150,7 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
       ]).pipe(
       take(1),
     ).subscribe(([entity, sourceId, query]: [string, string, string]) => {
-      this.reload$.next({entity: entity || NONE_ENTITY_TYPE, query: query, sourceId: sourceId});
+      this.reload$.next({ entity: entity || NONE_ENTITY_TYPE, query: query, sourceId: sourceId });
       this.selectLabel(entity);
       this.retrieveExternalSources();
     }));

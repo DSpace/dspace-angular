@@ -26,7 +26,7 @@ describe('LogInterceptor', () => {
   let httpMock: HttpTestingController;
   let cookieService: CookieService;
   let correlationIdService: CorrelationIdService;
-  const router = Object.assign(new RouterStub(),{url : '/statistics'});
+  const router = Object.assign(new RouterStub(),{ url : '/statistics' });
 
   // Mock payload/statuses are dummy content as we are not testing the results
   // of any below requests. We are only testing for X-XSRF-TOKEN header.

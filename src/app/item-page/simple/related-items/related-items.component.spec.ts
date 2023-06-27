@@ -139,12 +139,12 @@ describe('RelatedItemsComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [RelatedItemsComponent, VarDirective],
       providers: [
-        {provide: RelationshipDataService, useValue: relationshipService},
-        {provide: APP_CONFIG, useValue: enviromentNoThumbs},
+        { provide: RelationshipDataService, useValue: relationshipService },
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(RelatedItemsComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default},
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

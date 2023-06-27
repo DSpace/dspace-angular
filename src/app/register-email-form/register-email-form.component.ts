@@ -13,8 +13,8 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import {Router} from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -29,24 +29,24 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {ConfigurationDataService} from '../core/data/configuration-data.service';
-import {EpersonRegistrationService} from '../core/data/eperson-registration.service';
-import {RemoteData} from '../core/data/remote-data';
+import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
+import { RemoteData } from '../core/data/remote-data';
 import {
   CAPTCHA_NAME,
   GoogleRecaptchaService,
 } from '../core/google-recaptcha/google-recaptcha.service';
-import {CookieService} from '../core/services/cookie.service';
-import {ConfigurationProperty} from '../core/shared/configuration-property.model';
+import { CookieService } from '../core/services/cookie.service';
+import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
 } from '../core/shared/operators';
-import {Registration} from '../core/shared/registration.model';
-import {AlertType} from '../shared/alert/aletr-type';
-import {KlaroService} from '../shared/cookies/klaro.service';
-import {isNotEmpty} from '../shared/empty.util';
-import {NotificationsService} from '../shared/notifications/notifications.service';
+import { Registration } from '../core/shared/registration.model';
+import { AlertType } from '../shared/alert/aletr-type';
+import { KlaroService } from '../shared/cookies/klaro.service';
+import { isNotEmpty } from '../shared/empty.util';
+import { NotificationsService } from '../shared/notifications/notifications.service';
 
 export const TYPE_REQUEST_FORGOT = 'forgot';
 export const TYPE_REQUEST_REGISTER = 'register';
@@ -219,13 +219,13 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
     this.subscriptions.push(registerEmail$.subscribe((response: RemoteData<Registration>) => {
       if (response.hasSucceeded) {
         this.notificationService.success(this.translateService.get(`${this.MESSAGE_PREFIX}.success.head`),
-          this.translateService.get(`${this.MESSAGE_PREFIX}.success.content`, {email: this.email.value}));
+          this.translateService.get(`${this.MESSAGE_PREFIX}.success.content`, { email: this.email.value }));
         this.router.navigate(['/home']);
       } else if (response.statusCode === 422) {
-        this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`), this.translateService.get(`${this.MESSAGE_PREFIX}.error.maildomain`, {domains: this.validMailDomains.join(', ')}));
+        this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`), this.translateService.get(`${this.MESSAGE_PREFIX}.error.maildomain`, { domains: this.validMailDomains.join(', ') }));
       } else {
         this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`),
-          this.translateService.get(`${this.MESSAGE_PREFIX}.error.content`, {email: this.email.value}));
+          this.translateService.get(`${this.MESSAGE_PREFIX}.error.content`, { email: this.email.value }));
       }
     }));
   }

@@ -131,7 +131,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
       pageSize: 1,
     });
 
-    const latestVersionSearch = new PaginatedSearchOptions({pagination: latestVersionOptions});
+    const latestVersionSearch = new PaginatedSearchOptions({ pagination: latestVersionOptions });
 
     return this.getVersions(versionHistory.id, latestVersionSearch, false, true, followLink('item')).pipe(
       getAllSucceededRemoteData(),

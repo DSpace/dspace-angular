@@ -12,7 +12,7 @@ import { ThemedForgotPasswordFormComponent } from './forgot-password-form/themed
       {
         path: '',
         component: ThemedForgotEmailComponent,
-        data: {title: 'forgot-password.title'},
+        data: { title: 'forgot-password.title' },
       },
       {
         path: ':token',

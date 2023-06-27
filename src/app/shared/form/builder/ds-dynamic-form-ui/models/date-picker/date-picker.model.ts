@@ -11,7 +11,7 @@ import {
   Subject,
 } from 'rxjs';
 
-import {MetadataValue} from '../../../../../../core/shared/metadata.models';
+import { MetadataValue } from '../../../../../../core/shared/metadata.models';
 import {
   isEmpty,
   isNotUndefined,

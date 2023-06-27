@@ -33,8 +33,8 @@ describe('SearchExportCsvComponent', () => {
   let notificationsService;
   let router;
 
-  const script = Object.assign(new Script(), {id: 'metadata-export-search', name: 'metadata-export-search'});
-  const process = Object.assign(new Process(), {processId: 5, scriptName: 'metadata-export-search'});
+  const script = Object.assign(new Script(), { id: 'metadata-export-search', name: 'metadata-export-search' });
+  const process = Object.assign(new Process(), { processId: 5, scriptName: 'metadata-export-search' });
 
   const searchConfig = new PaginatedSearchOptions({
     configuration: 'test-configuration',
@@ -63,10 +63,10 @@ describe('SearchExportCsvComponent', () => {
       declarations: [SearchExportCsvComponent],
       imports: [TranslateModule.forRoot(), NgbModule],
       providers: [
-        {provide: ScriptDataService, useValue: scriptDataService},
-        {provide: AuthorizationDataService, useValue: authorizationDataService},
-        {provide: NotificationsService, useValue: notificationsService},
-        {provide: Router, useValue: router},
+        { provide: ScriptDataService, useValue: scriptDataService },
+        { provide: AuthorizationDataService, useValue: authorizationDataService },
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: Router, useValue: router },
       ],
     }).compileComponents();
   }
@@ -140,13 +140,13 @@ describe('SearchExportCsvComponent', () => {
       component.export();
       expect(scriptDataService.invoke).toHaveBeenCalledWith('metadata-export-search',
         [
-          {name: '-q', value: searchConfig.query},
-          {name: '-s', value: searchConfig.scope},
-          {name: '-c', value: searchConfig.configuration},
-          {name: '-f', value: 'filter1,equals=filter1value1'},
-          {name: '-f', value: 'filter1,equals=filter1value2'},
-          {name: '-f', value: 'filter2,contains=filter2value1'},
-          {name: '-f', value: 'filter3,equals=[2000 TO 2001]'},
+          { name: '-q', value: searchConfig.query },
+          { name: '-s', value: searchConfig.scope },
+          { name: '-c', value: searchConfig.configuration },
+          { name: '-f', value: 'filter1,equals=filter1value1' },
+          { name: '-f', value: 'filter1,equals=filter1value2' },
+          { name: '-f', value: 'filter2,contains=filter2value1' },
+          { name: '-f', value: 'filter3,equals=[2000 TO 2001]' },
         ], []);
 
       component.searchConfig = null;

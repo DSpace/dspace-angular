@@ -13,7 +13,7 @@ import { RegistrationGuard } from './registration.guard';
       {
         path: '',
         component: ThemedRegisterEmailComponent,
-        data: {title: 'register-email.title'},
+        data: { title: 'register-email.title' },
       },
       {
         path: ':token',

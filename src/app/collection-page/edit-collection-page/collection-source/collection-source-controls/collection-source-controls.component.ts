@@ -98,9 +98,9 @@ export class CollectionSourceControlsComponent implements OnDestroy {
   testConfiguration(contentSource) {
     this.testConfigRunning$.next(true);
     this.subs.push(this.scriptDataService.invoke('harvest', [
-      {name: '-g', value: null},
-      {name: '-a', value: contentSource.oaiSource},
-      {name: '-i', value: new ContentSourceSetSerializer().Serialize(contentSource.oaiSetId)},
+      { name: '-g', value: null },
+      { name: '-a', value: contentSource.oaiSource },
+      { name: '-i', value: new ContentSourceSetSerializer().Serialize(contentSource.oaiSetId) },
     ], []).pipe(
       getFirstCompletedRemoteData(),
       tap((rd) => {
@@ -131,7 +131,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
       }
       if (process.processStatus.toString() === ProcessStatus[ProcessStatus.COMPLETED].toString()) {
         this.bitstreamService.findByHref(process._links.output.href).pipe(getFirstSucceededRemoteDataPayload()).subscribe((bitstream) => {
-          this.httpClient.get(bitstream._links.content.href, {responseType: 'text'}).subscribe((data: any) => {
+          this.httpClient.get(bitstream._links.content.href, { responseType: 'text' }).subscribe((data: any) => {
             const output = data.replaceAll(new RegExp('.*\\@(.*)', 'g'), '$1')
               .replaceAll('The script has started', '')
               .replaceAll('The script has completed', '');
@@ -150,8 +150,8 @@ export class CollectionSourceControlsComponent implements OnDestroy {
   importNow() {
     this.importRunning$.next(true);
     this.subs.push(this.scriptDataService.invoke('harvest', [
-      {name: '-r', value: null},
-      {name: '-c', value: this.collection.uuid},
+      { name: '-r', value: null },
+      { name: '-c', value: this.collection.uuid },
     ], [])
       .pipe(
         getFirstCompletedRemoteData(),
@@ -197,8 +197,8 @@ export class CollectionSourceControlsComponent implements OnDestroy {
   resetAndReimport() {
     this.reImportRunning$.next(true);
     this.subs.push(this.scriptDataService.invoke('harvest', [
-      {name: '-o', value: null},
-      {name: '-c', value: this.collection.uuid},
+      { name: '-o', value: null },
+      { name: '-c', value: this.collection.uuid },
     ], [])
       .pipe(
         getFirstCompletedRemoteData(),

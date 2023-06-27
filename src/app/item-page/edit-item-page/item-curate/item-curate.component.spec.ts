@@ -26,7 +26,7 @@ describe('ItemCurateComponent', () => {
 
   const item = Object.assign(new Item(), {
     handle: '123456789/1',
-    metadata: {'dc.title': ['Item Name']},
+    metadata: { 'dc.title': ['Item Name'] },
   });
 
   beforeEach(waitForAsync(() => {
@@ -46,8 +46,8 @@ describe('ItemCurateComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [ItemCurateComponent],
       providers: [
-        {provide: ActivatedRoute, useValue: routeStub},
-        {provide: DSONameService, useValue: dsoNameService},
+        { provide: ActivatedRoute, useValue: routeStub },
+        { provide: DSONameService, useValue: dsoNameService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();

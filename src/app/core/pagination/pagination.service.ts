@@ -126,7 +126,7 @@ export class PaginationService {
    * @param paginationId - The pagination id for which to reset the page
    */
   resetPage(paginationId: string) {
-    this.updateRoute(paginationId, {page: 1});
+    this.updateRoute(paginationId, { page: 1 });
   }
 
 

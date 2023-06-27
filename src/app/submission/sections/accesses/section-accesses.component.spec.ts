@@ -148,8 +148,8 @@ describe('SubmissionSectionAccessesComponent', () => {
     });
 
     it('should have set maxStartDate and maxEndDate properly', () => {
-      const maxStartDate = {year: 2024, month: 12, day: 20};
-      const maxEndDate = {year: 2022, month: 6, day: 20};
+      const maxStartDate = { year: 2024, month: 12, day: 20 };
+      const maxEndDate = { year: 2022, month: 6, day: 20 };
 
       const startDateModel = formbuilderService.findById('startDate', component.formModel);
       expect(startDateModel.max).toEqual(maxStartDate);

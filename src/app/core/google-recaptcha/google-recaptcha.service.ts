@@ -143,7 +143,7 @@ export class GoogleRecaptchaService {
    */
   public getRecaptchaToken(action) {
     return this.captchaKey().pipe(
-      switchMap((key) => grecaptcha.execute(key, {action: action})),
+      switchMap((key) => grecaptcha.execute(key, { action: action })),
     );
   }
 

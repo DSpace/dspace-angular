@@ -3,7 +3,7 @@ import {
   Component,
 } from '@angular/core';
 
-import { CollectionPageComponent as BaseComponent} from '../../../../app/collection-page/collection-page.component';
+import { CollectionPageComponent as BaseComponent } from '../../../../app/collection-page/collection-page.component';
 import {
   fadeIn,
   fadeInOut,

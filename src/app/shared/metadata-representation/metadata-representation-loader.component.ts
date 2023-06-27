@@ -59,7 +59,7 @@ export class MetadataRepresentationLoaderComponent implements OnInit, OnChanges 
   /**
    * Directive to determine where the dynamic child component is located
    */
-  @ViewChild(MetadataRepresentationDirective, {static: true}) mdRepDirective: MetadataRepresentationDirective;
+  @ViewChild(MetadataRepresentationDirective, { static: true }) mdRepDirective: MetadataRepresentationDirective;
 
   /**
    * The reference to the dynamic component

@@ -173,7 +173,7 @@ describe('FullItemPageComponent', () => {
   });
 
   it('should not show simple view button when originated from workflow', fakeAsync(() => {
-    routeData.wfi = createSuccessfulRemoteDataObject$({ id: 'wfiId'});
+    routeData.wfi = createSuccessfulRemoteDataObject$({ id: 'wfiId' });
     comp.ngOnInit();
     fixture.detectChanges();
     fixture.whenStable().then(() => {

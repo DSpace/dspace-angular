@@ -3,7 +3,7 @@ import { CacheableObject } from '../cache/cacheable-object.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { BaseResponseParsingService } from './base-response-parsing.service';
-import { GetRequest} from './request.models';
+import { GetRequest } from './request.models';
 import { RestRequest } from './rest-request.model';
 
 class TestService extends BaseResponseParsingService {

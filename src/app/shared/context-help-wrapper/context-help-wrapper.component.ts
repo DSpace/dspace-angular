@@ -170,7 +170,7 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
       const match = substring.match(parseRegexp);
       return match === null
         ? substring
-        : ({href: match[2], text: match[1]});
+        : ({ href: match[2], text: match[1] });
     });
   }
 

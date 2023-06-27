@@ -187,8 +187,8 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
     it('should init form model properly', () => {
       comp.fileData = fileData;
       comp.formId = 'testFileForm';
-      const maxStartDate = {year: 2022, month: 1, day: 12};
-      const maxEndDate = {year: 2019, month: 7, day: 12};
+      const maxStartDate = { year: 2022, month: 1, day: 12 };
+      const maxEndDate = { year: 2019, month: 7, day: 12 };
 
       comp.ngOnInit();
 
@@ -209,7 +209,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         context: null,
         control: null,
         group: null,
-        model: {id: 'name'} as any,
+        model: { id: 'name' } as any,
         type: 'change',
       };
       spyOn(comp, 'setOptions');
@@ -257,7 +257,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
     });
 
     it('should save Bitstream File data properly when form is valid', fakeAsync(() => {
-      compAsAny.formRef = {formGroup: null};
+      compAsAny.formRef = { formGroup: null };
       compAsAny.fileData = fileData;
       compAsAny.pathCombiner = pathCombiner;
       formService.validateAllFormFields.and.callFake(() => null);
@@ -309,7 +309,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
     }));
 
     it('should not save Bitstream File data properly when form is not valid', fakeAsync(() => {
-      compAsAny.formRef = {formGroup: null};
+      compAsAny.formRef = { formGroup: null };
       compAsAny.pathCombiner = pathCombiner;
       formService.validateAllFormFields.and.callFake(() => null);
       formService.isValid.and.returnValue(of(false));

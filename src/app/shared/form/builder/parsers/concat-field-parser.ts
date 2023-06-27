@@ -1,4 +1,4 @@
-import {Inject} from '@angular/core';
+import { Inject } from '@angular/core';
 
 import {
   hasNoValue,

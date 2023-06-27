@@ -110,7 +110,7 @@ export class ProcessBulkDeleteService {
           getFirstCompletedRemoteData(),
           tap((rd: RemoteData<Process>) => {
             if (rd.hasFailed) {
-              this.notificationsService.error(this.translateService.get('process.bulk.delete.error.head'), this.translateService.get('process.bulk.delete.error.body', {processId: processId}));
+              this.notificationsService.error(this.translateService.get('process.bulk.delete.error.head'), this.translateService.get('process.bulk.delete.error.body', { processId: processId }));
             } else {
               this.toggleDelete(processId);
             }
@@ -120,7 +120,7 @@ export class ProcessBulkDeleteService {
       filter((rd: RemoteData<Process>) => rd.hasSucceeded),
       count(),
     ).subscribe((value) => {
-      this.notificationsService.success(this.translateService.get('process.bulk.delete.success', {count: value}));
+      this.notificationsService.success(this.translateService.get('process.bulk.delete.success', { count: value }));
       this.isProcessingBehaviorSubject.next(false);
     });
   }

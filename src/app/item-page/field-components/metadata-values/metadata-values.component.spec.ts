@@ -53,7 +53,7 @@ describe('MetadataValuesComponent', () => {
       declarations: [MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataValuesComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default},
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -80,7 +80,7 @@ describe('MetadataValuesComponent', () => {
   });
 
   it('should correctly detect a pattern on string containing "test"', () => {
-    const mdValue = {value: 'This is a test value'} as MetadataValue;
+    const mdValue = { value: 'This is a test value' } as MetadataValue;
     expect(comp.hasLink(mdValue)).toBe(true);
   });
 

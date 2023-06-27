@@ -164,7 +164,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
     let expectedBody;
 
     beforeEach(() => {
-      spyOn((component.rejectForm as any), 'get').and.returnValue({value: 'required'});
+      spyOn((component.rejectForm as any), 'get').and.returnValue({ value: 'required' });
       expectedBody = {
         [component.option]: 'true',
         reason: 'required',

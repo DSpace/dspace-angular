@@ -38,7 +38,7 @@ import {
   formReducer,
   FormState,
 } from './shared/form/form.reducer';
-import { menusReducer} from './shared/menu/menu.reducer';
+import { menusReducer } from './shared/menu/menu.reducer';
 import { MenusState } from './shared/menu/menus-state.model';
 import {
   notificationsReducer,

@@ -38,7 +38,7 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
   /**
    * The view on the bitstream
    */
-  @ViewChild('bitstreamView', {static: true}) bitstreamView;
+  @ViewChild('bitstreamView', { static: true }) bitstreamView;
 
   /**
    * The current field, value and state of the bitstream

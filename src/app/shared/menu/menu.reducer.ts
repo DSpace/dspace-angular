@@ -1,5 +1,5 @@
 import { hasValue } from '../empty.util';
-import { initialMenusState} from './initial-menus-state';
+import { initialMenusState } from './initial-menus-state';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,

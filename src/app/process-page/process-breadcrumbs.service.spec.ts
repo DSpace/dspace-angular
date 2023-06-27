@@ -18,7 +18,7 @@ describe('ProcessBreadcrumbsService', () => {
   function init() {
     exampleId = '12345';
     exampleScriptName = 'Example Script';
-    exampleProcess = Object.assign(new Process(), {processId: exampleId, scriptName: exampleScriptName});
+    exampleProcess = Object.assign(new Process(), { processId: exampleId, scriptName: exampleScriptName });
     exampleURL = 'example.com';
   }
 

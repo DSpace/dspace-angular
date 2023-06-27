@@ -173,7 +173,7 @@ export class MetadataRegistryComponent {
     const suffix = success ? 'success' : 'failure';
     const messages = observableCombineLatest(
       this.translateService.get(success ? `${prefix}.${suffix}` : `${prefix}.${suffix}`),
-      this.translateService.get(`${prefix}.deleted.${suffix}`, {amount: amount}),
+      this.translateService.get(`${prefix}.deleted.${suffix}`, { amount: amount }),
     );
     messages.subscribe(([head, content]) => {
       if (success) {

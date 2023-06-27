@@ -62,7 +62,7 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnChanges {
   /**
    * Directive to determine where the dynamic child component is located
    */
-  @ViewChild(ClaimedTaskActionsDirective, {static: true}) claimedTaskActionsDirective: ClaimedTaskActionsDirective;
+  @ViewChild(ClaimedTaskActionsDirective, { static: true }) claimedTaskActionsDirective: ClaimedTaskActionsDirective;
 
   /**
    * The reference to the dynamic component

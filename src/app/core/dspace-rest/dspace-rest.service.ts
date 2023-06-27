@@ -55,7 +55,7 @@ export class DspaceRestService {
   get(absoluteURL: string): Observable<RawRestResponse> {
     const requestOptions = {
       observe: 'response' as any,
-      headers: new HttpHeaders({'Content-Type': DEFAULT_CONTENT_TYPE}),
+      headers: new HttpHeaders({ 'Content-Type': DEFAULT_CONTENT_TYPE }),
     };
     return this.http.get(absoluteURL, requestOptions).pipe(
       map((res: HttpResponse<any>) => ({

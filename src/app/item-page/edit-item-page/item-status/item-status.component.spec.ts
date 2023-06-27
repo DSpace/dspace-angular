@@ -43,7 +43,7 @@ describe('ItemStatusComponent', () => {
   });
 
   mockIdentifierDataService = jasmine.createSpyObj('mockIdentifierDataService', {
-    getIdentifierDataFor: createSuccessfulRemoteDataObject$({'identifiers': []}),
+    getIdentifierDataFor: createSuccessfulRemoteDataObject$({ 'identifiers': [] }),
     getIdentifierRegistrationConfiguration: createSuccessfulRemoteDataObject$('true'),
   });
 

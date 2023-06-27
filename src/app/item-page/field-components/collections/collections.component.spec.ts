@@ -63,7 +63,7 @@ describe('CollectionsComponent', () => {
       declarations: [ CollectionsComponent ],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
-        { provide: RemoteDataBuildService, useValue: getMockRemoteDataBuildService()},
+        { provide: RemoteDataBuildService, useValue: getMockRemoteDataBuildService() },
         { provide: CollectionDataService, useValue: collectionDataService },
       ],
 

@@ -4,10 +4,10 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import {NgForm} from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
-import {AccessesConditionOption} from '../../../core/config/models/config-accesses-conditions-options.model';
-import {dateToISOFormat} from '../../date.util';
+import { AccessesConditionOption } from '../../../core/config/models/config-accesses-conditions-options.model';
+import { dateToISOFormat } from '../../date.util';
 
 @Component({
   selector: 'ds-access-control-array-form',
@@ -20,7 +20,7 @@ export class AccessControlArrayFormComponent implements OnInit {
   @Input() mode!: 'add' | 'replace';
   @Input() type!: 'item' | 'bitstream';
 
-  @ViewChild('ngForm', {static: true}) ngForm!: NgForm;
+  @ViewChild('ngForm', { static: true }) ngForm!: NgForm;
 
   form: { accessControls: AccessControlItem[] } = {
     accessControls: [emptyAccessControlItem()], // Start with one empty access control item
@@ -49,7 +49,7 @@ export class AccessControlArrayFormComponent implements OnInit {
   addAccessControlItem(itemName: string = null) {
     this.form.accessControls = [
       ...this.form.accessControls,
-      {...emptyAccessControlItem(), itemName},
+      { ...emptyAccessControlItem(), itemName },
     ];
   }
 

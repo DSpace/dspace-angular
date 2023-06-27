@@ -316,7 +316,7 @@ describe('EditBitstreamPageComponent', () => {
             });
 
             it('should call put with the correct bitstream on the PrimaryBitstreamService', () => {
-              expect(primaryBitstreamService.put).toHaveBeenCalledWith(jasmine.objectContaining({uuid: currentPrimary}), bundle);
+              expect(primaryBitstreamService.put).toHaveBeenCalledWith(jasmine.objectContaining({ uuid: currentPrimary }), bundle);
             });
           });
 
@@ -327,7 +327,7 @@ describe('EditBitstreamPageComponent', () => {
             });
 
             it('should call create with the correct bitstream on the PrimaryBitstreamService', () => {
-              expect(primaryBitstreamService.create).toHaveBeenCalledWith(jasmine.objectContaining({uuid: currentPrimary}), bundle);
+              expect(primaryBitstreamService.create).toHaveBeenCalledWith(jasmine.objectContaining({ uuid: currentPrimary }), bundle);
             });
           });
         });
@@ -507,18 +507,18 @@ describe('EditBitstreamPageComponent', () => {
         imports: [TranslateModule.forRoot(), RouterTestingModule],
         declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
         providers: [
-          {provide: NotificationsService, useValue: notificationsService},
-          {provide: DynamicFormService, useValue: formService},
+          { provide: NotificationsService, useValue: notificationsService },
+          { provide: DynamicFormService, useValue: formService },
           {
             provide: ActivatedRoute,
             useValue: {
-              data: observableOf({bitstream: createSuccessfulRemoteDataObject(bitstream)}),
-              snapshot: {queryParams: {}},
+              data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
+              snapshot: { queryParams: {} },
             },
           },
-          {provide: BitstreamDataService, useValue: bitstreamService},
-          {provide: DSONameService, useValue: dsoNameService},
-          {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
+          { provide: BitstreamDataService, useValue: bitstreamService },
+          { provide: DSONameService, useValue: dsoNameService },
+          { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
           ChangeDetectorRef,
         ],
@@ -632,17 +632,17 @@ describe('EditBitstreamPageComponent', () => {
         imports: [TranslateModule.forRoot(), RouterTestingModule],
         declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
         providers: [
-          {provide: NotificationsService, useValue: notificationsService},
-          {provide: DynamicFormService, useValue: formService},
-          {provide: ActivatedRoute,
+          { provide: NotificationsService, useValue: notificationsService },
+          { provide: DynamicFormService, useValue: formService },
+          { provide: ActivatedRoute,
             useValue: {
-              data: observableOf({bitstream: createSuccessfulRemoteDataObject(bitstream)}),
-              snapshot: {queryParams: {}},
+              data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
+              snapshot: { queryParams: {} },
             },
           },
-          {provide: BitstreamDataService, useValue: bitstreamService},
-          {provide: DSONameService, useValue: dsoNameService},
-          {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
+          { provide: BitstreamDataService, useValue: bitstreamService },
+          { provide: DSONameService, useValue: dsoNameService },
+          { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
           ChangeDetectorRef,
         ],

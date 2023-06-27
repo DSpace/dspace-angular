@@ -20,7 +20,7 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 /**
  * Provides utility methods to save files on the client-side.
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class FileService {
   constructor(
     @Inject(NativeWindowService) protected _window: NativeWindowRef,

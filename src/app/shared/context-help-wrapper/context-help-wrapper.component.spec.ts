@@ -157,7 +157,7 @@ describe('ContextHelpWrapperComponent', () => {
 
       it('should display the tooltip', () => {
         expect(contextHelpService.toggleTooltip).toHaveBeenCalledWith('test-tooltip');
-        getContextHelp$.next({...exampleContextHelp, isTooltipVisible: true});
+        getContextHelp$.next({ ...exampleContextHelp, isTooltipVisible: true });
         fixture.detectChanges();
         expect(wrapperComponent.tooltip.open).toHaveBeenCalled();
         expect(wrapperComponent.tooltip.close).toHaveBeenCalledTimes(0);
@@ -167,7 +167,7 @@ describe('ContextHelpWrapperComponent', () => {
 
       it('should correctly display links', () => {
         templateComponent.content = 'linkTest';
-        getContextHelp$.next({...exampleContextHelp, isTooltipVisible: true});
+        getContextHelp$.next({ ...exampleContextHelp, isTooltipVisible: true });
         fixture.detectChanges();
         const nodeList: NodeList = fixture.debugElement.query(By.css('.ds-context-help-content'))
           .nativeElement
@@ -195,7 +195,7 @@ describe('ContextHelpWrapperComponent', () => {
       it('should not display links if specified not to', () => {
         templateComponent.dontParseLinks = true;
         templateComponent.content = 'linkTest';
-        getContextHelp$.next({...exampleContextHelp, isTooltipVisible: true});
+        getContextHelp$.next({ ...exampleContextHelp, isTooltipVisible: true });
         fixture.detectChanges();
 
 
@@ -221,7 +221,7 @@ describe('ContextHelpWrapperComponent', () => {
 
         it('should close the tooltip', () => {
           expect(contextHelpService.toggleTooltip).toHaveBeenCalledWith('test-tooltip');
-          getContextHelp$.next({...exampleContextHelp, isTooltipVisible: false});
+          getContextHelp$.next({ ...exampleContextHelp, isTooltipVisible: false });
           fixture.detectChanges();
           expect(wrapperComponent.tooltip.close).toHaveBeenCalled();
         });

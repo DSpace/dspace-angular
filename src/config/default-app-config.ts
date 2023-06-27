@@ -235,9 +235,9 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'vi', label: 'Tiếng Việt', active: true },
     { code: 'kk', label: 'Қазақ', active: true },
     { code: 'bn', label: 'বাংলা', active: true },
-    { code: 'hi', label: 'हिंदी', active: true},
+    { code: 'hi', label: 'हिंदी', active: true },
     { code: 'el', label: 'Ελληνικά', active: true },
-    { code: 'uk', label: 'Yкраї́нська', active: true},
+    { code: 'uk', label: 'Yкраї́нська', active: true },
   ];
 
   // Browse-By Pages

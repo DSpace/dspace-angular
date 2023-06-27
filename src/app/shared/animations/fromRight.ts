@@ -6,15 +6,15 @@ import {
   trigger,
 } from '@angular/animations';
 
-export const fromRightInState = state('fromRightIn', style({opacity: 1, transform: 'translateX(0)'}));
+export const fromRightInState = state('fromRightIn', style({ opacity: 1, transform: 'translateX(0)' }));
 export const fromRightEnter = transition('* => fromRightIn', [
-  style({opacity: 0, transform: 'translateX(5%)'}),
+  style({ opacity: 0, transform: 'translateX(5%)' }),
   animate('400ms ease-in-out'),
 ]);
 
-export const fromRightOutState = state('fromRightOut', style({opacity: 0, transform: 'translateX(-5%)'}));
+export const fromRightOutState = state('fromRightOut', style({ opacity: 0, transform: 'translateX(-5%)' }));
 export const fromRightLeave = transition('fromRightIn => fromRightOut', [
-  style({opacity: 1, transform: 'translateX(0)'}),
+  style({ opacity: 1, transform: 'translateX(0)' }),
   animate('300ms ease-in-out'),
 ]);
 

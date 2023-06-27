@@ -10,7 +10,7 @@ describe('RegistrationResolver', () => {
   let epersonRegistrationService: EpersonRegistrationService;
 
   const token = 'test-token';
-  const registration = Object.assign(new Registration(), {email: 'test@email.org', token: token, user:'user-uuid'});
+  const registration = Object.assign(new Registration(), { email: 'test@email.org', token: token, user:'user-uuid' });
 
   beforeEach(() => {
     epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
@@ -20,7 +20,7 @@ describe('RegistrationResolver', () => {
   });
   describe('resolve', () => {
     it('should resolve a registration based on the token', (done) => {
-      resolver.resolve({params: {token: token}} as any, undefined)
+      resolver.resolve({ params: { token: token } } as any, undefined)
         .pipe(first())
         .subscribe(
           (resolved) => {

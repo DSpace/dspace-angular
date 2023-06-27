@@ -26,7 +26,7 @@ describe('ItemVersionHistoryComponent', () => {
   const activatedRoute = {
     parent: {
       parent: {
-        data: observableOf({dso: createSuccessfulRemoteDataObject(item)}),
+        data: observableOf({ dso: createSuccessfulRemoteDataObject(item) }),
       },
     },
   };

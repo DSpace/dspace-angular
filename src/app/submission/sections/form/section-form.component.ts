@@ -443,7 +443,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
   }
 
   private hasRelatedCustomError(medatata): boolean {
-    const index = findIndex(this.sectionData.errorsToShow, {path: this.pathCombiner.getPath(medatata).path});
+    const index = findIndex(this.sectionData.errorsToShow, { path: this.pathCombiner.getPath(medatata).path });
     if (index  !== -1) {
       const error = this.sectionData.errorsToShow[index];
       const validator = error.message.replace('error.validation.', '');

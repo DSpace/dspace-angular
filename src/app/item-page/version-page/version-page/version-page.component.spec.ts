@@ -43,7 +43,7 @@ describe('VersionPageComponent', () => {
   let authService: AuthService;
 
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
-    data: observableOf({dso: createSuccessfulRemoteDataObject(mockVersion)}),
+    data: observableOf({ dso: createSuccessfulRemoteDataObject(mockVersion) }),
   });
 
   beforeEach(waitForAsync(() => {

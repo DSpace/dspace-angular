@@ -11,7 +11,7 @@ import {
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { Observable } from 'rxjs';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 /**
  * Http Interceptor intercepting Http Requests, adding the client's IP to their X-Forwarded-For header
  */

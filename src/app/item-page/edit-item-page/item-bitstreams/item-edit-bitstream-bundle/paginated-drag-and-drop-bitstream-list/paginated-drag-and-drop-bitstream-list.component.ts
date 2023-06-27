@@ -60,7 +60,7 @@ export class PaginatedDragAndDropBitstreamListComponent extends AbstractPaginate
   initializeObjectsRD(): void {
     this.objectsRD$ = this.currentPage$.pipe(
       switchMap((page: PaginationComponentOptions) => {
-        const paginatedOptions = new PaginatedSearchOptions({pagination: Object.assign({}, page)});
+        const paginatedOptions = new PaginatedSearchOptions({ pagination: Object.assign({}, page) });
         return this.bundleService.getBitstreamsEndpoint(this.bundle.id, paginatedOptions).pipe(
           switchMap((href) => this.requestService.hasByHref$(href)),
           switchMap(() => this.bundleService.getBitstreams(

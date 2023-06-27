@@ -118,7 +118,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
             [this.searchService.getSearchLink()],
             {
               queryParams: {
-                [this.filterConfig.paramName]: [...selectedValues, {value: detail.value}]
+                [this.filterConfig.paramName]: [...selectedValues, { value: detail.value }]
                   .map((facetValue: FacetValue) => getFacetValueForType(facetValue, this.filterConfig)),
               },
               queryParamsHandling: 'merge',

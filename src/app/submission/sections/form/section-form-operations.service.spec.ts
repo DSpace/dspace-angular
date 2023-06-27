@@ -377,7 +377,7 @@ describe('SectionFormOperationsService test suite', () => {
       event = Object.assign({}, dynamicFormControlChangeEvent, {
         model: mockInputWithLanguageAndAuthorityModel,
       });
-      expectedValue = Object.assign(new VocabularyEntry(), mockInputWithLanguageAndAuthorityModel.value, {language: mockInputWithLanguageAndAuthorityModel.language});
+      expectedValue = Object.assign(new VocabularyEntry(), mockInputWithLanguageAndAuthorityModel.value, { language: mockInputWithLanguageAndAuthorityModel.language });
 
       expect(service.getFieldValueFromChangeEvent(event)).toEqual(expectedValue);
 

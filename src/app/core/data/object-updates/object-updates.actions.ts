@@ -114,7 +114,7 @@ export class SelectVirtualMetadataAction implements Action {
     uuid: string,
     select: boolean,
   ) {
-    this.payload = { url, source, uuid, select: select};
+    this.payload = { url, source, uuid, select: select };
   }
 }
 

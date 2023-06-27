@@ -337,7 +337,7 @@ export const inputWithTypeBindConfig = {
     metadataFields: [],
     hasSelectableMetadata: false,
     typeBindRelations: [
-      {match: 'VISIBLE', operator: 'OR', when: [{'id': 'dc.type', 'value': 'boundType'}]},
+      { match: 'VISIBLE', operator: 'OR', when: [{ 'id': 'dc.type', 'value': 'boundType' }] },
     ],
   },
   ),

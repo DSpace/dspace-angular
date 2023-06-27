@@ -22,7 +22,7 @@ export function cssVariablesReducer(state = initialState, action: CSSVariableAct
       return Object.assign({}, state, { [variable.name]: variable.value });
     } case CSSVariableActionTypes.ADD_ALL: {
       const variables = action.payload;
-      return Object.assign({}, state, ...variables.map(({ key, value }: KeyValuePair<string, string>) => {return {[key]: value};}));
+      return Object.assign({}, state, ...variables.map(({ key, value }: KeyValuePair<string, string>) => {return { [key]: value };}));
     } case CSSVariableActionTypes.CLEAR: {
       return initialState;
     }

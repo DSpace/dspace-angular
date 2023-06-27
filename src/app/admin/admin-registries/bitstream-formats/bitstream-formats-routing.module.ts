@@ -21,7 +21,7 @@ const BITSTREAMFORMAT_ADD_PATH = 'add';
         path: BITSTREAMFORMAT_ADD_PATH,
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: AddBitstreamFormatComponent,
-        data: {breadcrumbKey: 'admin.registries.bitstream-formats.create'},
+        data: { breadcrumbKey: 'admin.registries.bitstream-formats.create' },
       },
       {
         path: BITSTREAMFORMAT_EDIT_PATH,
@@ -30,7 +30,7 @@ const BITSTREAMFORMAT_ADD_PATH = 'add';
           bitstreamFormat: BitstreamFormatsResolver,
           breadcrumb: I18nBreadcrumbResolver,
         },
-        data: {breadcrumbKey: 'admin.registries.bitstream-formats.edit'},
+        data: { breadcrumbKey: 'admin.registries.bitstream-formats.edit' },
       },
     ]),
   ],

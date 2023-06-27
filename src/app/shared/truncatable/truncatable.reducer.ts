@@ -43,7 +43,7 @@ export function truncatableReducer(state = initialState, action: TruncatableActi
       });
     } case TruncatableActionTypes.TOGGLE: {
       if (!state[action.id]) {
-        state[action.id] = {collapsed: false};
+        state[action.id] = { collapsed: false };
       }
       return Object.assign({}, state, {
         [action.id]: {
