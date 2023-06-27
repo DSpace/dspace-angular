@@ -6022,7 +6022,7 @@
   "search.filters.reset": "Tyhjennä suodattimet",
 
   // "search.filters.search.submit": "Submit",
-  "search.filters.search.submit": "Lähetä"
+  "search.filters.search.submit": "Lähetä",
 
   // "search.form.search": "Search",
   "search.form.search": "Hae",
@@ -7192,19 +7192,15 @@
   "submission.sections.sherpa.record.information": "Record Information",
 
   // "submission.sections.sherpa.record.information.id": "ID",
-  // TODO New key - Add a translation
   "submission.sections.sherpa.record.information.id": "ID",
 
   // "submission.sections.sherpa.record.information.date.created": "Date Created",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.record.information.date.created": "Date Created",
+  "submission.sections.sherpa.record.information.date.created": "Luontipäivä",
 
   // "submission.sections.sherpa.record.information.date.modified": "Last Modified",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.record.information.date.modified": "Last Modified",
+  "submission.sections.sherpa.record.information.date.modified": "Viimeksi muokattu",
 
   // "submission.sections.sherpa.record.information.uri": "URI",
-  // TODO New key - Add a translation
   "submission.sections.sherpa.record.information.uri": "URI",
 
   // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",

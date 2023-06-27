@@ -2367,7 +2367,7 @@
   // "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
   // TODO New key - Add a translation
   "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
-  
+
   // "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
   "error.validation.metadata.name.max-length": "Este campo não pode conter mais de 32 caracteres",
 
