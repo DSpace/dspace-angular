@@ -32,6 +32,13 @@
         "plugin:rxjs/recommended"
       ],
       "rules": {
+        "indent": [
+          "error",
+          2,
+          {
+            "SwitchCase": 1
+          }
+        ],
         "max-classes-per-file": [
           "error",
           1
