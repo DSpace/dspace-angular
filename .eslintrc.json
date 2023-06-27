@@ -49,6 +49,10 @@
           "error",
           "always-multiline"
         ],
+        "object-curly-spacing": [
+          "error",
+          "always"
+        ],
         "eol-last": [
           "error",
           "always"
