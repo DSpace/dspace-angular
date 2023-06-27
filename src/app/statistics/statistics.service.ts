@@ -31,11 +31,16 @@ export class StatisticsService {
   /**
    * To track a page view
    * @param dso: The dso which was viewed
+   * @param referrer: The referrer used by the client to reach the dso page
    */
-  trackViewEvent(dso: DSpaceObject) {
+  trackViewEvent(
+    dso: DSpaceObject,
+    referrer: string
+  ) {
     this.sendEvent('/statistics/viewevents', {
       targetId: dso.uuid,
-      targetType: (dso as any).type
+      targetType: (dso as any).type,
+      referrer
     });
   }
 

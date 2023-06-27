@@ -290,7 +290,7 @@
   "admin.registries.schema.fields.table.id": "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
-  "admin.registries.schema.fields.table.scopenote": "Gültigkeitsbereich",
+  "admin.registries.schema.fields.table.scopenote": "Geltungs- bzw. Gültigkeitsbereich",
 
   // "admin.registries.schema.form.create": "Create metadata field",
   "admin.registries.schema.form.create": "Metadatenfeld anlegen",
@@ -305,7 +305,7 @@
   "admin.registries.schema.form.qualifier": "Qualifizierer",
 
   // "admin.registries.schema.form.scopenote": "Scope Note",
-  "admin.registries.schema.form.scopenote": "Geltungsbereich",
+  "admin.registries.schema.form.scopenote": "Geltungs- bzw. Gültigkeitsbereich",
 
   // "admin.registries.schema.head": "Metadata Schema",
   "admin.registries.schema.head": "Metadatenschema",

@@ -3,7 +3,7 @@
   <div *ngIf="itemRequestRD && itemRequestRD.hasSucceeded">
     <p>{{'grant-request-copy.intro' | translate}}</p>
 
-    <ds-email-request-copy [subject]="subject$ | async" [message]="message$ | async" (send)="grant($event)">
+    <ds-themed-email-request-copy [subject]="subject$ | async" [message]="message$ | async" (send)="grant($event)">
       <p>{{ 'grant-deny-request-copy.email.permissions.info' | translate }}</p>
       <form class="mb-3">
         <div class="form-check">
@@ -11,7 +11,7 @@
           <label class="form-check-label" for="permissions">{{ 'grant-deny-request-copy.email.permissions.label' | translate }}</label>
         </div>
       </form>
-    </ds-email-request-copy>
+    </ds-themed-email-request-copy>
   </div>
   <ds-themed-loading *ngIf="!itemRequestRD || itemRequestRD?.isLoading"></ds-themed-loading>
 </div>

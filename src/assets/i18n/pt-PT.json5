@@ -1,5 +1,7 @@
 {
 
+  // Dspace v7.x > i18n pt-PT > last reviewed 16-06-2023
+
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Não está autorizado a aceder a esta página. Pode utilizar o botão em baixo para voltar à página de início.",
 
@@ -334,13 +336,13 @@
   "admin.access-control.epeople.actions.delete": "Apagar utilizador",
 
   // "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
-  "admin.access-control.epeople.actions.impersonate": "Assumir o papel do Utilizador",
+  "admin.access-control.epeople.actions.impersonate": "Assumir papel de utilizador",
 
   // "admin.access-control.epeople.actions.reset": "Reset password",
   "admin.access-control.epeople.actions.reset": "Redefinir password",
 
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
-  "admin.access-control.epeople.actions.stop-impersonating": "Deixar de assumir o papel do utilizador",
+  "admin.access-control.epeople.actions.stop-impersonating": "Deixar de assumir o papel de utilizador",
 
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
   "admin.access-control.epeople.breadcrumbs": "Utilizadores",
@@ -543,7 +545,7 @@
   // "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
   "admin.access-control.groups.form.alert.permanent": "Este grupo é permanente, não pode ser editado ou apagado. Pode adicionar ou remover membros deste grupo nesta página.",
 
-  // "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
+  // "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the Ga href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
   "admin.access-control.groups.form.alert.workflowGroup": "Este grupo não pode ser editado ou apagado porque corresponde a um papel no 'workflow' de depósito em \"{{name}}\" {{comcol}}. Pode apagá-lo na aba <a href='{{comcolEditRolesRoute}}'>\"Atribuir Papéis\"</a> na edição da página {{comcol}}. Pode adicionar ou remover membros nesta página.",
 
   // "admin.access-control.groups.form.head.create": "Create group",
@@ -775,19 +777,19 @@
   "admin.search.item.withdraw": "Retirar",
 
   // "admin.search.title": "Administrative Search",
-  "admin.search.title": "Pesquisa Administrativa",
+  "admin.search.title": "Pesquisa administrativa",
 
   // "administrativeView.search.results.head": "Administrative Search",
   "administrativeView.search.results.head": "Pesquisa administrativa",
 
   // "admin.workflow.breadcrumbs": "Administer Workflow",
-  "admin.workflow.breadcrumbs": "Gestão do workflow",
+  "admin.workflow.breadcrumbs": "Gestão do fluxo de trabalho",
 
   // "admin.workflow.title": "Administer Workflow",
-  "admin.workflow.title": "Gestão do workflow",
+  "admin.workflow.title": "Gestão do fluxo de trabalho",
 
   // "admin.workflow.item.workflow": "Workflow",
-  "admin.workflow.item.workflow": "Workflow",
+  "admin.workflow.item.workflow": "Fluxo de trabalho",
 
   // "admin.workflow.item.workspace": "Workspace",
   "admin.workflow.item.workspace": "Área de trabalho",
@@ -823,14 +825,13 @@
   "admin.batch-import.page.header": "Importação em lote (batch)",
 
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
-  "admin.metadata-import.page.help": "Pode arrastar ou procurar ficheiros .csv que contenham operações em lote de metadados",
+  "admin.metadata-import.page.help": "Pode arrastar ou procurar ficheiros .csv que contenham 'revisões' de metadados em lote",
 
   // "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
   "admin.batch-import.page.help": "Selecione a coleção para a qual pretende importar. Em seguida, largue ou selecione ficheiro .zip em formato Simple Archive Format (SAF) que inclua os itens a importar.",
 
   // "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
+  "admin.batch-import.page.toggle.help": "É possível efetuar a importação com o carregamento de ficheiros ou através de URL. Utilize o botão de seleção em cima para definir a fonte de entrada",
 
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
   "admin.metadata-import.page.dropMsg": "Arraste ficheiro .csv para importar metadados",
@@ -845,7 +846,6 @@
   "admin.batch-import.page.dropMsgReplace": "Arraste ficheiro .zip para substituir importação em lote",
 
   // "admin.metadata-import.page.button.return": "Back",
-  // TODO Source message changed - Revise the translation
   "admin.metadata-import.page.button.return": "Voltar",
 
   // "admin.metadata-import.page.button.proceed": "Proceed",
@@ -858,23 +858,19 @@
   "admin.metadata-import.page.error.addFile": "Selecione um ficheiro!",
 
   // "admin.metadata-import.page.error.addFileUrl": "Insert file url first!",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.error.addFileUrl": "Insert file url first!",
+  "admin.metadata-import.page.error.addFileUrl": "Insira primeiro o URL do ficheiro!",
 
   // "admin.batch-import.page.error.addFile": "Select Zip file first!",
   "admin.batch-import.page.error.addFile": "Selecione primeiro o ficheiro .zip!",
 
   // "admin.metadata-import.page.toggle.upload": "Upload",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.toggle.upload": "Upload",
+  "admin.metadata-import.page.toggle.upload": "Carregar",
 
   // "admin.metadata-import.page.toggle.url": "URL",
-  // TODO New key - Add a translation
   "admin.metadata-import.page.toggle.url": "URL",
 
   // "admin.metadata-import.page.urlMsg": "Insert the batch ZIP url to import",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.urlMsg": "Insert the batch ZIP url to import",
+  "admin.metadata-import.page.urlMsg": "Insira o URL do lote ZIP a importar",
 
   // "admin.metadata-import.page.validateOnly": "Validate Only",
   "admin.metadata-import.page.validateOnly": "Validar",
@@ -1048,8 +1044,7 @@
   "bitstream.edit.notifications.error.format.title": "Ocorreu um erro ao guardar o formato do ficheiro",
 
   // "bitstream.edit.notifications.error.primaryBitstream.title": "An error occurred saving the primary bitstream",
-  // TODO New key - Add a translation
-  "bitstream.edit.notifications.error.primaryBitstream.title": "An error occurred saving the primary bitstream",
+  "bitstream.edit.notifications.error.primaryBitstream.title": "Ocorreu um erro ao guardar o ficheiro primário",
 
   // "bitstream.edit.form.iiifLabel.label": "IIIF Label",
   "bitstream.edit.form.iiifLabel.label": "IIIF Label",
@@ -1154,8 +1149,7 @@
   "browse.comcol.by.subject": "Por assunto",
 
   // "browse.comcol.by.srsc": "By Subject Category",
-  // TODO New key - Add a translation
-  "browse.comcol.by.srsc": "By Subject Category",
+  "browse.comcol.by.srsc": "Por vocabulário controlado (SRSC)",
 
   // "browse.comcol.by.title": "By Title",
   "browse.comcol.by.title": "Por título",
@@ -1188,8 +1182,7 @@
   "browse.metadata.subject.breadcrumbs": "Percorrer por assunto",
 
   // "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
-  // TODO New key - Add a translation
-  "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
+  "browse.metadata.srsc.breadcrumbs": "Percorrer por vocabulário controlado (SRSC)",
 
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   "browse.metadata.title.breadcrumbs": "Percorrer por título",
@@ -1273,12 +1266,10 @@
   "browse.startsWith.type_text": "Filtrar resultados inserindo as primeiras letras",
 
   // "browse.startsWith.input": "Filter",
-  // TODO New key - Add a translation
-  "browse.startsWith.input": "Filter",
+  "browse.startsWith.input": "Filtrar",
 
   // "browse.taxonomy.button": "Browse",
-  // TODO New key - Add a translation
-  "browse.taxonomy.button": "Browse",
+  "browse.taxonomy.button": "Pesquisar",
 
   // "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
   "browse.title": "Percorrer {{ collection }} por {{ field }}{{ startsWith }} {{ value }}",
@@ -1326,8 +1317,7 @@
   "collection.delete.head": "Apagar coleção",
 
   // "collection.delete.notification.fail": "Collection could not be deleted",
-  // TODO Source message changed - Revise the translation
-  "collection.delete.notification.fail": "Coleção não pode ser apagada",
+  "collection.delete.notification.fail": "Não foi possível apagar a coleção",
 
   // "collection.delete.notification.success": "Successfully deleted collection",
   "collection.delete.notification.success": "Apagou a coleção com sucesso",
@@ -1348,15 +1338,13 @@
   "collection.edit.tabs.mapper.head": "Mapeamentos",
 
   // "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
-  // TODO Source message changed - Revise the translation
   "collection.edit.tabs.item-mapper.title": "Editar coleção - mapeamentos",
 
   // "collection.edit.item-mapper.cancel": "Cancel",
   "collection.edit.item-mapper.cancel": "Cancelar",
 
   // "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
+  "collection.edit.item-mapper.collection": "Coleção: \"<b>{{name}}</b>\"",
 
   // "collection.edit.item-mapper.confirm": "Map selected items",
   "collection.edit.item-mapper.confirm": "Mapear itens selecionados",
@@ -1479,7 +1467,7 @@
   "collection.edit.tabs.source.form.errors.oaiSource.required": "Deve indicar o identificador da coleção a ser agregado (set).",
 
   // "collection.edit.tabs.source.form.harvestType": "Content being harvested",
-  "collection.edit.tabs.source.form.harvestType": "Os conteúdo estão a ser agregados",
+  "collection.edit.tabs.source.form.harvestType": "Os conteúdos estão a ser agregados",
 
   // "collection.edit.tabs.source.form.head": "Configure an external source",
   "collection.edit.tabs.source.form.head": "Configure uma fonte externa",
@@ -1590,8 +1578,7 @@
   "collection.form.entityType": "Tipo de entidade",
 
   // "collection.listelement.badge": "Collection",
-  // TODO Source message changed - Revise the translation
-  "collection.listelement.badge": "coleção",
+  "collection.listelement.badge": "Coleção",
 
   // "collection.page.browse.recent.head": "Recent Submissions",
   "collection.page.browse.recent.head": "Entradas recentes",
@@ -1603,7 +1590,6 @@
   "collection.page.edit": "Editar esta coleção",
 
   // "collection.page.handle": "Permanent URI for this collection",
-  // TODO Source message changed - Revise the translation
   "collection.page.handle": "URI permanente para esta coleção:",
 
   // "collection.page.license": "License",
@@ -2000,12 +1986,10 @@
   "cookies.consent.content-modal.title": "Informação que recolhemos",
 
   // "cookies.consent.content-modal.services": "services",
-  // TODO Source message changed - Revise the translation
-  "cookies.consent.content-modal.services": "Serviços",
+  "cookies.consent.content-modal.services": "serviços",
 
   // "cookies.consent.content-modal.service": "service",
-  // TODO Source message changed - Revise the translation
-  "cookies.consent.content-modal.service": "Serviço",
+  "cookies.consent.content-modal.service": "serviço",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Autenticação",
@@ -2023,7 +2007,7 @@
   "cookies.consent.app.title.acknowledgement": "Termos de Uso",
 
   // "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
-  "cookies.consent.app.description.acknowledgement": "Obrigatório para guardar os 'Termos de Uso' e 'Consentimentos'",
+  "cookies.consent.app.description.acknowledgement": "Obrigatório para guardar os nossos 'Termos de Uso' e 'Consentimentos'",
 
   // "cookies.consent.app.title.google-analytics": "Google Analytics",
   "cookies.consent.app.title.google-analytics": "Google Analytics",
@@ -2122,8 +2106,7 @@
   "dso.name.untitled": "Sem título",
 
   // "dso.name.unnamed": "Unnamed",
-  // TODO New key - Add a translation
-  "dso.name.unnamed": "Unnamed",
+  "dso.name.unnamed": "Sem nome",
 
   // "dso-selector.create.collection.head": "New collection",
   "dso-selector.create.collection.head": "Nova coleção",
@@ -2211,7 +2194,6 @@
   "dso-selector.results-could-not-be-retrieved": "Algo correu mal, por favor repita",
 
   // "supervision-group-selector.header": "Supervision Group Selector",
-  // TODO Source message changed - Revise the translation
   "supervision-group-selector.header": "Seletor de grupos de supervisão",
 
   // "supervision-group-selector.select.type-of-order.label": "Select a type of Order",
@@ -2245,8 +2227,7 @@
   "supervision-group-selector.notification.create.success.title": "Criada com sucesso ordem de supervisão para o grupo {{ name }}",
 
   // "supervision-group-selector.notification.create.failure.title": "Error",
-  // TODO Source message changed - Revise the translation
-  "supervision-group-selector.notification.create.failure.title": "erro",
+  "supervision-group-selector.notification.create.failure.title": "Erro",
 
   // "supervision-group-selector.notification.create.already-existing": "A supervision order already exists on this item for selected group",
   "supervision-group-selector.notification.create.already-existing": "Já existe uma ordem de supervisão sobre este item para grupo selecionado",
@@ -2386,30 +2367,24 @@
   // "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
   // TODO New key - Add a translation
   "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
-
+  
   // "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
-  // TODO New key - Add a translation
-  "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
+  "error.validation.metadata.name.max-length": "Este campo não pode conter mais de 32 caracteres",
 
   // "error.validation.metadata.namespace.max-length": "This field may not contain more than 256 characters",
-  // TODO New key - Add a translation
-  "error.validation.metadata.namespace.max-length": "This field may not contain more than 256 characters",
+  "error.validation.metadata.namespace.max-length": "Este campo não pode conter mais de 256 caracteres",
 
   // "error.validation.metadata.element.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Qualifier field instead",
-  // TODO New key - Add a translation
-  "error.validation.metadata.element.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Qualifier field instead",
+  "error.validation.metadata.element.invalid-pattern": "Este campo não pode conter pontos, vírgulas ou espaços. Ao invés, utilize o campo 'Qualificador'",
 
   // "error.validation.metadata.element.max-length": "This field may not contain more than 64 characters",
-  // TODO New key - Add a translation
-  "error.validation.metadata.element.max-length": "This field may not contain more than 64 characters",
+  "error.validation.metadata.element.max-length": "Este campo não pode conter mais de 64 caracteres",
 
   // "error.validation.metadata.qualifier.invalid-pattern": "This field cannot contain dots, commas or spaces",
-  // TODO New key - Add a translation
-  "error.validation.metadata.qualifier.invalid-pattern": "This field cannot contain dots, commas or spaces",
+  "error.validation.metadata.qualifier.invalid-pattern": "Este campo não pode conter pontos, vírgulas ou espaços.",
 
   // "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
-  // TODO New key - Add a translation
-  "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
+  "error.validation.metadata.qualifier.max-length": "Este campo não pode conter mais de 64 caracteres.",
 
   // "feed.description": "Syndication feed",
   "feed.description": "Feed",
@@ -2421,7 +2396,7 @@
   "footer.copyright": "Copyright © 2003-{{ year }}",
 
   // "footer.link.dspace": "DSpace software",
-  "footer.link.dspace": "Software DSpace",
+  "footer.link.dspace": "Powered by DSpace",
 
   // "footer.link.lyrasis": "LYRASIS",
   "footer.link.lyrasis": "LYRASIS",
@@ -2574,27 +2549,21 @@
   "form.no-value": "Nenhum valor informado",
 
   // "form.other-information.email": "Email",
-  // TODO New key - Add a translation
   "form.other-information.email": "Email",
 
   // "form.other-information.first-name": "First Name",
-  // TODO New key - Add a translation
-  "form.other-information.first-name": "First Name",
+  "form.other-information.first-name": "Nome",
 
   // "form.other-information.insolr": "In Solr Index",
-  // TODO New key - Add a translation
-  "form.other-information.insolr": "In Solr Index",
+  "form.other-information.insolr": "No índice SOLR",
 
   // "form.other-information.institution": "Institution",
-  // TODO New key - Add a translation
-  "form.other-information.institution": "Institution",
+  "form.other-information.institution": "Instituição",
 
   // "form.other-information.last-name": "Last Name",
-  // TODO New key - Add a translation
-  "form.other-information.last-name": "Last Name",
+  "form.other-information.last-name": "Apelido",
 
   // "form.other-information.orcid": "ORCID",
-  // TODO New key - Add a translation
   "form.other-information.orcid": "ORCID",
 
   // "form.remove": "Remove",
@@ -2616,8 +2585,7 @@
   "form.submit": "Guardar",
 
   // "form.create": "Create",
-  // TODO New key - Add a translation
-  "form.create": "Create",
+  "form.create": "Criar",
 
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "Largue o item na nova posição",
@@ -2629,8 +2597,7 @@
   "grant-deny-request-copy.email.back": "Voltar",
 
   // "grant-deny-request-copy.email.message": "Optional additional message",
-  // TODO Source message changed - Revise the translation
-  "grant-deny-request-copy.email.message": "Mensagem",
+  "grant-deny-request-copy.email.message": "Mensagem adicional opcional",
 
   // "grant-deny-request-copy.email.message.empty": "Please enter a message",
   "grant-deny-request-copy.email.message.empty": "Por favor insira uma mensagem",
@@ -2678,7 +2645,6 @@
   "grant-request-copy.header": "Conceder cópia de documento",
 
   // "grant-request-copy.intro": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
-  // TODO Source message changed - Revise the translation
   "grant-request-copy.intro": "Esta mensagem será enviada ao requerente do pedido de cópia. Os ficheiros solicitado(s) serão anexado(s) à mensagem.",
 
   // "grant-request-copy.success": "Successfully granted item request",
@@ -2787,9 +2753,8 @@
   // "info.end-user-agreement.title": "End User Agreement",
   "info.end-user-agreement.title": "Termos de Uso",
 
-  // "info.end-user-agreement.hosting-country": "the United States",
-  // TODO New key - Add a translation
-  "info.end-user-agreement.hosting-country": "the United States",
+  //  "info.end-user-agreement.hosting-country": "the United States",
+  "info.end-user-agreement.hosting-country": "Portugal",
 
   // "info.privacy.breadcrumbs": "Privacy Statement",
   "info.privacy.breadcrumbs": "Política de Privacidade",
@@ -2853,7 +2818,6 @@
   "item.edit.authorizations.title": "Editar políticas dos itens",
 
   // "item.badge.private": "Non-discoverable",
-  // TODO Source message changed - Revise the translation
   "item.badge.private": "Privado",
 
   // "item.badge.withdrawn": "Withdrawn",
@@ -3073,8 +3037,7 @@
   "item.edit.register-doi.success": "DOI colocado em fila de espera para o registo com sucesso.",
 
   // "item.edit.register-doi.error": "Error registering DOI",
-  // TODO Source message changed - Revise the translation
-  "item.edit.register-doi.error": "erro ao registar DOI",
+  "item.edit.register-doi.error": "Erro ao registar DOI",
 
   // "item.edit.register-doi.to-update": "The following DOI has already been minted and will be queued for registration online",
   "item.edit.register-doi.to-update": "O seguinte DOI já foi criado e será colocado em fila de espera para registo online",
@@ -3380,8 +3343,7 @@
   "item.edit.tabs.curate.title": "Editar item - Curadoria",
 
   // "item.edit.curate.title": "Curate Item: {{item}}",
-  // TODO New key - Add a translation
-  "item.edit.curate.title": "Curate Item: {{item}}",
+  "item.edit.curate.title": "Curar item: {{item}}",
 
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "Metadados do item",
@@ -3720,8 +3682,7 @@
   "item.preview.dc.identifier.doi": "DOI",
 
   // "item.preview.dc.publisher": "Publisher:",
-  // TODO New key - Add a translation
-  "item.preview.dc.publisher": "Publisher:",
+  "item.preview.dc.publisher": "Editora:",
 
   // "item.preview.person.familyName": "Surname:",
   "item.preview.person.familyName": "Apelido:",
@@ -3799,7 +3760,7 @@
   "item.version.history.table.workspaceItem": "Área de trabalho do item",
 
   // "item.version.history.table.workflowItem": "Workflow item",
-  "item.version.history.table.workflowItem": "Área de trabalho do item",
+  "item.version.history.table.workflowItem": "Fluxo de trabalho do item",
 
   // "item.version.history.table.actions": "Action",
   "item.version.history.table.actions": "Ação",
@@ -3949,7 +3910,6 @@
   "itemtemplate.edit.metadata.notifications.discarded.content": "As sua alterações foram descartadas. Para repor as suas alterações clique no botão 'Desfazer'",
 
   // "itemtemplate.edit.metadata.notifications.discarded.title": "Changes discarded",
-  // TODO Source message changed - Revise the translation
   "itemtemplate.edit.metadata.notifications.discarded.title": "Alterações descartadas",
 
   // "itemtemplate.edit.metadata.notifications.error.title": "An error occurred",
@@ -3965,7 +3925,6 @@
   "itemtemplate.edit.metadata.notifications.outdated.content": "O modelo do item que está atualmente a trabalhar foi alterado por outro utilizador. As suas alterações serão descartadas para evitar conflitos",
 
   // "itemtemplate.edit.metadata.notifications.outdated.title": "Changes outdated",
-  // TODO Source message changed - Revise the translation
   "itemtemplate.edit.metadata.notifications.outdated.title": "Alterações desatualizadas",
 
   // "itemtemplate.edit.metadata.notifications.saved.content": "Your changes to this item template's metadata were saved.",
@@ -4239,8 +4198,7 @@
   "menu.section.browse_global_by_subject": "Por assunto",
 
   // "menu.section.browse_global_by_srsc": "By Subject Category",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_srsc": "By Subject Category",
+  "menu.section.browse_global_by_srsc": "Por vocabulário controlado (SRSC)",
 
   // "menu.section.browse_global_by_title": "By Title",
   "menu.section.browse_global_by_title": "Por título",
@@ -4285,34 +4243,34 @@
   "menu.section.export_batch": "Importação em lote (ZIP)",
 
   // "menu.section.icon.access_control": "Access Control menu section",
-  "menu.section.icon.access_control": "Secção do menu Controle de Acesso",
+  "menu.section.icon.access_control": "Secção do menu controle de acesso",
 
   // "menu.section.icon.admin_search": "Admin search menu section",
-  "menu.section.icon.admin_search": "Secção do menu de Pesquisa Administrativa",
+  "menu.section.icon.admin_search": "Secção do menu pesquisa administrativa",
 
   // "menu.section.icon.control_panel": "Control Panel menu section",
-  "menu.section.icon.control_panel": "Secção do menu Painel de Controlo",
+  "menu.section.icon.control_panel": "Secção do menu painel de controlo",
 
   // "menu.section.icon.curation_tasks": "Curation Task menu section",
   "menu.section.icon.curation_tasks": "Secção do menu tarefas de curadoria",
 
   // "menu.section.icon.edit": "Edit menu section",
-  "menu.section.icon.edit": "Secção do menu Editar",
+  "menu.section.icon.edit": "Secção do menu editar",
 
   // "menu.section.icon.export": "Export menu section",
-  "menu.section.icon.export": "Secção do menu Exportar",
+  "menu.section.icon.export": "Secção do menu exportar",
 
   // "menu.section.icon.find": "Find menu section",
-  "menu.section.icon.find": "Secção do menu Pesquisar",
+  "menu.section.icon.find": "Secção do menu pesquisar",
 
   // "menu.section.icon.health": "Health check menu section",
-  "menu.section.icon.health": "Seção do menu Diagnóstico do sistema",
+  "menu.section.icon.health": "Seção do menu diagnóstico do sistema",
 
   // "menu.section.icon.import": "Import menu section",
-  "menu.section.icon.import": "Secção do menu Importar",
+  "menu.section.icon.import": "Secção do menu importar",
 
   // "menu.section.icon.new": "New menu section",
-  "menu.section.icon.new": "Secção do menu Novo",
+  "menu.section.icon.new": "Secção do menu novo",
 
   // "menu.section.icon.pin": "Pin sidebar",
   "menu.section.icon.pin": "Fixar barra lateral",
@@ -4321,13 +4279,13 @@
   "menu.section.icon.processes": "Processos diagnóstico",
 
   // "menu.section.icon.registries": "Registries menu section",
-  "menu.section.icon.registries": "Secção do menu Registos",
+  "menu.section.icon.registries": "Secção do menu registos",
 
   // "menu.section.icon.statistics_task": "Statistics Task menu section",
-  "menu.section.icon.statistics_task": "Secção do menu Tarefas de Estatísticas",
+  "menu.section.icon.statistics_task": "Secção do menu tarefas de estatísticas",
 
   // "menu.section.icon.workflow": "Administer workflow menu section",
-  "menu.section.icon.workflow": "Menu administração de tarefas",
+  "menu.section.icon.workflow": "Secção do menu de administração do fluxo de trabalho",
 
   // "menu.section.icon.unpin": "Unpin sidebar",
   "menu.section.icon.unpin": "Soltar barra lateral",
@@ -4336,7 +4294,6 @@
   "menu.section.import": "Importar",
 
   // "menu.section.import_batch": "Batch Import (ZIP)",
-  // TODO Source message changed - Revise the translation
   "menu.section.import_batch": "Importação em lote (ZIP)",
 
   // "menu.section.import_metadata": "Metadata",
@@ -4418,7 +4375,7 @@
   "menu.section.toggle.statistics_task": "Alternar secção tarefas de estatísticas",
 
   // "menu.section.workflow": "Administer Workflow",
-  "menu.section.workflow": "Gestão do workflow",
+  "menu.section.workflow": "Gestão do fluxo de trabalho",
 
   // "metadata-export-search.tooltip": "Export search results as CSV",
   "metadata-export-search.tooltip": "Exportar resultados de pesquisa em CSV",
@@ -4430,7 +4387,7 @@
   "metadata-export-search.submit.error": "O início da exportação falhou!",
 
   // "mydspace.breadcrumbs": "MyDSpace",
-  "mydspace.breadcrumbs": "Área Pessoal",
+  "mydspace.breadcrumbs": "Área pessoal",
 
   // "mydspace.description": "",
   "mydspace.description": "",
@@ -4511,7 +4468,7 @@
   "mydspace.results.no-uri": "Sem URI",
 
   // "mydspace.search-form.placeholder": "Search in mydspace...",
-  "mydspace.search-form.placeholder": "Pesquisar na Área Pessoal...",
+  "mydspace.search-form.placeholder": "Pesquisar na área pessoal...",
 
   // "mydspace.show.workflow": "Workflow tasks",
   "mydspace.show.workflow": "Todas as tarefas",
@@ -4523,27 +4480,22 @@
   "mydspace.show.supervisedWorkspace": "Itens supervisionados",
 
   // "mydspace.status.mydspaceArchived": "Archived",
-  // TODO New key - Add a translation
-  "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Depósito aceite",
 
   // "mydspace.status.mydspaceValidation": "Validation",
-  // TODO New key - Add a translation
-  "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Em validação",
 
   // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
-  // TODO New key - Add a translation
-  "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Aguarda validador",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",
-  // TODO New key - Add a translation
-  "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Em fluxo de trabalho",
 
   // "mydspace.status.mydspaceWorkspace": "Workspace",
-  // TODO New key - Add a translation
-  "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Depósito por terminar",
 
   // "mydspace.title": "MyDSpace",
-  "mydspace.title": "Área Pessoal",
+  "mydspace.title": "Área pessoal",
 
   // "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
   "mydspace.upload.upload-failed": "Erro ao criar novo espaço de trabalho. Por favor verifique o conteúdo enviado antes de tentar novamente.",
@@ -4585,7 +4537,7 @@
   "nav.main.description": "Barra de naveção principal",
 
   // "nav.mydspace": "MyDSpace",
-  "nav.mydspace": "Área Pessoal",
+  "nav.mydspace": "Área pessoal",
 
   // "nav.profile": "Profile",
   "nav.profile": "Perfil",
@@ -4594,8 +4546,7 @@
   "nav.search": "Pesquisar",
 
   // "nav.search.button": "Submit search",
-  // TODO New key - Add a translation
-  "nav.search.button": "Submit search",
+  "nav.search.button": "Pesquisar",
 
   // "nav.statistics.header": "Statistics",
   "nav.statistics.header": "Estatísticas",
@@ -4754,8 +4705,7 @@
   "process.new.notification.error.content": "Ocorreu um erro ao criar este processo",
 
   // "process.new.notification.error.max-upload.content": "The file exceeds the maximum upload size",
-  // TODO New key - Add a translation
-  "process.new.notification.error.max-upload.content": "The file exceeds the maximum upload size",
+  "process.new.notification.error.max-upload.content": "O ficheiro excede o tamanho máximo de carregamento!",
 
   // "process.new.header": "Create a new process",
   "process.new.header": "Criar um novo processo",
@@ -5250,12 +5200,10 @@
   "repository.image.logo": "Logótipo do repositório",
 
   // "repository.title": "DSpace Repository",
-  // TODO New key - Add a translation
-  "repository.title": "DSpace Repository",
+  "repository.title": "Repositório :: ",
 
   // "repository.title.prefix": "DSpace Repository :: ",
-  // TODO New key - Add a translation
-  "repository.title.prefix": "DSpace Repository :: ",
+  "repository.title.prefix": "Repositório :: ",
 
   // "resource-policies.add.button": "Add",
   "resource-policies.add.button": "Adicionar",
@@ -5459,7 +5407,6 @@
   "search.filters.applied.f.discoverable": "Privado",
 
   // "search.filters.applied.f.entityType": "Item Type",
-  // TODO Source message changed - Revise the translation
   "search.filters.applied.f.entityType": "Tipo de item",
 
   // "search.filters.applied.f.has_content_in_original_bundle": "Has files",
@@ -5700,7 +5647,6 @@
   "search.filters.filter.submitter.label": "Procurar depositante",
 
   // "search.filters.filter.show-tree": "Browse {{ name }} tree",
-  // TODO Source message changed - Revise the translation
   "search.filters.filter.show-tree": "Percorrer por hierarquia de {{ name }}",
 
   // "search.filters.filter.supervisedBy.head": "Supervised By",
@@ -5710,8 +5656,7 @@
   "search.filters.filter.supervisedBy.placeholder": "Supervisionado por",
 
   // "search.filters.filter.supervisedBy.label": "Search Supervised By",
-  // TODO Source message changed - Revise the translation
-  "search.filters.filter.supervisedBy.label": "pesquisar supervisionado por",
+  "search.filters.filter.supervisedBy.label": "Pesquisar supervisionado por",
 
   // "search.filters.entityType.JournalIssue": "Journal Issue",
   "search.filters.entityType.JournalIssue": "Número de revista",
@@ -5831,22 +5776,22 @@
   "sorting.score.DESC": "Mais relevante",
 
   // "sorting.dc.date.issued.ASC": "Date Issued Ascending",
-  "sorting.dc.date.issued.ASC": "Data de publicação ascendente",
+  "sorting.dc.date.issued.ASC": "Data publicação ascendente",
 
   // "sorting.dc.date.issued.DESC": "Date Issued Descending",
-  "sorting.dc.date.issued.DESC": "Data de publicação descendente",
+  "sorting.dc.date.issued.DESC": "Data publicação descendente",
 
   // "sorting.dc.date.accessioned.ASC": "Accessioned Date Ascending",
-  "sorting.dc.date.accessioned.ASC": "Data de disponibilização ascendente",
+  "sorting.dc.date.accessioned.ASC": "Data depósito ascendente",
 
   // "sorting.dc.date.accessioned.DESC": "Accessioned Date Descending",
-  "sorting.dc.date.accessioned.DESC": "Data de disponibilização descendente",
+  "sorting.dc.date.accessioned.DESC": "Data depósito descendente",
 
   // "sorting.lastModified.ASC": "Last modified Ascending",
-  "sorting.lastModified.ASC": "Última modificação ascendente",
+  "sorting.lastModified.ASC": "Última alteração ascendente",
 
   // "sorting.lastModified.DESC": "Last modified Descending",
-  "sorting.lastModified.DESC": "Última modificação descendente",
+  "sorting.lastModified.DESC": "Última alteração descendente",
 
   // "statistics.title": "Statistics",
   "statistics.title": "Estatísticas",
@@ -5882,8 +5827,7 @@
   "statistics.table.header.views": "Consultas",
 
   // "statistics.table.no-name": "(object name could not be loaded)",
-  // TODO New key - Add a translation
-  "statistics.table.no-name": "(object name could not be loaded)",
+  "statistics.table.no-name": "(não foi possível carregar o nome do objeto)",
 
   // "submission.edit.breadcrumbs": "Edit Submission",
   "submission.edit.breadcrumbs": "Editar depósito",
@@ -5895,7 +5839,6 @@
   "submission.general.cancel": "Cancelar",
 
   // "submission.general.cannot_submit": "You don't have permission to make a new submission.",
-  // TODO Source message changed - Revise the translation
   "submission.general.cannot_submit": "Não possui permissões para fazer um novo depósito.",
 
   // "submission.general.deposit": "Deposit",
@@ -6481,8 +6424,7 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Resultados da pesquisa",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
-  // TODO Source message changed - Revise the translation
-  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Pretende guardar \"{{ value }}\" como um nome alternativo para esta pessoa permitindo a sua reutilização por outros em futuros depósitos? Se não, pode usar apenas neste depósito.",
+  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Pretende guardar \"{{ value }}\" como um nome alternativo para esta pessoa permitindo a sua reutilização por si e outros em futuros depósitos? Se não, pode usar apenas neste depósito.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
   "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Guardar um Nome alternativo",
@@ -6881,8 +6823,7 @@
   "submission.workflow.generic.delete": "Remover",
 
   // "submission.workflow.generic.delete-help": "Select this option to discard this item. You will then be asked to confirm it.",
-  // TODO Source message changed - Revise the translation
-  "submission.workflow.generic.delete-help": "Se pretende remover definitivamente este item, selecione 'Apagar'. Será solicitada confirmação.",
+  "submission.workflow.generic.delete-help": "Selecione esta opção para rejeitar este item. Ser-lhe-á pedida confirmação.",
 
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Editar",
@@ -6942,13 +6883,13 @@
   "submission.workflow.tasks.claimed.reject.submit": "Rejeitar",
 
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  "submission.workflow.tasks.claimed.reject_help": "Se reviu o item e achou que ele <strong>não</strong> é adequado para inclusão na coleção, selecione \"Rejeitar\".  Deverá indicar numa mensagem o motivo da rejeição e se o depositante deve modificar algo e reenviar.",
+  "submission.workflow.tasks.claimed.reject_help": "Se reviu o item e acha que <strong>não</strong> está em conformidade para inclusão na coleção, clique em 'Rejeitar'. Deverá indicar o motivo da rejeição e/ou se o depositante pode rever algo para o reenviar.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
-  "submission.workflow.tasks.claimed.return": "Voltar para a listagem",
+  "submission.workflow.tasks.claimed.return": "Libertar tarefa",
 
   // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
-  "submission.workflow.tasks.claimed.return_help": "Enviar a tarefa para a lista para que outra pessoa possa executar.",
+  "submission.workflow.tasks.claimed.return_help": "Libertar esta tarefa para que outra pessoa a possa executar.",
 
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
   "submission.workflow.tasks.generic.error": "ocorreu um erro durante a operação...",
@@ -6963,7 +6904,7 @@
   "submission.workflow.tasks.generic.success": "Operação realizada com sucesso",
 
   // "submission.workflow.tasks.pool.claim": "Claim",
-  "submission.workflow.tasks.pool.claim": "Assumir",
+  "submission.workflow.tasks.pool.claim": "Assumir tarefa",
 
   // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
   "submission.workflow.tasks.pool.claim_help": "Assumir esta tarefa",
@@ -6981,23 +6922,18 @@
   "submission.workspace.generic.view-help": "Selecione esta opção para ver os metadados do item.",
 
   // "submitter.empty": "N/A",
-  // TODO New key - Add a translation
-  "submitter.empty": "N/A",
+  "submitter.empty": "N/E",
 
   // "subscriptions.title": "Subscriptions",
-  // TODO Source message changed - Revise the translation
   "subscriptions.title": "Subscrições de alertas",
 
   // "subscriptions.item": "Subscriptions for items",
-  // TODO Source message changed - Revise the translation
   "subscriptions.item": "Subscrições para itens",
 
   // "subscriptions.collection": "Subscriptions for collections",
-  // TODO Source message changed - Revise the translation
   "subscriptions.collection": "Subscrições para coleções",
 
   // "subscriptions.community": "Subscriptions for communities",
-  // TODO Source message changed - Revise the translation
   "subscriptions.community": "Subscrições para comunidades",
 
   // "subscriptions.subscription_type": "Subscription type",
@@ -7019,7 +6955,6 @@
   "subscriptions.tooltip": "Subscrever",
 
   // "subscriptions.modal.title": "Subscriptions",
-  // TODO Source message changed - Revise the translation
   "subscriptions.modal.title": "Subscrições de alertas",
 
   // "subscriptions.modal.type-frequency": "Type and frequency",
@@ -7029,7 +6964,6 @@
   "subscriptions.modal.close": "Fechar",
 
   // "subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
-  // TODO Source message changed - Revise the translation
   "subscriptions.modal.delete-info": "Para remover esta subscrição, por favor aceda à página de 'subscrições' debaixo do seu perfil de utilizador",
 
   // "subscriptions.modal.new-subscription-form.type.content": "Content",
@@ -7048,7 +6982,6 @@
   "subscriptions.modal.new-subscription-form.submit": "Submeter",
 
   // "subscriptions.modal.new-subscription-form.processing": "Processing...",
-  // TODO Source message changed - Revise the translation
   "subscriptions.modal.new-subscription-form.processing": "A processar...",
 
   // "subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
@@ -7181,37 +7114,37 @@
   "workspace.search.results.head": "Os meus depósitos",
 
   // "workflowAdmin.search.results.head": "Administer Workflow",
-  "workflowAdmin.search.results.head": "Gestão do workflow",
+  "workflowAdmin.search.results.head": "Gestão do fluxo de trabalho",
 
   // "workflow.search.results.head": "Workflow tasks",
-  "workflow.search.results.head": "Tarefas em workflow",
+  "workflow.search.results.head": "Tarefas em fluxo de trabalho",
 
   // "supervision.search.results.head": "Workflow and Workspace tasks",
-  "supervision.search.results.head": "Workflow e tarefas na área de trabalho",
+  "supervision.search.results.head": "Depósitos e tarefas em áreas de trabalho",
 
   // "workflow-item.edit.breadcrumbs": "Edit workflowitem",
-  "workflow-item.edit.breadcrumbs": "Editar item em processamento",
+  "workflow-item.edit.breadcrumbs": "Editar item em fluxo de trabalho",
 
   // "workflow-item.edit.title": "Edit workflowitem",
-  "workflow-item.edit.title": "Editar item em processamento",
+  "workflow-item.edit.title": "Editar item em em fluxo de trabalho",
 
   // "workflow-item.delete.notification.success.title": "Deleted",
   "workflow-item.delete.notification.success.title": "Apagado",
 
   // "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
-  "workflow-item.delete.notification.success.content": "Este item do workflow foi apagado com sucesso",
+  "workflow-item.delete.notification.success.content": "Este item em fluxo de trabalho foi apagado com sucesso",
 
   // "workflow-item.delete.notification.error.title": "Something went wrong",
   "workflow-item.delete.notification.error.title": "Algo correu mal",
 
   // "workflow-item.delete.notification.error.content": "The workflow item could not be deleted",
-  "workflow-item.delete.notification.error.content": "Não foi possível apagar o item do workflow",
+  "workflow-item.delete.notification.error.content": "Não foi possível apagar o item do fluxo de trabalho",
 
   // "workflow-item.delete.title": "Delete workflow item",
-  "workflow-item.delete.title": "Apagar item do workflow",
+  "workflow-item.delete.title": "Apagar item do fluxo de trabalho",
 
   // "workflow-item.delete.header": "Delete workflow item",
-  "workflow-item.delete.header": "Apagar item do workflow",
+  "workflow-item.delete.header": "Apagar item do fluxo de trabalho",
 
   // "workflow-item.delete.button.cancel": "Cancel",
   "workflow-item.delete.button.cancel": "Cancelar",
@@ -7229,13 +7162,13 @@
   "workflow-item.send-back.notification.error.title": "Algo correu mal",
 
   // "workflow-item.send-back.notification.error.content": "The workflow item could not be sent back to the submitter",
-  "workflow-item.send-back.notification.error.content": "Não foi pos´sivel enviar ao depositante este item do workflow",
+  "workflow-item.send-back.notification.error.content": "Não foi possível reenviar ao depositante este item em workflow",
 
   // "workflow-item.send-back.title": "Send workflow item back to submitter",
-  "workflow-item.send-back.title": "Enviar item do workflow para o depositante",
+  "workflow-item.send-back.title": "Enviar item em fluxo de trabalho para o depositante",
 
   // "workflow-item.send-back.header": "Send workflow item back to submitter",
-  "workflow-item.send-back.header": "Enviar item do workflow para o depositante",
+  "workflow-item.send-back.header": "Enviar item em fluxo de trabalho para o depositante",
 
   // "workflow-item.send-back.button.cancel": "Cancel",
   "workflow-item.send-back.button.cancel": "Cancelar",
@@ -7253,36 +7186,28 @@
   "workspace-item.view.title": "Vista das tarefas",
 
   // "workspace-item.delete.breadcrumbs": "Workspace Delete",
-  // TODO New key - Add a translation
-  "workspace-item.delete.breadcrumbs": "Workspace Delete",
+  "workspace-item.delete.breadcrumbs": "Apagar da área de trabalho",
 
   // "workspace-item.delete.header": "Delete workspace item",
-  // TODO New key - Add a translation
-  "workspace-item.delete.header": "Delete workspace item",
+  "workspace-item.delete.header": "Apagar item da área de trabalho",
 
   // "workspace-item.delete.button.confirm": "Delete",
-  // TODO New key - Add a translation
-  "workspace-item.delete.button.confirm": "Delete",
+  "workspace-item.delete.button.confirm": "Apagar",
 
   // "workspace-item.delete.button.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "workspace-item.delete.button.cancel": "Cancel",
+  "workspace-item.delete.button.cancel": "Cancelar",
 
   // "workspace-item.delete.notification.success.title": "Deleted",
-  // TODO New key - Add a translation
-  "workspace-item.delete.notification.success.title": "Deleted",
+  "workspace-item.delete.notification.success.title": "Apagado",
 
   // "workspace-item.delete.title": "This workspace item was successfully deleted",
-  // TODO New key - Add a translation
-  "workspace-item.delete.title": "This workspace item was successfully deleted",
+  "workspace-item.delete.title": "Este item foi removido, com êxito, da área de trabalho",
 
   // "workspace-item.delete.notification.error.title": "Something went wrong",
-  // TODO New key - Add a translation
-  "workspace-item.delete.notification.error.title": "Something went wrong",
+  "workspace-item.delete.notification.error.title": "Ocorreu um erro!",
 
   // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
-  // TODO New key - Add a translation
-  "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
+  "workspace-item.delete.notification.error.content": "Não foi possível remover o item da área de trabalho",
 
   // "workflow-item.advanced.title": "Advanced workflow",
   "workflow-item.advanced.title": "Fluxo de trabalho avançado",
@@ -7405,8 +7330,7 @@
   "researcherprofile.success.claim.title": "Sucesso",
 
   // "person.page.orcid.create": "Create an ORCID ID",
-  // TODO Source message changed - Revise the translation
-  "person.page.orcid.create": "Criar um ORCID iD",
+  "person.page.orcid.create": "Criar um ORCID ID",
 
   // "person.page.orcid.granted-authorizations": "Granted authorizations",
   "person.page.orcid.granted-authorizations": "Autorizações concedidas",
@@ -7415,8 +7339,7 @@
   "person.page.orcid.grant-authorizations": "Conceder autorizações",
 
   // "person.page.orcid.link": "Connect to ORCID ID",
-  // TODO Source message changed - Revise the translation
-  "person.page.orcid.link": "Ligar ao ORCID iD",
+  "person.page.orcid.link": "Ligar ao ORCID ID",
 
   // "person.page.orcid.link.processing": "Linking profile to ORCID...",
   "person.page.orcid.link.processing": "Ligação do perfil ao ORCID...",
@@ -7771,7 +7694,6 @@
   "system-wide-alert.form.label.countdownTo.hint": "Dica: Defina um temporizador de contagem decrescente. Quando ativado, pode ser definida uma data no futuro e o 'banner' de alerta geral do sistema irá realizar uma contagem decrescente para a data definida. Quando este temporizador terminar, desaparecerá do alerta. O servidor NÃO pára automaticamente.",
 
   // "system-wide-alert.form.label.preview": "System-wide alert preview",
-  // TODO Source message changed - Revise the translation
   "system-wide-alert.form.label.preview": "Pré-visualização de alerta geral do sistema",
 
   // "system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
@@ -7791,5 +7713,121 @@
 
   // "admin.system-wide-alert.title": "System-wide Alerts",
   "admin.system-wide-alert.title": "Alertas gerais do sistema",
+
+  // Other strings...
+  // Missing, Duplicate or Redundant ???
+
+  // NOT FOUND 16-06-2023
+
+  // "browse.metadata.srsc": "Subject Category",
+  "browse.metadata.srsc": "vocabulário controlado (SRSC)",
+
+  // "mydspace.status.archived": "Archived",
+  "mydspace.status.archived": "Depositado",
+
+  // "mydspace.status.validation": "Validation",
+  "mydspace.status.validation": "Em validação",
+
+  // "mydspace.status.waiting-for-controller": "Waiting for Controller",
+  "mydspace.status.waiting-for-controller": "Aguarda validador",
+
+  // "mydspace.status.workflow": "Workflow",
+  "mydspace.status.workflow": "Em fluxo de trabalho",
+
+  // "mydspace.status.workspace": "Workspace",
+  "mydspace.status.workspace": "Depósito por terminar",
+
+  // "search.filters.namedresourcetype.Archived": "Archived",
+  "search.filters.namedresourcetype.Archived": "Depositado",
+
+  // "search.filters.namedresourcetype.Validation": "Validation",
+  "search.filters.namedresourcetype.Validation": "Em validação",
+
+  // "search.filters.namedresourcetype.waitingforcontroller": "Waiting for Controller",
+  "search.filters.namedresourcetype.waitingforcontroller": "Aguarda validador",
+
+  // "search.filters.namedresourcetype.Workflow": "Workflow",
+  "search.filters.namedresourcetype.Workflow": "Em fluxo de trabalho",
+
+  // "search.filters.namedresourcetype.Workspace": "Workspace",
+  "search.filters.namedresourcetype.Workspace": "Por terminar",
+
+  // "datafile.listelement.badge": "Data file",
+  "datafile.listelement.badge": "Ficheiro de dados",
+
+  // "datapackage.listelement.badge": "Data package",
+  "datapackage.listelement.badge": "Pacote de dados",
+
+  // "browse.next.button": "Next",
+  "browse.next.button": "Próximo",
+
+  // "browse.previous.button": "Previous",
+  "browse.previous.button": "Anterior",
+
+  // "curation-task.task.registerdoi.label": "DOI check",
+  "curation-task.task.registerdoi.label": "Verificação de DOIs",
+
+  // "mydspace.general.text-here": "here",
+  "mydspace.general.text-here": "aqui",
+
+  // "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
+  "mydspace.upload.upload-successful": "Novo item de espaço de trabalho criado. Clique {{here}} para o editar.",
+
+  // "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
+  "profile.security.form.notifications.error.not-long-enough": "A senha deve ter pelo menos 6 caracteres.",
+
+  // "register-page.create-profile.security.error.password-length": "The password should be at least 6 characters long.",
+  "register-page.create-profile.security.error.password-length": "A senha deve possuir pelo menos 6 caracteres.",
+
+  // "search.form.search_mydspace": "Search MyDSpace",
+  "search.form.search_mydspace": "Pesquisar na área pessoal",
+
+  // "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
+  "forgot-password.form.error.password-length": "A senha deve ter pelo menos 6 caracteres.",
+
+  // "search.filters.entityType.Publication": "Publication",
+  "search.filters.entityType.Publication": "Publicação",
+
+  // "search.filters.entityType.Person": "Person",
+  "search.filters.entityType.Person": "Pessoa",
+
+  // "search.filters.entityType.Project": "Project",
+  "search.filters.entityType.Project": "Projeto",
+
+  // "search.filters.entityType.Journal": "Journal",
+  "search.filters.entityType.Journal": "Revista",
+
+  // "search.filters.entityType.DataFile": "Data File",
+  "search.filters.entityType.DataFile": "Ficheiro de dados",
+
+  // "forgot-email.form.google-recaptcha.must-accept-cookies": "Must accept cookies",
+  "forgot-email.form.google-recaptcha.must-accept-cookies": "Deve aceitar cookies",
+
+  // "forgot-email.form.google-recaptcha.open-cookie-settings": "Cookie settings",
+  "forgot-email.form.google-recaptcha.open-cookie-settings": "Configurar cookies",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.local-entity": "Successfully imported and added external project to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.local-entity": "Importado com sucesso e adicionado autor à seleção",
+
+  // "orgunit.search.results.head": "Organizational Unit Search Results",
+  "orgunit.search.results.head": "Resultados da pesquisa de organizações",
+
+  // "orgunit-relationships.search.results.head": "Organizational Unit Search Results",
+  "orgunit-relationships.search.results.head": "Resultados da pesquisa de organizações",
+
+  // "journalissue.search.results.head": "Journal Issue Search Results",
+  "journalissue.search.results.head": "Resultados da pesquisa de números",
+
+  // "journalissue-relationships.search.results.head": "Journal Issue Search Results",
+  "journalissue-relationships.search.results.head": "Resultados da pesquisa de números",
+
+  // "grant-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+  "grant-request-copy.email.message": "Caro {{ recipientName }},\nEm resposta ao seu pedido de cópia, tenho o prazer de lhe enviar em anexo uma cópia do(s) ficheiro(s) relativo(s) ao documento: \"{{ itemUrl }}\" ({{ itemName }}), do qual sou autor.\n\nCom os melhores cumprimentos,\n{{ authorName }} <{{ authorEmail }}>",
+
+  // "item.preview.dc.relation.eissn": "EISSN",
+  "item.preview.dc.relation.eissn": "EISSN",
+
+  // "item.preview.dc.identifier.eisbn": "EISBN",
+  "item.preview.dc.identifier.eisbn": "EISBN",
 
 }

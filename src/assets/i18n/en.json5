@@ -220,6 +220,22 @@
 
   "admin.registries.schema.title": "Metadata Schema Registry",
 
+  "admin.access-control.bulk-access.breadcrumbs": "Bulk Access Management",
+
+  "administrativeBulkAccess.search.results.head": "Search Results",
+
+  "admin.access-control.bulk-access": "Bulk Access Management",
+
+  "admin.access-control.bulk-access.title": "Bulk Access Management",
+
+  "admin.access-control.bulk-access-browse.header": "Step 1: Select Objects",
+
+  "admin.access-control.bulk-access-browse.search.header": "Search",
+
+  "admin.access-control.bulk-access-browse.selected.header": "Current selection({{number}})",
+
+  "admin.access-control.bulk-access-settings.header": "Step 2: Operation to Perform",
+
   "admin.access-control.epeople.actions.delete": "Delete EPerson",
 
   "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
@@ -950,6 +966,10 @@
 
   "collection.edit.return": "Back",
 
+  "collection.edit.tabs.access-control.head": "Access Control",
+
+  "collection.edit.tabs.access-control.title": "Collection Edit - Access Control",
+
   "collection.edit.tabs.curate.head": "Curate",
 
   "collection.edit.tabs.curate.title": "Collection Edit - Curate",
@@ -1186,6 +1206,10 @@
 
   "community.edit.tabs.curate.title": "Community Edit - Curate",
 
+  "community.edit.tabs.access-control.head": "Access Control",
+
+  "community.edit.tabs.access-control.title": "Community Edit - Access Control",
+
   "community.edit.tabs.metadata.head": "Edit Metadata",
 
   "community.edit.tabs.metadata.title": "Community Edit - Metadata",
@@ -1274,9 +1298,9 @@
 
   "community.all-lists.head": "Subcommunities and Collections",
 
-  "community.sub-collection-list.head": "Collections of this Community",
+  "community.sub-collection-list.head": "Collections in this Community",
 
-  "community.sub-community-list.head": "Communities of this Community",
+  "community.sub-community-list.head": "Communities in this Community",
 
   "cookies.consent.accept-all": "Accept all",
 
@@ -2226,6 +2250,10 @@
 
   "item.edit.curate.title": "Curate Item: {{item}}",
 
+  "item.edit.tabs.access-control.head": "Access Control",
+
+  "item.edit.tabs.access-control.title": "Item Edit - Access Control",
+
   "item.edit.tabs.metadata.head": "Metadata",
 
   "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
@@ -2446,7 +2474,7 @@
 
   "item.preview.dc.identifier": "Identifier:",
 
-  "item.preview.dc.relation.ispartof": "Journal or Serie",
+  "item.preview.dc.relation.ispartof": "Journal or Series",
 
   "item.preview.dc.identifier.doi": "DOI",
 
@@ -2771,6 +2799,8 @@
   "menu.section.access_control": "Access Control",
 
   "menu.section.access_control_authorizations": "Authorizations",
+
+  "menu.section.access_control_bulk": "Bulk Access Management",
 
   "menu.section.access_control_groups": "Groups",
 
@@ -5135,4 +5165,55 @@
   "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
 
   "admin.system-wide-alert.title": "System-wide Alerts",
+
+  "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
+
+  "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
+
+  "community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).",
+
+  "access-control-item-header-toggle": "Item's Metadata",
+
+  "access-control-bitstream-header-toggle": "Bitstreams",
+
+  "access-control-mode": "Mode",
+
+  "access-control-access-conditions": "Access conditions",
+
+  "access-control-no-access-conditions-warning-message": "Currently, no access conditions are specified below. If executed, this will replace the current access conditions with the default access conditions inherited from the owning collection.",
+
+  "access-control-replace-all": "Replace access conditions",
+
+  "access-control-add-to-existing": "Add to existing ones",
+
+  "access-control-limit-to-specific": "Limit the changes to specific bitstreams",
+
+  "access-control-process-all-bitstreams": "Update all the bitstreams in the item",
+
+  "access-control-bitstreams-selected": "bitstreams selected",
+
+  "access-control-cancel": "Cancel",
+
+  "access-control-execute": "Execute",
+
+  "access-control-add-more": "Add more",
+
+  "access-control-select-bitstreams-modal.title": "Select bitstreams",
+
+  "access-control-select-bitstreams-modal.no-items": "No items to show.",
+
+  "access-control-select-bitstreams-modal.close": "Close",
+
+  "access-control-option-label": "Access condition type",
+
+  "access-control-option-note": "Choose an access condition to apply to selected objects.",
+
+  "access-control-option-start-date": "Grant access from",
+
+  "access-control-option-start-date-note": "Select the date from which the related access condition is applied",
+
+  "access-control-option-end-date": "Grant access until",
+
+  "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
+
 }
