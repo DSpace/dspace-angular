@@ -7,7 +7,7 @@
             <span>
               {{ 'resource-policies.table.headers.title.for.' + resourceType | translate }}
               <span class="text-info"> {{resourceName}} </span>
-              <ng-container *ngIf="resourceType != 'item'">
+              <ng-container *ngIf="resourceType !== 'item'">
                 ({{resourceUUID}})
               </ng-container>
             </span>

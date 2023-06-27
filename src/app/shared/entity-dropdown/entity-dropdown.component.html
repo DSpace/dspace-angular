@@ -9,7 +9,7 @@
     [fromRoot]="true"
     [scrollWindow]="false"
     (scrolled)="onScrollDown()">
-    <button class="dropdown-item disabled" *ngIf="searchListEntity?.length == 0 && (isLoadingList | async) === false">
+    <button class="dropdown-item disabled" *ngIf="searchListEntity?.length === 0 && (isLoadingList | async) === false">
       {{'submission.sections.general.no-entity' | translate}}
     </button>
     <button *ngFor="let listItem of searchListEntity"

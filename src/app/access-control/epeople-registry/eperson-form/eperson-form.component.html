@@ -79,7 +79,7 @@
 
   </ds-pagination>
 
-  <div *ngIf="(groups$ | async)?.payload?.totalElements == 0" class="alert alert-info w-100 mb-2" role="alert">
+  <div *ngIf="(groups$ | async)?.payload?.totalElements === 0" class="alert alert-info w-100 mb-2" role="alert">
     <div>{{messagePrefix + '.memberOfNoGroups' | translate}}</div>
     <div>
       <button [routerLink]="[groupsDataService.getGroupRegistryRouterLink()]"

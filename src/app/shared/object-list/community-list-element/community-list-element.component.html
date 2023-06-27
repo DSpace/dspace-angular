@@ -1,8 +1,8 @@
 <div class="d-flex flex-row">
-  <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/communities/' + object.id]" class="lead">
+  <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/communities/' + object.id]" class="lead">
     {{ dsoNameService.getName(object) }}
   </a>
-  <span *ngIf="linkType == linkTypes.None" class="lead">
+  <span *ngIf="linkType === linkTypes.None" class="lead">
     {{ dsoNameService.getName(object) }}
   </span>
   <span class="pr-2">&nbsp;</span>

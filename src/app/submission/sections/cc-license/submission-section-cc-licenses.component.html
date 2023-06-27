@@ -20,7 +20,7 @@
     </ng-container>
 
     <ng-container class="menu">
-      <button *ngIf="submissionCcLicenses?.length == 0"
+      <button *ngIf="submissionCcLicenses?.length === 0"
               class="dropdown-item disabled">
         {{ 'submission.sections.ccLicense.none' | translate }}
       </button>

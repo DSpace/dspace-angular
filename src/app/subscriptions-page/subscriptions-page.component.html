@@ -34,7 +34,7 @@
               </div>
             </ds-pagination>
 
-            <ds-alert *ngIf="subscriptions?.pageInfo?.totalElements == 0 && (loading$ | async) === false" [type]="'alert-info'" data-test="empty-alert">
+            <ds-alert *ngIf="subscriptions?.pageInfo?.totalElements === 0 && (loading$ | async) === false" [type]="'alert-info'" data-test="empty-alert">
               {{ 'subscriptions.table.empty.message' | translate }}
             </ds-alert>
 

@@ -91,7 +91,7 @@
         </div>
       </ds-pagination>
 
-      <div *ngIf="(pageInfoState$ | async)?.totalElements == 0" class="alert alert-info w-100 mb-2" role="alert">
+      <div *ngIf="(pageInfoState$ | async)?.totalElements === 0" class="alert alert-info w-100 mb-2" role="alert">
         {{messagePrefix + 'no-items' | translate}}
       </div>
 
