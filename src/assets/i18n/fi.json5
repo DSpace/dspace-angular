@@ -1877,8 +1877,7 @@
   "comcol-role.edit.scorereviewers.name": "Arvosanatarkastajat",
 
   // "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
-  // TODO New key - Add a translationree here
-  "comcol-role.edit.scorereviewers.description": "Tarkastajat voivat antaa tallennettaille julkaisuille arvosanan, joka määrittää, hylätäänkö vai hyväksytäänkö   Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
+  "comcol-role.edit.scorereviewers.description": "Tarkastajat voivat antaa tallennettaville julkaisuille arvosanan, joka määrittää, hylätäänkö vai hyväksytäänkö tallennus.",
 
   // "community.form.abstract": "Short Description",
   "community.form.abstract": "Lyhyt kuvaus",
@@ -2274,28 +2273,22 @@
   "confirmation-modal.delete-profile.info": "Haluatko varmasti poistaa profiilisi?",
 
   // "confirmation-modal.delete-profile.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-profile.cancel": "Cancel",
+  "confirmation-modal.delete-profile.cancel": "Peruuta",
 
   // "confirmation-modal.delete-profile.confirm": "Delete",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-profile.confirm": "Delete",
+  "confirmation-modal.delete-profile.confirm": "Poista",
 
   // "confirmation-modal.delete-subscription.header": "Delete Subscription",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-subscription.header": "Delete Subscription",
+  "confirmation-modal.delete-subscription.header": "Poista tilaus",
 
   // "confirmation-modal.delete-subscription.info": "Are you sure you want to delete subscription for \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-subscription.info": "Are you sure you want to delete subscription for \"{{ dsoName }}\"",
+  "confirmation-modal.delete-subscription.info": "Haluatko varmasti poistaa tilauksen: \"{{ dsoName }}\"",
 
   // "confirmation-modal.delete-subscription.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-subscription.cancel": "Cancel",
+  "confirmation-modal.delete-subscription.cancel": "Peruuta",
 
   // "confirmation-modal.delete-subscription.confirm": "Delete",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-subscription.confirm": "Delete",
+  "confirmation-modal.delete-subscription.confirm": "Poista",
 
   // "error.bitstream": "Error fetching bitstream",
   "error.bitstream": "Virhe tiedostoa noudettaessa",
@@ -2334,8 +2327,7 @@
   "error.search-results": "Virhe hakutuloksia noudettaessa",
 
   // "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
-  // TODO New key - Add a translation
-  "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
+  "error.invalid-search-query": "Hakulauseke on virheellinen. Tarkista <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr-kyselysyntaksi</a> ja sieltä parhaat käytännöt saadaksesi lisätietoja.",
 
   // "error.sub-collections": "Error fetching sub-collections",
   "error.sub-collections": "Virhe alakokoelmia noudettaessa",
@@ -2359,48 +2351,38 @@
   "error.validation.filerequired": "Tiedoston lataus on pakollinen",
 
   // "error.validation.required": "This field is required",
-  // TODO New key - Add a translation
-  "error.validation.required": "This field is required",
+  "error.validation.required": "Kenttä on pakollinen",
 
   // "error.validation.NotValidEmail": "This E-mail is not a valid email",
-  // TODO New key - Add a translation
-  "error.validation.NotValidEmail": "This E-mail is not a valid email",
+  "error.validation.NotValidEmail": "Sähköpostiosoite ei ole toimiva sähköpostiosoite.",
 
   // "error.validation.emailTaken": "This E-mail is already taken",
-  // TODO New key - Add a translation
-  "error.validation.emailTaken": "This E-mail is already taken",
+  "error.validation.emailTaken": "Sähköpostiosoite on jo käytössä",
 
   // "error.validation.groupExists": "This group already exists",
-  // TODO New key - Add a translation
-  "error.validation.groupExists": "This group already exists",
+  "error.validation.groupExists": "Ryhmä on jo olemassa",
 
   // "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
-  // TODO New key - Add a translation
-  "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
+  "error.validation.metadata.name.invalid-pattern": "Kenttään ei voi syöttää pisteitä, pilkkuja tai välilyöntejä. Käytä tämän kentän sijasta  Elementti- ja Tarkenne-kenttiä.",
 
   // "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
-  // TODO New key - Add a translation
-  "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
+  "error.validation.metadata.name.max-length": "Kenttään voi laittaa vain 32 merkkiä",
 
   // "error.validation.metadata.namespace.max-length": "This field may not contain more than 256 characters",
-  // TODO New key - Add a translation
-  "error.validation.metadata.namespace.max-length": "This field may not contain more than 256 characters",
+  "error.validation.metadata.namespace.max-length": "Kenttään voi laittaa vain 256 merkkiä",
 
   // "error.validation.metadata.element.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Qualifier field instead",
   // TODO New key - Add a translation
-  "error.validation.metadata.element.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Qualifier field instead",
+  "error.validation.metadata.element.invalid-pattern": "Kenttään ei voi syöttää pisteitä, pilkkuja tai välilyöntejä. Käytä tämän kentän sijasta Elementti- ja Tarkenne-kenttiä.",
 
   // "error.validation.metadata.element.max-length": "This field may not contain more than 64 characters",
-  // TODO New key - Add a translation
-  "error.validation.metadata.element.max-length": "This field may not contain more than 64 characters",
+  "error.validation.metadata.element.max-length": "Kenttään voi laittaa vain 64 merkkiä",
 
   // "error.validation.metadata.qualifier.invalid-pattern": "This field cannot contain dots, commas or spaces",
-  // TODO New key - Add a translation
-  "error.validation.metadata.qualifier.invalid-pattern": "This field cannot contain dots, commas or spaces",
+  "error.validation.metadata.qualifier.invalid-pattern": "Kenttään ei voi syöttää pisteitä, pilkkuja tai välilyöntejä",
 
   // "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
-  // TODO New key - Add a translation
-  "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
+  "error.validation.metadata.qualifier.max-length": "Kenttään voi laittaa vain 64 merkkiä",
 
   // "feed.description": "Syndication feed",
   // TODO New key - Add a translation
@@ -6940,8 +6922,7 @@
   "submission.sections.status.errors.title": "Virheet",
 
   // "submission.sections.status.valid.title": "Valid",
-  // TODO New key - Add a translation
-  "submission.sections.status.valid.title": "Valid",
+  "submission.sections.status.valid.title": "Hyväksytty",
 
   // "submission.sections.status.warnings.title": "Warnings",
   "submission.sections.status.warnings.title": "Varoitukset",
@@ -6951,10 +6932,10 @@
 
   // "submission.sections.status.valid.aria": "is valid",
   // TODO New key - Add a translation
-  "submission.sections.status.valid.aria": "is valid",
+  "submission.sections.status.valid.aria": "on validi",
 
   // "submission.sections.status.warnings.aria": "has warnings",
-  // TODO New key - Add a translation
+  "submission.sections.status.warnings.aria": "sisältää varoituksia",
 
   // "submission.sections.status.info.title": "Additional Information",
   "submission.sections.status.info.title": "Lisätiedot",
@@ -7134,23 +7115,19 @@
   "submission.sections.sherpa.publication.information.publishers": "Julkaisija",
 
   // "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
-  // TODO New key - Add a translation
   "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
 
   // "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
-  // TODO New key - Add a translation
   "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
 
   // "submission.sections.sherpa.publisher.policy": "Publisher Policy",
   "submission.sections.sherpa.publisher.policy": "Julkaisukäytännöt",
 
   // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
+  "submission.sections.sherpa.publisher.policy.description": "Alla olevat tiedot on noudettu Sherpa Romeosta. Julkaisijan käytännöt määrittävät, vaaditaanko embargoa ja mitkä tiedostoista ovat ladattavissa. Jos sinulla on kysyttävää, ota yhteyttä ylläpitäjään.",
 
   // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
+  "submission.sections.sherpa.publisher.policy.openaccess": "Tämän kausijulkaisun käytäntöjen sallimat Open Access -reitit on lueteltu alla artikkeliversioittain. Napsauttamalla polkua saat yksityiskohtaisempia tietoja",
 
   // "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
   "submission.sections.sherpa.publisher.policy.more.information": "Lisätietoa saat seuraavista linkeistä:",
@@ -7165,31 +7142,25 @@
   "submission.sections.sherpa.publisher.policy.noembargo": "Ei embargoa",
 
   // "submission.sections.sherpa.publisher.policy.nolocation": "None",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.nolocation": "None",
+  "submission.sections.sherpa.publisher.policy.nolocation": "Ei mitään",
 
   // "submission.sections.sherpa.publisher.policy.license": "License",
   "submission.sections.sherpa.publisher.policy.license": "Lisenssi",
 
   // "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
+  "submission.sections.sherpa.publisher.policy.prerequisites": "Vaatimukset",
 
   // "submission.sections.sherpa.publisher.policy.location": "Location",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.location": "Location",
+  "submission.sections.sherpa.publisher.policy.location": "Sijainti",
 
   // "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
+  "submission.sections.sherpa.publisher.policy.conditions": "Ehdot",
 
   // "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
+  "submission.sections.sherpa.publisher.policy.refresh": "Päivitä",
 
   // "submission.sections.sherpa.record.information": "Record Information",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.record.information": "Record Information",
+  "submission.sections.sherpa.record.information": "Tietueen tiedot",
 
   // "submission.sections.sherpa.record.information.id": "ID",
   "submission.sections.sherpa.record.information.id": "ID",
@@ -7204,23 +7175,19 @@
   "submission.sections.sherpa.record.information.uri": "URI",
 
   // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
+  "submission.sections.sherpa.error.message": "Virhe haettaessa Sherpa-tietoja",
 
   // "submission.submit.breadcrumbs": "New submission",
-  // TODO New key - Add a translation
-  "submission.submit.breadcrumbs": "New submission",
+  "submission.submit.breadcrumbs": "Uusi tallennus",
 
   // "submission.submit.title": "New submission",
-  // TODO Source message changed - Revise the translation
-  "submission.submit.title": "Julkaisu",
+  "submission.submit.title": "Uusi tallennus",
 
   // "submission.workflow.generic.delete": "Delete",
   "submission.workflow.generic.delete": "Poista",
 
   // "submission.workflow.generic.delete-help": "Select this option to discard this item. You will then be asked to confirm it.",
-  // TODO Source message changed - Revise the translation
-  "submission.workflow.generic.delete-help": "Valitse \"Poista\" hylätäksesi tietueen. Poisto pyydetään vielä vahvistamaan.",
+  "submission.workflow.generic.delete-help": "Valitse hylätäksesi tietueen. Poisto pyydetään vielä vahvistamaan.",
 
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Muokkaa",
@@ -7235,19 +7202,15 @@
   "submission.workflow.generic.view-help": "Valitse tämä katsoaksesi tietueen metadataa.",
 
   // "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
-  // TODO New key - Add a translation
-  "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
+  "submission.workflow.generic.submit_select_reviewer": "Valitse tarkastaja",
 
   // "submission.workflow.generic.submit_select_reviewer-help": "",
-  // TODO New key - Add a translation
   "submission.workflow.generic.submit_select_reviewer-help": "",
 
   // "submission.workflow.generic.submit_score": "Rate",
-  // TODO New key - Add a translation
-  "submission.workflow.generic.submit_score": "Rate",
+  "submission.workflow.generic.submit_score": "Arvioi",
 
   // "submission.workflow.generic.submit_score-help": "",
-  // TODO New key - Add a translation
   "submission.workflow.generic.submit_score-help": "",
 
   // "submission.workflow.tasks.claimed.approve": "Approve",
@@ -7320,8 +7283,7 @@
   "submission.workspace.generic.view": "Näytå",
 
   // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
-  // TODO New key - Add a translation
-  "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+  "submission.workspace.generic.view-help": "Valitse tarkastellaksesi tietueen metadataa.",
 
   // "submitter.empty": "N/A",
   "submitter.empty": "Ei saatavilla",
