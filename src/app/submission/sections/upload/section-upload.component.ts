@@ -1,36 +1,51 @@
-import { ChangeDetectorRef, Component, Inject } from '@angular/core';
-
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+} from '@angular/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
   Subscription,
 } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 
-import { SectionModelComponent } from '../models/section.model';
-import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
-import { SectionUploadService } from './section-upload.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
-import { SubmissionUploadsConfigDataService } from '../../../core/config/submission-uploads-config-data.service';
-import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
-import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { SectionsType } from '../sections-type';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionDataObject } from '../models/section-data.model';
-import { SubmissionObjectEntry } from '../../objects/submission-objects.reducer';
-import { AlertType } from '../../../shared/alert/aletr-type';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Group } from '../../../core/eperson/models/group.model';
-import { SectionsService } from '../sections.service';
-import { SubmissionService } from '../../submission.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { AccessConditionOption } from '../../../core/config/models/config-access-condition-option.model';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { AccessConditionOption } from '../../../core/config/models/config-access-condition-option.model';
+import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
+import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
+import { SubmissionUploadsConfigDataService } from '../../../core/config/submission-uploads-config-data.service';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { Group } from '../../../core/eperson/models/group.model';
+import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
+import { Collection } from '../../../core/shared/collection.model';
+import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { AlertType } from '../../../shared/alert/aletr-type';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+  isUndefined,
+} from '../../../shared/empty.util';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { SubmissionObjectEntry } from '../../objects/submission-objects.reducer';
+import { SubmissionService } from '../../submission.service';
+import { SectionModelComponent } from '../models/section.model';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
+import { SectionsType } from '../sections-type';
+import { SectionUploadService } from './section-upload.service';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
 export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2

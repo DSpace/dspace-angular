@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Process } from './processes/process.model';
-import { followLink } from '../shared/utils/follow-link-config.model';
-import { ProcessDataService } from '../core/data/processes/process-data.service';
+
 import { BreadcrumbConfig } from '../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../core/shared/operators';
+import { ProcessDataService } from '../core/data/processes/process-data.service';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../core/shared/operators';
+import { followLink } from '../shared/utils/follow-link-config.model';
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
+import { Process } from './processes/process.model';
 
 /**
  * This class represents a resolver that requests a specific process before the route is activated

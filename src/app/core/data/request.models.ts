@@ -1,18 +1,16 @@
 /* eslint-disable max-classes-per-file */
-import { GenericConstructor } from '../shared/generic-constructor';
-import { ResponseParsingService } from './parsing.service';
-import { EndpointMapResponseParsingService } from './endpoint-map-response-parsing.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import {
-  SubmissionResponseParsingService,
-} from '../submission/submission-response-parsing.service';
-import { RestRequestMethod } from './rest-request-method';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { SubmissionResponseParsingService } from '../submission/submission-response-parsing.service';
 import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
-import { ContentSourceResponseParsingService } from './content-source-response-parsing.service';
-import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
-import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
+import { ContentSourceResponseParsingService } from './content-source-response-parsing.service';
+import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
+import { EndpointMapResponseParsingService } from './endpoint-map-response-parsing.service';
 import { FindListOptions } from './find-list-options.model';
+import { ResponseParsingService } from './parsing.service';
+import { RestRequestMethod } from './rest-request-method';
+import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
 
 
 // uuid and handle requests have separate endpoints

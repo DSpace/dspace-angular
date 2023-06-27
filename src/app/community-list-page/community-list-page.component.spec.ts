@@ -1,9 +1,17 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { CommunityListPageComponent } from './community-list-page.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { CommunityListPageComponent } from './community-list-page.component';
 
 describe('CommunityListPageComponent', () => {
   let component: CommunityListPageComponent;

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { EditBitstreamPageComponent } from './edit-bitstream-page.component';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
+import { EditBitstreamPageComponent } from './edit-bitstream-page.component';
 
 @Component({
   selector: 'ds-themed-edit-bitstream-page',

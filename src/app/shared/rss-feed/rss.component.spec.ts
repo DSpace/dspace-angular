@@ -1,4 +1,11 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { of as observableOf } from 'rxjs';
+
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { GroupDataService } from '../../core/eperson/group-data.service';
@@ -7,16 +14,17 @@ import { LinkHeadService } from '../../core/services/link-head.service';
 import { Collection } from '../../core/shared/collection.model';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { RouterMock } from '../mocks/router.mock';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../remote-data.utils';
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
 import { createPaginatedList } from '../testing/utils.test';
 import { RSSComponent } from './rss.component';
-import { of as observableOf } from 'rxjs';
-import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
-import { Router } from '@angular/router';
-import { RouterMock } from '../mocks/router.mock';
 
 
 

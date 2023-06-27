@@ -1,14 +1,17 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { of as observableOf } from 'rxjs';
+
+import { AuthService } from '../../../core/auth/auth.service';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 import { MockBitstreamFormat1 } from '../../../shared/mocks/item.mock';
-
 import { MediaViewerImageComponent } from './media-viewer-image.component';
-
-import { of as observableOf } from 'rxjs';
-import { AuthService } from '../../../core/auth/auth.service';
 
 describe('MediaViewerImageComponent', () => {
   let component: MediaViewerImageComponent;

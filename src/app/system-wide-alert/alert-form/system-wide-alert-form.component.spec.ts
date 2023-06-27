@@ -1,19 +1,30 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
-import { SystemWideAlert } from '../system-wide-alert.model';
-import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { SystemWideAlertFormComponent } from './system-wide-alert-form.component';
+import {
+  utcToZonedTime,
+  zonedTimeToUtc,
+} from 'date-fns-tz';
+import { UiSwitchModule } from 'ngx-ui-switch';
+
 import { RequestService } from '../../core/data/request.service';
+import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { UiSwitchModule } from 'ngx-ui-switch';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { SystemWideAlert } from '../system-wide-alert.model';
 import { SystemWideAlertModule } from '../system-wide-alert.module';
+import { SystemWideAlertFormComponent } from './system-wide-alert-form.component';
 
 describe('SystemWideAlertFormComponent', () => {
   let comp: SystemWideAlertFormComponent;

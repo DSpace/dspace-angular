@@ -1,18 +1,37 @@
-import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { Observable, combineLatest } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Data,
+  Params,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { WorkflowItem } from '../core/submission/models/workflowitem.model';
-import { Item } from '../core/shared/item.model';
-import { ActivatedRoute, Data, Router, Params } from '@angular/router';
-import { WorkflowItemDataService } from '../core/submission/workflowitem-data.service';
-import { RouteService } from '../core/services/route.service';
-import { NotificationsService } from '../shared/notifications/notifications.service';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { RemoteData } from '../core/data/remote-data';
-import { getAllSucceededRemoteData, getRemoteDataPayload } from '../core/shared/operators';
-import { isEmpty } from '../shared/empty.util';
 import { RequestService } from '../core/data/request.service';
+import { RouteService } from '../core/services/route.service';
+import { Item } from '../core/shared/item.model';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../core/shared/operators';
+import { WorkflowItem } from '../core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '../core/submission/workflowitem-data.service';
+import { isEmpty } from '../shared/empty.util';
+import { NotificationsService } from '../shared/notifications/notifications.service';
 
 /**
  * Abstract component representing a page to perform an action on a workflow item

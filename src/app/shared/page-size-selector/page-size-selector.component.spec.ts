@@ -1,19 +1,30 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { first, take } from 'rxjs/operators';
-import { PageSizeSelectorComponent } from './page-size-selector.component';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+import {
+  first,
+  take,
+} from 'rxjs/operators';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
 import { VarDirective } from '../utils/var.directive';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { PageSizeSelectorComponent } from './page-size-selector.component';
 
 describe('PageSizeSelectorComponent', () => {
 

@@ -1,18 +1,38 @@
-import { ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
-import { MenuService } from './menu.service';
-import { distinctUntilChanged, map, mergeMap, switchMap } from 'rxjs/operators';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { hasValue, isNotEmptyOperator } from '../empty.util';
-import { MenuSectionComponent } from './menu-section/menu-section.component';
-import { getComponentForMenu } from './menu-section.decorator';
-import { compareArraysUsingIds } from '../../item-page/simple/item-types/shared/item-relationships-utils';
-import { MenuSection } from './menu-section.model';
-import { MenuID } from './menu-id.model';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Injector,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  mergeMap,
+  switchMap,
+} from 'rxjs/operators';
+
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { compareArraysUsingIds } from '../../item-page/simple/item-types/shared/item-relationships-utils';
+import {
+  hasValue,
+  isNotEmptyOperator,
+} from '../empty.util';
 import { ThemeService } from '../theme-support/theme.service';
+import { MenuService } from './menu.service';
+import { MenuID } from './menu-id.model';
+import { getComponentForMenu } from './menu-section.decorator';
+import { MenuSection } from './menu-section.model';
+import { MenuSectionComponent } from './menu-section/menu-section.component';
 
 /**
  * A basic implementation of a MenuComponent

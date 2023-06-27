@@ -1,34 +1,55 @@
-import { Component, EventEmitter, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable, Subscription, BehaviorSubject } from 'rxjs';
+import {
+  Component,
+  EventEmitter,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { hasValue, isNotEmpty } from '../../../../empty.util';
-import { map, skip, switchMap, take } from 'rxjs/operators';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { SelectableListState } from '../../../../object-list/selectable-list/selectable-list.reducer';
-import { ListableObject } from '../../../../object-collection/shared/listable-object.model';
-import { RelationshipOptions } from '../../models/relationship-options.model';
-import { SearchResult } from '../../../../search/models/search-result.model';
+import { Store } from '@ngrx/store';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  skip,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { AppState } from '../../../../../app.reducer';
+import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
+import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
+import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
+import { Context } from '../../../../../core/shared/context.model';
+import { ExternalSource } from '../../../../../core/shared/external-source.model';
 import { Item } from '../../../../../core/shared/item.model';
+import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
+import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
+import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../../empty.util';
+import { ListableObject } from '../../../../object-collection/shared/listable-object.model';
+import { SelectableListState } from '../../../../object-list/selectable-list/selectable-list.reducer';
+import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import { SearchResult } from '../../../../search/models/search-result.model';
+import { followLink } from '../../../../utils/follow-link-config.model';
+import { RelationshipOptions } from '../../models/relationship-options.model';
 import {
   AddRelationshipAction,
   RemoveRelationshipAction,
   UpdateRelationshipNameVariantAction,
 } from './relationship.actions';
-import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../../../app.reducer';
-import { Context } from '../../../../../core/shared/context.model';
-import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
-import { ExternalSource } from '../../../../../core/shared/external-source.model';
-import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
-import { Router } from '@angular/router';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
-import { followLink } from '../../../../utils/follow-link-config.model';
-import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',

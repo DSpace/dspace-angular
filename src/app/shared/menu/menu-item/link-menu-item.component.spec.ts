@@ -1,12 +1,20 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { LinkMenuItemComponent } from './link-menu-item.component';
-import { RouterLinkDirectiveStub } from '../../testing/router-link-directive.stub';
+import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
 import { RouterStub } from '../../testing/router.stub';
-import { Router } from '@angular/router';
+import { RouterLinkDirectiveStub } from '../../testing/router-link-directive.stub';
+import { LinkMenuItemComponent } from './link-menu-item.component';
 
 describe('LinkMenuItemComponent', () => {
   let component: LinkMenuItemComponent;

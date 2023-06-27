@@ -1,5 +1,12 @@
-import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
-import { fakeAsync, waitForAsync } from '@angular/core/testing';
+import {
+  fakeAsync,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+} from '@angular/forms';
+
 import { ConfirmedValidator } from './confirmed.validator';
 
 describe('ConfirmedValidator', () => {

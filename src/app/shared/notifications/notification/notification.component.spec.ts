@@ -1,20 +1,38 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { ChangeDetectorRef, DebugElement } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { BehaviorSubject } from 'rxjs';
 
-import { Store, StoreModule } from '@ngrx/store';
-
-import { NotificationComponent } from './notification.component';
-import { NotificationsService } from '../notifications.service';
+import { storeModuleConfig } from '../../../app.reducer';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { Notification } from '../models/notification.model';
+import { NotificationOptions } from '../models/notification-options.model';
 import { NotificationType } from '../models/notification-type';
 import { notificationsReducer } from '../notifications.reducers';
-import { NotificationOptions } from '../models/notification-options.model';
-import { Notification } from '../models/notification.model';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { storeModuleConfig } from '../../../app.reducer';
-import { BehaviorSubject } from 'rxjs';
+import { NotificationsService } from '../notifications.service';
+import { NotificationComponent } from './notification.component';
 
 describe('NotificationComponent', () => {
 

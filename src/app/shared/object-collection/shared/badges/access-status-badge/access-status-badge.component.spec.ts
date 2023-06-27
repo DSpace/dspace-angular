@@ -1,14 +1,19 @@
-import { Item } from '../../../../../core/shared/item.model';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { AccessStatusBadgeComponent } from './access-status-badge.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AccessStatusObject } from './access-status.model';
+import { TranslateModule } from '@ngx-translate/core';
 import { AccessStatusDataService } from 'src/app/core/data/access-status-data.service';
 import { environment } from 'src/environments/environment';
+
+import { Item } from '../../../../../core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import { TruncatePipe } from '../../../../utils/truncate.pipe';
+import { AccessStatusObject } from './access-status.model';
+import { AccessStatusBadgeComponent } from './access-status-badge.component';
 
 describe('ItemAccessStatusBadgeComponent', () => {
   let component: AccessStatusBadgeComponent;

@@ -1,26 +1,41 @@
-import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { isPlatformServer } from '@angular/common';
-
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
-import { ItemDataService } from '../../core/data/item-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
-import { fadeInOut } from '../../shared/animations/fade';
-import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { ViewMode } from '../../core/shared/view-mode.model';
 import { AuthService } from '../../core/auth/auth.service';
-import { getItemPageRoute } from '../item-page-routing-paths';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { ServerResponseService } from '../../core/services/server-response.service';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { RemoteData } from '../../core/data/remote-data';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
+import {
+  LinkDefinition,
+  LinkHeadService,
+} from '../../core/services/link-head.service';
+import { ServerResponseService } from '../../core/services/server-response.service';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { Item } from '../../core/shared/item.model';
+import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { fadeInOut } from '../../shared/animations/fade';
 import { isNotEmpty } from '../../shared/empty.util';
-import { LinkDefinition, LinkHeadService } from '../../core/services/link-head.service';
+import { getItemPageRoute } from '../item-page-routing-paths';
 
 /**
  * This component renders a simple item page.

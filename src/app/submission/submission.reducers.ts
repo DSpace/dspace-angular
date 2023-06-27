@@ -1,4 +1,7 @@
-import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
+import {
+  ActionReducerMap,
+  createFeatureSelector,
+} from '@ngrx/store';
 
 import {
   submissionObjectReducer,

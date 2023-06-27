@@ -1,4 +1,7 @@
-import { ThemeAction, ThemeActionTypes } from './theme.actions';
+import {
+  ThemeAction,
+  ThemeActionTypes,
+} from './theme.actions';
 
 export interface ThemeState {
   currentTheme: string;

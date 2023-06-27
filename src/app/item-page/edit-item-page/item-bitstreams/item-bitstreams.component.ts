@@ -1,30 +1,54 @@
-import { ChangeDetectorRef, Component, NgZone, OnDestroy } from '@angular/core';
-import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
-import { filter, map, switchMap, take } from 'rxjs/operators';
-import { Observable, Subscription, zip as observableZip } from 'rxjs';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  ChangeDetectorRef,
+  Component,
+  NgZone,
+  OnDestroy,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { RequestService } from '../../../core/data/request.service';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
-import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
-import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { NoContent } from '../../../core/shared/NoContent.model';
 import { Operation } from 'fast-json-patch';
+import {
+  Observable,
+  Subscription,
+  zip as observableZip,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
+import { BundleDataService } from '../../../core/data/bundle-data.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
-import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
+import { Bitstream } from '../../../core/shared/bitstream.model';
+import { Bundle } from '../../../core/shared/bundle.model';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
+import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
+import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 
 @Component({
   selector: 'ds-item-bitstreams',

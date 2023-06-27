@@ -1,35 +1,51 @@
-import { fakeAsync, tick } from '@angular/core/testing';
-import { Meta, Title } from '@angular/platform-browser';
-import { NavigationEnd, Router } from '@angular/router';
-
+import {
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
+import {
+  Meta,
+  Title,
+} from '@angular/platform-browser';
+import {
+  NavigationEnd,
+  Router,
+} from '@angular/router';
+import { getMockStore } from '@ngrx/store/testing';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf, of } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+  of,
+} from 'rxjs';
 
-import { RemoteData } from '../data/remote-data';
-import { Item } from '../shared/item.model';
-
+import { AppConfig } from '../../../config/app-config.interface';
 import {
   ItemMock,
   MockBitstream1,
-  MockBitstream3,
   MockBitstream2,
+  MockBitstream3,
 } from '../../shared/mocks/item.mock';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { PaginatedList } from '../data/paginated-list.model';
-import { Bitstream } from '../shared/bitstream.model';
-import { MetadataValue } from '../shared/metadata.models';
-
-import { MetadataService } from './metadata.service';
-import { RootDataService } from '../data/root-data.service';
-import { Bundle } from '../shared/bundle.model';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
-import { HardRedirectService } from '../services/hard-redirect.service';
-import { getMockStore } from '@ngrx/store/testing';
-import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
-import { AppConfig } from '../../../config/app-config.interface';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { RootDataService } from '../data/root-data.service';
+import { HardRedirectService } from '../services/hard-redirect.service';
+import { Bitstream } from '../shared/bitstream.model';
+import { Bundle } from '../shared/bundle.model';
+import { Item } from '../shared/item.model';
+import { MetadataValue } from '../shared/metadata.models';
+import {
+  AddMetaTagAction,
+  ClearMetaTagAction,
+} from './meta-tag.actions';
+import { MetadataService } from './metadata.service';
 
 describe('MetadataService', () => {
   let metadataService: MetadataService;

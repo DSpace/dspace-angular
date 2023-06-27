@@ -1,23 +1,40 @@
 import {
+  ChangeDetectorRef,
   Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  ElementRef,
+  HostBinding,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
   ViewChild,
   ViewContainerRef,
-  ComponentRef,
-  SimpleChanges,
-  OnInit,
-  OnDestroy,
-  ComponentFactoryResolver,
-  ChangeDetectorRef,
-  OnChanges,
-  HostBinding,
-  ElementRef,
 } from '@angular/core';
-import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
-import { combineLatest, from as fromPromise, Observable, of as observableOf, Subscription, BehaviorSubject } from 'rxjs';
-import { ThemeService } from './theme.service';
-import { catchError, switchMap, map, tap } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  combineLatest,
+  from as fromPromise,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
+
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
 import { BASE_THEME_NAME } from './theme.constants';
+import { ThemeService } from './theme.service';
 
 @Component({
   selector: 'ds-themed',

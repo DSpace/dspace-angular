@@ -1,4 +1,13 @@
-import { animate, animateChild, group, query, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  animateChild,
+  group,
+  query,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 export const slide = trigger('slide', [
   state('expanded', style({ height: '*' })),

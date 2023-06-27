@@ -1,9 +1,7 @@
 import { all } from 'deepmerge';
 
-import { environment } from '../environments/environment';
-
 import { hasNoValue } from '../app/shared/empty.util';
-
+import { environment } from '../environments/environment';
 import { AppConfig } from './app-config.interface';
 import { ThemeConfig } from './theme.model';
 
@@ -49,6 +47,6 @@ const getDefaultThemeConfig = (): ThemeConfig => {
 
 export {
   extendEnvironmentWithAppConfig,
-  mergeConfig,
   getDefaultThemeConfig,
+  mergeConfig,
 };

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {CreateCollectionParentSelectorComponent} from './create-collection-parent-selector.component';
 import {ThemedComponent} from 'src/app/shared/theme-support/themed.component';
+
+import {CreateCollectionParentSelectorComponent} from './create-collection-parent-selector.component';
 
 /**
  * Themed wrapper for CreateCollectionParentSelectorComponent

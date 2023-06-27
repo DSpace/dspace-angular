@@ -1,25 +1,52 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
-
-import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, map, merge, switchMap, tap } from 'rxjs/operators';
-import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-import isEqual from 'lodash/isEqual';
-
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { DynamicTagModel } from './dynamic-tag.model';
-import { Chips } from '../../../../chips/models/chips.model';
-import { hasValue, isNotEmpty } from '../../../../../empty.util';
-import { environment } from '../../../../../../../environments/environment';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import {
-  PaginatedList,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
+import {
+  NgbTypeahead,
+  NgbTypeaheadSelectItemEvent,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  DynamicFormLayoutService,
+  DynamicFormValidationService,
+} from '@ng-dynamic-forms/core';
+import isEqual from 'lodash/isEqual';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  merge,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
+
+import { environment } from '../../../../../../../environments/environment';
+import {
   buildPaginatedList,
+  PaginatedList,
 } from '../../../../../../core/data/paginated-list.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../../../empty.util';
+import { Chips } from '../../../../chips/models/chips.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
+import { DynamicTagModel } from './dynamic-tag.model';
 
 /**
  * Component representing a tag input field

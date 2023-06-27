@@ -1,12 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { Process } from '../processes/process.model';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
+import { LinkService } from '../../core/cache/builders/link.service';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { LinkService } from '../../core/cache/builders/link.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { Process } from '../processes/process.model';
 import { Script } from '../scripts/script.model';
 
 /**

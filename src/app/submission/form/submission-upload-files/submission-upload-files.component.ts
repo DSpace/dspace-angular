@@ -1,19 +1,33 @@
-import { Component, Input, OnChanges } from '@angular/core';
-
+import {
+  Component,
+  Input,
+  OnChanges,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { first, take } from 'rxjs/operators';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  first,
+  take,
+} from 'rxjs/operators';
 
-import { SectionsService } from '../../sections/sections.service';
-import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
+import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { normalizeSectionData } from '../../../core/submission/submission-response-parsing.service';
-import { SubmissionService } from '../../submission.service';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
-import parseSectionErrors from '../../utils/parseSectionErrors';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
+import { SectionsService } from '../../sections/sections.service';
 import { SectionsType } from '../../sections/sections-type';
+import { SubmissionService } from '../../submission.service';
+import parseSectionErrors from '../../utils/parseSectionErrors';
 
 /**
  * This component represents the drop zone that provides to add files to the submission.

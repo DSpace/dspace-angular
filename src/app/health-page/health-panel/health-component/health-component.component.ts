@@ -1,9 +1,11 @@
-import { Component, Input } from '@angular/core';
-
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { HealthComponent } from '../../models/health-component.model';
 import { AlertType } from '../../../shared/alert/aletr-type';
+import { HealthComponent } from '../../models/health-component.model';
 
 /**
  * A component to render a "health component" object.

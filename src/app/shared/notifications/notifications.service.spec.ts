@@ -1,16 +1,31 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { NotificationsService } from './notifications.service';
-import { NotificationsBoardComponent } from './notifications-board/notifications-board.component';
-import { NotificationComponent } from './notification/notification.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { notificationsReducer } from './notifications.reducers';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { NewNotificationAction, RemoveAllNotificationsAction, RemoveNotificationAction } from './notifications.actions';
+
+import { storeModuleConfig } from '../../app.reducer';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { Notification } from './models/notification.model';
 import { NotificationType } from './models/notification-type';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-import { storeModuleConfig } from '../../app.reducer';
+import { NotificationComponent } from './notification/notification.component';
+import {
+  NewNotificationAction,
+  RemoveAllNotificationsAction,
+  RemoveNotificationAction,
+} from './notifications.actions';
+import { notificationsReducer } from './notifications.reducers';
+import { NotificationsService } from './notifications.service';
+import { NotificationsBoardComponent } from './notifications-board/notifications-board.component';
 
 describe('NotificationsService test', () => {
   const store: Store<Notification> = jasmine.createSpyObj('store', {

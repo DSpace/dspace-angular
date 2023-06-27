@@ -1,17 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
 import { Context } from 'src/app/core/shared/context.model';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { Item } from '../../../core/shared/item.model';
+
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { TranslateService } from '@ngx-translate/core';
-import { hasValue } from '../../empty.util';
+import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { hasValue } from '../../empty.util';
+import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 
 export const ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID = 'item-access-control-select-bitstreams';
 

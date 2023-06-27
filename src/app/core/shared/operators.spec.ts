@@ -1,21 +1,31 @@
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '../../shared/remote-data.utils';
 import { GetRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
+import { RequestEntry } from '../data/request-entry.model';
+import { redirectOn4xx } from './authorized.operators';
 import {
   getAllSucceededRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from './operators';
-import { of as observableOf } from 'rxjs';
 import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-} from '../../shared/remote-data.utils';
-import { getRequestFromRequestHref, getRequestFromRequestUUID, getResponseFromEntry, sendRequest } from './request.operators';
-import { redirectOn4xx } from './authorized.operators';
-import { RequestEntry } from '../data/request-entry.model';
+  getRequestFromRequestHref,
+  getRequestFromRequestUUID,
+  getResponseFromEntry,
+  sendRequest,
+} from './request.operators';
 
 /* eslint-disable @typescript-eslint/no-shadow */
 

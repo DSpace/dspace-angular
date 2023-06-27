@@ -1,24 +1,34 @@
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Router } from '@angular/router';
-
+import {
+  NgbActiveModal,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TestScheduler } from 'rxjs/testing';
-import { of as observableOf } from 'rxjs';
 import { getTestScheduler } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
-import { SubmissionImportExternalPreviewComponent } from './submission-import-external-preview.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { SubmissionService } from '../../submission.service';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { ExternalSourceEntry } from '../../../core/shared/external-source-entry.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
-import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
+import { createTestComponent } from '../../../shared/testing/utils.test';
+import { SubmissionService } from '../../submission.service';
+import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
+import { SubmissionImportExternalPreviewComponent } from './submission-import-external-preview.component';
 
 const externalEntry = Object.assign(new ExternalSourceEntry(), {
   id: '0001-0001-0001-0001',

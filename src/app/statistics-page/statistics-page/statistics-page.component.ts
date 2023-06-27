@@ -1,18 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
-import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
-import { map, switchMap } from 'rxjs/operators';
-import { UsageReport } from '../../core/statistics/models/usage-report.model';
-import { RemoteData } from '../../core/data/remote-data';
 import {
-  getRemoteDataPayload,
-  getFirstSucceededRemoteData,
-} from '../../core/shared/operators';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
 import { AuthService } from '../../core/auth/auth.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { RemoteData } from '../../core/data/remote-data';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../core/shared/operators';
+import { UsageReport } from '../../core/statistics/models/usage-report.model';
+import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 
 /**
  * Class representing an abstract statistics page component.

@@ -1,22 +1,29 @@
 import { TestBed } from '@angular/core/testing';
-import { BrowserKlaroService, COOKIE_MDFIELD } from './browser-klaro.service';
-import { getMockTranslateService } from '../mocks/translate.service.mock';
-import { of as observableOf } from 'rxjs';
-import { RestResponse } from '../../core/cache/response.models';
-import { EPerson } from '../../core/eperson/models/eperson.model';
 import { TranslateService } from '@ngx-translate/core';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { AuthService } from '../../core/auth/auth.service';
-import { CookieService } from '../../core/services/cookie.service';
 import { getTestScheduler } from 'jasmine-marbles';
-import { MetadataValue } from '../../core/shared/metadata.models';
 import clone from 'lodash/clone';
 import cloneDeep from 'lodash/cloneDeep';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
-import { ANONYMOUS_STORAGE_NAME_KLARO } from './klaro-configuration';
+import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+
+import { AuthService } from '../../core/auth/auth.service';
+import { RestResponse } from '../../core/cache/response.models';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { CookieService } from '../../core/services/cookie.service';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
+import { MetadataValue } from '../../core/shared/metadata.models';
+import { getMockTranslateService } from '../mocks/translate.service.mock';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../remote-data.utils';
+import {
+  BrowserKlaroService,
+  COOKIE_MDFIELD,
+} from './browser-klaro.service';
+import { ANONYMOUS_STORAGE_NAME_KLARO } from './klaro-configuration';
 
 describe('BrowserKlaroService', () => {
   const trackingIdProp = 'google.analytics.key';

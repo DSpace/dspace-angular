@@ -1,37 +1,70 @@
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA, SimpleChange, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+  SimpleChange,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { RestResponse } from '../../../../core/cache/response.models';
-import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
+import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
 import { Group } from '../../../../core/eperson/models/group.model';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { GroupMock, GroupMock2 } from '../../../../shared/testing/group-mock';
-import { ReviewersListComponent } from './reviewers-list.component';
-import { EPersonMock, EPersonMock2 } from '../../../../shared/testing/eperson.mock';
-import {
-  createSuccessfulRemoteDataObject$,
-  createNoContentRemoteDataObject$,
-} from '../../../../shared/remote-data.utils';
-import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
-import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { RouterMock } from '../../../../shared/mocks/router.mock';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../shared/remote-data.utils';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '../../../../shared/testing/eperson.mock';
+import {
+  GroupMock,
+  GroupMock2,
+} from '../../../../shared/testing/group-mock';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
-import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
+import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
+import { ReviewersListComponent } from './reviewers-list.component';
 
 describe('ReviewersListComponent', () => {
   let component: ReviewersListComponent;

@@ -1,13 +1,25 @@
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import {
+  ChangeDetectionStrategy,
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { MetadataUriValuesComponent } from './metadata-uri-values.component';
-import { isNotEmpty } from '../../../shared/empty.util';
-import { MetadataValue } from '../../../core/shared/metadata.models';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
 import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment';
+import { MetadataValue } from '../../../core/shared/metadata.models';
+import { isNotEmpty } from '../../../shared/empty.util';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { MetadataUriValuesComponent } from './metadata-uri-values.component';
 
 let comp: MetadataUriValuesComponent;
 let fixture: ComponentFixture<MetadataUriValuesComponent>;

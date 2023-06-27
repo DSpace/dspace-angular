@@ -1,6 +1,7 @@
-import { ArrayMoveChangeAnalyzer } from './array-move-change-analyzer.service';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Operation } from 'fast-json-patch';
+
+import { ArrayMoveChangeAnalyzer } from './array-move-change-analyzer.service';
 
 /**
  * Helper class for creating move tests

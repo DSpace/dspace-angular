@@ -1,14 +1,25 @@
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ItemPageAbstractFieldComponent } from './item-page-abstract-field.component';
-import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
-import { SharedModule } from '../../../../../shared/shared.module';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
-import { By } from '@angular/platform-browser';
 import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
+import { SharedModule } from '../../../../../shared/shared.module';
 import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
+import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
+import { ItemPageAbstractFieldComponent } from './item-page-abstract-field.component';
 
 let comp: ItemPageAbstractFieldComponent;
 let fixture: ComponentFixture<ItemPageAbstractFieldComponent>;

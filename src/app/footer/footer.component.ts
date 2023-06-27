@@ -1,10 +1,14 @@
-import { Component, Optional } from '@angular/core';
-import { hasValue } from '../shared/empty.util';
-import { KlaroService } from '../shared/cookies/klaro.service';
-import { environment } from '../../environments/environment';
+import {
+  Component,
+  Optional,
+} from '@angular/core';
 import { Observable } from 'rxjs';
+
+import { environment } from '../../environments/environment';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { KlaroService } from '../shared/cookies/klaro.service';
+import { hasValue } from '../shared/empty.util';
 
 @Component({
   selector: 'ds-footer',

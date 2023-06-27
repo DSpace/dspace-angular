@@ -1,20 +1,34 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateModule } from '@ngx-translate/core';
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { MenuService } from './menu.service';
-import { MenuComponent } from './menu.component';
-import { MenuServiceStub } from '../testing/menu-service.stub';
-import { of as observableOf } from 'rxjs';
-import { Router, ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuSection } from './menu-section.model';
-import { MenuID } from './menu-id.model';
-import { Item } from '../../core/shared/item.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
-import { ThemeService } from '../theme-support/theme.service';
+import { Item } from '../../core/shared/item.model';
 import { getMockThemeService } from '../mocks/theme-service.mock';
+import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import { MenuServiceStub } from '../testing/menu-service.stub';
+import { ThemeService } from '../theme-support/theme.service';
+import { MenuComponent } from './menu.component';
+import { MenuService } from './menu.service';
+import { MenuID } from './menu-id.model';
+import { MenuSection } from './menu-section.model';
 
 describe('MenuComponent', () => {
   let comp: MenuComponent;

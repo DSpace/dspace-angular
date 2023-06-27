@@ -2,10 +2,11 @@
 /**
  * The list of RelationshipAction type definitions
  */
-import { type } from '../../../../ngrx/type';
 import { Action } from '@ngrx/store';
+
 import { Item } from '../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
+import { type } from '../../../../ngrx/type';
 
 export const RelationshipActionTypes = {
   ADD_RELATIONSHIP: type('dspace/relationship/ADD_RELATIONSHIP'),

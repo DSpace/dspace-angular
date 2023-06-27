@@ -1,20 +1,33 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '../../../shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { of as observableOf } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { CollectionMetadataComponent } from './collection-metadata.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { Item } from '../../../core/shared/item.model';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { ItemTemplateDataService } from '../../../core/data/item-template-data.service';
-import { Collection } from '../../../core/shared/collection.model';
 import { RequestService } from '../../../core/data/request.service';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { Collection } from '../../../core/shared/collection.model';
+import { Item } from '../../../core/shared/item.model';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { SharedModule } from '../../../shared/shared.module';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
+import { CollectionMetadataComponent } from './collection-metadata.component';
 
 describe('CollectionMetadataComponent', () => {
   let comp: CollectionMetadataComponent;

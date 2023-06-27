@@ -1,8 +1,9 @@
-import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { Component } from '@angular/core';
-import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
-import { metadataRepresentationComponent } from '../../../metadata-representation/metadata-representation.decorator';
+
+import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../../../../core/shared/value-list-browse-definition.resource-type';
+import { metadataRepresentationComponent } from '../../../metadata-representation/metadata-representation.decorator';
+import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 //@metadataRepresentationComponent('Publication', MetadataRepresentationType.PlainText)
 // For now, authority controlled fields are rendered the same way as plain text fields
 //@metadataRepresentationComponent('Publication', MetadataRepresentationType.AuthorityControlled)

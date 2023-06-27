@@ -1,6 +1,19 @@
-import { Inject, Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import { isNotEmpty } from '../../shared/empty.util';
 
 /**

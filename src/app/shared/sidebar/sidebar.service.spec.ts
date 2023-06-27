@@ -1,10 +1,17 @@
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Store } from '@ngrx/store';
-import { SidebarService } from './sidebar.service';
-import { AppState } from '../../app.reducer';
-import { TestBed, waitForAsync } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
-import { SidebarCollapseAction, SidebarExpandAction } from './sidebar.actions';
+
+import { AppState } from '../../app.reducer';
 import { HostWindowService } from '../host-window.service';
+import {
+  SidebarCollapseAction,
+  SidebarExpandAction,
+} from './sidebar.actions';
+import { SidebarService } from './sidebar.service';
 
 describe('SidebarService', () => {
   let service: SidebarService;

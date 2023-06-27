@@ -1,25 +1,48 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute, Router } from '@angular/router';
-import { of as observableOf } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { CollectionSourceComponent } from './collection-source.component';
-import { ContentSource, ContentSourceHarvestType } from '../../../core/shared/content-source.model';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  DynamicFormControlModel,
+  DynamicFormService,
+} from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
+import { RequestService } from '../../../core/data/request.service';
+import { Collection } from '../../../core/shared/collection.model';
+import {
+  ContentSource,
+  ContentSourceHarvestType,
+} from '../../../core/shared/content-source.model';
+import { hasValue } from '../../../shared/empty.util';
+import {
+  INotification,
+  Notification,
+} from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { DynamicFormControlModel, DynamicFormService } from '@ng-dynamic-forms/core';
-import { hasValue } from '../../../shared/empty.util';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
 import { RouterStub } from '../../../shared/testing/router.stub';
-import { By } from '@angular/platform-browser';
-import { Collection } from '../../../core/shared/collection.model';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
+import { CollectionSourceComponent } from './collection-source.component';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');

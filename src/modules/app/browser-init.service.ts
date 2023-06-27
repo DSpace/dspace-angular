@@ -5,33 +5,51 @@
  *
  * http://www.dspace.org/license/
  */
-import { InitService } from '../../app/init.service';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../app/app.reducer';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 import { TransferState } from '@angular/platform-browser';
-import { APP_CONFIG, APP_CONFIG_STATE, AppConfig } from '../../config/app-config.interface';
-import { DefaultAppConfig } from '../../config/default-app-config';
-import { extendEnvironmentWithAppConfig } from '../../config/config.util';
-import { environment } from '../../environments/environment';
-import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
-import { Inject, Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  firstValueFrom,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  find,
+  map,
+} from 'rxjs/operators';
+
+import { logStartupMessage } from '../../../startup-message';
+import { AppState } from '../../app/app.reducer';
+import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
+import { AuthService } from '../../app/core/auth/auth.service';
+import { coreSelector } from '../../app/core/core.selectors';
+import { RootDataService } from '../../app/core/data/root-data.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
+import { MetadataService } from '../../app/core/metadata/metadata.service';
+import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
+import { InitService } from '../../app/init.service';
+import { KlaroService } from '../../app/shared/cookies/klaro.service';
+import { isNotEmpty } from '../../app/shared/empty.util';
+import { MenuService } from '../../app/shared/menu/menu.service';
+import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
-import { MetadataService } from '../../app/core/metadata/metadata.service';
-import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
-import { KlaroService } from '../../app/shared/cookies/klaro.service';
-import { AuthService } from '../../app/core/auth/auth.service';
-import { ThemeService } from '../../app/shared/theme-support/theme.service';
-import { StoreAction, StoreActionTypes } from '../../app/store.actions';
-import { coreSelector } from '../../app/core/core.selectors';
-import { filter, find, map } from 'rxjs/operators';
-import { isNotEmpty } from '../../app/shared/empty.util';
-import { logStartupMessage } from '../../../startup-message';
-import { MenuService } from '../../app/shared/menu/menu.service';
-import { RootDataService } from '../../app/core/data/root-data.service';
-import { firstValueFrom, Subscription } from 'rxjs';
+import {
+  StoreAction,
+  StoreActionTypes,
+} from '../../app/store.actions';
+import {
+  APP_CONFIG,
+  APP_CONFIG_STATE,
+  AppConfig,
+} from '../../config/app-config.interface';
+import { extendEnvironmentWithAppConfig } from '../../config/config.util';
+import { DefaultAppConfig } from '../../config/default-app-config';
+import { environment } from '../../environments/environment';
 
 /**
  * Performs client-side initialization.

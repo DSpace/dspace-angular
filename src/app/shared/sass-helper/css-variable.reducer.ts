@@ -1,5 +1,8 @@
-import { CSSVariableAction, CSSVariableActionTypes } from './css-variable.actions';
 import { KeyValuePair } from '../key-value-pair.model';
+import {
+  CSSVariableAction,
+  CSSVariableActionTypes,
+} from './css-variable.actions';
 
 export interface CSSVariablesState {
   [name: string]: string;

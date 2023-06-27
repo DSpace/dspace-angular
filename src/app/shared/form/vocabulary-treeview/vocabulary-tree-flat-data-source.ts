@@ -1,8 +1,15 @@
-import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import {
+  CollectionViewer,
+  DataSource,
+} from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
-
-import { BehaviorSubject, merge, Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  merge,
+  Observable,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 
 /**

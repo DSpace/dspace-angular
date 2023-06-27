@@ -1,8 +1,12 @@
 // eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
 
+import {
+  SidebarCollapseAction,
+  SidebarExpandAction,
+  SidebarToggleAction,
+} from './sidebar.actions';
 import { sidebarReducer } from './sidebar.reducer';
-import { SidebarCollapseAction, SidebarExpandAction, SidebarToggleAction } from './sidebar.actions';
 
 class NullAction extends SidebarCollapseAction {
   type = null;

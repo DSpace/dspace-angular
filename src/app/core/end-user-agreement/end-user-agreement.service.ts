@@ -1,10 +1,18 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
-import { CookieService } from '../services/cookie.service';
-import { Observable, of as observableOf } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { hasValue } from '../../shared/empty.util';
+import { AuthService } from '../auth/auth.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
+import { CookieService } from '../services/cookie.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 
 export const END_USER_AGREEMENT_COOKIE = 'hasAgreedEndUser';

@@ -1,19 +1,28 @@
-import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { SearchService } from '../../../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
+import { hasValue } from '../../../../../empty.util';
+import { currentPath } from '../../../../../utils/route.utils';
 import { FacetValue } from '../../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import {
   RANGE_FILTER_MAX_SUFFIX,
   RANGE_FILTER_MIN_SUFFIX,
 } from '../../search-range-filter/search-range-filter.component';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { hasValue } from '../../../../../empty.util';
-import { currentPath } from '../../../../../utils/route.utils';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 
 const rangeDelimiter = '-';
 

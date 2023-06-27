@@ -1,9 +1,23 @@
 import { Injectable } from '@angular/core';
-import { MemoizedSelector, select, Store } from '@ngrx/store';
+import {
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
-import { SelectableListState } from './selectable-list.reducer';
-import { AppState, keySelector } from '../../../app.reducer';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
+
+import {
+  AppState,
+  keySelector,
+} from '../../../app.reducer';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../empty.util';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import {
   SelectableListDeselectAction,
@@ -12,7 +26,7 @@ import {
   SelectableListSelectAction,
   SelectableListSelectSingleAction,
 } from './selectable-list.actions';
-import { hasValue, isNotEmpty } from '../../empty.util';
+import { SelectableListState } from './selectable-list.reducer';
 
 const selectableListsStateSelector = (state: AppState) => state.selectableLists;
 

@@ -1,12 +1,20 @@
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { RemoteData } from '../data/remote-data';
-import { PaginatedList } from '../data/paginated-list.model';
-import { hasValue, hasValueOperator, isNotEmptyOperator } from '../../shared/empty.util';
-import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
-import { createSelector, select, Store } from '@ngrx/store';
-import { AppState } from '../../app.reducer';
-import { MetadataRegistryState } from '../../admin/admin-registries/metadata-registry/metadata-registry.reducers';
+import {
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  tap,
+} from 'rxjs/operators';
+
 import {
   MetadataRegistryCancelFieldAction,
   MetadataRegistryCancelSchemaAction,
@@ -19,17 +27,25 @@ import {
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction,
 } from '../../admin/admin-registries/metadata-registry/metadata-registry.actions';
-import { map, mergeMap, tap } from 'rxjs/operators';
+import { MetadataRegistryState } from '../../admin/admin-registries/metadata-registry/metadata-registry.reducers';
+import { AppState } from '../../app.reducer';
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmptyOperator,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { MetadataField } from '../metadata/metadata-field.model';
-import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
-import { MetadataFieldDataService } from '../data/metadata-field-data.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RequestParam } from '../cache/models/request-param.model';
-import { NoContent } from '../shared/NoContent.model';
 import { FindListOptions } from '../data/find-list-options.model';
+import { MetadataFieldDataService } from '../data/metadata-field-data.service';
+import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { MetadataField } from '../metadata/metadata-field.model';
+import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { NoContent } from '../shared/NoContent.model';
+import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 
 const metadataRegistryStateSelector = (state: AppState) => state.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);

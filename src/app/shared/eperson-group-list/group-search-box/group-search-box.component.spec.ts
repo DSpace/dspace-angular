@@ -1,12 +1,23 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { createTestComponent } from '../../testing/utils.test';
-import { GroupSearchBoxComponent } from './group-search-box.component';
 import { SearchEvent } from '../eperson-group-list.component';
+import { GroupSearchBoxComponent } from './group-search-box.component';
 
 describe('GroupSearchBoxComponent test suite', () => {
   let comp: GroupSearchBoxComponent;

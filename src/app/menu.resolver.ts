@@ -1,52 +1,50 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { combineLatest as observableCombineLatest, combineLatest, Observable } from 'rxjs';
-import { MenuID } from './shared/menu/menu-id.model';
-import { MenuState } from './shared/menu/menu-state.model';
-import { MenuItemType } from './shared/menu/menu-item-type.model';
-import { LinkMenuItemModel } from './shared/menu/menu-item/models/link.model';
-import { getFirstCompletedRemoteData } from './core/shared/operators';
-import { PaginatedList } from './core/data/paginated-list.model';
-import { BrowseDefinition } from './core/shared/browse-definition.model';
-import { RemoteData } from './core/data/remote-data';
-import { TextMenuItemModel } from './shared/menu/menu-item/models/text.model';
-import { BrowseService } from './core/browse/browse.service';
-import { MenuService } from './shared/menu/menu.service';
-import { filter, find, map, take } from 'rxjs/operators';
-import { hasValue } from './shared/empty.util';
-import { FeatureID } from './core/data/feature-authorization/feature-id';
 import {
-  ThemedCreateCommunityParentSelectorComponent,
-} from './shared/dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
-import { OnClickMenuItemModel } from './shared/menu/menu-item/models/onclick.model';
-import {
-  ThemedCreateCollectionParentSelectorComponent,
-} from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
-import {
-  ThemedCreateItemParentSelectorComponent,
-} from './shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
-import {
-  ThemedEditCommunitySelectorComponent,
-} from './shared/dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
-import {
-  ThemedEditCollectionSelectorComponent,
-} from './shared/dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
-import {
-  ThemedEditItemSelectorComponent,
-} from './shared/dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
-import {
-  ExportMetadataSelectorComponent,
-} from './shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
-import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  combineLatest,
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  find,
+  map,
+  take,
+} from 'rxjs/operators';
+
+import { BrowseService } from './core/browse/browse.service';
+import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from './core/data/feature-authorization/feature-id';
+import { PaginatedList } from './core/data/paginated-list.model';
 import {
   METADATA_EXPORT_SCRIPT_NAME,
   METADATA_IMPORT_SCRIPT_NAME,
   ScriptDataService,
 } from './core/data/processes/script-data.service';
-import {
-  ExportBatchSelectorComponent,
-} from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
+import { RemoteData } from './core/data/remote-data';
+import { BrowseDefinition } from './core/shared/browse-definition.model';
+import { getFirstCompletedRemoteData } from './core/shared/operators';
+import { ThemedCreateCollectionParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
+import { ThemedCreateCommunityParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
+import { ThemedCreateItemParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
+import { ThemedEditCollectionSelectorComponent } from './shared/dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
+import { ThemedEditCommunitySelectorComponent } from './shared/dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
+import { ThemedEditItemSelectorComponent } from './shared/dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
+import { ExportBatchSelectorComponent } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
+import { ExportMetadataSelectorComponent } from './shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
+import { hasValue } from './shared/empty.util';
+import { MenuService } from './shared/menu/menu.service';
+import { MenuID } from './shared/menu/menu-id.model';
+import { LinkMenuItemModel } from './shared/menu/menu-item/models/link.model';
+import { OnClickMenuItemModel } from './shared/menu/menu-item/models/onclick.model';
+import { TextMenuItemModel } from './shared/menu/menu-item/models/text.model';
+import { MenuItemType } from './shared/menu/menu-item-type.model';
+import { MenuState } from './shared/menu/menu-state.model';
 
 /**
  * Creates all of the app's menus

@@ -1,6 +1,15 @@
-import { autoserialize, deserialize, deserializeAs } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  deserializeAs,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { link, typedObject } from '../../cache/builders/build-decorators';
+
+import {
+  link,
+  typedObject,
+} from '../../cache/builders/build-decorators';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { RemoteData } from '../../data/remote-data';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
@@ -9,7 +18,6 @@ import { ResourceType } from '../resource-type';
 import { ItemType } from './item-type.model';
 import { ITEM_TYPE } from './item-type.resource-type';
 import { RELATIONSHIP_TYPE } from './relationship-type.resource-type';
-import { CacheableObject } from '../../cache/cacheable-object.model';
 
 /**
  * Describes a type of Relationship between multiple possible Items

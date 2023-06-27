@@ -1,19 +1,34 @@
-import { ExternalSourceDataService } from './external-source-data.service';
-import { SearchService } from '../shared/search/search.service';
-import { concat, distinctUntilChanged, map, multicast, startWith, take, takeWhile } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import {
+  Observable,
+  ReplaySubject,
+} from 'rxjs';
+import {
+  concat,
+  distinctUntilChanged,
+  map,
+  multicast,
+  startWith,
+  take,
+  takeWhile,
+} from 'rxjs/operators';
+
+import { RelationshipOptions } from '../../shared/form/builder/models/relationship-options.model';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { Observable, ReplaySubject } from 'rxjs';
-import { RemoteData } from './remote-data';
-import { PaginatedList } from './paginated-list.model';
 import { SearchResult } from '../../shared/search/models/search-result.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { RelationshipOptions } from '../../shared/form/builder/models/relationship-options.model';
-import { Item } from '../shared/item.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { getAllSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
-import { Injectable } from '@angular/core';
 import { ExternalSource } from '../shared/external-source.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
+import { Item } from '../shared/item.model';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../shared/operators';
+import { SearchService } from '../shared/search/search.service';
+import { ExternalSourceDataService } from './external-source-data.service';
+import { PaginatedList } from './paginated-list.model';
+import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 
 /**

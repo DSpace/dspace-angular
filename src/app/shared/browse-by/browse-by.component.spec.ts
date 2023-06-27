@@ -1,52 +1,62 @@
-import { BrowseByComponent } from './browse-by.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { By } from '@angular/platform-browser';
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { Item } from '../../core/shared/item.model';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { AccessControlRoutingModule } from '../../access-control/access-control-routing.module';
+import { BrowseByRoutingModule } from '../../browse-by/browse-by-routing.module';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
+import { GroupDataService } from '../../core/eperson/group-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import {
-  ListableObjectComponentLoaderComponent,
-} from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { LinkHeadService } from '../../core/services/link-head.service';
+import { RouteService } from '../../core/services/route.service';
+import { BrowseEntry } from '../../core/shared/browse-entry.model';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
+import { Item } from '../../core/shared/item.model';
+import { ITEM } from '../../core/shared/item.resource-type';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import {
-  BrowseEntryListElementComponent,
-} from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
+import { HostWindowService } from '../host-window.service';
+import { getMockThemeService } from '../mocks/theme-service.mock';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import {
   DEFAULT_CONTEXT,
   listableObjectComponent,
 } from '../object-collection/shared/listable-object/listable-object.decorator';
-import { BrowseEntry } from '../../core/shared/browse-entry.model';
-import { ITEM } from '../../core/shared/item.resource-type';
-import { ThemeService } from '../theme-support/theme.service';
+import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { BrowseEntryListElementComponent } from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
-import { HostWindowServiceStub } from '../testing/host-window-service.stub';
-import { HostWindowService } from '../host-window.service';
-import { RouteService } from '../../core/services/route.service';
-import { routeServiceStub } from '../testing/route-service.stub';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { createPaginatedList } from '../testing/utils.test';
-import { LinkHeadService } from '../../core/services/link-head.service';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
-import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { getMockThemeService } from '../mocks/theme-service.mock';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { SharedModule } from '../shared.module';
-import { BrowseByRoutingModule } from '../../browse-by/browse-by-routing.module';
-import { AccessControlRoutingModule } from '../../access-control/access-control-routing.module';
+import { HostWindowServiceStub } from '../testing/host-window-service.stub';
+import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { routeServiceStub } from '../testing/route-service.stub';
+import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
+import { createPaginatedList } from '../testing/utils.test';
+import { ThemeService } from '../theme-support/theme.service';
+import { BrowseByComponent } from './browse-by.component';
 
 @listableObjectComponent(BrowseEntry, ViewMode.ListElement, DEFAULT_CONTEXT, 'custom')
 @Component({

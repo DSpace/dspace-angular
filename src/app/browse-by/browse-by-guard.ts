@@ -1,17 +1,35 @@
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { DSpaceObjectDataService } from '../core/data/dspace-object-data.service';
-import { hasNoValue, hasValue } from '../shared/empty.util';
-import { map, switchMap } from 'rxjs/operators';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { BrowseDefinitionDataService } from '../core/browse/browse-definition-data.service';
-import { BrowseDefinition } from '../core/shared/browse-definition.model';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
-import { DSpaceObject } from '../core/shared/dspace-object.model';
-import { RemoteData } from '../core/data/remote-data';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
 import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
+import { DSONameService } from '../core/breadcrumbs/dso-name.service';
+import { BrowseDefinitionDataService } from '../core/browse/browse-definition-data.service';
+import { DSpaceObjectDataService } from '../core/data/dspace-object-data.service';
+import { RemoteData } from '../core/data/remote-data';
+import { BrowseDefinition } from '../core/shared/browse-definition.model';
+import { DSpaceObject } from '../core/shared/dspace-object.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+} from '../shared/empty.util';
 
 @Injectable()
 /**

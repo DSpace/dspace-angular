@@ -1,4 +1,12 @@
-import { submissionObjectReducer, SubmissionObjectState } from './submission-objects.reducer';
+import { Item } from '../../core/shared/item.model';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionDefinitionResponse,
+  mockSubmissionId,
+  mockSubmissionSelfUrl,
+  mockSubmissionState,
+} from '../../shared/mocks/submission.mock';
+import { SectionsType } from '../sections/sections-type';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -32,15 +40,10 @@ import {
   SubmissionObjectAction,
   UpdateSectionDataAction,
 } from './submission-objects.actions';
-import { SectionsType } from '../sections/sections-type';
 import {
-  mockSubmissionCollectionId,
-  mockSubmissionDefinitionResponse,
-  mockSubmissionId,
-  mockSubmissionSelfUrl,
-  mockSubmissionState,
-} from '../../shared/mocks/submission.mock';
-import { Item } from '../../core/shared/item.model';
+  submissionObjectReducer,
+  SubmissionObjectState,
+} from './submission-objects.reducer';
 
 describe('submissionReducer test suite', () => {
 

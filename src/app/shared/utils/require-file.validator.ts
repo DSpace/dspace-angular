@@ -1,5 +1,9 @@
 import {Directive} from '@angular/core';
-import {NG_VALIDATORS, Validator, UntypedFormControl} from '@angular/forms';
+import {
+  NG_VALIDATORS,
+  UntypedFormControl,
+  Validator,
+} from '@angular/forms';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector

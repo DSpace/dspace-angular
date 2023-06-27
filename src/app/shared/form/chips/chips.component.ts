@@ -1,14 +1,21 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 import isObject from 'lodash/isObject';
+import { BehaviorSubject } from 'rxjs';
+import { Options } from 'sortablejs';
 
+import { DragService } from '../../../core/drag.service';
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
-import { DragService } from '../../../core/drag.service';
-import { TranslateService } from '@ngx-translate/core';
-import { Options } from 'sortablejs';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'ds-chips',

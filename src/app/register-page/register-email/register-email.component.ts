@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { TYPE_REQUEST_REGISTER } from '../../register-email-form/register-email-form.component';
 
 @Component({

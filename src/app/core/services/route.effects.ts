@@ -1,8 +1,19 @@
-import { map, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { ResetRouteStateAction, RouteActionTypes } from './route.actions';
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
+import {
+  map,
+  tap,
+} from 'rxjs/operators';
+
 import { RouterActionTypes } from '../router/router.actions';
+import {
+  ResetRouteStateAction,
+  RouteActionTypes,
+} from './route.actions';
 import { RouteService } from './route.service';
 
 @Injectable()

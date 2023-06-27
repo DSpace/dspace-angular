@@ -1,12 +1,21 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, NavigationExtras, Router, RouterStateSnapshot } from '@angular/router';
-
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  NavigationExtras,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import {
+  first,
+  map,
+} from 'rxjs/operators';
+
 import { isEmpty } from '../shared/empty.util';
-import { MYDSPACE_ROUTE } from './my-dspace-page.component';
-import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
+import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
+import { MYDSPACE_ROUTE } from './my-dspace-page.component';
 
 /**
  * Prevent unauthorized activating and loading of mydspace configuration

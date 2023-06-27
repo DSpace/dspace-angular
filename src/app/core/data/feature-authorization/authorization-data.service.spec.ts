@@ -1,18 +1,26 @@
-import { AuthorizationDataService } from './authorization-data.service';
-import { SiteDataService } from '../site-data.service';
-import { Site } from '../../shared/site.model';
-import { EPerson } from '../../eperson/models/eperson.model';
-import { of as observableOf, combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { FeatureID } from './feature-id';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { hasValue } from '../../../shared/empty.util';
-import { RequestParam } from '../../cache/models/request-param.model';
-import { Authorization } from '../../shared/authorization.model';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { Feature } from '../../shared/feature.model';
-import { FindListOptions } from '../find-list-options.model';
-import { testSearchDataImplementation } from '../base/search-data.spec';
 import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { RequestParam } from '../../cache/models/request-param.model';
+import { EPerson } from '../../eperson/models/eperson.model';
+import { Authorization } from '../../shared/authorization.model';
+import { Feature } from '../../shared/feature.model';
+import { Site } from '../../shared/site.model';
+import { testSearchDataImplementation } from '../base/search-data.spec';
+import { FindListOptions } from '../find-list-options.model';
+import { SiteDataService } from '../site-data.service';
+import { AuthorizationDataService } from './authorization-data.service';
+import { FeatureID } from './feature-id';
 
 describe('AuthorizationDataService', () => {
   let service: AuthorizationDataService;

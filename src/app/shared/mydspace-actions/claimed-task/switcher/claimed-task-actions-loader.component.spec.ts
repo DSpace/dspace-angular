@@ -1,22 +1,31 @@
-import { ClaimedTaskActionsLoaderComponent } from './claimed-task-actions-loader.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ClaimedTaskActionsDirective } from './claimed-task-actions.directive';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
+import {
+  ChangeDetectionStrategy,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { ClaimedTaskActionsEditMetadataComponent } from '../edit-metadata/claimed-task-actions-edit-metadata.component';
+
+import { RequestService } from '../../../../core/data/request.service';
+import { Item } from '../../../../core/shared/item.model';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
+import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
+import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
+import { getMockRequestService } from '../../../mocks/request.service.mock';
+import { getMockSearchService } from '../../../mocks/search-service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { Router } from '@angular/router';
 import { RouterStub } from '../../../testing/router.stub';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
-import { getMockSearchService } from '../../../mocks/search-service.mock';
-import { getMockRequestService } from '../../../mocks/request.service.mock';
-import { Item } from '../../../../core/shared/item.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { ClaimedTaskActionsEditMetadataComponent } from '../edit-metadata/claimed-task-actions-edit-metadata.component';
+import { ClaimedTaskActionsDirective } from './claimed-task-actions.directive';
+import { ClaimedTaskActionsLoaderComponent } from './claimed-task-actions-loader.component';
 
 const searchService = getMockSearchService();
 

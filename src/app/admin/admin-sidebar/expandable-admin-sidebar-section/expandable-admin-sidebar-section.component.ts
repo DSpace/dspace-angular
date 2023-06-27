@@ -1,15 +1,24 @@
-import { Component, Inject, Injector, OnInit } from '@angular/core';
-import { rotate } from '../../../shared/animations/rotate';
-import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sidebar-section.component';
-import { slide } from '../../../shared/animations/slide';
-import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
-import { bgColor } from '../../../shared/animations/bgColor';
-import { MenuService } from '../../../shared/menu/menu.service';
-import { combineLatest as combineLatestObservable, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
-import { MenuID } from '../../../shared/menu/menu-id.model';
+import {
+  Component,
+  Inject,
+  Injector,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  combineLatest as combineLatestObservable,
+  Observable,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { bgColor } from '../../../shared/animations/bgColor';
+import { rotate } from '../../../shared/animations/rotate';
+import { slide } from '../../../shared/animations/slide';
+import { MenuService } from '../../../shared/menu/menu.service';
+import { MenuID } from '../../../shared/menu/menu-id.model';
+import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
+import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
+import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sidebar-section.component';
 
 /**
  * Represents a expandable section in the sidebar

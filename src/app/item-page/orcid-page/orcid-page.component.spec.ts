@@ -1,28 +1,38 @@
-import { NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TestScheduler } from 'rxjs/testing';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
 import { AuthService } from '../../core/auth/auth.service';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { OrcidPageComponent } from './orcid-page.component';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
+import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
+import { Item } from '../../core/shared/item.model';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
-import { Item } from '../../core/shared/item.model';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
+import { OrcidPageComponent } from './orcid-page.component';
 
 describe('OrcidPageComponent test suite', () => {
   let comp: OrcidPageComponent;

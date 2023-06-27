@@ -1,23 +1,36 @@
-import { Component, OnDestroy, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { Group } from '../../../../core/eperson/models/group.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
-import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { Observable, of as observableOf } from 'rxjs';
-import { hasValue } from '../../../../shared/empty.util';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import {
-  MembersListComponent,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import {
   EPersonListActionConfig,
+  MembersListComponent,
 } from '../../../../access-control/group-registry/group-form/members-list/members-list.component';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
+import { GroupDataService } from '../../../../core/eperson/group-data.service';
+import { EPerson } from '../../../../core/eperson/models/eperson.model';
+import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
+import { Group } from '../../../../core/eperson/models/group.model';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { hasValue } from '../../../../shared/empty.util';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 
 /**
  * Keys to keep track of specific subscriptions

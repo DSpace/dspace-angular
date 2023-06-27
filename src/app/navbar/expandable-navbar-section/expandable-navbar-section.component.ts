@@ -1,11 +1,17 @@
-import { Component, Inject, Injector, OnInit } from '@angular/core';
-import { NavbarSectionComponent } from '../navbar-section/navbar-section.component';
-import { MenuService } from '../../shared/menu/menu.service';
-import { slide } from '../../shared/animations/slide';
+import {
+  Component,
+  Inject,
+  Injector,
+  OnInit,
+} from '@angular/core';
 import { first } from 'rxjs/operators';
+
+import { slide } from '../../shared/animations/slide';
 import { HostWindowService } from '../../shared/host-window.service';
-import { rendersSectionForMenu } from '../../shared/menu/menu-section.decorator';
+import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/menu-id.model';
+import { rendersSectionForMenu } from '../../shared/menu/menu-section.decorator';
+import { NavbarSectionComponent } from '../navbar-section/navbar-section.component';
 
 /**
  * Represents an expandable section in the navbar

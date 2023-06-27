@@ -1,22 +1,28 @@
 // ... test imports
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
-
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { StoreModule } from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
-// Load the implementations that should be tested
-import { FooterComponent } from './footer.component';
-
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { storeModuleConfig } from '../app.reducer';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { AuthorizationDataServiceStub } from '../shared/testing/authorization-service.stub';
+// Load the implementations that should be tested
+import { FooterComponent } from './footer.component';
 
 let comp: FooterComponent;
 let fixture: ComponentFixture<FooterComponent>;

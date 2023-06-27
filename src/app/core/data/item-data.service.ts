@@ -8,44 +8,73 @@
 /* eslint-disable max-classes-per-file */
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, find, map, switchMap, take } from 'rxjs/operators';
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import {
+  distinctUntilChanged,
+  filter,
+  find,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import {
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { Bundle } from '../shared/bundle.model';
 import { Collection } from '../shared/collection.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
+import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { ITEM } from '../shared/item.resource-type';
-import { URLCombiner } from '../url-combiner/url-combiner';
-import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { PaginatedList } from './paginated-list.model';
-import { RemoteData } from './remote-data';
-import { DeleteRequest, GetRequest, PostRequest, PutRequest } from './request.models';
-import { RequestService } from './request.service';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { Bundle } from '../shared/bundle.model';
 import { MetadataMap } from '../shared/metadata.models';
-import { BundleDataService } from './bundle-data.service';
-import { Operation } from 'fast-json-patch';
 import { NoContent } from '../shared/NoContent.model';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { ResponseParsingService } from './parsing.service';
-import { StatusCodeOnlyResponseParsingService } from './status-code-only-response-parsing.service';
 import { sendRequest } from '../shared/request.operators';
-import { RestRequest } from './rest-request.model';
-import { FindListOptions } from './find-list-options.model';
-import { ConstructIdEndpoint, IdentifiableDataService } from './base/identifiable-data.service';
-import { PatchData, PatchDataImpl } from './base/patch-data';
-import { DeleteData, DeleteDataImpl } from './base/delete-data';
-import { RestRequestMethod } from './rest-request-method';
-import { CreateData, CreateDataImpl } from './base/create-data';
-import { RequestParam } from '../cache/models/request-param.model';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import {
+  CreateData,
+  CreateDataImpl,
+} from './base/create-data';
 import { dataService } from './base/data-service.decorator';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from './base/delete-data';
+import {
+  ConstructIdEndpoint,
+  IdentifiableDataService,
+} from './base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from './base/patch-data';
+import { BundleDataService } from './bundle-data.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { FindListOptions } from './find-list-options.model';
+import { PaginatedList } from './paginated-list.model';
+import { ResponseParsingService } from './parsing.service';
+import { RemoteData } from './remote-data';
+import {
+  DeleteRequest,
+  GetRequest,
+  PostRequest,
+  PutRequest,
+} from './request.models';
+import { RequestService } from './request.service';
+import { RestRequest } from './rest-request.model';
+import { RestRequestMethod } from './rest-request-method';
+import { StatusCodeOnlyResponseParsingService } from './status-code-only-response-parsing.service';
 
 /**
  * An abstract service for CRUD operations on Items

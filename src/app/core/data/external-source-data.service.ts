@@ -1,20 +1,32 @@
 import { Injectable } from '@angular/core';
-import { ExternalSource } from '../shared/external-source.model';
-import { RequestService } from './request.service';
+import { Observable } from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import {
+  hasValue,
+  isNotEmptyOperator,
+} from '../../shared/empty.util';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
-import { RemoteData } from './remote-data';
-import { PaginatedList } from './paginated-list.model';
+import { ExternalSource } from '../shared/external-source.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { FindListOptions } from './find-list-options.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { IdentifiableDataService } from './base/identifiable-data.service';
-import { SearchData, SearchDataImpl } from './base/search-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from './base/search-data';
+import { FindListOptions } from './find-list-options.model';
+import { PaginatedList } from './paginated-list.model';
+import { RemoteData } from './remote-data';
+import { RequestService } from './request.service';
 
 /**
  * A service handling all external source requests

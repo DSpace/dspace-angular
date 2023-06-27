@@ -1,9 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-
-import { ContextHelpService } from './context-help.service';
-import { StoreModule, Store } from '@ngrx/store';
-import { appReducers, storeModuleConfig } from '../app.reducer';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { TestScheduler } from 'rxjs/testing';
+
+import {
+  appReducers,
+  storeModuleConfig,
+} from '../app.reducer';
+import { ContextHelpService } from './context-help.service';
 
 describe('ContextHelpService', () => {
   let service: ContextHelpService;

@@ -1,28 +1,44 @@
 /* eslint-disable max-classes-per-file */
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectorRef, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {
+  ChangeDetectorRef,
+  ElementRef,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-
+import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { getTestScheduler, hot } from 'jasmine-marbles';
-import { TestScheduler } from 'rxjs/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { Observable } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TestScheduler } from 'rxjs/testing';
 
-import { CollectionSelectorComponent } from './collection-selector.component';
-import { CollectionDropdownComponent } from '../../shared/collection-dropdown/collection-dropdown.component';
-import { Collection } from '../../core/shared/collection.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Community } from '../../core/shared/community.model';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { CollectionDataService } from '../../core/data/collection-data.service';
-import { MockElementRef } from '../../shared/testing/element-ref.mock';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Collection } from '../../core/shared/collection.model';
+import { Community } from '../../core/shared/community.model';
+import { CollectionDropdownComponent } from '../../shared/collection-dropdown/collection-dropdown.component';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { MockElementRef } from '../../shared/testing/element-ref.mock';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { CollectionSelectorComponent } from './collection-selector.component';
 
 
 describe('CollectionSelectorComponent', () => {

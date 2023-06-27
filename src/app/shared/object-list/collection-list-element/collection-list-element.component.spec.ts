@@ -1,10 +1,18 @@
-import { CollectionListElementComponent } from './collection-list-element.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Collection } from '../../../core/shared/collection.model';
+
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { Collection } from '../../../core/shared/collection.model';
 import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
+import { CollectionListElementComponent } from './collection-list-element.component';
 
 let collectionListElementComponent: CollectionListElementComponent;
 let fixture: ComponentFixture<CollectionListElementComponent>;

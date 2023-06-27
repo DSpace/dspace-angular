@@ -1,4 +1,10 @@
-import { AddToIndexAction, IndexAction, IndexActionTypes, RemoveFromIndexBySubstringAction, RemoveFromIndexByValueAction } from './index.actions';
+import {
+  AddToIndexAction,
+  IndexAction,
+  IndexActionTypes,
+  RemoveFromIndexBySubstringAction,
+  RemoveFromIndexByValueAction,
+} from './index.actions';
 import { IndexName } from './index-name.model';
 
 /**

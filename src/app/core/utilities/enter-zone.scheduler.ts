@@ -1,5 +1,8 @@
-import { SchedulerLike, Subscription } from 'rxjs';
 import { NgZone } from '@angular/core';
+import {
+  SchedulerLike,
+  Subscription,
+} from 'rxjs';
 
 /**
  *  An RXJS scheduler that will re-enter the Angular zone to run what's scheduled

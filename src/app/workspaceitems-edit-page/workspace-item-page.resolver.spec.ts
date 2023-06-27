@@ -1,7 +1,8 @@
 import { first } from 'rxjs/operators';
-import { WorkspaceItemPageResolver } from './workspace-item-page.resolver';
+
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { WorkspaceItemPageResolver } from './workspace-item-page.resolver';
 
 describe('WorkflowItemPageResolver', () => {
   describe('resolve', () => {

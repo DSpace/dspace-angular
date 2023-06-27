@@ -1,12 +1,18 @@
-import { isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
+import groupBy from 'lodash/groupBy';
+import sortBy from 'lodash/sortBy';
+
+import {
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+  isUndefined,
+} from '../../shared/empty.util';
 import {
   MetadataMapInterface,
   MetadataValue,
   MetadataValueFilter,
   MetadatumViewModel,
 } from './metadata.models';
-import groupBy from 'lodash/groupBy';
-import sortBy from 'lodash/sortBy';
 
 /**
  * Utility class for working with DSpace object metadata.

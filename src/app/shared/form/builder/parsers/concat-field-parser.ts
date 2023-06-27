@@ -1,6 +1,10 @@
 import {Inject} from '@angular/core';
-import { FormFieldModel } from '../models/form-field.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../empty.util';
 import {
   CONCAT_FIRST_INPUT_SUFFIX,
   CONCAT_GROUP_SUFFIX,
@@ -8,8 +12,12 @@ import {
   DynamicConcatModel,
   DynamicConcatModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../empty.util';
-import { ParserOptions } from './parser-options';
+import {
+  DsDynamicInputModel,
+  DsDynamicInputModelConfig,
+} from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { FormFieldModel } from '../models/form-field.model';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import {
   CONFIG_DATA,
   FieldParser,
@@ -17,7 +25,7 @@ import {
   PARSER_OPTIONS,
   SUBMISSION_ID,
 } from './field-parser';
-import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { ParserOptions } from './parser-options';
 
 export class ConcatFieldParser extends FieldParser {
 

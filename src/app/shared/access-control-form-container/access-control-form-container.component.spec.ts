@@ -1,22 +1,29 @@
-import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
-import {NgbDatepickerModule, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {CommonModule} from '@angular/common';
 import {Component} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+} from '@angular/core/testing';
+import {FormsModule} from '@angular/forms';
+import {
+  NgbDatepickerModule,
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import {TranslateModule} from '@ngx-translate/core';
+import {UiSwitchModule} from 'ngx-ui-switch';
 import {of} from 'rxjs';
-import {AccessControlFormContainerComponent} from './access-control-form-container.component';
-import {BulkAccessControlService} from './bulk-access-control.service';
+
 import {BulkAccessConfigDataService} from '../../core/config/bulk-access-config-data.service';
 import {Item} from '../../core/shared/item.model';
-import {SelectableListService} from '../object-list/selectable-list/selectable-list.service';
-import {createAccessControlInitialFormState} from './access-control-form-container-intial-state';
-import {CommonModule} from '@angular/common';
 import {SharedBrowseByModule} from '../browse-by/shared-browse-by.module';
-import {TranslateModule} from '@ngx-translate/core';
-import {FormsModule} from '@angular/forms';
-import {UiSwitchModule} from 'ngx-ui-switch';
-import {
-  ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID,
-} from './item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
+import {SelectableListService} from '../object-list/selectable-list/selectable-list.service';
 import {AccessControlFormModule} from './access-control-form.module';
+import {AccessControlFormContainerComponent} from './access-control-form-container.component';
+import {createAccessControlInitialFormState} from './access-control-form-container-intial-state';
+import {BulkAccessControlService} from './bulk-access-control.service';
+import { ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID } from './item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
 
 
 describe('AccessControlFormContainerComponent', () => {

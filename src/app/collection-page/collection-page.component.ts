@@ -1,15 +1,47 @@
-import { ChangeDetectionStrategy, Component, OnInit, Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subject } from 'rxjs';
-import { filter, map, mergeMap, startWith, switchMap, take } from 'rxjs/operators';
-import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
-import { SearchService } from '../core/shared/search/search.service';
-import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subject,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  mergeMap,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../src/config/app-config.interface';
+import { AuthService } from '../core/auth/auth.service';
+import { DSONameService } from '../core/breadcrumbs/dso-name.service';
+import { BROWSE_LINKS_TO_FOLLOW } from '../core/browse/browse.service';
+import {
+  SortDirection,
+  SortOptions,
+} from '../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../core/data/collection-data.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
+import { PaginationService } from '../core/pagination/pagination.service';
+import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { Bitstream } from '../core/shared/bitstream.model';
-
 import { Collection } from '../core/shared/collection.model';
 import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
 import { Item } from '../core/shared/item.model';
@@ -18,19 +50,18 @@ import {
   getFirstSucceededRemoteData,
   toDSpaceObjectListRD,
 } from '../core/shared/operators';
-
-import { fadeIn, fadeInOut } from '../shared/animations/fade';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
+import { SearchService } from '../core/shared/search/search.service';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../shared/animations/fade';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { AuthService } from '../core/auth/auth.service';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
 import { getCollectionPageRoute } from './collection-page-routing-paths';
-import { redirectOn4xx } from '../core/shared/authorized.operators';
-import { BROWSE_LINKS_TO_FOLLOW } from '../core/browse/browse.service';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
-import { APP_CONFIG, AppConfig } from '../../../src/config/app-config.interface';
 
 @Component({
   selector: 'ds-collection-page',

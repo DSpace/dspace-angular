@@ -1,6 +1,7 @@
-import {RemoteData} from '../../core/data/remote-data';
 import {Observable} from 'rxjs';
 import {first} from 'rxjs/operators';
+
+import {RemoteData} from '../../core/data/remote-data';
 import {getAllSucceededRemoteData} from '../../core/shared/operators';
 
 /**

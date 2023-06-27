@@ -1,35 +1,49 @@
+import { CommonModule } from '@angular/common';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { BrowseService } from '../../core/browse/browse.service';
+import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
+import { SortDirection } from '../../core/cache/models/sort-options.model';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { BrowseEntry } from '../../core/shared/browse-entry.model';
+import { Community } from '../../core/shared/community.model';
+import { Item } from '../../core/shared/item.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { RouterMock } from '../../shared/mocks/router.mock';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
+import { VarDirective } from '../../shared/utils/var.directive';
 import {
   BrowseByMetadataPageComponent,
   browseParamsToOptions,
   getBrowseSearchOptions,
 } from './browse-by-metadata-page.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowseService } from '../../core/browse/browse.service';
-import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { Observable, of as observableOf } from 'rxjs';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { RemoteData } from '../../core/data/remote-data';
-import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
-import { SortDirection } from '../../core/cache/models/sort-options.model';
-import { Item } from '../../core/shared/item.model';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { Community } from '../../core/shared/community.model';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { BrowseEntry } from '../../core/shared/browse-entry.model';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { APP_CONFIG } from '../../../config/app-config.interface';
 
 describe('BrowseByMetadataPageComponent', () => {
   let comp: BrowseByMetadataPageComponent;

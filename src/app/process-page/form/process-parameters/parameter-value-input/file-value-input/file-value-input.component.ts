@@ -1,7 +1,14 @@
-import { Component, Optional } from '@angular/core';
-import { ValueInputComponent } from '../value-input.component';
-import { ControlContainer, NgForm } from '@angular/forms';
+import {
+  Component,
+  Optional,
+} from '@angular/core';
+import {
+  ControlContainer,
+  NgForm,
+} from '@angular/forms';
+
 import { controlContainerFactory } from '../../../process-form.component';
+import { ValueInputComponent } from '../value-input.component';
 
 /**
  * Represents the user inputted value of a file parameter

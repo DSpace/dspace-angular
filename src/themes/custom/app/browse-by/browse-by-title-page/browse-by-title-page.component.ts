@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { BrowseByTitlePageComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-title-page/browse-by-title-page.component';
 
 @Component({

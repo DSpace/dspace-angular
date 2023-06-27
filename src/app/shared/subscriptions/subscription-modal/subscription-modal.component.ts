@@ -1,23 +1,47 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-
-import { BehaviorSubject, combineLatest, from, shareReplay } from 'rxjs';
-import { map, mergeMap, take, tap } from 'rxjs/operators';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  NgbActiveModal,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import findIndex from 'lodash/findIndex';
+import {
+  BehaviorSubject,
+  combineLatest,
+  from,
+  shareReplay,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
-import { Subscription } from '../models/subscription.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { SubscriptionsDataService } from '../subscriptions-data.service';
-import { NotificationsService } from '../../notifications/notifications.service';
+import { AuthService } from '../../../core/auth/auth.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { AuthService } from '../../../core/auth/auth.service';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../core/shared/operators';
 import { isNotEmpty } from '../../empty.util';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { Subscription } from '../models/subscription.model';
+import { SubscriptionsDataService } from '../subscriptions-data.service';
 
 @Component({
   selector: 'ds-subscription-modal',

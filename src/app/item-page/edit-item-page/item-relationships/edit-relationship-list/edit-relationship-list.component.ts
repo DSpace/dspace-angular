@@ -1,7 +1,16 @@
-import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -10,12 +19,34 @@ import {
   Subscription,
 } from 'rxjs';
 import {
-  RelationshipIdentifiable,
-} from '../../../../core/data/object-updates/object-updates.reducer';
+  defaultIfEmpty,
+  map,
+  mergeMap,
+  startWith,
+  switchMap,
+  take,
+  tap,
+  toArray,
+} from 'rxjs/operators';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../config/app-config.interface';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
+import { RelationshipIdentifiable } from '../../../../core/data/object-updates/object-updates.reducer';
+import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '../../../../core/data/relationship-type-data.service';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { Collection } from '../../../../core/shared/collection.model';
 import { Item } from '../../../../core/shared/item.model';
-import { defaultIfEmpty, map, mergeMap, startWith, switchMap, take, tap, toArray } from 'rxjs/operators';
-import { hasNoValue, hasValue, hasValueOperator } from '../../../../shared/empty.util';
+import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import {
@@ -24,22 +55,17 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
-import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+} from '../../../../shared/empty.util';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { SearchResult } from '../../../../shared/search/models/search-result.model';
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Collection } from '../../../../core/shared/collection.model';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { RelationshipTypeDataService } from '../../../../core/data/relationship-type-data.service';
-import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
 
 @Component({

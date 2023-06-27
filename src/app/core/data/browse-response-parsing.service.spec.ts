@@ -1,9 +1,9 @@
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
-import { BrowseResponseParsingService } from './browse-response-parsing.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HIERARCHICAL_BROWSE_DEFINITION } from '../shared/hierarchical-browse-definition.resource-type';
 import { FLAT_BROWSE_DEFINITION } from '../shared/flat-browse-definition.resource-type';
+import { HIERARCHICAL_BROWSE_DEFINITION } from '../shared/hierarchical-browse-definition.resource-type';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../shared/value-list-browse-definition.resource-type';
+import { BrowseResponseParsingService } from './browse-response-parsing.service';
 
 class TestService extends BrowseResponseParsingService {
   constructor(protected objectCache: ObjectCacheService) {

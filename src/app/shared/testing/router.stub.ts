@@ -1,4 +1,5 @@
 import { of as observableOf } from 'rxjs';
+
 export class RouterStub {
   url: string;
   routeReuseStrategy = {shouldReuseRoute: {}};

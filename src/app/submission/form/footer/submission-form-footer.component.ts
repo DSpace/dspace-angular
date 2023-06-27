@@ -1,13 +1,20 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-
-import { Observable, of as observableOf } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
-import { SubmissionService } from '../../submission.service';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { SubmissionService } from '../../submission.service';
 
 /**
  * This component represents submission form footer bar.

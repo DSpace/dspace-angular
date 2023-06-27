@@ -1,25 +1,34 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
-import { Store, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { EPersonMock } from '../../../testing/eperson.mock';
+import { storeModuleConfig } from '../../../../app.reducer';
 import { authReducer } from '../../../../core/auth/auth.reducer';
 import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthServiceStub } from '../../../testing/auth-service.stub';
-import { storeModuleConfig } from '../../../../app.reducer';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
-import { LogInExternalProviderComponent } from './log-in-external-provider.component';
-import { NativeWindowService } from '../../../../core/services/window.service';
-import { RouterStub } from '../../../testing/router.stub';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
-import { NativeWindowMockFactory } from '../../../mocks/mock-native-window-ref';
+import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { NativeWindowService } from '../../../../core/services/window.service';
+import { NativeWindowMockFactory } from '../../../mocks/mock-native-window-ref';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { AuthServiceStub } from '../../../testing/auth-service.stub';
+import { EPersonMock } from '../../../testing/eperson.mock';
+import { RouterStub } from '../../../testing/router.stub';
+import { LogInExternalProviderComponent } from './log-in-external-provider.component';
 
 describe('LogInExternalProviderComponent', () => {
 

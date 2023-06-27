@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import {

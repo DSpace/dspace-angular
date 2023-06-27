@@ -1,27 +1,47 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
-import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
+import { RequestService } from '../../core/data/request.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
+import { EpersonDtoModel } from '../../core/eperson/models/eperson-dto.model';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { NoContent } from '../../core/shared/NoContent.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+} from '../../core/shared/operators';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { EpersonDtoModel } from '../../core/eperson/models/eperson-dto.model';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { getAllSucceededRemoteData, getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { RequestService } from '../../core/data/request.service';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { NoContent } from '../../core/shared/NoContent.model';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-epeople-registry',

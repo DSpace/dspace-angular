@@ -1,4 +1,5 @@
 import { of as observableOf } from 'rxjs';
+
 import { IdentifierType } from '../core/data/request.models';
 import { LookupGuard } from './lookup-guard';
 

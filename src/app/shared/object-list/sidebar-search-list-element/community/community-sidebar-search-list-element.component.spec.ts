@@ -1,7 +1,7 @@
 import { Community } from '../../../../core/shared/community.model';
+import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 import { createSidebarSearchListElementTests } from '../sidebar-search-list-element.component.spec';
 import { CommunitySidebarSearchListElementComponent } from './community-sidebar-search-list-element.component';
-import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 
 const object = Object.assign(new CommunitySearchResult(), {
   indexableObject: Object.assign(new Community(), {

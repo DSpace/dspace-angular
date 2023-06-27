@@ -1,14 +1,28 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { startWith, take } from 'rxjs/operators';
-import { of, Observable } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  startWith,
+  take,
+} from 'rxjs/operators';
+
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { ObjectSelectService } from '../object-select.service';
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 
 /**
  * An abstract component used to select DSpaceObjects from a specific list and returning the UUIDs of the selected DSpaceObjects

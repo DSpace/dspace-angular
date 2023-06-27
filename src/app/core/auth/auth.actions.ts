@@ -1,12 +1,13 @@
 /* eslint-disable max-classes-per-file */
 // import @ngrx
 import { Action } from '@ngrx/store';
+
 // import type function
 import { type } from '../../shared/ngrx/type';
-// import models
-import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AuthMethod } from './models/auth.method';
 import { AuthStatus } from './models/auth-status.model';
+// import models
+import { AuthTokenInfo } from './models/auth-token-info.model';
 
 export const AuthActionTypes = {
   AUTHENTICATE: type('dspace/auth/AUTHENTICATE'),

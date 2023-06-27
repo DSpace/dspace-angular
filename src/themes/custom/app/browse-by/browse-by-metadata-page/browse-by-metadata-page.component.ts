@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { BrowseByMetadataPageComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-metadata-page/browse-by-metadata-page.component';
 
 @Component({

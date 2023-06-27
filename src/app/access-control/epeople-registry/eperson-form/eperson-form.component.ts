@@ -1,5 +1,13 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicCheckboxModel,
   DynamicFormControlModel,
@@ -7,38 +15,49 @@ import {
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
-import { debounceTime, finalize, map, switchMap, take } from 'rxjs/operators';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  debounceTime,
+  finalize,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { AuthService } from '../../../core/auth/auth.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { Group } from '../../../core/eperson/models/group.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { NoContent } from '../../../core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { Registration } from '../../../core/shared/registration.model';
+import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
+import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { AuthService } from '../../../core/auth/auth.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { RequestService } from '../../../core/data/request.service';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
-import { Registration } from '../../../core/shared/registration.model';
-import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
-import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { PageInfo } from '../../../core/shared/page-info.model';
 
 @Component({
   selector: 'ds-eperson-form',

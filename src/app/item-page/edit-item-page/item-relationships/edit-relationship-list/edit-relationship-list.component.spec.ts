@@ -1,37 +1,45 @@
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { LinkService } from '../../../../core/cache/builders/link.service';
+import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
-import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
-import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { Item } from '../../../../core/shared/item.model';
-import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
-import { SharedModule } from '../../../../shared/shared.module';
-import { EditRelationshipListComponent } from './edit-relationship-list.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { RelationshipTypeDataService } from '../../../../core/data/relationship-type-data.service';
+import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { LinkHeadService } from '../../../../core/services/link-head.service';
+import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
+import { Item } from '../../../../core/shared/item.model';
+import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
+import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { HostWindowService } from '../../../../shared/host-window.service';
-import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
+import { RouterMock } from '../../../../shared/mocks/router.mock';
+import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { RelationshipTypeDataService } from '../../../../core/data/relationship-type-data.service';
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
-import { LinkHeadService } from '../../../../core/services/link-head.service';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { SharedModule } from '../../../../shared/shared.module';
+import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
+import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
-import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
-import { Router } from '@angular/router';
-import { RouterMock } from '../../../../shared/mocks/router.mock';
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { EditRelationshipListComponent } from './edit-relationship-list.component';
 
 let comp: EditRelationshipListComponent;
 let fixture: ComponentFixture<EditRelationshipListComponent>;

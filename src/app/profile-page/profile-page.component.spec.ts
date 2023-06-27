@@ -1,28 +1,45 @@
-import { ProfilePageComponent } from './profile-page.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { EPerson } from '../core/eperson/models/eperson.model';
-import { StoreModule } from '@ngrx/store';
-import { storeModuleConfig } from '../app.reducer';
-import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
-import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { authReducer } from '../core/auth/auth.reducer';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { createPaginatedList } from '../shared/testing/utils.test';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
-import { AuthService } from '../core/auth/auth.service';
-import { RestResponse } from '../core/cache/response.models';
-import { provideMockStore } from '@ngrx/store/testing';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { EmptySpecialGroupDataMock$, SpecialGroupDataMock$ } from '../shared/testing/special-group.mock';
+import { RouterTestingModule } from '@angular/router/testing';
+import { StoreModule } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
+
+import { storeModuleConfig } from '../app.reducer';
+import { authReducer } from '../core/auth/auth.reducer';
+import { AuthService } from '../core/auth/auth.service';
+import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
+import { RestResponse } from '../core/cache/response.models';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { EPersonDataService } from '../core/eperson/eperson-data.service';
+import { EPerson } from '../core/eperson/models/eperson.model';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../shared/remote-data.utils';
+import {
+  EmptySpecialGroupDataMock$,
+  SpecialGroupDataMock$,
+} from '../shared/testing/special-group.mock';
+import { createPaginatedList } from '../shared/testing/utils.test';
+import { VarDirective } from '../shared/utils/var.directive';
+import { ProfilePageComponent } from './profile-page.component';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;

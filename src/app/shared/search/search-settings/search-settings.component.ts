@@ -1,10 +1,21 @@
-import { Component, Inject, Input } from '@angular/core';
+import {
+  Component,
+  Inject,
+  Input,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 import { SearchService } from '../../../core/shared/search/search.service';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { ActivatedRoute, Router } from '@angular/router';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import { PaginationService } from '../../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-search-settings',

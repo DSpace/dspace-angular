@@ -1,11 +1,16 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { BROWSE_BY_COMPONENT_FACTORY } from './browse-by-decorator';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
+
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { ThemeService } from '../../shared/theme-support/theme.service';
+import { BROWSE_BY_COMPONENT_FACTORY } from './browse-by-decorator';
 
 @Component({
   selector: 'ds-browse-by-switcher',

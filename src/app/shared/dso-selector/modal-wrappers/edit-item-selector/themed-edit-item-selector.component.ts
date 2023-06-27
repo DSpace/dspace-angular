@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {EditItemSelectorComponent} from './edit-item-selector.component';
 import {ThemedComponent} from 'src/app/shared/theme-support/themed.component';
+
+import {EditItemSelectorComponent} from './edit-item-selector.component';
 
 /**
  * Themed wrapper for EditItemSelectorComponent

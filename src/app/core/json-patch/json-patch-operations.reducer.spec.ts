@@ -2,7 +2,8 @@
 import * as deepFreeze from 'deep-freeze';
 
 import {
-  CommitPatchOperationsAction, DeletePendingJsonPatchOperationsAction,
+  CommitPatchOperationsAction,
+  DeletePendingJsonPatchOperationsAction,
   FlushPatchOperationsAction,
   NewPatchAddOperationAction,
   NewPatchRemoveOperationAction,

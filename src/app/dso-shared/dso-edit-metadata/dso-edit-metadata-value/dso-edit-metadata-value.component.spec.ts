@@ -1,16 +1,30 @@
-import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { of } from 'rxjs';
-import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import { MetadataValue, VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
-import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
+import {
+  MetadataValue,
+  VIRTUAL_METADATA_PREFIX,
+} from '../../../core/shared/metadata.models';
+import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import {
+  DsoEditMetadataChangeType,
+  DsoEditMetadataValue,
+} from '../dso-edit-metadata-form';
+import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value.component';
 
 const EDIT_BTN = 'edit';
 const CONFIRM_BTN = 'confirm';

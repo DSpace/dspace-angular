@@ -1,19 +1,25 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import {
+  first,
+  map,
+} from 'rxjs/operators';
 
-import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
+import { IdentifierDataService } from '../../../core/data/identifier-data.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { first, map } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
-import { Observable } from 'rxjs';
-import { getItemPageRoute } from '../../item-page-routing-paths';
-import { IdentifierDataService } from '../../../core/data/identifier-data.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
+import { getItemPageRoute } from '../../item-page-routing-paths';
+import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
 
 @Component({
   selector: 'ds-item-register-doi',

@@ -1,9 +1,14 @@
-import { ForgotEmailComponent } from './forgot-email.component';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { ForgotEmailComponent } from './forgot-email.component';
 
 describe('ForgotEmailComponent', () => {
   let comp: ForgotEmailComponent;

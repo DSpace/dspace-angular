@@ -1,5 +1,15 @@
-import { Inject, InjectionToken, Pipe, PipeTransform, SecurityContext } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import {
+  Inject,
+  InjectionToken,
+  Pipe,
+  PipeTransform,
+  SecurityContext,
+} from '@angular/core';
+import {
+  DomSanitizer,
+  SafeHtml,
+} from '@angular/platform-browser';
+
 import { environment } from '../../../environments/environment';
 
 const markdownItLoader = async () => (await import('markdown-it')).default;

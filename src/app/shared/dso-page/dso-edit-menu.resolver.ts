@@ -1,26 +1,42 @@
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { combineLatest, Observable, of as observableOf } from 'rxjs';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { MenuService } from '../menu/menu.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { Injectable } from '@angular/core';
-import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
-import { Item } from '../../core/shared/item.model';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { OnClickMenuItemModel } from '../menu/menu-item/models/onclick.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { map, switchMap } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  combineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
+import { getDSORoute } from '../../app-routing-paths';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
+import { Item } from '../../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
-import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
+import { MenuService } from '../menu/menu.service';
 import { MenuID } from '../menu/menu-id.model';
+import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
+import { OnClickMenuItemModel } from '../menu/menu-item/models/onclick.model';
 import { MenuItemType } from '../menu/menu-item-type.model';
 import { MenuSection } from '../menu/menu-section.model';
-import { getDSORoute } from '../../app-routing-paths';
-import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
 import { NotificationsService } from '../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
 
 /**
  * Creates the menus for the dspace object pages

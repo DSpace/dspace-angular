@@ -1,7 +1,3 @@
-import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
-
-import { catchError, map } from 'rxjs/operators';
-import { Injectable, Injector } from '@angular/core';
 import {
   HttpErrorResponse,
   HttpEvent,
@@ -12,17 +8,34 @@ import {
   HttpResponse,
   HttpResponseBase,
 } from '@angular/common/http';
+import {
+  Injectable,
+  Injector,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import {
+  Observable,
+  of as observableOf,
+  throwError as observableThrowError,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+} from 'rxjs/operators';
 
 import { AppState } from '../../app.reducer';
-import { AuthService } from './auth.service';
-import { AuthStatus } from './models/auth-status.model';
-import { AuthTokenInfo } from './models/auth-token-info.model';
-import { hasValue, isNotEmpty, isNotNull } from '../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '../../shared/empty.util';
 import { RedirectWhenTokenExpiredAction } from './auth.actions';
-import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
 import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
+import { AuthStatus } from './models/auth-status.model';
+import { AuthTokenInfo } from './models/auth-token-info.model';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

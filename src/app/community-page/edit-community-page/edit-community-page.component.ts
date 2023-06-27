@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+
 import { Community } from '../../core/shared/community.model';
-import { ActivatedRoute, Router } from '@angular/router';
 import { EditComColPageComponent } from '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component';
 import { getCommunityPageRoute } from '../community-page-routing-paths';
 

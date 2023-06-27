@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
-
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
 import { map } from 'rxjs/operators';
-import { createEffect, Actions, ofType } from '@ngrx/effects';
 
 import {
-  CommitPatchOperationsAction, FlushPatchOperationsAction,
+  CommitPatchOperationsAction,
+  FlushPatchOperationsAction,
   JsonPatchOperationsActionTypes,
 } from './json-patch-operations.actions';
 

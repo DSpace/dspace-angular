@@ -1,4 +1,5 @@
 /* eslint-disable max-classes-per-file */
+import { isNull } from '../../shared/empty.util';
 import {
   RequestAction,
   RequestActionTypes,
@@ -10,8 +11,11 @@ import {
   RequestSuccessAction,
   ResetResponseTimestampsAction,
 } from './request.actions';
-import { isNull } from '../../shared/empty.util';
-import { hasSucceeded, isStale, RequestEntryState } from './request-entry-state.model';
+import {
+  hasSucceeded,
+  isStale,
+  RequestEntryState,
+} from './request-entry-state.model';
 import { RequestState } from './request-state.model';
 
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)

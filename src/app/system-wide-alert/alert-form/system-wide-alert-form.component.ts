@@ -1,19 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  utcToZonedTime,
+  zonedTimeToUtc,
+} from 'date-fns-tz';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  map,
+} from 'rxjs/operators';
+
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { RequestService } from '../../core/data/request.service';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { filter, map } from 'rxjs/operators';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { SystemWideAlert } from '../system-wide-alert.model';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
-import { RemoteData } from '../../core/data/remote-data';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { Router } from '@angular/router';
-import { RequestService } from '../../core/data/request.service';
-import { TranslateService } from '@ngx-translate/core';
+import { SystemWideAlert } from '../system-wide-alert.model';
 
 
 /**

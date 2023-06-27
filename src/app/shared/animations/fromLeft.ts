@@ -1,4 +1,10 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 export const fromLeftInState = state('fromLeftIn', style({opacity: 1, transform: 'translateX(0)'}));
 export const fromLeftEnter = transition('* => fromLeftIn', [

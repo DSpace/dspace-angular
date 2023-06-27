@@ -1,6 +1,12 @@
-import { isUndefined } from '../../shared/empty.util';
 import { v4 as uuidv4 } from 'uuid';
-import { MetadataMap, MetadataValue, MetadataValueFilter, MetadatumViewModel } from './metadata.models';
+
+import { isUndefined } from '../../shared/empty.util';
+import {
+  MetadataMap,
+  MetadataValue,
+  MetadataValueFilter,
+  MetadatumViewModel,
+} from './metadata.models';
 import { Metadata } from './metadata.utils';
 
 const mdValue = (value: string, language?: string, authority?: string): MetadataValue => {

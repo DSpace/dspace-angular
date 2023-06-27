@@ -1,7 +1,12 @@
-import { Component, Injector, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+} from '@angular/core';
 
-import { rendersAuthMethodType } from '../methods/log-in.methods-decorator';
 import { AuthMethod } from '../../../core/auth/models/auth.method';
+import { rendersAuthMethodType } from '../methods/log-in.methods-decorator';
 
 /**
  * This component represents a component container for log-in methods available.

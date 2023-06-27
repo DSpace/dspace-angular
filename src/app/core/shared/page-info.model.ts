@@ -1,4 +1,9 @@
-import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+} from 'cerialize';
+
 import { hasValue } from '../../shared/empty.util';
 import { HALLink } from './hal-link.model';
 import { HALResource } from './hal-resource.model';

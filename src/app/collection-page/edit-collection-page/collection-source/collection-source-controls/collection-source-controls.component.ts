@@ -1,26 +1,43 @@
-import { Component, Input, OnDestroy } from '@angular/core';
-import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
-import { ContentSource } from '../../../../core/shared/content-source.model';
+import { HttpClient } from '@angular/common/http';
+import {
+  Component,
+  Input,
+  OnDestroy,
+} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
+
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { CollectionDataService } from '../../../../core/data/collection-data.service';
 import { ProcessDataService } from '../../../../core/data/processes/process-data.service';
+import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
+import { RequestService } from '../../../../core/data/request.service';
+import { Collection } from '../../../../core/shared/collection.model';
+import { ContentSource } from '../../../../core/shared/content-source.model';
+import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
 import {
   getAllCompletedRemoteData,
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../../../core/shared/operators';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
-import { hasValue, hasValueOperator } from '../../../../shared/empty.util';
-import { ProcessStatus } from '../../../../process-page/processes/process-status.model';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { RequestService } from '../../../../core/data/request.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
 import { Process } from '../../../../process-page/processes/process.model';
-import { TranslateService } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
+import { ProcessStatus } from '../../../../process-page/processes/process-status.model';
+import {
+  hasValue,
+  hasValueOperator,
+} from '../../../../shared/empty.util';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 
 /**
  * Component that contains the controls to run, reset and test the harvest

@@ -1,28 +1,41 @@
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
+import { RequestService } from '../../../core/data/request.service';
+import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
+import { Item } from '../../../core/shared/item.model';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
+import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.model';
+import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
+import { getMockRequestService } from '../../mocks/request.service.mock';
+import { getMockSearchService } from '../../mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../remote-data.utils';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
-import { Item } from '../../../core/shared/item.model';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { ClaimedTaskActionsComponent } from './claimed-task-actions.component';
-import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.model';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { getMockSearchService } from '../../mocks/search-service.mock';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { RequestService } from '../../../core/data/request.service';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
-import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { VarDirective } from '../../utils/var.directive';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { By } from '@angular/platform-browser';
+import { ClaimedTaskActionsComponent } from './claimed-task-actions.component';
 
 let component: ClaimedTaskActionsComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsComponent>;

@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
-import { hasValue, isEmpty } from '../../shared/empty.util';
-import { DSpaceObject } from '../shared/dspace-object.model';
 import { TranslateService } from '@ngx-translate/core';
+
+import {
+  hasValue,
+  isEmpty,
+} from '../../shared/empty.util';
+import { DSpaceObject } from '../shared/dspace-object.model';
 import { Metadata } from '../shared/metadata.utils';
 
 /**

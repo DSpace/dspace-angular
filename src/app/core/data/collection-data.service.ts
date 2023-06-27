@@ -2,26 +2,40 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { filter, map, switchMap, take } from 'rxjs/operators';
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
-import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import {
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '../../shared/empty.util';
 import { INotification } from '../../shared/notifications/models/notification.model';
+import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { Collection } from '../shared/collection.model';
 import { COLLECTION } from '../shared/collection.resource-type';
+import { Community } from '../shared/community.model';
 import { ContentSource } from '../shared/content-source.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
+import { dataService } from './base/data-service.decorator';
+import { BitstreamDataService } from './bitstream-data.service';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import {
@@ -29,11 +43,7 @@ import {
   UpdateContentSourceRequest,
 } from './request.models';
 import { RequestService } from './request.service';
-import { BitstreamDataService } from './bitstream-data.service';
 import { RestRequest } from './rest-request.model';
-import { FindListOptions } from './find-list-options.model';
-import { Community } from '../shared/community.model';
-import { dataService } from './base/data-service.decorator';
 
 @Injectable()
 @dataService(COLLECTION)

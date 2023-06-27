@@ -1,50 +1,77 @@
-import { Injectable, Inject } from '@angular/core';
-
-import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  Meta,
+  MetaDefinition,
+  Title,
+} from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+} from '@angular/router';
+import {
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-
 import {
   BehaviorSubject,
   combineLatest,
-  Observable,
-  of as observableOf,
   concat as observableConcat,
   EMPTY,
+  Observable,
+  of as observableOf,
 } from 'rxjs';
-import { filter, map, switchMap, take, mergeMap } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
+import { getBitstreamDownloadRoute } from '../../app-routing-paths';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
+import { coreSelector } from '../core.selectors';
+import { CoreState } from '../core-state.model';
 import { BitstreamDataService } from '../data/bitstream-data.service';
 import { BitstreamFormatDataService } from '../data/bitstream-format-data.service';
-
+import { BundleDataService } from '../data/bundle-data.service';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
-import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { RootDataService } from '../data/root-data.service';
+import { HardRedirectService } from '../services/hard-redirect.service';
 import { Bitstream } from '../shared/bitstream.model';
+import { getDownloadableBitstream } from '../shared/bitstream.operators';
+import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { Bundle } from '../shared/bundle.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../shared/operators';
-import { RootDataService } from '../data/root-data.service';
-import { getBitstreamDownloadRoute } from '../../app-routing-paths';
-import { BundleDataService } from '../data/bundle-data.service';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { Bundle } from '../shared/bundle.model';
-import { PaginatedList } from '../data/paginated-list.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { HardRedirectService } from '../services/hard-redirect.service';
+import {
+  AddMetaTagAction,
+  ClearMetaTagAction,
+} from './meta-tag.actions';
 import { MetaTagState } from './meta-tag.reducer';
-import { createSelector, select, Store } from '@ngrx/store';
-import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
-import { coreSelector } from '../core.selectors';
-import { CoreState } from '../core-state.model';
-import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
-import { getDownloadableBitstream } from '../shared/bitstream.operators';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 
 /**
  * The base selector function to select the metaTag section in the store

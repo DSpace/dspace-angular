@@ -1,28 +1,36 @@
 import { Injectable } from '@angular/core';
+import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { hasValue } from '../../shared/empty.util';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { Bitstream } from '../shared/bitstream.model';
 import { Bundle } from '../shared/bundle.model';
 import { BUNDLE } from '../shared/bundle.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
+import { dataService } from './base/data-service.decorator';
+import { IdentifiableDataService } from './base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from './base/patch-data';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { GetRequest } from './request.models';
 import { RequestService } from './request.service';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { Bitstream } from '../shared/bitstream.model';
 import { RequestEntryState } from './request-entry-state.model';
-import { FindListOptions } from './find-list-options.model';
-import { IdentifiableDataService } from './base/identifiable-data.service';
-import { PatchData, PatchDataImpl } from './base/patch-data';
-import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { RestRequestMethod } from './rest-request-method';
-import { Operation } from 'fast-json-patch';
-import { dataService } from './base/data-service.decorator';
 
 /**
  * A service to retrieve {@link Bundle}s from the REST API

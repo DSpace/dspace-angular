@@ -1,36 +1,43 @@
 import {
-  DsDynamicLookupRelationExternalSourceTabComponent,
-} from './dynamic-lookup-relation-external-source-tab.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../../../../utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
+  EventEmitter,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
-import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  EMPTY,
+  of as observableOf,
+} from 'rxjs';
+
+import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { Collection } from '../../../../../../core/shared/collection.model';
+import { ExternalSource } from '../../../../../../core/shared/external-source.model';
+import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
+import { Item } from '../../../../../../core/shared/item.model';
+import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { of as observableOf, EMPTY } from 'rxjs';
+import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../../../remote-data.utils';
-import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
-import { ExternalSource } from '../../../../../../core/shared/external-source.model';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { By } from '@angular/platform-browser';
-import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
-import { Item } from '../../../../../../core/shared/item.model';
-import { Collection } from '../../../../../../core/shared/collection.model';
-import { RelationshipOptions } from '../../../models/relationship-options.model';
-import { createPaginatedList } from '../../../../../testing/utils.test';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
-import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
-import {
-  ThemedExternalSourceEntryImportModalComponent,
-} from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
+import { createPaginatedList } from '../../../../../testing/utils.test';
+import { VarDirective } from '../../../../../utils/var.directive';
+import { RelationshipOptions } from '../../../models/relationship-options.model';
+import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-lookup-relation-external-source-tab.component';
+import { ThemedExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
 
 describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   let component: DsDynamicLookupRelationExternalSourceTabComponent;

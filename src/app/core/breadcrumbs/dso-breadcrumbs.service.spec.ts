@@ -1,17 +1,24 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
-import { getMockLinkService } from '../../shared/mocks/link-service.mock';
-import { LinkService } from '../cache/builders/link.service';
-import { Item } from '../shared/item.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { of as observableOf } from 'rxjs';
-import { Community } from '../shared/community.model';
-import { Collection } from '../shared/collection.model';
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
-import { DSONameService } from './dso-name.service';
+import { of as observableOf } from 'rxjs';
+
 import { getDSORoute } from '../../app-routing-paths';
+import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
+import { getMockLinkService } from '../../shared/mocks/link-service.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { LinkService } from '../cache/builders/link.service';
+import { Collection } from '../shared/collection.model';
+import { Community } from '../shared/community.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { Item } from '../shared/item.model';
+import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
+import { DSONameService } from './dso-name.service';
 
 describe('DSOBreadcrumbsService', () => {
   let service: DSOBreadcrumbsService;

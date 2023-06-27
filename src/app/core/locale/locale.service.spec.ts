@@ -1,15 +1,25 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-
-import { CookieService } from '../services/cookie.service';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { LANG_COOKIE, LANG_ORIGIN, LocaleService } from './locale.service';
-import { AuthService } from '../auth/auth.service';
-import { NativeWindowRef } from '../services/window.service';
-import { RouteService } from '../services/route.service';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
+import { AuthService } from '../auth/auth.service';
+import { CookieService } from '../services/cookie.service';
+import { RouteService } from '../services/route.service';
+import { NativeWindowRef } from '../services/window.service';
+import {
+  LANG_COOKIE,
+  LANG_ORIGIN,
+  LocaleService,
+} from './locale.service';
 
 describe('LocaleService test suite', () => {
   let service: LocaleService;

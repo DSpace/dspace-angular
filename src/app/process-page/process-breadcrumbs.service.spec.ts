@@ -1,7 +1,11 @@
-import { waitForAsync, TestBed } from '@angular/core/testing';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
-import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
+
 import { Breadcrumb } from '../breadcrumbs/breadcrumb/breadcrumb.model';
+import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
 import { Process } from './processes/process.model';
 
 describe('ProcessBreadcrumbsService', () => {

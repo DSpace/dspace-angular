@@ -1,14 +1,25 @@
-import { ActivatedRoute, convertToParamMap, NavigationEnd, Params, Router } from '@angular/router';
-import { TestBed, waitForAsync } from '@angular/core/testing';
-
-import { of as observableOf } from 'rxjs';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  convertToParamMap,
+  NavigationEnd,
+  Params,
+  Router,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
-import { getTestScheduler, hot } from 'jasmine-marbles';
-
-import { RouteService } from './route.service';
-import { RouterMock } from '../../shared/mocks/router.mock';
+import {
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { AddUrlToHistoryAction } from '../history/history.actions';
+import { RouteService } from './route.service';
 
 describe('RouteService', () => {
   let scheduler: TestScheduler;

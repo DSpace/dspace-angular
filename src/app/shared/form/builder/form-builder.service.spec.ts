@@ -1,11 +1,14 @@
-import { inject, TestBed } from '@angular/core/testing';
 import {
-  UntypedFormArray,
-  UntypedFormControl,
-  UntypedFormGroup,
+  inject,
+  TestBed,
+} from '@angular/core/testing';
+import {
   NG_ASYNC_VALIDATORS,
   NG_VALIDATORS,
   ReactiveFormsModule,
+  UntypedFormArray,
+  UntypedFormControl,
+  UntypedFormGroup,
 } from '@angular/forms';
 import {
   DynamicCheckboxGroupModel,
@@ -28,29 +31,30 @@ import {
   DynamicTextAreaModel,
   DynamicTimePickerModel,
 } from '@ng-dynamic-forms/core';
-import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
-import { DynamicListCheckboxGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
-import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
-import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import { DynamicLookupModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
-import { DynamicDsDatePickerModel } from './ds-dynamic-form-ui/models/date-picker/date-picker.model';
-import { DynamicOneboxModel } from './ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
-import { DynamicListRadioGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
-import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { FormFieldModel } from './models/form-field.model';
-import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { FormBuilderService } from './form-builder.service';
-import { DynamicRowGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
-import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
-import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { DynamicLookupNameModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
-import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
+import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
-import {createSuccessfulRemoteDataObject$} from '../../remote-data.utils';
 import {ConfigurationProperty} from '../../../core/shared/configuration-property.model';
+import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
+import {createSuccessfulRemoteDataObject$} from '../../remote-data.utils';
+import { DynamicDsDatePickerModel } from './ds-dynamic-form-ui/models/date-picker/date-picker.model';
+import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
+import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
+import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { DynamicRowGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
+import { DynamicListCheckboxGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
+import { DynamicListRadioGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
+import { DynamicLookupModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
+import { DynamicLookupNameModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
+import { DynamicOneboxModel } from './ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
+import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
+import { FormBuilderService } from './form-builder.service';
+import { FormFieldModel } from './models/form-field.model';
+import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
 
 describe('FormBuilderService test suite', () => {
 

@@ -1,18 +1,26 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MiradorViewerComponent } from './mirador-viewer.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MetadataMap } from '../../core/shared/metadata.models';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { BitstreamDataService } from '../../core/data/bitstream-data.service';
+import { BundleDataService } from '../../core/data/bundle-data.service';
 import { Item } from '../../core/shared/item.model';
+import { MetadataMap } from '../../core/shared/metadata.models';
+import { HostWindowService } from '../../shared/host-window.service';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { of as observableOf } from 'rxjs';
+import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
+import { MiradorViewerComponent } from './mirador-viewer.component';
 import { MiradorViewerService } from './mirador-viewer.service';
-import { HostWindowService } from '../../shared/host-window.service';
-import { BundleDataService } from '../../core/data/bundle-data.service';
 
 
 function getItem(metadata: MetadataMap) {

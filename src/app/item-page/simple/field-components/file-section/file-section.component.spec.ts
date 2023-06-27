@@ -1,24 +1,32 @@
-import { FileSectionComponent } from './file-section.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { VarDirective } from '../../../../shared/utils/var.directive';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
-import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
-import { PageInfo } from '../../../../core/shared/page-info.model';
-import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
+
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { PageInfo } from '../../../../core/shared/page-info.model';
+import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
+import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
+import { VarDirective } from '../../../../shared/utils/var.directive';
+import { FileSectionComponent } from './file-section.component';
 
 describe('FileSectionComponent', () => {
   let comp: FileSectionComponent;

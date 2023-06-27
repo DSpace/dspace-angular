@@ -1,22 +1,32 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { BrowserModule } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { SubmissionObjectState } from '../../objects/submission-objects.reducer';
-import { SubmissionService } from '../../submission.service';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { SectionsService } from '../sections.service';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
+import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
-import { SectionDataObject } from '../models/section-data.model';
-import { SectionsType } from '../sections-type';
+import { SubmissionUploadsConfigDataService } from '../../../core/config/submission-uploads-config-data.service';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { Group } from '../../../core/eperson/models/group.model';
+import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
+import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
+import { Collection } from '../../../core/shared/collection.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { getMockSectionUploadService } from '../../../shared/mocks/section-upload.service.mock';
 import {
   mockGroup,
   mockSubmissionCollectionId,
@@ -26,19 +36,17 @@ import {
   mockUploadConfigResponseNotRequired,
   mockUploadFiles,
 } from '../../../shared/mocks/submission.mock';
-import { SubmissionUploadsConfigDataService } from '../../../core/config/submission-uploads-config-data.service';
-import { SectionUploadService } from './section-upload.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
+import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
+import { createTestComponent } from '../../../shared/testing/utils.test';
+import { SubmissionObjectState } from '../../objects/submission-objects.reducer';
+import { SubmissionService } from '../../submission.service';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
+import { SectionsType } from '../sections-type';
 import { SubmissionSectionUploadComponent } from './section-upload.component';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
-import { Group } from '../../../core/eperson/models/group.model';
-import { getMockSectionUploadService } from '../../../shared/mocks/section-upload.service.mock';
-import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
+import { SectionUploadService } from './section-upload.service';
 
 function getMockSubmissionUploadsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('SubmissionUploadsConfigService', {

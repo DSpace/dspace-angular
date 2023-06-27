@@ -1,13 +1,16 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 
-import { PageWithSidebarComponent } from './page-with-sidebar.component';
-import { SidebarService } from './sidebar.service';
 import { HostWindowService } from '../host-window.service';
 import { SidebarServiceStub } from '../testing/sidebar-service.stub';
+import { PageWithSidebarComponent } from './page-with-sidebar.component';
+import { SidebarService } from './sidebar.service';
 
 describe('PageWithSidebarComponent', () => {
   let comp: PageWithSidebarComponent;

@@ -1,24 +1,44 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { debounceTime, filter, switchMap } from 'rxjs/operators';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  ParamMap,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
+import {
+  debounceTime,
+  filter,
+  switchMap,
+} from 'rxjs/operators';
 
-import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import { hasValue, isEmpty, isNotEmptyOperator, isNotNull } from '../../shared/empty.util';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
-import { SubmissionService } from '../submission.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { Collection } from '../../core/shared/collection.model';
+import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
+import { Collection } from '../../core/shared/collection.model';
 import { Item } from '../../core/shared/item.model';
 import { getAllSucceededRemoteData } from '../../core/shared/operators';
-import { ItemDataService } from '../../core/data/item-data.service';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
+import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
-import parseSectionErrors from '../utils/parseSectionErrors';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmptyOperator,
+  isNotNull,
+} from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SubmissionError } from '../objects/submission-error.model';
+import { SubmissionService } from '../submission.service';
+import parseSectionErrors from '../utils/parseSectionErrors';
 
 /**
  * This component allows to edit an existing workspaceitem/workflowitem.

@@ -1,24 +1,42 @@
-import { Component, Inject, Injector, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AlertType } from '../../shared/alert/aletr-type';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { DsoEditMetadataForm } from './dso-edit-metadata-form';
-import { map } from 'rxjs/operators';
-import { ActivatedRoute, Data } from '@angular/router';
-import { combineLatest as observableCombineLatest, Subscription, BehaviorSubject, Observable } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
-import { hasNoValue, hasValue } from '../../shared/empty.util';
 import {
-  getFirstCompletedRemoteData,
-} from '../../core/shared/operators';
-import { UpdateDataService } from '../../core/data/update-data.service';
-import { ResourceType } from '../../core/shared/resource-type';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+  Component,
+  Inject,
+  Injector,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Data,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
 import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorator';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALDataService } from '../../core/data/base/hal-data-service.interface';
+import { RemoteData } from '../../core/data/remote-data';
+import { UpdateDataService } from '../../core/data/update-data.service';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { ResourceType } from '../../core/shared/resource-type';
+import { AlertType } from '../../shared/alert/aletr-type';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { DsoEditMetadataForm } from './dso-edit-metadata-form';
+import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
 
 @Component({
   selector: 'ds-dso-edit-metadata',

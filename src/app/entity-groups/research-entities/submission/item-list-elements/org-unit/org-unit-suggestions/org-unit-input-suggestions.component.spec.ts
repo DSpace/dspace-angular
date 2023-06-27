@@ -1,7 +1,15 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { OrgUnitInputSuggestionsComponent } from './org-unit-input-suggestions.component';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+
+import { OrgUnitInputSuggestionsComponent } from './org-unit-input-suggestions.component';
 
 let component: OrgUnitInputSuggestionsComponent;
 let fixture: ComponentFixture<OrgUnitInputSuggestionsComponent>;

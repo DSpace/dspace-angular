@@ -1,6 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { ComcolPageBrowseByComponent } from './comcol-page-browse-by.component';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { ThemedComponent } from '../../theme-support/themed.component';
+import { ComcolPageBrowseByComponent } from './comcol-page-browse-by.component';
 
 /**
  * Themed wrapper for ComcolPageBrowseByComponent

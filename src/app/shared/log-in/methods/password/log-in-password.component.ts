@@ -1,20 +1,36 @@
-import { map } from 'rxjs/operators';
-import { Component, Inject, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-
-import { select, Store } from '@ngrx/store';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AuthenticateAction, ResetAuthenticationMessagesAction } from '../../../../core/auth/auth.actions';
+import { map } from 'rxjs/operators';
 
-import { getAuthenticationError, getAuthenticationInfo } from '../../../../core/auth/selectors';
-import { isNotEmpty } from '../../../empty.util';
-import { fadeOut } from '../../../animations/fade';
-import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
-import { renderAuthMethodFor } from '../log-in.methods-decorator';
-import { AuthMethod } from '../../../../core/auth/models/auth.method';
+import {
+  AuthenticateAction,
+  ResetAuthenticationMessagesAction,
+} from '../../../../core/auth/auth.actions';
 import { AuthService } from '../../../../core/auth/auth.service';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { AuthMethod } from '../../../../core/auth/models/auth.method';
+import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
+import {
+  getAuthenticationError,
+  getAuthenticationInfo,
+} from '../../../../core/auth/selectors';
 import { CoreState } from '../../../../core/core-state.model';
+import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { fadeOut } from '../../../animations/fade';
+import { isNotEmpty } from '../../../empty.util';
+import { renderAuthMethodFor } from '../log-in.methods-decorator';
 
 /**
  * /users/sign-in

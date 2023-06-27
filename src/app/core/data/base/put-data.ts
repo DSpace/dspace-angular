@@ -5,18 +5,19 @@
  *
  * http://www.dspace.org/license/
  */
-import { CacheableObject } from '../../cache/cacheable-object.model';
-import { BaseDataService } from './base-data.service';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../remote-data';
+
+import { hasValue } from '../../../shared/empty.util';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { CacheableObject } from '../../cache/cacheable-object.model';
+import { ObjectCacheService } from '../../cache/object-cache.service';
 import { DSpaceSerializer } from '../../dspace-rest/dspace.serializer';
 import { GenericConstructor } from '../../shared/generic-constructor';
-import { PutRequest } from '../request.models';
-import { hasValue } from '../../../shared/empty.util';
-import { RequestService } from '../request.service';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { RemoteData } from '../remote-data';
+import { PutRequest } from '../request.models';
+import { RequestService } from '../request.service';
+import { BaseDataService } from './base-data.service';
 
 /**
  * Interface for a data service that can send PUT requests.

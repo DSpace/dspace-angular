@@ -1,15 +1,34 @@
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { select, Store } from '@ngrx/store';
-
-import { AppState } from '../../app.reducer';
-import { formObjectFromIdSelector } from './selectors';
-import { FormBuilderService } from './builder/form-builder.service';
-import { DynamicFormControlEvent, DynamicFormControlModel, DynamicFormGroupModel } from '@ng-dynamic-forms/core';
-import { isEmpty, isNotUndefined } from '../empty.util';
+import {
+  AbstractControl,
+  UntypedFormArray,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
+import {
+  DynamicFormControlEvent,
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
+} from '@ng-dynamic-forms/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import uniqueId from 'lodash/uniqueId';
+import { Observable } from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+} from 'rxjs/operators';
+
+import { environment } from '../../../environments/environment';
+import { AppState } from '../../app.reducer';
+import {
+  isEmpty,
+  isNotUndefined,
+} from '../empty.util';
+import { FormBuilderService } from './builder/form-builder.service';
 import {
   FormAddError,
   FormAddTouchedAction,
@@ -19,8 +38,12 @@ import {
   FormRemoveErrorAction,
   FormStatusChangeAction,
 } from './form.actions';
-import { FormEntry, FormError, FormTouchedState } from './form.reducer';
-import { environment } from '../../../environments/environment';
+import {
+  FormEntry,
+  FormError,
+  FormTouchedState,
+} from './form.reducer';
+import { formObjectFromIdSelector } from './selectors';
 
 @Injectable()
 export class FormService {

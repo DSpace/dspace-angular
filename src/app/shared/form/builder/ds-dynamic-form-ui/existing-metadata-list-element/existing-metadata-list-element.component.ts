@@ -1,26 +1,47 @@
 /* eslint-disable max-classes-per-file */
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { DynamicFormArrayGroupModel } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  take,
+} from 'rxjs/operators';
+
 import { AppState } from '../../../../../app.reducer';
-import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../../core/shared/item.model';
+import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '../../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadataRepresentation } from '../../../../../core/shared/metadata-representation/metadata-representation.model';
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
-import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../../core/shared/operators';
-import { hasValue, isNotEmpty } from '../../../../empty.util';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../../../core/shared/operators';
+import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
+import { SubmissionService } from '../../../../../submission/submission.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../../empty.util';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
-import { SubmissionService } from '../../../../../submission/submission.service';
-import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
 
 /**
  * Abstract class that defines objects that can be reordered

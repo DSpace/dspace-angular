@@ -1,4 +1,7 @@
-import { TruncatableAction, TruncatableActionTypes } from './truncatable.actions';
+import {
+  TruncatableAction,
+  TruncatableActionTypes,
+} from './truncatable.actions';
 
 /**
  * Interface that represents the state of a single truncatable

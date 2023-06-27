@@ -1,16 +1,29 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  EMPTY,
+  Observable,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import {
   MetadataRepresentation,
   MetadataRepresentationType,
 } from '../../../core/shared/metadata-representation/metadata-representation.model';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import { map } from 'rxjs/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { EMPTY, Observable } from 'rxjs';
+import {
+  DsoEditMetadataChangeType,
+  DsoEditMetadataValue,
+} from '../dso-edit-metadata-form';
 
 @Component({
   selector: 'ds-dso-edit-metadata-value',

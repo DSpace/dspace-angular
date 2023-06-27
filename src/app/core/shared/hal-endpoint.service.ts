@@ -1,14 +1,25 @@
-import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, startWith, switchMap, take } from 'rxjs/operators';
-import { RequestService } from '../data/request.service';
-import { EndpointMapRequest } from '../data/request.models';
-import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { Injectable } from '@angular/core';
-import { EndpointMap } from '../cache/response.models';
-import { getFirstCompletedRemoteData } from './operators';
+import { Observable } from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { EndpointMap } from '../cache/response.models';
 import { RemoteData } from '../data/remote-data';
+import { EndpointMapRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
+import { getFirstCompletedRemoteData } from './operators';
 import { UnCacheableObject } from './uncacheable-object.model';
 
 @Injectable()

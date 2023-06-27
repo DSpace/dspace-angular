@@ -1,15 +1,19 @@
-import { cold, getTestScheduler } from 'jasmine-marbles';
-import { SiteDataService } from './site-data.service';
-import { RequestService } from './request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { Site } from '../shared/site.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
+
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { FindListOptions } from './find-list-options.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Site } from '../shared/site.model';
 import { testFindAllDataImplementation } from './base/find-all-data.spec';
+import { FindListOptions } from './find-list-options.model';
+import { RequestService } from './request.service';
+import { SiteDataService } from './site-data.service';
 
 describe('SiteDataService', () => {
   let scheduler: TestScheduler;

@@ -1,25 +1,35 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { MenuServiceStub } from '../testing/menu-service.stub';
-import { of as observableOf } from 'rxjs';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AdminSidebarComponent } from '../../admin/admin-sidebar/admin-sidebar.component';
-import { MenuService } from '../menu/menu.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { AdminSidebarComponent } from '../../admin/admin-sidebar/admin-sidebar.component';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
+import { Item } from '../../core/shared/item.model';
+import { MenuService } from '../menu/menu.service';
+import { MenuID } from '../menu/menu-id.model';
+import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
+import { TextMenuItemModel } from '../menu/menu-item/models/text.model';
+import { MenuItemType } from '../menu/menu-item-type.model';
+import { NotificationsService } from '../notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../remote-data.utils';
+import { MenuServiceStub } from '../testing/menu-service.stub';
 import { DSOEditMenuResolver } from './dso-edit-menu.resolver';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { Item } from '../../core/shared/item.model';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { MenuID } from '../menu/menu-id.model';
-import { MenuItemType } from '../menu/menu-item-type.model';
-import { TextMenuItemModel } from '../menu/menu-item/models/text.model';
-import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
-import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
-import { NotificationsService } from '../notifications/notifications.service';
 
 describe('DSOEditMenuResolver', () => {
 

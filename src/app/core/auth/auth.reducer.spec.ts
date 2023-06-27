@@ -1,4 +1,4 @@
-import { authReducer, AuthState } from './auth.reducer';
+import { EPersonMock } from '../../shared/testing/eperson.mock';
 import {
   AddAuthenticationMessageAction,
   AuthenticateAction,
@@ -8,7 +8,6 @@ import {
   AuthenticationErrorAction,
   AuthenticationSuccessAction,
   CheckAuthenticationTokenAction,
-  SetAuthCookieStatus,
   CheckAuthenticationTokenCookieAction,
   LogOutAction,
   LogOutErrorAction,
@@ -24,15 +23,19 @@ import {
   RetrieveAuthMethodsAction,
   RetrieveAuthMethodsErrorAction,
   RetrieveAuthMethodsSuccessAction,
+  SetAuthCookieStatus,
   SetRedirectUrlAction,
   SetUserAsIdleAction,
   UnsetUserAsIdleAction,
 } from './auth.actions';
-import { AuthTokenInfo } from './models/auth-token-info.model';
-import { EPersonMock } from '../../shared/testing/eperson.mock';
-import { AuthStatus } from './models/auth-status.model';
+import {
+  authReducer,
+  AuthState,
+} from './auth.reducer';
 import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
+import { AuthStatus } from './models/auth-status.model';
+import { AuthTokenInfo } from './models/auth-token-info.model';
 
 describe('authReducer', () => {
 

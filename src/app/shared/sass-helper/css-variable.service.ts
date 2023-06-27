@@ -1,13 +1,32 @@
 import { Injectable } from '@angular/core';
-import { AppState, keySelector } from '../../app.reducer';
-import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { AddAllCSSVariablesAction, AddCSSVariableAction, ClearCSSVariablesAction } from './css-variable.actions';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
+import {
+  createSelector,
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { hasValue, isNotEmpty } from '../empty.util';
-import { KeyValuePair } from '../key-value-pair.model';
+
+import {
+  AppState,
+  keySelector,
+} from '../../app.reducer';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
+import { KeyValuePair } from '../key-value-pair.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import {
+  AddAllCSSVariablesAction,
+  AddCSSVariableAction,
+  ClearCSSVariablesAction,
+} from './css-variable.actions';
 import { CSSVariablesState } from './css-variable.reducer';
 
 /**

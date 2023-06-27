@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { SubmissionSubmitComponent as BaseComponent } from '../../../../../app/submission/submit/submission-submit.component';
 
 /**

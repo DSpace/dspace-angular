@@ -1,16 +1,17 @@
-import { RequestService } from './request.service';
-import { EpersonRegistrationService } from './eperson-registration.service';
-import { RestResponse } from '../cache/response.models';
+import { HttpHeaders } from '@angular/common/http';
 import { cold } from 'jasmine-marbles';
-import { PostRequest } from './request.models';
-import { Registration } from '../shared/registration.model';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { RequestEntry } from './request-entry.model';
-import { HttpHeaders } from '@angular/common/http';
+
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { RestResponse } from '../cache/response.models';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { Registration } from '../shared/registration.model';
+import { EpersonRegistrationService } from './eperson-registration.service';
+import { PostRequest } from './request.models';
+import { RequestService } from './request.service';
+import { RequestEntry } from './request-entry.model';
 
 describe('EpersonRegistrationService', () => {
   let testScheduler;

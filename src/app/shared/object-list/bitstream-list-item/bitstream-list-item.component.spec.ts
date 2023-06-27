@@ -1,12 +1,15 @@
 import {CommonModule} from '@angular/common';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {TranslateModule} from '@ngx-translate/core';
-import {SharedModule} from '../../shared.module';
 
-import {BitstreamListItemComponent} from './bitstream-list-item.component';
 import {DSONameService} from '../../../core/breadcrumbs/dso-name.service';
 import {DSONameServiceMock} from '../../mocks/dso-name.service.mock';
+import {SharedModule} from '../../shared.module';
+import {BitstreamListItemComponent} from './bitstream-list-item.component';
 
 describe('BitstreamListItemComponent', () => {
   let component: BitstreamListItemComponent;

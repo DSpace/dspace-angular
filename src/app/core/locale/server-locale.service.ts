@@ -1,15 +1,37 @@
-import { LANG_ORIGIN, LocaleService } from './locale.service';
-import { Inject, Injectable } from '@angular/core';
-import { combineLatest, Observable, of as observableOf } from 'rxjs';
-import { map, mergeMap, take } from 'rxjs/operators';
-import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { NativeWindowRef, NativeWindowService } from '../services/window.service';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
-import { CookieService } from '../services/cookie.service';
-import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from '../auth/auth.service';
-import { RouteService } from '../services/route.service';
 import { DOCUMENT } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  combineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  take,
+} from 'rxjs/operators';
+
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { AuthService } from '../auth/auth.service';
+import { CookieService } from '../services/cookie.service';
+import { RouteService } from '../services/route.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../services/window.service';
+import {
+  LANG_ORIGIN,
+  LocaleService,
+} from './locale.service';
 
 @Injectable()
 export class ServerLocaleService extends LocaleService {

@@ -1,12 +1,13 @@
-import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
+
+import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 
 /**
  * This component renders the page to create a new bitstream format.

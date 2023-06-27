@@ -1,42 +1,49 @@
-import { Component, ComponentFactoryResolver, ElementRef, ViewChild, OnInit } from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, mergeMap, take, tap } from 'rxjs/operators';
-
-import { Item } from '../../../../../core/shared/item.model';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import {
-  getListableObjectComponent,
-  listableObjectComponent,
-} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { Context } from '../../../../../core/shared/context.model';
-import {
-  SearchResultGridElementComponent,
-} from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
-import {
-  ListableObjectDirective,
-} from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { followLink } from '../../../../../shared/utils/follow-link-config.model';
+import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
+import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
+import { Context } from '../../../../../core/shared/context.model';
+import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
+import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
+import { Item } from '../../../../../core/shared/item.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../../../core/shared/operators';
-import {
-  WorkspaceItemSearchResult,
-} from '../../../../../shared/object-collection/shared/workspace-item-search-result.model';
-import { ThemeService } from '../../../../../shared/theme-support/theme.service';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { SupervisionOrder } from '../../../../../core/supervision-order/models/supervision-order.model';
-import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import {
+  getListableObjectComponent,
+  listableObjectComponent,
+} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { ListableObjectDirective } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
+import { WorkspaceItemSearchResult } from '../../../../../shared/object-collection/shared/workspace-item-search-result.model';
+import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
 @Component({

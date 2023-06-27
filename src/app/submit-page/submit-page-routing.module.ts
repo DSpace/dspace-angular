@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { ThemedSubmissionSubmitComponent } from '../submission/submit/themed-submission-submit.component';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { ThemedSubmissionSubmitComponent } from '../submission/submit/themed-submission-submit.component';
 
 @NgModule({
   imports: [

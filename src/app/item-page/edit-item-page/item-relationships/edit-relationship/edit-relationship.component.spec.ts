@@ -1,16 +1,21 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../core/shared/item.model';
-import { EditRelationshipComponent } from './edit-relationship.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
+import { EditRelationshipComponent } from './edit-relationship.component';
 
 let objectUpdatesService;
 const url = 'http://test-url.com/test-url';

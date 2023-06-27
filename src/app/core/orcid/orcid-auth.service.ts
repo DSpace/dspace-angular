@@ -1,20 +1,37 @@
-import { Inject, Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  AddOperation,
+  RemoveOperation,
+} from 'fast-json-patch';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
-import { combineLatest, Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { AddOperation, RemoveOperation } from 'fast-json-patch';
-
-import { ResearcherProfileDataService } from '../profile/researcher-profile-data.service';
-import { Item } from '../shared/item.model';
 import { isNotEmpty } from '../../shared/empty.util';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../shared/operators';
-import { RemoteData } from '../data/remote-data';
-import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { ConfigurationDataService } from '../data/configuration-data.service';
+import { RemoteData } from '../data/remote-data';
 import { ResearcherProfile } from '../profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '../profile/researcher-profile-data.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../services/window.service';
+import { ConfigurationProperty } from '../shared/configuration-property.model';
+import { Item } from '../shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 
 @Injectable()
 export class OrcidAuthService {

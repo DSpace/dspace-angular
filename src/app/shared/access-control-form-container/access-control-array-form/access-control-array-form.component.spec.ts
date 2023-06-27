@@ -1,14 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AccessControlArrayFormComponent } from './access-control-array-form.component';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { DebugElement } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ToDatePipe } from './to-date.pipe';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { SharedBrowseByModule } from '../../browse-by/shared-browse-by.module';
+import { AccessControlArrayFormComponent } from './access-control-array-form.component';
+import { ToDatePipe } from './to-date.pipe';
 
 describe('AccessControlArrayFormComponent', () => {
   let component: AccessControlArrayFormComponent;

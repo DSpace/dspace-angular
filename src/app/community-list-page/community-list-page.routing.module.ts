@@ -1,10 +1,10 @@
+import { CdkTreeModule } from '@angular/cdk/tree';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CdkTreeModule } from '@angular/cdk/tree';
 
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { CommunityListService } from './community-list-service';
 import { ThemedCommunityListPageComponent } from './themed-community-list-page.component';
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 /**
  * RouterModule to help navigate to the page with the community list tree

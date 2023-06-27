@@ -1,11 +1,15 @@
-import { autoserialize, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
 import { typedObject } from 'src/app/core/cache/builders/build-decorators';
 import { CacheableObject } from 'src/app/core/cache/cacheable-object.model';
 import { HALLink } from 'src/app/core/shared/hal-link.model';
 import { ResourceType } from 'src/app/core/shared/resource-type';
 import { excludeFromEquals } from 'src/app/core/utilities/equals.decorators';
-import { IDENTIFIERS } from './identifier-data.resource-type';
+
 import {Identifier} from './identifier.model';
+import { IDENTIFIERS } from './identifier-data.resource-type';
 
 @typedObject
 export class IdentifierData implements CacheableObject {

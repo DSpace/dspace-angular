@@ -1,3 +1,5 @@
+import { MetadataField } from '../../../core/metadata/metadata-field.model';
+import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import {
   MetadataRegistryCancelFieldAction,
   MetadataRegistryCancelSchemaAction,
@@ -10,9 +12,10 @@ import {
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction,
 } from './metadata-registry.actions';
-import { metadataRegistryReducer, MetadataRegistryState } from './metadata-registry.reducers';
-import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { MetadataField } from '../../../core/metadata/metadata-field.model';
+import {
+  metadataRegistryReducer,
+  MetadataRegistryState,
+} from './metadata-registry.reducers';
 
 class NullAction extends MetadataRegistryEditSchemaAction {
   type = null;

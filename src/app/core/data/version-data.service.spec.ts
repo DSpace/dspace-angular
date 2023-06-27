@@ -1,21 +1,29 @@
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+
+import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from './request.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { HrefOnlyDataService } from './href-only-data.service';
-import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { RestResponse } from '../cache/response.models';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import { VersionDataService } from './version-data.service';
 import { Version } from '../shared/version.model';
 import { VersionHistory } from '../shared/version-history.model';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { RequestEntry } from './request-entry.model';
 import { testPatchDataImplementation } from './base/patch-data.spec';
+import { HrefOnlyDataService } from './href-only-data.service';
+import { RequestService } from './request.service';
+import { RequestEntry } from './request-entry.model';
+import { VersionDataService } from './version-data.service';
 
 describe('VersionDataService test', () => {
   let scheduler: TestScheduler;

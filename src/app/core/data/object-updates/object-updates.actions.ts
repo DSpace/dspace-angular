@@ -1,11 +1,12 @@
 /* eslint-disable max-classes-per-file */
-import { type } from '../../../shared/ngrx/type';
 import { Action } from '@ngrx/store';
+
+import { type } from '../../../shared/ngrx/type';
 import { INotification } from '../../../shared/notifications/models/notification.model';
-import { PatchOperationService } from './patch-operation-service/patch-operation.service';
 import { GenericConstructor } from '../../shared/generic-constructor';
-import { Identifiable } from './identifiable.model';
 import { FieldChangeType } from './field-change-type.model';
+import { Identifiable } from './identifiable.model';
+import { PatchOperationService } from './patch-operation-service/patch-operation.service';
 
 /**
  * The list of ObjectUpdatesAction type definitions

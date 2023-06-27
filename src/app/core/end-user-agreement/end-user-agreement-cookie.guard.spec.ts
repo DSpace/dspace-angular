@@ -1,5 +1,9 @@
+import {
+  Router,
+  UrlTree,
+} from '@angular/router';
+
 import { EndUserAgreementService } from './end-user-agreement.service';
-import { Router, UrlTree } from '@angular/router';
 import { EndUserAgreementCookieGuard } from './end-user-agreement-cookie.guard';
 
 describe('EndUserAgreementCookieGuard', () => {

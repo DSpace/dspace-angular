@@ -1,11 +1,19 @@
-import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  NO_ERRORS_SCHEMA,
+  ViewContainerRef,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { NO_ERRORS_SCHEMA, ViewContainerRef } from '@angular/core';
-import { Item } from '../../../../core/shared/item.model';
+
 import { Bundle } from '../../../../core/shared/bundle.model';
-import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
+import { Item } from '../../../../core/shared/item.model';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
+import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
+import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle.component';
 
 describe('ItemEditBitstreamBundleComponent', () => {
   let comp: ItemEditBitstreamBundleComponent;

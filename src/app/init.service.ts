@@ -5,25 +5,43 @@
  *
  * http://www.dspace.org/license/
  */
-import { select, Store } from '@ngrx/store';
-import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
-import { CorrelationIdService } from './correlation-id/correlation-id.service';
-import { APP_INITIALIZER, Inject, Provider, Type } from '@angular/core';
-import { makeStateKey, TransferState } from '@angular/platform-browser';
-import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
+import {
+  APP_INITIALIZER,
+  Inject,
+  Provider,
+  Type,
+} from '@angular/core';
+import {
+  makeStateKey,
+  TransferState,
+} from '@angular/platform-browser';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import isEqual from 'lodash/isEqual';
+import { Observable } from 'rxjs';
+import {
+  distinctUntilChanged,
+  find,
+} from 'rxjs/operators';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../config/app-config.interface';
 import { environment } from '../environments/environment';
 import { AppState } from './app.reducer';
-import isEqual from 'lodash/isEqual';
-import { TranslateService } from '@ngx-translate/core';
-import { LocaleService } from './core/locale/locale.service';
-import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
-import { MetadataService } from './core/metadata/metadata.service';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
-import { ThemeService } from './shared/theme-support/theme.service';
+import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { isAuthenticationBlocking } from './core/auth/selectors';
-import { distinctUntilChanged, find } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { LocaleService } from './core/locale/locale.service';
+import { MetadataService } from './core/metadata/metadata.service';
+import { CorrelationIdService } from './correlation-id/correlation-id.service';
 import { MenuService } from './shared/menu/menu.service';
+import { ThemeService } from './shared/theme-support/theme.service';
+import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 
 /**
  * Performs the initialization of the app.

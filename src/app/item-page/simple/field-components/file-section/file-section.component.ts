@@ -1,17 +1,25 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from 'src/config/app-config.interface';
 
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../../core/data/remote-data';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { hasValue } from '../../../../shared/empty.util';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { hasValue } from '../../../../shared/empty.util';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 
 /**
  * This component renders the file section of the item

@@ -1,20 +1,22 @@
-import { Component, Input } from '@angular/core';
-import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import {
   Observable,
   zip as observableZip,
 } from 'rxjs';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { Item } from '../../../core/shared/item.model';
-import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 import { map } from 'rxjs/operators';
-import { getRemoteDataPayload } from '../../../core/shared/operators';
-import {
-  MetadatumRepresentation,
-} from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
+
 import { BrowseService } from '../../../core/browse/browse.service';
 import { BrowseDefinitionDataService } from '../../../core/browse/browse-definition-data.service';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
+import { Item } from '../../../core/shared/item.model';
+import { MetadataValue } from '../../../core/shared/metadata.models';
+import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
+import { MetadatumRepresentation } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import { getRemoteDataPayload } from '../../../core/shared/operators';
+import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 
 @Component({
   selector: 'ds-metadata-representation-list',

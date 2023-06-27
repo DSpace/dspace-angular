@@ -1,6 +1,3 @@
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
-
-import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -10,20 +7,37 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  startWith,
+} from 'rxjs/operators';
 
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
-
 import { RemoteData } from '../../core/data/remote-data';
-import { fadeIn } from '../animations/fade';
-import { hasNoValue, hasValue } from '../empty.util';
-import { HostWindowService, WidthCategory } from '../host-window.service';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
-
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { ViewMode } from '../../core/shared/view-mode.model';
 import { Context } from '../../core/shared/context.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { fadeIn } from '../animations/fade';
+import {
+  hasNoValue,
+  hasValue,
+} from '../empty.util';
+import {
+  HostWindowService,
+  WidthCategory,
+} from '../host-window.service';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,

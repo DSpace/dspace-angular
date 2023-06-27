@@ -1,33 +1,43 @@
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { getTestScheduler } from 'jasmine-marbles';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { SubmissionImportExternalComponent } from './submission-import-external.component';
 import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
-import { getMockExternalSourceService } from '../../shared/mocks/external-source.service.mock';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { RouteService } from '../../core/services/route.service';
-import { createPaginatedList, createTestComponent } from '../../shared/testing/utils.test';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { routeServiceStub } from '../../shared/testing/route-service.stub';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { getMockExternalSourceService } from '../../shared/mocks/external-source.service.mock';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
-import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { routeServiceStub } from '../../shared/testing/route-service.stub';
+import { RouterStub } from '../../shared/testing/router.stub';
+import {
+  createPaginatedList,
+  createTestComponent,
+} from '../../shared/testing/utils.test';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
-import { By } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SubmissionImportExternalComponent } from './submission-import-external.component';
 
 describe('SubmissionImportExternalComponent test suite', () => {
   let comp: SubmissionImportExternalComponent;

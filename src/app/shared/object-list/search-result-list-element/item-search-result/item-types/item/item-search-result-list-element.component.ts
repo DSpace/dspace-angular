@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { listableObjectComponent } from '../../../../../object-collection/shared/listable-object/listable-object.decorator';
-import { ViewMode } from '../../../../../../core/shared/view-mode.model';
-import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
-import { SearchResultListElementComponent } from '../../../search-result-list-element.component';
+
 import { Item } from '../../../../../../core/shared/item.model';
+import { ViewMode } from '../../../../../../core/shared/view-mode.model';
 import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-paths';
+import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
+import { listableObjectComponent } from '../../../../../object-collection/shared/listable-object/listable-object.decorator';
+import { SearchResultListElementComponent } from '../../../search-result-list-element.component';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement)

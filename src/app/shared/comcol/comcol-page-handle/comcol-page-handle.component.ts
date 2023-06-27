@@ -1,4 +1,8 @@
-import { Component, Injectable, Input } from '@angular/core';
+import {
+  Component,
+  Injectable,
+  Input,
+} from '@angular/core';
 
 /**
  * This component builds a URL from the value of "handle"

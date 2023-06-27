@@ -1,15 +1,29 @@
-import { Component, OnInit, Predicate } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
+import {
+  Component,
+  OnInit,
+  Predicate,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Item } from '../../../core/shared/item.model';
-import { RemoteData } from '../../../core/data/remote-data';
 import { Observable } from 'rxjs';
+import {
+  first,
+  map,
+} from 'rxjs/operators';
+
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { Item } from '../../../core/shared/item.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { first, map } from 'rxjs/operators';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  getItemEditRoute,
+  getItemPageRoute,
+} from '../../item-page-routing-paths';
 import { findSuccessfulAccordingTo } from '../edit-item-operators';
-import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
 
 /**
  * Component to render and handle simple item edit actions such as withdrawal and reinstatement.

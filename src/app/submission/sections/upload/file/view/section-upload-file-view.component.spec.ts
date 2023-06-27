@@ -1,14 +1,21 @@
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { mockUploadFiles } from '../../../../../shared/mocks/submission.mock';
-import { FormComponent } from '../../../../../shared/form/form.component';
-import { SubmissionSectionUploadFileViewComponent } from './section-upload-file-view.component';
-import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
+import { FormComponent } from '../../../../../shared/form/form.component';
+import { mockUploadFiles } from '../../../../../shared/mocks/submission.mock';
 import { createTestComponent } from '../../../../../shared/testing/utils.test';
+import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { SubmissionSectionUploadFileViewComponent } from './section-upload-file-view.component';
 
 describe('SubmissionSectionUploadFileViewComponent test suite', () => {
 

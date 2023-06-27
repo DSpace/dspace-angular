@@ -1,28 +1,48 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
-
-import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
-import { filter, mergeMap, switchMap, take, tap } from 'rxjs/operators';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  mergeMap,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
-import { ExternalSourceData } from './import-external-searchbar/submission-import-external-searchbar.component';
-import { RemoteData } from '../../core/data/remote-data';
-import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
-import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { Context } from '../../core/shared/context.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { RouteService } from '../../core/services/route.service';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import {
-  SubmissionImportExternalPreviewComponent,
-} from './import-external-preview/submission-import-external-preview.component';
-import { fadeIn } from '../../shared/animations/fade';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { getFinishedRemoteData } from '../../core/shared/operators';
+  buildPaginatedList,
+  PaginatedList,
+} from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { RouteService } from '../../core/services/route.service';
+import { Context } from '../../core/shared/context.model';
+import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
 import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
+import { getFinishedRemoteData } from '../../core/shared/operators';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { fadeIn } from '../../shared/animations/fade';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
+import { ExternalSourceData } from './import-external-searchbar/submission-import-external-searchbar.component';
 
 /**
  * This component allows to submit a new workspaceitem importing the data from an external source.

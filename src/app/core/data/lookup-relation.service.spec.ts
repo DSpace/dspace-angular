@@ -1,18 +1,22 @@
-import { LookupRelationService } from './lookup-relation.service';
-import { ExternalSourceDataService } from './external-source-data.service';
-import { SearchService } from '../shared/search/search.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { buildPaginatedList } from './paginated-list.model';
-import { PageInfo } from '../shared/page-info.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { RelationshipOptions } from '../../shared/form/builder/models/relationship-options.model';
-import { SearchResult } from '../../shared/search/models/search-result.model';
-import { Item } from '../shared/item.model';
-import { skip, take } from 'rxjs/operators';
-import { ExternalSource } from '../shared/external-source.model';
-import { RequestService } from './request.service';
 import { of as observableOf } from 'rxjs';
+import {
+  skip,
+  take,
+} from 'rxjs/operators';
+
+import { RelationshipOptions } from '../../shared/form/builder/models/relationship-options.model';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { SearchResult } from '../../shared/search/models/search-result.model';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { ExternalSource } from '../shared/external-source.model';
+import { Item } from '../shared/item.model';
+import { PageInfo } from '../shared/page-info.model';
+import { SearchService } from '../shared/search/search.service';
+import { ExternalSourceDataService } from './external-source-data.service';
+import { LookupRelationService } from './lookup-relation.service';
+import { buildPaginatedList } from './paginated-list.model';
+import { RequestService } from './request.service';
 
 describe('LookupRelationService', () => {
   let service: LookupRelationService;

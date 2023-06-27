@@ -1,11 +1,30 @@
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
-import { Injectable, InjectionToken } from '@angular/core';
 import {
-  SearchFiltersState,
-  SearchFilterState,
-} from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
-import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
+  Injectable,
+  InjectionToken,
+} from '@angular/core';
+import { Params } from '@angular/router';
+import {
+  createSelector,
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
+
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
@@ -15,12 +34,15 @@ import {
   SearchFilterResetPageAction,
   SearchFilterToggleAction,
 } from '../../../shared/search/search-filters/search-filter/search-filter.actions';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
-import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
+import {
+  SearchFiltersState,
+  SearchFilterState,
+} from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../cache/models/sort-options.model';
 import { RouteService } from '../../services/route.service';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { Params } from '@angular/router';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 

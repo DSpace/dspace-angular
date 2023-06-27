@@ -1,25 +1,33 @@
-import { FullFileSectionComponent } from './full-file-section.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { VarDirective } from '../../../../shared/utils/var.directive';
-import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
-import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { of as observableOf } from 'rxjs';
-import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
+
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
+import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
+import { VarDirective } from '../../../../shared/utils/var.directive';
+import { FullFileSectionComponent } from './full-file-section.component';
 
 describe('FullFileSectionComponent', () => {
   let comp: FullFileSectionComponent;

@@ -1,9 +1,13 @@
-import { Component, Input } from '@angular/core';
-import { Item } from '../../../../core/shared/item.model';
-import { map } from 'rxjs/operators';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import { Observable } from 'rxjs';
-import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
+import { map } from 'rxjs/operators';
+
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
+import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
+import { Item } from '../../../../core/shared/item.model';
 import { getRemoteDataPayload } from '../../../../core/shared/operators';
 
 /**

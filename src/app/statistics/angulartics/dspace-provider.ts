@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
+
 import { StatisticsService } from '../statistics.service';
 
 /**

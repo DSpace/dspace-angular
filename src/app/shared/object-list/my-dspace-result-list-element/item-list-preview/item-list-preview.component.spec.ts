@@ -1,16 +1,25 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { TruncatePipe } from '../../../utils/truncate.pipe';
-import { Item } from '../../../../core/shared/item.model';
-import { ItemListPreviewComponent } from './item-list-preview.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { Item } from '../../../../core/shared/item.model';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { TruncatePipe } from '../../../utils/truncate.pipe';
+import { ItemListPreviewComponent } from './item-list-preview.component';
 
 let component: ItemListPreviewComponent;
 let fixture: ComponentFixture<ItemListPreviewComponent>;

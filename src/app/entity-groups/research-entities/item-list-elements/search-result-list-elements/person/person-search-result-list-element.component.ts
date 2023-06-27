@@ -1,14 +1,17 @@
-import { Component, Inject } from '@angular/core';
 import {
-  listableObjectComponent,
-} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
+  Component,
+  Inject,
+} from '@angular/core';
+
 import {
-  ItemSearchResultListElementComponent,
-} from '../../../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { ItemSearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement)
 @Component({

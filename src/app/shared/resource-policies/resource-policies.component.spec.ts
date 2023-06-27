@@ -1,40 +1,64 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../core/cache/builders/link.service';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
+import { RequestService } from '../../core/data/request.service';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { GroupDataService } from '../../core/eperson/group-data.service';
+import { ActionType } from '../../core/resource-policy/models/action-type.model';
+import { PolicyType } from '../../core/resource-policy/models/policy-type.model';
+import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { Bundle } from '../../core/shared/bundle.model';
 import { Item } from '../../core/shared/item.model';
-import { LinkService } from '../../core/cache/builders/link.service';
-import { getMockLinkService } from '../mocks/link-service.mock';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { createPaginatedList, createTestComponent } from '../testing/utils.test';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { NotificationsService } from '../notifications/notifications.service';
-import { NotificationsServiceStub } from '../testing/notifications-service.stub';
-import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
-import { getMockResourcePolicyService } from '../mocks/mock-resource-policy-service';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { RequestService } from '../../core/data/request.service';
-import { getMockRequestService } from '../mocks/request.service.mock';
-import { RouterStub } from '../testing/router.stub';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { ResourcePoliciesComponent } from './resource-policies.component';
-import { PolicyType } from '../../core/resource-policy/models/policy-type.model';
-import { ActionType } from '../../core/resource-policy/models/action-type.model';
+import { getMockLinkService } from '../mocks/link-service.mock';
+import { getMockResourcePolicyService } from '../mocks/mock-resource-policy-service';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { NotificationsService } from '../notifications/notifications.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../remote-data.utils';
 import { EPersonMock } from '../testing/eperson.mock';
 import { GroupMock } from '../testing/group-mock';
+import { NotificationsServiceStub } from '../testing/notifications-service.stub';
+import { RouterStub } from '../testing/router.stub';
+import {
+  createPaginatedList,
+  createTestComponent,
+} from '../testing/utils.test';
 import { ResourcePolicyEntryComponent } from './entry/resource-policy-entry.component';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ResourcePoliciesComponent } from './resource-policies.component';
 
 describe('ResourcePoliciesComponent test suite', () => {
   let comp: ResourcePoliciesComponent;

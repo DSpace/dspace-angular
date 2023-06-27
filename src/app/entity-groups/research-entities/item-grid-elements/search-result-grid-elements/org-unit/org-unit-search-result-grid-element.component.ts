@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { focusShadow } from '../../../../../shared/animations/focus';
+import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ItemSearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
 
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.GridElement)

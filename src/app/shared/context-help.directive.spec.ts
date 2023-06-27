@@ -1,12 +1,26 @@
-import { Component, Input } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { of as observableOf, BehaviorSubject } from 'rxjs';
-import { ContextHelpDirective, ContextHelpDirectiveInput } from './context-help.directive';
-import { TranslateService } from '@ngx-translate/core';
-import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { ContextHelpService } from './context-help.service';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
+
+import {
+  ContextHelpDirective,
+  ContextHelpDirectiveInput,
+} from './context-help.directive';
 import { ContextHelp } from './context-help.model';
+import { ContextHelpService } from './context-help.service';
+import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 
 @Component({
   template: `<div *dsContextHelp="contextHelpParams()">some text</div>`,

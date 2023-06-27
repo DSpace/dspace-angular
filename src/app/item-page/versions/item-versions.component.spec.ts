@@ -1,34 +1,48 @@
-import { ItemVersionsComponent } from './item-versions.component';
-import {
-  ComponentFixture, TestBed, waitForAsync,
-} from '@angular/core/testing';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  EMPTY,
+  of as observableOf,
+  of,
+} from 'rxjs';
+
+import { AuthService } from '../../core/auth/auth.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { VersionDataService } from '../../core/data/version-data.service';
+import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import { Item } from '../../core/shared/item.model';
 import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
-import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { EMPTY, of, of as observableOf } from 'rxjs';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { AuthService } from '../../core/auth/auth.service';
-import { VersionDataService } from '../../core/data/version-data.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { ItemSharedModule } from '../item-shared.module';
+import { ItemVersionsComponent } from './item-versions.component';
 
 describe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;

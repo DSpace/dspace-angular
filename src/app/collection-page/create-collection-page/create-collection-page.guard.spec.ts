@@ -1,8 +1,12 @@
-import { CreateCollectionPageGuard } from './create-collection-page.guard';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { Community } from '../../core/shared/community.model';
 import { first } from 'rxjs/operators';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+
+import { Community } from '../../core/shared/community.model';
+import { RouterMock } from '../../shared/mocks/router.mock';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { CreateCollectionPageGuard } from './create-collection-page.guard';
 
 describe('CreateCollectionPageGuard', () => {
   describe('canActivate', () => {

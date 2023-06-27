@@ -1,29 +1,40 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
+
+import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
+import { PageInfo } from '../../../../../core/shared/page-info.model';
+import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
   SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { FilterType } from '../../../models/filter-type.model';
-import { FacetValue } from '../../../models/facet-value.model';
-import { FormsModule } from '@angular/forms';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
-import { SearchService } from '../../../../../core/shared/search/search.service';
-import { SearchServiceStub } from '../../../../testing/search-service.stub';
-import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
-import { RouterStub } from '../../../../testing/router.stub';
-import { Router } from '@angular/router';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { SearchFacetFilterComponent } from './search-facet-filter.component';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import { RouterStub } from '../../../../testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
+import { SearchServiceStub } from '../../../../testing/search-service.stub';
+import { FacetValue } from '../../../models/facet-value.model';
+import { FilterType } from '../../../models/filter-type.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { SearchFacetFilterComponent } from './search-facet-filter.component';
 
 describe('SearchFacetFilterComponent', () => {
   let comp: SearchFacetFilterComponent;

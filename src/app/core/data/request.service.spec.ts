@@ -1,14 +1,41 @@
-import { Store, StoreModule } from '@ngrx/store';
-import { cold, getTestScheduler } from 'jasmine-marbles';
-import { EMPTY, of as observableOf } from 'rxjs';
+import {
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
+import {
+  EMPTY,
+  of as observableOf,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { storeModuleConfig } from '../../app.reducer';
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
-import { defaultUUID, getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
+import {
+  defaultUUID,
+  getMockUUIDService,
+} from '../../shared/mocks/uuid.service.mock';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { coreReducers} from '../core.reducers';
+import { CoreState } from '../core-state.model';
 import { UUIDService } from '../shared/uuid.service';
-import { RequestConfigureAction, RequestExecuteAction, RequestStaleAction } from './request.actions';
+import {
+  RequestConfigureAction,
+  RequestExecuteAction,
+  RequestStaleAction,
+} from './request.actions';
 import {
   DeleteRequest,
   GetRequest,
@@ -19,13 +46,9 @@ import {
   PutRequest,
 } from './request.models';
 import { RequestService } from './request.service';
-import { fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
-import { storeModuleConfig } from '../../app.reducer';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { RequestEntry } from './request-entry.model';
 import { RequestEntryState } from './request-entry-state.model';
 import { RestRequest } from './rest-request.model';
-import { CoreState } from '../core-state.model';
-import { RequestEntry } from './request-entry.model';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;

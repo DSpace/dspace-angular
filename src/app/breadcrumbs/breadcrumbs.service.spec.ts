@@ -1,12 +1,20 @@
 import { TestBed } from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+} from '@angular/router';
+import { cold } from 'jasmine-marbles';
+import {
+  Observable,
+  of as observableOf,
+  Subject,
+} from 'rxjs';
 
-import { BreadcrumbsService } from './breadcrumbs.service';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Observable, of as observableOf, Subject } from 'rxjs';
-import { BreadcrumbConfig } from './breadcrumb/breadcrumb-config.model';
 import { BreadcrumbsProviderService } from '../core/breadcrumbs/breadcrumbsProviderService';
 import { Breadcrumb } from './breadcrumb/breadcrumb.model';
-import { cold } from 'jasmine-marbles';
+import { BreadcrumbConfig } from './breadcrumb/breadcrumb-config.model';
+import { BreadcrumbsService } from './breadcrumbs.service';
 
 class TestBreadcrumbsService implements BreadcrumbsProviderService<string> {
   getBreadcrumbs(key: string, url: string): Observable<Breadcrumb[]> {

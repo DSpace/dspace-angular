@@ -1,11 +1,10 @@
-import { ServerCheckGuard } from './server-check.guard';
 import { Router } from '@angular/router';
-
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { getPageInternalServerErrorRoute } from '../../app-routing-paths';
 import { RootDataService } from '../data/root-data.service';
+import { ServerCheckGuard } from './server-check.guard';
 import SpyObj = jasmine.SpyObj;
 
 describe('ServerCheckGuard', () => {

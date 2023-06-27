@@ -1,21 +1,31 @@
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Router } from '@angular/router';
-
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { RouterStub } from '../../testing/router.stub';
-import { Item } from '../../../core/shared/item.model';
-import { ItemActionsComponent } from './item-actions.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
+import { RequestService } from '../../../core/data/request.service';
+import { Item } from '../../../core/shared/item.model';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { getMockRequestService } from '../../mocks/request.service.mock';
+import { getMockSearchService } from '../../mocks/search-service.mock';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { RequestService } from '../../../core/data/request.service';
-import { getMockSearchService } from '../../mocks/search-service.mock';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { SearchService } from '../../../core/shared/search/search.service';
+import { RouterStub } from '../../testing/router.stub';
+import { ItemActionsComponent } from './item-actions.component';
 
 let component: ItemActionsComponent;
 let fixture: ComponentFixture<ItemActionsComponent>;

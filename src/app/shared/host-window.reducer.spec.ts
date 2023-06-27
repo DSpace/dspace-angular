@@ -1,7 +1,8 @@
 // eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
-import { hostWindowReducer } from './search/host-window.reducer';
+
 import { HostWindowResizeAction } from './host-window.actions';
+import { hostWindowReducer } from './search/host-window.reducer';
 
 class NullAction extends HostWindowResizeAction {
   type = null;

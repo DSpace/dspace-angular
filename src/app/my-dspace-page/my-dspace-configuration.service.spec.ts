@@ -1,18 +1,24 @@
+import {
+  cold,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
-import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../core/cache/models/sort-options.model';
+import { Context } from '../core/shared/context.model';
+import { getMockRemoteDataBuildService } from '../shared/mocks/remote-data-build.service.mock';
+import { RoleServiceMock } from '../shared/mocks/role-service.mock';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
+import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '../shared/search/models/search-filter.model';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
-import { RoleServiceMock } from '../shared/mocks/role-service.mock';
-import { cold, hot } from 'jasmine-marbles';
-import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
-import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
-import { Context } from '../core/shared/context.model';
 import { HALEndpointServiceStub } from '../shared/testing/hal-endpoint-service.stub';
-import { getMockRemoteDataBuildService } from '../shared/mocks/remote-data-build.service.mock';
+import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
+import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
+import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 
 describe('MyDSpaceConfigurationService', () => {
   let service: MyDSpaceConfigurationService;

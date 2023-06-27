@@ -1,29 +1,40 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { UploadBitstreamComponent } from './upload-bitstream.component';
-import { AuthService } from '../../../core/auth/auth.service';
-import { Item } from '../../../core/shared/item.model';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { VarDirective } from '../../../shared/utils/var.directive';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { RequestService } from '../../../core/data/request.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
+
 import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../core/auth/auth.service';
+import { BundleDataService } from '../../../core/data/bundle-data.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { RequestService } from '../../../core/data/request.service';
+import { Bitstream } from '../../../core/shared/bitstream.model';
+import { Bundle } from '../../../core/shared/bundle.model';
+import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { UploadBitstreamComponent } from './upload-bitstream.component';
 
 describe('UploadBitstreamComponent', () => {
   let comp: UploadBitstreamComponent;

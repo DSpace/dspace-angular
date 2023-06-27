@@ -1,26 +1,33 @@
 import { TestBed } from '@angular/core/testing';
-import { BitstreamDataService } from './bitstream-data.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { RequestService } from './request.service';
-import { Bitstream } from '../shared/bitstream.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { BitstreamFormatDataService } from './bitstream-format-data.service';
-import { Observable, of as observableOf } from 'rxjs';
-import { BitstreamFormat } from '../shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../shared/bitstream-format-support-level';
-import { PatchRequest, PutRequest } from './request.models';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
-import { testSearchDataImplementation } from './base/search-data.spec';
-import { testPatchDataImplementation } from './base/patch-data.spec';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { Bitstream } from '../shared/bitstream.model';
+import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '../shared/bitstream-format-support-level';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
+import { testPatchDataImplementation } from './base/patch-data.spec';
+import { testSearchDataImplementation } from './base/search-data.spec';
+import { BitstreamDataService } from './bitstream-data.service';
+import { BitstreamFormatDataService } from './bitstream-format-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  PatchRequest,
+  PutRequest,
+} from './request.models';
+import { RequestService } from './request.service';
 import objectContaining = jasmine.objectContaining;
-import { RemoteData } from './remote-data';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { RemoteData } from './remote-data';
 
 describe('BitstreamDataService', () => {
   let service: BitstreamDataService;

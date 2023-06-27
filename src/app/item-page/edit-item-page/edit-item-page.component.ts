@@ -1,13 +1,31 @@
-import { fadeIn, fadeInOut } from '../../shared/animations/fade';
-import { ChangeDetectionStrategy, Component, Injector, OnInit } from '@angular/core';
-import { ActivatedRoute, CanActivate, Route, Router } from '@angular/router';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Injector,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  CanActivate,
+  Route,
+  Router,
+} from '@angular/router';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { RemoteData } from '../../core/data/remote-data';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { Item } from '../../core/shared/item.model';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../shared/animations/fade';
 import { isNotEmpty } from '../../shared/empty.util';
 import { getItemPageRoute } from '../item-page-routing-paths';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
 
 @Component({
   selector: 'ds-edit-item-page',

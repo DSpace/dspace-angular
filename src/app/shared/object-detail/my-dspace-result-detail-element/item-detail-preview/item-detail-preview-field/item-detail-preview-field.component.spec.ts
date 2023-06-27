@@ -1,15 +1,24 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field.component';
-import { Item } from '../../../../../core/shared/item.model';
-import { TruncatePipe } from '../../../../utils/truncate.pipe';
-import { TranslateLoaderMock } from '../../../../mocks/translate-loader.mock';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { Item } from '../../../../../core/shared/item.model';
+import { TranslateLoaderMock } from '../../../../mocks/translate-loader.mock';
+import { TruncatePipe } from '../../../../utils/truncate.pipe';
+import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field.component';
 
 let component: ItemDetailPreviewFieldComponent;
 let fixture: ComponentFixture<ItemDetailPreviewFieldComponent>;

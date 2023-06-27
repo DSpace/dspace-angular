@@ -1,17 +1,22 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { MetadataFieldFormComponent } from './metadata-field-form.component';
-import { RegistryService } from '../../../../core/registry/registry.service';
-import { of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
-import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
+import { RegistryService } from '../../../../core/registry/registry.service';
+import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
+import { MetadataFieldFormComponent } from './metadata-field-form.component';
 
 describe('MetadataFieldFormComponent', () => {
   let component: MetadataFieldFormComponent;

@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ContextHelpService } from '../../shared/context-help.service';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { ContextHelpService } from '../../shared/context-help.service';
 
 /**
  * Renders a "context help toggle" button that toggles the visibility of tooltip buttons on the page.

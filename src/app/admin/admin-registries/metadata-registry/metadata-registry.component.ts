@@ -1,19 +1,30 @@
 import { Component } from '@angular/core';
-import { RegistryService } from '../../../core/registry/registry.service';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, zip } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { filter, map, switchMap, take } from 'rxjs/operators';
-import { hasValue } from '../../../shared/empty.util';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  zip,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { RegistryService } from '../../../core/registry/registry.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { PaginationService } from '../../../core/pagination/pagination.service';
+import { hasValue } from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-metadata-registry',

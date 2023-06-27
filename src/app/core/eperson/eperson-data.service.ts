@@ -1,39 +1,72 @@
 import { Injectable } from '@angular/core';
-import { createSelector, select, Store } from '@ngrx/store';
+import {
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
-import { find, map, take } from 'rxjs/operators';
+import {
+  find,
+  map,
+  take,
+} from 'rxjs/operators';
+
 import {
   EPeopleRegistryCancelEPersonAction,
   EPeopleRegistryEditEPersonAction,
 } from '../../access-control/epeople-registry/epeople-registry.actions';
 import { EPeopleRegistryState } from '../../access-control/epeople-registry/epeople-registry.reducers';
 import { AppState } from '../../app.reducer';
-import { hasNoValue, hasValue } from '../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import {
+  CreateData,
+  CreateDataImpl,
+} from '../data/base/create-data';
+import { dataService } from '../data/base/data-service.decorator';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../data/base/delete-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from '../data/base/patch-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
-import { buildPaginatedList, PaginatedList } from '../data/paginated-list.model';
+import { FindListOptions } from '../data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
-import { PatchRequest, PostRequest } from '../data/request.models';
+import {
+  PatchRequest,
+  PostRequest,
+} from '../data/request.models';
 import { RequestService } from '../data/request.service';
+import { RestRequestMethod } from '../data/rest-request-method';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
+import { NoContent } from '../shared/NoContent.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../shared/operators';
+import { PageInfo } from '../shared/page-info.model';
 import { EPerson } from './models/eperson.model';
 import { EPERSON } from './models/eperson.resource-type';
-import { NoContent } from '../shared/NoContent.model';
-import { PageInfo } from '../shared/page-info.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import { CreateData, CreateDataImpl } from '../data/base/create-data';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { SearchData, SearchDataImpl } from '../data/base/search-data';
-import { PatchData, PatchDataImpl } from '../data/base/patch-data';
-import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { dataService } from '../data/base/data-service.decorator';
 
 const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
 const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);

@@ -1,23 +1,28 @@
-import { ProcessOverviewComponent } from './process-overview.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
+import { DatePipe } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { BehaviorSubject } from 'rxjs';
+
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { Process } from '../processes/process.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { By } from '@angular/platform-browser';
-import { ProcessStatus } from '../processes/process-status.model';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { DatePipe } from '@angular/common';
-import { BehaviorSubject } from 'rxjs';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { Process } from '../processes/process.model';
+import { ProcessStatus } from '../processes/process-status.model';
 import { ProcessBulkDeleteService } from './process-bulk-delete.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProcessOverviewComponent } from './process-overview.component';
 
 describe('ProcessOverviewComponent', () => {
   let component: ProcessOverviewComponent;

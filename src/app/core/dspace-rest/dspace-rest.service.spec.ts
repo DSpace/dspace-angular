@@ -1,10 +1,19 @@
-import { inject, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-
-import { DEFAULT_CONTENT_TYPE, DspaceRestService } from './dspace-rest.service';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpHeaders } from '@angular/common/http';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
+import {
+  inject,
+  TestBed,
+} from '@angular/core/testing';
+
+import { RestRequestMethod } from '../data/rest-request-method';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import {
+  DEFAULT_CONTENT_TYPE,
+  DspaceRestService,
+} from './dspace-rest.service';
 
 describe('DspaceRestService', () => {
   let dspaceRestService: DspaceRestService;

@@ -1,27 +1,57 @@
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+} from '@angular/router';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  mergeMap,
+} from 'rxjs/operators';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BrowseService } from '../../core/browse/browse.service';
-import { BrowseEntry } from '../../core/shared/browse-entry.model';
-import { Item } from '../../core/shared/item.model';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
-import { getFirstSucceededRemoteData } from '../../core/shared/operators';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { filter, map, mergeMap } from 'rxjs/operators';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Bitstream } from '../../core/shared/bitstream.model';
+import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { Item } from '../../core/shared/item.model';
+import { getFirstSucceededRemoteData } from '../../core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
 
 export const BBM_PAGINATION_ID = 'bbm';
 

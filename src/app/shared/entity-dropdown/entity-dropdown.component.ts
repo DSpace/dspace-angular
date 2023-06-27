@@ -9,15 +9,24 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { hasValue } from '../empty.util';
-import { reduce, startWith, switchMap } from 'rxjs/operators';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  reduce,
+  startWith,
+  switchMap,
+} from 'rxjs/operators';
+
 import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { getFirstSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
-import { FindListOptions } from '../../core/data/find-list-options.model';
+import { hasValue } from '../empty.util';
 
 @Component({
   selector: 'ds-entity-dropdown',

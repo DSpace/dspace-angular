@@ -1,4 +1,9 @@
-import { Inject, Injectable, InjectionToken } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+  InjectionToken,
+} from '@angular/core';
+
 import { HardRedirectService } from './hard-redirect.service';
 
 export const LocationToken = new InjectionToken('Location');

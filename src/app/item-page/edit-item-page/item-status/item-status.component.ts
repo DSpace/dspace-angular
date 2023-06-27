@@ -1,23 +1,50 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
-import { Item } from '../../../core/shared/item.model';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ItemOperation } from '../item-operation/itemOperation.model';
-import { distinctUntilChanged, map, mergeMap, switchMap, toArray } from 'rxjs/operators';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  mergeMap,
+  switchMap,
+  toArray,
+} from 'rxjs/operators';
+
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import {
-  getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload,
-} from '../../../core/shared/operators';
 import { IdentifierDataService } from '../../../core/data/identifier-data.service';
-import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
+import { RemoteData } from '../../../core/data/remote-data';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { Item } from '../../../core/shared/item.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../../shared/animations/fade';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
 import { IdentifierData } from '../../../shared/object-list/identifier-data/identifier-data.model';
+import {
+  getItemEditRoute,
+  getItemPageRoute,
+} from '../../item-page-routing-paths';
+import { ItemOperation } from '../item-operation/itemOperation.model';
 
 @Component({
   selector: 'ds-item-status',

@@ -1,18 +1,26 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormLayout,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import { UntypedFormGroup } from '@angular/forms';
-import { RegistryService } from '../../../../core/registry/registry.service';
-import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { take } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { combineLatest } from 'rxjs';
-import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
+import { take } from 'rxjs/operators';
+
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
+import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
+import { RegistryService } from '../../../../core/registry/registry.service';
+import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 
 @Component({
   selector: 'ds-metadata-field-form',

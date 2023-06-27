@@ -1,7 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
 import {
-  AccessControlFormContainerComponent,
-} from '../../../shared/access-control-form-container/access-control-form-container.component';
+  Component,
+  ViewChild,
+} from '@angular/core';
+
+import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 
 @Component({
   selector: 'ds-bulk-access-settings',

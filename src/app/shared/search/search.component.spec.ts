@@ -1,38 +1,60 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
+import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { RouteService } from '../../core/services/route.service';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { Item } from '../../core/shared/item.model';
+import { SearchService } from '../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../core/shared/search/search-filter.service';
+import {
+  SearchConfig,
+  SortConfig,
+} from '../../core/shared/search/search-filters/search-config.model';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { HostWindowService } from '../host-window.service';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SearchComponent } from './search.component';
-import { SearchService } from '../../core/shared/search/search.service';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute } from '@angular/router';
-import { By } from '@angular/platform-browser';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../remote-data.utils';
 import { SidebarService } from '../sidebar/sidebar.service';
-import { SearchFilterService } from '../../core/shared/search/search-filter.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
-import { RouteService } from '../../core/services/route.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { PaginatedSearchOptions } from './models/paginated-search-options.model';
 import { SidebarServiceStub } from '../testing/sidebar-service.stub';
-import { SearchConfig, SortConfig } from '../../core/shared/search/search-filters/search-config.model';
-import { Item } from '../../core/shared/item.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { SearchObjects } from './models/search-objects.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { SearchFilterConfig } from './models/search-filter-config.model';
 import { FilterType } from './models/filter-type.model';
-import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
-import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
+import { PaginatedSearchOptions } from './models/paginated-search-options.model';
+import { SearchFilterConfig } from './models/search-filter-config.model';
+import { SearchObjects } from './models/search-objects.model';
+import { SearchComponent } from './search.component';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;

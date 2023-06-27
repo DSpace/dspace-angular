@@ -1,10 +1,13 @@
-import { hasNoValue, hasValue } from '../../../shared/empty.util';
+import { InjectionToken } from '@angular/core';
 
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../shared/empty.util';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
 import { getResourceTypeValueFor } from '../object-cache.reducer';
-import { InjectionToken } from '@angular/core';
 import { TypedObject } from '../typed-object.model';
 
 export const LINK_DEFINITION_FACTORY = new InjectionToken<<T extends HALResource>(source: GenericConstructor<T>, linkName: keyof T['_links']) => LinkDefinition<T>>('getLinkDefinition', {

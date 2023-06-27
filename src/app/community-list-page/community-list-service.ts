@@ -1,29 +1,54 @@
 /* eslint-disable max-classes-per-file */
-import { Inject, Injectable } from '@angular/core';
-import { createSelector, Store } from '@ngrx/store';
-
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  createSelector,
+  Store,
+} from '@ngrx/store';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+} from 'rxjs/operators';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from 'src/config/app-config.interface';
 
 import { AppState } from '../app.reducer';
-import { CommunityDataService } from '../core/data/community-data.service';
-import { Community } from '../core/shared/community.model';
-import { Collection } from '../core/shared/collection.model';
-import { PageInfo } from '../core/shared/page-info.model';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
-import { RemoteData } from '../core/data/remote-data';
-import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
+import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
+import { getCommunityPageRoute } from '../community-page/community-page-routing-paths';
 import { CollectionDataService } from '../core/data/collection-data.service';
+import { CommunityDataService } from '../core/data/community-data.service';
+import { FindListOptions } from '../core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../core/data/paginated-list.model';
+import { RemoteData } from '../core/data/remote-data';
+import { Collection } from '../core/shared/collection.model';
+import { Community } from '../core/shared/community.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+} from '../core/shared/operators';
+import { PageInfo } from '../core/shared/page-info.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../shared/empty.util';
+import { followLink } from '../shared/utils/follow-link-config.model';
 import { CommunityListSaveAction } from './community-list.actions';
 import { CommunityListState } from './community-list.reducer';
-import { getCommunityPageRoute } from '../community-page/community-page-routing-paths';
-import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../core/shared/operators';
-import { followLink } from '../shared/utils/follow-link-config.model';
 import { FlatNode } from './flat-node.model';
 import { ShowMoreFlatNode } from './show-more-flat-node.model';
-import { FindListOptions } from '../core/data/find-list-options.model';
-import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 
 // Helper method to combine an flatten an array of observables of flatNode arrays
 export const combineAndFlatten = (obsList: Observable<FlatNode[]>[]): Observable<FlatNode[]> =>

@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  EmailRequestCopyComponent as BaseComponent,
-} from 'src/app/request-copy/email-request-copy/email-request-copy.component';
+import { EmailRequestCopyComponent as BaseComponent } from 'src/app/request-copy/email-request-copy/email-request-copy.component';
 
 @Component({
   selector: 'ds-email-request-copy',

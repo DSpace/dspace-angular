@@ -1,15 +1,26 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
-
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { map, mergeMap, take } from 'rxjs/operators';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  take,
+} from 'rxjs/operators';
 
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { hasValue } from '../../../shared/empty.util';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 /**
  * This component represents the 'Import metadata from external source' dropdown menu

@@ -1,12 +1,20 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { Community } from '../../../core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { SearchResultsComponent } from './search-results.component';
-import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
+
+import { Community } from '../../../core/shared/community.model';
 import { createFailedRemoteDataObject } from '../../remote-data.utils';
+import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
+import { SearchResultsComponent } from './search-results.component';
 
 describe('SearchResultsComponent', () => {
   let comp: SearchResultsComponent;

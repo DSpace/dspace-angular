@@ -1,6 +1,10 @@
-import { RemoteData } from '../core/data/remote-data';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { environment } from '../../environments/environment';
+import { RemoteData } from '../core/data/remote-data';
 import { RequestEntryState } from '../core/data/request-entry-state.model';
 
 /**

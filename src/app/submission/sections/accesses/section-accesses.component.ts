@@ -1,16 +1,9 @@
-import { SectionAccessesService } from './section-accesses.service';
-import { Component, Inject, ViewChild } from '@angular/core';
+import {
+  Component,
+  Inject,
+  ViewChild,
+} from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-
-import { filter, map, mergeMap, take } from 'rxjs/operators';
-import { combineLatest, Observable, of, Subscription } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
-
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
-import { SectionDataObject } from '../models/section-data.model';
-import { SectionsService } from '../sections.service';
-import { SectionModelComponent } from '../models/section.model';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
@@ -24,8 +17,44 @@ import {
   MATCH_ENABLED,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
+import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
+import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  combineLatest,
+  Observable,
+  of,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  mergeMap,
+  take,
+} from 'rxjs/operators';
 
+import { AccessesConditionOption } from '../../../core/config/models/config-accesses-conditions-options.model';
+import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
+import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { WorkspaceitemSectionAccessesObject } from '../../../core/submission/models/workspaceitem-section-accesses.model';
+import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
+import { dateToISOFormat } from '../../../shared/date.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../shared/form/form.component';
+import { FormService } from '../../../shared/form/form.service';
+import { SectionFormOperationsService } from '../form/section-form-operations.service';
+import { SectionModelComponent } from '../models/section.model';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
+import { SectionsType } from '../sections-type';
 import {
   ACCESS_CONDITION_GROUP_CONFIG,
   ACCESS_CONDITION_GROUP_LAYOUT,
@@ -40,24 +69,7 @@ import {
   FORM_ACCESS_CONDITION_TYPE_CONFIG,
   FORM_ACCESS_CONDITION_TYPE_LAYOUT,
 } from './section-accesses.model';
-import { hasValue, isNotEmpty, isNotNull } from '../../../shared/empty.util';
-import {
-  WorkspaceitemSectionAccessesObject,
-} from '../../../core/submission/models/workspaceitem-section-accesses.model';
-import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { FormComponent } from '../../../shared/form/form.component';
-import { FormService } from '../../../shared/form/form.service';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { SectionFormOperationsService } from '../form/section-form-operations.service';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { AccessesConditionOption } from '../../../core/config/models/config-accesses-conditions-options.model';
-import {
-  SubmissionJsonPatchOperationsService,
-} from '../../../core/submission/submission-json-patch-operations.service';
-import { dateToISOFormat } from '../../../shared/date.util';
-import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
-import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
+import { SectionAccessesService } from './section-accesses.service';
 
 /**
  * This component represents a section for managing item's access conditions.

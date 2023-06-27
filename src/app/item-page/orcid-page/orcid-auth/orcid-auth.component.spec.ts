@@ -1,25 +1,38 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { getTestScheduler } from 'jasmine-marbles';
+import { RouterTestingModule } from '@angular/router/testing';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { Item } from '../../../core/shared/item.model';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { OrcidAuthComponent } from './orcid-auth.component';
-import { NativeWindowService } from '../../../core/services/window.service';
-import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
+import { NativeWindowService } from '../../../core/services/window.service';
+import { Item } from '../../../core/shared/item.model';
+import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { OrcidAuthComponent } from './orcid-auth.component';
 
 describe('OrcidAuthComponent test suite', () => {
   let comp: OrcidAuthComponent;

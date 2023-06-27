@@ -1,13 +1,44 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output } from '@angular/core';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { Script } from '../../scripts/script.model';
-import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+  Output,
+} from '@angular/core';
+import {
+  ControlContainer,
+  NgForm,
+} from '@angular/forms';
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+} from '@angular/router';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { hasNoValue, hasValue } from '../../../shared/empty.util';
-import { ControlContainer, NgForm } from '@angular/forms';
+import { ScriptDataService } from '../../../core/data/processes/script-data.service';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../shared/empty.util';
+import { Script } from '../../scripts/script.model';
 import { controlContainerFactory } from '../process-form.component';
 
 const SCRIPT_QUERY_PARAMETER = 'script';

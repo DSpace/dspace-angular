@@ -1,22 +1,32 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute } from '@angular/router';
-import { of as observableOf } from 'rxjs';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { CollectionRolesComponent } from './collection-roles.component';
-import { Collection } from '../../../core/shared/collection.model';
-import { SharedModule } from '../../../shared/shared.module';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { RouterTestingModule } from '@angular/router/testing';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ComcolModule } from '../../../shared/comcol/comcol.module';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { RequestService } from '../../../core/data/request.service';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { Collection } from '../../../core/shared/collection.model';
+import { ComcolModule } from '../../../shared/comcol/comcol.module';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { SharedModule } from '../../../shared/shared.module';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { CollectionRolesComponent } from './collection-roles.component';
 
 describe('CollectionRolesComponent', () => {
 

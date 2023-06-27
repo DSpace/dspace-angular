@@ -1,4 +1,10 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 export const rotateInState = state('rotateIn', style({ opacity: 1, transform: 'rotate(0deg)' }));
 export const rotateEnter = transition('* => rotateIn', [

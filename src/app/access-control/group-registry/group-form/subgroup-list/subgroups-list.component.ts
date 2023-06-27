@@ -1,25 +1,41 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
-import { map, mergeMap, switchMap, take } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Group } from '../../../../core/eperson/models/group.model';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { NoContent } from '../../../../core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
+import { PageInfo } from '../../../../core/shared/page-info.model';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { NoContent } from '../../../../core/shared/NoContent.model';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { PageInfo } from '../../../../core/shared/page-info.model';
 
 /**
  * Keys to keep track of specific subscriptions

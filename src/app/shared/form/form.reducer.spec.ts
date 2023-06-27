@@ -1,4 +1,3 @@
-import { formReducer } from './form.reducer';
 import {
   FormAddError,
   FormAddTouchedAction,
@@ -9,6 +8,7 @@ import {
   FormRemoveErrorAction,
   FormStatusChangeAction,
 } from './form.actions';
+import { formReducer } from './form.reducer';
 
 describe('formReducer', () => {
 

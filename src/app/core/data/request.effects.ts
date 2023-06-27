@@ -1,14 +1,30 @@
-import { Injectable, Injector } from '@angular/core';
+import {
+  Injectable,
+  Injector,
+} from '@angular/core';
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
+import {
+  catchError,
+  filter,
+  map,
+  mergeMap,
+  take,
+} from 'rxjs/operators';
 
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, filter, map, mergeMap, take } from 'rxjs/operators';
-
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { StoreActionTypes } from '../../store.actions';
 import { getClassForType } from '../cache/builders/build-decorators';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { ParsedResponse } from '../cache/response.models';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
+import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import {
   RequestActionTypes,
   RequestErrorAction,
@@ -17,10 +33,9 @@ import {
   ResetResponseTimestampsAction,
 } from './request.actions';
 import { RequestService } from './request.service';
-import { ParsedResponse } from '../cache/response.models';
+import { RequestEntry } from './request-entry.model';
 import { RequestError } from './request-error.model';
 import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
-import { RequestEntry } from './request-entry.model';
 
 @Injectable()
 export class RequestEffects {

@@ -1,18 +1,30 @@
-import { waitForAsync, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-
-import { FormsModule } from '@angular/forms';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { By } from '@angular/platform-browser';
-import { ScriptsSelectComponent } from './scripts-select.component';
-import { Script } from '../../scripts/script.model';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { RouterStub } from '../../../shared/testing/router.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { Script } from '../../scripts/script.model';
+import { ScriptsSelectComponent } from './scripts-select.component';
 
 describe('ScriptsSelectComponent', () => {
   let component: ScriptsSelectComponent;

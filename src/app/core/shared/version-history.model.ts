@@ -1,14 +1,22 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
-import { excludeFromEquals } from '../utilities/equals.decorators';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../data/remote-data';
+
+import {
+  link,
+  typedObject,
+} from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list.model';
-import { Version } from './version.model';
-import { VERSION_HISTORY } from './version-history.resource-type';
-import { link, typedObject } from '../cache/builders/build-decorators';
+import { RemoteData } from '../data/remote-data';
+import { excludeFromEquals } from '../utilities/equals.decorators';
 import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
+import { Version } from './version.model';
 import { VERSION } from './version.resource-type';
+import { VERSION_HISTORY } from './version-history.resource-type';
 
 /**
  * Class representing a DSpace Version History

@@ -1,25 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, switchMap, mergeMap } from 'rxjs/operators';
-import { FollowLinkConfig, followLink } from '../../../shared/utils/follow-link-config.model';
-import { RequestService } from '../../data/request.service';
-import { RemoteData } from '../../data/remote-data';
-import { PaginatedList } from '../../data/paginated-list.model';
-import { Vocabulary } from './models/vocabulary.model';
-import { VocabularyEntry } from './models/vocabulary-entry.model';
+import {
+  map,
+  mergeMap,
+  switchMap,
+} from 'rxjs/operators';
+
 import { isNotEmpty } from '../../../shared/empty.util';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../../shared/utils/follow-link-config.model';
+import { RequestParam } from '../../cache/models/request-param.model';
+import { FindListOptions } from '../../data/find-list-options.model';
+import { PaginatedList } from '../../data/paginated-list.model';
+import { RemoteData } from '../../data/remote-data';
+import { RequestService } from '../../data/request.service';
 import {
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteListPayload,
 } from '../../shared/operators';
-import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
-import { VocabularyEntryDetail } from './models/vocabulary-entry-detail.model';
-import { RequestParam } from '../../cache/models/request-param.model';
-import { VocabularyOptions } from './models/vocabulary-options.model';
 import { PageInfo } from '../../shared/page-info.model';
-import { FindListOptions } from '../../data/find-list-options.model';
-import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
+import { Vocabulary } from './models/vocabulary.model';
+import { VocabularyEntry } from './models/vocabulary-entry.model';
+import { VocabularyEntryDetail } from './models/vocabulary-entry-detail.model';
+import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
+import { VocabularyOptions } from './models/vocabulary-options.model';
 import { VocabularyDataService } from './vocabulary.data.service';
+import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the vocabularies endpoint

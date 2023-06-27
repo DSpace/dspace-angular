@@ -1,13 +1,25 @@
-import { map, switchMap } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { AuthorizationSearchParams } from './authorization-search-params';
-import { SiteDataService } from '../site-data.service';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { AuthService } from '../../auth/auth.service';
 import { Authorization } from '../../shared/authorization.model';
 import { Feature } from '../../shared/feature.model';
-import { FeatureID } from './feature-id';
 import { getFirstSucceededRemoteDataPayload } from '../../shared/operators';
+import { SiteDataService } from '../site-data.service';
+import { AuthorizationSearchParams } from './authorization-search-params';
+import { FeatureID } from './feature-id';
 
 /**
  * Operator accepting {@link AuthorizationSearchParams} and adding the current {@link Site}'s selflink to the parameter's

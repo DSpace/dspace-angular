@@ -1,15 +1,32 @@
-import { Component, ComponentFactoryResolver, Inject, Input, OnInit, ViewChild, OnChanges, SimpleChanges, ComponentRef, ViewContainerRef, ComponentFactory } from '@angular/core';
+import {
+  Component,
+  ComponentFactory,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Inject,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
+
+import { Context } from '../../core/shared/context.model';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
 import {
   MetadataRepresentation,
   MetadataRepresentationType,
 } from '../../core/shared/metadata-representation/metadata-representation.model';
-import { METADATA_REPRESENTATION_COMPONENT_FACTORY } from './metadata-representation.decorator';
-import { Context } from '../../core/shared/context.model';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
 import { MetadataRepresentationListElementComponent } from '../object-list/metadata-representation-list-element/metadata-representation-list-element.component';
-import { MetadataRepresentationDirective } from './metadata-representation.directive';
-import { hasValue, isNotEmpty, hasNoValue } from '../empty.util';
 import { ThemeService } from '../theme-support/theme.service';
+import { METADATA_REPRESENTATION_COMPONENT_FACTORY } from './metadata-representation.decorator';
+import { MetadataRepresentationDirective } from './metadata-representation.directive';
 
 @Component({
   selector: 'ds-metadata-representation-loader',

@@ -1,8 +1,8 @@
+import { DynamicTagModel } from '../ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { TagFieldParser } from './tag-field-parser';
-import { DynamicTagModel } from '../ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { ParserOptions } from './parser-options';
+import { TagFieldParser } from './tag-field-parser';
 
 describe('TagFieldParser test suite', () => {
   let field: FormFieldModel;

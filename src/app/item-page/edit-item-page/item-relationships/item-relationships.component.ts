@@ -1,35 +1,55 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { Item } from '../../../core/shared/item.model';
+import {
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  zip as observableZip,
+} from 'rxjs';
+import {
+  map,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
 import {
   DeleteRelationship,
   RelationshipIdentifiable,
 } from '../../../core/data/object-updates/object-updates.reducer';
-import { map, startWith, switchMap, take } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, of as observableOf, zip as observableZip, Observable } from 'rxjs';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
+import { Item } from '../../../core/shared/item.model';
+import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { hasValue } from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
-import { RequestService } from '../../../core/data/request.service';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { hasValue } from '../../../shared/empty.util';
-import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
-import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
-import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-item-relationships',

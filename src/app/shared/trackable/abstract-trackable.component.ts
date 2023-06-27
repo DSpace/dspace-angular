@@ -1,8 +1,9 @@
-import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
-import { NotificationsService } from '../notifications/notifications.service';
+import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { Component } from '@angular/core';
+
+import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
+import { NotificationsService } from '../notifications/notifications.service';
 
 /**
  * Abstract Component that is able to track changes made in the inheriting component using the ObjectUpdateService

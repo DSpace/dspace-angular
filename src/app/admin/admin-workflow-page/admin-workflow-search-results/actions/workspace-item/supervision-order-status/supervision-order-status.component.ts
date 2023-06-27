@@ -1,14 +1,28 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  from,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  reduce,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, from, Observable } from 'rxjs';
-import { map, mergeMap, reduce } from 'rxjs/operators';
-
-import { SupervisionOrder } from '../../../../../../core/supervision-order/models/supervision-order.model';
+import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
+import { RemoteData } from '../../../../../../core/data/remote-data';
 import { Group } from '../../../../../../core/eperson/models/group.model';
 import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
+import { SupervisionOrder } from '../../../../../../core/supervision-order/models/supervision-order.model';
 import { isNotEmpty } from '../../../../../../shared/empty.util';
-import { RemoteData } from '../../../../../../core/data/remote-data';
-import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
 
 export interface SupervisionOrderListEntry {
   supervisionOrder: SupervisionOrder;

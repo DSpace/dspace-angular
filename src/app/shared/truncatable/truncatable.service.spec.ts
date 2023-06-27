@@ -1,9 +1,16 @@
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Store } from '@ngrx/store';
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { TruncatableService } from './truncatable.service';
-import { TruncatableCollapseAction, TruncatableExpandAction } from './truncatable.actions';
-import { TruncatablesState } from './truncatable.reducer';
 import { of as observableOf } from 'rxjs';
+
+import {
+  TruncatableCollapseAction,
+  TruncatableExpandAction,
+} from './truncatable.actions';
+import { TruncatablesState } from './truncatable.reducer';
+import { TruncatableService } from './truncatable.service';
 
 describe('TruncatableService', () => {
   const id1 = '123';

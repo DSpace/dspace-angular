@@ -1,8 +1,13 @@
-import {Item} from '../../../core/shared/item.model';
-import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
-import {ModifyItemOverviewComponent} from './modify-item-overview.component';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {TranslateModule} from '@ngx-translate/core';
+
+import {Item} from '../../../core/shared/item.model';
+import {ModifyItemOverviewComponent} from './modify-item-overview.component';
 
 let comp: ModifyItemOverviewComponent;
 let fixture: ComponentFixture<ModifyItemOverviewComponent>;

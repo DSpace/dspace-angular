@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { BrowseByDatePageComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-date-page/browse-by-date-page.component';
 
 @Component({

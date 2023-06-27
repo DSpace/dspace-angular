@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { BrowseBySwitcherComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-switcher/browse-by-switcher.component';
 
 @Component({

@@ -1,12 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import {
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
+
 import { environment } from '../../../../../environments/environment';
+import { RouteService } from '../../../../core/services/route.service';
 import { Item } from '../../../../core/shared/item.model';
 import { getItemPageRoute } from '../../../item-page-routing-paths';
-import { RouteService } from '../../../../core/services/route.service';
-import { Observable } from 'rxjs';
-import { getDSpaceQuery, isIiifEnabled, isIiifSearchEnabled } from './item-iiif-utils';
-import { filter, map, take } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import {
+  getDSpaceQuery,
+  isIiifEnabled,
+  isIiifSearchEnabled,
+} from './item-iiif-utils';
 
 @Component({
   selector: 'ds-item',

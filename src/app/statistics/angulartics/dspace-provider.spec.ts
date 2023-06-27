@@ -1,8 +1,9 @@
-import { Angulartics2DSpace } from './dspace-provider';
 import { Angulartics2 } from 'angulartics2';
-import { StatisticsService } from '../statistics.service';
-import { filter } from 'rxjs/operators';
 import { of as observableOf } from 'rxjs';
+import { filter } from 'rxjs/operators';
+
+import { StatisticsService } from '../statistics.service';
+import { Angulartics2DSpace } from './dspace-provider';
 
 describe('Angulartics2DSpace', () => {
   let provider: Angulartics2DSpace;

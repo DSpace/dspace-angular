@@ -1,7 +1,11 @@
 import {Component} from '@angular/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
+import {
+  BrowseByDataType,
+  rendersBrowseBy,
+} from '../browse-by-switcher/browse-by-decorator';
 import { BrowseByDatePageComponent } from './browse-by-date-page.component';
-import {BrowseByDataType, rendersBrowseBy} from '../browse-by-switcher/browse-by-decorator';
 
 /**
  * Themed wrapper for BrowseByDatePageComponent

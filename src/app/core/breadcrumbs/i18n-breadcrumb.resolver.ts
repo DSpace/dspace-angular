@@ -1,9 +1,14 @@
-import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { I18nBreadcrumbsService } from './i18n-breadcrumbs.service';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
+
+import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { hasNoValue } from '../../shared/empty.util';
 import { currentPathFromSnapshot } from '../../shared/utils/route.utils';
+import { I18nBreadcrumbsService } from './i18n-breadcrumbs.service';
 
 /**
  * The class that resolves a BreadcrumbConfig object with an i18n key string for a route

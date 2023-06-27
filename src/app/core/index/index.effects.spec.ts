@@ -1,13 +1,20 @@
-import { Observable } from 'rxjs';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { UUIDIndexEffects } from './index.effects';
-import { cold, hot } from 'jasmine-marbles';
+import { provideMockStore } from '@ngrx/store/testing';
+import {
+  cold,
+  hot,
+} from 'jasmine-marbles';
+import { Observable } from 'rxjs';
+
+import { NoOpAction } from '../../shared/ngrx/no-op.action';
 import { AddToObjectCacheAction } from '../cache/object-cache.actions';
 import { Item } from '../shared/item.model';
 import { AddToIndexAction } from './index.actions';
-import { provideMockStore } from '@ngrx/store/testing';
-import { NoOpAction } from '../../shared/ngrx/no-op.action';
+import { UUIDIndexEffects } from './index.effects';
 import { IndexName } from './index-name.model';
 
 describe('ObjectUpdatesEffects', () => {

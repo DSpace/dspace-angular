@@ -1,6 +1,7 @@
 import { first } from 'rxjs/operators';
-import { CommunityPageResolver } from './community-page.resolver';
+
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { CommunityPageResolver } from './community-page.resolver';
 
 describe('CommunityPageResolver', () => {
   describe('resolve', () => {

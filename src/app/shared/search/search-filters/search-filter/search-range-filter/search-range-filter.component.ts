@@ -1,25 +1,42 @@
-import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  startWith,
+} from 'rxjs/operators';
+import { yearFromString } from 'src/app/shared/date.util';
+
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { FilterType } from '../../../models/filter-type.model';
-import { renderFacetFor } from '../search-filter-type-decorator';
-import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { RouteService } from '../../../../../core/services/route.service';
+import { SearchService } from '../../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
   SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
-import { SearchService } from '../../../../../core/shared/search/search.service';
-import { Router } from '@angular/router';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { RouteService } from '../../../../../core/services/route.service';
 import { hasValue } from '../../../../empty.util';
-import { yearFromString } from 'src/app/shared/date.util';
+import { FilterType } from '../../../models/filter-type.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import {
+  facetLoad,
+  SearchFacetFilterComponent,
+} from '../search-facet-filter/search-facet-filter.component';
+import { renderFacetFor } from '../search-filter-type-decorator';
 
 /**
  * The suffix for a range filters' minimum in the frontend URL

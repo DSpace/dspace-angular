@@ -1,18 +1,24 @@
-import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
 
-import { LogInterceptor } from './log.interceptor';
-import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { CookieService } from '../services/cookie.service';
+import {
+  appReducers,
+  storeModuleConfig,
+} from '../../app.reducer';
+import { CorrelationIdService } from '../../correlation-id/correlation-id.service';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { RouterStub } from '../../shared/testing/router.stub';
-import { CorrelationIdService } from '../../correlation-id/correlation-id.service';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { CookieService } from '../services/cookie.service';
 import { UUIDService } from '../shared/uuid.service';
-import { StoreModule } from '@ngrx/store';
-import { appReducers, storeModuleConfig } from '../../app.reducer';
+import { LogInterceptor } from './log.interceptor';
 
 
 describe('LogInterceptor', () => {

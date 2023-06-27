@@ -1,19 +1,27 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { of as observableOf } from 'rxjs';
 
-import { Item } from '../../../../core/shared/item.model';
-import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
-import { ItemSearchResultListElementSubmissionComponent } from './item-search-result-list-element-submission.component';
-import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { By } from '@angular/platform-browser';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Context } from '../../../../core/shared/context.model';
+import { Item } from '../../../../core/shared/item.model';
+import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { ItemSearchResultListElementSubmissionComponent } from './item-search-result-list-element-submission.component';
 
 let component: ItemSearchResultListElementSubmissionComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementSubmissionComponent>;

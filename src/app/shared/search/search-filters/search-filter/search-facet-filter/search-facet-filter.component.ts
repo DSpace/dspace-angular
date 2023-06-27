@@ -1,7 +1,17 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
-
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -10,31 +20,47 @@ import {
   Subject,
   Subscription,
 } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../../empty.util';
-import { EmphasizePipe } from '../../../../utils/emphasize.pipe';
-import { FacetValue } from '../../../models/facet-value.model';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { getFirstSucceededRemoteData } from '../../../../../core/shared/operators';
 import { SearchService } from '../../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
   SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { getFirstSucceededRemoteData } from '../../../../../core/shared/operators';
-import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
-import { SearchOptions } from '../../../models/search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
-import { currentPath } from '../../../../utils/route.utils';
-import { getFacetValueForType, stripOperatorFromFilterValue } from '../../../search.utils';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../../empty.util';
+import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
 import { createPendingRemoteDataObject } from '../../../../remote-data.utils';
+import { EmphasizePipe } from '../../../../utils/emphasize.pipe';
+import { currentPath } from '../../../../utils/route.utils';
+import { FacetValue } from '../../../models/facet-value.model';
 import { FacetValues } from '../../../models/facet-values.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { SearchOptions } from '../../../models/search-options.model';
+import {
+  getFacetValueForType,
+  stripOperatorFromFilterValue,
+} from '../../../search.utils';
 
 @Component({
   selector: 'ds-search-facet-filter',

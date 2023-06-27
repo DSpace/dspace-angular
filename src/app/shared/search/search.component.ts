@@ -1,43 +1,68 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import { NavigationStart, Router } from '@angular/router';
-
-import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  NavigationStart,
+  Router,
+} from '@angular/router';
 import uniqueId from 'lodash/uniqueId';
-
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { pushInOut } from '../animations/push';
-import { HostWindowService } from '../host-window.service';
-import { SidebarService } from '../sidebar/sidebar.service';
-import { hasValue, hasValueOperator, isNotEmpty } from '../empty.util';
-import { RouteService } from '../../core/services/route.service';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
-import { PaginatedSearchOptions } from './models/paginated-search-options.model';
-import { SearchResult } from './models/search-result.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { SearchService } from '../../core/shared/search/search.service';
-import { currentPath } from '../utils/route.utils';
-import { Context } from '../../core/shared/context.model';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
-import { SearchConfig } from '../../core/shared/search/search-filters/search-config.model';
-import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { followLink } from '../utils/follow-link-config.model';
-import { Item } from '../../core/shared/item.model';
-import { SearchObjects } from './models/search-objects.model';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { SelectionConfig } from './search-results/search-results.component';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { SearchFilterConfig } from './models/search-filter-config.model';
+
 import { WorkspaceItem } from '../..//core/submission/models/workspaceitem.model';
-import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
+import { SortOptions } from '../../core/cache/models/sort-options.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { RouteService } from '../../core/services/route.service';
+import { Context } from '../../core/shared/context.model';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { Item } from '../../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { SearchService } from '../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SearchConfig } from '../../core/shared/search/search-filters/search-config.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
+import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import { pushInOut } from '../animations/push';
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '../empty.util';
+import { HostWindowService } from '../host-window.service';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { SidebarService } from '../sidebar/sidebar.service';
+import { followLink } from '../utils/follow-link-config.model';
+import { currentPath } from '../utils/route.utils';
+import { PaginatedSearchOptions } from './models/paginated-search-options.model';
+import { SearchFilterConfig } from './models/search-filter-config.model';
+import { SearchObjects } from './models/search-objects.model';
+import { SearchResult } from './models/search-result.model';
+import { SelectionConfig } from './search-results/search-results.component';
+import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
 
 @Component({
   selector: 'ds-search',

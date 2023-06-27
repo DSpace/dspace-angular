@@ -1,17 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { ActivatedRoute, Router } from '@angular/router';
-import { map, take } from 'rxjs/operators';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../../../../../core/shared/operators';
-import { hasValue, isEmpty } from '../../../../empty.util';
-import { ResourceType } from '../../../../../core/shared/resource-type';
-import { ComColDataService } from '../../../../../core/data/comcol-data.service';
-import { NotificationsService } from '../../../../notifications/notifications.service';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Community } from '../../../../../core/shared/community.model';
+import { Observable } from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
+import { ComColDataService } from '../../../../../core/data/comcol-data.service';
+import { RemoteData } from '../../../../../core/data/remote-data';
 import { Collection } from '../../../../../core/shared/collection.model';
+import { Community } from '../../../../../core/shared/community.model';
+import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+} from '../../../../../core/shared/operators';
+import { ResourceType } from '../../../../../core/shared/resource-type';
+import {
+  hasValue,
+  isEmpty,
+} from '../../../../empty.util';
+import { NotificationsService } from '../../../../notifications/notifications.service';
 
 @Component({
   selector: 'ds-comcol-metadata',

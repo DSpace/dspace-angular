@@ -1,24 +1,36 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, ViewChild } from '@angular/core';
-import { concatMap, Observable, shareReplay } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
-import { AccessControlArrayFormComponent } from './access-control-array-form/access-control-array-form.component';
-import { BulkAccessControlService } from './bulk-access-control.service';
-import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { map, take } from 'rxjs/operators';
+import {
+  concatMap,
+  Observable,
+  shareReplay,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
+import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
+import { BulkAccessConditionOptions } from '../../core/config/models/bulk-access-condition-options.model';
+import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { Item } from '../../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { AlertType } from '../alert/aletr-type';
+import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
+import { AccessControlArrayFormComponent } from './access-control-array-form/access-control-array-form.component';
+import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
+import { BulkAccessControlService } from './bulk-access-control.service';
 import {
   ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID,
   ItemAccessControlSelectBitstreamsModalComponent,
 } from './item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
-import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { BulkAccessConditionOptions } from '../../core/config/models/bulk-access-condition-options.model';
-import { AlertType } from '../alert/aletr-type';
-import {
-  createAccessControlInitialFormState,
-} from './access-control-form-container-intial-state';
 
 @Component({
   selector: 'ds-access-control-form-container',

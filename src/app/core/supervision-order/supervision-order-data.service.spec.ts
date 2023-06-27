@@ -1,22 +1,26 @@
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from '../data/request.service';
-import { SupervisionOrderDataService } from './supervision-order-data.service';
-import { ActionType } from './models/action-type.model';
-import { RequestParam } from '../cache/models/request-param.model';
-import { PageInfo } from '../shared/page-info.model';
-import { buildPaginatedList } from '../data/paginated-list.model';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
-import { RequestEntry } from '../data/request-entry.model';
 import { FindListOptions } from '../data/find-list-options.model';
+import { buildPaginatedList } from '../data/paginated-list.model';
+import { RequestService } from '../data/request.service';
+import { RequestEntry } from '../data/request-entry.model';
 import { GroupDataService } from '../eperson/group-data.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { PageInfo } from '../shared/page-info.model';
+import { ActionType } from './models/action-type.model';
+import { SupervisionOrderDataService } from './supervision-order-data.service';
 
 describe('SupervisionOrderService', () => {
   let scheduler: TestScheduler;

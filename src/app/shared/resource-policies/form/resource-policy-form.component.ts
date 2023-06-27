@@ -1,22 +1,58 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-
 import {
-  Observable,
-  of as observableOf,
-  combineLatest as observableCombineLatest,
-  Subscription,
-  BehaviorSubject,
-} from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import {
+  NgbModal,
+  NgbNavChangeEvent,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicDatePickerModel,
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
 
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
+import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
+import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import {
+  dateToISOFormat,
+  stringToNgbDateStruct,
+} from '../../date.util';
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '../../empty.util';
 import { DsDynamicInputModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { DsDynamicTextAreaModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
+import { FormService } from '../../form/form.service';
 import {
   RESOURCE_POLICY_FORM_ACTION_TYPE_CONFIG,
   RESOURCE_POLICY_FORM_DATE_GROUP_CONFIG,
@@ -29,19 +65,6 @@ import {
   RESOURCE_POLICY_FORM_START_DATE_CONFIG,
   RESOURCE_POLICY_FORM_START_DATE_LAYOUT,
 } from './resource-policy-form.model';
-import { DsDynamicTextAreaModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { hasValue, isEmpty, isNotEmpty, hasValueOperator } from '../../empty.util';
-import { FormService } from '../../form/form.service';
-import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
-import { RemoteData } from '../../../core/data/remote-data';
-import { dateToISOFormat, stringToNgbDateStruct } from '../../date.util';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { RequestService } from '../../../core/data/request.service';
-import { NgbModal, NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 export interface ResourcePolicyEvent {
   object: ResourcePolicy;

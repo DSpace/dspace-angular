@@ -1,10 +1,15 @@
-import { EmailRequestCopyComponent } from './email-request-copy.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Location } from '@angular/common';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { VarDirective } from '../../shared/utils/var.directive';
+import { EmailRequestCopyComponent } from './email-request-copy.component';
 import { RequestCopyEmail } from './request-copy-email.model';
 
 describe('EmailRequestCopyComponent', () => {

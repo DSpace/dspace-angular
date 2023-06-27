@@ -6,10 +6,14 @@
  * http://www.dspace.org/license/
  */
 import { InjectionToken } from '@angular/core';
+
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../shared/empty.util';
 import { CacheableObject } from '../../cache/cacheable-object.model';
-import { ResourceType } from '../../shared/resource-type';
 import { GenericConstructor } from '../../shared/generic-constructor';
-import { hasNoValue, hasValue } from '../../../shared/empty.util';
+import { ResourceType } from '../../shared/resource-type';
 import { HALDataService } from './hal-data-service.interface';
 
 export const DATA_SERVICE_FACTORY = new InjectionToken<(resourceType: ResourceType) => GenericConstructor<HALDataService<any>>>('getDataServiceFor', {

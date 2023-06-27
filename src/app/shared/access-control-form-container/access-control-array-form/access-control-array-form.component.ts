@@ -1,5 +1,11 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {NgForm} from '@angular/forms';
+
 import {AccessesConditionOption} from '../../../core/config/models/config-accesses-conditions-options.model';
 import {dateToISOFormat} from '../../date.util';
 

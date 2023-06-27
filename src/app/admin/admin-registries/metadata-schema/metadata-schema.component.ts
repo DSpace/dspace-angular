@@ -1,27 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import { RegistryService } from '../../../core/registry/registry.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  combineLatest as observableCombineLatest,
   combineLatest,
+  combineLatest as observableCombineLatest,
   Observable,
   of as observableOf,
   zip,
 } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { map, switchMap, take } from 'rxjs/operators';
-import { hasValue } from '../../../shared/empty.util';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { RemoteData } from '../../../core/data/remote-data';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
-import { NoContent } from '../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { RegistryService } from '../../../core/registry/registry.service';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { hasValue } from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-metadata-schema',

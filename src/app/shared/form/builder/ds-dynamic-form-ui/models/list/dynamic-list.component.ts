@@ -1,5 +1,17 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormGroup, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  AbstractControl,
+  UntypedFormGroup,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import {
   DynamicCheckboxModel,
   DynamicFormControlComponent,
@@ -8,15 +20,18 @@ import {
 } from '@ng-dynamic-forms/core';
 import findKey from 'lodash/findKey';
 
-import { hasValue, isNotEmpty } from '../../../../../empty.util';
-import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
-import { FormBuilderService } from '../../../form-builder.service';
-import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../../../empty.util';
+import { FormBuilderService } from '../../../form-builder.service';
+import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
+import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
 
 export interface ListItem {
   id: string;

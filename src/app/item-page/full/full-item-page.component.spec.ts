@@ -1,28 +1,47 @@
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
-import { TruncatePipe } from '../../shared/utils/truncate.pipe';
-import { FullItemPageComponent } from './full-item-page.component';
-import { MetadataService } from '../../core/metadata/metadata.service';
-import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Item } from '../../core/shared/item.model';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
+
 import { AuthService } from '../../core/auth/auth.service';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
+import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
-import { ServerResponseService } from '../../core/services/server-response.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
+import { MetadataService } from '../../core/metadata/metadata.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
+import { ServerResponseService } from '../../core/services/server-response.service';
+import { Item } from '../../core/shared/item.model';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { TruncatePipe } from '../../shared/utils/truncate.pipe';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
+import { FullItemPageComponent } from './full-item-page.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),

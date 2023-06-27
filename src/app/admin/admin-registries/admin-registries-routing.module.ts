@@ -1,9 +1,10 @@
-import { MetadataRegistryComponent } from './metadata-registry/metadata-registry.component';
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { MetadataSchemaComponent } from './metadata-schema/metadata-schema.component';
+import { RouterModule } from '@angular/router';
+
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { BITSTREAMFORMATS_MODULE_PATH } from './admin-registries-routing-paths';
+import { MetadataRegistryComponent } from './metadata-registry/metadata-registry.component';
+import { MetadataSchemaComponent } from './metadata-schema/metadata-schema.component';
 
 @NgModule({
   imports: [

@@ -1,19 +1,29 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { SearchService } from '../../../../core/shared/search/search.service';
-import { SearchFilterComponent } from './search-filter.component';
-import { SearchFilterConfig } from '../../models/search-filter-config.model';
-import { FilterType } from '../../models/filter-type.model';
-import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
+import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { SequenceService } from '../../../../core/shared/sequence.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
+import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
+import { FilterType } from '../../models/filter-type.model';
+import { SearchFilterConfig } from '../../models/search-filter-config.model';
+import { SearchFilterComponent } from './search-filter.component';
 
 describe('SearchFilterComponent', () => {
   let comp: SearchFilterComponent;

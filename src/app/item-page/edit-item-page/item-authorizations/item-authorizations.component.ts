@@ -1,22 +1,43 @@
-import isEqual from 'lodash/isEqual';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import isEqual from 'lodash/isEqual';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  catchError,
+  filter,
+  first,
+  map,
+  mergeMap,
+  take,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
-import { catchError, filter, first, map, mergeMap, take } from 'rxjs/operators';
-
-import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../core/cache/builders/link.service';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../core/data/paginated-list.model';
+import { Bitstream } from '../../../core/shared/bitstream.model';
+import { Bundle } from '../../../core/shared/bundle.model';
+import { Item } from '../../../core/shared/item.model';
 import {
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataWithNotEmptyPayload,
 } from '../../../core/shared/operators';
-import { Item } from '../../../core/shared/item.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { Bitstream } from '../../../core/shared/bitstream.model';
 
 /**
  * Interface for a bundle's bitstream map entry

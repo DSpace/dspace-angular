@@ -1,33 +1,48 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {
-  Observable,
-  of as observableOf,
-  Subscription,
   BehaviorSubject,
   combineLatest as observableCombineLatest,
+  Observable,
   ObservedValueOf,
+  of as observableOf,
+  Subscription,
 } from 'rxjs';
-import { defaultIfEmpty, map, mergeMap, switchMap, take } from 'rxjs/operators';
-import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
+import {
+  defaultIfEmpty,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
+import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
 import { Group } from '../../../../core/eperson/models/group.model';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 import {
-  getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData,
   getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * Keys to keep track of specific subscriptions

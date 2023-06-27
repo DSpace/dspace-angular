@@ -1,8 +1,20 @@
-import { filter, map, pairwise } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { RouterNavigationAction, ROUTER_NAVIGATION } from '@ngrx/router-store';
 import { Router } from '@angular/router';
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
+import {
+  ROUTER_NAVIGATION,
+  RouterNavigationAction,
+} from '@ngrx/router-store';
+import {
+  filter,
+  map,
+  pairwise,
+} from 'rxjs/operators';
+
 import { RouteUpdateAction } from './router.actions';
 
 @Injectable()

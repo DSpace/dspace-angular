@@ -1,20 +1,27 @@
-import { hasValue, isNotEmpty, isNotUndefined, isNull } from '../../shared/empty.util';
-
 import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+  isNull,
+} from '../../shared/empty.util';
+import {
+  JsonPatchOperationModel,
+  JsonPatchOperationType,
+} from './json-patch.model';
+import {
+  CommitPatchOperationsAction,
+  DeletePendingJsonPatchOperationsAction,
   FlushPatchOperationsAction,
-  PatchOperationsActions,
   JsonPatchOperationsActionTypes,
   NewPatchAddOperationAction,
   NewPatchCopyOperationAction,
   NewPatchMoveOperationAction,
   NewPatchRemoveOperationAction,
   NewPatchReplaceOperationAction,
-  CommitPatchOperationsAction,
-  StartTransactionPatchOperationsAction,
+  PatchOperationsActions,
   RollbacktPatchOperationsAction,
-  DeletePendingJsonPatchOperationsAction,
+  StartTransactionPatchOperationsAction,
 } from './json-patch-operations.actions';
-import { JsonPatchOperationModel, JsonPatchOperationType } from './json-patch.model';
 
 /**
  * An interface to represent JSON-PATCH Operation objects to execute

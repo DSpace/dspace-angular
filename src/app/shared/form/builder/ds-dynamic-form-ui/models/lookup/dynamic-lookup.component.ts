@@ -1,24 +1,44 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
-
-import { of as observableOf, Subscription } from 'rxjs';
-import { catchError, distinctUntilChanged } from 'rxjs/operators';
-import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
-
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { hasValue, isEmpty, isNotEmpty } from '../../../../../empty.util';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
-import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
 import {
-  PaginatedList,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
+import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import {
+  DynamicFormLayoutService,
+  DynamicFormValidationService,
+} from '@ng-dynamic-forms/core';
+import {
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  catchError,
+  distinctUntilChanged,
+} from 'rxjs/operators';
+
+import {
   buildPaginatedList,
+  PaginatedList,
 } from '../../../../../../core/data/paginated-list.model';
+import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../../../../empty.util';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
+import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 
 /**
  * Component representing a lookup or lookup-name input field

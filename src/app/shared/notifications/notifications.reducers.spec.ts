@@ -1,17 +1,28 @@
-import { notificationsReducer } from './notifications.reducers';
-import { NewNotificationAction, RemoveAllNotificationsAction, RemoveNotificationAction } from './notifications.actions';
-import { NotificationsService } from './notifications.service';
-import { fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
-import { NotificationsBoardComponent } from './notifications-board/notifications-board.component';
-import { StoreModule } from '@ngrx/store';
-import { NotificationComponent } from './notification/notification.component';
-import { NotificationOptions } from './models/notification-options.model';
-import { NotificationAnimationsType } from './models/notification-animations-type';
-import { NotificationType } from './models/notification-type';
-import { Notification } from './models/notification.model';
-import uniqueId from 'lodash/uniqueId';
 import { ChangeDetectorRef } from '@angular/core';
+import {
+  fakeAsync,
+  flush,
+  inject,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { StoreModule } from '@ngrx/store';
+import uniqueId from 'lodash/uniqueId';
+
 import { storeModuleConfig } from '../../app.reducer';
+import { Notification } from './models/notification.model';
+import { NotificationAnimationsType } from './models/notification-animations-type';
+import { NotificationOptions } from './models/notification-options.model';
+import { NotificationType } from './models/notification-type';
+import { NotificationComponent } from './notification/notification.component';
+import {
+  NewNotificationAction,
+  RemoveAllNotificationsAction,
+  RemoveNotificationAction,
+} from './notifications.actions';
+import { notificationsReducer } from './notifications.reducers';
+import { NotificationsService } from './notifications.service';
+import { NotificationsBoardComponent } from './notifications-board/notifications-board.component';
 
 describe('Notifications reducer', () => {
 

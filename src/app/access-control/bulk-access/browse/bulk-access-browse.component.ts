@@ -1,19 +1,32 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
-
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
-import { SelectableListState } from '../../../shared/object-list/selectable-list/selectable-list.reducer';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
-import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { hasValue } from '../../../shared/empty.util';
+import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
+import { SelectableListState } from '../../../shared/object-list/selectable-list/selectable-list.reducer';
+import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 
 @Component({
   selector: 'ds-bulk-access-browse',

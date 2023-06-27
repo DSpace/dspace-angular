@@ -1,6 +1,13 @@
 /* eslint-disable max-classes-per-file */
-import { Component, Input } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper.component';
 

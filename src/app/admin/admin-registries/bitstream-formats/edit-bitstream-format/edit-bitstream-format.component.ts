@@ -1,14 +1,21 @@
-import { map } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
+
+import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 
 /**
  * This component renders the edit page of a bitstream format.

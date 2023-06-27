@@ -1,6 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { Router } from '@angular/router';
 import {
   DynamicCheckboxModel,
   DynamicFormArrayModel,
@@ -11,11 +16,16 @@ import {
   DynamicSelectModel,
   DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
-import { Router } from '@angular/router';
-import { hasValue, isEmpty } from '../../../../shared/empty.util';
 import { TranslateService } from '@ngx-translate/core';
-import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
+
 import { environment } from '../../../../../environments/environment';
+import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
+import {
+  hasValue,
+  isEmpty,
+} from '../../../../shared/empty.util';
+import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 
 /**
  * The component responsible for rendering the form to create/edit a bitstream format

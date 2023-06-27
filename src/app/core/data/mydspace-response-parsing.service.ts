@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
+
+import { hasValue } from '../../shared/empty.util';
+import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { ParsedResponse } from '../cache/response.models';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import { hasValue } from '../../shared/empty.util';
-import { SearchObjects } from '../../shared/search/models/search-objects.model';
-import { MetadataMap, MetadataValue } from '../shared/metadata.models';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '../shared/metadata.models';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { RestRequest } from './rest-request.model';
 

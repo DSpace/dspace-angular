@@ -1,16 +1,23 @@
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
+
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { HardRedirectService } from '../services/hard-redirect.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DsoRedirectService } from './dso-redirect.service';
-import { GetRequest, IdentifierType } from './request.models';
-import { RequestService } from './request.service';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { Item } from '../shared/item.model';
 import { EMBED_SEPARATOR } from './base/base-data.service';
-import { HardRedirectService } from '../services/hard-redirect.service';
+import { DsoRedirectService } from './dso-redirect.service';
+import {
+  GetRequest,
+  IdentifierType,
+} from './request.models';
+import { RequestService } from './request.service';
 
 describe('DsoRedirectService', () => {
   let scheduler: TestScheduler;

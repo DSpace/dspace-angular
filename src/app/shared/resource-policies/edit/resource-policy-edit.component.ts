@@ -1,18 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { BehaviorSubject, Observable, of, combineLatest as observableCombineLatest } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
-import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
-import { NotificationsService } from '../../notifications/notifications.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
-import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
+import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
 
 @Component({
   selector: 'ds-resource-policy-edit',

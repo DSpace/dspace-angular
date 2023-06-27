@@ -1,15 +1,22 @@
 /* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { isEmpty } from 'rxjs/operators';
+
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../../shared/utils/follow-link-config.model';
+import { DATA_SERVICE_FACTORY } from '../../data/base/data-service.decorator';
+import { FindListOptions } from '../../data/find-list-options.model';
 import { HALLink } from '../../shared/hal-link.model';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
+import {
+  LINK_DEFINITION_FACTORY,
+  LINK_DEFINITION_MAP_FACTORY,
+} from './build-decorators';
 import { LinkService } from './link.service';
-import { LINK_DEFINITION_FACTORY, LINK_DEFINITION_MAP_FACTORY } from './build-decorators';
-import { isEmpty } from 'rxjs/operators';
-import { FindListOptions } from '../../data/find-list-options.model';
-import { DATA_SERVICE_FACTORY } from '../../data/base/data-service.decorator';
 
 const TEST_MODEL = new ResourceType('testmodel');
 let result: any;

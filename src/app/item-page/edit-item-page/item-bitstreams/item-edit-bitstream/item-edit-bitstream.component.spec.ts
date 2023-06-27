@@ -1,18 +1,23 @@
-import { ItemEditBitstreamComponent } from './item-edit-bitstream.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { of as observableOf } from 'rxjs';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { VarDirective } from '../../../../shared/utils/var.directive';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
+import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
+import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { BrowserOnlyMockPipe } from '../../../../shared/testing/browser-only-mock.pipe';
+import { VarDirective } from '../../../../shared/utils/var.directive';
+import { ItemEditBitstreamComponent } from './item-edit-bitstream.component';
 
 let comp: ItemEditBitstreamComponent;
 let fixture: ComponentFixture<ItemEditBitstreamComponent>;

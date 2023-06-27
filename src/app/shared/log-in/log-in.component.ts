@@ -1,20 +1,31 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { select, Store } from '@ngrx/store';
+
+import {
+  getForgotPasswordRoute,
+  getRegisterRoute,
+} from '../../app-routing-paths';
+import { AuthService } from '../../core/auth/auth.service';
 import { AuthMethod } from '../../core/auth/models/auth.method';
+import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import {
   getAuthenticationError,
   getAuthenticationMethods,
   isAuthenticated,
   isAuthenticationLoading,
 } from '../../core/auth/selectors';
-import { getForgotPasswordRoute, getRegisterRoute } from '../../app-routing-paths';
-import { hasValue } from '../empty.util';
-import { AuthService } from '../../core/auth/auth.service';
+import { CoreState } from '../../core/core-state.model';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { CoreState } from '../../core/core-state.model';
-import { AuthMethodType } from '../../core/auth/models/auth.method-type';
+import { hasValue } from '../empty.util';
 
 /**
  * /users/sign-in

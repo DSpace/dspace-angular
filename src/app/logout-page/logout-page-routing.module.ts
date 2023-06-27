@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { ThemedLogoutPageComponent } from './themed-logout-page.component';
 

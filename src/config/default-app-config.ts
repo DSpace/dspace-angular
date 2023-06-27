@@ -1,27 +1,27 @@
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
+import { ActuatorsConfig } from './actuators.config';
 import { AppConfig } from './app-config.interface';
 import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
+import { BundleConfig } from './bundle-config.interface';
 import { CacheConfig } from './cache-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
+import { CommunityListConfig } from './community-list-config.interface';
+import { DiscoverySortConfig } from './discovery-sort.config';
+import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
+import { HomeConfig } from './homepage-config.interface';
+import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
+import { MarkdownConfig } from './markdown-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.model';
 import { UIServerConfig } from './ui-server-config.interface';
-import { BundleConfig } from './bundle-config.interface';
-import { ActuatorsConfig } from './actuators.config';
-import { InfoConfig } from './info-config.interface';
-import { CommunityListConfig } from './community-list-config.interface';
-import { HomeConfig } from './homepage-config.interface';
-import { MarkdownConfig } from './markdown-config.interface';
-import { FilterVocabularyConfig } from './filter-vocabulary-config';
-import { DiscoverySortConfig } from './discovery-sort.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;

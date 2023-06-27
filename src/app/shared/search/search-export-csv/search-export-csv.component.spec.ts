@@ -1,20 +1,28 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { SearchExportCsvComponent } from './search-export-csv.component';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { Script } from '../../../process-page/scripts/script.model';
-import { Process } from '../../../process-page/processes/process.model';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { Router } from '@angular/router';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
-import { SearchFilter } from '../models/search-filter.model';
+import { Process } from '../../../process-page/processes/process.model';
+import { Script } from '../../../process-page/scripts/script.model';
+import { NotificationsService } from '../../notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../remote-data.utils';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import { SearchFilter } from '../models/search-filter.model';
+import { SearchExportCsvComponent } from './search-export-csv.component';
 
 describe('SearchExportCsvComponent', () => {
   let component: SearchExportCsvComponent;

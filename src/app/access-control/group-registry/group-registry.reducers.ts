@@ -1,5 +1,9 @@
 import { Group } from '../../core/eperson/models/group.model';
-import { GroupRegistryAction, GroupRegistryActionTypes, GroupRegistryEditGroupAction } from './group-registry.actions';
+import {
+  GroupRegistryAction,
+  GroupRegistryActionTypes,
+  GroupRegistryEditGroupAction,
+} from './group-registry.actions';
 
 /**
  * The metadata registry state.

@@ -1,8 +1,14 @@
-import { Component, Inject, Injector, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  Injector,
+  OnInit,
+} from '@angular/core';
 import { rendersSectionForMenu } from 'src/app/shared/menu/menu-section.decorator';
 import { MenuSectionComponent } from 'src/app/shared/menu/menu-section/menu-section.component';
-import { MenuService } from '../../../menu/menu.service';
+
 import { isNotEmpty } from '../../../empty.util';
+import { MenuService } from '../../../menu/menu.service';
 import { MenuID } from '../../../menu/menu-id.model';
 import { MenuSection } from '../../../menu/menu-section.model';
 

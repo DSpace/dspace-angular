@@ -1,20 +1,30 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectorRef, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  ElementRef,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { CollectionDropdownComponent } from './collection-dropdown.component';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { Collection } from '../../core/shared/collection.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
+import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { MockElementRef } from '../testing/element-ref.mock';
+import { CollectionDropdownComponent } from './collection-dropdown.component';
 
 const community: Community = Object.assign(new Community(), {
   id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',

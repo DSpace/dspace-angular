@@ -1,30 +1,43 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { AuthService } from '../../../core/auth/auth.service';
+import {
+  CommonModule,
+  Location,
+} from '@angular/common';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { Bitstream } from '../../../core/shared/bitstream.model';
+
+import { AuthService } from '../../../core/auth/auth.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { ItemRequestDataService } from '../../../core/data/item-request-data.service';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { Bitstream } from '../../../core/shared/bitstream.model';
+import { Item } from '../../../core/shared/item.model';
+import { ItemRequest } from '../../../core/shared/item-request.model';
+import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
-import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page.component';
-import { By } from '@angular/platform-browser';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { ItemRequestDataService } from '../../../core/data/item-request-data.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
-import { Item } from '../../../core/shared/item.model';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { ItemRequest } from '../../../core/shared/item-request.model';
-import { Location } from '@angular/common';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page.component';
 
 
 describe('BitstreamRequestACopyPageComponent', () => {

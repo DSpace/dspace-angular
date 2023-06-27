@@ -1,35 +1,58 @@
-import { APP_BASE_HREF, CommonModule, DOCUMENT } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {
+  APP_BASE_HREF,
+  CommonModule,
+  DOCUMENT,
+} from '@angular/common';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClientModule,
+} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';
-import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { MetaReducer, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
+import {
+  RouterStateSerializer,
+  StoreRouterConnectingModule,
+} from '@ngrx/router-store';
+import {
+  MetaReducer,
+  StoreModule,
+  USER_PROVIDED_META_REDUCERS,
+} from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
-import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
 
-import { AppRoutingModule } from './app-routing.module';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../config/app-config.interface';
+import { StoreDevModules } from '../config/store/devtools';
+import { environment } from '../environments/environment';
+import { EagerThemesModule } from '../themes/eager-themes.module';
 import { AppComponent } from './app.component';
 import { appEffects } from './app.effects';
-import { appMetaReducers, debugMetaReducers } from './app.metareducers';
-import { appReducers, AppState, storeModuleConfig } from './app.reducer';
+import {
+  appMetaReducers,
+  debugMetaReducers,
+} from './app.metareducers';
+import {
+  appReducers,
+  AppState,
+  storeModuleConfig,
+} from './app.reducer';
+import { AppRoutingModule } from './app-routing.module';
+import { AuthInterceptor } from './core/auth/auth.interceptor';
 import { CoreModule } from './core/core.module';
+import { LocaleInterceptor } from './core/locale/locale.interceptor';
+import { LogInterceptor } from './core/log/log.interceptor';
 import { ClientCookieService } from './core/services/client-cookie.service';
+import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
 import { NavbarModule } from './navbar/navbar.module';
+import { RootModule } from './root.module';
 import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
 import { SharedModule } from './shared/shared.module';
-import { environment } from '../environments/environment';
-import { AuthInterceptor } from './core/auth/auth.interceptor';
-import { LocaleInterceptor } from './core/locale/locale.interceptor';
-import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
-import { LogInterceptor } from './core/log/log.interceptor';
-import { EagerThemesModule } from '../themes/eager-themes.module';
-import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
-import { StoreDevModules } from '../config/store/devtools';
-import { RootModule } from './root.module';
 
 export function getConfig() {
   return environment;

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { BrowseByTaxonomyPageComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-taxonomy-page/browse-by-taxonomy-page.component';
 
 @Component({

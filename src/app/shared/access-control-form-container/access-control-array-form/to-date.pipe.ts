@@ -1,4 +1,7 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import {
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-struct';
 
 @Pipe({

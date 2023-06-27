@@ -2,23 +2,21 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
+import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
+import { AdvancedWorkflowActionPageComponent } from './advanced-workflow-action/advanced-workflow-action-page/advanced-workflow-action-page.component';
+import { ItemFromWorkflowResolver } from './item-from-workflow.resolver';
+import { ThemedWorkflowItemDeleteComponent } from './workflow-item-delete/themed-workflow-item-delete.component';
 import { WorkflowItemPageResolver } from './workflow-item-page.resolver';
+import { ThemedWorkflowItemSendBackComponent } from './workflow-item-send-back/themed-workflow-item-send-back.component';
 import {
+  ADVANCED_WORKFLOW_PATH,
   WORKFLOW_ITEM_DELETE_PATH,
   WORKFLOW_ITEM_EDIT_PATH,
   WORKFLOW_ITEM_SEND_BACK_PATH,
   WORKFLOW_ITEM_VIEW_PATH,
-  ADVANCED_WORKFLOW_PATH,
 } from './workflowitems-edit-page-routing-paths';
-import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
-import { ThemedWorkflowItemDeleteComponent } from './workflow-item-delete/themed-workflow-item-delete.component';
-import { ThemedWorkflowItemSendBackComponent } from './workflow-item-send-back/themed-workflow-item-send-back.component';
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { ItemFromWorkflowResolver } from './item-from-workflow.resolver';
-import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
-import {
-  AdvancedWorkflowActionPageComponent,
-} from './advanced-workflow-action/advanced-workflow-action-page/advanced-workflow-action-page.component';
 
 @NgModule({
   imports: [

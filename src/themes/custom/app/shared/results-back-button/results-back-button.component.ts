@@ -1,7 +1,6 @@
-import {
-  ResultsBackButtonComponent as BaseComponent,
-} from '../../../../../app/shared/results-back-button/results-back-button.component';
 import { Component } from '@angular/core';
+
+import { ResultsBackButtonComponent as BaseComponent } from '../../../../../app/shared/results-back-button/results-back-button.component';
 
 @Component({
   selector: 'ds-results-back-button',

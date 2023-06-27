@@ -1,20 +1,31 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { Process } from '../processes/process.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { map, switchMap } from 'rxjs/operators';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { ProcessBulkDeleteService } from './process-bulk-delete.service';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { hasValue } from '../../shared/empty.util';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { ProcessDataService } from '../../core/data/processes/process-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { hasValue } from '../../shared/empty.util';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { Process } from '../processes/process.model';
+import { ProcessBulkDeleteService } from './process-bulk-delete.service';
 
 @Component({
   selector: 'ds-process-overview',

@@ -1,6 +1,6 @@
-import { SortOptions } from '../../../cache/models/sort-options.model';
-import { RequestParam } from '../../../cache/models/request-param.model';
 import { isNotEmpty } from '../../../../shared/empty.util';
+import { RequestParam } from '../../../cache/models/request-param.model';
+import { SortOptions } from '../../../cache/models/sort-options.model';
 import { FindListOptions } from '../../../data/find-list-options.model';
 
 /**

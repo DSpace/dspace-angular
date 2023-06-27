@@ -1,21 +1,24 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-
-import { MenuResolver } from './menu.resolver';
-import { of as observableOf } from 'rxjs';
-import { FeatureID } from './core/data/feature-authorization/feature-id';
-import { TranslateModule } from '@ngx-translate/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MenuService } from './shared/menu/menu.service';
-import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
-import { ScriptDataService } from './core/data/processes/script-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MenuServiceStub } from './shared/testing/menu-service.stub';
-import { MenuID } from './shared/menu/menu-id.model';
-import { BrowseService } from './core/browse/browse.service';
+import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+
+import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
+import { BrowseService } from './core/browse/browse.service';
+import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from './core/data/feature-authorization/feature-id';
+import { ScriptDataService } from './core/data/processes/script-data.service';
+import { MenuResolver } from './menu.resolver';
+import { MenuService } from './shared/menu/menu.service';
+import { MenuID } from './shared/menu/menu-id.model';
+import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import createSpy = jasmine.createSpy;
 import { createSuccessfulRemoteDataObject$ } from './shared/remote-data.utils';
 import { createPaginatedList } from './shared/testing/utils.test';

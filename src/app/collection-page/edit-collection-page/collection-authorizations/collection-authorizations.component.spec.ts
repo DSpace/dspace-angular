@@ -1,15 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { CollectionAuthorizationsComponent } from './collection-authorizations.component';
 import { Collection } from '../../../core/shared/collection.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { CollectionAuthorizationsComponent } from './collection-authorizations.component';
 
 describe('CollectionAuthorizationsComponent', () => {
   let comp: CollectionAuthorizationsComponent<DSpaceObject>;

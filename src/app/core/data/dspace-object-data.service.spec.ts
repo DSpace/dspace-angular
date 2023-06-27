@@ -1,12 +1,16 @@
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
+
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { DSpaceObjectDataService } from './dspace-object-data.service';
 import { GetRequest } from './request.models';
 import { RequestService } from './request.service';
-import { DSpaceObjectDataService } from './dspace-object-data.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
 
 describe('DSpaceObjectDataService', () => {
   let scheduler: TestScheduler;

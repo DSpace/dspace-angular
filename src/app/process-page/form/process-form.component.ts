@@ -1,18 +1,26 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Script } from '../scripts/script.model';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  ControlContainer,
+  NgForm,
+} from '@angular/forms';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+
+import { ScriptDataService } from '../../core/data/processes/script-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { RequestService } from '../../core/data/request.service';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { isEmpty } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { getProcessListRoute } from '../process-page-routing.paths';
 import { Process } from '../processes/process.model';
 import { ProcessParameter } from '../processes/process-parameter.model';
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { ControlContainer, NgForm } from '@angular/forms';
+import { Script } from '../scripts/script.model';
 import { ScriptParameter } from '../scripts/script-parameter.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { RequestService } from '../../core/data/request.service';
-import { Router } from '@angular/router';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { RemoteData } from '../../core/data/remote-data';
-import { getProcessListRoute } from '../process-page-routing.paths';
-import { isEmpty } from '../../shared/empty.util';
 
 /**
  * Component to create a new script

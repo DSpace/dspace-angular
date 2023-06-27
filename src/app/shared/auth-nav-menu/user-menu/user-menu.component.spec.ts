@@ -1,19 +1,35 @@
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { Store, StoreModule } from '@ngrx/store';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { UserMenuComponent } from './user-menu.component';
-import { authReducer, AuthState } from '../../../core/auth/auth.reducer';
-import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
-import { EPersonMock } from '../../testing/eperson.mock';
-import { AppState } from '../../../app.reducer';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { cold } from 'jasmine-marbles';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AuthService } from '../../../core/auth/auth.service';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
+
+import { AppState } from '../../../app.reducer';
+import {
+  authReducer,
+  AuthState,
+} from '../../../core/auth/auth.reducer';
+import { AuthService } from '../../../core/auth/auth.service';
+import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { EPersonMock } from '../../testing/eperson.mock';
+import { UserMenuComponent } from './user-menu.component';
 
 describe('UserMenuComponent', () => {
 

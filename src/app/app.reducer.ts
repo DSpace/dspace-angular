@@ -1,5 +1,13 @@
-import { routerReducer, RouterReducerState } from '@ngrx/router-store';
-import { ActionReducerMap, createSelector, MemoizedSelector } from '@ngrx/store';
+import {
+  routerReducer,
+  RouterReducerState,
+} from '@ngrx/router-store';
+import {
+  ActionReducerMap,
+  createSelector,
+  MemoizedSelector,
+} from '@ngrx/store';
+
 import {
   ePeopleRegistryReducer,
   EPeopleRegistryState,
@@ -16,13 +24,22 @@ import {
   CommunityListReducer,
   CommunityListState,
 } from './community-list-page/community-list.reducer';
+import { correlationIdReducer } from './correlation-id/correlation-id.reducer';
+import {
+  contextHelpReducer,
+  ContextHelpState,
+} from './shared/context-help.reducer';
 import { hasValue } from './shared/empty.util';
 import {
   NameVariantListsState,
   nameVariantReducer,
 } from './shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
-import { formReducer, FormState } from './shared/form/form.reducer';
+import {
+  formReducer,
+  FormState,
+} from './shared/form/form.reducer';
 import { menusReducer} from './shared/menu/menu.reducer';
+import { MenusState } from './shared/menu/menus-state.model';
 import {
   notificationsReducer,
   NotificationsState,
@@ -35,19 +52,30 @@ import {
   ObjectSelectionListState,
   objectSelectionReducer,
 } from './shared/object-select/object-select.reducer';
-import { cssVariablesReducer, CSSVariablesState } from './shared/sass-helper/css-variable.reducer';
-
-import { hostWindowReducer, HostWindowState } from './shared/search/host-window.reducer';
+import {
+  cssVariablesReducer,
+  CSSVariablesState,
+} from './shared/sass-helper/css-variable.reducer';
+import {
+  hostWindowReducer,
+  HostWindowState,
+} from './shared/search/host-window.reducer';
 import {
   filterReducer,
   SearchFiltersState,
 } from './shared/search/search-filters/search-filter/search-filter.reducer';
-import { sidebarReducer, SidebarState } from './shared/sidebar/sidebar.reducer';
-import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
-import { ThemeState, themeReducer } from './shared/theme-support/theme.reducer';
-import { MenusState } from './shared/menu/menus-state.model';
-import { correlationIdReducer } from './correlation-id/correlation-id.reducer';
-import { contextHelpReducer, ContextHelpState } from './shared/context-help.reducer';
+import {
+  sidebarReducer,
+  SidebarState,
+} from './shared/sidebar/sidebar.reducer';
+import {
+  themeReducer,
+  ThemeState,
+} from './shared/theme-support/theme.reducer';
+import {
+  truncatableReducer,
+  TruncatablesState,
+} from './shared/truncatable/truncatable.reducer';
 
 export interface AppState {
   router: RouterReducerState;

@@ -11,20 +11,28 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-
-import { Subscription, combineLatest, of as observableOf, Observable } from 'rxjs';
+import {
+  combineLatest,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { ListableObject } from '../listable-object.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { Context } from '../../../../core/shared/context.model';
-import { getListableObjectComponent } from './listable-object.decorator';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { ListableObjectDirective } from './listable-object.directive';
-import { CollectionElementLinkType } from '../../collection-element-link.type';
-import { hasValue, isNotEmpty, hasNoValue } from '../../../empty.util';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { GenericConstructor } from '../../../../core/shared/generic-constructor';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../empty.util';
 import { ThemeService } from '../../../theme-support/theme.service';
+import { CollectionElementLinkType } from '../../collection-element-link.type';
+import { ListableObject } from '../listable-object.model';
+import { getListableObjectComponent } from './listable-object.decorator';
+import { ListableObjectDirective } from './listable-object.directive';
 
 @Component({
   selector: 'ds-listable-object-component-loader',

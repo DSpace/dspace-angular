@@ -1,4 +1,10 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 export const fromTopInState = state('fromTopIn', style({opacity: 1, transform: 'translateY(0)'}));
 export const fromTopEnter = transition('* => fromTopIn', [

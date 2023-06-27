@@ -1,5 +1,9 @@
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+
 import { EditBitstreamPageComponent as BaseComponent } from '../../../../../app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'ds-edit-bitstream-page',

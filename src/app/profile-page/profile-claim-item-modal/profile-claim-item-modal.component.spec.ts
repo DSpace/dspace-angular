@@ -1,20 +1,26 @@
-import { ActivatedRoute, Router } from '@angular/router';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { of } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
-import { ProfileClaimItemModalComponent } from './profile-claim-item-modal.component';
-import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { Item } from '../../core/shared/item.model';
-import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
-import { SearchObjects } from '../../shared/search/models/search-objects.model';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
+import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { RouterStub } from '../../shared/testing/router.stub';
+import { ProfileClaimService } from '../profile-claim/profile-claim.service';
+import { ProfileClaimItemModalComponent } from './profile-claim-item-modal.component';
 
 describe('ProfileClaimItemModalComponent', () => {
   let component: ProfileClaimItemModalComponent;

@@ -1,19 +1,30 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ComcolRoleComponent } from './comcol-role.component';
-import { GroupDataService } from '../../../../../core/eperson/group-data.service';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { RequestService } from '../../../../../core/data/request.service';
-import { of as observableOf } from 'rxjs';
-import { RouterTestingModule } from '@angular/router/testing';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ComcolModule } from '../../../comcol.module';
-import { NotificationsService } from '../../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { RequestService } from '../../../../../core/data/request.service';
+import { GroupDataService } from '../../../../../core/eperson/group-data.service';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
+import { NotificationsService } from '../../../../notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../remote-data.utils';
+import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
+import { ComcolModule } from '../../../comcol.module';
+import { ComcolRoleComponent } from './comcol-role.component';
 
 describe('ComcolRoleComponent', () => {
 

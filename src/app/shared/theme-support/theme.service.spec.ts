@@ -1,29 +1,37 @@
-import { of as observableOf } from 'rxjs';
+import {
+  CommonModule,
+  DOCUMENT,
+} from '@angular/common';
 import { TestBed } from '@angular/core/testing';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+} from '@angular/router';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { LinkService } from '../../core/cache/builders/link.service';
-import { hot } from 'jasmine-marbles';
-import { SetThemeAction } from './theme.actions';
-import { Theme } from '../../../config/theme.model';
+import { ROUTER_NAVIGATED } from '@ngrx/router-store';
 import { provideMockStore } from '@ngrx/store/testing';
-import { Community } from '../../core/shared/community.model';
-import { COMMUNITY } from '../../core/shared/community.resource-type';
-import { NoOpAction } from '../ngrx/no-op.action';
-import { ITEM } from '../../core/shared/item.resource-type';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Item } from '../../core/shared/item.model';
+import { hot } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+
+import { Theme } from '../../../config/theme.model';
+import { LinkService } from '../../core/cache/builders/link.service';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { COLLECTION } from '../../core/shared/collection.resource-type';
+import { Community } from '../../core/shared/community.model';
+import { COMMUNITY } from '../../core/shared/community.resource-type';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { Item } from '../../core/shared/item.model';
+import { ITEM } from '../../core/shared/item.resource-type';
+import { RouterMock } from '../mocks/router.mock';
+import { NoOpAction } from '../ngrx/no-op.action';
 import {
-  createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject,
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../remote-data.utils';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { SetThemeAction } from './theme.actions';
 import { ThemeService } from './theme.service';
-import { ROUTER_NAVIGATED } from '@ngrx/router-store';
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { RouterMock } from '../mocks/router.mock';
 
 /**
  * LinkService able to mock recursively resolving DSO parent links

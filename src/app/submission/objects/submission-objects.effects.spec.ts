@@ -1,12 +1,59 @@
 import { TestBed } from '@angular/core/testing';
-
-import { cold, hot } from 'jasmine-marbles';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Store, StoreModule } from '@ngrx/store';
-import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  cold,
+  hot,
+} from 'jasmine-marbles';
+import {
+  Observable,
+  of as observableOf,
+  throwError as observableThrowError,
+} from 'rxjs';
 
-import { SubmissionObjectEffects } from './submission-objects.effects';
+import {
+  AppState,
+  storeModuleConfig,
+} from '../../app.reducer';
+import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { Item } from '../../core/shared/item.model';
+import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
+import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
+import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import {
+  mockSectionsData,
+  mockSectionsDataTwo,
+  mockSectionsErrors,
+  mockSectionsErrorsTouchedField,
+  mockSubmissionCollectionId,
+  mockSubmissionDefinition,
+  mockSubmissionDefinitionResponse,
+  mockSubmissionId,
+  mockSubmissionRestResponse,
+  mockSubmissionSelfUrl,
+  mockSubmissionState,
+} from '../../shared/mocks/submission.mock';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { SectionsServiceStub } from '../../shared/testing/sections-service.stub';
+import { StoreMock } from '../../shared/testing/store.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
+import { mockSubmissionObjectDataService } from '../../shared/testing/submission-oject-data-service.mock';
+import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
+import { SectionsService } from '../sections/sections.service';
+import { SubmissionService } from '../submission.service';
+import parseSectionErrors from '../utils/parseSectionErrors';
 import {
   CompleteInitSubmissionFormAction,
   DepositSubmissionAction,
@@ -24,38 +71,7 @@ import {
   SubmissionObjectActionTypes,
   UpdateSectionDataAction,
 } from './submission-objects.actions';
-import {
-  mockSectionsData,
-  mockSectionsDataTwo,
-  mockSectionsErrors,
-  mockSectionsErrorsTouchedField,
-  mockSubmissionCollectionId,
-  mockSubmissionDefinition,
-  mockSubmissionDefinitionResponse,
-  mockSubmissionId,
-  mockSubmissionRestResponse,
-  mockSubmissionSelfUrl,
-  mockSubmissionState,
-} from '../../shared/mocks/submission.mock';
-import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
-import { SectionsService } from '../sections/sections.service';
-import { SectionsServiceStub } from '../../shared/testing/sections-service.stub';
-import { SubmissionService } from '../submission.service';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { StoreMock } from '../../shared/testing/store.mock';
-import { AppState, storeModuleConfig } from '../../app.reducer';
-import parseSectionErrors from '../utils/parseSectionErrors';
-import { Item } from '../../core/shared/item.model';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
-import { mockSubmissionObjectDataService } from '../../shared/testing/submission-oject-data-service.mock';
+import { SubmissionObjectEffects } from './submission-objects.effects';
 
 describe('SubmissionObjectEffects test suite', () => {
   let submissionObjectEffects: SubmissionObjectEffects;

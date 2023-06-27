@@ -1,12 +1,23 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
-import { map, take } from 'rxjs/operators';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 
 @Component({
   selector: 'ds-page-size-selector',

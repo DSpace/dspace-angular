@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 
+import { environment } from '../../../environments/environment';
+import { hasValue } from '../../shared/empty.util';
+import { getClassForType } from '../cache/builders/build-decorators';
+import { CacheableObject } from '../cache/cacheable-object.model';
+import { ParsedResponse } from '../cache/response.models';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { GenericConstructor } from '../shared/generic-constructor';
 import {
   DspaceRestResponseParsingService,
   isCacheableObject,
 } from './dspace-rest-response-parsing.service';
-import { hasValue } from '../../shared/empty.util';
-import { getClassForType } from '../cache/builders/build-decorators';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import { ParsedResponse } from '../cache/response.models';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { environment } from '../../../environments/environment';
-import { CacheableObject } from '../cache/cacheable-object.model';
 import { RestRequest } from './rest-request.model';
 
 /**

@@ -1,4 +1,5 @@
 // import actions
+import { StoreActionTypes } from '../../store.actions';
 import {
   AddAuthenticationMessageAction,
   AuthActions,
@@ -10,14 +11,14 @@ import {
   RedirectWhenTokenExpiredAction,
   RefreshTokenSuccessAction,
   RetrieveAuthenticatedEpersonSuccessAction,
-  RetrieveAuthMethodsSuccessAction, SetAuthCookieStatus,
+  RetrieveAuthMethodsSuccessAction,
+  SetAuthCookieStatus,
   SetRedirectUrlAction,
 } from './auth.actions';
-// import models
-import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
-import { StoreActionTypes } from '../../store.actions';
+// import models
+import { AuthTokenInfo } from './models/auth-token-info.model';
 
 /**
  * The auth state.

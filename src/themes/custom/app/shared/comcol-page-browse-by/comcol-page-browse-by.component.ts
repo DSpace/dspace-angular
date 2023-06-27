@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ComcolPageBrowseByComponent as BaseComponent} from '../../../../../app/shared/comcol/comcol-page-browse-by/comcol-page-browse-by.component';
 
 /**

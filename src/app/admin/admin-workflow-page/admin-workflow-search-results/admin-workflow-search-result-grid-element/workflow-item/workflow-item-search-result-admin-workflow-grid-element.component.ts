@@ -1,29 +1,35 @@
-import { Component, ComponentFactoryResolver, ElementRef, ViewChild } from '@angular/core';
-import { Item } from '../../../../../core/shared/item.model';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import {
-  getListableObjectComponent,
-  listableObjectComponent,
-} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { Context } from '../../../../../core/shared/context.model';
-import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
-import { ListableObjectDirective } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+  Component,
+  ComponentFactoryResolver,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { followLink } from '../../../../../shared/utils/follow-link-config.model';
+import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
+import { Context } from '../../../../../core/shared/context.model';
+import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
+import { Item } from '../../../../../core/shared/item.model';
 import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../../../core/shared/operators';
-import { take } from 'rxjs/operators';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+import {
+  getListableObjectComponent,
+  listableObjectComponent,
+} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { ListableObjectDirective } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
+import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
 @Component({

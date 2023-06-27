@@ -1,10 +1,25 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+  SimpleChange,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import { TestScheduler } from 'rxjs/testing';
 
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
+import { AuthService } from '../../core/auth/auth.service';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { Item } from '../../core/shared/item.model';
 import {
   mockSectionsData,
   mockSectionsList,
@@ -15,17 +30,14 @@ import {
   mockSubmissionSelfUrl,
   mockSubmissionState,
 } from '../../shared/mocks/submission.mock';
-import { SubmissionService } from '../submission.service';
-import { SubmissionFormComponent } from './submission-form.component';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { AuthService } from '../../core/auth/auth.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../shared/testing/utils.test';
-import { Item } from '../../core/shared/item.model';
-import { TestScheduler } from 'rxjs/testing';
 import { SectionsService } from '../sections/sections.service';
 import { VisibilityType } from '../sections/visibility-type';
+import { SubmissionService } from '../submission.service';
+import { SubmissionFormComponent } from './submission-form.component';
 
 describe('SubmissionFormComponent Component', () => {
 

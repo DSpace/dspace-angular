@@ -1,16 +1,22 @@
-import { autoserialize, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  inheritSerialization,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { link, typedObject } from '../../cache/builders/build-decorators';
+
+import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
+import {
+  link,
+  typedObject,
+} from '../../cache/builders/build-decorators';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
-
 import { DSpaceObject } from '../../shared/dspace-object.model';
+import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALLink } from '../../shared/hal-link.model';
 import { EPERSON } from './eperson.resource-type';
 import { Group } from './group.model';
 import { GROUP } from './group.resource-type';
-import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
-import { GenericConstructor } from '../../shared/generic-constructor';
 
 @typedObject
 @inheritSerialization(DSpaceObject)

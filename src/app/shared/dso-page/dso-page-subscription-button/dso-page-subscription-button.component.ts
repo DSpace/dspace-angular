@@ -1,12 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 
-import { Observable, of } from 'rxjs';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { SubscriptionModalComponent } from '../../subscriptions/subscription-modal/subscription-modal.component';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { SubscriptionModalComponent } from '../../subscriptions/subscription-modal/subscription-modal.component';
 
 @Component({
   selector: 'ds-dso-page-subscription-button',

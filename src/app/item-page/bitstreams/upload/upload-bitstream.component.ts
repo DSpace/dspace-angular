@@ -1,25 +1,49 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Observable, Subscription, of as observableOf } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Item } from '../../../core/shared/item.model';
-import { map, take, switchMap } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
-import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { AuthService } from '../../../core/auth/auth.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { getFirstSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
-import { RequestService } from '../../../core/data/request.service';
-import { getBitstreamModuleRoute } from '../../../app-routing-paths';
-import { getEntityEditRoute } from '../../item-page-routing-paths';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { environment } from '../../../../environments/environment';
+import { getBitstreamModuleRoute } from '../../../app-routing-paths';
+import { AuthService } from '../../../core/auth/auth.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { BundleDataService } from '../../../core/data/bundle-data.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
+import { Bundle } from '../../../core/shared/bundle.model';
+import { Item } from '../../../core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../core/shared/operators';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
+import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
+import { getEntityEditRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-upload-bitstream',

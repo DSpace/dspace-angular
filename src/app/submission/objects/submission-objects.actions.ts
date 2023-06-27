@@ -1,16 +1,16 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
-import { type } from '../../shared/ngrx/type';
+import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
+import { Item } from '../../core/shared/item.model';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkspaceitemSectionUploadFileObject } from '../../core/submission/models/workspaceitem-section-upload-file.model';
 import {
   WorkspaceitemSectionDataType,
   WorkspaceitemSectionsObject,
 } from '../../core/submission/models/workspaceitem-sections.model';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
+import { type } from '../../shared/ngrx/type';
 import { SectionsType } from '../sections/sections-type';
-import { Item } from '../../core/shared/item.model';
 import { SectionVisibility } from './section-visibility.model';
 import { SubmissionError } from './submission-error.model';
 import { SubmissionSectionError } from './submission-section-error.model';

@@ -1,6 +1,28 @@
-import { combineLatest as observableCombineLatest, Observable, interval, SchedulerLike, MonoTypeOperatorFunction } from 'rxjs';
-import { filter, find, map, switchMap, take, takeWhile, debounce, debounceTime } from 'rxjs/operators';
-import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
+import { InjectionToken } from '@angular/core';
+import {
+  combineLatest as observableCombineLatest,
+  interval,
+  MonoTypeOperatorFunction,
+  Observable,
+  SchedulerLike,
+} from 'rxjs';
+import {
+  debounce,
+  debounceTime,
+  filter,
+  find,
+  map,
+  switchMap,
+  take,
+  takeWhile,
+} from 'rxjs/operators';
+
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/models/search-result.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
@@ -8,7 +30,6 @@ import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
-import { InjectionToken } from '@angular/core';
 
 /**
  * Use this method instead of the RxJs debounceTime if you're waiting for debouncing in tests;

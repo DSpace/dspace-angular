@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { LogoutPageComponent as BaseComponent} from '../../../../app/logout-page/logout-page.component';
 
 @Component({

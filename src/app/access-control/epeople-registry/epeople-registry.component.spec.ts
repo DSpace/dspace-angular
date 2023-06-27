@@ -1,32 +1,61 @@
-import { Router } from '@angular/router';
-import { Observable, of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
+import { RequestService } from '../../core/data/request.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { EPeopleRegistryComponent } from './epeople-registry.component';
-import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { getMockFormBuilderService } from '../../shared/mocks/form-builder-service.mock';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '../../shared/testing/eperson.mock';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { RequestService } from '../../core/data/request.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { FindListOptions } from '../../core/data/find-list-options.model';
+import { RouterStub } from '../../shared/testing/router.stub';
+import { EPeopleRegistryComponent } from './epeople-registry.component';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;

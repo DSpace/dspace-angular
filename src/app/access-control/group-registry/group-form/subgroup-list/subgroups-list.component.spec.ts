@@ -1,36 +1,68 @@
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf, BehaviorSubject } from 'rxjs';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { RestResponse } from '../../../../core/cache/response.models';
-import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Group } from '../../../../core/eperson/models/group.model';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { GroupMock, GroupMock2 } from '../../../../shared/testing/group-mock';
-import { SubgroupsListComponent } from './subgroups-list.component';
-import {
-  createSuccessfulRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-} from '../../../../shared/remote-data.utils';
-import { RouterMock } from '../../../../shared/mocks/router.mock';
-import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
-import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
-import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { map } from 'rxjs/operators';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
+import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
+import { RouterMock } from '../../../../shared/mocks/router.mock';
+import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../shared/remote-data.utils';
+import {
+  GroupMock,
+  GroupMock2,
+} from '../../../../shared/testing/group-mock';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
+import { SubgroupsListComponent } from './subgroups-list.component';
 
 describe('SubgroupsListComponent', () => {
   let component: SubgroupsListComponent;

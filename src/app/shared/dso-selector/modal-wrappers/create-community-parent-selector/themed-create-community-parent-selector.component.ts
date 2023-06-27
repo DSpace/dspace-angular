@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {CreateCommunityParentSelectorComponent} from './create-community-parent-selector.component';
 import {ThemedComponent} from 'src/app/shared/theme-support/themed.component';
+
+import {CreateCommunityParentSelectorComponent} from './create-community-parent-selector.component';
 
 /**
  * Themed wrapper for CreateCommunityParentSelectorComponent

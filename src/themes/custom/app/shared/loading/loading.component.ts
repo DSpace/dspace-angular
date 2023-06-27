@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { LoadingComponent as BaseComponent } from '../../../../../app/shared/loading/loading.component';
 
 @Component({

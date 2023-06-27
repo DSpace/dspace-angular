@@ -1,24 +1,31 @@
 import { Injectable } from '@angular/core';
-import { RequestService } from '../request.service';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { Process } from '../../../process-page/processes/process.model';
-import { PROCESS } from '../../../process-page/processes/process.resource-type';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { PaginatedList } from '../paginated-list.model';
-import { Bitstream } from '../../shared/bitstream.model';
-import { RemoteData } from '../remote-data';
-import { BitstreamDataService } from '../bitstream-data.service';
-import { IdentifiableDataService } from '../base/identifiable-data.service';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { FindAllData, FindAllDataImpl } from '../base/find-all-data';
-import { FindListOptions } from '../find-list-options.model';
-import { dataService } from '../base/data-service.decorator';
-import { DeleteData, DeleteDataImpl } from '../base/delete-data';
+
+import { Process } from '../../../process-page/processes/process.model';
+import { PROCESS } from '../../../process-page/processes/process.resource-type';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../cache/object-cache.service';
+import { Bitstream } from '../../shared/bitstream.model';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { NoContent } from '../../shared/NoContent.model';
+import { dataService } from '../base/data-service.decorator';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../base/delete-data';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from '../base/find-all-data';
+import { IdentifiableDataService } from '../base/identifiable-data.service';
+import { BitstreamDataService } from '../bitstream-data.service';
+import { FindListOptions } from '../find-list-options.model';
+import { PaginatedList } from '../paginated-list.model';
+import { RemoteData } from '../remote-data';
+import { RequestService } from '../request.service';
 
 @Injectable()
 @dataService(PROCESS)

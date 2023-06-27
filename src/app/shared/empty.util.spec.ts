@@ -1,4 +1,8 @@
-import { cold, hot } from 'jasmine-marbles';
+import {
+  cold,
+  hot,
+} from 'jasmine-marbles';
+
 import {
   ensureArrayHasValue,
   hasNoValue,
@@ -9,7 +13,8 @@ import {
   isNotEmptyOperator,
   isNotNull,
   isNotUndefined,
-  isNull, isObjectEmpty,
+  isNull,
+  isObjectEmpty,
   isUndefined,
 } from './empty.util';
 

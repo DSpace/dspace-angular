@@ -5,19 +5,26 @@
  *
  * http://www.dspace.org/license/
  */
-import { CacheableObject } from '../../cache/cacheable-object.model';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../remote-data';
-import { NoContent } from '../../shared/NoContent.model';
 import { switchMap } from 'rxjs/operators';
-import { DeleteRequest } from '../request.models';
-import { hasNoValue, hasValue } from '../../../shared/empty.util';
-import { RequestService } from '../request.service';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
+
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
-import { ConstructIdEndpoint, IdentifiableDataService } from './identifiable-data.service';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { NoContent } from '../../shared/NoContent.model';
+import { RemoteData } from '../remote-data';
+import { DeleteRequest } from '../request.models';
+import { RequestService } from '../request.service';
+import {
+  ConstructIdEndpoint,
+  IdentifiableDataService,
+} from './identifiable-data.service';
 
 export interface DeleteData<T extends CacheableObject> {
   /**

@@ -1,15 +1,21 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { MetadataSchemaFormComponent } from './metadata-schema-form.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { of as observableOf } from 'rxjs';
-import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
+import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
+import { MetadataSchemaFormComponent } from './metadata-schema-form.component';
 
 describe('MetadataSchemaFormComponent', () => {
   let component: MetadataSchemaFormComponent;

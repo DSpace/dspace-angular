@@ -1,10 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../../core/auth/auth.service';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
-import { ProcessDetailComponent } from './process-detail.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
-  waitForAsync,
   ComponentFixture,
   discardPeriodicTasks,
   fakeAsync,
@@ -12,30 +8,38 @@ import {
   flushMicrotasks,
   TestBed,
   tick,
+  waitForAsync,
 } from '@angular/core/testing';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ProcessDetailFieldComponent } from './process-detail-field/process-detail-field.component';
-import { Process } from '../processes/process.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
-import { FileSizePipe } from '../../shared/utils/file-size-pipe';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '../../core/data/bitstream-data.service';
+import { ProcessDataService } from '../../core/data/processes/process-data.service';
+import { Bitstream } from '../../core/shared/bitstream.model';
+import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { FileSizePipe } from '../../shared/utils/file-size-pipe';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { getProcessListRoute } from '../process-page-routing.paths';
+import { Process } from '../processes/process.model';
 import {ProcessStatus} from '../processes/process-status.model';
+import { ProcessDetailComponent } from './process-detail.component';
+import { ProcessDetailFieldComponent } from './process-detail-field/process-detail-field.component';
 
 describe('ProcessDetailComponent', () => {
   let component: ProcessDetailComponent;

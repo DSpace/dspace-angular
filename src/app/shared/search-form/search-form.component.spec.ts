@@ -1,22 +1,29 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { SearchFormComponent } from './search-form.component';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Community } from '../../core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { Community } from '../../core/shared/community.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SearchService } from '../../core/shared/search/search.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
-import { SearchServiceStub } from '../testing/search-service.stub';
-import { Router } from '@angular/router';
+import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { RouterStub } from '../testing/router.stub';
+import { SearchServiceStub } from '../testing/search-service.stub';
+import { SearchFormComponent } from './search-form.component';
 
 describe('SearchFormComponent', () => {
   let comp: SearchFormComponent;

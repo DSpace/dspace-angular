@@ -1,7 +1,8 @@
-import { MarkdownPipe } from './markdown.pipe';
 import { TestBed } from '@angular/core/testing';
+
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
+import { MarkdownPipe } from './markdown.pipe';
 
 describe('Markdown Pipe', () => {
 

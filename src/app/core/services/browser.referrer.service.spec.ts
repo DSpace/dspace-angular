@@ -1,6 +1,7 @@
 import { of as observableOf } from 'rxjs';
-import { RouteService } from './route.service';
+
 import { BrowserReferrerService } from './browser.referrer.service';
+import { RouteService } from './route.service';
 
 describe(`BrowserReferrerService`, () => {
   let service: BrowserReferrerService;

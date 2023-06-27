@@ -1,9 +1,26 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { Observable, Subject } from 'rxjs';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { cold, hot } from 'jasmine-marbles';
+import {
+  cold,
+  hot,
+} from 'jasmine-marbles';
+import {
+  Observable,
+  Subject,
+} from 'rxjs';
+import { filter } from 'rxjs/operators';
+
+import { hasValue } from '../../../shared/empty.util';
+import { NoOpAction } from '../../../shared/ngrx/no-op.action';
+import {
+  INotification,
+  Notification,
+} from '../../../shared/notifications/models/notification.model';
+import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ObjectUpdatesEffects } from './object-updates.effects';
 import {
   DiscardObjectUpdatesAction,
   ObjectUpdatesAction,
@@ -11,14 +28,7 @@ import {
   RemoveFieldUpdateAction,
   RemoveObjectUpdatesAction,
 } from './object-updates.actions';
-import {
-  INotification,
-  Notification,
-} from '../../../shared/notifications/models/notification.model';
-import { NotificationType } from '../../../shared/notifications/models/notification-type';
-import { filter } from 'rxjs/operators';
-import { hasValue } from '../../../shared/empty.util';
-import { NoOpAction } from '../../../shared/ngrx/no-op.action';
+import { ObjectUpdatesEffects } from './object-updates.effects';
 
 describe('ObjectUpdatesEffects', () => {
   let updatesEffects: ObjectUpdatesEffects;

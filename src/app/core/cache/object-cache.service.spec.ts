@@ -1,33 +1,44 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-
-import { cold } from 'jasmine-marbles';
-import { Store, StoreModule } from '@ngrx/store';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
 import { Operation } from 'fast-json-patch';
-import { empty, of as observableOf } from 'rxjs';
+import { cold } from 'jasmine-marbles';
+import { TestColdObservable } from 'jasmine-marbles/src/test-observables';
+import {
+  empty,
+  of as observableOf,
+} from 'rxjs';
 import { first } from 'rxjs/operators';
+import { TestScheduler } from 'rxjs/testing';
 
+import { storeModuleConfig } from '../../app.reducer';
 import { coreReducers} from '../core.reducers';
+import { CoreState } from '../core-state.model';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
+import { IndexName } from '../index/index-name.model';
+import { HALLink } from '../shared/hal-link.model';
 import { Item } from '../shared/item.model';
 import {
   AddDependentsObjectCacheAction,
-  RemoveDependentsObjectCacheAction,
   AddPatchObjectCacheAction,
   AddToObjectCacheAction,
   ApplyPatchObjectCacheAction,
+  RemoveDependentsObjectCacheAction,
   RemoveFromObjectCacheAction,
 } from './object-cache.actions';
 import { Patch } from './object-cache.reducer';
 import { ObjectCacheService } from './object-cache.service';
 import { AddToSSBAction } from './server-sync-buffer.actions';
-import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
-import { HALLink } from '../shared/hal-link.model';
-import { storeModuleConfig } from '../../app.reducer';
-import { TestColdObservable } from 'jasmine-marbles/src/test-observables';
-import { IndexName } from '../index/index-name.model';
-import { CoreState } from '../core-state.model';
-import { TestScheduler } from 'rxjs/testing';
 
 describe('ObjectCacheService', () => {
   let service: ObjectCacheService;

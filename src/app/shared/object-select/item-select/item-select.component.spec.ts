@@ -1,29 +1,34 @@
-import { ItemSelectComponent } from './item-select.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Item } from '../../../core/shared/item.model';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '../../shared.module';
-import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
-import { ObjectSelectService } from '../object-select.service';
-import { HostWindowService } from '../../host-window.service';
-import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { createPaginatedList } from '../../testing/utils.test';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { LinkHeadService } from '../../../core/services/link-head.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { LinkHeadService } from '../../../core/services/link-head.service';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { Item } from '../../../core/shared/item.model';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { HostWindowService } from '../../host-window.service';
+import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { SharedModule } from '../../shared.module';
+import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
+import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
+import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { createPaginatedList } from '../../testing/utils.test';
+import { ObjectSelectService } from '../object-select.service';
+import { ItemSelectComponent } from './item-select.component';
 
 describe('ItemSelectComponent', () => {
   let comp: ItemSelectComponent;

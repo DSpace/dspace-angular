@@ -1,18 +1,43 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { BehaviorSubject, from as observableFrom, Observable, Subscription } from 'rxjs';
-import { concatMap, distinctUntilChanged, filter, map, reduce, scan, take } from 'rxjs/operators';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  from as observableFrom,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  concatMap,
+  distinctUntilChanged,
+  filter,
+  map,
+  reduce,
+  scan,
+  take,
+} from 'rxjs/operators';
 
-import { getAllSucceededRemoteData } from '../../core/shared/operators';
-import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
-import { ResourcePolicy } from '../../core/resource-policy/models/resource-policy.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { RequestService } from '../../core/data/request.service';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { GroupDataService } from '../../core/eperson/group-data.service';
+import { ResourcePolicy } from '../../core/resource-policy/models/resource-policy.model';
+import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
+import { getAllSucceededRemoteData } from '../../core/shared/operators';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../empty.util';
 import { NotificationsService } from '../notifications/notifications.service';
 import { followLink } from '../utils/follow-link-config.model';
 import { ResourcePolicyCheckboxEntry } from './entry/resource-policy-entry.component';

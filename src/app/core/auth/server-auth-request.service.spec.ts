@@ -1,14 +1,22 @@
-import { AuthRequestService } from './auth-request.service';
-import { RequestService } from '../data/request.service';
-import { ServerAuthRequestService } from './server-auth-request.service';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Observable, of as observableOf } from 'rxjs';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpResponse,
+} from '@angular/common/http';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { PostRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   XSRF_REQUEST_HEADER,
   XSRF_RESPONSE_HEADER,
 } from '../xsrf/xsrf.constants';
+import { AuthRequestService } from './auth-request.service';
+import { ServerAuthRequestService } from './server-auth-request.service';
 
 describe(`ServerAuthRequestService`, () => {
   let href: string;

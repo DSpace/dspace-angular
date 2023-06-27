@@ -5,8 +5,8 @@
  *
  * http://www.dspace.org/license/
  */
-import { VocabularyDataService } from './vocabulary.data.service';
 import { testFindAllDataImplementation } from '../../data/base/find-all-data.spec';
+import { VocabularyDataService } from './vocabulary.data.service';
 
 describe('VocabularyDataService', () => {
   function initTestService() {

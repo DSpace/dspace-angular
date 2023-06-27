@@ -1,12 +1,19 @@
-import { cold, hot } from 'jasmine-marbles';
+import {
+  cold,
+  hot,
+} from 'jasmine-marbles';
+import {
+  combineLatest as observableCombineLatest,
+  of as observableOf,
+} from 'rxjs';
+
+import { environment } from '../../../environments/environment';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { EndpointMapRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from './hal-endpoint.service';
-import { EndpointMapRequest } from '../data/request.models';
-import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('HALEndpointService', () => {
   let service: HALEndpointService;

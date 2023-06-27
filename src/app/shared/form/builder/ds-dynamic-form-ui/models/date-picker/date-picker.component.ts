@@ -1,12 +1,19 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { DynamicDsDatePickerModel } from './date-picker.model';
-import { hasValue } from '../../../../../empty.util';
 import {
   DynamicFormControlComponent,
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+
+import { hasValue } from '../../../../../empty.util';
+import { DynamicDsDatePickerModel } from './date-picker.model';
 
 export const DS_DATE_PICKER_SEPARATOR = '-';
 

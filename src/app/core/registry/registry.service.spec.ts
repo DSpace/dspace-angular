@@ -1,9 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Store, StoreModule } from '@ngrx/store';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import {
   MetadataRegistryCancelFieldAction,
   MetadataRegistryCancelSchemaAction,
@@ -16,20 +23,23 @@ import {
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction,
 } from '../../admin/admin-registries/metadata-registry/metadata-registry.actions';
+import { storeModuleConfig } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { StoreMock } from '../../shared/testing/store.mock';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { StoreMock } from '../../shared/testing/store.mock';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { FindListOptions } from '../data/find-list-options.model';
+import { MetadataFieldDataService } from '../data/metadata-field-data.service';
+import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
+import { RemoteData } from '../data/remote-data';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { RegistryService } from './registry.service';
-import { storeModuleConfig } from '../../app.reducer';
-import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
-import { MetadataFieldDataService } from '../data/metadata-field-data.service';
-import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { RemoteData } from '../data/remote-data';
 import { NoContent } from '../shared/NoContent.model';
-import { FindListOptions } from '../data/find-list-options.model';
+import { RegistryService } from './registry.service';
 
 @Component({ template: '' })
 class DummyComponent {

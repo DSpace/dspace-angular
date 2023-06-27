@@ -1,19 +1,31 @@
-import { Inject, Injectable, Injector } from '@angular/core';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
+import {
+  Inject,
+  Injectable,
+  Injector,
+} from '@angular/core';
+import {
+  EMPTY,
+  Observable,
+} from 'rxjs';
+
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { DATA_SERVICE_FACTORY } from '../../data/base/data-service.decorator';
+import { HALDataService } from '../../data/base/hal-data-service.interface';
+import { PaginatedList } from '../../data/paginated-list.model';
+import { RemoteData } from '../../data/remote-data';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
-import { DATA_SERVICE_FACTORY } from '../../data/base/data-service.decorator';
+import { ResourceType } from '../../shared/resource-type';
 import {
   LINK_DEFINITION_FACTORY,
   LINK_DEFINITION_MAP_FACTORY,
   LinkDefinition,
 } from './build-decorators';
-import { RemoteData } from '../../data/remote-data';
-import { EMPTY, Observable } from 'rxjs';
-import { ResourceType } from '../../shared/resource-type';
-import { HALDataService } from '../../data/base/hal-data-service.interface';
-import { PaginatedList } from '../../data/paginated-list.model';
 
 /**
  * A Service to handle the resolving and removing

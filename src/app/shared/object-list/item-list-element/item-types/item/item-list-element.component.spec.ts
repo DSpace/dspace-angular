@@ -1,13 +1,20 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ItemListElementComponent } from './item-list-element.component';
-import { Item } from '../../../../../core/shared/item.model';
-import { TruncatePipe } from '../../../../utils/truncate.pipe';
-import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { of as observableOf } from 'rxjs';
+
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { Item } from '../../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
+import { TruncatableService } from '../../../../truncatable/truncatable.service';
+import { TruncatePipe } from '../../../../utils/truncate.pipe';
+import { ItemListElementComponent } from './item-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: observableOf({}),

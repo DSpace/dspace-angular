@@ -1,5 +1,8 @@
 import { SubmissionObjectError } from '../../core/submission/models/submission-object.model';
-import { default as parseSectionErrorPaths, SectionErrorPath } from './parseSectionErrorPaths';
+import {
+  default as parseSectionErrorPaths,
+  SectionErrorPath,
+} from './parseSectionErrorPaths';
 
 /**
  * the following method accept an array of SubmissionObjectError and return a section errors object

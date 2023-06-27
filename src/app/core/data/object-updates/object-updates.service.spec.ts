@@ -1,5 +1,12 @@
+import { Injector } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ObjectUpdatesService } from './object-updates.service';
+import { of as observableOf } from 'rxjs';
+
+import { Notification } from '../../../shared/notifications/models/notification.model';
+import { NotificationType } from '../../../shared/notifications/models/notification-type';
+import { CoreState } from '../../core-state.model';
+import { Relationship } from '../../shared/item-relationships/relationship.model';
+import { FieldChangeType } from './field-change-type.model';
 import {
   DiscardObjectUpdatesAction,
   InitializeFieldsAction,
@@ -8,14 +15,8 @@ import {
   SelectVirtualMetadataAction,
   SetEditableFieldUpdateAction,
 } from './object-updates.actions';
-import { of as observableOf } from 'rxjs';
-import { Notification } from '../../../shared/notifications/models/notification.model';
-import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { OBJECT_UPDATES_TRASH_PATH } from './object-updates.reducer';
-import { Relationship } from '../../shared/item-relationships/relationship.model';
-import { Injector } from '@angular/core';
-import { FieldChangeType } from './field-change-type.model';
-import { CoreState } from '../../core-state.model';
+import { ObjectUpdatesService } from './object-updates.service';
 
 describe('ObjectUpdatesService', () => {
   let service: ObjectUpdatesService;

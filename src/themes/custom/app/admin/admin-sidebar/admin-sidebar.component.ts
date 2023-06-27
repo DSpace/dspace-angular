@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { AdminSidebarComponent as BaseComponent } from '../../../../../app/admin/admin-sidebar/admin-sidebar.component';
 
 /**

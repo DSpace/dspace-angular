@@ -1,16 +1,21 @@
-import { AuthorizedCollectionSelectorComponent } from './authorized-collection-selector.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../../utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { SearchService } from '../../../../core/shared/search/search.service';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
-import { createPaginatedList } from '../../../testing/utils.test';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
+import { SearchService } from '../../../../core/shared/search/search.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { createPaginatedList } from '../../../testing/utils.test';
+import { VarDirective } from '../../../utils/var.directive';
+import { AuthorizedCollectionSelectorComponent } from './authorized-collection-selector.component';
 
 describe('AuthorizedCollectionSelectorComponent', () => {
   let component: AuthorizedCollectionSelectorComponent;

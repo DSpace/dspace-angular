@@ -10,7 +10,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-
+import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -18,32 +18,44 @@ import {
   of as observableOf,
   Subscription,
 } from 'rxjs';
-import { debounceTime, map, startWith, switchMap, tap } from 'rxjs/operators';
+import {
+  debounceTime,
+  map,
+  startWith,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 
-import { SearchService } from '../../../core/shared/search/search.service';
-import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
-import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
-import { Context } from '../../../core/shared/context.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../empty.util';
-import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
-import { SearchResult } from '../../search/models/search-result.model';
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import {
-  ListableNotificationObject,
-} from '../../object-list/listable-notification-object/listable-notification-object.model';
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { Context } from '../../../core/shared/context.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { ViewMode } from '../../../core/shared/view-mode.model';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../empty.util';
 import { NotificationType } from '../../notifications/models/notification-type';
-import {
-  LISTABLE_NOTIFICATION_OBJECT,
-} from '../../object-list/listable-notification-object/listable-notification-object.resource-type';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
+import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { ListableNotificationObject } from '../../object-list/listable-notification-object/listable-notification-object.model';
+import { LISTABLE_NOTIFICATION_OBJECT } from '../../object-list/listable-notification-object/listable-notification-object.resource-type';
+import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
+import { SearchResult } from '../../search/models/search-result.model';
 
 @Component({
   selector: 'ds-dso-selector',

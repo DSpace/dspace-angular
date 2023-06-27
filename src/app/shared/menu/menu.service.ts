@@ -1,8 +1,37 @@
 import { Injectable } from '@angular/core';
-import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { AppState, keySelector } from '../../app.reducer';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+} from '@angular/router';
+import {
+  createSelector,
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import {
+  AppState,
+  keySelector,
+} from '../../app.reducer';
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '../empty.util';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,
@@ -11,18 +40,18 @@ import {
   DeactivateMenuSectionAction,
   ExpandMenuAction,
   ExpandMenuPreviewAction,
-  HideMenuAction, HideMenuSectionAction,
+  HideMenuAction,
+  HideMenuSectionAction,
   RemoveMenuSectionAction,
-  ShowMenuAction, ShowMenuSectionAction,
+  ShowMenuAction,
+  ShowMenuSectionAction,
   ToggleActiveMenuSectionAction,
   ToggleMenuAction,
 } from './menu.actions';
-import { hasNoValue, hasValue, hasValueOperator, isNotEmpty, isEmpty } from '../empty.util';
-import { MenuState } from './menu-state.model';
-import { MenuSections } from './menu-sections.model';
-import { MenuSection } from './menu-section.model';
 import { MenuID } from './menu-id.model';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { MenuSection } from './menu-section.model';
+import { MenuSections } from './menu-sections.model';
+import { MenuState } from './menu-state.model';
 
 export function menuKeySelector<T>(key: string, selector): MemoizedSelector<MenuState, T> {
   return createSelector(selector, (state) => {

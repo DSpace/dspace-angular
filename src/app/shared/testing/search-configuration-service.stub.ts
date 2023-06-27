@@ -1,6 +1,13 @@
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { SearchConfig } from '../../core/shared/search/search-filters/search-config.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 
 export class SearchConfigurationServiceStub {
 

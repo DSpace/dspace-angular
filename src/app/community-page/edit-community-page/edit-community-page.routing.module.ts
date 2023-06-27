@@ -1,17 +1,18 @@
-import { EditCommunityPageComponent } from './edit-community-page.component';
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
+import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { CommunityAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/community-administrator.guard';
+import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
+import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
+import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
+import { ResourcePolicyTargetResolver } from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
+import { CommunityAccessControlComponent } from './community-access-control/community-access-control.component';
+import { CommunityAuthorizationsComponent } from './community-authorizations/community-authorizations.component';
+import { CommunityCurateComponent } from './community-curate/community-curate.component';
 import { CommunityMetadataComponent } from './community-metadata/community-metadata.component';
 import { CommunityRolesComponent } from './community-roles/community-roles.component';
-import { CommunityCurateComponent } from './community-curate/community-curate.component';
-import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { CommunityAuthorizationsComponent } from './community-authorizations/community-authorizations.component';
-import { ResourcePolicyTargetResolver } from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
-import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
-import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
-import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
-import { CommunityAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/community-administrator.guard';
-import { CommunityAccessControlComponent } from './community-access-control/community-access-control.component';
+import { EditCommunityPageComponent } from './edit-community-page.component';
 
 /**
  * Routing module that handles the routing for the Edit Community page administrator functionality

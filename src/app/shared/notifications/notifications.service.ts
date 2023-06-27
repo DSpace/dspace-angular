@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
-
-import { of as observableOf } from 'rxjs';
-import { first } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
+import { of as observableOf } from 'rxjs';
+import { first } from 'rxjs/operators';
 
-import { INotification, Notification } from './models/notification.model';
-import { NotificationType } from './models/notification-type';
-import { NotificationOptions } from './models/notification-options.model';
-
-import { NewNotificationAction, RemoveAllNotificationsAction, RemoveNotificationAction } from './notifications.actions';
 import { environment } from '../../../environments/environment';
+import {
+  INotification,
+  Notification,
+} from './models/notification.model';
+import { NotificationOptions } from './models/notification-options.model';
+import { NotificationType } from './models/notification-type';
+import {
+  NewNotificationAction,
+  RemoveAllNotificationsAction,
+  RemoveNotificationAction,
+} from './notifications.actions';
 
 @Injectable()
 export class NotificationsService {

@@ -1,13 +1,23 @@
-import { Component, Input } from '@angular/core';
-import { catchError, map } from 'rxjs/operators';
-import { Observable, of as observableOf } from 'rxjs';
-import { AccessStatusObject } from './access-status.model';
-import { hasValue } from '../../../../empty.util';
-import { environment } from 'src/environments/environment';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+} from 'rxjs/operators';
 import { AccessStatusDataService } from 'src/app/core/data/access-status-data.service';
+import { environment } from 'src/environments/environment';
+
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ITEM } from '../../../../../core/shared/item.resource-type';
+import { hasValue } from '../../../../empty.util';
+import { AccessStatusObject } from './access-status.model';
 
 @Component({
   selector: 'ds-access-status-badge',

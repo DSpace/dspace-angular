@@ -1,14 +1,44 @@
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, NgZone, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, interval, Observable, shareReplay, Subscription } from 'rxjs';
-import { finalize, map, switchMap, take, tap } from 'rxjs/operators';
+import {
+  Component,
+  Inject,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  interval,
+  Observable,
+  shareReplay,
+  Subscription,
+} from 'rxjs';
+import {
+  finalize,
+  map,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
+
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { RemoteData } from '../../core/data/remote-data';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import {
@@ -19,15 +49,11 @@ import {
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { AlertType } from '../../shared/alert/aletr-type';
 import { hasValue } from '../../shared/empty.util';
-import { ProcessStatus } from '../processes/process-status.model';
-import { Process } from '../processes/process.model';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { getProcessListRoute } from '../process-page-routing.paths';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { isPlatformBrowser } from '@angular/common';
+import { getProcessListRoute } from '../process-page-routing.paths';
+import { Process } from '../processes/process.model';
+import { ProcessStatus } from '../processes/process-status.model';
 
 @Component({
   selector: 'ds-process-detail',

@@ -1,17 +1,34 @@
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NoContent } from '../../core/shared/NoContent.model';
-import { RouteService } from '../../core/services/route.service';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../core/shared/operators';
-import { RemoteData } from '../../core/data/remote-data';
-import { Component, OnInit } from '@angular/core';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import { map, Observable, switchMap, take } from 'rxjs';
-import { ActivatedRoute, Data, Params, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Data,
+  Params,
+  Router,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  map,
+  Observable,
+  switchMap,
+  take,
+} from 'rxjs';
+
+import { RemoteData } from '../../core/data/remote-data';
+import { RouteService } from '../../core/services/route.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { NoContent } from '../../core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../core/shared/operators';
+import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-workspaceitems-delete-page',

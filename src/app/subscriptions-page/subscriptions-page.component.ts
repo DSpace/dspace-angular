@@ -1,19 +1,36 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  combineLatestWith,
+  Observable,
+  shareReplay,
+  Subscription as rxjsSubscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, combineLatestWith, Observable, shareReplay, Subscription as rxjsSubscription } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
-
-import { Subscription } from '../shared/subscriptions/models/subscription.model';
-import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
-import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { PageInfo } from '../core/shared/page-info.model';
 import { AuthService } from '../core/auth/auth.service';
-import { EPerson } from '../core/eperson/models/eperson.model';
-import { getAllCompletedRemoteData } from '../core/shared/operators';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
+import { EPerson } from '../core/eperson/models/eperson.model';
+import { PaginationService } from '../core/pagination/pagination.service';
+import { getAllCompletedRemoteData } from '../core/shared/operators';
+import { PageInfo } from '../core/shared/page-info.model';
 import { hasValue } from '../shared/empty.util';
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { Subscription } from '../shared/subscriptions/models/subscription.model';
+import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
 
 @Component({
   selector: 'ds-subscriptions-page',

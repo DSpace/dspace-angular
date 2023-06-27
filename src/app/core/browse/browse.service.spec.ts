@@ -1,20 +1,31 @@
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+
+import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import {
+  createPaginatedList,
+  getFirstUsedArgumentOfSpyMethod,
+} from '../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestService } from '../data/request.service';
-import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
-import { BrowseService } from './browse.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { createPaginatedList, getFirstUsedArgumentOfSpyMethod } from '../../shared/testing/utils.test';
-import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { RequestEntry } from '../data/request-entry.model';
 import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
-import { ValueListBrowseDefinition } from '../shared/value-list-browse-definition.model';
 import { HierarchicalBrowseDefinition } from '../shared/hierarchical-browse-definition.model';
+import { ValueListBrowseDefinition } from '../shared/value-list-browse-definition.model';
+import { BrowseService } from './browse.service';
+import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 
 describe('BrowseService', () => {
   let scheduler: TestScheduler;

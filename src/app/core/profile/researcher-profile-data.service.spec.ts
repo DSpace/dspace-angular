@@ -1,33 +1,43 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import {
+  HttpClient,
+  HttpHeaders,
+} from '@angular/common/http';
+import { ReplaceOperation } from 'fast-json-patch';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from '../data/request.service';
-import { PageInfo } from '../shared/page-info.model';
-import { buildPaginatedList } from '../data/paginated-list.model';
-import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { RestResponse } from '../cache/response.models';
-import { RequestEntry } from '../data/request-entry.model';
-import { ResearcherProfileDataService } from './researcher-profile-data.service';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { ResearcherProfile } from './model/researcher-profile.model';
-import { Item } from '../shared/item.model';
-import { ReplaceOperation } from 'fast-json-patch';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { PostRequest } from '../data/request.models';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { ConfigurationProperty } from '../shared/configuration-property.model';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { testCreateDataImplementation } from '../data/base/create-data.spec';
-import { testSearchDataImplementation } from '../data/base/search-data.spec';
-import { testPatchDataImplementation } from '../data/base/patch-data.spec';
 import { testDeleteDataImplementation } from '../data/base/delete-data.spec';
+import { testPatchDataImplementation } from '../data/base/patch-data.spec';
+import { testSearchDataImplementation } from '../data/base/search-data.spec';
+import { buildPaginatedList } from '../data/paginated-list.model';
+import { PostRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { RequestEntry } from '../data/request-entry.model';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { ConfigurationProperty } from '../shared/configuration-property.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
+import { PageInfo } from '../shared/page-info.model';
+import { ResearcherProfile } from './model/researcher-profile.model';
+import { ResearcherProfileDataService } from './researcher-profile-data.service';
 
 describe('ResearcherProfileService', () => {
   let scheduler: TestScheduler;

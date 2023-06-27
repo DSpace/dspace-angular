@@ -1,6 +1,10 @@
-import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
+import { map } from 'rxjs/operators';
 
 import { StoreActionTypes } from '../../store.actions';
 import { ResetObjectCacheTimestampsAction } from './object-cache.actions';

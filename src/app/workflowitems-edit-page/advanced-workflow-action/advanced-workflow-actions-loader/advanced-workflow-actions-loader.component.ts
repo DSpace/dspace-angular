@@ -1,11 +1,16 @@
-import { Component, Input, ViewChild, ComponentFactoryResolver, OnInit } from '@angular/core';
-import { hasValue } from '../../../shared/empty.util';
 import {
-  getAdvancedComponentByWorkflowTaskOption,
-} from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
-import { AdvancedWorkflowActionsDirective } from './advanced-workflow-actions.directive';
+  Component,
+  ComponentFactoryResolver,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
+
 import { PAGE_NOT_FOUND_PATH } from '../../../app-routing-paths';
+import { hasValue } from '../../../shared/empty.util';
+import { getAdvancedComponentByWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
+import { AdvancedWorkflowActionsDirective } from './advanced-workflow-actions.directive';
 
 /**
  * Component for loading a {@link AdvancedWorkflowActionComponent} depending on the "{@link type}" input

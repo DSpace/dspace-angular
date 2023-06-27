@@ -1,7 +1,15 @@
-import { first, map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
 import { ROUTER_NAVIGATION } from '@ngrx/router-store';
+import {
+  first,
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { HostWindowActionTypes } from '../shared/host-window.actions';
 import {
@@ -10,9 +18,9 @@ import {
   MenuActionTypes,
 } from '../shared/menu/menu.actions';
 import { MenuService } from '../shared/menu/menu.service';
-import { NoOpAction } from '../shared/ngrx/no-op.action';
-import { MenuState } from '../shared/menu/menu-state.model';
 import { MenuID } from '../shared/menu/menu-id.model';
+import { MenuState } from '../shared/menu/menu-state.model';
+import { NoOpAction } from '../shared/ngrx/no-op.action';
 
 @Injectable()
 export class NavbarEffects {

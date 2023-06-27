@@ -1,4 +1,8 @@
-import { SearchFilterAction, SearchFilterActionTypes, SearchFilterInitializeAction } from './search-filter.actions';
+import {
+  SearchFilterAction,
+  SearchFilterActionTypes,
+  SearchFilterInitializeAction,
+} from './search-filter.actions';
 
 /**
  * Interface that represents the state for a single filters

@@ -1,7 +1,8 @@
 import {
   animate,
   animateChild,
-  group, query,
+  group,
+  query,
   state,
   style,
   transition,

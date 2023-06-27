@@ -1,16 +1,33 @@
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
-import {
-  getAllSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
-import { filter, map, switchMap } from 'rxjs/operators';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { SystemWideAlert } from '../system-wide-alert.model';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { BehaviorSubject, EMPTY, interval, Subscription } from 'rxjs';
-import { zonedTimeToUtc } from 'date-fns-tz';
 import { isPlatformBrowser } from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import { zonedTimeToUtc } from 'date-fns-tz';
+import {
+  BehaviorSubject,
+  EMPTY,
+  interval,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
+import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { SystemWideAlert } from '../system-wide-alert.model';
 
 /**
  * Component responsible for rendering a banner and the countdown for an active system-wide alert

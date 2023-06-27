@@ -1,21 +1,41 @@
-import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { AuthService } from '../../core/auth/auth.service';
+import {
+  Inject,
+  Injectable,
+  InjectionToken,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { environment } from '../../../environments/environment';
-import { map, switchMap, take } from 'rxjs/operators';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { KlaroService } from './klaro.service';
-import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
-import { CookieService } from '../../core/services/cookie.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { Operation } from 'fast-json-patch';
 import cloneDeep from 'lodash/cloneDeep';
 import debounce from 'lodash/debounce';
-import { ANONYMOUS_STORAGE_NAME_KLARO, klaroConfiguration } from './klaro-configuration';
-import { Operation } from 'fast-json-patch';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../../core/auth/auth.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
 import { CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
+import { CookieService } from '../../core/services/cookie.service';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../empty.util';
+import { KlaroService } from './klaro.service';
+import {
+  ANONYMOUS_STORAGE_NAME_KLARO,
+  klaroConfiguration,
+} from './klaro-configuration';
 
 /**
  * Metadata field to store a user's cookie consent preferences in

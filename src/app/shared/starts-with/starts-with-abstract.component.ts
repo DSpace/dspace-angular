@@ -1,9 +1,21 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Subscription } from 'rxjs';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { hasValue } from '../empty.util';
+
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { hasValue } from '../empty.util';
 
 /**
  * An abstract component to render StartsWith options

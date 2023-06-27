@@ -1,18 +1,26 @@
 /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
-import { SearchConfigurationService } from './search-configuration.service';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '../../../shared/search/models/search-filter.model';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { map } from 'rxjs/operators';
-import { RemoteData } from '../../data/remote-data';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { RequestEntry } from '../../data/request-entry.model';
 import { SearchObjects } from '../../../shared/search/models/search-objects.model';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../cache/models/sort-options.model';
+import { RemoteData } from '../../data/remote-data';
+import { RequestEntry } from '../../data/request-entry.model';
+import { SearchConfigurationService } from './search-configuration.service';
 
 describe('SearchConfigurationService', () => {
   let service: SearchConfigurationService;

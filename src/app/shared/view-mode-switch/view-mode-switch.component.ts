@@ -1,13 +1,22 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { SearchService } from '../../core/shared/search/search.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { isEmpty, isNotEmpty } from '../empty.util';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../empty.util';
 import { currentPath } from '../utils/route.utils';
-import { Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
 
 /**
  * Component to switch between list and grid views.

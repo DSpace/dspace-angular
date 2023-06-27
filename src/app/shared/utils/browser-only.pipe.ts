@@ -1,5 +1,10 @@
-import { Inject, Pipe, PipeTransform, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import {
+  Inject,
+  Pipe,
+  PipeTransform,
+  PLATFORM_ID,
+} from '@angular/core';
 
 /**
  * A pipe that only returns its input when run in the browser.

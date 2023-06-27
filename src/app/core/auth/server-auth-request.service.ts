@@ -1,21 +1,22 @@
-import { Injectable } from '@angular/core';
-import { AuthRequestService } from './auth-request.service';
-import { PostRequest } from '../data/request.models';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from '../data/request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import {
-  HttpHeaders,
   HttpClient,
+  HttpHeaders,
   HttpResponse,
 } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { PostRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
+  DSPACE_XSRF_COOKIE,
   XSRF_REQUEST_HEADER,
   XSRF_RESPONSE_HEADER,
-  DSPACE_XSRF_COOKIE,
 } from '../xsrf/xsrf.constants';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { AuthRequestService } from './auth-request.service';
 
 /**
  * Server side version of the service to send authentication requests

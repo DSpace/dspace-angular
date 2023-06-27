@@ -1,22 +1,32 @@
 // Load the implementations that should be tested
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { of as observableOf } from 'rxjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 
-import { SubmissionSectionContainerComponent } from './section-container.component';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { SectionsType } from '../sections-type';
-import { SectionsDirective } from '../sections.directive';
-import { SubmissionService } from '../../submission.service';
-import { SectionsService } from '../sections.service';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+} from '../../../shared/mocks/submission.mock';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
+import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
+import { createTestComponent } from '../../../shared/testing/utils.test';
+import { SubmissionService } from '../../submission.service';
 import { SectionDataObject } from '../models/section-data.model';
-import { mockSubmissionCollectionId, mockSubmissionId } from '../../../shared/mocks/submission.mock';
+import { SectionsDirective } from '../sections.directive';
+import { SectionsService } from '../sections.service';
+import { SectionsType } from '../sections-type';
+import { SubmissionSectionContainerComponent } from './section-container.component';
 
 const sectionState = {
   header: 'submit.progressbar.describe.stepone',

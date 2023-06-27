@@ -1,8 +1,12 @@
 /* eslint-disable max-classes-per-file */
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { DEFAULT_VIEW_MODE, getListableObjectComponent, listableObjectComponent } from './listable-object.decorator';
-import { Context } from '../../../../core/shared/context.model';
 import { environment } from '../../../../../environments/environment';
+import { Context } from '../../../../core/shared/context.model';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+import {
+  DEFAULT_VIEW_MODE,
+  getListableObjectComponent,
+  listableObjectComponent,
+} from './listable-object.decorator';
 
 let ogEnvironmentThemes;
 

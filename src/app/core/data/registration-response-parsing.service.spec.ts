@@ -1,6 +1,6 @@
+import { ParsedResponse } from '../cache/response.models';
 import { Registration } from '../shared/registration.model';
 import { RegistrationResponseParsingService } from './registration-response-parsing.service';
-import { ParsedResponse } from '../cache/response.models';
 
 describe('RegistrationResponseParsingService', () => {
   describe('parse', () => {

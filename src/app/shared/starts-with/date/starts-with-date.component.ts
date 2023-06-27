@@ -1,10 +1,19 @@
-import { Component, Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  Component,
+  Inject,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 
-import { renderStartsWithFor, StartsWithType } from '../starts-with-decorator';
-import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
-import { hasValue } from '../../empty.util';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { hasValue } from '../../empty.util';
+import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
+import {
+  renderStartsWithFor,
+  StartsWithType,
+} from '../starts-with-decorator';
 
 /**
  * A switchable component rendering StartsWith options for the type "Date".

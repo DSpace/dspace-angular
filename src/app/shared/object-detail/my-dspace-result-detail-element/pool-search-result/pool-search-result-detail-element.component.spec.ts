@@ -1,23 +1,32 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { of as observableOf } from 'rxjs';
-
-import { Item } from '../../../../core/shared/item.model';
-import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { PoolSearchResultDetailElementComponent } from './pool-search-result-detail-element.component';
-import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
-import { VarDirective } from '../../../utils/var.directive';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { getMockLinkService } from '../../../mocks/link-service.mock';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { of as observableOf } from 'rxjs';
 import { Context } from 'src/app/core/shared/context.model';
+
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
+import { Item } from '../../../../core/shared/item.model';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
+import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { VarDirective } from '../../../utils/var.directive';
+import { PoolSearchResultDetailElementComponent } from './pool-search-result-detail-element.component';
 
 let component: PoolSearchResultDetailElementComponent;
 let fixture: ComponentFixture<PoolSearchResultDetailElementComponent>;

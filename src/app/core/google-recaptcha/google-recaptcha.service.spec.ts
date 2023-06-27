@@ -1,7 +1,8 @@
-import { GoogleRecaptchaService } from './google-recaptcha.service';
 import { of as observableOf } from 'rxjs';
+
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { NativeWindowRef } from '../services/window.service';
+import { GoogleRecaptchaService } from './google-recaptcha.service';
 
 describe('GoogleRecaptchaService', () => {
   let service: GoogleRecaptchaService;

@@ -1,5 +1,8 @@
 /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
 export class AuthServiceMock {
   public checksAuthenticationToken() {

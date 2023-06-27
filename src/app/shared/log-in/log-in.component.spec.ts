@@ -1,26 +1,39 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { StoreModule } from '@ngrx/store';
-
-import { LogInComponent } from './log-in.component';
-import { authReducer } from '../../core/auth/auth.reducer';
-import { TranslateModule } from '@ngx-translate/core';
-
-import { AuthService } from '../../core/auth/auth.service';
-import { authMethodsMock, AuthServiceStub } from '../testing/auth-service.stub';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../shared.module';
-import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
-import { ActivatedRouteStub } from '../testing/active-router.stub';
 import { ActivatedRoute } from '@angular/router';
-import { NativeWindowService } from '../../core/services/window.service';
-import { provideMockStore } from '@ngrx/store/testing';
-import { createTestComponent } from '../testing/utils.test';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { StoreModule } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+
+import { authReducer } from '../../core/auth/auth.reducer';
+import { AuthService } from '../../core/auth/auth.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { HardRedirectService } from '../../core/services/hard-redirect.service';
+import { NativeWindowService } from '../../core/services/window.service';
+import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
+import { SharedModule } from '../shared.module';
+import { ActivatedRouteStub } from '../testing/active-router.stub';
+import {
+  authMethodsMock,
+  AuthServiceStub,
+} from '../testing/auth-service.stub';
+import { createTestComponent } from '../testing/utils.test';
+import { LogInComponent } from './log-in.component';
 
 describe('LogInComponent', () => {
 

@@ -1,9 +1,18 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-import { combineLatest as observableCombineLatest, Subscription } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+import {
+  combineLatest as observableCombineLatest,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  take,
+} from 'rxjs/operators';
 
 import { AppState } from '../app.reducer';
 import {
@@ -12,9 +21,12 @@ import {
   AuthenticationSuccessAction,
   ResetAuthenticationMessagesAction,
 } from '../core/auth/auth.actions';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { isAuthenticated } from '../core/auth/selectors';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../shared/empty.util';
 
 /**
  * This component represents the login page

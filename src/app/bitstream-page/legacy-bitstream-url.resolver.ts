@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
+
+import { BitstreamDataService } from '../core/data/bitstream-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { hasNoValue } from '../shared/empty.util';
-import { BitstreamDataService } from '../core/data/bitstream-data.service';
 
 /**
  * This class resolves a bitstream based on the DSpace 6 XMLUI or JSPUI bitstream download URLs

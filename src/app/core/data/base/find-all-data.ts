@@ -7,18 +7,23 @@
  */
 
 import { Observable } from 'rxjs';
-import { FindListOptions } from '../find-list-options.model';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { RemoteData } from '../remote-data';
-import { PaginatedList } from '../paginated-list.model';
-import { CacheableObject } from '../../cache/cacheable-object.model';
-import { BaseDataService } from './base-data.service';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+} from 'rxjs/operators';
+
 import { isNotEmpty } from '../../../shared/empty.util';
-import { RequestService } from '../request.service';
+import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { FindListOptions } from '../find-list-options.model';
+import { PaginatedList } from '../paginated-list.model';
+import { RemoteData } from '../remote-data';
+import { RequestService } from '../request.service';
+import { BaseDataService } from './base-data.service';
 
 /**
  * Interface for a data service that list all of its objects.

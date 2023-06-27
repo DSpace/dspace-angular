@@ -1,3 +1,5 @@
+import { MetadataField } from '../../../core/metadata/metadata-field.model';
+import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import {
   MetadataRegistryAction,
   MetadataRegistryActionTypes,
@@ -8,8 +10,6 @@ import {
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction,
 } from './metadata-registry.actions';
-import { MetadataField } from '../../../core/metadata/metadata-field.model';
-import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 
 /**
  * The metadata registry state.

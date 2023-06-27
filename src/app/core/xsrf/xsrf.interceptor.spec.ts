@@ -1,12 +1,20 @@
+import {
+  HTTP_INTERCEPTORS,
+  HttpHeaders,
+  HttpXsrfTokenExtractor,
+} from '@angular/common/http';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpHeaders, HTTP_INTERCEPTORS, HttpXsrfTokenExtractor } from '@angular/common/http';
-import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { CookieService } from '../services/cookie.service';
+
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
-import { XsrfInterceptor } from './xsrf.interceptor';
 import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { CookieService } from '../services/cookie.service';
+import { XsrfInterceptor } from './xsrf.interceptor';
 
 describe(`XsrfInterceptor`, () => {
   let service: DspaceRestService;

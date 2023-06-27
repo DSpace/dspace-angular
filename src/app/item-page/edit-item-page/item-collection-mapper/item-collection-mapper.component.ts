@@ -1,13 +1,36 @@
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
-import { RemoteData } from '../../../core/data/remote-data';
+import { ItemDataService } from '../../../core/data/item-data.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { Item } from '../../../core/shared/item.model';
+import { NoContent } from '../../../core/shared/NoContent.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
@@ -16,17 +39,18 @@ import {
   getRemoteDataPayload,
   toDSpaceObjectListRD,
 } from '../../../core/shared/operators';
-import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { TranslateService } from '@ngx-translate/core';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchService } from '../../../core/shared/search/search.service';
-import { NoContent } from '../../../core/shared/NoContent.model';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../../shared/animations/fade';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({

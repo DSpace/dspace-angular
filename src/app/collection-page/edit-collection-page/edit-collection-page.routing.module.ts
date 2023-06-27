@@ -1,19 +1,20 @@
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
+import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { CollectionAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/collection-administrator.guard';
+import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
+import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
+import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
+import { ResourcePolicyTargetResolver } from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
 import { CollectionItemMapperComponent } from '../collection-item-mapper/collection-item-mapper.component';
-import { EditCollectionPageComponent } from './edit-collection-page.component';
+import { CollectionAccessControlComponent } from './collection-access-control/collection-access-control.component';
+import { CollectionAuthorizationsComponent } from './collection-authorizations/collection-authorizations.component';
+import { CollectionCurateComponent } from './collection-curate/collection-curate.component';
 import { CollectionMetadataComponent } from './collection-metadata/collection-metadata.component';
 import { CollectionRolesComponent } from './collection-roles/collection-roles.component';
 import { CollectionSourceComponent } from './collection-source/collection-source.component';
-import { CollectionCurateComponent } from './collection-curate/collection-curate.component';
-import { CollectionAuthorizationsComponent } from './collection-authorizations/collection-authorizations.component';
-import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { ResourcePolicyTargetResolver } from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
-import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
-import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
-import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
-import { CollectionAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/collection-administrator.guard';
-import { CollectionAccessControlComponent } from './collection-access-control/collection-access-control.component';
+import { EditCollectionPageComponent } from './edit-collection-page.component';
 
 /**
  * Routing module that handles the routing for the Edit Collection page administrator functionality

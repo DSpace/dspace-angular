@@ -1,21 +1,32 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CurationFormComponent } from './curation-form.component';
-import { ScriptDataService } from '../core/data/processes/script-data.service';
-import { ProcessDataService } from '../core/data/processes/process-data.service';
-import { Process } from '../process-page/processes/process.model';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
-import { RouterStub } from '../shared/testing/router.stub';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { Router } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { ProcessDataService } from '../core/data/processes/process-data.service';
+import { ScriptDataService } from '../core/data/processes/script-data.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
+import { Process } from '../process-page/processes/process.model';
 import { HandleService } from '../shared/handle.service';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
+import { RouterStub } from '../shared/testing/router.stub';
+import { CurationFormComponent } from './curation-form.component';
 
 describe('CurationFormComponent', () => {
   let comp: CurationFormComponent;

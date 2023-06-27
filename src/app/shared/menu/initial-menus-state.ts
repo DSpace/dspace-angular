@@ -1,5 +1,5 @@
-import { MenusState } from './menus-state.model';
 import { MenuID } from './menu-id.model';
+import { MenusState } from './menus-state.model';
 
 /**
  * The initial state of the menus

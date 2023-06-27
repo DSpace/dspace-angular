@@ -1,34 +1,55 @@
-import { ChangeDetectorRef, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ChangeDetectorRef,
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
+import {
+  combineLatest as observableCombineLatest,
+  of as observableOf,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../core/cache/response.models';
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
+import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { Item } from '../../../core/shared/item.model';
-import { NotificationType } from '../../../shared/notifications/models/notification-type';
-import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { SharedModule } from '../../../shared/shared.module';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { ItemRelationshipsComponent } from './item-relationships.component';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
 import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
-import { relationshipTypes } from '../../../shared/testing/relationship-types.mock';
-import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { RequestService } from '../../../core/data/request.service';
+import { Item } from '../../../core/shared/item.model';
+import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import {
+  INotification,
+  Notification,
+} from '../../../shared/notifications/models/notification.model';
+import { NotificationType } from '../../../shared/notifications/models/notification-type';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { SharedModule } from '../../../shared/shared.module';
+import { relationshipTypes } from '../../../shared/testing/relationship-types.mock';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { ItemRelationshipsComponent } from './item-relationships.component';
 
 let comp: any;
 let fixture: ComponentFixture<ItemRelationshipsComponent>;

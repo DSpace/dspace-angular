@@ -1,7 +1,6 @@
-import {
-  CollectionDropdownComponent as BaseComponent,
-} from '../../../../../app/shared/collection-dropdown/collection-dropdown.component';
 import { Component } from '@angular/core';
+
+import { CollectionDropdownComponent as BaseComponent } from '../../../../../app/shared/collection-dropdown/collection-dropdown.component';
 
 @Component({
   selector: 'ds-collection-dropdown',

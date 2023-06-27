@@ -1,9 +1,17 @@
-import { Item } from '../../../../../core/shared/item.model';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { TruncatePipe } from '../../../../utils/truncate.pipe';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { Item } from '../../../../../core/shared/item.model';
+import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { StatusBadgeComponent } from './status-badge.component';
 
 let comp: StatusBadgeComponent;

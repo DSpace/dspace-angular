@@ -1,11 +1,17 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-
-import { of as observableOf } from 'rxjs';
-import { Store, StoreModule } from '@ngrx/store';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { NavigationEnd } from '@angular/router';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
 
-import { MenuService } from './menu.service';
+import { storeModuleConfig } from '../../app.reducer';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,
@@ -21,12 +27,11 @@ import {
   ToggleMenuAction,
 } from './menu.actions';
 import { menusReducer } from './menu.reducer';
-import { storeModuleConfig } from '../../app.reducer';
-import { MenuSection } from './menu-section.model';
+import { MenuService } from './menu.service';
 import { MenuID } from './menu-id.model';
-import { MenuItemType } from './menu-item-type.model';
 import { LinkMenuItemModel } from './menu-item/models/link.model';
-import { NavigationEnd } from '@angular/router';
+import { MenuItemType } from './menu-item-type.model';
+import { MenuSection } from './menu-section.model';
 
 describe('MenuService', () => {
   let service: MenuService;

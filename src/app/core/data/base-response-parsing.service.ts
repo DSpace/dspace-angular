@@ -1,14 +1,21 @@
 /* eslint-disable max-classes-per-file */
-import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
+import { environment } from '../../../environments/environment';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { getClassForType } from '../cache/builders/build-decorators';
+import { CacheableObject } from '../cache/cacheable-object.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { Serializer } from '../serializer';
-import { PageInfo } from '../shared/page-info.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
 import { GenericConstructor } from '../shared/generic-constructor';
-import { PaginatedList, buildPaginatedList } from './paginated-list.model';
-import { getClassForType } from '../cache/builders/build-decorators';
-import { environment } from '../../../environments/environment';
-import { CacheableObject } from '../cache/cacheable-object.model';
+import { PageInfo } from '../shared/page-info.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from './paginated-list.model';
 import { RestRequest } from './rest-request.model';
 
 

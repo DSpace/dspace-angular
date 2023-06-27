@@ -1,15 +1,19 @@
 import { of as observableOf } from 'rxjs';
+
+import { hasValueOperator } from '../../shared/empty.util';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { RelationshipTypeDataService } from './relationship-type-data.service';
 import { RequestService } from './request.service';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { hasValueOperator } from '../../shared/empty.util';
-import { ObjectCacheService } from '../cache/object-cache.service';
 
 describe('RelationshipTypeDataService', () => {
   let service: RelationshipTypeDataService;

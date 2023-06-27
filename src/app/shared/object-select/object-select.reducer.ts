@@ -1,5 +1,8 @@
 import { isEmpty } from '../empty.util';
-import { ObjectSelectionAction, ObjectSelectionActionTypes } from './object-select.actions';
+import {
+  ObjectSelectionAction,
+  ObjectSelectionActionTypes,
+} from './object-select.actions';
 
 /**
  * Interface that represents the state for a single selection of an object

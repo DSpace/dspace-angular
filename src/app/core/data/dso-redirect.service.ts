@@ -9,18 +9,19 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+
+import { getDSORoute } from '../../app-routing-paths';
 import { hasValue } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { HardRedirectService } from '../services/hard-redirect.service';
+import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { getFirstCompletedRemoteData } from '../shared/operators';
+import { IdentifiableDataService } from './base/identifiable-data.service';
 import { RemoteData } from './remote-data';
 import { IdentifierType } from './request.models';
 import { RequestService } from './request.service';
-import { getFirstCompletedRemoteData } from '../shared/operators';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { IdentifiableDataService } from './base/identifiable-data.service';
-import { getDSORoute } from '../../app-routing-paths';
-import { HardRedirectService } from '../services/hard-redirect.service';
 
 const ID_ENDPOINT = 'pid';
 const UUID_ENDPOINT = 'dso';

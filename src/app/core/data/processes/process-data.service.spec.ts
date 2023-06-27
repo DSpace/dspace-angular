@@ -6,9 +6,9 @@
  * http://www.dspace.org/license/
  */
 
+import { testDeleteDataImplementation } from '../base/delete-data.spec';
 import { testFindAllDataImplementation } from '../base/find-all-data.spec';
 import { ProcessDataService } from './process-data.service';
-import { testDeleteDataImplementation } from '../base/delete-data.spec';
 
 describe('ProcessDataService', () => {
   describe('composition', () => {

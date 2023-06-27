@@ -1,8 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+
 import { BulkAccessSettingsComponent } from './bulk-access-settings.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('BulkAccessSettingsComponent', () => {
   let component: BulkAccessSettingsComponent;

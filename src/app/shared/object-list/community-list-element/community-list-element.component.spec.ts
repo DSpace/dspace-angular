@@ -1,10 +1,18 @@
-import { CommunityListElementComponent } from './community-list-element.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Community } from '../../../core/shared/community.model';
+
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { Community } from '../../../core/shared/community.model';
 import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
+import { CommunityListElementComponent } from './community-list-element.component';
 
 let communityListElementComponent: CommunityListElementComponent;
 let fixture: ComponentFixture<CommunityListElementComponent>;

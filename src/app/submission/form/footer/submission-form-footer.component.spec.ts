@@ -1,21 +1,37 @@
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, SimpleChange } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  SimpleChange,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { TestScheduler } from 'rxjs/testing';
-import { of as observableOf } from 'rxjs';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import {
+  NgbModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { mockSubmissionId } from '../../../shared/mocks/submission.mock';
-import { SubmissionService } from '../../submission.service';
-import { SubmissionRestServiceStub } from '../../../shared/testing/submission-rest-service.stub';
-import { SubmissionFormFooterComponent } from './submission-form-footer.component';
 import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
-import { createTestComponent } from '../../../shared/testing/utils.test';
+import { mockSubmissionId } from '../../../shared/mocks/submission.mock';
 import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
+import { SubmissionRestServiceStub } from '../../../shared/testing/submission-rest-service.stub';
+import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
+import { createTestComponent } from '../../../shared/testing/utils.test';
+import { SubmissionService } from '../../submission.service';
+import { SubmissionFormFooterComponent } from './submission-form-footer.component';
 
 const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
 

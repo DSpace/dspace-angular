@@ -1,21 +1,32 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormControlModel,
   DynamicFormValueControlModel,
   DynamicInputModel,
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
-import { UntypedFormGroup } from '@angular/forms';
-import { EPerson } from '../../core/eperson/models/eperson.model';
 import { TranslateService } from '@ngx-translate/core';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { LangConfig } from '../../../config/lang-config.interface';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import cloneDeep from 'lodash/cloneDeep';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../core/shared/operators';
+
+import { LangConfig } from '../../../config/lang-config.interface';
+import { environment } from '../../../environments/environment';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'ds-profile-page-metadata-form',

@@ -1,30 +1,53 @@
-import { EditBitstreamPageComponent } from './edit-bitstream-page.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  ChangeDetectorRef,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  DynamicFormControlModel,
+  DynamicFormService,
+} from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { DynamicFormControlModel, DynamicFormService } from '@ng-dynamic-forms/core';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
+import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
-import { NotificationType } from '../../shared/notifications/models/notification-type';
-import { INotification, Notification } from '../../shared/notifications/models/notification.model';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
-import { hasValue } from '../../shared/empty.util';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { FileSizePipe } from '../../shared/utils/file-size-pipe';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { Item } from '../../core/shared/item.model';
 import { MetadataValueFilter } from '../../core/shared/metadata.models';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
+import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
+import { hasValue } from '../../shared/empty.util';
+import {
+  INotification,
+  Notification,
+} from '../../shared/notifications/models/notification.model';
+import { NotificationType } from '../../shared/notifications/models/notification-type';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { FileSizePipe } from '../../shared/utils/file-size-pipe';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { EditBitstreamPageComponent } from './edit-bitstream-page.component';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');

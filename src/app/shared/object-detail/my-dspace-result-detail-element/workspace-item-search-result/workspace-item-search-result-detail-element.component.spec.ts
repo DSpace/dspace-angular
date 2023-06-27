@@ -1,19 +1,25 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { of as observableOf } from 'rxjs';
-
-import { Item } from '../../../../core/shared/item.model';
-import { WorkspaceItemSearchResultDetailElementComponent } from './workspace-item-search-result-detail-element.component';
-import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
-import { getMockLinkService } from '../../../mocks/link-service.mock';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { Context } from 'src/app/core/shared/context.model';
+
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { Item } from '../../../../core/shared/item.model';
+import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
+import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
+import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { WorkspaceItemSearchResultDetailElementComponent } from './workspace-item-search-result-detail-element.component';
 
 let component: WorkspaceItemSearchResultDetailElementComponent;
 let fixture: ComponentFixture<WorkspaceItemSearchResultDetailElementComponent>;

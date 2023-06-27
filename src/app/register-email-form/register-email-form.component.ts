@@ -1,22 +1,52 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Optional } from '@angular/core';
-import {EpersonRegistrationService} from '../core/data/eperson-registration.service';
-import {NotificationsService} from '../shared/notifications/notifications.service';
-import {TranslateService} from '@ngx-translate/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+} from '@angular/core';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import {Router} from '@angular/router';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators, ValidatorFn } from '@angular/forms';
-import {Registration} from '../core/shared/registration.model';
-import {RemoteData} from '../core/data/remote-data';
+import {TranslateService} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  of,
+  Subscription,
+  switchMap,
+} from 'rxjs';
+import {
+  map,
+  startWith,
+  take,
+} from 'rxjs/operators';
+
 import {ConfigurationDataService} from '../core/data/configuration-data.service';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
+import {EpersonRegistrationService} from '../core/data/eperson-registration.service';
+import {RemoteData} from '../core/data/remote-data';
+import {
+  CAPTCHA_NAME,
+  GoogleRecaptchaService,
+} from '../core/google-recaptcha/google-recaptcha.service';
+import {CookieService} from '../core/services/cookie.service';
 import {ConfigurationProperty} from '../core/shared/configuration-property.model';
-import {isNotEmpty} from '../shared/empty.util';
-import {BehaviorSubject, combineLatest, Observable, of, switchMap} from 'rxjs';
-import {map, startWith, take} from 'rxjs/operators';
-import {CAPTCHA_NAME, GoogleRecaptchaService} from '../core/google-recaptcha/google-recaptcha.service';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataPayload,
+} from '../core/shared/operators';
+import {Registration} from '../core/shared/registration.model';
 import {AlertType} from '../shared/alert/aletr-type';
 import {KlaroService} from '../shared/cookies/klaro.service';
-import {CookieService} from '../core/services/cookie.service';
-import { Subscription } from 'rxjs';
+import {isNotEmpty} from '../shared/empty.util';
+import {NotificationsService} from '../shared/notifications/notifications.service';
 
 export const TYPE_REQUEST_FORGOT = 'forgot';
 export const TYPE_REQUEST_REGISTER = 'register';

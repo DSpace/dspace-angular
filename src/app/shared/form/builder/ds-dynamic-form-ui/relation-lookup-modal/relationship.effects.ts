@@ -1,12 +1,53 @@
-import { Inject, Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
 import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
+import { ServerSyncBufferActionTypes } from '../../../../../core/cache/server-sync-buffer.actions';
+import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { RequestService } from '../../../../../core/data/request.service';
+import { JsonPatchOperationsActionTypes } from '../../../../../core/json-patch/json-patch-operations.actions';
+import { Item } from '../../../../../core/shared/item.model';
+import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
+import {
+  DEBOUNCE_TIME_OPERATOR,
+  getFirstSucceededRemoteData,
   getRemoteDataPayload,
-  getFirstSucceededRemoteData, DEBOUNCE_TIME_OPERATOR,
 } from '../../../../../core/shared/operators';
+import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
+import { SubmissionObjectDataService } from '../../../../../core/submission/submission-object-data.service';
+import { SaveSubmissionSectionFormSuccessAction } from '../../../../../submission/objects/submission-objects.actions';
+import { SubmissionState } from '../../../../../submission/submission.reducers';
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+} from '../../../../empty.util';
+import { NotificationsService } from '../../../../notifications/notifications.service';
+import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import { followLink } from '../../../../utils/follow-link-config.model';
 import {
   AddRelationshipAction,
   RelationshipAction,
@@ -14,25 +55,6 @@ import {
   UpdateRelationshipAction,
   UpdateRelationshipNameVariantAction,
 } from './relationship.actions';
-import { Item } from '../../../../../core/shared/item.model';
-import { hasNoValue, hasValue, hasValueOperator } from '../../../../empty.util';
-import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
-import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
-import { SubmissionObjectDataService } from '../../../../../core/submission/submission-object-data.service';
-import { SaveSubmissionSectionFormSuccessAction } from '../../../../../submission/objects/submission-objects.actions';
-import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
-import { SubmissionState } from '../../../../../submission/submission.reducers';
-import { Store } from '@ngrx/store';
-import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
-import { RequestService } from '../../../../../core/data/request.service';
-import { ServerSyncBufferActionTypes } from '../../../../../core/cache/server-sync-buffer.actions';
-import { JsonPatchOperationsActionTypes } from '../../../../../core/json-patch/json-patch-operations.actions';
-import { followLink } from '../../../../utils/follow-link-config.model';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { NotificationsService } from '../../../../notifications/notifications.service';
-import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { TranslateService } from '@ngx-translate/core';
 
 const DEBOUNCE_TIME = 500;
 

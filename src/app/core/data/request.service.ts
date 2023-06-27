@@ -1,15 +1,39 @@
-import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
-
-import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { filter, map, take, tap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import {
+  createSelector,
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import cloneDeep from 'lodash/cloneDeep';
-import { hasValue, isEmpty, isNotEmpty, hasNoValue } from '../../shared/empty.util';
+import { Observable } from 'rxjs';
+import {
+  filter,
+  map,
+  take,
+  tap,
+} from 'rxjs/operators';
+
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { ObjectCacheEntry } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { IndexState, MetaIndexState } from '../index/index.reducer';
-import { requestIndexSelector, getUrlWithoutEmbedParams } from '../index/index.selectors';
+import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
+import { coreSelector } from '../core.selectors';
+import { CoreState } from '../core-state.model';
+import {
+  IndexState,
+  MetaIndexState,
+} from '../index/index.reducer';
+import {
+  getUrlWithoutEmbedParams,
+  requestIndexSelector,
+} from '../index/index.selectors';
 import { UUIDService } from '../shared/uuid.service';
 import {
   RequestConfigureAction,
@@ -17,14 +41,14 @@ import {
   RequestStaleAction,
 } from './request.actions';
 import { GetRequest} from './request.models';
-import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
-import { RestRequestMethod } from './rest-request-method';
-import { coreSelector } from '../core.selectors';
-import { isLoading, isStale } from './request-entry-state.model';
-import { RestRequest } from './rest-request.model';
-import { CoreState } from '../core-state.model';
-import { RequestState } from './request-state.model';
 import { RequestEntry } from './request-entry.model';
+import {
+  isLoading,
+  isStale,
+} from './request-entry-state.model';
+import { RequestState } from './request-state.model';
+import { RestRequest } from './rest-request.model';
+import { RestRequestMethod } from './rest-request-method';
 
 /**
  * The base selector function to select the request state in the store

@@ -1,33 +1,64 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import {
+  Injectable,
+  OnDestroy,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Params,
+} from '@angular/router';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  merge as observableMerge,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  startWith,
+  take,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, combineLatest as observableCombineLatest, merge as observableMerge, Observable, Subscription } from 'rxjs';
-import { filter, map, startWith, take } from 'rxjs/operators';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SearchOptions } from '../../../shared/search/models/search-options.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '../../../shared/search/models/search-filter.model';
-import { RemoteData } from '../../data/remote-data';
-import { DSpaceObjectType } from '../dspace-object-type.model';
-import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
-import { RouteService } from '../../services/route.service';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData } from '../operators';
-import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { SearchConfig, SortConfig } from './search-filters/search-config.model';
-import { PaginationService } from '../../pagination/pagination.service';
-import { LinkService } from '../../cache/builders/link.service';
-import { HALEndpointService } from '../hal-endpoint.service';
-import { RequestService } from '../../data/request.service';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { GetRequest } from '../../data/request.models';
-import { URLCombiner } from '../../url-combiner/url-combiner';
-import { GenericConstructor } from '../generic-constructor';
-import { ResponseParsingService } from '../../data/parsing.service';
-import { FacetConfigResponseParsingService } from '../../data/facet-config-response-parsing.service';
-import { ViewMode } from '../view-mode.model';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
-import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
+import { SearchOptions } from '../../../shared/search/models/search-options.model';
+import { LinkService } from '../../cache/builders/link.service';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../cache/models/sort-options.model';
+import { FacetConfigResponseParsingService } from '../../data/facet-config-response-parsing.service';
+import { ResponseParsingService } from '../../data/parsing.service';
+import { RemoteData } from '../../data/remote-data';
+import { GetRequest } from '../../data/request.models';
+import { RequestService } from '../../data/request.service';
+import { PaginationService } from '../../pagination/pagination.service';
+import { RouteService } from '../../services/route.service';
+import { URLCombiner } from '../../url-combiner/url-combiner';
+import { DSpaceObjectType } from '../dspace-object-type.model';
+import { GenericConstructor } from '../generic-constructor';
+import { HALEndpointService } from '../hal-endpoint.service';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstSucceededRemoteData,
+} from '../operators';
+import { ViewMode } from '../view-mode.model';
+import {
+  SearchConfig,
+  SortConfig,
+} from './search-filters/search-config.model';
 
 /**
  * Service that performs all actions that have to do with the current search configuration

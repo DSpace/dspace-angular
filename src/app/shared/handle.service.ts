@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { isNotEmpty, isEmpty } from './empty.util';
+
+import {
+  isEmpty,
+  isNotEmpty,
+} from './empty.util';
 
 const PREFIX_REGEX = /handle\/([^\/]+\/[^\/]+)$/;
 const NO_PREFIX_REGEX = /^([^\/]+\/[^\/]+)$/;

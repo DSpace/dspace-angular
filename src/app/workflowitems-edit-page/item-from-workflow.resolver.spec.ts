@@ -1,4 +1,5 @@
 import { first } from 'rxjs/operators';
+
 import { WorkflowItemDataService } from '../core/submission/workflowitem-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { ItemFromWorkflowResolver } from './item-from-workflow.resolver';

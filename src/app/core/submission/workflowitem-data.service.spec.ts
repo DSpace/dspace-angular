@@ -1,24 +1,28 @@
 import { HttpClient } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from '../data/request.service';
-import { PageInfo } from '../shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { HrefOnlyDataService } from '../data/href-only-data.service';
-import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
-import { Store } from '@ngrx/store';
 import { RestResponse } from '../cache/response.models';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { Item } from '../shared/item.model';
-import { WorkflowItemDataService } from './workflowitem-data.service';
-import { WorkflowItem } from './models/workflowitem.model';
 import { CoreState } from '../core-state.model';
+import { HrefOnlyDataService } from '../data/href-only-data.service';
+import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
+import { PageInfo } from '../shared/page-info.model';
+import { WorkflowItem } from './models/workflowitem.model';
+import { WorkflowItemDataService } from './workflowitem-data.service';
 
 describe('WorkflowItemDataService test', () => {
   let scheduler: TestScheduler;

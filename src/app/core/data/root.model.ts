@@ -1,10 +1,14 @@
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
+
 import { typedObject } from '../cache/builders/build-decorators';
-import { ROOT } from './root.resource-type';
-import { excludeFromEquals } from '../utilities/equals.decorators';
-import { autoserialize, deserialize } from 'cerialize';
-import { ResourceType } from '../shared/resource-type';
-import { HALLink } from '../shared/hal-link.model';
 import { CacheableObject } from '../cache/cacheable-object.model';
+import { HALLink } from '../shared/hal-link.model';
+import { ResourceType } from '../shared/resource-type';
+import { excludeFromEquals } from '../utilities/equals.decorators';
+import { ROOT } from './root.resource-type';
 
 /**
  * The root rest api resource

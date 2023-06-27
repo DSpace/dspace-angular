@@ -1,17 +1,27 @@
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import {
+  AddOperation,
+  RemoveOperation,
+} from 'fast-json-patch';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { ResearcherProfile } from '../profile/model/researcher-profile.model';
-import { Item } from '../shared/item.model';
-import { AddOperation, RemoveOperation } from 'fast-json-patch';
-import { ConfigurationProperty } from '../shared/configuration-property.model';
-import { ConfigurationDataService } from '../data/configuration-data.service';
-import { createPaginatedList } from '../../shared/testing/utils.test';
+
 import { NativeWindowRefMock } from '../../shared/mocks/mock-native-window-ref';
+import { RouterMock } from '../../shared/mocks/router.mock';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { ConfigurationDataService } from '../data/configuration-data.service';
+import { ResearcherProfile } from '../profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '../profile/researcher-profile-data.service';
+import { ConfigurationProperty } from '../shared/configuration-property.model';
+import { Item } from '../shared/item.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { OrcidAuthService } from './orcid-auth.service';
-import { ResearcherProfileDataService } from '../profile/researcher-profile-data.service';
 
 describe('OrcidAuthService', () => {
   let scheduler: TestScheduler;

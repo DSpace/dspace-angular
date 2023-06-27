@@ -1,6 +1,7 @@
-import { hasNoValue } from '../../shared/empty.util';
 import { InjectionToken } from '@angular/core';
+
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { hasNoValue } from '../../shared/empty.util';
 import {
   DEFAULT_THEME,
   resolveTheme,

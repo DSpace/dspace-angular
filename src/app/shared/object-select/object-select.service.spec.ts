@@ -1,6 +1,6 @@
-import { ObjectSelectService } from './object-select.service';
 import { Store } from '@ngrx/store';
-import { ObjectSelectionListState, ObjectSelectionsState } from './object-select.reducer';
+import { of } from 'rxjs';
+
 import { AppState } from '../../app.reducer';
 import {
   ObjectSelectionDeselectAction,
@@ -10,7 +10,11 @@ import {
   ObjectSelectionSelectAction,
   ObjectSelectionSwitchAction,
 } from './object-select.actions';
-import { of } from 'rxjs';
+import {
+  ObjectSelectionListState,
+  ObjectSelectionsState,
+} from './object-select.reducer';
+import { ObjectSelectService } from './object-select.service';
 
 describe('ObjectSelectService', () => {
   let service: ObjectSelectService;

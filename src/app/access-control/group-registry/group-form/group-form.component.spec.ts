@@ -1,43 +1,73 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { Operation } from 'fast-json-patch';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { DSOChangeAnalyzer } from '../../../core/data/dso-change-analyzer.service';
 import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { Group } from '../../../core/eperson/models/group.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+import { NoContent } from '../../../core/shared/NoContent.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { UUIDService } from '../../../core/shared/uuid.service';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { GroupMock, GroupMock2 } from '../../../shared/testing/group-mock';
-import { GroupFormComponent } from './group-form.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { TranslateLoaderMock } from '../../../shared/testing/translate-loader.mock';
-import { RouterMock } from '../../../shared/mocks/router.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { Operation } from 'fast-json-patch';
-import { ValidateGroupExists } from './validators/group-exists.validator';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
+import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
+import { RouterMock } from '../../../shared/mocks/router.mock';
+import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import {
+  GroupMock,
+  GroupMock2,
+} from '../../../shared/testing/group-mock';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { TranslateLoaderMock } from '../../../shared/testing/translate-loader.mock';
+import { GroupFormComponent } from './group-form.component';
+import { ValidateGroupExists } from './validators/group-exists.validator';
 
 describe('GroupFormComponent', () => {
   let component: GroupFormComponent;

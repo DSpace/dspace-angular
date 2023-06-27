@@ -1,14 +1,15 @@
 /* eslint-disable max-classes-per-file */
+import { v4 as uuidv4 } from 'uuid';
+
+import { environment } from '../../../environments/environment';
+import { Context } from '../../core/shared/context.model';
+import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
 import {
   DEFAULT_ENTITY_TYPE,
   DEFAULT_REPRESENTATION_TYPE,
   getMetadataRepresentationComponent,
   metadataRepresentationComponent,
 } from './metadata-representation.decorator';
-import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
-import { Context } from '../../core/shared/context.model';
-import { v4 as uuidv4 } from 'uuid';
-import { environment } from '../../../environments/environment';
 
 let ogEnvironmentThemes;
 

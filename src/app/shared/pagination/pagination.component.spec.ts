@@ -1,39 +1,50 @@
 // Load the implementations that should be tested
 import { CommonModule } from '@angular/common';
-
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
-
-import { RouterTestingModule } from '@angular/router/testing';
-
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { StoreModule } from '@ngrx/store';
-
-import { NgxPaginationModule } from 'ngx-pagination';
-
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { StoreModule } from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { BehaviorSubject } from 'rxjs';
 
+import { storeModuleConfig } from '../../app.reducer';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { HostWindowService } from '../host-window.service';
+import { MockActivatedRoute } from '../mocks/active-router.mock';
+import { HostWindowServiceMock } from '../mocks/host-window-service.mock';
+import { RouterMock } from '../mocks/router.mock';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { createTestComponent } from '../testing/utils.test';
+import { EnumKeysPipe } from '../utils/enum-keys-pipe';
 import { PaginationComponent } from './pagination.component';
 import { PaginationComponentOptions } from './pagination-component-options.model';
-
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-import { HostWindowServiceMock } from '../mocks/host-window-service.mock';
-import { MockActivatedRoute } from '../mocks/active-router.mock';
-import { RouterMock } from '../mocks/router.mock';
-
-import { HostWindowService } from '../host-window.service';
-import { EnumKeysPipe } from '../utils/enum-keys-pipe';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-
-import { createTestComponent } from '../testing/utils.test';
-import { storeModuleConfig } from '../../app.reducer';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { BehaviorSubject } from 'rxjs';
-import { FindListOptions } from '../../core/data/find-list-options.model';
 
 function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
   const de = fixture.debugElement.query(By.css('.pagination'));

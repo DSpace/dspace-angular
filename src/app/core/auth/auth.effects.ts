@@ -1,5 +1,18 @@
-import { Injectable, NgZone } from '@angular/core';
-
+import {
+  Injectable,
+  NgZone,
+} from '@angular/core';
+// import @ngrx
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
+import {
+  Action,
+  select,
+  Store,
+} from '@ngrx/store';
 import {
   asyncScheduler,
   combineLatest as observableCombineLatest,
@@ -8,20 +21,26 @@ import {
   queueScheduler,
   timer,
 } from 'rxjs';
-import { catchError, filter, map, observeOn, switchMap, take, tap } from 'rxjs/operators';
-// import @ngrx
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Action, select, Store } from '@ngrx/store';
+import {
+  catchError,
+  filter,
+  map,
+  observeOn,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
-// import services
-import { AuthService } from './auth.service';
-import { EPerson } from '../eperson/models/eperson.model';
-import { AuthStatus } from './models/auth-status.model';
-import { AuthTokenInfo } from './models/auth-token-info.model';
+import { environment } from '../../../environments/environment';
 import { AppState } from '../../app.reducer';
-import { isAuthenticated, isAuthenticatedLoaded } from './selectors';
+import { hasValue } from '../../shared/empty.util';
+import { NotificationsActionTypes } from '../../shared/notifications/notifications.actions';
 import { StoreActionTypes } from '../../store.actions';
-import { AuthMethod } from './models/auth.method';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { RequestActionTypes } from '../data/request.actions';
+import { EPerson } from '../eperson/models/eperson.model';
+import { EnterZoneScheduler } from '../utilities/enter-zone.scheduler';
+import { LeaveZoneScheduler } from '../utilities/leave-zone.scheduler';
 // import actions
 import {
   AuthActionTypes,
@@ -47,13 +66,15 @@ import {
   RetrieveTokenAction,
   SetUserAsIdleAction,
 } from './auth.actions';
-import { hasValue } from '../../shared/empty.util';
-import { environment } from '../../../environments/environment';
-import { RequestActionTypes } from '../data/request.actions';
-import { NotificationsActionTypes } from '../../shared/notifications/notifications.actions';
-import { LeaveZoneScheduler } from '../utilities/leave-zone.scheduler';
-import { EnterZoneScheduler } from '../utilities/enter-zone.scheduler';
-import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+// import services
+import { AuthService } from './auth.service';
+import { AuthMethod } from './models/auth.method';
+import { AuthStatus } from './models/auth-status.model';
+import { AuthTokenInfo } from './models/auth-token-info.model';
+import {
+  isAuthenticated,
+  isAuthenticatedLoaded,
+} from './selectors';
 
 // Action Types that do not break/prevent the user from an idle state
 const IDLE_TIMER_IGNORE_TYPES: string[]

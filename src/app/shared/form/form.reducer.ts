@@ -1,3 +1,7 @@
+import isEqual from 'lodash/isEqual';
+import uniqWith from 'lodash/uniqWith';
+
+import { hasValue } from '../empty.util';
 import {
   FormAction,
   FormActionTypes,
@@ -10,9 +14,6 @@ import {
   FormRemoveErrorAction,
   FormStatusChangeAction,
 } from './form.actions';
-import { hasValue } from '../empty.util';
-import isEqual from 'lodash/isEqual';
-import uniqWith from 'lodash/uniqWith';
 
 export interface FormError {
   message: string;

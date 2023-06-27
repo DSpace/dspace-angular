@@ -1,6 +1,6 @@
-import { MetadatumRepresentation } from './metadatum-representation.model';
-import { MetadataRepresentationType } from '../metadata-representation.model';
 import { MetadataValue } from '../../metadata.models';
+import { MetadataRepresentationType } from '../metadata-representation.model';
+import { MetadatumRepresentation } from './metadatum-representation.model';
 
 describe('MetadatumRepresentation', () => {
   const itemType = 'Person';

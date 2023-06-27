@@ -1,4 +1,5 @@
 import { autoserialize } from 'cerialize';
+
 import { CacheableObject } from '../cache/cacheable-object.model';
 
 /**

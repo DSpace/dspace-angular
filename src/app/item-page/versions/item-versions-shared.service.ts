@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+
 import { RemoteData } from '../../core/data/remote-data';
 import { Version } from '../../core/shared/version.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Injectable({
   providedIn: 'root',

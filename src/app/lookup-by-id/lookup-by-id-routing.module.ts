@@ -1,7 +1,11 @@
-import { LookupGuard } from './lookup-guard';
 import { NgModule } from '@angular/core';
-import { RouterModule, UrlSegment } from '@angular/router';
+import {
+  RouterModule,
+  UrlSegment,
+} from '@angular/router';
+
 import { isNotEmpty } from '../shared/empty.util';
+import { LookupGuard } from './lookup-guard';
 import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnotfound.component';
 
 @NgModule({

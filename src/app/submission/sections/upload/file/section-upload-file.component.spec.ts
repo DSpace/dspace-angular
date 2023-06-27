@@ -1,37 +1,53 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserModule, By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-
-import { of, of as observableOf } from 'rxjs';
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
+import {
+  NgbModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
 
+import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
+import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
+import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
+import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';
 import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
-import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import { HALEndpointServiceStub } from '../../../../shared/testing/hal-endpoint-service.stub';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
-import { SubmissionSectionUploadFileComponent } from './section-upload-file.component';
-import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';
+import { getMockSectionUploadService } from '../../../../shared/mocks/section-upload.service.mock';
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
   mockUploadConfigResponse,
   mockUploadFiles,
 } from '../../../../shared/mocks/submission.mock';
-
-import { SubmissionService } from '../../../submission.service';
-import { SectionUploadService } from '../section-upload.service';
+import { HALEndpointServiceStub } from '../../../../shared/testing/hal-endpoint-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../../shared/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../../shared/testing/utils.test';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
+import { SubmissionService } from '../../../submission.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../section-upload.component';
-import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { getMockSectionUploadService } from '../../../../shared/mocks/section-upload.service.mock';
+import { SectionUploadService } from '../section-upload.service';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
-import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { SubmissionSectionUploadFileComponent } from './section-upload-file.component';
 
 const configMetadataFormMock = {
   rows: [{

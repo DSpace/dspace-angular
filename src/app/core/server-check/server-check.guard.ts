@@ -1,11 +1,18 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
-
+import {
+  ActivatedRouteSnapshot,
+  CanActivateChild,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import {
+  take,
+  tap,
+} from 'rxjs/operators';
 
-import { RootDataService } from '../data/root-data.service';
 import { getPageInternalServerErrorRoute } from '../../app-routing-paths';
+import { RootDataService } from '../data/root-data.service';
 
 @Injectable({
   providedIn: 'root',

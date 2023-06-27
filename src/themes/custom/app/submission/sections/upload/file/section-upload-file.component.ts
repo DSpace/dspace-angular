@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  SubmissionSectionUploadFileComponent as BaseComponent,
-} from 'src/app/submission/sections/upload/file/section-upload-file.component';
+import { SubmissionSectionUploadFileComponent as BaseComponent } from 'src/app/submission/sections/upload/file/section-upload-file.component';
 
 /**
  * This component represents a single bitstream contained in the submission

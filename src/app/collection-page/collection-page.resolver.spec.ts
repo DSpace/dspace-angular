@@ -1,6 +1,7 @@
 import { first } from 'rxjs/operators';
-import { CollectionPageResolver } from './collection-page.resolver';
+
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { CollectionPageResolver } from './collection-page.resolver';
 
 describe('CollectionPageResolver', () => {
   describe('resolve', () => {

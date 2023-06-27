@@ -1,6 +1,15 @@
-import { CollectionDropdownComponent, CollectionListEntry } from './collection-dropdown.component';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
 import { ThemedComponent } from '../theme-support/themed.component';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  CollectionDropdownComponent,
+  CollectionListEntry,
+} from './collection-dropdown.component';
 
 @Component({
   selector: 'ds-themed-collection-dropdown',

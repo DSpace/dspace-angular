@@ -1,14 +1,22 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Item } from '../../../../core/shared/item.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TabbedRelatedEntitiesSearchComponent } from './tabbed-related-entities-search.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterMock } from '../../../../shared/mocks/router.mock';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { VarDirective } from '../../../../shared/utils/var.directive';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
+import { Item } from '../../../../core/shared/item.model';
+import { RouterMock } from '../../../../shared/mocks/router.mock';
+import { VarDirective } from '../../../../shared/utils/var.directive';
+import { TabbedRelatedEntitiesSearchComponent } from './tabbed-related-entities-search.component';
 
 describe('TabbedRelatedEntitiesSearchComponent', () => {
   let comp: TabbedRelatedEntitiesSearchComponent;

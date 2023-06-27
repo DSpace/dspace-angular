@@ -1,5 +1,10 @@
-import { Injectable, RendererFactory2, ViewEncapsulation, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+  RendererFactory2,
+  ViewEncapsulation,
+} from '@angular/core';
 
 /**
  * LinkHead Service injects <link> tag into the head element during runtime.

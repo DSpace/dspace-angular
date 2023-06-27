@@ -9,22 +9,31 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationRouteParams } from '../../core/pagination/pagination-route-params.interface';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { hasValue } from '../empty.util';
 import { HostWindowService } from '../host-window.service';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { HostWindowState } from '../search/host-window.reducer';
 import { PaginationComponentOptions } from './pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { hasValue } from '../empty.util';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { map, take } from 'rxjs/operators';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { PaginationRouteParams } from '../../core/pagination/pagination-route-params.interface';
 
 /**
  * The default pagination controls component.

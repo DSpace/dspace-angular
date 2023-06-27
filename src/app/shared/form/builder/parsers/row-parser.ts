@@ -1,20 +1,34 @@
-import { SubmissionFieldScopeType } from './../../../../core/submission/submission-field-scope-type';
-import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
-import { Injectable, Injector } from '@angular/core';
-
-import { DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DynamicFormGroupModelConfig } from '@ng-dynamic-forms/core';
+import {
+  Injectable,
+  Injector,
+} from '@angular/core';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
+  DynamicFormGroupModelConfig,
+} from '@ng-dynamic-forms/core';
 import uniqueId from 'lodash/uniqueId';
 
-import { isEmpty, isNotEmpty } from '../../../empty.util';
+import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../../../empty.util';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormFieldModel } from '../models/form-field.model';
-import { CONFIG_DATA, FieldParser, INIT_FORM_VALUES, PARSER_OPTIONS, SUBMISSION_ID } from './field-parser';
+import { SubmissionFieldScopeType } from './../../../../core/submission/submission-field-scope-type';
+import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
+import {
+  CONFIG_DATA,
+  FieldParser,
+  INIT_FORM_VALUES,
+  PARSER_OPTIONS,
+  SUBMISSION_ID,
+} from './field-parser';
+import { setLayout } from './parser.utils';
 import { ParserFactory } from './parser-factory';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
-import { setLayout } from './parser.utils';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 

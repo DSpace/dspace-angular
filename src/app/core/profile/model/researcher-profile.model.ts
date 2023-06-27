@@ -1,15 +1,22 @@
+import {
+  autoserialize,
+  deserialize,
+  deserializeAs,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { autoserialize, deserialize, deserializeAs } from 'cerialize';
 
-import { link, typedObject } from '../../cache/builders/build-decorators';
+import {
+  link,
+  typedObject,
+} from '../../cache/builders/build-decorators';
+import { CacheableObject } from '../../cache/cacheable-object.model';
+import { RemoteData } from '../../data/remote-data';
 import { HALLink } from '../../shared/hal-link.model';
+import { Item } from '../../shared/item.model';
+import { ITEM } from '../../shared/item.resource-type';
 import { ResourceType } from '../../shared/resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { RESEARCHER_PROFILE } from './researcher-profile.resource-type';
-import { CacheableObject } from '../../cache/cacheable-object.model';
-import { RemoteData } from '../../data/remote-data';
-import { ITEM } from '../../shared/item.resource-type';
-import { Item } from '../../shared/item.model';
 
 /**
  * Class the represents a Researcher Profile.

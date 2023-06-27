@@ -1,6 +1,6 @@
-import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
 import { RequestEntryState } from './request-entry-state.model';
 import { ResponseState } from './response-state.model';
+import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
 
 /**
  * An entry for a request in the NgRx store

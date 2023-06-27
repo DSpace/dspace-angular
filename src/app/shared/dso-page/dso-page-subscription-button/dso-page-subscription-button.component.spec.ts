@@ -1,15 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { DsoPageSubscriptionButtonComponent } from './dso-page-subscription-button.component';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { of as observableOf } from 'rxjs';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { Item } from '../../../core/shared/item.model';
 import { ITEM } from '../../../core/shared/item.resource-type';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { DsoPageSubscriptionButtonComponent } from './dso-page-subscription-button.component';
 
 describe('DsoPageSubscriptionButtonComponent', () => {
   let component: DsoPageSubscriptionButtonComponent;

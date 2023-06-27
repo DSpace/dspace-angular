@@ -1,23 +1,28 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { SubmissionSectionCcLicensesComponent } from './submission-section-cc-licenses.component';
-import { SUBMISSION_CC_LICENSE } from '../../../core/submission/models/submission-cc-licence.resource-type';
-import { of as observableOf } from 'rxjs';
-import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
 import { DebugElement } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from '../../../shared/shared.module';
-import { SectionsService } from '../sections.service';
-import { SectionDataObject } from '../models/section-data.model';
-import { SectionsType } from '../sections-type';
 import { TranslateModule } from '@ngx-translate/core';
-import { SubmissionCcLicence } from '../../../core/submission/models/submission-cc-license.model';
 import { cold } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+
+import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import {ConfigurationProperty} from '../../../core/shared/configuration-property.model';
+import { SUBMISSION_CC_LICENSE } from '../../../core/submission/models/submission-cc-licence.resource-type';
+import { SubmissionCcLicence } from '../../../core/submission/models/submission-cc-license.model';
+import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
 import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { SharedModule } from '../../../shared/shared.module';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
-import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
-import {ConfigurationProperty} from '../../../core/shared/configuration-property.model';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
+import { SectionsType } from '../sections-type';
+import { SubmissionSectionCcLicensesComponent } from './submission-section-cc-licenses.component';
 
 describe('SubmissionSectionCcLicensesComponent', () => {
 

@@ -5,14 +5,16 @@ import {
   DynamicFormGroupModelConfig,
   serializable,
 } from '@ng-dynamic-forms/core';
-
 import { Subject } from 'rxjs';
 
-import { hasNoValue, isNotEmpty } from '../../../../empty.util';
-import { DsDynamicInputModel } from './ds-dynamic-input.model';
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import {
+  hasNoValue,
+  isNotEmpty,
+} from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import { DsDynamicInputModel } from './ds-dynamic-input.model';
 
 export const CONCAT_GROUP_SUFFIX = '_CONCAT_GROUP';
 export const CONCAT_FIRST_INPUT_SUFFIX = '_CONCAT_FIRST_INPUT';

@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
-import { Registration } from '../core/shared/registration.model';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
+
+import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
 import { RemoteData } from '../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { Registration } from '../core/shared/registration.model';
 
 @Injectable()
 /**

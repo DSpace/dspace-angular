@@ -1,22 +1,29 @@
-import { Component, Input } from '@angular/core';
-import { DSOSelectorComponent } from '../dso-selector.component';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { map } from 'rxjs/operators';
-import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
-import { SearchResult } from '../../../search/models/search-result.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
-import { followLink } from '../../../utils/follow-link-config.model';
+
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '../../../../core/data/collection-data.service';
+import { FindListOptions } from '../../../../core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { Collection } from '../../../../core/shared/collection.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { SearchService } from '../../../../core/shared/search/search.service';
 import { hasValue } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { Collection } from '../../../../core/shared/collection.model';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { FindListOptions } from '../../../../core/data/find-list-options.model';
+import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
+import { SearchResult } from '../../../search/models/search-result.model';
+import { followLink } from '../../../utils/follow-link-config.model';
+import { DSOSelectorComponent } from '../dso-selector.component';
 
 @Component({
   selector: 'ds-authorized-collection-selector',

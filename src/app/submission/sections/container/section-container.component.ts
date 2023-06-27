@@ -1,9 +1,15 @@
-import { Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 
-import { SectionsDirective } from '../sections.directive';
-import { SectionDataObject } from '../models/section-data.model';
-import { rendersSectionType } from '../sections-decorator';
 import { AlertType } from '../../../shared/alert/aletr-type';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsDirective } from '../sections.directive';
+import { rendersSectionType } from '../sections-decorator';
 
 /**
  * This component represents a section that contains the submission license form.

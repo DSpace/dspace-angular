@@ -1,14 +1,21 @@
 import { TestBed } from '@angular/core/testing';
-
-import { cold, hot } from 'jasmine-marbles';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store } from '@ngrx/store';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  cold,
+  hot,
+} from 'jasmine-marbles';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
+import {
+  FlushPatchOperationsAction,
+  JsonPatchOperationsActionTypes,
+} from './json-patch-operations.actions';
 import { JsonPatchOperationsEffects } from './json-patch-operations.effects';
 import { JsonPatchOperationsState } from './json-patch-operations.reducer';
-
-import { FlushPatchOperationsAction, JsonPatchOperationsActionTypes } from './json-patch-operations.actions';
 
 describe('JsonPatchOperationsEffects test suite', () => {
   let jsonPatchOperationsEffects: JsonPatchOperationsEffects;

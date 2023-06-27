@@ -1,24 +1,34 @@
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Router } from '@angular/router';
-
-import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { RouterStub } from '../../testing/router.stub';
-import { Item } from '../../../core/shared/item.model';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { WorkflowitemActionsComponent } from './workflowitem-actions.component';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { RequestService } from '../../../core/data/request.service';
-import { getMockSearchService } from '../../mocks/search-service.mock';
-import { SearchService } from '../../../core/shared/search/search.service';
+import {
+  ChangeDetectionStrategy,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { RequestService } from '../../../core/data/request.service';
+import { Item } from '../../../core/shared/item.model';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
+import { getMockRequestService } from '../../mocks/request.service.mock';
+import { getMockSearchService } from '../../mocks/search-service.mock';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import { RouterStub } from '../../testing/router.stub';
+import { WorkflowitemActionsComponent } from './workflowitem-actions.component';
 
 let component: WorkflowitemActionsComponent;
 let fixture: ComponentFixture<WorkflowitemActionsComponent>;

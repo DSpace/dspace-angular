@@ -1,11 +1,12 @@
-import { ExternalSourceDataService } from './external-source-data.service';
+import { of as observableOf } from 'rxjs';
+import { take } from 'rxjs/operators';
+
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
-import { of as observableOf } from 'rxjs';
-import { GetRequest } from './request.models';
 import { testSearchDataImplementation } from './base/search-data.spec';
-import { take } from 'rxjs/operators';
+import { ExternalSourceDataService } from './external-source-data.service';
+import { GetRequest } from './request.models';
 
 describe('ExternalSourceService', () => {
   let service: ExternalSourceDataService;

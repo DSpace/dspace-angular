@@ -1,30 +1,52 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { Store, StoreModule } from '@ngrx/store';
-import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormLayoutService,
+  DynamicFormValidationService,
+} from '@ng-dynamic-forms/core';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { DsDynamicRelationGroupComponent } from './dynamic-relation-group.components';
-import { DynamicRelationGroupModel, DynamicRelationGroupModelConfig } from './dynamic-relation-group.model';
+import { storeModuleConfig } from '../../../../../../app.reducer';
+import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
 import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
-import { FormFieldModel } from '../../../models/form-field.model';
-import { FormBuilderService } from '../../../form-builder.service';
-import { FormService } from '../../../../form.service';
-import { FormComponent } from '../../../../form.component';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { StoreMock } from '../../../../../testing/store.mock';
+import { createTestComponent } from '../../../../../testing/utils.test';
+import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { Chips } from '../../../../chips/models/chips.model';
+import { FormComponent } from '../../../../form.component';
+import { FormService } from '../../../../form.service';
+import { FormBuilderService } from '../../../form-builder.service';
+import { FormFieldModel } from '../../../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicInputModel } from '../ds-dynamic-input.model';
-import { createTestComponent } from '../../../../../testing/utils.test';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
-import { StoreMock } from '../../../../../testing/store.mock';
-import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
-import { storeModuleConfig } from '../../../../../../app.reducer';
+import { DsDynamicRelationGroupComponent } from './dynamic-relation-group.components';
+import {
+  DynamicRelationGroupModel,
+  DynamicRelationGroupModelConfig,
+} from './dynamic-relation-group.model';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 

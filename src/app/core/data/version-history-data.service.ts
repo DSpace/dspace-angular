@@ -1,30 +1,47 @@
-import { VersionHistory } from '../shared/version-history.model';
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RequestService } from './request.service';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { hasValueOperator } from '../../shared/empty.util';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { HttpHeaders } from '@angular/common/http';
-import { PostRequest } from './request.models';
-import { Observable, of } from 'rxjs';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { RemoteData } from './remote-data';
-import { PaginatedList } from './paginated-list.model';
-import { Version } from '../shared/version.model';
-import { filter, map, switchMap, take } from 'rxjs/operators';
-import { VERSION_HISTORY } from '../shared/version-history.resource-type';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { VersionDataService } from './version-data.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, getRemoteDataPayload } from '../shared/operators';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { hasValueOperator } from '../../shared/empty.util';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import { FindListOptions } from './find-list-options.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+} from '../shared/operators';
 import { sendRequest } from '../shared/request.operators';
-import { RestRequest } from './rest-request.model';
-import { IdentifiableDataService } from './base/identifiable-data.service';
+import { Version } from '../shared/version.model';
+import { VersionHistory } from '../shared/version-history.model';
+import { VERSION_HISTORY } from '../shared/version-history.resource-type';
 import { dataService } from './base/data-service.decorator';
+import { IdentifiableDataService } from './base/identifiable-data.service';
+import { FindListOptions } from './find-list-options.model';
+import { PaginatedList } from './paginated-list.model';
+import { RemoteData } from './remote-data';
+import { PostRequest } from './request.models';
+import { RequestService } from './request.service';
+import { RestRequest } from './rest-request.model';
+import { VersionDataService } from './version-data.service';
 
 /**
  * Service responsible for handling requests related to the VersionHistory object

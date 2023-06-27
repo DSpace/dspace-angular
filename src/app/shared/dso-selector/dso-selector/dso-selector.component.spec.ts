@@ -1,17 +1,31 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { DSOSelectorComponent } from './dso-selector.component';
-import { SearchService } from '../../../core/shared/search/search.service';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
 import { Item } from '../../../core/shared/item.model';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
+import { SearchService } from '../../../core/shared/search/search.service';
 import { hasValue } from '../../empty.util';
-import { createPaginatedList } from '../../testing/utils.test';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../remote-data.utils';
+import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
+import { createPaginatedList } from '../../testing/utils.test';
+import { DSOSelectorComponent } from './dso-selector.component';
 
 describe('DSOSelectorComponent', () => {
   let component: DSOSelectorComponent;

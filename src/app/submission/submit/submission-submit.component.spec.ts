@@ -1,22 +1,34 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  NO_ERRORS_SCHEMA,
+  ViewContainerRef,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NO_ERRORS_SCHEMA, ViewContainerRef } from '@angular/core';
-
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { SubmissionService } from '../submission.service';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
-import { SubmissionSubmitComponent } from './submission-submit.component';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { ItemDataService } from '../../core/data/item-data.service';
+import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
+import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../shared/testing/router.stub';
+import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
+import { SubmissionService } from '../submission.service';
+import { SubmissionSubmitComponent } from './submission-submit.component';
 
 describe('SubmissionSubmitComponent Component', () => {
 

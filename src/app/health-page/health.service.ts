@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
 import { DspaceRestService } from '../core/dspace-rest/dspace-rest.service';
 import { RawRestResponse } from '../core/dspace-rest/raw-rest-response.model';
 import { HALEndpointService } from '../core/shared/hal-endpoint.service';

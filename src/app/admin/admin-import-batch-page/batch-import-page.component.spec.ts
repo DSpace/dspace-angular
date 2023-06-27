@@ -1,22 +1,31 @@
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
-import { BatchImportPageComponent } from './batch-import-page.component';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { Location } from '@angular/common';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FileValueAccessorDirective } from '../../shared/utils/file-value-accessor.directive';
-import { FileValidator } from '../../shared/utils/require-file.validator';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { TranslateModule } from '@ngx-translate/core';
+
 import {
   BATCH_IMPORT_SCRIPT_NAME,
   ScriptDataService,
 } from '../../core/data/processes/script-data.service';
-import { Router } from '@angular/router';
-import { Location } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { FileValueAccessorDirective } from '../../shared/utils/file-value-accessor.directive';
+import { FileValidator } from '../../shared/utils/require-file.validator';
+import { BatchImportPageComponent } from './batch-import-page.component';
 
 describe('BatchImportPageComponent', () => {
   let component: BatchImportPageComponent;

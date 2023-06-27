@@ -1,10 +1,10 @@
 /* eslint-disable max-classes-per-file */
-import { PageInfo } from '../shared/page-info.model';
 import { ConfigObject } from '../config/models/config.model';
+import { RequestError } from '../data/request-error.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALLink } from '../shared/hal-link.model';
+import { PageInfo } from '../shared/page-info.model';
 import { UnCacheableObject } from '../shared/uncacheable-object.model';
-import { RequestError } from '../data/request-error.model';
 
 export class RestResponse {
   public toCache = true;

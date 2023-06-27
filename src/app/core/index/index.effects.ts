@@ -1,25 +1,43 @@
-import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
+import { hasValue } from '../../shared/empty.util';
+import { NoOpAction } from '../../shared/ngrx/no-op.action';
 import {
   AddToObjectCacheAction,
   ObjectCacheActionTypes,
   RemoveFromObjectCacheAction,
 } from '../cache/object-cache.actions';
+import { CoreState } from '../core-state.model';
 import {
   RequestActionTypes,
   RequestConfigureAction,
   RequestStaleAction,
 } from '../data/request.actions';
-import { AddToIndexAction, RemoveFromIndexByValueAction } from './index.actions';
-import { hasValue } from '../../shared/empty.util';
 import { RestRequestMethod } from '../data/rest-request-method';
-import { getUrlWithoutEmbedParams, uuidFromHrefSelector } from './index.selectors';
-import { Store, select } from '@ngrx/store';
-import { NoOpAction } from '../../shared/ngrx/no-op.action';
+import {
+  AddToIndexAction,
+  RemoveFromIndexByValueAction,
+} from './index.actions';
+import {
+  getUrlWithoutEmbedParams,
+  uuidFromHrefSelector,
+} from './index.selectors';
 import { IndexName } from './index-name.model';
-import { CoreState } from '../core-state.model';
 
 @Injectable()
 export class UUIDIndexEffects {

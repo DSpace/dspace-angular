@@ -1,20 +1,37 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  ParamMap,
+  Router,
+} from '@angular/router';
+import {
+  BehaviorSubject,
+  combineLatest,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, combineLatest } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-
-import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
-import { getItemPageRoute } from '../item-page-routing-paths';
 import { AuthService } from '../../core/auth/auth.service';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { isNotEmpty } from '../../shared/empty.util';
+import { RemoteData } from '../../core/data/remote-data';
+import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { Item } from '../../core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
+import { isNotEmpty } from '../../shared/empty.util';
+import { getItemPageRoute } from '../item-page-routing-paths';
 
 /**
  * A component that represents the orcid settings page

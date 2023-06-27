@@ -1,11 +1,15 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ParameterSelectComponent } from './parameter-select.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
 import { ScriptParameterType } from '../../../scripts/script-parameter-type.model';
-import { By } from '@angular/platform-browser';
+import { ParameterSelectComponent } from './parameter-select.component';
 
 describe('ParameterSelectComponent', () => {
   let component: ParameterSelectComponent;

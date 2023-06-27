@@ -1,13 +1,30 @@
-import { Component, Input, OnInit, TemplateRef, OnDestroy, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, Subscription, BehaviorSubject, combineLatest } from 'rxjs';
-import { map, distinctUntilChanged, mergeMap } from 'rxjs/operators';
-import { PlacementDir } from './placement-dir.model';
-import { ContextHelpService } from '../context-help.service';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { hasValueOperator } from '../empty.util';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  mergeMap,
+} from 'rxjs/operators';
+
 import { ContextHelp } from '../context-help.model';
+import { ContextHelpService } from '../context-help.service';
+import { hasValueOperator } from '../empty.util';
+import { PlacementDir } from './placement-dir.model';
 
 type ParsedContent = (string | {href: string, text: string})[];
 

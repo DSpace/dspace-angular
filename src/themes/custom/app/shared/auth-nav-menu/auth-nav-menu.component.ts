@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+
 import {
-  AuthNavMenuComponent as BaseComponent,
-} from '../../../../../app/shared/auth-nav-menu/auth-nav-menu.component';
-import { fadeInOut, fadeOut } from '../../../../../app/shared/animations/fade';
+  fadeInOut,
+  fadeOut,
+} from '../../../../../app/shared/animations/fade';
+import { AuthNavMenuComponent as BaseComponent } from '../../../../../app/shared/auth-nav-menu/auth-nav-menu.component';
 
 /**
  * Component representing the {@link AuthNavMenuComponent} of a page

@@ -1,13 +1,41 @@
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { ChangeDetectionStrategy, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { fadeIn, fadeInOut } from '../../shared/animations/fade';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { CollectionDataService } from '../../core/data/collection-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { map, startWith, switchMap, take } from 'rxjs/operators';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
+import { NoContent } from '../../core/shared/NoContent.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
@@ -15,21 +43,17 @@ import {
   getRemoteDataPayload,
   toDSpaceObjectListRD,
 } from '../../core/shared/operators';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { TranslateService } from '@ngx-translate/core';
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { isNotEmpty } from '../../shared/empty.util';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { SearchService } from '../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../shared/animations/fade';
+import { isNotEmpty } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { NoContent } from '../../core/shared/NoContent.model';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 
 @Component({
   selector: 'ds-collection-item-mapper',

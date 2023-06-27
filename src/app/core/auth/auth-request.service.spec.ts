@@ -1,17 +1,22 @@
-import { AuthRequestService } from './auth-request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from '../data/request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { PostRequest } from '../data/request.models';
 import { TestScheduler } from 'rxjs/testing';
+
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { ShortLivedToken } from './models/short-lived-token.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
+import { PostRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { AuthRequestService } from './auth-request.service';
+import { ShortLivedToken } from './models/short-lived-token.model';
 import objectContaining = jasmine.objectContaining;
-import { AuthStatus } from './models/auth-status.model';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { RestRequestMethod } from '../data/rest-request-method';
-import { Observable, of as observableOf } from 'rxjs';
+import { AuthStatus } from './models/auth-status.model';
 
 describe(`AuthRequestService`, () => {
   let halService: HALEndpointService;

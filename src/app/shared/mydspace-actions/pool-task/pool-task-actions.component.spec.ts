@@ -1,28 +1,38 @@
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import { Router } from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
+import { RequestService } from '../../../core/data/request.service';
+import { Item } from '../../../core/shared/item.model';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
+import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
+import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
+import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service';
+import { getMockRequestService } from '../../mocks/request.service.mock';
+import { getMockSearchService } from '../../mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { PoolTaskSearchResult } from '../../object-collection/shared/pool-task-search-result.model';
+import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
-import { Item } from '../../../core/shared/item.model';
-import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service';
 import { PoolTaskActionsComponent } from './pool-task-actions.component';
-import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { RequestService } from '../../../core/data/request.service';
-import { getMockSearchService } from '../../mocks/search-service.mock';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { PoolTaskSearchResult } from '../../object-collection/shared/pool-task-search-result.model';
-import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 
 let mockDataService: PoolTaskDataService;
 let mockClaimedTaskDataService: ClaimedTaskDataService;

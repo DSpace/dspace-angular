@@ -1,18 +1,29 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
-
-import { Chips } from './models/chips.model';
-import { ChipsComponent } from './chips.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
-import { createTestComponent } from '../../testing/utils.test';
-import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { ConfidenceType } from '../../../core/shared/confidence-type';
 import { SortablejsModule } from 'ngx-sortablejs';
+
 import { environment } from '../../../../environments/environment';
+import { ConfidenceType } from '../../../core/shared/confidence-type';
+import { createTestComponent } from '../../testing/utils.test';
+import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
+import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
+import { ChipsComponent } from './chips.component';
+import { Chips } from './models/chips.model';
 
 describe('ChipsComponent test suite', () => {
 

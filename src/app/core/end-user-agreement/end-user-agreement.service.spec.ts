@@ -1,12 +1,13 @@
+import { of as observableOf } from 'rxjs';
+
+import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { EPerson } from '../eperson/models/eperson.model';
 import {
   END_USER_AGREEMENT_COOKIE,
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService,
 } from './end-user-agreement.service';
-import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
-import { of as observableOf } from 'rxjs';
-import { EPerson } from '../eperson/models/eperson.model';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('EndUserAgreementService', () => {
   let service: EndUserAgreementService;

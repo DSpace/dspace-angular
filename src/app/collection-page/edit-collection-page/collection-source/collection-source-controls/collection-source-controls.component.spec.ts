@@ -1,27 +1,32 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ContentSource } from '../../../../core/shared/content-source.model';
-import { Collection } from '../../../../core/shared/collection.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { RequestService } from '../../../../core/data/request.service';
+import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { CollectionDataService } from '../../../../core/data/collection-data.service';
 import { ProcessDataService } from '../../../../core/data/processes/process-data.service';
 import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
-import { HttpClient } from '@angular/common/http';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { Process } from '../../../../process-page/processes/process.model';
-import { of as observableOf } from 'rxjs';
-import { CollectionSourceControlsComponent } from './collection-source-controls.component';
+import { RequestService } from '../../../../core/data/request.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { getTestScheduler } from 'jasmine-marbles';
-import { TestScheduler } from 'rxjs/testing';
-import { By } from '@angular/platform-browser';
-import { VarDirective } from '../../../../shared/utils/var.directive';
+import { Collection } from '../../../../core/shared/collection.model';
+import { ContentSource } from '../../../../core/shared/content-source.model';
 import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
+import { Process } from '../../../../process-page/processes/process.model';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+import { VarDirective } from '../../../../shared/utils/var.directive';
+import { CollectionSourceControlsComponent } from './collection-source-controls.component';
 
 describe('CollectionSourceControlsComponent', () => {
   let comp: CollectionSourceControlsComponent;

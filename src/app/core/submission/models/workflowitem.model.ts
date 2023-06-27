@@ -1,5 +1,12 @@
-import { deserializeAs, inheritSerialization } from 'cerialize';
-import { inheritLinkAnnotations, typedObject } from '../../cache/builders/build-decorators';
+import {
+  deserializeAs,
+  inheritSerialization,
+} from 'cerialize';
+
+import {
+  inheritLinkAnnotations,
+  typedObject,
+} from '../../cache/builders/build-decorators';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { WORKFLOWITEM } from '../../eperson/models/workflowitem.resource-type';
 import { SubmissionObject } from './submission-object.model';

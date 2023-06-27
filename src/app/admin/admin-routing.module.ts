@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MetadataImportPageComponent } from './admin-import-metadata-page/metadata-import-page.component';
-import { AdminSearchPageComponent } from './admin-search-page/admin-search-page.component';
+
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
 import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
-import { REGISTRIES_MODULE_PATH } from './admin-routing-paths';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
+import { MetadataImportPageComponent } from './admin-import-metadata-page/metadata-import-page.component';
+import { REGISTRIES_MODULE_PATH } from './admin-routing-paths';
+import { AdminSearchPageComponent } from './admin-search-page/admin-search-page.component';
+import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
 
 @NgModule({
   imports: [

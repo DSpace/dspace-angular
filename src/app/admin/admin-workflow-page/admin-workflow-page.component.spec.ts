@@ -1,7 +1,11 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 
 import { AdminWorkflowPageComponent } from './admin-workflow-page.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AdminSearchPageComponent', () => {
   let component: AdminWorkflowPageComponent;

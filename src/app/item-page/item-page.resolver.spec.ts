@@ -1,11 +1,12 @@
-import { ItemPageResolver } from './item-page.resolver';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { first } from 'rxjs/operators';
+
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { MetadataValueFilter } from '../core/shared/metadata.models';
-import { first } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { ItemPageResolver } from './item-page.resolver';
 
 describe('ItemPageResolver', () => {
   beforeEach(() => {

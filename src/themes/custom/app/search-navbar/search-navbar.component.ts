@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { SearchNavbarComponent as BaseComponent } from '../../../../app/search-navbar/search-navbar.component';
 
 @Component({

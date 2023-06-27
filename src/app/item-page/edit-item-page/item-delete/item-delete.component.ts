@@ -1,41 +1,60 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { defaultIfEmpty, filter, map, switchMap, take } from 'rxjs/operators';
 import {
-  AbstractSimpleItemActionComponent,
-} from '../simple-item-action/abstract-simple-item-action.component';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import {
-  combineLatest as observableCombineLatest,
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
   combineLatest,
+  combineLatest as observableCombineLatest,
   Observable,
   of as observableOf,
   Subscription,
-  BehaviorSubject,
 } from 'rxjs';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import { VirtualMetadata } from '../virtual-metadata/virtual-metadata.component';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import {
-  getRemoteDataPayload,
-  getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData,
-} from '../../../core/shared/operators';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { Item } from '../../../core/shared/item.model';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { ViewMode } from '../../../core/shared/view-mode.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+  defaultIfEmpty,
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { LinkService } from '../../../core/cache/builders/link.service';
+import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { TranslateService } from '@ngx-translate/core';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { LinkService } from '../../../core/cache/builders/link.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { Item } from '../../../core/shared/item.model';
+import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
+import { MetadataValue } from '../../../core/shared/metadata.models';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { ViewMode } from '../../../core/shared/view-mode.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { getItemEditRoute } from '../../item-page-routing-paths';
-import { RemoteData } from '../../../core/data/remote-data';
-import { NoContent } from '../../../core/shared/NoContent.model';
+import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
+import { VirtualMetadata } from '../virtual-metadata/virtual-metadata.component';
 
 @Component({
   selector: 'ds-item-delete',

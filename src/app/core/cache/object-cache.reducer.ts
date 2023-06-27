@@ -1,18 +1,26 @@
 /* eslint-disable max-classes-per-file */
 import {
+  applyPatch,
+  Operation,
+} from 'fast-json-patch';
+
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { CacheEntry } from './cache-entry';
+import { CacheableObject } from './cacheable-object.model';
+import {
   AddDependentsObjectCacheAction,
   AddPatchObjectCacheAction,
   AddToObjectCacheAction,
   ApplyPatchObjectCacheAction,
   ObjectCacheAction,
-  ObjectCacheActionTypes, RemoveDependentsObjectCacheAction,
+  ObjectCacheActionTypes,
+  RemoveDependentsObjectCacheAction,
   RemoveFromObjectCacheAction,
   ResetObjectCacheTimestampsAction,
 } from './object-cache.actions';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { CacheEntry } from './cache-entry';
-import { applyPatch, Operation } from 'fast-json-patch';
-import { CacheableObject } from './cacheable-object.model';
 
 /**
  * An interface to represent a JsonPatch

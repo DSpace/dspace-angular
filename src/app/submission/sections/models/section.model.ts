@@ -1,11 +1,24 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  startWith,
+} from 'rxjs/operators';
 
-import { Observable, Subscription } from 'rxjs';
-import { filter, startWith } from 'rxjs/operators';
-
-import { SectionDataObject } from './section-data.model';
+import {
+  hasValue,
+  isNotUndefined,
+} from '../../../shared/empty.util';
 import { SectionsService } from '../sections.service';
-import { hasValue, isNotUndefined } from '../../../shared/empty.util';
+import { SectionDataObject } from './section-data.model';
 
 export interface SectionDataModel {
   sectionData: SectionDataObject;

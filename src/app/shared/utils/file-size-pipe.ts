@@ -1,4 +1,7 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
 // eslint-disable-next-line import/no-namespace
 import * as fileSize from 'filesize';
 

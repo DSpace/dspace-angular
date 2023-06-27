@@ -1,33 +1,61 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { Store, StoreModule } from '@ngrx/store';
-import { compare, Operation } from 'fast-json-patch';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  compare,
+  Operation,
+} from 'fast-json-patch';
 import { getTestScheduler } from 'jasmine-marbles';
-import { Observable, of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+
 import {
   EPeopleRegistryCancelEPersonAction,
   EPeopleRegistryEditEPersonAction,
 } from '../../access-control/epeople-registry/epeople-registry.actions';
+import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '../../shared/testing/eperson.mock';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import {
+  createPaginatedList,
+  createRequestEntry$,
+} from '../../shared/testing/utils.test';
 import { RequestParam } from '../cache/models/request-param.model';
+import { CoreState } from '../core-state.model';
 import { ChangeAnalyzer } from '../data/change-analyzer';
-import { PatchRequest, PostRequest } from '../data/request.models';
+import { FindListOptions } from '../data/find-list-options.model';
+import {
+  PatchRequest,
+  PostRequest,
+} from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { EPersonDataService } from './eperson-data.service';
 import { EPerson } from './models/eperson.model';
-import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson.mock';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { createPaginatedList, createRequestEntry$ } from '../../shared/testing/utils.test';
-import { CoreState } from '../core-state.model';
-import { FindListOptions } from '../data/find-list-options.model';
 
 describe('EPersonDataService', () => {
   let service: EPersonDataService;

@@ -1,31 +1,42 @@
-import { CreateProfileComponent } from './create-profile.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Registration } from '../../core/shared/registration.model';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { of as observableOf } from 'rxjs';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { EPerson } from '../../core/eperson/models/eperson.model';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { AuthenticateAction } from '../../core/auth/auth.actions';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { CoreState } from '../../core/core-state.model';
 import {
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService,
 } from '../../core/end-user-agreement/end-user-agreement.service';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { Registration } from '../../core/shared/registration.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
-import { CoreState } from '../../core/core-state.model';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../shared/testing/router.stub';
+import { CreateProfileComponent } from './create-profile.component';
 
 describe('CreateProfileComponent', () => {
   let comp: CreateProfileComponent;

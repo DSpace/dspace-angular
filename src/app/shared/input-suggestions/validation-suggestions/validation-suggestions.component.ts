@@ -1,5 +1,16 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import {
+  Component,
+  forwardRef,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  NG_VALUE_ACCESSOR,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { MetadataFieldValidator } from '../../utils/metadatafield-validator.directive';

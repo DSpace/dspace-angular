@@ -1,12 +1,20 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { CommunityCurateComponent } from './community-curate.component';
 import { Community } from '../../../core/shared/community.model';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { CommunityCurateComponent } from './community-curate.component';
 
 describe('CommunityCurateComponent', () => {
   let comp: CommunityCurateComponent;

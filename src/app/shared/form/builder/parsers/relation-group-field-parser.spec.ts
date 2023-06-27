@@ -1,8 +1,8 @@
-import { FormFieldModel } from '../models/form-field.model';
-import { RelationGroupFieldParser } from './relation-group-field-parser';
 import { DynamicRelationGroupModel } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { ParserOptions } from './parser-options';
+import { RelationGroupFieldParser } from './relation-group-field-parser';
 
 describe('RelationGroupFieldParser test suite', () => {
   let field: FormFieldModel;

@@ -1,19 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { compare, Operation } from 'fast-json-patch';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { Item } from '../shared/item.model';
-import { ChangeAnalyzer } from './change-analyzer';
+import {
+  compare,
+  Operation,
+} from 'fast-json-patch';
+
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { BundleDataService } from './bundle-data.service';
-import { HALLink } from '../shared/hal-link.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { Bundle } from '../shared/bundle.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core-state.model';
+import { Bundle } from '../shared/bundle.model';
+import { HALLink } from '../shared/hal-link.model';
+import { Item } from '../shared/item.model';
 import { testPatchDataImplementation } from './base/patch-data.spec';
+import { BundleDataService } from './bundle-data.service';
+import { ChangeAnalyzer } from './change-analyzer';
 
 class DummyChangeAnalyzer implements ChangeAnalyzer<Item> {
   diff(object1: Item, object2: Item): Operation[] {

@@ -1,4 +1,10 @@
-import { dateToString, dateToNgbDateStruct, dateToISOFormat, isValidDate, yearFromString } from './date.util';
+import {
+  dateToISOFormat,
+  dateToNgbDateStruct,
+  dateToString,
+  isValidDate,
+  yearFromString,
+} from './date.util';
 
 describe('Date Utils', () => {
 

@@ -1,28 +1,39 @@
-import { BrowseByDatePageComponent } from './browse-by-date-page.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BrowseService } from '../../core/browse/browse.service';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { Community } from '../../core/shared/community.model';
-import { Item } from '../../core/shared/item.model';
-import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
-import { toRemoteData } from '../browse-by-metadata-page/browse-by-metadata-page.component.spec';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
+import { BrowseService } from '../../core/browse/browse.service';
+import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { Community } from '../../core/shared/community.model';
+import { Item } from '../../core/shared/item.model';
+import { RouterMock } from '../../shared/mocks/router.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { toRemoteData } from '../browse-by-metadata-page/browse-by-metadata-page.component.spec';
+import { BrowseByDatePageComponent } from './browse-by-date-page.component';
 
 describe('BrowseByDatePageComponent', () => {
   let comp: BrowseByDatePageComponent;

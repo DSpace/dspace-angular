@@ -1,5 +1,8 @@
-import { ChipsItem, ChipsItemIcon } from './chips-item.model';
 import { FormFieldMetadataValueObject } from '../../builder/models/form-field-metadata-value.model';
+import {
+  ChipsItem,
+  ChipsItemIcon,
+} from './chips-item.model';
 
 describe('ChipsItem model test suite', () => {
   let item: ChipsItem;

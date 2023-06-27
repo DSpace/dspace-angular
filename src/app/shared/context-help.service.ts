@@ -1,17 +1,27 @@
 import { Injectable } from '@angular/core';
-import { ContextHelp } from './context-help.model';
-import { Store, createFeatureSelector, createSelector, select, MemoizedSelector } from '@ngrx/store';
-import { ContextHelpState, ContextHelpModels } from './context-help.reducer';
 import {
-  ContextHelpToggleIconsAction,
-  ContextHelpAddAction,
-  ContextHelpRemoveAction,
-  ContextHelpShowTooltipAction,
-  ContextHelpHideTooltipAction,
-  ContextHelpToggleTooltipAction,
-} from './context-help.actions';
+  createFeatureSelector,
+  createSelector,
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import {
+  ContextHelpAddAction,
+  ContextHelpHideTooltipAction,
+  ContextHelpRemoveAction,
+  ContextHelpShowTooltipAction,
+  ContextHelpToggleIconsAction,
+  ContextHelpToggleTooltipAction,
+} from './context-help.actions';
+import { ContextHelp } from './context-help.model';
+import {
+  ContextHelpModels,
+  ContextHelpState,
+} from './context-help.reducer';
 
 const contextHelpStateSelector =
   createFeatureSelector<ContextHelpState>('contextHelp');

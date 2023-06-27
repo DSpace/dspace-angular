@@ -1,25 +1,55 @@
-import { StoreModule } from '@ngrx/store';
-import { fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
-
-import { of as observableOf, throwError as observableThrowError } from 'rxjs';
+import {
+  fakeAsync,
+  flush,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
+import {
+  of as observableOf,
+  throwError as observableThrowError,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 
-import { RouterMock } from '../shared/mocks/router.mock';
-import { SubmissionService } from './submission.service';
-import { submissionReducers } from './submission.reducers';
-import { SubmissionRestService } from '../core/submission/submission-rest.service';
-import { RouteService } from '../core/services/route.service';
-import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-service.stub';
-import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
+import { environment } from '../../environments/environment';
+import { storeModuleConfig } from '../app.reducer';
+import { RequestService } from '../core/data/request.service';
 import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
+import { RouteService } from '../core/services/route.service';
+import { Item } from '../core/shared/item.model';
+import { SearchService } from '../core/shared/search/search.service';
+import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
+import { SubmissionRestService } from '../core/submission/submission-rest.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
-import { mockSubmissionDefinition, mockSubmissionRestResponse } from '../shared/mocks/submission.mock';
-import { NotificationsService } from '../shared/notifications/notifications.service';
+import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
+import { getMockRequestService } from '../shared/mocks/request.service.mock';
+import { RouterMock } from '../shared/mocks/router.mock';
+import { getMockSearchService } from '../shared/mocks/search-service.mock';
+import {
+  mockSubmissionDefinition,
+  mockSubmissionRestResponse,
+} from '../shared/mocks/submission.mock';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import { createFailedRemoteDataObject } from '../shared/remote-data.utils';
+import { SubmissionJsonPatchOperationsServiceStub } from '../shared/testing/submission-json-patch-operations-service.stub';
+import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-service.stub';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -32,16 +62,8 @@ import {
   SaveSubmissionSectionFormAction,
   SetActiveSectionAction,
 } from './objects/submission-objects.actions';
-import { createFailedRemoteDataObject } from '../shared/remote-data.utils';
-import { getMockSearchService } from '../shared/mocks/search-service.mock';
-import { getMockRequestService } from '../shared/mocks/request.service.mock';
-import { RequestService } from '../core/data/request.service';
-import { SearchService } from '../core/shared/search/search.service';
-import { Item } from '../core/shared/item.model';
-import { storeModuleConfig } from '../app.reducer';
-import { environment } from '../../environments/environment';
-import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
-import { SubmissionJsonPatchOperationsServiceStub } from '../shared/testing/submission-json-patch-operations-service.stub';
+import { submissionReducers } from './submission.reducers';
+import { SubmissionService } from './submission.service';
 
 describe('SubmissionService test suite', () => {
   const collectionId = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';

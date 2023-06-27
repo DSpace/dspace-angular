@@ -1,7 +1,14 @@
 import { DOCUMENT } from '@angular/common';
-import { Renderer2, RendererFactory2 } from '@angular/core';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  Renderer2,
+  RendererFactory2,
+} from '@angular/core';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { MockProvider } from 'ng-mocks';
+
 import { LinkHeadService } from './link-head.service';
 
 describe('LinkHeadService', () => {

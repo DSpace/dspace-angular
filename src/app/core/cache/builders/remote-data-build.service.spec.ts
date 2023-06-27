@@ -1,26 +1,43 @@
-import { createFailedRemoteDataObject, createPendingRemoteDataObject, createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { buildPaginatedList, PaginatedList } from '../../data/paginated-list.model';
-import { Item } from '../../shared/item.model';
-import { PageInfo } from '../../shared/page-info.model';
-import { RemoteDataBuildService } from './remote-data-build.service';
-import { ObjectCacheService } from '../object-cache.service';
-import { ITEM } from '../../shared/item.resource-type';
-import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
-import { LinkService } from './link.service';
-import { RequestService } from '../../data/request.service';
-import { UnCacheableObject } from '../../shared/uncacheable-object.model';
-import { RemoteData } from '../../data/remote-data';
-import { Observable, of as observableOf } from 'rxjs';
-import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { take } from 'rxjs/operators';
-import { HALLink } from '../../shared/hal-link.model';
-import { RequestEntryState } from '../../data/request-entry-state.model';
-import { RequestEntry } from '../../data/request-entry.model';
+import {
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 import { cold } from 'jasmine-marbles';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import { take } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
-import { fakeAsync, tick } from '@angular/core/testing';
+
+import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
+import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import {
+  createFailedRemoteDataObject,
+  createPendingRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '../../../shared/remote-data.utils';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../../shared/utils/follow-link-config.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../data/paginated-list.model';
+import { RemoteData } from '../../data/remote-data';
+import { RequestService } from '../../data/request.service';
+import { RequestEntry } from '../../data/request-entry.model';
+import { RequestEntryState } from '../../data/request-entry-state.model';
+import { HALLink } from '../../shared/hal-link.model';
+import { Item } from '../../shared/item.model';
+import { ITEM } from '../../shared/item.resource-type';
+import { PageInfo } from '../../shared/page-info.model';
+import { UnCacheableObject } from '../../shared/uncacheable-object.model';
+import { ObjectCacheService } from '../object-cache.service';
+import { LinkService } from './link.service';
+import { RemoteDataBuildService } from './remote-data-build.service';
 
 describe('RemoteDataBuildService', () => {
   let service: RemoteDataBuildService;

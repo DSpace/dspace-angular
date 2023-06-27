@@ -1,25 +1,33 @@
-import { mergeMap, filter, map } from 'rxjs/operators';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { CommunityDataService } from '../core/data/community-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { Bitstream } from '../core/shared/bitstream.model';
+import {
+  filter,
+  map,
+  mergeMap,
+} from 'rxjs/operators';
 
-import { Community } from '../core/shared/community.model';
-
-import { MetadataService } from '../core/metadata/metadata.service';
-
-import { fadeInOut } from '../shared/animations/fade';
-import { hasValue } from '../shared/empty.util';
-import { getAllSucceededRemoteDataPayload} from '../core/shared/operators';
 import { AuthService } from '../core/auth/auth.service';
+import { DSONameService } from '../core/breadcrumbs/dso-name.service';
+import { CommunityDataService } from '../core/data/community-data.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { getCommunityPageRoute } from './community-page-routing-paths';
+import { RemoteData } from '../core/data/remote-data';
+import { MetadataService } from '../core/metadata/metadata.service';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
+import { Bitstream } from '../core/shared/bitstream.model';
+import { Community } from '../core/shared/community.model';
+import { getAllSucceededRemoteDataPayload} from '../core/shared/operators';
+import { fadeInOut } from '../shared/animations/fade';
+import { hasValue } from '../shared/empty.util';
+import { getCommunityPageRoute } from './community-page-routing-paths';
 
 @Component({
   selector: 'ds-community-page',

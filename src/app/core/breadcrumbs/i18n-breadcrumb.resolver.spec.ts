@@ -1,5 +1,5 @@
-import { I18nBreadcrumbResolver } from './i18n-breadcrumb.resolver';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { I18nBreadcrumbResolver } from './i18n-breadcrumb.resolver';
 
 describe('I18nBreadcrumbResolver', () => {
   describe('resolve', () => {

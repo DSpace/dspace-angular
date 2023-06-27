@@ -1,14 +1,29 @@
-import { Store, StoreModule } from '@ngrx/store';
-import { inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { AbstractControl, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  AbstractControl,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
+  DynamicInputModel,
+} from '@ng-dynamic-forms/core';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 
-import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
-
-import { FormService } from './form.service';
-import { FormBuilderService } from './builder/form-builder.service';
 import { AppState } from '../../app.reducer';
-import { formReducer } from './form.reducer';
 import { getMockFormBuilderService } from '../mocks/form-builder-service.mock';
+import { FormBuilderService } from './builder/form-builder.service';
+import { formReducer } from './form.reducer';
+import { FormService } from './form.service';
 
 describe('FormService test suite', () => {
   const config = {

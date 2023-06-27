@@ -1,25 +1,40 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-
-import { cold, getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-import { Store, StoreModule } from '@ngrx/store';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
 
-import { submissionReducers } from '../submission.reducers';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SubmissionService } from '../submission.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { SectionsService } from './sections.service';
+import { storeModuleConfig } from '../../app.reducer';
+import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
+import { FormClearErrorsAction } from '../../shared/form/form.actions';
+import { FormService } from '../../shared/form/form.service';
+import { getMockFormService } from '../../shared/mocks/form-service.mock';
+import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
 import {
   mockSectionsData,
   mockSectionsErrors,
   mockSubmissionState,
   mockSubmissionStateWithoutUpload,
 } from '../../shared/mocks/submission.mock';
+import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import {
   DisableSectionAction,
   EnableSectionAction,
@@ -28,15 +43,12 @@ import {
   SectionStatusChangeAction,
   UpdateSectionDataAction,
 } from '../objects/submission-objects.actions';
-import { FormClearErrorsAction } from '../../shared/form/form.actions';
-import parseSectionErrors from '../utils/parseSectionErrors';
-import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
-import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
-import { storeModuleConfig } from '../../app.reducer';
-import { SectionsType } from './sections-type';
-import { FormService } from '../../shared/form/form.service';
-import { getMockFormService } from '../../shared/mocks/form-service.mock';
 import { SubmissionSectionError } from '../objects/submission-section-error.model';
+import { submissionReducers } from '../submission.reducers';
+import { SubmissionService } from '../submission.service';
+import parseSectionErrors from '../utils/parseSectionErrors';
+import { SectionsService } from './sections.service';
+import { SectionsType } from './sections-type';
 
 describe('SectionsService test suite', () => {
   let notificationsServiceStub: NotificationsServiceStub;

@@ -1,4 +1,10 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 export const scaleInState = state('scaleIn', style({opacity: 1, transform: 'scale(1)'}));
 export const scaleEnter =  transition('* => scaleIn', [

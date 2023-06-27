@@ -1,26 +1,37 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateModule } from '@ngx-translate/core';
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { AdminSidebarComponent } from './admin-sidebar.component';
-import { MenuService } from '../../shared/menu/menu.service';
-import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
-import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
-import { CSSVariableServiceStub } from '../../shared/testing/css-variable-service.stub';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { AuthService } from '../../core/auth/auth.service';
-import { of as observableOf } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { RouterTestingModule } from '@angular/router/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { AuthService } from '../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { ScriptDataService } from '../../core/data/processes/script-data.service';
+import { MenuService } from '../../shared/menu/menu.service';
+import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
+import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
+import { CSSVariableServiceStub } from '../../shared/testing/css-variable-service.stub';
+import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
+import { AdminSidebarComponent } from './admin-sidebar.component';
 import createSpy = jasmine.createSpy;
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { Item } from '../../core/shared/item.model';
-import { ThemeService } from '../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 
 describe('AdminSidebarComponent', () => {
   let comp: AdminSidebarComponent;

@@ -1,19 +1,33 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-import { Community } from '../../../../core/shared/community.model';
-import { SharedModule } from '../../../shared.module';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { DeleteComColPageComponent } from './delete-comcol-page.component';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
-import { createFailedRemoteDataObject$, createNoContentRemoteDataObject$ } from '../../../remote-data.utils';
+import { CommunityDataService } from '../../../../core/data/community-data.service';
+import { Community } from '../../../../core/shared/community.model';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createNoContentRemoteDataObject$,
+} from '../../../remote-data.utils';
+import { SharedModule } from '../../../shared.module';
+import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { DeleteComColPageComponent } from './delete-comcol-page.component';
 
 describe('DeleteComColPageComponent', () => {
   let comp: DeleteComColPageComponent<any>;

@@ -1,19 +1,28 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing';
-
-import { TranslateModule } from '@ngx-translate/core';
-import { Store, StoreModule } from '@ngrx/store';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { ImpersonateNavbarComponent } from './impersonate-navbar.component';
-import { VarDirective } from '../utils/var.directive';
-import { AuthService } from '../../core/auth/auth.service';
+import {
+  AppState,
+  storeModuleConfig,
+} from '../../app.reducer';
 import { authReducer } from '../../core/auth/auth.reducer';
+import { AuthService } from '../../core/auth/auth.service';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { EPersonMock } from '../testing/eperson.mock';
-import { AppState, storeModuleConfig } from '../../app.reducer';
+import { VarDirective } from '../utils/var.directive';
+import { ImpersonateNavbarComponent } from './impersonate-navbar.component';
 
 describe('ImpersonateNavbarComponent', () => {
   let component: ImpersonateNavbarComponent;

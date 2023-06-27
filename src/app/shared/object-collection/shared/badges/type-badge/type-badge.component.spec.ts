@@ -1,10 +1,18 @@
-import { Item } from '../../../../../core/shared/item.model';
-import { of as observableOf } from 'rxjs';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { TruncatePipe } from '../../../../utils/truncate.pipe';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { Item } from '../../../../../core/shared/item.model';
+import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { TypeBadgeComponent } from './type-badge.component';
 
 let comp: TypeBadgeComponent;

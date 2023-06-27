@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { BitstreamPageResolver } from './bitstream-page.resolver';
-import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
-import { ResourcePolicyTargetResolver } from '../shared/resource-policies/resolvers/resource-policy-target.resolver';
-import { ResourcePolicyCreateComponent } from '../shared/resource-policies/create/resource-policy-create.component';
-import { ResourcePolicyResolver } from '../shared/resource-policies/resolvers/resource-policy.resolver';
-import { ResourcePolicyEditComponent } from '../shared/resource-policies/edit/resource-policy-edit.component';
-import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
-import { LegacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
 import { BitstreamBreadcrumbResolver } from '../core/breadcrumbs/bitstream-breadcrumb.resolver';
 import { BitstreamBreadcrumbsService } from '../core/breadcrumbs/bitstream-breadcrumbs.service';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { ResourcePolicyCreateComponent } from '../shared/resource-policies/create/resource-policy-create.component';
+import { ResourcePolicyEditComponent } from '../shared/resource-policies/edit/resource-policy-edit.component';
+import { ResourcePolicyResolver } from '../shared/resource-policies/resolvers/resource-policy.resolver';
+import { ResourcePolicyTargetResolver } from '../shared/resource-policies/resolvers/resource-policy-target.resolver';
+import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
+import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
+import { BitstreamPageResolver } from './bitstream-page.resolver';
 import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-edit-bitstream-page.component';
+import { LegacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
 
 const EDIT_BITSTREAM_PATH = ':id/edit';
 const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';

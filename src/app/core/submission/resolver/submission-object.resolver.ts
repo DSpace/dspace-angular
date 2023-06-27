@@ -1,12 +1,17 @@
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
 import { RemoteData } from '../../data/remote-data';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
-import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated

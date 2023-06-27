@@ -1,6 +1,6 @@
 /* tslint:disable:max-classes-per-file */
-import { HALResource } from '../shared/hal-resource.model';
 import { HALLink } from '../shared/hal-link.model';
+import { HALResource } from '../shared/hal-resource.model';
 import { TypedObject } from './typed-object.model';
 
 /**

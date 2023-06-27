@@ -1,12 +1,15 @@
 // eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
 
-import { indexReducer, MetaIndexState } from './index.reducer';
 import {
   AddToIndexAction,
   RemoveFromIndexBySubstringAction,
   RemoveFromIndexByValueAction,
 } from './index.actions';
+import {
+  indexReducer,
+  MetaIndexState,
+} from './index.reducer';
 import { IndexName } from './index-name.model';
 
 class NullAction extends AddToIndexAction {

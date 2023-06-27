@@ -1,31 +1,50 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { renderFacetFor } from '../search-filter-type-decorator';
-import { FilterType } from '../../../models/filter-type.model';
-import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
-  VocabularyEntryDetail,
-} from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
+
+import { environment } from '../../../../../../environments/environment';
+import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
-  SearchFilterService, REFRESH_FILTER,
+  REFRESH_FILTER,
+  SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
-import { Router } from '@angular/router';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { FacetValue } from '../../../models/facet-value.model';
-import { getFacetValueForType } from '../../../search.utils';
-import { filter, map, take } from 'rxjs/operators';
+import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { environment } from '../../../../../../environments/environment';
-import { addOperatorToFilterValue } from '../../../search.utils';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
+import { FacetValue } from '../../../models/facet-value.model';
+import { FilterType } from '../../../models/filter-type.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import {
+  addOperatorToFilterValue,
+  getFacetValueForType,
+} from '../../../search.utils';
+import {
+  facetLoad,
+  SearchFacetFilterComponent,
+} from '../search-facet-filter/search-facet-filter.component';
+import { renderFacetFor } from '../search-filter-type-decorator';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',

@@ -1,12 +1,13 @@
+import { CdkTreeModule } from '@angular/cdk/tree';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+
 import { SharedModule } from '../shared/shared.module';
+import { CommunityListComponent } from './community-list/community-list.component';
+import { ThemedCommunityListComponent } from './community-list/themed-community-list.component';
 import { CommunityListPageComponent } from './community-list-page.component';
 import { CommunityListPageRoutingModule } from './community-list-page.routing.module';
-import { CommunityListComponent } from './community-list/community-list.component';
 import { ThemedCommunityListPageComponent } from './themed-community-list-page.component';
-import { ThemedCommunityListComponent } from './community-list/themed-community-list.component';
-import { CdkTreeModule } from '@angular/cdk/tree';
 
 
 const DECLARATIONS = [

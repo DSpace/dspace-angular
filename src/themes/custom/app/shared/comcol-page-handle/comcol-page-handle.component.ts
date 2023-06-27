@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ComcolPageHandleComponent as BaseComponent} from '../../../../../app/shared/comcol/comcol-page-handle/comcol-page-handle.component';
 
 

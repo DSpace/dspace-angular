@@ -1,19 +1,26 @@
-import { Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
+import { Context } from '../../../../../core/shared/context.model';
+import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import {
   getListableObjectComponent,
   listableObjectComponent,
 } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { Context } from '../../../../../core/shared/context.model';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import { ListableObjectDirective } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
+import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement, Context.AdminSearch)
 @Component({

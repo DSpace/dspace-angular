@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+
 import { type } from '../ngrx/type';
 
 export const ThemeActionTypes = {

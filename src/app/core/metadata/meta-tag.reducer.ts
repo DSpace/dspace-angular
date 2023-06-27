@@ -1,8 +1,8 @@
 import {
-  MetaTagAction,
-  MetaTagTypes,
   AddMetaTagAction,
   ClearMetaTagAction,
+  MetaTagAction,
+  MetaTagTypes,
 } from './meta-tag.actions';
 
 export interface MetaTagState {

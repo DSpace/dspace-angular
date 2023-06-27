@@ -1,12 +1,21 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
-
-import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.component';
 import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
 import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
+import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.component';
 
 @Component({
   selector: 'ds-bulk-access',

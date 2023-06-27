@@ -1,11 +1,15 @@
+import { Injectable } from '@angular/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import { take } from 'rxjs/operators';
+
+import { AppState } from '../app.reducer';
 import { CookieService } from '../core/services/cookie.service';
 import { UUIDService } from '../core/shared/uuid.service';
-import { Store, select } from '@ngrx/store';
-import { AppState } from '../app.reducer';
 import { isEmpty } from '../shared/empty.util';
-import { take } from 'rxjs/operators';
 import { SetCorrelationIdAction } from './correlation-id.actions';
-import { Injectable } from '@angular/core';
 import { correlationIdSelector } from './correlation-id.selector';
 
 /**

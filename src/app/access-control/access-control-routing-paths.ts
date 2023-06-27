@@ -1,5 +1,5 @@
-import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { getAccessControlModuleRoute } from '../app-routing-paths';
+import { URLCombiner } from '../core/url-combiner/url-combiner';
 
 export const GROUP_EDIT_PATH = 'groups';
 

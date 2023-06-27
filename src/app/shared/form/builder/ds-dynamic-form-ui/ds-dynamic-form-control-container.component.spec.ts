@@ -1,11 +1,24 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, NgZone, SimpleChange } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+  NgZone,
+  SimpleChange,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import {
   DynamicCheckboxGroupModel,
   DynamicCheckboxModel,
@@ -25,7 +38,9 @@ import {
   DynamicSliderModel,
   DynamicSwitchModel,
   DynamicTextAreaModel,
-  DynamicTimePickerModel, MATCH_VISIBLE, OR_OPERATOR,
+  DynamicTimePickerModel,
+  MATCH_VISIBLE,
+  OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
 import {
   DynamicNGBootstrapCalendarComponent,
@@ -37,50 +52,50 @@ import {
   DynamicNGBootstrapTextAreaComponent,
   DynamicNGBootstrapTimePickerComponent,
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxMaskModule } from 'ngx-mask';
+import { of as observableOf } from 'rxjs';
 
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment';
+import { ItemDataService } from '../../../../core/data/item-data.service';
+import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
+import { Item } from '../../../../core/shared/item.model';
+import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
+import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
+import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { SubmissionService } from '../../../../submission/submission.service';
+import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { SharedModule } from '../../../shared.module';
+import { FormService } from '../../form.service';
+import { FormBuilderService } from '../form-builder.service';
 import {
   DsDynamicFormControlContainerComponent,
   dsDynamicFormControlMapFn,
 } from './ds-dynamic-form-control-container.component';
-import { SharedModule } from '../../../shared.module';
+import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
+import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
+import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
 import { DynamicDsDatePickerModel } from './models/date-picker/date-picker.model';
-import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relation-group.model';
-import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
-import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
-import { DynamicLookupModel } from './models/lookup/dynamic-lookup.model';
-import { DynamicScrollableDropdownModel } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { DynamicTagModel } from './models/tag/dynamic-tag.model';
-import { DynamicOneboxModel } from './models/onebox/dynamic-onebox.model';
+import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
 import { DynamicQualdropModel } from './models/ds-dynamic-qualdrop.model';
+import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
+import { DsDynamicListComponent } from './models/list/dynamic-list.component';
+import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
+import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
+import { DsDynamicLookupComponent } from './models/lookup/dynamic-lookup.component';
+import { DynamicLookupModel } from './models/lookup/dynamic-lookup.model';
 import { DynamicLookupNameModel } from './models/lookup/dynamic-lookup-name.model';
 import { DsDynamicOneboxComponent } from './models/onebox/dynamic-onebox.component';
-import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
-import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
-import { DsDynamicListComponent } from './models/list/dynamic-list.component';
-import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
-import { DsDynamicLookupComponent } from './models/lookup/dynamic-lookup.component';
-import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
-import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
+import { DynamicOneboxModel } from './models/onebox/dynamic-onebox.model';
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
-import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
-import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
-import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { ItemDataService } from '../../../../core/data/item-data.service';
-import { Store } from '@ngrx/store';
-import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
-import { Item } from '../../../../core/shared/item.model';
-import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
-import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { FormService } from '../../form.service';
-import { SubmissionService } from '../../../../submission/submission.service';
-import { FormBuilderService } from '../form-builder.service';
-import { NgxMaskModule } from 'ngx-mask';
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { environment } from '../../../../../environments/environment';
+import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relation-group.model';
+import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+import { DynamicScrollableDropdownModel } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
+import { DynamicTagModel } from './models/tag/dynamic-tag.model';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {

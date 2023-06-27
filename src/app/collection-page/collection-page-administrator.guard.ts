@@ -1,12 +1,20 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { Collection } from '../core/shared/collection.model';
-import { CollectionPageResolver } from './collection-page.resolver';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import { AuthService } from '../core/auth/auth.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { Observable, of as observableOf } from 'rxjs';
 import { DsoPageSingleFeatureGuard } from '../core/data/feature-authorization/feature-authorization-guard/dso-page-single-feature.guard';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { AuthService } from '../core/auth/auth.service';
+import { Collection } from '../core/shared/collection.model';
+import { CollectionPageResolver } from './collection-page.resolver';
 
 @Injectable({
   providedIn: 'root',

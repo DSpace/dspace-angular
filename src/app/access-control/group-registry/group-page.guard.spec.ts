@@ -1,10 +1,14 @@
-import { GroupPageGuard } from './group-page.guard';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+} from '@angular/router';
 import { of as observableOf } from 'rxjs';
+
 import { AuthService } from '../../core/auth/auth.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { GroupPageGuard } from './group-page.guard';
 
 describe('GroupPageGuard', () => {
   const groupsEndpointUrl = 'https://test.org/api/eperson/groups';

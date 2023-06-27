@@ -18,16 +18,18 @@ import {
   Renderer2,
   SimpleChanges,
 } from '@angular/core';
-
 import findIndex from 'lodash/findIndex';
 
-import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
-import { ConfidenceType } from '../../../core/shared/confidence-type';
-import { isNotEmpty, isNull } from '../../empty.util';
 import { ConfidenceIconConfig } from '../../../../config/submission-config.interface';
 import { environment } from '../../../../environments/environment';
+import { ConfidenceType } from '../../../core/shared/confidence-type';
+import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import {
+  isNotEmpty,
+  isNull,
+} from '../../empty.util';
+import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 
 /**
  * Directive to add to the element a bootstrap utility class based on metadata confidence value

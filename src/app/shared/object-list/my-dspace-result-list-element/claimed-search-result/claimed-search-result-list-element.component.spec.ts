@@ -1,4 +1,7 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -7,27 +10,26 @@ import {
   tick,
   waitForAsync,
 } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { of as observableOf } from 'rxjs';
 
-import { Item } from '../../../../core/shared/item.model';
-import { ClaimedSearchResultListElementComponent } from './claimed-search-result-list-element.component';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
-import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { VarDirective } from '../../../utils/var.directive';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { getMockLinkService } from '../../../mocks/link-service.mock';
-import { By } from '@angular/platform-browser';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { Context } from '../../../../core/shared/context.model';
+import { Item } from '../../../../core/shared/item.model';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
+import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
+import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { VarDirective } from '../../../utils/var.directive';
+import { ClaimedSearchResultListElementComponent } from './claimed-search-result-list-element.component';
 
 let component: ClaimedSearchResultListElementComponent;
 let fixture: ComponentFixture<ClaimedSearchResultListElementComponent>;

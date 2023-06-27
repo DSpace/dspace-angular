@@ -1,54 +1,67 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
+import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { VersionDataService } from '../../../../core/data/version-data.service';
+import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
+import { ResearcherProfileDataService } from '../../../../core/profile/researcher-profile-data.service';
+import { RouteService } from '../../../../core/services/route.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../core/shared/item.model';
+import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
+import { MetadataValue } from '../../../../core/shared/metadata.models';
+import { PageInfo } from '../../../../core/shared/page-info.model';
+import { SearchService } from '../../../../core/shared/search/search.service';
 import { UUIDService } from '../../../../core/shared/uuid.service';
+import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject$,
-} from '../../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
+import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
-import { compareArraysUsing, compareArraysUsingIds } from './item-relationships-utils';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
-import { RouteService } from '../../../../core/services/route.service';
-import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { VersionDataService } from '../../../../core/data/version-data.service';
-import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { ResearcherProfileDataService } from '../../../../core/profile/researcher-profile-data.service';
-import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
-import {
-  BrowseDefinitionDataServiceStub,
-} from '../../../../shared/testing/browse-definition-data-service.stub';
-
-import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
-import { PageInfo } from '../../../../core/shared/page-info.model';
-import { Router } from '@angular/router';
 import { ItemComponent } from './item.component';
+import {
+  compareArraysUsing,
+  compareArraysUsingIds,
+} from './item-relationships-utils';
 
 export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
   return Object.assign(new MetadataValue(), {

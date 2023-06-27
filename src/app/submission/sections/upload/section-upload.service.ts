@@ -1,18 +1,24 @@
 import { Injectable } from '@angular/core';
-
-import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+} from 'rxjs/operators';
 
-import { SubmissionState } from '../../submission.reducers';
+import { WorkspaceitemSectionUploadFileObject } from '../../../core/submission/models/workspaceitem-section-upload-file.model';
+import { isUndefined } from '../../../shared/empty.util';
 import {
   DeleteUploadedFileAction,
   EditFileDataAction,
   NewUploadedFileAction,
 } from '../../objects/submission-objects.actions';
-import { submissionUploadedFileFromUuidSelector, submissionUploadedFilesFromIdSelector } from '../../selectors';
-import { isUndefined } from '../../../shared/empty.util';
-import { WorkspaceitemSectionUploadFileObject } from '../../../core/submission/models/workspaceitem-section-upload-file.model';
+import {
+  submissionUploadedFileFromUuidSelector,
+  submissionUploadedFilesFromIdSelector,
+} from '../../selectors';
+import { SubmissionState } from '../../submission.reducers';
 
 /**
  * A service that provides methods to handle submission's bitstream state.

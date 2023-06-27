@@ -1,8 +1,12 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { Context } from '../core/shared/context.model';
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
-import { Observable } from 'rxjs';
-import { Context } from '../core/shared/context.model';
 
 /**
  * Themed wrapper for ConfigurationSearchPageComponent

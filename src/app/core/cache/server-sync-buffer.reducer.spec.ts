@@ -1,9 +1,13 @@
 // eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
-import { RemoveFromObjectCacheAction } from './object-cache.actions';
-import { serverSyncBufferReducer } from './server-sync-buffer.reducer';
+
 import { RestRequestMethod } from '../data/rest-request-method';
-import { AddToSSBAction, EmptySSBAction } from './server-sync-buffer.actions';
+import { RemoveFromObjectCacheAction } from './object-cache.actions';
+import {
+  AddToSSBAction,
+  EmptySSBAction,
+} from './server-sync-buffer.actions';
+import { serverSyncBufferReducer } from './server-sync-buffer.reducer';
 
 class NullAction extends RemoveFromObjectCacheAction {
   type = null;

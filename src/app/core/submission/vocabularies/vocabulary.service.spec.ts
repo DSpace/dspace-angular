@@ -1,29 +1,33 @@
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { RequestService } from '../../data/request.service';
-import { RequestParam } from '../../cache/models/request-param.model';
-import { PageInfo } from '../../shared/page-info.model';
-import { buildPaginatedList } from '../../data/paginated-list.model';
+import { getMockHrefOnlyDataService } from '../../../shared/mocks/href-only-data.service.mock';
+import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
-import { RestResponse } from '../../cache/response.models';
-import { VocabularyService } from './vocabulary.service';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { VocabularyOptions } from './models/vocabulary-options.model';
-import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
-import { HrefOnlyDataService } from '../../data/href-only-data.service';
-import { getMockHrefOnlyDataService } from '../../../shared/mocks/href-only-data.service.mock';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { RequestParam } from '../../cache/models/request-param.model';
+import { ObjectCacheService } from '../../cache/object-cache.service';
+import { RestResponse } from '../../cache/response.models';
+import { HrefOnlyDataService } from '../../data/href-only-data.service';
+import { buildPaginatedList } from '../../data/paginated-list.model';
+import { RequestService } from '../../data/request.service';
 import { RequestEntry } from '../../data/request-entry.model';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { PageInfo } from '../../shared/page-info.model';
+import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
+import { VocabularyOptions } from './models/vocabulary-options.model';
 import { VocabularyDataService } from './vocabulary.data.service';
+import { VocabularyService } from './vocabulary.service';
 import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
 
 describe('VocabularyService', () => {

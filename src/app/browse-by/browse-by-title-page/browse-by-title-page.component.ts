@@ -1,19 +1,34 @@
+import {
+  Component,
+  Inject,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+} from '@angular/router';
 import { combineLatest as observableCombineLatest } from 'rxjs';
-import { Component, Inject } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { BrowseService } from '../../core/browse/browse.service';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import { hasValue } from '../../shared/empty.util';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
   BrowseByMetadataPageComponent,
-  browseParamsToOptions, getBrowseSearchOptions,
+  browseParamsToOptions,
+  getBrowseSearchOptions,
 } from '../browse-by-metadata-page/browse-by-metadata-page.component';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { BrowseService } from '../../core/browse/browse.service';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { map } from 'rxjs/operators';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-browse-by-title-page',

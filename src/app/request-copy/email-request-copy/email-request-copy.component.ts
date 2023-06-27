@@ -1,6 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RequestCopyEmail } from './request-copy-email.model';
 import { Location } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
+import { RequestCopyEmail } from './request-copy-email.model';
 
 @Component({
   selector: 'ds-email-request-copy',

@@ -1,7 +1,18 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import uniqueId from 'lodash/uniqueId';
 import { FileUploader } from 'ng2-file-upload';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { UploaderOptions } from '../uploader/uploader-options.model';
 
 /**

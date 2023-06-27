@@ -1,10 +1,14 @@
-import { Component, Injector } from '@angular/core';
+import {
+  Component,
+  Injector,
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
+
 import { MenuComponent } from '../../menu/menu.component';
 import { MenuService } from '../../menu/menu.service';
-import { ActivatedRoute } from '@angular/router';
-import { ThemeService } from '../../theme-support/theme.service';
 import { MenuID } from '../../menu/menu-id.model';
+import { ThemeService } from '../../theme-support/theme.service';
 
 /**
  * Component representing the edit menu and other menus on the dspace object pages

@@ -1,12 +1,38 @@
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-
+import {
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Store, StoreModule } from '@ngrx/store';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { cold, hot } from 'jasmine-marbles';
-import { Observable, of as observableOf, throwError as observableThrow } from 'rxjs';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
+import {
+  cold,
+  hot,
+} from 'jasmine-marbles';
+import {
+  Observable,
+  of as observableOf,
+  throwError as observableThrow,
+} from 'rxjs';
 
-import { AuthEffects } from './auth.effects';
+import {
+  AppState,
+  storeModuleConfig,
+} from '../../app.reducer';
+import {
+  authMethodsMock,
+  AuthServiceStub,
+} from '../../shared/testing/auth-service.stub';
+import { EPersonMock } from '../../shared/testing/eperson.mock';
+import { StoreActionTypes } from '../../store.actions';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import {
   AuthActionTypes,
   AuthenticatedAction,
@@ -27,15 +53,14 @@ import {
   RetrieveAuthMethodsSuccessAction,
   RetrieveTokenAction,
 } from './auth.actions';
-import { authMethodsMock, AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { AuthService } from './auth.service';
+import { AuthEffects } from './auth.effects';
 import { authReducer } from './auth.reducer';
+import { AuthService } from './auth.service';
 import { AuthStatus } from './models/auth-status.model';
-import { EPersonMock } from '../../shared/testing/eperson.mock';
-import { AppState, storeModuleConfig } from '../../app.reducer';
-import { StoreActionTypes } from '../../store.actions';
-import { isAuthenticated, isAuthenticatedLoaded } from './selectors';
-import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import {
+  isAuthenticated,
+  isAuthenticatedLoaded,
+} from './selectors';
 
 describe('AuthEffects', () => {
   let authEffects: AuthEffects;

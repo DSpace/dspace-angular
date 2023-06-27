@@ -1,14 +1,26 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { of as observableOf, BehaviorSubject } from 'rxjs';
-import { ContextHelpWrapperComponent } from './context-help-wrapper.component';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
-import { ContextHelpService } from '../context-help.service';
-import { ContextHelp } from '../context-help.model';
-import { Component, Input, DebugElement } from '@angular/core';
-import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
-import { PlacementDir } from './placement-dir.model';
+import {
+  Component,
+  DebugElement,
+  Input,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
+
+import { ContextHelp } from '../context-help.model';
+import { ContextHelpService } from '../context-help.service';
+import { ContextHelpWrapperComponent } from './context-help-wrapper.component';
+import { PlacementDir } from './placement-dir.model';
 
 @Component({
   template: `

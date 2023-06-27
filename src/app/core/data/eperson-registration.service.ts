@@ -1,20 +1,33 @@
+import {
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RequestService } from './request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { GetRequest, PostRequest } from './request.models';
 import { Observable } from 'rxjs';
-import { filter, find, map } from 'rxjs/operators';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { Registration } from '../shared/registration.model';
-import { getFirstCompletedRemoteData } from '../shared/operators';
-import { ResponseParsingService } from './parsing.service';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { RegistrationResponseParsingService } from './registration-response-parsing.service';
-import { RemoteData } from './remote-data';
+import {
+  filter,
+  find,
+  map,
+} from 'rxjs/operators';
+
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { HttpHeaders } from '@angular/common/http';
-import { HttpParams } from '@angular/common/http';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { getFirstCompletedRemoteData } from '../shared/operators';
+import { Registration } from '../shared/registration.model';
+import { ResponseParsingService } from './parsing.service';
+import { RegistrationResponseParsingService } from './registration-response-parsing.service';
+import { RemoteData } from './remote-data';
+import {
+  GetRequest,
+  PostRequest,
+} from './request.models';
+import { RequestService } from './request.service';
 
 @Injectable({
   providedIn: 'root',

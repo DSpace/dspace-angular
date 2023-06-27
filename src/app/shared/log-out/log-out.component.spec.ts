@@ -1,18 +1,28 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { Store, StoreModule } from '@ngrx/store';
-
-import { authReducer } from '../../core/auth/auth.reducer';
-import { EPersonMock } from '../testing/eperson.mock';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router } from '@angular/router';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { AppState } from '../../app.reducer';
-import { LogOutComponent } from './log-out.component';
-import { RouterStub } from '../testing/router.stub';
+import { authReducer } from '../../core/auth/auth.reducer';
+import { EPerson } from '../../core/eperson/models/eperson.model';
 import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
+import { EPersonMock } from '../testing/eperson.mock';
+import { RouterStub } from '../testing/router.stub';
+import { LogOutComponent } from './log-out.component';
 
 describe('LogOutComponent', () => {
 

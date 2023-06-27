@@ -4,14 +4,15 @@ import {
   Directive,
   Input,
   OnChanges,
+  OnDestroy,
   TemplateRef,
   ViewContainerRef,
-  OnDestroy,
 } from '@angular/core';
 import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
+
+import { ContextHelpService } from './context-help.service';
 import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 import { PlacementDir } from './context-help-wrapper/placement-dir.model';
-import { ContextHelpService } from './context-help.service';
 
 export interface ContextHelpDirectiveInput {
   content: string;

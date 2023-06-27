@@ -1,7 +1,11 @@
-import { Observable, of as observableOf } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { BreadcrumbsProviderService } from '../core/breadcrumbs/breadcrumbsProviderService';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { Breadcrumb } from '../breadcrumbs/breadcrumb/breadcrumb.model';
+import { BreadcrumbsProviderService } from '../core/breadcrumbs/breadcrumbsProviderService';
 import { Process } from './processes/process.model';
 
 /**

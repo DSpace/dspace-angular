@@ -1,8 +1,21 @@
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
@@ -10,20 +23,25 @@ import {
   DynamicFormValidationService,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import { Store, StoreModule } from '@ngrx/store';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { FormComponent } from './form.component';
-import { FormService } from './form.service';
-import { FormBuilderService } from './builder/form-builder.service';
-import { FormState } from './form.reducer';
-import { FormChangeAction, FormStatusChangeAction } from './form.actions';
-import { StoreMock } from '../testing/store.mock';
-import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
-import { createTestComponent } from '../testing/utils.test';
 import { BehaviorSubject } from 'rxjs';
+
 import { storeModuleConfig } from '../../app.reducer';
+import { StoreMock } from '../testing/store.mock';
+import { createTestComponent } from '../testing/utils.test';
+import { FormBuilderService } from './builder/form-builder.service';
+import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
+import {
+  FormChangeAction,
+  FormStatusChangeAction,
+} from './form.actions';
+import { FormComponent } from './form.component';
+import { FormState } from './form.reducer';
+import { FormService } from './form.service';
 
 let TEST_FORM_MODEL;
 

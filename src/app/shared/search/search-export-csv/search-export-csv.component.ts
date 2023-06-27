@@ -1,17 +1,28 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { map } from 'rxjs/operators';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { hasValue, isNotEmpty } from '../../empty.util';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Process } from '../../../process-page/processes/process.model';
-import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { ScriptDataService } from '../../../core/data/processes/script-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
+import { Process } from '../../../process-page/processes/process.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../empty.util';
+import { NotificationsService } from '../../notifications/notifications.service';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 
 @Component({

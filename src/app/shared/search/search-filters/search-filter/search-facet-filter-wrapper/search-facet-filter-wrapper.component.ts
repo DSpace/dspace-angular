@@ -1,15 +1,21 @@
-import { Component, Injector, Input, OnInit } from '@angular/core';
-import { renderFilterType } from '../search-filter-type-decorator';
-import { FilterType } from '../../../models/filter-type.model';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
 } from '../../../../../core/shared/search/search-filter.service';
-import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
+import { FilterType } from '../../../models/filter-type.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
-import { BehaviorSubject } from 'rxjs';
+import { renderFilterType } from '../search-filter-type-decorator';
 
 @Component({
   selector: 'ds-search-facet-filter-wrapper',

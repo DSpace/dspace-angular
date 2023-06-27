@@ -1,17 +1,33 @@
-import { Inject, Injectable } from '@angular/core';
-
-import { TranslateService } from '@ngx-translate/core';
-
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { CookieService } from '../services/cookie.service';
-import { environment } from '../../../environments/environment';
-import { AuthService } from '../auth/auth.service';
-import { combineLatest, Observable, of as observableOf } from 'rxjs';
-import { map, mergeMap, take } from 'rxjs/operators';
-import { NativeWindowRef, NativeWindowService } from '../services/window.service';
-import { RouteService } from '../services/route.service';
 import { DOCUMENT } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  combineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  take,
+} from 'rxjs/operators';
+
 import { LangConfig } from '../../../config/lang-config.interface';
+import { environment } from '../../../environments/environment';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { AuthService } from '../auth/auth.service';
+import { CookieService } from '../services/cookie.service';
+import { RouteService } from '../services/route.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../services/window.service';
 
 export const LANG_COOKIE = 'dsLanguage';
 

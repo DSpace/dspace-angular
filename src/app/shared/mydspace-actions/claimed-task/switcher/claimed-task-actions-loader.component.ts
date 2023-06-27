@@ -1,23 +1,28 @@
 import {
   Component,
   ComponentFactoryResolver,
+  ComponentRef,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
-  ViewChild,
-  OnChanges,
   SimpleChanges,
-  ComponentRef,
+  ViewChild,
 } from '@angular/core';
-import { getComponentByWorkflowTaskOption } from './claimed-task-actions-decorator';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { ClaimedTaskActionsDirective } from './claimed-task-actions.directive';
-import { hasValue, isNotEmpty, hasNoValue } from '../../../empty.util';
-import { MyDSpaceActionsResult } from '../../mydspace-actions';
+
 import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../empty.util';
+import { MyDSpaceActionsResult } from '../../mydspace-actions';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
+import { ClaimedTaskActionsDirective } from './claimed-task-actions.directive';
+import { getComponentByWorkflowTaskOption } from './claimed-task-actions-decorator';
 
 @Component({
   selector: 'ds-claimed-task-actions-loader',

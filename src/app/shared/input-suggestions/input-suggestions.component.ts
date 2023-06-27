@@ -10,9 +10,13 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { hasValue, isNotEmpty } from '../empty.util';
 import { ControlValueAccessor } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
+
+import {
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
 
 @Component({
   selector: 'ds-input-suggestions',

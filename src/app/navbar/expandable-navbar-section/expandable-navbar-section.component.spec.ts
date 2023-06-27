@@ -1,15 +1,19 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { ExpandableNavbarSectionComponent } from './expandable-navbar-section.component';
-import { By } from '@angular/platform-browser';
-import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
 import { Component } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
+
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { ExpandableNavbarSectionComponent } from './expandable-navbar-section.component';
 
 describe('ExpandableNavbarSectionComponent', () => {
   let component: ExpandableNavbarSectionComponent;

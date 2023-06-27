@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
-import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
-import { Collection } from '../shared/collection.model';
-import { CollectionDataService } from '../data/collection-data.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+
 import { COLLECTION_PAGE_LINKS_TO_FOLLOW } from '../../collection-page/collection-page.resolver';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { CollectionDataService } from '../data/collection-data.service';
+import { Collection } from '../shared/collection.model';
+import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
+import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 
 /**
  * The class that resolves the BreadcrumbConfig object for a Collection

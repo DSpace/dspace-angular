@@ -5,18 +5,26 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { environment } from '../../../../src/environments/environment';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
 import { Router } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
+import { environment } from '../../../../src/environments/environment';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { RemoteData } from '../../core/data/remote-data';
+import { GroupDataService } from '../../core/eperson/group-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { LinkHeadService } from '../../core/services/link-head.service';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 
 
 /**

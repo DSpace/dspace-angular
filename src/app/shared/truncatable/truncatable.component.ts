@@ -1,4 +1,11 @@
-import { AfterViewChecked, Component, ElementRef, Input, OnInit } from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+} from '@angular/core';
+
 import { TruncatableService } from './truncatable.service';
 
 @Component({

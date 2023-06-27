@@ -1,28 +1,37 @@
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { cold } from 'jasmine-marbles';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject,
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { CoreState } from '../core-state.model';
+import { Bitstream } from '../shared/bitstream.model';
 import { Community } from '../shared/community.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { testCreateDataImplementation } from './base/create-data.spec';
+import { testDeleteDataImplementation } from './base/delete-data.spec';
+import { testFindAllDataImplementation } from './base/find-all-data.spec';
+import { testPatchDataImplementation } from './base/patch-data.spec';
+import { testSearchDataImplementation } from './base/search-data.spec';
+import { BitstreamDataService } from './bitstream-data.service';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { RequestService } from './request.service';
-import { createFailedRemoteDataObject, createFailedRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { BitstreamDataService } from './bitstream-data.service';
-import { CoreState } from '../core-state.model';
 import { FindListOptions } from './find-list-options.model';
-import { Bitstream } from '../shared/bitstream.model';
-import { testCreateDataImplementation } from './base/create-data.spec';
-import { testFindAllDataImplementation } from './base/find-all-data.spec';
-import { testSearchDataImplementation } from './base/search-data.spec';
-import { testPatchDataImplementation } from './base/patch-data.spec';
-import { testDeleteDataImplementation } from './base/delete-data.spec';
+import { RequestService } from './request.service';
 
 const LINK_NAME = 'test';
 

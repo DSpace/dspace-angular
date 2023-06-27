@@ -10,22 +10,37 @@ import {
   Output,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-
-import { BehaviorSubject, from as observableFrom, Observable, of as observableOf, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, mergeMap, reduce, startWith, switchMap, take } from 'rxjs/operators';
-
-import { hasValue } from '../empty.util';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { Community } from '../../core/shared/community.model';
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { Collection } from '../../core/shared/collection.model';
-import { followLink } from '../utils/follow-link-config.model';
 import {
-  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
-import { FindListOptions } from '../../core/data/find-list-options.model';
+  BehaviorSubject,
+  from as observableFrom,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  mergeMap,
+  reduce,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '../../core/data/collection-data.service';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Collection } from '../../core/shared/collection.model';
+import { Community } from '../../core/shared/community.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
+import { hasValue } from '../empty.util';
+import { followLink } from '../utils/follow-link-config.model';
 
 /**
  * An interface to represent a collection entry

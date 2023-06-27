@@ -1,4 +1,7 @@
-import { getEmbedSizeParams, getUrlWithoutEmbedParams } from './index.selectors';
+import {
+  getEmbedSizeParams,
+  getUrlWithoutEmbedParams,
+} from './index.selectors';
 
 
 describe(`index selectors`, () => {

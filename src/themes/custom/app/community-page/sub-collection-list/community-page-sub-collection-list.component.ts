@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { CommunityPageSubCollectionListComponent as BaseComponent }
-  from '../../../../../app/community-page/sub-collection-list/community-page-sub-collection-list.component';
+
+import { CommunityPageSubCollectionListComponent as BaseComponent } from '../../../../../app/community-page/sub-collection-list/community-page-sub-collection-list.component';
 
 @Component({
   selector: 'ds-community-page-sub-collection-list',

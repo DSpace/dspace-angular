@@ -1,5 +1,14 @@
-import { Directive, Input } from '@angular/core';
-import { UntypedFormControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
+import {
+  Directive,
+  Input,
+} from '@angular/core';
+import {
+  NG_VALIDATORS,
+  UntypedFormControl,
+  ValidationErrors,
+  Validator,
+} from '@angular/forms';
+
 import { inListValidator } from './validator.functions';
 
 /**

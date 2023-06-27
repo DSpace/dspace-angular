@@ -1,5 +1,8 @@
 import { StaticProvider } from '@angular/core';
-import { ParserType } from './parser-type';
+
+import { DateFieldParser } from './date-field-parser';
+import { DisabledFieldParser } from './disabled-field-parser';
+import { DropdownFieldParser } from './dropdown-field-parser';
 import {
   CONFIG_DATA,
   FieldParser,
@@ -7,18 +10,16 @@ import {
   PARSER_OPTIONS,
   SUBMISSION_ID,
 } from './field-parser';
-import { DateFieldParser } from './date-field-parser';
-import { DropdownFieldParser } from './dropdown-field-parser';
-import { RelationGroupFieldParser } from './relation-group-field-parser';
 import { ListFieldParser } from './list-field-parser';
 import { LookupFieldParser } from './lookup-field-parser';
 import { LookupNameFieldParser } from './lookup-name-field-parser';
-import { OneboxFieldParser } from './onebox-field-parser';
 import { NameFieldParser } from './name-field-parser';
+import { OneboxFieldParser } from './onebox-field-parser';
+import { ParserType } from './parser-type';
+import { RelationGroupFieldParser } from './relation-group-field-parser';
 import { SeriesFieldParser } from './series-field-parser';
 import { TagFieldParser } from './tag-field-parser';
 import { TextareaFieldParser } from './textarea-field-parser';
-import { DisabledFieldParser } from './disabled-field-parser';
 
 const fieldParserDeps = [
   SUBMISSION_ID,

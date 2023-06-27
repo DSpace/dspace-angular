@@ -1,10 +1,15 @@
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { IdentifierType } from '../core/data/request.models';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { RemoteData } from '../core/data/remote-data';
+
 import { DsoRedirectService } from '../core/data/dso-redirect.service';
+import { RemoteData } from '../core/data/remote-data';
+import { IdentifierType } from '../core/data/request.models';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 
 interface LookupParams {

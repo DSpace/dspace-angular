@@ -1,25 +1,30 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import {
-  listableObjectComponent,
-} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { Context } from '../../../../../core/shared/context.model';
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { Observable } from 'rxjs';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../../config/app-config.interface';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
-import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../../core/shared/operators';
+import { Context } from '../../../../../core/shared/context.model';
 import { Item } from '../../../../../core/shared/item.model';
 import {
-  SearchResultListElementComponent,
-} from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../../../core/shared/operators';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
+import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import {
-  WorkflowItemSearchResult,
-} from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
+import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.ListElement, Context.AdminWorkflowSearch)
 @Component({

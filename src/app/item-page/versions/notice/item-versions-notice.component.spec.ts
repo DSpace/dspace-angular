@@ -1,17 +1,22 @@
-import { ItemVersionsNoticeComponent } from './item-versions-notice.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { VersionHistory } from '../../../core/shared/version-history.model';
-import { Version } from '../../../core/shared/version.model';
-import { Item } from '../../../core/shared/item.model';
-import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
+
+import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
+import { Item } from '../../../core/shared/item.model';
+import { Version } from '../../../core/shared/version.model';
+import { VersionHistory } from '../../../core/shared/version-history.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { ItemVersionsNoticeComponent } from './item-versions-notice.component';
 
 describe('ItemVersionsNoticeComponent', () => {
   let component: ItemVersionsNoticeComponent;

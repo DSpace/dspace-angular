@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
-import { StatisticsPageComponent } from '../statistics-page/statistics-page.component';
-import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
-import { ActivatedRoute , Router} from '@angular/router';
-import { Collection } from '../../core/shared/collection.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+
 import { AuthService } from '../../core/auth/auth.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { Collection } from '../../core/shared/collection.model';
+import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
+import { StatisticsPageComponent } from '../statistics-page/statistics-page.component';
 
 /**
  * Component representing the statistics page for a collection.

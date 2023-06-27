@@ -1,6 +1,15 @@
-import { AfterViewChecked, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { TruncatableService } from '../truncatable.service';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+
 import { hasValue } from '../../empty.util';
+import { TruncatableService } from '../truncatable.service';
 
 @Component({
   selector: 'ds-truncatable-part',

@@ -1,12 +1,23 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { Store, StoreModule } from '@ngrx/store';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
 
-import { AppState, storeModuleConfig } from '../../app.reducer';
-import { AuthBlockingGuard } from './auth-blocking.guard';
+import {
+  AppState,
+  storeModuleConfig,
+} from '../../app.reducer';
 import { authReducer } from './auth.reducer';
+import { AuthBlockingGuard } from './auth-blocking.guard';
 
 describe('AuthBlockingGuard', () => {
   let guard: AuthBlockingGuard;

@@ -1,29 +1,47 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  DebugElement,
+  NgZone,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DebugElement, NgZone, NO_ERRORS_SCHEMA } from '@angular/core';
-import { of as observableOf, Subscription } from 'rxjs';
-import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
-import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
+import {
+  NgbActiveModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
-import { Item } from '../../../../../core/shared/item.model';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
-import { RelationshipOptions } from '../../models/relationship-options.model';
-import { AddRelationshipAction, RemoveRelationshipAction } from './relationship.actions';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { PaginatedSearchOptions } from '../../../../search/models/paginated-search-options.model';
-import { ExternalSource } from '../../../../../core/shared/external-source.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
-import { createPaginatedList } from '../../../../testing/utils.test';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+
+import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
+import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
 import { Collection } from '../../../../../core/shared/collection.model';
-import { By } from '@angular/platform-browser';
+import { ExternalSource } from '../../../../../core/shared/external-source.model';
+import { Item } from '../../../../../core/shared/item.model';
+import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
+import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
+import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
+import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import { PaginatedSearchOptions } from '../../../../search/models/paginated-search-options.model';
+import { createPaginatedList } from '../../../../testing/utils.test';
+import { RelationshipOptions } from '../../models/relationship-options.model';
+import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
+import {
+  AddRelationshipAction,
+  RemoveRelationshipAction,
+} from './relationship.actions';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;

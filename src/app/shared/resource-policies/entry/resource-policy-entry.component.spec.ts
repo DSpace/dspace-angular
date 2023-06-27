@@ -6,23 +6,30 @@
  * http://www.dspace.org/license/
  */
 
-import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
-import { GroupMock } from '../../testing/group-mock';
-import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
-import { ActionType } from '../../../core/resource-policy/models/action-type.model';
-import { EPersonMock } from '../../testing/eperson.mock';
-import { ResourcePolicyEntryComponent } from './resource-policy-entry.component';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RouterStub } from '../../testing/router.stub';
-import { Item } from '../../../core/shared/item.model';
-import { cold } from 'jasmine-marbles';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { ActionType } from '../../../core/resource-policy/models/action-type.model';
+import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
+import { Item } from '../../../core/shared/item.model';
+import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { EPersonMock } from '../../testing/eperson.mock';
+import { GroupMock } from '../../testing/group-mock';
+import { RouterStub } from '../../testing/router.stub';
+import { ResourcePolicyEntryComponent } from './resource-policy-entry.component';
 import createSpyObj = jasmine.createSpyObj;
 
 const groupRP: any = {

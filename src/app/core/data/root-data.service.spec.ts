@@ -1,11 +1,15 @@
-import { RootDataService } from './root-data.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { cold } from 'jasmine-marbles';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { Observable, of } from 'rxjs';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteData } from './remote-data';
 import { Root } from './root.model';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import { cold } from 'jasmine-marbles';
+import { RootDataService } from './root-data.service';
 
 describe('RootDataService', () => {
   let service: RootDataService;

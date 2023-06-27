@@ -1,5 +1,36 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
+import { Action } from '@ngrx/store';
+import {
+  of as observableOf,
+  race as observableRace,
+  Subject,
+} from 'rxjs';
+import {
+  delay,
+  filter,
+  map,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
+
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../shared/empty.util';
+import { NoOpAction } from '../../../shared/ngrx/no-op.action';
+import { INotification } from '../../../shared/notifications/models/notification.model';
+import {
+  NotificationsActions,
+  NotificationsActionTypes,
+  RemoveNotificationAction,
+} from '../../../shared/notifications/notifications.actions';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   DiscardObjectUpdatesAction,
   ObjectUpdatesAction,
@@ -7,18 +38,6 @@ import {
   RemoveAllObjectUpdatesAction,
   RemoveObjectUpdatesAction,
 } from './object-updates.actions';
-import { delay, filter, map, switchMap, take, tap } from 'rxjs/operators';
-import { of as observableOf, race as observableRace, Subject } from 'rxjs';
-import { hasNoValue, hasValue } from '../../../shared/empty.util';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { INotification } from '../../../shared/notifications/models/notification.model';
-import {
-  NotificationsActions,
-  NotificationsActionTypes,
-  RemoveNotificationAction,
-} from '../../../shared/notifications/notifications.actions';
-import { Action } from '@ngrx/store';
-import { NoOpAction } from '../../../shared/ngrx/no-op.action';
 
 /**
  * NGRX effects for ObjectUpdatesActions

@@ -1,14 +1,32 @@
 import { Injectable } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
-import { RouteService } from '../services/route.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
-import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
-import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { difference } from '../../shared/object.util';
-import { FindListOptions } from '../data/find-list-options.model';
+import {
+  NavigationExtras,
+  Router,
+} from '@angular/router';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
+
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { isNumeric } from '../../shared/numeric.util';
+import { difference } from '../../shared/object.util';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../cache/models/sort-options.model';
+import { FindListOptions } from '../data/find-list-options.model';
+import { RouteService } from '../services/route.service';
 import { PaginationRouteParams } from './pagination-route-params.interface';
 
 @Injectable({

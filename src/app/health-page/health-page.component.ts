@@ -1,10 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { HealthService } from './health.service';
-import { HealthInfoResponse, HealthResponse } from './models/health-component.model';
+import {
+  HealthInfoResponse,
+  HealthResponse,
+} from './models/health-component.model';
 
 @Component({
   selector: 'ds-health-page',

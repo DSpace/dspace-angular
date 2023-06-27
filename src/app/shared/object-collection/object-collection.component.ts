@@ -1,28 +1,39 @@
+import { isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectorRef,
-  Component, ElementRef,
-  EventEmitter, Inject,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
   Input,
   OnInit,
-  Output, PLATFORM_ID,
+  Output,
+  PLATFORM_ID,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
 
-import { RemoteData } from '../../core/data/remote-data';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { ListableObject } from './shared/listable-object.model';
-import { isEmpty } from '../empty.util';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { CollectionElementLinkType } from './collection-element-link.type';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
 import { Context } from '../../core/shared/context.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { isEmpty } from '../empty.util';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { setPlaceHolderAttributes } from '../utils/object-list-utils';
-import { isPlatformBrowser } from '@angular/common';
+import { CollectionElementLinkType } from './collection-element-link.type';
+import { ListableObject } from './shared/listable-object.model';
 
 /**
  * Component that can render a list of listable objects in different view modes

@@ -8,25 +8,30 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
-import { SectionUploadService } from '../section-upload.service';
-import { hasValue, isNotUndefined } from '../../../../shared/empty.util';
-import { FormService } from '../../../../shared/form/form.service';
-import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
-import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
-import { SubmissionFormsModel } from '../../../../core/config/models/config-submission-forms.model';
-import { SubmissionService } from '../../../submission.service';
-import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
-import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
+import { filter } from 'rxjs/operators';
+
+import { SubmissionFormsModel } from '../../../../core/config/models/config-submission-forms.model';
+import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
+import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
+import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
+import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
+import {
+  hasValue,
+  isNotUndefined,
+} from '../../../../shared/empty.util';
+import { FormService } from '../../../../shared/form/form.service';
+import { SubmissionService } from '../../../submission.service';
+import { SectionUploadService } from '../section-upload.service';
+import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 
 /**
  * This component represents a single bitstream contained in the submission

@@ -1,14 +1,19 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AdvancedWorkflowActionsLoaderComponent } from './advanced-workflow-actions-loader.component';
-import { Router } from '@angular/router';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { AdvancedWorkflowActionsDirective } from './advanced-workflow-actions.directive';
 import {
-  rendersAdvancedWorkflowTaskOption,
-} from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+
 import { PAGE_NOT_FOUND_PATH } from '../../../app-routing-paths';
+import { rendersAdvancedWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { AdvancedWorkflowActionsDirective } from './advanced-workflow-actions.directive';
+import { AdvancedWorkflowActionsLoaderComponent } from './advanced-workflow-actions-loader.component';
 
 const ADVANCED_WORKFLOW_ACTION_TEST = 'testaction';
 

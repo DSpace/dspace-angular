@@ -1,8 +1,24 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DsoEditMetadataChangeType, DsoEditMetadataForm, DsoEditMetadataValue } from '../dso-edit-metadata-form';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {
+  DsoEditMetadataChangeType,
+  DsoEditMetadataForm,
+  DsoEditMetadataValue,
+} from '../dso-edit-metadata-form';
 
 @Component({
   selector: 'ds-dso-edit-metadata-field-values',

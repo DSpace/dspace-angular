@@ -1,9 +1,17 @@
-import { SingleFeatureAuthorizationGuard } from './single-feature-authorization.guard';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import { AuthService } from '../../../auth/auth.service';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
-import { Observable, of as observableOf } from 'rxjs';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { AuthService } from '../../../auth/auth.service';
+import { SingleFeatureAuthorizationGuard } from './single-feature-authorization.guard';
 
 /**
  * Test implementation of abstract class SingleFeatureAuthorizationGuard

@@ -1,13 +1,23 @@
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-
-import { filter, distinctUntilChanged, map } from 'rxjs/operators';
-import { HostWindowState } from './search/host-window.reducer';
 import { Injectable } from '@angular/core';
-import { createSelector, select, Store } from '@ngrx/store';
+import {
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+} from 'rxjs/operators';
 
-import { hasValue } from './empty.util';
 import { AppState } from '../app.reducer';
+import { hasValue } from './empty.util';
 import { CSSVariableService } from './sass-helper/css-variable.service';
+import { HostWindowState } from './search/host-window.reducer';
 
 export enum WidthCategory {
   XS,

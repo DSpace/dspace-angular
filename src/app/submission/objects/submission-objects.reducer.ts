@@ -1,9 +1,16 @@
-import { hasValue, isEmpty, isNotEmpty, isNotNull, isUndefined } from '../../shared/empty.util';
 import differenceWith from 'lodash/differenceWith';
 import findKey from 'lodash/findKey';
 import isEqual from 'lodash/isEqual';
 import uniqWith from 'lodash/uniqWith';
 
+import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+  isUndefined,
+} from '../../shared/empty.util';
 import {
   ChangeSubmissionCollectionAction,
   CompleteInitSubmissionFormAction,
@@ -38,7 +45,6 @@ import {
   SubmissionObjectActionTypes,
   UpdateSectionDataAction,
 } from './submission-objects.actions';
-import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
 import { SubmissionSectionObject } from './submission-section-object.model';
 
 /**

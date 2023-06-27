@@ -1,5 +1,8 @@
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import {
+  filter,
+  map,
+} from 'rxjs/operators';
 
 /**
  * Returns true if the passed value is null.

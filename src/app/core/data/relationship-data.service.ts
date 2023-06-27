@@ -1,56 +1,98 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
-import { MemoizedSelector, select, Store } from '@ngrx/store';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
 import {
-  compareArraysUsingIds, PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  mergeMap,
+  startWith,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
+
+import {
+  AppState,
+  keySelector,
+} from '../../app.reducer';
+import {
+  compareArraysUsingIds,
+  PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
   relationsToItems,
 } from '../../item-page/simple/item-types/shared/item-relationships-utils';
-import { AppState, keySelector } from '../../app.reducer';
-import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '../../shared/empty.util';
 import { ReorderableRelationship } from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 import {
   RemoveNameVariantAction,
   SetNameVariantAction,
 } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
 import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
+import { itemLinksToFollow } from '../../shared/utils/relation-query.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
+import { Item } from '../shared/item.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RELATIONSHIP } from '../shared/item-relationships/relationship.resource-type';
-import { Item } from '../shared/item.model';
+import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
+import { MetadataValue } from '../shared/metadata.models';
+import { ItemMetadataRepresentation } from '../shared/metadata-representation/item/item-metadata-representation.model';
+import { MetadataRepresentation } from '../shared/metadata-representation/metadata-representation.model';
+import { MetadatumRepresentation } from '../shared/metadata-representation/metadatum/metadatum-representation.model';
+import { NoContent } from '../shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '../shared/operators';
+import { sendRequest } from '../shared/request.operators';
+import { dataService } from './base/data-service.decorator';
+import { IdentifiableDataService } from './base/identifiable-data.service';
+import {
+  PutData,
+  PutDataImpl,
+} from './base/put-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from './base/search-data';
+import { FindListOptions } from './find-list-options.model';
 import { ItemDataService } from './item-data.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { DeleteRequest, PostRequest } from './request.models';
+import {
+  DeleteRequest,
+  PostRequest,
+} from './request.models';
 import { RequestService } from './request.service';
-import { NoContent } from '../shared/NoContent.model';
 import { RequestEntryState } from './request-entry-state.model';
-import { sendRequest } from '../shared/request.operators';
 import { RestRequest } from './rest-request.model';
-import { FindListOptions } from './find-list-options.model';
-import { SearchData, SearchDataImpl } from './base/search-data';
-import { PutData, PutDataImpl } from './base/put-data';
-import { IdentifiableDataService } from './base/identifiable-data.service';
-import { dataService } from './base/data-service.decorator';
-import { itemLinksToFollow } from '../../shared/utils/relation-query.utils';
-import { MetadataValue } from '../shared/metadata.models';
-import { MetadataRepresentation } from '../shared/metadata-representation/metadata-representation.model';
-import { MetadatumRepresentation } from '../shared/metadata-representation/metadatum/metadatum-representation.model';
-import { ItemMetadataRepresentation } from '../shared/metadata-representation/item/item-metadata-representation.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 

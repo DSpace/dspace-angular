@@ -1,14 +1,34 @@
-import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Item } from '../../core/shared/item.model';
+import { isPlatformBrowser } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  Input,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  DomSanitizer,
+  SafeResourceUrl,
+} from '@angular/platform-browser';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
 import { environment } from '../../../environments/environment';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { Observable, of } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { isPlatformBrowser } from '@angular/common';
-import { MiradorViewerService } from './mirador-viewer.service';
-import { HostWindowService, WidthCategory } from '../../shared/host-window.service';
 import { BundleDataService } from '../../core/data/bundle-data.service';
+import { Item } from '../../core/shared/item.model';
+import {
+  HostWindowService,
+  WidthCategory,
+} from '../../shared/host-window.service';
+import { MiradorViewerService } from './mirador-viewer.service';
 
 @Component({
   selector: 'ds-mirador-viewer',

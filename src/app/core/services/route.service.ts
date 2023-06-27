@@ -1,17 +1,41 @@
-import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Params, Router, RouterStateSnapshot } from '@angular/router';
-
-import { combineLatest, Observable } from 'rxjs';
-import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Params,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {
+  createSelector,
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import isEqual from 'lodash/isEqual';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
 
-import { AddParameterAction, SetParameterAction, SetParametersAction, SetQueryParameterAction, SetQueryParametersAction } from './route.actions';
-import { coreSelector } from '../core.selectors';
 import { hasValue } from '../../shared/empty.util';
-import { historySelector } from '../history/selectors';
-import { AddUrlToHistoryAction } from '../history/history.actions';
+import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
+import { AddUrlToHistoryAction } from '../history/history.actions';
+import { historySelector } from '../history/selectors';
+import {
+  AddParameterAction,
+  SetParameterAction,
+  SetParametersAction,
+  SetQueryParameterAction,
+  SetQueryParametersAction,
+} from './route.actions';
 
 /**
  * Selector to select all route parameters from the store

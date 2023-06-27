@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { LangConfig } from '../../../config/lang-config.interface';

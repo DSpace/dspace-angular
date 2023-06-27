@@ -1,19 +1,38 @@
 /* eslint-disable max-classes-per-file */
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
 import { filter } from 'rxjs/operators';
+
 import { AppState } from '../../../../../app.reducer';
 import { Item } from '../../../../../core/shared/item.model';
-import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../../core/shared/operators';
-import { hasValue, isNotEmpty } from '../../../../empty.util';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../../../core/shared/operators';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { SubmissionService } from '../../../../../submission/submission.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../../empty.util';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { RelationshipOptions } from '../../models/relationship-options.model';
-import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
-import { SubmissionService } from '../../../../../submission/submission.service';
+import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 
 /**
  * Abstract class that defines objects that can be reordered

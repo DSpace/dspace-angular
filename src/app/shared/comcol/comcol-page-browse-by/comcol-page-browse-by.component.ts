@@ -1,14 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
+
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
-import { RemoteData } from '../../../core/data/remote-data';
+import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
 import { BrowseService } from '../../../core/browse/browse.service';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 export interface ComColPageNavOption {
   id: string;

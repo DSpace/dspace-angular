@@ -1,18 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { GroupAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
+import { SiteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import { GROUP_EDIT_PATH } from './access-control-routing-paths';
+import { BulkAccessComponent } from './bulk-access/bulk-access.component';
 import { EPeopleRegistryComponent } from './epeople-registry/epeople-registry.component';
 import { GroupFormComponent } from './group-registry/group-form/group-form.component';
-import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
-import { GROUP_EDIT_PATH } from './access-control-routing-paths';
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { GroupPageGuard } from './group-registry/group-page.guard';
-import {
-  GroupAdministratorGuard,
-} from '../core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
-import {
-  SiteAdministratorGuard,
-} from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
-import { BulkAccessComponent } from './bulk-access/bulk-access.component';
+import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
 
 @NgModule({
   imports: [

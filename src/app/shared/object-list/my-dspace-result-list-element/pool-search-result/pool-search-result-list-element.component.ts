@@ -1,27 +1,42 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  EMPTY,
+  Observable,
+} from 'rxjs';
+import {
+  mergeMap,
+  tap,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
-import { mergeMap, tap } from 'rxjs/operators';
-
-import { ViewMode } from '../../../../core/shared/view-mode.model';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../config/app-config.interface';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { Context } from '../../../../core/shared/context.model';
+import { Item } from '../../../../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../empty.util';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
-import {
-  SearchResultListElementComponent,
-} from '../../search-result-list-element/search-result-list-element.component';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { Item } from '../../../../core/shared/item.model';
-import { isNotEmpty, hasValue } from '../../../empty.util';
-import { Context } from '../../../../core/shared/context.model';
+import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 
 /**
  * This component renders pool task object for the search result in the list view.

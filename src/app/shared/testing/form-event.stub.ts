@@ -1,5 +1,11 @@
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { DynamicCheckboxModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
+import {
+  DynamicCheckboxModel,
+  DynamicSelectModel,
+} from '@ng-dynamic-forms/core';
 
 export const accessConditionChangeEvent = {
   $event: {

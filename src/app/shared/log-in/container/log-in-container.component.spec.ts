@@ -1,18 +1,28 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { LogInContainerComponent } from './log-in-container.component';
 import { authReducer } from '../../../core/auth/auth.reducer';
-import { SharedModule } from '../../shared.module';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthMethod } from '../../../core/auth/models/auth.method';
+import { HardRedirectService } from '../../../core/services/hard-redirect.service';
+import { SharedModule } from '../../shared.module';
 import { AuthServiceStub } from '../../testing/auth-service.stub';
 import { createTestComponent } from '../../testing/utils.test';
-import { HardRedirectService } from '../../../core/services/hard-redirect.service';
+import { LogInContainerComponent } from './log-in-container.component';
 
 describe('LogInContainerComponent', () => {
 

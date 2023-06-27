@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Site } from '../core/shared/site.model';
+import { map } from 'rxjs/operators';
+
 import { environment } from '../../environments/environment';
+import { Site } from '../core/shared/site.model';
+
 @Component({
   selector: 'ds-home-page',
   styleUrls: ['./home-page.component.scss'],

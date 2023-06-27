@@ -1,19 +1,27 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { AuthService } from '../../core/auth/auth.service';
-import { FileService } from '../../core/shared/file.service';
-import { of as observableOf } from 'rxjs';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { BitstreamDownloadPageComponent } from './bitstream-download-page.component';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { ActivatedRoute, Router } from '@angular/router';
-import { getForbiddenRoute } from '../../app-routing-paths';
-import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
 import { PLATFORM_ID } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { getForbiddenRoute } from '../../app-routing-paths';
+import { AuthService } from '../../core/auth/auth.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { SignpostingDataService } from '../../core/data/signposting-data.service';
+import { HardRedirectService } from '../../core/services/hard-redirect.service';
+import { ServerResponseService } from '../../core/services/server-response.service';
+import { Bitstream } from '../../core/shared/bitstream.model';
+import { FileService } from '../../core/shared/file.service';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { BitstreamDownloadPageComponent } from './bitstream-download-page.component';
 
 describe('BitstreamDownloadPageComponent', () => {
   let component: BitstreamDownloadPageComponent;

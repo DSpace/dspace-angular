@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { BrowseByTaxonomyPageComponent } from './browse-by-taxonomy-page.component';

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {EditCollectionSelectorComponent} from './edit-collection-selector.component';
 import {ThemedComponent} from 'src/app/shared/theme-support/themed.component';
+
+import {EditCollectionSelectorComponent} from './edit-collection-selector.component';
 
 /**
  * Themed wrapper for EditCollectionSelectorComponent

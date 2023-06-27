@@ -1,5 +1,6 @@
-import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { Component } from '@angular/core';
+
+import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { WorkflowItemSendBackComponent } from './workflow-item-send-back.component';
 
 /**

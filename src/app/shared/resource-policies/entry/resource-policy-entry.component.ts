@@ -5,21 +5,40 @@
  *
  * http://www.dspace.org/license/
  */
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { hasValue, isNotEmpty } from '../../empty.util';
-import { dateToString, stringToNgbDateStruct } from '../../date.util';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { getAllSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+
+import { GROUP_EDIT_PATH } from '../../../access-control/access-control-routing-paths';
+import { ACCESS_CONTROL_MODULE_PATH } from '../../../app-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../core/data/remote-data';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Group } from '../../../core/eperson/models/group.model';
-import { ACCESS_CONTROL_MODULE_PATH } from '../../../app-routing-paths';
-import { GROUP_EDIT_PATH } from '../../../access-control/access-control-routing-paths';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { Group } from '../../../core/eperson/models/group.model';
+import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../core/shared/operators';
+import {
+  dateToString,
+  stringToNgbDateStruct,
+} from '../../date.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../empty.util';
 
 export interface ResourcePolicyCheckboxEntry {
   id: string;

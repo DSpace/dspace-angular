@@ -1,12 +1,23 @@
-import { Inject, Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+} from 'rxjs/operators';
 
-import { catchError, map } from 'rxjs/operators';
-import { Observable, of as observableOf } from 'rxjs';
-
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { SignpostingLink } from './signposting-links.model';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 
 /**
  * Service responsible for handling requests related to the Signposting endpoint

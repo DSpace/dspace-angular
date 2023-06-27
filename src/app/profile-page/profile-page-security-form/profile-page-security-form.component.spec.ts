@@ -1,14 +1,21 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
-import { ProfilePageSecurityFormComponent } from './profile-page-security-form.component';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
 import { RestResponse } from '../../core/cache/response.models';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ProfilePageSecurityFormComponent } from './profile-page-security-form.component';
 
 describe('ProfilePageSecurityFormComponent', () => {
   let component: ProfilePageSecurityFormComponent;

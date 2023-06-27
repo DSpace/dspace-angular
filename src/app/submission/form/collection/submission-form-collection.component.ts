@@ -9,27 +9,35 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-
-import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
 import {
   find,
-  map, mergeMap,
+  map,
+  mergeMap,
 } from 'rxjs/operators';
 
-import { Collection } from '../../../core/shared/collection.model';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionService } from '../../submission.service';
+import { Collection } from '../../../core/shared/collection.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { CollectionDropdownComponent } from '../../../shared/collection-dropdown/collection-dropdown.component';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { SectionsService } from '../../sections/sections.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { SectionsType } from '../../sections/sections-type';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { SubmissionService } from '../../submission.service';
 
 /**
  * This component allows to show the current collection the submission belonging to and to change it.

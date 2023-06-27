@@ -1,30 +1,39 @@
-import { MetadataSchemaComponent } from './metadata-schema.component';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { By } from '@angular/platform-browser';
-import { RegistryService } from '../../../core/registry/registry.service';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
-import { HostWindowService } from '../../../shared/host-window.service';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { RestResponse } from '../../../core/cache/response.models';
-import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { VarDirective } from '../../../shared/utils/var.directive';
+import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { RegistryService } from '../../../core/registry/registry.service';
+import { HostWindowService } from '../../../shared/host-window.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { MetadataSchemaComponent } from './metadata-schema.component';
 
 describe('MetadataSchemaComponent', () => {
   let comp: MetadataSchemaComponent;

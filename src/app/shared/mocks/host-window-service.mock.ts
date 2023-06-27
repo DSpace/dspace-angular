@@ -1,4 +1,7 @@
-import {of as observableOf,  Observable } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
 // declare a stub service
 export class HostWindowServiceMock {

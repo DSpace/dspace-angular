@@ -1,4 +1,6 @@
 import { Params } from '@angular/router';
+
+import { isNotEmpty } from '../../shared/empty.util';
 import {
   AddParameterAction,
   AddQueryParameterAction,
@@ -9,7 +11,6 @@ import {
   SetQueryParameterAction,
   SetQueryParametersAction,
 } from './route.actions';
-import { isNotEmpty } from '../../shared/empty.util';
 
 /**
  * Interface to represent the parameter state of a current route in the store

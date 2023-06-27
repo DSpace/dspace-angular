@@ -1,23 +1,36 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  EMPTY,
+  Observable,
+} from 'rxjs';
+import {
+  mergeMap,
+  tap,
+} from 'rxjs/operators';
+import { Context } from 'src/app/core/shared/context.model';
 
-import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
-import { mergeMap, tap } from 'rxjs/operators';
-
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { Item } from '../../../../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
-import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../empty.util';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
+import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { followLink } from '../../../utils/follow-link-config.model';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { isNotEmpty, hasValue } from '../../../empty.util';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { Context } from 'src/app/core/shared/context.model';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
 
 /**
  * This component renders claimed task object for the search result in the detail view.

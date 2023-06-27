@@ -4,12 +4,15 @@ import {
 } from 'angulartics2';
 import { of } from 'rxjs';
 
-import { GoogleAnalyticsService } from './google-analytics.service';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { KlaroService } from '../shared/cookies/klaro.service';
 import { GOOGLE_ANALYTICS_KLARO_KEY } from '../shared/cookies/klaro-configuration';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../shared/remote-data.utils';
+import { GoogleAnalyticsService } from './google-analytics.service';
 
 describe('GoogleAnalyticsService', () => {
   const trackingIdProp = 'google.analytics.key';

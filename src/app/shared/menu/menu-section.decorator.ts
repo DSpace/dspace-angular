@@ -1,6 +1,6 @@
+import { hasValue } from '../empty.util';
 import { DEFAULT_THEME } from '../object-collection/shared/listable-object/listable-object.decorator';
 import { MenuID } from './menu-id.model';
-import { hasValue } from '../empty.util';
 
 const menuComponentMap = new Map();
 

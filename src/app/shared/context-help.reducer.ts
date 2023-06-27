@@ -1,5 +1,8 @@
+import {
+  ContextHelpAction,
+  ContextHelpActionTypes,
+} from './context-help.actions';
 import { ContextHelp } from './context-help.model';
-import { ContextHelpAction, ContextHelpActionTypes } from './context-help.actions';
 
 export interface ContextHelpModels {
   [id: string]: ContextHelp;

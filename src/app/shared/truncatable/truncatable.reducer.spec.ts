@@ -1,8 +1,12 @@
 // eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
 
+import {
+  TruncatableCollapseAction,
+  TruncatableExpandAction,
+  TruncatableToggleAction,
+} from './truncatable.actions';
 import { truncatableReducer } from './truncatable.reducer';
-import { TruncatableCollapseAction, TruncatableExpandAction, TruncatableToggleAction } from './truncatable.actions';
 
 const id1 = '123';
 const id2 = '456';

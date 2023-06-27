@@ -1,8 +1,8 @@
-import { CollectionSidebarSearchListElementComponent } from './collection-sidebar-search-list-element.component';
-import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
+import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { createSidebarSearchListElementTests } from '../sidebar-search-list-element.component.spec';
+import { CollectionSidebarSearchListElementComponent } from './collection-sidebar-search-list-element.component';
 
 const object = Object.assign(new CollectionSearchResult(), {
   indexableObject: Object.assign(new Collection(), {

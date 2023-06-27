@@ -1,5 +1,11 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, EventEmitter, Input, Output, QueryList } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  QueryList,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormArrayComponent,
@@ -12,6 +18,7 @@ import {
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
+
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
 import { hasValue } from '../../../../../empty.util';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';

@@ -1,28 +1,29 @@
 import { of as observableOf } from 'rxjs';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
-import { Relationship } from '../shared/item-relationships/relationship.model';
-import { Item } from '../shared/item.model';
-import { PageInfo } from '../shared/page-info.model';
-import { buildPaginatedList } from './paginated-list.model';
-import { DeleteRequest } from './request.models';
-import { RelationshipDataService } from './relationship-data.service';
-import { RequestService } from './request.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+
+import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
-import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { RequestEntry } from './request-entry.model';
-import { FindListOptions } from './find-list-options.model';
-import { testSearchDataImplementation } from './base/search-data.spec';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { Item } from '../shared/item.model';
+import { Relationship } from '../shared/item-relationships/relationship.model';
+import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { MetadataValue } from '../shared/metadata.models';
 import { MetadataRepresentationType } from '../shared/metadata-representation/metadata-representation.model';
+import { PageInfo } from '../shared/page-info.model';
+import { testSearchDataImplementation } from './base/search-data.spec';
+import { FindListOptions } from './find-list-options.model';
+import { buildPaginatedList } from './paginated-list.model';
+import { RelationshipDataService } from './relationship-data.service';
+import { DeleteRequest } from './request.models';
+import { RequestService } from './request.service';
+import { RequestEntry } from './request-entry.model';
 
 describe('RelationshipDataService', () => {
   let service: RelationshipDataService;

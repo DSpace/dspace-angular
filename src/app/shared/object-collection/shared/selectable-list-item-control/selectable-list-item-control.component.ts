@@ -1,8 +1,19 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ListableObject } from '../listable-object.model';
-import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { map, skip, take } from 'rxjs/operators';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Observable } from 'rxjs';
+import {
+  map,
+  skip,
+  take,
+} from 'rxjs/operators';
+
+import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import { ListableObject } from '../listable-object.model';
 
 @Component({
   selector: 'ds-selectable-list-item-control',

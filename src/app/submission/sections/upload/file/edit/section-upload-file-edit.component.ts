@@ -1,6 +1,12 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
   DynamicDatePickerModel,
@@ -12,11 +18,37 @@ import {
   MATCH_ENABLED,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
-
+import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
+import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
+import { Subscription } from 'rxjs';
 import {
-  WorkspaceitemSectionUploadFileObject,
-} from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
+  filter,
+  mergeMap,
+  take,
+} from 'rxjs/operators';
+
+import { AccessConditionOption } from '../../../../../core/config/models/config-access-condition-option.model';
+import { SubmissionFormsModel } from '../../../../../core/config/models/config-submission-forms.model';
+import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
+import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
+import { WorkspaceitemSectionUploadObject } from '../../../../../core/submission/models/workspaceitem-section-upload.model';
+import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
+import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
+import { dateToISOFormat } from '../../../../../shared/date.util';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '../../../../../shared/empty.util';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
+import { FormFieldModel } from '../../../../../shared/form/builder/models/form-field.model';
+import { FormComponent } from '../../../../../shared/form/form.component';
+import { FormService } from '../../../../../shared/form/form.service';
+import { SubmissionService } from '../../../../submission.service';
+import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
+import { SectionUploadService } from '../../section-upload.service';
 import {
   BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG,
   BITSTREAM_ACCESS_CONDITION_GROUP_LAYOUT,
@@ -31,32 +63,6 @@ import {
   BITSTREAM_METADATA_FORM_GROUP_CONFIG,
   BITSTREAM_METADATA_FORM_GROUP_LAYOUT,
 } from './section-upload-file-edit.model';
-import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
-import { hasNoValue, hasValue, isNotEmpty, isNotNull } from '../../../../../shared/empty.util';
-import { SubmissionFormsModel } from '../../../../../core/config/models/config-submission-forms.model';
-import { FormFieldModel } from '../../../../../shared/form/builder/models/form-field.model';
-import { AccessConditionOption } from '../../../../../core/config/models/config-access-condition-option.model';
-import { SubmissionService } from '../../../../submission.service';
-import { FormService } from '../../../../../shared/form/form.service';
-import { FormComponent } from '../../../../../shared/form/form.component';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { filter, mergeMap, take } from 'rxjs/operators';
-import { dateToISOFormat } from '../../../../../shared/date.util';
-import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
-import {
-  WorkspaceitemSectionUploadObject,
-} from '../../../../../core/submission/models/workspaceitem-section-upload.model';
-import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
-import {
-  SubmissionJsonPatchOperationsService,
-} from '../../../../../core/submission/submission-json-patch-operations.service';
-import {
-  JsonPatchOperationPathCombiner,
-} from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { SectionUploadService } from '../../section-upload.service';
-import { Subscription } from 'rxjs';
-import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
-import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
 
 /**
  * This component represents the edit form for bitstream

@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ActionsSubject, ReducerManager, StateObservable, Store } from '@ngrx/store';
+import {
+  ActionsSubject,
+  ReducerManager,
+  StateObservable,
+  Store,
+} from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable()

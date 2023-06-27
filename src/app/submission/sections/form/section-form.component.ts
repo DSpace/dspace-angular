@@ -1,45 +1,72 @@
-import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
-import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
-
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, find, map, mergeMap, take, tap } from 'rxjs/operators';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  ViewChild,
+} from '@angular/core';
+import {
+  DynamicFormControlEvent,
+  DynamicFormControlModel,
+} from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  find,
+  map,
+  mergeMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
+import { environment } from '../../../../environments/environment';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { ConfigObject } from '../../../core/config/models/config.model';
+import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
+import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
+import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
+import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
+import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
+import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
+import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isUndefined,
+} from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { difference } from '../../../shared/object.util';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { SubmissionSectionError } from '../../objects/submission-section-error.model';
+import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
+import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
-import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
-import { hasValue, isEmpty, isNotEmpty, isUndefined } from '../../../shared/empty.util';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
-import { SubmissionService } from '../../submission.service';
 import { SectionFormOperationsService } from './section-form-operations.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { SectionsService } from '../sections.service';
-import { difference } from '../../../shared/object.util';
-import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
-import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { RequestService } from '../../../core/data/request.service';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { environment } from '../../../../environments/environment';
-import { ConfigObject } from '../../../core/config/models/config.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
-import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
-import { SubmissionSectionError } from '../../objects/submission-section-error.model';
-import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
 
 /**
  * This component represents a section that contains a Form.

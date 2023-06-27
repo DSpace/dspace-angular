@@ -1,7 +1,17 @@
-import { Component, EventEmitter, Input, Optional, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Optional,
+  Output,
+} from '@angular/core';
+import {
+  ControlContainer,
+  NgForm,
+} from '@angular/forms';
+
 import { ProcessParameter } from '../../../processes/process-parameter.model';
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
-import { ControlContainer, NgForm } from '@angular/forms';
 import { controlContainerFactory } from '../../process-form.component';
 
 /**

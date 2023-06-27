@@ -1,21 +1,29 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { RouteService } from '../../../../core/services/route.service';
-import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-import { Community } from '../../../../core/shared/community.model';
-import { SharedModule } from '../../../shared.module';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { CreateComColPageComponent } from './create-comcol-page.component';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
-import { ComColDataService } from '../../../../core/data/comcol-data.service';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { RequestService } from '../../../../core/data/request.service';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+
+import { ComColDataService } from '../../../../core/data/comcol-data.service';
+import { CommunityDataService } from '../../../../core/data/community-data.service';
+import { RequestService } from '../../../../core/data/request.service';
+import { RouteService } from '../../../../core/services/route.service';
+import { Community } from '../../../../core/shared/community.model';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../remote-data.utils';
+import { SharedModule } from '../../../shared.module';
+import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { CreateComColPageComponent } from './create-comcol-page.component';
 
 describe('CreateComColPageComponent', () => {
   let comp: CreateComColPageComponent<any>;

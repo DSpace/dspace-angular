@@ -1,12 +1,22 @@
 import { TestBed } from '@angular/core/testing';
-
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Store, StoreModule } from '@ngrx/store';
-import { cold, hot } from 'jasmine-marbles';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  cold,
+  hot,
+} from 'jasmine-marbles';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { storeModuleConfig } from '../../app.reducer';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { NoOpAction } from '../../shared/ngrx/no-op.action';
 import { StoreMock } from '../../shared/testing/store.mock';
 import { RequestService } from '../data/request.service';
 import { RestRequestMethod } from '../data/rest-request-method';
@@ -19,8 +29,6 @@ import {
   ServerSyncBufferActionTypes,
 } from './server-sync-buffer.actions';
 import { ServerSyncBufferEffects } from './server-sync-buffer.effects';
-import { storeModuleConfig } from '../../app.reducer';
-import { NoOpAction } from '../../shared/ngrx/no-op.action';
 
 describe('ServerSyncBufferEffects', () => {
   let ssbEffects: ServerSyncBufferEffects;

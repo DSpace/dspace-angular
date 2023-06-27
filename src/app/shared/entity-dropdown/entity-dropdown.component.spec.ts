@@ -1,13 +1,23 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { EntityDropdownComponent } from './entity-dropdown.component';
-import { getTestScheduler } from 'jasmine-marbles';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { ItemType } from '../../core/shared/item-relationships/item-type.model';
-import { ChangeDetectorRef, NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
-import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
-import { TestScheduler } from 'rxjs/testing';
+import {
+  ChangeDetectorRef,
+  NO_ERRORS_SCHEMA,
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { getTestScheduler } from 'jasmine-marbles';
+import { TestScheduler } from 'rxjs/testing';
+
+import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
+import { ItemType } from '../../core/shared/item-relationships/item-type.model';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { createPaginatedList } from '../testing/utils.test';
+import { EntityDropdownComponent } from './entity-dropdown.component';
 
 // eslint-disable-next-line @angular-eslint/pipe-prefix
 @Pipe({ name: 'translate' })

@@ -1,18 +1,20 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { BulkAccessComponent } from './bulk-access.component';
-import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
-import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
-import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { Process } from '../../process-page/processes/process.model';
-import { RouterTestingModule } from '@angular/router/testing';
+import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';
+import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { BulkAccessComponent } from './bulk-access.component';
 
 describe('BulkAccessComponent', () => {
   let component: BulkAccessComponent;

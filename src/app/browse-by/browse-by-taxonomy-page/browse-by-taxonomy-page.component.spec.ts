@@ -1,14 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { BrowseByTaxonomyPageComponent } from './browse-by-taxonomy-page.component';
-import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
-import { createDataWithBrowseDefinition } from '../browse-by-switcher/browse-by-switcher.component.spec';
+
 import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
+import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { ThemeService } from '../../shared/theme-support/theme.service';
+import { createDataWithBrowseDefinition } from '../browse-by-switcher/browse-by-switcher.component.spec';
+import { BrowseByTaxonomyPageComponent } from './browse-by-taxonomy-page.component';
 
 describe('BrowseByTaxonomyPageComponent', () => {
   let component: BrowseByTaxonomyPageComponent;

@@ -1,25 +1,61 @@
 import { Injectable } from '@angular/core';
-import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { applyPatch, Operation } from 'fast-json-patch';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import {
+  createSelector,
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  applyPatch,
+  Operation,
+} from 'fast-json-patch';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { distinctUntilChanged, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { CoreState } from '../core-state.model';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { coreSelector } from '../core.selectors';
+import { CoreState } from '../core-state.model';
 import { RestRequestMethod } from '../data/rest-request-method';
-import { selfLinkFromAlternativeLinkSelector, selfLinkFromUuidSelector } from '../index/index.selectors';
+import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
+import {
+  selfLinkFromAlternativeLinkSelector,
+  selfLinkFromUuidSelector,
+} from '../index/index.selectors';
+import { IndexName } from '../index/index-name.model';
 import { GenericConstructor } from '../shared/generic-constructor';
+import { HALLink } from '../shared/hal-link.model';
 import { getClassForType } from './builders/build-decorators';
 import { LinkService } from './builders/link.service';
-import { AddDependentsObjectCacheAction, AddPatchObjectCacheAction, AddToObjectCacheAction, ApplyPatchObjectCacheAction, RemoveDependentsObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';
-
-import { ObjectCacheEntry, ObjectCacheState } from './object-cache.reducer';
-import { AddToSSBAction } from './server-sync-buffer.actions';
-import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
-import { HALLink } from '../shared/hal-link.model';
 import { CacheableObject } from './cacheable-object.model';
-import { IndexName } from '../index/index-name.model';
+import {
+  AddDependentsObjectCacheAction,
+  AddPatchObjectCacheAction,
+  AddToObjectCacheAction,
+  ApplyPatchObjectCacheAction,
+  RemoveDependentsObjectCacheAction,
+  RemoveFromObjectCacheAction,
+} from './object-cache.actions';
+import {
+  ObjectCacheEntry,
+  ObjectCacheState,
+} from './object-cache.reducer';
+import { AddToSSBAction } from './server-sync-buffer.actions';
 
 /**
  * The base selector function to select the object cache in the store

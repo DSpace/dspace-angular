@@ -1,4 +1,7 @@
-import { SidebarAction, SidebarActionTypes } from './sidebar.actions';
+import {
+  SidebarAction,
+  SidebarActionTypes,
+} from './sidebar.actions';
 
 /**
  * Interface that represents the state of the sidebar

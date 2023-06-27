@@ -1,10 +1,46 @@
-import { Injectable, Inject, Injector } from '@angular/core';
-import { Store, createFeatureSelector, createSelector, select } from '@ngrx/store';
-import { BehaviorSubject, EMPTY, Observable, of as observableOf } from 'rxjs';
-import { ThemeState } from './theme.reducer';
-import { SetThemeAction, ThemeActionTypes } from './theme.actions';
-import { expand, filter, map, switchMap, take, toArray } from 'rxjs/operators';
-import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
+import { DOCUMENT } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+  Injector,
+} from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  ResolveEnd,
+  Router,
+} from '@angular/router';
+import {
+  createFeatureSelector,
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  BehaviorSubject,
+  EMPTY,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  expand,
+  filter,
+  map,
+  switchMap,
+  take,
+  toArray,
+} from 'rxjs/operators';
+import { distinctNext } from 'src/app/core/shared/distinct-next';
+
+import { getDefaultThemeConfig } from '../../../config/config.util';
+import {
+  HeadTagConfig,
+  Theme,
+  ThemeConfig,
+  themeFactory,
+} from '../../../config/theme.model';
+import { environment } from '../../../environments/environment';
+import { LinkService } from '../../core/cache/builders/link.service';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import {
@@ -12,18 +48,23 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../core/shared/operators';
-import { HeadTagConfig, Theme, ThemeConfig, themeFactory } from '../../../config/theme.model';
-import { NO_OP_ACTION_TYPE, NoOpAction } from '../ngrx/no-op.action';
-import { followLink } from '../utils/follow-link-config.model';
-import { LinkService } from '../../core/cache/builders/link.service';
-import { environment } from '../../../environments/environment';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { ActivatedRouteSnapshot, ResolveEnd, Router } from '@angular/router';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
+import {
+  NO_OP_ACTION_TYPE,
+  NoOpAction,
+} from '../ngrx/no-op.action';
 import { GET_THEME_CONFIG_FOR_FACTORY } from '../object-collection/shared/listable-object/listable-object.decorator';
-import { distinctNext } from 'src/app/core/shared/distinct-next';
-import { DOCUMENT } from '@angular/common';
-import { getDefaultThemeConfig } from '../../../config/config.util';
+import { followLink } from '../utils/follow-link-config.model';
+import {
+  SetThemeAction,
+  ThemeActionTypes,
+} from './theme.actions';
 import { BASE_THEME_NAME } from './theme.constants';
+import { ThemeState } from './theme.reducer';
 
 export const themeStateSelector = createFeatureSelector<ThemeState>('theme');
 

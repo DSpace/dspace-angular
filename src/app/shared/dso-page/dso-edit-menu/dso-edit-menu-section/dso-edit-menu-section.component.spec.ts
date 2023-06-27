@@ -1,17 +1,22 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MenuServiceStub } from '../../../testing/menu-service.stub';
+import { Component } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
+
 import { MenuService } from '../../../menu/menu.service';
+import { OnClickMenuItemModel } from '../../../menu/menu-item/models/onclick.model';
 import { CSSVariableService } from '../../../sass-helper/css-variable.service';
 import { CSSVariableServiceStub } from '../../../testing/css-variable-service.stub';
-import { Router } from '@angular/router';
+import { MenuServiceStub } from '../../../testing/menu-service.stub';
 import { RouterStub } from '../../../testing/router.stub';
-import { of as observableOf } from 'rxjs';
-import { Component } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import { DsoEditMenuSectionComponent } from './dso-edit-menu-section.component';
-import { OnClickMenuItemModel } from '../../../menu/menu-item/models/onclick.model';
-import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
 
 function initAsync(dummySectionText: { visible: boolean; icon: string; active: boolean; model: { disabled: boolean; text: string; type: MenuItemType }; id: string }, menuService: MenuServiceStub) {
   beforeEach(waitForAsync(() => {

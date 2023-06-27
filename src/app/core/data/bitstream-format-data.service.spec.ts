@@ -1,21 +1,36 @@
-import { BitstreamFormatDataService } from './bitstream-format-data.service';
-import { RestResponse } from '../cache/response.models';
-import { Observable, of as observableOf } from 'rxjs';
-import { Action, Store } from '@ngrx/store';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { waitForAsync } from '@angular/core/testing';
-import { BitstreamFormatsRegistryDeselectAction, BitstreamFormatsRegistryDeselectAllAction, BitstreamFormatsRegistrySelectAction } from '../../admin/admin-registries/bitstream-formats/bitstream-format.actions';
+import {
+  Action,
+  Store,
+} from '@ngrx/store';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+
+import {
+  BitstreamFormatsRegistryDeselectAction,
+  BitstreamFormatsRegistryDeselectAllAction,
+  BitstreamFormatsRegistrySelectAction,
+} from '../../admin/admin-registries/bitstream-formats/bitstream-format.actions';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core-state.model';
-import { RequestEntry } from './request-entry.model';
-import { testFindAllDataImplementation } from './base/find-all-data.spec';
+import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
+import { testFindAllDataImplementation } from './base/find-all-data.spec';
+import { BitstreamFormatDataService } from './bitstream-format-data.service';
+import { RequestEntry } from './request-entry.model';
 
 describe('BitstreamFormatDataService', () => {
   let service: BitstreamFormatDataService;

@@ -1,8 +1,9 @@
-import { AuthRequestService } from './auth-request.service';
-import { RequestService } from '../data/request.service';
-import { BrowserAuthRequestService } from './browser-auth-request.service';
 import { Observable } from 'rxjs';
+
 import { PostRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { AuthRequestService } from './auth-request.service';
+import { BrowserAuthRequestService } from './browser-auth-request.service';
 
 describe(`BrowserAuthRequestService`, () => {
   let href: string;

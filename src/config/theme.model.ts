@@ -1,11 +1,16 @@
 /* eslint-disable max-classes-per-file */
-import { Config } from './config.interface';
-import { hasValue, hasNoValue, isNotEmpty } from '../app/shared/empty.util';
-import { DSpaceObject } from '../app/core/shared/dspace-object.model';
-import { getDSORoute } from '../app/app-routing-paths';
-import { HandleObject } from '../app/core/shared/handle-object.model';
 import { Injector } from '@angular/core';
+
+import { getDSORoute } from '../app/app-routing-paths';
+import { DSpaceObject } from '../app/core/shared/dspace-object.model';
+import { HandleObject } from '../app/core/shared/handle-object.model';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../app/shared/empty.util';
 import { HandleService } from '../app/shared/handle.service';
+import { Config } from './config.interface';
 
 export interface NamedThemeConfig extends Config {
   name: string;

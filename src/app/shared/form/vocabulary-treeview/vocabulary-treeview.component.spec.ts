@@ -1,27 +1,38 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { CdkTreeModule } from '@angular/cdk/tree';
-
-import { of as observableOf } from 'rxjs';
-import { StoreModule } from '@ngrx/store';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 
-import { createTestComponent } from '../../testing/utils.test';
-import { VocabularyTreeviewComponent } from './vocabulary-treeview.component';
-import { VocabularyTreeviewService } from './vocabulary-treeview.service';
-import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { TreeviewFlatNode, TreeviewNode } from './vocabulary-treeview-node.model';
-import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
-import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { storeModuleConfig } from '../../../app.reducer';
+import { authReducer } from '../../../core/auth/auth.reducer';
+import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
-import { authReducer } from '../../../core/auth/auth.reducer';
-import { storeModuleConfig } from '../../../app.reducer';
-import { By } from '@angular/platform-browser';
+import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
+import { createTestComponent } from '../../testing/utils.test';
+import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
+import { VocabularyTreeviewComponent } from './vocabulary-treeview.component';
+import { VocabularyTreeviewService } from './vocabulary-treeview.service';
+import {
+  TreeviewFlatNode,
+  TreeviewNode,
+} from './vocabulary-treeview-node.model';
 
 describe('VocabularyTreeviewComponent test suite', () => {
 

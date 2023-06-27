@@ -1,7 +1,11 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { ThemedComponent } from '../../theme-support/themed.component';
 import { SearchSettingsComponent } from './search-settings.component';
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
 
 /**
  * Themed wrapper for SearchSettingsComponent
