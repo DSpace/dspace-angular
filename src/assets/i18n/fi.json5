@@ -6898,8 +6898,7 @@
   "submission.sections.identifiers.otherIdentifiers_label": "Muut tunnisteet: ",
 
   // "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
+  "submission.sections.submit.progressbar.accessCondition": "Tietueen pääsyoikeudet",
 
   // "submission.sections.submit.progressbar.CClicense": "Creative commons license",
   "submission.sections.submit.progressbar.CClicense": "Creative commons -lisenssi",
@@ -6926,35 +6925,29 @@
   "submission.sections.submit.progressbar.license": "Tallennuslisenssi",
 
   // "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
+  "submission.sections.submit.progressbar.sherpapolicy": "Sherpa-käytännöt",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Lataa tiedostoja",
 
   // "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.sherpaPolicies": "Tietoa julkaisijan open access -käytännöistä",
 
   // "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
+  "submission.sections.sherpa-policy.title-empty": "Ei tietoa julkausijan käytännöistä. Jos työlläsi on ISSN-tunnus, syötä se alapuolella olevan kenttään nähdäksesi siihen liittyvät julkaisijan open access -käytännöt.",
 
   // "submission.sections.status.errors.title": "Errors",
-  // TODO New key - Add a translation
-  "submission.sections.status.errors.title": "Errors",
+  "submission.sections.status.errors.title": "Virheet",
 
   // "submission.sections.status.valid.title": "Valid",
   // TODO New key - Add a translation
   "submission.sections.status.valid.title": "Valid",
 
   // "submission.sections.status.warnings.title": "Warnings",
-  // TODO New key - Add a translation
-  "submission.sections.status.warnings.title": "Warnings",
+  "submission.sections.status.warnings.title": "Varoitukset",
 
   // "submission.sections.status.errors.aria": "has errors",
-  // TODO New key - Add a translation
-  "submission.sections.status.errors.aria": "has errors",
+  "submission.sections.status.errors.aria": "sisältää virheitä",
 
   // "submission.sections.status.valid.aria": "is valid",
   // TODO New key - Add a translation
@@ -6962,31 +6955,24 @@
 
   // "submission.sections.status.warnings.aria": "has warnings",
   // TODO New key - Add a translation
-  "submission.sections.status.warnings.aria": "has warnings",
 
   // "submission.sections.status.info.title": "Additional Information",
-  // TODO New key - Add a translation
-  "submission.sections.status.info.title": "Additional Information",
+  "submission.sections.status.info.title": "Lisätiedot",
 
   // "submission.sections.status.info.aria": "Additional Information",
-  // TODO New key - Add a translation
-  "submission.sections.status.info.aria": "Additional Information",
+  "submission.sections.status.info.aria": "Lisätiedot",
 
   // "submission.sections.toggle.open": "Open section",
-  // TODO New key - Add a translation
-  "submission.sections.toggle.open": "Open section",
+  "submission.sections.toggle.open": "Avaa osio",
 
   // "submission.sections.toggle.close": "Close section",
-  // TODO New key - Add a translation
-  "submission.sections.toggle.close": "Close section",
+  "submission.sections.toggle.close": "Sulje osio",
 
   // "submission.sections.toggle.aria.open": "Expand {{sectionHeader}} section",
-  // TODO New key - Add a translation
-  "submission.sections.toggle.aria.open": "Expand {{sectionHeader}} section",
+  "submission.sections.toggle.aria.open": "Laajenna {{sectionHeader}}-osio",
 
   // "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
-  // TODO New key - Add a translation
-  "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
+  "submission.sections.toggle.aria.close": "Sulje {{sectionHeader}}-osio",
 
   // "submission.sections.upload.delete.confirm.cancel": "Cancel",
   "submission.sections.upload.delete.confirm.cancel": "Peruuta",
@@ -7004,22 +6990,19 @@
   "submission.sections.upload.delete.submit": "Poista",
 
   // "submission.sections.upload.download.title": "Download bitstream",
-  // TODO New key - Add a translation
-  "submission.sections.upload.download.title": "Download bitstream",
+  "submission.sections.upload.download.title": "Lataa tiedosto",
 
   // "submission.sections.upload.drop-message": "Drop files to attach them to the item",
   "submission.sections.upload.drop-message": "Pudota tiedostot liittääksesi ne tietueeseen",
 
   // "submission.sections.upload.edit.title": "Edit bitstream",
-  // TODO New key - Add a translation
-  "submission.sections.upload.edit.title": "Edit bitstream",
+  "submission.sections.upload.edit.title": "Muokkaa tiedostoa",
 
   // "submission.sections.upload.form.access-condition-label": "Access condition type",
   "submission.sections.upload.form.access-condition-label": "Pääsyoikeustyyppi",
 
   // "submission.sections.upload.form.access-condition-hint": "Select an access condition to apply on the bitstream once the item is deposited",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.access-condition-hint": "Select an access condition to apply on the bitstream once the item is deposited",
+  "submission.sections.upload.form.access-condition-hint": "Valitse pääsyoikeus, jota sovelletaan tiedostoon tietueen tallentamisen jälkeen",
 
   // "submission.sections.upload.form.date-required": "Date is required.",
   "submission.sections.upload.form.date-required": "Päivämäärä on pakollinen tieto.",
@@ -7034,8 +7017,7 @@
   "submission.sections.upload.form.from-label": "Pääsyoikeus alkaa",
 
   // "submission.sections.upload.form.from-hint": "Select the date from which the related access condition is applied",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.from-hint": "Select the date from which the related access condition is applied",
+  "submission.sections.upload.form.from-hint": "Valitse päivämäärä josta lukien pääsyoikeutta sovelletaan",
 
   // "submission.sections.upload.form.from-placeholder": "From",
   "submission.sections.upload.form.from-placeholder": "Alkaen",
@@ -7050,7 +7032,7 @@
   "submission.sections.upload.form.until-label": "Pääsyoikeus päättyy",
 
   // "submission.sections.upload.form.until-hint": "Select the date until which the related access condition is applied",
-  "submission.sections.upload.form.until-hint": "Valitse päivämäärä, johon asti pääsyehto on voimassa",
+  "submission.sections.upload.form.until-hint": "Valitse päivämäärä, johon asti pääsyoikeus on voimassa",
 
   // "submission.sections.upload.form.until-placeholder": "Until",
   "submission.sections.upload.form.until-placeholder": "Asti",
@@ -7083,96 +7065,73 @@
   "submission.sections.upload.upload-successful": "Lataus valmis",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
+  "submission.sections.accesses.form.discoverable-description": "Kun tämä on valittu, tietue on löydettävissä haussa ja selailtaessa. Kun tätä ei ole valittu, tietue on saatavilla vain suoran linkin kautta, eikä se näy haussa tai selailtaessa.",
 
   // "submission.sections.accesses.form.discoverable-label": "Discoverable",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.discoverable-label": "Discoverable",
+  "submission.sections.accesses.form.discoverable-label": "Löydettävissä",
 
   // "submission.sections.accesses.form.access-condition-label": "Access condition type",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.access-condition-label": "Access condition type",
+  "submission.sections.accesses.form.access-condition-label": "Pääsyoikeustyyppi",
 
   // "submission.sections.accesses.form.access-condition-hint": "Select an access condition to apply on the item once it is deposited",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.access-condition-hint": "Select an access condition to apply on the item once it is deposited",
+  "submission.sections.accesses.form.access-condition-hint": "Valitse pääsyoikeus, jota sovelletaan tietueeseen tallentamisen jälkeen",
 
   // "submission.sections.accesses.form.date-required": "Date is required.",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.date-required": "Date is required.",
+  "submission.sections.accesses.form.date-required": "Päivämäärä on pakollinen tieto.",
 
   // "submission.sections.accesses.form.date-required-from": "Grant access from date is required.",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.date-required-from": "Grant access from date is required.",
+  "submission.sections.accesses.form.date-required-from": "Pääsyoikeuden alkupäivä on pakollinen tieto.",
 
   // "submission.sections.accesses.form.date-required-until": "Grant access until date is required.",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.date-required-until": "Grant access until date is required.",
+  "submission.sections.accesses.form.date-required-until": "Pääsyoikeuden loppupäivä on pakollinen tieto.",
 
   // "submission.sections.accesses.form.from-label": "Grant access from",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.from-label": "Grant access from",
+  "submission.sections.accesses.form.from-label": "Pääsyoikeus alkaa",
 
   // "submission.sections.accesses.form.from-hint": "Select the date from which the related access condition is applied",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.from-hint": "Select the date from which the related access condition is applied",
+  "submission.sections.accesses.form.from-hint": "Valitse päivämäärä, josta alkaen pääsyoikeutta sovelletaan",
 
   // "submission.sections.accesses.form.from-placeholder": "From",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.from-placeholder": "From",
+  "submission.sections.accesses.form.from-placeholder": "Alkaen",
 
   // "submission.sections.accesses.form.group-label": "Group",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.group-label": "Group",
+  "submission.sections.accesses.form.group-label": "Ryhmä",
 
   // "submission.sections.accesses.form.group-required": "Group is required.",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.group-required": "Group is required.",
+  "submission.sections.accesses.form.group-required": "Ryhmä on pakollinen tieto.",
 
   // "submission.sections.accesses.form.until-label": "Grant access until",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.until-label": "Grant access until",
+  "submission.sections.accesses.form.until-label": "Pääsyoikeus päättyy",
 
   // "submission.sections.accesses.form.until-hint": "Select the date until which the related access condition is applied",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.until-hint": "Select the date until which the related access condition is applied",
+  "submission.sections.accesses.form.until-hint": "Valitse päivämäärä, johon asti pääsyoikeutta sovelletaan",
 
   // "submission.sections.accesses.form.until-placeholder": "Until",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.until-placeholder": "Until",
+  "submission.sections.accesses.form.until-placeholder": "Asti",
 
   // "submission.sections.license.granted-label": "I confirm the license above",
-  // TODO New key - Add a translation
-  "submission.sections.license.granted-label": "I confirm the license above",
+  "submission.sections.license.granted-label": "Vahvistan edellä olevan lisenssin",
 
   // "submission.sections.license.required": "You must accept the license",
-  // TODO New key - Add a translation
-  "submission.sections.license.required": "You must accept the license",
+  "submission.sections.license.required": "Sinun on hyväksyttävä lisenssi",
 
   // "submission.sections.license.notgranted": "You must accept the license",
-  // TODO New key - Add a translation
-  "submission.sections.license.notgranted": "You must accept the license",
+  "submission.sections.license.notgranted": "Sinun on hyväksyttävä lisenssi",
 
   // "submission.sections.sherpa.publication.information": "Publication information",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publication.information": "Publication information",
+  "submission.sections.sherpa.publication.information": "Julkaisun tiedot",
 
   // "submission.sections.sherpa.publication.information.title": "Title",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publication.information.title": "Title",
+  "submission.sections.sherpa.publication.information.title": "Nimeke",
 
   // "submission.sections.sherpa.publication.information.issns": "ISSNs",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publication.information.issns": "ISSNs",
+  "submission.sections.sherpa.publication.information.issns": "ISSN-tunnukset",
 
   // "submission.sections.sherpa.publication.information.url": "URL",
-  // TODO New key - Add a translation
   "submission.sections.sherpa.publication.information.url": "URL",
 
   // "submission.sections.sherpa.publication.information.publishers": "Publisher",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publication.information.publishers": "Publisher",
+  "submission.sections.sherpa.publication.information.publishers": "Julkaisija",
 
   // "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
   // TODO New key - Add a translation
@@ -7183,8 +7142,7 @@
   "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
 
   // "submission.sections.sherpa.publisher.policy": "Publisher Policy",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy": "Publisher Policy",
+  "submission.sections.sherpa.publisher.policy": "Julkaisukäytännöt",
 
   // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
   // TODO New key - Add a translation
@@ -7195,28 +7153,23 @@
   "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
 
   // "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
+  "submission.sections.sherpa.publisher.policy.more.information": "Lisätietoa saat seuraavista linkeistä:",
 
   // "submission.sections.sherpa.publisher.policy.version": "Version",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.version": "Version",
+  "submission.sections.sherpa.publisher.policy.version": "Versio",
 
   // "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
-  // TODO New key - Add a translation
   "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
 
   // "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
+  "submission.sections.sherpa.publisher.policy.noembargo": "Ei embargoa",
 
   // "submission.sections.sherpa.publisher.policy.nolocation": "None",
   // TODO New key - Add a translation
   "submission.sections.sherpa.publisher.policy.nolocation": "None",
 
   // "submission.sections.sherpa.publisher.policy.license": "License",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.license": "License",
+  "submission.sections.sherpa.publisher.policy.license": "Lisenssi",
 
   // "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
   // TODO New key - Add a translation
