@@ -22,6 +22,8 @@ import { MetadataValue } from '../../core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
 import { collectionFormEntityTypeSelectionConfig, collectionFormModels, } from './collection-form.models';
 import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
+import { hasNoValue, isNotNull } from 'src/app/shared/empty.util';
+
 
 /**
  * Form used for creating and editing collections
@@ -64,6 +66,12 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected entityTypeService: EntityTypeDataService,
                      protected chd: ChangeDetectorRef) {
     super(formService, translate, notificationsService, authService, requestService, objectCache);
+  }
+
+  ngOnInit(): void {
+    if (hasNoValue(this.formModel) && isNotNull(this.dso)) {
+      this.initializeForm();
+    }
   }
 
   /**
