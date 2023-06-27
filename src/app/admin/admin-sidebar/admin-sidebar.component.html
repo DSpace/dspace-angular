@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark p-0"
      [ngClass]="{'active': sidebarOpen, 'inactive': sidebarClosed}"
      [@slideSidebar]="{
-      value: (!(sidebarExpanded | async) ? 'collapsed' : 'expanded'),
+      value: ((sidebarExpanded | async) === false ? 'collapsed' : 'expanded'),
       params: {sidebarWidth: (sidebarWidth | async)}
      }" (@slideSidebar.done)="finishSlide($event)" (@slideSidebar.start)="startSlide($event)"
      *ngIf="menuVisible | async"
@@ -42,12 +42,12 @@
               <div class="shortcut-icon">
                 <i *ngIf="(menuCollapsed | async)" class="fas fa-fw fa-angle-double-right"
                    [title]="'menu.section.icon.pin' | translate"></i>
-                <i *ngIf="!(menuCollapsed | async)" class="fas fa-fw fa-angle-double-left"
+                <i *ngIf="(menuCollapsed | async) === false" class="fas fa-fw fa-angle-double-left"
                    [title]="'menu.section.icon.unpin' | translate"></i>
               </div>
               <div class="sidebar-collapsible">
                 <span *ngIf="menuCollapsed | async" class="section-header-text">{{'menu.section.pin' | translate }}</span>
-                <span *ngIf="!(menuCollapsed | async)" class="section-header-text">{{'menu.section.unpin' | translate }}</span>
+                <span *ngIf="(menuCollapsed | async) === false" class="section-header-text">{{'menu.section.unpin' | translate }}</span>
               </div>
             </a>
         </div>

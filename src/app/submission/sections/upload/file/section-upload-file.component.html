@@ -25,7 +25,7 @@
                   [disabled]="(processingDelete$ | async)"
                   (click)="$event.preventDefault();confirmDelete(content);">
             <i *ngIf="(processingDelete$ | async)" class="fas fa-circle-notch fa-spin fa-2x text-danger"></i>
-            <i *ngIf="!(processingDelete$ | async)" class="fa fa-trash fa-2x text-danger"></i>
+            <i *ngIf="(processingDelete$ | async) === false" class="fa fa-trash fa-2x text-danger"></i>
           </button>
         </ng-container>
       </div>

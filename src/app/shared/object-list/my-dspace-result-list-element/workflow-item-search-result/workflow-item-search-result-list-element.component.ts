@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { Item } from '../../../../core/shared/item.model';
 
@@ -37,7 +36,7 @@ export class WorkflowItemSearchResultListElementComponent extends SearchResultLi
   /**
    * The item search result derived from the WorkspaceItemSearchResult
    */
-  derivedSearchResult$: Observable<ItemSearchResult>;
+  derivedSearchResult$: BehaviorSubject<ItemSearchResult> = new BehaviorSubject(undefined);
 
   /**
    * Represents the badge context
@@ -69,13 +68,14 @@ export class WorkflowItemSearchResultListElementComponent extends SearchResultLi
 
   private deriveSearchResult() {
     this.linkService.resolveLink(this.object.indexableObject, followLink('item'));
-    this.derivedSearchResult$ = this.object.indexableObject.item.pipe(
+    this.object.indexableObject.item.pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((item: Item) => {
-        const result = new ItemSearchResult();
-        result.indexableObject = item;
-        result.hitHighlights = this.object.hitHighlights;
-        return result;
+    ).subscribe((item: Item) => {
+      const result = new ItemSearchResult();
+      this.derivedSearchResult$.next(Object.assign(new ItemSearchResult(), {
+        indexableObject: item,
+        hitHighlights: this.object.hitHighlights,
       }));
+    });
   }
 }

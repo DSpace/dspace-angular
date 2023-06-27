@@ -1,5 +1,5 @@
 <div class="outer-wrapper" [class.d-none]="shouldShowFullscreenLoader" [@slideSidebarPadding]="{
-     value: (!(sidebarVisible | async) ? 'hidden' : (slideSidebarOver | async) ? 'shown' : 'expanded'),
+     value: ((sidebarVisible | async) === false ? 'hidden' : (slideSidebarOver | async) ? 'shown' : 'expanded'),
      params: {collapsedSidebarWidth: (collapsedSidebarWidth | async), totalSidebarWidth: (totalSidebarWidth | async)}
     }">
   <ds-themed-admin-sidebar></ds-themed-admin-sidebar>

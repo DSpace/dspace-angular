@@ -1,4 +1,4 @@
-<div [ngClass]="{'open': !(isNavBarCollapsed | async)}">
+<div [ngClass]="{'open': (isNavBarCollapsed | async) === false}">
     <ds-themed-header></ds-themed-header>
     <ds-themed-navbar></ds-themed-navbar>
 </div>

@@ -47,7 +47,7 @@
 
         <ds-themed-loading *ngIf="searching$ | async"></ds-themed-loading>
         <ds-pagination
-          *ngIf="(pageInfoState$ | async)?.totalElements > 0 && !(searching$ | async)"
+          *ngIf="(pageInfoState$ | async)?.totalElements > 0 && (searching$ | async) === false"
           [paginationOptions]="config"
           [pageInfoState]="pageInfoState$"
           [collectionSize]="(pageInfoState$ | async)?.totalElements"

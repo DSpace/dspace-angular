@@ -62,7 +62,7 @@
           <td class="align-middle">{{ dsoNameService.getName((group.object | async)?.payload) }}</td>
           <td class="align-middle">
             <div class="btn-group edit-field">
-              <button *ngIf="(isSubgroupOfGroup(group) | async) && !(isActiveGroup(group) | async)"
+              <button *ngIf="(isSubgroupOfGroup(group) | async) && (isActiveGroup(group) | async) === false"
                       (click)="deleteSubgroupFromGroup(group)"
                       class="btn btn-outline-danger btn-sm deleteButton"
                       title="{{messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(group) } }}">
@@ -71,7 +71,7 @@
 
               <span *ngIf="(isActiveGroup(group) | async)">{{ messagePrefix + '.table.edit.currentGroup' | translate }}</span>
 
-              <button *ngIf="!(isSubgroupOfGroup(group) | async) && !(isActiveGroup(group) | async)"
+              <button *ngIf="(isSubgroupOfGroup(group)  | async) === false && (isActiveGroup(group) | async) === false"
                       (click)="addSubgroupToGroup(group)"
                       class="btn btn-outline-primary btn-sm addButton"
                       title="{{messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(group) } }}">
@@ -94,7 +94,7 @@
 
   <ds-pagination *ngIf="(subGroups$ | async)?.payload?.totalElements > 0"
                  [paginationOptions]="config"
-                 [pageInfoState]="(subGroups$ | async)?.payload"
+                 [pageInfoState]="subGroupsPageInfoState$"
                  [collectionSize]="(subGroups$ | async)?.payload?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">

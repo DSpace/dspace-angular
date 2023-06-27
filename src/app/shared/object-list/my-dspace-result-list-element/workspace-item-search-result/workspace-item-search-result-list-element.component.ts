@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { Item } from '../../../../core/shared/item.model';
 
@@ -13,7 +13,6 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
-import { map } from 'rxjs/operators';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
 import { followLink } from '../../../utils/follow-link-config.model';
@@ -37,7 +36,7 @@ export class  WorkspaceItemSearchResultListElementComponent extends SearchResult
   /**
    * The item search result derived from the WorkspaceItemSearchResult
    */
-  derivedSearchResult$: Observable<ItemSearchResult>;
+  derivedSearchResult$: BehaviorSubject<ItemSearchResult> = new BehaviorSubject(undefined);
 
   /**
    * Represents the badge context
@@ -69,13 +68,14 @@ export class  WorkspaceItemSearchResultListElementComponent extends SearchResult
 
   private deriveSearchResult() {
     this.linkService.resolveLink(this.object.indexableObject, followLink('item'));
-    this.derivedSearchResult$ = this.object.indexableObject.item.pipe(
+    this.object.indexableObject.item.pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((item: Item) => {
+    ).subscribe((item: Item) => {
       const result = new ItemSearchResult();
-      result.indexableObject = item;
-      result.hitHighlights = this.object.hitHighlights;
-      return result;
-    }));
+      this.derivedSearchResult$.next(Object.assign(new ItemSearchResult(), {
+        indexableObject: item,
+        hitHighlights: this.object.hitHighlights,
+      }));
+    });
   }
 }

@@ -19,6 +19,7 @@ import { NoContent } from '../../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { PageInfo } from '../../../../core/shared/page-info.model';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -49,6 +50,8 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
    * List of all subgroups of group being edited
    */
   subGroups$: BehaviorSubject<RemoteData<PaginatedList<Group>>> = new BehaviorSubject(undefined);
+
+  subGroupsPageInfoState$: Observable<PageInfo>;
 
   /**
    * Map of active subscriptions
@@ -105,6 +108,9 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
         this.retrieveSubGroups();
       }
     }));
+    this.subGroupsPageInfoState$ = this.subGroups$.pipe(
+      map(subGroupsRD => subGroupsRD?.payload?.pageInfo),
+    );
   }
 
   /**

@@ -62,7 +62,7 @@
             </button>
             <ng-content select="[between]"></ng-content>
             <button *ngIf="displaySubmit" type="submit" class="btn btn-primary" (click)="onSubmit()"
-                    [disabled]="!(isValid() | async)"><i class="fas fa-save"></i> {{submitLabel | translate}}
+                    [disabled]="(isValid()  | async) === false"><i class="fas fa-save"></i> {{submitLabel | translate}}
             </button>
             <ng-content select="[after]"></ng-content>
         </div>

@@ -38,6 +38,7 @@ import { Registration } from '../../../core/shared/registration.model';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
 import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { PageInfo } from '../../../core/shared/page-info.model';
 
 @Component({
   selector: 'ds-eperson-form',
@@ -145,7 +146,12 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   /**
    * A list of all the groups this EPerson is a member of
    */
-  groups: Observable<RemoteData<PaginatedList<Group>>>;
+  groups$: Observable<RemoteData<PaginatedList<Group>>>;
+
+  /**
+   * The pagination of the {@link groups$} list.
+   */
+  groupsPageInfoState$: Observable<PageInfo>;
 
   /**
    * Pagination config used to display the list of groups
@@ -279,7 +285,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
       this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
         if (eperson != null) {
-          this.groups = this.groupsDataService.findListByHref(eperson._links.groups.href, {
+          this.groups$ = this.groupsDataService.findListByHref(eperson._links.groups.href, {
             currentPage: 1,
             elementsPerPage: this.config.pageSize
           });
@@ -302,7 +308,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
 
       const activeEPerson$ = this.epersonService.getActiveEPerson();
 
-      this.groups = activeEPerson$.pipe(
+      this.groups$ = activeEPerson$.pipe(
         switchMap((eperson) => {
           return observableCombineLatest([observableOf(eperson), this.paginationService.getFindListOptions(this.config.id, {
             currentPage: 1,
@@ -315,6 +321,10 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
           }
           return observableOf(undefined);
         })
+      );
+
+      this.groupsPageInfoState$ = this.groups$.pipe(
+        map(groupsRD => groupsRD.payload.pageInfo),
       );
 
       this.canImpersonate$ = activeEPerson$.pipe(
@@ -578,7 +588,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   private updateGroups(options) {
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
-      this.groups = this.groupsDataService.findListByHref(eperson._links.groups.href, options);
+      this.groups$ = this.groupsDataService.findListByHref(eperson._links.groups.href, options);
     }));
   }
 }
