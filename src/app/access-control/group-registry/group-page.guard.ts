@@ -9,7 +9,7 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GroupPageGuard extends SomeFeatureAuthorizationGuard {
 
@@ -28,7 +28,7 @@ export class GroupPageGuard extends SomeFeatureAuthorizationGuard {
 
   getObjectUrl(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> {
     return this.halEndpointService.getEndpoint(this.groupsEndpoint).pipe(
-      map(groupsUrl => `${groupsUrl}/${route?.params?.groupId}`)
+      map(groupsUrl => `${groupsUrl}/${route?.params?.groupId}`),
     );
   }
 

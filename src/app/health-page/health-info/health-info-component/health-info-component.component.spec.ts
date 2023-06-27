@@ -24,14 +24,14 @@ describe('HealthInfoComponentComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [
         HealthInfoComponentComponent,
-        ObjNgFor
-      ]
+        ObjNgFor,
+      ],
     })
       .compileComponents();
   });

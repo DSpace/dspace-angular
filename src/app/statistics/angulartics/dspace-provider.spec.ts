@@ -13,9 +13,9 @@ describe('Angulartics2DSpace', () => {
     angulartics2 = {
       eventTrack: observableOf({action: 'page_view', properties: {
         object: 'mock-object',
-        referrer: 'https://www.referrer.com'
+        referrer: 'https://www.referrer.com',
       }}),
-      filterDeveloperMode: () => filter(() => true)
+      filterDeveloperMode: () => filter(() => true),
     } as any;
     statisticsService = jasmine.createSpyObj('statisticsService', {trackViewEvent: null});
     provider = new Angulartics2DSpace(angulartics2, statisticsService);

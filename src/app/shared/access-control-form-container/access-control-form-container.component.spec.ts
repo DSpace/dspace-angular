@@ -14,7 +14,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {FormsModule} from '@angular/forms';
 import {UiSwitchModule} from 'ngx-ui-switch';
 import {
-  ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID
+  ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID,
 } from './item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
 import {AccessControlFormModule} from './access-control-form.module';
 
@@ -46,8 +46,8 @@ describe('AccessControlFormContainerComponent', () => {
 
   const mockNgbModal = {
     open: jasmine.createSpy('open').and.returnValue(
-      { componentInstance: {}, closed: of({})} as NgbModalRef
-    )
+      { componentInstance: {}, closed: of({})} as NgbModalRef,
+    ),
   };
 
   beforeEach(async () => {
@@ -60,7 +60,7 @@ describe('AccessControlFormContainerComponent', () => {
         AccessControlFormModule,
         TranslateModule.forRoot(),
         NgbDatepickerModule,
-        UiSwitchModule
+        UiSwitchModule,
       ],
       providers: [
         {provide: BulkAccessControlService, useValue: mockBulkAccessControlService},
@@ -143,7 +143,7 @@ describe('AccessControlFormContainerComponent', () => {
   it('should unsubscribe and deselect all on component destroy', () => {
     component.ngOnDestroy();
     expect(component.selectableListService.deselectAll).toHaveBeenCalledWith(
-      ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID
+      ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID,
     );
   });
 });

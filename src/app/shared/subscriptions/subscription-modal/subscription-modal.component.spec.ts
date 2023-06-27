@@ -32,13 +32,13 @@ describe('SubscriptionModalComponent', () => {
 
   const emptyPageInfo = Object.assign(new PageInfo(), {
     'elementsPerPage': 0,
-    'totalElements': 0
+    'totalElements': 0,
   });
 
 
   const pageInfo = Object.assign(new PageInfo(), {
     'elementsPerPage': 2,
-    'totalElements': 2
+    'totalElements': 2,
   });
 
   const mockEperson = Object.assign(new EPerson(), {
@@ -46,9 +46,9 @@ describe('SubscriptionModalComponent', () => {
     uuid: 'fake-id',
     _links: {
       self: {
-        href: 'https://localhost:8000/eperson/fake-id'
-      }
-    }
+        href: 'https://localhost:8000/eperson/fake-id',
+      },
+    },
   });
 
   const mockItem = Object.assign(new Item(), {
@@ -58,13 +58,13 @@ describe('SubscriptionModalComponent', () => {
     lastModified: '2018',
     _links: {
       self: {
-        href: 'https://localhost:8000/items/fake-id'
-      }
-    }
+        href: 'https://localhost:8000/items/fake-id',
+      },
+    },
   });
 
   const authService = jasmine.createSpyObj('authService', {
-    getAuthenticatedUserFromStore: createSuccessfulRemoteDataObject$(mockEperson)
+    getAuthenticatedUserFromStore: createSuccessfulRemoteDataObject$(mockEperson),
   });
 
   subscriptionServiceStub = jasmine.createSpyObj('SubscriptionsDataService', {
@@ -83,8 +83,8 @@ describe('SubscriptionModalComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [SubscriptionModalComponent],
@@ -95,8 +95,8 @@ describe('SubscriptionModalComponent', () => {
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
       ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
 
   }));
@@ -127,7 +127,7 @@ describe('SubscriptionModalComponent', () => {
           frequencies: new UntypedFormGroup({
             f: new UntypedFormControl(false),
             g: new UntypedFormControl(true),
-          })
+          }),
         });
         component.subscriptionForm.addControl(t, formGroup);
         component.subscriptionForm.get('test1').markAsDirty();
@@ -150,7 +150,7 @@ describe('SubscriptionModalComponent', () => {
           frequencies: new UntypedFormGroup({
             f: new UntypedFormControl(false),
             g: new UntypedFormControl(true),
-          })
+          }),
         });
         component.subscriptionForm.addControl(t, formGroup);
         component.subscriptionForm.get('test1').markAsDirty();

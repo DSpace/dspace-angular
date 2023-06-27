@@ -26,7 +26,7 @@ import { DSONameService } from '../core/breadcrumbs/dso-name.service';
   styleUrls: ['./community-page.component.scss'],
   templateUrl: './community-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeInOut]
+  animations: [fadeInOut],
 })
 /**
  * This component represents a detail page for a single community
@@ -67,7 +67,7 @@ export class CommunityPageComponent implements OnInit {
   ngOnInit(): void {
     this.communityRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Community>),
-      redirectOn4xx(this.router, this.authService)
+      redirectOn4xx(this.router, this.authService),
     );
     this.logoRD$ = this.communityRD$.pipe(
       map((rd: RemoteData<Community>) => rd.payload),
@@ -75,7 +75,7 @@ export class CommunityPageComponent implements OnInit {
       mergeMap((community: Community) => community.logo));
     this.communityPageRoute$ = this.communityRD$.pipe(
       getAllSucceededRemoteDataPayload(),
-      map((community) => getCommunityPageRoute(community.id))
+      map((community) => getCommunityPageRoute(community.id)),
     );
     this.isCommunityAdmin$ = this.authorizationDataService.isAuthorized(FeatureID.IsCommunityAdmin);
   }

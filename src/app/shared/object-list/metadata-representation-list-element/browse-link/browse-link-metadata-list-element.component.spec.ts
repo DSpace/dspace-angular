@@ -5,12 +5,12 @@ import { MetadatumRepresentation } from '../../../../core/shared/metadata-repres
 
 const mockMetadataRepresentation = Object.assign(new MetadatumRepresentation('type'), {
   key: 'dc.contributor.author',
-  value: 'Test Author'
+  value: 'Test Author',
 });
 
 const mockMetadataRepresentationWithUrl = Object.assign(new MetadatumRepresentation('type'), {
   key: 'dc.subject',
-  value: 'http://purl.org/test/subject'
+  value: 'http://purl.org/test/subject',
 });
 
 describe('BrowseLinkMetadataListElementComponent', () => {
@@ -21,9 +21,9 @@ describe('BrowseLinkMetadataListElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [],
       declarations: [BrowseLinkMetadataListElementComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(BrowseLinkMetadataListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

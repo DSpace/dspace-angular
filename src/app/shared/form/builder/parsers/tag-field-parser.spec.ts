@@ -13,13 +13,13 @@ describe('TagFieldParser test suite', () => {
     readOnly: false,
     submissionScope: 'testScopeUUID',
     collectionUUID: null,
-    typeField: 'dc_type'
+    typeField: 'dc_type',
   };
 
   beforeEach(() => {
     field = {
       input: {
-        type: 'tag'
+        type: 'tag',
       },
       label: 'Keywords',
       mandatory: 'false',
@@ -29,10 +29,10 @@ describe('TagFieldParser test suite', () => {
         {
           metadata: 'subject',
           controlledVocabulary: 'JOURNALAuthority',
-          closed: false
-        }
+          closed: false,
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
   });

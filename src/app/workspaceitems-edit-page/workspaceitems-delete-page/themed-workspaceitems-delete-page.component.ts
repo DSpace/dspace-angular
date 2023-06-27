@@ -9,7 +9,7 @@ import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page.
 @Component({
   selector: 'ds-themed-workspace-items-delete',
   styleUrls: [],
-  templateUrl: './../../shared/theme-support/themed.component.html'
+  templateUrl: './../../shared/theme-support/themed.component.html',
 })
 export class ThemedWorkspaceItemsDeletePageComponent extends ThemedComponent<WorkspaceItemsDeletePageComponent> {
   protected getComponentName(): string {

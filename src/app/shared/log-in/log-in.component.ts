@@ -6,7 +6,7 @@ import {
   getAuthenticationError,
   getAuthenticationMethods,
   isAuthenticated,
-  isAuthenticationLoading
+  isAuthenticationLoading,
 } from '../../core/auth/selectors';
 import { getForgotPasswordRoute, getRegisterRoute } from '../../app-routing-paths';
 import { hasValue } from '../empty.util';
@@ -23,7 +23,7 @@ import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 @Component({
   selector: 'ds-log-in',
   templateUrl: './log-in.component.html',
-  styleUrls: ['./log-in.component.scss']
+  styleUrls: ['./log-in.component.scss'],
 })
 export class LogInComponent implements OnInit {
 

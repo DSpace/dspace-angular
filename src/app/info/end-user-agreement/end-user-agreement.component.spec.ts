@@ -30,18 +30,18 @@ describe('EndUserAgreementComponent', () => {
 
     endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
       hasCurrentUserOrCookieAcceptedAgreement: observableOf(false),
-      setUserAcceptedAgreement: observableOf(true)
+      setUserAcceptedAgreement: observableOf(true),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['success', 'error']);
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true)
+      isAuthenticated: observableOf(true),
     });
     store = jasmine.createSpyObj('store', ['dispatch']);
     router = jasmine.createSpyObj('router', ['navigate', 'navigateByUrl']);
     route = Object.assign(new ActivatedRouteStub(), {
       queryParams: observableOf({
-        redirect: redirectUrl
-      })
+        redirect: redirectUrl,
+      }),
     }) as any;
   }
 
@@ -56,9 +56,9 @@ describe('EndUserAgreementComponent', () => {
         { provide: AuthService, useValue: authService },
         { provide: Store, useValue: store },
         { provide: Router, useValue: router },
-        { provide: ActivatedRoute, useValue: route }
+        { provide: ActivatedRoute, useValue: route },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

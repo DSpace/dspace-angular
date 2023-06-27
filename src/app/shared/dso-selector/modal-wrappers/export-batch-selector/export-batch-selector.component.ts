@@ -61,7 +61,7 @@ export class ExportBatchSelectorComponent extends DSOSelectorModalWrapperCompone
           return startScriptSucceeded$.pipe(
             switchMap((r: boolean) => {
               return observableOf(r);
-            })
+            }),
           );
         } else {
           const modalRefExport = this.modalService.open(ExportBatchSelectorComponent);
@@ -83,7 +83,7 @@ export class ExportBatchSelectorComponent extends DSOSelectorModalWrapperCompone
   private startScriptNotifyAndRedirect(dso: DSpaceObject): Observable<boolean> {
     const parameterValues: ProcessParameter[] = [
       Object.assign(new ProcessParameter(), { name: '--id', value: dso.uuid }),
-      Object.assign(new ProcessParameter(), { name: '--type', value: 'COLLECTION' })
+      Object.assign(new ProcessParameter(), { name: '--type', value: 'COLLECTION' }),
     ];
     return this.authorizationDataService.isAuthorized(FeatureID.AdministratorOf).pipe(
       switchMap(() => {
@@ -105,7 +105,7 @@ export class ExportBatchSelectorComponent extends DSOSelectorModalWrapperCompone
           this.notificationsService.error(title, content);
           return false;
         }
-      })
+      }),
     );
   }
 }

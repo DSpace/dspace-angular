@@ -13,7 +13,7 @@ import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-servic
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
@@ -36,7 +36,7 @@ describe('RelationshipDataService', () => {
     id: '1',
     uuid: '1',
     leftwardType: 'isAuthorOfPublication',
-    rightwardType: 'isPublicationOfAuthor'
+    rightwardType: 'isPublicationOfAuthor',
   });
 
   const ri1SelfLink = restEndpointURL + '/author1';
@@ -46,34 +46,34 @@ describe('RelationshipDataService', () => {
   const relationship1 = Object.assign(new Relationship(), {
     _links: {
       self: {
-        href: relationshipsEndpointURL + '/2'
+        href: relationshipsEndpointURL + '/2',
       },
       leftItem: {
-        href: ri1SelfLink
+        href: ri1SelfLink,
       },
       rightItem: {
-        href: itemSelfLink
-      }
+        href: itemSelfLink,
+      },
     },
     id: '2',
     uuid: '2',
-    relationshipType: createSuccessfulRemoteDataObject$(relationshipType)
+    relationshipType: createSuccessfulRemoteDataObject$(relationshipType),
   });
   const relationship2 = Object.assign(new Relationship(), {
     _links: {
       self: {
-        href: relationshipsEndpointURL + '/3'
+        href: relationshipsEndpointURL + '/3',
       },
       leftItem: {
-        href: ri2SelfLink
+        href: ri2SelfLink,
       },
       rightItem: {
-        href: itemSelfLink
+        href: itemSelfLink,
       },
     },
     id: '3',
     uuid: '3',
-    relationshipType: createSuccessfulRemoteDataObject$(relationshipType)
+    relationshipType: createSuccessfulRemoteDataObject$(relationshipType),
   });
 
   const relationships = [relationship1, relationship2];
@@ -83,23 +83,23 @@ describe('RelationshipDataService', () => {
     relationships: createSuccessfulRemoteDataObject$(createPaginatedList(relationships)),
     _links: {
       relationships: { href: restEndpointURL + '/publication/relationships' },
-      self: { href: itemSelfLink }
-    }
+      self: { href: itemSelfLink },
+    },
   });
 
   const relatedItem1 = Object.assign(new Item(), {
     id: 'author1',
     uuid: 'author1',
     _links: {
-      self: { href: ri1SelfLink }
-    }
+      self: { href: ri1SelfLink },
+    },
   });
   const relatedItem2 = Object.assign(new Item(), {
     id: 'author2',
     uuid: 'author2',
     _links: {
-      self: { href: ri2SelfLink }
-    }
+      self: { href: ri2SelfLink },
+    },
   });
 
   relationship1.leftItem = createSuccessfulRemoteDataObject$(relatedItem1);
@@ -112,20 +112,20 @@ describe('RelationshipDataService', () => {
   const relationships$ = createSuccessfulRemoteDataObject$(createPaginatedList(relationships));
   const rdbService = getMockRemoteDataBuildServiceHrefMap(undefined, {
     'href': buildList$,
-    'https://rest.api/core/publication/relationships': relationships$
+    'https://rest.api/core/publication/relationships': relationships$,
   });
   const objectCache = Object.assign({
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     remove: () => {
     },
     hasBySelfLinkObservable: () => observableOf(false),
-    hasByHref$: () => observableOf(false)
+    hasByHref$: () => observableOf(false),
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   }) as ObjectCacheService;
 
   const itemService = jasmine.createSpyObj('itemService', {
     findById: (uuid) => createSuccessfulRemoteDataObject(relatedItems.find((relatedItem) => relatedItem.id === uuid)),
-    findByHref: createSuccessfulRemoteDataObject$(relatedItems[0])
+    findByHref: createSuccessfulRemoteDataObject$(relatedItems[0]),
   });
 
   function initTestService() {
@@ -142,7 +142,7 @@ describe('RelationshipDataService', () => {
 
   const getRequestEntry$ = (successful: boolean) => {
     return observableOf({
-      response: { isSuccessful: successful, payload: relationships } as any
+      response: { isSuccessful: successful, payload: relationships } as any,
     } as RequestEntry);
   };
 
@@ -197,7 +197,7 @@ describe('RelationshipDataService', () => {
         elementsPerPage: relationships.length,
         totalElements: relationships.length,
         currentPage: 1,
-        totalPages: 1
+        totalPages: 1,
       }), relationships);
       mockItem = { uuid: 'someid' } as Item;
       mockLabel = 'label';
@@ -212,7 +212,7 @@ describe('RelationshipDataService', () => {
       service.getRelatedItemsByLabel(
         mockItem,
         mockLabel,
-        mockOptions
+        mockOptions,
       ).subscribe((result) => {
         expect(service.getItemRelationshipsByLabel).toHaveBeenCalledWith(
           mockItem,
@@ -222,7 +222,7 @@ describe('RelationshipDataService', () => {
           true,
           followLink('leftItem',{}, followLink('thumbnail')),
           followLink('rightItem',{}, followLink('thumbnail')),
-          followLink('relationshipType')
+          followLink('relationshipType'),
         );
         done();
       });
@@ -232,7 +232,7 @@ describe('RelationshipDataService', () => {
       service.getRelatedItemsByLabel(
         mockItem,
         mockLabel,
-        mockOptions
+        mockOptions,
       ).subscribe((result) => {
         expect((service as any).paginatedRelationsToItems).toHaveBeenCalledWith(mockItem.uuid);
         done();
@@ -249,12 +249,12 @@ describe('RelationshipDataService', () => {
             language: null,
             value: 'Related Author with authority',
             authority: 'virtual::related-author',
-            place: 2
+            place: 2,
           }),
           Object.assign(new MetadataValue(), {
             language: null,
             value: 'Author without authority',
-            place: 1
+            place: 1,
           }),
         ],
         'dc.creator': [
@@ -274,10 +274,10 @@ describe('RelationshipDataService', () => {
         'dc.title': [
           Object.assign(new MetadataValue(), {
             language: null,
-            value: 'Parent Item'
+            value: 'Parent Item',
           }),
-        ]
-      }
+        ],
+      },
     });
     const relatedAuthor: Item = Object.assign(new Item(), {
       id: 'related-author',
@@ -285,10 +285,10 @@ describe('RelationshipDataService', () => {
         'dc.title': [
           Object.assign(new MetadataValue(), {
             language: null,
-            value: 'Related Author'
+            value: 'Related Author',
           }),
-        ]
-      }
+        ],
+      },
     });
     const relatedCreator: Item = Object.assign(new Item(), {
       id: 'related-creator',
@@ -296,15 +296,15 @@ describe('RelationshipDataService', () => {
         'dc.title': [
           Object.assign(new MetadataValue(), {
             language: null,
-            value: 'Related Creator'
+            value: 'Related Creator',
           }),
         ],
         'dspace.entity.type': 'Person',
-      }
+      },
     });
     const authorRelation: Relationship = Object.assign(new Relationship(), {
       leftItem: createSuccessfulRemoteDataObject$(parentItem),
-      rightItem: createSuccessfulRemoteDataObject$(relatedAuthor)
+      rightItem: createSuccessfulRemoteDataObject$(relatedAuthor),
     });
     const creatorRelation: Relationship = Object.assign(new Relationship(), {
       leftItem: createSuccessfulRemoteDataObject$(parentItem),

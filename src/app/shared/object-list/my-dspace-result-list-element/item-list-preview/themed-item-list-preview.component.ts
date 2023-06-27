@@ -12,7 +12,7 @@ import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model'
 @Component({
   selector: 'ds-themed-item-list-preview',
   styleUrls: [],
-  templateUrl: '../../../theme-support/themed.component.html'
+  templateUrl: '../../../theme-support/themed.component.html',
 })
 export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPreviewComponent> {
   protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'badgeContext', 'showSubmitter', 'workflowItem'];

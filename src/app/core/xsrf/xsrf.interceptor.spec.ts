@@ -19,7 +19,7 @@ describe(`XsrfInterceptor`, () => {
   // Mock payload/statuses are dummy content as we are not testing the results
   // of any below requests. We are only testing for X-XSRF-TOKEN header.
   const mockPayload = {
-    id: 1
+    id: 1,
   };
   const mockStatusCode = 200;
   const mockStatusText = 'SUCCESS';
@@ -35,7 +35,7 @@ describe(`XsrfInterceptor`, () => {
           multi: true,
         },
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock(testToken) },
-        { provide: CookieService, useValue: new CookieServiceMock() }
+        { provide: CookieService, useValue: new CookieServiceMock() },
       ],
     });
 
@@ -132,7 +132,7 @@ describe(`XsrfInterceptor`, () => {
     httpRequest.flush(mockPayload, {
       headers: new HttpHeaders().set('DSPACE-XSRF-TOKEN', mockNewXSRFToken),
       status: mockStatusCode,
-      statusText: mockStatusText
+      statusText: mockStatusText,
     });
   });
 
@@ -157,7 +157,7 @@ describe(`XsrfInterceptor`, () => {
         expect(cookieService.get('XSRF-TOKEN')).toBe(mockNewXSRFToken.toString());
 
         done();
-      }
+      },
     });
 
     const httpRequest = httpMock.expectOne('server/api/core/items');
@@ -166,7 +166,7 @@ describe(`XsrfInterceptor`, () => {
     httpRequest.flush(mockErrorMessage, {
       headers: new HttpHeaders().set('DSPACE-XSRF-TOKEN', mockNewXSRFToken),
       status: mockErrorCode,
-      statusText: mockErrorText
+      statusText: mockErrorText,
     });
   });
 

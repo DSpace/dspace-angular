@@ -13,7 +13,7 @@ import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-bro
 @Component({
   selector: 'ds-browse-by-taxonomy-page',
   templateUrl: './browse-by-taxonomy-page.component.html',
-  styleUrls: ['./browse-by-taxonomy-page.component.scss']
+  styleUrls: ['./browse-by-taxonomy-page.component.scss'],
 })
 /**
  * Component for browsing items by metadata in a hierarchical controlled vocabulary
@@ -70,7 +70,7 @@ export class BrowseByTaxonomyPageComponent implements OnInit, OnDestroy {
       map((data: { browseDefinition: BrowseDefinition }) => {
         this.getComponentByBrowseByType(data.browseDefinition.getRenderType(), this.themeService.getThemeName());
         return data.browseDefinition;
-      })
+      }),
     );
     this.browseByComponentSubs.push(this.browseByComponent.subscribe((browseDefinition: HierarchicalBrowseDefinition) => {
       this.facetType = browseDefinition.facetType;
@@ -108,7 +108,7 @@ export class BrowseByTaxonomyPageComponent implements OnInit, OnDestroy {
    */
   private updateQueryParams(): void {
     this.queryParams = {
-      ['f.' + this.facetType]: this.filterValues
+      ['f.' + this.facetType]: this.filterValues,
     };
   }
 

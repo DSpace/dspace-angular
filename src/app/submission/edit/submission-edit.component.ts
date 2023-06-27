@@ -26,7 +26,7 @@ import { SubmissionError } from '../objects/submission-error.model';
 @Component({
   selector: 'ds-submission-edit',
   styleUrls: ['./submission-edit.component.scss'],
-  templateUrl: './submission-edit.component.html'
+  templateUrl: './submission-edit.component.html',
 })
 export class SubmissionEditComponent implements OnDestroy, OnInit {
 
@@ -123,7 +123,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
       this.route.paramMap.pipe(
         switchMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id'))),
         // NOTE new submission is retrieved on the browser side only, so get null on server side rendering
-        filter((submissionObjectRD: RemoteData<SubmissionObject>) => isNotNull(submissionObjectRD))
+        filter((submissionObjectRD: RemoteData<SubmissionObject>) => isNotNull(submissionObjectRD)),
       ).subscribe((submissionObjectRD: RemoteData<SubmissionObject>) => {
         if (submissionObjectRD.hasSucceeded) {
           if (isEmpty(submissionObjectRD.payload)) {
@@ -151,7 +151,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
       this.itemLink$.pipe(
         isNotEmptyOperator(),
         switchMap((itemLink: string) =>
-          this.itemDataService.findByHref(itemLink)
+          this.itemDataService.findByHref(itemLink),
         ),
         getAllSucceededRemoteData(),
         // Multiple sources can update the item in quick succession.

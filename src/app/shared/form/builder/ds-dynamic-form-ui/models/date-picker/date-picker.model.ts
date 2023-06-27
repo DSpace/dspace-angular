@@ -4,7 +4,7 @@ import {
   DynamicFormControlLayout,
   DynamicFormControlModel,
   DynamicFormControlRelation,
-  serializable
+  serializable,
 } from '@ng-dynamic-forms/core';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {isEmpty, isNotUndefined} from '../../../../../empty.util';

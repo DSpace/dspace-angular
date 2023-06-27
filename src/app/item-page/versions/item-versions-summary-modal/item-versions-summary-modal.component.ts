@@ -6,7 +6,7 @@ import { ModalBeforeDismiss } from '../../../shared/interfaces/modal-before-dism
 @Component({
   selector: 'ds-item-versions-summary-modal',
   templateUrl: './item-versions-summary-modal.component.html',
-  styleUrls: ['./item-versions-summary-modal.component.scss']
+  styleUrls: ['./item-versions-summary-modal.component.scss'],
 })
 export class ItemVersionsSummaryModalComponent implements OnInit, ModalBeforeDismiss {
 

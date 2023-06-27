@@ -15,7 +15,7 @@ import { Location } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  ADVANCED_WORKFLOW_ACTION_RATING
+  ADVANCED_WORKFLOW_ACTION_RATING,
 } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
 import { of as observableOf } from 'rxjs';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';

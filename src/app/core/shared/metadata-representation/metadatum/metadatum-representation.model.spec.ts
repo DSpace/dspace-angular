@@ -6,12 +6,12 @@ describe('MetadatumRepresentation', () => {
   const itemType = 'Person';
   const normalMetadatum = Object.assign(new MetadataValue(), {
     key: 'dc.contributor.author',
-    value: 'Test Author'
+    value: 'Test Author',
   });
   const authorityMetadatum = Object.assign(new MetadataValue(), {
     key: 'dc.contributor.author',
     value: 'Test Authority Author',
-    authority: '1234'
+    authority: '1234',
   });
 
   let metadatumRepresentation: MetadatumRepresentation;

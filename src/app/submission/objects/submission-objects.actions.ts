@@ -5,7 +5,7 @@ import { type } from '../../shared/ngrx/type';
 import { WorkspaceitemSectionUploadFileObject } from '../../core/submission/models/workspaceitem-section-upload-file.model';
 import {
   WorkspaceitemSectionDataType,
-  WorkspaceitemSectionsObject
+  WorkspaceitemSectionsObject,
 } from '../../core/submission/models/workspaceitem-sections.model';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';

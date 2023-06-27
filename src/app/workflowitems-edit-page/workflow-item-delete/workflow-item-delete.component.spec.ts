@@ -29,7 +29,7 @@ describe('WorkflowItemDeleteComponent', () => {
 
   function init() {
     wfiService = jasmine.createSpyObj('workflowItemService', {
-      delete: observableOf(true)
+      delete: observableOf(true),
     });
     itemRD$ = createSuccessfulRemoteDataObject$(itemRD$);
     wfi = new WorkflowItem();
@@ -43,8 +43,8 @@ describe('WorkflowItemDeleteComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       })],
       declarations: [WorkflowItemDeleteComponent, VarDirective],
       providers: [
@@ -56,7 +56,7 @@ describe('WorkflowItemDeleteComponent', () => {
         { provide: WorkflowItemDataService, useValue: wfiService },
         { provide: RequestService, useValue: getMockRequestService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

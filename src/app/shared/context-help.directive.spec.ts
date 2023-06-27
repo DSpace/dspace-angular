@@ -9,7 +9,7 @@ import { ContextHelpService } from './context-help.service';
 import { ContextHelp } from './context-help.model';
 
 @Component({
-  template: `<div *dsContextHelp="contextHelpParams()">some text</div>`
+  template: `<div *dsContextHelp="contextHelpParams()">some text</div>`,
 })
 class TestComponent {
   @Input() content = '';
@@ -19,18 +19,18 @@ class TestComponent {
       content: this.content,
       id: this.id,
       iconPlacement: 'left',
-      tooltipPlacement: ['bottom']
+      tooltipPlacement: ['bottom'],
     };
   }
 }
 
 const messages = {
   lorem: 'lorem ipsum dolor sit amet',
-  linkTest: 'This is text, [this](https://dspace.lyrasis.org) is a link, and [so is this](https://google.com)'
+  linkTest: 'This is text, [this](https://dspace.lyrasis.org) is a link, and [so is this](https://google.com)',
 };
 const exampleContextHelp: ContextHelp = {
   id: 'test-tooltip',
-  isTooltipVisible: false
+  isTooltipVisible: false,
 };
 describe('ContextHelpDirective', () => {
   let component: TestComponent;
@@ -50,16 +50,16 @@ describe('ContextHelpDirective', () => {
       'toggleIcons',
       'toggleTooltip',
       'showTooltip',
-      'hideTooltip'
+      'hideTooltip',
     ]);
 
     TestBed.configureTestingModule({
       imports: [NgbTooltipModule],
       providers: [
         { provide: TranslateService, useValue: translateService },
-        { provide: ContextHelpService, useValue: contextHelpService }
+        { provide: ContextHelpService, useValue: contextHelpService },
       ],
-      declarations: [TestComponent, ContextHelpWrapperComponent, ContextHelpDirective]
+      declarations: [TestComponent, ContextHelpWrapperComponent, ContextHelpDirective],
     }).compileComponents();
   }));
 

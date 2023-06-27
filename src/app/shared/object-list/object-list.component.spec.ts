@@ -14,9 +14,9 @@ describe('ObjectListComponent', () => {
       imports: [],
       declarations: [ObjectListComponent],
       providers: [{ provide: SelectableListService, useValue: {} }],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ObjectListComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

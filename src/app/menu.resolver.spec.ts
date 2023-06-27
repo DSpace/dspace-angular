@@ -22,7 +22,7 @@ import { createPaginatedList } from './shared/testing/utils.test';
 
 const BOOLEAN = { t: true, f: false };
 const MENU_STATE = {
-  id: 'some menu'
+  id: 'some menu',
 };
 const BROWSE_DEFINITIONS = [
   { id: 'definition1' },
@@ -44,13 +44,13 @@ describe('MenuResolver', () => {
     spyOn(menuService, 'addSection');
 
     browseService = jasmine.createSpyObj('browseService', {
-      getBrowseDefinitions: createSuccessfulRemoteDataObject$(createPaginatedList(BROWSE_DEFINITIONS))
+      getBrowseDefinitions: createSuccessfulRemoteDataObject$(createPaginatedList(BROWSE_DEFINITIONS)),
     });
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     scriptService = jasmine.createSpyObj('scriptService', {
-      scriptWithNameExistsAndCanExecute: observableOf(true)
+      scriptWithNameExistsAndCanExecute: observableOf(true),
     });
 
     TestBed.configureTestingModule({
@@ -64,11 +64,11 @@ describe('MenuResolver', () => {
         {
           provide: NgbModal, useValue: {
             open: () => {/*comment*/
-            }
-          }
-        }
+            },
+          },
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     });
     resolver = TestBed.inject(MenuResolver);
   }));

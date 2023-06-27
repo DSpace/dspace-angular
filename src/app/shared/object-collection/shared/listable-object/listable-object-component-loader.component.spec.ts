@@ -6,7 +6,7 @@ import { GenericConstructor } from '../../../../core/shared/generic-constructor'
 import { Context } from '../../../../core/shared/context.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import {
-  ItemListElementComponent
+  ItemListElementComponent,
 } from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
 import { ListableObjectDirective } from './listable-object.directive';
 import { TranslateModule } from '@ngx-translate/core';
@@ -41,12 +41,12 @@ describe('ListableObjectComponentLoaderComponent', () => {
       providers: [
         provideMockStore({}),
         { provide: ThemeService, useValue: themeService },
-      ]
+      ],
     }).overrideComponent(ListableObjectComponentLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
-        entryComponents: [ItemListElementComponent]
-      }
+        entryComponents: [ItemListElementComponent],
+      },
     }).compileComponents();
   }));
 

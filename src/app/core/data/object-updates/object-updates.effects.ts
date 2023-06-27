@@ -5,7 +5,7 @@ import {
   ObjectUpdatesAction,
   ObjectUpdatesActionTypes,
   RemoveAllObjectUpdatesAction,
-  RemoveObjectUpdatesAction
+  RemoveObjectUpdatesAction,
 } from './object-updates.actions';
 import { delay, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { of as observableOf, race as observableRace, Subject } from 'rxjs';
@@ -15,7 +15,7 @@ import { INotification } from '../../../shared/notifications/models/notification
 import {
   NotificationsActions,
   NotificationsActionTypes,
-  RemoveNotificationAction
+  RemoveNotificationAction,
 } from '../../../shared/notifications/notifications.actions';
 import { Action } from '@ngrx/store';
 import { NoOpAction } from '../../../shared/ngrx/no-op.action';
@@ -63,7 +63,7 @@ export class ObjectUpdatesEffects {
           }
           this.actionMap$[url].next(action);
         }
-      })
+      }),
     ), { dispatch: false });
 
   /**
@@ -78,8 +78,8 @@ export class ObjectUpdatesEffects {
           this.notificationActionMap$[id] = new Subject<NotificationsActions>();
         }
         this.notificationActionMap$[id].next(action);
-      }
-      )
+      },
+      ),
     ), { dispatch: false });
 
   /**
@@ -117,23 +117,23 @@ export class ObjectUpdatesEffects {
               }
               // If someone performed another action, assume the user does not want to reinstate and remove all changes
               return removeAction;
-            })
+            }),
           ),
           this.notificationActionMap$[notification.id].pipe(
             filter((notificationsAction: NotificationsActions) => notificationsAction.type === NotificationsActionTypes.REMOVE_NOTIFICATION),
             map(() => {
               return removeAction;
-            })
+            }),
           ),
           this.notificationActionMap$[this.allIdentifier].pipe(
             filter((notificationsAction: NotificationsActions) => notificationsAction.type === NotificationsActionTypes.REMOVE_ALL_NOTIFICATIONS),
             map(() => {
               return removeAction;
-            })
-          )
+            }),
+          ),
         );
-      }
-      )
+      },
+      ),
     ));
 
   constructor(private actions$: Actions,

@@ -14,7 +14,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload
+  getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { AlertType } from '../../shared/alert/aletr-type';
@@ -99,7 +99,7 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
     protected http: HttpClient,
     protected modalService: NgbModal,
     protected notificationsService: NotificationsService,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
   ) {}
 
   /**
@@ -123,7 +123,7 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
 
     this.filesRD$ = this.processRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      switchMap((process: Process) => this.processService.getFiles(process.processId))
+      switchMap((process: Process) => this.processService.getFiles(process.processId)),
     );
   }
 
@@ -132,7 +132,7 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
       this.route.snapshot.params.id,
       false,
       true,
-      followLink('script')
+      followLink('script'),
     ).pipe(
       getFirstSucceededRemoteData(),
       redirectOn4xx(this.router, this.authService),
@@ -146,7 +146,7 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
 
     this.filesRD$ = this.processRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      switchMap((process: Process) => this.processService.getFiles(process.processId))
+      switchMap((process: Process) => this.processService.getFiles(process.processId)),
     );
   }
 
@@ -193,7 +193,7 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
         getFirstSucceededRemoteDataPayload(),
         switchMap((process: Process) => {
           return this.bitstreamDataService.findByHref(process._links.output.href, false);
-        })
+        }),
       );
       this.outputLogFileUrl$ = processOutputRD$.pipe(
         getFirstSucceededRemoteData(),
@@ -209,14 +209,14 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
             map((token: string) => {
               return hasValue(token) ? new URLCombiner(url, `?authentication-token=${token}`).toString() : url;
             }));
-        })
+        }),
       );
     });
     this.outputLogFileUrl$.pipe(take(1),
       switchMap((url: string) => {
         return this.getTextFile(url);
       }),
-      finalize(() => this.zone.run(() => this.retrievingOutputLogs$.next(false)))
+      finalize(() => this.zone.run(() => this.retrievingOutputLogs$.next(false))),
     ).subscribe((logs: string) => {
       this.outputLogs$.next(logs);
     });
@@ -250,7 +250,7 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
    */
   deleteProcess(process: Process) {
     this.processService.delete(process.processId).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get('process.detail.delete.success'));

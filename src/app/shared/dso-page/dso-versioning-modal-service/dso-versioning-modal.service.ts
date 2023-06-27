@@ -14,14 +14,14 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ItemVersionsSharedService } from '../../../item-page/versions/item-versions-shared.service';
 import {
-  ItemVersionsSummaryModalComponent
+  ItemVersionsSummaryModalComponent,
 } from '../../../item-page/versions/item-versions-summary-modal/item-versions-summary-modal.component';
 
 /**
  * Service to take care of all the functionality related to the version creation modal
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DsoVersioningModalService {
 

@@ -63,7 +63,7 @@ export class PrimaryBitstreamService {
       requestId,
       endpointURL,
       primaryBitstreamSelfLink,
-      this.getHttpOptions()
+      this.getHttpOptions(),
     );
 
     this.requestService.send(request);
@@ -81,7 +81,7 @@ export class PrimaryBitstreamService {
     return this.createAndSendRequest(
       PostRequest,
       bundle._links.primaryBitstream.href,
-      primaryBitstream.self
+      primaryBitstream.self,
     ) as Observable<RemoteData<Bundle>>;
   }
 
@@ -95,7 +95,7 @@ export class PrimaryBitstreamService {
     return this.createAndSendRequest(
       PutRequest,
       bundle._links.primaryBitstream.href,
-      primaryBitstream.self
+      primaryBitstream.self,
     ) as Observable<RemoteData<Bundle>>;
   }
 
@@ -107,12 +107,12 @@ export class PrimaryBitstreamService {
   delete(bundle: Bundle): Observable<RemoteData<Bundle>> {
     return this.createAndSendRequest(
       DeleteRequest,
-      bundle._links.primaryBitstream.href
+      bundle._links.primaryBitstream.href,
     ).pipe(
       getAllCompletedRemoteData(),
       switchMap((rd: RemoteData<NoContent>) => {
         return this.bundleDataService.findByHref(bundle.self, rd.hasFailed);
-      })
+      }),
     );
   }
 

@@ -25,7 +25,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-claimed-task-search-result-detail-element',
   styleUrls: ['../search-result-detail-element.component.scss'],
-  templateUrl: './claimed-task-search-result-detail-element.component.html'
+  templateUrl: './claimed-task-search-result-detail-element.component.html',
 })
 
 @listableObjectComponent(ClaimedTaskSearchResult, ViewMode.DetailedListElement)
@@ -66,7 +66,7 @@ export class ClaimedTaskSearchResultDetailElementComponent extends SearchResultD
     super.ngOnInit();
     this.linkService.resolveLinks(this.dso, followLink('workflowitem', {},
       followLink('item', {}, followLink('bundles')),
-      followLink('submitter')
+      followLink('submitter'),
     ), followLink('action'));
 
     (this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
@@ -75,7 +75,7 @@ export class ClaimedTaskSearchResultDetailElementComponent extends SearchResultD
         if (wfiRD.hasSucceeded) {
           this.workflowitem$.next(wfiRD.payload);
           return (wfiRD.payload.item as Observable<RemoteData<Item>>).pipe(
-            getFirstCompletedRemoteData()
+            getFirstCompletedRemoteData(),
           );
         } else {
           return EMPTY;
@@ -85,7 +85,7 @@ export class ClaimedTaskSearchResultDetailElementComponent extends SearchResultD
         if (isNotEmpty(itemRD) && itemRD.hasSucceeded) {
           this.item$.next(itemRD.payload);
         }
-      })
+      }),
     ).subscribe();
   }
 

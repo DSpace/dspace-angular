@@ -18,7 +18,7 @@ import { AuthenticateAction } from '../../core/auth/auth.actions';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { CoreState } from '../../core/core-state.model';
 
@@ -35,7 +35,7 @@ describe('ForgotPasswordFormComponent', () => {
   const registration = Object.assign(new Registration(), {
     email: 'test@email.org',
     user: 'test-uuid',
-    token: 'test-token'
+    token: 'test-token',
   });
 
   beforeEach(waitForAsync(() => {
@@ -45,7 +45,7 @@ describe('ForgotPasswordFormComponent', () => {
     notificationsService = new NotificationsServiceStub();
 
     ePersonDataService = jasmine.createSpyObj('ePersonDataService', {
-      patchPasswordWithToken: createSuccessfulRemoteDataObject$({})
+      patchPasswordWithToken: createSuccessfulRemoteDataObject$({}),
     });
 
     store = jasmine.createSpyObj('store', {
@@ -63,7 +63,7 @@ describe('ForgotPasswordFormComponent', () => {
         {provide: UntypedFormBuilder, useValue: new UntypedFormBuilder()},
         {provide: NotificationsService, useValue: notificationsService},
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
   beforeEach(() => {

@@ -6,9 +6,9 @@ import { ThemedProfilePageComponent } from './themed-profile-page.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: '', pathMatch: 'full', component: ThemedProfilePageComponent, resolve: { breadcrumb: I18nBreadcrumbResolver }, data: { breadcrumbKey: 'profile', title: 'profile.title' } }
-    ])
-  ]
+      { path: '', pathMatch: 'full', component: ThemedProfilePageComponent, resolve: { breadcrumb: I18nBreadcrumbResolver }, data: { breadcrumbKey: 'profile', title: 'profile.title' } },
+    ]),
+  ],
 })
 export class ProfilePageRoutingModule {
 

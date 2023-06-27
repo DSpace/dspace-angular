@@ -3,7 +3,7 @@ import {
   DynamicCheckboxModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
-  DynamicFormLayout
+  DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
 
 import { Observable, Subscription } from 'rxjs';
@@ -182,7 +182,7 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
             this.sectionService.dispatchRemoveSectionErrors(this.submissionId, this.sectionData.id);
           }
           this.changeDetectorRef.detectChanges();
-        })
+        }),
     );
   }
 

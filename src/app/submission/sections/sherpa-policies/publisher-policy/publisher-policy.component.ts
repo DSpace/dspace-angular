@@ -9,7 +9,7 @@ import { AlertType } from '../../../../shared/alert/aletr-type';
 @Component({
   selector: 'ds-publisher-policy',
   templateUrl: './publisher-policy.component.html',
-  styleUrls: ['./publisher-policy.component.scss']
+  styleUrls: ['./publisher-policy.component.scss'],
 })
 export class PublisherPolicyComponent {
 

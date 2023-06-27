@@ -22,7 +22,7 @@ const DECLARATIONS = [
   MyDSpaceNewSubmissionComponent,
   CollectionSelectorComponent,
   MyDSpaceNewSubmissionDropdownComponent,
-  MyDSpaceNewExternalDropdownComponent
+  MyDSpaceNewExternalDropdownComponent,
 ];
 
 @NgModule({
@@ -37,7 +37,7 @@ const DECLARATIONS = [
   declarations: DECLARATIONS,
   providers: [
     MyDSpaceGuard,
-    MyDSpaceConfigurationService
+    MyDSpaceConfigurationService,
   ],
   exports: DECLARATIONS,
 })

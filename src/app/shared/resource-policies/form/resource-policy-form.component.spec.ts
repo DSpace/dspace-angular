@@ -49,8 +49,8 @@ export const mockResourcePolicyFormData = {
       display: 'name',
       confidence: -1,
       place: 0,
-      otherInformation: null
-    }
+      otherInformation: null,
+    },
   ],
   description: [
     {
@@ -60,8 +60,8 @@ export const mockResourcePolicyFormData = {
       display: 'description',
       confidence: -1,
       place: 0,
-      otherInformation: null
-    }
+      otherInformation: null,
+    },
   ],
   policyType: [
     {
@@ -71,8 +71,8 @@ export const mockResourcePolicyFormData = {
       display: 'TYPE_WORKFLOW',
       confidence: -1,
       place: 0,
-      otherInformation: null
-    }
+      otherInformation: null,
+    },
   ],
   action: [
     {
@@ -82,8 +82,8 @@ export const mockResourcePolicyFormData = {
       display: 'WRITE',
       confidence: -1,
       place: 0,
-      otherInformation: null
-    }
+      otherInformation: null,
+    },
   ],
   date: {
     start: [
@@ -94,8 +94,8 @@ export const mockResourcePolicyFormData = {
         display: '2019-04-14',
         confidence: -1,
         place: 0,
-        otherInformation: null
-      }
+        otherInformation: null,
+      },
     ],
     end: [
       {
@@ -105,10 +105,10 @@ export const mockResourcePolicyFormData = {
         display: '2020-04-14',
         confidence: -1,
         place: 0,
-        otherInformation: null
-      }
+        otherInformation: null,
+      },
     ],
-  }
+  },
 };
 
 export const submittedResourcePolicy = Object.assign(new ResourcePolicy(), {
@@ -118,7 +118,7 @@ export const submittedResourcePolicy = Object.assign(new ResourcePolicy(), {
   action: ActionType.WRITE,
   startDate: dateToISOFormat('2019-04-14T00:00:00Z'),
   endDate: dateToISOFormat('2020-04-14T00:00:00Z'),
-  type: RESOURCE_POLICY
+  type: RESOURCE_POLICY,
 });
 
 describe('ResourcePolicyFormComponent test suite', () => {
@@ -142,36 +142,36 @@ describe('ResourcePolicyFormComponent test suite', () => {
     uuid: 'resource-policy-1',
     _links: {
       eperson: {
-        href: 'https://rest.api/rest/api/eperson'
+        href: 'https://rest.api/rest/api/eperson',
       },
       group: {
-        href: 'https://rest.api/rest/api/group'
+        href: 'https://rest.api/rest/api/group',
       },
       self: {
-        href: 'https://rest.api/rest/api/resourcepolicies/1'
+        href: 'https://rest.api/rest/api/resourcepolicies/1',
       },
     },
     eperson: observableOf(createSuccessfulRemoteDataObject({})),
-    group: observableOf(createSuccessfulRemoteDataObject(GroupMock))
+    group: observableOf(createSuccessfulRemoteDataObject(GroupMock)),
   };
 
   const epersonService = jasmine.createSpyObj('epersonService', {
     findByHref: jasmine.createSpy('findByHref'),
-    findAll: jasmine.createSpy('findAll')
+    findAll: jasmine.createSpy('findAll'),
   });
 
   const groupService = jasmine.createSpyObj('groupService', {
     findByHref: jasmine.createSpy('findByHref'),
-    findAll: jasmine.createSpy('findAll')
+    findAll: jasmine.createSpy('findAll'),
   });
 
   const mockPolicyRD: RemoteData<ResourcePolicy> = createSuccessfulRemoteDataObject(resourcePolicy);
   const activatedRouteStub = {
     parent: {
       data: observableOf({
-        dso: mockPolicyRD
-      })
-    }
+        dso: mockPolicyRD,
+      }),
+    },
   };
 
   beforeEach(waitForAsync(() => {
@@ -183,13 +183,13 @@ describe('ResourcePolicyFormComponent test suite', () => {
         NgbModule,
         NoopAnimationsModule,
         ReactiveFormsModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         FormComponent,
         EpersonGroupListComponent,
         ResourcePolicyFormComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
@@ -202,11 +202,11 @@ describe('ResourcePolicyFormComponent test suite', () => {
         { provide: RequestService, useValue: getMockRequestService() },
         FormBuilderService,
         ChangeDetectorRef,
-        ResourcePolicyFormComponent
+        ResourcePolicyFormComponent,
       ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 
@@ -307,7 +307,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       compAsAny.resourcePolicy = resourcePolicy;
       comp.isProcessing = observableOf(false);
       compAsAny.ePersonService.findByHref.and.returnValue(
-        observableOf(createSuccessfulRemoteDataObject({})).pipe(delay(100))
+        observableOf(createSuccessfulRemoteDataObject({})).pipe(delay(100)),
       );
       compAsAny.groupService.findByHref.and.returnValue(observableOf(createSuccessfulRemoteDataObject(GroupMock)));
     });
@@ -340,7 +340,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       compAsAny.isActive = true;
       comp.ngOnInit();
       comp.resourcePolicyTargetName$.pipe(
-        isNotEmptyOperator()
+        isNotEmptyOperator(),
       ).subscribe(() => {
         expect(compAsAny.resourcePolicyGrant).toEqual(GroupMock);
         done();
@@ -368,7 +368,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       comp.resourcePolicy = resourcePolicy;
       comp.isProcessing = observableOf(false);
       compAsAny.ePersonService.findByHref.and.returnValue(
-        observableOf(createSuccessfulRemoteDataObject({})).pipe(delay(100))
+        observableOf(createSuccessfulRemoteDataObject({})).pipe(delay(100)),
       );
       compAsAny.groupService.findByHref.and.returnValue(observableOf(createSuccessfulRemoteDataObject(GroupMock)));
       compAsAny.formService.isValid.and.returnValue(observableOf(true));
@@ -400,7 +400,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       eventPayload.object = submittedResourcePolicy;
       eventPayload.target = {
         type: 'group',
-        uuid: GroupMock.id
+        uuid: GroupMock.id,
       };
       eventPayload.updateTarget = false;
 
@@ -424,7 +424,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       comp.resourcePolicy = resourcePolicy;
       comp.isProcessing = observableOf(false);
       compAsAny.ePersonService.findByHref.and.returnValue(
-        observableOf(createSuccessfulRemoteDataObject({})).pipe(delay(100))
+        observableOf(createSuccessfulRemoteDataObject({})).pipe(delay(100)),
       );
       compAsAny.groupService.findByHref.and.returnValue(observableOf(createSuccessfulRemoteDataObject(GroupMock)));
       compAsAny.formService.isValid.and.returnValue(observableOf(false));
@@ -452,7 +452,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

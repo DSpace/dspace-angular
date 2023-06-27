@@ -15,7 +15,7 @@ import { isNotEmpty } from '../../../shared/empty.util';
 @Component({
   selector: 'ds-submission-form-footer',
   styleUrls: ['./submission-form-footer.component.scss'],
-  templateUrl: './submission-form-footer.component.html'
+  templateUrl: './submission-form-footer.component.html',
 })
 export class SubmissionFormFooterComponent implements OnChanges {
 
@@ -72,7 +72,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (isNotEmpty(this.submissionId)) {
       this.submissionIsInvalid = this.submissionService.getSubmissionStatus(this.submissionId).pipe(
-        map((isValid: boolean) => isValid === false)
+        map((isValid: boolean) => isValid === false),
       );
 
       this.processingSaveStatus = this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId);
@@ -112,7 +112,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
         if (result === 'ok') {
           this.submissionService.dispatchDiscard(this.submissionId);
         }
-      }
+      },
     );
   }
 }

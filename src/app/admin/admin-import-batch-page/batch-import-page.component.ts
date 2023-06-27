@@ -11,7 +11,7 @@ import { Process } from '../../process-page/processes/process.model';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
 import {
-  ImportBatchSelectorComponent
+  ImportBatchSelectorComponent,
 } from '../../shared/dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
@@ -20,7 +20,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-batch-import-page',
-  templateUrl: './batch-import-page.component.html'
+  templateUrl: './batch-import-page.component.html',
 })
 export class BatchImportPageComponent {
   /**
@@ -91,7 +91,7 @@ export class BatchImportPageComponent {
       }
     } else {
       const parameterValues: ProcessParameter[] = [
-        Object.assign(new ProcessParameter(), { name: '--add' })
+        Object.assign(new ProcessParameter(), { name: '--add' }),
       ];
       if (this.isUpload) {
         parameterValues.push(Object.assign(new ProcessParameter(), { name: '--zip', value: this.fileObject.name }));

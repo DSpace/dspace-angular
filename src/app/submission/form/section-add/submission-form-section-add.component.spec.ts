@@ -25,7 +25,7 @@ const mockAvailableSections: any = [
     errors: [],
     header: 'submit.progressbar.describe.newsectionone',
     id: 'newsectionone',
-    sectionType: 'submission-form'
+    sectionType: 'submission-form',
   },
   {
     config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/newsectiontwo',
@@ -34,8 +34,8 @@ const mockAvailableSections: any = [
     errors: [],
     header: 'submit.progressbar.describe.newsectiontwo',
     id: 'newsectiontwo',
-    sectionType: 'submission-form'
-  }
+    sectionType: 'submission-form',
+  },
 ];
 
 describe('SubmissionFormSectionAddComponent Component', () => {
@@ -50,7 +50,7 @@ describe('SubmissionFormSectionAddComponent Component', () => {
   const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
   const store: any = jasmine.createSpyObj('store', {
     dispatch: jasmine.createSpy('dispatch'),
-    select: jasmine.createSpy('select')
+    select: jasmine.createSpy('select'),
   });
 
   const window = new HostWindowServiceStub(800);
@@ -59,11 +59,11 @@ describe('SubmissionFormSectionAddComponent Component', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         SubmissionFormSectionAddComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: HostWindowService, useValue: window },
@@ -71,9 +71,9 @@ describe('SubmissionFormSectionAddComponent Component', () => {
         { provide: SectionsService, useClass: SectionsServiceStub },
         { provide: Store, useValue: store },
         ChangeDetectorRef,
-        SubmissionFormSectionAddComponent
+        SubmissionFormSectionAddComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -208,7 +208,7 @@ describe('SubmissionFormSectionAddComponent Component', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

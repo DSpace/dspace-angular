@@ -9,11 +9,11 @@ import {
   ObjectUpdatesAction,
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
-  RemoveObjectUpdatesAction
+  RemoveObjectUpdatesAction,
 } from './object-updates.actions';
 import {
   INotification,
-  Notification
+  Notification,
 } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { filter } from 'rxjs/operators';
@@ -35,8 +35,8 @@ describe('ObjectUpdatesEffects', () => {
           provide: NotificationsService,
           useValue: {
             remove: (notification) => { /* empty */
-            }
-          }
+            },
+          },
         },
       ],
     });
@@ -86,7 +86,7 @@ describe('ObjectUpdatesEffects', () => {
             filter(((action) => hasValue(action))))
             .subscribe((t) => {
               expect(t).toEqual(removeAction);
-            }
+            },
             )
           ;
         });
@@ -102,7 +102,7 @@ describe('ObjectUpdatesEffects', () => {
           actions = hot('b', { b: new ReinstateObjectUpdatesAction(testURL) });
           updatesEffects.removeAfterDiscardOrReinstateOnUndo$.subscribe((t) => {
             expect(t).toEqual(new NoOpAction());
-          }
+          },
           );
         });
       });
@@ -117,7 +117,7 @@ describe('ObjectUpdatesEffects', () => {
           actions = hot('b', { b: new RemoveFieldUpdateAction(testURL, testUUID) });
 
           updatesEffects.removeAfterDiscardOrReinstateOnUndo$.subscribe((t) =>
-            expect(t).toEqual(new RemoveObjectUpdatesAction(testURL))
+            expect(t).toEqual(new RemoveObjectUpdatesAction(testURL)),
           );
         });
       });

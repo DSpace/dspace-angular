@@ -65,19 +65,19 @@ describe('RelationshipEffects', () => {
 
     leftItem = Object.assign(new Item(), {
       uuid: testUUID1,
-      metadata: { 'dspace.entity.type': [leftTypeMD] }
+      metadata: { 'dspace.entity.type': [leftTypeMD] },
     });
 
     rightItem = Object.assign(new Item(), {
       uuid: testUUID2,
-      metadata: { 'dspace.entity.type': [rightTypeMD] }
+      metadata: { 'dspace.entity.type': [rightTypeMD] },
     });
 
     relationshipType = Object.assign(new RelationshipType(), {
       leftwardType: 'isAuthorOfPublication',
       rightwardType: 'isPublicationOfAuthor',
       leftType: createSuccessfulRemoteDataObject$(leftType),
-      rightType: createSuccessfulRemoteDataObject$(rightType)
+      rightType: createSuccessfulRemoteDataObject$(rightType),
     });
 
     relationship = Object.assign(new Relationship(),
@@ -86,27 +86,27 @@ describe('RelationshipEffects', () => {
         id: relationshipID,
         leftItem: createSuccessfulRemoteDataObject$(leftItem),
         rightItem: createSuccessfulRemoteDataObject$(rightItem),
-        relationshipType: createSuccessfulRemoteDataObject$(relationshipType)
+        relationshipType: createSuccessfulRemoteDataObject$(relationshipType),
       });
 
     mockRelationshipService = {
       getRelationshipByItemsAndLabel:
         () => observableOf(relationship),
       deleteRelationship: () => observableOf(new RestResponse(true, 200, 'OK')),
-      addRelationship: () => observableOf(new RestResponse(true, 200, 'OK'))
+      addRelationship: () => observableOf(new RestResponse(true, 200, 'OK')),
 
     };
     mockRelationshipTypeService = {
       getRelationshipTypeByLabelAndTypes:
-        () => observableOf(relationshipType)
+        () => observableOf(relationshipType),
     };
     notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
     translateService = jasmine.createSpyObj('translateService', {
-      instant: 'translated-message'
+      instant: 'translated-message',
     });
     selectableListService = jasmine.createSpyObj('selectableListService', {
       findSelectedByCondition: observableOf({}),
-      deselectSingle: {}
+      deselectSingle: {},
     });
   }
 
@@ -120,9 +120,9 @@ describe('RelationshipEffects', () => {
         { provide: RelationshipDataService, useValue: mockRelationshipService },
         {
           provide: SubmissionObjectDataService, useValue: {
-            findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem())
+            findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem()),
           },
-          getHrefByID: () => observableOf('')
+          getHrefByID: () => observableOf(''),
         },
         { provide: Store, useValue: jasmine.createSpyObj('store', ['dispatch']) },
         { provide: ObjectCacheService, useValue: {} },
@@ -256,7 +256,7 @@ describe('RelationshipEffects', () => {
             actions = hot('--a-|', { a: action });
             const expected = cold('--b-|', { b: undefined });
             expect(relationEffects.mapLastActions$).toBeObservable(expected);
-            expect((relationEffects as any).removeRelationship).toHaveBeenCalledWith(leftItem, rightItem, relationshipType.leftwardType, '1234',);
+            expect((relationEffects as any).removeRelationship).toHaveBeenCalledWith(leftItem, rightItem, relationshipType.leftwardType, '1234');
           });
         });
 

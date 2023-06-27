@@ -23,9 +23,9 @@ import { ThemedWorkspaceItemsDeletePageComponent } from './workspaceitems-delete
             path: 'edit',
             component: ThemedSubmissionEditComponent,
             resolve: {
-              breadcrumb: I18nBreadcrumbResolver
+              breadcrumb: I18nBreadcrumbResolver,
             },
-            data: { title: 'submission.edit.title', breadcrumbKey: 'submission.edit' }
+            data: { title: 'submission.edit.title', breadcrumbKey: 'submission.edit' },
           },
           {
             canActivate: [AuthenticatedGuard],
@@ -33,9 +33,9 @@ import { ThemedWorkspaceItemsDeletePageComponent } from './workspaceitems-delete
             component: ThemedFullItemPageComponent,
             resolve: {
               dso: ItemFromWorkspaceResolver,
-              breadcrumb: I18nBreadcrumbResolver
+              breadcrumb: I18nBreadcrumbResolver,
             },
-            data: { title: 'workspace-item.view.title', breadcrumbKey: 'workspace-item.view' }
+            data: { title: 'workspace-item.view.title', breadcrumbKey: 'workspace-item.view' },
           },
           {
             canActivate: [AuthenticatedGuard],
@@ -43,9 +43,9 @@ import { ThemedWorkspaceItemsDeletePageComponent } from './workspaceitems-delete
             component: WorkspaceItemsDeletePageComponent,
             resolve: {
               dso: ItemFromWorkspaceResolver,
-              breadcrumb: I18nBreadcrumbResolver
+              breadcrumb: I18nBreadcrumbResolver,
             },
-            data: { title: 'workspace-item.delete', breadcrumbKey: 'workspace-item.delete' }
+            data: { title: 'workspace-item.delete', breadcrumbKey: 'workspace-item.delete' },
           },
           {
             canActivate: [AuthenticatedGuard],
@@ -53,15 +53,15 @@ import { ThemedWorkspaceItemsDeletePageComponent } from './workspaceitems-delete
             component: ThemedWorkspaceItemsDeletePageComponent,
             resolve: {
               dso: ItemFromWorkspaceResolver,
-              breadcrumb: I18nBreadcrumbResolver
+              breadcrumb: I18nBreadcrumbResolver,
             },
-            data: { title: 'workspace-item.delete', breadcrumbKey: 'workspace-item.delete' }
+            data: { title: 'workspace-item.delete', breadcrumbKey: 'workspace-item.delete' },
           },
-        ]
-      }
-    ])
+        ],
+      },
+    ]),
   ],
-  providers: [WorkspaceItemPageResolver, ItemFromWorkspaceResolver]
+  providers: [WorkspaceItemPageResolver, ItemFromWorkspaceResolver],
 })
 /**
  * This module defines the default component to load when navigating to the workspaceitems edit page path

@@ -20,7 +20,7 @@ const ENTRY_COMPONENTS = [
   ItemAdminSearchResultGridElementComponent,
   CommunityAdminSearchResultGridElementComponent,
   CollectionAdminSearchResultGridElementComponent,
-  ItemAdminSearchResultActionsComponent
+  ItemAdminSearchResultActionsComponent,
 ];
 
 @NgModule({
@@ -28,12 +28,12 @@ const ENTRY_COMPONENTS = [
     SearchModule,
     SharedModule.withEntryComponents(),
     JournalEntitiesModule.withEntryComponents(),
-    ResearchEntitiesModule.withEntryComponents()
+    ResearchEntitiesModule.withEntryComponents(),
   ],
   declarations: [
     AdminSearchPageComponent,
-    ...ENTRY_COMPONENTS
-  ]
+    ...ENTRY_COMPONENTS,
+  ],
 })
 export class AdminSearchModule {
   /**
@@ -43,7 +43,7 @@ export class AdminSearchModule {
   static withEntryComponents() {
     return {
       ngModule: SharedModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component})),
     };
   }
 }

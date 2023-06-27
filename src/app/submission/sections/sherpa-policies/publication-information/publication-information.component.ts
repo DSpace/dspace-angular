@@ -8,7 +8,7 @@ import { Journal } from '../../../../core/submission/models/sherpa-policies-deta
 @Component({
   selector: 'ds-publication-information',
   templateUrl: './publication-information.component.html',
-  styleUrls: ['./publication-information.component.scss']
+  styleUrls: ['./publication-information.component.scss'],
 })
 export class PublicationInformationComponent {
   /**

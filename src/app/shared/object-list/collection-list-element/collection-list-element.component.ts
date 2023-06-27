@@ -8,7 +8,7 @@ import { listableObjectComponent } from '../../object-collection/shared/listable
 @Component({
   selector: 'ds-collection-list-element',
   styleUrls: ['./collection-list-element.component.scss'],
-  templateUrl: './collection-list-element.component.html'
+  templateUrl: './collection-list-element.component.html',
 })
 /**
  * Component representing list element for a collection

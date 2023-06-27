@@ -15,7 +15,7 @@ import { ResolvedAction } from '../core/resolving/resolver.actions';
  */
 export const COLLECTION_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Collection>[] = [
   followLink('parentCommunity', {},
-    followLink('parentCommunity')
+    followLink('parentCommunity'),
   ),
   followLink('logo'),
 ];
@@ -27,7 +27,7 @@ export const COLLECTION_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Collection>[] = [
 export class CollectionPageResolver implements Resolve<RemoteData<Collection>> {
   constructor(
     private collectionService: CollectionDataService,
-    private store: Store<any>
+    private store: Store<any>,
   ) {
   }
 
@@ -43,9 +43,9 @@ export class CollectionPageResolver implements Resolve<RemoteData<Collection>> {
       route.params.id,
       true,
       false,
-      ...COLLECTION_PAGE_LINKS_TO_FOLLOW
+      ...COLLECTION_PAGE_LINKS_TO_FOLLOW,
     ).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     );
 
     collectionRD$.subscribe((collectionRD: RemoteData<Collection>) => {

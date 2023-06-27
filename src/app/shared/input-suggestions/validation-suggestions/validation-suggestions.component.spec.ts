@@ -18,7 +18,7 @@ describe('ValidationSuggestionsComponent', () => {
   let el: HTMLElement;
   const suggestions = [{ displayValue: 'suggestion uno', value: 'suggestion uno' }, {
     displayValue: 'suggestion dos',
-    value: 'suggestion dos'
+    value: 'suggestion dos',
   }, { displayValue: 'suggestion tres', value: 'suggestion tres' }];
 
   beforeEach(waitForAsync(() => {
@@ -30,9 +30,9 @@ describe('ValidationSuggestionsComponent', () => {
         { provide: MetadataFieldDataService, useValue: {} },
         { provide: ObjectUpdatesService, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ValidationSuggestionsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

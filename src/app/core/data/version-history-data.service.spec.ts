@@ -74,8 +74,8 @@ describe('VersionHistoryDataService', () => {
     _links: {
       self: {
         href: '/items/' + item2Uuid,
-      }
-    }
+      },
+    },
   });
   const item2 = Object.assign(new Item(), {
     uuid: item2Uuid,
@@ -84,8 +84,8 @@ describe('VersionHistoryDataService', () => {
     _links: {
       self: {
         href: '/items/' + item2Uuid,
-      }
-    }
+      },
+    },
   });
   const items = [item1, item2];
   version1.item = createSuccessfulRemoteDataObject$(item1);

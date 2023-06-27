@@ -19,28 +19,28 @@ const mockItem = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'organization.foundingDate': [
       {
         language: null,
-        value: '2015-06-26'
-      }
+        value: '2015-06-26',
+      },
     ],
     'organization.address.addressCountry': [
       {
         language: 'en_US',
-        value: 'Belgium'
-      }
+        value: 'Belgium',
+      },
     ],
     'organization.address.addressLocality': [
       {
         language: 'en_US',
-        value: 'Brussels'
-      }
-    ]
-  }
+        value: 'Brussels',
+      },
+    ],
+  },
 });
 
 describe('OrgUnitGridElementComponent', () => {
@@ -59,9 +59,9 @@ describe('OrgUnitGridElementComponent', () => {
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(OrgUnitGridElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

@@ -7,17 +7,17 @@ import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import {
   getListableObjectComponent,
-  listableObjectComponent
+  listableObjectComponent,
 } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { Context } from '../../../../../core/shared/context.model';
 import {
-  SearchResultGridElementComponent
+  SearchResultGridElementComponent,
 } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import {
-  ListableObjectDirective
+  ListableObjectDirective,
 } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
@@ -26,10 +26,10 @@ import { RemoteData } from '../../../../../core/data/remote-data';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../../../../core/shared/operators';
 import {
-  WorkspaceItemSearchResult
+  WorkspaceItemSearchResult,
 } from '../../../../../shared/object-collection/shared/workspace-item-search-result.model';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
@@ -42,7 +42,7 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 @Component({
   selector: 'ds-workflow-item-search-result-admin-workflow-grid-element',
   styleUrls: ['./workspace-item-search-result-admin-workflow-grid-element.component.scss'],
-  templateUrl: './workspace-item-search-result-admin-workflow-grid-element.component.html'
+  templateUrl: './workspace-item-search-result-admin-workflow-grid-element.component.html',
 })
 /**
  * The component for displaying a grid element for an workflow item on the admin workflow search page
@@ -111,20 +111,20 @@ export class WorkspaceItemSearchResultAdminWorkflowGridElementComponent extends 
         undefined,
         [
           [this.badges.nativeElement],
-          [this.buttons.nativeElement]
+          [this.buttons.nativeElement],
         ]);
       (componentRef.instance as any).object = item;
       (componentRef.instance as any).index = this.index;
       (componentRef.instance as any).linkType = this.linkType;
       (componentRef.instance as any).listID = this.listID;
       componentRef.changeDetectorRef.detectChanges();
-    }
+    },
     );
 
     this.item$.pipe(
       take(1),
       tap((item: Item) => this.itemId = item.id),
-      mergeMap((item: Item) => this.retrieveSupervisorOrders(item.id))
+      mergeMap((item: Item) => this.retrieveSupervisorOrders(item.id)),
     ).subscribe((supervisionOrderList: SupervisionOrder[]) => {
       this.supervisionOrder$.next(supervisionOrderList);
     });
@@ -147,10 +147,10 @@ export class WorkspaceItemSearchResultAdminWorkflowGridElementComponent extends 
    */
   private retrieveSupervisorOrders(itemId): Observable<SupervisionOrder[]> {
     return this.supervisionOrderDataService.searchByItem(
-      itemId, false, true, followLink('group')
+      itemId, false, true, followLink('group'),
     ).pipe(
       getFirstCompletedRemoteData(),
-      map((soRD: RemoteData<PaginatedList<SupervisionOrder>>) => soRD.hasSucceeded && !soRD.hasNoContent ? soRD.payload.page : [])
+      map((soRD: RemoteData<PaginatedList<SupervisionOrder>>) => soRD.hasSucceeded && !soRD.hasNoContent ? soRD.payload.page : []),
     );
   }
 

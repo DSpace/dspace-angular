@@ -13,7 +13,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-delete-community',
   styleUrls: ['./delete-community-page.component.scss'],
-  templateUrl: './delete-community-page.component.html'
+  templateUrl: './delete-community-page.component.html',
 })
 export class DeleteCommunityPageComponent extends DeleteComColPageComponent<Community> {
   protected frontendURL = '/communities/';

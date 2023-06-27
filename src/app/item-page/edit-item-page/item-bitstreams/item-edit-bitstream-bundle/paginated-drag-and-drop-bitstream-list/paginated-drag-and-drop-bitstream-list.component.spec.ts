@@ -32,41 +32,41 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
     new ResponsiveColumnSizes(2, 2, 3, 4, 4),
     new ResponsiveColumnSizes(2, 3, 3, 3, 3),
     new ResponsiveColumnSizes(2, 2, 2, 2, 2),
-    new ResponsiveColumnSizes(6, 5, 4, 3, 3)
+    new ResponsiveColumnSizes(6, 5, 4, 3, 3),
   ]);
 
   const bundle = Object.assign(new Bundle(), {
     id: 'bundle-1',
     uuid: 'bundle-1',
     _links: {
-      self: { href: 'bundle-1-selflink' }
-    }
+      self: { href: 'bundle-1-selflink' },
+    },
   });
   const date = new Date();
   const format = Object.assign(new BitstreamFormat(), {
-    shortDescription: 'PDF'
+    shortDescription: 'PDF',
   });
   const bitstream1 = Object.assign(new Bitstream(), {
     uuid: 'bitstreamUUID1',
     name: 'Fake Bitstream 1',
     bundleName: 'ORIGINAL',
     description: 'Description',
-    format: createSuccessfulRemoteDataObject$(format)
+    format: createSuccessfulRemoteDataObject$(format),
   });
   const fieldUpdate1 = {
     field: bitstream1,
-    changeType: undefined
+    changeType: undefined,
   };
   const bitstream2 = Object.assign(new Bitstream(), {
     uuid: 'bitstreamUUID2',
     name: 'Fake Bitstream 2',
     bundleName: 'ORIGINAL',
     description: 'Description',
-    format: createSuccessfulRemoteDataObject$(format)
+    format: createSuccessfulRemoteDataObject$(format),
   });
   const fieldUpdate2 = {
     field: bitstream2,
-    changeType: undefined
+    changeType: undefined,
   };
 
   beforeEach(waitForAsync(() => {
@@ -97,19 +97,19 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
         isReinstatable: observableOf(false),
         isValidPage: observableOf(true),
         initializeWithCustomOrder: {},
-        addPageToCustomOrder: {}
-      }
+        addPageToCustomOrder: {},
+      },
     );
 
     bundleService = jasmine.createSpyObj('bundleService', {
       getBitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2])),
-      getBitstreamsEndpoint: observableOf('')
+      getBitstreamsEndpoint: observableOf(''),
     });
 
     objectValuesPipe = new ObjectValuesPipe();
 
     requestService = jasmine.createSpyObj('requestService', {
-      hasByHref$: observableOf(true)
+      hasByHref$: observableOf(true),
     });
 
     paginationService = new PaginationServiceStub();
@@ -122,10 +122,10 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
         { provide: BundleDataService, useValue: bundleService },
         { provide: ObjectValuesPipe, useValue: objectValuesPipe },
         { provide: RequestService, useValue: requestService },
-        { provide: PaginationService, useValue: paginationService }
+        { provide: PaginationService, useValue: paginationService },
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 

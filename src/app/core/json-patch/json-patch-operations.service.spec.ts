@@ -18,7 +18,7 @@ import {
   CommitPatchOperationsAction,
   DeletePendingJsonPatchOperationsAction,
   RollbacktPatchOperationsAction,
-  StartTransactionPatchOperationsAction
+  StartTransactionPatchOperationsAction,
 } from './json-patch-operations.actions';
 import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { deepClone } from 'fast-json-patch';
@@ -60,17 +60,17 @@ describe('JsonPatchOperationsService test suite', () => {
                 operation: {
                   op: 'add',
                   path: '/testResourceType/testResourceId/testField',
-                  value: ['test']
+                  value: ['test'],
                 },
-                timeCompleted: timestamp
+                timeCompleted: timestamp,
               },
-            ]
-          } as JsonPatchOperationsEntry
+            ],
+          } as JsonPatchOperationsEntry,
         },
         transactionStartTime: null,
-        commitPending: false
-      } as JsonPatchOperationsResourceEntry
-    }
+        commitPending: false,
+      } as JsonPatchOperationsResourceEntry,
+    },
   };
   const resourceEndpointURL = 'https://rest.api/endpoint';
   const resourceEndpoint = 'resource';
@@ -82,12 +82,12 @@ describe('JsonPatchOperationsService test suite', () => {
   const patchOpBody = [{
     op: 'add',
     path: '/testResourceType/testResourceId/testField',
-    value: ['test']
+    value: ['test'],
   }];
 
   const getRequestEntry$ = (successful: boolean) => {
     return observableOf({
-      response: { isSuccessful: successful, timeCompleted: timestampResponse } as any
+      response: { isSuccessful: successful, timeCompleted: timestampResponse } as any,
     } as RequestEntry);
   };
 
@@ -96,7 +96,7 @@ describe('JsonPatchOperationsService test suite', () => {
       requestService,
       store,
       halService,
-      rdbService
+      rdbService,
     );
 
   }
@@ -105,19 +105,19 @@ describe('JsonPatchOperationsService test suite', () => {
     return jasmine.createSpyObj('store', {
       dispatch: {},
       select: observableOf(mockState['json/patch'][testJsonPatchResourceType]),
-      pipe: observableOf(true)
+      pipe: observableOf(true),
     });
   }
 
   function spyOnRdbServiceAndReturnSuccessfulRemoteData() {
     spyOn(rdbService, 'buildFromRequestUUID').and.returnValue(
-      observableOf(Object.assign(createSuccessfulRemoteDataObject({ dataDefinition: 'test' }), { timeCompleted: new Date().getTime() + 10000 }))
+      observableOf(Object.assign(createSuccessfulRemoteDataObject({ dataDefinition: 'test' }), { timeCompleted: new Date().getTime() + 10000 })),
     );
   }
 
   function spyOnRdbServiceAndReturnFailedRemoteData() {
     spyOn(rdbService, 'buildFromRequestUUID').and.returnValue(
-      observableOf(Object.assign(createFailedRemoteDataObject('Error', 500), { timeCompleted: new Date().getTime() + 10000 }))
+      observableOf(Object.assign(createFailedRemoteDataObject('Error', 500), { timeCompleted: new Date().getTime() + 10000 })),
     );
   }
 

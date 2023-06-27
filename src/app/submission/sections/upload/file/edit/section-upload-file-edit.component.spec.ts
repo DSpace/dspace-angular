@@ -7,7 +7,7 @@ import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormGroupModel,
-  DynamicSelectModel
+  DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
 
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
@@ -32,18 +32,18 @@ import { createTestComponent } from '../../../../../shared/testing/utils.test';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
 import {
-  SubmissionJsonPatchOperationsServiceStub
+  SubmissionJsonPatchOperationsServiceStub,
 } from '../../../../../shared/testing/submission-json-patch-operations-service.stub';
 import {
-  SubmissionJsonPatchOperationsService
+  SubmissionJsonPatchOperationsService,
 } from '../../../../../core/submission/submission-json-patch-operations.service';
 import { SectionUploadService } from '../../section-upload.service';
 import { getMockSectionUploadService } from '../../../../../shared/mocks/section-upload.service.mock';
 import {
-  FormFieldMetadataValueObject
+  FormFieldMetadataValueObject,
 } from '../../../../../shared/form/builder/models/form-field-metadata-value.model';
 import {
-  JsonPatchOperationPathCombiner
+  JsonPatchOperationPathCombiner,
 } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { dateToISOFormat } from '../../../../../shared/date.util';
 import { of } from 'rxjs';
@@ -87,12 +87,12 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         FormComponent,
         SubmissionSectionUploadFileEditComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: FormService, useValue: getMockFormService() },
@@ -107,7 +107,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         NgbActiveModal,
         FormComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
   }));
 
@@ -201,7 +201,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         control: null,
         group: null,
         model: {id: 'name'} as any,
-        type: 'change'
+        type: 'change',
       };
       spyOn(comp, 'setOptions');
 
@@ -259,10 +259,10 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         Object.assign(mockSubmissionObject, {
           sections: {
             upload: {
-              files: mockUploadFiles
-            }
-          }
-        })
+              files: mockUploadFiles,
+            },
+          },
+        }),
       ];
       operationsService.jsonPatchByResourceID.and.returnValue(of(response));
 
@@ -278,21 +278,21 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       expect(operationsBuilder.add).toHaveBeenCalledWith(
         pathCombiner.getPath(path),
         mockFileFormData.metadata['dc.title'],
-        true
+        true,
       );
 
       path = 'metadata/dc.description';
       expect(operationsBuilder.add).toHaveBeenCalledWith(
         pathCombiner.getPath(path),
         mockFileFormData.metadata['dc.description'],
-        true
+        true,
       );
 
       path = 'accessConditions';
       expect(operationsBuilder.add).toHaveBeenCalledWith(
         pathCombiner.getPath(path),
         accessConditionsToSave,
-        true
+        true,
       );
 
       expect(uploadService.updateFileData).toHaveBeenCalledWith(submissionId, sectionId, mockUploadFiles[0].uuid, mockUploadFiles[0]);
@@ -317,7 +317,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

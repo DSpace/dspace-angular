@@ -22,7 +22,7 @@ export class CommunityMetadataComponent extends ComcolMetadataComponent<Communit
     protected router: Router,
     protected route: ActivatedRoute,
     protected notificationsService: NotificationsService,
-    protected translate: TranslateService
+    protected translate: TranslateService,
   ) {
     super(communityDataService, router, route, notificationsService, translate);
   }

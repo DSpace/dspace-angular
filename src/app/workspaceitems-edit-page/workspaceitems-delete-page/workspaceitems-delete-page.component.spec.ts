@@ -25,7 +25,7 @@ describe('WorkspaceitemsDeletePageComponent', () => {
   let fixture: ComponentFixture<WorkspaceItemsDeletePageComponent>;
 
   const workspaceitemDataServiceSpy = jasmine.createSpyObj('WorkspaceitemDataService', {
-    delete: observableOf(createSuccessfulRemoteDataObject({}))
+    delete: observableOf(createSuccessfulRemoteDataObject({})),
   });
 
   const wsi = new WorkspaceItem();
@@ -37,14 +37,14 @@ describe('WorkspaceitemsDeletePageComponent', () => {
     get: () => observableOf('test-message'),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter()
+    onDefaultLangChange: new EventEmitter(),
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         NgbModalModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [WorkspaceItemsDeletePageComponent],
       providers: [
@@ -55,7 +55,7 @@ describe('WorkspaceitemsDeletePageComponent', () => {
             {
               wsi: createSuccessfulRemoteDataObject(wsi),
               dso: createSuccessfulRemoteDataObject(dso),
-            }
+            },
           ),
         },
         { provide: Router, useValue: new RouterMock() },

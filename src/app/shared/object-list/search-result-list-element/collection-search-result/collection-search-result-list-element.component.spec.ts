@@ -25,10 +25,10 @@ mockCollectionWithAbstract.indexableObject = Object.assign(new Collection(), {
     'dc.description.abstract': [
       {
         language: 'en_US',
-        value: 'Short description'
-      }
-    ]
-  }
+        value: 'Short description',
+      },
+    ],
+  },
 });
 
 const mockCollectionWithoutAbstract: CollectionSearchResult = new CollectionSearchResult();
@@ -38,16 +38,16 @@ mockCollectionWithoutAbstract.indexableObject = Object.assign(new Collection(), 
     'dc.title': [
       {
         language: 'en_US',
-        value: 'Test title'
-      }
-    ]
-  }
+        value: 'Test title',
+      },
+    ],
+  },
 });
 
 const environmentUseThumbs = {
   browseBy: {
-    showThumbnails: true
-  }
+    showThumbnails: true,
+  },
 };
 
 describe('CollectionSearchResultListElementComponent', () => {
@@ -57,11 +57,11 @@ describe('CollectionSearchResultListElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CollectionSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

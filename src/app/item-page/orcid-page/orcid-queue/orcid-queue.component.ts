@@ -22,7 +22,7 @@ import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 @Component({
   selector: 'ds-orcid-queue',
   templateUrl: './orcid-queue.component.html',
-  styleUrls: ['./orcid-queue.component.scss']
+  styleUrls: ['./orcid-queue.component.scss'],
 })
 export class OrcidQueueComponent implements OnInit, OnDestroy {
 
@@ -36,7 +36,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
    */
   public paginationOptions: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'oqp',
-    pageSize: 5
+    pageSize: 5,
   });
 
   /**
@@ -90,12 +90,12 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
         distinctUntilChanged(),
         tap(() => this.processing$.next(true)),
         switchMap((config: PaginationComponentOptions) => this.orcidQueueService.searchByProfileItemId(this.item.id, config, false)),
-        getFirstCompletedRemoteData()
+        getFirstCompletedRemoteData(),
       ).subscribe((result: RemoteData<PaginatedList<OrcidQueue>>) => {
         this.processing$.next(false);
         this.list$.next(result);
         this.orcidQueueService.clearFindByProfileItemRequests();
-      })
+      }),
     );
   }
 
@@ -191,7 +191,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
   discardEntry(orcidQueue: OrcidQueue) {
     this.processing$.next(true);
     this.subs.push(this.orcidQueueService.deleteById(orcidQueue.id).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((remoteData) => {
       this.processing$.next(false);
       if (remoteData.isSuccess) {
@@ -211,7 +211,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
   send(orcidQueue: OrcidQueue) {
     this.processing$.next(true);
     this.subs.push(this.orcidHistoryService.sendToORCID(orcidQueue).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((remoteData) => {
       this.processing$.next(false);
       if (remoteData.isSuccess) {
@@ -233,8 +233,8 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     return this.orcidAuthService.getOrcidAuthorizeUrl(this.item).pipe(
       switchMap((authorizeUrl) => this.translateService.get(
         'person.page.orcid.sync-queue.send.unauthorized-error.content',
-        { orcid: authorizeUrl }
-      ))
+        { orcid: authorizeUrl },
+      )),
     );
   }
 

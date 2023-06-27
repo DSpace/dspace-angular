@@ -20,7 +20,7 @@ import { HealthInfoComponentComponent } from './health-info/health-info-componen
     HealthPageRoutingModule,
     NgbModule,
     SharedModule,
-    TranslateModule
+    TranslateModule,
   ],
   declarations: [
     HealthPageComponent,
@@ -29,7 +29,7 @@ import { HealthInfoComponentComponent } from './health-info/health-info-componen
     HealthComponentComponent,
     HealthInfoComponent,
     HealthInfoComponentComponent,
-  ]
+  ],
 })
 export class HealthPageModule {
 }

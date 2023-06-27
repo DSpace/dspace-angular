@@ -11,7 +11,7 @@ describe('CommunityPageResolver', () => {
 
     beforeEach(() => {
       communityService = {
-        findById: (id: string) => createSuccessfulRemoteDataObject$({ id })
+        findById: (id: string) => createSuccessfulRemoteDataObject$({ id }),
       };
       store = jasmine.createSpyObj('store', {
         dispatch: {},
@@ -26,7 +26,7 @@ describe('CommunityPageResolver', () => {
           (resolved) => {
             expect(resolved.payload.id).toEqual(uuid);
             done();
-          }
+          },
         );
     });
   });

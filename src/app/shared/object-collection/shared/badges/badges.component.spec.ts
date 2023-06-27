@@ -13,7 +13,7 @@ describe('BadgesComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ BadgesComponent ],
       providers: [{provide: ThemeService, useValue: getMockThemeService()}],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   });

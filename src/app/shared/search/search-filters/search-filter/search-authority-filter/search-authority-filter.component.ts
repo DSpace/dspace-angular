@@ -7,7 +7,7 @@ import { renderFacetFor } from '../search-filter-type-decorator';
   selector: 'ds-search-authority-filter',
   styleUrls: ['./search-authority-filter.component.scss'],
   templateUrl: './search-authority-filter.component.html',
-  animations: [facetLoad]
+  animations: [facetLoad],
 })
 
 /**

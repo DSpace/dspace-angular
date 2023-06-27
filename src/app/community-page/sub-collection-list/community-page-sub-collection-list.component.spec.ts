@@ -41,67 +41,67 @@ describe('CommunityPageSubCollectionList Component', () => {
     id: '123456789-1',
     metadata: {
       'dc.title': [
-        { language: 'en_US', value: 'Collection 1' }
-      ]
-    }
+        { language: 'en_US', value: 'Collection 1' },
+      ],
+    },
   }),
   Object.assign(new Community(), {
     id: '123456789-2',
     metadata: {
       'dc.title': [
-        { language: 'en_US', value: 'Collection 2' }
-      ]
-    }
+        { language: 'en_US', value: 'Collection 2' },
+      ],
+    },
   }),
   Object.assign(new Community(), {
     id: '123456789-3',
     metadata: {
       'dc.title': [
-        { language: 'en_US', value: 'Collection 3' }
-      ]
-    }
+        { language: 'en_US', value: 'Collection 3' },
+      ],
+    },
   }),
   Object.assign(new Community(), {
     id: '123456789-4',
     metadata: {
       'dc.title': [
-        { language: 'en_US', value: 'Collection 4' }
-      ]
-    }
+        { language: 'en_US', value: 'Collection 4' },
+      ],
+    },
   }),
   Object.assign(new Community(), {
     id: '123456789-5',
     metadata: {
       'dc.title': [
-        { language: 'en_US', value: 'Collection 5' }
-      ]
-    }
+        { language: 'en_US', value: 'Collection 5' },
+      ],
+    },
   }),
   Object.assign(new Community(), {
     id: '123456789-6',
     metadata: {
       'dc.title': [
-        { language: 'en_US', value: 'Collection 6' }
-      ]
-    }
+        { language: 'en_US', value: 'Collection 6' },
+      ],
+    },
   }),
   Object.assign(new Community(), {
     id: '123456789-7',
     metadata: {
       'dc.title': [
-        { language: 'en_US', value: 'Collection 7' }
-      ]
-    }
-  })
+        { language: 'en_US', value: 'Collection 7' },
+      ],
+    },
+  }),
   ];
 
   const mockCommunity = Object.assign(new Community(), {
     id: '123456789',
     metadata: {
       'dc.title': [
-        { language: 'en_US', value: 'Test title' }
-      ]
-    }
+        { language: 'en_US', value: 'Test title' },
+      ],
+    },
   });
 
   collectionDataServiceStub = {
@@ -119,7 +119,7 @@ describe('CommunityPageSubCollectionList Component', () => {
       }
       return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), subCollList.slice(startPageIndex, endPageIndex)));
 
-    }
+    },
   };
 
   const paginationService = new PaginationServiceStub();
@@ -127,7 +127,7 @@ describe('CommunityPageSubCollectionList Component', () => {
   themeService = getMockThemeService();
 
   const linkHeadService = jasmine.createSpyObj('linkHeadService', {
-    addTag: ''
+    addTag: '',
   });
 
   const groupDataService = jasmine.createSpyObj('groupsDataService', {
@@ -140,9 +140,9 @@ describe('CommunityPageSubCollectionList Component', () => {
     findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
       name: 'test',
       values: [
-        'org.dspace.ctask.general.ProfileFormats = test'
-      ]
-    }))
+        'org.dspace.ctask.general.ProfileFormats = test',
+      ],
+    })),
   });
 
   beforeEach(waitForAsync(() => {
@@ -152,7 +152,7 @@ describe('CommunityPageSubCollectionList Component', () => {
         SharedModule,
         RouterTestingModule.withRoutes([]),
         NgbModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
       ],
       declarations: [CommunityPageSubCollectionListComponent],
       providers: [
@@ -166,7 +166,7 @@ describe('CommunityPageSubCollectionList Component', () => {
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

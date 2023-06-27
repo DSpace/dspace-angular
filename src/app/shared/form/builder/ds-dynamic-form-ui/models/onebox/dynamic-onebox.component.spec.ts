@@ -2,7 +2,7 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { CdkTreeModule } from '@angular/cdk/tree';
 
@@ -28,7 +28,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.ut
 import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';
 import {
   mockDynamicFormLayoutService,
-  mockDynamicFormValidationService
+  mockDynamicFormValidationService,
 } from '../../../../../testing/dynamic-form-mock-services';
 
 export let ONEBOX_TEST_GROUP;
@@ -41,7 +41,7 @@ export class MockNgbModalRef {
   componentInstance = {
     vocabularyOptions: undefined,
     preloadLevel: undefined,
-    selectedItem: undefined
+    selectedItem: undefined,
   };
   result: Promise<any> = new Promise((resolve, reject) => resolve(true));
 }
@@ -54,7 +54,7 @@ function init() {
   ONEBOX_TEST_MODEL_CONFIG = {
     vocabularyOptions: {
       closed: false,
-      name: 'vocabulary'
+      name: 'vocabulary',
     } as VocabularyOptions,
     disabled: false,
     id: 'onebox',
@@ -65,7 +65,7 @@ function init() {
     readOnly: false,
     required: false,
     repeatable: false,
-    value: undefined
+    value: undefined,
   };
 }
 
@@ -89,12 +89,12 @@ describe('DsDynamicOneboxComponent test suite', () => {
     type: 'vocabulary',
     _links: {
       self: {
-        url: 'self'
+        url: 'self',
       },
       entries: {
-        url: 'entries'
-      }
-    }
+        url: 'entries',
+      },
+    },
   };
 
   const hierarchicalVocabulary = {
@@ -106,12 +106,12 @@ describe('DsDynamicOneboxComponent test suite', () => {
     type: 'vocabulary',
     _links: {
       self: {
-        url: 'self'
+        url: 'self',
       },
       entries: {
-        url: 'entries'
-      }
-    }
+        url: 'entries',
+      },
+    },
   };
 
   // waitForAsync beforeEach
@@ -123,7 +123,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         open: jasmine.createSpy('open'),
         close: jasmine.createSpy('close'),
         dismiss: jasmine.createSpy('dismiss'),
-      }
+      },
     );
     init();
     TestBed.configureTestingModule({
@@ -134,14 +134,14 @@ describe('DsDynamicOneboxComponent test suite', () => {
         NgbModule,
         ReactiveFormsModule,
         TranslateModule.forRoot(),
-        CdkTreeModule
+        CdkTreeModule,
       ],
       declarations: [
         DsDynamicOneboxComponent,
         TestComponent,
         AuthorityConfidenceStateDirective,
         ObjNgFor,
-        VocabularyTreeviewComponent
+        VocabularyTreeviewComponent,
       ], // declare the test component
       providers: [
         ChangeDetectorRef,
@@ -149,9 +149,9 @@ describe('DsDynamicOneboxComponent test suite', () => {
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
-        { provide: NgbModal, useValue: modal }
+        { provide: NgbModal, useValue: modal },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 
   });
@@ -262,7 +262,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         spyOn(oneboxComponent.blur, 'emit');
         spyOn(oneboxComponent.change, 'emit');
         spyOn(oneboxComponent.instance, 'isPopupOpen').and.returnValue(false);
-        oneboxComponent.onBlur(new Event('blur',));
+        oneboxComponent.onBlur(new Event('blur'));
         expect(oneboxComponent.change.emit).toHaveBeenCalled();
         expect(oneboxComponent.blur.emit).toHaveBeenCalled();
       });
@@ -275,7 +275,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         spyOn(oneboxComponent.blur, 'emit');
         spyOn(oneboxComponent.change, 'emit');
         spyOn(oneboxComponent.instance, 'isPopupOpen').and.returnValue(false);
-        oneboxComponent.onBlur(new Event('blur',));
+        oneboxComponent.onBlur(new Event('blur'));
         expect(oneboxComponent.change.emit).not.toHaveBeenCalled();
         expect(oneboxComponent.blur.emit).toHaveBeenCalled();
       });
@@ -288,7 +288,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         spyOn(oneboxComponent.blur, 'emit');
         spyOn(oneboxComponent.change, 'emit');
         spyOn(oneboxComponent.instance, 'isPopupOpen').and.returnValue(false);
-        oneboxComponent.onBlur(new Event('blur',));
+        oneboxComponent.onBlur(new Event('blur'));
         expect(oneboxComponent.change.emit).not.toHaveBeenCalled();
         expect(oneboxComponent.blur.emit).toHaveBeenCalled();
       });
@@ -310,7 +310,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         const entry = observableOf(Object.assign(new VocabularyEntry(), {
           authority: null,
           value: 'test',
-          display: 'testDisplay'
+          display: 'testDisplay',
         }));
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
@@ -347,7 +347,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         const entry = observableOf(Object.assign(new VocabularyEntry(), {
           authority: 'test001',
           value: 'test001',
-          display: 'test'
+          display: 'test',
         }));
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
@@ -419,7 +419,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         const entry = observableOf(Object.assign(new VocabularyEntry(), {
           authority: null,
           value: 'test',
-          display: 'testDisplay'
+          display: 'testDisplay',
         }));
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
@@ -453,7 +453,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

@@ -32,35 +32,35 @@ describe('ItemPageComponent', () => {
     snapshot: {
       firstChild: {
         routeConfig: {
-          path: accesiblePages[0]
-        }
+          path: accesiblePages[0],
+        },
       },
       routerState: {
-        snapshot: undefined
-      }
+        snapshot: undefined,
+      },
     },
     routeConfig: {
       children: [
         {
           path: accesiblePages[0],
-          canActivate: [AcceptAllGuard]
+          canActivate: [AcceptAllGuard],
         }, {
           path: inaccesiblePages[0],
-          canActivate: [AcceptNoneGuard]
+          canActivate: [AcceptNoneGuard],
         }, {
           path: inaccesiblePages[1],
-          canActivate: [AcceptAllGuard, AcceptNoneGuard]
+          canActivate: [AcceptAllGuard, AcceptNoneGuard],
         },
-      ]
+      ],
     },
-    data: observableOf({dso: createSuccessfulRemoteDataObject(new Item())})
+    data: observableOf({dso: createSuccessfulRemoteDataObject(new Item())}),
   };
 
   const mockRouter = {
     routerState: {
-      snapshot: undefined
+      snapshot: undefined,
     },
-    events: observableOf(undefined)
+    events: observableOf(undefined),
   };
 
   beforeEach(waitForAsync(() => {
@@ -68,8 +68,8 @@ describe('ItemPageComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       })],
       declarations: [EditItemPageComponent],
       providers: [
@@ -79,9 +79,9 @@ describe('ItemPageComponent', () => {
         AcceptNoneGuard,
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(EditItemPageComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

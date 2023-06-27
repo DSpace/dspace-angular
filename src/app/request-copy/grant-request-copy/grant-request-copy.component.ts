@@ -4,7 +4,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { ItemRequest } from '../../core/shared/item-request.model';
 import { Observable } from 'rxjs';
 import {
-  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload
+  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { AuthService } from '../../core/auth/auth.service';
@@ -17,7 +17,7 @@ import { redirectOn4xx } from '../../core/shared/authorized.operators';
 @Component({
   selector: 'ds-grant-request-copy',
   styleUrls: ['./grant-request-copy.component.scss'],
-  templateUrl: './grant-request-copy.component.html'
+  templateUrl: './grant-request-copy.component.html',
 })
 /**
  * Component for granting an item request
@@ -72,7 +72,7 @@ export class GrantRequestCopyComponent implements OnInit {
     this.itemRequestRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
       switchMap((itemRequest: ItemRequest) => this.itemRequestService.grant(itemRequest.token, email, this.suggestOpenAccess)),
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get('grant-request-copy.success'));

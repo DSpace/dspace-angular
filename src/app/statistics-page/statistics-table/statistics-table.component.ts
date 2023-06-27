@@ -14,7 +14,7 @@ import { isEmpty } from '../../shared/empty.util';
 @Component({
   selector: 'ds-statistics-table',
   templateUrl: './statistics-table.component.html',
-  styleUrls: ['./statistics-table.component.scss']
+  styleUrls: ['./statistics-table.component.scss'],
 })
 export class StatisticsTableComponent implements OnInit {
 

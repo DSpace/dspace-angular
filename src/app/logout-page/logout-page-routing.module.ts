@@ -10,9 +10,9 @@ import { ThemedLogoutPageComponent } from './themed-logout-page.component';
         canActivate: [AuthenticatedGuard],
         path: '',
         component: ThemedLogoutPageComponent,
-        data: { title: 'logout.title' }
-      }
-    ])
-  ]
+        data: { title: 'logout.title' },
+      },
+    ]),
+  ],
 })
 export class LogoutPageRoutingModule { }

@@ -40,7 +40,7 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
     protected requestService: RequestService,
-    protected chd: ChangeDetectorRef
+    protected chd: ChangeDetectorRef,
   ) {
     super(collectionDataService, router, route, notificationsService, translate);
   }
@@ -69,7 +69,7 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
   initTemplateItem() {
     this.itemTemplateRD$ = this.dsoRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      switchMap((collection: Collection) => this.itemTemplateService.findByCollectionID(collection.uuid))
+      switchMap((collection: Collection) => this.itemTemplateService.findByCollectionID(collection.uuid)),
     );
   }
 

@@ -20,19 +20,19 @@ describe('GroupSearchBoxComponent test suite', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         GroupSearchBoxComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         UntypedFormBuilder,
-        GroupSearchBoxComponent
+        GroupSearchBoxComponent,
       ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 
@@ -88,12 +88,12 @@ describe('GroupSearchBoxComponent test suite', () => {
 
     it('should emit new search event', () => {
       const data = {
-        query: 'test'
+        query: 'test',
       };
 
       const event: SearchEvent = {
         scope: '',
-        query: 'test'
+        query: 'test',
       };
       spyOn(comp.search, 'emit');
 
@@ -107,7 +107,7 @@ describe('GroupSearchBoxComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

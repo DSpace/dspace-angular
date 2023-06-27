@@ -11,7 +11,7 @@ import { BitstreamDataService } from '../core/data/bitstream-data.service';
  * This class resolves a bitstream based on the DSpace 6 XMLUI or JSPUI bitstream download URLs
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LegacyBitstreamUrlResolver implements Resolve<RemoteData<Bitstream>> {
   constructor(protected bitstreamDataService: BitstreamDataService) {
@@ -42,7 +42,7 @@ export class LegacyBitstreamUrlResolver implements Resolve<RemoteData<Bitstream>
       sequenceId,
       filename,
     ).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     );
   }
 }

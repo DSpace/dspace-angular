@@ -36,7 +36,7 @@ import { WorkspaceitemDataService } from '../../../../core/submission/workspacei
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { mockRouteService } from '../../../../item-page/simple/item-types/shared/item.component.spec';
 import {
-  BrowseDefinitionDataServiceStub
+  BrowseDefinitionDataServiceStub,
 } from '../../../../shared/testing/browse-definition-data-service.stub';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 
@@ -49,29 +49,29 @@ const mockItem: Item = Object.assign(new Item(), {
     'creativeworkseries.issn': [
       {
         language: 'en_US',
-        value: '1234'
-      }
+        value: '1234',
+      },
     ],
     'creativework.publisher': [
       {
         language: 'en_US',
-        value: 'a publisher'
-      }
+        value: 'a publisher',
+      },
     ],
     'dc.description': [
       {
         language: 'en_US',
-        value: 'desc'
-      }
-    ]
-  }
+        value: 'desc',
+      },
+    ],
+  },
 });
 
 describe('JournalComponent', () => {
   const mockBitstreamDataService = {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
       return createSuccessfulRemoteDataObject$(new Bitstream());
-    }
+    },
   };
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -79,8 +79,8 @@ describe('JournalComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
         RouterTestingModule,
       ],
@@ -105,12 +105,12 @@ describe('JournalComponent', () => {
         { provide: WorkspaceitemDataService, useValue: {} },
         { provide: SearchService, useValue: {} },
         { provide: RouteService, useValue: mockRouteService },
-        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

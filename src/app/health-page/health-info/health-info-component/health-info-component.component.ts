@@ -9,7 +9,7 @@ import { HealthComponentComponent } from '../../health-panel/health-component/he
 @Component({
   selector: 'ds-health-info-component',
   templateUrl: './health-info-component.component.html',
-  styleUrls: ['./health-info-component.component.scss']
+  styleUrls: ['./health-info-component.component.scss'],
 })
 export class HealthInfoComponentComponent extends HealthComponentComponent {
 

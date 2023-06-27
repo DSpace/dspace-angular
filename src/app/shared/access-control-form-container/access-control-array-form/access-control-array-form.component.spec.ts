@@ -17,7 +17,7 @@ describe('AccessControlArrayFormComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ CommonModule, FormsModule, SharedBrowseByModule, TranslateModule.forRoot(), NgbDatepickerModule ],
-      declarations: [ AccessControlArrayFormComponent, ToDatePipe  ]
+      declarations: [ AccessControlArrayFormComponent, ToDatePipe  ],
     })
       .compileComponents();
   });
@@ -62,7 +62,7 @@ describe('AccessControlArrayFormComponent', () => {
     // set value to item1
     component.accessControlChanged(
       component.form.accessControls[1],
-      'item1'
+      'item1',
     );
 
     component.reset();

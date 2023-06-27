@@ -12,7 +12,7 @@ import {
   CommitPatchOperationsAction,
   StartTransactionPatchOperationsAction,
   RollbacktPatchOperationsAction,
-  DeletePendingJsonPatchOperationsAction
+  DeletePendingJsonPatchOperationsAction,
 } from './json-patch-operations.actions';
 import { JsonPatchOperationModel, JsonPatchOperationType } from './json-patch.model';
 
@@ -128,8 +128,8 @@ function startTransactionPatchOperations(state: JsonPatchOperationsState, action
     return Object.assign({}, state, {
       [action.payload.resourceType]: Object.assign({}, state[ action.payload.resourceType ], {
         transactionStartTime: action.payload.startTime,
-        commitPending: true
-      })
+        commitPending: true,
+      }),
     });
   } else {
     return state;
@@ -151,8 +151,8 @@ function commitOperations(state: JsonPatchOperationsState, action: CommitPatchOp
     && state[ action.payload.resourceType ].commitPending) {
     return Object.assign({}, state, {
       [action.payload.resourceType]: Object.assign({}, state[ action.payload.resourceType ], {
-        commitPending: false
-      })
+        commitPending: false,
+      }),
     });
   } else {
     return state;
@@ -175,8 +175,8 @@ function rollbackOperations(state: JsonPatchOperationsState, action: RollbacktPa
     return Object.assign({}, state, {
       [action.payload.resourceType]: Object.assign({}, state[ action.payload.resourceType ], {
         transactionStartTime: null,
-        commitPending: false
-      })
+        commitPending: false,
+      }),
     });
   } else {
     return state;
@@ -225,10 +225,10 @@ function newOperation(state: JsonPatchOperationsState, action): JsonPatchOperati
         children: Object.assign({}, state[ action.payload.resourceType ].children, {
           [action.payload.resourceId]: {
             body: newBody,
-          }
+          },
         }),
-        commitPending: isNotUndefined(state[ action.payload.resourceType ].commitPending) ? state[ action.payload.resourceType ].commitPending : false
-      })
+        commitPending: isNotUndefined(state[ action.payload.resourceType ].commitPending) ? state[ action.payload.resourceType ].commitPending : false,
+      }),
     });
   } else {
     return Object.assign({}, state, {
@@ -236,11 +236,11 @@ function newOperation(state: JsonPatchOperationsState, action): JsonPatchOperati
         children: {
           [action.payload.resourceId]: {
             body: newBody,
-          }
+          },
         },
         transactionStartTime: null,
-        commitPending: false
-      })
+        commitPending: false,
+      }),
     });
   }
 }
@@ -283,8 +283,8 @@ function flushOperation(state: JsonPatchOperationsState, action: FlushPatchOpera
         newChildren = Object.assign({}, state[ action.payload.resourceType ].children, {
           [action.payload.resourceId]: {
             body: state[ action.payload.resourceType ].children[ action.payload.resourceId ].body
-              .filter((entry) => entry.timeCompleted > state[ action.payload.resourceType ].transactionStartTime)
-          }
+              .filter((entry) => entry.timeCompleted > state[ action.payload.resourceType ].transactionStartTime),
+          },
         });
       } else {
         newChildren = state[ action.payload.resourceType ].children;
@@ -297,8 +297,8 @@ function flushOperation(state: JsonPatchOperationsState, action: FlushPatchOpera
           newChildren = Object.assign({}, newChildren, {
             [resourceId]: {
               body: newChildren[ resourceId ].body
-                .filter((entry) => entry.timeCompleted > state[ action.payload.resourceType ].transactionStartTime)
-            }
+                .filter((entry) => entry.timeCompleted > state[ action.payload.resourceType ].transactionStartTime),
+            },
           });
         });
     }
@@ -306,7 +306,7 @@ function flushOperation(state: JsonPatchOperationsState, action: FlushPatchOpera
       [action.payload.resourceType]: Object.assign({}, state[ action.payload.resourceType ], {
         children: newChildren,
         transactionStartTime: null,
-      })
+      }),
     });
   } else {
     return state;
@@ -334,14 +334,14 @@ function addOperationToList(body: JsonPatchOperationObject[], actionType, target
       newBody.push(makeOperationEntry({
         op: JsonPatchOperationType.add,
         path: targetPath,
-        value: value
+        value: value,
       }));
       break;
     case JsonPatchOperationsActionTypes.NEW_JSON_PATCH_REPLACE_OPERATION:
       newBody.push(makeOperationEntry({
         op: JsonPatchOperationType.replace,
         path: targetPath,
-        value: value
+        value: value,
       }));
       break;
     case JsonPatchOperationsActionTypes.NEW_JSON_PATCH_REMOVE_OPERATION:

@@ -5,7 +5,7 @@ import {
   flush,
   TestBed,
   tick,
-  waitForAsync
+  waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -40,28 +40,28 @@ const item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.type': [
       {
         language: null,
-        value: 'Article'
-      }
+        value: 'Article',
+      },
     ],
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.date.issued': [
       {
         language: null,
-        value: '2015-06-26'
-      }
-    ]
-  }
+        value: '2015-06-26',
+      },
+    ],
+  },
 });
 const rdItem = createSuccessfulRemoteDataObject(item);
 const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
@@ -69,7 +69,7 @@ const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
 mockResultObject.indexableObject = Object.assign(new ClaimedTask(), { workflowitem: observableOf(rdWorkflowitem) });
 const linkService = getMockLinkService();
 const objectCacheServiceMock = jasmine.createSpyObj('ObjectCacheService', {
-  remove: jasmine.createSpy('remove')
+  remove: jasmine.createSpy('remove'),
 });
 
 describe('ClaimedTaskSearchResultDetailElementComponent', () => {
@@ -80,11 +80,11 @@ describe('ClaimedTaskSearchResultDetailElementComponent', () => {
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: LinkService, useValue: linkService },
-        { provide: ObjectCacheService, useValue: objectCacheServiceMock }
+        { provide: ObjectCacheService, useValue: objectCacheServiceMock },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ClaimedTaskSearchResultDetailElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -103,7 +103,7 @@ describe('ClaimedTaskSearchResultDetailElementComponent', () => {
     expect(linkService.resolveLinks).toHaveBeenCalledWith(
       component.dso,
       jasmine.objectContaining({ name: 'workflowitem' }),
-      jasmine.objectContaining({ name: 'action' })
+      jasmine.objectContaining({ name: 'action' }),
     );
     expect(component.workflowitem$.value).toEqual(workflowitem);
     expect(component.item$.value).toEqual(item);

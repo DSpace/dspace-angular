@@ -4,7 +4,7 @@ import { Context } from '../../../core/shared/context.model';
 
 @Component({
   selector: 'ds-metadata-representation-list-element',
-  template: ''
+  template: '',
 })
 /**
  * An abstract class for displaying a single MetadataRepresentation

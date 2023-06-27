@@ -6,7 +6,7 @@ import { PrivacyComponent as BaseComponent } from '../../../../../app/info/priva
   // styleUrls: ['./privacy.component.scss'],
   styleUrls: ['../../../../../app/info/privacy/privacy.component.scss'],
   // templateUrl: './privacy.component.html'
-  templateUrl: '../../../../../app/info/privacy/privacy.component.html'
+  templateUrl: '../../../../../app/info/privacy/privacy.component.html',
 })
 
 /**

@@ -17,7 +17,7 @@ export const SelectableListActionTypes = {
   DESELECT: type('dspace/selectable-lists/DESELECT'),
   DESELECT_SINGLE: type('dspace/selectable-lists/DESELECT_SINGLE'),
   SET_SELECTION: type('dspace/selectable-lists/SET_SELECTION'),
-  DESELECT_ALL: type('dspace/selectable-lists/DESELECT_ALL')
+  DESELECT_ALL: type('dspace/selectable-lists/DESELECT_ALL'),
 };
 
 /**

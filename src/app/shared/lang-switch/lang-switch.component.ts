@@ -26,7 +26,7 @@ export class LangSwitchComponent implements OnInit {
 
   constructor(
     public translate: TranslateService,
-    private localeService: LocaleService
+    private localeService: LocaleService,
   ) {
   }
 

@@ -19,7 +19,7 @@ import { hasValue } from '../../shared/empty.util';
   selector: 'ds-community-page-sub-collection-list',
   styleUrls: ['./community-page-sub-collection-list.component.scss'],
   templateUrl: './community-page-sub-collection-list.component.html',
-  animations:[fadeIn]
+  animations:[fadeIn],
 })
 export class CommunityPageSubCollectionListComponent implements OnInit, OnDestroy {
   @Input() community: Community;
@@ -82,9 +82,9 @@ export class CommunityPageSubCollectionListComponent implements OnInit, OnDestro
         return this.cds.findByParent(this.community.id, {
           currentPage: currentPagination.currentPage,
           elementsPerPage: currentPagination.pageSize,
-          sort: {field: currentSort.field, direction: currentSort.direction}
+          sort: {field: currentSort.field, direction: currentSort.direction},
         });
-      })
+      }),
     ).subscribe((results) => {
       this.subCollectionsRDObs.next(results);
     });

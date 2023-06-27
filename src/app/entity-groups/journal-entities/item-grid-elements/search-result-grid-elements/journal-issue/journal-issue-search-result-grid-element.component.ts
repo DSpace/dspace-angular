@@ -9,7 +9,7 @@ import { ItemSearchResultGridElementComponent } from '../../../../../shared/obje
   selector: 'ds-journal-issue-search-result-grid-element',
   styleUrls: ['./journal-issue-search-result-grid-element.component.scss'],
   templateUrl: './journal-issue-search-result-grid-element.component.html',
-  animations: [focusShadow]
+  animations: [focusShadow],
 })
 /**
  * The component for displaying a grid element for an item search result of the type Journal Issue

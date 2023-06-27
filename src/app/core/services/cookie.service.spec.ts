@@ -9,8 +9,8 @@ describe(CookieService.name, () => {
     TestBed.configureTestingModule({
       providers: [
         CookieService,
-        { provide: REQUEST, useValue: {} }
-      ]
+        { provide: REQUEST, useValue: {} },
+      ],
     });
   }));
 

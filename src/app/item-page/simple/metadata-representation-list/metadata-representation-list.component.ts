@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
 import {
   Observable,
-  zip as observableZip
+  zip as observableZip,
 } from 'rxjs';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { MetadataValue } from '../../../core/shared/metadata.models';
@@ -11,14 +11,14 @@ import { AbstractIncrementalListComponent } from '../abstract-incremental-list/a
 import { map } from 'rxjs/operators';
 import { getRemoteDataPayload } from '../../../core/shared/operators';
 import {
-  MetadatumRepresentation
+  MetadatumRepresentation,
 } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { BrowseService } from '../../../core/browse/browse.service';
 import { BrowseDefinitionDataService } from '../../../core/browse/browse-definition-data.service';
 
 @Component({
   selector: 'ds-metadata-representation-list',
-  templateUrl: './metadata-representation-list.component.html'
+  templateUrl: './metadata-representation-list.component.html',
 })
 /**
  * This component is used for displaying metadata
@@ -97,7 +97,7 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
             });
             return this.browseDefinitionDataService.findByFields(this.metadataFields).pipe(
               getRemoteDataPayload(),
-              map((def) => Object.assign(new MetadatumRepresentation(this.itemType, def), metadatum))
+              map((def) => Object.assign(new MetadatumRepresentation(this.itemType, def), metadatum)),
             );
           }
         }),

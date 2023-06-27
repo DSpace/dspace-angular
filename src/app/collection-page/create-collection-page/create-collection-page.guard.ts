@@ -37,7 +37,7 @@ export class CreateCollectionPageGuard implements CanActivate {
           if (!isValid) {
             this.router.navigate(['/404']);
           }
-        })
+        }),
       );
   }
 }

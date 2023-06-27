@@ -17,7 +17,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-user-menu',
   templateUrl: './user-menu.component.html',
-  styleUrls: ['./user-menu.component.scss']
+  styleUrls: ['./user-menu.component.scss'],
 })
 export class UserMenuComponent implements OnInit {
 

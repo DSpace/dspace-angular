@@ -28,9 +28,9 @@ describe('StartsWithTextComponent', () => {
       providers: [
         { provide: 'startsWithOptions', useValue: options },
         { provide: 'paginationId', useValue: 'page-id' },
-        { provide: PaginationService, useValue: paginationService }
+        { provide: PaginationService, useValue: paginationService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

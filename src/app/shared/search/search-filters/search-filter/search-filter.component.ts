@@ -175,8 +175,8 @@ export class SearchFilterComponent implements OnInit {
                 filter((RD) => !RD.isLoading),
                 map((valuesRD) => {
                   return valuesRD.payload?.totalElements > 0;
-                }),);
-            }
+                }));
+            },
             ));
         }
       }),

@@ -4,7 +4,7 @@ import {
   DynamicFormControlLayout,
   DynamicFormControlRelation,
   DynamicFormGroupModelConfig,
-  serializable
+  serializable,
 } from '@ng-dynamic-forms/core';
 
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';

@@ -13,7 +13,7 @@ describe('GroupPageGuard', () => {
   const routeSnapshotWithGroupId = {
     params: {
       groupId: groupUuid,
-    }
+    },
   } as unknown as ActivatedRouteSnapshot;
 
   let guard: GroupPageGuard;
@@ -50,10 +50,10 @@ describe('GroupPageGuard', () => {
 
       it('should return true', (done) => {
         guard.canActivate(
-          routeSnapshotWithGroupId, { url: 'current-url'} as any
+          routeSnapshotWithGroupId, { url: 'current-url'} as any,
         ).subscribe((result) => {
           expect(authorizationService.isAuthorized).toHaveBeenCalledWith(
-            FeatureID.CanManageGroup, groupEndpointUrl, undefined
+            FeatureID.CanManageGroup, groupEndpointUrl, undefined,
           );
           expect(result).toBeTrue();
           done();
@@ -68,10 +68,10 @@ describe('GroupPageGuard', () => {
 
       it('should not return true', (done) => {
         guard.canActivate(
-          routeSnapshotWithGroupId, { url: 'current-url'} as any
+          routeSnapshotWithGroupId, { url: 'current-url'} as any,
         ).subscribe((result) => {
           expect(authorizationService.isAuthorized).toHaveBeenCalledWith(
-            FeatureID.CanManageGroup, groupEndpointUrl, undefined
+            FeatureID.CanManageGroup, groupEndpointUrl, undefined,
           );
           expect(result).not.toBeTrue();
           done();

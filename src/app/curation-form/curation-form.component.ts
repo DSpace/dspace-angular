@@ -22,7 +22,7 @@ export const CURATION_CFG = 'plugin.named.org.dspace.curate.CurationTask';
  */
 @Component({
   selector: 'ds-curation-form',
-  templateUrl: './curation-form.component.html'
+  templateUrl: './curation-form.component.html',
 })
 export class CurationFormComponent implements OnInit {
 
@@ -41,20 +41,20 @@ export class CurationFormComponent implements OnInit {
     private translateService: TranslateService,
     private handleService: HandleService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {
   }
 
   ngOnInit(): void {
     this.form = new UntypedFormGroup({
       task: new UntypedFormControl(''),
-      handle: new UntypedFormControl('')
+      handle: new UntypedFormControl(''),
     });
 
     this.config = this.configurationDataService.findByPropertyName(CURATION_CFG);
     this.config.pipe(
       find((rd: RemoteData<ConfigurationProperty>) => rd.hasSucceeded),
-      map((rd: RemoteData<ConfigurationProperty>) => rd.payload)
+      map((rd: RemoteData<ConfigurationProperty>) => rd.payload),
     ).subscribe((configProperties) => {
       this.tasks = configProperties.values
         .filter((value) => isNotEmpty(value) && value.includes('='))

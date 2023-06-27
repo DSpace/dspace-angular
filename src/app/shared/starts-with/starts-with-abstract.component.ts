@@ -10,7 +10,7 @@ import { PaginationService } from '../../core/pagination/pagination.service';
  */
 @Component({
   selector: 'ds-start-with-abstract',
-  template: ''
+  template: '',
 })
 export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
   /**
@@ -41,10 +41,10 @@ export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
         if (hasValue(params.startsWith)) {
           this.setStartsWith(params.startsWith);
         }
-      })
+      }),
     );
     this.formData = new UntypedFormGroup({
-      startsWith: new UntypedFormControl()
+      startsWith: new UntypedFormControl(),
     });
   }
 
@@ -84,7 +84,7 @@ export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigate([], {
         queryParams: Object.assign({ startsWith: this.startsWith }),
-        queryParamsHandling: 'merge'
+        queryParamsHandling: 'merge',
       });
     }
   }

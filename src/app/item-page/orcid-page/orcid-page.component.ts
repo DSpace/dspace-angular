@@ -22,7 +22,7 @@ import { ResearcherProfile } from '../../core/profile/model/researcher-profile.m
 @Component({
   selector: 'ds-orcid-page',
   templateUrl: './orcid-page.component.html',
-  styleUrls: ['./orcid-page.component.scss']
+  styleUrls: ['./orcid-page.component.scss'],
 })
 export class OrcidPageComponent implements OnInit {
 
@@ -52,7 +52,7 @@ export class OrcidPageComponent implements OnInit {
     private itemService: ItemDataService,
     private orcidAuthService: OrcidAuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {
   }
 
@@ -69,7 +69,7 @@ export class OrcidPageComponent implements OnInit {
       const item$ = this.route.data.pipe(
         map((data) => data.dso as RemoteData<Item>),
         redirectOn4xx(this.router, this.authService),
-        getFirstSucceededRemoteDataPayload()
+        getFirstSucceededRemoteDataPayload(),
       );
 
       combineLatest([codeParam$, item$]).subscribe(([codeParam, item]) => {
@@ -111,7 +111,7 @@ export class OrcidPageComponent implements OnInit {
   updateItem(): void {
     this.clearRouteParams();
     this.itemService.findById(this.itemId, false).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((itemRD: RemoteData<Item>) => {
       if (itemRD.hasSucceeded) {
         this.item.next(itemRD.payload);
@@ -127,7 +127,7 @@ export class OrcidPageComponent implements OnInit {
    */
   private linkProfileToOrcid(person: Item, code: string) {
     this.orcidAuthService.linkOrcidByItem(person, code).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((profileRD: RemoteData<ResearcherProfile>) => {
       this.processingConnection.next(false);
       if (profileRD.hasSucceeded) {

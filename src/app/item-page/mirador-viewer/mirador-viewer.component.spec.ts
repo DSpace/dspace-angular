@@ -19,7 +19,7 @@ function getItem(metadata: MetadataMap) {
   return Object.assign(new Item(), {
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     metadata: metadata,
-    relationships: createRelationshipsObservable()
+    relationships: createRelationshipsObservable(),
   });
 }
 
@@ -41,22 +41,22 @@ describe('MiradorViewerComponent with search', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       })],
       declarations: [MiradorViewerComponent],
       providers: [
         { provide: BitstreamDataService, useValue: {} },
         { provide: BundleDataService, useValue: {} },
-        { provide: HostWindowService, useValue: mockHostWindowService }
+        { provide: HostWindowService, useValue: mockHostWindowService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MiradorViewerComponent, {
       set: {
         providers: [
-          { provide: MiradorViewerService, useValue: viewerService }
-        ]
-      }
+          { provide: MiradorViewerService, useValue: viewerService },
+        ],
+      },
     }).compileComponents();
   }));
   describe('searchable item', () => {
@@ -104,22 +104,22 @@ describe('MiradorViewerComponent with multiple images', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       })],
       declarations: [MiradorViewerComponent],
       providers: [
         { provide: BitstreamDataService, useValue: {} },
         { provide: BundleDataService, useValue: {} },
-        { provide: HostWindowService, useValue: mockHostWindowService  }
+        { provide: HostWindowService, useValue: mockHostWindowService  },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MiradorViewerComponent, {
       set: {
         providers: [
-          { provide: MiradorViewerService, useValue: viewerService }
-        ]
-      }
+          { provide: MiradorViewerService, useValue: viewerService },
+        ],
+      },
     }).compileComponents();
   }));
 
@@ -164,22 +164,22 @@ describe('MiradorViewerComponent with a single image', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       })],
       declarations: [MiradorViewerComponent],
       providers: [
         { provide: BitstreamDataService, useValue: {} },
         { provide: BundleDataService, useValue: {} },
-        { provide: HostWindowService, useValue: mockHostWindowService }
+        { provide: HostWindowService, useValue: mockHostWindowService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MiradorViewerComponent, {
       set: {
         providers: [
-          { provide: MiradorViewerService, useValue: viewerService }
-        ]
-      }
+          { provide: MiradorViewerService, useValue: viewerService },
+        ],
+      },
     }).compileComponents();
   }));
 
@@ -217,22 +217,22 @@ describe('MiradorViewerComponent in development mode', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       })],
       declarations: [MiradorViewerComponent],
       providers: [
-        { provide: BitstreamDataService, useValue: {} }
+        { provide: BitstreamDataService, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MiradorViewerComponent, {
       set: {
         providers: [
           { provide: MiradorViewerService, useValue: viewerService },
           { provide: BundleDataService, useValue: {} },
-          { provide: HostWindowService, useValue: mockHostWindowService  }
-        ]
-      }
+          { provide: HostWindowService, useValue: mockHostWindowService  },
+        ],
+      },
     }).compileComponents();
   }));
 

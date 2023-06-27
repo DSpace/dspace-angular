@@ -23,7 +23,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'ds-my-dspace-new-submission',
   styleUrls: ['./my-dspace-new-submission.component.scss'],
-  templateUrl: './my-dspace-new-submission.component.html'
+  templateUrl: './my-dspace-new-submission.component.html',
 })
 export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
   /**
@@ -75,7 +75,7 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
       this.uploadFilesOptions.url = url;
       this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
       this.changeDetectorRef.detectChanges();
-    }
+    },
     );
   }
 

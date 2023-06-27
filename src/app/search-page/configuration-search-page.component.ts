@@ -21,9 +21,9 @@ import { Router } from '@angular/router';
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
 })
 
 export class ConfigurationSearchPageComponent extends SearchComponent {

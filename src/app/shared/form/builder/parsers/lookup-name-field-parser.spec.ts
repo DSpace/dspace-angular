@@ -13,13 +13,13 @@ describe('LookupNameFieldParser test suite', () => {
     readOnly: false,
     submissionScope: 'testScopeUUID',
     collectionUUID: null,
-    typeField: 'dc_type'
+    typeField: 'dc_type',
   };
 
   beforeEach(() => {
     field = {
       input: {
-        type: 'lookup-name'
+        type: 'lookup-name',
       },
       label: 'Author',
       mandatory: 'false',
@@ -29,10 +29,10 @@ describe('LookupNameFieldParser test suite', () => {
         {
           metadata: 'author',
           controlledVocabulary: 'RPAuthority',
-          closed: false
-        }
+          closed: false,
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
   });

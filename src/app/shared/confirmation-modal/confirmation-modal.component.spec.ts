@@ -17,9 +17,9 @@ describe('ConfirmationModalComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [ConfirmationModalComponent],
       providers: [
-        { provide: NgbActiveModal, useValue: modalStub }
+        { provide: NgbActiveModal, useValue: modalStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
   }));
@@ -75,7 +75,7 @@ describe('ConfirmationModalComponent', () => {
       spyOn(component, 'close');
       debugElement.query(By.css('button.close')).triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();
@@ -91,7 +91,7 @@ describe('ConfirmationModalComponent', () => {
       spyOn(component.response, 'emit');
       debugElement.query(By.css('button.cancel')).triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();
@@ -110,7 +110,7 @@ describe('ConfirmationModalComponent', () => {
       spyOn(component.response, 'emit');
       debugElement.query(By.css('button.confirm')).triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();

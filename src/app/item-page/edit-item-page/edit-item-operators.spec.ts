@@ -4,7 +4,7 @@ import {Item} from '../../core/shared/item.model';
 import {findSuccessfulAccordingTo} from './edit-item-operators';
 import {
   createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject
+  createSuccessfulRemoteDataObject,
 } from '../../shared/remote-data.utils';
 import { isNotEmpty } from '../../shared/empty.util';
 

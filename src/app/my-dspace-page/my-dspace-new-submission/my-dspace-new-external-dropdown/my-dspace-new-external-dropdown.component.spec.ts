@@ -22,26 +22,26 @@ export function getMockEntityTypeService(): EntityTypeDataService {
     label: 'Publication',
     uuid: '1',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
   const type2: ItemType = {
     id: '2',
     label: 'Journal',
     uuid: '2',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
   const type3: ItemType = {
     id: '2',
     label: 'DataPackage',
     uuid: '2',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
   const rd$ = createSuccessfulRemoteDataObject$(createPaginatedList([type1, type2, type3]));
   return jasmine.createSpyObj('entityTypeService', {
     getAllAuthorizedRelationshipTypeImport: rd$,
-    hasMoreThanOneAuthorizedImport: observableOf(true)
+    hasMoreThanOneAuthorizedImport: observableOf(true),
   });
 }
 
@@ -52,12 +52,12 @@ export function getMockEmptyEntityTypeService(): EntityTypeDataService {
     label: 'Publication',
     uuid: '1',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
   const rd$ = createSuccessfulRemoteDataObject$(createPaginatedList([type1]));
   return jasmine.createSpyObj('entityTypeService', {
     getAllAuthorizedRelationshipTypeImport: rd$,
-    hasMoreThanOneAuthorizedImport: observableOf(false)
+    hasMoreThanOneAuthorizedImport: observableOf(false),
   });
 }
 
@@ -72,7 +72,7 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
     label: 'Publication',
     uuid: '1',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
 
   describe('With only one Entity', () => {
@@ -85,14 +85,14 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
         declarations: [
           MyDSpaceNewExternalDropdownComponent,
           TestComponent,
-          BrowserOnlyMockPipe
+          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
           { provide: Router, useValue: new RouterStub() },
-          MyDSpaceNewExternalDropdownComponent
+          MyDSpaceNewExternalDropdownComponent,
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
 
       const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
@@ -142,9 +142,9 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
           { provide: Router, useValue: new RouterStub() },
-          MyDSpaceNewExternalDropdownComponent
+          MyDSpaceNewExternalDropdownComponent,
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
 
       const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
@@ -183,7 +183,7 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
   reload = (event) => {

@@ -40,7 +40,7 @@ export class WorkspaceItemSearchResultDetailElementComponent extends SearchResul
 
   constructor(
     public dsoNameService: DSONameService,
-    protected linkService: LinkService
+    protected linkService: LinkService,
   ) {
     super(dsoNameService);
   }
@@ -59,7 +59,7 @@ export class WorkspaceItemSearchResultDetailElementComponent extends SearchResul
    */
   initItem(item$: Observable<RemoteData<Item>>) {
     item$.pipe(
-      find((rd: RemoteData<Item>) => rd.hasSucceeded && isNotUndefined(rd.payload))
+      find((rd: RemoteData<Item>) => rd.hasSucceeded && isNotUndefined(rd.payload)),
     ).subscribe((rd: RemoteData<Item>) => {
       this.item = rd.payload;
     });

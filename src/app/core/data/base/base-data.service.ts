@@ -235,7 +235,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
             if (hasValue(remoteData) && remoteData.isStale) {
               requestFn();
             }
-          })
+          }),
         );
       } else {
         return source;
@@ -329,7 +329,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
 
       href$.pipe(
         isNotEmptyOperator(),
-        take(1)
+        take(1),
       ).subscribe((href: string) => {
         const requestId = this.requestService.generateRequestId();
         const request = new GetRequest(requestId, href);
@@ -375,11 +375,11 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
         if (hasCachedResponse) {
           return this.rdbService.buildSingle(href$).pipe(
             getFirstCompletedRemoteData(),
-            map((rd => rd.hasFailed))
+            map((rd => rd.hasFailed)),
           );
         }
         return observableOf(false);
-      })
+      }),
     );
   }
 
@@ -420,7 +420,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
           }
         }),
       ),
-      dependsOnHref$
+      dependsOnHref$,
     );
   }
 
@@ -437,7 +437,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
       switchMap((oce: ObjectCacheEntry) => {
         return observableFrom([
           ...oce.requestUUIDs,
-          ...oce.dependentRequestUUIDs
+          ...oce.dependentRequestUUIDs,
         ]).pipe(
           mergeMap((requestUUID: string) => this.requestService.setStaleByUUID(requestUUID)),
           toArray(),

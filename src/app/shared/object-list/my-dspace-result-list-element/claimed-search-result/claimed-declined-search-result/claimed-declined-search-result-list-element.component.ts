@@ -22,7 +22,7 @@ import { Context } from '../../../../../core/shared/context.model';
 @Component({
   selector: 'ds-claimed-declined-search-result-list-element',
   styleUrls: ['../../../search-result-list-element/search-result-list-element.component.scss'],
-  templateUrl: './claimed-declined-search-result-list-element.component.html'
+  templateUrl: './claimed-declined-search-result-list-element.component.html',
 })
 @listableObjectComponent(ClaimedDeclinedTaskSearchResult, ViewMode.ListElement)
 export class ClaimedDeclinedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> {
@@ -46,7 +46,7 @@ export class ClaimedDeclinedSearchResultListElementComponent extends SearchResul
     protected linkService: LinkService,
     protected truncatableService: TruncatableService,
     public dsoNameService: DSONameService,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(truncatableService, dsoNameService, appConfig);
   }
@@ -60,7 +60,7 @@ export class ClaimedDeclinedSearchResultListElementComponent extends SearchResul
       followLink('workflowitem',
         { useCachedVersionIfAvailable: false },
         followLink('item'),
-        followLink('submitter')
+        followLink('submitter'),
       ),
       followLink('action'));
     this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;

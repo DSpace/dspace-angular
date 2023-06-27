@@ -46,7 +46,7 @@ describe('ItemDataService', () => {
   const objectCache = {} as ObjectCacheService;
   const halEndpointService: any = new HALEndpointServiceStub(itemEndpoint);
   const bundleService = jasmine.createSpyObj('bundleService', {
-    findByHref: {}
+    findByHref: {},
   });
 
   const scopeID = '4af28e99-6a9c-4036-a199-e1b587046d39';
@@ -54,8 +54,8 @@ describe('ItemDataService', () => {
     scopeID: scopeID,
     sort: {
       field: '',
-      direction: undefined
-    }
+      direction: undefined,
+    },
   });
 
   const browsesEndpoint = 'https://rest.api/discover/browses';
@@ -73,7 +73,7 @@ describe('ItemDataService', () => {
       cold('--a-', { a: itemBrowseEndpoint }) :
       cold('--#-', undefined, browseError);
     return jasmine.createSpyObj('bs', {
-      getBrowseURLFor: obs
+      getBrowseURLFor: obs,
     });
   }
 
@@ -158,7 +158,7 @@ describe('ItemDataService', () => {
     const externalSourceEntry = Object.assign(new ExternalSourceEntry(), {
       display: 'John, Doe',
       value: 'John, Doe',
-      _links: { self: { href: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004' } }
+      _links: { self: { href: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004' } },
     });
 
     beforeEach(() => {

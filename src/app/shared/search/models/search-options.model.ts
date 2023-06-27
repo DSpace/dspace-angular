@@ -20,7 +20,7 @@ export class SearchOptions {
     options: {
       configuration?: string, scope?: string, query?: string, dsoTypes?: DSpaceObjectType[], filters?: SearchFilter[],
       fixedFilter?: string
-    }
+    },
   ) {
     this.configuration = options.configuration;
     this.scope = options.scope;

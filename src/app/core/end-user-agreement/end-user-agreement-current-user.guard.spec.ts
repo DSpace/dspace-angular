@@ -12,12 +12,12 @@ describe('EndUserAgreementGuard', () => {
 
   beforeEach(() => {
     endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
-      hasCurrentUserAcceptedAgreement: observableOf(true)
+      hasCurrentUserAcceptedAgreement: observableOf(true),
     });
     router = jasmine.createSpyObj('router', {
       navigateByUrl: {},
       parseUrl: new UrlTree(),
-      createUrlTree: new UrlTree()
+      createUrlTree: new UrlTree(),
     });
 
     guard = new EndUserAgreementCurrentUserGuard(endUserAgreementService, router);

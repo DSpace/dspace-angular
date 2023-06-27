@@ -11,7 +11,7 @@ import { BitstreamBreadcrumbsService } from './bitstream-breadcrumbs.service';
  * The class that resolves the BreadcrumbConfig object for an Item
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BitstreamBreadcrumbResolver extends DSOBreadcrumbResolver<Bitstream> {
   constructor(

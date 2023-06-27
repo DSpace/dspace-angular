@@ -170,7 +170,7 @@ export class SupervisionOrderDataService extends IdentifiableDataService<Supervi
       Object.assign(request, {
         getResponseParser(): GenericConstructor<ResponseParsingService> {
           return StatusCodeOnlyResponseParsingService;
-        }
+        },
       });
       this.requestService.send(request);
     });

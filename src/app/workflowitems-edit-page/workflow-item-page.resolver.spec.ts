@@ -11,7 +11,7 @@ describe('WorkflowItemPageResolver', () => {
 
     beforeEach(() => {
       wfiService = {
-        findById: (id: string) => createSuccessfulRemoteDataObject$({ id })
+        findById: (id: string) => createSuccessfulRemoteDataObject$({ id }),
       } as any;
       resolver = new WorkflowItemPageResolver(wfiService);
     });
@@ -23,7 +23,7 @@ describe('WorkflowItemPageResolver', () => {
           (resolved) => {
             expect(resolved.payload.id).toEqual(uuid);
             done();
-          }
+          },
         );
     });
   });

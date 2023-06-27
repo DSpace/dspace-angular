@@ -32,7 +32,7 @@ describe('SiteDataService', () => {
     scheduler = getTestScheduler();
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: cold('a', { a: siteLink })
+      getEndpoint: cold('a', { a: siteLink }),
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
@@ -40,8 +40,8 @@ describe('SiteDataService', () => {
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildList: cold('a', {
-        a: createSuccessfulRemoteDataObject(createPaginatedList([testObject]))
-      })
+        a: createSuccessfulRemoteDataObject(createPaginatedList([testObject])),
+      }),
     });
 
     objectCache = {} as ObjectCacheService;
@@ -74,7 +74,7 @@ describe('SiteDataService', () => {
     it('should return the Site object', () => {
 
       spyOn(service, 'findAll').and.returnValue(cold('a', {
-        a: createSuccessfulRemoteDataObject(createPaginatedList([testObject]))
+        a: createSuccessfulRemoteDataObject(createPaginatedList([testObject])),
       }));
 
       const expected = cold('(b|)', { b: testObject });

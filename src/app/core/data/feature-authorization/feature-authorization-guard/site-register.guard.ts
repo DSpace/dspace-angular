@@ -11,7 +11,7 @@ import { AuthService } from '../../../auth/auth.service';
  * rights to the {@link Site}
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SiteRegisterGuard extends SingleFeatureAuthorizationGuard {
   constructor(protected authorizationService: AuthorizationDataService, protected router: Router, protected authService: AuthService) {

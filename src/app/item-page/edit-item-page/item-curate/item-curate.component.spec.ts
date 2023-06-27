@@ -18,20 +18,20 @@ describe('ItemCurateComponent', () => {
 
   const item = Object.assign(new Item(), {
     handle: '123456789/1',
-    metadata: {'dc.title': ['Item Name']}
+    metadata: {'dc.title': ['Item Name']},
   });
 
   beforeEach(waitForAsync(() => {
     routeStub = {
       parent: {
         data: observableOf({
-          dso: createSuccessfulRemoteDataObject(item)
-        })
-      }
+          dso: createSuccessfulRemoteDataObject(item),
+        }),
+      },
     };
 
     dsoNameService = jasmine.createSpyObj('dsoNameService', {
-      getName: 'Item Name'
+      getName: 'Item Name',
     });
 
     TestBed.configureTestingModule({
@@ -39,9 +39,9 @@ describe('ItemCurateComponent', () => {
       declarations: [ItemCurateComponent],
       providers: [
         {provide: ActivatedRoute, useValue: routeStub},
-        {provide: DSONameService, useValue: dsoNameService}
+        {provide: DSONameService, useValue: dsoNameService},
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 

@@ -50,7 +50,7 @@ export class PageInfo implements HALResource {
       totalElements: number,
       totalPages: number,
       currentPage: number
-    }
+    },
   ) {
     if (hasValue(options)) {
       this.elementsPerPage = options.elementsPerPage;

@@ -77,7 +77,7 @@ describe('BaseDataService', () => {
     selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
     linksToFollow = [
       followLink('a'),
-      followLink('b')
+      followLink('b'),
     ];
 
     testScheduler = new TestScheduler((actual, expected) => {
@@ -566,7 +566,7 @@ describe('BaseDataService', () => {
     beforeEach(() => {
       getByHrefSpy = spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
         requestUUIDs: ['request1', 'request2', 'request3'],
-        dependentRequestUUIDs: ['request4', 'request5']
+        dependentRequestUUIDs: ['request4', 'request5'],
       }));
 
     });
@@ -714,7 +714,7 @@ describe('BaseDataService', () => {
 
       (service as any).addDependency(
         createSuccessfulRemoteDataObject$({ _links: { self: { href: 'object-href' } } }),
-        observableOf('dependsOnHref')
+        observableOf('dependsOnHref'),
       );
       expect(addDependencySpy).toHaveBeenCalled();
     });
@@ -729,7 +729,7 @@ describe('BaseDataService', () => {
 
       (service as any).addDependency(
         createFailedRemoteDataObject$('something went wrong'),
-        observableOf('dependsOnHref')
+        observableOf('dependsOnHref'),
       );
       expect(addDependencySpy).toHaveBeenCalled();
     });

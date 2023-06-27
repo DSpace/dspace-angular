@@ -15,7 +15,7 @@ import { AlertType } from '../../../shared/alert/aletr-type';
 @Component({
   selector: 'ds-health-component',
   templateUrl: './health-component.component.html',
-  styleUrls: ['./health-component.component.scss']
+  styleUrls: ['./health-component.component.scss'],
 })
 export class HealthComponentComponent {
 

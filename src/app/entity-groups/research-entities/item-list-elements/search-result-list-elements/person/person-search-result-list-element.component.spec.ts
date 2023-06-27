@@ -25,17 +25,17 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
-          }
+            value: 'This is just another title',
+          },
         ],
         'person.jobTitle': [
           {
             language: 'en_US',
-            value: 'Developer'
-          }
-        ]
-      }
-    })
+            value: 'Developer',
+          },
+        ],
+      },
+    }),
   });
 const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
@@ -46,23 +46,23 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
-          }
-        ]
-      }
-    })
+            value: 'This is just another title',
+          },
+        ],
+      },
+    }),
   });
 
 const environmentUseThumbs = {
   browseBy: {
-    showThumbnails: true
-  }
+    showThumbnails: true,
+  },
 };
 
 const enviromentNoThumbs = {
   browseBy: {
-    showThumbnails: false
-  }
+    showThumbnails: false,
+  },
 };
 
 describe('PersonSearchResultListElementComponent', () => {
@@ -71,20 +71,20 @@ describe('PersonSearchResultListElementComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }
+          useClass: TranslateLoaderMock,
+        },
+      },
       )],
       declarations: [PersonSearchResultListElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PersonSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -141,20 +141,20 @@ describe('PersonSearchResultListElementComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }
+          useClass: TranslateLoaderMock,
+        },
+      },
       )],
       declarations: [PersonSearchResultListElementComponent, TruncatePipe],
       providers: [
         {provide: TruncatableService, useValue: {}},
         {provide: DSONameService, useClass: DSONameServiceMock},
-        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PersonSearchResultListElementComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: {changeDetection: ChangeDetectionStrategy.Default},
     }).compileComponents();
   }));
 

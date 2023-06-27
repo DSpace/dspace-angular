@@ -7,7 +7,7 @@ import { ItemComponent } from '../../../../item-page/simple/item-types/shared/it
 @Component({
   selector: 'ds-project',
   styleUrls: ['./project.component.scss'],
-  templateUrl: './project.component.html'
+  templateUrl: './project.component.html',
 })
 /**
  * The component for displaying metadata and relations of an item of the type Project

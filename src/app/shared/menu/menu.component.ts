@@ -19,7 +19,7 @@ import { ThemeService } from '../theme-support/theme.service';
  */
 @Component({
   selector: 'ds-menu',
-  template: ''
+  template: '',
 })
 export class MenuComponent implements OnInit, OnDestroy {
   /**
@@ -74,7 +74,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   private activatedRouteLastChild: ActivatedRoute;
 
   constructor(protected menuService: MenuService, protected injector: Injector, public authorizationService: AuthorizationDataService,
-              public route: ActivatedRoute, protected themeService: ThemeService
+              public route: ActivatedRoute, protected themeService: ThemeService,
   ) {
   }
 
@@ -101,17 +101,17 @@ export class MenuComponent implements OnInit, OnDestroy {
         }),
         isNotEmptyOperator(),
         switchMap((section: MenuSection) => this.getSectionComponent(section).pipe(
-          map((component: GenericConstructor<MenuSectionComponent>) => ({ section, component }))
+          map((component: GenericConstructor<MenuSectionComponent>) => ({ section, component })),
         )),
-        distinctUntilChanged((x, y) => x.section.id === y.section.id)
+        distinctUntilChanged((x, y) => x.section.id === y.section.id),
       ).subscribe(({ section, component }) => {
         const nextMap = this.sectionMap$.getValue();
         nextMap.set(section.id, {
           injector: this.getSectionDataInjector(section),
-          component
+          component,
         });
         this.sectionMap$.next(nextMap);
-      })
+      }),
     );
   }
 
@@ -140,7 +140,7 @@ export class MenuComponent implements OnInit, OnDestroy {
               return section;
             }
           }));
-      })
+      }),
     );
   }
 
@@ -219,7 +219,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     return this.menuService.hasSubSections(this.menuID, section.id).pipe(
       map((expandable: boolean) => {
         return getComponentForMenu(this.menuID, expandable, this.themeService.getThemeName());
-      }
+      },
       ),
     );
   }
@@ -232,7 +232,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   private getSectionDataInjector(section: MenuSection) {
     return Injector.create({
       providers: [{ provide: 'sectionDataProvider', useFactory: () => (section), deps: [] }],
-      parent: this.injector
+      parent: this.injector,
     });
   }
 

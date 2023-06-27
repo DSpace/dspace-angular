@@ -4,7 +4,7 @@ import { Action } from '@ngrx/store';
 
 export const MetaTagTypes = {
   ADD: type('dspace/meta-tag/ADD'),
-  CLEAR: type('dspace/meta-tag/CLEAR')
+  CLEAR: type('dspace/meta-tag/CLEAR'),
 };
 
 export class AddMetaTagAction implements Action {

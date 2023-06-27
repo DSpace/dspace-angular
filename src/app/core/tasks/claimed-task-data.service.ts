@@ -94,7 +94,7 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
   public findByItem(uuid: string): Observable<RemoteData<ClaimedTask>> {
     const options = new FindListOptions();
     options.searchParams = [
-      new RequestParam('uuid', uuid)
+      new RequestParam('uuid', uuid),
     ];
     return this.searchTask('findByItem', options).pipe(getFirstSucceededRemoteData());
   }

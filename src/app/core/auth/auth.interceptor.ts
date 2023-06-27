@@ -10,7 +10,7 @@ import {
   HttpInterceptor,
   HttpRequest,
   HttpResponse,
-  HttpResponseBase
+  HttpResponseBase,
 } from '@angular/common/http';
 
 import { AppState } from '../../app.reducer';
@@ -207,7 +207,7 @@ export class AuthInterceptor implements HttpInterceptor {
               message: 'Unknown auth error',
               status: 500,
               timestamp: Date.now(),
-              path: ''
+              path: '',
             };
           }
         } else {
@@ -261,7 +261,7 @@ export class AuthInterceptor implements HttpInterceptor {
             // login successfully
             const newToken = response.headers.get('authorization');
             authRes = response.clone({
-              body: this.makeAuthStatusObject(true, newToken)
+              body: this.makeAuthStatusObject(true, newToken),
             });
 
             // clean eventually refresh Requests list
@@ -269,13 +269,13 @@ export class AuthInterceptor implements HttpInterceptor {
           } else if (this.isStatusResponse(response)) {
             authRes = response.clone({
               body: Object.assign(response.body, {
-                authMethods: this.parseAuthMethodsFromHeaders(response.headers)
-              })
+                authMethods: this.parseAuthMethodsFromHeaders(response.headers),
+              }),
             });
           } else {
             // logout successfully
             authRes = response.clone({
-              body: this.makeAuthStatusObject(false)
+              body: this.makeAuthStatusObject(false),
             });
           }
           return authRes;
@@ -298,7 +298,7 @@ export class AuthInterceptor implements HttpInterceptor {
               headers: error.headers,
               status: error.status,
               statusText: error.statusText,
-              url: error.url
+              url: error.url,
             });
             return observableOf(authResponse);
           } else if (this.isUnauthorized(error) && isNotNull(token) && authService.isTokenExpired()) {

@@ -17,7 +17,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
  */
 @Component({
   selector: 'ds-delete-comcol',
-  template: ''
+  template: '',
 })
 export class DeleteComColPageComponent<TDomain extends Community | Collection> implements OnInit {
   /**

@@ -10,7 +10,7 @@ import { ThemeConfig } from '../../../config/theme.model';
 
 @Component({
   selector: 'ds-test-themed-component',
-  templateUrl: './themed.component.html'
+  templateUrl: './themed.component.html',
 })
 class TestThemedComponent extends ThemedComponent<TestComponent> {
   protected inAndOutputNames: (keyof TestComponent & keyof this)[] = ['testInput'];
@@ -41,7 +41,7 @@ describe('ThemedComponent', () => {
       providers: [
         { provide: ThemeService, useValue: themeService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }
 

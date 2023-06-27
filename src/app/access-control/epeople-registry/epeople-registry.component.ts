@@ -61,7 +61,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'elp',
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   });
 
   /**
@@ -131,7 +131,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
                 epersonDtoModel.ableToDelete = authorized;
                 epersonDtoModel.eperson = eperson;
                 return epersonDtoModel;
-              })
+              }),
             );
           })]).pipe(map((dtos: EpersonDtoModel[]) => {
             return buildPaginatedList(epeople.pageInfo, dtos);
@@ -161,14 +161,14 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
         const scope: string = data.scope;
         if (query != null && this.currentSearchQuery !== query) {
           this.router.navigate([this.epersonService.getEPeoplePageRouterLink()], {
-            queryParamsHandling: 'merge'
+            queryParamsHandling: 'merge',
           });
           this.currentSearchQuery = query;
           this.paginationService.resetPage(this.config.id);
         }
         if (scope != null && this.currentSearchScope !== scope) {
           this.router.navigate([this.epersonService.getEPeoplePageRouterLink()], {
-            queryParamsHandling: 'merge'
+            queryParamsHandling: 'merge',
           });
           this.currentSearchScope = scope;
           this.paginationService.resetPage(this.config.id);
@@ -176,15 +176,15 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
         }
         return this.epersonService.searchByScope(this.currentSearchScope, this.currentSearchQuery, {
           currentPage: findListOptions.currentPage,
-          elementsPerPage: findListOptions.pageSize
+          elementsPerPage: findListOptions.pageSize,
         });
-      }
+      },
       ),
       getAllSucceededRemoteData(),
     ).subscribe((peopleRD) => {
       this.ePeople$.next(peopleRD.payload);
       this.pageInfoState$.next(peopleRD.payload.pageInfo);
-    }
+    },
     );
   }
 
@@ -194,7 +194,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    */
   isActive(eperson: EPerson): Observable<boolean> {
     return this.getActiveEPerson().pipe(
-      map((activeEPerson) => eperson === activeEPerson)
+      map((activeEPerson) => eperson === activeEPerson),
     );
   }
 
@@ -294,7 +294,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
         return this.requestService.setStaleByHrefSubstring(href).pipe(
           take(1),
         );
-      })
+      }),
     ).subscribe(()=>{
       this.epersonService.cancelEditEPerson();
       this.isEPersonFormShown = false;

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-  GrantRequestCopyComponent as BaseComponent
+  GrantRequestCopyComponent as BaseComponent,
 } from 'src/app/request-copy/grant-request-copy/grant-request-copy.component';
 
 @Component({

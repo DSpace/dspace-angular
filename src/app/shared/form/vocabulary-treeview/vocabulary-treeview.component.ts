@@ -26,7 +26,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operato
 @Component({
   selector: 'ds-vocabulary-treeview',
   templateUrl: './vocabulary-treeview.component.html',
-  styleUrls: ['./vocabulary-treeview.component.scss']
+  styleUrls: ['./vocabulary-treeview.component.scss'],
 })
 export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
 
@@ -124,7 +124,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
     private vocabularyTreeviewService: VocabularyTreeviewService,
     private vocabularyService: VocabularyService,
     private store: Store<CoreState>,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     this.treeFlattener = new VocabularyTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
@@ -161,7 +161,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
       node.loadMoreParentItem,
       node.isSearchNode,
       node.isInInitValueHierarchy,
-      node.isSelected
+      node.isSelected,
     );
     this.nodeMap.set(node.item.id, newNode);
 
@@ -213,13 +213,13 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
     this.subs.push(
       this.vocabularyTreeviewService.getData().subscribe((data) => {
         this.dataSource.data = data;
-      })
+      }),
     );
 
     this.translate.get(`search.filters.filter.${this.vocabularyOptions.name}.head`).pipe(
       map((type) => lowerCase(type)),
     ).subscribe(
-      (type) => this.description = this.translate.get('vocabulary-treeview.info', { type })
+      (type) => this.description = this.translate.get('vocabulary-treeview.info', { type }),
     );
 
     this.loading = this.vocabularyTreeviewService.isLoading();

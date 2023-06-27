@@ -41,7 +41,7 @@ describe('BundleDataService', () => {
     bundleHALLink.href = bundleLink;
     item = new Item();
     item._links = {
-      bundles: bundleHALLink
+      bundles: bundleHALLink,
     };
     requestService = getMockRequestService();
     halService = new HALEndpointServiceStub('url') as any;
@@ -56,7 +56,7 @@ describe('BundleDataService', () => {
       },
       getObjectBySelfLink: () => {
         /* empty */
-      }
+      },
     } as any;
     store = {} as Store<CoreState>;
     return new BundleDataService(
@@ -99,30 +99,30 @@ describe('BundleDataService', () => {
           metadata: {
             'dc.title': [
               {
-                value: 'ORIGINAL'
-              }
-            ]
-          }
+                value: 'ORIGINAL',
+              },
+            ],
+          },
         }),
         Object.assign(new Bundle(), {
           id: 'THUMBNAIL_BUNDLE',
           metadata: {
             'dc.title': [
               {
-                value: 'THUMBNAIL'
-              }
-            ]
-          }
+                value: 'THUMBNAIL',
+              },
+            ],
+          },
         }),
         Object.assign(new Bundle(), {
           id: 'EXTRA_BUNDLE',
           metadata: {
             'dc.title': [
               {
-                value: 'EXTRA'
-              }
-            ]
-          }
+                value: 'EXTRA',
+              },
+            ],
+          },
         }),
       ];
       spyOn(service, 'findAllByItem').and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList(bundles)));

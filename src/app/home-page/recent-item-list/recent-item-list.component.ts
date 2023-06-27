@@ -26,8 +26,8 @@ import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
 })
 export class RecentItemListComponent implements OnInit {
   itemRD$: Observable<RemoteData<PaginatedList<Item>>>;
@@ -55,7 +55,7 @@ export class RecentItemListComponent implements OnInit {
       id: 'hp',
       pageSize: environment.homePage.recentSubmissions.pageSize,
       currentPage: 1,
-      maxSize: 1
+      maxSize: 1,
     });
     this.sortConfig = new SortOptions(environment.homePage.recentSubmissions.sortField, SortDirection.DESC);
   }
@@ -76,7 +76,7 @@ export class RecentItemListComponent implements OnInit {
       undefined,
       ...linksToFollow,
     ).pipe(
-      toDSpaceObjectListRD()
+      toDSpaceObjectListRD(),
     ) as Observable<RemoteData<PaginatedList<Item>>>;
   }
 
@@ -88,7 +88,7 @@ export class RecentItemListComponent implements OnInit {
     this.paginationService.updateRouteWithUrl(this.searchConfigurationService.paginationID, ['search'], {
       sortField: environment.homePage.recentSubmissions.sortField,
       sortDirection: 'DESC' as SortDirection,
-      page: 1
+      page: 1,
     });
   }
 

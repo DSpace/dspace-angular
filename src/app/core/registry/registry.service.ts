@@ -17,7 +17,7 @@ import {
   MetadataRegistryEditFieldAction,
   MetadataRegistryEditSchemaAction,
   MetadataRegistrySelectFieldAction,
-  MetadataRegistrySelectSchemaAction
+  MetadataRegistrySelectSchemaAction,
 } from '../../admin/admin-registries/metadata-registry/metadata-registry.actions';
 import { map, mergeMap, tap } from 'rxjs/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -78,14 +78,14 @@ export class RegistryService {
   public getMetadataSchemaByPrefix(prefix: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataSchema>[]): Observable<RemoteData<MetadataSchema>> {
     // Temporary options to get ALL metadataschemas until there's a rest api endpoint for fetching a specific schema
     const options: FindListOptions = Object.assign(new FindListOptions(), {
-      elementsPerPage: 10000
+      elementsPerPage: 10000,
     });
     return this.getMetadataSchemas(options).pipe(
       getFirstSucceededRemoteDataPayload(),
       map((schemas: PaginatedList<MetadataSchema>) => schemas.page),
       isNotEmptyOperator(),
       map((schemas: MetadataSchema[]) => schemas.filter((schema) => schema.prefix === prefix)[0]),
-      mergeMap((schema: MetadataSchema) => this.metadataSchemaService.findById(`${schema.id}`, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow))
+      mergeMap((schema: MetadataSchema) => this.metadataSchemaService.findById(`${schema.id}`, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)),
     );
   }
 
@@ -219,7 +219,7 @@ export class RegistryService {
       hasValueOperator(),
       tap(() => {
         this.showNotifications(true, isUpdate, false, { prefix: schema.prefix });
-      })
+      }),
     );
   }
 
@@ -253,7 +253,7 @@ export class RegistryService {
       hasValueOperator(),
       tap(() => {
         this.showNotifications(true, false, true, { field: field.toString() });
-      })
+      }),
     );
   }
 
@@ -271,7 +271,7 @@ export class RegistryService {
       hasValueOperator(),
       tap(() => {
         this.showNotifications(true, true, true, { field: field.toString() });
-      })
+      }),
     );
   }
 
@@ -296,7 +296,7 @@ export class RegistryService {
     const editedString = edited ? 'edited' : 'created';
     const messages = observableCombineLatest(
       this.translateService.get(success ? `${prefix}.${suffix}` : `${prefix}.${suffix}`),
-      this.translateService.get(`${prefix}${isField ? '.field' : ''}.${editedString}`, options)
+      this.translateService.get(`${prefix}${isField ? '.field' : ''}.${editedString}`, options),
     );
     messages.subscribe(([head, content]) => {
       if (success) {

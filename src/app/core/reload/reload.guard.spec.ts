@@ -24,8 +24,8 @@ describe('ReloadGuard', () => {
         redirectUrl = '/redirect/url?param=extra';
         route = {
           queryParams: {
-            redirect: redirectUrl
-          }
+            redirect: redirectUrl,
+          },
         };
       });
 
@@ -38,7 +38,7 @@ describe('ReloadGuard', () => {
     describe('when the route\'s query params doesn\'t contain a redirect url', () => {
       beforeEach(() => {
         route = {
-          queryParams: {}
+          queryParams: {},
         };
       });
 

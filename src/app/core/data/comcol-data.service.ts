@@ -86,7 +86,7 @@ export abstract class ComColDataService<T extends Community | Collection> extend
         }),
         filter((halLink: HALLink) => isNotEmpty(halLink)),
         map((halLink: HALLink) => halLink.href),
-        distinctUntilChanged()
+        distinctUntilChanged(),
       );
     }
   }
@@ -97,7 +97,7 @@ export abstract class ComColDataService<T extends Community | Collection> extend
 
   public findByParent(parentUUID: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
     const href$ = this.getFindByParentHref(parentUUID).pipe(
-      map((href: string) => this.buildHrefFromFindOptions(href, options))
+      map((href: string) => this.buildHrefFromFindOptions(href, options)),
     );
     return this.findListByHref(href$, options, true, true, ...linksToFollow);
   }
@@ -110,7 +110,7 @@ export abstract class ComColDataService<T extends Community | Collection> extend
     return this.halService.getEndpoint(this.linkPath).pipe(
       // We can't use HalLinkService to discover the logo link itself, as objects without a logo
       // don't have the link, and this method is also used in the createLogo method.
-      map((href: string) => new URLCombiner(href, id, 'logo').toString())
+      map((href: string) => new URLCombiner(href, id, 'logo').toString()),
     );
   }
 
@@ -132,7 +132,7 @@ export abstract class ComColDataService<T extends Community | Collection> extend
           } else {
             return this.bitstreamDataService.deleteByHref(logoRd.payload._links.self.href);
           }
-        })
+        }),
       );
     } else {
       return createFailedRemoteDataObject$(`The given object doesn't have a logo`, 400);
@@ -148,7 +148,7 @@ export abstract class ComColDataService<T extends Community | Collection> extend
       this.findByHref(parentCommunityUrl).pipe(
         getFirstCompletedRemoteData(),
       ),
-      this.halService.getEndpoint('communities/search/top').pipe(take(1))
+      this.halService.getEndpoint('communities/search/top').pipe(take(1)),
     ]).subscribe(([rd, topHref]: [RemoteData<any>, string]) => {
       if (rd.hasSucceeded && isNotEmpty(rd.payload) && isNotEmpty(rd.payload.id)) {
         this.requestService.setStaleByHrefSubstring(rd.payload.id);

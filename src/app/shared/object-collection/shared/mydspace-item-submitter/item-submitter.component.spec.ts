@@ -30,17 +30,17 @@ describe('ItemSubmitterComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [ItemSubmitterComponent],
       providers: [
         { provide: LinkService, useValue: getMockLinkService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemSubmitterComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -56,7 +56,7 @@ describe('ItemSubmitterComponent', () => {
 
   it('should init submitter properly', () => {
     expect(component.submitter$).toBeObservable(cold('(b|)', {
-      b: EPersonMock
+      b: EPersonMock,
     }));
   });
 

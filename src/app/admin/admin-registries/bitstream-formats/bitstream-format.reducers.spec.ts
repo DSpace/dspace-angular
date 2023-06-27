@@ -4,7 +4,7 @@ import { bitstreamFormatReducer, BitstreamFormatRegistryState } from './bitstrea
 import {
   BitstreamFormatsRegistryDeselectAction,
   BitstreamFormatsRegistryDeselectAllAction,
-  BitstreamFormatsRegistrySelectAction
+  BitstreamFormatsRegistrySelectAction,
 } from './bitstream-format.actions';
 
 const bitstreamFormat1: BitstreamFormat = new BitstreamFormat();
@@ -16,15 +16,15 @@ bitstreamFormat2.id = 'test-uuid-2';
 bitstreamFormat2.shortDescription = 'test-short-2';
 
 const initialState: BitstreamFormatRegistryState = {
-  selectedBitstreamFormats: []
+  selectedBitstreamFormats: [],
 };
 
 const bitstream1SelectedState: BitstreamFormatRegistryState = {
-  selectedBitstreamFormats: [bitstreamFormat1]
+  selectedBitstreamFormats: [bitstreamFormat1],
 };
 
 const bitstream1and2SelectedState: BitstreamFormatRegistryState = {
-  selectedBitstreamFormats: [bitstreamFormat1, bitstreamFormat2]
+  selectedBitstreamFormats: [bitstreamFormat1, bitstreamFormat2],
 };
 
 describe('BitstreamFormatReducer', () => {

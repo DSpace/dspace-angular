@@ -7,7 +7,7 @@ import {dateToISOFormat} from '../../date.util';
   selector: 'ds-access-control-array-form',
   templateUrl: './access-control-array-form.component.html',
   styleUrls: ['./access-control-array-form.component.scss'],
-  exportAs: 'accessControlArrayForm'
+  exportAs: 'accessControlArrayForm',
 })
 export class AccessControlArrayFormComponent implements OnInit {
   @Input() dropdownOptions: AccessesConditionOption[] = [];
@@ -17,7 +17,7 @@ export class AccessControlArrayFormComponent implements OnInit {
   @ViewChild('ngForm', {static: true}) ngForm!: NgForm;
 
   form: { accessControls: AccessControlItem[] } = {
-    accessControls: [emptyAccessControlItem()] // Start with one empty access control item
+    accessControls: [emptyAccessControlItem()], // Start with one empty access control item
   };
 
   formDisabled = true;
@@ -43,7 +43,7 @@ export class AccessControlArrayFormComponent implements OnInit {
   addAccessControlItem(itemName: string = null) {
     this.form.accessControls = [
       ...this.form.accessControls,
-      {...emptyAccessControlItem(), itemName}
+      {...emptyAccessControlItem(), itemName},
     ];
   }
 
@@ -67,7 +67,7 @@ export class AccessControlArrayFormComponent implements OnInit {
       .map(x => ({
         name: x.itemName,
         startDate: (x.startDate ? dateToISOFormat(x.startDate) : null),
-        endDate: (x.endDate ? dateToISOFormat(x.endDate) : null)
+        endDate: (x.endDate ? dateToISOFormat(x.endDate) : null),
       }));
   }
 

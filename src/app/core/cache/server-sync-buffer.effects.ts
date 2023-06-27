@@ -6,7 +6,7 @@ import {
   AddToSSBAction,
   CommitSSBAction,
   EmptySSBAction,
-  ServerSyncBufferActionTypes
+  ServerSyncBufferActionTypes,
 } from './server-sync-buffer.actions';
 import { Action, createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { ServerSyncBufferEntry, ServerSyncBufferState } from './server-sync-buffer.reducer';
@@ -41,7 +41,7 @@ export class ServerSyncBufferEffects {
         return observableOf(new CommitSSBAction(action.payload.method)).pipe(
           delay(timeoutInSeconds * 1000),
         );
-      })
+      }),
     ));
 
   /**
@@ -78,14 +78,14 @@ export class ServerSyncBufferEffects {
             /* Add extra action to array, to make sure the ServerSyncBuffer is emptied afterwards */
             if (isNotEmpty(actions) && isNotUndefined(actions[0])) {
               return observableCombineLatest(...actions).pipe(
-                switchMap((array) => [...array, new EmptySSBAction(action.payload)])
+                switchMap((array) => [...array, new EmptySSBAction(action.payload)]),
               );
             } else {
               return observableOf(new NoOpAction());
             }
-          })
+          }),
         );
-      })
+      }),
     ));
 
   /**
@@ -96,7 +96,7 @@ export class ServerSyncBufferEffects {
    */
   private applyPatch(href: string): Observable<Action> {
     const patchObject = this.objectCache.getByHref(href).pipe(
-      take(1)
+      take(1),
     );
 
     return patchObject.pipe(
@@ -108,7 +108,7 @@ export class ServerSyncBufferEffects {
           }
         }
         return new ApplyPatchObjectCacheAction(href);
-      })
+      }),
     );
   }
 

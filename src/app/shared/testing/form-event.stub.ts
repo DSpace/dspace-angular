@@ -47,7 +47,7 @@ export const accessConditionChangeEvent = {
     updateOn: null,
     validators: { required: null },
   }),
-  type: 'change'
+  type: 'change',
 };
 
 
@@ -96,5 +96,5 @@ export const checkboxChangeEvent = {
     updateOn: null,
     validators: { required: null },
   }),
-  type: 'change'
+  type: 'change',
 };

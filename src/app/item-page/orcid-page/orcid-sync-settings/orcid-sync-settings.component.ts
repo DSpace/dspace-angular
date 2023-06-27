@@ -16,7 +16,7 @@ import { ResearcherProfile } from '../../../core/profile/model/researcher-profil
 @Component({
   selector: 'ds-orcid-sync-setting',
   templateUrl: './orcid-sync-settings.component.html',
-  styleUrls: ['./orcid-sync-settings.component.scss']
+  styleUrls: ['./orcid-sync-settings.component.scss'],
 })
 export class OrcidSyncSettingsComponent implements OnInit {
 
@@ -82,12 +82,12 @@ export class OrcidSyncSettingsComponent implements OnInit {
     this.syncModes = [
       {
         label: this.messagePrefix + '.synchronization-mode.batch',
-        value: 'BATCH'
+        value: 'BATCH',
       },
       {
         label: this.messagePrefix + '.synchronization-mode.manual',
-        value: 'MANUAL'
-      }
+        value: 'MANUAL',
+      },
     ];
 
     this.syncPublicationOptions = ['DISABLED', 'ALL']
@@ -113,7 +113,7 @@ export class OrcidSyncSettingsComponent implements OnInit {
         return {
           label: this.messagePrefix + '.sync-profile.' + value.toLowerCase(),
           value: value,
-          checked: syncProfilePreferences.includes(value)
+          checked: syncProfilePreferences.includes(value),
         };
       });
 
@@ -189,7 +189,7 @@ export class OrcidSyncSettingsComponent implements OnInit {
     operations.push({
       path: path,
       op: 'replace',
-      value: currentValue
+      value: currentValue,
     });
   }
 

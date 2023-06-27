@@ -62,7 +62,7 @@ describe('TasksService', () => {
     },
     getObjectBySelfLink: () => {
       /* empty */
-    }
+    },
   } as any;
   const store = {} as Store<CoreState>;
 

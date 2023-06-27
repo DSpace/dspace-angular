@@ -17,14 +17,14 @@ import { FormModule } from '../../shared/form/form.module';
     RouterModule,
     BitstreamFormatsModule,
     AdminRegistriesRoutingModule,
-    FormModule
+    FormModule,
   ],
   declarations: [
     MetadataRegistryComponent,
     MetadataSchemaComponent,
     MetadataSchemaFormComponent,
-    MetadataFieldFormComponent
-  ]
+    MetadataFieldFormComponent,
+  ],
 })
 export class AdminRegistriesModule {
 

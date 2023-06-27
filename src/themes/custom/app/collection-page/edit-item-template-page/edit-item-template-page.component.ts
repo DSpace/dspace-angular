@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-  EditItemTemplatePageComponent as BaseComponent
+  EditItemTemplatePageComponent as BaseComponent,
 } from '../../../../../app/collection-page/edit-item-template-page/edit-item-template-page.component';
 
 @Component({

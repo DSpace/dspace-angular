@@ -6,7 +6,7 @@ import { Observable, zip as observableZip } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 import {
   GroupRegistryCancelGroupAction,
-  GroupRegistryEditGroupAction
+  GroupRegistryEditGroupAction,
 } from '../../access-control/group-registry/group-registry.actions';
 import { GroupRegistryState } from '../../access-control/group-registry/group-registry.reducers';
 import { AppState } from '../../app.reducer';
@@ -119,7 +119,7 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
     return this.searchBy(searchHref, options).pipe(
       filter((groups: RemoteData<PaginatedList<Group>>) => !groups.isResponsePending),
       take(1),
-      map((groups: RemoteData<PaginatedList<Group>>) => groups.payload.totalElements > 0)
+      map((groups: RemoteData<PaginatedList<Group>>) => groups.payload.totalElements > 0),
     );
   }
 
@@ -303,7 +303,7 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
         'dc.description': [
           {
             value: `${this.nameService.getName(dso)} ${role} group`,
-          }
+          },
         ],
       },
     });

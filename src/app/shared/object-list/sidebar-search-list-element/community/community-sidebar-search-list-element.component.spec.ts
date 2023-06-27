@@ -9,28 +9,28 @@ const object = Object.assign(new CommunitySearchResult(), {
     metadata: {
       'dc.title': [
         {
-          value: 'title'
-        }
+          value: 'title',
+        },
       ],
       'dc.description.abstract': [
         {
-          value: 'description'
-        }
-      ]
-    }
-  })
+          value: 'description',
+        },
+      ],
+    },
+  }),
 });
 const parent = Object.assign(new Community(), {
   id: 'test-parent-community',
   metadata: {
     'dc.title': [
       {
-        value: 'parent title'
-      }
-    ]
-  }
+        value: 'parent title',
+      },
+    ],
+  },
 });
 
 describe('CommunitySidebarSearchListElementComponent',
-  createSidebarSearchListElementTests(CommunitySidebarSearchListElementComponent, object, parent, 'parent title', 'title', 'description')
+  createSidebarSearchListElementTests(CommunitySidebarSearchListElementComponent, object, parent, 'parent title', 'title', 'description'),
 );

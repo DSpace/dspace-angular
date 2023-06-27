@@ -9,8 +9,8 @@ import { ItemStatusComponent as BaseComponent } from '../../../../../../app/item
   changeDetection: ChangeDetectionStrategy.Default,
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
 })
 export class ItemStatusComponent extends BaseComponent {
 }

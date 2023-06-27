@@ -14,7 +14,7 @@ import { VocabularyService } from '../../../../../../core/submission/vocabularie
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import {
   PaginatedList,
-  buildPaginatedList
+  buildPaginatedList,
 } from '../../../../../../core/data/paginated-list.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
@@ -25,7 +25,7 @@ import { FormFieldMetadataValueObject } from '../../../models/form-field-metadat
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',
   styleUrls: ['./dynamic-scrollable-dropdown.component.scss'],
-  templateUrl: './dynamic-scrollable-dropdown.component.html'
+  templateUrl: './dynamic-scrollable-dropdown.component.html',
 })
 export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyComponent implements OnInit {
   @Input() bindId = true;
@@ -44,7 +44,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   constructor(protected vocabularyService: VocabularyService,
               protected cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
+              protected validationService: DynamicFormValidationService,
   ) {
     super(vocabularyService, layoutService, validationService);
   }
@@ -58,8 +58,8 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
       getFirstSucceededRemoteDataPayload(),
       catchError(() => observableOf(buildPaginatedList(
         new PageInfo(),
-        []
-      ))
+        [],
+      )),
       ))
       .subscribe((list: PaginatedList<VocabularyEntry>) => {
         this.optionsList = list.page;
@@ -71,7 +71,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
           list.pageInfo.elementsPerPage,
           list.pageInfo.currentPage,
           list.pageInfo.totalElements,
-          list.pageInfo.totalPages
+          list.pageInfo.totalPages,
         );
         this.cdr.detectChanges();
       });
@@ -125,14 +125,14 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
         this.pageInfo.elementsPerPage,
         this.pageInfo.currentPage + 1,
         this.pageInfo.totalElements,
-        this.pageInfo.totalPages
+        this.pageInfo.totalPages,
       );
       this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, this.pageInfo).pipe(
         getFirstSucceededRemoteDataPayload(),
         catchError(() => observableOf(buildPaginatedList(
           new PageInfo(),
-          []
-        ))
+          [],
+        )),
         ),
         tap(() => this.loading = false))
         .subscribe((list: PaginatedList<VocabularyEntry>) => {
@@ -141,7 +141,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
             list.pageInfo.elementsPerPage,
             list.pageInfo.currentPage,
             list.pageInfo.totalElements,
-            list.pageInfo.totalPages
+            list.pageInfo.totalPages,
           );
           this.cdr.detectChanges();
         });
@@ -168,7 +168,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
 
     if (init) {
       result = this.getInitValueFromModel().pipe(
-        map((formValue: FormFieldMetadataValueObject) => formValue.display)
+        map((formValue: FormFieldMetadataValueObject) => formValue.display),
       );
     } else {
       if (isEmpty(value)) {

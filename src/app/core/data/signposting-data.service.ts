@@ -12,7 +12,7 @@ import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
  * Service responsible for handling requests related to the Signposting endpoint
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SignpostingDataService {
 
@@ -31,7 +31,7 @@ export class SignpostingDataService {
       catchError((err) => {
         return observableOf([]);
       }),
-      map((res: RawRestResponse) => res.statusCode === 200 ? res.payload as SignpostingLink[] : [])
+      map((res: RawRestResponse) => res.statusCode === 200 ? res.payload as SignpostingLink[] : []),
     );
   }
 

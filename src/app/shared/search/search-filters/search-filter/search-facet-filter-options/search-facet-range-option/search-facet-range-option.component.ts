@@ -8,7 +8,7 @@ import { SearchService } from '../../../../../../core/shared/search/search.servi
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import {
   RANGE_FILTER_MAX_SUFFIX,
-  RANGE_FILTER_MIN_SUFFIX
+  RANGE_FILTER_MIN_SUFFIX,
 } from '../../search-range-filter/search-range-filter.component';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { hasValue } from '../../../../../empty.util';
@@ -67,7 +67,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
               protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
               protected router: Router,
-              protected paginationService: PaginationService
+              protected paginationService: PaginationService,
   ) {
   }
 
@@ -110,7 +110,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
     this.changeQueryParams = {
       [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: [min],
       [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: [max],
-      [page]: 1
+      [page]: 1,
     };
   }
 

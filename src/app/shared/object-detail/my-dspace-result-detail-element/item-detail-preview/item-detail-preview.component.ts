@@ -21,7 +21,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
   selector: 'ds-item-detail-preview',
   styleUrls: ['./item-detail-preview.component.scss'],
   templateUrl: './item-detail-preview.component.html',
-  animations: [fadeInOut]
+  animations: [fadeInOut],
 })
 export class ItemDetailPreviewComponent {
   /**
@@ -79,7 +79,7 @@ export class ItemDetailPreviewComponent {
     return this.bitstreamDataService
       .findAllByItemAndBundleName(this.item, 'ORIGINAL', { elementsPerPage: Number.MAX_SAFE_INTEGER })
       .pipe(
-        getFirstSucceededRemoteListPayload()
+        getFirstSucceededRemoteListPayload(),
       );
   }
 }

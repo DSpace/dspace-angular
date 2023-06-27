@@ -21,7 +21,7 @@ import { SignpostingLink } from '../../core/data/signposting-links.model';
 
 @Component({
   selector: 'ds-bitstream-download-page',
-  templateUrl: './bitstream-download-page.component.html'
+  templateUrl: './bitstream-download-page.component.html',
 })
 /**
  * Page component for downloading a bitstream
@@ -42,7 +42,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
     public dsoNameService: DSONameService,
     private signpostingDataService: SignpostingDataService,
     private responseService: ServerResponseService,
-    @Inject(PLATFORM_ID) protected platformId: string
+    @Inject(PLATFORM_ID) protected platformId: string,
   ) {
     this.initPageLinks();
   }
@@ -58,7 +58,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
 
     this.bitstream$ = this.bitstreamRD$.pipe(
       redirectOn4xx(this.router, this.auth),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
     );
 
     this.bitstream$.pipe(
@@ -80,7 +80,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
         } else {
           return [[isAuthorized, isLoggedIn, bitstream, '']];
         }
-      })
+      }),
     ).subscribe(([isAuthorized, isLoggedIn, bitstream, fileLink]: [boolean, boolean, Bitstream, string]) => {
       if (isAuthorized && isLoggedIn && isNotEmpty(fileLink)) {
         this.hardRedirectService.redirect(fileLink);

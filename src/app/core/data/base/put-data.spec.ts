@@ -127,7 +127,7 @@ describe('PutDataImpl', () => {
       metadata: {           // recognized properties will be serialized
         ['dc.title']: [
           { language: 'en', value: 'some object' },
-        ]
+        ],
       },
       data: [ 1, 2, 3, 4 ], // unrecognized properties won't be serialized
       _links: { self: { href: selfLink } },
@@ -144,7 +144,7 @@ describe('PutDataImpl', () => {
           method: RestRequestMethod.PUT,
           body: {  // _links are not serialized
             uuid: obj.uuid,
-            metadata: obj.metadata
+            metadata: obj.metadata,
           },
         }));
         done();

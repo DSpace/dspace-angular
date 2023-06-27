@@ -32,7 +32,7 @@ const PROVIDERS = [
 
 @NgModule({
   imports: [
-    ...MODULES
+    ...MODULES,
   ],
   declarations: [
     ...COMPONENTS,
@@ -43,8 +43,8 @@ const PROVIDERS = [
     ...ENTRY_COMPONENTS,
   ],
   exports: [
-    ...COMPONENTS
-  ]
+    ...COMPONENTS,
+  ],
 })
 
 /**

@@ -24,7 +24,7 @@ import { isNotEmpty } from '../../../../shared/empty.util';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import {
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../../shared/remote-data.utils';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
@@ -42,7 +42,7 @@ import { AuthorizationDataService } from '../../../../core/data/feature-authoriz
 import { ResearcherProfileDataService } from '../../../../core/profile/researcher-profile-data.service';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import {
-  BrowseDefinitionDataServiceStub
+  BrowseDefinitionDataServiceStub,
 } from '../../../../shared/testing/browse-definition-data-service.stub';
 
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
@@ -56,7 +56,7 @@ export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
     'language': null,
     'authority': null,
     'confidence': -1,
-    'place': 0
+    'place': 0,
   });
 }
 
@@ -66,14 +66,14 @@ export function getIIIFEnabled(enabled: boolean): MetadataValue {
     'language': null,
     'authority': null,
     'confidence': -1,
-    'place': 0
+    'place': 0,
   });
 }
 
 export const mockRouteService = {
   getPreviousUrl(): Observable<string> {
     return observableOf('');
-  }
+  },
 };
 
 /**
@@ -92,11 +92,11 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
       const mockBitstreamDataService = {
         getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
           return createSuccessfulRemoteDataObject$(new Bitstream());
-        }
+        },
       };
 
       const authorizationService = jasmine.createSpyObj('authorizationService', {
-        isAuthorized: observableOf(true)
+        isAuthorized: observableOf(true),
       });
 
       TestBed.configureTestingModule({
@@ -104,8 +104,8 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           TranslateModule.forRoot({
             loader: {
               provide: TranslateLoader,
-              useClass: TranslateLoaderMock
-            }
+              useClass: TranslateLoaderMock,
+            },
           }),
           RouterTestingModule,
         ],
@@ -135,9 +135,9 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
         ],
 
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).overrideComponent(component, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
+        set: { changeDetection: ChangeDetectionStrategy.Default },
       }).compileComponents();
     }));
 
@@ -181,8 +181,8 @@ export function createRelationshipsObservable() {
     Object.assign(new Relationship(), {
       relationshipType: createSuccessfulRemoteDataObject$(new RelationshipType()),
       leftItem: createSuccessfulRemoteDataObject$(new Item()),
-      rightItem: createSuccessfulRemoteDataObject$(new Item())
-    })
+      rightItem: createSuccessfulRemoteDataObject$(new Item()),
+    }),
   ]));
 }
 
@@ -190,66 +190,66 @@ describe('ItemComponent', () => {
   const arr1 = [
     {
       id: 1,
-      name: 'test'
+      name: 'test',
     },
     {
       id: 2,
-      name: 'another test'
+      name: 'another test',
     },
     {
       id: 3,
-      name: 'one last test'
-    }
+      name: 'one last test',
+    },
   ];
   const arrWithWrongId = [
     {
       id: 1,
-      name: 'test'
+      name: 'test',
     },
     {
       id: 5,  // Wrong id on purpose
-      name: 'another test'
+      name: 'another test',
     },
     {
       id: 3,
-      name: 'one last test'
-    }
+      name: 'one last test',
+    },
   ];
   const arrWithWrongName = [
     {
       id: 1,
-      name: 'test'
+      name: 'test',
     },
     {
       id: 2,
-      name: 'wrong test'  // Wrong name on purpose
+      name: 'wrong test',  // Wrong name on purpose
     },
     {
       id: 3,
-      name: 'one last test'
-    }
+      name: 'one last test',
+    },
   ];
   const arrWithDifferentOrder = [arr1[0], arr1[2], arr1[1]];
   const arrWithOneMore = [...arr1, {
     id: 4,
-    name: 'fourth test'
+    name: 'fourth test',
   }];
   const arrWithAddedProperties = [
     {
       id: 1,
       name: 'test',
-      extra: 'extra property'
+      extra: 'extra property',
     },
     {
       id: 2,
       name: 'another test',
-      extra: 'extra property'
+      extra: 'extra property',
     },
     {
       id: 3,
       name: 'one last test',
-      extra: 'extra property'
-    }
+      extra: 'extra property',
+    },
   ];
   const arrOfPrimitiveTypes = [1, 2, 3, 4];
   const arrOfPrimitiveTypesWithOneWrong = [1, 5, 3, 4];
@@ -398,15 +398,15 @@ describe('ItemComponent', () => {
       'publicationissue.issueNumber': [
         {
           language: 'en_US',
-          value: '1234'
-        }
+          value: '1234',
+        },
       ],
       'dc.description': [
         {
           language: 'en_US',
-          value: 'desc'
-        }
-      ]
+          value: 'desc',
+        },
+      ],
     },
   });
   describe('back to results', () => {
@@ -424,8 +424,8 @@ describe('ItemComponent', () => {
           TranslateModule.forRoot({
             loader: {
               provide: TranslateLoader,
-              useClass: TranslateLoaderMock
-            }
+              useClass: TranslateLoaderMock,
+            },
           }),
           RouterTestingModule,
         ],
@@ -453,9 +453,9 @@ describe('ItemComponent', () => {
           { provide: AuthorizationDataService, useValue: {} },
           { provide: ResearcherProfileDataService, useValue: {} },
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).overrideComponent(ItemComponent, {
-        set: {changeDetection: ChangeDetectionStrategy.Default}
+        set: {changeDetection: ChangeDetectionStrategy.Default},
       });
     }));
 

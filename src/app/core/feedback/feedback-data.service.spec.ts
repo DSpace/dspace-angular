@@ -25,7 +25,7 @@ describe('FeedbackDataService', () => {
   const feedbackPayload = Object.assign(new Feedback(), {
     email: 'test@email.com',
     message: 'message',
-    page: '/home'
+    page: '/home',
   });
 
 
@@ -35,7 +35,7 @@ describe('FeedbackDataService', () => {
     bundleHALLink.href = bundleLink;
     item = new Item();
     item._links = {
-      bundles: bundleHALLink
+      bundles: bundleHALLink,
     };
     requestService = getMockRequestService();
     halService = new HALEndpointServiceStub('url') as any;
@@ -48,7 +48,7 @@ describe('FeedbackDataService', () => {
       },
       getObjectBySelfLink: () => {
         /* empty */
-      }
+      },
     } as any;
     store = {} as Store<CoreState>;
     return new FeedbackDataService(

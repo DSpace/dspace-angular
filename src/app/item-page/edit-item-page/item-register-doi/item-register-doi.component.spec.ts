@@ -35,12 +35,12 @@ describe('ItemRegisterDoiComponent', () => {
       id: 'fake-id',
       handle: 'fake/handle',
       lastModified: '2018',
-      isWithdrawn: true
+      isWithdrawn: true,
     });
 
     itemPageUrl = `fake-url/${mockItem.id}`;
     routerStub = Object.assign(new RouterStub(), {
-      url: `${itemPageUrl}/edit`
+      url: `${itemPageUrl}/edit`,
     });
 
     mockIdentifierDataService = jasmine.createSpyObj('mockIdentifierDataService', {
@@ -50,15 +50,15 @@ describe('ItemRegisterDoiComponent', () => {
     });
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
-      registerDOI: createSuccessfulRemoteDataObject$(mockItem)
+      registerDOI: createSuccessfulRemoteDataObject$(mockItem),
     });
 
     routeStub = {
       data: observableOf({
         dso: createSuccessfulRemoteDataObject(Object.assign(new Item(), {
-          id: 'fake-id'
-        }))
-      })
+          id: 'fake-id',
+        })),
+      }),
     };
 
     notificationsServiceStub = new NotificationsServiceStub();
@@ -71,10 +71,10 @@ describe('ItemRegisterDoiComponent', () => {
         { provide: Router, useValue: routerStub },
         { provide: ItemDataService, useValue: mockItemDataService },
         { provide: IdentifierDataService, useValue: mockIdentifierDataService},
-        { provide: NotificationsService, useValue: notificationsServiceStub }
+        { provide: NotificationsService, useValue: notificationsServiceStub },
       ], schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 

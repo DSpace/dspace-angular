@@ -37,7 +37,7 @@ import { PaginatedSearchOptions } from '../../shared/search/models/paginated-sea
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -64,32 +64,32 @@ describe('CollectionItemMapperComponent', () => {
     name: 'test-collection',
     _links: {
       mappedItems: {
-        href: 'https://rest.api/collections/ce41d451-97ed-4a9c-94a1-7de34f16a9f4/mappedItems'
+        href: 'https://rest.api/collections/ce41d451-97ed-4a9c-94a1-7de34f16a9f4/mappedItems',
       },
       self: {
-        href: 'https://rest.api/collections/ce41d451-97ed-4a9c-94a1-7de34f16a9f4'
-      }
-    }
+        href: 'https://rest.api/collections/ce41d451-97ed-4a9c-94a1-7de34f16a9f4',
+      },
+    },
   });
   const mockCollectionRD: RemoteData<Collection> = createSuccessfulRemoteDataObject(mockCollection);
   const mockSearchOptions = observableOf(new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), {
       id: 'search-page-configuration',
       pageSize: 10,
-      currentPage: 1
+      currentPage: 1,
     }),
     sort: new SortOptions('dc.title', SortDirection.ASC),
-    scope: mockCollection.id
+    scope: mockCollection.id,
   }));
   const url = 'http://test.url';
   const urlWithParam = url + '?param=value';
   const routerStub = Object.assign(new RouterStub(), {
     url: urlWithParam,
     navigateByUrl: {},
-    navigate: {}
+    navigate: {},
   });
   const searchConfigServiceStub = {
-    paginatedSearchOptions: mockSearchOptions
+    paginatedSearchOptions: mockSearchOptions,
   };
   const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
   const itemDataServiceStub = {
@@ -99,31 +99,31 @@ describe('CollectionItemMapperComponent', () => {
   const activatedRouteStub = {
     parent: {
       data: observableOf({
-        dso: mockCollectionRD
-      })
+        dso: mockCollectionRD,
+      }),
     },
     snapshot: {
       queryParamMap: new Map([
         ['query', 'test'],
-      ])
-    }
+      ]),
+    },
   };
   const translateServiceStub = {
     get: () => observableOf('test-message of collection ' + mockCollection.name),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter()
+    onDefaultLangChange: new EventEmitter(),
   };
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
     search: () => observableOf(emptyList),
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    clearDiscoveryRequests: () => {}
+    clearDiscoveryRequests: () => {},
     /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
   });
   const collectionDataServiceStub = {
     getMappedItems: () => observableOf(emptyList),
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    clearMappedItemsRequests: () => {}
+    clearMappedItemsRequests: () => {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   };
   const routeServiceStub = {
@@ -135,20 +135,20 @@ describe('CollectionItemMapperComponent', () => {
     },
     getQueryParamsWithPrefix: () => {
       return observableOf('');
-    }
+    },
   };
   const fixedFilterServiceStub = {
     getQueryByFilterName: () => {
       return observableOf('');
-    }
+    },
   };
 
   const authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-    isAuthorized: observableOf(true)
+    isAuthorized: observableOf(true),
   });
 
   const linkHeadService = jasmine.createSpyObj('linkHeadService', {
-    addTag: ''
+    addTag: '',
   });
 
   const groupDataService = jasmine.createSpyObj('groupsDataService', {
@@ -161,9 +161,9 @@ describe('CollectionItemMapperComponent', () => {
     findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
       name: 'test',
       values: [
-        'org.dspace.ctask.general.ProfileFormats = test'
-      ]
-    }))
+        'org.dspace.ctask.general.ProfileFormats = test',
+      ],
+    })),
   });
 
   beforeEach(waitForAsync(() => {
@@ -186,15 +186,15 @@ describe('CollectionItemMapperComponent', () => {
         { provide: GroupDataService, useValue: groupDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
-      ]
+      ],
     }).overrideComponent(CollectionItemMapperComponent, {
       set: {
         providers: [
           {
             provide: SEARCH_CONFIG_SERVICE,
-            useClass: SearchConfigurationServiceStub
-          }
-        ] }
+            useClass: SearchConfigurationServiceStub,
+          },
+        ] },
     }).compileComponents();
   }));
 

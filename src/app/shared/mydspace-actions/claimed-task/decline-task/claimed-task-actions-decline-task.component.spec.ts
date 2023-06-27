@@ -40,9 +40,9 @@ describe('ClaimedTaskActionsDeclineTaskComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       providers: [
         { provide: ClaimedTaskDataService, useValue: claimedTaskService },
@@ -54,9 +54,9 @@ describe('ClaimedTaskActionsDeclineTaskComponent', () => {
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
       ],
       declarations: [ClaimedTaskActionsDeclineTaskComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ClaimedTaskActionsDeclineTaskComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

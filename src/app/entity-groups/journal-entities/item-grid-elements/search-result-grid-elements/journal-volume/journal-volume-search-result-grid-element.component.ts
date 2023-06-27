@@ -9,7 +9,7 @@ import { ItemSearchResultGridElementComponent } from '../../../../../shared/obje
   selector: 'ds-journal-volume-search-result-grid-element',
   styleUrls: ['./journal-volume-search-result-grid-element.component.scss'],
   templateUrl: './journal-volume-search-result-grid-element.component.html',
-  animations: [focusShadow]
+  animations: [focusShadow],
 })
 /**
  * The component for displaying a grid element for an item search result of the type Journal Volume

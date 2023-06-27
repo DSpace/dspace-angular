@@ -26,7 +26,7 @@ import { TruncatableService } from '../../../../shared/truncatable/truncatable.s
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import {
-  createRelationshipsObservable, getIIIFEnabled, getIIIFSearchEnabled, mockRouteService
+  createRelationshipsObservable, getIIIFEnabled, getIIIFSearchEnabled, mockRouteService,
 } from '../shared/item.component.spec';
 import { UntypedItemComponent } from './untyped-item.component';
 import { RouteService } from '../../../../core/services/route.service';
@@ -39,7 +39,7 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { ItemVersionsSharedService } from '../../../versions/item-versions-shared.service';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import {
-  BrowseDefinitionDataServiceStub
+  BrowseDefinitionDataServiceStub,
 } from '../../../../shared/testing/browse-definition-data-service.stub';
 
 const noMetadata = new MetadataMap();
@@ -48,7 +48,7 @@ function getItem(metadata: MetadataMap) {
   return Object.assign(new Item(), {
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     metadata: metadata,
-    relationships: createRelationshipsObservable()
+    relationships: createRelationshipsObservable(),
   });
 }
 
@@ -60,15 +60,15 @@ describe('UntypedItemComponent', () => {
     const mockBitstreamDataService = {
       getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
         return createSuccessfulRemoteDataObject$(new Bitstream());
-      }
+      },
     };
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
         RouterTestingModule,
       ],
@@ -97,9 +97,9 @@ describe('UntypedItemComponent', () => {
         { provide: RouteService, useValue: mockRouteService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(UntypedItemComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: {changeDetection: ChangeDetectionStrategy.Default},
     });
   }));
 
@@ -177,7 +177,7 @@ describe('UntypedItemComponent', () => {
     const localMockRouteService = {
       getPreviousUrl(): Observable<string> {
         return of('/search?query=test%20query&fakeParam=true');
-      }
+      },
     };
     beforeEach(waitForAsync(() => {
       const iiifEnabledMap: MetadataMap = {
@@ -208,7 +208,7 @@ describe('UntypedItemComponent', () => {
     const localMockRouteService = {
       getPreviousUrl(): Observable<string> {
         return of('/item');
-      }
+      },
     };
     beforeEach(waitForAsync(() => {
       const iiifEnabledMap: MetadataMap = {

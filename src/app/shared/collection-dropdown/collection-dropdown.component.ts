@@ -7,7 +7,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
+  Output,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 
@@ -22,7 +22,7 @@ import { CollectionDataService } from '../../core/data/collection-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { followLink } from '../utils/follow-link-config.model';
 import {
-  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload
+  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -47,7 +47,7 @@ export interface CollectionListEntry {
 @Component({
   selector: 'ds-collection-dropdown',
   templateUrl: './collection-dropdown.component.html',
-  styleUrls: ['./collection-dropdown.component.scss']
+  styleUrls: ['./collection-dropdown.component.scss'],
 })
 export class CollectionDropdownComponent implements OnInit, OnDestroy {
 
@@ -153,7 +153,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
     this.subs.push(this.searchField.valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged(),
-      startWith('')
+      startWith(''),
     ).subscribe(
       (next) => {
         if (hasValue(next) && next !== this.currentQuery) {
@@ -161,7 +161,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
           this.currentQuery = next;
           this.populateCollectionList(this.currentQuery, this.currentPage);
         }
-      }
+      },
     ));
     // Workaround for prevent the scroll of main page when this component is placed in a dialog
     setTimeout(() => this.el.nativeElement.querySelector('input').focus(), 0);
@@ -207,7 +207,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
     // Set the pagination info
     const findOptions: FindListOptions = {
       elementsPerPage: 10,
-      currentPage: page
+      currentPage: page,
     };
     let searchListService$: Observable<RemoteData<PaginatedList<Collection>>>;
     if (this.entityType) {
@@ -236,8 +236,8 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
               getFirstSucceededRemoteDataPayload(),
               map((community: Community) => ({
                 communities: [{ id: community.id, name: this.dsoNameService.getName(community) }],
-                collection: { id: collection.id, uuid: collection.id, name: this.dsoNameService.getName(collection) }
-              })
+                collection: { id: collection.id, uuid: collection.id, name: this.dsoNameService.getName(collection) },
+              }),
               ))),
             reduce((acc: any, value: any) => [...acc, value], []),
           );
@@ -245,14 +245,14 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
           this.hasNextPage = false;
           return observableOf([]);
         }
-      })
+      }),
     );
     this.subs.push(
       this.searchListCollection$.subscribe((list: CollectionListEntry[]) => {
         this.searchListCollection.push(...list);
         this.hideShowLoader(false);
         this.changeDetectorRef.detectChanges();
-      })
+      }),
     );
   }
 
@@ -300,11 +300,11 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
       const collection = collections.payload.page[0];
       collections.payload.page[0].parentCommunity.pipe(
         getFirstSucceededRemoteDataPayload(),
-        take(1)
+        take(1),
       ).subscribe((community: Community) => {
         this.theOnlySelectable.emit({
           communities: [{ id: community.id, name: this.dsoNameService.getName(community), uuid: community.id }],
-          collection: { id: collection.id, uuid: collection.id, name: this.dsoNameService.getName(collection) }
+          collection: { id: collection.id, uuid: collection.id, name: this.dsoNameService.getName(collection) },
         });
       });
     }

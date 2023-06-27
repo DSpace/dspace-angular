@@ -51,23 +51,23 @@ function init() {
           'dc.title': [
             {
               language: 'en_US',
-              value: 'This is just another title'
-            }
+              value: 'This is just another title',
+            },
           ],
           'organization.address.addressLocality': [
             {
               language: 'en_US',
-              value: 'Europe'
-            }
+              value: 'Europe',
+            },
           ],
           'organization.address.addressCountry': [
             {
               language: 'en_US',
-              value: 'Belgium'
-            }
-          ]
-        }
-      })
+              value: 'Belgium',
+            },
+          ],
+        },
+      }),
     });
   mockItemWithoutMetadata = Object.assign(
     new ItemSearchResult(),
@@ -78,16 +78,16 @@ function init() {
           'dc.title': [
             {
               language: 'en_US',
-              value: 'This is just another title'
-            }
-          ]
-        }
-      })
+              value: 'This is just another title',
+            },
+          ],
+        },
+      }),
     });
 
   nameVariant = 'Doe J.';
   mockRelationshipService = {
-    getNameVariant: () => observableOf(nameVariant)
+    getNameVariant: () => observableOf(nameVariant),
   };
 }
 
@@ -97,7 +97,7 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
     const mockBitstreamDataService = {
       getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
         return createSuccessfulRemoteDataObject$(new Bitstream());
-      }
+      },
     };
     TestBed.configureTestingModule({
       declarations: [OrgUnitSearchResultListSubmissionElementComponent, TruncatePipe],
@@ -120,12 +120,12 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environment },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(OrgUnitSearchResultListSubmissionElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

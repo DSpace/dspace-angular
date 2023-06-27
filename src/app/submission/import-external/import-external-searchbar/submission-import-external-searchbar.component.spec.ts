@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import {
   SourceElement,
-  SubmissionImportExternalSearchbarComponent
+  SubmissionImportExternalSearchbarComponent,
 } from './submission-import-external-searchbar.component';
 import { ExternalSourceDataService } from '../../../core/data/external-source-data.service';
 import { createTestComponent } from '../../../shared/testing/utils.test';
@@ -12,7 +12,7 @@ import {
   externalSourceCiencia,
   externalSourceMyStaffDb,
   externalSourceOrcid,
-  getMockExternalSourceService
+  getMockExternalSourceService,
 } from '../../../shared/mocks/external-source.service.mock';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
@@ -51,9 +51,9 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
         { provide: ExternalSourceDataService, useValue: mockExternalSourceService },
         ChangeDetectorRef,
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
-        SubmissionImportExternalSearchbarComponent
+        SubmissionImportExternalSearchbarComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
   }));
 
@@ -136,14 +136,14 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
         elementsPerPage: 3,
         totalElements: 6,
         totalPages: 2,
-        currentPage: 0
+        currentPage: 0,
       });
       compAsAny.findListOptions = Object.assign({}, new FindListOptions(), {
         elementsPerPage: 3,
         currentPage: 0,
         searchParams: [
-          new RequestParam('entityType', 'Publication')
-        ]
+          new RequestParam('entityType', 'Publication'),
+        ],
       });
       comp.sourceList = sourceList;
       const expected = sourceList.concat(sourceList);
@@ -170,7 +170,7 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
   initExternalSourceData = { entity: 'Publication', query: 'dummy', sourceId: 'ciencia' };

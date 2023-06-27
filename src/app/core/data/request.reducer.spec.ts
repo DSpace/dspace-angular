@@ -7,7 +7,7 @@ import {
   RequestRemoveAction,
   RequestStaleAction,
   RequestSuccessAction,
-  ResetResponseTimestampsAction
+  ResetResponseTimestampsAction,
 } from './request.actions';
 import { GetRequest } from './request.models';
 import { requestReducer} from './request.reducer';
@@ -33,20 +33,20 @@ describe('requestReducer', () => {
       request: new GetRequest(id1, link1),
       state: RequestEntryState.RequestPending,
       response: undefined,
-      lastUpdated: undefined
-    }
+      lastUpdated: undefined,
+    },
   };
   const testSuccessState = {
     [id1]: {
       state: RequestEntryState.Success,
-      lastUpdated: 0
-    }
+      lastUpdated: 0,
+    },
   };
   const testErrorState = {
     [id1]: {
       state: RequestEntryState.Error,
-      lastUpdated: 0
-    }
+      lastUpdated: 0,
+    },
   };
   deepFreeze(testInitState);
   deepFreeze(testSuccessState);
@@ -120,8 +120,8 @@ describe('requestReducer', () => {
     const update = Object.assign({}, testInitState[id1], {
       response: {
         timeCompleted: 10,
-        statusCode: 200
-      }
+        statusCode: 200,
+      },
     });
     const state = Object.assign({}, testInitState, { [id1]: update });
     const timeStamp = 1000;

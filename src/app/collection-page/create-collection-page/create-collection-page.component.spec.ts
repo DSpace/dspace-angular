@@ -29,14 +29,14 @@ describe('CreateCollectionPageComponent', () => {
         { provide: CollectionDataService, useValue: {} },
         {
           provide: CommunityDataService,
-          useValue: { findById: () => observableOf({ payload: { name: 'test' } }) }
+          useValue: { findById: () => observableOf({ payload: { name: 'test' } }) },
         },
         { provide: RouteService, useValue: { getQueryParameterValue: () => observableOf('1234') } },
         { provide: Router, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: RequestService, useValue: {}}
+        { provide: RequestService, useValue: {}},
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

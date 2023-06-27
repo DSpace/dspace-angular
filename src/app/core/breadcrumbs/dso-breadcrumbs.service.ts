@@ -16,12 +16,12 @@ import { getDSORoute } from '../../app-routing-paths';
  * Service to calculate DSpaceObject breadcrumbs for a single part of the route
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DSOBreadcrumbsService implements BreadcrumbsProviderService<ChildHALResource & DSpaceObject> {
   constructor(
     protected linkService: LinkService,
-    protected dsoNameService: DSONameService
+    protected dsoNameService: DSONameService,
   ) {
 
   }
@@ -46,7 +46,7 @@ export class DSOBreadcrumbsService implements BreadcrumbsProviderService<ChildHA
         return observableOf([]);
 
       }),
-      map((breadcrumbs: Breadcrumb[]) => [...breadcrumbs, crumb])
+      map((breadcrumbs: Breadcrumb[]) => [...breadcrumbs, crumb]),
     );
   }
 }

@@ -6,7 +6,7 @@ import { BrowseByTitlePageComponent as BaseComponent } from '../../../../../app/
   // styleUrls: ['./browse-by-title-page.component.scss'],
   styleUrls: ['../../../../../app/browse-by/browse-by-metadata-page/browse-by-metadata-page.component.scss'],
   // templateUrl: './browse-by-title-page.component.html'
-  templateUrl: '../../../../../app/browse-by/browse-by-metadata-page/browse-by-metadata-page.component.html'
+  templateUrl: '../../../../../app/browse-by/browse-by-metadata-page/browse-by-metadata-page.component.html',
 })
 
 /**

@@ -45,7 +45,7 @@ export class SubmissionCcLicenseUrlDataService extends BaseDataService<Submissio
         searchParams: [
           {
             fieldName: 'license',
-            fieldValue: ccLicense.id
+            fieldValue: ccLicense.id,
           },
           ...ccLicense.fields.map(
             (field) => {
@@ -54,8 +54,8 @@ export class SubmissionCcLicenseUrlDataService extends BaseDataService<Submissio
                 fieldValue: options.get(field).id,
               };
             }),
-        ]
-      }
+        ],
+      },
     ).pipe(
       switchMap((href) => this.findByHref(href)),
       getFirstSucceededRemoteData(),

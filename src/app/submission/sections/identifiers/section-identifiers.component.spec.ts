@@ -46,14 +46,14 @@ function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService
     getConfigAll: jasmine.createSpy('getConfigAll'),
     getConfigByHref: jasmine.createSpy('getConfigByHref'),
     getConfigByName: jasmine.createSpy('getConfigByName'),
-    getConfigBySearch: jasmine.createSpy('getConfigBySearch')
+    getConfigBySearch: jasmine.createSpy('getConfigBySearch'),
   });
 }
 
 function getMockCollectionDataService(): CollectionDataService {
   return jasmine.createSpyObj('CollectionDataService', {
     findById: jasmine.createSpy('findById'),
-    findByHref: jasmine.createSpy('findByHref')
+    findByHref: jasmine.createSpy('findByHref'),
   });
 }
 
@@ -64,9 +64,9 @@ const mockItem = Object.assign(new Item(), {
     'dc.title': [
       {
         language: null,
-        value: 'mockmatch'
-      }
-    ]
+        value: 'mockmatch',
+      },
+    ],
   },
 });
 
@@ -76,16 +76,16 @@ const identifierData: WorkspaceitemSectionIdentifiersObject = {
     value: 'https://doi.org/10.33515/dspace-61',
     identifierType: 'doi',
     identifierStatus: 'TO_BE_REGISTERED',
-    type: 'identifier'
+    type: 'identifier',
   },
   {
     value: '123456789/418',
     identifierType: 'handle',
     identifierStatus: null,
-    type: 'identifier'
-  }
+    type: 'identifier',
+  },
   ],
-  displayTypes: ['doi', 'handle']
+  displayTypes: ['doi', 'handle'],
 };
 
 // Mock section object to use with tests
@@ -99,7 +99,7 @@ const sectionObject: SectionDataObject = {
   header: 'submission.sections.submit.progressbar.identifiers',
   id: 'identifiers',
   sectionType: SectionsType.Identifiers,
-  sectionVisibility: null
+  sectionVisibility: null,
 };
 
 describe('SubmissionSectionIdentifiersComponent test suite', () => {
@@ -129,9 +129,9 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
       {
         key: 'dc.title',
         language: 'en_US',
-        value: 'Community 1-Collection 1'
+        value: 'Community 1-Collection 1',
       }],
-    license: createSuccessfulRemoteDataObject$(Object.assign(new License(), { text: licenseText }))
+    license: createSuccessfulRemoteDataObject$(Object.assign(new License(), { text: licenseText })),
   });
   const paginationService = new PaginationServiceStub();
 
@@ -167,9 +167,9 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
         { provide: PaginationService, useValue: paginationService },
         ChangeDetectorRef,
         FormBuilderService,
-        SubmissionSectionIdentifiersComponent
+        SubmissionSectionIdentifiersComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
   }));
 
@@ -235,13 +235,13 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
     it('Should return TRUE if the isLoading is FALSE', () => {
       compAsAny.isLoading = false;
       expect(compAsAny.getSectionStatus()).toBeObservable(cold('(a|)', {
-        a: true
+        a: true,
       }));
     });
     it('Should return FALSE if the identifier data is missing handle', () => {
       compAsAny.isLoadin = true;
       expect(compAsAny.getSectionStatus()).toBeObservable(cold('(a|)', {
-        a: false
+        a: false,
       }));
     });
   });
@@ -251,7 +251,7 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

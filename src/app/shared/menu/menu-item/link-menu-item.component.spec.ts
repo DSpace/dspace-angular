@@ -31,7 +31,7 @@ describe('LinkMenuItemComponent', () => {
         { provide: 'itemModelProvider', useValue: { text: text, link: link, queryParams: queryParams } },
         { provide: Router, useValue: RouterStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

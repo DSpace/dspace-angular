@@ -11,7 +11,7 @@ import {
   MetadataMapSerializer,
   MetadataValue,
   MetadataValueFilter,
-  MetadatumViewModel
+  MetadatumViewModel,
 } from './metadata.models';
 import { Metadata } from './metadata.utils';
 import { ResourceType } from './resource-type';
@@ -63,7 +63,7 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
    */
   set self(v: string) {
     this._links.self = {
-      href: v
+      href: v,
     };
   }
 

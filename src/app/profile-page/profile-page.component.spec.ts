@@ -40,19 +40,19 @@ describe('ProfilePageComponent', () => {
   const validConfiguration = Object.assign(new ConfigurationProperty(), {
     name: 'researcher-profile.entity-type',
     values: [
-      'Person'
-    ]
+      'Person',
+    ],
   });
   const emptyConfiguration = Object.assign(new ConfigurationProperty(), {
     name: 'researcher-profile.entity-type',
-    values: []
+    values: [],
   });
 
   function init() {
     user = Object.assign(new EPerson(), {
       id: 'userId',
       groups: createSuccessfulRemoteDataObject$(createPaginatedList([])),
-      _links: { self: { href: 'test.com/uuid/1234567654321' } }
+      _links: { self: { href: 'test.com/uuid/1234567654321' } },
     });
     initialState = {
       core: {
@@ -63,26 +63,26 @@ describe('ProfilePageComponent', () => {
           loading: false,
           authToken: new AuthTokenInfo('test_token'),
           userId: user.id,
-          authMethods: []
-        }
-      }
+          authMethods: [],
+        },
+      },
     };
     authorizationService = jasmine.createSpyObj('authorizationService', { isAuthorized: canChangePassword });
     authService = jasmine.createSpyObj('authService', {
       getAuthenticatedUserFromStore: observableOf(user),
-      getSpecialGroupsFromAuthStatus: SpecialGroupDataMock$
+      getSpecialGroupsFromAuthStatus: SpecialGroupDataMock$,
     });
     epersonService = jasmine.createSpyObj('epersonService', {
       findById: createSuccessfulRemoteDataObject$(user),
-      patch: observableOf(Object.assign(new RestResponse(true, 200, 'Success')))
+      patch: observableOf(Object.assign(new RestResponse(true, 200, 'Success'))),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', {
       success: {},
       error: {},
-      warning: {}
+      warning: {},
     });
     configurationService = jasmine.createSpyObj('configurationDataService', {
-      findByPropertyName: jasmine.createSpy('findByPropertyName')
+      findByPropertyName: jasmine.createSpy('findByPropertyName'),
     });
   }
 
@@ -93,7 +93,7 @@ describe('ProfilePageComponent', () => {
       imports: [
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
       ],
       providers: [
         { provide: EPersonDataService, useValue: epersonService },
@@ -103,7 +103,7 @@ describe('ProfilePageComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         provideMockStore({ initialState }),
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -123,7 +123,7 @@ describe('ProfilePageComponent', () => {
       describe('when the metadata form returns false and the security form returns true', () => {
         beforeEach(() => {
           component.metadataForm = jasmine.createSpyObj('metadataForm', {
-            updateProfile: false
+            updateProfile: false,
           });
           spyOn(component, 'updateSecurity').and.returnValue(true);
           component.updateProfile();
@@ -137,7 +137,7 @@ describe('ProfilePageComponent', () => {
       describe('when the metadata form returns true and the security form returns false', () => {
         beforeEach(() => {
           component.metadataForm = jasmine.createSpyObj('metadataForm', {
-            updateProfile: true
+            updateProfile: true,
           });
           component.updateProfile();
         });
@@ -150,7 +150,7 @@ describe('ProfilePageComponent', () => {
       describe('when the metadata form returns true and the security form returns true', () => {
         beforeEach(() => {
           component.metadataForm = jasmine.createSpyObj('metadataForm', {
-            updateProfile: true
+            updateProfile: true,
           });
           component.updateProfile();
         });
@@ -163,7 +163,7 @@ describe('ProfilePageComponent', () => {
       describe('when the metadata form returns false and the security form returns false', () => {
         beforeEach(() => {
           component.metadataForm = jasmine.createSpyObj('metadataForm', {
-            updateProfile: false
+            updateProfile: false,
           });
           component.updateProfile();
         });
@@ -219,7 +219,7 @@ describe('ProfilePageComponent', () => {
           component.setCurrentPasswordValue('current-password');
 
           operations = [
-            { 'op': 'add', 'path': '/password', 'value': { 'new_password': 'testest', 'current_password': 'current-password' } }
+            { 'op': 'add', 'path': '/password', 'value': { 'new_password': 'testest', 'current_password': 'current-password' } },
           ];
           result = component.updateSecurity();
         });
@@ -243,7 +243,7 @@ describe('ProfilePageComponent', () => {
           component.setInvalid(false);
           component.setCurrentPasswordValue('current-password');
           operations = [
-            { 'op': 'add', 'path': '/password', 'value': {'new_password': 'testest', 'current_password': 'current-password'  }}
+            { 'op': 'add', 'path': '/password', 'value': {'new_password': 'testest', 'current_password': 'current-password'  }},
           ];
           result = component.updateSecurity();
           epersonService.patch(user, operations).subscribe((response) => {
@@ -322,7 +322,7 @@ describe('ProfilePageComponent', () => {
       it('should return true', () => {
         const result = component.isResearcherProfileEnabled();
         const expected = cold('a', {
-          a: true
+          a: true,
         });
         expect(result).toBeObservable(expected);
       });
@@ -338,7 +338,7 @@ describe('ProfilePageComponent', () => {
       it('should return false', () => {
         const result = component.isResearcherProfileEnabled();
         const expected = cold('a', {
-          a: false
+          a: false,
         });
         expect(result).toBeObservable(expected);
       });
@@ -354,7 +354,7 @@ describe('ProfilePageComponent', () => {
       it('should return false', () => {
         const result = component.isResearcherProfileEnabled();
         const expected = cold('a', {
-          a: false
+          a: false,
         });
         expect(result).toBeObservable(expected);
       });

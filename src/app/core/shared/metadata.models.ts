@@ -136,5 +136,5 @@ export const MetadataMapSerializer = {
       metadataMap[key] = Deserialize(json[key], MetadataValue);
     });
     return metadataMap;
-  }
+  },
 };

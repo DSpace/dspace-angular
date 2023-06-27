@@ -33,7 +33,7 @@ describe('SystemWideAlertBannerComponent', () => {
       alertId: 1,
       message: 'Test alert message',
       active: true,
-      countdownTo: utcToZonedTime(countDownDate, 'UTC').toISOString()
+      countdownTo: utcToZonedTime(countDownDate, 'UTC').toISOString(),
     });
 
     systemWideAlertDataService = jasmine.createSpyObj('systemWideAlertDataService', {
@@ -46,7 +46,7 @@ describe('SystemWideAlertBannerComponent', () => {
       providers: [
         {provide: SystemWideAlertDataService, useValue: systemWideAlertDataService},
         {provide: NotificationsService, useValue: new NotificationsServiceStub()},
-      ]
+      ],
     }).compileComponents();
   }));
 

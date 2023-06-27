@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, Output, ViewEncapsulation, } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, Output, ViewEncapsulation } from '@angular/core';
 
 import { of as observableOf } from 'rxjs';
 import { FileUploader } from 'ng2-file-upload';
@@ -18,7 +18,7 @@ import { DragService } from '../../../core/drag.service';
   templateUrl: 'uploader.component.html',
   styleUrls: ['uploader.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.Emulated,
 })
 
 export class UploaderComponent {
@@ -90,7 +90,7 @@ export class UploaderComponent {
     private scrollToService: ScrollToService,
     private dragService: DragService,
     private tokenExtractor: HttpXsrfTokenExtractor,
-    private cookieService: CookieService
+    private cookieService: CookieService,
   ) {
   }
 

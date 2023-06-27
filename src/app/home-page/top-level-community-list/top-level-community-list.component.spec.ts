@@ -43,58 +43,58 @@ describe('TopLevelCommunityList Component', () => {
     id: '123456789-1',
     metadata: {
       'dc.title': [
-        { language: 'en_US', value: 'TopCommunity 1' }
-      ]
-    }
+        { language: 'en_US', value: 'TopCommunity 1' },
+      ],
+    },
   }),
   Object.assign(new Community(), {
     id: '123456789-2',
     metadata: {
       'dc.title': [
-        { language: 'en_US', value: 'TopCommunity 2' }
-      ]
-    }
+        { language: 'en_US', value: 'TopCommunity 2' },
+      ],
+    },
   }),
   Object.assign(new Community(), {
     id: '123456789-3',
     metadata: {
       'dc.title': [
-        { language: 'en_US', value: 'TopCommunity 3' }
-      ]
-    }
+        { language: 'en_US', value: 'TopCommunity 3' },
+      ],
+    },
   }),
   Object.assign(new Community(), {
     id: '12345678942',
     metadata: {
       'dc.title': [
-        { language: 'en_US', value: 'TopCommunity 4' }
-      ]
-    }
+        { language: 'en_US', value: 'TopCommunity 4' },
+      ],
+    },
   }),
   Object.assign(new Community(), {
     id: '123456789-5',
     metadata: {
       'dc.title': [
-        { language: 'en_US', value: 'TopCommunity 5' }
-      ]
-    }
+        { language: 'en_US', value: 'TopCommunity 5' },
+      ],
+    },
   }),
   Object.assign(new Community(), {
     id: '123456789-6',
     metadata: {
       'dc.title': [
-        { language: 'en_US', value: 'TopCommunity 6' }
-      ]
-    }
+        { language: 'en_US', value: 'TopCommunity 6' },
+      ],
+    },
   }),
   Object.assign(new Community(), {
     id: '123456789-7',
     metadata: {
       'dc.title': [
-        { language: 'en_US', value: 'TopCommunity 7' }
-      ]
-    }
-  })
+        { language: 'en_US', value: 'TopCommunity 7' },
+      ],
+    },
+  }),
   ];
 
   communityDataServiceStub = {
@@ -113,7 +113,7 @@ describe('TopLevelCommunityList Component', () => {
       }
       return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), topCommList.slice(startPageIndex, endPageIndex)));
 
-    }
+    },
   };
 
   paginationService = new PaginationServiceStub();
@@ -121,7 +121,7 @@ describe('TopLevelCommunityList Component', () => {
   themeService = getMockThemeService();
 
   const linkHeadService = jasmine.createSpyObj('linkHeadService', {
-    addTag: ''
+    addTag: '',
   });
 
   const groupDataService = jasmine.createSpyObj('groupsDataService', {
@@ -134,9 +134,9 @@ describe('TopLevelCommunityList Component', () => {
     findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
       name: 'test',
       values: [
-        'org.dspace.ctask.general.ProfileFormats = test'
-      ]
-    }))
+        'org.dspace.ctask.general.ProfileFormats = test',
+      ],
+    })),
   });
 
   beforeEach(waitForAsync(() => {
@@ -146,7 +146,7 @@ describe('TopLevelCommunityList Component', () => {
         SharedModule,
         RouterTestingModule.withRoutes([]),
         NgbModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
       ],
       declarations: [TopLevelCommunityListComponent],
       providers: [
@@ -161,7 +161,7 @@ describe('TopLevelCommunityList Component', () => {
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

@@ -17,7 +17,7 @@ import { RequestService } from '../../../../core/data/request.service';
  */
 @Component({
   selector: 'ds-advanced-claimed-task-action-abstract',
-  template: ''
+  template: '',
 })
 export abstract class AdvancedClaimedTaskActionsAbstractComponent extends ClaimedTaskActionsAbstractComponent implements OnInit {
 
@@ -53,7 +53,7 @@ export abstract class AdvancedClaimedTaskActionsAbstractComponent extends Claime
    */
   initPageRoute() {
     this.subs.push(this.object.workflowitem.pipe(
-      getFirstSucceededRemoteDataPayload()
+      getFirstSucceededRemoteDataPayload(),
     ).subscribe((workflowItem: WorkflowItem) => {
       this.workflowTaskPageRoute = getAdvancedWorkflowRoute(workflowItem.id);
     }));

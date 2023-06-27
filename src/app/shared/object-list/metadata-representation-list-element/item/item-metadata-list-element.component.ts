@@ -7,7 +7,7 @@ import { metadataRepresentationComponent } from '../../../metadata-representatio
 @metadataRepresentationComponent('Publication', MetadataRepresentationType.Item)
 @Component({
   selector: 'ds-item-metadata-list-element',
-  templateUrl: './item-metadata-list-element.component.html'
+  templateUrl: './item-metadata-list-element.component.html',
 })
 /**
  * A component for displaying MetadataRepresentation objects in the form of items

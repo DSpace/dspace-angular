@@ -6,5 +6,5 @@ export const overlay = trigger('overlay', [
 
   state('hide', style({ opacity: 0 })),
 
-  transition('show <=> hide', animate(250))
+  transition('show <=> hide', animate(250)),
 ]);

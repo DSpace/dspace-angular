@@ -10,7 +10,7 @@ import {
   isNotNull,
   isNotUndefined,
   isNull, isObjectEmpty,
-  isUndefined
+  isUndefined,
 } from './empty.util';
 
 describe('Empty Utils', () => {
@@ -292,7 +292,7 @@ describe('Empty Utils', () => {
         c: true,
         d: undefined,
         e: 1,
-        f: {}
+        f: {},
       };
 
       const source$ = hot('abcdef', testData);
@@ -433,7 +433,7 @@ describe('Empty Utils', () => {
         e: 1,
         f: {},
         g: '',
-        h: ' '
+        h: ' ',
       };
 
       const source$ = hot('abcdefgh', testData);
@@ -492,7 +492,7 @@ describe('Empty Utils', () => {
         f: [],
         g: () => true,
         h: {},
-        i: ''
+        i: '',
       };
 
       const expectedData = Object.assign({}, sourceData, {
@@ -501,7 +501,7 @@ describe('Empty Utils', () => {
         e: [],
         g: [],
         h: [],
-        i: []
+        i: [],
       });
 
       const source$ = hot('abcdefghi', sourceData);

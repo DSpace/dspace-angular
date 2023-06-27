@@ -16,7 +16,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 @Component({
   selector: 'ds-workspaceitems-delete-page',
   templateUrl: './workspaceitems-delete-page.component.html',
-  styleUrls: ['./workspaceitems-delete-page.component.scss']
+  styleUrls: ['./workspaceitems-delete-page.component.scss'],
 })
 export class WorkspaceItemsDeletePageComponent implements OnInit {
 
@@ -70,7 +70,7 @@ export class WorkspaceItemsDeletePageComponent implements OnInit {
           }
         }
         void this.router.navigate([url.split('?')[0]], { queryParams: params });
-      }
+      },
       );
   }
 
@@ -83,7 +83,7 @@ export class WorkspaceItemsDeletePageComponent implements OnInit {
         if (result === 'ok') {
           this.sendDeleteRequest();
         }
-      }
+      },
     );
   }
 
@@ -94,7 +94,7 @@ export class WorkspaceItemsDeletePageComponent implements OnInit {
     this.wsi$.pipe(
       switchMap((wsi: WorkspaceItem) => this.workspaceItemService.delete(wsi.id).pipe(
         getFirstCompletedRemoteData(),
-      ))
+      )),
     ).subscribe((response: RemoteData<NoContent>) => {
       if (response.hasSucceeded) {
         const title = this.translationService.get('workspace-item.delete.notification.success.title');

@@ -21,14 +21,14 @@ describe('SupervisionOrderStatusComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [ SupervisionOrderStatusComponent, VarDirective ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     })
       .compileComponents();
   });
@@ -38,7 +38,7 @@ describe('SupervisionOrderStatusComponent', () => {
     component = fixture.componentInstance;
     component.supervisionOrderList = supervisionOrderListMock;
     component.ngOnChanges(    {
-      supervisionOrderList: new SimpleChange(null, supervisionOrderListMock, true)
+      supervisionOrderList: new SimpleChange(null, supervisionOrderListMock, true),
     });
     fixture.detectChanges();
   });

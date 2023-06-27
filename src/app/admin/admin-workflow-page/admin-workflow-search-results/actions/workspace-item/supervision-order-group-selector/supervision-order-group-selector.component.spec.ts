@@ -17,7 +17,7 @@ describe('SupervisionOrderGroupSelectorComponent', () => {
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
 
   const supervisionOrderDataService: any = jasmine.createSpyObj('supervisionOrderDataService', {
-    create: of(new SupervisionOrder())
+    create: of(new SupervisionOrder()),
   });
 
   const selectedOrderType = 'NONE';
@@ -38,7 +38,7 @@ describe('SupervisionOrderGroupSelectorComponent', () => {
         { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
         { provide: NotificationsService, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
   }));

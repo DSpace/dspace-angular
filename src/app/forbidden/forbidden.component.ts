@@ -8,7 +8,7 @@ import { ServerResponseService } from '../core/services/server-response.service'
 @Component({
   selector: 'ds-forbidden',
   templateUrl: './forbidden.component.html',
-  styleUrls: ['./forbidden.component.scss']
+  styleUrls: ['./forbidden.component.scss'],
 })
 export class ForbiddenComponent implements OnInit {
 

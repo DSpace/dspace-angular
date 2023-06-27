@@ -26,7 +26,7 @@ describe('CSSVariableService', () => {
         [varKey1]: varValue1,
         [varKey2]: varValue2,
         [varKey3]: varValue3,
-      }
+      },
     };
   }
 

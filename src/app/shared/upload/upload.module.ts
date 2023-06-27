@@ -32,7 +32,7 @@ const COMPONENTS = [
   exports: [
     ...COMPONENTS,
     FileUploadModule,
-  ]
+  ],
 })
 export class UploadModule {
 }

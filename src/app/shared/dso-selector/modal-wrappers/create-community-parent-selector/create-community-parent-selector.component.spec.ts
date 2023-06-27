@@ -19,8 +19,8 @@ describe('CreateCommunityParentSelectorComponent', () => {
   community.metadata = {
     'dc.title': [Object.assign(new MetadataValue(), {
       value: 'Community title',
-      language: undefined
-    })]
+      language: undefined,
+    })],
   };
   const router = new RouterStub();
   const communityRD = createSuccessfulRemoteDataObject(community);
@@ -42,14 +42,14 @@ describe('CreateCommunityParentSelectorComponent', () => {
                   dso: communityRD,
                 },
               },
-            }
+            },
           },
         },
         {
-          provide: Router, useValue: router
-        }
+          provide: Router, useValue: router,
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
   }));

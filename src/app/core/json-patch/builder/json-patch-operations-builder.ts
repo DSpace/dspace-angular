@@ -3,7 +3,7 @@ import {
   NewPatchAddOperationAction,
   NewPatchMoveOperationAction,
   NewPatchRemoveOperationAction,
-  NewPatchReplaceOperationAction
+  NewPatchReplaceOperationAction,
 } from '../json-patch-operations.actions';
 import { JsonPatchOperationPathObject } from './json-patch-operation-path-combiner';
 import { Injectable } from '@angular/core';
@@ -80,8 +80,8 @@ export class JsonPatchOperationsBuilder {
         path.rootElement,
         path.subRootElement,
         prevPath,
-        path.path
-      )
+        path.path,
+      ),
     );
   }
 

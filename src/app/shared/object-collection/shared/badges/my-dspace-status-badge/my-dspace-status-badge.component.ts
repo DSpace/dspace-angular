@@ -7,7 +7,7 @@ import { Context } from 'src/app/core/shared/context.model';
 @Component({
   selector: 'ds-my-dspace-status-badge',
   styleUrls: ['./my-dspace-status-badge.component.scss'],
-  templateUrl: './my-dspace-status-badge.component.html'
+  templateUrl: './my-dspace-status-badge.component.html',
 })
 export class MyDSpaceStatusBadgeComponent implements OnInit {
 

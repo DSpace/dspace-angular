@@ -35,7 +35,7 @@ export const createAndSendBrowseDefinitionGetRequest = (requestService: RequestS
 
     href$.pipe(
       isNotEmptyOperator(),
-      take(1)
+      take(1),
     ).subscribe((href: string) => {
       const requestId = requestService.generateRequestId();
       const request = new BrowseDefinitionRestRequest(requestId, href);
@@ -150,7 +150,7 @@ export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseD
     const hrefObs = this.getSearchByHref(
       'byFields',
       { searchParams },
-      ...linksToFollow
+      ...linksToFollow,
     );
 
     return this.findByHref(

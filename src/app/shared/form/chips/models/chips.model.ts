@@ -129,7 +129,7 @@ export class Chips {
           const icon = {
             metadata,
             visibleWhenAuthorityEmpty,
-            style: config.style
+            style: config.style,
           };
 
           icons.push(icon);

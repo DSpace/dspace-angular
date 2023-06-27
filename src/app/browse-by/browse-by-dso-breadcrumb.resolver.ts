@@ -33,7 +33,7 @@ export class BrowseByDSOBreadcrumbResolver {
         getRemoteDataPayload(),
         map((object: Community | Collection) => {
           return { provider: this.breadcrumbService, key: object, url: getDSORoute(object) };
-        })
+        }),
       );
     }
     return undefined;

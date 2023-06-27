@@ -11,7 +11,7 @@ import { ITEM } from '../../../../../core/shared/item.resource-type';
 
 @Component({
   selector: 'ds-access-status-badge',
-  templateUrl: './access-status-badge.component.html'
+  templateUrl: './access-status-badge.component.html',
 })
 /**
  * Component rendering the access status of an item as a badge
@@ -55,7 +55,7 @@ export class AccessStatusBadgeComponent {
       }),
       map((accessStatus: AccessStatusObject) => hasValue(accessStatus.status) ? accessStatus.status : 'unknown'),
       map((status: string) => `access-status.${status.toLowerCase()}.listelement.badge`),
-      catchError(() => observableOf('access-status.unknown.listelement.badge'))
+      catchError(() => observableOf('access-status.unknown.listelement.badge')),
     );
   }
 }

@@ -10,7 +10,7 @@ import {
   SelectableListDeselectAllAction,
   SelectableListDeselectSingleAction,
   SelectableListSelectAction,
-  SelectableListSelectSingleAction
+  SelectableListSelectSingleAction,
 } from './selectable-list.actions';
 import { hasValue, isNotEmpty } from '../../empty.util';
 
@@ -88,7 +88,7 @@ export class SelectableListService {
   isObjectSelected(id: string, object: ListableObject): Observable<boolean> {
     return this.getSelectableList(id).pipe(
       map((state: SelectableListState) => hasValue(state) && isNotEmpty(state.selection) && hasValue(state.selection.find((selected) => selected.equals(object)))),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -99,7 +99,7 @@ export class SelectableListService {
    */
   findSelectedByCondition(id: string, condition: (object: ListableObject) => boolean): Observable<ListableObject> {
     return this.getSelectableList(id).pipe(
-      map((state: SelectableListState) => (hasValue(state) && isNotEmpty(state.selection)) ? state.selection.find((selected) => condition(selected)) : undefined)
+      map((state: SelectableListState) => (hasValue(state) && isNotEmpty(state.selection)) ? state.selection.find((selected) => condition(selected)) : undefined),
     );
   }
 }

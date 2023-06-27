@@ -10,7 +10,7 @@ import { FileValidator } from '../../shared/utils/require-file.validator';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   BATCH_IMPORT_SCRIPT_NAME,
-  ScriptDataService
+  ScriptDataService,
 } from '../../core/data/processes/script-data.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -31,14 +31,14 @@ describe('BatchImportPageComponent', () => {
     notificationService = new NotificationsServiceStub();
     scriptService = jasmine.createSpyObj('scriptService',
       {
-        invoke: createSuccessfulRemoteDataObject$({ processId: '46' })
-      }
+        invoke: createSuccessfulRemoteDataObject$({ processId: '46' }),
+      },
     );
     router = jasmine.createSpyObj('router', {
-      navigateByUrl: jasmine.createSpy('navigateByUrl')
+      navigateByUrl: jasmine.createSpy('navigateByUrl'),
     });
     locationStub = jasmine.createSpyObj('location', {
-      back: jasmine.createSpy('back')
+      back: jasmine.createSpy('back'),
     });
   }
 
@@ -48,7 +48,7 @@ describe('BatchImportPageComponent', () => {
       imports: [
         FormsModule,
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
       ],
       declarations: [BatchImportPageComponent, FileValueAccessorDirective, FileValidator],
       providers: [
@@ -57,7 +57,7 @@ describe('BatchImportPageComponent', () => {
         { provide: Router, useValue: router },
         { provide: Location, useValue: locationStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -108,7 +108,7 @@ describe('BatchImportPageComponent', () => {
       it('metadata-import script is invoked with --zip fileName and the mockFile', () => {
         const parameterValues: ProcessParameter[] = [
           Object.assign(new ProcessParameter(), { name: '--add' }),
-          Object.assign(new ProcessParameter(), { name: '--zip', value: 'filename.zip' })
+          Object.assign(new ProcessParameter(), { name: '--zip', value: 'filename.zip' }),
         ];
         expect(scriptService.invoke).toHaveBeenCalledWith(BATCH_IMPORT_SCRIPT_NAME, parameterValues, [fileMock]);
       });
@@ -181,7 +181,7 @@ describe('BatchImportPageComponent', () => {
       it('metadata-import script is invoked with --url and the file url', () => {
         const parameterValues: ProcessParameter[] = [
           Object.assign(new ProcessParameter(), { name: '--add' }),
-          Object.assign(new ProcessParameter(), { name: '--url', value: 'example.fileURL.com' })
+          Object.assign(new ProcessParameter(), { name: '--url', value: 'example.fileURL.com' }),
         ];
         expect(scriptService.invoke).toHaveBeenCalledWith(BATCH_IMPORT_SCRIPT_NAME, parameterValues, [null]);
       });

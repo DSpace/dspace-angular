@@ -45,10 +45,10 @@ describe('SearchService', () => {
           CommonModule,
           RouterTestingModule.withRoutes([
             { path: 'search', component: DummyComponent, pathMatch: 'full' },
-          ])
+          ]),
         ],
         declarations: [
-          DummyComponent
+          DummyComponent,
         ],
         providers: [
           { provide: Router, useValue: router },
@@ -61,7 +61,7 @@ describe('SearchService', () => {
           { provide: PaginationService, useValue: {} },
           { provide: SearchConfigurationService, useValue: searchConfigService },
           { provide: Angulartics2, useValue: {} },
-          SearchService
+          SearchService,
         ],
       });
       searchService = TestBed.inject(SearchService);
@@ -81,7 +81,7 @@ describe('SearchService', () => {
     const halService = {
       /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
       getEndpoint: () => {
-      }
+      },
       /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
 
     };
@@ -91,7 +91,7 @@ describe('SearchService', () => {
         return observableCombineLatest([requestEntryObs, payloadObs]).pipe(
           map(([req, pay]) => {
             return { req, pay };
-          })
+          }),
         );
       },
       aggregate: (input: Observable<RemoteData<any>>[]): Observable<RemoteData<any[]>> => {
@@ -99,9 +99,9 @@ describe('SearchService', () => {
       },
       buildFromHref: (href: string): Observable<RemoteData<any>> => {
         return createSuccessfulRemoteDataObject$(Object.assign(new SearchObjects(), {
-          page: []
+          page: [],
         }));
-      }
+      },
     };
 
     const paginationService = new PaginationServiceStub();
@@ -114,10 +114,10 @@ describe('SearchService', () => {
           CommonModule,
           RouterTestingModule.withRoutes([
             { path: 'search', component: DummyComponent, pathMatch: 'full' },
-          ])
+          ]),
         ],
         declarations: [
-          DummyComponent
+          DummyComponent,
         ],
         providers: [
           { provide: Router, useValue: router },
@@ -130,7 +130,7 @@ describe('SearchService', () => {
           { provide: PaginationService, useValue: paginationService },
           { provide: SearchConfigurationService, useValue: searchConfigService },
           { provide: Angulartics2, useValue: {} },
-          SearchService
+          SearchService,
         ],
       });
       searchService = TestBed.inject(SearchService);
@@ -141,13 +141,13 @@ describe('SearchService', () => {
 
     it('should call the navigate method on the Router with view mode list parameter as a parameter when setViewMode is called', () => {
       searchService.setViewMode(ViewMode.ListElement);
-      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], { page: 1 }, { view: ViewMode.ListElement }
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], { page: 1 }, { view: ViewMode.ListElement },
       );
     });
 
     it('should call the navigate method on the Router with view mode grid parameter as a parameter when setViewMode is called', () => {
       searchService.setViewMode(ViewMode.GridElement);
-      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], { page: 1 }, { view: ViewMode.GridElement }
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], { page: 1 }, { view: ViewMode.GridElement },
       );
     });
 

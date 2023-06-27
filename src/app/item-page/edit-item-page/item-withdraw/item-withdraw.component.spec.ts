@@ -33,28 +33,28 @@ describe('ItemWithdrawComponent', () => {
       id: 'fake-id',
       handle: 'fake/handle',
       lastModified: '2018',
-      isWithdrawn: true
+      isWithdrawn: true,
     });
 
     itemPageUrl = `fake-url/${mockItem.id}`;
     routerStub = Object.assign(new RouterStub(), {
-      url: `${itemPageUrl}/edit`
+      url: `${itemPageUrl}/edit`,
     });
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
-      setWithDrawn: createSuccessfulRemoteDataObject$(mockItem)
+      setWithDrawn: createSuccessfulRemoteDataObject$(mockItem),
     });
 
     routeStub = {
       data: observableOf({
-        dso: createSuccessfulRemoteDataObject(mockItem)
-      })
+        dso: createSuccessfulRemoteDataObject(mockItem),
+      }),
     };
 
     notificationsServiceStub = new NotificationsServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule,],
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [ItemWithdrawComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
@@ -62,8 +62,8 @@ describe('ItemWithdrawComponent', () => {
         { provide: ItemDataService, useValue: mockItemDataService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
       ], schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 

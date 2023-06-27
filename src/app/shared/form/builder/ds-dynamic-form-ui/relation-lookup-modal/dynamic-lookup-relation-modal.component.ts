@@ -37,9 +37,9 @@ import { RelationshipType } from '../../../../../core/shared/item-relationships/
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
 })
 
 /**
@@ -180,7 +180,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
       .getSelectableList(this.listId)
       .pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
     this.selection$.pipe(take(1)).subscribe((selection) =>
-      selection.map((s: SearchResult<Item>) => this.addNameVariantSubscription(s))
+      selection.map((s: SearchResult<Item>) => this.addNameVariantSubscription(s)),
     );
     if (this.relationshipOptions.nameVariants === 'true') {
       this.context = Context.EntitySearchModalWithNameVariants;
@@ -195,11 +195,11 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
             source,
             true,
             true,
-            followLink('entityTypes')
+            followLink('entityTypes'),
           );
-        })
+        }),
       ).pipe(
-        getAllSucceededRemoteDataPayload()
+        getAllSucceededRemoteDataPayload(),
       );
     }
 
@@ -227,18 +227,18 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
               map((nameVariant: string) => {
                 return {
                   item: sri.indexableObject,
-                  nameVariant
+                  nameVariant,
                 };
-              })
+              }),
             );
-        })
+        }),
         ]);
         obs
           .subscribe((arr: any[]) => {
             return arr.forEach((object: any) => {
               const addRelationshipAction = new AddRelationshipAction(this.item, object.item, this.relationshipOptions.relationshipType, this.submissionId, object.nameVariant);
               this.store.dispatch(addRelationshipAction);
-            }
+            },
             );
           });
       });
@@ -264,7 +264,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
       () => selectableObjects.forEach((object) => {
         this.subMap[object.indexableObject.uuid].unsubscribe();
         this.store.dispatch(new RemoveRelationshipAction(this.item, object.indexableObject, this.relationshipOptions.relationshipType, this.submissionId));
-      })
+      }),
     );
   }
 
@@ -283,12 +283,12 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   setTotals() {
     const externalSourcesAndOptions$ = observableCombineLatest([
       this.externalSourcesRD$,
-      this.searchConfigService.paginatedSearchOptions
+      this.searchConfigService.paginatedSearchOptions,
     ]);
 
     this.totalExternal$ = externalSourcesAndOptions$.pipe(
       switchMap(([sources, options]) =>
-        observableCombineLatest([...sources.map((source: ExternalSource) => this.lookupRelationService.getTotalExternalResults(source, options))]))
+        observableCombineLatest([...sources.map((source: ExternalSource) => this.lookupRelationService.getTotalExternalResults(source, options))])),
     );
   }
 

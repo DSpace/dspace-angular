@@ -14,10 +14,10 @@ const mockCommunityWithAbstract: Community = Object.assign(new Community(), {
     'dc.description.abstract': [
       {
         language: 'en_US',
-        value: 'Short description'
-      }
-    ]
-  }
+        value: 'Short description',
+      },
+    ],
+  },
 });
 
 const mockCommunityWithoutAbstract: Community = Object.assign(new Community(), {
@@ -25,31 +25,31 @@ const mockCommunityWithoutAbstract: Community = Object.assign(new Community(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'Test title'
-      }
-    ]
-  }
+        value: 'Test title',
+      },
+    ],
+  },
 });
 
 const linkService = jasmine.createSpyObj('linkService', {
-  resolveLink: mockCommunityWithAbstract
+  resolveLink: mockCommunityWithAbstract,
 });
 
 describe('CommunityGridElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [CommunityGridElementComponent],
       providers: [
         { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) },
-        { provide: LinkService, useValue: linkService }
+        { provide: LinkService, useValue: linkService },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CommunityGridElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

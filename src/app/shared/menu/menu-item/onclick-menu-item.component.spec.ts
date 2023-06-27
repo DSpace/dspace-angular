@@ -22,7 +22,7 @@ describe('OnClickMenuItemComponent', () => {
       providers: [
         { provide: 'itemModelProvider', useValue: item },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

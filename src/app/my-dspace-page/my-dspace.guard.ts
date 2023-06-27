@@ -45,7 +45,7 @@ export class MyDSpaceGuard implements CanActivate {
     if (isEmpty(configuration) || !configurationList.includes(configuration as MyDSpaceConfigurationValueType)) {
       // If configuration param is empty or is not included in available configurations redirect to a default configuration value
       const navigationExtras: NavigationExtras = {
-        queryParams: {configuration: configurationDefault}
+        queryParams: {configuration: configurationDefault},
       };
 
       this.router.navigate([MYDSPACE_ROUTE], navigationExtras);

@@ -39,10 +39,10 @@ describe('CommunityRolesComponent', () => {
                   href: 'adminGroup link',
                 },
               },
-            })
+            }),
           ),
-        })
-      }
+        }),
+      },
     };
 
     const requestService = {
@@ -59,7 +59,7 @@ describe('CommunityRolesComponent', () => {
         SharedModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
-        NoopAnimationsModule
+        NoopAnimationsModule,
       ],
       declarations: [
         CommunityRolesComponent,
@@ -69,9 +69,9 @@ describe('CommunityRolesComponent', () => {
         { provide: ActivatedRoute, useValue: route },
         { provide: RequestService, useValue: requestService },
         { provide: GroupDataService, useValue: groupDataService },
-        { provide: NotificationsService, useClass: NotificationsServiceStub }
+        { provide: NotificationsService, useClass: NotificationsServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CommunityRolesComponent);

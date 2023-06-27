@@ -23,21 +23,21 @@ describe('BitstreamAuthorizationsComponent', () => {
       'dc.title': [
         {
           value: 'file name',
-          language: null
-        }
-      ]
+          language: null,
+        },
+      ],
     },
     _links: {
-      content: { href: 'file-selflink' }
-    }
+      content: { href: 'file-selflink' },
+    },
   });
 
   const bitstreamRD = createSuccessfulRemoteDataObject(bitstream);
 
   const routeStub = {
     data: observableOf({
-      bitstream: bitstreamRD
-    })
+      bitstream: bitstreamRD,
+    }),
   };
 
   beforeEach(waitForAsync(() => {
@@ -47,9 +47,9 @@ describe('BitstreamAuthorizationsComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [BitstreamAuthorizationsComponent],
       providers: [

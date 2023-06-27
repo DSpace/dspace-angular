@@ -1,7 +1,7 @@
 import { FieldParser } from './field-parser';
 import {
   DynamicDsDatePickerModel,
-  DynamicDsDateControlModelConfig
+  DynamicDsDateControlModelConfig,
 } from '../ds-dynamic-form-ui/models/date-picker/date-picker.model';
 import { isNotEmpty } from '../../../empty.util';
 import { DS_DATE_PICKER_SEPARATOR } from '../ds-dynamic-form-ui/models/date-picker/date-picker.component';

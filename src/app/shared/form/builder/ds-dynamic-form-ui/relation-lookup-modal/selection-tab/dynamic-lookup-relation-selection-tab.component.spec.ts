@@ -51,17 +51,17 @@ describe('DsDynamicLookupRelationSelectionTabComponent', () => {
       providers: [
         {
           provide: SearchConfigurationService, useValue: {
-            paginatedSearchOptions: observableOf(pSearchOptions)
+            paginatedSearchOptions: observableOf(pSearchOptions),
           },
         },
         {
-          provide: Router, useValue: router
+          provide: Router, useValue: router,
         },
         {
-          provide: PaginationService, useValue: new PaginationServiceStub()
-        }
+          provide: PaginationService, useValue: new PaginationServiceStub(),
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

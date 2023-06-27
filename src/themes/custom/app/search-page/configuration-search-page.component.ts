@@ -15,9 +15,9 @@ import { ConfigurationSearchPageComponent as BaseComponent } from '../../../../a
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
 })
 
 /**

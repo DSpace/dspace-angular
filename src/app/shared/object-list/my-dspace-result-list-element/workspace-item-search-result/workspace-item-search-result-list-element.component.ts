@@ -52,7 +52,7 @@ export class  WorkspaceItemSearchResultListElementComponent extends SearchResult
     protected truncatableService: TruncatableService,
     protected linkService: LinkService,
     public dsoNameService: DSONameService,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(truncatableService, dsoNameService, appConfig);
   }

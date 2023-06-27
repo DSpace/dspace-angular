@@ -5,14 +5,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
 import {
   getRemoteDataPayload,
-  getFirstSucceededRemoteData, DEBOUNCE_TIME_OPERATOR
+  getFirstSucceededRemoteData, DEBOUNCE_TIME_OPERATOR,
 } from '../../../../../core/shared/operators';
 import {
   AddRelationshipAction,
   RelationshipAction,
   RelationshipActionTypes,
   UpdateRelationshipAction,
-  UpdateRelationshipNameVariantAction
+  UpdateRelationshipNameVariantAction,
 } from './relationship.actions';
 import { Item } from '../../../../../core/shared/item.model';
 import { hasNoValue, hasValue, hasValueOperator } from '../../../../empty.util';
@@ -72,7 +72,7 @@ export class RelationshipEffects {
           this.debounceMap[identifier] = new BehaviorSubject<string>(action.type);
           this.debounceMap[identifier].pipe(
             this.debounceTime(DEBOUNCE_TIME),
-            take(1)
+            take(1),
           ).subscribe(
             (type) => {
               if (this.initialActionMap[identifier] === type) {
@@ -90,13 +90,13 @@ export class RelationshipEffects {
               delete this.debounceMap[identifier];
               delete this.initialActionMap[identifier];
 
-            }
+            },
           );
         } else {
           this.debounceMap[identifier].next(action.type);
         }
-      }
-      )
+      },
+      ),
     ), { dispatch: false });
 
   /**
@@ -116,15 +116,15 @@ export class RelationshipEffects {
         } else {
           this.relationshipService.updateNameVariant(item1, item2, relationshipType, nameVariant).pipe(
             filter((relationshipRD: RemoteData<Relationship>) => hasValue(relationshipRD.payload)),
-            take(1)
+            take(1),
           ).subscribe((c) => {
             this.updateAfterPatchSubmissionId = submissionId;
             this.relationshipService.refreshRelationshipItemsInCache(item1);
             this.relationshipService.refreshRelationshipItemsInCache(item2);
           });
         }
-      }
-      )
+      },
+      ),
     ), { dispatch: false });
 
   /**
@@ -135,7 +135,7 @@ export class RelationshipEffects {
       ofType(RelationshipActionTypes.UPDATE_RELATIONSHIP),
       map((action: UpdateRelationshipAction) => {
         this.updateAfterPatchSubmissionId = action.payload.submissionId;
-      })
+      }),
     ), { dispatch: false });
 
   /**
@@ -146,7 +146,7 @@ export class RelationshipEffects {
       ofType(ServerSyncBufferActionTypes.EMPTY, JsonPatchOperationsActionTypes.COMMIT_JSON_PATCH_OPERATIONS),
       filter(() => hasValue(this.updateAfterPatchSubmissionId)),
       switchMap(() => this.refreshWorkspaceItemInCache(this.updateAfterPatchSubmissionId)),
-      map((submissionObject) => new SaveSubmissionSectionFormSuccessAction(this.updateAfterPatchSubmissionId, [submissionObject], false))
+      map((submissionObject) => new SaveSubmissionSectionFormSuccessAction(this.updateAfterPatchSubmissionId, [submissionObject], false)),
     ));
 
   constructor(private actions$: Actions,
@@ -191,7 +191,7 @@ export class RelationshipEffects {
             const listId = `list-${submissionId}-${relationshipType}`;
             this.selectableListService.findSelectedByCondition(listId, (object: any) => hasValue(object.indexableObject) && object.indexableObject.uuid === item2.uuid).pipe(
               take(1),
-              hasValueOperator()
+              hasValueOperator(),
             ).subscribe((selected) => {
               this.selectableListService.deselectSingle(listId, selected);
             });

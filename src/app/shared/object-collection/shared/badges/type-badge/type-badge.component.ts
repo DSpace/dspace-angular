@@ -5,7 +5,7 @@ import { getResourceTypeValueFor } from '../../../../../core/cache/object-cache.
 
 @Component({
   selector: 'ds-type-badge',
-  templateUrl: './type-badge.component.html'
+  templateUrl: './type-badge.component.html',
 })
 /**
  * Component rendering the type of an item as a badge

@@ -1,6 +1,6 @@
 import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Params, Router, RouterStateSnapshot, } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Params, Router, RouterStateSnapshot } from '@angular/router';
 
 import { combineLatest, Observable } from 'rxjs';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
@@ -18,7 +18,7 @@ import { CoreState } from '../core-state.model';
  */
 export const routeParametersSelector = createSelector(
   coreSelector,
-  (state: CoreState) => hasValue(state) && hasValue(state.route) ? state.route.params : undefined
+  (state: CoreState) => hasValue(state) && hasValue(state.route) ? state.route.params : undefined,
 );
 
 /**
@@ -26,7 +26,7 @@ export const routeParametersSelector = createSelector(
  */
 export const queryParametersSelector = createSelector(
   coreSelector,
-  (state: CoreState) => hasValue(state) && hasValue(state.route) ? state.route.queryParams : undefined
+  (state: CoreState) => hasValue(state) && hasValue(state.route) ? state.route.queryParams : undefined,
 );
 
 /**
@@ -60,7 +60,7 @@ export function parameterSelector(key: string, paramsSelector: (state: CoreState
  * Service to keep track of the current query parameters
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RouteService {
   constructor(private route: ActivatedRoute, private router: Router, private store: Store<CoreState>) {
@@ -74,7 +74,7 @@ export class RouteService {
   getQueryParameterValues(paramName: string): Observable<string[]> {
     return this.getQueryParamMap().pipe(
       map((params) => [...params.getAll(paramName)]),
-      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
+      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
     );
   }
 
@@ -85,7 +85,7 @@ export class RouteService {
   getQueryParameterValue(paramName: string): Observable<string> {
     return this.getQueryParamMap().pipe(
       map((params) => params.get(paramName)),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -96,7 +96,7 @@ export class RouteService {
   hasQueryParam(paramName: string): Observable<boolean> {
     return this.getQueryParamMap().pipe(
       map((params) => params.has(paramName)),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -108,7 +108,7 @@ export class RouteService {
   hasQueryParamWithValue(paramName: string, paramValue: string): Observable<boolean> {
     return this.getQueryParamMap().pipe(
       map((params) => params.getAll(paramName).indexOf(paramValue) > -1),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -177,7 +177,7 @@ export class RouteService {
    */
   public getCurrentUrl(): Observable<string> {
     return this.getHistory().pipe(
-      map((history: string[]) => history[history.length - 1] || '')
+      map((history: string[]) => history[history.length - 1] || ''),
     );
   }
 
@@ -186,7 +186,7 @@ export class RouteService {
    */
   public getPreviousUrl(): Observable<string> {
     return this.getHistory().pipe(
-      map((history: string[]) => history[history.length - 2] || '')
+      map((history: string[]) => history[history.length - 2] || ''),
     );
   }
 
@@ -222,7 +222,7 @@ export class RouteService {
         ([params, queryParams]: [Params, Params]) => {
           this.store.dispatch(new SetParametersAction(params));
           this.store.dispatch(new SetQueryParametersAction(queryParams));
-        }
+        },
       );
   }
 }

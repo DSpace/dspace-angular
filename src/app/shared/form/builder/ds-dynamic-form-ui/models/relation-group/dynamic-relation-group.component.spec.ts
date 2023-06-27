@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -48,9 +48,9 @@ function init() {
         selectableMetadata: [{
           controlledVocabulary: 'RPAuthority',
           closed: false,
-          metadata: 'dc.contributor.author'
+          metadata: 'dc.contributor.author',
         }],
-      } as FormFieldModel]
+      } as FormFieldModel],
     } as FormRowModel, {
       fields: [{
         hints: 'Enter the affiliation of the author.',
@@ -62,9 +62,9 @@ function init() {
         selectableMetadata: [{
           controlledVocabulary: 'OUAuthority',
           closed: false,
-          metadata: 'local.contributor.affiliation'
-        }]
-      } as FormFieldModel]
+          metadata: 'local.contributor.affiliation',
+        }],
+      } as FormFieldModel],
     } as FormRowModel],
     submissionId,
     id: 'dc_contributor_author',
@@ -80,7 +80,7 @@ function init() {
     validators: { required: null },
     repeatable: false,
     metadataFields: [],
-    hasSelectableMetadata: false
+    hasSelectableMetadata: false,
   } as DynamicRelationGroupModelConfig;
 
   FORM_GROUP_TEST_GROUP = new UntypedFormGroup({
@@ -113,7 +113,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         ReactiveFormsModule,
         NgbModule,
         StoreModule.forRoot({}, storeModuleConfig),
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         FormComponent,
@@ -129,9 +129,9 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormComponent,
         FormService,
         { provide: VocabularyService, useValue: new VocabularyServiceStub() },
-        { provide: Store, useClass: StoreMock }
+        { provide: Store, useClass: StoreMock },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
 
   }));
@@ -201,7 +201,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       (model2 as any).value = new FormFieldMetadataValueObject('test affiliation');
       modelValue = [{
         'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation'),
       }];
       groupFixture.detectChanges();
 
@@ -245,7 +245,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       groupComp.model = new DynamicRelationGroupModel(FORM_GROUP_TEST_MODEL_CONFIG);
       modelValue = [{
         'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation'),
       }];
       groupComp.model.value = modelValue;
       groupFixture.detectChanges();
@@ -280,7 +280,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
 
       modelValue = [{
         'dc.contributor.author': new FormFieldMetadataValueObject('test author modify'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation'),
       }];
       groupFixture.detectChanges();
 
@@ -315,7 +315,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

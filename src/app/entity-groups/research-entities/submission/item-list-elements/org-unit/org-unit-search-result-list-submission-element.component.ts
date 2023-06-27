@@ -24,7 +24,7 @@ import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.inter
 @Component({
   selector: 'ds-person-search-result-list-submission-element',
   styleUrls: ['./org-unit-search-result-list-submission-element.component.scss'],
-  templateUrl: './org-unit-search-result-list-submission-element.component.html'
+  templateUrl: './org-unit-search-result-list-submission-element.component.html',
 })
 
 /**
@@ -50,7 +50,7 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
               private bitstreamDataService: BitstreamDataService,
               private selectableListService: SelectableListService,
               public dsoNameService: DSONameService,
-              @Inject(APP_CONFIG) protected appConfig: AppConfig
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(truncatableService, dsoNameService, appConfig);
   }
@@ -69,7 +69,7 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
         .pipe(take(1))
         .subscribe((nameVariant: string) => {
           this.selectedName = nameVariant || defaultValue;
-        }
+        },
         );
     }
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;
@@ -100,7 +100,7 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
             Object.assign({}, this.dso, {
               metadata: {
                 ...this.dso.metadata,
-                ...alternativeNames
+                ...alternativeNames,
               },
             });
           this.itemDataService.update(updatedItem).pipe(take(1)).subscribe();

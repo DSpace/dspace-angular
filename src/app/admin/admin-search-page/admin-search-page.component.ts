@@ -4,7 +4,7 @@ import { Context } from '../../core/shared/context.model';
 @Component({
   selector: 'ds-admin-search-page',
   templateUrl: './admin-search-page.component.html',
-  styleUrls: ['./admin-search-page.component.scss']
+  styleUrls: ['./admin-search-page.component.scss'],
 })
 
 /**

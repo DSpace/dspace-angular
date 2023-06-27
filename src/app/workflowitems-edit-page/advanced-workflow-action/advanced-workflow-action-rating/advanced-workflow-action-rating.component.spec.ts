@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import {
   AdvancedWorkflowActionRatingComponent,
-  ADVANCED_WORKFLOW_TASK_OPTION_RATING
+  ADVANCED_WORKFLOW_TASK_OPTION_RATING,
 } from './advanced-workflow-action-rating.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';

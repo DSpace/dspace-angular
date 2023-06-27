@@ -27,11 +27,11 @@ const externalEntry = Object.assign(new ExternalSourceEntry(), {
   metadata: {
     'dc.identifier.uri': [
       {
-        value: 'https://orcid.org/0001-0001-0001-0001'
-      }
-    ]
+        value: 'https://orcid.org/0001-0001-0001-0001',
+      },
+    ],
   },
-  _links: { self: { href: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004' } }
+  _links: { self: { href: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004' } },
 });
 
 describe('SubmissionImportExternalPreviewComponent test suite', () => {
@@ -48,11 +48,11 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
     scheduler = getTestScheduler();
     TestBed.configureTestingModule({
       imports: [
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         SubmissionImportExternalPreviewComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: Router, useValue: new RouterStub() },
@@ -60,9 +60,9 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: NgbModal, useValue: ngbModal },
         { provide: NgbActiveModal, useValue: ngbActiveModal },
-        SubmissionImportExternalPreviewComponent
+        SubmissionImportExternalPreviewComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
   }));
 
@@ -105,7 +105,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
     it('Should init component properly', () => {
       comp.externalSourceEntry = externalEntry;
       const expected = [
-        { key: 'dc.identifier.uri', value: Metadata.first(comp.externalSourceEntry.metadata, 'dc.identifier.uri') }
+        { key: 'dc.identifier.uri', value: Metadata.first(comp.externalSourceEntry.metadata, 'dc.identifier.uri') },
       ];
       fixture.detectChanges();
 
@@ -126,23 +126,23 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
             id: 'dummy',
             uuid: 'dummy',
             name: 'dummy',
-          }
+          },
         ],
         collection: {
           id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
           uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
           name: 'Collection 1',
-        }
+        },
       };
       const submissionObjects = [
-        { id: 'jk11k13o-9v4z-632i-sr88-wq071n0h1d47' }
+        { id: 'jk11k13o-9v4z-632i-sr88-wq071n0h1d47' },
       ];
       comp.externalSourceEntry = externalEntry;
       ngbModal.open.and.returnValue({
         componentInstance: { selectedEvent: observableOf(emittedEvent) },
         close: () => {
           return;
-        }
+        },
       });
       spyOn(comp, 'closeMetadataModal');
       submissionServiceStub.createSubmissionFromExternalSource.and.returnValue(observableOf(submissionObjects));
@@ -162,7 +162,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

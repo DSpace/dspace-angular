@@ -36,13 +36,13 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
   const mockBitstreamDataService = {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
       return createSuccessfulRemoteDataObject$(new Bitstream());
-    }
+    },
   };
 
   const mockAccessStatusDataService = {
     findAccessStatusFor(item: Item): Observable<RemoteData<AccessStatusObject>> {
       return createSuccessfulRemoteDataObject$(new AccessStatusObject());
-    }
+    },
   };
 
   const mockThemeService = getMockThemeService();
@@ -63,7 +63,7 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
           NoopAnimationsModule,
           TranslateModule.forRoot(),
           RouterTestingModule.withRoutes([]),
-          SharedModule
+          SharedModule,
         ],
         providers: [
           { provide: TruncatableService, useValue: mockTruncatableService },
@@ -74,7 +74,7 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
           { provide: FileService, useClass: FileServiceStub },
           { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       })
       .compileComponents();
   }));

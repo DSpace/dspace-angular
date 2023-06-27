@@ -31,8 +31,8 @@ export interface SearchEvent {
   styleUrls: ['./eperson-group-list.component.scss'],
   templateUrl: './eperson-group-list.component.html',
   animations: [
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
 })
 /**
  * Component that shows a list of eperson or group
@@ -113,7 +113,7 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
     const provider = getDataServiceFor(resourceType);
     this.dataService = Injector.create({
       providers: [],
-      parent: this.parentInjector
+      parent: this.parentInjector,
     }).get(provider);
     this.paginationOptions.id = uniqueId('egl');
     this.paginationOptions.pageSize = 5;
@@ -150,7 +150,7 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
    */
   isSelected(entry: DSpaceObject): Observable<boolean> {
     return this.entrySelectedId.asObservable().pipe(
-      map((selectedId) => isNotEmpty(selectedId) && selectedId === entry.id)
+      map((selectedId) => isNotEmpty(selectedId) && selectedId === entry.id),
     );
   }
 
@@ -176,7 +176,7 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
       .subscribe((paginationOptions) => {
         const options: FindListOptions = Object.assign({}, new FindListOptions(), {
           elementsPerPage: paginationOptions.pageSize,
-          currentPage: paginationOptions.currentPage
+          currentPage: paginationOptions.currentPage,
         });
 
         const search$: Observable<RemoteData<PaginatedList<DSpaceObject>>> = this.isListOfEPerson ?
@@ -188,7 +188,7 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
             if (hasValue(this.list$)) {
               this.list$.next(list);
             }
-          })
+          }),
         );
       });
   }

@@ -4,7 +4,7 @@ import {
   DynamicCheckboxModel,
   DynamicFormControlComponent,
   DynamicFormLayoutService,
-  DynamicFormValidationService
+  DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import findKey from 'lodash/findKey';
 
@@ -31,7 +31,7 @@ export interface ListItem {
 @Component({
   selector: 'ds-dynamic-list',
   styleUrls: ['./dynamic-list.component.scss'],
-  templateUrl: './dynamic-list.component.html'
+  templateUrl: './dynamic-list.component.html',
 })
 export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit {
 
@@ -49,7 +49,7 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
               private cdr: ChangeDetectorRef,
               private formBuilderService: FormBuilderService,
               protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
+              protected validationService: DynamicFormValidationService,
   ) {
     super(layoutService, validationService);
   }
@@ -113,10 +113,10 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
         listGroup.addValidators(this.hasAtLeastOneVocabularyEntry());
       }
       const pageInfo: PageInfo = new PageInfo({
-        elementsPerPage: 9999, currentPage: 1
+        elementsPerPage: 9999, currentPage: 1,
       } as PageInfo);
       this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, pageInfo).pipe(
-        getFirstSucceededRemoteDataPayload()
+        getFirstSucceededRemoteDataPayload(),
       ).subscribe((entries: PaginatedList<VocabularyEntry>) => {
         let groupCounter = 0;
         let itemsPerGroup = 0;
@@ -133,14 +133,14 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
             id: value,
             label: option.display,
             value: checked,
-            index: key
+            index: key,
           };
           if (this.model.repeatable) {
             this.formBuilderService.addFormGroupControl(listGroup, (this.model as DynamicListCheckboxGroupModel), new DynamicCheckboxModel(item));
           } else {
             (this.model as DynamicListRadioGroupModel).options.push({
               label: item.label,
-              value: option
+              value: option,
             });
           }
           tempList.push(item);

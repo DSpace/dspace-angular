@@ -10,7 +10,7 @@ import {
 } from '@ng-dynamic-forms/core';
 
 import {
-  mockInputWithTypeBindModel, MockRelationModel
+  mockInputWithTypeBindModel, MockRelationModel,
 } from '../../../mocks/form-models.mock';
 import {DsDynamicTypeBindRelationService} from './ds-dynamic-type-bind-relation.service';
 import {FormFieldMetadataValueObject} from '../models/form-field-metadata-value.model';
@@ -31,8 +31,8 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
         { provide: DynamicFormRelationService },
-        DISABLED_MATCHER_PROVIDER, HIDDEN_MATCHER_PROVIDER, REQUIRED_MATCHER_PROVIDER
-      ]
+        DISABLED_MATCHER_PROVIDER, HIDDEN_MATCHER_PROVIDER, REQUIRED_MATCHER_PROVIDER,
+      ],
     }).compileComponents().then();
   });
 
@@ -47,14 +47,14 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
   describe('Test getTypeBindValue method', () => {
     it('Should get type bind "boundType" from the given metadata object value', () => {
       const mockMetadataValueObject: FormFieldMetadataValueObject = new FormFieldMetadataValueObject(
-        'boundType', null, null, 'Bound Type'
+        'boundType', null, null, 'Bound Type',
       );
       const bindType = service.getTypeBindValue(mockMetadataValueObject);
       expect(bindType).toBe('boundType');
     });
     it('Should get type authority key "bound-auth-key" from the given metadata object value', () => {
       const mockMetadataValueObject: FormFieldMetadataValueObject = new FormFieldMetadataValueObject(
-        'boundType', null, 'bound-auth-key', 'Bound Type'
+        'boundType', null, 'bound-auth-key', 'Bound Type',
       );
       const bindType = service.getTypeBindValue(mockMetadataValueObject);
       expect(bindType).toBe('bound-auth-key');
@@ -132,12 +132,12 @@ function getTypeBindRelations(configuredTypeBindValues: string[]): DynamicFormCo
   configuredTypeBindValues.forEach((value) => {
     bindValues.push({
       id: 'dc.type',
-      value: value
+      value: value,
     });
   });
   return [{
     match: MATCH_VISIBLE,
     operator: OR_OPERATOR,
-    when: bindValues
+    when: bindValues,
   }];
 }

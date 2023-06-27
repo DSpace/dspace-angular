@@ -4,10 +4,10 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DsoEditMenuComponent } from '../dso-page/dso-edit-menu/dso-edit-menu.component';
 import {
-  DsoEditMenuSectionComponent
+  DsoEditMenuSectionComponent,
 } from '../dso-page/dso-edit-menu/dso-edit-menu-section/dso-edit-menu-section.component';
 import {
-  DsoEditMenuExpandableSectionComponent
+  DsoEditMenuExpandableSectionComponent,
 } from '../dso-page/dso-edit-menu/dso-edit-expandable-menu-section/dso-edit-menu-expandable-section.component';
 import { NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -33,7 +33,7 @@ const PROVIDERS = [
 
 @NgModule({
   imports: [
-    ...MODULES
+    ...MODULES,
   ],
   declarations: [
     ...COMPONENTS,
@@ -44,8 +44,8 @@ const PROVIDERS = [
     ...ENTRY_COMPONENTS,
   ],
   exports: [
-    ...COMPONENTS
-  ]
+    ...COMPONENTS,
+  ],
 })
 
 /**

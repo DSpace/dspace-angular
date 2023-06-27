@@ -15,7 +15,7 @@ describe('MediaViewerImageComponent', () => {
   let fixture: ComponentFixture<MediaViewerImageComponent>;
 
   const authService = jasmine.createSpyObj('authService', {
-    isAuthenticated: observableOf(false)
+    isAuthenticated: observableOf(false),
   });
 
   const mockBitstream: Bitstream = Object.assign(new Bitstream(), {
@@ -52,7 +52,7 @@ describe('MediaViewerImageComponent', () => {
     [
       { bitstream: mockBitstream, format: 'image', thumbnail: null },
       { bitstream: mockBitstream, format: 'image', thumbnail: null },
-    ]
+    ],
   );
 
   beforeEach(waitForAsync(() => {
@@ -71,7 +71,7 @@ describe('MediaViewerImageComponent', () => {
     component = fixture.componentInstance;
     component.galleryOptions = [new NgxGalleryOptions({})];
     component.galleryImages = component.convertToGalleryImage(
-      mockMediaViewerItems
+      mockMediaViewerItems,
     );
   });
 

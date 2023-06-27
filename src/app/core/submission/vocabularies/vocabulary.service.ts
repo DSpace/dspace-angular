@@ -103,7 +103,7 @@ export class VocabularyService {
       null,
       null,
       pageInfo.elementsPerPage,
-      pageInfo.currentPage
+      pageInfo.currentPage,
     );
 
     // TODO remove false for the entries embed when https://github.com/DSpace/DSpace/issues/3096 is solved
@@ -130,7 +130,7 @@ export class VocabularyService {
       exact,
       null,
       pageInfo.elementsPerPage,
-      pageInfo.currentPage
+      pageInfo.currentPage,
     );
 
     // TODO remove false for the entries embed when https://github.com/DSpace/DSpace/issues/3096 is solved
@@ -159,7 +159,7 @@ export class VocabularyService {
         } else {
           return null;
         }
-      })
+      }),
     );
   }
 
@@ -179,7 +179,7 @@ export class VocabularyService {
       null,
       ID,
       pageInfo.elementsPerPage,
-      pageInfo.currentPage
+      pageInfo.currentPage,
     );
 
     // TODO remove false for the entries embed when https://github.com/DSpace/DSpace/issues/3096 is solved
@@ -193,7 +193,7 @@ export class VocabularyService {
         } else {
           return null;
         }
-      })
+      }),
     );
   }
 
@@ -254,7 +254,7 @@ export class VocabularyService {
 
     return this.vocabularyEntryDetailDataService.getBrowseEndpoint().pipe(
       map((href: string) => `${href}/${linkPath}`),
-      mergeMap((href) => this.vocabularyEntryDetailDataService.findByHref(href, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow))
+      mergeMap((href) => this.vocabularyEntryDetailDataService.findByHref(href, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)),
     );
   }
 
@@ -280,12 +280,12 @@ export class VocabularyService {
       null,
       null,
       pageInfo.elementsPerPage,
-      pageInfo.currentPage
+      pageInfo.currentPage,
     );
 
     return this.vocabularyEntryDetailDataService.getBrowseEndpoint().pipe(
       map(href => `${href}/${name}:${value}/children`),
-      switchMap(href => this.vocabularyEntryDetailDataService.findListByHref(href, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow))
+      switchMap(href => this.vocabularyEntryDetailDataService.findListByHref(href, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)),
     );
   }
 
@@ -309,7 +309,7 @@ export class VocabularyService {
       null,
       null,
       pageInfo.elementsPerPage,
-      pageInfo.currentPage
+      pageInfo.currentPage,
     );
     options.searchParams = [new RequestParam('vocabulary', name)];
     return this.vocabularyEntryDetailDataService.searchBy(this.searchTopMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);

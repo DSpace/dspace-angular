@@ -10,7 +10,7 @@ import { COMMUNITY_PAGE_LINKS_TO_FOLLOW } from '../../community-page/community-p
  * The class that resolves the BreadcrumbConfig object for a Community
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CommunityBreadcrumbResolver extends DSOBreadcrumbResolver<Community> {
   constructor(protected breadcrumbService: DSOBreadcrumbsService, protected dataService: CommunityDataService) {

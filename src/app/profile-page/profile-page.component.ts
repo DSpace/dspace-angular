@@ -23,7 +23,7 @@ import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-profile-page',
   styleUrls: ['./profile-page.component.scss'],
-  templateUrl: './profile-page.component.html'
+  templateUrl: './profile-page.component.html',
 })
 /**
  * Component for a user to edit their profile information
@@ -97,14 +97,14 @@ export class ProfilePageComponent implements OnInit {
       switchMap((user: EPerson) => this.epersonService.findById(user.id, true, true, followLink('groups'))),
       getAllSucceededRemoteData(),
       getRemoteDataPayload(),
-      tap((user: EPerson) => this.currentUser = user)
+      tap((user: EPerson) => this.currentUser = user),
     );
     this.groupsRD$ = this.user$.pipe(switchMap((user: EPerson) => user.groups));
     this.canChangePassword$ = this.user$.pipe(switchMap((user: EPerson) => this.authorizationService.isAuthorized(FeatureID.CanChangePassword, user._links.self.href)));
     this.specialGroupsRD$ = this.authService.getSpecialGroupsFromAuthStatus();
 
     this.configurationService.findByPropertyName('researcher-profile.entity-type').pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((configRD: RemoteData<ConfigurationProperty>) => {
       this.isResearcherProfileEnabled$.next(configRD.hasSucceeded && configRD.payload.values.length > 0);
     });
@@ -120,7 +120,7 @@ export class ProfilePageComponent implements OnInit {
     if (!metadataChanged && !securityChanged) {
       this.notificationsService.warning(
         this.translate.instant(this.NOTIFICATIONS_PREFIX + 'warning.no-changes.title'),
-        this.translate.instant(this.NOTIFICATIONS_PREFIX + 'warning.no-changes.content')
+        this.translate.instant(this.NOTIFICATIONS_PREFIX + 'warning.no-changes.content'),
       );
     }
   }
@@ -150,18 +150,18 @@ export class ProfilePageComponent implements OnInit {
     }
     if (!this.invalidSecurity && passEntered) {
       const operations = [
-        { 'op': 'add', 'path': '/password', 'value': { 'new_password': this.password, 'current_password': this.currentPassword } }
+        { 'op': 'add', 'path': '/password', 'value': { 'new_password': this.password, 'current_password': this.currentPassword } },
       ] as Operation[];
       this.epersonService.patch(this.currentUser, operations).pipe(getFirstCompletedRemoteData()).subscribe((response: RemoteData<EPerson>) => {
         if (response.hasSucceeded) {
           this.notificationsService.success(
             this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'success.title'),
-            this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'success.content')
+            this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'success.content'),
           );
         } else {
           this.notificationsService.error(
             this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.title'),
-            this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.change-failed')
+            this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.change-failed'),
           );
         }
       });

@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
 import {
-  getAllSucceededRemoteDataPayload
+  getAllSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -18,7 +18,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 @Component({
   selector: 'ds-system-wide-alert-banner',
   styleUrls: ['./system-wide-alert-banner.component.scss'],
-  templateUrl: './system-wide-alert-banner.component.html'
+  templateUrl: './system-wide-alert-banner.component.html',
 })
 export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
 
@@ -59,7 +59,7 @@ export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
       getAllSucceededRemoteDataPayload(),
       map((payload: PaginatedList<SystemWideAlert>) => payload.page),
       filter((page) => isNotEmpty(page)),
-      map((page) => page[0])
+      map((page) => page[0]),
     ).subscribe((alert: SystemWideAlert) => {
       this.systemWideAlert$.next(alert);
     }));
@@ -84,7 +84,7 @@ export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
         this.countDownHours.next(0);
         this.countDownMinutes.next(0);
         return EMPTY;
-      })
+      }),
     ).subscribe(() => {
       this.setTimeDifference(this.systemWideAlert$.getValue().countdownTo);
     }));

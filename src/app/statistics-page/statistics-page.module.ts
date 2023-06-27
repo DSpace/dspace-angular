@@ -24,7 +24,7 @@ const components = [
   ThemedCollectionStatisticsPageComponent,
   ThemedCommunityStatisticsPageComponent,
   ThemedItemStatisticsPageComponent,
-  ThemedSiteStatisticsPageComponent
+  ThemedSiteStatisticsPageComponent,
 ];
 
 @NgModule({
@@ -32,13 +32,13 @@ const components = [
     CommonModule,
     SharedModule,
     CoreModule.forRoot(),
-    StatisticsModule.forRoot()
+    StatisticsModule.forRoot(),
   ],
   declarations: components,
   providers: [
     UsageReportDataService,
   ],
-  exports: components
+  exports: components,
 })
 
 /**

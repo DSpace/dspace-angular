@@ -21,7 +21,7 @@ import { CollectionElementLinkType } from '../object-collection/collection-eleme
   selector: 'ds-object-detail',
   styleUrls: [ './object-detail.component.scss' ],
   templateUrl: './object-detail.component.html',
-  animations: [fadeIn]
+  animations: [fadeIn],
 })
 export class ObjectDetailComponent {
   /**

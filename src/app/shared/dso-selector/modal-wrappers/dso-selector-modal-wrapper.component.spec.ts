@@ -23,8 +23,8 @@ describe('DSOSelectorModalWrapperComponent', () => {
   item.metadata = {
     'dc.title': [Object.assign(new MetadataValue(), {
       value: 'Item title',
-      language: undefined
-    })]
+      language: undefined,
+    })],
   };
 
   const itemRD = createSuccessfulRemoteDataObject(item);
@@ -45,11 +45,11 @@ describe('DSOSelectorModalWrapperComponent', () => {
                   dso: itemRD,
                 },
               },
-            }
-          }
+            },
+          },
         },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
   }));
@@ -117,7 +117,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
 
 @Component({
   selector: 'ds-test-cmp',
-  templateUrl: './dso-selector-modal-wrapper.component.html'
+  templateUrl: './dso-selector-modal-wrapper.component.html',
 })
 class TestComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;

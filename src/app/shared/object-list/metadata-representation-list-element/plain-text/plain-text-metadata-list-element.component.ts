@@ -9,7 +9,7 @@ import { VALUE_LIST_BROWSE_DEFINITION } from '../../../../core/shared/value-list
 @metadataRepresentationComponent('Publication', MetadataRepresentationType.AuthorityControlled)
 @Component({
   selector: 'ds-plain-text-metadata-list-element',
-  templateUrl: './plain-text-metadata-list-element.component.html'
+  templateUrl: './plain-text-metadata-list-element.component.html',
 })
 /**
  * A component for displaying MetadataRepresentation objects in the form of plain text

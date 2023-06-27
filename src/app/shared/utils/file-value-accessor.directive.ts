@@ -7,11 +7,11 @@ import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host : {
     '(change)' : 'onChange($event.target.files)',
-    '(blur)': 'onTouched()'
+    '(blur)': 'onTouched()',
   },
   providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: FileValueAccessorDirective, multi: true }
-  ]
+    { provide: NG_VALUE_ACCESSOR, useExisting: FileValueAccessorDirective, multi: true },
+  ],
 })
 /**
  * Value accessor directive for inputs of type 'file'

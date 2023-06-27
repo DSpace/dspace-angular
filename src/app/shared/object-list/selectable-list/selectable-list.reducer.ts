@@ -5,7 +5,7 @@ import {
   SelectableListSelectAction,
   SelectableListSelectSingleAction,
   SelectableListDeselectAction,
-  SelectableListDeselectSingleAction, SelectableListSetSelectionAction
+  SelectableListDeselectSingleAction, SelectableListSetSelectionAction,
 } from './selectable-list.actions';
 import { hasNoValue } from '../../empty.util';
 

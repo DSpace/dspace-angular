@@ -15,7 +15,7 @@ export const BitstreamFormatsRegistryActionTypes = {
 
   SELECT_FORMAT: type('dspace/bitstream-formats-registry/SELECT_FORMAT'),
   DESELECT_FORMAT: type('dspace/bitstream-formats-registry/DESELECT_FORMAT'),
-  DESELECT_ALL_FORMAT: type('dspace/bitstream-formats-registry/DESELECT_ALL_FORMAT')
+  DESELECT_ALL_FORMAT: type('dspace/bitstream-formats-registry/DESELECT_ALL_FORMAT'),
 };
 
 /**

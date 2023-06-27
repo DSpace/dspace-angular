@@ -13,7 +13,7 @@ import { getProcessDetailRoute } from '../../process-page/process-page-routing.p
 
 @Component({
   selector: 'ds-metadata-import-page',
-  templateUrl: './metadata-import-page.component.html'
+  templateUrl: './metadata-import-page.component.html',
 })
 
 /**

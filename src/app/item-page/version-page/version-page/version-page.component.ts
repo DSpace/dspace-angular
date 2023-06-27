@@ -15,7 +15,7 @@ import { redirectOn4xx } from '../../../core/shared/authorized.operators';
 @Component({
   selector: 'ds-version-page',
   templateUrl: './version-page.component.html',
-  styleUrls: ['./version-page.component.scss']
+  styleUrls: ['./version-page.component.scss'],
 })
 export class VersionPageComponent implements OnInit {
 

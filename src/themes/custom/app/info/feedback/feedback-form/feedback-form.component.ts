@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-  FeedbackFormComponent as BaseComponent
+  FeedbackFormComponent as BaseComponent,
 } from '../../../../../../app/info/feedback/feedback-form/feedback-form.component';
 
 @Component({

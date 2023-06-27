@@ -53,7 +53,7 @@ export abstract class Reorderable {
 @Component({
   selector: 'ds-existing-relation-list-element',
   templateUrl: './existing-relation-list-element.component.html',
-  styleUrls: ['./existing-relation-list-element.component.scss']
+  styleUrls: ['./existing-relation-list-element.component.scss'],
 })
 export class ExistingRelationListElementComponent implements OnInit, OnChanges, OnDestroy {
   @Input() listId: string;
@@ -74,7 +74,7 @@ export class ExistingRelationListElementComponent implements OnInit, OnChanges, 
   constructor(
     private selectableListService: SelectableListService,
     private submissionService: SubmissionService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
   ) {
   }
 
@@ -92,7 +92,7 @@ export class ExistingRelationListElementComponent implements OnInit, OnChanges, 
       this.subs.push(item$.pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
-        filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid))
+        filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid)),
       ).subscribe((item: Item) => {
         this.relatedItem$.next(item);
       }));

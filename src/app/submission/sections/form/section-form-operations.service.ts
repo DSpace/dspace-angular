@@ -8,7 +8,7 @@ import {
   DynamicFormArrayGroupModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
-  isDynamicFormControlEvent
+  isDynamicFormControlEvent,
 } from '@ng-dynamic-forms/core';
 
 import { hasValue, isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined } from '../../../shared/empty.util';
@@ -321,7 +321,7 @@ export class SectionFormOperationsService {
    */
   protected dispatchOperationsFromAddEvent(
     pathCombiner: JsonPatchOperationPathCombiner,
-    event: DynamicFormControlEvent
+    event: DynamicFormControlEvent,
   ): void {
     const path = this.getFieldPathSegmentedFromChangeEvent(event);
     const value = deepClone(this.getFieldValueFromChangeEvent(event));
@@ -399,7 +399,7 @@ export class SectionFormOperationsService {
           if (isNotEmpty(moveFrom.path) && isNotEmpty(moveTo.path) && moveFrom.path !== moveTo.path) {
             this.operationsBuilder.move(
               moveTo,
-              moveFrom.path
+              moveFrom.path,
             );
           }
         }
@@ -522,7 +522,7 @@ export class SectionFormOperationsService {
       this.operationsBuilder.add(
         pathCombiner.getPath(segmentedPath),
         arrayValue[segmentedPath],
-        false
+        false,
       );
     } else if (previousValue.isPathEqual(this.formBuilder.getPath(event.model))) {
       this.operationsBuilder.remove(pathCombiner.getPath(segmentedPath));

@@ -14,7 +14,7 @@ import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 @Component({
   selector: 'ds-orcid-auth',
   templateUrl: './orcid-auth.component.html',
-  styleUrls: ['./orcid-auth.component.scss']
+  styleUrls: ['./orcid-auth.component.scss'],
 })
 export class OrcidAuthComponent implements OnInit, OnChanges {
 
@@ -89,7 +89,7 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
    */
   hasOrcidAuthorizations(): Observable<boolean> {
     return this.profileAuthorizationScopes.asObservable().pipe(
-      map((scopes: string[]) => scopes.length > 0)
+      map((scopes: string[]) => scopes.length > 0),
     );
   }
 
@@ -105,7 +105,7 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
    */
   hasMissingOrcidAuthorizations(): Observable<boolean> {
     return this.missingAuthorizationScopes.asObservable().pipe(
-      map((scopes: string[]) => scopes.length > 0)
+      map((scopes: string[]) => scopes.length > 0),
     );
   }
 
@@ -170,7 +170,7 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
   unlinkOrcid(): void {
     this.unlinkProcessing.next(true);
     this.orcidAuthService.unlinkOrcidByItem(this.item).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((remoteData: RemoteData<ResearcherProfile>) => {
       this.unlinkProcessing.next(false);
       if (remoteData.isSuccess) {

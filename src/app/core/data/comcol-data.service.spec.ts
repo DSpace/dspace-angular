@@ -45,7 +45,7 @@ class TestService extends ComColDataService<any> {
     protected http: HttpClient,
     protected bitstreamDataService: BitstreamDataService,
     protected comparator: DSOChangeAnalyzer<Community>,
-    protected linkPath: string
+    protected linkPath: string,
   ) {
     super('something', requestService, rdbService, objectCache, halService, comparator, notificationsService, bitstreamDataService);
   }
@@ -79,30 +79,30 @@ describe('ComColDataService', () => {
   const comparator = {} as any;
 
   const options = Object.assign(new FindListOptions(), {
-    scopeID: scopeID
+    scopeID: scopeID,
   });
   const scopedEndpoint = `${communityEndpoint}/${LINK_NAME}`;
 
   const mockHalService = {
-    getEndpoint: (linkPath) => observableOf(communitiesEndpoint)
+    getEndpoint: (linkPath) => observableOf(communitiesEndpoint),
   };
 
   function initRdbService(): RemoteDataBuildService {
     return jasmine.createSpyObj('rdbService', {
-      buildSingle : createFailedRemoteDataObject$('Error', 500)
+      buildSingle : createFailedRemoteDataObject$('Error', 500),
     });
   }
 
   function initBitstreamDataService(): BitstreamDataService {
     return jasmine.createSpyObj('bitstreamDataService', {
-      deleteByHref: createSuccessfulRemoteDataObject$({})
+      deleteByHref: createSuccessfulRemoteDataObject$({}),
     });
   }
 
   function initMockCommunityDataService(): CommunityDataService {
     return jasmine.createSpyObj('cds', {
       getEndpoint: cold('--a-', { a: communitiesEndpoint }),
-      getIDHref: communityEndpoint
+      getIDHref: communityEndpoint,
     });
   }
 
@@ -112,11 +112,11 @@ describe('ComColDataService', () => {
         d: {
           _links: {
             [LINK_NAME]: {
-              href: scopedEndpoint
-            }
-          }
-        }
-      })
+              href: scopedEndpoint,
+            },
+          },
+        },
+      }),
     });
   }
 
@@ -132,7 +132,7 @@ describe('ComColDataService', () => {
       http,
       bitstreamDataService,
       comparator,
-      LINK_NAME
+      LINK_NAME,
     );
   }
 
@@ -200,12 +200,12 @@ describe('ComColDataService', () => {
       communityWithParentHref = {
         _links: {
           parentCommunity: {
-            href: 'topLevel/parentCommunity'
-          }
-        }
+            href: 'topLevel/parentCommunity',
+          },
+        },
       } as Community;
       communityWithoutParentHref = {
-        _links: {}
+        _links: {},
       } as Community;
     });
 
@@ -238,9 +238,9 @@ describe('ComColDataService', () => {
           id: 'a20da287-e174-466a-9926-f66as300d399',
           metadata: [{
             key: 'dc.title',
-            value: 'parent community'
+            value: 'parent community',
           }],
-          _links: {}
+          _links: {},
         });
       });
       it('should refresh a specific cached community when the parent link can be resolved', () => {
@@ -262,9 +262,9 @@ describe('ComColDataService', () => {
       dso = {
         _links: {
           logo: {
-            href: 'logo-href'
-          }
-        }
+            href: 'logo-href',
+          },
+        },
       };
     });
 
@@ -291,8 +291,8 @@ describe('ComColDataService', () => {
           _links: {
             self: {
               href: 'logo-href',
-            }
-          }
+            },
+          },
         });
       });
 

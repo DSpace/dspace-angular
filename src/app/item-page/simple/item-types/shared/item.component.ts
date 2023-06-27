@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-item',
-  template: ''
+  template: '',
 })
 /**
  * A generic component for displaying metadata and relations of an item
@@ -61,11 +61,11 @@ export class ItemComponent implements OnInit {
    */
   back = () => {
     this.routeService.getPreviousUrl().pipe(
-      take(1)
+      take(1),
     ).subscribe(
       (url => {
         this.router.navigateByUrl(url);
-      })
+      }),
     );
   };
 
@@ -76,7 +76,7 @@ export class ItemComponent implements OnInit {
     this.showBackButton = this.routeService.getPreviousUrl().pipe(
       filter(url => this.previousRoute.test(url)),
       take(1),
-      map(() => true)
+      map(() => true),
     );
     // check to see if iiif viewer is required.
     this.iiifEnabled = isIiifEnabled(this.object);

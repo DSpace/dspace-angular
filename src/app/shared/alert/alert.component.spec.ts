@@ -22,17 +22,17 @@ describe('AlertComponent test suite', () => {
         BrowserModule,
         CommonModule,
         NoopAnimationsModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         AlertComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         ChangeDetectorRef,
-        AlertComponent
+        AlertComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
   }));
 
@@ -104,7 +104,7 @@ describe('AlertComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

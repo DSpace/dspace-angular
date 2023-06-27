@@ -24,7 +24,7 @@ describe('DsoEditMenuComponent', () => {
   let authorizationService: AuthorizationDataService;
 
   const routeStub = {
-    children: []
+    children: [],
   };
 
   const section = {
@@ -36,13 +36,13 @@ describe('DsoEditMenuComponent', () => {
       disabled: false,
     } as MenuItemModel,
     icon: 'pencil-alt',
-    index: 1
+    index: 1,
   };
 
 
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     spyOn(menuService, 'getMenuTopSections').and.returnValue(observableOf([section]));
     TestBed.configureTestingModule({
@@ -56,7 +56,7 @@ describe('DsoEditMenuComponent', () => {
         {provide: AuthorizationDataService, useValue: authorizationService},
         {provide: ThemeService, useValue: getMockThemeService()},
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

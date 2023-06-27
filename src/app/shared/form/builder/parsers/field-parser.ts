@@ -7,7 +7,7 @@ import {
   DynamicFormControlLayout,
   DynamicFormControlRelation,
   MATCH_VISIBLE,
-  OR_OPERATOR
+  OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
 
 import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
@@ -15,7 +15,7 @@ import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import {
   DynamicRowArrayModel,
-  DynamicRowArrayModelConfig
+  DynamicRowArrayModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { setLayout } from './parser.utils';
@@ -50,7 +50,7 @@ export abstract class FieldParser {
     @Inject(SUBMISSION_ID) protected submissionId: string,
     @Inject(CONFIG_DATA) protected configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) protected initFormValues: any,
-    @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions
+    @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions,
   ) {
   }
 
@@ -110,13 +110,13 @@ export abstract class FieldParser {
             setLayout(model, 'grid', 'control', 'col');
           }
           return [model];
-        }
+        },
       } as DynamicRowArrayModelConfig;
 
       const layout: DynamicFormControlLayout = {
         grid: {
-          group: 'form-row'
-        }
+          group: 'form-row',
+        },
       };
 
       return new DynamicRowArrayModel(config, layout);
@@ -135,7 +135,7 @@ export abstract class FieldParser {
     if (isNotEmpty(this.configData.selectableMetadata) && isNotEmpty(this.configData.selectableMetadata[0].controlledVocabulary)) {
       controlModel.vocabularyOptions = new VocabularyOptions(
         this.configData.selectableMetadata[0].controlledVocabulary,
-        this.configData.selectableMetadata[0].closed
+        this.configData.selectableMetadata[0].closed,
       );
     }
   }
@@ -360,7 +360,7 @@ export abstract class FieldParser {
     configuredTypeBindValues.forEach((value) => {
       bindValues.push({
         id: typeField,
-        value: value
+        value: value,
       });
     });
     // match: MATCH_VISIBLE means that if true, the field / component will be visible
@@ -372,7 +372,7 @@ export abstract class FieldParser {
     return [{
       match: MATCH_VISIBLE,
       operator: OR_OPERATOR,
-      when: bindValues
+      when: bindValues,
     }];
   }
 

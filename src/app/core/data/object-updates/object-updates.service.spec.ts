@@ -6,7 +6,7 @@ import {
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
   SelectVirtualMetadataAction,
-  SetEditableFieldUpdateAction
+  SetEditableFieldUpdateAction,
 } from './object-updates.actions';
 import { of as observableOf } from 'rxjs';
 import { Notification } from '../../../shared/notifications/models/notification.model';
@@ -31,7 +31,7 @@ describe('ObjectUpdatesService', () => {
 
   const fieldUpdates = {
     [identifiable1.uuid]: { field: identifiable1Updated, changeType: FieldChangeType.UPDATE },
-    [identifiable3.uuid]: { field: identifiable3, changeType: FieldChangeType.ADD }
+    [identifiable3.uuid]: { field: identifiable3, changeType: FieldChangeType.ADD },
   };
 
   const modDate = new Date(2010, 2, 11);
@@ -46,15 +46,15 @@ describe('ObjectUpdatesService', () => {
     };
 
     patchOperationService = jasmine.createSpyObj('patchOperationService', {
-      fieldUpdatesToPatchOperations: []
+      fieldUpdatesToPatchOperations: [],
     });
     const objectEntry = {
-      fieldStates, fieldUpdates, lastModified: modDate, virtualMetadataSources: {}, patchOperationService
+      fieldStates, fieldUpdates, lastModified: modDate, virtualMetadataSources: {}, patchOperationService,
     };
     store = new Store<CoreState>(undefined, undefined, undefined);
     spyOn(store, 'dispatch');
     injector = jasmine.createSpyObj('injector', {
-      get: patchOperationService
+      get: patchOperationService,
     });
     service = new ObjectUpdatesService(store, injector);
 
@@ -80,7 +80,7 @@ describe('ObjectUpdatesService', () => {
       const expectedResult = {
         [identifiable1.uuid]: { field: identifiable1Updated, changeType: FieldChangeType.UPDATE },
         [identifiable2.uuid]: { field: identifiable2, changeType: undefined },
-        [identifiable3.uuid]: { field: identifiable3, changeType: FieldChangeType.ADD }
+        [identifiable3.uuid]: { field: identifiable3, changeType: FieldChangeType.ADD },
       };
 
       result$.subscribe((result) => {
@@ -96,7 +96,7 @@ describe('ObjectUpdatesService', () => {
 
       const expectedResult = {
         [identifiable1.uuid]: { field: identifiable1Updated, changeType: FieldChangeType.UPDATE },
-        [identifiable2.uuid]: { field: identifiable2, changeType: undefined }
+        [identifiable2.uuid]: { field: identifiable2, changeType: undefined },
       };
 
       result$.subscribe((result) => {

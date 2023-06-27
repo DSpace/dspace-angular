@@ -6,14 +6,14 @@ import { Relationship } from '../../../../core/shared/item-relationships/relatio
 import { Item } from '../../../../core/shared/item.model';
 import {
   getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteData
+  getFirstSucceededRemoteData,
 } from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
 import { InjectionToken } from '@angular/core';
 
 export const PAGINATED_RELATIONS_TO_ITEMS_OPERATOR = new InjectionToken<(thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>>('paginatedRelationsToItems', {
   providedIn: 'root',
-  factory: () => paginatedRelationsToItems
+  factory: () => paginatedRelationsToItems,
 });
 
 /**
@@ -53,8 +53,8 @@ export const relationsToItems = (thisId: string) =>
     source.pipe(
       mergeMap((rels: Relationship[]) =>
         observableZip(
-          ...rels.map((rel: Relationship) => observableCombineLatest(rel.leftItem, rel.rightItem))
-        )
+          ...rels.map((rel: Relationship) => observableCombineLatest(rel.leftItem, rel.rightItem)),
+        ),
       ),
       map((arr) =>
         arr
@@ -66,7 +66,7 @@ export const relationsToItems = (thisId: string) =>
               return leftItem.payload;
             }
           })
-          .filter((item: Item) => hasValue(item))
+          .filter((item: Item) => hasValue(item)),
       ),
       distinctUntilChanged(compareArraysUsingIds()),
     );
@@ -86,8 +86,8 @@ export const paginatedRelationsToItems = (thisId: string) =>
           relationshipsRD.payload.page.map((rel: Relationship) =>
             observableCombineLatest([
               rel.leftItem.pipe(getFirstSucceededRemoteDataPayload()),
-              rel.rightItem.pipe(getFirstSucceededRemoteDataPayload())]
-            )
+              rel.rightItem.pipe(getFirstSucceededRemoteDataPayload())],
+            ),
           )).pipe(
           map((arr) =>
             arr
@@ -98,12 +98,12 @@ export const paginatedRelationsToItems = (thisId: string) =>
                   return leftItem;
                 }
               })
-              .filter((item: Item) => hasValue(item))
+              .filter((item: Item) => hasValue(item)),
           ),
           distinctUntilChanged(compareArraysUsingIds()),
           map((relatedItems: Item[]) =>
-            Object.assign(relationshipsRD, { payload: Object.assign(relationshipsRD.payload, { page: relatedItems } )})
-          )
+            Object.assign(relationshipsRD, { payload: Object.assign(relationshipsRD.payload, { page: relatedItems } )}),
+          ),
         );
-      })
+      }),
     );

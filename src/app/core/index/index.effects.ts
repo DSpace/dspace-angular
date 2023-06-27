@@ -5,12 +5,12 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   AddToObjectCacheAction,
   ObjectCacheActionTypes,
-  RemoveFromObjectCacheAction
+  RemoveFromObjectCacheAction,
 } from '../cache/object-cache.actions';
 import {
   RequestActionTypes,
   RequestConfigureAction,
-  RequestStaleAction
+  RequestStaleAction,
 } from '../data/request.actions';
 import { AddToIndexAction, RemoveFromIndexByValueAction } from './index.actions';
 import { hasValue } from '../../shared/empty.util';
@@ -32,9 +32,9 @@ export class UUIDIndexEffects {
         return new AddToIndexAction(
           IndexName.OBJECT,
           action.payload.objectToCache.uuid,
-          action.payload.objectToCache._links.self.href
+          action.payload.objectToCache._links.self.href,
         );
-      })
+      }),
     ));
 
   /**
@@ -51,12 +51,12 @@ export class UUIDIndexEffects {
           return new AddToIndexAction(
             IndexName.ALTERNATIVE_OBJECT_LINK,
             alternativeLink,
-            selfLink
+            selfLink,
           );
         } else {
           return new NoOpAction();
         }
-      })
+      }),
     ));
 
   removeObject$ = createEffect(() => this.actions$
@@ -65,9 +65,9 @@ export class UUIDIndexEffects {
       map((action: RemoveFromObjectCacheAction) => {
         return new RemoveFromIndexByValueAction(
           IndexName.OBJECT,
-          action.payload
+          action.payload,
         );
-      })
+      }),
     ));
 
   addRequest$ = createEffect(() => this.actions$
@@ -79,9 +79,9 @@ export class UUIDIndexEffects {
         return this.store.pipe(
           select(uuidFromHrefSelector(href)),
           take(1),
-          map((uuid: string) => [action, uuid])
+          map((uuid: string) => [action, uuid]),
         );
-      }
+      },
       ),
       switchMap(([action, uuid]: [RequestConfigureAction, string]) => {
         let actions = [];
@@ -91,10 +91,10 @@ export class UUIDIndexEffects {
         actions = [...actions, new AddToIndexAction(
           IndexName.REQUEST,
           getUrlWithoutEmbedParams(action.payload.href),
-          action.payload.uuid
+          action.payload.uuid,
         )];
         return actions;
-      })
+      }),
     ));
 
   constructor(private actions$: Actions, private store: Store<CoreState>) {

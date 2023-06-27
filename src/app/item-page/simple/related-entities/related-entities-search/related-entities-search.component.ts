@@ -5,7 +5,7 @@ import { getFilterByRelation } from '../../../../shared/utils/relation-query.uti
 
 @Component({
   selector: 'ds-related-entities-search',
-  templateUrl: './related-entities-search.component.html'
+  templateUrl: './related-entities-search.component.html',
 })
 /**
  * A component to show related items as search results.

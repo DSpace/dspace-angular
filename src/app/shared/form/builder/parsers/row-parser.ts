@@ -19,7 +19,7 @@ import { SubmissionScopeType } from '../../../../core/submission/submission-scop
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 /**
@@ -52,7 +52,7 @@ export class RowParser {
       readOnly: readOnly,
       submissionScope: submissionScope,
       collectionUUID: scopeUUID,
-      typeField: typeField
+      typeField: typeField,
     };
 
     // Iterate over row's fields
@@ -67,14 +67,14 @@ export class RowParser {
             { provide: SUBMISSION_ID, useValue: submissionId },
             { provide: CONFIG_DATA, useValue: fieldData },
             { provide: INIT_FORM_VALUES, useValue: initFormValues },
-            { provide: PARSER_OPTIONS, useValue: parserOptions }
+            { provide: PARSER_OPTIONS, useValue: parserOptions },
           ],
-          parent: this.parentInjector
+          parent: this.parentInjector,
         });
 
         fieldModel = fieldInjector.get(FieldParser).parse();
       } else {
-        throw new Error(`unknown form control model type "${fieldData.input.type}" defined for Input field with label "${fieldData.label}".`,);
+        throw new Error(`unknown form control model type "${fieldData.input.type}" defined for Input field with label "${fieldData.label}".`);
       }
 
       if (fieldModel) {
@@ -109,7 +109,7 @@ export class RowParser {
       const clsGroup = {
         element: {
           control: 'form-row',
-        }
+        },
       };
       const groupModel = new DynamicRowGroupModel(config, clsGroup);
       if (Array.isArray(parsedResult)) {

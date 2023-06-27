@@ -8,7 +8,7 @@ import { hasValue } from '../empty.util';
 @Component({
   selector: 'ds-loading',
   styleUrls: ['./loading.component.scss'],
-  templateUrl: './loading.component.html'
+  templateUrl: './loading.component.html',
 })
 export class LoadingComponent implements OnDestroy, OnInit {
 

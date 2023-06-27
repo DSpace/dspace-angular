@@ -5,7 +5,7 @@ import { ItemRequest } from '../../core/shared/item-request.model';
 import { Observable } from 'rxjs';
 import {
   getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload
+  getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { AuthService } from '../../core/auth/auth.service';
@@ -19,7 +19,7 @@ import { redirectOn4xx } from '../../core/shared/authorized.operators';
 @Component({
   selector: 'ds-grant-deny-request-copy',
   styleUrls: ['./grant-deny-request-copy.component.scss'],
-  templateUrl: './grant-deny-request-copy.component.html'
+  templateUrl: './grant-deny-request-copy.component.html',
 })
 /**
  * Component for an author to decide to grant or deny an item request
@@ -86,11 +86,11 @@ export class GrantDenyRequestCopyComponent implements OnInit {
 
     this.denyRoute$ = this.itemRequestRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((itemRequest: ItemRequest) => getRequestCopyDenyRoute(itemRequest.token))
+      map((itemRequest: ItemRequest) => getRequestCopyDenyRoute(itemRequest.token)),
     );
     this.grantRoute$ = this.itemRequestRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((itemRequest: ItemRequest) => getRequestCopyGrantRoute(itemRequest.token))
+      map((itemRequest: ItemRequest) => getRequestCopyGrantRoute(itemRequest.token)),
     );
   }
 

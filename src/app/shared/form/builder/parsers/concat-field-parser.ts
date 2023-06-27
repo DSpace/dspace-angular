@@ -6,7 +6,7 @@ import {
   CONCAT_GROUP_SUFFIX,
   CONCAT_SECOND_INPUT_SUFFIX,
   DynamicConcatModel,
-  DynamicConcatModelConfig
+  DynamicConcatModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../empty.util';
 import { ParserOptions } from './parser-options';
@@ -15,7 +15,7 @@ import {
   FieldParser,
   INIT_FORM_VALUES,
   PARSER_OPTIONS,
-  SUBMISSION_ID
+  SUBMISSION_ID,
 } from './field-parser';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 
@@ -41,8 +41,8 @@ export class ConcatFieldParser extends FieldParser {
 
     const clsInput = {
       grid: {
-        host: 'col-sm-6'
-      }
+        host: 'col-sm-6',
+      },
     };
 
     const groupId = id.replace(/\./g, '_') + CONCAT_GROUP_SUFFIX;
@@ -56,14 +56,14 @@ export class ConcatFieldParser extends FieldParser {
       false,
       true,
       true,
-      false
+      false,
     );
     const input2ModelConfig: DsDynamicInputModelConfig = this.initModel(
       id + CONCAT_SECOND_INPUT_SUFFIX,
       false,
       true,
       true,
-      false
+      false,
     );
 
     input1ModelConfig.hideErrorMessages = true;
@@ -104,7 +104,7 @@ export class ConcatFieldParser extends FieldParser {
     const clsGroup = {
       element: {
         control: 'form-row',
-      }
+      },
     };
     const concatModel = new DynamicConcatModel(concatGroup, clsGroup);
     concatModel.name = this.getFieldId();

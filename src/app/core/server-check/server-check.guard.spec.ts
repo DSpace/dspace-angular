@@ -15,10 +15,10 @@ describe('ServerCheckGuard', () => {
 
   rootDataServiceStub = jasmine.createSpyObj('RootDataService', {
     checkServerAvailability: jasmine.createSpy('checkServerAvailability'),
-    invalidateRootCache: jasmine.createSpy('invalidateRootCache')
+    invalidateRootCache: jasmine.createSpy('invalidateRootCache'),
   });
   router = jasmine.createSpyObj('Router', {
-    navigateByUrl: jasmine.createSpy('navigateByUrl')
+    navigateByUrl: jasmine.createSpy('navigateByUrl'),
   });
 
   beforeEach(() => {
@@ -41,7 +41,7 @@ describe('ServerCheckGuard', () => {
 
     it('should not redirect to error page', () => {
       guard.canActivateChild({} as any, {} as any).pipe(
-        take(1)
+        take(1),
       ).subscribe((canActivate: boolean) => {
         expect(canActivate).toEqual(true);
         expect(rootDataServiceStub.invalidateRootCache).not.toHaveBeenCalled();
@@ -57,7 +57,7 @@ describe('ServerCheckGuard', () => {
 
     it('should redirect to error page', () => {
       guard.canActivateChild({} as any, {} as any).pipe(
-        take(1)
+        take(1),
       ).subscribe((canActivate: boolean) => {
         expect(canActivate).toEqual(false);
         expect(rootDataServiceStub.invalidateRootCache).toHaveBeenCalled();

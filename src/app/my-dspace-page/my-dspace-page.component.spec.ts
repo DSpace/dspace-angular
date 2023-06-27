@@ -20,24 +20,24 @@ describe('MyDSpacePageComponent', () => {
   let fixture: ComponentFixture<MyDSpacePageComponent>;
 
   const searchServiceStub: SpyObj<SearchService> = jasmine.createSpyObj('SearchService', {
-    setServiceOptions: jasmine.createSpy('setServiceOptions')
+    setServiceOptions: jasmine.createSpy('setServiceOptions'),
   });
 
   const myDSpaceConfigurationServiceStub: SpyObj<MyDSpaceConfigurationService> = jasmine.createSpyObj('MyDSpaceConfigurationService', {
-    getAvailableConfigurationOptions: jasmine.createSpy('getAvailableConfigurationOptions')
+    getAvailableConfigurationOptions: jasmine.createSpy('getAvailableConfigurationOptions'),
   });
 
   const configurationList = [
     {
       value: MyDSpaceConfigurationValueType.Workspace,
       label: `mydspace.show.${MyDSpaceConfigurationValueType.Workspace}`,
-      context: Context.Workspace
+      context: Context.Workspace,
     },
     {
       value: MyDSpaceConfigurationValueType.Workflow,
       label: `mydspace.show.${MyDSpaceConfigurationValueType.Workflow}`,
-      context: Context.Workflow
-    }
+      context: Context.Workflow,
+    },
   ];
 
   beforeEach(waitForAsync(() => {
@@ -48,16 +48,16 @@ describe('MyDSpacePageComponent', () => {
         { provide: SearchService, useValue: searchServiceStub },
         { provide: MyDSpaceConfigurationService, useValue: myDSpaceConfigurationServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MyDSpacePageComponent, {
       set: {
         providers: [
           {
             provide: SEARCH_CONFIG_SERVICE,
-            useValue: myDSpaceConfigurationServiceStub
-          }
-        ]
-      }
+            useValue: myDSpaceConfigurationServiceStub,
+          },
+        ],
+      },
     }).compileComponents();
   }));
 
@@ -77,7 +77,7 @@ describe('MyDSpacePageComponent', () => {
   it('should init properly context and configuration', fakeAsync(() => {
 
     expect(comp.configurationList$).toBeObservable(cold('(a|)', {
-      a: configurationList
+      a: configurationList,
     }));
 
     flush();

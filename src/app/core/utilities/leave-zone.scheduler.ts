@@ -9,7 +9,7 @@ export class LeaveZoneScheduler implements SchedulerLike {
 
   schedule(...args: any[]): Subscription {
     return this.zone.runOutsideAngular(() =>
-      this.scheduler.schedule.apply(this.scheduler, args)
+      this.scheduler.schedule.apply(this.scheduler, args),
     );
   }
 

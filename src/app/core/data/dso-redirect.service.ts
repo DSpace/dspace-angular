@@ -74,7 +74,7 @@ export class DsoRedirectService {
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    private hardRedirectService: HardRedirectService
+    private hardRedirectService: HardRedirectService,
   ) {
     this.dataService = new DsoByIdOrUUIDDataService(requestService, rdbService, objectCache, halService);
   }
@@ -102,7 +102,7 @@ export class DsoRedirectService {
             }
           }
         }
-      })
+      }),
     );
   }
 }

@@ -18,7 +18,7 @@ import { ThemeService } from '../../shared/theme-support/theme.service';
   selector: 'ds-admin-sidebar',
   templateUrl: './admin-sidebar.component.html',
   styleUrls: ['./admin-sidebar.component.scss'],
-  animations: [slideSidebar]
+  animations: [slideSidebar],
 })
 export class AdminSidebarComponent extends MenuComponent implements OnInit {
   /**
@@ -58,7 +58,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
     private authService: AuthService,
     public authorizationService: AuthorizationDataService,
     public route: ActivatedRoute,
-    protected themeService: ThemeService
+    protected themeService: ThemeService,
   ) {
     super(menuService, injector, authorizationService, route, themeService);
     this.inFocus$ = new BehaviorSubject(false);
@@ -83,13 +83,13 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       });
     this.sidebarExpanded = combineLatest([this.menuCollapsed, this.menuPreviewCollapsed])
       .pipe(
-        map(([collapsed, previewCollapsed]) => (!collapsed || !previewCollapsed))
+        map(([collapsed, previewCollapsed]) => (!collapsed || !previewCollapsed)),
       );
     this.inFocus$.pipe(
       debounceTime(50),
       distinctUntilChanged(),  // disregard focusout in situations like --(focusout)-(focusin)--
       withLatestFrom(
-        combineLatest([this.menuCollapsed, this.menuPreviewCollapsed])
+        combineLatest([this.menuCollapsed, this.menuPreviewCollapsed]),
       ),
     ).subscribe(([inFocus, [collapsed, previewCollapsed]]) => {
       if (collapsed) {

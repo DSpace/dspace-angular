@@ -8,7 +8,7 @@ import { Item } from '../../../../core/shared/item.model';
 @Component({
   selector: 'ds-person-list-element',
   styleUrls: ['./person-list-element.component.scss'],
-  templateUrl: './person-list-element.component.html'
+  templateUrl: './person-list-element.component.html',
 })
 /**
  * The component for displaying a list element for an item of the type Person

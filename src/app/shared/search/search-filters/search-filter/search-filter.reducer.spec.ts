@@ -7,7 +7,7 @@ import {
   SearchFilterIncrementPageAction,
   SearchFilterInitializeAction,
   SearchFilterResetPageAction,
-  SearchFilterToggleAction
+  SearchFilterToggleAction,
 } from './search-filter.actions';
 import { filterReducer } from './search-filter.reducer';
 

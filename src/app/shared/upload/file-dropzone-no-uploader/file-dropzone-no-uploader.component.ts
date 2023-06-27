@@ -14,7 +14,7 @@ import { UploaderOptions } from '../uploader/uploader-options.model';
 @Component({
   selector: 'ds-file-dropzone-no-uploader',
   templateUrl: './file-dropzone-no-uploader.component.html',
-  styleUrls: ['./file-dropzone-no-uploader.scss']
+  styleUrls: ['./file-dropzone-no-uploader.scss'],
 })
 export class FileDropzoneNoUploaderComponent implements OnInit {
 

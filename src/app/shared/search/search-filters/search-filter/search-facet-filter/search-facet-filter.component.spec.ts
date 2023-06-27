@@ -6,7 +6,7 @@ import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
-  SearchFilterService
+  SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { FilterType } from '../../../models/filter-type.model';
@@ -37,7 +37,7 @@ describe('SearchFacetFilterComponent', () => {
     filterType: FilterType.text,
     hasFacets: false,
     isOpenByDefault: false,
-    pageSize: 2
+    pageSize: 2,
   });
   const values: FacetValue[] = [
     {
@@ -46,37 +46,37 @@ describe('SearchFacetFilterComponent', () => {
       count: 52,
       _links: {
         self: {
-          href: ''
+          href: '',
         },
         search: {
-          href: ''
-        }
-      }
+          href: '',
+        },
+      },
     }, {
       label: value2,
       value: value2,
       count: 20,
       _links: {
         self: {
-          href: ''
+          href: '',
         },
         search: {
-          href: ''
-        }
-      }
+          href: '',
+        },
+      },
     }, {
       label: value3,
       value: value3,
       count: 5,
       _links: {
         self: {
-          href: ''
+          href: '',
         },
         search: {
-          href: ''
-        }
-      }
-    }
+          href: '',
+        },
+      },
+    },
   ];
 
   const searchLink = '/search';
@@ -108,14 +108,14 @@ describe('SearchFacetFilterComponent', () => {
             incrementPage: (filterName: string) => {
             },
             resetPage: (filterName: string) => {
-            }
+            },
             /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-          }
-        }
+          },
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFacetFilterComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -204,7 +204,7 @@ describe('SearchFacetFilterComponent', () => {
       comp.selectedValues$ = observableOf(selectedValues.map((value) =>
         Object.assign(new FacetValue(), {
           label: value,
-          value: value
+          value: value,
         })));
       fixture.detectChanges();
       spyOn(comp, 'getSearchLink').and.returnValue(searchUrl);
@@ -214,7 +214,7 @@ describe('SearchFacetFilterComponent', () => {
       comp.onSubmit(testValue + ',equals');
       expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
         queryParams: { [mockFilterConfig.paramName]: [...selectedValues.map((value) => `${value},equals`), `${testValue},equals`] },
-        queryParamsHandling: 'merge'
+        queryParamsHandling: 'merge',
       });
     });
 

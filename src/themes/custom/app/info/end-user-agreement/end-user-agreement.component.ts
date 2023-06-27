@@ -6,7 +6,7 @@ import { EndUserAgreementComponent as BaseComponent } from '../../../../../app/i
   // styleUrls: ['./end-user-agreement.component.scss'],
   styleUrls: ['../../../../../app/info/end-user-agreement/end-user-agreement.component.scss'],
   // templateUrl: './end-user-agreement.component.html'
-  templateUrl: '../../../../../app/info/end-user-agreement/end-user-agreement.component.html'
+  templateUrl: '../../../../../app/info/end-user-agreement/end-user-agreement.component.html',
 })
 
 /**

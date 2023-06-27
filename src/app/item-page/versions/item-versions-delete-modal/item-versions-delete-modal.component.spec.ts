@@ -15,7 +15,7 @@ describe('ItemVersionsDeleteModalComponent', () => {
       imports: [ TranslateModule.forRoot(), RouterTestingModule.withRoutes([]) ],
       providers: [
         { provide: NgbActiveModal },
-      ]
+      ],
     }).compileComponents();
   });
 

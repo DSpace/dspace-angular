@@ -26,9 +26,9 @@ export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> =
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: MyDSpaceConfigurationService
-    }
-  ]
+      useClass: MyDSpaceConfigurationService,
+    },
+  ],
 })
 export class MyDSpacePageComponent implements OnInit {
 

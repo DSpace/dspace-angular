@@ -41,9 +41,9 @@ describe('CreateComColPageComponent', () => {
       uuid: 'a20da287-e174-466a-9926-f66b9300d347',
       metadata: [{
         key: 'dc.title',
-        value: 'test community'
+        value: 'test community',
       }],
-      _links: {}
+      _links: {},
     });
 
     parentCommunity = Object.assign(new Community(), {
@@ -51,18 +51,18 @@ describe('CreateComColPageComponent', () => {
       id: 'a20da287-e174-466a-9926-f66as300d399',
       metadata: [{
         key: 'dc.title',
-        value: 'parent community'
+        value: 'parent community',
       }],
-      _links: {}
+      _links: {},
     });
 
     newCommunity = Object.assign(new Community(), {
       uuid: '1ff59938-a69a-4e62-b9a4-718569c55d48',
       metadata: [{
         key: 'dc.title',
-        value: 'new community'
+        value: 'new community',
       }],
-      _links: {}
+      _links: {},
     });
 
     communityDataServiceStub = {
@@ -70,22 +70,22 @@ describe('CreateComColPageComponent', () => {
         uuid: uuid,
         metadata: [{
           key: 'dc.title',
-          value: community.name
-        }]
+          value: community.name,
+        }],
       })),
       create: (com, uuid?) => createSuccessfulRemoteDataObject$(newCommunity),
       getLogoEndpoint: () => observableOf(logoEndpoint),
       findByHref: () => null,
       refreshCache: () => {
         return;
-      }
+      },
     };
 
     routeServiceStub = {
-      getQueryParameterValue: (param) => observableOf(community.uuid)
+      getQueryParameterValue: (param) => observableOf(community.uuid),
     };
     routerStub = {
-      navigate: (commands) => commands
+      navigate: (commands) => commands,
     };
 
     requestServiceStub = jasmine.createSpyObj('RequestService', {
@@ -104,9 +104,9 @@ describe('CreateComColPageComponent', () => {
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: routerStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: RequestService, useValue: requestServiceStub }
+        { provide: RequestService, useValue: requestServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -131,20 +131,20 @@ describe('CreateComColPageComponent', () => {
           dso: Object.assign(new Community(), {
             metadata: [{
               key: 'dc.title',
-              value: 'test'
-            }]
+              value: 'test',
+            }],
           }),
           _links: {},
           uploader: {
             options: {
-              url: ''
+              url: '',
             },
             queue: [],
             /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
             uploadAll: () => {
-            }
+            },
             /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
-          }
+          },
         };
       });
 
@@ -174,22 +174,22 @@ describe('CreateComColPageComponent', () => {
           dso: Object.assign(new Community(), {
             metadata: [{
               key: 'dc.title',
-              value: 'test'
-            }]
+              value: 'test',
+            }],
           }),
           _links: {},
           uploader: {
             options: {
-              url: ''
+              url: '',
             },
             queue: [
-              {}
+              {},
             ],
             /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
             uploadAll: () => {
-            }
+            },
             /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-          }
+          },
         };
       });
 

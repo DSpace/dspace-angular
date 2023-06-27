@@ -12,7 +12,7 @@ import { AuthService } from '../../core/auth/auth.service';
 @Component({
   selector: 'ds-collection-statistics-page',
   templateUrl: '../statistics-page/statistics-page.component.html',
-  styleUrls: ['./collection-statistics-page.component.scss']
+  styleUrls: ['./collection-statistics-page.component.scss'],
 })
 export class CollectionStatisticsPageComponent extends StatisticsPageComponent<Collection> {
 
@@ -31,7 +31,7 @@ export class CollectionStatisticsPageComponent extends StatisticsPageComponent<C
     protected router: Router,
     protected usageReportService: UsageReportDataService,
     protected nameService: DSONameService,
-    protected authService: AuthService
+    protected authService: AuthService,
   ) {
     super(
       route,

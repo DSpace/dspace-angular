@@ -35,7 +35,7 @@ export class CollectionGridElementComponent extends AbstractListableElementCompo
     if (hasValue(this._object) && hasNoValue(this._object.logo)) {
       this.linkService.resolveLink<Collection>(
         this._object,
-        followLink('logo')
+        followLink('logo'),
       );
     }
   }

@@ -14,8 +14,8 @@ import { controlContainerFactory } from '../../process-form.component';
   viewProviders: [{
     provide: ControlContainer,
     useFactory: controlContainerFactory,
-    deps: [[new Optional(), NgForm]]
-  }]
+    deps: [[new Optional(), NgForm]],
+  }],
 })
 export class ParameterSelectComponent {
   @Input() index: number;

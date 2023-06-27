@@ -18,7 +18,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-item-collection',
   styleUrls: ['./item-collection.component.scss'],
-  templateUrl: './item-collection.component.html'
+  templateUrl: './item-collection.component.html',
 })
 export class ItemCollectionComponent implements OnInit {
 
@@ -44,9 +44,9 @@ export class ItemCollectionComponent implements OnInit {
   ngOnInit() {
 
     this.linkService.resolveLinks(this.object, followLink('workflowitem', {
-      isOptional: true
+      isOptional: true,
     },
-    followLink('collection',{})
+    followLink('collection',{}),
     ));
     this.collection$ = (this.object.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
       getFirstCompletedRemoteData(),
@@ -60,7 +60,7 @@ export class ItemCollectionComponent implements OnInit {
               } else {
                 return null;
               }
-            })
+            }),
           );
         } else {
           return EMPTY;

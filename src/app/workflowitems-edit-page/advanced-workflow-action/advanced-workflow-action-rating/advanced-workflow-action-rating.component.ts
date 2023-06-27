@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  rendersAdvancedWorkflowTaskOption
+  rendersAdvancedWorkflowTaskOption,
 } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';

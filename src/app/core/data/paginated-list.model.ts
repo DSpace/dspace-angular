@@ -45,7 +45,7 @@ export const buildPaginatedList = <T>(pageInfo: PageInfo, page: T[], normalized 
   }
 
   result._links = Object.assign({}, _links, pageInfo._links, {
-    page: pageLinks
+    page: pageLinks,
   });
 
   if (!normalized || isUndefined(pageLinks)) {

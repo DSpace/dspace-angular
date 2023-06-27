@@ -10,33 +10,33 @@ const object = Object.assign(new ItemSearchResult(), {
     metadata: {
       'dspace.entity.type': [
         {
-          value: 'OrgUnit'
-        }
+          value: 'OrgUnit',
+        },
       ],
       'organization.legalName': [
         {
-          value: 'title'
-        }
+          value: 'title',
+        },
       ],
       'dc.description': [
         {
-          value: 'description'
-        }
-      ]
-    }
-  })
+          value: 'description',
+        },
+      ],
+    },
+  }),
 });
 const parent = Object.assign(new Collection(), {
   id: 'test-collection',
   metadata: {
     'dc.title': [
       {
-        value: 'parent title'
-      }
-    ]
-  }
+        value: 'parent title',
+      },
+    ],
+  },
 });
 
 describe('OrgUnitSidebarSearchListElementComponent',
-  createSidebarSearchListElementTests(OrgUnitSidebarSearchListElementComponent, object, parent, 'parent title', 'title', 'description')
+  createSidebarSearchListElementTests(OrgUnitSidebarSearchListElementComponent, object, parent, 'parent title', 'title', 'description'),
 );

@@ -31,7 +31,7 @@ let mockPoolTaskDataService: PoolTaskDataService;
 describe('ClaimedTaskActionsApproveComponent', () => {
   const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
   const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
-    submitTask: observableOf(new ProcessTaskResponse(true))
+    submitTask: observableOf(new ProcessTaskResponse(true)),
   });
 
   beforeEach(waitForAsync(() => {
@@ -55,9 +55,9 @@ describe('ClaimedTaskActionsApproveComponent', () => {
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
       ],
       declarations: [ClaimedTaskActionsApproveComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ClaimedTaskActionsApproveComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -92,7 +92,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
       spyOn(component, 'startActionExecution').and.returnValue(of(null));
 
       expectedBody = {
-        [component.option]: 'true'
+        [component.option]: 'true',
       };
 
       component.submitTask();
@@ -109,7 +109,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
     it('should call claimedTaskService\'s submitTask', (done) => {
 
       const expectedBody = {
-        [component.option]: 'true'
+        [component.option]: 'true',
       };
 
       component.actionExecution().subscribe(() => {

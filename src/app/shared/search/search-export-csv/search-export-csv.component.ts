@@ -43,20 +43,20 @@ export class SearchExportCsvComponent implements OnInit {
               private authorizationDataService: AuthorizationDataService,
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
-              private router: Router
+              private router: Router,
   ) {
   }
 
   ngOnInit(): void {
     const scriptExists$ = this.scriptDataService.findById('metadata-export-search').pipe(
       getFirstCompletedRemoteData(),
-      map((rd) => rd.isSuccess && hasValue(rd.payload))
+      map((rd) => rd.isSuccess && hasValue(rd.payload)),
     );
 
     const isAuthorized$ = this.authorizationDataService.isAuthorized(FeatureID.AdministratorOf);
 
     this.shouldShowButton$ = observableCombineLatest([scriptExists$, isAuthorized$]).pipe(
-      map(([scriptExists, isAuthorized]: [boolean, boolean]) => scriptExists && isAuthorized)
+      map(([scriptExists, isAuthorized]: [boolean, boolean]) => scriptExists && isAuthorized),
     );
   }
 
@@ -97,7 +97,7 @@ export class SearchExportCsvComponent implements OnInit {
     }
 
     this.scriptDataService.invoke('metadata-export-search', parameters, []).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<Process>) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get('metadata-export-search.submit.success'));

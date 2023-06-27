@@ -14,7 +14,7 @@ let fixture: ComponentFixture<BrowseEntryListElementComponent>;
 
 const mockValue: BrowseEntry = Object.assign(new BrowseEntry(), {
   type: 'browseEntry',
-  value: 'De Langhe Kristof'
+  value: 'De Langhe Kristof',
 });
 
 let paginationService;
@@ -23,11 +23,11 @@ const pageParam = 'bbm.page';
 
 function init() {
   paginationService = jasmine.createSpyObj('paginationService', {
-    getPageParam: pageParam
+    getPageParam: pageParam,
   });
 
   routeService = jasmine.createSpyObj('routeService', {
-    getQueryParameterValue: observableOf('1')
+    getQueryParameterValue: observableOf('1'),
   });
 }
 describe('BrowseEntryListElementComponent', () => {
@@ -42,9 +42,9 @@ describe('BrowseEntryListElementComponent', () => {
         {provide: RouteService, useValue: routeService},
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(BrowseEntryListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

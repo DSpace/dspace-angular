@@ -11,7 +11,7 @@ import { isNotEmpty } from '../../../../../shared/empty.util';
 @listableObjectComponent('JournalIssueSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)
 @Component({
   selector: 'ds-journal-issue-sidebar-search-list-element',
-  templateUrl: '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html'
+  templateUrl: '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html',
 })
 /**
  * Component displaying a list element for a {@link ItemSearchResult} of type "JournalIssue" within the context of

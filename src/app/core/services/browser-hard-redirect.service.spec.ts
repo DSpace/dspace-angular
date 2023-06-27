@@ -15,7 +15,7 @@ describe('BrowserHardRedirectService', () => {
       origin,
       replace: (url: string) => {
         mockLocation.href = url;
-      }
+      },
     } as Location;
     spyOn(mockLocation, 'replace');
 

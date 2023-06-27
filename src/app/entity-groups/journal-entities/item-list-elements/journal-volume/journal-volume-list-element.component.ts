@@ -8,7 +8,7 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
 @Component({
   selector: 'ds-journal-volume-list-element',
   styleUrls: ['./journal-volume-list-element.component.scss'],
-  templateUrl: './journal-volume-list-element.component.html'
+  templateUrl: './journal-volume-list-element.component.html',
 })
 /**
  * The component for displaying a list element for an item of the type Journal Volume

@@ -24,20 +24,20 @@ describe('LookupRelationService', () => {
   const optionsWithQuery = new PaginatedSearchOptions({ query: 'test-query' });
   const relationship = Object.assign(new RelationshipOptions(), {
     filter: 'test-filter',
-    configuration: 'test-configuration'
+    configuration: 'test-configuration',
   });
   const localResults = [
     Object.assign(new SearchResult(), {
       indexableObject: Object.assign(new Item(), {
         uuid: 'test-item-uuid',
-        handle: 'test-item-handle'
-      })
-    })
+        handle: 'test-item-handle',
+      }),
+    }),
   ];
   const externalSource = Object.assign(new ExternalSource(), {
     id: 'orcidV2',
     name: 'orcidV2',
-    hierarchical: false
+    hierarchical: false,
   });
   const searchServiceEndpoint = 'http://test-rest.com/server/api/core/search';
 
@@ -47,12 +47,12 @@ describe('LookupRelationService', () => {
         elementsPerPage: 1,
         totalElements: totalExternal,
         totalPages: totalExternal,
-        currentPage: 1
-      }), [{}]))
+        currentPage: 1,
+      }), [{}])),
     });
     searchService = jasmine.createSpyObj('searchService', {
       search: createSuccessfulRemoteDataObject$(createPaginatedList(localResults)),
-      getEndpoint: observableOf(searchServiceEndpoint)
+      getEndpoint: observableOf(searchServiceEndpoint),
     });
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring']);
     service = new LookupRelationService(externalSourceService, searchService, requestService);
@@ -77,7 +77,7 @@ describe('LookupRelationService', () => {
 
     it('should set the searchConfig to contain a fixedFilter and configuration', () => {
       expect(service.searchConfig).toEqual(Object.assign(new PaginatedSearchOptions({}), optionsWithQuery,
-        { fixedFilter: relationship.filter, configuration: relationship.searchConfiguration }
+        { fixedFilter: relationship.filter, configuration: relationship.searchConfiguration },
       ));
     });
   });

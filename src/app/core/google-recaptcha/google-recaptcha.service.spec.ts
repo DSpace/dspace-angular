@@ -16,23 +16,23 @@ describe('GoogleRecaptchaService', () => {
   const document = { documentElement: { lang: 'en' } } as Document;
   scriptElementMock = {
     set innerHTML(newVal) { /* noop */ },
-    get innerHTML() { return innerHTMLTestValue; }
+    get innerHTML() { return innerHTMLTestValue; },
   };
 
   function init() {
     window = new NativeWindowRef();
     rendererFactory2 = jasmine.createSpyObj('rendererFactory2', {
       createRenderer: observableOf('googleRecaptchaToken'),
-      createElement: scriptElementMock
+      createElement: scriptElementMock,
     });
     configurationDataService = jasmine.createSpyObj('configurationDataService', {
-      findByPropertyName: createSuccessfulRemoteDataObject$({ values: ['googleRecaptchaToken'] })
+      findByPropertyName: createSuccessfulRemoteDataObject$({ values: ['googleRecaptchaToken'] }),
     });
     cookieService = jasmine.createSpyObj('cookieService', {
       get: '{%22token_item%22:true%2C%22impersonation%22:true%2C%22redirect%22:true%2C%22language%22:true%2C%22klaro%22:true%2C%22has_agreed_end_user%22:true%2C%22google-analytics%22:true}',
       set: () => {
         /* empty */
-      }
+      },
     });
     service = new GoogleRecaptchaService(cookieService, document, window, rendererFactory2, configurationDataService);
   }

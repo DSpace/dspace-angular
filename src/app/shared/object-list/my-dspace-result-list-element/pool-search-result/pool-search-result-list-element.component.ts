@@ -10,7 +10,7 @@ import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import {
-  SearchResultListElementComponent
+  SearchResultListElementComponent,
 } from '../../search-result-list-element/search-result-list-element.component';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
@@ -70,7 +70,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
     protected truncatableService: TruncatableService,
     public dsoNameService: DSONameService,
     protected objectCache: ObjectCacheService,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(truncatableService, dsoNameService, appConfig);
   }
@@ -82,7 +82,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
     super.ngOnInit();
     this.linkService.resolveLinks(this.dso, followLink('workflowitem', {},
       followLink('item', {}, followLink('bundles')),
-      followLink('submitter')
+      followLink('submitter'),
     ), followLink('action'));
 
     (this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
@@ -91,7 +91,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
         if (wfiRD.hasSucceeded) {
           this.workflowitem$.next(wfiRD.payload);
           return (wfiRD.payload.item as Observable<RemoteData<Item>>).pipe(
-            getFirstCompletedRemoteData()
+            getFirstCompletedRemoteData(),
           );
         } else {
           return EMPTY;
@@ -101,7 +101,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
         if (isNotEmpty(itemRD) && itemRD.hasSucceeded) {
           this.item$.next(itemRD.payload);
         }
-      })
+      }),
     ).subscribe();
 
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;

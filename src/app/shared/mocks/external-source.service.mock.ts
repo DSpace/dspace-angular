@@ -9,15 +9,15 @@ export const externalSourceOrcid: ExternalSource = {
   hierarchical: false,
   _links: {
     entries: {
-      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/orcid/entries'
+      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/orcid/entries',
     },
     entityTypes: {
-      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/my_staff_db/entityTypes'
+      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/my_staff_db/entityTypes',
     },
     self: {
-      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/orcid'
-    }
-  }
+      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/orcid',
+    },
+  },
 };
 
 export const externalSourceCiencia: ExternalSource = {
@@ -27,15 +27,15 @@ export const externalSourceCiencia: ExternalSource = {
   hierarchical: false,
   _links: {
     entries: {
-      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/ciencia/entries'
+      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/ciencia/entries',
     },
     entityTypes: {
-      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/my_staff_db/entityTypes'
+      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/my_staff_db/entityTypes',
     },
     self: {
-      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/ciencia'
-    }
-  }
+      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/ciencia',
+    },
+  },
 };
 
 export const externalSourceMyStaffDb: ExternalSource = {
@@ -45,15 +45,15 @@ export const externalSourceMyStaffDb: ExternalSource = {
   hierarchical: false,
   _links: {
     entries: {
-      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/my_staff_db/entries'
+      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/my_staff_db/entries',
     },
     entityTypes: {
-      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/my_staff_db/entityTypes'
+      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/my_staff_db/entityTypes',
     },
     self: {
-      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/my_staff_db'
-    }
-  }
+      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/my_staff_db',
+    },
+  },
 };
 
 /**

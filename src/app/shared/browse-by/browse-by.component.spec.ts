@@ -18,11 +18,11 @@ import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import {
-  ListableObjectComponentLoaderComponent
+  ListableObjectComponentLoaderComponent,
 } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import {
-  BrowseEntryListElementComponent
+  BrowseEntryListElementComponent,
 } from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
 import {
   DEFAULT_CONTEXT,
@@ -52,7 +52,7 @@ import { AccessControlRoutingModule } from '../../access-control/access-control-
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
-  template: ''
+  template: '',
 })
 class MockThemedBrowseEntryListElementComponent {
 }
@@ -67,19 +67,19 @@ describe('BrowseByComponent', () => {
       metadata: [
         {
           key: 'dc.title',
-          value: 'First Fake Title'
-        }
-      ]
+          value: 'First Fake Title',
+        },
+      ],
     }),
     Object.assign(new Item(), {
       id: 'fakeId-2',
       metadata: [
         {
           key: 'dc.title',
-          value: 'Second Fake Title'
-        }
-      ]
-    })
+          value: 'Second Fake Title',
+        },
+      ],
+    }),
   ];
   const mockItemsRD$ = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockItems));
 
@@ -90,23 +90,23 @@ describe('BrowseByComponent', () => {
   });
 
   const linkHeadService = jasmine.createSpyObj('linkHeadService', {
-    addTag: ''
+    addTag: '',
   });
 
   const configurationDataService = jasmine.createSpyObj('configurationDataService', {
     findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
       name: 'test',
       values: [
-        'org.dspace.ctask.general.ProfileFormats = test'
-      ]
-    }))
+        'org.dspace.ctask.general.ProfileFormats = test',
+      ],
+    })),
   });
 
   const paginationConfig = Object.assign(new PaginationComponentOptions(), {
     id: 'test-pagination',
     currentPage: 1,
     pageSizeOptions: [5, 10, 15, 20],
-    pageSize: 15
+    pageSize: 15,
   });
   const paginationService = new PaginationServiceStub(paginationConfig);
 
@@ -124,11 +124,11 @@ describe('BrowseByComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
         RouterTestingModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
       ],
       declarations: [BrowseByComponent],
       providers: [
@@ -143,7 +143,7 @@ describe('BrowseByComponent', () => {
         { provide: SelectableListService, useValue: {} },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
     fixture = TestBed.createComponent(BrowseByComponent);
     comp = fixture.componentInstance;

@@ -16,7 +16,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-create-collection',
   styleUrls: ['./create-collection-page.component.scss'],
-  templateUrl: './create-collection-page.component.html'
+  templateUrl: './create-collection-page.component.html',
 })
 export class CreateCollectionPageComponent extends CreateComColPageComponent<Collection> {
   protected frontendURL = '/collections/';
@@ -30,7 +30,7 @@ export class CreateCollectionPageComponent extends CreateComColPageComponent<Col
     protected router: Router,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
-    protected requestService: RequestService
+    protected requestService: RequestService,
   ) {
     super(collectionDataService, dsoNameService, communityDataService, routeService, router, notificationsService, translate, requestService);
   }

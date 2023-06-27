@@ -7,7 +7,7 @@ import { ItemComponent } from '../../../../item-page/simple/item-types/shared/it
 @Component({
   selector: 'ds-journal',
   styleUrls: ['./journal.component.scss'],
-  templateUrl: './journal.component.html'
+  templateUrl: './journal.component.html',
 })
 /**
  * The component for displaying metadata and relations of an item of the type Journal

@@ -8,7 +8,7 @@ import {
   ObjectSelectionInitialSelectAction,
   ObjectSelectionResetAction,
   ObjectSelectionSelectAction,
-  ObjectSelectionSwitchAction
+  ObjectSelectionSwitchAction,
 } from './object-select.actions';
 import { of } from 'rxjs';
 
@@ -22,21 +22,21 @@ describe('ObjectSelectService', () => {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
-    select: of(true)
+    select: of(true),
   });
 
   const store: Store<ObjectSelectionsState> = jasmine.createSpyObj('store', {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
-    select: of(true)
+    select: of(true),
   });
 
   const appStore: Store<AppState> = jasmine.createSpyObj('appStore', {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-    select: of(true)
+    select: of(true),
   });
 
   beforeEach(() => {

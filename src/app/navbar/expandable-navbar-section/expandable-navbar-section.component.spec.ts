@@ -24,12 +24,12 @@ describe('ExpandableNavbarSectionComponent', () => {
         providers: [
           { provide: 'sectionDataProvider', useValue: {} },
           { provide: MenuService, useValue: menuService },
-          { provide: HostWindowService, useValue: new HostWindowServiceStub(800) }
-        ]
+          { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+        ],
       }).overrideComponent(ExpandableNavbarSectionComponent, {
         set: {
-          entryComponents: [TestComponent]
-        }
+          entryComponents: [TestComponent],
+        },
       })
         .compileComponents();
     }));
@@ -53,7 +53,7 @@ describe('ExpandableNavbarSectionComponent', () => {
         const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown'));
         sidebarToggler.triggerEventHandler('mouseenter', {
           preventDefault: () => {/**/
-          }
+          },
         });
       });
 
@@ -68,7 +68,7 @@ describe('ExpandableNavbarSectionComponent', () => {
         const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown'));
         sidebarToggler.triggerEventHandler('mouseleave', {
           preventDefault: () => {/**/
-          }
+          },
         });
       });
 
@@ -155,7 +155,7 @@ describe('ExpandableNavbarSectionComponent', () => {
         const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > a'));
         sidebarToggler.triggerEventHandler('click', {
           preventDefault: () => {/**/
-          }
+          },
         });
       });
 
@@ -173,12 +173,12 @@ describe('ExpandableNavbarSectionComponent', () => {
         providers: [
           { provide: 'sectionDataProvider', useValue: {} },
           { provide: MenuService, useValue: menuService },
-          { provide: HostWindowService, useValue: new HostWindowServiceStub(300) }
-        ]
+          { provide: HostWindowService, useValue: new HostWindowServiceStub(300) },
+        ],
       }).overrideComponent(ExpandableNavbarSectionComponent, {
         set: {
-          entryComponents: [TestComponent]
-        }
+          entryComponents: [TestComponent],
+        },
       })
         .compileComponents();
     }));
@@ -198,7 +198,7 @@ describe('ExpandableNavbarSectionComponent', () => {
         const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > a'));
         sidebarToggler.triggerEventHandler('mouseenter', {
           preventDefault: () => {/**/
-          }
+          },
         });
       });
 
@@ -213,7 +213,7 @@ describe('ExpandableNavbarSectionComponent', () => {
         const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > a'));
         sidebarToggler.triggerEventHandler('mouseleave', {
           preventDefault: () => {/**/
-          }
+          },
         });
       });
 
@@ -228,7 +228,7 @@ describe('ExpandableNavbarSectionComponent', () => {
         const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > a'));
         sidebarToggler.triggerEventHandler('click', {
           preventDefault: () => {/**/
-          }
+          },
         });
       });
 
@@ -243,7 +243,7 @@ describe('ExpandableNavbarSectionComponent', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 }

@@ -27,11 +27,11 @@ describe('AdminSidebarSectionComponent', () => {
           {provide: 'sectionDataProvider', useValue: {model: {link: 'google.com'}, icon: iconString}},
           {provide: MenuService, useValue: menuService},
           {provide: CSSVariableService, useClass: CSSVariableServiceStub},
-        ]
+        ],
       }).overrideComponent(AdminSidebarSectionComponent, {
         set: {
-          entryComponents: [TestComponent]
-        }
+          entryComponents: [TestComponent],
+        },
       })
         .compileComponents();
     }));
@@ -67,11 +67,11 @@ describe('AdminSidebarSectionComponent', () => {
           {provide: 'sectionDataProvider', useValue: {model: {link: 'google.com', disabled: true}, icon: iconString}},
           {provide: MenuService, useValue: menuService},
           {provide: CSSVariableService, useClass: CSSVariableServiceStub},
-        ]
+        ],
       }).overrideComponent(AdminSidebarSectionComponent, {
         set: {
-          entryComponents: [TestComponent]
-        }
+          entryComponents: [TestComponent],
+        },
       })
         .compileComponents();
     }));
@@ -102,7 +102,7 @@ describe('AdminSidebarSectionComponent', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 }

@@ -5,7 +5,7 @@ import {
   ObjectSelectionDeselectAction,
   ObjectSelectionInitialDeselectAction,
   ObjectSelectionInitialSelectAction, ObjectSelectionResetAction,
-  ObjectSelectionSelectAction, ObjectSelectionSwitchAction
+  ObjectSelectionSelectAction, ObjectSelectionSwitchAction,
 } from './object-select.actions';
 import { Observable } from 'rxjs';
 import { hasValue } from '../empty.util';
@@ -23,7 +23,7 @@ export class ObjectSelectService {
 
   constructor(
     private store: Store<ObjectSelectionListState>,
-    private appStore: Store<AppState>
+    private appStore: Store<AppState>,
   ) {
   }
 
@@ -41,7 +41,7 @@ export class ObjectSelectService {
         } else {
           return false;
         }
-      })
+      }),
     );
   }
 
@@ -57,7 +57,7 @@ export class ObjectSelectService {
         } else {
           return [];
         }
-      })
+      }),
     );
   }
 

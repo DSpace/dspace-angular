@@ -11,7 +11,7 @@ import {
   SubmissionDeleteRequest,
   SubmissionPatchRequest,
   SubmissionPostRequest,
-  SubmissionRequest
+  SubmissionRequest,
 } from '../data/request.models';
 import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
 
@@ -33,7 +33,7 @@ describe('SubmissionRestService test suite', () => {
     return new SubmissionRestService(
       rdbService,
       requestService,
-      halService
+      halService,
     );
   }
 

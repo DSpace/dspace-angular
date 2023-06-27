@@ -38,7 +38,7 @@ export interface ExternalSourceData {
 @Component({
   selector: 'ds-submission-import-external-searchbar',
   styleUrls: ['./submission-import-external-searchbar.component.scss'],
-  templateUrl: './submission-import-external-searchbar.component.html'
+  templateUrl: './submission-import-external-searchbar.component.html',
 })
 export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDestroy {
   /**
@@ -93,7 +93,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
   constructor(
     private externalService: ExternalSourceDataService,
     private cdr: ChangeDetectorRef,
-    protected windowService: HostWindowService
+    protected windowService: HostWindowService,
   ) {
   }
 
@@ -103,7 +103,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
   ngOnInit() {
     this.selectedElement = {
       id: '',
-      name: 'loading'
+      name: 'loading',
     };
     this.searchString = '';
     this.sourceList = [];
@@ -111,8 +111,8 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
       elementsPerPage: 5,
       currentPage: 1,
       searchParams: [
-        new RequestParam('entityType', this.initExternalSourceData.entity)
-      ]
+        new RequestParam('entityType', this.initExternalSourceData.entity),
+      ],
     });
     this.externalService.searchBy('findByEntityType', this.findListOptions).pipe(
       catchError(() => {
@@ -156,8 +156,8 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
         elementsPerPage: 5,
         currentPage: this.findListOptions.currentPage + 1,
         searchParams: [
-          new RequestParam('entityType', this.initExternalSourceData.entity)
-        ]
+          new RequestParam('entityType', this.initExternalSourceData.entity),
+        ],
       });
       this.externalService.searchBy('findByEntityType', this.findListOptions).pipe(
         catchError(() => {
@@ -167,7 +167,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
           return observableOf(paginatedListRD);
         }),
         getFirstSucceededRemoteData(),
-        tap(() => this.sourceListLoading = false)
+        tap(() => this.sourceListLoading = false),
       ).subscribe((externalSource: RemoteData<PaginatedList<ExternalSource>>) => {
         externalSource.payload.page.forEach((element) => {
           this.sourceList.push({ id: element.id, name: element.name });
@@ -186,8 +186,8 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
       {
         entity: this.initExternalSourceData.entity,
         sourceId: this.selectedElement.id,
-        query: this.searchString
-      }
+        query: this.searchString,
+      },
     );
   }
 

@@ -36,30 +36,30 @@ describe('RssComponent', () => {
       name: 'test-collection',
       _links: {
         mappedItems: {
-          href: 'https://rest.api/collections/ce41d451-97ed-4a9c-94a1-7de34f16a9f4/mappedItems'
+          href: 'https://rest.api/collections/ce41d451-97ed-4a9c-94a1-7de34f16a9f4/mappedItems',
         },
         self: {
-          href: 'https://rest.api/collections/ce41d451-97ed-4a9c-94a1-7de34f16a9f4'
-        }
-      }
+          href: 'https://rest.api/collections/ce41d451-97ed-4a9c-94a1-7de34f16a9f4',
+        },
+      },
     });
     configurationDataService = jasmine.createSpyObj('configurationDataService', {
       findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
         name: 'test',
         values: [
-          'org.dspace.ctask.general.ProfileFormats = test'
-        ]
-      }))
+          'org.dspace.ctask.general.ProfileFormats = test',
+        ],
+      })),
     });
     linkHeadService = jasmine.createSpyObj('linkHeadService', {
-      addTag: ''
+      addTag: '',
     });
     const mockCollectionRD: RemoteData<Collection> = createSuccessfulRemoteDataObject(mockCollection);
     const mockSearchOptions = observableOf(new PaginatedSearchOptions({
       pagination: Object.assign(new PaginationComponentOptions(), {
         id: 'search-page-configuration',
         pageSize: 10,
-        currentPage: 1
+        currentPage: 1,
       }),
     }));
     groupDataService = jasmine.createSpyObj('groupsDataService', {
@@ -69,7 +69,7 @@ describe('RssComponent', () => {
     });
     paginationService = new PaginationServiceStub();
     const searchConfigService = {
-      paginatedSearchOptions: mockSearchOptions
+      paginatedSearchOptions: mockSearchOptions,
     };
     TestBed.configureTestingModule({
       providers: [
@@ -78,9 +78,9 @@ describe('RssComponent', () => {
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
         { provide: PaginationService, useValue: paginationService },
-        { provide: Router, useValue: new RouterMock() }
+        { provide: Router, useValue: new RouterMock() },
       ],
-      declarations: [RSSComponent]
+      declarations: [RSSComponent],
     }).compileComponents();
   }));
 

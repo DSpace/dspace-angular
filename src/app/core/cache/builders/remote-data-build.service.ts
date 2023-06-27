@@ -77,7 +77,7 @@ export class RemoteDataBuildService {
           }
         }
         return [obj];
-      })
+      }),
     );
   }
 
@@ -151,7 +151,7 @@ export class RemoteDataBuildService {
           paginatedList.page = page
             .map((obj: any) => this.plainObjectToInstance<T>(obj))
             .map((obj: any) =>
-              this.linkService.resolveLinks(obj, ...pageLink.linksToFollow)
+              this.linkService.resolveLinks(obj, ...pageLink.linksToFollow),
             );
           if (isNotEmpty(otherLinks)) {
             return this.linkService.resolveLinks(paginatedList, ...otherLinks);
@@ -163,7 +163,7 @@ export class RemoteDataBuildService {
         paginatedList.page = paginatedList.page
           .map((obj: any) => this.plainObjectToInstance<T>(obj))
           .map((obj: any) =>
-            this.linkService.resolveLinks(obj, ...pageLink.linksToFollow)
+            this.linkService.resolveLinks(obj, ...pageLink.linksToFollow),
           );
         if (isNotEmpty(otherLinks)) {
           return observableOf(this.linkService.resolveLinks(paginatedList, ...otherLinks));
@@ -229,7 +229,7 @@ export class RemoteDataBuildService {
         } else {
           return [rd];
         }
-      })
+      }),
     );
   }
 
@@ -272,7 +272,7 @@ export class RemoteDataBuildService {
           return isStale(r2.state) ? r1 : r2;
         }
       }),
-      distinctUntilKeyChanged('lastUpdated')
+      distinctUntilKeyChanged('lastUpdated'),
     );
 
     const payload$ = this.buildPayload<T>(requestEntry$, href$, ...linksToFollow);
@@ -293,12 +293,12 @@ export class RemoteDataBuildService {
   toRemoteDataObservable<T>(requestEntry$: Observable<RequestEntry>, payload$: Observable<T>) {
     return observableCombineLatest([
       requestEntry$,
-      payload$
+      payload$,
     ]).pipe(
       filter(([entry,payload]: [RequestEntry, T]) =>
         hasValue(entry) &&
         // filter out cases where the state is successful, but the payload isn't yet set
-        !(hasSucceeded(entry.state) && isUndefined(payload))
+        !(hasSucceeded(entry.state) && isUndefined(payload)),
       ),
       map(([entry, payload]: [RequestEntry, T]) => {
         let response = entry.response;
@@ -313,9 +313,9 @@ export class RemoteDataBuildService {
           entry.state,
           response.errorMessage,
           payload,
-          response.statusCode
+          response.statusCode,
         );
-      })
+      }),
     );
   }
 
@@ -406,7 +406,7 @@ export class RemoteDataBuildService {
           state,
           errorMessage,
           payload,
-          statusCode
+          statusCode,
         );
       }));
   }

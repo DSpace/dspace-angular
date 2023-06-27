@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-tabbed-related-entities-search',
-  templateUrl: './tabbed-related-entities-search.component.html'
+  templateUrl: './tabbed-related-entities-search.component.html',
 })
 /**
  * A component to show related items as search results, split into tabs by relationship-type
@@ -55,7 +55,7 @@ export class TabbedRelatedEntitiesSearchComponent implements OnInit {
    */
   ngOnInit(): void {
     this.activeTab$ = this.route.queryParams.pipe(
-      map((params) => params.tab)
+      map((params) => params.tab),
     );
   }
 
@@ -67,9 +67,9 @@ export class TabbedRelatedEntitiesSearchComponent implements OnInit {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: {
-        tab: event.nextId
+        tab: event.nextId,
       },
-      queryParamsHandling: 'merge'
+      queryParamsHandling: 'merge',
     });
   }
 

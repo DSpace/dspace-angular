@@ -13,7 +13,7 @@ export class TranslateServerLoader implements TranslateLoader {
   constructor(
     protected transferState: TransferState,
     protected prefix: string = 'dist/assets/i18n/',
-    protected suffix: string = '.json'
+    protected suffix: string = '.json',
   ) {
   }
 
@@ -43,7 +43,7 @@ export class TranslateServerLoader implements TranslateLoader {
   protected storeInTransferState(lang: string, messages) {
     const prevState = this.transferState.get<NgxTranslateState>(NGX_TRANSLATE_STATE, {});
     const nextState = Object.assign({}, prevState, {
-      [lang]: messages
+      [lang]: messages,
     });
     this.transferState.set(NGX_TRANSLATE_STATE, nextState);
   }

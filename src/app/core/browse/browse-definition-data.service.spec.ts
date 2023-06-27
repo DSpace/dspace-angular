@@ -18,7 +18,7 @@ describe(`BrowseDefinitionDataService`, () => {
   const options = new FindListOptions();
   const linksToFollow = [
     followLink('entries'),
-    followLink('items')
+    followLink('items'),
   ];
 
   function initTestService() {

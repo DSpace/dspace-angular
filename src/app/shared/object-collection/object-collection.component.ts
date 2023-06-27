@@ -197,7 +197,7 @@ export class ObjectCollectionComponent implements OnInit {
       .queryParams
       .pipe(
         map((params) => isEmpty(params?.view) ? ViewMode.ListElement : params.view),
-        distinctUntilChanged()
+        distinctUntilChanged(),
       );
     if (isPlatformBrowser(this.platformId)) {
       const width = this.elementRef.nativeElement.offsetWidth;

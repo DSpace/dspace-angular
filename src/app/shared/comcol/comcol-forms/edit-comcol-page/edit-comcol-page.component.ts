@@ -13,7 +13,7 @@ import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
  */
 @Component({
   selector: 'ds-edit-comcol',
-  template: ''
+  template: '',
 })
 export class EditComColPageComponent<TDomain extends DSpaceObject> implements OnInit {
   /**
@@ -43,7 +43,7 @@ export class EditComColPageComponent<TDomain extends DSpaceObject> implements On
 
   public constructor(
     protected router: Router,
-    protected route: ActivatedRoute
+    protected route: ActivatedRoute,
   ) {
     this.router.events.subscribe(() => this.initPageParamsByRoute());
   }

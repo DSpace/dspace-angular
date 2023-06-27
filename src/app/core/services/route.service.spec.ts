@@ -26,7 +26,7 @@ describe('RouteService', () => {
 
   const store: any = jasmine.createSpyObj('store', {
     dispatch: jasmine.createSpy('dispatch'),
-    select: jasmine.createSpy('select')
+    select: jasmine.createSpy('select'),
   });
 
   const router = new RouterMock();
@@ -43,12 +43,12 @@ describe('RouteService', () => {
           useValue: {
             queryParams: observableOf(paramObject),
             params: observableOf(paramObject),
-            queryParamMap: observableOf(convertToParamMap(paramObject))
+            queryParamMap: observableOf(convertToParamMap(paramObject)),
           },
         },
         { provide: Router, useValue: router },
         { provide: Store, useValue: store },
-      ]
+      ],
     });
   }));
 
@@ -129,7 +129,7 @@ describe('RouteService', () => {
 
       serviceAsAny.router.events = hot('a-b', {
         a: new NavigationEnd(0, 'url', 'url'),
-        b: new NavigationEnd(1, 'newurl', 'newurl')
+        b: new NavigationEnd(1, 'newurl', 'newurl'),
       });
 
       scheduler.schedule(() => service.saveRouting());
@@ -144,8 +144,8 @@ describe('RouteService', () => {
     it('should dispatch AddUrlToHistoryAction on NavigationEnd event', () => {
       serviceAsAny.store = observableOf({
         core: {
-          history: ['url', 'newurl']
-        }
+          history: ['url', 'newurl'],
+        },
       });
 
       service.getHistory().subscribe((history) => {
@@ -158,8 +158,8 @@ describe('RouteService', () => {
     it('should return an observable with the current url', () => {
       serviceAsAny.store = observableOf({
         core: {
-          history: ['url', 'newurl']
-        }
+          history: ['url', 'newurl'],
+        },
       });
 
       service.getCurrentUrl().subscribe((history) => {
@@ -172,8 +172,8 @@ describe('RouteService', () => {
     it('should return an observable with the previous url', () => {
       serviceAsAny.store = observableOf({
         core: {
-          history: ['url', 'newurl']
-        }
+          history: ['url', 'newurl'],
+        },
       });
 
       service.getPreviousUrl().subscribe((history) => {

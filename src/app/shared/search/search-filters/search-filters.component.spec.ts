@@ -20,13 +20,13 @@ describe('SearchFiltersComponent', () => {
     getClearFiltersQueryParams: () => {
     },
     getSearchLink: () => {
-    }
+    },
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   };
 
   const searchFiltersStub = {
     getSelectedValuesForFilter: (filter) =>
-      []
+      [],
   };
 
   beforeEach(waitForAsync(() => {
@@ -39,9 +39,9 @@ describe('SearchFiltersComponent', () => {
         { provide: SearchFilterService, useValue: searchFiltersStub },
 
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFiltersComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

@@ -9,7 +9,7 @@ import { RestRequest } from './rest-request.model';
  * text of the response, and ignore anything else that might be there
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StatusCodeOnlyResponseParsingService implements ResponseParsingService {
 

@@ -21,44 +21,44 @@ import { BatchImportPageComponent } from './admin-import-batch-page/batch-import
         path: 'search',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: AdminSearchPageComponent,
-        data: { title: 'admin.search.title', breadcrumbKey: 'admin.search' }
+        data: { title: 'admin.search.title', breadcrumbKey: 'admin.search' },
       },
       {
         path: 'workflow',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: AdminWorkflowPageComponent,
-        data: { title: 'admin.workflow.title', breadcrumbKey: 'admin.workflow' }
+        data: { title: 'admin.workflow.title', breadcrumbKey: 'admin.workflow' },
       },
       {
         path: 'curation-tasks',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: AdminCurationTasksComponent,
-        data: { title: 'admin.curation-tasks.title', breadcrumbKey: 'admin.curation-tasks' }
+        data: { title: 'admin.curation-tasks.title', breadcrumbKey: 'admin.curation-tasks' },
       },
       {
         path: 'metadata-import',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: MetadataImportPageComponent,
-        data: { title: 'admin.metadata-import.title', breadcrumbKey: 'admin.metadata-import' }
+        data: { title: 'admin.metadata-import.title', breadcrumbKey: 'admin.metadata-import' },
       },
       {
         path: 'batch-import',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: BatchImportPageComponent,
-        data: { title: 'admin.batch-import.title', breadcrumbKey: 'admin.batch-import' }
+        data: { title: 'admin.batch-import.title', breadcrumbKey: 'admin.batch-import' },
       },
       {
         path: 'system-wide-alert',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         loadChildren: () => import('../system-wide-alert/system-wide-alert.module').then((m) => m.SystemWideAlertModule),
-        data: {title: 'admin.system-wide-alert.title', breadcrumbKey: 'admin.system-wide-alert'}
+        data: {title: 'admin.system-wide-alert.title', breadcrumbKey: 'admin.system-wide-alert'},
       },
-    ])
+    ]),
   ],
   providers: [
     I18nBreadcrumbResolver,
-    I18nBreadcrumbsService
-  ]
+    I18nBreadcrumbsService,
+  ],
 })
 export class AdminRoutingModule {
 

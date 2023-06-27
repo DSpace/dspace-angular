@@ -18,15 +18,15 @@ describe('ParameterSelectComponent', () => {
         new ScriptParameter(),
         {
           name: '-a',
-          type: ScriptParameterType.BOOLEAN
-        }
+          type: ScriptParameterType.BOOLEAN,
+        },
       ),
       Object.assign(
         new ScriptParameter(),
         {
           name: '-f',
-          type: ScriptParameterType.FILE
-        }
+          type: ScriptParameterType.FILE,
+        },
       ),
     ];
   }
@@ -35,7 +35,7 @@ describe('ParameterSelectComponent', () => {
     TestBed.configureTestingModule({
       imports: [FormsModule],
       declarations: [ParameterSelectComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

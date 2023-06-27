@@ -8,7 +8,7 @@ import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 /**
  * A guard responsible for redirecting to 4xx pages upon retrieving a Registration object

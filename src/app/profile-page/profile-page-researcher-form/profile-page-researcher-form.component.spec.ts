@@ -39,17 +39,17 @@ describe('ProfilePageResearcherFormComponent', () => {
   function init() {
 
     user = Object.assign(new EPerson(), {
-      id: 'beef9946-f4ce-479e-8f11-b90cbe9f7241'
+      id: 'beef9946-f4ce-479e-8f11-b90cbe9f7241',
     });
 
     profile = Object.assign(new ResearcherProfile(), {
       id: 'beef9946-f4ce-479e-8f11-b90cbe9f7241',
       visible: false,
-      type: 'profile'
+      type: 'profile',
     });
 
     authService = jasmine.createSpyObj('authService', {
-      getAuthenticatedUserFromStore: observableOf(user)
+      getAuthenticatedUserFromStore: observableOf(user),
     });
 
     researcherProfileService = jasmine.createSpyObj('researcherProfileService', {
@@ -57,7 +57,7 @@ describe('ProfilePageResearcherFormComponent', () => {
       create: observableOf(profile),
       setVisibility: jasmine.createSpy('setVisibility'),
       delete: observableOf(true),
-      findRelatedItemId: observableOf('a42557ca-cbb8-4442-af9c-3bb5cad2d075')
+      findRelatedItemId: observableOf('a42557ca-cbb8-4442-af9c-3bb5cad2d075'),
     });
 
     notificationsServiceStub = new NotificationsServiceStub();
@@ -78,9 +78,9 @@ describe('ProfilePageResearcherFormComponent', () => {
         { provide: ResearcherProfileDataService, useValue: researcherProfileService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: ProfileClaimService, useValue: profileClaimService },
-        { provide: AuthService, useValue: authService }
+        { provide: AuthService, useValue: authService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

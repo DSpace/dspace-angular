@@ -12,7 +12,7 @@ import { ProcessPageSharedModule } from './process-page-shared.module';
   declarations: [
   ],
   providers: [
-  ]
+  ],
 })
 
 export class ProcessPageModule {

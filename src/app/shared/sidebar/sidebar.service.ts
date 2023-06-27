@@ -37,9 +37,9 @@ export class SidebarService {
   get isCollapsed(): Observable<boolean> {
     return observableCombineLatest(
       this.isXsOrSm$,
-      this.isCollapsedInStore
+      this.isCollapsedInStore,
     ).pipe(
-      map(([mobile, store]) => mobile ? store : true)
+      map(([mobile, store]) => mobile ? store : true),
     );
   }
 

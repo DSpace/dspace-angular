@@ -43,7 +43,7 @@ import {
   SubmissionObjectAction,
   SubmissionObjectActionTypes,
   UpdateSectionDataAction,
-  UpdateSectionDataSuccessAction
+  UpdateSectionDataSuccessAction,
 } from './submission-objects.actions';
 import { SubmissionObjectEntry } from './submission-objects.reducer';
 import { Item } from '../../core/shared/item.model';
@@ -90,8 +90,8 @@ export class SubmissionObjectEffects {
             sectionDefinition.visibility,
             enabled,
             sectionData,
-            sectionErrors
-          )
+            sectionErrors,
+          ),
         );
       });
       return { action: action, definition: definition, mappedActions: mappedActions };
@@ -99,7 +99,7 @@ export class SubmissionObjectEffects {
     mergeMap((result) => {
       return observableFrom(
         result.mappedActions.concat(
-          new CompleteInitSubmissionFormAction(result.action.payload.submissionId)
+          new CompleteInitSubmissionFormAction(result.action.payload.submissionId),
         ));
     })));
 
@@ -116,7 +116,7 @@ export class SubmissionObjectEffects {
         action.payload.submissionDefinition,
         action.payload.sections,
         action.payload.item,
-        null
+        null,
       ))));
 
   /**
@@ -212,7 +212,7 @@ export class SubmissionObjectEffects {
       } else {
         response$ = this.submissionObjectService.findById(action.payload.submissionId, false, true).pipe(
           getFirstSucceededRemoteDataPayload(),
-          map((submissionObject: SubmissionObject) => [submissionObject])
+          map((submissionObject: SubmissionObject) => [submissionObject]),
         );
       }
       return response$.pipe(
@@ -224,7 +224,7 @@ export class SubmissionObjectEffects {
               null,
               this.translate.instant('submission.sections.general.cannot_deposit'),
               null,
-              true
+              true,
             );
             return new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, false, true);
           }
@@ -292,7 +292,7 @@ export class SubmissionObjectEffects {
       if (section.sectionType === SectionsType.SubmissionForm) {
         const submissionObject$ = this.submissionObjectService
           .findById(action.payload.submissionId, true, false, followLink('item')).pipe(
-            getFirstSucceededRemoteDataPayload()
+            getFirstSucceededRemoteDataPayload(),
           );
 
         const item$ = submissionObject$.pipe(
@@ -303,7 +303,7 @@ export class SubmissionObjectEffects {
         return item$.pipe(
           map((item: Item) => item.metadata),
           filter((metadata) => !isEqual(action.payload.data, metadata)),
-          map((metadata: any) => new UpdateSectionDataAction(action.payload.submissionId, action.payload.sectionId, metadata, action.payload.errorsToShow, action.payload.serverValidationErrors, action.payload.metadata))
+          map((metadata: any) => new UpdateSectionDataAction(action.payload.submissionId, action.payload.sectionId, metadata, action.payload.errorsToShow, action.payload.serverValidationErrors, action.payload.metadata)),
         );
       } else {
         return observableOf(new UpdateSectionDataSuccessAction());

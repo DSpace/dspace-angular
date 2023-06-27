@@ -16,7 +16,7 @@ import { Collection } from '../../core/shared/collection.model';
 import { COLLECTION } from '../../core/shared/collection.resource-type';
 import {
   createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../remote-data.utils';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { ThemeService } from './theme.service';
@@ -63,12 +63,12 @@ describe('ThemeService', () => {
       Object.assign(new Collection(), {
         type: COLLECTION.value,
         uuid: 'collection-uuid',
-        _links: { owningCommunity: { href: 'owning-community-link' } }
+        _links: { owningCommunity: { href: 'owning-community-link' } },
       }),
       Object.assign(new Community(), {
         type: COMMUNITY.value,
         uuid: 'sub-community-uuid',
-        _links: { parentCommunity: { href: 'parent-community-link' } }
+        _links: { parentCommunity: { href: 'parent-community-link' } },
       }),
       mockCommunity,
     ];
@@ -83,7 +83,7 @@ describe('ThemeService', () => {
   function setupServiceWithActions(mockActions) {
     init();
     const mockDsoService = {
-      findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
+      findById: () => createSuccessfulRemoteDataObject$(mockCommunity),
     };
     TestBed.configureTestingModule({
       imports: [
@@ -96,7 +96,7 @@ describe('ThemeService', () => {
         provideMockActions(() => mockActions),
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: Router, useValue: new RouterMock() },
-      ]
+      ],
     });
 
     themeService = TestBed.inject(ThemeService);
@@ -124,7 +124,7 @@ describe('ThemeService', () => {
               type: ROUTER_NAVIGATED,
               payload: { routerState: { url } },
             },
-          })
+          }),
         );
         spyOnPrivateMethods();
       });
@@ -152,7 +152,7 @@ describe('ThemeService', () => {
               type: ROUTER_NAVIGATED,
               payload: { routerState: { url } },
             },
-          })
+          }),
         );
         (themeService as any).themes = [];
       });
@@ -182,13 +182,13 @@ describe('ThemeService', () => {
               type: ROUTER_NAVIGATED,
               payload: { routerState: { url } },
             },
-          })
+          }),
         );
         spyOnPrivateMethods();
         snapshot = Object.assign({
           data: {
-            dso: createSuccessfulRemoteDataObject(dso)
-          }
+            dso: createSuccessfulRemoteDataObject(dso),
+          },
         });
       });
 
@@ -224,13 +224,13 @@ describe('ThemeService', () => {
               type: ROUTER_NAVIGATED,
               payload: { routerState: { url } },
             },
-          })
+          }),
         );
         spyOnPrivateMethods();
         snapshot = Object.assign({
           queryParams: {
-            scope: mockCommunity.uuid
-          }
+            scope: mockCommunity.uuid,
+          },
         });
       });
 
@@ -283,13 +283,13 @@ describe('ThemeService', () => {
 
       beforeEach(() => {
         nonMatchingTheme = Object.assign(new Theme({ name: 'non-matching-theme' }), {
-          matches: () => false
+          matches: () => false,
         });
         itemMatchingTheme = Object.assign(new Theme({ name: 'item-matching-theme' }), {
-          matches: (url, dso) => (dso as any).type === ITEM.value
+          matches: (url, dso) => (dso as any).type === ITEM.value,
         });
         communityMatchingTheme = Object.assign(new Theme({ name: 'community-matching-theme' }), {
-          matches: (url, dso) => (dso as any).type === COMMUNITY.value
+          matches: (url, dso) => (dso as any).type === COMMUNITY.value,
         });
         dsos = [
           Object.assign(new Item(), {
@@ -351,7 +351,7 @@ describe('ThemeService', () => {
         });
 
         observableOf(dso).pipe(
-          (themeService as any).getAncestorDSOs()
+          (themeService as any).getAncestorDSOs(),
         ).subscribe((result) => {
           expect(result).toEqual([dso, ...ancestorDSOs]);
           done();
@@ -365,7 +365,7 @@ describe('ThemeService', () => {
         };
 
         observableOf(dso).pipe(
-          (themeService as any).getAncestorDSOs()
+          (themeService as any).getAncestorDSOs(),
         ).subscribe((result) => {
           expect(result).toEqual([dso]);
           done();
@@ -380,7 +380,7 @@ describe('ThemeService', () => {
 
     beforeEach(() => {
       const mockDsoService = {
-        findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
+        findById: () => createSuccessfulRemoteDataObject$(mockCommunity),
       };
 
       TestBed.configureTestingModule({
@@ -393,7 +393,7 @@ describe('ThemeService', () => {
           provideMockStore({ initialState }),
           { provide: DSpaceObjectDataService, useValue: mockDsoService },
           { provide: Router, useValue: new RouterMock() },
-        ]
+        ],
       });
 
       document = TestBed.inject(DOCUMENT);

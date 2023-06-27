@@ -9,7 +9,7 @@ import {
   OnInit,
   Output,
   SimpleChanges,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 
 import { Subscription, combineLatest, of as observableOf, Observable } from 'rxjs';
@@ -29,7 +29,7 @@ import { ThemeService } from '../../../theme-support/theme.service';
 @Component({
   selector: 'ds-listable-object-component-loader',
   styleUrls: ['./listable-object-component-loader.component.scss'],
-  templateUrl: './listable-object-component-loader.component.html'
+  templateUrl: './listable-object-component-loader.component.html',
 })
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
@@ -163,8 +163,8 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
     this.compRef = viewContainerRef.createComponent(
       component, {
         index: 0,
-        injector: undefined
-      }
+        injector: undefined,
+      },
     );
 
     if (hasValue(changes)) {

@@ -39,11 +39,11 @@ const ENTRY_COMPONENTS = [
   declarations: [
     BrowseBySwitcherComponent,
     ThemedBrowseBySwitcherComponent,
-    ...ENTRY_COMPONENTS
+    ...ENTRY_COMPONENTS,
   ],
   exports: [
-    BrowseBySwitcherComponent
-  ]
+    BrowseBySwitcherComponent,
+  ],
 })
 export class BrowseByModule {
   /**
@@ -53,7 +53,7 @@ export class BrowseByModule {
   static withEntryComponents() {
     return {
       ngModule: SharedBrowseByModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component})),
     };
   }
 }

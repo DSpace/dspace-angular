@@ -13,30 +13,30 @@ import { ItemPageModule } from '../../app/item-page/item-page.module';
 import { FooterComponent } from './app/footer/footer.component';
 import { JournalComponent } from './app/entity-groups/journal-entities/item-pages/journal/journal.component';
 import {
-  JournalIssueComponent
+  JournalIssueComponent,
 } from './app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component';
 import {
-  JournalVolumeComponent
+  JournalVolumeComponent,
 } from './app/entity-groups/journal-entities/item-pages/journal-volume/journal-volume.component';
 import { UntypedItemComponent } from './app/item-page/simple/item-types/untyped-item/untyped-item.component';
 import { ItemSharedModule } from '../../app/item-page/item-shared.module';
 import {
-  CreateCollectionParentSelectorComponent
+  CreateCollectionParentSelectorComponent,
 } from './app/shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 import {
-  CreateCommunityParentSelectorComponent
+  CreateCommunityParentSelectorComponent,
 } from './app/shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
 import {
-  CreateItemParentSelectorComponent
+  CreateItemParentSelectorComponent,
 } from './app/shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import {
-  EditCollectionSelectorComponent
+  EditCollectionSelectorComponent,
 } from './app/shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 import {
-  EditCommunitySelectorComponent
+  EditCommunitySelectorComponent,
 } from './app/shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import {
-  EditItemSelectorComponent
+  EditItemSelectorComponent,
 } from './app/shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
 import { CollectionListElementComponent} from './app/shared/object-list/collection-list-element/collection-list-element.component';
@@ -48,10 +48,10 @@ import { FileDownloadLinkComponent } from './app/shared/file-download-link/file-
 import { StartsWithDateComponent } from './app/shared/starts-with/date/starts-with-date.component';
 import { StartsWithTextComponent } from './app/shared/starts-with/text/starts-with-text.component';
 import {
-  PublicationSidebarSearchListElementComponent
+  PublicationSidebarSearchListElementComponent,
 } from './app/shared/object-list/sidebar-search-list-element/item-types/publication-sidebar-search-list-element.component';
 import {
-  ItemSearchResultListElementComponent
+  ItemSearchResultListElementComponent,
 } from './app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { TopLevelCommunityListComponent } from './app/home-page/top-level-community-list/top-level-community-list.component';
 
@@ -107,7 +107,7 @@ const DECLARATIONS = [
   ],
   declarations: DECLARATIONS,
   providers: [
-    ...ENTRY_COMPONENTS.map((component) => ({provide: component}))
+    ...ENTRY_COMPONENTS.map((component) => ({provide: component})),
   ],
 })
 /**

@@ -26,7 +26,7 @@ export class DsoEditMenuComponent extends MenuComponent {
               protected injector: Injector,
               public authorizationService: AuthorizationDataService,
               public route: ActivatedRoute,
-              protected themeService: ThemeService
+              protected themeService: ThemeService,
   ) {
     super(menuService, injector, authorizationService, route, themeService);
   }

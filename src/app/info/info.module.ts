@@ -25,7 +25,7 @@ const DECLARATIONS = [
   FeedbackComponent,
   FeedbackFormComponent,
   ThemedFeedbackFormComponent,
-  ThemedFeedbackComponent
+  ThemedFeedbackComponent,
 ];
 
 @NgModule({
@@ -35,12 +35,12 @@ const DECLARATIONS = [
     InfoRoutingModule,
   ],
   declarations: [
-    ...DECLARATIONS
+    ...DECLARATIONS,
   ],
   exports: [
-    ...DECLARATIONS
+    ...DECLARATIONS,
   ],
-  providers: [FeedbackGuard]
+  providers: [FeedbackGuard],
 })
 export class InfoModule {
 }

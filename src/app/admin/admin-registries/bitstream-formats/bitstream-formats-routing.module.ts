@@ -14,28 +14,28 @@ const BITSTREAMFORMAT_ADD_PATH = 'add';
     RouterModule.forChild([
       {
         path: '',
-        component: BitstreamFormatsComponent
+        component: BitstreamFormatsComponent,
       },
       {
         path: BITSTREAMFORMAT_ADD_PATH,
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: AddBitstreamFormatComponent,
-        data: {breadcrumbKey: 'admin.registries.bitstream-formats.create'}
+        data: {breadcrumbKey: 'admin.registries.bitstream-formats.create'},
       },
       {
         path: BITSTREAMFORMAT_EDIT_PATH,
         component: EditBitstreamFormatComponent,
         resolve: {
           bitstreamFormat: BitstreamFormatsResolver,
-          breadcrumb: I18nBreadcrumbResolver
+          breadcrumb: I18nBreadcrumbResolver,
         },
-        data: {breadcrumbKey: 'admin.registries.bitstream-formats.edit'}
+        data: {breadcrumbKey: 'admin.registries.bitstream-formats.edit'},
       },
-    ])
+    ]),
   ],
   providers: [
     BitstreamFormatsResolver,
-  ]
+  ],
 })
 export class BitstreamFormatsRoutingModule {
 

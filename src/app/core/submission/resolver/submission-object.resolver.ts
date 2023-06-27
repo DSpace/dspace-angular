@@ -34,7 +34,7 @@ export class SubmissionObjectResolver<T> implements Resolve<RemoteData<T>> {
     ).pipe(
       getFirstCompletedRemoteData(),
       switchMap((wfiRD: RemoteData<any>) => wfiRD.payload.item as Observable<RemoteData<T>>),
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     );
     return itemRD$;
   }

@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Output, EventEmitter, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[dsClickOutside]'
+  selector: '[dsClickOutside]',
 })
 /**
  * Directive to detect when the users clicks outside of the element the directive was put on

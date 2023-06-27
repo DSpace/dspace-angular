@@ -44,7 +44,7 @@ describe('PaginatedSearchOptions', () => {
         'f.test=value&' +
         'f.example=another%20value&' +
         'f.example=second%20value&' +
-        'f.range=%5B2002%20TO%202021%5D,equals'
+        'f.range=%5B2002%20TO%202021%5D,equals',
       );
     });
 

@@ -17,9 +17,9 @@ import { MyDSpaceConfigurationService } from '../../../../app/my-dspace-page/my-
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: MyDSpaceConfigurationService
-    }
-  ]
+      useClass: MyDSpaceConfigurationService,
+    },
+  ],
 })
 export class MyDSpacePageComponent extends BaseComponent {
 }

@@ -25,7 +25,7 @@ describe('FileSectionComponent', () => {
   let fixture: ComponentFixture<FileSectionComponent>;
 
   const bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
-    findAllByItemAndBundleName: createSuccessfulRemoteDataObject$(createPaginatedList([]))
+    findAllByItemAndBundleName: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   });
 
   const mockBitstream: Bitstream = Object.assign(new Bitstream(),
@@ -36,11 +36,11 @@ describe('FileSectionComponent', () => {
       bundleName: 'ORIGINAL',
       _links: {
         self: {
-          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713'
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713',
         },
         content: {
-          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content'
-        }
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
+        },
       },
       id: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
       uuid: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
@@ -49,10 +49,10 @@ describe('FileSectionComponent', () => {
         'dc.title': [
           {
             language: null,
-            value: 'test_word.docx'
-          }
-        ]
-      }
+            value: 'test_word.docx',
+          },
+        ],
+      },
     });
 
   beforeEach(waitForAsync(() => {
@@ -61,17 +61,17 @@ describe('FileSectionComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       }), BrowserAnimationsModule],
       declarations: [FileSectionComponent, VarDirective, FileSizePipe, MetadataFieldWrapperComponent],
       providers: [
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environment },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -157,11 +157,11 @@ describe('FileSectionComponent', () => {
         currentPage: 1,
         _links: {
           self: { href: 'https://rest.api/core/bitstreams/' },
-          next: { href: 'https://rest.api/core/bitstreams?page=2' }
-        }
+          next: { href: 'https://rest.api/core/bitstreams?page=2' },
+        },
       });
       const PaginatedList = Object.assign(createPaginatedList([mockBitstream]), {
-        pageInfo: pageInfo
+        pageInfo: pageInfo,
       });
       bitstreamDataService.findAllByItemAndBundleName.and.returnValue(createSuccessfulRemoteDataObject$(PaginatedList));
       const viewLess = fixture.debugElement.query(By.css('.bitstream-collapse'));

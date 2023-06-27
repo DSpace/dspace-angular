@@ -75,7 +75,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
         }
       }),
       catchError(() => observableOf(false)),
-      oneAuthorizationMatchesFeature(featureId)
+      oneAuthorizationMatchesFeature(featureId),
     );
   }
 
@@ -100,7 +100,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
       switchMap((url) => {
         if (hasNoValue(url)) {
           return this.siteService.find().pipe(
-            map((site) => site.self)
+            map((site) => site.self),
           );
         } else {
           return observableOf(url);
@@ -112,7 +112,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
       map((url: string) => new AuthorizationSearchParams(url, ePersonUuid, featureId)),
       switchMap((params: AuthorizationSearchParams) => {
         return this.searchBy(this.searchByObjectPath, this.createSearchOptions(params.objectUrl, options, params.ePersonUuid, params.featureId), useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
-      })
+      }),
     );
 
     this.addDependency(out$, objectUrl$);

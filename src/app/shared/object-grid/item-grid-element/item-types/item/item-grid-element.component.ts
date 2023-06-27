@@ -11,7 +11,7 @@ import { Item } from '../../../../../core/shared/item.model';
   selector: 'ds-item-grid-element',
   styleUrls: ['./item-grid-element.component.scss'],
   templateUrl: './item-grid-element.component.html',
-  animations: [focusShadow]
+  animations: [focusShadow],
 })
 /**
  * The component for displaying a grid element for an item of the type Publication

@@ -9,7 +9,7 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { AuthService } from '../../core/auth/auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 /**
  * Guard for preventing unauthorized access to certain {@link Item} pages requiring withdraw rights

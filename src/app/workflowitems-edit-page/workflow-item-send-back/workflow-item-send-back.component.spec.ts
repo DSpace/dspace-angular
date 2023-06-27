@@ -29,7 +29,7 @@ describe('WorkflowItemSendBackComponent', () => {
 
   function init() {
     wfiService = jasmine.createSpyObj('workflowItemService', {
-      sendBack: observableOf(true)
+      sendBack: observableOf(true),
     });
     itemRD$ = createSuccessfulRemoteDataObject$(itemRD$);
     wfi = new WorkflowItem();
@@ -43,8 +43,8 @@ describe('WorkflowItemSendBackComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       })],
       declarations: [WorkflowItemSendBackComponent, VarDirective],
       providers: [
@@ -56,7 +56,7 @@ describe('WorkflowItemSendBackComponent', () => {
         { provide: WorkflowItemDataService, useValue: wfiService },
         { provide: RequestService, useValue: getMockRequestService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

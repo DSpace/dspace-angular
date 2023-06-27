@@ -42,7 +42,7 @@ export class ResourcePolicyTargetResolver implements Resolve<RemoteData<DSpaceOb
     const provider = getDataServiceFor(new ResourceType(targetType));
     this.dataService = Injector.create({
       providers: [],
-      parent: this.parentInjector
+      parent: this.parentInjector,
     }).get(provider);
 
     return this.dataService.findById(policyTargetId).pipe(

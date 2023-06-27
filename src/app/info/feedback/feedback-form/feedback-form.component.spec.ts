@@ -26,12 +26,12 @@ describe('FeedbackFormComponent', () => {
   let de: DebugElement;
   const notificationService = new NotificationsServiceStub();
   const feedbackDataServiceStub = jasmine.createSpyObj('feedbackDataService', {
-    create: of(new Feedback())
+    create: of(new Feedback()),
   });
   const authService: AuthServiceStub = Object.assign(new AuthServiceStub(), {
     getAuthenticatedUserFromStore: () => {
       return of(EPersonMock);
-    }
+    },
   });
   const routerStub = new RouterMock();
 
@@ -48,7 +48,7 @@ describe('FeedbackFormComponent', () => {
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: Router, useValue: routerStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

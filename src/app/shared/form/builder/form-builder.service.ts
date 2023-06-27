@@ -29,7 +29,7 @@ import {
   isNotEmpty,
   isNotNull,
   isNotUndefined,
-  isNull
+  isNull,
 } from '../../empty.util';
 import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
@@ -86,7 +86,7 @@ export class FormBuilderService extends DynamicFormService {
   createDynamicFormControlEvent(control: UntypedFormControl, group: UntypedFormGroup, model: DynamicFormControlModel, type: string): DynamicFormControlEvent {
     const $event = {
       value: (model as any).value,
-      autoSave: false
+      autoSave: false,
     };
     const context: DynamicFormArrayGroupModel = (model?.parent instanceof DynamicFormArrayGroupModel) ? model?.parent : null;
     return {$event, context, control: control, group: group, model: model, type};

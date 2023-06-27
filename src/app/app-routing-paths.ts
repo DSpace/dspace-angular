@@ -27,8 +27,8 @@ export function getBitstreamRequestACopyRoute(item, bitstream): { routerLink: st
   return {
     routerLink: url,
     queryParams: {
-      bitstream: bitstream.uuid
-    }
+      bitstream: bitstream.uuid,
+    },
   };
 }
 

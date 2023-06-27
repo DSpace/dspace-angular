@@ -45,7 +45,7 @@ describe('GoogleAnalyticsService', () => {
     ]);
 
     klaroServiceSpy = jasmine.createSpyObj('KlaroService', {
-      'getSavedPreferences': jasmine.createSpy('getSavedPreferences')
+      'getSavedPreferences': jasmine.createSpy('getSavedPreferences'),
     });
 
     configSpy = createConfigSuccessSpy(trackingIdV4TestValue);
@@ -54,7 +54,7 @@ describe('GoogleAnalyticsService', () => {
       set src(newVal) { /* noop */ },
       get src() { return innerHTMLTestValue; },
       set innerHTML(newVal) { /* noop */ },
-      get innerHTML() { return srcTestValue; }
+      get innerHTML() { return srcTestValue; },
     };
 
     innerHTMLSpy = spyOnProperty(scriptElementMock, 'innerHTML', 'set');
@@ -71,7 +71,7 @@ describe('GoogleAnalyticsService', () => {
     });
 
     klaroServiceSpy.getSavedPreferences.and.returnValue(of({
-      GOOGLE_ANALYTICS_KLARO_KEY: true
+      GOOGLE_ANALYTICS_KLARO_KEY: true,
     }));
 
     service = new GoogleAnalyticsService(googleAnalyticsSpy, googleTagManagerSpy, klaroServiceSpy, configSpy, documentSpy );
@@ -95,7 +95,7 @@ describe('GoogleAnalyticsService', () => {
         });
 
         klaroServiceSpy.getSavedPreferences.and.returnValue(of({
-          GOOGLE_ANALYTICS_KLARO_KEY: true
+          GOOGLE_ANALYTICS_KLARO_KEY: true,
         }));
 
         service = new GoogleAnalyticsService(googleAnalyticsSpy, googleTagManagerSpy, klaroServiceSpy, configSpy, documentSpy);
@@ -118,7 +118,7 @@ describe('GoogleAnalyticsService', () => {
         beforeEach(() => {
           configSpy = createConfigSuccessSpy();
           klaroServiceSpy.getSavedPreferences.and.returnValue(of({
-            [GOOGLE_ANALYTICS_KLARO_KEY]: true
+            [GOOGLE_ANALYTICS_KLARO_KEY]: true,
           }));
           service = new GoogleAnalyticsService(googleAnalyticsSpy, googleTagManagerSpy, klaroServiceSpy, configSpy, documentSpy);
         });
@@ -159,7 +159,7 @@ describe('GoogleAnalyticsService', () => {
         beforeEach(() => {
           configSpy = createConfigSuccessSpy(trackingIdV4TestValue);
           klaroServiceSpy.getSavedPreferences.and.returnValue(of({
-            [GOOGLE_ANALYTICS_KLARO_KEY]: false
+            [GOOGLE_ANALYTICS_KLARO_KEY]: false,
           }));
           service = new GoogleAnalyticsService(googleAnalyticsSpy, googleTagManagerSpy, klaroServiceSpy, configSpy, documentSpy);
         });
@@ -181,7 +181,7 @@ describe('GoogleAnalyticsService', () => {
         beforeEach(() => {
           configSpy = createConfigSuccessSpy(trackingIdV4TestValue);
           klaroServiceSpy.getSavedPreferences.and.returnValue(of({
-            [GOOGLE_ANALYTICS_KLARO_KEY]: true
+            [GOOGLE_ANALYTICS_KLARO_KEY]: true,
           }));
           service = new GoogleAnalyticsService(googleAnalyticsSpy, googleTagManagerSpy, klaroServiceSpy, configSpy, documentSpy);
         });
@@ -218,7 +218,7 @@ describe('GoogleAnalyticsService', () => {
         beforeEach(() => {
           configSpy = createConfigSuccessSpy(trackingIdV3TestValue);
           klaroServiceSpy.getSavedPreferences.and.returnValue(of({
-            [GOOGLE_ANALYTICS_KLARO_KEY]: true
+            [GOOGLE_ANALYTICS_KLARO_KEY]: true,
           }));
           service = new GoogleAnalyticsService(googleAnalyticsSpy, googleTagManagerSpy, klaroServiceSpy, configSpy, documentSpy);
         });

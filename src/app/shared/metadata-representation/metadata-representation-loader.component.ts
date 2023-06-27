@@ -1,7 +1,7 @@
 import { Component, ComponentFactoryResolver, Inject, Input, OnInit, ViewChild, OnChanges, SimpleChanges, ComponentRef, ViewContainerRef, ComponentFactory } from '@angular/core';
 import {
   MetadataRepresentation,
-  MetadataRepresentationType
+  MetadataRepresentationType,
 } from '../../core/shared/metadata-representation/metadata-representation.model';
 import { METADATA_REPRESENTATION_COMPONENT_FACTORY } from './metadata-representation.decorator';
 import { Context } from '../../core/shared/context.model';
@@ -13,7 +13,7 @@ import { ThemeService } from '../theme-support/theme.service';
 
 @Component({
   selector: 'ds-metadata-representation-loader',
-  templateUrl: './metadata-representation-loader.component.html'
+  templateUrl: './metadata-representation-loader.component.html',
 })
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type), its metadata representation and, optionally, its context

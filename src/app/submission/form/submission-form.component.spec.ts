@@ -13,7 +13,7 @@ import {
   mockSubmissionId,
   mockSubmissionObjectNew,
   mockSubmissionSelfUrl,
-  mockSubmissionState
+  mockSubmissionState,
 } from '../../shared/mocks/submission.mock';
 import { SubmissionService } from '../submission.service';
 import { SubmissionFormComponent } from './submission-form.component';
@@ -50,7 +50,7 @@ describe('SubmissionFormComponent Component', () => {
       imports: [],
       declarations: [
         SubmissionFormComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
@@ -58,9 +58,9 @@ describe('SubmissionFormComponent Component', () => {
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionsService, useValue: { isSectionTypeAvailable: () => observableOf(true) } },
         ChangeDetectorRef,
-        SubmissionFormComponent
+        SubmissionFormComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -137,7 +137,7 @@ describe('SubmissionFormComponent Component', () => {
       scheduler.schedule(() => {
         comp.ngOnChanges({
           collectionId: new SimpleChange(null, collectionId, true),
-          submissionId: new SimpleChange(null, submissionId, true)
+          submissionId: new SimpleChange(null, submissionId, true),
         });
         fixture.detectChanges();
       });
@@ -225,11 +225,11 @@ describe('SubmissionFormComponent Component', () => {
       scheduler.schedule(() => {
         comp.onCollectionChange({
           collection: {
-            id: '45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb'
+            id: '45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb',
           },
           submissionDefinition: {
-            name: 'traditional'
-          }
+            name: 'traditional',
+          },
         } as any);
         fixture.detectChanges();
       });
@@ -246,7 +246,7 @@ describe('SubmissionFormComponent Component', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

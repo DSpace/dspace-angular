@@ -7,7 +7,7 @@ import { ItemSearchResultListElementComponent } from '../../../../../shared/obje
 @Component({
   selector: 'ds-project-search-result-list-element',
   styleUrls: ['./project-search-result-list-element.component.scss'],
-  templateUrl: './project-search-result-list-element.component.html'
+  templateUrl: './project-search-result-list-element.component.html',
 })
 /**
  * The component for displaying a list element for an item search result of the type Project

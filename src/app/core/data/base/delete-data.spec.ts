@@ -34,7 +34,7 @@ export function testDeleteDataImplementation(serviceFactory: () => DeleteData<an
     const ID = '2ce78f3a-791b-4d70-b5eb-753d587bbadd';
     const HREF = 'https://rest.api/core/items/' + ID;
     const COPY_VIRTUAL_METADATA = [
-      'a', 'b', 'c'
+      'a', 'b', 'c',
     ];
 
     beforeAll(() => {
@@ -105,13 +105,13 @@ describe('DeleteDataImpl', () => {
       },
       getByHref: () => {
         /* empty */
-      }
+      },
     } as any;
     notificationsService = {} as NotificationsService;
     selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
     linksToFollow = [
       followLink('a'),
-      followLink('b')
+      followLink('b'),
     ];
 
     testScheduler = new TestScheduler((actual, expected) => {

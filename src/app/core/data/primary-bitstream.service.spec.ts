@@ -28,8 +28,8 @@ describe('PrimaryBitstreamService', () => {
   const bitstream = Object.assign(new Bitstream(), {
     uuid: 'fake-bitstream',
     _links: {
-      self: { href: 'fake-bitstream-self' }
-    }
+      self: { href: 'fake-bitstream-self' },
+    },
   });
 
   const bundle = Object.assign(new Bundle(), {
@@ -37,14 +37,14 @@ describe('PrimaryBitstreamService', () => {
     _links: {
       self: { href: 'fake-bundle-self' },
       primaryBitstream: { href: 'fake-primary-bitstream-self' },
-    }
+    },
   });
 
   const url = 'fake-bitstream-url';
 
   beforeEach(() => {
     objectCache = jasmine.createSpyObj('objectCache', {
-      remove: jasmine.createSpy('remove')
+      remove: jasmine.createSpy('remove'),
     });
     requestService = getMockRequestService();
     halService = Object.assign(new HALEndpointServiceStub(url));
@@ -96,7 +96,7 @@ describe('PrimaryBitstreamService', () => {
       expect((service as any).createAndSendRequest).toHaveBeenCalledWith(
         PostRequest,
         bundle._links.primaryBitstream.href,
-        bitstream.self
+        bitstream.self,
       );
     });
   });
@@ -113,7 +113,7 @@ describe('PrimaryBitstreamService', () => {
       expect((service as any).createAndSendRequest).toHaveBeenCalledWith(
         PutRequest,
         bundle._links.primaryBitstream.href,
-        bitstream.self
+        bitstream.self,
       );
     });
   });
@@ -121,12 +121,12 @@ describe('PrimaryBitstreamService', () => {
     const testBundle = Object.assign(new Bundle(), {
       _links: {
         self: {
-          href: 'test-href'
+          href: 'test-href',
         },
         primaryBitstream: {
-          href: 'test-primaryBitstream-href'
-        }
-      }
+          href: 'test-primaryBitstream-href',
+        },
+      },
     });
 
     describe('when the delete request succeeds', () => {

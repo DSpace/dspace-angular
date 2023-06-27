@@ -10,7 +10,7 @@ import { Item } from '../../../../../core/shared/item.model';
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)
 @Component({
   selector: 'ds-org-unit-sidebar-search-list-element',
-  templateUrl: '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html'
+  templateUrl: '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html',
 })
 /**
  * Component displaying a list element for a {@link ItemSearchResult} of type "OrgUnit" within the context of

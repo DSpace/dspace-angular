@@ -6,7 +6,7 @@ import { ProfilePageComponent } from './profile-page.component';
 import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 import {
-  ProfilePageResearcherFormComponent
+  ProfilePageResearcherFormComponent,
 } from './profile-page-researcher-form/profile-page-researcher-form.component';
 import { ThemedProfilePageComponent } from './themed-profile-page.component';
 import { FormModule } from '../shared/form/form.module';
@@ -20,14 +20,14 @@ import { ProfileClaimItemModalComponent } from './profile-claim-item-modal/profi
     CommonModule,
     SharedModule,
     FormModule,
-    UiSwitchModule
+    UiSwitchModule,
   ],
   exports: [
     ProfilePageComponent,
     ThemedProfilePageComponent,
     ProfilePageMetadataFormComponent,
     ProfilePageSecurityFormComponent,
-    ProfilePageResearcherFormComponent
+    ProfilePageResearcherFormComponent,
   ],
   declarations: [
     ProfilePageComponent,
@@ -35,8 +35,8 @@ import { ProfileClaimItemModalComponent } from './profile-claim-item-modal/profi
     ProfileClaimItemModalComponent,
     ProfilePageMetadataFormComponent,
     ProfilePageSecurityFormComponent,
-    ProfilePageResearcherFormComponent
-  ]
+    ProfilePageResearcherFormComponent,
+  ],
 })
 export class ProfilePageModule {
 

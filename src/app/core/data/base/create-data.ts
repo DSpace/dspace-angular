@@ -95,7 +95,7 @@ export class CreateDataImpl<T extends CacheableObject> extends BaseDataService<T
     // TODO a dataservice is not the best place to show a notification,
     // this should move up to the components that use this method
     result$.pipe(
-      takeWhile((rd: RemoteData<T>) => rd.isLoading, true)
+      takeWhile((rd: RemoteData<T>) => rd.isLoading, true),
     ).subscribe((rd: RemoteData<T>) => {
       if (rd.hasFailed) {
         this.notificationsService.error('Server Error:', rd.errorMessage, new NotificationOptions(-1));

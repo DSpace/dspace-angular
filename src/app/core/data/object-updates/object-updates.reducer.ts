@@ -164,7 +164,7 @@ function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
     { fieldUpdates: {} },
     { virtualMetadataSources: {} },
     { lastModified: lastModifiedServer },
-    { patchOperationService }
+    { patchOperationService },
   );
   return Object.assign({}, state, { [url]: newPageState });
 }
@@ -239,7 +239,7 @@ function selectVirtualMetadata(state: any, action: SelectVirtualMetadataAction) 
     state,
     {
       [url]: newPageState,
-    }
+    },
   );
 }
 
@@ -279,7 +279,7 @@ function discardObjectUpdatesFor(url: string, state: any) {
 
   const discardedPageState = Object.assign({}, pageState, {
     fieldUpdates: {},
-    fieldStates: newFieldStates
+    fieldStates: newFieldStates,
   });
   return Object.assign({}, state, { [url]: discardedPageState }, { [url + OBJECT_UPDATES_TRASH_PATH]: pageState });
 }
@@ -357,7 +357,7 @@ function removeFieldUpdate(state: any, action: RemoveFieldUpdateAction) {
     }
     newPageState = Object.assign({}, state[url], {
       fieldUpdates: newUpdates,
-      fieldStates: newFieldStates
+      fieldStates: newFieldStates,
     });
   }
   return Object.assign({}, state, { [url]: newPageState });

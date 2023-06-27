@@ -16,9 +16,9 @@ import { InputSuggestion } from '../input-suggestions.model';
       // Usage of forwardRef necessary https://github.com/angular/angular.io/issues/1151
       // eslint-disable-next-line @angular-eslint/no-forward-ref
       useExisting: forwardRef(() => ValidationSuggestionsComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 
 /**
@@ -55,8 +55,8 @@ export class ValidationSuggestionsComponent extends InputSuggestionsComponent im
     this.form = new UntypedFormGroup({
       metadataNameField: new UntypedFormControl(this._value, {
         asyncValidators: [this.metadataFieldValidator.validate.bind(this.metadataFieldValidator)],
-        validators: [Validators.required]
-      })
+        validators: [Validators.required],
+      }),
     });
   }
 

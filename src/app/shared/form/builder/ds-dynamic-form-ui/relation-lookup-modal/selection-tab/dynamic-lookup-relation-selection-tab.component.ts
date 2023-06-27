@@ -21,9 +21,9 @@ import { PaginationService } from '../../../../../../core/pagination/pagination.
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
 })
 
 /**
@@ -75,7 +75,7 @@ export class DsDynamicLookupRelationSelectionTabComponent {
    */
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'spc',
-    pageSize: 5
+    pageSize: 5,
   });
 
   /**
@@ -85,7 +85,7 @@ export class DsDynamicLookupRelationSelectionTabComponent {
 
   constructor(private router: Router,
               private searchConfigService: SearchConfigurationService,
-              private paginationService: PaginationService
+              private paginationService: PaginationService,
   ) {
   }
 
@@ -109,12 +109,12 @@ export class DsDynamicLookupRelationSelectionTabComponent {
                   elementsPerPage: pagination.pageSize,
                   totalElements: selected.length,
                   currentPage: pagination.currentPage,
-                  totalPages: Math.ceil(selected.length / pagination.pageSize)
+                  totalPages: Math.ceil(selected.length / pagination.pageSize),
                 });
               return createSuccessfulRemoteDataObject(buildPaginatedList(pageInfo, selection));
-            })
+            }),
           );
-        })
+        }),
       );
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.searchConfigService.paginationID, this.initialPagination);
   }
@@ -125,7 +125,7 @@ export class DsDynamicLookupRelationSelectionTabComponent {
   resetRoute() {
     this.paginationService.updateRoute(this.searchConfigService.paginationID, {
       page: 1,
-      pageSize: 5
+      pageSize: 5,
     });
   }
 }

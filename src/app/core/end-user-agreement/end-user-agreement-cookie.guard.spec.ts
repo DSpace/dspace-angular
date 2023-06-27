@@ -10,12 +10,12 @@ describe('EndUserAgreementCookieGuard', () => {
 
   beforeEach(() => {
     endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
-      isCookieAccepted: true
+      isCookieAccepted: true,
     });
     router = jasmine.createSpyObj('router', {
       navigateByUrl: {},
       parseUrl: new UrlTree(),
-      createUrlTree: new UrlTree()
+      createUrlTree: new UrlTree(),
     });
 
     guard = new EndUserAgreementCookieGuard(endUserAgreementService, router);

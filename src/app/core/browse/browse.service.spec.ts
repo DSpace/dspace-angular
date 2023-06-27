@@ -31,26 +31,26 @@ describe('BrowseService', () => {
       sortOptions: [
         {
           name: 'title',
-          metadata: 'dc.title'
+          metadata: 'dc.title',
         },
         {
           name: 'dateissued',
-          metadata: 'dc.date.issued'
+          metadata: 'dc.date.issued',
         },
         {
           name: 'dateaccessioned',
-          metadata: 'dc.date.accessioned'
-        }
+          metadata: 'dc.date.accessioned',
+        },
       ],
       defaultSortOrder: 'ASC',
       type: 'browse',
       metadataKeys: [
-        'dc.date.issued'
+        'dc.date.issued',
       ],
       _links: {
         self: { href: 'https://rest.api/discover/browses/dateissued' },
-        items: { href: 'https://rest.api/discover/browses/dateissued/items' }
-      }
+        items: { href: 'https://rest.api/discover/browses/dateissued/items' },
+      },
     }),
     Object.assign(new ValueListBrowseDefinition(), {
       id: 'author',
@@ -58,28 +58,28 @@ describe('BrowseService', () => {
       sortOptions: [
         {
           name: 'title',
-          metadata: 'dc.title'
+          metadata: 'dc.title',
         },
         {
           name: 'dateissued',
-          metadata: 'dc.date.issued'
+          metadata: 'dc.date.issued',
         },
         {
           name: 'dateaccessioned',
-          metadata: 'dc.date.accessioned'
-        }
+          metadata: 'dc.date.accessioned',
+        },
       ],
       defaultSortOrder: 'ASC',
       type: 'browse',
       metadataKeys: [
         'dc.contributor.*',
-        'dc.creator'
+        'dc.creator',
       ],
       _links: {
         self: { href: 'https://rest.api/discover/browses/author' },
         entries: { href: 'https://rest.api/discover/browses/author/entries' },
-        items: { href: 'https://rest.api/discover/browses/author/items' }
-      }
+        items: { href: 'https://rest.api/discover/browses/author/items' },
+      },
     }),
     Object.assign(new HierarchicalBrowseDefinition(), {
       id: 'srsc',
@@ -88,14 +88,14 @@ describe('BrowseService', () => {
       vocabulary: 'srsc',
       type: 'browse',
       metadata: [
-        'dc.subject'
+        'dc.subject',
       ],
       _links: {
         vocabulary: { 'href': 'https://rest.api/submission/vocabularies/srsc/' },
         items: { 'href': 'https://rest.api/discover/browses/srsc/items' },
         entries: { 'href': 'https://rest.api/discover/browses/srsc/entries' },
-        self: { 'href': 'https://rest.api/discover/browses/srsc' }
-      }
+        self: { 'href': 'https://rest.api/discover/browses/srsc' },
+      },
     }),
   ];
 
@@ -104,13 +104,13 @@ describe('BrowseService', () => {
 
   const getRequestEntry$ = (successful: boolean) => {
     return observableOf({
-      response: { isSuccessful: successful, payload: browseDefinitions } as any
+      response: { isSuccessful: successful, payload: browseDefinitions } as any,
     } as RequestEntry);
   };
 
   function initTestService() {
     browseDefinitionDataService = jasmine.createSpyObj('browseDefinitionDataService', {
-      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(browseDefinitions))
+      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(browseDefinitions)),
     });
     hrefOnlyDataService = getMockHrefOnlyDataService();
     return new BrowseService(
@@ -118,7 +118,7 @@ describe('BrowseService', () => {
       halService,
       browseDefinitionDataService,
       hrefOnlyDataService,
-      rdbService
+      rdbService,
     );
   }
 
@@ -164,7 +164,7 @@ describe('BrowseService', () => {
         scheduler.flush();
 
         expect(getFirstUsedArgumentOfSpyMethod(hrefOnlyDataService.findListByHref)).toBeObservable(cold('(a|)', {
-          a: expected
+          a: expected,
         }));
       });
 
@@ -178,7 +178,7 @@ describe('BrowseService', () => {
         scheduler.flush();
 
         expect(getFirstUsedArgumentOfSpyMethod(hrefOnlyDataService.findListByHref)).toBeObservable(cold('(a|)', {
-          a: expected
+          a: expected,
         }));
       });
 
@@ -193,7 +193,7 @@ describe('BrowseService', () => {
         scheduler.flush();
 
         expect(getFirstUsedArgumentOfSpyMethod(hrefOnlyDataService.findListByHref)).toBeObservable(cold('(a|)', {
-          a: expected
+          a: expected,
         }));
       });
     });
@@ -208,7 +208,7 @@ describe('BrowseService', () => {
         service = initTestService();
         spyOn(service, 'getBrowseDefinitions').and
           .returnValue(hot('--a-', {
-            a: createSuccessfulRemoteDataObject(createPaginatedList(browseDefinitions))
+            a: createSuccessfulRemoteDataObject(createPaginatedList(browseDefinitions)),
           }));
       });
 
@@ -290,7 +290,7 @@ describe('BrowseService', () => {
         scheduler.flush();
 
         expect(getFirstUsedArgumentOfSpyMethod(hrefOnlyDataService.findListByHref)).toBeObservable(cold('(a|)', {
-          a: expectedURL
+          a: expectedURL,
         }));
       });
 

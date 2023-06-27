@@ -15,7 +15,7 @@ import { OrcidPageComponent } from './orcid-page.component';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { Item } from '../../core/shared/item.model';
 import { createPaginatedList } from '../../shared/testing/utils.test';
@@ -40,12 +40,12 @@ describe('OrcidPageComponent test suite', () => {
     type: 'profile',
     _links: {
       item: {
-        href: 'https://rest.api/rest/api/profiles/test-id/item'
+        href: 'https://rest.api/rest/api/profiles/test-id/item',
       },
       self: {
-        href: 'https://rest.api/rest/api/profiles/test-id'
+        href: 'https://rest.api/rest/api/profiles/test-id',
       },
-    }
+    },
   });
   const mockItem: Item = Object.assign(new Item(), {
     id: 'test-id',
@@ -54,10 +54,10 @@ describe('OrcidPageComponent test suite', () => {
       'dc.title': [
         {
           language: 'en_US',
-          value: 'test item'
-        }
-      ]
-    }
+          value: 'test item',
+        },
+      ],
+    },
   });
   const mockItemLinkedToOrcid: Item = Object.assign(new Item(), {
     id: 'test-id',
@@ -65,21 +65,21 @@ describe('OrcidPageComponent test suite', () => {
     metadata: {
       'dc.title': [
         {
-          value: 'test item'
-        }
+          value: 'test item',
+        },
       ],
       'dspace.orcid.authenticated': [
         {
-          value: 'true'
-        }
-      ]
-    }
+          value: 'true',
+        },
+      ],
+    },
   });
 
   beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: jasmine.createSpy('isAuthenticated'),
-      navigateByUrl: jasmine.createSpy('navigateByUrl')
+      navigateByUrl: jasmine.createSpy('navigateByUrl'),
     });
 
     routeData = {
@@ -94,7 +94,7 @@ describe('OrcidPageComponent test suite', () => {
     });
 
     itemDataService = jasmine.createSpyObj('ItemDataService', {
-      findById: jasmine.createSpy('findById')
+      findById: jasmine.createSpy('findById'),
     });
 
     void TestBed.configureTestingModule({
@@ -102,10 +102,10 @@ describe('OrcidPageComponent test suite', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
       ],
       declarations: [OrcidPageComponent],
       providers: [
@@ -116,7 +116,7 @@ describe('OrcidPageComponent test suite', () => {
         { provide: PLATFORM_ID, useValue: 'browser' },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -162,7 +162,7 @@ describe('OrcidPageComponent test suite', () => {
     beforeEach(waitForAsync(() => {
       spyOn(comp, 'updateItem').and.callThrough();
       routeStub.testParams = {
-        code: 'orcid-code'
+        code: 'orcid-code',
       };
     }));
 

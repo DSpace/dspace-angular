@@ -10,6 +10,6 @@ import { SubscriptionsModule } from '../shared/subscriptions/subscriptions.modul
     CommonModule,
     SharedModule,
     SubscriptionsModule,
-  ]
+  ],
 })
 export class SubscriptionsPageModule { }

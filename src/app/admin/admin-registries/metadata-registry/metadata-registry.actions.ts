@@ -24,7 +24,7 @@ export const MetadataRegistryActionTypes = {
   CANCEL_EDIT_FIELD: type('dspace/metadata-registry/CANCEL_FIELD'),
   SELECT_FIELD: type('dspace/metadata-registry/SELECT_FIELD'),
   DESELECT_FIELD: type('dspace/metadata-registry/DESELECT_FIELD'),
-  DESELECT_ALL_FIELD: type('dspace/metadata-registry/DESELECT_ALL_FIELD')
+  DESELECT_ALL_FIELD: type('dspace/metadata-registry/DESELECT_ALL_FIELD'),
 };
 
 /**

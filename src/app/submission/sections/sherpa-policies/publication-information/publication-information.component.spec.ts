@@ -19,11 +19,11 @@ describe('PublicationInformationComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
-      declarations: [PublicationInformationComponent]
+      declarations: [PublicationInformationComponent],
     })
       .compileComponents();
   });

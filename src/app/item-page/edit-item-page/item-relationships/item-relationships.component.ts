@@ -79,7 +79,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     if (label !== undefined) {
       this.relationshipTypes$ = this.relationshipTypeService.searchByEntityType(label, true, true, ...this.getRelationshipTypeFollowLinks())
         .pipe(
-          map((relationshipTypes: PaginatedList<RelationshipType>) => relationshipTypes.page)
+          map((relationshipTypes: PaginatedList<RelationshipType>) => relationshipTypes.page),
         );
 
       this.entityType$ = this.entityTypeService.getEntityTypeByLabel(label).pipe(
@@ -109,7 +109,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     const removedRelationshipIDs$: Observable<DeleteRelationship[]> = this.relationshipService.getItemRelationshipsArray(this.item).pipe(
       startWith([]),
       map((relationships: Relationship[]) => relationships.map((relationship) =>
-        Object.assign(new Relationship(), relationship, { uuid: relationship.id })
+        Object.assign(new Relationship(), relationship, { uuid: relationship.id }),
       )),
       switchMap((relationships: Relationship[]) => {
         return this.objectUpdatesService.getFieldUpdatesExclusive(this.url, relationships) as Observable<FieldUpdates>;
@@ -117,7 +117,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
       map((fieldUpdates: FieldUpdates) =>
         Object.values(fieldUpdates)
           .filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE)
-          .map((fieldUpdate: FieldUpdate) => fieldUpdate.field as DeleteRelationship)
+          .map((fieldUpdate: FieldUpdate) => fieldUpdate.field as DeleteRelationship),
       ),
     );
 
@@ -126,7 +126,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
         Object.values(fieldUpdates)
           .filter((fieldUpdate: FieldUpdate) => hasValue(fieldUpdate))
           .filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.ADD)
-          .map((fieldUpdate: FieldUpdate) => fieldUpdate.field as RelationshipIdentifiable)
+          .map((fieldUpdate: FieldUpdate) => fieldUpdate.field as RelationshipIdentifiable),
       ),
     );
 
@@ -148,7 +148,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
             this.displayNotifications(response);
             this.modalService.dismissAll();
           }
-        })
+        }),
       );
     });
   }
@@ -166,7 +166,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
         copyVirtualMetadata = 'none';
       }
       return this.relationshipService.deleteRelationship(deleteRelationship.uuid, copyVirtualMetadata);
-    }
+    },
     ));
   }
 
@@ -192,7 +192,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
           }
           return this.relationshipService.addRelationship(addRelationship.type.id, leftItem, rightItem, leftwardValue, rightwardValue);
         }),
-      )
+      ),
     ));
   }
 
@@ -228,7 +228,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
   getRelationshipTypeFollowLinks() {
     return [
       followLink('leftType'),
-      followLink('rightType')
+      followLink('rightType'),
     ];
   }
 

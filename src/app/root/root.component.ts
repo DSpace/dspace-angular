@@ -56,7 +56,7 @@ export class RootComponent implements OnInit {
     private router: Router,
     private cssService: CSSVariableService,
     private menuService: MenuService,
-    private windowService: HostWindowService
+    private windowService: HostWindowService,
   ) {
     this.notificationOptions = environment.notifications;
   }

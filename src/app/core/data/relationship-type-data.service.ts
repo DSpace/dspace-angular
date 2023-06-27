@@ -103,7 +103,7 @@ export class RelationshipTypeDataService extends BaseDataService<RelationshipTyp
   private checkType(type: RelationshipType, leftItemType: string, rightItemType: string): Observable<RelationshipType> {
     return observableCombineLatest([
       type.leftType.pipe(getFirstCompletedRemoteData()),
-      type.rightType.pipe(getFirstCompletedRemoteData())
+      type.rightType.pipe(getFirstCompletedRemoteData()),
     ]).pipe(
       map(([leftTypeRD, rightTypeRD]: [RemoteData<ItemType>, RemoteData<ItemType>]) => {
         if (checkSide(leftTypeRD, leftItemType) && checkSide(rightTypeRD, rightItemType)
@@ -112,7 +112,7 @@ export class RelationshipTypeDataService extends BaseDataService<RelationshipTyp
         } else {
           return null;
         }
-      })
+      }),
     );
   }
 

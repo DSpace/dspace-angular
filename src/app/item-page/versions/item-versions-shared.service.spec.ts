@@ -29,7 +29,7 @@ describe('ItemVersionsSharedService', () => {
         { provide: VersionHistoryDataService, useValue: {} },
         { provide: AuthService, useValue: {} },
         { provide: NotificationsService, useValue: notificationsServiceSpy },
-        { provide: TranslateService, useValue: { get: () => undefined, } },
+        { provide: TranslateService, useValue: { get: () => undefined } },
         { provide: WorkspaceitemDataService, useValue: {} },
         { provide: WorkflowItemDataService, useValue: {} },
       ],

@@ -58,9 +58,9 @@ export class SearchLabelComponent implements OnInit {
         const page = this.paginationService.getPageParam(this.searchConfigurationService.paginationID);
         return {
           [field]: isNotEmpty(newValues) ? newValues : null,
-          [page]: 1
+          [page]: 1,
         };
-      })
+      }),
     );
   }
 

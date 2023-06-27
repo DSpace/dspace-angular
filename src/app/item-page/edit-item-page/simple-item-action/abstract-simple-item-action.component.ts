@@ -17,7 +17,7 @@ import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-path
  */
 @Component({
   selector: 'ds-simple-action',
-  templateUrl: './abstract-simple-item-action.component.html'
+  templateUrl: './abstract-simple-item-action.component.html',
 })
 export class AbstractSimpleItemActionComponent implements OnInit {
 
@@ -47,13 +47,13 @@ export class AbstractSimpleItemActionComponent implements OnInit {
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.dso),
-      getFirstSucceededRemoteData()
+      getFirstSucceededRemoteData(),
     )as Observable<RemoteData<Item>>;
 
     this.itemRD$.pipe(first()).subscribe((rd) => {
       this.item = rd.payload;
       this.itemPageRoute = getItemPageRoute(this.item);
-    }
+    },
     );
 
     this.confirmMessage = 'item.edit.' + this.messageKey + '.confirm';
@@ -75,7 +75,7 @@ export class AbstractSimpleItemActionComponent implements OnInit {
   processRestResponse(response: RemoteData<any>) {
     if (response.hasSucceeded) {
       this.itemDataService.findById(this.item.id).pipe(
-        findSuccessfulAccordingTo((itemRd: RemoteData<Item>) => this.predicate(itemRd))
+        findSuccessfulAccordingTo((itemRd: RemoteData<Item>) => this.predicate(itemRd)),
       ).subscribe(() => {
         this.notificationsService.success(this.translateService.get('item.edit.' + this.messageKey + '.success'));
         this.router.navigate([getItemEditRoute(this.item)]);

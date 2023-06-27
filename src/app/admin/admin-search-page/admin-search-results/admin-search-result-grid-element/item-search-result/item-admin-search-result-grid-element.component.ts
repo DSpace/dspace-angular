@@ -3,7 +3,7 @@ import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import {
   getListableObjectComponent,
-  listableObjectComponent
+  listableObjectComponent,
 } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { Context } from '../../../../../core/shared/context.model';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
@@ -19,7 +19,7 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 @Component({
   selector: 'ds-item-admin-search-result-grid-element',
   styleUrls: ['./item-admin-search-result-grid-element.component.scss'],
-  templateUrl: './item-admin-search-result-grid-element.component.html'
+  templateUrl: './item-admin-search-result-grid-element.component.html',
 })
 /**
  * The component for displaying a list element for an item search result on the admin search page
@@ -55,7 +55,7 @@ export class ItemAdminSearchResultGridElementComponent extends SearchResultGridE
       undefined,
       [
         [this.badges.nativeElement],
-        [this.buttons.nativeElement]
+        [this.buttons.nativeElement],
       ]);
     (componentRef.instance as any).object = this.object;
     (componentRef.instance as any).index = this.index;

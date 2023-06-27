@@ -16,17 +16,17 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
     metadata: {
       'dc.identifier.uri': [
         {
-          value: uri
-        }
-      ]
-    }
+          value: uri,
+        },
+      ],
+    },
   });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ExternalSourceEntryListSubmissionElementComponent],
       imports: [TranslateModule.forRoot()],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

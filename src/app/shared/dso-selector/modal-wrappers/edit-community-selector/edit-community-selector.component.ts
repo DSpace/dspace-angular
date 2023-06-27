@@ -5,7 +5,7 @@ import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DSOSelectorModalWrapperComponent,
-  SelectorActionType
+  SelectorActionType,
 } from '../dso-selector-modal-wrapper.component';
 import { getCommunityEditRoute } from '../../../../community-page/community-page-routing-paths';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';

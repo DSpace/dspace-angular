@@ -13,13 +13,13 @@ describe('TextareaFieldParser test suite', () => {
     readOnly: false,
     submissionScope: null,
     collectionUUID: null,
-    typeField: 'dc_type'
+    typeField: 'dc_type',
   };
 
   beforeEach(() => {
     field = {
       input: {
-        type: 'textarea'
+        type: 'textarea',
       },
       label: 'Description',
       mandatory: 'false',
@@ -27,10 +27,10 @@ describe('TextareaFieldParser test suite', () => {
       hints: 'Enter a description.',
       selectableMetadata: [
         {
-          metadata: 'description'
-        }
+          metadata: 'description',
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
   });

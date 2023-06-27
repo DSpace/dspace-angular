@@ -21,7 +21,7 @@ import { Context } from 'src/app/core/shared/context.model';
 @Component({
   selector: 'ds-claimed-approved-search-result-list-element',
   styleUrls: ['../../../search-result-list-element/search-result-list-element.component.scss'],
-  templateUrl: './claimed-approved-search-result-list-element.component.html'
+  templateUrl: './claimed-approved-search-result-list-element.component.html',
 })
 @listableObjectComponent(ClaimedApprovedTaskSearchResult, ViewMode.ListElement)
 export class ClaimedApprovedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> {
@@ -45,7 +45,7 @@ export class ClaimedApprovedSearchResultListElementComponent extends SearchResul
     protected linkService: LinkService,
     protected truncatableService: TruncatableService,
     public dsoNameService: DSONameService,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(truncatableService, dsoNameService, appConfig);
   }
@@ -59,9 +59,9 @@ export class ClaimedApprovedSearchResultListElementComponent extends SearchResul
       followLink('workflowitem',
         { useCachedVersionIfAvailable: false },
         followLink('item'),
-        followLink('submitter')
+        followLink('submitter'),
       ),
-      followLink('action')
+      followLink('action'),
     );
     this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;
   }

@@ -18,7 +18,7 @@ import { FindListOptions } from '../../../core/data/find-list-options.model';
 @Component({
   selector: 'ds-my-dspace-new-submission-dropdown',
   styleUrls: ['./my-dspace-new-submission-dropdown.component.scss'],
-  templateUrl: './my-dspace-new-submission-dropdown.component.html'
+  templateUrl: './my-dspace-new-submission-dropdown.component.html',
 })
 export class MyDSpaceNewSubmissionDropdownComponent implements OnInit, OnDestroy {
 
@@ -68,24 +68,24 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnInit, OnDestroy
         if (!response) {
           const findListOptions: FindListOptions = {
             elementsPerPage: 1,
-            currentPage: 1
+            currentPage: 1,
           };
           return this.entityTypeService.getAllAuthorizedRelationshipType(findListOptions).pipe(
             map((entities: RemoteData<PaginatedList<ItemType>>) => {
               this.initialized$ = observableOf(true);
               return entities.payload.page[0];
             }),
-            take(1)
+            take(1),
           );
         } else {
           this.initialized$ = observableOf(true);
           return observableOf(null);
         }
       }),
-      take(1)
+      take(1),
     );
     this.subs.push(
-      this.singleEntity$.subscribe((result) => this.singleEntity = result )
+      this.singleEntity$.subscribe((result) => this.singleEntity = result ),
     );
   }
 

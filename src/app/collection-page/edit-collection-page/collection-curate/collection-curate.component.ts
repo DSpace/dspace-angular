@@ -34,7 +34,7 @@ export class CollectionCurateComponent {
       filter((rd: RemoteData<Collection>) => hasValue(rd)),
       map((rd: RemoteData<Collection>) => {
         return this.dsoNameService.getName(rd.payload);
-      })
+      }),
     );
   }
 }

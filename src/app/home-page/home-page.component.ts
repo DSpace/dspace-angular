@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 @Component({
   selector: 'ds-home-page',
   styleUrls: ['./home-page.component.scss'],
-  templateUrl: './home-page.component.html'
+  templateUrl: './home-page.component.html',
 })
 export class HomePageComponent implements OnInit {
 

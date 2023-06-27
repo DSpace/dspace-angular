@@ -40,7 +40,7 @@ export enum ImportType {
 @Component({
   selector: 'ds-external-source-entry-import-modal',
   styleUrls: ['./external-source-entry-import-modal.component.scss'],
-  templateUrl: './external-source-entry-import-modal.component.html'
+  templateUrl: './external-source-entry-import-modal.component.html',
 })
 /**
  * Component to display a modal window for importing an external source entry
@@ -223,13 +223,13 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
         return this.itemService.importExternalSourceEntry(this.externalSourceEntry, collectionListEntry.collection.id).pipe(
           getFirstSucceededRemoteData(),
           getRemoteDataPayload(),
-          take(1)
+          take(1),
         );
-      })
+      }),
     ).subscribe((item: Item) => {
       this.lookupRelationService.removeLocalResultsCache();
       const searchResult = Object.assign(new ItemSearchResult(), {
-        indexableObject: item
+        indexableObject: item,
       });
       this.notificationsService.success(this.translateService.get(this.labelPrefix + this.label + '.added.new-entity'));
       this.modalRef.close();

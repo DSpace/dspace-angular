@@ -6,7 +6,7 @@ import { RawRestResponse } from '../core/dspace-rest/raw-rest-response.model';
 import { HALEndpointService } from '../core/shared/hal-endpoint.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HealthService {
   constructor(protected halService: HALEndpointService,

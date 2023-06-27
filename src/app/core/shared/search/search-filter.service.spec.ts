@@ -7,7 +7,7 @@ import {
   SearchFilterIncrementPageAction,
   SearchFilterInitializeAction,
   SearchFilterResetPageAction,
-  SearchFilterToggleAction
+  SearchFilterToggleAction,
 } from '../../../shared/search/search-filters/search-filter/search-filter.actions';
 import { SearchFiltersState } from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
@@ -24,7 +24,7 @@ describe('SearchFilterService', () => {
     filterType: FilterType.text,
     hasFacets: false,
     isOpenByDefault: false,
-    pageSize: 2
+    pageSize: 2,
   });
 
   const value1 = 'random value';
@@ -33,7 +33,7 @@ describe('SearchFilterService', () => {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
-    select: observableOf(true)
+    select: observableOf(true),
   });
 
   const routeServiceStub: any = {
@@ -55,12 +55,12 @@ describe('SearchFilterService', () => {
       return observableOf({});
     },
     getRouteParameterValue: (param: string) => {
-    }
+    },
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   };
   const activatedRoute: any = new ActivatedRouteStub();
   const searchServiceStub: any = {
-    uiSearchRoute: '/search'
+    uiSearchRoute: '/search',
   };
 
   beforeEach(() => {

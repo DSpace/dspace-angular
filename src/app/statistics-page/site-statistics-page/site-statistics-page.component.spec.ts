@@ -36,7 +36,7 @@ describe('SiteStatisticsPageComponent', () => {
           new UsageReport(), {
             id: `site_id-TotalVisits-report`,
             points: [],
-          }
+          },
         ),
       ]),
     };
@@ -53,12 +53,12 @@ describe('SiteStatisticsPageComponent', () => {
             href: 'test_site_link',
           },
         },
-      }))
+      })),
     };
 
     const authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
-      setRedirectUrl: {}
+      setRedirectUrl: {},
     });
 
     TestBed.configureTestingModule({

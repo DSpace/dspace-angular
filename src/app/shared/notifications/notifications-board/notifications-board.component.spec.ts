@@ -30,13 +30,13 @@ describe('NotificationsBoardComponent', () => {
         StoreModule.forRoot({ notificationsReducer }, {
           runtimeChecks: {
             strictStateImmutability: false,
-            strictActionImmutability: false
-          }
+            strictActionImmutability: false,
+          },
         })],
       declarations: [NotificationsBoardComponent, NotificationComponent], // declare the test component
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
-        ChangeDetectorRef]
+        ChangeDetectorRef],
     }).compileComponents();  // compile template and css
   }));
 
@@ -45,7 +45,7 @@ describe('NotificationsBoardComponent', () => {
       .subscribe((state) => {
         const notifications = [
           new Notification(uniqueId(), NotificationType.Success, 'title1', 'content1'),
-          new Notification(uniqueId(), NotificationType.Info, 'title2', 'content2')
+          new Notification(uniqueId(), NotificationType.Info, 'title2', 'content2'),
         ];
         state.notifications = notifications;
       });
@@ -58,7 +58,7 @@ describe('NotificationsBoardComponent', () => {
       maxStack: 5,
       timeOut: 5000,
       clickToClose: true,
-      animate: 'scale'
+      animate: 'scale',
     } as INotificationBoardOptions;
 
     fixture.detectChanges();

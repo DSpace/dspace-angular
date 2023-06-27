@@ -13,13 +13,13 @@ describe('DateFieldParser test suite', () => {
     readOnly: false,
     submissionScope: null,
     collectionUUID: null,
-    typeField: 'dc_type'
+    typeField: 'dc_type',
   };
 
   beforeEach(() => {
     field = {
       input: {
-        type: 'date'
+        type: 'date',
       },
       label: 'Date of Issue.',
       mandatory: 'true',
@@ -29,9 +29,9 @@ describe('DateFieldParser test suite', () => {
       selectableMetadata: [
         {
           metadata: 'date',
-        }
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
   });

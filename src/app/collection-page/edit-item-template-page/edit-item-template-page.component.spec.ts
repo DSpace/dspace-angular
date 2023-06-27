@@ -22,19 +22,19 @@ describe('EditItemTemplatePageComponent', () => {
     collection = Object.assign(new Collection(), {
       uuid: 'collection-id',
       id: 'collection-id',
-      name: 'Fake Collection'
+      name: 'Fake Collection',
     });
     itemTemplateService = jasmine.createSpyObj('itemTemplateService', {
-      findByCollectionID: createSuccessfulRemoteDataObject$({})
+      findByCollectionID: createSuccessfulRemoteDataObject$({}),
     });
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
       declarations: [EditItemTemplatePageComponent],
       providers: [
         { provide: ItemTemplateDataService, useValue: itemTemplateService },
-        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } }
+        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

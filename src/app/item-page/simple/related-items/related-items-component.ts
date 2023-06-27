@@ -14,7 +14,7 @@ import { isPlatformBrowser } from '@angular/common';
 @Component({
   selector: 'ds-related-items',
   styleUrls: ['./related-items.component.scss'],
-  templateUrl: './related-items.component.html'
+  templateUrl: './related-items.component.html',
 })
 /**
  * This component is used for displaying relations between items
@@ -65,7 +65,7 @@ export class RelatedItemsComponent extends AbstractIncrementalListComponent<Obse
   constructor(public relationshipService: RelationshipDataService,
               protected elementRef: ElementRef,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
-              @Inject(PLATFORM_ID) private platformId: any
+              @Inject(PLATFORM_ID) private platformId: any,
   ) {
     super();
     this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;

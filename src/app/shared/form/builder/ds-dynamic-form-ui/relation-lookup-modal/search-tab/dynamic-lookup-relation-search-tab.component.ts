@@ -32,9 +32,9 @@ import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model'
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
 })
 
 /**
@@ -133,7 +133,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    */
   initialPagination = {
     page: 1,
-    pageSize: 5
+    pageSize: 5,
   };
 
   /**
@@ -207,7 +207,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.selectAllLoading = true;
     const fullPagination = Object.assign(new PaginationComponentOptions(), {
       currentPage: 1,
-      pageSize: 9999
+      pageSize: 9999,
     });
     const fullSearchConfig = Object.assign(this.lookupRelationService.searchConfig, { pagination: fullPagination });
     const results$ = this.searchService.search<Item>(fullSearchConfig);
@@ -221,8 +221,8 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
           const filteredResults = results.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
           this.selectObject.emit(...filteredResults);
         }),
-        mapTo(results)
-      ))
+        mapTo(results),
+      )),
     ).subscribe((results) => {
       this.selectableListService.select(this.listId, results);
     });

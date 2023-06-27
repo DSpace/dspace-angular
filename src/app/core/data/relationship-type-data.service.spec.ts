@@ -46,7 +46,7 @@ describe('RelationshipTypeDataService', () => {
       leftwardType: 'isAuthorOfPublication',
       rightwardType: 'isPublicationOfAuthor',
       leftType: createSuccessfulRemoteDataObject$(publicationType),
-      rightType: createSuccessfulRemoteDataObject$(personType)
+      rightType: createSuccessfulRemoteDataObject$(personType),
     });
 
     relationshipType2 = Object.assign(new RelationshipType(), {
@@ -55,7 +55,7 @@ describe('RelationshipTypeDataService', () => {
       leftwardType: 'isOrgUnitOfPublication',
       rightwardType: 'isPublicationOfOrgUnit',
       leftType: createSuccessfulRemoteDataObject$(publicationType),
-      rightType: createSuccessfulRemoteDataObject$(orgUnitType)
+      rightType: createSuccessfulRemoteDataObject$(orgUnitType),
     });
 
     buildList = createSuccessfulRemoteDataObject(createPaginatedList([relationshipType1, relationshipType2]));
@@ -64,7 +64,7 @@ describe('RelationshipTypeDataService', () => {
       /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
       remove: () => {
       },
-      hasBySelfLinkObservable: () => observableOf(false)
+      hasBySelfLinkObservable: () => observableOf(false),
       /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
     }) as ObjectCacheService;
 
@@ -89,7 +89,7 @@ describe('RelationshipTypeDataService', () => {
 
     it('should return the type filtered by label and type strings', (done) => {
       service.getRelationshipTypeByLabelAndTypes(relationshipType1.leftwardType, publicationTypeString, personTypeString).pipe(
-        hasValueOperator()
+        hasValueOperator(),
       ).subscribe((e) => {
         expect(e.id).toEqual(relationshipType1.id);
         done();

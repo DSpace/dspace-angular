@@ -13,7 +13,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-delete-collection',
   styleUrls: ['./delete-collection-page.component.scss'],
-  templateUrl: './delete-collection-page.component.html'
+  templateUrl: './delete-collection-page.component.html',
 })
 export class DeleteCollectionPageComponent extends DeleteComColPageComponent<Collection> {
   protected frontendURL = '/collections/';

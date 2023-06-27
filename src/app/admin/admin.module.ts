@@ -34,8 +34,8 @@ const ENTRY_COMPONENTS = [
   declarations: [
     AdminCurationTasksComponent,
     MetadataImportPageComponent,
-    BatchImportPageComponent
-  ]
+    BatchImportPageComponent,
+  ],
 })
 export class AdminModule {
   /**
@@ -45,7 +45,7 @@ export class AdminModule {
   static withEntryComponents() {
     return {
       ngModule: AdminModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component})),
     };
   }
 }

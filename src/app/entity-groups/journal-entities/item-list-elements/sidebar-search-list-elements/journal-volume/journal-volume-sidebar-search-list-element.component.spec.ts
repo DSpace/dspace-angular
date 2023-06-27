@@ -10,36 +10,36 @@ const object = Object.assign(new ItemSearchResult(), {
     metadata: {
       'dc.title': [
         {
-          value: 'title'
-        }
+          value: 'title',
+        },
       ],
       'journal.title': [
         {
-          value: 'journal title'
-        }
+          value: 'journal title',
+        },
       ],
       'publicationvolume.volumeNumber': [
         {
-          value: '1'
+          value: '1',
         },
         {
-          value: '2'
-        }
-      ]
-    }
-  })
+          value: '2',
+        },
+      ],
+    },
+  }),
 });
 const parent = Object.assign(new Collection(), {
   id: 'test-collection',
   metadata: {
     'dc.title': [
       {
-        value: 'parent title'
-      }
-    ]
-  }
+        value: 'parent title',
+      },
+    ],
+  },
 });
 
 describe('JournalVolumeSidebarSearchListElementComponent',
-  createSidebarSearchListElementTests(JournalVolumeSidebarSearchListElementComponent, object, parent, 'parent title', 'title', 'journal title (1) (2)')
+  createSidebarSearchListElementTests(JournalVolumeSidebarSearchListElementComponent, object, parent, 'parent title', 'title', 'journal title (1) (2)'),
 );

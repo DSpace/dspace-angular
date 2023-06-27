@@ -25,10 +25,10 @@ mockCommunityWithAbstract.indexableObject = Object.assign(new Community(), {
     'dc.description.abstract': [
       {
         language: 'en_US',
-        value: 'Short description'
-      }
-    ]
-  }
+        value: 'Short description',
+      },
+    ],
+  },
 });
 
 const mockCommunityWithoutAbstract: CommunitySearchResult = new CommunitySearchResult();
@@ -38,16 +38,16 @@ mockCommunityWithoutAbstract.indexableObject = Object.assign(new Community(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'Test title'
-      }
-    ]
-  }
+        value: 'Test title',
+      },
+    ],
+  },
 });
 
 const environmentUseThumbs = {
   browseBy: {
-    showThumbnails: true
-  }
+    showThumbnails: true,
+  },
 };
 
 describe('CommunitySearchResultListElementComponent', () => {
@@ -57,12 +57,12 @@ describe('CommunitySearchResultListElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CommunitySearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

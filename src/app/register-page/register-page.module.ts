@@ -21,9 +21,9 @@ import { ThemedRegisterEmailComponent } from './register-email/themed-register-e
     RegisterEmailComponent,
     ThemedRegisterEmailComponent,
     CreateProfileComponent,
-    ThemedCreateProfileComponent
+    ThemedCreateProfileComponent,
   ],
-  providers: []
+  providers: [],
 })
 
 /**

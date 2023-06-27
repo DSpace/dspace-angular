@@ -15,7 +15,7 @@ import {
   SimpleChanges,
   Type,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
 import { UntypedFormArray, UntypedFormGroup } from '@angular/forms';
 
@@ -53,7 +53,7 @@ import {
   DynamicNGBootstrapRadioGroupComponent,
   DynamicNGBootstrapSelectComponent,
   DynamicNGBootstrapTextAreaComponent,
-  DynamicNGBootstrapTimePickerComponent
+  DynamicNGBootstrapTimePickerComponent,
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { ReorderableRelationship } from './existing-metadata-list-element/existing-metadata-list-element.component';
@@ -95,7 +95,7 @@ import {
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getPaginatedListPayload,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
@@ -189,7 +189,7 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
   selector: 'ds-dynamic-form-control-container',
   styleUrls: ['./ds-dynamic-form-control-container.component.scss'],
   templateUrl: './ds-dynamic-form-control-container.component.html',
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;
@@ -290,11 +290,11 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               true,
               followLink('leftItem'),
               followLink('rightItem'),
-              followLink('relationshipType')
+              followLink('relationshipType'),
             );
             relationshipsRD$.pipe(
               getFirstSucceededRemoteDataPayload(),
-              getPaginatedListPayload()
+              getPaginatedListPayload(),
             ).subscribe((relationships: Relationship[]) => {
               // set initial namevariants for pre-existing relationships
               relationships.forEach((relationship: Relationship) => {
@@ -311,7 +311,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               getFirstSucceededRemoteData(),
               map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((i) => Object.assign(new ItemSearchResult(), { indexableObject: i }))),
             );
-          })
+          }),
         ).subscribe((relatedItems: SearchResult<Item>[]) => this.selectableListService.select(this.listId, relatedItems));
         this.subs.push(subscription);
       }
@@ -337,9 +337,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               map((leftItem: Item) => {
                 return new ReorderableRelationship(relationship, leftItem.uuid !== item.uuid, this.store, this.model.submissionId);
               }),
-            )
+            ),
           ),
-          startWith(undefined)
+          startWith(undefined),
         );
       }
     }
@@ -423,7 +423,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    */
   openLookup() {
     this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
-      size: 'lg'
+      size: 'lg',
     });
 
     if (hasValue(this.model.value)) {
@@ -432,7 +432,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         context: this.context,
         control: this.control,
         model: this.model,
-        type: DynamicFormControlEventType.Focus
+        type: DynamicFormControlEventType.Focus,
       } as DynamicFormControlEvent);
 
       this.change.emit({
@@ -440,7 +440,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         context: this.context,
         control: this.control,
         model: this.model,
-        type: DynamicFormControlEventType.Change
+        type: DynamicFormControlEventType.Change,
       } as DynamicFormControlEvent);
     }
 
@@ -500,7 +500,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     const submissionObject$ = this.submissionObjectService
       .findById(this.model.submissionId, true, true, followLink('item'), followLink('collection')).pipe(
         getAllSucceededRemoteData(),
-        getRemoteDataPayload()
+        getRemoteDataPayload(),
       );
 
     this.item$ = submissionObject$.pipe(switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload())));

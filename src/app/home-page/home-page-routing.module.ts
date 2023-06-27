@@ -30,14 +30,14 @@ import { MenuItemType } from '../shared/menu/menu-item-type.model';
           },
         },
         resolve: {
-          site: HomePageResolver
-        }
-      }
-    ])
+          site: HomePageResolver,
+        },
+      },
+    ]),
   ],
   providers: [
-    HomePageResolver
-  ]
+    HomePageResolver,
+  ],
 })
 export class HomePageRoutingModule {
 }

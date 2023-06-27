@@ -15,7 +15,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-browse-entry-list-element',
   styleUrls: ['./browse-entry-list-element.component.scss'],
-  templateUrl: './browse-entry-list-element.component.html'
+  templateUrl: './browse-entry-list-element.component.html',
 })
 
 /**
@@ -52,9 +52,9 @@ export class BrowseEntryListElementComponent extends AbstractListableElementComp
           authority: this.object.authority ? this.object.authority : undefined,
           startsWith: undefined,
           [pageParamName]: null,
-          [BBM_PAGINATION_ID + '.return']: currentPage
+          [BBM_PAGINATION_ID + '.return']: currentPage,
         };
-      })
+      }),
     );
   }
 }

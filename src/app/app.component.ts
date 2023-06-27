@@ -102,7 +102,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.isAuthBlocking$ = this.store.pipe(
       select(isAuthenticationBlocking),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
 
     this.dispatchWindowSize(this._window.nativeWindow.innerWidth, this._window.nativeWindow.innerHeight);
@@ -133,7 +133,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private dispatchWindowSize(width, height): void {
     this.store.dispatch(
-      new HostWindowResizeAction(width, height)
+      new HostWindowResizeAction(width, height),
     );
   }
 

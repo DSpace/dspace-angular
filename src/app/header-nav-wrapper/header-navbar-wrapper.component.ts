@@ -22,7 +22,7 @@ export class HeaderNavbarWrapperComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<AppState>,
-    private menuService: MenuService
+    private menuService: MenuService,
   ) {
   }
 

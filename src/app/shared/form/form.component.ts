@@ -26,7 +26,7 @@ import { FormFieldMetadataValueObject } from './builder/models/form-field-metada
   exportAs: 'formComponent',
   selector: 'ds-form',
   styleUrls: ['form.component.scss'],
-  templateUrl: 'form.component.html'
+  templateUrl: 'form.component.html',
 })
 export class FormComponent implements OnDestroy, OnInit {
 
@@ -177,7 +177,7 @@ export class FormComponent implements OnDestroy, OnInit {
           errors
             .filter((error: FormError) => findIndex(this.formErrors, {
               fieldId: error.fieldId,
-              fieldIndex: error.fieldIndex
+              fieldIndex: error.fieldIndex,
             }) === -1)
             .forEach((error: FormError) => {
               const { fieldId } = error;
@@ -200,7 +200,7 @@ export class FormComponent implements OnDestroy, OnInit {
           this.formErrors
             .filter((error: FormError) => findIndex(errors, {
               fieldId: error.fieldId,
-              fieldIndex: error.fieldIndex
+              fieldIndex: error.fieldIndex,
             }) === -1)
             .forEach((error: FormError) => {
               const { fieldId } = error;
@@ -219,7 +219,7 @@ export class FormComponent implements OnDestroy, OnInit {
             });
           this.formErrors = errors;
           this.changeDetectorRef.detectChanges();
-        })
+        }),
     );
   }
 

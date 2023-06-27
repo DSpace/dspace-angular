@@ -32,9 +32,9 @@ describe('LogInComponent', () => {
         authenticated: false,
         loaded: false,
         loading: false,
-        authMethods: authMethodsMock
-      }
-    }
+        authMethods: authMethodsMock,
+      },
+    },
   };
   let hardRedirectService: HardRedirectService;
 
@@ -43,10 +43,10 @@ describe('LogInComponent', () => {
   beforeEach(waitForAsync(() => {
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
       redirect: {},
-      getCurrentRoute: {}
+      getCurrentRoute: {},
     });
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: of(true)
+      isAuthorized: of(true),
     });
 
     // refine the test module by declaring the test component
@@ -57,15 +57,15 @@ describe('LogInComponent', () => {
         StoreModule.forRoot(authReducer, {
           runtimeChecks: {
             strictStateImmutability: false,
-            strictActionImmutability: false
-          }
+            strictActionImmutability: false,
+          },
         }),
         RouterTestingModule,
         SharedModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
@@ -75,11 +75,11 @@ describe('LogInComponent', () => {
         { provide: HardRedirectService, useValue: hardRedirectService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         provideMockStore({ initialState }),
-        LogInComponent
+        LogInComponent,
       ],
       schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
     })
       .compileComponents();
 
@@ -133,7 +133,7 @@ describe('LogInComponent', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

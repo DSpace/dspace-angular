@@ -12,7 +12,7 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-item-private',
-  templateUrl: '../simple-item-action/abstract-simple-item-action.component.html'
+  templateUrl: '../simple-item-action/abstract-simple-item-action.component.html',
 })
 /**
  * Component responsible for rendering the make item private page
@@ -37,7 +37,7 @@ export class ItemPrivateComponent extends AbstractSimpleItemActionComponent {
     this.itemDataService.setDiscoverable(this.item, false).pipe(getFirstCompletedRemoteData()).subscribe(
       (rd: RemoteData<Item>) => {
         this.processRestResponse(rd);
-      }
+      },
     );
   }
 }

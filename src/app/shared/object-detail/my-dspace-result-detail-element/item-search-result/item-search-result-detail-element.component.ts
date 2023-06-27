@@ -13,7 +13,7 @@ import { Context } from '../../../../core/shared/context.model';
 @Component({
   selector: 'ds-item-search-result-detail-element',
   styleUrls: ['../search-result-detail-element.component.scss', './item-search-result-detail-element.component.scss'],
-  templateUrl: './item-search-result-detail-element.component.html'
+  templateUrl: './item-search-result-detail-element.component.html',
 })
 
 @listableObjectComponent(ItemSearchResult, ViewMode.DetailedListElement, Context.Workspace)

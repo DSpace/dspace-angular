@@ -19,7 +19,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
  */
 @Component({
   selector: 'ds-item-page-file-section',
-  templateUrl: './file-section.component.html'
+  templateUrl: './file-section.component.html',
 })
 export class FileSectionComponent implements OnInit {
 
@@ -44,7 +44,7 @@ export class FileSectionComponent implements OnInit {
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
     public dsoNameService: DSONameService,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     this.pageSize = this.appConfig.item.bitstream.pageSize;
   }
@@ -69,7 +69,7 @@ export class FileSectionComponent implements OnInit {
     }
     this.bitstreamDataService.findAllByItemAndBundleName(this.item, 'ORIGINAL', {
       currentPage: this.currentPage,
-      elementsPerPage: this.pageSize
+      elementsPerPage: this.pageSize,
     }).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {

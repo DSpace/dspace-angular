@@ -34,7 +34,7 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
    * The current pagination configuration for the page used by the FindAll method
    */
   config: FindListOptions = Object.assign(new FindListOptions(), {
-    elementsPerPage: 20
+    elementsPerPage: 20,
   });
 
   /**
@@ -42,7 +42,7 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'po',
-    pageSize: 20
+    pageSize: 20,
   });
 
   /**
@@ -74,7 +74,7 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
    */
   setProcesses() {
     this.processesRD$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.config).pipe(
-      switchMap((config) => this.processService.findAll(config, true, false))
+      switchMap((config) => this.processService.findAll(config, true, false)),
     );
   }
 

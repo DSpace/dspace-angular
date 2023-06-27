@@ -14,7 +14,7 @@ describe('ItemTemplatePageResolver', () => {
 
     beforeEach(() => {
       itemTemplateService = {
-        findByCollectionID: (id: string) => createSuccessfulRemoteDataObject$({ id })
+        findByCollectionID: (id: string) => createSuccessfulRemoteDataObject$({ id }),
       };
       dsoNameService = new DSONameServiceMock();
       resolver = new ItemTemplatePageResolver(dsoNameService as DSONameService, itemTemplateService);
@@ -27,7 +27,7 @@ describe('ItemTemplatePageResolver', () => {
           (resolved) => {
             expect(resolved.payload.id).toEqual(uuid);
             done();
-          }
+          },
         );
     });
   });

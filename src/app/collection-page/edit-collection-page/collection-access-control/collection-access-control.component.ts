@@ -18,7 +18,7 @@ export class CollectionAccessControlComponent  implements OnInit {
 
   ngOnInit(): void {
     this.itemRD$ = this.route.parent.parent.data.pipe(
-      map((data) => data.dso)
+      map((data) => data.dso),
     ).pipe(getFirstSucceededRemoteData()) as Observable<RemoteData<Community>>;
   }
 }

@@ -17,20 +17,20 @@ describe('CollectionCurateComponent', () => {
   let dsoNameService;
 
   const collection = Object.assign(new Collection(), {
-    metadata: {'dc.title': ['Collection Name'], 'dc.identifier.uri': [ { value: '123456789/1'}]}
+    metadata: {'dc.title': ['Collection Name'], 'dc.identifier.uri': [ { value: '123456789/1'}]},
   });
 
   beforeEach(waitForAsync(() => {
     routeStub = {
       parent: {
         data: observableOf({
-          dso: createSuccessfulRemoteDataObject(collection)
-        })
-      }
+          dso: createSuccessfulRemoteDataObject(collection),
+        }),
+      },
     };
 
     dsoNameService = jasmine.createSpyObj('dsoNameService', {
-      getName: 'Collection Name'
+      getName: 'Collection Name',
     });
 
     TestBed.configureTestingModule({
@@ -38,9 +38,9 @@ describe('CollectionCurateComponent', () => {
       declarations: [CollectionCurateComponent],
       providers: [
         {provide: ActivatedRoute, useValue: routeStub},
-        {provide: DSONameService, useValue: dsoNameService}
+        {provide: DSONameService, useValue: dsoNameService},
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -58,7 +58,7 @@ describe('CollectionCurateComponent', () => {
     });
     it('should contain the collection information provided in the route', () => {
       comp.dsoRD$.subscribe((value) => {
-        expect(value.payload.handle
+        expect(value.payload.handle,
         ).toEqual('123456789/1');
       });
       comp.collectionName$.subscribe((value) => {

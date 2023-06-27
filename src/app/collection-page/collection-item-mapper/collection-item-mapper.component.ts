@@ -13,7 +13,7 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-  toDSpaceObjectListRD
+  toDSpaceObjectListRD,
 } from '../../core/shared/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
@@ -38,14 +38,14 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     fadeIn,
-    fadeInOut
+    fadeInOut,
   ],
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
 })
 /**
  * Component used to map items to a collection
@@ -115,13 +115,13 @@ export class CollectionItemMapperComponent implements OnInit {
   ngOnInit(): void {
     this.collectionRD$ = this.route.parent.data.pipe(
       map((data) => data.dso as RemoteData<Collection>),
-      getFirstSucceededRemoteData()
+      getFirstSucceededRemoteData(),
     );
 
     this.collectionName$ = this.collectionRD$.pipe(
       map((rd: RemoteData<Collection>) => {
         return this.dsoNameService.getName(rd.payload);
-      })
+      }),
     );
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
     this.loadItemLists();
@@ -136,7 +136,7 @@ export class CollectionItemMapperComponent implements OnInit {
     const collectionAndOptions$ = observableCombineLatest(
       this.collectionRD$,
       this.searchOptions$,
-      this.shouldUpdate$
+      this.shouldUpdate$,
     );
     this.collectionItemsRD$ = collectionAndOptions$.pipe(
       switchMap(([collectionRD, options, shouldUpdate]) => {
@@ -144,11 +144,11 @@ export class CollectionItemMapperComponent implements OnInit {
           this.shouldUpdate$.next(false);
         }
         return this.itemDataService.findListByHref(collectionRD.payload._links.mappedItems.href, Object.assign(options, {
-          sort: this.defaultSortOptions
+          sort: this.defaultSortOptions,
         }),!shouldUpdate, false, followLink('owningCollection')).pipe(
-          getAllSucceededRemoteData()
+          getAllSucceededRemoteData(),
         );
-      })
+      }),
     );
     this.mappedItemsRD$ = collectionAndOptions$.pipe(
       switchMap(([collectionRD, options, shouldUpdate]) => {
@@ -156,12 +156,12 @@ export class CollectionItemMapperComponent implements OnInit {
           query: this.buildQuery(collectionRD.payload.id, options.query),
           scope: undefined,
           dsoTypes: [DSpaceObjectType.ITEM],
-          sort: this.defaultSortOptions
+          sort: this.defaultSortOptions,
         }), 10000, undefined, undefined, followLink('owningCollection')).pipe(
           toDSpaceObjectListRD(),
-          startWith(undefined)
+          startWith(undefined),
         );
-      })
+      }),
     );
   }
 
@@ -178,16 +178,16 @@ export class CollectionItemMapperComponent implements OnInit {
         observableCombineLatest(ids.map((id: string) => {
           if (remove) {
             return this.itemDataService.removeMappingFromCollection(id, collection.id).pipe(
-              getFirstCompletedRemoteData()
+              getFirstCompletedRemoteData(),
             );
           } else {
             return this.itemDataService.mapToCollection(id, collection._links.self.href).pipe(
-              getFirstCompletedRemoteData()
+              getFirstCompletedRemoteData(),
             );
           }
-        }
-        ))
-      )
+        },
+        )),
+      ),
     );
 
     this.showNotifications(responses$, remove);
@@ -207,7 +207,7 @@ export class CollectionItemMapperComponent implements OnInit {
       if (successful.length > 0) {
         const successMessages = observableCombineLatest(
           this.translateService.get(`collection.edit.item-mapper.notifications.${messageInsertion}.success.head`),
-          this.translateService.get(`collection.edit.item-mapper.notifications.${messageInsertion}.success.content`, { amount: successful.length })
+          this.translateService.get(`collection.edit.item-mapper.notifications.${messageInsertion}.success.content`, { amount: successful.length }),
         );
 
         successMessages.subscribe(([head, content]) => {
@@ -218,7 +218,7 @@ export class CollectionItemMapperComponent implements OnInit {
       if (unsuccessful.length > 0) {
         const unsuccessMessages = observableCombineLatest(
           this.translateService.get(`collection.edit.item-mapper.notifications.${messageInsertion}.error.head`),
-          this.translateService.get(`collection.edit.item-mapper.notifications.${messageInsertion}.error.content`, { amount: unsuccessful.length })
+          this.translateService.get(`collection.edit.item-mapper.notifications.${messageInsertion}.error.content`, { amount: unsuccessful.length }),
         );
 
         unsuccessMessages.subscribe(([head, content]) => {
@@ -277,7 +277,7 @@ export class CollectionItemMapperComponent implements OnInit {
     this.collectionRD$.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-      take(1)
+      take(1),
     ).subscribe((collection: Collection) => {
       this.router.navigate(['/collections/', collection.id]);
     });

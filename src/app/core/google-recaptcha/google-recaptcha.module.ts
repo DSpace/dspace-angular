@@ -5,18 +5,18 @@ import { GoogleRecaptchaComponent } from '../../shared/google-recaptcha/google-r
 import { GoogleRecaptchaService } from './google-recaptcha.service';
 
 const PROVIDERS = [
-  GoogleRecaptchaService
+  GoogleRecaptchaService,
 ];
 
 const COMPONENTS = [
-  GoogleRecaptchaComponent
+  GoogleRecaptchaComponent,
 ];
 
 @NgModule({
   imports: [ CommonModule ],
   providers: [...PROVIDERS],
   declarations: [...COMPONENTS],
-  exports: [...COMPONENTS]
+  exports: [...COMPONENTS],
 })
 
 /**

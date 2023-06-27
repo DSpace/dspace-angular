@@ -14,11 +14,11 @@ import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnot
   ],
   declarations: [
     ObjectNotFoundComponent,
-    ThemedObjectNotFoundComponent
+    ThemedObjectNotFoundComponent,
   ],
   providers: [
     DsoRedirectService,
-  ]
+  ],
 })
 export class LookupIdModule {
 

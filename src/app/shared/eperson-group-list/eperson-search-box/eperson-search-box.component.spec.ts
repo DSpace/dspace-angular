@@ -20,19 +20,19 @@ describe('EpersonSearchBoxComponent test suite', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         EpersonSearchBoxComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         UntypedFormBuilder,
-        EpersonSearchBoxComponent
+        EpersonSearchBoxComponent,
       ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 
@@ -89,12 +89,12 @@ describe('EpersonSearchBoxComponent test suite', () => {
     it('should emit new search event', () => {
       const data = {
         scope: 'metadata',
-        query: 'test'
+        query: 'test',
       };
 
       const event: SearchEvent = {
         scope: 'metadata',
-        query: 'test'
+        query: 'test',
       };
       spyOn(comp.search, 'emit');
 
@@ -108,7 +108,7 @@ describe('EpersonSearchBoxComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

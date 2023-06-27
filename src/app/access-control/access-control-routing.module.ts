@@ -7,10 +7,10 @@ import { GROUP_EDIT_PATH } from './access-control-routing-paths';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { GroupPageGuard } from './group-registry/group-page.guard';
 import {
-  GroupAdministratorGuard
+  GroupAdministratorGuard,
 } from '../core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 import {
-  SiteAdministratorGuard
+  SiteAdministratorGuard,
 } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { BulkAccessComponent } from './bulk-access/bulk-access.component';
 
@@ -21,49 +21,49 @@ import { BulkAccessComponent } from './bulk-access/bulk-access.component';
         path: 'epeople',
         component: EPeopleRegistryComponent,
         resolve: {
-          breadcrumb: I18nBreadcrumbResolver
+          breadcrumb: I18nBreadcrumbResolver,
         },
         data: { title: 'admin.access-control.epeople.title', breadcrumbKey: 'admin.access-control.epeople' },
-        canActivate: [SiteAdministratorGuard]
+        canActivate: [SiteAdministratorGuard],
       },
       {
         path: GROUP_EDIT_PATH,
         component: GroupsRegistryComponent,
         resolve: {
-          breadcrumb: I18nBreadcrumbResolver
+          breadcrumb: I18nBreadcrumbResolver,
         },
         data: { title: 'admin.access-control.groups.title', breadcrumbKey: 'admin.access-control.groups' },
-        canActivate: [GroupAdministratorGuard]
+        canActivate: [GroupAdministratorGuard],
       },
       {
         path: `${GROUP_EDIT_PATH}/newGroup`,
         component: GroupFormComponent,
         resolve: {
-          breadcrumb: I18nBreadcrumbResolver
+          breadcrumb: I18nBreadcrumbResolver,
         },
         data: { title: 'admin.access-control.groups.title.addGroup', breadcrumbKey: 'admin.access-control.groups.addGroup' },
-        canActivate: [GroupAdministratorGuard]
+        canActivate: [GroupAdministratorGuard],
       },
       {
         path: `${GROUP_EDIT_PATH}/:groupId`,
         component: GroupFormComponent,
         resolve: {
-          breadcrumb: I18nBreadcrumbResolver
+          breadcrumb: I18nBreadcrumbResolver,
         },
         data: { title: 'admin.access-control.groups.title.singleGroup', breadcrumbKey: 'admin.access-control.groups.singleGroup' },
-        canActivate: [GroupPageGuard]
+        canActivate: [GroupPageGuard],
       },
       {
         path: 'bulk-access',
         component: BulkAccessComponent,
         resolve: {
-          breadcrumb: I18nBreadcrumbResolver
+          breadcrumb: I18nBreadcrumbResolver,
         },
         data: { title: 'admin.access-control.bulk-access.title', breadcrumbKey: 'admin.access-control.bulk-access' },
-        canActivate: [SiteAdministratorGuard]
+        canActivate: [SiteAdministratorGuard],
       },
-    ])
-  ]
+    ]),
+  ],
 })
 /**
  * Routing module for the AccessControl section of the admin sidebar

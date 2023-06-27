@@ -14,7 +14,7 @@ describe('ImportExternalPageComponent', () => {
       providers:[
         { provide: ThemeService, useValue: getMockThemeService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

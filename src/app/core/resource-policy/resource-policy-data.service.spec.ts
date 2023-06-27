@@ -44,15 +44,15 @@ describe('ResourcePolicyService', () => {
     uuid: 'resource-policy-1',
     _links: {
       eperson: {
-        href: 'https://rest.api/rest/api/eperson'
+        href: 'https://rest.api/rest/api/eperson',
       },
       group: {
-        href: 'https://rest.api/rest/api/group'
+        href: 'https://rest.api/rest/api/group',
       },
       self: {
-        href: 'https://rest.api/rest/api/resourcepolicies/1'
+        href: 'https://rest.api/rest/api/resourcepolicies/1',
       },
-    }
+    },
   };
 
   const anotherResourcePolicy: any = {
@@ -67,15 +67,15 @@ describe('ResourcePolicyService', () => {
     uuid: 'resource-policy-2',
     _links: {
       eperson: {
-        href: 'https://rest.api/rest/api/eperson'
+        href: 'https://rest.api/rest/api/eperson',
       },
       group: {
-        href: 'https://rest.api/rest/api/group'
+        href: 'https://rest.api/rest/api/group',
       },
       self: {
-        href: 'https://rest.api/rest/api/resourcepolicies/1'
+        href: 'https://rest.api/rest/api/resourcepolicies/1',
       },
-    }
+    },
   };
   const endpointURL = `https://rest.api/rest/api/resourcepolicies`;
   const requestURL = `https://rest.api/rest/api/resourcepolicies/${resourcePolicy.id}`;
@@ -97,7 +97,7 @@ describe('ResourcePolicyService', () => {
     scheduler = getTestScheduler();
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: cold('a', { a: endpointURL })
+      getEndpoint: cold('a', { a: endpointURL }),
     });
 
     responseCacheEntry = new RequestEntry();
@@ -114,29 +114,29 @@ describe('ResourcePolicyService', () => {
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: hot('a|', {
-        a: resourcePolicyRD
+        a: resourcePolicyRD,
       }),
       buildList: hot('a|', {
-        a: paginatedListRD
+        a: paginatedListRD,
       }),
       buildFromRequestUUID: hot('a|', {
-        a: resourcePolicyRD
+        a: resourcePolicyRD,
       }),
       buildFromRequestUUIDAndAwait: hot('a|', {
-        a: resourcePolicyRD
-      })
+        a: resourcePolicyRD,
+      }),
     });
     ePersonService = jasmine.createSpyObj('ePersonService', {
       getBrowseEndpoint: hot('a', {
-        a: ePersonEndpoint
+        a: ePersonEndpoint,
       }),
       getIDHrefObs: cold('a', {
-        a: 'https://rest.api/rest/api/eperson/epersons/' + epersonUUID
+        a: 'https://rest.api/rest/api/eperson/epersons/' + epersonUUID,
       }),
     });
     groupService = jasmine.createSpyObj('groupService', {
       getIDHrefObs: cold('a', {
-        a: 'https://rest.api/rest/api/eperson/groups/' + groupUUID
+        a: 'https://rest.api/rest/api/eperson/groups/' + groupUUID,
       }),
     });
     objectCache = {} as ObjectCacheService;
@@ -190,7 +190,7 @@ describe('ResourcePolicyService', () => {
     it('should return a RemoteData<ResourcePolicy> for the object with the given id', () => {
       const result = service.create(resourcePolicy, resourceUUID, epersonUUID);
       const expected = cold('a|', {
-        a: resourcePolicyRD
+        a: resourcePolicyRD,
       });
       expect(result).toBeObservable(expected);
     });
@@ -218,7 +218,7 @@ describe('ResourcePolicyService', () => {
     it('should return a RemoteData<ResourcePolicy> for the object with the given id', () => {
       const result = service.findById(resourcePolicyId);
       const expected = cold('a|', {
-        a: resourcePolicyRD
+        a: resourcePolicyRD,
       });
       expect(result).toBeObservable(expected);
     });
@@ -228,7 +228,7 @@ describe('ResourcePolicyService', () => {
     it('should return a RemoteData<ResourcePolicy> for the object with the given URL', () => {
       const result = service.findByHref(requestURL);
       const expected = cold('a|', {
-        a: resourcePolicyRD
+        a: resourcePolicyRD,
       });
       expect(result).toBeObservable(expected);
     });
@@ -259,7 +259,7 @@ describe('ResourcePolicyService', () => {
     it('should return a RemoteData<PaginatedList<ResourcePolicy>) for the search', () => {
       const result = service.searchByEPerson(epersonUUID, resourceUUID);
       const expected = cold('a|', {
-        a: paginatedListRD
+        a: paginatedListRD,
       });
       expect(result).toBeObservable(expected);
     });
@@ -291,7 +291,7 @@ describe('ResourcePolicyService', () => {
     it('should return a RemoteData<PaginatedList<ResourcePolicy>) for the search', () => {
       const result = service.searchByGroup(groupUUID);
       const expected = cold('a|', {
-        a: paginatedListRD
+        a: paginatedListRD,
       });
       expect(result).toBeObservable(expected);
     });
@@ -324,7 +324,7 @@ describe('ResourcePolicyService', () => {
     it('should return a RemoteData<PaginatedList<ResourcePolicy>) for the search', () => {
       const result = service.searchByResource(resourceUUID);
       const expected = cold('a|', {
-        a: paginatedListRD
+        a: paginatedListRD,
       });
       expect(result).toBeObservable(expected);
     });

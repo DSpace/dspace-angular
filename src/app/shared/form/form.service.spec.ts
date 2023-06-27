@@ -15,9 +15,9 @@ describe('FormService test suite', () => {
     form: {
       validatorMap: {
         required: 'required',
-        regex: 'pattern'
-      }
-    }
+        regex: 'pattern',
+      },
+    },
   } as any;
   const formId = 'testForm';
   let service: FormService;
@@ -29,11 +29,11 @@ describe('FormService test suite', () => {
     new DynamicInputModel({
       id: 'title',
       validators: {
-        required: null
+        required: null,
       },
       errorMessages: {
-        required: 'Title is required'
-      }
+        required: 'Title is required',
+      },
     }),
     new DynamicInputModel({ id: 'date' }),
     new DynamicInputModel({ id: 'description' }),
@@ -45,21 +45,21 @@ describe('FormService test suite', () => {
 
           id: 'zipCode',
           label: 'Zip Code',
-          placeholder: 'ZIP'
+          placeholder: 'ZIP',
         }),
         new DynamicInputModel({
 
           id: 'state',
           label: 'State',
-          placeholder: 'State'
+          placeholder: 'State',
         }),
         new DynamicInputModel({
 
           id: 'city',
           label: 'City',
-          placeholder: 'City'
-        })
-      ]
+          placeholder: 'City',
+        }),
+      ],
     }),
   ];
 
@@ -73,16 +73,16 @@ describe('FormService test suite', () => {
     addressLocation: {
       zipCode: null,
       state: null,
-      city: null
-    }
+      city: null,
+    },
   };
   const formState = {
     testForm: {
       data: formData,
       valid: false,
       errors: [],
-      touched: {}
-    }
+      touched: {},
+    },
   };
 
   beforeEach(waitForAsync(() => {
@@ -91,10 +91,10 @@ describe('FormService test suite', () => {
         StoreModule.forRoot({ formReducer }, {
           runtimeChecks: {
             strictStateImmutability: false,
-            strictActionImmutability: false
-          }
-        })
-      ]
+            strictActionImmutability: false,
+          },
+        }),
+      ],
     }).compileComponents();
   }));
 
@@ -118,7 +118,7 @@ describe('FormService test suite', () => {
     formGroup = new UntypedFormGroup({ author, title, date, description, addressLocation });
     controls = { author, title, date, description , addressLocation };
     service = new FormService(builderService, store);
-  })
+  }),
   )
   ;
 

@@ -72,11 +72,11 @@ describe('MediaViewerVideoComponent', () => {
     [
       { bitstream: mockBitstream, format: 'video', thumbnail: null },
       { bitstream: mockBitstream, format: 'video', thumbnail: null },
-    ]
+    ],
   );
   const mockMediaViewerItem: MediaViewerItem[] = Object.assign(
     new Array<MediaViewerItem>(),
-    [{ bitstream: mockBitstream, format: 'video', thumbnail: null }]
+    [{ bitstream: mockBitstream, format: 'video', thumbnail: null }],
   );
 
   beforeEach(() => {

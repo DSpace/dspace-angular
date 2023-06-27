@@ -25,7 +25,7 @@ import {
   RetrieveAuthMethodsAction,
   RetrieveAuthMethodsErrorAction,
   RetrieveAuthMethodsSuccessAction,
-  RetrieveTokenAction
+  RetrieveTokenAction,
 } from './auth.actions';
 import { authMethodsMock, AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { AuthService } from './auth.service';
@@ -56,9 +56,9 @@ describe('AuthEffects', () => {
           authenticated: false,
           loaded: false,
           loading: false,
-          authMethods: []
-        }
-      }
+          authMethods: [],
+        },
+      },
     };
   }
 
@@ -66,7 +66,7 @@ describe('AuthEffects', () => {
     init();
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({ auth: authReducer }, storeModuleConfig)
+        StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
       ],
       providers: [
         AuthEffects,
@@ -88,8 +88,8 @@ describe('AuthEffects', () => {
         actions = hot('--a-', {
           a: {
             type: AuthActionTypes.AUTHENTICATE,
-            payload: { email: 'user', password: 'password' }
-          }
+            payload: { email: 'user', password: 'password' },
+          },
         });
 
         const expected = cold('--b-', { b: new AuthenticationSuccessAction(token) });
@@ -105,8 +105,8 @@ describe('AuthEffects', () => {
         actions = hot('--a-', {
           a: {
             type: AuthActionTypes.AUTHENTICATE,
-            payload: { email: 'user', password: 'wrongpassword' }
-          }
+            payload: { email: 'user', password: 'wrongpassword' },
+          },
         });
 
         const expected = cold('--b-', { b: new AuthenticationErrorAction(new Error('Message Error test')) });
@@ -161,9 +161,9 @@ describe('AuthEffects', () => {
           type: AuthActionTypes.AUTHENTICATED_SUCCESS, payload: {
             authenticated: true,
             authToken: token,
-            userHref: EPersonMock._links.self.href
-          }
-        }
+            userHref: EPersonMock._links.self.href,
+          },
+        },
       });
 
       const expected = cold('--b-', { b: new RetrieveAuthenticatedEpersonAction(EPersonMock._links.self.href) });
@@ -211,8 +211,8 @@ describe('AuthEffects', () => {
         spyOn((authEffects as any).authService, 'checkAuthenticationCookie').and.returnValue(
           observableOf(
             {
-              authenticated: true
-            })
+              authenticated: true,
+            }),
         );
         spyOn((authEffects as any).authService, 'setExternalAuthStatus');
         actions = hot('--a-', { a: { type: AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE } });
@@ -230,7 +230,7 @@ describe('AuthEffects', () => {
       it('should return a RETRIEVE_AUTH_METHODS action in response to a CHECK_AUTHENTICATION_TOKEN_COOKIE action when authenticated is false', () => {
         spyOn((authEffects as any).authService, 'checkAuthenticationCookie').and.returnValue(
           observableOf(
-            { authenticated: false })
+            { authenticated: false }),
         );
         actions = hot('--a-', { a: { type: AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE } });
 
@@ -260,8 +260,8 @@ describe('AuthEffects', () => {
         actions = hot('--a-', {
           a: {
             type: AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON,
-            payload: EPersonMock._links.self.href
-          }
+            payload: EPersonMock._links.self.href,
+          },
         });
 
         const expected = cold('--b-', { b: new RetrieveAuthenticatedEpersonSuccessAction(EPersonMock.id) });
@@ -314,8 +314,8 @@ describe('AuthEffects', () => {
       it('should return a AUTHENTICATE_SUCCESS action in response to a RETRIEVE_TOKEN action', () => {
         actions = hot('--a-', {
           a: {
-            type: AuthActionTypes.RETRIEVE_TOKEN
-          }
+            type: AuthActionTypes.RETRIEVE_TOKEN,
+          },
         });
 
         const expected = cold('--b-', { b: new AuthenticationSuccessAction(token) });
@@ -330,8 +330,8 @@ describe('AuthEffects', () => {
 
         actions = hot('--a-', {
           a: {
-            type: AuthActionTypes.RETRIEVE_TOKEN
-          }
+            type: AuthActionTypes.RETRIEVE_TOKEN,
+          },
         });
 
         const expected = cold('--b-', { b: new AuthenticationErrorAction(new Error('Message Error test')) });

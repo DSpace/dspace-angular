@@ -60,7 +60,7 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
               protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
               protected router: Router,
-              protected paginationService: PaginationService
+              protected paginationService: PaginationService,
   ) {
   }
 
@@ -95,7 +95,7 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
       [this.filterConfig.paramName]: selectedValues
         .filter((facetValue: FacetValue) => facetValue.label !== this.selectedValue.label)
         .map((facetValue: FacetValue) => this.getFacetValue(facetValue)),
-      [page]: 1
+      [page]: 1,
     };
   }
   /**

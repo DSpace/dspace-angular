@@ -6,7 +6,7 @@ import {filter, map, switchMap, tap} from 'rxjs/operators';
 import {hasNoValue, hasValue, isUndefined} from '../shared/empty.util';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BreadcrumbsService {
 

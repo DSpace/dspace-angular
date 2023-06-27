@@ -11,7 +11,7 @@ import {
   SubmissionDeleteRequest,
   SubmissionPatchRequest,
   SubmissionPostRequest,
-  SubmissionRequest
+  SubmissionRequest,
 } from '../data/request.models';
 import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
@@ -54,7 +54,7 @@ export class SubmissionRestService {
           return hasValue(response.payload) ? response.payload.dataDefinition : response.payload;
         }
       }),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 

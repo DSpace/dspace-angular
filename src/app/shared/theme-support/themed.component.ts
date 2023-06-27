@@ -112,7 +112,7 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
                 tap(() => this.usedTheme = BASE_THEME_NAME),
                 map((unthemedFile: any) => {
                   return unthemedFile[this.getComponentName()];
-                })
+                }),
               );
             }
           })),

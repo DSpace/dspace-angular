@@ -12,7 +12,7 @@ import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-search-result-list-element',
-  template: ``
+  template: ``,
 })
 export class SearchResultListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
   /**

@@ -9,7 +9,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TestScheduler } from 'rxjs/testing';
 import {
   EPeopleRegistryCancelEPersonAction,
-  EPeopleRegistryEditEPersonAction
+  EPeopleRegistryEditEPersonAction,
 } from '../../access-control/epeople-registry/epeople-registry.actions';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ChangeAnalyzer } from '../data/change-analyzer';
@@ -70,13 +70,13 @@ describe('EPersonDataService', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [],
       providers: [],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
   }
 
@@ -96,7 +96,7 @@ describe('EPersonDataService', () => {
     it('search by default scope (byMetadata) and no query', () => {
       service.searchByScope(null, '');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', encodeURIComponent('')))]
+        searchParams: [Object.assign(new RequestParam('query', encodeURIComponent('')))],
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
@@ -104,7 +104,7 @@ describe('EPersonDataService', () => {
     it('search metadata scope and no query', () => {
       service.searchByScope('metadata', '');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', encodeURIComponent('')))]
+        searchParams: [Object.assign(new RequestParam('query', encodeURIComponent('')))],
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
@@ -112,7 +112,7 @@ describe('EPersonDataService', () => {
     it('search metadata scope and with query', () => {
       service.searchByScope('metadata', 'test');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', encodeURIComponent('test')))]
+        searchParams: [Object.assign(new RequestParam('query', encodeURIComponent('test')))],
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
@@ -122,7 +122,7 @@ describe('EPersonDataService', () => {
       spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(null));
       service.searchByScope('email', '');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('email', encodeURIComponent('')))]
+        searchParams: [Object.assign(new RequestParam('email', encodeURIComponent('')))],
       });
       expect((service as any).searchData.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
       expect(service.findByHref).toHaveBeenCalledWith(epersonsEndpoint, true, true);
@@ -133,7 +133,7 @@ describe('EPersonDataService', () => {
       spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMock));
       service.searchByScope('email', EPersonMock.email);
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('email', encodeURIComponent(EPersonMock.email)))]
+        searchParams: [Object.assign(new RequestParam('email', encodeURIComponent(EPersonMock.email)))],
       });
       expect((service as any).searchData.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
       expect(service.findByHref).toHaveBeenCalledWith(epersonsEndpoint, true, true);
@@ -213,7 +213,7 @@ describe('EPersonDataService', () => {
             'eperson.firstname': [
               {
                 value: newFirstName,
-              }
+              },
             ],
             'eperson.lastname': [
               {
@@ -244,7 +244,7 @@ describe('EPersonDataService', () => {
       halService = {
         getEndpoint(linkPath: string): Observable<string> {
           return observableOf(restEndpointURL + '/' + linkPath);
-        }
+        },
       } as HALEndpointService;
       initTestService();
       service.clearEPersonRequests();

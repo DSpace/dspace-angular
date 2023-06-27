@@ -27,7 +27,7 @@ export class CollectionAuthorizationsComponent<TDomain extends DSpaceObject> imp
    * @param {ActivatedRoute} route
    */
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
   }
 

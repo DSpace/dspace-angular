@@ -5,7 +5,7 @@ import {
   FieldParser,
   INIT_FORM_VALUES,
   PARSER_OPTIONS,
-  SUBMISSION_ID
+  SUBMISSION_ID,
 } from './field-parser';
 import { DateFieldParser } from './date-field-parser';
 import { DropdownFieldParser } from './dropdown-field-parser';
@@ -37,84 +37,84 @@ export class ParserFactory {
         return {
           provide: FieldParser,
           useClass: DateFieldParser,
-          deps: [...fieldParserDeps]
+          deps: [...fieldParserDeps],
         };
       }
       case ParserType.Dropdown: {
         return {
           provide: FieldParser,
           useClass: DropdownFieldParser,
-          deps: [...fieldParserDeps]
+          deps: [...fieldParserDeps],
         };
       }
       case ParserType.RelationGroup: {
         return {
           provide: FieldParser,
           useClass: RelationGroupFieldParser,
-          deps: [...fieldParserDeps]
+          deps: [...fieldParserDeps],
         };
       }
       case ParserType.List: {
         return {
           provide: FieldParser,
           useClass: ListFieldParser,
-          deps: [...fieldParserDeps]
+          deps: [...fieldParserDeps],
         };
       }
       case ParserType.Lookup: {
         return {
           provide: FieldParser,
           useClass: LookupFieldParser,
-          deps: [...fieldParserDeps]
+          deps: [...fieldParserDeps],
         };
       }
       case ParserType.LookupName: {
         return {
           provide: FieldParser,
           useClass: LookupNameFieldParser,
-          deps: [...fieldParserDeps]
+          deps: [...fieldParserDeps],
         };
       }
       case ParserType.Onebox: {
         return {
           provide: FieldParser,
           useClass: OneboxFieldParser,
-          deps: [...fieldParserDeps]
+          deps: [...fieldParserDeps],
         };
       }
       case ParserType.Name: {
         return {
           provide: FieldParser,
           useClass: NameFieldParser,
-          deps: [...fieldParserDeps]
+          deps: [...fieldParserDeps],
         };
       }
       case ParserType.Series: {
         return {
           provide: FieldParser,
           useClass: SeriesFieldParser,
-          deps: [...fieldParserDeps]
+          deps: [...fieldParserDeps],
         };
       }
       case ParserType.Tag: {
         return {
           provide: FieldParser,
           useClass: TagFieldParser,
-          deps: [...fieldParserDeps]
+          deps: [...fieldParserDeps],
         };
       }
       case ParserType.Textarea: {
         return {
           provide: FieldParser,
           useClass: TextareaFieldParser,
-          deps: [...fieldParserDeps]
+          deps: [...fieldParserDeps],
         };
       }
       case undefined: {
         return {
           provide: FieldParser,
           useClass: DisabledFieldParser,
-          deps: [...fieldParserDeps]
+          deps: [...fieldParserDeps],
         };
       }
       default: {

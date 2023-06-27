@@ -25,7 +25,7 @@ describe('LogInterceptor', () => {
   // Mock payload/statuses are dummy content as we are not testing the results
   // of any below requests. We are only testing for X-XSRF-TOKEN header.
   const mockPayload = {
-    id: 1
+    id: 1,
   };
   const mockStatusCode = 200;
   const mockStatusText = 'SUCCESS';

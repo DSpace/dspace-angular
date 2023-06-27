@@ -32,7 +32,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
   const uploader: any = jasmine.createSpyObj('uploader', {
     clearQueue: jasmine.createSpy('clearQueue').and.stub(),
     onBuildItemForm: jasmine.createSpy('onBuildItemForm').and.stub(),
-    uploadAll: jasmine.createSpy('uploadAll').and.stub()
+    uploadAll: jasmine.createSpy('uploadAll').and.stub(),
   });
 
   beforeEach(waitForAsync(() => {
@@ -41,15 +41,15 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
         NgbModule,
-        RouterTestingModule
+        RouterTestingModule,
       ],
       declarations: [
         MyDSpaceNewSubmissionComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
@@ -65,7 +65,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -118,7 +118,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

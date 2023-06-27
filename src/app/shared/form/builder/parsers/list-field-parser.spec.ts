@@ -14,13 +14,13 @@ describe('ListFieldParser test suite', () => {
     readOnly: false,
     submissionScope: 'testScopeUUID',
     collectionUUID: null,
-    typeField: 'dc_type'
+    typeField: 'dc_type',
   };
 
   beforeEach(() => {
     field = {
       input: {
-        type: 'list'
+        type: 'list',
       },
       label: 'Type',
       mandatory: 'false',
@@ -30,10 +30,10 @@ describe('ListFieldParser test suite', () => {
         {
           metadata: 'type',
           controlledVocabulary: 'type_programme',
-          closed: false
-        }
+          closed: false,
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
   });

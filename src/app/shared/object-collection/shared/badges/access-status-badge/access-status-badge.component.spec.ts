@@ -26,32 +26,32 @@ describe('ItemAccessStatusBadgeComponent', () => {
 
   function init() {
     unknownStatus = Object.assign(new AccessStatusObject(), {
-      status: 'unknown'
+      status: 'unknown',
     });
 
     metadataOnlyStatus = Object.assign(new AccessStatusObject(), {
-      status: 'metadata.only'
+      status: 'metadata.only',
     });
 
     openAccessStatus = Object.assign(new AccessStatusObject(), {
-      status: 'open.access'
+      status: 'open.access',
     });
 
     embargoStatus = Object.assign(new AccessStatusObject(), {
-      status: 'embargo'
+      status: 'embargo',
     });
 
     restrictedStatus = Object.assign(new AccessStatusObject(), {
-      status: 'restricted'
+      status: 'restricted',
     });
 
     accessStatusDataService = jasmine.createSpyObj('accessStatusDataService', {
-      findAccessStatusFor: createSuccessfulRemoteDataObject$(unknownStatus)
+      findAccessStatusFor: createSuccessfulRemoteDataObject$(unknownStatus),
     });
 
     item = Object.assign(new Item(), {
       uuid: 'item-uuid',
-      type: 'item'
+      type: 'item',
     });
   }
 
@@ -61,8 +61,8 @@ describe('ItemAccessStatusBadgeComponent', () => {
       declarations: [AccessStatusBadgeComponent, TruncatePipe],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
-        {provide: AccessStatusDataService, useValue: accessStatusDataService}
-      ]
+        {provide: AccessStatusDataService, useValue: accessStatusDataService},
+      ],
     }).compileComponents();
   }
 

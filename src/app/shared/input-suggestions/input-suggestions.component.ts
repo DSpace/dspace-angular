@@ -8,7 +8,7 @@ import {
   QueryList,
   SimpleChanges,
   ViewChild,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { hasValue, isNotEmpty } from '../empty.util';

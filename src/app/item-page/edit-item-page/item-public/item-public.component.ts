@@ -11,7 +11,7 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-item-public',
-  templateUrl: '../simple-item-action/abstract-simple-item-action.component.html'
+  templateUrl: '../simple-item-action/abstract-simple-item-action.component.html',
 })
 /**
  * Component responsible for rendering the make item public page
@@ -36,7 +36,7 @@ export class ItemPublicComponent extends AbstractSimpleItemActionComponent {
     this.itemDataService.setDiscoverable(this.item, true).pipe(getFirstCompletedRemoteData()).subscribe(
       (response: RemoteData<Item>) => {
         this.processRestResponse(response);
-      }
+      },
     );
   }
 }

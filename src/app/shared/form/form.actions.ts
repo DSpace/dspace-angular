@@ -144,7 +144,7 @@ export class FormRemoveErrorAction implements Action {
     fieldIndex: number,
   };
 
-  constructor(formId: string, fieldId: string, fieldIndex: number,) {
+  constructor(formId: string, fieldId: string, fieldIndex: number) {
     this.payload = {formId, fieldId, fieldIndex};
   }
 }

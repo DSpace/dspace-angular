@@ -22,7 +22,7 @@ describe('MetadataSchemaFormComponent', () => {
     createOrUpdateMetadataSchema: (schema: MetadataSchema) => observableOf(schema),
     cancelEditMetadataSchema: () => {
     },
-    clearMetadataSchemaRequests: () => observableOf(undefined)
+    clearMetadataSchemaRequests: () => observableOf(undefined),
   };
   const formBuilderServiceStub = {
     createFormGroup: () => {
@@ -32,7 +32,7 @@ describe('MetadataSchemaFormComponent', () => {
         reset(_value?: any, _options?: { onlySelf?: boolean; emitEvent?: boolean; }): void {
         },
       };
-    }
+    },
   };
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
@@ -42,9 +42,9 @@ describe('MetadataSchemaFormComponent', () => {
       declarations: [MetadataSchemaFormComponent, EnumKeysPipe],
       providers: [
         { provide: RegistryService, useValue: registryServiceStub },
-        { provide: FormBuilderService, useValue: formBuilderServiceStub }
+        { provide: FormBuilderService, useValue: formBuilderServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -64,7 +64,7 @@ describe('MetadataSchemaFormComponent', () => {
 
     const expected = Object.assign(new MetadataSchema(), {
       namespace: namespace,
-      prefix: prefix
+      prefix: prefix,
     } as MetadataSchema);
 
     beforeEach(() => {
@@ -90,7 +90,7 @@ describe('MetadataSchemaFormComponent', () => {
       const expectedWithId = Object.assign(new MetadataSchema(), {
         id: 1,
         namespace: namespace,
-        prefix: prefix
+        prefix: prefix,
       } as MetadataSchema);
 
       beforeEach(() => {

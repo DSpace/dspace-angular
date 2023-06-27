@@ -8,7 +8,7 @@ import {
   Observable,
   of as observableOf,
   Subject,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 
@@ -24,7 +24,7 @@ import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
-  SearchFilterService
+  SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { getFirstSucceededRemoteData } from '../../../../../core/shared/operators';
@@ -122,8 +122,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
         filter((toRefresh: boolean) => toRefresh),
         // NOTE This is a workaround, otherwise retrieving filter values returns tha old cached response
         debounceTime((100)),
-        mergeMap(() => this.retrieveFilterValues(false))
-      ).subscribe()
+        mergeMap(() => this.retrieveFilterValues(false)),
+      ).subscribe(),
     );
     this.retrieveFilterValues().subscribe();
   }
@@ -236,12 +236,12 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
                     return {
                       displayValue: this.getDisplayValue(facet, data),
                       query: this.getFacetValue(facet),
-                      value: stripOperatorFromFilterValue(this.getFacetValue(facet))
+                      value: stripOperatorFromFilterValue(this.getFacetValue(facet)),
                     };
                   });
-                }
+                },
               ));
-        }
+        },
       );
     } else {
       this.filterSearchResults = observableOf([]);
@@ -261,10 +261,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
               {
                 [this.filterConfig.paramName]: [
                   ...selectedValues.map((facet) => this.getFacetValue(facet)),
-                  data
-                ]
+                  data,
+                ],
               },
-            queryParamsHandling: 'merge'
+            queryParamsHandling: 'merge',
           });
           this.filter = '';
         }
@@ -294,11 +294,11 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
             }),
             map((rd: RemoteData<FacetValues>) => ({
               values: observableOf(rd),
-              page: page
-            })
-            )
+              page: page,
+            }),
+            ),
           );
-      })
+      }),
     );
 
     let filterValues = [];
@@ -331,13 +331,13 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
               const filterValue = stripOperatorFromFilterValue(value);
               return Object.assign(new FacetValue(), { label: filterValue, value: filterValue });
             });
-          })
+          }),
         );
       }),
       tap((rd: RemoteData<PaginatedList<FacetValue>[]>) => {
         this.animationState = 'ready';
         this.filterValues$.next(rd);
-      })
+      }),
     );
   }
 

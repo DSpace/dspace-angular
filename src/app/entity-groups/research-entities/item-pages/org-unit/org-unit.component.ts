@@ -7,7 +7,7 @@ import { ItemComponent } from '../../../../item-page/simple/item-types/shared/it
 @Component({
   selector: 'ds-org-unit',
   styleUrls: ['./org-unit.component.scss'],
-  templateUrl: './org-unit.component.html'
+  templateUrl: './org-unit.component.html',
 })
 /**
  * The component for displaying metadata and relations of an item of the type Organisation Unit

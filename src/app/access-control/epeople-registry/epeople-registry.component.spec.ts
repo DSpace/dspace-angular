@@ -52,7 +52,7 @@ describe('EPeopleRegistryComponent', () => {
           elementsPerPage: this.allEpeople.length,
           totalElements: this.allEpeople.length,
           totalPages: 1,
-          currentPage: 1
+          currentPage: 1,
         }), this.allEpeople));
       },
       getActiveEPerson(): Observable<EPerson> {
@@ -67,7 +67,7 @@ describe('EPeopleRegistryComponent', () => {
             elementsPerPage: [result].length,
             totalElements: [result].length,
             totalPages: 1,
-            currentPage: 1
+            currentPage: 1,
           }), [result]));
         }
         if (scope === 'metadata') {
@@ -76,7 +76,7 @@ describe('EPeopleRegistryComponent', () => {
               elementsPerPage: this.allEpeople.length,
               totalElements: this.allEpeople.length,
               totalPages: 1,
-              currentPage: 1
+              currentPage: 1,
             }), this.allEpeople));
           }
           const result = this.allEpeople.find((ePerson: EPerson) => {
@@ -86,14 +86,14 @@ describe('EPeopleRegistryComponent', () => {
             elementsPerPage: [result].length,
             totalElements: [result].length,
             totalPages: 1,
-            currentPage: 1
+            currentPage: 1,
           }), [result]));
         }
         return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
           elementsPerPage: this.allEpeople.length,
           totalElements: this.allEpeople.length,
           totalPages: 1,
-          currentPage: 1
+          currentPage: 1,
         }), this.allEpeople));
       },
       deleteEPerson(ePerson: EPerson): Observable<boolean> {
@@ -113,10 +113,10 @@ describe('EPeopleRegistryComponent', () => {
       },
       getEPeoplePageRouterLink(): string {
         return '/access-control/epeople';
-      }
+      },
     };
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
@@ -127,8 +127,8 @@ describe('EPeopleRegistryComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [EPeopleRegistryComponent],
@@ -139,9 +139,9 @@ describe('EPeopleRegistryComponent', () => {
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: new RouterStub() },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) },
-        { provide: PaginationService, useValue: paginationService }
+        { provide: PaginationService, useValue: paginationService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -209,7 +209,7 @@ describe('EPeopleRegistryComponent', () => {
         const editButtons = fixture.debugElement.queryAll(By.css('.access-control-editEPersonButton'));
         editButtons[0].triggerEventHandler('click', {
           preventDefault: () => {/**/
-          }
+          },
         });
         tick();
         fixture.detectChanges();
@@ -242,7 +242,7 @@ describe('EPeopleRegistryComponent', () => {
         const deleteButtons = fixture.debugElement.queryAll(By.css('.access-control-deleteEPersonButton'));
         deleteButtons[0].triggerEventHandler('click', {
           preventDefault: () => {/**/
-          }
+          },
         });
         tick();
         fixture.detectChanges();

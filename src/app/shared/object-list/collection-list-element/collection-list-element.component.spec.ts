@@ -14,10 +14,10 @@ const mockCollectionWithArchivedItems: Collection = Object.assign(new Collection
     'dc.title': [
       {
         language: 'en_US',
-        value: 'Test title'
-      }
-    ]
-  }, archivedItemsCount: 1
+        value: 'Test title',
+      },
+    ],
+  }, archivedItemsCount: 1,
 });
 
 const mockCollectionWithArchivedItemsDisabledAtBackend: Collection = Object.assign(new Collection(), {
@@ -25,10 +25,10 @@ const mockCollectionWithArchivedItemsDisabledAtBackend: Collection = Object.assi
     'dc.title': [
       {
         language: 'en_US',
-        value: 'Test title'
-      }
-    ]
-  }, archivedItemsCount: -1
+        value: 'Test title',
+      },
+    ],
+  }, archivedItemsCount: -1,
 });
 
 
@@ -37,10 +37,10 @@ const mockCollectionWithAbstract: Collection = Object.assign(new Collection(), {
     'dc.description.abstract': [
       {
         language: 'en_US',
-        value: 'Short description'
-      }
-    ]
-  }, archivedItemsCount: 1
+        value: 'Short description',
+      },
+    ],
+  }, archivedItemsCount: 1,
 });
 
 const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection(), {
@@ -48,10 +48,10 @@ const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection()
     'dc.title': [
       {
         language: 'en_US',
-        value: 'Test title'
-      }
-    ]
-  }, archivedItemsCount: 1
+        value: 'Test title',
+      },
+    ],
+  }, archivedItemsCount: 1,
 });
 
 describe('CollectionListElementComponent', () => {
@@ -60,12 +60,12 @@ describe('CollectionListElementComponent', () => {
       declarations: [CollectionListElementComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
-        { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) }
+        { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CollectionListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

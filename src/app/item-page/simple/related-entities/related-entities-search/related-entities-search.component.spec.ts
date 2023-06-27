@@ -11,7 +11,7 @@ describe('RelatedEntitiesSearchComponent', () => {
   let fixture: ComponentFixture<RelatedEntitiesSearchComponent>;
 
   const mockItem = Object.assign(new Item(), {
-    id: 'id1'
+    id: 'id1',
   });
   const mockRelationType = 'publicationsOfAuthor';
   const mockConfiguration = 'publication';
@@ -21,7 +21,7 @@ describe('RelatedEntitiesSearchComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
       declarations: [RelatedEntitiesSearchComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

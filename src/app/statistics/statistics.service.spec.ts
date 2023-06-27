@@ -48,7 +48,7 @@ describe('StatisticsService', () => {
       size: 10,
       totalElements: 248,
       totalPages: 25,
-      number: 4
+      number: 4,
     };
     const sort = {by: 'search-field', order: 'ASC'};
     service.trackSearchEvent(mockSearch, page, sort);
@@ -64,14 +64,14 @@ describe('StatisticsService', () => {
         size: 10,
         totalElements: 248,
         totalPages: 25,
-        number: 4
+        number: 4,
       });
     });
 
     it('should specify the sort options', () => {
       expect(body.sort).toEqual({
         by: 'search-field',
-        order: 'asc'
+        order: 'asc',
       });
     });
   });
@@ -84,14 +84,14 @@ describe('StatisticsService', () => {
       query: 'mock-query',
       configuration: 'mock-configuration',
       dsoTypes: [DSpaceObjectType.ITEM],
-      scope: 'mock-scope'
+      scope: 'mock-scope',
     });
 
     const page = {
       size: 10,
       totalElements: 248,
       totalPages: 25,
-      number: 4
+      number: 4,
     };
     const sort = {by: 'search-field', order: 'ASC'};
     const filters = [
@@ -99,14 +99,14 @@ describe('StatisticsService', () => {
         filter: 'title',
         operator: 'notcontains',
         value: 'dolor sit',
-        label: 'dolor sit'
+        label: 'dolor sit',
       },
       {
         filter: 'author',
         operator: 'authority',
         value: '9zvxzdm4qru17or5a83wfgac',
-        label: 'Amet, Consectetur'
-      }
+        label: 'Amet, Consectetur',
+      },
     ];
     service.trackSearchEvent(mockSearch, page, sort, filters);
     const request: RestRequest = requestService.send.calls.mostRecent().args[0];
@@ -130,14 +130,14 @@ describe('StatisticsService', () => {
           filter: 'title',
           operator: 'notcontains',
           value: 'dolor sit',
-          label: 'dolor sit'
+          label: 'dolor sit',
         },
         {
           filter: 'author',
           operator: 'authority',
           value: '9zvxzdm4qru17or5a83wfgac',
-          label: 'Amet, Consectetur'
-        }
+          label: 'Amet, Consectetur',
+        },
       ])).toBe(true);
     });
   });

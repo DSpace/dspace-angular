@@ -30,8 +30,8 @@ describe('ObjectUpdatesEffects', () => {
       uuid: '3601eaed-8fdb-487f-8b89-4d7647314143',
       _links: {
         self: { href: selfLink },
-        anotherLink: { href: otherLink }
-      }
+        anotherLink: { href: otherLink },
+      },
     };
     timeCompleted = new Date().getDate();
     msToLive = 90000;
@@ -41,10 +41,10 @@ describe('ObjectUpdatesEffects', () => {
       core: {
         index: {
           [IndexName.REQUEST]: {
-            [selfLink]: requestUUID
-          }
-        }
-      }
+            [selfLink]: requestUUID,
+          },
+        },
+      },
     };
   }
 
@@ -70,7 +70,7 @@ describe('ObjectUpdatesEffects', () => {
       const newAction = new AddToIndexAction(
         IndexName.ALTERNATIVE_OBJECT_LINK,
         alternativeLink,
-        objectToCache._links.self.href
+        objectToCache._links.self.href,
       );
       actions = hot('--a-', { a: action });
       const expected = cold('--b-', { b: newAction });

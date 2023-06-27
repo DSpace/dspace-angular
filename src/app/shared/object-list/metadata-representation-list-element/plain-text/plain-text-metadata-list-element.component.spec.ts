@@ -9,7 +9,7 @@ import { mockData } from '../../../testing/browse-definition-data-service.stub';
 // without affecting other tests
 const mockMetadataRepresentation = Object.assign(new MetadatumRepresentation('type', mockData[1]), {
   key: 'dc.contributor.author',
-  value: 'Test Author'
+  value: 'Test Author',
 });
 
 describe('PlainTextMetadataListElementComponent', () => {
@@ -20,9 +20,9 @@ describe('PlainTextMetadataListElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [],
       declarations: [PlainTextMetadataListElementComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PlainTextMetadataListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

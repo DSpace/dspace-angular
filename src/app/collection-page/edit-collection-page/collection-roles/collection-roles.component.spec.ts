@@ -54,10 +54,10 @@ describe('CollectionRolesComponent', () => {
                   },
                 ],
               },
-            })
+            }),
           ),
-        })
-      }
+        }),
+      },
     };
 
     const requestService = {
@@ -74,7 +74,7 @@ describe('CollectionRolesComponent', () => {
         SharedModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
-        NoopAnimationsModule
+        NoopAnimationsModule,
       ],
       declarations: [
         CollectionRolesComponent,
@@ -84,9 +84,9 @@ describe('CollectionRolesComponent', () => {
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: RequestService, useValue: requestService },
         { provide: GroupDataService, useValue: groupDataService },
-        { provide: NotificationsService, useClass: NotificationsServiceStub }
+        { provide: NotificationsService, useClass: NotificationsServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CollectionRolesComponent);

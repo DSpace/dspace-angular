@@ -6,9 +6,9 @@ export const MockWindow = {
     },
     get href() {
       return this._href;
-    }
+    },
   },
-  origin: 'http://localhost'
+  origin: 'http://localhost',
 };
 
 export class NativeWindowRefMock {

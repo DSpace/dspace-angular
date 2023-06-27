@@ -35,17 +35,17 @@ describe('SearchExportCsvComponent', () => {
     filters: [
       new SearchFilter('f.filter1', ['filter1value1,equals', 'filter1value2,equals']),
       new SearchFilter('f.filter2', ['filter2value1,contains']),
-      new SearchFilter('f.filter3', ['[2000 TO 2001]'], 'equals')
-    ]
+      new SearchFilter('f.filter3', ['[2000 TO 2001]'], 'equals'),
+    ],
   });
 
   function initBeforeEachAsync() {
     scriptDataService = jasmine.createSpyObj('scriptDataService', {
       findById: createSuccessfulRemoteDataObject$(script),
-      invoke: createSuccessfulRemoteDataObject$(process)
+      invoke: createSuccessfulRemoteDataObject$(process),
     });
     authorizationDataService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
 
     notificationsService = new NotificationsServiceStub();
@@ -59,7 +59,7 @@ describe('SearchExportCsvComponent', () => {
         {provide: AuthorizationDataService, useValue: authorizationDataService},
         {provide: NotificationsService, useValue: notificationsService},
         {provide: Router, useValue: router},
-      ]
+      ],
     }).compileComponents();
   }
 

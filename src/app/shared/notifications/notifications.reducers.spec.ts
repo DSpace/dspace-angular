@@ -31,7 +31,7 @@ describe('Notifications reducer', () => {
       ],
       imports: [
         StoreModule.forRoot({ notificationsReducer }, storeModuleConfig),
-      ]
+      ],
     });
 
     options = new NotificationOptions(

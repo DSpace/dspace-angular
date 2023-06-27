@@ -21,7 +21,7 @@ describe('DSOBreadcrumbResolver', () => {
       testCollection = Object.assign(new Collection(), { uuid });
       dsoBreadcrumbService = {};
       collectionService = {
-        findById: (id: string) => createSuccessfulRemoteDataObject$(testCollection)
+        findById: (id: string) => createSuccessfulRemoteDataObject$(testCollection),
       };
       resolver = new CollectionBreadcrumbResolver(dsoBreadcrumbService, collectionService);
     });

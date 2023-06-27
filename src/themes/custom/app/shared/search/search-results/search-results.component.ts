@@ -9,8 +9,8 @@ import { fadeIn, fadeInOut } from '../../../../../../app/shared/animations/fade'
   // styleUrls: ['./search-results.component.scss'],
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
 })
 export class SearchResultsComponent extends BaseComponent {
 

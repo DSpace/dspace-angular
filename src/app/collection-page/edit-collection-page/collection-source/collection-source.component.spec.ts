@@ -50,29 +50,29 @@ describe('CollectionSourceComponent', () => {
         {
           id: 'dc',
           label: 'Simple Dublin Core',
-          nameSpace: 'http://www.openarchives.org/OAI/2.0/oai_dc/'
+          nameSpace: 'http://www.openarchives.org/OAI/2.0/oai_dc/',
         },
         {
           id: 'qdc',
           label: 'Qualified Dublin Core',
-          nameSpace: 'http://purl.org/dc/terms/'
+          nameSpace: 'http://purl.org/dc/terms/',
         },
         {
           id: 'dim',
           label: 'DSpace Intermediate Metadata',
-          nameSpace: 'http://www.dspace.org/xmlns/dspace/dim'
-        }
+          nameSpace: 'http://www.dspace.org/xmlns/dspace/dim',
+        },
       ],
-      _links: { self: { href: 'contentsource-selflink' } }
+      _links: { self: { href: 'contentsource-selflink' } },
     });
     fieldUpdate = {
       field: contentSource,
-      changeType: undefined
+      changeType: undefined,
     };
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
         getFieldUpdates: observableOf({
-          [contentSource.uuid]: fieldUpdate
+          [contentSource.uuid]: fieldUpdate,
         }),
         saveAddFieldUpdate: {},
         discardFieldUpdates: {},
@@ -82,15 +82,15 @@ describe('CollectionSourceComponent', () => {
         getLastModified: observableOf(date),
         hasUpdates: observableOf(true),
         isReinstatable: observableOf(false),
-        isValidPage: observableOf(true)
-      }
+        isValidPage: observableOf(true),
+      },
     );
     notificationsService = jasmine.createSpyObj('notificationsService',
       {
         info: infoNotification,
         warning: warningNotification,
-        success: successNotification
-      }
+        success: successNotification,
+      },
     );
     location = jasmine.createSpyObj('location', ['back']);
     formService = Object.assign({
@@ -103,18 +103,18 @@ describe('CollectionSourceComponent', () => {
           return new UntypedFormGroup(controls);
         }
         return undefined;
-      }
+      },
     });
     router = Object.assign(new RouterStub(), {
-      url: 'http://test-url.com/test-url'
+      url: 'http://test-url.com/test-url',
     });
     collection = Object.assign(new Collection(), {
-      uuid: 'fake-collection-id'
+      uuid: 'fake-collection-id',
     });
     collectionService = jasmine.createSpyObj('collectionService', {
       getContentSource: createSuccessfulRemoteDataObject$(contentSource),
       updateContentSource: observableOf(contentSource),
-      getHarvesterEndpoint: observableOf('harvester-endpoint')
+      getHarvesterEndpoint: observableOf('harvester-endpoint'),
     });
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring', 'setStaleByHrefSubstring']);
 
@@ -129,9 +129,9 @@ describe('CollectionSourceComponent', () => {
         { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
         { provide: Router, useValue: router },
         { provide: CollectionDataService, useValue: collectionService },
-        { provide: RequestService, useValue: requestService }
+        { provide: RequestService, useValue: requestService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

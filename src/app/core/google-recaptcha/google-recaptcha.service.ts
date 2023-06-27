@@ -64,7 +64,7 @@ export class GoogleRecaptchaService {
       getFirstCompletedRemoteData(),
       map((res: RemoteData<ConfigurationProperty>) => {
         return res.hasSucceeded && res.payload && isNotEmpty(res.payload.values) && res.payload.values[0].toLowerCase() === 'true';
-      })
+      }),
     );
     registrationVerification$.subscribe(registrationVerification => {
       if (registrationVerification) {
@@ -125,7 +125,7 @@ export class GoogleRecaptchaService {
    */
   public getRecaptchaToken(action) {
     return this.captchaKey().pipe(
-      switchMap((key) => grecaptcha.execute(key, {action: action}))
+      switchMap((key) => grecaptcha.execute(key, {action: action})),
     );
   }
 

@@ -37,8 +37,8 @@ export class CreateCommunityPageGuard implements CanActivate {
           if (!isValid) {
             this.router.navigate(['/404']);
           }
-        }
-        )
+        },
+        ),
       );
   }
 }

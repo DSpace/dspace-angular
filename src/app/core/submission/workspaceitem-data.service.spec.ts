@@ -40,28 +40,28 @@ describe('WorkspaceitemDataService test', () => {
       'dc.title': [
         {
           language: 'en_US',
-          value: 'This is just another title'
-        }
+          value: 'This is just another title',
+        },
       ],
       'dc.type': [
         {
           language: null,
-          value: 'Article'
-        }
+          value: 'Article',
+        },
       ],
       'dc.contributor.author': [
         {
           language: 'en_US',
-          value: 'Smith, Donald'
-        }
+          value: 'Smith, Donald',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '2015-06-26'
-        }
-      ]
-    }
+          value: '2015-06-26',
+        },
+      ],
+    },
   });
   const itemRD = createSuccessfulRemoteDataObject(item);
   const wsi = Object.assign(new WorkspaceItem(), { item: observableOf(itemRD), id: '1234', uuid: '1234' });
@@ -104,7 +104,7 @@ describe('WorkspaceitemDataService test', () => {
       scheduler = getTestScheduler();
 
       halService = jasmine.createSpyObj('halService', {
-        getEndpoint: cold('a', { a: endpointURL })
+        getEndpoint: cold('a', { a: endpointURL }),
       });
       responseCacheEntry = new RequestEntry();
       responseCacheEntry.request = { href: 'https://rest.api/' } as any;
@@ -119,8 +119,8 @@ describe('WorkspaceitemDataService test', () => {
       });
       rdbService = jasmine.createSpyObj('rdbService', {
         buildSingle: hot('a|', {
-          a: wsiRD
-        })
+          a: wsiRD,
+        }),
       });
 
       service = initTestService();
@@ -144,7 +144,7 @@ describe('WorkspaceitemDataService test', () => {
       it('should return a RemoteData<WorkspaceItem> for the search', () => {
         const result = service.findByItem('1234-1234', true, true, pageInfo);
         const expected = cold('a|', {
-          a: wsiRD
+          a: wsiRD,
         });
         expect(result).toBeObservable(expected);
       });

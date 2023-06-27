@@ -7,7 +7,7 @@ import { Component, Injectable, Input } from '@angular/core';
 @Component({
   selector: 'ds-comcol-page-handle',
   styleUrls: ['./comcol-page-handle.component.scss'],
-  templateUrl: './comcol-page-handle.component.html'
+  templateUrl: './comcol-page-handle.component.html',
 })
 
 @Injectable()

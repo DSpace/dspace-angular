@@ -32,7 +32,7 @@ describe('PageSizeSelectorComponent', () => {
     query: queryParam,
     scope: scopeParam,
     pagination,
-    sort
+    sort,
   };
 
   const paginationService = new PaginationServiceStub(pagination, sort);
@@ -40,8 +40,8 @@ describe('PageSizeSelectorComponent', () => {
   const activatedRouteStub = {
     queryParams: observableOf({
       query: queryParam,
-      scope: scopeParam
-    })
+      scope: scopeParam,
+    }),
   };
 
   beforeEach(waitForAsync(() => {
@@ -55,10 +55,10 @@ describe('PageSizeSelectorComponent', () => {
           provide: SEARCH_CONFIG_SERVICE,
           useValue: {
             paginatedSearchOptions: observableOf(paginatedSearchOptions),
-          }
+          },
         },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -78,7 +78,7 @@ describe('PageSizeSelectorComponent', () => {
       const childElements = pageSizeSetting.queryAll(By.css('option'));
       expect(childElements.length).toEqual(options.pageSizeOptions.length);
       done();
-    }
+    },
     );
   });
 

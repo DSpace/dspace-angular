@@ -37,7 +37,7 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
   }
 
   const linkService = jasmine.createSpyObj('linkService', {
-    resolveLink: {}
+    resolveLink: {},
   });
 
   beforeEach(waitForAsync(() => {
@@ -47,7 +47,7 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        SharedModule
+        SharedModule,
       ],
       declarations: [CollectionAdminSearchResultGridElementComponent],
       providers: [
@@ -58,7 +58,7 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
         { provide: FileService, useClass: FileServiceStub },
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: ThemeService, useValue: getMockThemeService() },
-      ]
+      ],
     })
       .compileComponents();
   }));

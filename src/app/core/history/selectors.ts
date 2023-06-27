@@ -4,5 +4,5 @@ import { CoreState } from '../core-state.model';
 
 export const historySelector = createSelector(
   coreSelector,
-  (state: CoreState) => state.history
+  (state: CoreState) => state.history,
 );

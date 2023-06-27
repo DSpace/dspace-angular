@@ -11,7 +11,7 @@ import {
   merge,
   switchMap,
   take,
-  tap
+  tap,
 } from 'rxjs/operators';
 import { Observable, of as observableOf, Subject, Subscription } from 'rxjs';
 import { NgbModal, NgbModalRef, NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -24,7 +24,7 @@ import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import {
   PaginatedList,
-  buildPaginatedList
+  buildPaginatedList,
 } from '../../../../../../core/data/paginated-list.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
@@ -40,7 +40,7 @@ import { VocabularyTreeviewModalComponent } from '../../../../vocabulary-treevie
 @Component({
   selector: 'ds-dynamic-onebox',
   styleUrls: ['./dynamic-onebox.component.scss'],
-  templateUrl: './dynamic-onebox.component.html'
+  templateUrl: './dynamic-onebox.component.html',
 })
 export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnInit {
 
@@ -70,7 +70,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
               protected cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
               protected modalService: NgbModal,
-              protected validationService: DynamicFormValidationService
+              protected validationService: DynamicFormValidationService,
   ) {
     super(vocabularyService, layoutService, validationService);
   }
@@ -107,14 +107,14 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
               this.searchFailed = true;
               return observableOf(buildPaginatedList(
                 new PageInfo(),
-                []
+                [],
               ));
             }));
         }
       }),
       map((list: PaginatedList<VocabularyEntry>) => list.page),
       tap(() => this.changeSearchingStatus(false)),
-      merge(this.hideSearchingWhenUnsubscribed$)
+      merge(this.hideSearchingWhenUnsubscribed$),
     );
   };
 
@@ -128,11 +128,11 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
 
     this.vocabulary$ = this.vocabularyService.findVocabularyById(this.model.vocabularyOptions.name).pipe(
       getFirstSucceededRemoteDataPayload(),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
 
     this.isHierarchicalVocabulary$ = this.vocabulary$.pipe(
-      map((result: Vocabulary) => result.hierarchical)
+      map((result: Vocabulary) => result.hierarchical),
     );
 
     this.subs.push(this.group.get(this.model.id).valueChanges.pipe(
@@ -223,7 +223,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
     event.stopImmediatePropagation();
     this.subs.push(this.vocabulary$.pipe(
       map((vocabulary: Vocabulary) => vocabulary.preloadLevel),
-      take(1)
+      take(1),
     ).subscribe((preloadLevel) => {
       const modalRef: NgbModalRef = this.modalService.open(VocabularyTreeviewModalComponent, { size: 'lg', windowClass: 'treeview' });
       modalRef.componentInstance.vocabularyOptions = this.model.vocabularyOptions;

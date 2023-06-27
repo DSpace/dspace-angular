@@ -7,7 +7,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { compare, Operation } from 'fast-json-patch';
 import {
   GroupRegistryCancelGroupAction,
-  GroupRegistryEditGroupAction
+  GroupRegistryEditGroupAction,
 } from '../../access-control/group-registry/group-registry.actions';
 import { GroupMock, GroupMock2 } from '../../shared/testing/group-mock';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -57,13 +57,13 @@ describe('GroupDataService', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [],
       providers: [],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
   }
 
@@ -97,7 +97,7 @@ describe('GroupDataService', () => {
     it('search with empty query', () => {
       service.searchGroups('');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', ''))]
+        searchParams: [Object.assign(new RequestParam('query', ''))],
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
@@ -105,7 +105,7 @@ describe('GroupDataService', () => {
     it('search with query', () => {
       service.searchGroups('test');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', 'test'))]
+        searchParams: [Object.assign(new RequestParam('query', 'test'))],
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });

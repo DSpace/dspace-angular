@@ -21,7 +21,7 @@ import {
   getFirstSucceededRemoteData,
   getFirstCompletedRemoteData,
   getAllCompletedRemoteData,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
@@ -69,7 +69,7 @@ export interface EPersonListActionConfig {
 
 @Component({
   selector: 'ds-members-list',
-  templateUrl: './members-list.component.html'
+  templateUrl: './members-list.component.html',
 })
 /**
  * The list of members in the edit group page
@@ -89,7 +89,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
       remove: {
         css: 'btn-outline-danger',
         disabled: false,
-        icon: 'fas fa-trash-alt fa-fw'
+        icon: 'fas fa-trash-alt fa-fw',
       },
     };
 
@@ -108,7 +108,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
   configSearch: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'sml',
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   });
   /**
    * Pagination config used to display the list of EPerson Membes of active group being edited
@@ -116,7 +116,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'ml',
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   });
 
   /**
@@ -177,8 +177,8 @@ export class MembersListComponent implements OnInit, OnDestroy {
         switchMap((currentPagination) => {
           return this.ePersonDataService.findListByHref(this.groupBeingEdited._links.epersons.href, {
             currentPage: currentPagination.currentPage,
-            elementsPerPage: currentPagination.pageSize
-          }
+            elementsPerPage: currentPagination.pageSize,
+          },
           );
         }),
         getAllCompletedRemoteData(),
@@ -219,7 +219,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
         if (group != null) {
           return this.ePersonDataService.findListByHref(group._links.epersons.href, {
             currentPage: 1,
-            elementsPerPage: 9999
+            elementsPerPage: 9999,
           })
             .pipe(
               getFirstSucceededRemoteData(),
@@ -292,14 +292,14 @@ export class MembersListComponent implements OnInit, OnDestroy {
           const scope: string = data.scope;
           if (query != null && this.currentSearchQuery !== query && this.groupBeingEdited) {
             this.router.navigate([], {
-              queryParamsHandling: 'merge'
+              queryParamsHandling: 'merge',
             });
             this.currentSearchQuery = query;
             this.paginationService.resetPage(this.configSearch.id);
           }
           if (scope != null && this.currentSearchScope !== scope && this.groupBeingEdited) {
             this.router.navigate([], {
-              queryParamsHandling: 'merge'
+              queryParamsHandling: 'merge',
             });
             this.currentSearchScope = scope;
             this.paginationService.resetPage(this.configSearch.id);
@@ -308,7 +308,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
 
           return this.ePersonDataService.searchByScope(this.currentSearchScope, this.currentSearchQuery, {
             currentPage: paginationOptions.currentPage,
-            elementsPerPage: paginationOptions.pageSize
+            elementsPerPage: paginationOptions.pageSize,
           });
         }),
         getAllCompletedRemoteData(),

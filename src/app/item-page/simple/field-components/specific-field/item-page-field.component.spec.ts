@@ -34,7 +34,7 @@ describe('ItemPageFieldComponent', () => {
     markdown: {
       enabled: false,
       mathjax: false,
-    }
+    },
   });
 
   const buildTestEnvironment = async () => {
@@ -44,19 +44,19 @@ describe('ItemPageFieldComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
         SharedModule,
       ],
       providers: [
         { provide: APP_CONFIG, useValue: appConfig },
-        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
       ],
       declarations: [ItemPageFieldComponent, MetadataValuesComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemPageFieldComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
     markdownSpy = spyOn(MarkdownPipe.prototype, 'transform');
     fixture = TestBed.createComponent(ItemPageFieldComponent);
@@ -178,12 +178,12 @@ describe('ItemPageFieldComponent', () => {
 export function mockItemWithMetadataFieldsAndValue(fields: string[], value: string): Item {
   const item = Object.assign(new Item(), {
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
-    metadata: new MetadataMap()
+    metadata: new MetadataMap(),
   });
   fields.forEach((field: string) => {
     item.metadata[field] = [{
       language: 'en_US',
-      value: value
+      value: value,
     }] as MetadataValue[];
   });
   return item;

@@ -3,7 +3,7 @@ import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormLayout,
-  DynamicInputModel
+  DynamicInputModel,
 } from '@ng-dynamic-forms/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { RegistryService } from '../../../../core/registry/registry.service';
@@ -15,7 +15,7 @@ import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model'
 
 @Component({
   selector: 'ds-metadata-schema-form',
-  templateUrl: './metadata-schema-form.component.html'
+  templateUrl: './metadata-schema-form.component.html',
 })
 /**
  * A form used for creating and editing metadata schemas
@@ -53,14 +53,14 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
   formLayout: DynamicFormLayout = {
     name: {
       grid: {
-        host: 'col col-sm-6 d-inline-block'
-      }
+        host: 'col col-sm-6 d-inline-block',
+      },
     },
     namespace: {
       grid: {
-        host: 'col col-sm-6 d-inline-block'
-      }
-    }
+        host: 'col col-sm-6 d-inline-block',
+      },
+    },
   };
 
   /**
@@ -79,7 +79,7 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     combineLatest([
       this.translateService.get(`${this.messagePrefix}.name`),
-      this.translateService.get(`${this.messagePrefix}.namespace`)
+      this.translateService.get(`${this.messagePrefix}.namespace`),
     ]).subscribe(([name, namespace]) => {
       this.name = new DynamicInputModel({
         id: 'name',
@@ -113,8 +113,8 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
         new DynamicFormGroupModel(
           {
             id: 'metadatadataschemagroup',
-            group:[this.namespace, this.name]
-          })
+            group:[this.namespace, this.name],
+          }),
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
       this.registryService.getActiveMetadataSchema().subscribe((schema: MetadataSchema) => {
@@ -152,7 +152,7 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
       (schema: MetadataSchema) => {
         const values = {
           prefix: this.name.value,
-          namespace: this.namespace.value
+          namespace: this.namespace.value,
         };
         if (schema == null) {
           this.registryService.createOrUpdateMetadataSchema(Object.assign(new MetadataSchema(), values)).subscribe((newSchema) => {
@@ -169,7 +169,7 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
         }
         this.clearFields();
         this.registryService.cancelEditMetadataSchema();
-      }
+      },
     );
   }
 

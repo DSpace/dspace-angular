@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'ds-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
-  styleUrls: ['./breadcrumbs.component.scss']
+  styleUrls: ['./breadcrumbs.component.scss'],
 })
 export class BreadcrumbsComponent {
 

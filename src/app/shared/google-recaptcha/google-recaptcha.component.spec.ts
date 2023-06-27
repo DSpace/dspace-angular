@@ -15,7 +15,7 @@ describe('GoogleRecaptchaComponent', () => {
 
 
   const configurationDataService = jasmine.createSpyObj('configurationDataService', {
-    findByPropertyName: jasmine.createSpy('findByPropertyName')
+    findByPropertyName: jasmine.createSpy('findByPropertyName'),
   });
 
   const confResponse$ = createSuccessfulRemoteDataObject$({ values: ['valid-google-recaptcha-key'] });
@@ -26,7 +26,7 @@ describe('GoogleRecaptchaComponent', () => {
       providers: [
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
-      ]
+      ],
     })
       .compileComponents();
   });

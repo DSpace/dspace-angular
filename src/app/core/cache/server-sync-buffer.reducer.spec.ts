@@ -27,8 +27,8 @@ describe('serverSyncBufferReducer', () => {
         {
           href: selfLink2,
           method: RestRequestMethod.GET,
-        }
-      ]
+        },
+      ],
   };
   const newSelfLink = 'https://localhost:8080/api/core/items/1ce6b5ae-97e1-4e5a-b4b0-f9029bad10c0';
 
@@ -79,7 +79,7 @@ describe('serverSyncBufferReducer', () => {
     // testState has already been frozen above
     const newState = serverSyncBufferReducer(testState, action);
     expect(newState.buffer).toContain({
-      href: newSelfLink, method: RestRequestMethod.PUT
+      href: newSelfLink, method: RestRequestMethod.PUT,
     })
     ;
   });

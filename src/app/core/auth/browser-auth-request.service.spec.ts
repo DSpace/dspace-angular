@@ -12,7 +12,7 @@ describe(`BrowserAuthRequestService`, () => {
   beforeEach(() => {
     href = 'https://rest.api/auth/shortlivedtokens';
     requestService = jasmine.createSpyObj('requestService', {
-      'generateRequestId': '8bb0582d-5013-4337-af9c-763beb25aae2'
+      'generateRequestId': '8bb0582d-5013-4337-af9c-763beb25aae2',
     });
     service = new BrowserAuthRequestService(null, requestService, null);
   });

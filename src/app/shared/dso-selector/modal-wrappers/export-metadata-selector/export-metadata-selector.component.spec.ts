@@ -17,7 +17,7 @@ import { NotificationsServiceStub } from '../../../testing/notifications-service
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../remote-data.utils';
 import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
@@ -28,13 +28,13 @@ import { AuthorizationDataService } from '../../../../core/data/feature-authoriz
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useClass: TranslateLoaderMock
-      }
+        useClass: TranslateLoaderMock,
+      },
     }),
   ],
   exports: [],
   declarations: [ConfirmationModalComponent],
-  providers: []
+  providers: [],
 })
 class ModelTestModule {
 }
@@ -54,7 +54,7 @@ describe('ExportMetadataSelectorComponent', () => {
     id: 'fake-id',
     uuid: 'fake-id',
     handle: 'fake/handle',
-    lastModified: '2018'
+    lastModified: '2018',
   });
 
   const mockCollection: Collection = Object.assign(new Collection(), {
@@ -65,10 +65,10 @@ describe('ExportMetadataSelectorComponent', () => {
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'fake/test-collection-1'
-        }
-      ]
-    }
+          value: 'fake/test-collection-1',
+        },
+      ],
+    },
   });
 
   const mockCommunity = Object.assign(new Community(), {
@@ -78,10 +78,10 @@ describe('ExportMetadataSelectorComponent', () => {
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'fake/test-community-1'
-        }
-      ]
-    }
+          value: 'fake/test-community-1',
+        },
+      ],
+    },
   });
 
   const itemRD = createSuccessfulRemoteDataObject(mockItem);
@@ -90,15 +90,15 @@ describe('ExportMetadataSelectorComponent', () => {
   beforeEach(waitForAsync(() => {
     notificationService = new NotificationsServiceStub();
     router = jasmine.createSpyObj('router', {
-      navigateByUrl: jasmine.createSpy('navigateByUrl')
+      navigateByUrl: jasmine.createSpy('navigateByUrl'),
     });
     scriptService = jasmine.createSpyObj('scriptService',
       {
-        invoke: createSuccessfulRemoteDataObject$({ processId: '45' })
-      }
+        invoke: createSuccessfulRemoteDataObject$({ processId: '45' }),
+      },
     );
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule],
@@ -117,14 +117,14 @@ describe('ExportMetadataSelectorComponent', () => {
                   dso: itemRD,
                 },
               },
-            }
+            },
           },
         },
         {
-          provide: Router, useValue: router
-        }
+          provide: Router, useValue: router,
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
   }));

@@ -5,7 +5,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 import { select, Store } from '@ngrx/store';
@@ -24,7 +24,7 @@ import { INotificationBoardOptions } from '../../../../config/notifications-conf
   encapsulation: ViewEncapsulation.None,
   templateUrl: './notifications-board.component.html',
   styleUrls: ['./notifications-board.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotificationsBoardComponent implements OnInit, OnDestroy {
 

@@ -43,9 +43,9 @@ describe('CollectionDataService', () => {
     name: 'test-collection-1',
     _links: {
       self: {
-        href: 'https://rest.api/collections/test-collection-1-1'
-      }
-    }
+        href: 'https://rest.api/collections/test-collection-1-1',
+      },
+    },
   });
 
   const mockCollection2: Collection = Object.assign(new Collection(), {
@@ -53,9 +53,9 @@ describe('CollectionDataService', () => {
     name: 'test-collection-2',
     _links: {
       self: {
-        href: 'https://rest.api/collections/test-collection-2-2'
-      }
-    }
+        href: 'https://rest.api/collections/test-collection-2-2',
+      },
+    },
   });
 
   const mockCollection3: Collection = Object.assign(new Collection(), {
@@ -63,9 +63,9 @@ describe('CollectionDataService', () => {
     name: 'test-collection-3',
     _links: {
       self: {
-        href: 'https://rest.api/collections/test-collection-3-3'
-      }
-    }
+        href: 'https://rest.api/collections/test-collection-3-3',
+      },
+    },
   });
 
   const queryString = 'test-string';
@@ -138,7 +138,7 @@ describe('CollectionDataService', () => {
       it('should return a RemoteData<PaginatedList<Colletion>> for the getAuthorizedCollection', () => {
         const result = service.getAuthorizedCollection(queryString);
         const expected = cold('a|', {
-          a: paginatedListRD
+          a: paginatedListRD,
         });
         expect(result).toBeObservable(expected);
       });
@@ -153,7 +153,7 @@ describe('CollectionDataService', () => {
       it('should return a RemoteData<PaginatedList<Colletion>> for the getAuthorizedCollectionByCommunity', () => {
         const result = service.getAuthorizedCollectionByCommunity(communityId, queryString);
         const expected = cold('a|', {
-          a: paginatedListRD
+          a: paginatedListRD,
         });
         expect(result).toBeObservable(expected);
       });
@@ -200,13 +200,13 @@ describe('CollectionDataService', () => {
     }
     rdbService = jasmine.createSpyObj('rdbService', {
       buildList: hot('a|', {
-        a: paginatedListRD
+        a: paginatedListRD,
       }),
       buildFromRequestUUID: buildResponse$,
-      buildSingle: buildResponse$
+      buildSingle: buildResponse$,
     });
     objectCache = jasmine.createSpyObj('objectCache', {
-      remove: jasmine.createSpy('remove')
+      remove: jasmine.createSpy('remove'),
     });
     halService = new HALEndpointServiceStub(url);
     notificationsService = new NotificationsServiceStub();

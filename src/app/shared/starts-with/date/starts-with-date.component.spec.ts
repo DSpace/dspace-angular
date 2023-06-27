@@ -25,7 +25,7 @@ describe('StartsWithDateComponent', () => {
 
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
     params: observableOf({}),
-    queryParams: observableOf({})
+    queryParams: observableOf({}),
   });
 
   paginationService = new PaginationServiceStub();
@@ -39,9 +39,9 @@ describe('StartsWithDateComponent', () => {
         { provide: 'paginationId', useValue: 'page-id' },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: PaginationService, useValue: paginationService },
-        { provide: Router, useValue: new RouterStub() }
+        { provide: Router, useValue: new RouterStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -158,7 +158,7 @@ describe('StartsWithDateComponent', () => {
     const expectedValue = '2015';
     const extras: NavigationExtras = {
       queryParams: Object.assign({ startsWith: expectedValue }),
-      queryParamsHandling: 'merge'
+      queryParamsHandling: 'merge',
     };
 
     beforeEach(() => {

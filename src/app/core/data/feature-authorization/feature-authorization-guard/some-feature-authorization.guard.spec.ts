@@ -52,13 +52,13 @@ describe('SomeFeatureAuthorizationGuard', () => {
     authorizationService = Object.assign({
       isAuthorized(featureId?: FeatureID): Observable<boolean> {
         return observableOf(authorizedFeatureIds.indexOf(featureId) > -1);
-      }
+      },
     });
     router = jasmine.createSpyObj('router', {
-      parseUrl: {}
+      parseUrl: {},
     });
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true)
+      isAuthenticated: observableOf(true),
     });
     guard = new SomeFeatureAuthorizationGuardImpl(authorizationService, router, authService, featureIds, objectUrl, ePersonUuid);
   }

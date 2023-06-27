@@ -21,12 +21,12 @@ describe('ResultsBackButtonComponent', () => {
       TestBed.configureTestingModule({
         declarations: [ResultsBackButtonComponent],
         imports: [TranslateModule.forRoot(),
-          RouterTestingModule.withRoutes([])
+          RouterTestingModule.withRoutes([]),
         ],
         providers: [
-          { provide: TranslateService, useValue: translate }
+          { provide: TranslateService, useValue: translate },
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
     }));
 

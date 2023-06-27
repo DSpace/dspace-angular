@@ -134,7 +134,7 @@ export class ThumbnailComponent implements OnChanges {
           } else {
             return observableOf(null);
           }
-        })
+        }),
       ).subscribe((url: string) => {
         if (hasValue(url)) {
           // If we got a URL, try to load it

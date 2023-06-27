@@ -14,9 +14,9 @@ describe('ItemMetadataListElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [],
       declarations: [ItemMetadataListElementComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemMetadataListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

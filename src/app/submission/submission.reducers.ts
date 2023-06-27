@@ -2,7 +2,7 @@ import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 
 import {
   submissionObjectReducer,
-  SubmissionObjectState
+  SubmissionObjectState,
 } from './objects/submission-objects.reducer';
 
 /**

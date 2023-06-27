@@ -11,7 +11,7 @@ import { CollectionListEntry } from '../../shared/collection-dropdown/collection
 @Component({
   selector: 'ds-collection-selector',
   templateUrl: './collection-selector.component.html',
-  styleUrls: ['./collection-selector.component.scss']
+  styleUrls: ['./collection-selector.component.scss'],
 })
 export class CollectionSelectorComponent {
 

@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'ds-themed-workflow-item-delete',
   styleUrls: [],
-  templateUrl: './../../shared/theme-support/themed.component.html'
+  templateUrl: './../../shared/theme-support/themed.component.html',
 })
 export class ThemedWorkflowItemDeleteComponent extends ThemedComponent<WorkflowItemDeleteComponent> {
   protected getComponentName(): string {

@@ -31,15 +31,15 @@ describe('Footer component', () => {
       imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       })],
       declarations: [FooterComponent], // declare the test component
       providers: [
         FooterComponent,
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
   }));
 

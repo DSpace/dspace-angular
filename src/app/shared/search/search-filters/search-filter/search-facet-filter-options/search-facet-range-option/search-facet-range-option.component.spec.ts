@@ -17,7 +17,7 @@ import { By } from '@angular/platform-browser';
 import { SearchFacetRangeOptionComponent } from './search-facet-range-option.component';
 import {
   RANGE_FILTER_MAX_SUFFIX,
-  RANGE_FILTER_MIN_SUFFIX
+  RANGE_FILTER_MIN_SUFFIX,
 } from '../../search-range-filter/search-range-filter.component';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
@@ -44,12 +44,12 @@ describe('SearchFacetRangeOptionComponent', () => {
     count: 20,
     _links: {
       self: {
-        href: ''
+        href: '',
       },
       search: {
-        href: ''
-      }
-    }
+        href: '',
+      },
+    },
   };
 
   const searchLink = '/search';
@@ -72,8 +72,8 @@ describe('SearchFacetRangeOptionComponent', () => {
         {
           provide: SearchConfigurationService, useValue: {
             searchOptions: observableOf({}),
-            paginationId: 'page-id'
-          }
+            paginationId: 'page-id',
+          },
         },
         {
           provide: SearchFilterService, useValue: {
@@ -83,14 +83,14 @@ describe('SearchFacetRangeOptionComponent', () => {
             incrementPage: (filterName: string) => {
             },
             resetPage: (filterName: string) => {
-            }
+            },
             /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-          }
-        }
+          },
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFacetRangeOptionComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -114,18 +114,18 @@ describe('SearchFacetRangeOptionComponent', () => {
         count: 20,
         _links: {
           self: {
-            href: ''
+            href: '',
           },
           search: {
-            href: ''
-          }
-        }
+            href: '',
+          },
+        },
       };
       (comp as any).updateChangeParams();
       expect(comp.changeQueryParams).toEqual({
         [mockFilterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: ['50'],
         [mockFilterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: ['60'],
-        ['page-id.page']: 1
+        ['page-id.page']: 1,
       });
     });
   });

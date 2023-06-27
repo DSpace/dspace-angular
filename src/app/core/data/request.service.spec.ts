@@ -16,7 +16,7 @@ import {
   OptionsRequest,
   PatchRequest,
   PostRequest,
-  PutRequest
+  PutRequest,
 } from './request.models';
 import { RequestService } from './request.service';
 import { fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
@@ -53,19 +53,19 @@ describe('RequestService', () => {
       'cache/object-updates': {},
       'data/request': {},
       'index': {},
-    }
+    },
   };
 
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(coreReducers, storeModuleConfig)
+        StoreModule.forRoot(coreReducers, storeModuleConfig),
       ],
       providers: [
         provideMockStore({ initialState }),
-        { provide: RequestService, useValue: service }
-      ]
+        { provide: RequestService, useValue: service },
+      ],
     }).compileComponents();
   }));
 
@@ -84,7 +84,7 @@ describe('RequestService', () => {
       objectCache,
       uuidService,
       store,
-      undefined
+      undefined,
     );
     serviceAsAny = service as any;
   });
@@ -129,7 +129,7 @@ describe('RequestService', () => {
     describe('when the request has reached the store, before the server responds', () => {
       beforeEach(() => {
         spyOn(service, 'getByHref').and.returnValue(observableOf({
-          state: RequestEntryState.ResponsePending
+          state: RequestEntryState.ResponsePending,
         } as RequestEntry));
       });
 
@@ -144,7 +144,7 @@ describe('RequestService', () => {
     describe('after the server responds', () => {
       beforeEach(() => {
         spyOn(service, 'getByHref').and.returnValues(observableOf({
-          state: RequestEntryState.Success
+          state: RequestEntryState.Success,
         } as RequestEntry));
       });
 
@@ -166,22 +166,22 @@ describe('RequestService', () => {
         entry = {
           state: RequestEntryState.Success,
           response: {
-            timeCompleted: new Date().getTime()
+            timeCompleted: new Date().getTime(),
           },
-          request: new GetRequest('request-uuid', 'request-href')
+          request: new GetRequest('request-uuid', 'request-href'),
         };
 
         const state = Object.assign({}, initialState, {
           core: Object.assign({}, initialState.core, {
             'data/request': {
-              '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': entry
+              '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': entry,
             },
             'index': {
               'get-request/configured-to-cache-uuid': {
-                '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb'
-              }
-            }
-          })
+                '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb',
+              },
+            },
+          }),
         });
         mockStore.setState(state);
       });
@@ -189,7 +189,7 @@ describe('RequestService', () => {
       it('should return an Observable of the RequestEntry', () => {
         const result = service.getByUUID(testUUID);
         const expected = cold('b', {
-          b: entry
+          b: entry,
         });
 
         expect(result).toBeObservable(expected);
@@ -220,24 +220,24 @@ describe('RequestService', () => {
         entry = {
           state: RequestEntryState.Success,
           response: {
-            timeCompleted: new Date().getTime()
+            timeCompleted: new Date().getTime(),
           },
-          request: new GetRequest('request-uuid', 'request-href')
+          request: new GetRequest('request-uuid', 'request-href'),
         };
         const state = Object.assign({}, initialState, {
           core: Object.assign({}, initialState.core, {
             'data/request': {
-              '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': entry
+              '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': entry,
             },
             'index': {
               'get-request/configured-to-cache-uuid': {
-                '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb'
+                '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb',
               },
               'get-request/href-to-uuid': {
-                'https://rest.api/endpoint/selfLink': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb'
-              }
-            }
-          })
+                'https://rest.api/endpoint/selfLink': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb',
+              },
+            },
+          }),
         });
         mockStore.setState(state);
       });
@@ -245,7 +245,7 @@ describe('RequestService', () => {
       it('should return an Observable of the RequestEntry', () => {
         const result = service.getByHref(testHref);
         const expected = cold('c', {
-          c: entry
+          c: entry,
         });
 
         expect(result).toBeObservable(expected);
@@ -263,7 +263,7 @@ describe('RequestService', () => {
       it('should return an Observable of undefined', () => {
         const result = service.getByHref(testHref);
         const expected = cold('c', {
-          c: undefined
+          c: undefined,
         });
 
         expect(result).toBeObservable(expected);
@@ -527,9 +527,9 @@ describe('RequestService', () => {
       entry = {
         state: RequestEntryState.Success,
         response: {
-          timeCompleted: new Date().getTime()
+          timeCompleted: new Date().getTime(),
         },
-        request: request
+        request: request,
       };
     });
 
@@ -591,7 +591,7 @@ describe('RequestService', () => {
       };
       const queryParams = service.uriEncodeBody(body);
       expect(queryParams).toEqual(
-        'property1=multiple%0Alines%0Ato%0Asend&property2=sp%26ci%40l%20characters&sp%26ci%40l-chars%20in%20prop=test123'
+        'property1=multiple%0Alines%0Ato%0Asend&property2=sp%26ci%40l%20characters&sp%26ci%40l-chars%20in%20prop=test123',
       );
     });
 
@@ -604,7 +604,7 @@ describe('RequestService', () => {
       };
       const queryParams = service.uriEncodeBody(body);
       expect(queryParams).toEqual(
-        'property1=multiple%0Alines%0Ato%0Asend&property2=sp%26ci%40l%20characters&sp%26ci%40l-chars%20in%20prop=test123&arrayParam=arrayValue1&arrayParam=arrayValue2'
+        'property1=multiple%0Alines%0Ato%0Asend&property2=sp%26ci%40l%20characters&sp%26ci%40l-chars%20in%20prop=test123&arrayParam=arrayValue1&arrayParam=arrayValue2',
       );
     });
   });

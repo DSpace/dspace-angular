@@ -24,11 +24,11 @@ describe('SearchNavbarComponent', () => {
     mockSearchService = {
       getSearchLink() {
         return '/search';
-      }
+      },
     };
 
     routerStub = {
-      navigate: (commands) => commands
+      navigate: (commands) => commands,
     };
 
     paginationService = new PaginationServiceStub();
@@ -42,16 +42,16 @@ describe('SearchNavbarComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         })],
       declarations: [
         SearchNavbarComponent,
         BrowserOnlyMockPipe,
       ],
       providers: [
-        { provide: SearchService, useValue: mockSearchService }
-      ]
+        { provide: SearchService, useValue: mockSearchService },
+      ],
     })
       .compileComponents();
   }));
@@ -75,7 +75,7 @@ describe('SearchNavbarComponent', () => {
       const searchIcon = fixture.debugElement.query(By.css('#search-navbar-container form .submit-icon'));
       searchIcon.triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();
@@ -91,7 +91,7 @@ describe('SearchNavbarComponent', () => {
           const searchIcon = fixture.debugElement.query(By.css('#search-navbar-container form .submit-icon'));
           searchIcon.triggerEventHandler('click', {
             preventDefault: () => {/**/
-            }
+            },
           });
           tick();
           fixture.detectChanges();

@@ -12,7 +12,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-search-result-grid-element',
-  template: ``
+  template: ``,
 })
 export class SearchResultGridElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
   /**
@@ -28,7 +28,7 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
   public constructor(
     public dsoNameService: DSONameService,
     protected truncatableService: TruncatableService,
-    protected bitstreamDataService: BitstreamDataService
+    protected bitstreamDataService: BitstreamDataService,
   ) {
     super(dsoNameService);
   }

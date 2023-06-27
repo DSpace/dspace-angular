@@ -18,15 +18,15 @@ import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-boots
     NgbDatepickerModule,
   ],
   exports: [
-    SystemWideAlertBannerComponent
+    SystemWideAlertBannerComponent,
   ],
   declarations: [
     SystemWideAlertBannerComponent,
-    SystemWideAlertFormComponent
+    SystemWideAlertFormComponent,
   ],
   providers: [
-    SystemWideAlertDataService
-  ]
+    SystemWideAlertDataService,
+  ],
 })
 export class SystemWideAlertModule {
 

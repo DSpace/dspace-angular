@@ -12,7 +12,7 @@ export const BREADCRUMB_MESSAGE_POSTFIX = '.breadcrumbs';
  * Service to calculate i18n breadcrumbs for a single part of the route
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class I18nBreadcrumbsService implements BreadcrumbsProviderService<string> {
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { BehaviorSubject, Observable, of, combineLatest as observableCombineLatest, } from 'rxjs';
+import { BehaviorSubject, Observable, of, combineLatest as observableCombineLatest } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -16,7 +16,7 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-resource-policy-edit',
-  templateUrl: './resource-policy-edit.component.html'
+  templateUrl: './resource-policy-edit.component.html',
 })
 export class ResourcePolicyEditComponent implements OnInit {
 
@@ -54,7 +54,7 @@ export class ResourcePolicyEditComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.pipe(
       map((data) => data),
-      take(1)
+      take(1),
     ).subscribe((data: any) => {
       this.resourcePolicy = (data.resourcePolicy as RemoteData<ResourcePolicy>).payload;
     });
@@ -86,19 +86,19 @@ export class ResourcePolicyEditComponent implements OnInit {
     const updatedObject = Object.assign({}, event.object, {
       id: this.resourcePolicy.id,
       type: RESOURCE_POLICY.value,
-      _links: this.resourcePolicy._links
+      _links: this.resourcePolicy._links,
     });
 
     const updateTargetSucceeded$ = event.updateTarget ? this.resourcePolicyService.updateTarget(
-      this.resourcePolicy.id, this.resourcePolicy._links.self.href, event.target.uuid, event.target.type
+      this.resourcePolicy.id, this.resourcePolicy._links.self.href, event.target.uuid, event.target.type,
     ).pipe(
       getFirstCompletedRemoteData(),
-      map((responseRD) => responseRD && responseRD.hasSucceeded)
+      map((responseRD) => responseRD && responseRD.hasSucceeded),
     ) : of(true);
 
     const updateResourcePolicySucceeded$ = this.resourcePolicyService.update(updatedObject).pipe(
       getFirstCompletedRemoteData(),
-      map((responseRD) => responseRD && responseRD.hasSucceeded)
+      map((responseRD) => responseRD && responseRD.hasSucceeded),
     );
 
     observableCombineLatest([updateTargetSucceeded$, updateResourcePolicySucceeded$]).subscribe(
@@ -114,7 +114,7 @@ export class ResourcePolicyEditComponent implements OnInit {
         } else { // nothing has been updated
           this.notificationsService.error(null, this.translate.get('resource-policies.edit.page.failure.content'));
         }
-      }
+      },
     );
   }
 }

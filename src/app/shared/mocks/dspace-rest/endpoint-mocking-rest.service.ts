@@ -21,7 +21,7 @@ export class EndpointMockingRestService extends DspaceRestService {
 
   constructor(
     @Inject(MOCK_RESPONSE_MAP) protected mockResponseMap: ResponseMapMock,
-    protected http: HttpClient
+    protected http: HttpClient,
   ) {
     super(http);
   }
@@ -83,7 +83,7 @@ export class EndpointMockingRestService extends DspaceRestService {
       payload: mockData,
       headers: new HttpHeaders(),
       statusCode: 200,
-      statusText: 'OK'
+      statusText: 'OK',
     });
   }
 

@@ -34,13 +34,13 @@ describe('CommunityAdminSearchResultListElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
       ],
       declarations: [CommunityAdminSearchResultListElementComponent],
       providers: [{ provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environment }],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

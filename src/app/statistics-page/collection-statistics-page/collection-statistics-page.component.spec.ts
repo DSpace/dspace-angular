@@ -29,9 +29,9 @@ describe('CollectionStatisticsPageComponent', () => {
         scope: createSuccessfulRemoteDataObject(
           Object.assign(new Collection(), {
             id: 'collection_id',
-          })
-        )
-      })
+          }),
+        ),
+      }),
     };
 
     const router = {
@@ -47,9 +47,9 @@ describe('CollectionStatisticsPageComponent', () => {
           new UsageReport(), {
             id: `${scope}-${type}-report`,
             points: [],
-          }
-        )
-      )
+          },
+        ),
+      ),
     );
 
     const nameService = {
@@ -58,7 +58,7 @@ describe('CollectionStatisticsPageComponent', () => {
 
     const authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
-      setRedirectUrl: {}
+      setRedirectUrl: {},
     });
 
     TestBed.configureTestingModule({

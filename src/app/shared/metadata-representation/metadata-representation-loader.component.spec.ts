@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Context } from '../../core/shared/context.model';
 import {
   MetadataRepresentation,
-  MetadataRepresentationType
+  MetadataRepresentationType,
 } from '../../core/shared/metadata-representation/metadata-representation.model';
 import { MetadataRepresentationLoaderComponent } from './metadata-representation-loader.component';
 import { MetadataRepresentationDirective } from './metadata-representation.directive';
@@ -46,18 +46,18 @@ describe('MetadataRepresentationLoaderComponent', () => {
       providers: [
         {
           provide: METADATA_REPRESENTATION_COMPONENT_FACTORY,
-          useValue: jasmine.createSpy('getMetadataRepresentationComponent').and.returnValue(PlainTextMetadataListElementComponent)
+          useValue: jasmine.createSpy('getMetadataRepresentationComponent').and.returnValue(PlainTextMetadataListElementComponent),
         },
         {
           provide: ThemeService,
           useValue: themeService,
-        }
-      ]
+        },
+      ],
     }).overrideComponent(MetadataRepresentationLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
-        entryComponents: [PlainTextMetadataListElementComponent]
-      }
+        entryComponents: [PlainTextMetadataListElementComponent],
+      },
     }).compileComponents();
   }));
 

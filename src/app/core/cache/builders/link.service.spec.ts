@@ -54,15 +54,15 @@ describe('LinkService', () => {
       value: 'a test value',
       _links: {
         self: {
-          href: 'http://self.link'
+          href: 'http://self.link',
         },
         predecessor: {
-          href: 'http://predecessor.link'
+          href: 'http://predecessor.link',
         },
         successor: {
-          href: 'http://successor.link'
+          href: 'http://successor.link',
         },
-      }
+      },
     });
     testDataService = new TestDataService();
     spyOn(testDataService, 'findListByHref').and.callThrough();
@@ -70,7 +70,7 @@ describe('LinkService', () => {
     TestBed.configureTestingModule({
       providers: [LinkService, {
         provide: TestDataService,
-        useValue: testDataService
+        useValue: testDataService,
       }, {
         provide: DATA_SERVICE_FACTORY,
         useValue: jasmine.createSpy('getDataServiceFor').and.returnValue(TestDataService),
@@ -79,7 +79,7 @@ describe('LinkService', () => {
         useValue: jasmine.createSpy('getLinkDefinition').and.returnValue({
           resourceType: TEST_MODEL,
           linkName: 'predecessor',
-          propertyName: 'predecessor'
+          propertyName: 'predecessor',
         }),
       }, {
         provide: LINK_DEFINITION_MAP_FACTORY,
@@ -93,9 +93,9 @@ describe('LinkService', () => {
             resourceType: TEST_MODEL,
             linkName: 'successor',
             propertyName: 'successor',
-          }
+          },
         ]),
-      }]
+      }],
     });
     service = TestBed.inject(LinkService);
   });
@@ -115,7 +115,7 @@ describe('LinkService', () => {
           resourceType: TEST_MODEL,
           linkName: 'predecessor',
           propertyName: 'predecessor',
-          isList: true
+          isList: true,
         });
         service.resolveLink(testModel, followLink('predecessor', { findListOptions: { some: 'options ' } as any }, followLink('successor')));
       });
@@ -213,12 +213,12 @@ describe('LinkService', () => {
         value: 'a test value',
         _links: {
           self: {
-            href: 'http://self.link'
+            href: 'http://self.link',
           },
           predecessor: {
-            href: 'http://predecessor.link'
-          }
-        }
+            href: 'http://predecessor.link',
+          },
+        },
       });
     });
 
@@ -237,7 +237,7 @@ describe('LinkService', () => {
         ((service as any).getLinkDefinition as jasmine.Spy).and.returnValue({
           resourceType: TEST_MODEL,
           linkName: 'successor',
-          propertyName: 'successor'
+          propertyName: 'successor',
         });
         result = service.resolveLinks(testModel, followLink('successor'));
       });

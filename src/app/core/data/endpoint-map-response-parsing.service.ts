@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import {
   DspaceRestResponseParsingService,
-  isCacheableObject
+  isCacheableObject,
 } from './dspace-rest-response-parsing.service';
 import { hasValue } from '../../shared/empty.util';
 import { getClassForType } from '../cache/builders/build-decorators';
@@ -56,7 +56,7 @@ export class EndpointMapResponseParsingService extends DspaceRestResponseParsing
     } catch (e) {
       console.warn(`Couldn't parse endpoint request at ${request.href}`);
       return new ParsedResponse(response.statusCode, undefined, {
-        _links: response.payload._links
+        _links: response.payload._links,
       });
     }
   }
@@ -101,7 +101,7 @@ export class EndpointMapResponseParsingService extends DspaceRestResponseParsing
       let dataJSON: string;
       if (hasValue(data._embedded)) {
         dataJSON = JSON.stringify(Object.assign({}, data, {
-          _embedded: '...'
+          _embedded: '...',
         }));
       } else {
         dataJSON = JSON.stringify(data);

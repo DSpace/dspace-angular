@@ -15,7 +15,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import {
   ITEMTEMPLATE_PATH,
   COLLECTION_EDIT_PATH,
-  COLLECTION_CREATE_PATH
+  COLLECTION_CREATE_PATH,
 } from './collection-page-routing-paths';
 import { CollectionPageAdministratorGuard } from './collection-page-administrator.guard';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
@@ -29,14 +29,14 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
       {
         path: COLLECTION_CREATE_PATH,
         component: CreateCollectionPageComponent,
-        canActivate: [AuthenticatedGuard, CreateCollectionPageGuard]
+        canActivate: [AuthenticatedGuard, CreateCollectionPageGuard],
       },
       {
         path: ':id',
         resolve: {
           dso: CollectionPageResolver,
           breadcrumb: CollectionBreadcrumbResolver,
-          menu: DSOEditMenuResolver
+          menu: DSOEditMenuResolver,
         },
         runGuardsAndResolvers: 'always',
         children: [
@@ -44,7 +44,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             path: COLLECTION_EDIT_PATH,
             loadChildren: () => import('./edit-collection-page/edit-collection-page.module')
               .then((m) => m.EditCollectionPageModule),
-            canActivate: [CollectionPageAdministratorGuard]
+            canActivate: [CollectionPageAdministratorGuard],
           },
           {
             path: 'delete',
@@ -58,15 +58,15 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             canActivate: [AuthenticatedGuard],
             resolve: {
               item: ItemTemplatePageResolver,
-              breadcrumb: I18nBreadcrumbResolver
+              breadcrumb: I18nBreadcrumbResolver,
             },
-            data: { title: 'collection.edit.template.title', breadcrumbKey: 'collection.edit.template' }
+            data: { title: 'collection.edit.template.title', breadcrumbKey: 'collection.edit.template' },
           },
           {
             path: '',
             component: ThemedCollectionPageComponent,
             pathMatch: 'full',
-          }
+          },
         ],
         data: {
           menu: {
@@ -84,7 +84,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
           },
         },
       },
-    ])
+    ]),
   ],
   providers: [
     CollectionPageResolver,
@@ -94,7 +94,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
     LinkService,
     CreateCollectionPageGuard,
     CollectionPageAdministratorGuard,
-  ]
+  ],
 })
 export class CollectionPageRoutingModule {
 

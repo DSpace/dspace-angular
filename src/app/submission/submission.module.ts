@@ -23,25 +23,25 @@ import { SubmissionUploadsConfigDataService } from '../core/config/submission-up
 import { SubmissionEditComponent } from './edit/submission-edit.component';
 import { SubmissionSectionUploadFileComponent } from './sections/upload/file/section-upload-file.component';
 import {
-  SubmissionSectionUploadFileEditComponent
+  SubmissionSectionUploadFileEditComponent,
 } from './sections/upload/file/edit/section-upload-file-edit.component';
 import {
-  SubmissionSectionUploadFileViewComponent
+  SubmissionSectionUploadFileViewComponent,
 } from './sections/upload/file/view/section-upload-file-view.component';
 import {
-  SubmissionSectionUploadAccessConditionsComponent
+  SubmissionSectionUploadAccessConditionsComponent,
 } from './sections/upload/accessConditions/submission-section-upload-access-conditions.component';
 import { SubmissionSubmitComponent } from './submit/submission-submit.component';
 import { storeModuleConfig } from '../app.reducer';
 import { SubmissionImportExternalComponent } from './import-external/submission-import-external.component';
 import {
-  SubmissionImportExternalSearchbarComponent
+  SubmissionImportExternalSearchbarComponent,
 } from './import-external/import-external-searchbar/submission-import-external-searchbar.component';
 import {
-  SubmissionImportExternalPreviewComponent
+  SubmissionImportExternalPreviewComponent,
 } from './import-external/import-external-preview/submission-import-external-preview.component';
 import {
-  SubmissionImportExternalCollectionComponent
+  SubmissionImportExternalCollectionComponent,
 } from './import-external/import-external-collection/submission-import-external-collection.component';
 import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/submission-section-cc-licenses.component';
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
@@ -59,11 +59,11 @@ import { SubmissionSectionSherpaPoliciesComponent } from './sections/sherpa-poli
 import { ContentAccordionComponent } from './sections/sherpa-policies/content-accordion/content-accordion.component';
 import { PublisherPolicyComponent } from './sections/sherpa-policies/publisher-policy/publisher-policy.component';
 import {
-  PublicationInformationComponent
+  PublicationInformationComponent,
 } from './sections/sherpa-policies/publication-information/publication-information.component';
 import { UploadModule } from '../shared/upload/upload.module';
 import {
-  MetadataInformationComponent
+  MetadataInformationComponent,
 } from './sections/sherpa-policies/metadata-information/metadata-information.component';
 import { SectionFormOperationsService } from './sections/form/section-form-operations.service';
 import {SubmissionSectionIdentifiersComponent} from './sections/identifiers/section-identifiers.component';
@@ -135,7 +135,7 @@ const DECLARATIONS = [
     SubmissionAccessesConfigDataService,
     SectionAccessesService,
     SectionFormOperationsService,
-  ]
+  ],
 })
 
 /**
@@ -149,7 +149,7 @@ export class SubmissionModule {
   static withEntryComponents() {
     return {
       ngModule: SubmissionModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component }))
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component })),
     };
   }
 }

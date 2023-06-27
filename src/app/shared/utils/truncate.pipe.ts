@@ -6,7 +6,7 @@ import { hasValue } from '../empty.util';
  * Default value: 10
  */
 @Pipe({
-  name: 'dsTruncate'
+  name: 'dsTruncate',
 })
 export class TruncatePipe implements PipeTransform {
 

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -19,7 +19,7 @@ import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 @Component({
   selector: 'ds-log-in-external-provider',
   templateUrl: './log-in-external-provider.component.html',
-  styleUrls: ['./log-in-external-provider.component.scss']
+  styleUrls: ['./log-in-external-provider.component.scss'],
 })
 @renderAuthMethodFor(AuthMethodType.Oidc)
 @renderAuthMethodFor(AuthMethodType.Shibboleth)
@@ -65,7 +65,7 @@ export class LogInExternalProviderComponent implements OnInit {
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
     private authService: AuthService,
     private hardRedirectService: HardRedirectService,
-    private store: Store<CoreState>
+    private store: Store<CoreState>,
   ) {
     this.authMethod = injectedAuthMethodModel;
   }

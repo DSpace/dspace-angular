@@ -28,12 +28,12 @@ describe('ViewModeSwitchComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
         RouterTestingModule.withRoutes([
           { path: 'search', component: DummyComponent, pathMatch: 'full' },
-        ])
+        ]),
       ],
       declarations: [
         ViewModeSwitchComponent,
@@ -44,7 +44,7 @@ describe('ViewModeSwitchComponent', () => {
         { provide: SearchService, useValue: searchService },
       ],
     }).overrideComponent(ViewModeSwitchComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

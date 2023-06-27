@@ -11,12 +11,12 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 const COMPONENTS = [
   SubscriptionViewComponent,
-  SubscriptionModalComponent
+  SubscriptionModalComponent,
 ];
 
 @NgModule({
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
   ],
   imports: [
     CommonModule,
@@ -24,11 +24,11 @@ const COMPONENTS = [
     ReactiveFormsModule,
     TranslateModule,
     RouterModule,
-    SharedModule
+    SharedModule,
   ],
   exports: [
-    ...COMPONENTS
-  ]
+    ...COMPONENTS,
+  ],
 })
 export class SubscriptionsModule {
 }

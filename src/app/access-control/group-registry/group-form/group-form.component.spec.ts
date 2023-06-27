@@ -65,8 +65,8 @@ describe('GroupFormComponent', () => {
       metadata: {
         'dc.description': [
           {
-            value: groupDescription
-          }
+            value: groupDescription,
+          },
         ],
       },
     });
@@ -105,7 +105,7 @@ describe('GroupFormComponent', () => {
       create(group: Group): Observable<RemoteData<Group>> {
         this.allGroups = [...this.allGroups, group];
         this.createdGroup = Object.assign({}, group, {
-          _links: { self: { href: 'group-selflink' } }
+          _links: { self: { href: 'group-selflink' } },
         });
         return createSuccessfulRemoteDataObject$(this.createdGroup);
       },
@@ -114,15 +114,15 @@ describe('GroupFormComponent', () => {
       },
       getGroupEditPageRouterLinkWithID(id: string) {
         return `group-edit-page-for-${id}`;
-      }
+      },
     };
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     dsoDataServiceStub = {
       findByHref(href: string): Observable<RemoteData<DSpaceObject>> {
         return null;
-      }
+      },
     };
     builderService = Object.assign(getMockFormBuilderService(),{
       createFormGroup(formModel, options = null) {
@@ -185,7 +185,7 @@ describe('GroupFormComponent', () => {
       },
       isObject(value) {
         return typeof value === 'object' && value !== null;
-      }
+      },
     });
     translateService = getMockTranslateService();
     router = new RouterMock();
@@ -195,8 +195,8 @@ describe('GroupFormComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [GroupFormComponent],
@@ -216,12 +216,12 @@ describe('GroupFormComponent', () => {
         { provide: HALEndpointService, useValue: {} },
         {
           provide: ActivatedRoute,
-          useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) }
+          useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) },
         },
         { provide: Router, useValue: router },
         { provide: AuthorizationDataService, useValue: authorizationService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -257,8 +257,8 @@ describe('GroupFormComponent', () => {
           metadata: {
             'dc.description': [
               {
-                value: groupDescription
-              }
+                value: groupDescription,
+              },
             ],
           },
         });
@@ -273,11 +273,11 @@ describe('GroupFormComponent', () => {
         const operations = [{
           op: 'add',
           path: '/metadata/dc.description',
-          value: 'testDescription'
+          value: 'testDescription',
         }, {
           op: 'replace',
           path: '/name',
-          value: 'newGroupName'
+          value: 'newGroupName',
         }];
         expect(groupsDataServiceStub.patch).toHaveBeenCalledWith(expected, operations);
       });
@@ -289,7 +289,7 @@ describe('GroupFormComponent', () => {
         const operations = [{
           op: 'add',
           path: '/metadata/dc.description',
-          value: 'testDescription'
+          value: 'testDescription',
         }];
         expect(groupsDataServiceStub.patch).toHaveBeenCalledWith(expected, operations);
       });
@@ -301,7 +301,7 @@ describe('GroupFormComponent', () => {
         const operations = [{
           op: 'replace',
           path: '/name',
-          value: 'newGroupName'
+          value: 'newGroupName',
         }];
         expect(groupsDataServiceStub.patch).toHaveBeenCalledWith(expected, operations);
       });
@@ -338,8 +338,8 @@ describe('GroupFormComponent', () => {
         metadata: {
           'dc.description': [
             {
-              value: groupDescription
-            }
+              value: groupDescription,
+            },
           ],
         },
       });
@@ -376,7 +376,7 @@ describe('GroupFormComponent', () => {
         const groupsDataServiceStubWithGroup = Object.assign(groupsDataServiceStub,{
           searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [expected]));
-          }
+          },
         });
         component.formGroup.controls.groupName.setValue('testName');
         component.formGroup.controls.groupName.setAsyncValidators(ValidateGroupExists.createValidator(groupsDataServiceStubWithGroup));
@@ -400,7 +400,7 @@ describe('GroupFormComponent', () => {
 
       component.canEdit$ = observableOf(true);
       component.groupBeingEdited = {
-        permanent: false
+        permanent: false,
       } as Group;
 
       fixture.detectChanges();

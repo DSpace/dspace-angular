@@ -9,9 +9,9 @@ describe('ConfirmedValidator', () => {
 
     passwordForm = (new UntypedFormBuilder()).group({
       password: new UntypedFormControl('', {}),
-      confirmPassword: new UntypedFormControl('', {})
+      confirmPassword: new UntypedFormControl('', {}),
     }, {
-      validator: ConfirmedValidator('password', 'confirmPassword')
+      validator: ConfirmedValidator('password', 'confirmPassword'),
     });
   }));
 

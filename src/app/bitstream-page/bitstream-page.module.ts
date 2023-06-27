@@ -18,14 +18,14 @@ import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-e
     SharedModule,
     BitstreamPageRoutingModule,
     FormModule,
-    ResourcePoliciesModule
+    ResourcePoliciesModule,
   ],
   declarations: [
     BitstreamAuthorizationsComponent,
     EditBitstreamPageComponent,
     ThemedEditBitstreamPageComponent,
     BitstreamDownloadPageComponent,
-  ]
+  ],
 })
 export class BitstreamPageModule {
 }

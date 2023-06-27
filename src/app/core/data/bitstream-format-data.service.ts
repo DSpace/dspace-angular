@@ -106,7 +106,7 @@ export class BitstreamFormatDataService extends IdentifiableDataService<Bitstrea
       map((endpointURL: string) => {
         return new PostRequest(requestId, endpointURL, bitstreamFormat);
       }),
-      sendRequest(this.requestService)
+      sendRequest(this.requestService),
     ).subscribe();
 
     return this.rdbService.buildFromRequestUUID(requestId);
@@ -117,7 +117,7 @@ export class BitstreamFormatDataService extends IdentifiableDataService<Bitstrea
    */
   public clearBitStreamFormatRequests(): Observable<string> {
     return this.getBrowseEndpoint().pipe(
-      tap((href: string) => this.requestService.removeByHrefSubstring(href))
+      tap((href: string) => this.requestService.removeByHrefSubstring(href)),
     );
   }
 

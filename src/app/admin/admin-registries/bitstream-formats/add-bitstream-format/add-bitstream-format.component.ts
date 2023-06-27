@@ -44,7 +44,7 @@ export class AddBitstreamFormatComponent {
         this.notificationService.error(this.translateService.get('admin.registries.bitstream-formats.create.failure.head'),
           this.translateService.get('admin.registries.bitstream-formats.create.failure.content'));
       }
-    }
+    },
     );
   }
 }

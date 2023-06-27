@@ -9,7 +9,7 @@ export class StoreMock<T> extends Store<T> {
   constructor(
     state$: StateObservable,
     actionsObserver: ActionsSubject,
-    reducerManager: ReducerManager
+    reducerManager: ReducerManager,
   ) {
     super(state$, actionsObserver, reducerManager);
     this.source = this.stateSubject.asObservable();

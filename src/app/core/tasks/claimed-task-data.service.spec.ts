@@ -28,7 +28,7 @@ describe('ClaimedTaskDataService', () => {
     },
     getObjectBySelfLink: () => {
       /* empty */
-    }
+    },
   } as any;
 
   function initTestService(): ClaimedTaskDataService {
@@ -58,7 +58,7 @@ describe('ClaimedTaskDataService', () => {
     it('should call postToEndpoint method', () => {
       const scopeId = '1234';
       const body = {
-        submit_approve: 'true'
+        submit_approve: 'true',
       };
 
       spyOn(service, 'postToEndpoint');
@@ -110,7 +110,7 @@ describe('ClaimedTaskDataService', () => {
 
       const findListOptions = new FindListOptions();
       findListOptions.searchParams = [
-        new RequestParam('uuid', 'a0db0fde-1d12-4d43-bd0d-0f43df8d823c')
+        new RequestParam('uuid', 'a0db0fde-1d12-4d43-bd0d-0f43df8d823c'),
       ];
 
       expect(service.searchTask).toHaveBeenCalledWith('findByItem', findListOptions);

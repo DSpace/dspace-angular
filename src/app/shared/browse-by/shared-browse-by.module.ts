@@ -20,6 +20,6 @@ import { AccessControlRoutingModule } from '../../access-control/access-control-
   exports: [
     BrowseByComponent,
     SharedModule,
-  ]
+  ],
 })
 export class SharedBrowseByModule { }

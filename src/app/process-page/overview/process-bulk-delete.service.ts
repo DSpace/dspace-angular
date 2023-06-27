@@ -10,7 +10,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 /**
  * Service to facilitate removing processes in bulk.
@@ -31,7 +31,7 @@ export class ProcessBulkDeleteService {
   constructor(
     protected processDataService: ProcessDataService,
     protected notificationsService: NotificationsService,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
   ) {
   }
 
@@ -105,7 +105,7 @@ export class ProcessBulkDeleteService {
             } else {
               this.toggleDelete(processId);
             }
-          })
+          }),
         );
       }),
       filter((rd: RemoteData<Process>) => rd.hasSucceeded),

@@ -44,7 +44,7 @@ export class OrcidHistoryDataService extends IdentifiableDataService<OrcidHistor
         return new PostRequest(requestId, endpointURL, orcidQueue._links.self.href, options);
       }),
       sendRequest(this.requestService),
-      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID(request.uuid)  as Observable<RemoteData<OrcidHistory>>)
+      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID(request.uuid)  as Observable<RemoteData<OrcidHistory>>),
     );
   }
 }

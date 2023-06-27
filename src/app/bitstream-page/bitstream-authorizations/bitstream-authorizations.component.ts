@@ -27,7 +27,7 @@ export class BitstreamAuthorizationsComponent<TDomain extends DSpaceObject> impl
    * @param {ActivatedRoute} route
    */
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
   }
 

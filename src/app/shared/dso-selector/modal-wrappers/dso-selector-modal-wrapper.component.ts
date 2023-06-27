@@ -21,7 +21,7 @@ export enum SelectorActionType {
  */
 @Component({
   selector: 'ds-dso-selector-modal',
-  template: ''
+  template: '',
 })
 export abstract class DSOSelectorModalWrapperComponent implements OnInit {
   /**
@@ -64,7 +64,7 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
   ngOnInit(): void {
     const matchingRoute = this.findRouteData(
       (route: ActivatedRouteSnapshot) => hasValue(route.data.dso),
-      this.route.root.snapshot
+      this.route.root.snapshot,
     );
     if (hasValue(matchingRoute)) {
       this.dsoRD = matchingRoute.data.dso;

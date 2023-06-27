@@ -31,13 +31,13 @@ describe('BulkAccessBrowseComponent', () => {
       imports: [
         NgbAccordionModule,
         NgbNavModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [BulkAccessBrowseComponent],
-      providers: [ { provide: SelectableListService, useValue: selectableListService }, ],
+      providers: [ { provide: SelectableListService, useValue: selectableListService } ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 
@@ -72,7 +72,7 @@ describe('BulkAccessBrowseComponent', () => {
       'elementsPerPage': 5,
       'totalElements': 2,
       'totalPages': 1,
-      'currentPage': 1
+      'currentPage': 1,
     }), [selected1, selected2]) ;
     const rd = createSuccessfulRemoteDataObject(list);
 

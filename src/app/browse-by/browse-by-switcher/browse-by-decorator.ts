@@ -3,7 +3,7 @@ import { InjectionToken } from '@angular/core';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import {
   DEFAULT_THEME,
-  resolveTheme
+  resolveTheme,
 } from '../../shared/object-collection/shared/listable-object/listable-object.decorator';
 
 export enum BrowseByDataType {
@@ -16,7 +16,7 @@ export const DEFAULT_BROWSE_BY_TYPE = BrowseByDataType.Metadata;
 
 export const BROWSE_BY_COMPONENT_FACTORY = new InjectionToken<(browseByType, theme) => GenericConstructor<any>>('getComponentByBrowseByType', {
   providedIn: 'root',
-  factory: () => getComponentByBrowseByType
+  factory: () => getComponentByBrowseByType,
 });
 
 const map = new Map();

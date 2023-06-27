@@ -55,7 +55,7 @@ describe('DsoEditMetadataValueComponent', () => {
         { provide: RelationshipDataService, useValue: relationshipService },
         { provide: DSONameService, useValue: dsoNameService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

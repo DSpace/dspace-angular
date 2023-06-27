@@ -34,7 +34,7 @@ export class ProcessBreadcrumbResolver implements Resolve<BreadcrumbConfig<Proce
         const fullPath = state.url;
         const url = fullPath.substr(0, fullPath.indexOf(id)) + id;
         return { provider: this.breadcrumbService, key: object, url: url };
-      })
+      }),
     );
   }
 }

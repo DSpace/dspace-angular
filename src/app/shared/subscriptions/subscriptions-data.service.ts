@@ -38,7 +38,7 @@ import { followLink } from '../utils/follow-link-config.model';
  * Provides methods to retrieve subscription resources from the REST API related CRUD actions.
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 @dataService(SUBSCRIPTION)
 export class SubscriptionsDataService extends IdentifiableDataService<Subscription> {
@@ -75,8 +75,8 @@ export class SubscriptionsDataService extends IdentifiableDataService<Subscripti
     const optionsWithObject = Object.assign(new FindListOptions(), {
       searchParams: [
         new RequestParam('resource', uuid),
-        new RequestParam('eperson_id', eperson)
-      ]
+        new RequestParam('eperson_id', eperson),
+      ],
     });
 
     return this.searchData.searchBy('findByEPersonAndDso', optionsWithObject, false, true);
@@ -156,15 +156,15 @@ export class SubscriptionsDataService extends IdentifiableDataService<Subscripti
   findByEPerson(ePersonId: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Subscription>>> {
     const optionsWithObject = Object.assign(new FindListOptions(), options, {
       searchParams: [
-        new RequestParam('uuid', ePersonId)
-      ]
+        new RequestParam('uuid', ePersonId),
+      ],
     });
 
     // return this.searchData.searchBy(this.findByEpersonLinkPath, optionsWithObject, true, true, followLink('dSpaceObject'), followLink('ePerson'));
 
     return this.getEndpoint().pipe(
       map(href => `${href}/search/${this.findByEpersonLinkPath}`),
-      switchMap(href => this.findListByHref(href, optionsWithObject, false, true, followLink('resource'), followLink('eperson')))
+      switchMap(href => this.findListByHref(href, optionsWithObject, false, true, followLink('resource'), followLink('eperson'))),
     );
 
 

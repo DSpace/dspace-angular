@@ -11,13 +11,13 @@ import { CollectionElementLinkType } from '../../../../../shared/object-collecti
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import {
-  WorkspaceItemSearchResultAdminWorkflowListElementComponent
+  WorkspaceItemSearchResultAdminWorkflowListElementComponent,
 } from './workspace-item-search-result-admin-workflow-list-element.component';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { Item } from '../../../../../core/shared/item.model';
 import {
-  WorkflowItemSearchResult
+  WorkflowItemSearchResult,
 } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
@@ -28,7 +28,7 @@ import { environment } from '../../../../../../environments/environment';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import {
   supervisionOrderPaginatedListRD,
-  supervisionOrderPaginatedListRD$
+  supervisionOrderPaginatedListRD$,
 } from '../../../../../shared/testing/supervision-order.mock';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 
@@ -71,9 +71,9 @@ describe('WorkspaceItemSearchResultAdminWorkflowListElementComponent', () => {
           { provide: LinkService, useValue: linkService },
           { provide: DSONameService, useClass: DSONameServiceMock },
           { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
-          { provide: APP_CONFIG, useValue: environment }
+          { provide: APP_CONFIG, useValue: environment },
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       })
       .compileComponents();
   }));

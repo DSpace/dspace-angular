@@ -32,7 +32,7 @@ import { LinkDefinition, LinkHeadService } from '../../core/services/link-head.s
   styleUrls: ['./item-page.component.scss'],
   templateUrl: './item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeInOut]
+  animations: [fadeInOut],
 })
 export class ItemPageComponent implements OnInit, OnDestroy {
 
@@ -77,7 +77,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     protected responseService: ServerResponseService,
     protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
-    @Inject(PLATFORM_ID) protected platformId: string
+    @Inject(PLATFORM_ID) protected platformId: string,
   ) {
     this.initPageLinks();
   }
@@ -88,11 +88,11 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Item>),
-      redirectOn4xx(this.router, this.authService)
+      redirectOn4xx(this.router, this.authService),
     );
     this.itemPageRoute$ = this.itemRD$.pipe(
       getAllSucceededRemoteDataPayload(),
-      map((item) => getItemPageRoute(item))
+      map((item) => getItemPageRoute(item)),
     );
 
     this.isAdmin$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
@@ -114,11 +114,11 @@ export class ItemPageComponent implements OnInit, OnDestroy {
           links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ');
           let tag: LinkDefinition = {
             href: link.href,
-            rel: link.rel
+            rel: link.rel,
           };
           if (isNotEmpty(link.type)) {
             tag = Object.assign(tag, {
-              type: link.type
+              type: link.type,
             });
           }
           this.linkHeadService.addTag(tag);

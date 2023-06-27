@@ -14,15 +14,15 @@ let fixture: ComponentFixture<MetadataValuesComponent>;
 const mockMetadata = [
   {
     language: 'en_US',
-    value: '1234'
+    value: '1234',
   },
   {
     language: 'en_US',
-    value: 'a publisher'
+    value: 'a publisher',
   },
   {
     language: 'en_US',
-    value: 'desc'
+    value: 'desc',
   }] as MetadataValue[];
 const mockSeperator = '<br/>';
 const mockLabel = 'fake.message';
@@ -33,16 +33,16 @@ describe('MetadataValuesComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
+          useClass: TranslateLoaderMock,
         },
       })],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
       ],
       declarations: [MetadataValuesComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataValuesComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: {changeDetection: ChangeDetectionStrategy.Default},
     }).compileComponents();
   }));
 

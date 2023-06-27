@@ -6,7 +6,7 @@ import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/mod
 @Component({
   selector: 'ds-vocabulary-treeview-modal',
   templateUrl: './vocabulary-treeview-modal.component.html',
-  styleUrls: ['./vocabulary-treeview-modal.component.scss']
+  styleUrls: ['./vocabulary-treeview-modal.component.scss'],
 })
 /**
  * Component that contains a modal to display a VocabularyTreeviewComponent

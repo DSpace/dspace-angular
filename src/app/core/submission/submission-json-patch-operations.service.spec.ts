@@ -23,7 +23,7 @@ describe('SubmissionJsonPatchOperationsService', () => {
       requestService,
       store,
       rdbService,
-      halEndpointService
+      halEndpointService,
     );
   }
 

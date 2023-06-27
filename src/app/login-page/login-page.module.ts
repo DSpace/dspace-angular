@@ -13,8 +13,8 @@ import { ThemedLoginPageComponent } from './themed-login-page.component';
   ],
   declarations: [
     LoginPageComponent,
-    ThemedLoginPageComponent
-  ]
+    ThemedLoginPageComponent,
+  ],
 })
 export class LoginPageModule {
 

@@ -24,13 +24,13 @@ const parentItem: Item = Object.assign(new Item(), {
         language: null,
         value: 'Related Author with authority',
         authority: 'virtual::related-author',
-        place: 2
+        place: 2,
       },
       {
         language: null,
         value: 'Author without authority',
-        place: 1
-      }
+        place: 1,
+      },
     ],
     'dc.creator': [
       {
@@ -49,10 +49,10 @@ const parentItem: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: null,
-        value: 'Parent Item'
-      }
-    ]
-  }
+        value: 'Parent Item',
+      },
+    ],
+  },
 });
 const relatedAuthor: Item = Object.assign(new Item(), {
   id: 'related-author',
@@ -60,10 +60,10 @@ const relatedAuthor: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: null,
-        value: 'Related Author'
-      }
-    ]
-  }
+        value: 'Related Author',
+      },
+    ],
+  },
 });
 const relatedCreator: Item = Object.assign(new Item(), {
   id: 'related-creator',
@@ -71,11 +71,11 @@ const relatedCreator: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: null,
-        value: 'Related Creator'
-      }
+        value: 'Related Creator',
+      },
     ],
     'dspace.entity.type': 'Person',
-  }
+  },
 });
 
 describe('MetadataRepresentationListComponent', () => {
@@ -107,11 +107,11 @@ describe('MetadataRepresentationListComponent', () => {
       declarations: [MetadataRepresentationListComponent, VarDirective],
       providers: [
         { provide: RelationshipDataService, useValue: relationshipService },
-        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataRepresentationListComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

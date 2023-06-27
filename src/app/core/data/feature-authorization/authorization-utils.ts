@@ -20,12 +20,12 @@ export const addSiteObjectUrlIfEmpty = (siteService: SiteDataService) =>
       switchMap((params: AuthorizationSearchParams) => {
         if (hasNoValue(params.objectUrl)) {
           return siteService.find().pipe(
-            map((site) => Object.assign({}, params, { objectUrl: site.self }))
+            map((site) => Object.assign({}, params, { objectUrl: site.self })),
           );
         } else {
           return observableOf(params);
         }
-      })
+      }),
     );
 
 /**
@@ -42,17 +42,17 @@ export const addAuthenticatedUserUuidIfEmpty = (authService: AuthService) =>
             switchMap((authenticated) => {
               if (authenticated) {
                 return authService.getAuthenticatedUserFromStore().pipe(
-                  map((ePerson) => Object.assign({}, params, { ePersonUuid: ePerson.uuid }))
+                  map((ePerson) => Object.assign({}, params, { ePersonUuid: ePerson.uuid })),
                 );
               } else {
                 return observableOf(params);
               }
-            })
+            }),
           );
         } else {
           return observableOf(params);
         }
-      })
+      }),
     );
 
 /**
@@ -72,12 +72,12 @@ export const oneAuthorizationMatchesFeature = (featureID: FeatureID) =>
             ...authorizations
               .filter((authorization: Authorization) => hasValue(authorization.feature))
               .map((authorization: Authorization) => authorization.feature.pipe(
-                getFirstSucceededRemoteDataPayload()
-              ))
+                getFirstSucceededRemoteDataPayload(),
+              )),
           );
         } else {
           return observableOf([]);
         }
       }),
-      map((features: Feature[]) => features.filter((feature: Feature) => feature.id === featureID).length > 0)
+      map((features: Feature[]) => features.filter((feature: Feature) => feature.id === featureID).length > 0),
     );

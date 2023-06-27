@@ -37,13 +37,13 @@ describe('SystemWideAlertFormComponent', () => {
       alertId: 1,
       message: 'Test alert message',
       active: true,
-      countdownTo: utcToZonedTime(countDownDate, 'UTC').toISOString()
+      countdownTo: utcToZonedTime(countDownDate, 'UTC').toISOString(),
     });
 
     systemWideAlertDataService = jasmine.createSpyObj('systemWideAlertDataService', {
       findAll: createSuccessfulRemoteDataObject$(createPaginatedList([systemWideAlert])),
       put: createSuccessfulRemoteDataObject$(systemWideAlert),
-      create: createSuccessfulRemoteDataObject$(systemWideAlert)
+      create: createSuccessfulRemoteDataObject$(systemWideAlert),
     });
 
     requestService = jasmine.createSpyObj('requestService', ['setStaleByHrefSubstring']);
@@ -59,7 +59,7 @@ describe('SystemWideAlertFormComponent', () => {
         {provide: NotificationsService, useValue: notificationsService},
         {provide: Router, useValue: router},
         {provide: RequestService, useValue: requestService},
-      ]
+      ],
     }).compileComponents();
   }));
 
@@ -107,7 +107,7 @@ describe('SystemWideAlertFormComponent', () => {
       expect(comp.date).toEqual({
         year: countDownTo.getFullYear(),
         month: countDownTo.getMonth() + 1,
-        day: countDownTo.getDate()
+        day: countDownTo.getDate(),
       });
     });
   });

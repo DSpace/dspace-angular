@@ -12,7 +12,7 @@ import { correlationIdSelector } from './correlation-id.selector';
  * Service to manage the correlation id, an id used to give context to server side logs
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CorrelationIdService {
 
@@ -53,7 +53,7 @@ export class CorrelationIdService {
 
     this.store.pipe(
       select(correlationIdSelector),
-      take(1)
+      take(1),
     ).subscribe((storeId: string) => {
       // we can do this because ngrx selects are synchronous
       correlationId = storeId;

@@ -9,7 +9,7 @@ import { AlertType } from '../../../shared/alert/aletr-type';
 
 @Component({
   selector: 'ds-item-version-history',
-  templateUrl: './item-version-history.component.html'
+  templateUrl: './item-version-history.component.html',
 })
 /**
  * Component for listing and managing an item's version history

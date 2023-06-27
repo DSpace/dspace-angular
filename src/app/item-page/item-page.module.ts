@@ -7,13 +7,13 @@ import { ItemPageComponent } from './simple/item-page.component';
 import { ItemPageRoutingModule } from './item-page-routing.module';
 import { MetadataUriValuesComponent } from './field-components/metadata-uri-values/metadata-uri-values.component';
 import {
-  ItemPageAuthorFieldComponent
+  ItemPageAuthorFieldComponent,
 } from './simple/field-components/specific-field/author/item-page-author-field.component';
 import {
-  ItemPageDateFieldComponent
+  ItemPageDateFieldComponent,
 } from './simple/field-components/specific-field/date/item-page-date-field.component';
 import {
-  ItemPageAbstractFieldComponent
+  ItemPageAbstractFieldComponent,
 } from './simple/field-components/specific-field/abstract/item-page-abstract-field.component';
 import { ItemPageUriFieldComponent } from './simple/field-components/specific-field/uri/item-page-uri-field.component';
 import { ItemPageFieldComponent } from './simple/field-components/specific-field/item-page-field.component';
@@ -26,7 +26,7 @@ import { EditItemPageModule } from './edit-item-page/edit-item-page.module';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
 import { StatisticsModule } from '../statistics/statistics.module';
 import {
-  AbstractIncrementalListComponent
+  AbstractIncrementalListComponent,
 } from './simple/abstract-incremental-list/abstract-incremental-list.component';
 import { UntypedItemComponent } from './simple/item-types/untyped-item/untyped-item.component';
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
@@ -58,13 +58,13 @@ import { ItemSharedModule } from './item-shared.module';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 import { ThemedItemAlertsComponent } from './alerts/themed-item-alerts.component';
 import {
-  ThemedFullFileSectionComponent
+  ThemedFullFileSectionComponent,
 } from './full/field-components/file-section/themed-full-file-section.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
   PublicationComponent,
-  UntypedItemComponent
+  UntypedItemComponent,
 ];
 
 const DECLARATIONS = [
@@ -128,7 +128,7 @@ const DECLARATIONS = [
   ],
   exports: [
     ...DECLARATIONS,
-  ]
+  ],
 })
 export class ItemPageModule {
   /**
@@ -138,7 +138,7 @@ export class ItemPageModule {
   static withEntryComponents() {
     return {
       ngModule: ItemPageModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component})),
     };
   }
 

@@ -3,7 +3,7 @@ import {
   DynamicFormControlModel,
   DynamicFormService,
   DynamicInputModel,
-  DynamicTextAreaModel
+  DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
 import { Community } from '../../core/shared/community.model';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
@@ -21,7 +21,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'ds-community-form',
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
-  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
+  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html',
 })
 export class CommunityFormComponent extends ComColFormComponent<Community> implements OnChanges {
   /**
@@ -44,10 +44,10 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
       name: 'dc.title',
       required: true,
       validators: {
-        required: null
+        required: null,
       },
       errorMessages: {
-        required: 'Please enter a name for this title'
+        required: 'Please enter a name for this title',
       },
     }),
     new DynamicTextAreaModel({

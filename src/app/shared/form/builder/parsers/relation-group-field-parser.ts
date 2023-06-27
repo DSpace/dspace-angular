@@ -5,7 +5,7 @@ import { FormFieldModel } from '../models/form-field.model';
 import { isNotEmpty } from '../../../empty.util';
 import {
   DynamicRelationGroupModel,
-  DynamicRelationGroupModelConfig
+  DynamicRelationGroupModelConfig,
 } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { FormRowModel } from '../../../../core/config/models/config-submission-form.model';
 import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
@@ -52,8 +52,8 @@ export class RelationGroupFieldParser extends FieldParser {
     }
     const cls = {
       element: {
-        container: 'mb-3'
-      }
+        container: 'mb-3',
+      },
     };
 
     const model = new DynamicRelationGroupModel(modelConfiguration, cls);

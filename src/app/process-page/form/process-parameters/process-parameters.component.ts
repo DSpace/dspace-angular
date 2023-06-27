@@ -16,8 +16,8 @@ import { controlContainerFactory } from '../process-form.component';
   viewProviders: [{
     provide: ControlContainer,
     useFactory: controlContainerFactory,
-    deps: [[new Optional(), NgForm]]
-  }]
+    deps: [[new Optional(), NgForm]],
+  }],
 })
 export class ProcessParametersComponent implements OnChanges {
   /**
@@ -99,7 +99,7 @@ export class ProcessParametersComponent implements OnChanges {
       this.parameterValues = this.script.parameters
         .filter((param) => param.mandatory)
         .map(
-          (parameter: ScriptParameter) => Object.assign(new ProcessParameter(), { name: parameter.name })
+          (parameter: ScriptParameter) => Object.assign(new ProcessParameter(), { name: parameter.name }),
         );
     }
     this.addParameter();

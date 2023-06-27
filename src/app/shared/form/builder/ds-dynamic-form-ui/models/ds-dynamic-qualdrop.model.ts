@@ -2,7 +2,7 @@ import {
   DynamicFormControlLayout,
   DynamicFormGroupModel,
   DynamicFormGroupModelConfig,
-  serializable
+  serializable,
 } from '@ng-dynamic-forms/core';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 import { Subject } from 'rxjs';

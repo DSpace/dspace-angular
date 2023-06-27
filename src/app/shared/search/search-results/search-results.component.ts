@@ -22,8 +22,8 @@ export interface SelectionConfig {
   templateUrl: './search-results.component.html',
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
 })
 
 /**

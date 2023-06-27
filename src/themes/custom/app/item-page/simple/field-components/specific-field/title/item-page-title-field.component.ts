@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-  ItemPageTitleFieldComponent as BaseComponent
+  ItemPageTitleFieldComponent as BaseComponent,
 } from '../../../../../../../../app/item-page/simple/field-components/specific-field/title/item-page-title-field.component';
 
 @Component({

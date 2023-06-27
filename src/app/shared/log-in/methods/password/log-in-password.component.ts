@@ -6,7 +6,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AuthenticateAction, ResetAuthenticationMessagesAction } from '../../../../core/auth/auth.actions';
 
-import { getAuthenticationError, getAuthenticationInfo, } from '../../../../core/auth/selectors';
+import { getAuthenticationError, getAuthenticationInfo } from '../../../../core/auth/selectors';
 import { isNotEmpty } from '../../../empty.util';
 import { fadeOut } from '../../../animations/fade';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
@@ -24,7 +24,7 @@ import { CoreState } from '../../../../core/core-state.model';
   selector: 'ds-log-in-password',
   templateUrl: './log-in-password.component.html',
   styleUrls: ['./log-in-password.component.scss'],
-  animations: [fadeOut]
+  animations: [fadeOut],
 })
 @renderAuthMethodFor(AuthMethodType.Password)
 export class LogInPasswordComponent implements OnInit {
@@ -80,7 +80,7 @@ export class LogInPasswordComponent implements OnInit {
     private authService: AuthService,
     private hardRedirectService: HardRedirectService,
     private formBuilder: UntypedFormBuilder,
-    private store: Store<CoreState>
+    private store: Store<CoreState>,
   ) {
     this.authMethod = injectedAuthMethodModel;
   }
@@ -94,7 +94,7 @@ export class LogInPasswordComponent implements OnInit {
     // set formGroup
     this.form = this.formBuilder.group({
       email: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
 
     // set error
@@ -103,7 +103,7 @@ export class LogInPasswordComponent implements OnInit {
     map((error) => {
       this.hasError = (isNotEmpty(error));
       return error;
-    })
+    }),
     );
 
     // set error
@@ -112,7 +112,7 @@ export class LogInPasswordComponent implements OnInit {
       map((message) => {
         this.hasMessage = (isNotEmpty(message));
         return message;
-      })
+      }),
     );
 
   }

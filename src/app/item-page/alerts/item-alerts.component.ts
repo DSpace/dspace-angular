@@ -5,7 +5,7 @@ import { AlertType } from '../../shared/alert/aletr-type';
 @Component({
   selector: 'ds-item-alerts',
   templateUrl: './item-alerts.component.html',
-  styleUrls: ['./item-alerts.component.scss']
+  styleUrls: ['./item-alerts.component.scss'],
 })
 /**
  * Component displaying alerts for an item

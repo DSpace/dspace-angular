@@ -21,7 +21,7 @@ const SCRIPT_QUERY_PARAMETER = 'script';
   styleUrls: ['./scripts-select.component.scss'],
   viewProviders: [ { provide: ControlContainer,
     useFactory: controlContainerFactory,
-    deps: [[new Optional(), NgForm]] } ]
+    deps: [[new Optional(), NgForm]] } ],
 })
 export class ScriptsSelectComponent implements OnInit, OnDestroy {
   /**
@@ -51,7 +51,7 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
       .pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
-        map((paginatedList: PaginatedList<Script>) => paginatedList.page)
+        map((paginatedList: PaginatedList<Script>) => paginatedList.page),
       );
 
     this.routeSub = this.route.queryParams
@@ -64,10 +64,10 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
             .pipe(
               take(1),
               map((scripts) =>
-                scripts.find((script) => script.id === id)
-              )
-            )
-        )
+                scripts.find((script) => script.id === id),
+              ),
+            ),
+        ),
       ).subscribe((script: Script) => {
         this._selectedScript = script;
         this.select.emit(script);
@@ -89,7 +89,7 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
     this.router.navigate([],
       {
         queryParams: { [SCRIPT_QUERY_PARAMETER]: value },
-      }
+      },
     );
   }
 

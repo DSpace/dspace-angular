@@ -7,7 +7,7 @@ import { FlatNode } from './flat-node.model';
  */
 
 export const CommunityListActionTypes = {
-  SAVE: type('dspace/community-list-page/SAVE')
+  SAVE: type('dspace/community-list-page/SAVE'),
 };
 
 /**

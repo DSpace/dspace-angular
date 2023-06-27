@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
 
 @Component({
   selector: 'ds-workflow-item-send-back',
-  templateUrl: '../workflow-item-action-page.component.html'
+  templateUrl: '../workflow-item-action-page.component.html',
 })
 /**
  * Component representing a page to send back a workflow item to the submitter

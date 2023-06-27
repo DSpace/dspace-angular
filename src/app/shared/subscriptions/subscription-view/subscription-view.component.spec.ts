@@ -47,9 +47,9 @@ describe('SubscriptionViewComponent', () => {
     type: ITEM,
     _links: {
       self: {
-        href: 'https://localhost:8000/items/fake-id'
-      }
-    }
+        href: 'https://localhost:8000/items/fake-id',
+      },
+    },
   });
 
   beforeEach(async () => {
@@ -63,8 +63,8 @@ describe('SubscriptionViewComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [ SubscriptionViewComponent ],
@@ -73,7 +73,7 @@ describe('SubscriptionViewComponent', () => {
         { provide: NotificationsService, useValue: NotificationsServiceStub },
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   });

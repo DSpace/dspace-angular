@@ -35,7 +35,7 @@ describe('BaseResponseParsingService', () => {
   beforeEach(() => {
     obj = undefined;
     objectCache = jasmine.createSpyObj('objectCache', {
-      add: {}
+      add: {},
     });
     service = new TestService(objectCache);
   });
@@ -58,8 +58,8 @@ describe('BaseResponseParsingService', () => {
       beforeEach(() => {
         obj = Object.assign(new DSpaceObject(), {
           _links: {
-            self: { href: 'obj-selflink' }
-          }
+            self: { href: 'obj-selflink' },
+          },
         });
       });
 
@@ -79,8 +79,8 @@ describe('BaseResponseParsingService', () => {
         data = {
           type: 'NotARealType',
           _links: {
-            self: { href: 'data-selflink' }
-          }
+            self: { href: 'data-selflink' },
+          },
         };
       });
 

@@ -16,7 +16,7 @@ import {
   OnChanges,
   Output,
   Renderer2,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
 
 import findIndex from 'lodash/findIndex';
@@ -33,7 +33,7 @@ import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/mod
  * Directive to add to the element a bootstrap utility class based on metadata confidence value
  */
 @Directive({
-  selector: '[dsAuthorityConfidenceState]'
+  selector: '[dsAuthorityConfidenceState]',
 })
 export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewInit {
 
@@ -79,7 +79,7 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
    */
   constructor(
     private elem: ElementRef,
-    private renderer: Renderer2
+    private renderer: Renderer2,
   ) {
   }
 

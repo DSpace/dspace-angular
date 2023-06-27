@@ -18,7 +18,7 @@ export class ObjectCacheEffects {
    */
   fixTimestampsOnRehydrate = createEffect(() => this.actions$
     .pipe(ofType(StoreActionTypes.REHYDRATE),
-      map(() => new ResetObjectCacheTimestampsAction(new Date().getTime()))
+      map(() => new ResetObjectCacheTimestampsAction(new Date().getTime())),
     ));
 
   constructor(private actions$: Actions) {

@@ -29,7 +29,7 @@ export const hasClass = (element: any, className: string): boolean => {
  */
 export const createTestComponent = <T>(html: string, type: new (...args: any[]) => T ): ComponentFixture<T> => {
   TestBed.overrideComponent(type, {
-    set: { template: html }
+    set: { template: html },
   });
   const fixture = TestBed.createComponent(type);
 
@@ -51,7 +51,7 @@ export function spyOnOperator(obj: any, prop: string): any {
     configurable: true,
     enumerable: true,
     value: oldProp,
-    writable: true
+    writable: true,
   });
 
   return spyOn(obj, prop);
@@ -90,9 +90,9 @@ export function createRequestEntry$(unCacheableObject?: UnCacheableObject, statu
       timeCompleted: new Date().getTime(),
       statusCode,
       errorMessage,
-      unCacheableObject
+      unCacheableObject,
     },
-    lastUpdated: new Date().getTime()
+    lastUpdated: new Date().getTime(),
   });
 }
 

@@ -103,11 +103,11 @@ describe('EditRelationshipListComponent', () => {
 
     author1 = Object.assign(new Item(), {
       id: 'author1',
-      uuid: 'author1'
+      uuid: 'author1',
     });
     author2 = Object.assign(new Item(), {
       id: 'author2',
-      uuid: 'author2'
+      uuid: 'author2',
     });
 
     relationships = [
@@ -126,16 +126,16 @@ describe('EditRelationshipListComponent', () => {
         relationshipType: createSuccessfulRemoteDataObject$(relationshipType),
         leftItem: createSuccessfulRemoteDataObject$(item),
         rightItem: createSuccessfulRemoteDataObject$(author2),
-      })
+      }),
     ];
 
     item = Object.assign(new Item(), {
       _links: {
-        self: { href: 'fake-item-url/publication' }
+        self: { href: 'fake-item-url/publication' },
       },
       id: 'publication',
       uuid: 'publication',
-      relationships: createSuccessfulRemoteDataObject$(createPaginatedList(relationships))
+      relationships: createSuccessfulRemoteDataObject$(createPaginatedList(relationships)),
     });
 
     fieldUpdate1 = {
@@ -144,7 +144,7 @@ describe('EditRelationshipListComponent', () => {
         relationship: relationships[0],
         type: relationshipType,
       },
-      changeType: undefined
+      changeType: undefined,
     };
     fieldUpdate2 = {
       field: {
@@ -152,16 +152,16 @@ describe('EditRelationshipListComponent', () => {
         relationship: relationships[1],
         type: relationshipType,
       },
-      changeType: FieldChangeType.REMOVE
+      changeType: FieldChangeType.REMOVE,
     };
 
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
         getFieldUpdates: observableOf({
           [relationships[0].uuid]: fieldUpdate1,
-          [relationships[1].uuid]: fieldUpdate2
-        })
-      }
+          [relationships[1].uuid]: fieldUpdate2,
+        }),
+      },
     );
 
     relationshipService = jasmine.createSpyObj('relationshipService',
@@ -169,7 +169,7 @@ describe('EditRelationshipListComponent', () => {
         getRelatedItemsByLabel: createSuccessfulRemoteDataObject$(createPaginatedList([author1, author2])),
         getItemRelationshipsByLabel: createSuccessfulRemoteDataObject$(createPaginatedList(relationships)),
         isLeftItem: observableOf(true),
-      }
+      },
     );
 
     selectableListService = {};
@@ -184,7 +184,7 @@ describe('EditRelationshipListComponent', () => {
     hostWindowService = new HostWindowServiceStub(1200);
 
     const linkHeadService = jasmine.createSpyObj('linkHeadService', {
-      addTag: ''
+      addTag: '',
     });
 
     const groupDataService = jasmine.createSpyObj('groupsDataService', {
@@ -197,15 +197,15 @@ describe('EditRelationshipListComponent', () => {
       findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
         name: 'test',
         values: [
-          'org.dspace.ctask.general.ProfileFormats = test'
-        ]
-      }))
+          'org.dspace.ctask.general.ProfileFormats = test',
+        ],
+      })),
     });
 
     const environmentUseThumbs = {
       browseBy: {
-        showThumbnails: true
-      }
+        showThumbnails: true,
+      },
     };
 
     TestBed.configureTestingModule({
@@ -224,10 +224,10 @@ describe('EditRelationshipListComponent', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
 
     resetComponent();

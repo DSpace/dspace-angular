@@ -7,7 +7,7 @@ import { ItemSearchResultListElementComponent } from '../../../../../shared/obje
 @Component({
   selector: 'ds-journal-volume-search-result-list-element',
   styleUrls: ['./journal-volume-search-result-list-element.component.scss'],
-  templateUrl: './journal-volume-search-result-list-element.component.html'
+  templateUrl: './journal-volume-search-result-list-element.component.html',
 })
 /**
  * The component for displaying a list element for an item search result of the type Journal Volume

@@ -11,7 +11,7 @@ import { FeatureID } from '../feature-id';
  * management rights
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GroupAdministratorGuard extends SingleFeatureAuthorizationGuard {
   constructor(protected authorizationService: AuthorizationDataService, protected router: Router, protected authService: AuthService) {

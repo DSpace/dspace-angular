@@ -21,12 +21,12 @@ describe('LoadingComponent (inline template)', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [LoadingComponent], // declare the test component
-      providers: [TranslateService]
+      providers: [TranslateService],
     }).compileComponents();  // compile template and css
   }));
 

@@ -30,7 +30,7 @@ export class BulkAccessControlService {
     private notificationsService: NotificationsService,
     private router: Router,
     private scriptService: ScriptDataService,
-    private translationService: TranslateService
+    private translationService: TranslateService,
   ) {}
 
   /**
@@ -63,7 +63,7 @@ export class BulkAccessControlService {
     console.log('execute', { uuids, file });
 
     const params: ProcessParameter[] = [
-      { name: '-f', value: file.name }
+      { name: '-f', value: file.name },
     ];
     uuids.forEach((uuid) => {
       params.push({ name: '-u', value: uuid });
@@ -86,7 +86,7 @@ export class BulkAccessControlService {
           this.notificationsService.error(title, content);
           return false;
         }
-      })
+      }),
     );
   }
 }
@@ -104,7 +104,7 @@ export const convertToBulkAccessControlFileModel = (payload: { state: AccessCont
   if (itemEnabled) {
     finalPayload.item = {
       mode: payload.state.item.accessMode,
-      accessConditions: payload.itemAccess
+      accessConditions: payload.itemAccess,
     };
   }
 
@@ -119,7 +119,7 @@ export const convertToBulkAccessControlFileModel = (payload: { state: AccessCont
     finalPayload.bitstream = {
       constraints,
       mode: payload.state.bitstream.accessMode,
-      accessConditions: payload.bitstreamAccess
+      accessConditions: payload.bitstreamAccess,
     };
   }
 

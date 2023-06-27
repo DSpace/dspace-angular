@@ -8,7 +8,7 @@ import {
   MenuSectionAction,
   RemoveMenuSectionAction,
   ShowMenuSectionAction,
-  ToggleActiveMenuSectionAction
+  ToggleActiveMenuSectionAction,
 } from './menu.actions';
 import { initialMenusState} from './initial-menus-state';
 import { hasValue } from '../empty.util';
@@ -120,7 +120,7 @@ function reorderSections(state: MenusState, action: MenuSectionAction) {
   });
   const newMenuState = Object.assign({}, menuState, {
     sections: newSectionState,
-    sectionToSubsectionIndex: newSectionIndexState
+    sectionToSubsectionIndex: newSectionIndexState,
   });
   return Object.assign({}, state, { [action.menuID]: newMenuState });
 }
@@ -136,7 +136,7 @@ function removeSection(state: MenusState, action: RemoveMenuSectionAction) {
   const id = action.id;
   const newState = removeFromIndex(state, menuState.sections[action.id], action.menuID);
   const newMenuState = Object.assign({}, newState[action.menuID], {
-    sections: Object.assign({}, newState[action.menuID].sections)
+    sections: Object.assign({}, newState[action.menuID].sections),
   });
   delete newMenuState.sections[id];
   return Object.assign({}, newState, { [action.menuID]: newMenuState });
@@ -233,10 +233,10 @@ function toggleActiveSection(state: MenusState, action: ToggleActiveMenuSectionA
 function putSectionState(state: MenusState, action: MenuAction, section: MenuSection): MenusState {
   const menuState: MenuState = state[action.menuID];
   const newSections = Object.assign({}, menuState.sections, {
-    [section.id]: section
+    [section.id]: section,
   });
   const newMenuState = Object.assign({}, menuState, {
-    sections: newSections
+    sections: newSections,
   });
   return Object.assign({}, state, { [action.menuID]: newMenuState });
 }

@@ -145,7 +145,7 @@ describe('ListableObject decorator function', () => {
           },
           {
             name: 'ancestor',         // Matches typeAncestor, but not typeUnthemed
-          }
+          },
         ];
       });
 
@@ -174,7 +174,7 @@ describe('ListableObject decorator function', () => {
         expect(() => {
           getListableObjectComponent([typeAncestor], ViewMode.ListElement, Context.Any, 'extension-cycle');
         }).toThrowError(
-          'Theme extension cycle detected: extension-cycle -> broken1 -> broken2 -> broken3 -> broken1'
+          'Theme extension cycle detected: extension-cycle -> broken1 -> broken2 -> broken3 -> broken1',
         );
       });
     });
@@ -185,7 +185,7 @@ describe('ListableObject decorator function', () => {
       environment.themes = [
         {
           name: 'custom',
-        }
+        },
       ];
     });
 

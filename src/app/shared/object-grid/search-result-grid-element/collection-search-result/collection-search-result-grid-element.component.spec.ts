@@ -36,10 +36,10 @@ mockCollectionWithAbstract.indexableObject = Object.assign(new Collection(), {
     'dc.description.abstract': [
       {
         language: 'en_US',
-        value: 'Short description'
-      }
-    ]
-  }
+        value: 'Short description',
+      },
+    ],
+  },
 });
 
 const mockCollectionWithoutAbstract: CollectionSearchResult = new CollectionSearchResult();
@@ -49,20 +49,20 @@ mockCollectionWithoutAbstract.indexableObject = Object.assign(new Collection(), 
     'dc.title': [
       {
         language: 'en_US',
-        value: 'Test title'
-      }
-    ]
-  }
+        value: 'Test title',
+      },
+    ],
+  },
 });
 const linkService = jasmine.createSpyObj('linkService', {
-  resolveLink: mockCollectionWithAbstract
+  resolveLink: mockCollectionWithAbstract,
 });
 
 describe('CollectionSearchResultGridElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [CollectionSearchResultGridElementComponent, TruncatePipe],
       providers: [
@@ -80,12 +80,12 @@ describe('CollectionSearchResultGridElementComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamFormatDataService, useValue: {} },
-        { provide: LinkService, useValue: linkService }
+        { provide: LinkService, useValue: linkService },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CollectionSearchResultGridElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

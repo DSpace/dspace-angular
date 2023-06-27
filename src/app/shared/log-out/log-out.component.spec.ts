@@ -41,10 +41,10 @@ describe('LogOutComponent', () => {
         StoreModule.forRoot(authReducer, {
           runtimeChecks: {
             strictStateImmutability: false,
-            strictActionImmutability: false
-          }
+            strictActionImmutability: false,
+          },
         }),
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         LogOutComponent,
@@ -54,8 +54,8 @@ describe('LogOutComponent', () => {
         { provide: Router, useValue: routerStub },
       ],
       schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
     })
       .compileComponents();
 

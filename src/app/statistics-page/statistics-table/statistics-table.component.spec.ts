@@ -69,8 +69,8 @@ describe('StatisticsTableComponent', () => {
               views: 8,
               downloads: 8,
             },
-          }
-        ]
+          },
+        ],
       });
       component.ngOnInit();
       fixture.detectChanges();

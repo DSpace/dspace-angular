@@ -31,7 +31,7 @@ describe('ComcolRoleComponent', () => {
   const groupService = {
     findByHref: jasmine.createSpy('findByHref'),
     createComcolGroup: jasmine.createSpy('createComcolGroup').and.returnValue(observableOf({})),
-    deleteComcolGroup: jasmine.createSpy('deleteComcolGroup').and.returnValue(observableOf({}))
+    deleteComcolGroup: jasmine.createSpy('deleteComcolGroup').and.returnValue(observableOf({})),
   };
 
   beforeEach(waitForAsync(() => {
@@ -40,16 +40,16 @@ describe('ComcolRoleComponent', () => {
         ComcolModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
-        NoopAnimationsModule
+        NoopAnimationsModule,
       ],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: GroupDataService, useValue: groupService },
         { provide: RequestService, useValue: requestService },
-        { provide: NotificationsService, useClass: NotificationsServiceStub }
+        { provide: NotificationsService, useClass: NotificationsServiceStub },
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents().then(() => {
       groupService.findByHref.and.callFake((link) => {
         if (link === 'test role link') {
@@ -128,7 +128,7 @@ describe('ComcolRoleComponent', () => {
 
     beforeEach(() => {
       group = {
-        name: 'Anonymous'
+        name: 'Anonymous',
       };
       statusCode = 200;
       comp.comcolRole = comcolRole;
@@ -162,7 +162,7 @@ describe('ComcolRoleComponent', () => {
 
     beforeEach(() => {
       group = {
-        name: 'custom group name'
+        name: 'custom group name',
       };
       statusCode = 200;
       comp.comcolRole = comcolRole;

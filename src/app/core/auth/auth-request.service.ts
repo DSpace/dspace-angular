@@ -3,7 +3,7 @@ import { distinctUntilChanged, filter, map, switchMap, tap, take } from 'rxjs/op
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
 import { isNotEmpty } from '../../shared/empty.util';
-import { GetRequest, PostRequest, } from '../data/request.models';
+import { GetRequest, PostRequest } from '../data/request.models';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -23,7 +23,7 @@ export abstract class AuthRequestService {
 
   constructor(protected halService: HALEndpointService,
               protected requestService: RequestService,
-              private rdbService: RemoteDataBuildService
+              private rdbService: RemoteDataBuildService,
   ) {
   }
 
@@ -65,7 +65,7 @@ export abstract class AuthRequestService {
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method)),
       distinctUntilChanged(),
       map((endpointURL: string) => new PostRequest(requestId, endpointURL, body, options)),
-      take(1)
+      take(1),
     ).subscribe((request: PostRequest) => {
       this.requestService.send(request);
     });
@@ -90,7 +90,7 @@ export abstract class AuthRequestService {
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method, ...linksToFollow)),
       distinctUntilChanged(),
       map((endpointURL: string) => new GetRequest(requestId, endpointURL, undefined, options)),
-      take(1)
+      take(1),
     ).subscribe((request: GetRequest) => {
       this.requestService.send(request);
     });
@@ -125,7 +125,7 @@ export abstract class AuthRequestService {
         } else {
           return null;
         }
-      })
+      }),
     );
   }
 }

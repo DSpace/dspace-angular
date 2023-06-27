@@ -27,7 +27,7 @@ describe('PoolTaskDataService', () => {
     },
     getObjectBySelfLink: () => {
       /* empty */
-    }
+    },
   } as any;
 
   function initTestService(): PoolTaskDataService {
@@ -63,7 +63,7 @@ describe('PoolTaskDataService', () => {
 
       const findListOptions = new FindListOptions();
       findListOptions.searchParams = [
-        new RequestParam('uuid', 'a0db0fde-1d12-4d43-bd0d-0f43df8d823c')
+        new RequestParam('uuid', 'a0db0fde-1d12-4d43-bd0d-0f43df8d823c'),
       ];
 
       expect(service.searchTask).toHaveBeenCalledWith('findByItem', findListOptions);

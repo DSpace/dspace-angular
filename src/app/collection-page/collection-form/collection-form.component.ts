@@ -6,7 +6,7 @@ import {
   DynamicFormControlModel,
   DynamicFormOptionConfig,
   DynamicFormService,
-  DynamicSelectModel
+  DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
 
 import { Collection } from '../../core/shared/collection.model';
@@ -20,7 +20,7 @@ import { EntityTypeDataService } from '../../core/data/entity-type-data.service'
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
-import { collectionFormEntityTypeSelectionConfig, collectionFormModels, } from './collection-form.models';
+import { collectionFormEntityTypeSelectionConfig, collectionFormModels } from './collection-form.models';
 import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
 import { hasNoValue, isNotNull } from 'src/app/shared/empty.util';
 
@@ -31,7 +31,7 @@ import { hasNoValue, isNotNull } from 'src/app/shared/empty.util';
 @Component({
   selector: 'ds-collection-form',
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
-  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
+  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html',
 })
 export class CollectionFormComponent extends ComColFormComponent<Collection> implements OnInit, OnChanges {
   /**
@@ -92,7 +92,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
     }
 
     const entities$: Observable<ItemType[]> = this.entityTypeService.findAll({ elementsPerPage: 100, currentPage: 1 }).pipe(
-      getFirstSucceededRemoteListPayload()
+      getFirstSucceededRemoteListPayload(),
     );
 
     // retrieve all entity types to populate the dropdowns selection
@@ -104,7 +104,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
           this.entityTypeSelection.add({
             disabled: false,
             label: type.label,
-            value: type.label
+            value: type.label,
           } as DynamicFormOptionConfig<string>);
           if (currentRelationshipValue && currentRelationshipValue.length > 0 && currentRelationshipValue[0].value === type.label) {
             this.entityTypeSelection.select(index);

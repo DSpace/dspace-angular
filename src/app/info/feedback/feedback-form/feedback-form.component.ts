@@ -18,7 +18,7 @@ import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 @Component({
   selector: 'ds-feedback-form',
   templateUrl: './feedback-form.component.html',
-  styleUrls: ['./feedback-form.component.scss']
+  styleUrls: ['./feedback-form.component.scss'],
 })
 /**
  * Component displaying the contents of the Feedback Statement

@@ -18,7 +18,7 @@ import { of as observableOf } from 'rxjs';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
 import { getItemEditRoute } from '../../item-page-routing-paths';
 
@@ -28,7 +28,7 @@ import { getItemEditRoute } from '../../item-page-routing-paths';
  */
 @Component({
   selector: 'ds-simple-action',
-  templateUrl: './abstract-simple-item-action.component.html'
+  templateUrl: './abstract-simple-item-action.component.html',
 })
 export class MySimpleItemActionComponent extends AbstractSimpleItemActionComponent {
 
@@ -60,24 +60,24 @@ describe('AbstractSimpleItemActionComponent', () => {
       id: 'fake-id',
       handle: 'fake/handle',
       lastModified: '2018',
-      isWithdrawn: true
+      isWithdrawn: true,
     });
 
     itemPageUrl = `fake-url/${mockItem.id}`;
     routerStub = Object.assign(new RouterStub(), {
-      url: `${itemPageUrl}/edit`
+      url: `${itemPageUrl}/edit`,
     });
 
     mockItemDataService = jasmine.createSpyObj({
-      findById: createSuccessfulRemoteDataObject$(mockItem)
+      findById: createSuccessfulRemoteDataObject$(mockItem),
     });
 
     routeStub = {
       data: observableOf({
         dso: createSuccessfulRemoteDataObject(Object.assign(new Item(), {
-          id: 'fake-id'
-        }))
-      })
+          id: 'fake-id',
+        })),
+      }),
     };
 
     notificationsServiceStub = new NotificationsServiceStub();
@@ -91,8 +91,8 @@ describe('AbstractSimpleItemActionComponent', () => {
         { provide: ItemDataService, useValue: mockItemDataService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
       ], schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 

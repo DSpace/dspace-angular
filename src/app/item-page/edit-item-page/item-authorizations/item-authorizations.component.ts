@@ -29,7 +29,7 @@ interface BundleBitstreamsMapEntry {
 @Component({
   selector: 'ds-item-authorizations',
   templateUrl: './item-authorizations.component.html',
-  styleUrls:['./item-authorizations.component.scss']
+  styleUrls:['./item-authorizations.component.scss'],
 })
 /**
  * Component that handles the item Authorizations
@@ -101,7 +101,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
   constructor(
     private linkService: LinkService,
     private route: ActivatedRoute,
-    public nameService: DSONameService
+    public nameService: DSONameService,
   ) {
   }
 
@@ -118,7 +118,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
   getItemUUID(): Observable<string> {
     return this.item$.pipe(
       map((item: Item) => item.id),
-      first((UUID: string) => isNotEmpty(UUID))
+      first((UUID: string) => isNotEmpty(UUID)),
     );
   }
 
@@ -127,7 +127,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
  */
   getItemName(): Observable<string> {
     return this.item$.pipe(
-      map((item: Item) => this.nameService.getName(item))
+      map((item: Item) => this.nameService.getName(item)),
     );
   }
 
@@ -151,8 +151,8 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
       getFirstSucceededRemoteDataWithNotEmptyPayload(),
       map((item: Item) => this.linkService.resolveLink(
         item,
-        followLink('bundles', {findListOptions: {currentPage : page, elementsPerPage: this.bundlesPerPage}}, followLink('bitstreams'))
-      ))
+        followLink('bundles', {findListOptions: {currentPage : page, elementsPerPage: this.bundlesPerPage}}, followLink('bitstreams')),
+      )),
     ) as Observable<Item>;
 
     const bundles$: Observable<PaginatedList<Bundle>> =  this.item$.pipe(
@@ -162,13 +162,13 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
       catchError((error) => {
         console.error(error);
         return observableOf(buildPaginatedList(null, []));
-      })
+      }),
     );
 
     this.subs.push(
       bundles$.pipe(
         take(1),
-        map((list: PaginatedList<Bundle>) => list.page)
+        map((list: PaginatedList<Bundle>) => list.page),
       ).subscribe((bundles: Bundle[]) => {
         if (isEqual(bundles.length,0) || bundles.length < this.bundlesPerPage) {
           this.allBundlesLoaded = true;
@@ -182,21 +182,21 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
       bundles$.pipe(
         take(1),
         mergeMap((list: PaginatedList<Bundle>) => list.page),
-        map((bundle: Bundle) => ({ id: bundle.id, bitstreams: this.getBundleBitstreams(bundle) }))
+        map((bundle: Bundle) => ({ id: bundle.id, bitstreams: this.getBundleBitstreams(bundle) })),
       ).subscribe((entry: BundleBitstreamsMapEntry) => {
         const bitstreamMapValues: BitstreamMapValue = {
           isCollapsed: true,
           allBitstreamsLoaded: false,
-          bitstreams: null
+          bitstreams: null,
         };
         bitstreamMapValues.bitstreams = entry.bitstreams.pipe(
           map((b: PaginatedList<Bitstream>) => {
             bitstreamMapValues.allBitstreamsLoaded = b?.page.length < this.bitstreamSize;
             return [...b.page.slice(0, this.bitstreamSize)];
-          })
+          }),
         );
         this.bundleBitstreamsMap.set(entry.id, bitstreamMapValues);
-      })
+      }),
     );
   }
 
@@ -211,7 +211,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
       catchError((error) => {
         console.error(error);
         return observableOf(buildPaginatedList(null, []));
-      })
+      }),
     );
   }
 
@@ -243,13 +243,13 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
       const bitstreamsToShow = this.bundleBitstreamsMap.get(bundle.id).bitstreams.pipe(
         map((existingBits: Bitstream[])=> {
           return [... existingBits, ...nextBitstreams];
-        })
+        }),
       );
       this.bitstreamPageSize = this.bitstreamPageSize + this.bitstreamSize;
       const bitstreamMapValues: BitstreamMapValue = {
         bitstreams: bitstreamsToShow ,
         isCollapsed: this.bundleBitstreamsMap.get(bundle.id).isCollapsed,
-        allBitstreamsLoaded: res?.page.length <= this.bitstreamPageSize
+        allBitstreamsLoaded: res?.page.length <= this.bitstreamPageSize,
       };
       this.bundleBitstreamsMap.set(bundle.id, bitstreamMapValues);
     });

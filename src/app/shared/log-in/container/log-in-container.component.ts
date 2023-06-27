@@ -9,7 +9,7 @@ import { AuthMethod } from '../../../core/auth/models/auth.method';
 @Component({
   selector: 'ds-log-in-container',
   templateUrl: './log-in-container.component.html',
-  styleUrls: ['./log-in-container.component.scss']
+  styleUrls: ['./log-in-container.component.scss'],
 })
 export class LogInContainerComponent implements OnInit {
 
@@ -44,7 +44,7 @@ export class LogInContainerComponent implements OnInit {
         { provide: 'authMethodProvider', useFactory: () => (this.authMethod), deps: [] },
         { provide: 'isStandalonePage', useFactory: () => (this.isStandalonePage), deps: [] },
       ],
-      parent: this.injector
+      parent: this.injector,
     });
   }
 

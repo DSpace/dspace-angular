@@ -26,24 +26,24 @@ import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
             path: 'new',
             component: NewProcessComponent,
             resolve: { breadcrumb: I18nBreadcrumbResolver },
-            data: { title: 'process.new.title', breadcrumbKey: 'process.new' }
+            data: { title: 'process.new.title', breadcrumbKey: 'process.new' },
           },
           {
             path: ':id',
             component: ProcessDetailComponent,
             resolve: {
               process: ProcessPageResolver,
-              breadcrumb: ProcessBreadcrumbResolver
-            }
-          }
-        ]
+              breadcrumb: ProcessBreadcrumbResolver,
+            },
+          },
+        ],
       },
 
-    ])
+    ]),
   ],
   providers: [
-    ProcessPageResolver
-  ]
+    ProcessPageResolver,
+  ],
 })
 export class ProcessPageRoutingModule {
 

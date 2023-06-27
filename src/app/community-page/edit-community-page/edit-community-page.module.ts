@@ -12,7 +12,7 @@ import { ResourcePoliciesModule } from '../../shared/resource-policies/resource-
 import { ComcolModule } from '../../shared/comcol/comcol.module';
 import { CommunityAccessControlComponent } from './community-access-control/community-access-control.component';
 import {
-  AccessControlFormModule
+  AccessControlFormModule,
 } from '../../shared/access-control-form-container/access-control-form.module';
 
 /**
@@ -34,8 +34,8 @@ import {
     CommunityMetadataComponent,
     CommunityRolesComponent,
     CommunityAuthorizationsComponent,
-    CommunityAccessControlComponent
-  ]
+    CommunityAccessControlComponent,
+  ],
 })
 export class EditCommunityPageModule {
 

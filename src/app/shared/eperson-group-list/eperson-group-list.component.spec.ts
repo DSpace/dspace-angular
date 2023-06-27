@@ -42,8 +42,8 @@ describe('EpersonGroupListComponent test suite', () => {
       searchByScope: jasmine.createSpy('searchByScope'),
     },
     {
-      linkPath: 'epersons'
-    }
+      linkPath: 'epersons',
+    },
   );
 
   const mockGroupService = jasmine.createSpyObj('groupService',
@@ -53,8 +53,8 @@ describe('EpersonGroupListComponent test suite', () => {
       searchGroups: jasmine.createSpy('searchGroups'),
     },
     {
-      linkPath: 'groups'
-    }
+      linkPath: 'groups',
+    },
   );
 
   const epersonPaginatedList = buildPaginatedList(new PageInfo(), [EPersonMock, EPersonMock]);
@@ -69,11 +69,11 @@ describe('EpersonGroupListComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         EpersonGroupListComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: EPersonDataService, useValue: mockEpersonService },
@@ -82,11 +82,11 @@ describe('EpersonGroupListComponent test suite', () => {
         { provide: PaginationService, useValue: paginationService },
         EpersonGroupListComponent,
         ChangeDetectorRef,
-        Injector
+        Injector,
       ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 
@@ -156,7 +156,7 @@ describe('EpersonGroupListComponent test suite', () => {
 
       expect(compAsAny.list$.value).toEqual(epersonPaginatedListRD);
       expect(comp.getList()).toBeObservable(cold('a', {
-        a: epersonPaginatedListRD
+        a: epersonPaginatedListRD,
       }));
     });
 
@@ -172,7 +172,7 @@ describe('EpersonGroupListComponent test suite', () => {
       compAsAny.entrySelectedId.next(EPersonMock.id);
 
       expect(comp.isSelected(EPersonMock)).toBeObservable(cold('a', {
-        a: true
+        a: true,
       }));
     });
 
@@ -180,7 +180,7 @@ describe('EpersonGroupListComponent test suite', () => {
       compAsAny.entrySelectedId.next('');
 
       expect(comp.isSelected(EPersonMock)).toBeObservable(cold('a', {
-        a: false
+        a: false,
       }));
     });
   });
@@ -226,7 +226,7 @@ describe('EpersonGroupListComponent test suite', () => {
 
       expect(compAsAny.list$.value).toEqual(groupPaginatedListRD);
       expect(comp.getList()).toBeObservable(cold('a', {
-        a: groupPaginatedListRD
+        a: groupPaginatedListRD,
       }));
     });
 
@@ -242,7 +242,7 @@ describe('EpersonGroupListComponent test suite', () => {
       compAsAny.entrySelectedId.next(EPersonMock.id);
 
       expect(comp.isSelected(EPersonMock)).toBeObservable(cold('a', {
-        a: true
+        a: true,
       }));
     });
 
@@ -250,7 +250,7 @@ describe('EpersonGroupListComponent test suite', () => {
       compAsAny.entrySelectedId.next('');
 
       expect(comp.isSelected(EPersonMock)).toBeObservable(cold('a', {
-        a: false
+        a: false,
       }));
     });
 
@@ -258,7 +258,7 @@ describe('EpersonGroupListComponent test suite', () => {
       const options: PaginationComponentOptions = comp.paginationOptions;
       const event: SearchEvent = {
         scope: 'metadata',
-        query: 'test'
+        query: 'test',
       };
       spyOn(comp, 'updateList');
       comp.onSearch(event);
@@ -271,7 +271,7 @@ describe('EpersonGroupListComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

@@ -13,7 +13,7 @@ import { SubmissionObjectResolver } from '../core/submission/resolver/submission
 export class ItemFromWorkflowResolver extends SubmissionObjectResolver<Item> implements Resolve<RemoteData<Item>>  {
   constructor(
     private workflowItemService: WorkflowItemDataService,
-    protected store: Store<any>
+    protected store: Store<any>,
   ) {
     super(workflowItemService, store);
   }

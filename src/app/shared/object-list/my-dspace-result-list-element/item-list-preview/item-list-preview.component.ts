@@ -15,7 +15,7 @@ import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model'
   selector: 'ds-item-list-preview',
   styleUrls: ['item-list-preview.component.scss'],
   templateUrl: 'item-list-preview.component.html',
-  animations: [fadeInOut]
+  animations: [fadeInOut],
 })
 export class ItemListPreviewComponent implements OnInit {
 

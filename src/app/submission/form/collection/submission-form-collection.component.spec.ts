@@ -46,11 +46,11 @@ describe('SubmissionFormCollectionComponent Component', () => {
       {
         key: 'dc.title',
         language: 'en_US',
-        value: 'Community 1-Collection 1'
+        value: 'Community 1-Collection 1',
       }],
     _links: {
-      defaultAccessConditions: collectionId + '/defaultAccessConditions'
-    }
+      defaultAccessConditions: collectionId + '/defaultAccessConditions',
+    },
   });
 
   const mockCollectionList = [
@@ -58,71 +58,71 @@ describe('SubmissionFormCollectionComponent Component', () => {
       communities: [
         {
           id: '123456789-1',
-          name: 'Community 1'
-        }
+          name: 'Community 1',
+        },
       ],
       collection: {
         id: '1234567890-1',
-        name: 'Community 1-Collection 1'
-      }
+        name: 'Community 1-Collection 1',
+      },
     },
     {
       communities: [
         {
           id: '123456789-1',
-          name: 'Community 1'
-        }
+          name: 'Community 1',
+        },
       ],
       collection: {
         id: '1234567890-2',
-        name: 'Community 1-Collection 2'
-      }
+        name: 'Community 1-Collection 2',
+      },
     },
     {
       communities: [
         {
           id: '123456789-2',
-          name: 'Community 2'
-        }
+          name: 'Community 2',
+        },
       ],
       collection: {
         id: '1234567890-3',
-        name: 'Community 2-Collection 1'
-      }
+        name: 'Community 2-Collection 1',
+      },
     },
     {
       communities: [
         {
           id: '123456789-2',
-          name: 'Community 2'
-        }
+          name: 'Community 2',
+        },
       ],
       collection: {
         id: '1234567890-4',
-        name: 'Community 2-Collection 2'
-      }
-    }
+        name: 'Community 2-Collection 2',
+      },
+    },
   ];
 
   const communityDataService: any = jasmine.createSpyObj('communityDataService', {
-    findAll: jasmine.createSpy('findAll')
+    findAll: jasmine.createSpy('findAll'),
   });
 
   const collectionDataService: any = jasmine.createSpyObj('collectionDataService', {
     findById: jasmine.createSpy('findById'),
-    getAuthorizedCollectionByCommunity: jasmine.createSpy('getAuthorizedCollectionByCommunity')
+    getAuthorizedCollectionByCommunity: jasmine.createSpy('getAuthorizedCollectionByCommunity'),
   });
 
   const store: any = jasmine.createSpyObj('store', {
     dispatch: jasmine.createSpy('dispatch'),
-    select: jasmine.createSpy('select')
+    select: jasmine.createSpy('select'),
   });
   const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
-    replace: jasmine.createSpy('replace')
+    replace: jasmine.createSpy('replace'),
   });
 
   const sectionsService: any = jasmine.createSpyObj('sectionsService', {
-    isSectionTypeAvailable: of(true)
+    isSectionTypeAvailable: of(true),
   });
 
   beforeEach(waitForAsync(() => {
@@ -131,11 +131,11 @@ describe('SubmissionFormCollectionComponent Component', () => {
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         SubmissionFormCollectionComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
@@ -147,9 +147,9 @@ describe('SubmissionFormCollectionComponent Component', () => {
         { provide: Store, useValue: store },
         { provide: SectionsService, useValue: sectionsService },
         ChangeDetectorRef,
-        SubmissionFormCollectionComponent
+        SubmissionFormCollectionComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -281,7 +281,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
         expect(submissionServiceStub.changeSubmissionCollection).toHaveBeenCalled();
         expect(comp.selectedCollectionId).toBe(mockCollectionList[1].collection.id);
         expect(comp.selectedCollectionName$).toBeObservable(cold('(a|)', {
-          a: mockCollectionList[1].collection.name
+          a: mockCollectionList[1].collection.name,
         }));
       });
     });
@@ -292,7 +292,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

@@ -35,7 +35,7 @@ describe('ComColFormComponent', () => {
         return new UntypedFormGroup(controls);
       }
       return undefined;
-    }
+    },
   };
   const dcTitle = 'dc.title';
   const dcAbstract = 'dc.description.abstract';
@@ -46,22 +46,22 @@ describe('ComColFormComponent', () => {
     new DynamicInputModel({
       id: 'title',
       name: dcTitle,
-      value: newTitleMD[dcTitle][0].value
+      value: newTitleMD[dcTitle][0].value,
     }),
     new DynamicInputModel({
       id: 'abstract',
       name: dcAbstract,
-      value: abstractMD[dcAbstract][0].value
-    })
+      value: abstractMD[dcAbstract][0].value,
+    }),
   ];
 
   const logo = {
-    id: 'logo'
+    id: 'logo',
   };
   const logoEndpoint = 'rest/api/logo/endpoint';
   const dsoService = Object.assign({
     getLogoEndpoint: () => observableOf(logoEndpoint),
-    deleteLogo: () => createSuccessfulRemoteDataObject$({})
+    deleteLogo: () => createSuccessfulRemoteDataObject$({}),
   });
   const notificationsService = new NotificationsServiceStub();
 
@@ -70,10 +70,10 @@ describe('ComColFormComponent', () => {
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   const requestServiceStub = jasmine.createSpyObj('requestService', {
-    removeByHrefSubstring: {}
+    removeByHrefSubstring: {},
   });
   const objectCacheStub = jasmine.createSpyObj('objectCache', {
-    remove: {}
+    remove: {},
   });
 
   beforeEach(waitForAsync(() => {
@@ -86,16 +86,16 @@ describe('ComColFormComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: RequestService, useValue: requestServiceStub },
-        { provide: ObjectCacheService, useValue: objectCacheStub }
+        { provide: ObjectCacheService, useValue: objectCacheStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
   describe('when the dso doesn\'t contain an ID (newly created)', () => {
     beforeEach(() => {
       initComponent(Object.assign(new Community(), {
-        _links: { self: { href: 'community-self' } }
+        _links: { self: { href: 'community-self' } },
       }));
     });
 
@@ -146,12 +146,12 @@ describe('ComColFormComponent', () => {
                 }],
               },
               type: Community.type,
-            }
+            },
             ),
             uploader: undefined,
             deleteLogo: false,
             operations: operations,
-          }
+          },
         );
       });
     });
@@ -193,7 +193,7 @@ describe('ComColFormComponent', () => {
         initComponent(Object.assign(new Community(), {
           id: 'community-id',
           logo: createSuccessfulRemoteDataObject$(undefined),
-          _links: { self: { href: 'community-self' } }
+          _links: { self: { href: 'community-self' } },
         }));
       });
 
@@ -214,7 +214,7 @@ describe('ComColFormComponent', () => {
           _links: {
             self: { href: 'community-self' },
             logo: { href: 'community-logo' },
-          }
+          },
         }));
       });
 

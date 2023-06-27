@@ -1,7 +1,7 @@
 import { Component, Injector } from '@angular/core';
 import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 import {
-  AdvancedClaimedTaskActionsAbstractComponent
+  AdvancedClaimedTaskActionsAbstractComponent,
 } from '../abstract/advanced-claimed-task-actions-abstract.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotificationsService } from '../../../notifications/notifications.service';
@@ -10,7 +10,7 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { RequestService } from '../../../../core/data/request.service';
 import {
   ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER,
-  ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER
+  ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER,
 } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
 
 /**
@@ -20,7 +20,7 @@ import {
 @Component({
   selector: 'ds-advanced-claimed-task-action-select-reviewer',
   templateUrl: './advanced-claimed-task-action-select-reviewer.component.html',
-  styleUrls: ['./advanced-claimed-task-action-select-reviewer.component.scss']
+  styleUrls: ['./advanced-claimed-task-action-select-reviewer.component.scss'],
 })
 export class AdvancedClaimedTaskActionSelectReviewerComponent extends AdvancedClaimedTaskActionsAbstractComponent {
 

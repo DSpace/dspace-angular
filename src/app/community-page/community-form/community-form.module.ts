@@ -9,14 +9,14 @@ import { FormModule } from '../../shared/form/form.module';
   imports: [
     ComcolModule,
     FormModule,
-    SharedModule
+    SharedModule,
   ],
   declarations: [
     CommunityFormComponent,
   ],
   exports: [
-    CommunityFormComponent
-  ]
+    CommunityFormComponent,
+  ],
 })
 export class CommunityFormModule {
 

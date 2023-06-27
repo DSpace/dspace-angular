@@ -16,11 +16,11 @@ import { ResolvedAction } from '../core/resolving/resolver.actions';
 export const ITEM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
   followLink('owningCollection', {},
     followLink('parentCommunity', {},
-      followLink('parentCommunity'))
+      followLink('parentCommunity')),
   ),
   followLink('relationships'),
   followLink('version', {}, followLink('versionhistory')),
-  followLink('thumbnail')
+  followLink('thumbnail'),
 ];
 
 /**
@@ -31,7 +31,7 @@ export class ItemResolver implements Resolve<RemoteData<Item>> {
   constructor(
     protected itemService: ItemDataService,
     protected store: Store<any>,
-    protected router: Router
+    protected router: Router,
   ) {
   }
 
@@ -46,7 +46,7 @@ export class ItemResolver implements Resolve<RemoteData<Item>> {
     const itemRD$ = this.itemService.findById(route.params.id,
       true,
       false,
-      ...ITEM_PAGE_LINKS_TO_FOLLOW
+      ...ITEM_PAGE_LINKS_TO_FOLLOW,
     ).pipe(
       getFirstCompletedRemoteData(),
     );

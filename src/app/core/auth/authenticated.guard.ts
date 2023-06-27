@@ -4,7 +4,7 @@ import {
   CanActivate,
   Router,
   RouterStateSnapshot,
-  UrlTree
+  UrlTree,
 } from '@angular/router';
 
 import { Observable } from 'rxjs';
@@ -59,7 +59,7 @@ export class AuthenticatedGuard implements CanActivate {
           this.authService.removeToken();
           return this.router.createUrlTree([LOGIN_ROUTE]);
         }
-      })
+      }),
     );
   }
 }

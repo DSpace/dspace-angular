@@ -26,9 +26,9 @@ describe('HeaderComponent', () => {
         ReactiveFormsModule],
       declarations: [HeaderComponent],
       providers: [
-        { provide: MenuService, useValue: menuService }
+        { provide: MenuService, useValue: menuService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();  // compile template and css
   }));

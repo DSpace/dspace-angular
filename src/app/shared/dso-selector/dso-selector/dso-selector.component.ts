@@ -7,7 +7,7 @@ import {
   OnInit,
   Output,
   QueryList,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 
@@ -16,7 +16,7 @@ import {
   combineLatest as observableCombineLatest,
   Observable,
   of as observableOf,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import { debounceTime, map, startWith, switchMap, tap } from 'rxjs/operators';
 
@@ -37,18 +37,18 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { TranslateService } from '@ngx-translate/core';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import {
-  ListableNotificationObject
+  ListableNotificationObject,
 } from '../../object-list/listable-notification-object/listable-notification-object.model';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { NotificationType } from '../../notifications/models/notification-type';
 import {
-  LISTABLE_NOTIFICATION_OBJECT
+  LISTABLE_NOTIFICATION_OBJECT,
 } from '../../object-list/listable-notification-object/listable-notification-object.resource-type';
 
 @Component({
   selector: 'ds-dso-selector',
   styleUrls: ['./dso-selector.component.scss'],
-  templateUrl: './dso-selector.component.html'
+  templateUrl: './dso-selector.component.html',
 })
 
 /**
@@ -165,9 +165,9 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
       this.input.valueChanges.pipe(
         debounceTime(this.debounceTime),
         startWith(''),
-        tap(() => this.currentPage$.next(1))
+        tap(() => this.currentPage$.next(1)),
       ),
-      this.currentPage$
+      this.currentPage$,
     ).pipe(
       switchMap(([currentDSOResult, query, page]: [PaginatedList<SearchResult<DSpaceObject>>, string, number]) => {
         this.loading = true;
@@ -182,15 +182,15 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
               // If no query is entered, filter out the current DSO from the results, as it'll be displayed at the start of the list already
               rd.payload.page = [
                 ...((isEmpty(query) && page === 1) ? currentDSOResult.page : []),
-                ...rd.payload.page.filter((result) => isNotEmpty(query) || result.indexableObject.id !== this.currentDSOId)
+                ...rd.payload.page.filter((result) => isNotEmpty(query) || result.indexableObject.id !== this.currentDSOId),
               ];
             } else if (rd.hasFailed) {
               this.notifcationsService.error(this.translate.instant('dso-selector.error.title', { type: this.typesString }), rd.errorMessage);
             }
             return rd;
-          })
+          }),
         );
-      })
+      }),
     ).subscribe((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
       this.updateList(rd);
     }));
@@ -234,14 +234,14 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
         query: query,
         dsoTypes: this.types,
         pagination: Object.assign({}, this.defaultPagination, {
-          currentPage: page
+          currentPage: page,
         }),
-        sort: efectiveSort
+        sort: efectiveSort,
       }),
       null,
       useCache,
     ).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     );
   }
 

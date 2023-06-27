@@ -4,7 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { hasValue } from '../../shared/empty.util';
 import {
   BrowseByMetadataPageComponent,
-  browseParamsToOptions, getBrowseSearchOptions
+  browseParamsToOptions, getBrowseSearchOptions,
 } from '../browse-by-metadata-page/browse-by-metadata-page.component';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { BrowseService } from '../../core/browse/browse.service';
@@ -18,7 +18,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-browse-by-title-page',
   styleUrls: ['../browse-by-metadata-page/browse-by-metadata-page.component.scss'],
-  templateUrl: '../browse-by-metadata-page/browse-by-metadata-page.component.html'
+  templateUrl: '../browse-by-metadata-page/browse-by-metadata-page.component.html',
 })
 /**
  * Component for browsing items by title (dc.title)
@@ -46,7 +46,7 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
       observableCombineLatest([this.route.params, this.route.queryParams, this.currentPagination$, this.currentSort$]).pipe(
         map(([routeParams, queryParams, currentPage, currentSort]) => {
           return [Object.assign({}, routeParams, queryParams),currentPage,currentSort];
-        })
+        }),
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
         this.startsWith = +params.startsWith || params.startsWith;
         this.browseId = params.id || this.defaultBrowseId;

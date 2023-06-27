@@ -29,12 +29,12 @@ describe('AccessStatusDataService', () => {
     name: 'test-item',
     _links: {
       accessStatus: {
-        href: `https://rest.api/items/${itemId}/accessStatus`
+        href: `https://rest.api/items/${itemId}/accessStatus`,
       },
       self: {
-        href: `https://rest.api/items/${itemId}`
-      }
-    }
+        href: `https://rest.api/items/${itemId}`,
+      },
+    },
   });
 
   describe('when the requests are successful', () => {
@@ -69,10 +69,10 @@ describe('AccessStatusDataService', () => {
     }
     rdbService = jasmine.createSpyObj('rdbService', {
       buildFromRequestUUID: buildResponse$,
-      buildSingle: buildResponse$
+      buildSingle: buildResponse$,
     });
     objectCache = jasmine.createSpyObj('objectCache', {
-      remove: jasmine.createSpy('remove')
+      remove: jasmine.createSpy('remove'),
     });
     halService = new HALEndpointServiceStub(url);
     notificationsService = new NotificationsServiceStub();

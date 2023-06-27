@@ -21,7 +21,7 @@ import { FindListOptions } from '../../../../core/data/find-list-options.model';
 @Component({
   selector: 'ds-authorized-collection-selector',
   styleUrls: ['../dso-selector.component.scss'],
-  templateUrl: '../dso-selector.component.html'
+  templateUrl: '../dso-selector.component.html',
 })
 /**
  * Component rendering a list of collections to select from
@@ -59,7 +59,7 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
     let searchListService$: Observable<RemoteData<PaginatedList<Collection>>> = null;
     const findOptions: FindListOptions = {
       currentPage: page,
-      elementsPerPage: this.defaultPagination.pageSize
+      elementsPerPage: this.defaultPagination.pageSize,
     };
 
     if (this.entityType) {
@@ -76,7 +76,7 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
       getFirstCompletedRemoteData(),
       map((rd) => Object.assign(new RemoteData(null, null, null, null), rd, {
         payload: hasValue(rd.payload) ? buildPaginatedList(rd.payload.pageInfo, rd.payload.page.map((col) => Object.assign(new CollectionSearchResult(), { indexableObject: col }))) : null,
-      }))
+      })),
     );
   }
 }

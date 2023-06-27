@@ -17,7 +17,7 @@ import {
   FormInitAction,
   FormRemoveAction,
   FormRemoveErrorAction,
-  FormStatusChangeAction
+  FormStatusChangeAction,
 } from './form.actions';
 import { FormEntry, FormError, FormTouchedState } from './form.reducer';
 import { environment } from '../../../environments/environment';
@@ -38,7 +38,7 @@ export class FormService {
       select(formObjectFromIdSelector(formId)),
       filter((state) => isNotUndefined(state)),
       map((state) => state.valid),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -50,7 +50,7 @@ export class FormService {
       select(formObjectFromIdSelector(formId)),
       filter((state) => isNotUndefined(state)),
       map((state) => state.data),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -62,7 +62,7 @@ export class FormService {
       select(formObjectFromIdSelector(formId)),
       filter((state) => isNotUndefined(state)),
       map((state) => state.touched),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -74,7 +74,7 @@ export class FormService {
       select(formObjectFromIdSelector(formId)),
       filter((state) => isNotUndefined(state)),
       map((state) => state.errors),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -85,7 +85,7 @@ export class FormService {
     return this.store.pipe(
       select(formObjectFromIdSelector(formId)),
       distinctUntilChanged(),
-      map((state) => isNotUndefined(state))
+      map((state) => isNotUndefined(state)),
     );
   }
 

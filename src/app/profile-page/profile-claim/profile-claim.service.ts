@@ -32,7 +32,7 @@ export class ProfileClaimService {
       getFirstCompletedRemoteData(),
       map((rd: RemoteData<SearchObjects<DSpaceObject>>) => {
         return isNotEmpty(rd) && rd.hasSucceeded && rd.payload?.page?.length > 0;
-      })
+      }),
     );
   }
 
@@ -60,7 +60,7 @@ export class ProfileClaimService {
     }
     return this.searchService.search(new PaginatedSearchOptions({
       configuration: 'eperson_claims',
-      query: query
+      query: query,
     }), null, false, true);
   }
 

@@ -43,46 +43,46 @@ describe('DSOBreadcrumbsService', () => {
       {
         type: 'community',
         metadata: {
-          'dc.title': [{ value: 'community' }]
+          'dc.title': [{ value: 'community' }],
         },
         uuid: communityUUID,
         parentCommunity: observableOf(Object.assign(createSuccessfulRemoteDataObject(undefined), { statusCode: 204 })),
 
         _links: {
           parentCommunity: 'site',
-          self: communityPath + communityUUID
-        }
-      }
+          self: communityPath + communityUUID,
+        },
+      },
     );
 
     testCollection = Object.assign(new Collection(),
       {
         type: 'collection',
         metadata: {
-          'dc.title': [{ value: 'collection' }]
+          'dc.title': [{ value: 'collection' }],
         },
         uuid: collectionUUID,
         parentCommunity: createSuccessfulRemoteDataObject$(testCommunity),
         _links: {
           parentCommunity: communityPath + communityUUID,
-          self: communityPath + collectionUUID
-        }
-      }
+          self: communityPath + collectionUUID,
+        },
+      },
     );
 
     testItem = Object.assign(new Item(),
       {
         type: 'item',
         metadata: {
-          'dc.title': [{ value: 'item' }]
+          'dc.title': [{ value: 'item' }],
         },
         uuid: itemUUID,
         owningCollection: createSuccessfulRemoteDataObject$(testCollection),
         _links: {
           owningCollection: collectionPath + collectionUUID,
-          self: itemPath + itemUUID
-        }
-      }
+          self: itemPath + itemUUID,
+        },
+      },
     );
 
     dsoNameService = { getName: (dso) => getName(dso) };
@@ -93,8 +93,8 @@ describe('DSOBreadcrumbsService', () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: LinkService, useValue: getMockLinkService() },
-        { provide: DSONameService, useValue: dsoNameService }
-      ]
+        { provide: DSONameService, useValue: dsoNameService },
+      ],
     }).compileComponents();
   }));
 

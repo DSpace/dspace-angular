@@ -16,7 +16,7 @@ import { SubmissionSectionError } from '../objects/submission-section-error.mode
  */
 @Directive({
   selector: '[dsSection]',
-  exportAs: 'sectionRef'
+  exportAs: 'sectionRef',
 })
 export class SectionsDirective implements OnDestroy, OnInit {
 
@@ -140,7 +140,7 @@ export class SectionsDirective implements OnDestroy, OnInit {
               this.submissionService.dispatchSave(this.submissionId);
             }
           }
-        })
+        }),
     );
 
     this.enabled = this.sectionService.isSectionEnabled(this.submissionId, this.sectionId);

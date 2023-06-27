@@ -14,28 +14,28 @@ mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'creativework.editor': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'creativework.publisher': [
       {
         language: 'en_US',
-        value: 'A company'
-      }
+        value: 'A company',
+      },
     ],
     'dc.description': [
       {
         language: 'en_US',
-        value: 'This is the description'
-      }
-    ]
-  }
+        value: 'This is the description',
+      },
+    ],
+  },
 });
 
 const mockItemWithoutMetadata: ItemSearchResult = new ItemSearchResult();
@@ -46,10 +46,10 @@ mockItemWithoutMetadata.indexableObject = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
-    ]
-  }
+        value: 'This is just another title',
+      },
+    ],
+  },
 });
 
 describe('JournalSearchResultGridElementComponent', getEntityGridElementTestComponent(JournalSearchResultGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['editor', 'publisher', 'description']));

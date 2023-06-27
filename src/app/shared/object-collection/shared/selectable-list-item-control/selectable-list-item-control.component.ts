@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'ds-selectable-list-item-control',
   // styleUrls: ['./selectable-list-item-control.component.scss'],
-  templateUrl: './selectable-list-item-control.component.html'
+  templateUrl: './selectable-list-item-control.component.html',
 })
 /**
  * Component for rendering list item that has a control (checkbox or radio button) because it's selectable
@@ -62,7 +62,7 @@ export class SelectableListItemControlComponent implements OnInit {
       const selected$ = this.selectionService.getSelectableList(this.selectionConfig.listId);
       selected$.pipe(
         take(1),
-        map((selected) => selected ? selected.selection : [])
+        map((selected) => selected ? selected.selection : []),
       ).subscribe((selection) => {
         // First deselect any existing selections, this is a radio button
         selection.forEach((selectedObject) => {
@@ -71,7 +71,7 @@ export class SelectableListItemControlComponent implements OnInit {
         });
         this.selectionService.selectSingle(this.selectionConfig.listId, this.object);
         this.selectObject.emit(this.object);
-      }
+      },
       );
     }
   }

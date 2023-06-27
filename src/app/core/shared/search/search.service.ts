@@ -122,7 +122,7 @@ export class SearchService implements OnDestroy {
         } else {
           return url;
         }
-      })
+      }),
     );
   }
 
@@ -149,7 +149,7 @@ export class SearchService implements OnDestroy {
         } else {
           return href;
         }
-      })
+      }),
     ).subscribe((url: string) => {
       const request = new this.request(this.requestService.generateRequestId(), url);
 
@@ -160,14 +160,14 @@ export class SearchService implements OnDestroy {
       Object.assign(request, {
         responseMsToLive: hasValue(responseMsToLive) ? responseMsToLive : request.responseMsToLive,
         getResponseParser: getResponseParserFn,
-        searchOptions: searchOptions
+        searchOptions: searchOptions,
       });
 
       this.requestService.send(request, useCachedVersionIfAvailable);
     });
 
     const sqr$ = href$.pipe(
-      switchMap((href: string) => this.rdb.buildFromHref<SearchObjects<T>>(href))
+      switchMap((href: string) => this.rdb.buildFromHref<SearchObjects<T>>(href)),
     );
 
     return this.directlyAttachIndexableObjects(sqr$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
@@ -182,7 +182,7 @@ export class SearchService implements OnDestroy {
     const href$ = this.getEndpoint(searchOptions);
 
     const sqr$ = href$.pipe(
-      switchMap((href: string) => this.rdb.buildFromHref<SearchObjects<T>>(href))
+      switchMap((href: string) => this.rdb.buildFromHref<SearchObjects<T>>(href)),
     );
 
     return this.directlyAttachIndexableObjects(sqr$);
@@ -221,10 +221,10 @@ export class SearchService implements OnDestroy {
 
                 // Attach the payload directly to the indexableObject property on the result
                 return Object.assign(new resultConstructor(), result, {
-                  indexableObject
+                  indexableObject,
                 }) as SearchResult<T>;
               }),
-            )
+            ),
           );
 
           // Swap the original page in the remoteData with the new one, now that the results have the
@@ -233,7 +233,7 @@ export class SearchService implements OnDestroy {
             map((page: SearchResult<T>[]) => {
 
               const payload = Object.assign(new SearchObjects(), resultsRd.payload, {
-                page
+                page,
               }) as SearchObjects<T>;
 
               return new RemoteData(
@@ -245,13 +245,13 @@ export class SearchService implements OnDestroy {
                 payload,
                 resultsRd.statusCode,
               );
-            })
+            }),
           );
         }
         // If we don't have a payload, or the page is empty, simply pass on the unmodified
         // RemoteData object
         return [resultsRd];
-      })
+      }),
     );
   }
 
@@ -276,8 +276,8 @@ export class SearchService implements OnDestroy {
       searchOptions = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
         pagination: Object.assign({}, searchOptions.pagination, {
           currentPage: valuePage,
-          pageSize: filterConfig.pageSize
-        })
+          pageSize: filterConfig.pageSize,
+        }),
       });
       href = searchOptions.toRestUrl(filterConfig._links.self.href, args);
     } else {
@@ -289,7 +289,7 @@ export class SearchService implements OnDestroy {
     request = Object.assign(request, {
       getResponseParser(): GenericConstructor<ResponseParsingService> {
         return FacetValueResponseParsingService;
-      }
+      },
     });
     this.requestService.send(request, useCachedVersionIfAvailable);
 
@@ -354,7 +354,7 @@ export class SearchService implements OnDestroy {
         },
         sort: {
           by: config.sort.field,
-          order: config.sort.direction
+          order: config.sort.direction,
         },
         filters: filters,
         clickedObject,

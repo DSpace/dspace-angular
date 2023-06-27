@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-  DenyRequestCopyComponent as BaseComponent
+  DenyRequestCopyComponent as BaseComponent,
 } from 'src/app/request-copy/deny-request-copy/deny-request-copy.component';
 
 @Component({

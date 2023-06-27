@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
   selector: 'li[ds-expandable-admin-sidebar-section]',
   templateUrl: './expandable-admin-sidebar-section.component.html',
   styleUrls: ['./expandable-admin-sidebar-section.component.scss'],
-  animations: [rotate, slide, bgColor]
+  animations: [rotate, slide, bgColor],
 })
 
 @rendersSectionForMenu(MenuID.ADMIN, true)
@@ -70,7 +70,7 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
     this.sidebarPreviewCollapsed = this.menuService.isMenuPreviewCollapsed(this.menuID);
     this.expanded = combineLatestObservable(this.active, this.sidebarCollapsed, this.sidebarPreviewCollapsed)
       .pipe(
-        map(([active, sidebarCollapsed, sidebarPreviewCollapsed]) => (active && (!sidebarCollapsed || !sidebarPreviewCollapsed)))
+        map(([active, sidebarCollapsed, sidebarPreviewCollapsed]) => (active && (!sidebarCollapsed || !sidebarPreviewCollapsed))),
       );
   }
 }

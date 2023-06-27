@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { hasValue } from '../../../shared/empty.util';
 import {
-  getAdvancedComponentByWorkflowTaskOption
+  getAdvancedComponentByWorkflowTaskOption,
 } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { AdvancedWorkflowActionsDirective } from './advanced-workflow-actions.directive';
 import { Router } from '@angular/router';

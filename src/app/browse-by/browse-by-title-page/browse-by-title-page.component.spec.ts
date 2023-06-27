@@ -35,9 +35,9 @@ describe('BrowseByTitlePageComponent', () => {
     metadata: [
       {
         key: 'dc.title',
-        value: 'test community'
-      }
-    ]
+        value: 'test community',
+      },
+    ],
   });
 
   const mockItems = [
@@ -46,24 +46,24 @@ describe('BrowseByTitlePageComponent', () => {
       metadata: [
         {
           key: 'dc.title',
-          value: 'Fake Title'
-        }
-      ]
-    })
+          value: 'Fake Title',
+        },
+      ],
+    }),
   ];
 
   const mockBrowseService = {
     getBrowseItemsFor: () => toRemoteData(mockItems),
-    getBrowseEntriesFor: () => toRemoteData([])
+    getBrowseEntriesFor: () => toRemoteData([]),
   };
 
   const mockDsoService = {
-    findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
+    findById: () => createSuccessfulRemoteDataObject$(mockCommunity),
   };
 
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
     params: observableOf({}),
-    data: observableOf({ metadata: 'title' })
+    data: observableOf({ metadata: 'title' }),
   });
 
   const paginationService = new PaginationServiceStub();
@@ -78,9 +78,9 @@ describe('BrowseByTitlePageComponent', () => {
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environment },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

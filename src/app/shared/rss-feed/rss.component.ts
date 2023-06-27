@@ -3,7 +3,7 @@ import {
   Component,
   OnDestroy,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { GroupDataService } from '../../core/eperson/group-data.service';
@@ -28,7 +28,7 @@ import { RemoteData } from '../../core/data/remote-data';
   styleUrls: ['rss.component.scss'],
   templateUrl: 'rss.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.Emulated,
 })
 export class RSSComponent implements OnInit, OnDestroy  {
 
@@ -83,8 +83,8 @@ export class RSSComponent implements OnInit, OnDestroy  {
       }),
       switchMap((openSearchUri: string) =>
         this.searchConfigurationService.paginatedSearchOptions.pipe(
-          map((searchOptions: PaginatedSearchOptions) => ({ openSearchUri,  searchOptions }))
-        )
+          map((searchOptions: PaginatedSearchOptions) => ({ openSearchUri,  searchOptions })),
+        ),
       ),
     ).subscribe(({ openSearchUri,  searchOptions }) => {
       if (!openSearchUri) {
@@ -97,7 +97,7 @@ export class RSSComponent implements OnInit, OnDestroy  {
         href: environment.rest.baseUrl + '/' + openSearchUri + '/service',
         type: 'application/atom+xml',
         rel: 'search',
-        title: 'Dspace'
+        title: 'Dspace',
       });
       this.route$.next(route);
     }));
@@ -144,14 +144,14 @@ export class RSSComponent implements OnInit, OnDestroy  {
       href: route,
       type: 'application/atom+xml',
       rel: 'alternate',
-      title: 'Sitewide Atom feed'
+      title: 'Sitewide Atom feed',
     });
     route = route.replace('format=atom', 'format=rss');
     this.linkHeadService.addTag({
       href: route,
       type: 'application/rss+xml',
       rel: 'alternate',
-      title: 'Sitewide RSS feed'
+      title: 'Sitewide RSS feed',
     });
   }
 }

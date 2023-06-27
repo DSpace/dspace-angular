@@ -31,22 +31,22 @@ describe('MetadataRegistryComponent', () => {
       id: 1,
       _links: {
         self: {
-          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1'
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1',
         },
       },
       prefix: 'dc',
-      namespace: 'http://dublincore.org/documents/dcmi-terms/'
+      namespace: 'http://dublincore.org/documents/dcmi-terms/',
     },
     {
       id: 2,
       _links: {
         self: {
-          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2'
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2',
         },
       },
       prefix: 'mock',
-      namespace: 'http://dspace.org/mockschema'
-    }
+      namespace: 'http://dspace.org/mockschema',
+    },
   ];
   const mockSchemas = createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockSchemasList));
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
@@ -61,7 +61,7 @@ describe('MetadataRegistryComponent', () => {
     deleteMetadataSchema: () => observableOf(new RestResponse(true, 200, 'OK')),
     deselectAllMetadataSchema: () => {
     },
-    clearMetadataSchemaRequests: () => observableOf(undefined)
+    clearMetadataSchemaRequests: () => observableOf(undefined),
   };
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
@@ -75,11 +75,11 @@ describe('MetadataRegistryComponent', () => {
         { provide: RegistryService, useValue: registryServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: PaginationService, useValue: paginationService },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataRegistryComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

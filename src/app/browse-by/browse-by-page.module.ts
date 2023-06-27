@@ -19,7 +19,7 @@ import { SharedBrowseByModule } from '../shared/browse-by/shared-browse-by.modul
   ],
   declarations: [
 
-  ]
+  ],
 })
 export class BrowseByPageModule {
 

@@ -61,8 +61,8 @@ describe('MetadataSchemaDataService', () => {
         prefix: 'dc',
         namespace: 'namespace',
         _links: {
-          self: { href: 'selflink' }
-        }
+          self: { href: 'selflink' },
+        },
       });
     });
 
@@ -78,7 +78,7 @@ describe('MetadataSchemaDataService', () => {
     describe('called with an existing metadata schema', () => {
       beforeEach(() => {
         schema = Object.assign(schema, {
-          id: 'id-of-existing-schema'
+          id: 'id-of-existing-schema',
         });
       });
 

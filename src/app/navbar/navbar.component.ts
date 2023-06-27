@@ -20,7 +20,7 @@ import { isAuthenticated } from '../core/auth/selectors';
   selector: 'ds-navbar',
   styleUrls: ['./navbar.component.scss'],
   templateUrl: './navbar.component.html',
-  animations: [slideMobileNav]
+  animations: [slideMobileNav],
 })
 export class NavbarComponent extends MenuComponent {
   /**

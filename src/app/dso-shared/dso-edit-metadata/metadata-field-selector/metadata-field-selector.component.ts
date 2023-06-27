@@ -7,14 +7,14 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { debounceTime, distinctUntilChanged, map, switchMap, take, tap } from 'rxjs/operators';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
-  metadataFieldsToString
+  metadataFieldsToString,
 } from '../../../core/shared/operators';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { UntypedFormControl } from '@angular/forms';
@@ -27,7 +27,7 @@ import { SortDirection, SortOptions } from '../../../core/cache/models/sort-opti
 @Component({
   selector: 'ds-metadata-field-selector',
   styleUrls: ['./metadata-field-selector.component.scss'],
-  templateUrl: './metadata-field-selector.component.html'
+  templateUrl: './metadata-field-selector.component.html',
 })
 /**
  * Component displaying a searchable input for metadata-fields

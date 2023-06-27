@@ -37,7 +37,7 @@ import { ItemCollectionMapperComponent } from './item-collection-mapper.componen
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -57,26 +57,26 @@ describe('ItemCollectionMapperComponent', () => {
   const mockItem: Item = Object.assign(new Item(), {
     id: '932c7d50-d85a-44cb-b9dc-b427b12877bd',
     uuid: '932c7d50-d85a-44cb-b9dc-b427b12877bd',
-    name: 'test-item'
+    name: 'test-item',
   });
   const mockItemRD: RemoteData<Item> = createSuccessfulRemoteDataObject(mockItem);
   const mockSearchOptions = observableOf(new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), {
       id: 'search-page-configuration',
       pageSize: 10,
-      currentPage: 1
+      currentPage: 1,
     }),
-    sort: new SortOptions('dc.title', SortDirection.ASC)
+    sort: new SortOptions('dc.title', SortDirection.ASC),
   }));
   const url = 'http://test.url';
   const urlWithParam = url + '?param=value';
   const routerStub = Object.assign(new RouterStub(), {
     url: urlWithParam,
     navigateByUrl: {},
-    navigate: {}
+    navigate: {},
   });
   const searchConfigServiceStub = {
-    paginatedSearchOptions: mockSearchOptions
+    paginatedSearchOptions: mockSearchOptions,
   };
   const mockCollectionsRD = createSuccessfulRemoteDataObject(createPaginatedList([]));
   const itemDataServiceStub = {
@@ -85,7 +85,7 @@ describe('ItemCollectionMapperComponent', () => {
     getMappedCollectionsEndpoint: () => observableOf('rest/api/mappedCollectionsEndpoint'),
     getMappedCollections: () => observableOf(mockCollectionsRD),
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    clearMappedCollectionsRequests: () => {}
+    clearMappedCollectionsRequests: () => {},
     /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
   };
   const collectionDataServiceStub = {
@@ -94,25 +94,25 @@ describe('ItemCollectionMapperComponent', () => {
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
     search: () => observableOf(mockCollectionsRD),
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    clearDiscoveryRequests: () => {}
+    clearDiscoveryRequests: () => {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   });
   const activatedRouteStub = {
     parent: {
       data: observableOf({
-        dso: mockItemRD
-      })
-    }
+        dso: mockItemRD,
+      }),
+    },
   };
   const translateServiceStub = {
     get: () => observableOf('test-message of item ' + mockItem.name),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter()
+    onDefaultLangChange: new EventEmitter(),
   };
 
   const authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-    isAuthorized: observableOf(true)
+    isAuthorized: observableOf(true),
   });
 
   beforeEach(waitForAsync(() => {
@@ -130,8 +130,8 @@ describe('ItemCollectionMapperComponent', () => {
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
-        { provide: AuthorizationDataService, useValue: authorizationDataService }
-      ]
+        { provide: AuthorizationDataService, useValue: authorizationDataService },
+      ],
     }).compileComponents();
   }));
 

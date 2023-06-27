@@ -57,7 +57,7 @@ export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstrac
    */
   ngOnInit() {
     this.rejectForm = this.formBuilder.group({
-      reason: ['', Validators.required]
+      reason: ['', Validators.required],
     });
   }
 
@@ -94,7 +94,7 @@ export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstrac
 
   convertReloadedObject(dso: DSpaceObject): DSpaceObject {
     const reloadedObject = Object.assign(new ClaimedDeclinedTaskSearchResult(), dso, {
-      indexableObject: dso
+      indexableObject: dso,
     });
     return reloadedObject;
   }

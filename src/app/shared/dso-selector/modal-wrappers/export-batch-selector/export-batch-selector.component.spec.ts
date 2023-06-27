@@ -16,7 +16,7 @@ import { NotificationsServiceStub } from '../../../testing/notifications-service
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../remote-data.utils';
 import { ExportBatchSelectorComponent } from './export-batch-selector.component';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
@@ -27,13 +27,13 @@ import { AuthorizationDataService } from '../../../../core/data/feature-authoriz
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useClass: TranslateLoaderMock
-      }
+        useClass: TranslateLoaderMock,
+      },
     }),
   ],
   exports: [],
   declarations: [ConfirmationModalComponent],
-  providers: []
+  providers: [],
 })
 class ModelTestModule {
 }
@@ -53,7 +53,7 @@ describe('ExportBatchSelectorComponent', () => {
     id: 'fake-id',
     uuid: 'fake-id',
     handle: 'fake/handle',
-    lastModified: '2018'
+    lastModified: '2018',
   });
 
   const mockCollection: Collection = Object.assign(new Collection(), {
@@ -64,10 +64,10 @@ describe('ExportBatchSelectorComponent', () => {
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'fake/test-collection-1'
-        }
-      ]
-    }
+          value: 'fake/test-collection-1',
+        },
+      ],
+    },
   });
   const itemRD = createSuccessfulRemoteDataObject(mockItem);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
@@ -75,15 +75,15 @@ describe('ExportBatchSelectorComponent', () => {
   beforeEach(waitForAsync(() => {
     notificationService = new NotificationsServiceStub();
     router = jasmine.createSpyObj('router', {
-      navigateByUrl: jasmine.createSpy('navigateByUrl')
+      navigateByUrl: jasmine.createSpy('navigateByUrl'),
     });
     scriptService = jasmine.createSpyObj('scriptService',
       {
-        invoke: createSuccessfulRemoteDataObject$({ processId: '45' })
-      }
+        invoke: createSuccessfulRemoteDataObject$({ processId: '45' }),
+      },
     );
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule],
@@ -102,14 +102,14 @@ describe('ExportBatchSelectorComponent', () => {
                   dso: itemRD,
                 },
               },
-            }
+            },
           },
         },
         {
-          provide: Router, useValue: router
-        }
+          provide: Router, useValue: router,
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
   }));
@@ -178,7 +178,7 @@ describe('ExportBatchSelectorComponent', () => {
     it('should invoke the Batch-export script with option --id uuid without option', () => {
       const parameterValues: ProcessParameter[] = [
         Object.assign(new ProcessParameter(), { name: '--id', value: mockCollection.uuid }),
-        Object.assign(new ProcessParameter(), { name: '--type', value: 'COLLECTION' })
+        Object.assign(new ProcessParameter(), { name: '--type', value: 'COLLECTION' }),
       ];
       expect(scriptService.invoke).toHaveBeenCalledWith(BATCH_EXPORT_SCRIPT_NAME, parameterValues, []);
     });

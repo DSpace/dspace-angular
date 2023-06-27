@@ -15,16 +15,16 @@ describe('EndpointMockingRestService', () => {
     serverHttpResponse = {
       body: { bar: false },
       headers: new HttpHeaders(),
-      statusText: '200'
+      statusText: '200',
     } as HttpResponse<any>;
 
     mockResponseMap = new Map([
-      ['/foo', { bar: true }]
+      ['/foo', { bar: true }],
     ]);
 
     const httpStub = jasmine.createSpyObj('http', {
       get: observableOf(serverHttpResponse),
-      request: observableOf(serverHttpResponse)
+      request: observableOf(serverHttpResponse),
     });
 
     service = new EndpointMockingRestService(mockResponseMap, httpStub);

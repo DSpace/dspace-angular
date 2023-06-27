@@ -7,7 +7,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 import { Observable, of as observableOf, Subscription } from 'rxjs';
@@ -35,7 +35,7 @@ import { PaginationRouteParams } from '../../core/pagination/pagination-route-pa
   styleUrls: ['pagination.component.scss'],
   templateUrl: 'pagination.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.Emulated,
 })
 export class PaginationComponent implements OnDestroy, OnInit {
   /**
@@ -232,10 +232,10 @@ export class PaginationComponent implements OnDestroy, OnInit {
     this.id = this.paginationOptions.id || null;
     this.pageSizeOptions = this.paginationOptions.pageSizeOptions;
     this.currentPage$ = this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(
-      map((currentPagination) => currentPagination.currentPage)
+      map((currentPagination) => currentPagination.currentPage),
     );
     this.pageSize$ = this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(
-      map((currentPagination) => currentPagination.pageSize)
+      map((currentPagination) => currentPagination.pageSize),
     );
 
     let sortOptions;
@@ -245,10 +245,10 @@ export class PaginationComponent implements OnDestroy, OnInit {
       sortOptions = new SortOptions(this.defaultSortField, this.defaultsortDirection);
     }
     this.sortDirection$ = this.paginationService.getCurrentSort(this.id, sortOptions).pipe(
-      map((currentSort) => currentSort.direction)
+      map((currentSort) => currentSort.direction),
     );
     this.sortField$ = this.paginationService.getCurrentSort(this.id, sortOptions).pipe(
-      map((currentSort) => currentSort.field)
+      map((currentSort) => currentSort.field),
     );
   }
 
@@ -344,7 +344,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
             lastItem = collectionSize;
           }
           return {range: firstItem + ' - ' + lastItem, total: collectionSize};
-        })
+        }),
       );
     }
     return showingDetails;
@@ -372,7 +372,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   get hasMultiplePages(): Observable<boolean> {
     return this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(
-      map((currentPaginationOptions) =>  this.collectionSize > currentPaginationOptions.pageSize)
+      map((currentPaginationOptions) =>  this.collectionSize > currentPaginationOptions.pageSize),
     );
   }
 
@@ -382,7 +382,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   get shouldShowBottomPager(): Observable<boolean> {
     return this.hasMultiplePages.pipe(
-      map((hasMultiplePages) => hasMultiplePages || !this.hidePagerWhenSinglePage)
+      map((hasMultiplePages) => hasMultiplePages || !this.hidePagerWhenSinglePage),
     );
   }
 

@@ -33,24 +33,24 @@ describe('ItemReinstateComponent', () => {
       id: 'fake-id',
       handle: 'fake/handle',
       lastModified: '2018',
-      isWithdrawn: true
+      isWithdrawn: true,
     });
 
     itemPageUrl = `fake-url/${mockItem.id}`;
     routerStub = Object.assign(new RouterStub(), {
-      url: `${itemPageUrl}/edit`
+      url: `${itemPageUrl}/edit`,
     });
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
-      setWithDrawn: createSuccessfulRemoteDataObject$(mockItem)
+      setWithDrawn: createSuccessfulRemoteDataObject$(mockItem),
     });
 
     routeStub = {
       data: observableOf({
         dso: createSuccessfulRemoteDataObject(Object.assign(new Item(), {
-          id: 'fake-id'
-        }))
-      })
+          id: 'fake-id',
+        })),
+      }),
     };
 
     notificationsServiceStub = new NotificationsServiceStub();
@@ -64,8 +64,8 @@ describe('ItemReinstateComponent', () => {
         { provide: ItemDataService, useValue: mockItemDataService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
       ], schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 

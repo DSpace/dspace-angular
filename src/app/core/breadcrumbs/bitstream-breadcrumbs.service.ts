@@ -23,13 +23,13 @@ import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../../bitstream-page/bitstream-p
  * Service to calculate DSpaceObject breadcrumbs for a single part of the route
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BitstreamBreadcrumbsService extends DSOBreadcrumbsService {
   constructor(
     protected bitstreamService: BitstreamDataService,
     protected linkService: LinkService,
-    protected dsoNameService: DSONameService
+    protected dsoNameService: DSONameService,
   ) {
     super(linkService, dsoNameService);
   }
@@ -53,7 +53,7 @@ export class BitstreamBreadcrumbsService extends DSOBreadcrumbsService {
         return observableOf([]);
 
       }),
-      map((breadcrumbs: Breadcrumb[]) => [...breadcrumbs, crumb])
+      map((breadcrumbs: Breadcrumb[]) => [...breadcrumbs, crumb]),
     );
   }
 
@@ -74,12 +74,12 @@ export class BitstreamBreadcrumbsService extends DSOBreadcrumbsService {
               } else {
                 return observableOf(undefined);
               }
-            })
+            }),
           );
         } else {
           return observableOf(undefined);
         }
-      })
+      }),
     );
   }
 }

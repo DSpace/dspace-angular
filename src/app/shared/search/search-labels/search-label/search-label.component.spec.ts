@@ -34,7 +34,7 @@ describe('SearchLabelComponent', () => {
   const filter2 = [key2, value2];
   const mockFilters = [
     filter1,
-    filter2
+    filter2,
   ];
 
   const pagination = Object.assign(new PaginationComponentOptions(), { id: 'page-id', currentPage: 1, pageSize: 20 });
@@ -49,12 +49,12 @@ describe('SearchLabelComponent', () => {
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
         { provide: PaginationService, useValue: paginationService },
-        { provide: Router, useValue: {} }
+        { provide: Router, useValue: {} },
         // { provide: SearchConfigurationService, useValue: {getCurrentFrontendFilters : () =>  observableOf({})} }
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchLabelComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

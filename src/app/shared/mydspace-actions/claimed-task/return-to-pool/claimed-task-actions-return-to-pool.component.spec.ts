@@ -31,7 +31,7 @@ let mockPoolTaskDataService: PoolTaskDataService;
 describe('ClaimedTaskActionsReturnToPoolComponent', () => {
   const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
   const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
-    returnToPoolTask: of(new ProcessTaskResponse(true))
+    returnToPoolTask: of(new ProcessTaskResponse(true)),
   });
 
   beforeEach(waitForAsync(() => {
@@ -55,9 +55,9 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
       ],
       declarations: [ClaimedTaskActionsReturnToPoolComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ClaimedTaskActionsReturnToPoolComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

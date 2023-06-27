@@ -65,16 +65,16 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
 
   constructor(
     private translateService: TranslateService,
-    private contextHelpService: ContextHelpService
+    private contextHelpService: ContextHelpService,
   ) { }
 
   ngOnInit() {
     this.parsedContent$ = combineLatest([
       this.content$.pipe(distinctUntilChanged(), mergeMap(translateKey => this.translateService.get(translateKey))),
-      this.dontParseLinks$.pipe(distinctUntilChanged())
+      this.dontParseLinks$.pipe(distinctUntilChanged()),
     ]).pipe(
       map(([text, dontParseLinks]) =>
-        dontParseLinks ? [text] : this.parseLinks(text))
+        dontParseLinks ? [text] : this.parseLinks(text)),
     );
     this.shouldShowIcon$ = this.contextHelpService.shouldShowIcons$();
   }
@@ -101,7 +101,7 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
 
         this.tooltip.hidden.subscribe(() => {
           this.contextHelpService.hideTooltip(this.id);
-        })
+        }),
       ];
     }
   }

@@ -19,7 +19,7 @@ export class SidebarEffects {
       tap((action) => {
         this.previousPath = this.getBaseUrl(action);
       }),
-      map(() => new SidebarCollapseAction())
+      map(() => new SidebarCollapseAction()),
     ));
 
   constructor(private actions$: Actions) {

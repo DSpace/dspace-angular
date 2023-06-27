@@ -43,7 +43,7 @@ describe('SubmissionEditComponent Component', () => {
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([
           { path: ':id/edit', component: SubmissionEditComponent, pathMatch: 'full' },
-        ])
+        ]),
       ],
       declarations: [SubmissionEditComponent],
       providers: [
@@ -56,7 +56,7 @@ describe('SubmissionEditComponent Component', () => {
         { provide: ActivatedRoute, useValue: route },
 
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -78,7 +78,7 @@ describe('SubmissionEditComponent Component', () => {
 
     route.testParams = { id: submissionId };
     submissionServiceStub.retrieveSubmission.and.returnValue(
-      createSuccessfulRemoteDataObject$(submissionObject)
+      createSuccessfulRemoteDataObject$(submissionObject),
     );
 
     fixture.detectChanges();
@@ -94,7 +94,7 @@ describe('SubmissionEditComponent Component', () => {
   it('should redirect to mydspace when an empty SubmissionObject has been retrieved',() => {
 
     route.testParams = { id: submissionId };
-    submissionServiceStub.retrieveSubmission.and.returnValue(createSuccessfulRemoteDataObject$({})
+    submissionServiceStub.retrieveSubmission.and.returnValue(createSuccessfulRemoteDataObject$({}),
     );
 
     fixture.detectChanges();

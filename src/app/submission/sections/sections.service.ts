@@ -18,17 +18,17 @@ import {
   RemoveSectionErrorsAction,
   SectionStatusChangeAction,
   SetSectionFormId,
-  UpdateSectionDataAction
+  UpdateSectionDataAction,
 } from '../objects/submission-objects.actions';
 import {
-  SubmissionObjectEntry
+  SubmissionObjectEntry,
 } from '../objects/submission-objects.reducer';
 import {
   submissionObjectFromIdSelector,
   submissionSectionDataFromIdSelector,
   submissionSectionErrorsFromIdSelector,
   submissionSectionFromIdSelector,
-  submissionSectionServerErrorsFromIdSelector
+  submissionSectionServerErrorsFromIdSelector,
 } from '../selectors';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
@@ -197,12 +197,12 @@ export class SectionsService {
             const sectionErrors = formErrors
               .map((error) => ({
                 path: pathCombiner.getPath(error.fieldId.replace(/\_/g, '.')).path,
-                message: error.message
+                message: error.message,
               } as SubmissionSectionError))
               .filter((sectionError: SubmissionSectionError) => findIndex(state.errorsToShow, { path: sectionError.path }) === -1);
             return [...state.errorsToShow, ...sectionErrors];
-          })
-        ))
+          }),
+        )),
       );
     }
 
@@ -257,13 +257,13 @@ export class SectionsService {
       map((sectionState: SubmissionSectionObject) => {
         if (hasValue(sectionState.data) && sectionType === SectionsType.SubmissionForm) {
           return Object.assign({}, sectionState, {
-            data: normalizeSectionData(sectionState.data)
+            data: normalizeSectionData(sectionState.data),
           });
         } else {
           return sectionState;
         }
       }),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -407,7 +407,7 @@ export class SectionsService {
     this.store.dispatch(new EnableSectionAction(submissionId, sectionId));
     const config: ScrollToConfigOptions = {
       target: sectionId,
-      offset: -70
+      offset: -70,
     };
 
     this.scrollToService.scrollTo(config);
@@ -449,7 +449,7 @@ export class SectionsService {
     data: WorkspaceitemSectionDataType,
     errorsToShow: SubmissionSectionError[] = [],
     serverValidationErrors: SubmissionSectionError[] = [],
-    metadata?: string[]
+    metadata?: string[],
   ) {
     if (isNotEmpty(data)) {
       const isAvailable$ = this.isSectionAvailable(submissionId, sectionId);

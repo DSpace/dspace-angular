@@ -19,7 +19,7 @@ import { RequestService } from '../core/data/request.service';
  */
 @Component({
   selector: 'ds-workflowitem-action-page',
-  template: ''
+  template: '',
 })
 export abstract class WorkflowItemActionPageComponent implements OnInit {
   public type;
@@ -54,7 +54,7 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
   performAction() {
     combineLatest([this.wfi$, this.requestService.removeByHrefSubstring('/discover')]).pipe(
       take(1),
-      switchMap(([wfi]) => this.sendRequest(wfi.id))
+      switchMap(([wfi]) => this.sendRequest(wfi.id)),
     ).subscribe((successful: boolean) => {
       if (successful) {
         const title = this.translationService.get('workflow-item.' + this.type + '.notification.success.title');
@@ -87,7 +87,7 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
           }
         }
         void this.router.navigate([url.split('?')[0]], { queryParams: params });
-      }
+      },
       );
   }
 

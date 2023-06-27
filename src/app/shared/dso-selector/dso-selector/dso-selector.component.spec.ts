@@ -43,7 +43,7 @@ describe('DSOSelectorComponent', () => {
       } else {
         return createSuccessfulRemoteDataObject$(createPaginatedList(nextPageResults));
       }
-    }
+    },
   };
 
   function createSearchResult(name: string): ItemSearchResult {
@@ -53,11 +53,11 @@ describe('DSOSelectorComponent', () => {
         metadata: {
           'dc.title': [
             {
-              value: `test result - ${name}`
-            }
-          ]
-        }
-      })
+              value: `test result - ${name}`,
+            },
+          ],
+        },
+      }),
     });
   }
 
@@ -73,7 +73,7 @@ describe('DSOSelectorComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: NotificationsService, useValue: notificationsService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
   }));
@@ -139,7 +139,7 @@ describe('DSOSelectorComponent', () => {
           }),
         }),
         null,
-        true
+        true,
       );
     });
 
@@ -153,7 +153,7 @@ describe('DSOSelectorComponent', () => {
           sort: null,
         }),
         null,
-        true
+        true,
       );
     });
   });

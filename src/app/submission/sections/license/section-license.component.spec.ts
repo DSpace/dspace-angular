@@ -26,7 +26,7 @@ import { SectionsType } from '../sections-type';
 import {
   mockLicenseParsedErrors,
   mockSubmissionCollectionId,
-  mockSubmissionId
+  mockSubmissionId,
 } from '../../../shared/mocks/submission.mock';
 import { FormComponent } from '../../../shared/form/form.component';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
@@ -48,9 +48,9 @@ const mockCollection = Object.assign(new Collection(), {
     {
       key: 'dc.title',
       language: 'en_US',
-      value: 'Community 1-Collection 1'
+      value: 'Community 1-Collection 1',
     }],
-  license: createSuccessfulRemoteDataObject$(Object.assign(new License(), { text: licenseText }))
+  license: createSuccessfulRemoteDataObject$(Object.assign(new License(), { text: licenseText })),
 });
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
@@ -58,7 +58,7 @@ function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService
     getConfigAll: jasmine.createSpy('getConfigAll'),
     getConfigByHref: jasmine.createSpy('getConfigByHref'),
     getConfigByName: jasmine.createSpy('getConfigByName'),
-    getConfigBySearch: jasmine.createSpy('getConfigBySearch')
+    getConfigBySearch: jasmine.createSpy('getConfigBySearch'),
   });
 }
 
@@ -68,13 +68,13 @@ const sectionObject: SectionDataObject = {
   data: {
     url: null,
     acceptanceDate: null,
-    granted: false
+    granted: false,
   },
   errorsToShow: [],
   serverValidationErrors: [],
   header: 'submit.progressbar.describe.license',
   id: 'license',
-  sectionType: SectionsType.License
+  sectionType: SectionsType.License,
 };
 
 const dynamicFormControlEvent: DynamicFormControlEvent = {
@@ -83,7 +83,7 @@ const dynamicFormControlEvent: DynamicFormControlEvent = {
   control: null,
   group: null,
   model: null,
-  type: DynamicFormControlEventType.Change
+  type: DynamicFormControlEventType.Change,
 };
 
 describe('SubmissionSectionLicenseComponent test suite', () => {
@@ -108,7 +108,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
 
   const mockCollectionDataService = jasmine.createSpyObj('CollectionDataService', {
     findById: jasmine.createSpy('findById'),
-    findByHref: jasmine.createSpy('findByHref')
+    findByHref: jasmine.createSpy('findByHref'),
   });
 
   beforeEach(waitForAsync(() => {
@@ -118,12 +118,12 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         FormComponent,
         SubmissionSectionLicenseComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: CollectionDataService, useValue: mockCollectionDataService },
@@ -139,9 +139,9 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         { provide: 'submissionIdProvider', useValue: submissionId },
         ChangeDetectorRef,
         FormBuilderService,
-        SubmissionSectionLicenseComponent
+        SubmissionSectionLicenseComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
   }));
 
@@ -213,7 +213,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         expect(model.value).toBeFalsy();
         expect(comp.licenseText$).toBeObservable(cold('(ab|)', {
           a: '',
-          b: licenseText
+          b: licenseText,
         }));
       });
 
@@ -221,7 +221,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         comp.sectionData.data = {
           url: 'url',
           acceptanceDate: Date.now(),
-          granted: true
+          granted: true,
         } as any;
 
         spyOn(compAsAny, 'getSectionStatus');
@@ -235,7 +235,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         expect(model.value).toBeTruthy();
         expect(comp.licenseText$).toBeObservable(cold('(ab|)', {
           a: '',
-          b: licenseText
+          b: licenseText,
         }));
       });
 
@@ -283,7 +283,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         comp.sectionData.data = {
           url: 'url',
           acceptanceDate: Date.now(),
-          granted: true
+          granted: true,
         } as any;
 
         comp.onSectionInit();
@@ -325,7 +325,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

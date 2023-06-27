@@ -140,7 +140,7 @@ describe('Pagination component', () => {
       getFindListOptions: currentFindListOptions,
       resetPage: {},
       updateRoute: {},
-      updateRouteWithUrl: {}
+      updateRouteWithUrl: {},
     });
 
     TestBed.configureTestingModule({
@@ -150,18 +150,18 @@ describe('Pagination component', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
         NgxPaginationModule,
         NgbModule,
         RouterTestingModule.withRoutes([
-          { path: 'home', component: TestComponent }
+          { path: 'home', component: TestComponent },
         ])],
       declarations: [
         PaginationComponent,
         TestComponent,
-        EnumKeysPipe
+        EnumKeysPipe,
       ], // declare the test component
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
@@ -169,9 +169,9 @@ describe('Pagination component', () => {
         { provide: HostWindowService, useValue: hostWindowServiceStub },
         { provide: PaginationService, useValue: paginationService },
         ChangeDetectorRef,
-        PaginationComponent
+        PaginationComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
 
   }));
@@ -390,8 +390,8 @@ class TestComponent {
   objects = {
     payload: {
       currentPage: 2,
-      totalPages: 100
-    }
+      totalPages: 100,
+    },
   };
 
   constructor() {

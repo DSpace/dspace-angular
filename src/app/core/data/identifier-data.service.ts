@@ -61,7 +61,7 @@ export class IdentifierDataService extends BaseDataService<IdentifierData> {
   public getIdentifierRegistrationConfiguration(): Observable<string[]> {
     return this.configurationService.findByPropertyName('identifiers.item-status.register-doi').pipe(
       getFirstCompletedRemoteData(),
-      map((propertyRD: RemoteData<ConfigurationProperty>) => propertyRD.hasSucceeded ? propertyRD.payload.values : [])
+      map((propertyRD: RemoteData<ConfigurationProperty>) => propertyRD.hasSucceeded ? propertyRD.payload.values : []),
     );
   }
 
@@ -79,7 +79,7 @@ export class IdentifierDataService extends BaseDataService<IdentifierData> {
         return new PostRequest(requestId, endpointURL, item._links.self.href, options);
       }),
       sendRequest(this.requestService),
-      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID(request.uuid) as Observable<RemoteData<any>>)
+      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID(request.uuid) as Observable<RemoteData<any>>),
     );
   }
 }

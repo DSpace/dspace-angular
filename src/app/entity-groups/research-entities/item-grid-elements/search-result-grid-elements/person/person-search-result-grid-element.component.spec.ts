@@ -14,22 +14,22 @@ mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'person.email': [
       {
         language: 'en_US',
-        value: 'Smith-Donald@gmail.com'
-      }
+        value: 'Smith-Donald@gmail.com',
+      },
     ],
     'person.jobTitle': [
       {
         language: 'en_US',
-        value: 'Web Developer'
-      }
-    ]
-  }
+        value: 'Web Developer',
+      },
+    ],
+  },
 });
 
 const mockItemWithoutMetadata: ItemSearchResult = new ItemSearchResult();
@@ -40,10 +40,10 @@ mockItemWithoutMetadata.indexableObject = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
-    ]
-  }
+        value: 'This is just another title',
+      },
+    ],
+  },
 });
 
 describe('PersonSearchResultGridElementComponent', getEntityGridElementTestComponent(PersonSearchResultGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['email', 'jobtitle']));

@@ -10,23 +10,23 @@ const object = Object.assign(new ItemSearchResult(), {
     metadata: {
       'dc.title': [
         {
-          value: 'title'
-        }
-      ]
-    }
-  })
+          value: 'title',
+        },
+      ],
+    },
+  }),
 });
 const parent = Object.assign(new Collection(), {
   id: 'test-collection',
   metadata: {
     'dc.title': [
       {
-        value: 'parent title'
-      }
-    ]
-  }
+        value: 'parent title',
+      },
+    ],
+  },
 });
 
 describe('ProjectSidebarSearchListElementComponent',
-  createSidebarSearchListElementTests(ProjectSidebarSearchListElementComponent, object, parent, 'parent title', 'title', undefined)
+  createSidebarSearchListElementTests(ProjectSidebarSearchListElementComponent, object, parent, 'parent title', 'title', undefined),
 );

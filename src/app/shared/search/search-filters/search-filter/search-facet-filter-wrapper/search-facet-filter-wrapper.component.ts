@@ -5,7 +5,7 @@ import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
-  REFRESH_FILTER
+  REFRESH_FILTER,
 } from '../../../../../core/shared/search/search-filter.service';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
@@ -13,7 +13,7 @@ import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'ds-search-facet-filter-wrapper',
-  templateUrl: './search-facet-filter-wrapper.component.html'
+  templateUrl: './search-facet-filter-wrapper.component.html',
 })
 
 /**
@@ -56,9 +56,9 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
       providers: [
         { provide: FILTER_CONFIG, useFactory: () => (this.filterConfig), deps: [] },
         { provide: IN_PLACE_SEARCH, useFactory: () => (this.inPlaceSearch), deps: [] },
-        { provide: REFRESH_FILTER, useFactory: () => (this.refreshFilters), deps: [] }
+        { provide: REFRESH_FILTER, useFactory: () => (this.refreshFilters), deps: [] },
       ],
-      parent: this.injector
+      parent: this.injector,
     });
   }
 

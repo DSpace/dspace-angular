@@ -25,7 +25,7 @@ import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 @Component({
   selector: 'ds-item-page-full-file-section',
   styleUrls: ['./full-file-section.component.scss'],
-  templateUrl: './full-file-section.component.html'
+  templateUrl: './full-file-section.component.html',
 })
 export class FullFileSectionComponent extends FileSectionComponent implements OnDestroy, OnInit {
 
@@ -39,13 +39,13 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
   originalOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'obo',
     currentPage: 1,
-    pageSize: this.appConfig.item.bitstream.pageSize
+    pageSize: this.appConfig.item.bitstream.pageSize,
   });
 
   licenseOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'lbo',
     currentPage: 1,
-    pageSize: this.appConfig.item.bitstream.pageSize
+    pageSize: this.appConfig.item.bitstream.pageSize,
   });
 
   constructor(
@@ -54,7 +54,7 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
     protected translateService: TranslateService,
     protected paginationService: PaginationService,
     public dsoNameService: DSONameService,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(bitstreamDataService, notificationsService, translateService, dsoNameService, appConfig);
   }
@@ -78,8 +78,8 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
         if (hasValue(rd.errorMessage)) {
           this.notificationsService.error(this.translateService.get('file-section.error.header'), `${rd.statusCode} ${rd.errorMessage}`);
         }
-      }
-      )
+      },
+      ),
     );
 
     this.licenses$ = this.paginationService.getCurrentPagination(this.licenseOptions.id, this.licenseOptions).pipe(
@@ -96,8 +96,8 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
         if (hasValue(rd.errorMessage)) {
           this.notificationsService.error(this.translateService.get('file-section.error.header'), `${rd.statusCode} ${rd.errorMessage}`);
         }
-      }
-      )
+      },
+      ),
     );
 
   }

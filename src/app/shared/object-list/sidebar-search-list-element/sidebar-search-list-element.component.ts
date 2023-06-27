@@ -15,7 +15,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-sidebar-search-list-element',
-  templateUrl: './sidebar-search-list-element.component.html'
+  templateUrl: './sidebar-search-list-element.component.html',
 })
 /**
  * Component displaying a list element for a {@link SearchResult} in the sidebar search modal
@@ -66,7 +66,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
     return this.getParent().pipe(
       map((parentRD: RemoteData<DSpaceObject>) => {
         return hasValue(parentRD) && hasValue(parentRD.payload) ? this.dsoNameService.getName(parentRD.payload) : undefined;
-      })
+      }),
     );
   }
 
@@ -77,7 +77,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
     if (typeof (this.dso as any).getParentLinkKey === 'function') {
       const propertyName = (this.dso as any).getParentLinkKey();
       return this.linkService.resolveLink(this.dso, followLink(propertyName))[propertyName].pipe(
-        find((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => parentRD.hasSucceeded || parentRD.statusCode === 204)
+        find((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => parentRD.hasSucceeded || parentRD.statusCode === 204),
       );
     }
     return observableOf(undefined);

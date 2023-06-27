@@ -310,14 +310,14 @@ export class SearchComponent implements OnInit {
       switchMap((configuration: string) => this.searchConfigService
         .getConfigurationSearchConfig(configuration)),
       map((searchConfig: SearchConfig) => this.searchConfigService.getConfigurationSortOptions(searchConfig)),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
     const sortOption$: Observable<SortOptions> = searchSortOptions$.pipe(
       switchMap((searchSortOptions: SortOptions[]) => {
         const defaultSort: SortOptions = searchSortOptions[0];
         return this.searchConfigService.getCurrentSort(this.paginationId, defaultSort);
       }),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
     const searchOptions$: Observable<PaginatedSearchOptions> = this.getSearchOptions().pipe(distinctUntilChanged());
 
@@ -326,13 +326,13 @@ export class SearchComponent implements OnInit {
         // filter for search options related to instanced paginated id
         return searchOptions.pagination.id === this.paginationId;
       }),
-      debounceTime(100)
+      debounceTime(100),
     ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption]: [string, SortOptions[], PaginatedSearchOptions, SortOptions]) => {
       // Build the PaginatedSearchOptions object
       const combinedOptions = Object.assign({}, searchOptions,
         {
           configuration: searchOptions.configuration || configuration,
-          sort: sortOption || searchOptions.sort
+          sort: sortOption || searchOptions.sort,
         });
       if (combinedOptions.query === '') {
         combinedOptions.query = this.query;
@@ -445,7 +445,7 @@ export class SearchComponent implements OnInit {
       undefined,
       this.useCachedVersionIfAvailable,
       true,
-      ...followLinks
+      ...followLinks,
     ).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         if (results.hasSucceeded) {

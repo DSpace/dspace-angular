@@ -17,7 +17,7 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-resource-policy-create',
-  templateUrl: './resource-policy-create.component.html'
+  templateUrl: './resource-policy-create.component.html',
 })
 export class ResourcePolicyCreateComponent implements OnInit {
 
@@ -62,7 +62,7 @@ export class ResourcePolicyCreateComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.pipe(
       map((data) => data),
-      take(1)
+      take(1),
     ).subscribe((data: any) => {
       this.targetResourceUUID = (data.resourcePolicyTarget as RemoteData<DSpaceObject>).payload.id;
       this.targetResourceName = this.dsoNameService.getName((data.resourcePolicyTarget as RemoteData<DSpaceObject>).payload);
@@ -99,7 +99,7 @@ export class ResourcePolicyCreateComponent implements OnInit {
       response$ = this.resourcePolicyService.create(event.object, this.targetResourceUUID, null, event.target.uuid);
     }
     response$.pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((responseRD: RemoteData<ResourcePolicy>) => {
       this.processing$.next(false);
       if (responseRD.hasSucceeded) {

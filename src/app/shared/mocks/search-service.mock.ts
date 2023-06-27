@@ -7,6 +7,6 @@ export function getMockSearchService(): SearchService {
     getEndpoint: observableOf('discover/search/objects'),
     getSearchLink: '/mydspace',
     getScopes: observableOf(['test-scope']),
-    setServiceOptions: {}
+    setServiceOptions: {},
   });
 }

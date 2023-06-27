@@ -42,7 +42,7 @@ export class AddRelationshipAction implements Action {
     item2: Item,
     relationshipType: string,
     submissionId: string,
-    nameVariant?: string
+    nameVariant?: string,
   ) {
     this.payload = { item1, item2, relationshipType, submissionId, nameVariant };
   }
@@ -73,7 +73,7 @@ export class UpdateRelationshipNameVariantAction implements Action {
     item2: Item,
     relationshipType: string,
     submissionId: string,
-    nameVariant?: string
+    nameVariant?: string,
   ) {
     this.payload = { item1, item2, relationshipType, submissionId, nameVariant };
   }
@@ -126,7 +126,7 @@ export class RemoveRelationshipAction implements Action {
     item1: Item,
     item2: Item,
     relationshipType: string,
-    submissionId: string
+    submissionId: string,
   ) {
     this.payload = { item1, item2, relationshipType, submissionId };
   }

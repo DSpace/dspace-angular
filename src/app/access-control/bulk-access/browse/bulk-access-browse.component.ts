@@ -22,9 +22,9 @@ import { hasValue } from '../../../shared/empty.util';
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
 })
 export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
 
@@ -49,7 +49,7 @@ export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
   paginationOptions$: BehaviorSubject<PaginationComponentOptions> = new BehaviorSubject<PaginationComponentOptions>(Object.assign(new PaginationComponentOptions(), {
     id: 'bas',
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   }));
 
   /**
@@ -67,20 +67,20 @@ export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.selectableListService.getSelectableList(this.listId).pipe(
         distinctUntilChanged(),
-        map((list: SelectableListState) => this.generatePaginatedListBySelectedElements(list))
-      ).subscribe(this.objectsSelected$)
+        map((list: SelectableListState) => this.generatePaginatedListBySelectedElements(list)),
+      ).subscribe(this.objectsSelected$),
     );
   }
 
   pageNext() {
     this.paginationOptions$.next(Object.assign(new PaginationComponentOptions(), this.paginationOptions$.value, {
-      currentPage: this.paginationOptions$.value.currentPage + 1
+      currentPage: this.paginationOptions$.value.currentPage + 1,
     }));
   }
 
   pagePrev() {
     this.paginationOptions$.next(Object.assign(new PaginationComponentOptions(), this.paginationOptions$.value, {
-      currentPage: this.paginationOptions$.value.currentPage - 1
+      currentPage: this.paginationOptions$.value.currentPage - 1,
     }));
   }
 
@@ -99,12 +99,12 @@ export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
       elementsPerPage: this.paginationOptions$.value.pageSize,
       totalElements: list?.selection.length,
       totalPages: this.calculatePageCount(this.paginationOptions$.value.pageSize, list?.selection.length),
-      currentPage: this.paginationOptions$.value.currentPage
+      currentPage: this.paginationOptions$.value.currentPage,
     });
     if (pageInfo.currentPage > pageInfo.totalPages) {
       pageInfo.currentPage = pageInfo.totalPages;
       this.paginationOptions$.next(Object.assign(new PaginationComponentOptions(), this.paginationOptions$.value, {
-        currentPage: pageInfo.currentPage
+        currentPage: pageInfo.currentPage,
       }));
     }
     return createSuccessfulRemoteDataObject(buildPaginatedList(pageInfo, list?.selection || []));

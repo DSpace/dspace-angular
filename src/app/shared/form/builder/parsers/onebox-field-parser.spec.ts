@@ -17,7 +17,7 @@ describe('OneboxFieldParser test suite', () => {
     readOnly: false,
     submissionScope: 'testScopeUUID',
     collectionUUID: null,
-    typeField: 'dc_type'
+    typeField: 'dc_type',
   };
 
   beforeEach(() => {
@@ -31,10 +31,10 @@ describe('OneboxFieldParser test suite', () => {
         {
           metadata: 'title',
           controlledVocabulary: 'EVENTAuthority',
-          closed: false
-        }
+          closed: false,
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
     field2 = {
@@ -53,8 +53,8 @@ describe('OneboxFieldParser test suite', () => {
         { metadata: 'dc.identifier.isbn', label: 'ISBN' },
         { metadata: 'dc.identifier.doi', label: 'DOI' },
         { metadata: 'dc.identifier.pmid', label: 'PubMed ID' },
-        { metadata: 'dc.identifier.arxiv', label: 'arXiv' }
-      ]
+        { metadata: 'dc.identifier.arxiv', label: 'arXiv' },
+      ],
     } as FormFieldModel;
 
     field3 = {
@@ -66,9 +66,9 @@ describe('OneboxFieldParser test suite', () => {
       selectableMetadata: [
         {
           metadata: 'title',
-        }
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
   });
 
@@ -118,10 +118,10 @@ describe('OneboxFieldParser test suite', () => {
           {
             metadata: 'title',
             controlledVocabulary: 'EVENTAuthority',
-            closed: false
-          }
+            closed: false,
+          },
         ],
-        languageCodes: []
+        languageCodes: [],
       } as FormFieldModel;
 
       parser = new OneboxFieldParser(submissionId, regexField, initFormValues, parserOptions);

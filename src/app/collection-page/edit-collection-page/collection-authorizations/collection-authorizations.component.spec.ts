@@ -19,8 +19,8 @@ describe('CollectionAuthorizationsComponent', () => {
     uuid: 'collection',
     id: 'collection',
     _links: {
-      self: { href: 'collection-selflink' }
-    }
+      self: { href: 'collection-selflink' },
+    },
   });
 
   const collectionRD = createSuccessfulRemoteDataObject(collection);
@@ -29,16 +29,16 @@ describe('CollectionAuthorizationsComponent', () => {
     parent: {
       parent: {
         data: observableOf({
-          dso: collectionRD
-        })
-      }
-    }
+          dso: collectionRD,
+        }),
+      },
+    },
   };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        CommonModule
+        CommonModule,
       ],
       declarations: [CollectionAuthorizationsComponent],
       providers: [

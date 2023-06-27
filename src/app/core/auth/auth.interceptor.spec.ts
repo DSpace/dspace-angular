@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController, } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -23,7 +23,7 @@ describe(`AuthInterceptor`, () => {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-    select: observableOf(true)
+    select: observableOf(true),
   });
 
   beforeEach(() => {

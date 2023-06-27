@@ -23,7 +23,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-upload-bitstream',
-  templateUrl: './upload-bitstream.component.html'
+  templateUrl: './upload-bitstream.component.html',
 })
 /**
  * Page component for uploading a bitstream to an item
@@ -74,7 +74,7 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
     url: 'placeholder',
     authToken: null,
     disableMultipart: false,
-    itemAlias: null
+    itemAlias: null,
   });
 
   /**
@@ -128,15 +128,15 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
               if (check) {
                 this.bundles.push(Object.assign(new Bundle(), {
                   _name: defaultBundle,
-                  type: 'bundle'
+                  type: 'bundle',
                 }));
               }
             }
           } else {
             this.bundles = environment.bundle.standardBundles.map((defaultBundle: string) => Object.assign(new Bundle(), {
               _name: defaultBundle,
-              type: 'bundle'
-            })
+              type: 'bundle',
+            }),
             );
           }
           return observableOf(remoteData.payload.page);
@@ -145,7 +145,7 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
     this.selectedBundleId = this.route.snapshot.queryParams.bundle;
     if (isNotEmpty(this.selectedBundleId)) {
       this.subs.push(this.bundleService.findById(this.selectedBundleId).pipe(
-        getFirstSucceededRemoteDataPayload()
+        getFirstSucceededRemoteDataPayload(),
       ).subscribe((bundle: Bundle) => {
         this.selectedBundleName = bundle.name;
       }));
@@ -159,12 +159,12 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
    */
   createBundle() {
     this.itemService.createBundle(this.itemId, this.selectedBundleName).pipe(
-      getFirstSucceededRemoteDataPayload()
+      getFirstSucceededRemoteDataPayload(),
     ).subscribe((bundle: Bundle) => {
       this.selectedBundleId = bundle.id;
       this.notificationsService.success(
         this.translate.instant(this.NOTIFICATIONS_PREFIX + 'bundle.created.title'),
-        this.translate.instant(this.NOTIFICATIONS_PREFIX + 'bundle.created.content')
+        this.translate.instant(this.NOTIFICATIONS_PREFIX + 'bundle.created.content'),
       );
       this.setUploadUrl();
     });

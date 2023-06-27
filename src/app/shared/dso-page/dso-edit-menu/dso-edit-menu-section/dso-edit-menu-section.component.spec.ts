@@ -23,11 +23,11 @@ function initAsync(dummySectionText: { visible: boolean; icon: string; active: b
         {provide: MenuService, useValue: menuService},
         {provide: CSSVariableService, useClass: CSSVariableServiceStub},
         {provide: Router, useValue: new RouterStub()},
-      ]
+      ],
     }).overrideComponent(DsoEditMenuSectionComponent, {
       set: {
-        entryComponents: [TestComponent]
-      }
+        entryComponents: [TestComponent],
+      },
     })
       .compileComponents();
   }));
@@ -46,9 +46,9 @@ describe('DsoEditMenuSectionComponent', () => {
     model: {
       type: MenuItemType.TEXT,
       disabled: false,
-      text: 'text'
+      text: 'text',
     },
-    icon: iconString
+    icon: iconString,
   };
   const dummySectionLink = {
     id: 'dummy',
@@ -58,9 +58,9 @@ describe('DsoEditMenuSectionComponent', () => {
       type: MenuItemType.LINK,
       disabled: false,
       text: 'text',
-      link: 'link'
+      link: 'link',
     },
-    icon: iconString
+    icon: iconString,
   };
 
   const dummySectionClick = {
@@ -71,9 +71,9 @@ describe('DsoEditMenuSectionComponent', () => {
       type: MenuItemType.ONCLICK,
       disabled: false,
       text: 'text',
-      function: () => 'test'
+      function: () => 'test',
     },
-    icon: iconString
+    icon: iconString,
   };
 
   describe('text model', () => {
@@ -167,7 +167,7 @@ describe('DsoEditMenuSectionComponent', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 }

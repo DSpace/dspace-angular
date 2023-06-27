@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { By } from '@angular/platform-browser';
@@ -23,7 +23,7 @@ describe('NumberPickerComponent test suite', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        NgbModule
+        NgbModule,
       ],
       declarations: [
         NumberPickerComponent,
@@ -33,7 +33,7 @@ describe('NumberPickerComponent test suite', () => {
         ChangeDetectorRef,
         NumberPickerComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
 
   }));
@@ -147,7 +147,7 @@ describe('NumberPickerComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

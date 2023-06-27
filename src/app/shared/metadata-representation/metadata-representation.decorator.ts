@@ -5,12 +5,12 @@ import { InjectionToken } from '@angular/core';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import {
   resolveTheme,
-  DEFAULT_THEME, DEFAULT_CONTEXT
+  DEFAULT_THEME, DEFAULT_CONTEXT,
 } from '../object-collection/shared/listable-object/listable-object.decorator';
 
 export const METADATA_REPRESENTATION_COMPONENT_FACTORY = new InjectionToken<(entityType: string, mdRepresentationType: MetadataRepresentationType, context: Context, theme: string) => GenericConstructor<any>>('getMetadataRepresentationComponent', {
   providedIn: 'root',
-  factory: () => getMetadataRepresentationComponent
+  factory: () => getMetadataRepresentationComponent,
 });
 
 export const map = new Map();

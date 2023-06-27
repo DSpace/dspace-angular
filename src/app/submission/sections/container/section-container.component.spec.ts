@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { of as observableOf } from 'rxjs';
@@ -29,7 +29,7 @@ const sectionState = {
   errorsToShow:	[],
   serverValidationErrors:	[],
   isLoading: false,
-  isValid: false
+  isValid: false,
 } as any;
 
 const sectionObject: SectionDataObject = {
@@ -40,7 +40,7 @@ const sectionObject: SectionDataObject = {
   serverValidationErrors:		[],
   header:	'submit.progressbar.describe.stepone',
   id:	'traditionalpageone',
-  sectionType:	SectionsType.SubmissionForm
+  sectionType:	SectionsType.SubmissionForm,
 };
 
 describe('SubmissionSectionContainerComponent test suite', () => {
@@ -68,7 +68,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         SubmissionSectionContainerComponent,
@@ -78,9 +78,9 @@ describe('SubmissionSectionContainerComponent test suite', () => {
       providers: [
         { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useValue: submissionServiceStub },
-        SubmissionSectionContainerComponent
+        SubmissionSectionContainerComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 
   }));
@@ -226,7 +226,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

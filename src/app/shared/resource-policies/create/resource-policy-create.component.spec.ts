@@ -10,7 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../remote-data.utils';
 import { createPaginatedList, createTestComponent } from '../../testing/utils.test';
 import { ResourcePolicyCreateComponent } from './resource-policy-create.component';
@@ -49,17 +49,17 @@ describe('ResourcePolicyCreateComponent test suite', () => {
     uuid: 'resource-policy-1',
     _links: {
       eperson: {
-        href: 'https://rest.api/rest/api/eperson'
+        href: 'https://rest.api/rest/api/eperson',
       },
       group: {
-        href: 'https://rest.api/rest/api/group'
+        href: 'https://rest.api/rest/api/group',
       },
       self: {
-        href: 'https://rest.api/rest/api/resourcepolicies/1'
+        href: 'https://rest.api/rest/api/resourcepolicies/1',
       },
     },
     eperson: observableOf(createSuccessfulRemoteDataObject({})),
-    group: observableOf(createSuccessfulRemoteDataObject(GroupMock))
+    group: observableOf(createSuccessfulRemoteDataObject(GroupMock)),
   };
 
   const item = Object.assign(new Item(), {
@@ -67,34 +67,34 @@ describe('ResourcePolicyCreateComponent test suite', () => {
     id: 'itemUUID',
     metadata: {
       'dc.title': [{
-        value: 'test item'
-      }]
+        value: 'test item',
+      }],
     },
     _links: {
-      self: { href: 'item-selflink' }
+      self: { href: 'item-selflink' },
     },
-    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([]))
+    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   });
 
   const resourcePolicyService: any = getMockResourcePolicyService();
   const linkService: any = getMockLinkService();
   const routeStub = {
     data: observableOf({
-      resourcePolicyTarget: createSuccessfulRemoteDataObject(item)
-    })
+      resourcePolicyTarget: createSuccessfulRemoteDataObject(item),
+    }),
   };
   const routerStub = Object.assign(new RouterStub(), {
-    url: `url/edit`
+    url: `url/edit`,
   });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         ResourcePolicyCreateComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: LinkService, useValue: linkService },
@@ -104,11 +104,11 @@ describe('ResourcePolicyCreateComponent test suite', () => {
         { provide: Router, useValue: routerStub },
         ResourcePolicyCreateComponent,
         ChangeDetectorRef,
-        Injector
+        Injector,
       ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 
@@ -168,7 +168,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
     it('should return true when is Processing', (done) => {
       compAsAny.processing$.next(true);
       expect(comp.isProcessing()).toBeObservable(cold('a', {
-        a: true
+        a: true,
       }));
       done();
     });
@@ -176,7 +176,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
     it('should return false when is not Processing', (done) => {
       compAsAny.processing$.next(false);
       expect(comp.isProcessing()).toBeObservable(cold('a', {
-        a: false
+        a: false,
       }));
       done();
     });
@@ -191,7 +191,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
         eventPayload.object = submittedResourcePolicy;
         eventPayload.target = {
           type: 'group',
-          uuid: GroupMock.id
+          uuid: GroupMock.id,
         };
       });
 
@@ -229,7 +229,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
         eventPayload.object = submittedResourcePolicy;
         eventPayload.target = {
           type: 'eperson',
-          uuid: EPersonMock.id
+          uuid: EPersonMock.id,
         };
       });
 
@@ -262,7 +262,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

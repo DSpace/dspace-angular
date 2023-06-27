@@ -12,7 +12,7 @@ import {
   DynamicFormControlModel,
   DynamicFormControlRelation,
   DynamicFormRelationService, MATCH_VISIBLE,
-  OR_OPERATOR
+  OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
 
 import {hasNoValue, hasValue} from '../../../empty.util';
@@ -184,7 +184,7 @@ export class DsDynamicTypeBindRelationService {
           (Array.isArray(relatedModel.value) ? relatedModel.value : relatedModel.value.value);
 
         const valueChanges = relatedModel.valueChanges.pipe(
-          startWith(initValue)
+          startWith(initValue),
         );
 
         // Build up the subscriptions to watch for changes;
@@ -217,13 +217,13 @@ export class DsDynamicTypeBindRelationService {
     configuredTypeBindValues.forEach((value) => {
       bindValues.push({
         id: 'dc.type',
-        value: value
+        value: value,
       });
     });
     return [{
       match: MATCH_VISIBLE,
       operator: OR_OPERATOR,
-      when: bindValues
+      when: bindValues,
     }];
   }
 

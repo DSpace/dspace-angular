@@ -9,7 +9,7 @@ import { ThemeService } from '../../shared/theme-support/theme.service';
 
 @Component({
   selector: 'ds-browse-by-switcher',
-  templateUrl: './browse-by-switcher.component.html'
+  templateUrl: './browse-by-switcher.component.html',
 })
 /**
  * Component for determining what Browse-By component to use depending on the metadata (browse ID) provided
@@ -31,7 +31,7 @@ export class BrowseBySwitcherComponent implements OnInit {
    */
   ngOnInit(): void {
     this.browseByComponent = this.route.data.pipe(
-      map((data: { browseDefinition: BrowseDefinition }) => this.getComponentByBrowseByType(data.browseDefinition.getRenderType(), this.themeService.getThemeName()))
+      map((data: { browseDefinition: BrowseDefinition }) => this.getComponentByBrowseByType(data.browseDefinition.getRenderType(), this.themeService.getThemeName())),
     );
   }
 

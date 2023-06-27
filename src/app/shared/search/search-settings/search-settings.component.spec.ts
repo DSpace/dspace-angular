@@ -91,7 +91,7 @@ describe('SearchSettingsComponent', () => {
           useValue: {
             paginatedSearchOptions: observableOf(paginatedSearchOptions),
             getCurrentScope: observableOf('test-id'),
-          }
+          },
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -105,7 +105,7 @@ describe('SearchSettingsComponent', () => {
     comp.sortOptionsList = [
       new SortOptions('score', SortDirection.DESC),
       new SortOptions('dc.title', SortDirection.ASC),
-      new SortOptions('dc.title', SortDirection.DESC)
+      new SortOptions('dc.title', SortDirection.DESC),
     ];
     comp.currentSortOption = new SortOptions('score', SortDirection.DESC);
 

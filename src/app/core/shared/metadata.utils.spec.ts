@@ -10,7 +10,7 @@ const mdValue = (value: string, language?: string, authority?: string): Metadata
     language: isUndefined(language) ? null : language,
     place: 0,
     authority: isUndefined(authority) ? null : authority,
-    confidence: undefined
+    confidence: undefined,
   });
 };
 
@@ -28,7 +28,7 @@ const multiMap = {
   'dc.description': [dcDescription],
   'dc.description.abstract': [dcAbstract],
   'dc.title': [dcTitle1, dcTitle2],
-  'foo': [bar]
+  'foo': [bar],
 };
 
 const regexTestMap = {
@@ -41,7 +41,7 @@ const multiViewModelList = [
   { key: 'dc.description.abstract', ...dcAbstract, order: 0 },
   { key: 'dc.title', ...dcTitle1, order: 0 },
   { key: 'dc.title', ...dcTitle2, order: 1 },
-  { key: 'foo', ...bar, order: 0 }
+  { key: 'foo', ...bar, order: 0 },
 ];
 
 const testMethod = (fn, resultKind, mapOrMaps, keyOrKeys, expected, filter?) => {
@@ -231,7 +231,7 @@ describe('Metadata', () => {
 
     const metadataMap = {
       'dc.description': [mdValue('Test description')],
-      'dc.title': [mdValue('Test title 1'), mdValue('Test title 2')]
+      'dc.title': [mdValue('Test title 1'), mdValue('Test title 2')],
     };
 
     const testSetFirstValue = (map: MetadataMap, key: string, value: string) => {

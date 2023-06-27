@@ -99,7 +99,7 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
     // See https://github.com/DSpace/dspace-angular/pull/468
     this.searchService.getEndpoint().pipe(
       take(1),
-      tap((cachedHref: string) => this.requestService.removeByHrefSubstring(cachedHref))
+      tap((cachedHref: string) => this.requestService.removeByHrefSubstring(cachedHref)),
     ).subscribe(() => this.router.navigateByUrl(url));
   }
 

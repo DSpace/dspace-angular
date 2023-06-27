@@ -23,7 +23,7 @@ export const TYPE_REQUEST_REGISTER = 'register';
 
 @Component({
   selector: 'ds-register-email-form',
-  templateUrl: './register-email-form.component.html'
+  templateUrl: './register-email-form.component.html',
 })
 /**
  * Component responsible to render an email registration form.
@@ -99,12 +99,12 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
       Validators.email,
       // Regex pattern borrowed from HTML5 specs for a valid email address:
       // https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
-      Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$')
+      Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$'),
     ];
     this.form = this.formBuilder.group({
       email: new UntypedFormControl('', {
         validators: validators,
-      })
+      }),
     });
     this.validMailDomains = [];
     if (this.typeRequest === TYPE_REQUEST_REGISTER) {
@@ -126,7 +126,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
     }
     this.subscriptions.push(this.configService.findByPropertyName('registration.verification.enabled').pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((res: ConfigurationProperty) => res?.values[0].toLowerCase() === 'true')
+      map((res: ConfigurationProperty) => res?.values[0].toLowerCase() === 'true'),
     ).subscribe((res: boolean) => {
       this.registrationVerification = res;
     }));
@@ -171,7 +171,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
             console.error('reCaptcha error');
             this.showNotification('error');
           }
-        }
+        },
         ));
       } else {
         this.registration();

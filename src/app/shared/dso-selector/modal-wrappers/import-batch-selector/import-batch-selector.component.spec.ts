@@ -14,7 +14,7 @@ describe('ImportBatchSelectorComponent', () => {
     id: 'fake-id',
     uuid: 'fake-id',
     handle: 'fake/handle',
-    lastModified: '2018'
+    lastModified: '2018',
   });
   const mockCollection: Collection = Object.assign(new Collection(), {
     id: 'test-collection-1-1',
@@ -24,10 +24,10 @@ describe('ImportBatchSelectorComponent', () => {
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'fake/test-collection-1'
-        }
-      ]
-    }
+          value: 'fake/test-collection-1',
+        },
+      ],
+    },
   });
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
   beforeEach(waitForAsync(() => {
@@ -37,7 +37,7 @@ describe('ImportBatchSelectorComponent', () => {
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

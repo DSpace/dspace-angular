@@ -74,7 +74,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
                 const mediaItem = this.createMediaViewerItem(
                   bitstreamsRD.payload.page[index],
                   format,
-                  thumbnailsRD.payload && thumbnailsRD.payload.page[index]
+                  thumbnailsRD.payload && thumbnailsRD.payload.page[index],
                 );
                 if (types.includes(mediaItem.format)) {
                   this.mediaList$.next([...this.mediaList$.getValue(), mediaItem]);
@@ -94,7 +94,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
    * @param bundleName Bundle name
    */
   loadRemoteData(
-    bundleName: string
+    bundleName: string,
   ): Observable<RemoteData<PaginatedList<Bitstream>>> {
     return this.bitstreamDataService
       .findAllByItemAndBundleName(
@@ -103,15 +103,15 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
         {},
         true,
         true,
-        followLink('format')
+        followLink('format'),
       )
       .pipe(
         filter(
           (bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) =>
             hasValue(bitstreamsRD) &&
-            (hasValue(bitstreamsRD.errorMessage) || hasValue(bitstreamsRD.payload))
+            (hasValue(bitstreamsRD.errorMessage) || hasValue(bitstreamsRD.payload)),
         ),
-        take(1)
+        take(1),
       );
   }
 

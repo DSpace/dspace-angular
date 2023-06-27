@@ -48,7 +48,7 @@ export class PageWithSidebarComponent implements OnInit {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
     this.isSidebarCollapsed$ = this.isSidebarCollapsed();
     this.sidebarClasses = this.isSidebarCollapsed$.pipe(
-      map((isCollapsed) => isCollapsed ? '' : 'active')
+      map((isCollapsed) => isCollapsed ? '' : 'active'),
     );
   }
 

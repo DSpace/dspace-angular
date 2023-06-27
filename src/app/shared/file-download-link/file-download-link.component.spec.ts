@@ -23,19 +23,19 @@ describe('FileDownloadLinkComponent', () => {
 
   function init() {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: cold('-a', {a: true})
+      isAuthorized: cold('-a', {a: true}),
     });
     bitstream = Object.assign(new Bitstream(), {
       uuid: 'bitstreamUuid',
       _links: {
-        self: {href: 'obj-selflink'}
-      }
+        self: {href: 'obj-selflink'},
+      },
     });
     item = Object.assign(new Item(), {
       uuid: 'itemUuid',
       _links: {
-        self: {href: 'obj-selflink'}
-      }
+        self: {href: 'obj-selflink'},
+      },
     });
   }
 
@@ -44,7 +44,7 @@ describe('FileDownloadLinkComponent', () => {
       declarations: [FileDownloadLinkComponent, RouterLinkDirectiveStub],
       providers: [
         {provide: AuthorizationDataService, useValue: authorizationService},
-      ]
+      ],
     })
       .compileComponents();
   }

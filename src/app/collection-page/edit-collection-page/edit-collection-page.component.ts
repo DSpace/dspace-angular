@@ -9,14 +9,14 @@ import { getCollectionPageRoute } from '../collection-page-routing-paths';
  */
 @Component({
   selector: 'ds-edit-collection',
-  templateUrl: '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component.html'
+  templateUrl: '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component.html',
 })
 export class EditCollectionPageComponent extends EditComColPageComponent<Collection> {
   type = 'collection';
 
   public constructor(
     protected router: Router,
-    protected route: ActivatedRoute
+    protected route: ActivatedRoute,
   ) {
     super(router, route);
   }

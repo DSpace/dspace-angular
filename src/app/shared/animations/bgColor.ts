@@ -5,7 +5,7 @@ import {
   state,
   style,
   transition,
-  trigger
+  trigger,
 } from '@angular/animations';
 
 const startStyle = style({ backgroundColor: '{{ startColor }}' });
@@ -21,6 +21,6 @@ export const bgColor = trigger('bgColor',
           query('@*', animateChild()),
           animate('200ms'),
 
-        ]
-      ))
+        ],
+      )),
   ]);

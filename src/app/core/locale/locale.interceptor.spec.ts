@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController, } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
@@ -17,7 +17,7 @@ describe(`LocaleInterceptor`, () => {
 
   const mockLocaleService = jasmine.createSpyObj('LocaleService', {
     getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
-    getLanguageCodeList: of(languageList)
+    getLanguageCodeList: of(languageList),
   });
 
   beforeEach(() => {

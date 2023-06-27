@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { Context } from '../../../../../../../app/core/shared/context.model';
 import { ItemSearchResult } from '../../../../../../../app/shared/object-collection/shared/item-search-result.model';
 import {
-  PublicationSidebarSearchListElementComponent as BaseComponent
+  PublicationSidebarSearchListElementComponent as BaseComponent,
 } from '../../../../../../../app/shared/object-list/sidebar-search-list-element/item-types/publication/publication-sidebar-search-list-element.component';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement, Context.SideBarSearchModal, 'custom')

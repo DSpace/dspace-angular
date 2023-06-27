@@ -13,7 +13,7 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 @Component({
   selector: 'ds-starts-with-date',
   styleUrls: ['./starts-with-date.component.scss'],
-  templateUrl: './starts-with-date.component.html'
+  templateUrl: './starts-with-date.component.html',
 })
 @renderStartsWithFor(StartsWithType.date)
 export class StartsWithDateComponent extends StartsWithAbstractComponent {
@@ -55,7 +55,7 @@ export class StartsWithDateComponent extends StartsWithAbstractComponent {
       'september',
       'october',
       'november',
-      'december'
+      'december',
     ];
 
     super.ngOnInit();

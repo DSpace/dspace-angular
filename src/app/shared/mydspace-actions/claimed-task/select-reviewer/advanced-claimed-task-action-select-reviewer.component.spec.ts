@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
-  AdvancedClaimedTaskActionSelectReviewerComponent
+  AdvancedClaimedTaskActionSelectReviewerComponent,
 } from './advanced-claimed-task-action-select-reviewer.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RouterStub } from '../../../testing/router.stub';
@@ -18,7 +18,7 @@ import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Location } from '@angular/common';
 import {
-  ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER
+  ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER,
 } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { of as observableOf } from 'rxjs';

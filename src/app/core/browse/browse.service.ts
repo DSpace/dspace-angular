@@ -16,7 +16,7 @@ import {
   getFirstOccurrence,
   getRemoteDataPayload,
   getFirstSucceededRemoteData,
-  getPaginatedListPayload
+  getPaginatedListPayload,
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
@@ -27,7 +27,7 @@ import { SortDirection } from '../cache/models/sort-options.model';
 
 
 export const BROWSE_LINKS_TO_FOLLOW: FollowLinkConfig<BrowseEntry | Item>[] = [
-  followLink('thumbnail')
+  followLink('thumbnail'),
 ];
 
 /**
@@ -102,7 +102,7 @@ export class BrowseService {
           href = new URLCombiner(href, `?${args.join('&')}`).toString();
         }
         return href;
-      })
+      }),
     );
     if (options.fetchThumbnail ) {
       return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$, {}, null, null, ...BROWSE_LINKS_TO_FOLLOW);
@@ -187,12 +187,12 @@ export class BrowseService {
           href = new URLCombiner(href, `?${args.join('&')}`).toString();
         }
         return href;
-      })
+      }),
     );
 
     return this.hrefOnlyDataService.findListByHref<Item>(href$).pipe(
       getFirstSucceededRemoteData(),
-      getFirstOccurrence()
+      getFirstOccurrence(),
     );
 
   }
@@ -248,7 +248,7 @@ export class BrowseService {
           }
 
           return isNotEmpty(matchingKeys);
-        })
+        }),
       ),
       map((def: BrowseDefinition) => {
         if (isEmpty(def) || isEmpty(def._links) || isEmpty(def._links[linkPath])) {
@@ -258,7 +258,7 @@ export class BrowseService {
         }
       }),
       startWith(undefined),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 

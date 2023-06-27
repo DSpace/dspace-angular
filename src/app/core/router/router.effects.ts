@@ -21,7 +21,7 @@ export class RouterEffects {
           return urlTree.root.children.primary.segments.map((it) => it.path).join('/');
         })),
       filter((actions: string[]) => actions[0] !== actions[1]),
-      map(() => new RouteUpdateAction())
+      map(() => new RouteUpdateAction()),
     ));
 
   constructor(private actions$: Actions, private router: Router) {

@@ -23,17 +23,17 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
-          }
+            value: 'This is just another title',
+          },
         ],
         'creativeworkseries.issn': [
           {
             language: 'en_US',
-            value: '1234'
-          }
-        ]
-      }
-    })
+            value: '1234',
+          },
+        ],
+      },
+    }),
   });
 
 const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
@@ -45,24 +45,24 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
-          }
-        ]
-      }
-    })
-  }
+            value: 'This is just another title',
+          },
+        ],
+      },
+    }),
+  },
 );
 
 const environmentUseThumbs = {
   browseBy: {
-    showThumbnails: true
-  }
+    showThumbnails: true,
+  },
 };
 
 const enviromentNoThumbs = {
   browseBy: {
-    showThumbnails: false
-  }
+    showThumbnails: false,
+  },
 };
 
 describe('JournalSearchResultListElementComponent', () => {
@@ -72,12 +72,12 @@ describe('JournalSearchResultListElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -135,12 +135,12 @@ describe('JournalSearchResultListElementComponent', () => {
       providers: [
         {provide: TruncatableService, useValue: {}},
         {provide: DSONameService, useClass: DSONameServiceMock},
-        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalSearchResultListElementComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: {changeDetection: ChangeDetectionStrategy.Default},
     }).compileComponents();
   }));
 

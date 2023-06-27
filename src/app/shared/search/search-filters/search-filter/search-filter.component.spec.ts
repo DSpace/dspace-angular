@@ -27,7 +27,7 @@ describe('SearchFilterComponent', () => {
     name: filterName1,
     filterType: FilterType.text,
     hasFacets: false,
-    isOpenByDefault: false
+    isOpenByDefault: false,
   });
   const mockFilterService = {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
@@ -47,7 +47,7 @@ describe('SearchFilterComponent', () => {
     },
     isCollapsed: (filter) => {
       return observableOf(true);
-    }
+    },
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   };
@@ -55,7 +55,7 @@ describe('SearchFilterComponent', () => {
   let sequenceService;
   const mockResults = observableOf(['test', 'data']);
   const searchServiceStub = {
-    getFacetValuesFor: (filter) => mockResults
+    getFacetValuesFor: (filter) => mockResults,
   };
 
   beforeEach(waitForAsync(() => {
@@ -71,14 +71,14 @@ describe('SearchFilterComponent', () => {
         { provide: SearchService, useValue: searchServiceStub },
         {
           provide: SearchFilterService,
-          useValue: mockFilterService
+          useValue: mockFilterService,
         },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: SequenceService, useValue: sequenceService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFilterComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

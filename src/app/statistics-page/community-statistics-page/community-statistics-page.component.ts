@@ -12,7 +12,7 @@ import { AuthService } from '../../core/auth/auth.service';
 @Component({
   selector: 'ds-community-statistics-page',
   templateUrl: '../statistics-page/statistics-page.component.html',
-  styleUrls: ['./community-statistics-page.component.scss']
+  styleUrls: ['./community-statistics-page.component.scss'],
 })
 export class CommunityStatisticsPageComponent extends StatisticsPageComponent<Community> {
 

@@ -10,11 +10,11 @@ import {
   DynamicFormGroupModel,
   DynamicSelectModel,
   MATCH_ENABLED,
-  OR_OPERATOR
+  OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
 
 import {
-  WorkspaceitemSectionUploadFileObject
+  WorkspaceitemSectionUploadFileObject,
 } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import {
@@ -29,7 +29,7 @@ import {
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG,
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT,
   BITSTREAM_METADATA_FORM_GROUP_CONFIG,
-  BITSTREAM_METADATA_FORM_GROUP_LAYOUT
+  BITSTREAM_METADATA_FORM_GROUP_LAYOUT,
 } from './section-upload-file-edit.model';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
 import { hasNoValue, hasValue, isNotEmpty, isNotNull } from '../../../../../shared/empty.util';
@@ -44,14 +44,14 @@ import { filter, mergeMap, take } from 'rxjs/operators';
 import { dateToISOFormat } from '../../../../../shared/date.util';
 import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
 import {
-  WorkspaceitemSectionUploadObject
+  WorkspaceitemSectionUploadObject,
 } from '../../../../../core/submission/models/workspaceitem-section-upload.model';
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
 import {
-  SubmissionJsonPatchOperationsService
+  SubmissionJsonPatchOperationsService,
 } from '../../../../../core/submission/submission-json-patch-operations.service';
 import {
-  JsonPatchOperationPathCombiner
+  JsonPatchOperationPathCombiner,
 } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SectionUploadService } from '../../section-upload.service';
 import { Subscription } from 'rxjs';
@@ -202,7 +202,7 @@ implements OnInit, OnDestroy {
               metadataModel.value = {
                 year: date.getUTCFullYear(),
                 month: date.getUTCMonth() + 1,
-                day: date.getUTCDate()
+                day: date.getUTCDate(),
               };
             } else {
               metadataModel.value = accessCondition[key];
@@ -287,8 +287,8 @@ implements OnInit, OnDestroy {
     const configForm = Object.assign({}, this.configMetadataForm, {
       fields: Object.assign([], this.configMetadataForm.rows[0].fields[0], [
         this.configMetadataForm.rows[0].fields[0],
-        configDescr
-      ])
+        configDescr,
+      ]),
     });
     const formModel: DynamicFormControlModel[] = [];
     const metadataGroupModelConfig = Object.assign({}, BITSTREAM_METADATA_FORM_GROUP_CONFIG);
@@ -297,7 +297,7 @@ implements OnInit, OnDestroy {
       configForm,
       this.collectionId,
       this.fileData.metadata,
-      this.submissionService.getSubmissionScope()
+      this.submissionService.getSubmissionScope(),
     );
     formModel.push(new DynamicFormGroupModel(metadataGroupModelConfig, BITSTREAM_METADATA_FORM_GROUP_LAYOUT));
     const accessConditionTypeModelConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG);
@@ -309,8 +309,8 @@ implements OnInit, OnDestroy {
         accessConditionTypeOptions.push(
           {
             label: accessCondition.name,
-            value: accessCondition.name
-          }
+            value: accessCondition.name,
+          },
         );
       }
       accessConditionTypeModelConfig.options = accessConditionTypeOptions;
@@ -329,7 +329,7 @@ implements OnInit, OnDestroy {
             maxStartDate = {
               year: min.getUTCFullYear(),
               month: min.getUTCMonth() + 1,
-              day: min.getUTCDate()
+              day: min.getUTCDate(),
             };
           }
         }
@@ -340,7 +340,7 @@ implements OnInit, OnDestroy {
             maxEndDate = {
               year: max.getUTCFullYear(),
               month: max.getUTCMonth() + 1,
-              day: max.getUTCDate()
+              day: max.getUTCDate(),
             };
           }
         }
@@ -378,7 +378,7 @@ implements OnInit, OnDestroy {
       // Number of access conditions blocks in form
       accessConditionsArrayConfig.initialCount = isNotEmpty(this.fileData.accessConditions) ? this.fileData.accessConditions.length : 1;
       formModel.push(
-        new DynamicFormArrayModel(accessConditionsArrayConfig, BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT)
+        new DynamicFormArrayModel(accessConditionsArrayConfig, BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT),
       );
 
     }
@@ -476,14 +476,14 @@ implements OnInit, OnDestroy {
           this.submissionId,
           this.pathCombiner.rootElement,
           this.pathCombiner.subRootElement);
-      })
+      }),
     ).subscribe((result: SubmissionObject[]) => {
       if (result[0].sections[this.sectionId]) {
         const uploadSection = (result[0].sections[this.sectionId] as WorkspaceitemSectionUploadObject);
         Object.keys(uploadSection.files)
           .filter((key) => uploadSection.files[key].uuid === this.fileId)
           .forEach((key) => this.uploadService.updateFileData(
-            this.submissionId, this.sectionId, this.fileId, uploadSection.files[key])
+            this.submissionId, this.sectionId, this.fileId, uploadSection.files[key]),
           );
       }
       this.isSaving = false;

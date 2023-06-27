@@ -10,20 +10,20 @@ import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-se
 import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
 import {
   getSubmissionAccessesConfigNotChangeDiscoverableService,
-  getSubmissionAccessesConfigService
+  getSubmissionAccessesConfigService,
 } from '../../../shared/mocks/section-accesses-config.service.mock';
 import { SectionAccessesService } from './section-accesses.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
-  SubmissionJsonPatchOperationsService
+  SubmissionJsonPatchOperationsService,
 } from '../../../core/submission/submission-json-patch-operations.service';
 import { getSectionAccessesService } from '../../../shared/mocks/section-accesses.service.mock';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import {
-  SubmissionJsonPatchOperationsServiceStub
+  SubmissionJsonPatchOperationsServiceStub,
 } from '../../../shared/testing/submission-json-patch-operations-service.stub';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -34,7 +34,7 @@ import {
   DynamicCheckboxModel,
   DynamicDatePickerModel,
   DynamicFormArrayModel,
-  DynamicSelectModel
+  DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
 import { AppState } from '../../../app.reducer';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
@@ -70,12 +70,12 @@ describe('SubmissionSectionAccessesComponent', () => {
     enabled: true,
     data: {
       discoverable: true,
-      accessConditions: []
+      accessConditions: [],
     },
     errorsToShow: [],
     serverValidationErrors: [],
     isLoading: false,
-    isValid: true
+    isValid: true,
   };
 
   describe('First with canChangeDiscoverable true', () => {
@@ -84,7 +84,7 @@ describe('SubmissionSectionAccessesComponent', () => {
       await TestBed.configureTestingModule({
         imports: [
           BrowserModule,
-          TranslateModule.forRoot()
+          TranslateModule.forRoot(),
         ],
         declarations: [SubmissionSectionAccessesComponent, FormComponent],
         providers: [
@@ -99,8 +99,8 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
-          FormBuilderService
-        ]
+          FormBuilderService,
+        ],
       })
         .compileComponents();
     });
@@ -175,7 +175,7 @@ describe('SubmissionSectionAccessesComponent', () => {
       await TestBed.configureTestingModule({
         imports: [
           BrowserModule,
-          TranslateModule.forRoot()
+          TranslateModule.forRoot(),
         ],
         declarations: [SubmissionSectionAccessesComponent, FormComponent],
         providers: [
@@ -191,7 +191,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
-        ]
+        ],
       })
         .compileComponents();
     });

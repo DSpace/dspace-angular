@@ -26,7 +26,7 @@ describe('SearchLabelsComponent', () => {
   const filter2 = [field2, value2];
   const mockFilters = [
     filter1,
-    filter2
+    filter2,
   ];
 
   beforeEach(waitForAsync(() => {
@@ -35,11 +35,11 @@ describe('SearchLabelsComponent', () => {
       declarations: [SearchLabelsComponent, ObjectKeysPipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: { getCurrentFrontendFilters: () => observableOf(mockFilters) } }
+        { provide: SEARCH_CONFIG_SERVICE, useValue: { getCurrentFrontendFilters: () => observableOf(mockFilters) } },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchLabelsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

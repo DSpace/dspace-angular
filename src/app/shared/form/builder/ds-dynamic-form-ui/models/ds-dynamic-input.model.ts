@@ -3,7 +3,7 @@ import {
   DynamicFormControlRelation,
   DynamicInputModel,
   DynamicInputModelConfig,
-  serializable
+  serializable,
 } from '@ng-dynamic-forms/core';
 import {Subject} from 'rxjs';
 

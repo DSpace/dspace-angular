@@ -6,7 +6,7 @@ import {NG_VALIDATORS, Validator, UntypedFormControl} from '@angular/forms';
   selector: '[requireFile]',
   providers: [
     { provide: NG_VALIDATORS, useExisting: FileValidator, multi: true },
-  ]
+  ],
 })
 /**
  * Validator directive to validate if a file is selected

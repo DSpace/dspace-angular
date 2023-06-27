@@ -22,23 +22,23 @@ describe('BulkAccessControlService', () => {
         'startDate': {
           'year': 2026,
           'month': 5,
-          'day': 31
+          'day': 31,
         },
-        'endDate': null
-      }
+        'endDate': null,
+      },
     ],
     'state': {
       'item': {
         'toggleStatus': true,
-        'accessMode': 'replace'
+        'accessMode': 'replace',
       },
       'bitstream': {
         'toggleStatus': false,
         'accessMode': '',
         'changesLimit': '',
-        'selectedBitstreams': []
-      }
-    }
+        'selectedBitstreams': [],
+      },
+    },
   };
 
   beforeEach(() => {
@@ -46,13 +46,13 @@ describe('BulkAccessControlService', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       providers: [
         BulkAccessControlService,
         { provide: ScriptDataService, useValue: spy },
         { provide: NotificationsService, useValue: NotificationsServiceStub },
-      ]
+      ],
     });
     service = TestBed.inject(BulkAccessControlService);
     scriptServiceSpy = TestBed.inject(ScriptDataService) as jasmine.SpyObj<ScriptDataService>;

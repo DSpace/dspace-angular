@@ -16,7 +16,7 @@ import { BrowserOnlyMockPipe } from './browser-only-mock.pipe';
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
   ],
   declarations: [
     QueryParamsDirectiveStub,
@@ -27,11 +27,11 @@ import { BrowserOnlyMockPipe } from './browser-only-mock.pipe';
   ],
   exports: [
     QueryParamsDirectiveStub,
-    RouterLinkDirectiveStub
+    RouterLinkDirectiveStub,
   ],
   schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ]
+    CUSTOM_ELEMENTS_SCHEMA,
+  ],
 })
 export class TestModule {
 }

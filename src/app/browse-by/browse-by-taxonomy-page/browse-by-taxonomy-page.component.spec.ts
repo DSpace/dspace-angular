@@ -19,7 +19,7 @@ describe('BrowseByTaxonomyPageComponent', () => {
 
   const data = new BehaviorSubject(createDataWithBrowseDefinition(new HierarchicalBrowseDefinition()));
   const activatedRouteStub = {
-    data
+    data,
   };
 
   beforeEach(async () => {
@@ -34,7 +34,7 @@ describe('BrowseByTaxonomyPageComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: ThemeService, useValue: themeService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   });

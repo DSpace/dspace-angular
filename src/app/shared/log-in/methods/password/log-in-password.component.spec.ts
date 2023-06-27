@@ -32,7 +32,7 @@ describe('LogInPasswordComponent', () => {
     user = EPersonMock;
 
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
-      getCurrentRoute: {}
+      getCurrentRoute: {},
     });
 
     initialState = {
@@ -42,9 +42,9 @@ describe('LogInPasswordComponent', () => {
           loaded: false,
           blocking: false,
           loading: false,
-          authMethods: []
-        }
-      }
+          authMethods: [],
+        },
+      },
     };
   });
 
@@ -55,7 +55,7 @@ describe('LogInPasswordComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         LogInPasswordComponent,
@@ -69,8 +69,8 @@ describe('LogInPasswordComponent', () => {
         provideMockStore({ initialState }),
       ],
       schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
     })
       .compileComponents();
 

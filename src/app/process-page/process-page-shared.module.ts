@@ -35,12 +35,12 @@ import { ProcessFormComponent } from './form/process-form.component';
     ProcessOverviewComponent,
     ProcessDetailComponent,
     ProcessDetailFieldComponent,
-    ProcessFormComponent
+    ProcessFormComponent,
   ],
   providers: [
     ProcessBreadcrumbResolver,
-    ProcessBreadcrumbsService
-  ]
+    ProcessBreadcrumbsService,
+  ],
 })
 
 export class ProcessPageSharedModule {

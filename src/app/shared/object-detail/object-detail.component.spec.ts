@@ -31,7 +31,7 @@ describe('ObjectDetailComponent', () => {
     elementsPerPage: 1,
     totalElements: 10,
     totalPages: 10,
-    currentPage: 1
+    currentPage: 1,
   });
   const mockRD = createSuccessfulRemoteDataObject(buildPaginatedList(pageInfo, testObjects));
 
@@ -42,14 +42,14 @@ describe('ObjectDetailComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [ObjectDetailComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ObjectDetailComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

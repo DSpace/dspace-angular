@@ -40,10 +40,10 @@ describe('NewProcessComponent', () => {
         invoke: observableOf({
           response:
             {
-              isSuccessful: true
-            }
-        })
-      }
+              isSuccessful: true,
+            },
+        }),
+      },
     );
   }
 
@@ -55,8 +55,8 @@ describe('NewProcessComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         })],
       declarations: [NewProcessComponent, VarDirective],
       providers: [
@@ -67,7 +67,7 @@ describe('NewProcessComponent', () => {
         { provide: LinkService, useValue: {} },
         { provide: ProcessDataService, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

@@ -15,7 +15,7 @@ import { BundleDataService } from '../../core/data/bundle-data.service';
   styleUrls: ['./mirador-viewer.component.scss'],
   templateUrl: './mirador-viewer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ MiradorViewerService ]
+  providers: [ MiradorViewerService ],
 })
 export class MiradorViewerComponent implements OnInit {
 
@@ -119,7 +119,7 @@ export class MiradorViewerComponent implements OnInit {
         this.iframeViewerUrl = observable.pipe(
           map((val) => {
             return this.setURL();
-          })
+          }),
         );
       } else {
         // Set the multi property based on the image count in IIIF-eligible bundles.
@@ -133,7 +133,7 @@ export class MiradorViewerComponent implements OnInit {
               this.multi = true;
             }
             return this.setURL();
-          })
+          }),
         );
       }
     }

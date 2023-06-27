@@ -24,7 +24,7 @@ describe('ExternalLinkMenuItemComponent', () => {
       providers: [
         { provide: 'itemModelProvider', useValue: { text: text, href: link } },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

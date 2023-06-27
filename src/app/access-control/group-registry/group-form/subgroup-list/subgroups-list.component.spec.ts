@@ -19,7 +19,7 @@ import { GroupMock, GroupMock2 } from '../../../../shared/testing/group-mock';
 import { SubgroupsListComponent } from './subgroups-list.component';
 import {
   createSuccessfulRemoteDataObject$,
-  createSuccessfulRemoteDataObject
+  createSuccessfulRemoteDataObject,
 } from '../../../../shared/remote-data.utils';
 import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
@@ -63,7 +63,7 @@ describe('SubgroupsListComponent', () => {
         return this.subgroups$.pipe(
           map((currentGroups: Group[]) => {
             return createSuccessfulRemoteDataObject(buildPaginatedList<Group>(new PageInfo(), currentGroups));
-          })
+          }),
         );
       },
       getGroupEditPageRouterLink(group: Group): string {
@@ -92,7 +92,7 @@ describe('SubgroupsListComponent', () => {
           }
         }));
         return observableOf(new RestResponse(true, 200, 'Success'));
-      }
+      },
     };
     routerStub = new RouterMock();
     builderService = getMockFormBuilderService();
@@ -104,8 +104,8 @@ describe('SubgroupsListComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [SubgroupsListComponent],
@@ -117,7 +117,7 @@ describe('SubgroupsListComponent', () => {
         { provide: Router, useValue: routerStub },
         { provide: PaginationService, useValue: paginationService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -153,7 +153,7 @@ describe('SubgroupsListComponent', () => {
       const addButton = fixture.debugElement.query(By.css('#subgroupsOfGroup tbody .deleteButton'));
       addButton.triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();

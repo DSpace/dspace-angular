@@ -22,7 +22,7 @@ import { ReviewersListComponent } from './reviewers-list.component';
 import { EPersonMock, EPersonMock2 } from '../../../../shared/testing/eperson.mock';
 import {
   createSuccessfulRemoteDataObject$,
-  createNoContentRemoteDataObject$
+  createNoContentRemoteDataObject$,
 } from '../../../../shared/remote-data.utils';
 import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
@@ -76,7 +76,7 @@ describe('ReviewersListComponent', () => {
       },
       getEPeoplePageRouterLink(): string {
         return '/access-control/epeople';
-      }
+      },
     };
     groupsDataServiceStub = {
       activeGroup: activeGroup,
@@ -129,7 +129,7 @@ describe('ReviewersListComponent', () => {
       },
       editGroup() {
         // empty
-      }
+      },
     };
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
@@ -140,8 +140,8 @@ describe('ReviewersListComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [ReviewersListComponent],
@@ -153,7 +153,7 @@ describe('ReviewersListComponent', () => {
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -179,7 +179,7 @@ describe('ReviewersListComponent', () => {
   describe('when no group is selected', () => {
     beforeEach(() => {
       component.ngOnChanges({
-        groupId: new SimpleChange(undefined, null, true)
+        groupId: new SimpleChange(undefined, null, true),
       });
       fixture.detectChanges();
     });
@@ -198,7 +198,7 @@ describe('ReviewersListComponent', () => {
   describe('when a group is selected', () => {
     beforeEach(() => {
       component.ngOnChanges({
-        groupId: new SimpleChange(undefined, GroupMock.id, true)
+        groupId: new SimpleChange(undefined, GroupMock.id, true),
       });
       fixture.detectChanges();
     });

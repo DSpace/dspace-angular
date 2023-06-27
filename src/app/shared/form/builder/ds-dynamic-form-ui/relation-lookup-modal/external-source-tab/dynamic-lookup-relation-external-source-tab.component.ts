@@ -33,13 +33,13 @@ import { getFirstCompletedRemoteData } from '../../../../../../core/shared/opera
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
+      useClass: SearchConfigurationService,
+    },
   ],
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
 })
 /**
  * Component rendering the tab content of an external source during submission lookup
@@ -86,7 +86,7 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
    */
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'spc',
-    pageSize: 5
+    pageSize: 5,
   });
 
   /**
@@ -142,7 +142,7 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
       getFirstCompletedRemoteData(),
       map((entityTypesRD: RemoteData<PaginatedList<ItemType>>) => {
         return (entityTypesRD.hasSucceeded && entityTypesRD.payload.totalElements > 0) ? entityTypesRD.payload.page[0] : null;
-      })
+      }),
     ).subscribe((entityType: ItemType) => {
       this.relatedEntityType = entityType;
     });
@@ -150,11 +150,11 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
     this.resetRoute();
     this.entriesRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
       switchMap((searchOptions: PaginatedSearchOptions) =>
-        this.externalSourceService.getExternalSourceEntries(this.externalSource.id, searchOptions).pipe(startWith(undefined)))
+        this.externalSourceService.getExternalSourceEntries(this.externalSource.id, searchOptions).pipe(startWith(undefined))),
     );
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.searchConfigService.paginationID, this.initialPagination);
     this.importConfig = {
-      buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label
+      buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label,
     };
   }
 
@@ -165,12 +165,12 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
   import(entry) {
     this.modalRef = this.modalService.open(ThemedExternalSourceEntryImportModalComponent, {
       size: 'lg',
-      container: 'ds-dynamic-lookup-relation-modal'
+      container: 'ds-dynamic-lookup-relation-modal',
     });
 
     const modalComp$ = this.modalRef.componentInstance.compRef$.pipe(
       hasValueOperator(),
-      map((compRef: ComponentRef<ExternalSourceEntryImportModalComponent>) => compRef.instance)
+      map((compRef: ComponentRef<ExternalSourceEntryImportModalComponent>) => compRef.instance),
     );
 
     this.subs.push(modalComp$.subscribe((modalComp: ExternalSourceEntryImportModalComponent) => {
@@ -183,7 +183,7 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
     }));
 
     this.subs.push(modalComp$.pipe(
-      switchMap((modalComp: ExternalSourceEntryImportModalComponent) => modalComp.importedObject)
+      switchMap((modalComp: ExternalSourceEntryImportModalComponent) => modalComp.importedObject),
     ).subscribe((object) => {
       this.selectableListService.selectSingle(this.listId, object);
       this.importedObject.emit(object);
@@ -205,7 +205,7 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
   resetRoute() {
     this.paginationService.updateRoute(this.searchConfigService.paginationID, {
       page: 1,
-      pageSize: 5
+      pageSize: 5,
     });
   }
 }

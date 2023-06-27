@@ -1,7 +1,7 @@
 import {
   BrowseByMetadataPageComponent,
   browseParamsToOptions,
-  getBrowseSearchOptions
+  getBrowseSearchOptions,
 } from './browse-by-metadata-page.component';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowseService } from '../../core/browse/browse.service';
@@ -43,16 +43,16 @@ describe('BrowseByMetadataPageComponent', () => {
     metadata: [
       {
         key: 'dc.title',
-        value: 'test community'
-      }
-    ]
+        value: 'test community',
+      },
+    ],
   });
 
   const environmentMock = {
     browseBy: {
       showThumbnails: true,
-      pageSize: 10
-    }
+      pageSize: 10,
+    },
   };
 
   const mockEntries = [
@@ -61,41 +61,41 @@ describe('BrowseByMetadataPageComponent', () => {
       authority: null,
       value: 'John Doe',
       language: 'en',
-      count: 1
+      count: 1,
     },
     {
       type: BrowseEntry.type,
       authority: null,
       value: 'James Doe',
       language: 'en',
-      count: 3
+      count: 3,
     },
     {
       type: BrowseEntry.type,
       authority: null,
       value: 'Fake subject',
       language: 'en',
-      count: 2
-    }
+      count: 2,
+    },
   ];
 
   const mockItems = [
     Object.assign(new Item(), {
-      id: 'fakeId'
-    })
+      id: 'fakeId',
+    }),
   ];
 
   const mockBrowseService = {
     getBrowseEntriesFor: (options: BrowseEntrySearchOptions) => toRemoteData(mockEntries),
-    getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData(mockItems)
+    getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData(mockItems),
   };
 
   const mockDsoService = {
-    findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
+    findById: () => createSuccessfulRemoteDataObject$(mockCommunity),
   };
 
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: observableOf({})
+    params: observableOf({}),
   });
 
   paginationService = new PaginationServiceStub();
@@ -110,9 +110,9 @@ describe('BrowseByMetadataPageComponent', () => {
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() },
-        { provide: APP_CONFIG, useValue: environmentMock }
+        { provide: APP_CONFIG, useValue: environmentMock },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -139,7 +139,7 @@ describe('BrowseByMetadataPageComponent', () => {
     beforeEach(() => {
       const paramsWithValue = {
         metadata: 'author',
-        value: 'John Doe'
+        value: 'John Doe',
       };
 
       route.params = observableOf(paramsWithValue);
@@ -165,7 +165,7 @@ describe('BrowseByMetadataPageComponent', () => {
 
     beforeEach(() => {
       const paramsScope = {
-        scope: 'fake-scope'
+        scope: 'fake-scope',
       };
       const paginationOptions = Object.assign(new PaginationComponentOptions(), {
         currentPage: 5,
@@ -196,7 +196,7 @@ describe('BrowseByMetadataPageComponent', () => {
 
     beforeEach(() => {
       const paramsScope = {
-        scope: 'fake-scope'
+        scope: 'fake-scope',
       };
       const paginationOptions = Object.assign(new PaginationComponentOptions(), {
         currentPage: 5,

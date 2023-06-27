@@ -24,7 +24,7 @@ import { HardRedirectService } from '../../app/core/services/hard-redirect.servi
 import {
   BrowserHardRedirectService,
   locationProvider,
-  LocationToken
+  LocationToken,
 } from '../../app/core/services/browser-hard-redirect.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
@@ -48,7 +48,7 @@ export function getRequest(transferState: TransferState): any {
   bootstrap: [AppComponent],
   imports: [
     BrowserModule.withServerTransition({
-      appId: 'dspace-angular'
+      appId: 'dspace-angular',
     }),
     HttpClientModule,
     // forRoot ensures the providers are only created once
@@ -61,37 +61,37 @@ export function getRequest(transferState: TransferState): any {
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
-        deps: [TransferState, HttpClient]
-      }
+        deps: [TransferState, HttpClient],
+      },
     }),
-    AppModule
+    AppModule,
   ],
   providers: [
     ...BrowserInitService.providers(),
     {
       provide: REQUEST,
       useFactory: getRequest,
-      deps: [TransferState]
+      deps: [TransferState],
     },
     {
       provide: AuthService,
-      useClass: AuthService
+      useClass: AuthService,
     },
     {
       provide: CookieService,
-      useClass: ClientCookieService
+      useClass: ClientCookieService,
     },
     {
       provide: KlaroService,
-      useClass: BrowserKlaroService
+      useClass: BrowserKlaroService,
     },
     {
       provide: SubmissionService,
-      useClass: SubmissionService
+      useClass: SubmissionService,
     },
     {
       provide: LocaleService,
-      useClass: LocaleService
+      useClass: LocaleService,
     },
     {
       provide: HardRedirectService,
@@ -103,7 +103,7 @@ export function getRequest(transferState: TransferState): any {
     },
     {
       provide: Angulartics2GoogleTagManager,
-      useClass: Angulartics2GoogleTagManager
+      useClass: Angulartics2GoogleTagManager,
     },
     {
       provide: AuthRequestService,
@@ -116,8 +116,8 @@ export function getRequest(transferState: TransferState): any {
     {
       provide: LocationToken,
       useFactory: locationProvider,
-    }
-  ]
+    },
+  ],
 })
 export class BrowserAppModule {
 }

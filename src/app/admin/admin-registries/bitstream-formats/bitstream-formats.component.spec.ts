@@ -21,7 +21,7 @@ import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-  createFailedRemoteDataObject$
+  createFailedRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { PaginationService } from '../../../core/pagination/pagination.service';
@@ -79,7 +79,7 @@ describe('BitstreamFormatsComponent', () => {
     bitstreamFormat1,
     bitstreamFormat2,
     bitstreamFormat3,
-    bitstreamFormat4
+    bitstreamFormat4,
   ];
   const mockFormatsRD = createSuccessfulRemoteDataObject(createPaginatedList(mockFormatsList));
 
@@ -96,7 +96,7 @@ describe('BitstreamFormatsComponent', () => {
       deselectBitstreamFormat: {},
       deselectAllBitstreamFormats: {},
       delete: createSuccessfulRemoteDataObject$({}),
-      clearBitStreamFormatRequests: observableOf('cleared')
+      clearBitStreamFormatRequests: observableOf('cleared'),
     });
 
     paginationService = new PaginationServiceStub();
@@ -108,8 +108,8 @@ describe('BitstreamFormatsComponent', () => {
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: NotificationsService, useValue: notificationsServiceStub },
-        { provide: PaginationService, useValue: paginationService }
-      ]
+        { provide: PaginationService, useValue: paginationService },
+      ],
     }).compileComponents();
   };
 
@@ -224,7 +224,7 @@ describe('BitstreamFormatsComponent', () => {
         deselectBitstreamFormat: {},
         deselectAllBitstreamFormats: {},
         delete: createNoContentRemoteDataObject$(),
-        clearBitStreamFormatRequests: observableOf('cleared')
+        clearBitStreamFormatRequests: observableOf('cleared'),
       });
 
       paginationService = new PaginationServiceStub();
@@ -236,10 +236,10 @@ describe('BitstreamFormatsComponent', () => {
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
           { provide: NotificationsService, useValue: notificationsServiceStub },
-          { provide: PaginationService, useValue: paginationService }
-        ]
+          { provide: PaginationService, useValue: paginationService },
+        ],
       }).compileComponents();
-    }
+    },
     ));
 
     beforeEach(initBeforeEach);
@@ -273,7 +273,7 @@ describe('BitstreamFormatsComponent', () => {
         deselectBitstreamFormat: {},
         deselectAllBitstreamFormats: {},
         delete: createFailedRemoteDataObject$(),
-        clearBitStreamFormatRequests: observableOf('cleared')
+        clearBitStreamFormatRequests: observableOf('cleared'),
       });
 
       paginationService = new PaginationServiceStub();
@@ -285,10 +285,10 @@ describe('BitstreamFormatsComponent', () => {
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
           { provide: NotificationsService, useValue: notificationsServiceStub },
-          { provide: PaginationService, useValue: paginationService }
-        ]
+          { provide: PaginationService, useValue: paginationService },
+        ],
       }).compileComponents();
-    }
+    },
     ));
 
     beforeEach(initBeforeEach);

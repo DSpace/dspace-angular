@@ -19,7 +19,7 @@ export class ItemPageResolver extends ItemResolver {
   constructor(
     protected itemService: ItemDataService,
     protected store: Store<any>,
-    protected router: Router
+    protected router: Router,
   ) {
     super(itemService, store, router);
   }
@@ -50,7 +50,7 @@ export class ItemPageResolver extends ItemResolver {
           }
         }
         return rd;
-      })
+      }),
     );
   }
 }

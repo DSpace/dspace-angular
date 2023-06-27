@@ -49,7 +49,7 @@ export function normalizeSectionData(obj: any, objIndex?: number) {
         (obj.display || obj.value),
         obj.place || objIndex,
         obj.confidence,
-        obj.otherInformation
+        obj.otherInformation,
       );
     } else if (Array.isArray(obj)) {
       result = [];
@@ -88,7 +88,7 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
   protected shouldDirectlyAttachEmbeds = true;
 
   constructor(protected objectCache: ObjectCacheService,
-              protected dsoParser: DSOResponseParsingService
+              protected dsoParser: DSOResponseParsingService,
   ) {
     super();
   }

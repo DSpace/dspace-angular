@@ -3,7 +3,7 @@ import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormLayout,
-  DynamicInputModel
+  DynamicInputModel,
 } from '@ng-dynamic-forms/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { RegistryService } from '../../../../core/registry/registry.service';
@@ -16,7 +16,7 @@ import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 
 @Component({
   selector: 'ds-metadata-field-form',
-  templateUrl: './metadata-field-form.component.html'
+  templateUrl: './metadata-field-form.component.html',
 })
 /**
  * A form used for creating and editing metadata fields
@@ -64,19 +64,19 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
   formLayout: DynamicFormLayout = {
     element: {
       grid: {
-        host: 'col col-sm-6 d-inline-block'
-      }
+        host: 'col col-sm-6 d-inline-block',
+      },
     },
     qualifier: {
       grid: {
-        host: 'col col-sm-6 d-inline-block'
-      }
+        host: 'col col-sm-6 d-inline-block',
+      },
     },
     scopeNote: {
       grid: {
-        host: 'col col-sm-12 d-inline-block'
-      }
-    }
+        host: 'col col-sm-12 d-inline-block',
+      },
+    },
   };
 
   /**
@@ -101,7 +101,7 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
     combineLatest([
       this.translateService.get(`${this.messagePrefix}.element`),
       this.translateService.get(`${this.messagePrefix}.qualifier`),
-      this.translateService.get(`${this.messagePrefix}.scopenote`)
+      this.translateService.get(`${this.messagePrefix}.scopenote`),
     ]).subscribe(([element, qualifier, scopenote]) => {
       this.element = new DynamicInputModel({
         id: 'element',
@@ -142,8 +142,8 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
         new DynamicFormGroupModel(
           {
             id: 'metadatadatafieldgroup',
-            group:[this.element, this.qualifier, this.scopeNote]
-          })
+            group:[this.element, this.qualifier, this.scopeNote],
+          }),
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
       this.registryService.getActiveMetadataField().subscribe((field: MetadataField): void => {
@@ -200,7 +200,7 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
         }
         this.clearFields();
         this.registryService.cancelEditMetadataField();
-      }
+      },
     );
   }
 

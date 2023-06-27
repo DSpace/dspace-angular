@@ -38,7 +38,7 @@ export const AuthActionTypes = {
   RETRIEVE_AUTHENTICATED_EPERSON_ERROR: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON_ERROR'),
   REDIRECT_AFTER_LOGIN_SUCCESS: type('dspace/auth/REDIRECT_AFTER_LOGIN_SUCCESS'),
   SET_USER_AS_IDLE: type('dspace/auth/SET_USER_AS_IDLE'),
-  UNSET_USER_AS_IDLE: type('dspace/auth/UNSET_USER_AS_IDLE')
+  UNSET_USER_AS_IDLE: type('dspace/auth/UNSET_USER_AS_IDLE'),
 };
 
 

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { focusShadow } from '../../../../animations/focus';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import {
-  listableObjectComponent
+  listableObjectComponent,
 } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { SearchResultGridElementComponent } from '../../search-result-grid-element.component';
 import { Item } from '../../../../../core/shared/item.model';
@@ -18,7 +18,7 @@ import { BitstreamDataService } from '../../../../../core/data/bitstream-data.se
   selector: 'ds-item-search-result-grid-element',
   styleUrls: ['./item-search-result-grid-element.component.scss'],
   templateUrl: './item-search-result-grid-element.component.html',
-  animations: [focusShadow]
+  animations: [focusShadow],
 })
 /**
  * The component for displaying a grid element for an item search result of the type Publication

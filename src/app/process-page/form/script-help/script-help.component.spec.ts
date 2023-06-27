@@ -18,11 +18,11 @@ describe('ScriptHelpComponent', () => {
   function init() {
     const param1 = Object.assign(
       new ScriptParameter(),
-      {name: '-d', description: 'Lorem ipsum dolor sit amet,', type: ScriptParameterType.DATE}
+      {name: '-d', description: 'Lorem ipsum dolor sit amet,', type: ScriptParameterType.DATE},
     );
     const param2 = Object.assign(
       new ScriptParameter(),
-      {name: '-f', description: 'consetetur sadipscing elitr', type: ScriptParameterType.BOOLEAN}
+      {name: '-f', description: 'consetetur sadipscing elitr', type: ScriptParameterType.BOOLEAN},
     );
     script = Object.assign(new Script(), { parameters: [param1, param2] });
   }
@@ -34,11 +34,11 @@ describe('ScriptHelpComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         })],
       declarations: [ ScriptHelpComponent ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

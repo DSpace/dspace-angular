@@ -36,7 +36,7 @@ import { FindListOptions } from '../../../../core/data/find-list-options.model';
 function getMockFileService(): FileService {
   return jasmine.createSpyObj('FileService', {
     downloadFile: jasmine.createSpy('downloadFile'),
-    getFileNameFromResponseContentDisposition: jasmine.createSpy('getFileNameFromResponseContentDisposition')
+    getFileNameFromResponseContentDisposition: jasmine.createSpy('getFileNameFromResponseContentDisposition'),
   });
 }
 
@@ -49,28 +49,28 @@ const mockItem: Item = Object.assign(new Item(), {
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.date.issued': [
       {
         language: null,
-        value: '2015-06-26'
-      }
+        value: '2015-06-26',
+      },
     ],
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.type': [
       {
         language: null,
-        value: 'Article'
-      }
-    ]
-  }
+        value: 'Article',
+      },
+    ],
+  },
 });
 
 describe('ItemDetailPreviewComponent', () => {
@@ -89,8 +89,8 @@ describe('ItemDetailPreviewComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [ItemDetailPreviewComponent, ItemDetailPreviewFieldComponent, TruncatePipe, FileSizePipe, VarDirective],
@@ -109,9 +109,9 @@ describe('ItemDetailPreviewComponent', () => {
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemDetailPreviewComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

@@ -17,13 +17,13 @@ describe('I18nBreadcrumbResolver', () => {
       route = {
         data: { breadcrumbKey: i18nKey },
         routeConfig: {
-          path: segment
+          path: segment,
         },
         parent: {
           routeConfig: {
-            path: parentSegment
-          }
-        } as any
+            path: parentSegment,
+          },
+        } as any,
       };
       expectedPath = new URLCombiner(parentSegment, segment).toString();
       i18nBreadcrumbService = {};

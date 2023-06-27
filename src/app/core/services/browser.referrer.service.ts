@@ -48,7 +48,7 @@ export class BrowserReferrerService extends ReferrerService {
           const prevUrl = reversedHistory.find((url: string) => url !== currentURL);
           return new URLCombiner(this.hardRedirectService.getCurrentOrigin(), prevUrl).toString();
         }
-      })
+      }),
     );
   }
 }

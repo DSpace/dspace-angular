@@ -9,7 +9,7 @@ import { Item } from '../../core/shared/item.model';
 import { ItemPageResolver } from '../item-page.resolver';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 /**
  * Guard for preventing unauthorized access to certain {@link Item} pages requiring administrator rights

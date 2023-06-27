@@ -2,11 +2,11 @@ import {Component} from '@angular/core';
 
 import {Collection} from '../../../../../../app/core/shared/collection.model';
 import {
-  CollectionListElementComponent as BaseComponent
+  CollectionListElementComponent as BaseComponent,
 } from '../../../../../../app/shared/object-list/collection-list-element/collection-list-element.component';
 import {ViewMode} from '../../../../../../app/core/shared/view-mode.model';
 import {
-  listableObjectComponent
+  listableObjectComponent,
 } from '../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 import {Context} from '../../../../../../app/core/shared/context.model';
 
@@ -17,7 +17,7 @@ import {Context} from '../../../../../../app/core/shared/context.model';
   // styleUrls: ['./collection-list-element.component.scss'],
   styleUrls: ['../../../../../../app/shared/object-list/collection-list-element/collection-list-element.component.scss'],
   // templateUrl: './collection-list-element.component.html'
-  templateUrl: '../../../../../../app/shared/object-list/collection-list-element/collection-list-element.component.html'
+  templateUrl: '../../../../../../app/shared/object-list/collection-list-element/collection-list-element.component.html',
 })
 /**
  * Component representing list element for a collection

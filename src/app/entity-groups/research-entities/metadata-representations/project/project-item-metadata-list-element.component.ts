@@ -7,7 +7,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 @metadataRepresentationComponent('Project', MetadataRepresentationType.Item)
 @Component({
   selector: 'ds-project-item-metadata-list-element',
-  templateUrl: './project-item-metadata-list-element.component.html'
+  templateUrl: './project-item-metadata-list-element.component.html',
 })
 /**
  * The component for displaying an item of the type Project as a metadata field
@@ -19,7 +19,7 @@ export class ProjectItemMetadataListElementComponent extends ItemMetadataReprese
    * @param dsoNameService
    */
   constructor(
-    public dsoNameService: DSONameService
+    public dsoNameService: DSONameService,
   ) {
     super();
   }

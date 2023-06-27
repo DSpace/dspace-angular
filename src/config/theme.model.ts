@@ -89,7 +89,7 @@ export class HandleTheme extends Theme {
   private normalizedHandle;
 
   constructor(public config: HandleThemeConfig,
-              protected handleService: HandleService
+              protected handleService: HandleService,
   ) {
     super(config);
     this.normalizedHandle = this.handleService.normalizeHandle(this.config.handle);

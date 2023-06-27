@@ -14,7 +14,7 @@ export class VocabularyFindOptions extends FindListOptions {
               public entryID?: string,
               public elementsPerPage?: number,
               public currentPage?: number,
-              public sort?: SortOptions
+              public sort?: SortOptions,
   ) {
     super();
 

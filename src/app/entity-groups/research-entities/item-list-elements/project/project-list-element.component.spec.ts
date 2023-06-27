@@ -15,8 +15,8 @@ const mockItem: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     // 'project.identifier.status': [
     //   {
@@ -24,7 +24,7 @@ const mockItem: Item = Object.assign(new Item(), {
     //     value: 'A status about the project'
     //   }
     // ]
-  }
+  },
 });
 
 describe('ProjectListElementComponent', () => {
@@ -42,9 +42,9 @@ describe('ProjectListElementComponent', () => {
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ProjectListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

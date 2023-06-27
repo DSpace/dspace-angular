@@ -34,7 +34,7 @@ export class PaginationService {
   private clearParams = {};
 
   constructor(protected routeService: RouteService,
-              protected router: Router
+              protected router: Router,
   ) {
   }
 
@@ -51,9 +51,9 @@ export class PaginationService {
       map(([page, size]) => {
         return Object.assign(new PaginationComponentOptions(), defaultPagination, {
           currentPage: this.convertToNumeric(page, defaultPagination.currentPage),
-          pageSize: this.getBestMatchPageSize(size, defaultPagination)
+          pageSize: this.getBestMatchPageSize(size, defaultPagination),
         });
-      })
+      }),
     );
   }
 
@@ -74,7 +74,7 @@ export class PaginationService {
       const field = sortField || defaultSort?.field;
       const direction = SortDirection[sortDirection] || defaultSort?.direction;
       return new SortOptions(field, direction);
-    })
+    }),
     );
   }
 
@@ -98,7 +98,7 @@ export class PaginationService {
         return Object.assign(new FindListOptions(), defaultFindList, {
           sort: currentSortOptions,
           currentPage: currentPagination.currentPage,
-          elementsPerPage: currentPagination.pageSize
+          elementsPerPage: currentPagination.pageSize,
         });
       }));
   }
@@ -206,7 +206,7 @@ export class PaginationService {
           sortField: findListoptions.sort.field,
           sortDirection: findListoptions.sort.direction,
         };
-      })
+      }),
     );
   }
 

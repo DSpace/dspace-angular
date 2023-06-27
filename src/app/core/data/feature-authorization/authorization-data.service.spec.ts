@@ -23,19 +23,19 @@ describe('AuthorizationDataService', () => {
   let ePerson: EPerson;
 
   const requestService = jasmine.createSpyObj('requestService', {
-    setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring')
+    setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring'),
   });
 
   function init() {
     site = Object.assign(new Site(), {
       id: 'test-site',
       _links: {
-        self: { href: 'test-site-href' }
-      }
+        self: { href: 'test-site-href' },
+      },
     });
     ePerson = Object.assign(new EPerson(), {
       id: 'test-eperson',
-      uuid: 'test-eperson'
+      uuid: 'test-eperson',
     });
     siteService = jasmine.createSpyObj('siteService', {
       find: observableOf(site),
@@ -157,26 +157,26 @@ describe('AuthorizationDataService', () => {
     const validPayload = [
       Object.assign(new Authorization(), {
         feature: createSuccessfulRemoteDataObject$(Object.assign(new Feature(), {
-          id: 'invalid-feature'
-        }))
+          id: 'invalid-feature',
+        })),
       }),
       Object.assign(new Authorization(), {
         feature: createSuccessfulRemoteDataObject$(Object.assign(new Feature(), {
-          id: featureID
-        }))
-      })
+          id: featureID,
+        })),
+      }),
     ];
     const invalidPayload = [
       Object.assign(new Authorization(), {
         feature: createSuccessfulRemoteDataObject$(Object.assign(new Feature(), {
-          id: 'invalid-feature'
-        }))
+          id: 'invalid-feature',
+        })),
       }),
       Object.assign(new Authorization(), {
         feature: createSuccessfulRemoteDataObject$(Object.assign(new Feature(), {
-          id: 'another-invalid-feature'
-        }))
-      })
+          id: 'another-invalid-feature',
+        })),
+      }),
     ];
     const emptyPayload = [];
 

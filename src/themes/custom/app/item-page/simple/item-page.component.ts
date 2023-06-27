@@ -14,7 +14,7 @@ import { fadeInOut } from '../../../../../app/shared/animations/fade';
   // templateUrl: './item-page.component.html',
   templateUrl: '../../../../../app/item-page/simple/item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeInOut]
+  animations: [fadeInOut],
 })
 export class ItemPageComponent extends BaseComponent {
 

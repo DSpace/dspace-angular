@@ -4,7 +4,7 @@ import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 
@@ -158,8 +158,8 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
       switchMap((config: SubmissionUploadsModel) =>
         config.metadata.pipe(
           getFirstSucceededRemoteData(),
-          map((remoteData: RemoteData<SubmissionFormsModel>) => remoteData.payload)
-        )
+          map((remoteData: RemoteData<SubmissionFormsModel>) => remoteData.payload),
+        ),
       ));
 
     this.subs.push(
@@ -215,8 +215,8 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
           }
 
           this.changeDetectorRef.detectChanges();
-        }
-        )
+        },
+        ),
     );
   }
 

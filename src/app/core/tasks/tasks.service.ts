@@ -124,8 +124,8 @@ export abstract class TasksService<T extends CacheableObject> extends Identifiab
       find((href: string) => hasValue(href)),
       mergeMap((href) => this.findByHref(href, false, true).pipe(
         getAllCompletedRemoteData(),
-        tap(() => this.requestService.setStaleByHrefSubstring(href)))
-      )
+        tap(() => this.requestService.setStaleByHrefSubstring(href))),
+      ),
     );
   }
 
@@ -146,7 +146,7 @@ export abstract class TasksService<T extends CacheableObject> extends Identifiab
         } else {
           return new ProcessTaskResponse(true, response.statusCode);
         }
-      })
+      }),
     );
   }
 

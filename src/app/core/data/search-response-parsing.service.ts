@@ -14,8 +14,8 @@ export class SearchResponseParsingService extends DspaceRestResponseParsingServi
     // fallback for unexpected empty response
     const emptyPayload = {
       _embedded : {
-        objects: []
-      }
+        objects: [],
+      },
     };
     const payload = data.payload._embedded.searchResult || emptyPayload;
     payload.appliedFilters = data.payload.appliedFilters;

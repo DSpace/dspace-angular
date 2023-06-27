@@ -9,7 +9,7 @@ import {
   DynamicFormGroupModel,
   DynamicFormLayoutService,
   DynamicFormValidationService,
-  DynamicInputModel
+  DynamicInputModel,
 } from '@ng-dynamic-forms/core';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
@@ -38,7 +38,7 @@ import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabul
   selector: 'ds-dynamic-relation-group',
   styleUrls: ['./dynamic-relation-group.component.scss'],
   templateUrl: './dynamic-relation-group.component.html',
-  animations: [shrinkInOut]
+  animations: [shrinkInOut],
 })
 export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
 
@@ -65,7 +65,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
               private formService: FormService,
               private cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
+              protected validationService: DynamicFormValidationService,
   ) {
     super(layoutService, validationService);
   }
@@ -237,15 +237,15 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
                 const model = this.formBuilderService.findById(fieldId, this.formModel);
                 return$ = this.vocabularyService.findEntryDetailById(
                   valueObj[fieldName].authority,
-                  (model as any).vocabularyOptions.name
+                  (model as any).vocabularyOptions.name,
                 ).pipe(
                   getFirstSucceededRemoteDataPayload(),
                   map((entryDetail: VocabularyEntryDetail) => Object.assign(
                     new FormFieldMetadataValueObject(),
                     valueObj[fieldName],
                     {
-                      otherInformation: entryDetail.otherInformation
-                    })
+                      otherInformation: entryDetail.otherInformation,
+                    }),
                   ));
               } else {
                 return$ = observableOf(valueObj[fieldName]);
@@ -261,10 +261,10 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
           return valueListObj.pipe(
             map((valueObj: any) => ({
               index: index, value: valueObj.reduce(
-                (acc: any, value: any) => Object.assign({}, acc, value)
-              )
-            })
-            )
+                (acc: any, value: any) => Object.assign({}, acc, value),
+              ),
+            }),
+            ),
           );
         }),
         scan((acc: any[], valueObj: any) => {
@@ -275,7 +275,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
           }
           return acc;
         }, []),
-        filter((modelValues: any[]) => (this.model.value as any[]).length === modelValues.length)
+        filter((modelValues: any[]) => (this.model.value as any[]).length === modelValues.length),
       ).subscribe((modelValue) => {
         this.model.value = modelValue;
         this.initChips(modelValue);

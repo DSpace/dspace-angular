@@ -22,7 +22,7 @@ export class ThemedLoadingComponent extends ThemedComponent<LoadingComponent> {
   constructor(
     protected resolver: ComponentFactoryResolver,
     protected cdr: ChangeDetectorRef,
-    protected themeService: ThemeService
+    protected themeService: ThemeService,
   ) {
     super(resolver, cdr, themeService);
   }

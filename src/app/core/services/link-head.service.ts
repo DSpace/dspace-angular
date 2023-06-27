@@ -8,7 +8,7 @@ import { DOCUMENT } from '@angular/common';
 export class LinkHeadService {
   constructor(
     private rendererFactory: RendererFactory2,
-    @Inject(DOCUMENT) private document
+    @Inject(DOCUMENT) private document,
   ) {
 
   }
@@ -25,7 +25,7 @@ export class LinkHeadService {
         id: '-1',
         encapsulation: ViewEncapsulation.None,
         styles: [],
-        data: {}
+        data: {},
       });
 
       const link = renderer.createElement('link');
@@ -57,7 +57,7 @@ export class LinkHeadService {
           id: '-1',
           encapsulation: ViewEncapsulation.None,
           styles: [],
-          data: {}
+          data: {},
         });
         const head = this.document.head;
         if (head === null) {

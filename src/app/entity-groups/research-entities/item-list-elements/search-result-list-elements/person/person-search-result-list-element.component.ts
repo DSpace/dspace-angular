@@ -1,10 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import {
-  listableObjectComponent
+  listableObjectComponent,
 } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import {
-  ItemSearchResultListElementComponent
+  ItemSearchResultListElementComponent,
 } from '../../../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
@@ -14,7 +14,7 @@ import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.inter
 @Component({
   selector: 'ds-person-search-result-list-element',
   styleUrls: ['./person-search-result-list-element.component.scss'],
-  templateUrl: './person-search-result-list-element.component.html'
+  templateUrl: './person-search-result-list-element.component.html',
 })
 /**
  * The component for displaying a list element for an item search result of the type Person
@@ -24,7 +24,7 @@ export class PersonSearchResultListElementComponent extends ItemSearchResultList
   public constructor(
     protected truncatableService: TruncatableService,
     public dsoNameService: DSONameService,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(truncatableService, dsoNameService, appConfig);
   }

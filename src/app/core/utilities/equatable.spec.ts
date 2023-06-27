@@ -21,7 +21,7 @@ class Owner extends EquatableObject<Owner> {
   constructor(
     public name: string,
     public age: number,
-    favouriteFood: string
+    favouriteFood: string,
   ) {
     super();
     this.favouriteFood = favouriteFood;

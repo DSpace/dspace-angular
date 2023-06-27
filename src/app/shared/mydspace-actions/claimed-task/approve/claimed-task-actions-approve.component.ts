@@ -43,7 +43,7 @@ export class ClaimedTaskActionsApproveComponent extends ClaimedTaskActionsAbstra
 
   convertReloadedObject(dso: DSpaceObject): DSpaceObject {
     const reloadedObject = Object.assign(new ClaimedApprovedTaskSearchResult(), dso, {
-      indexableObject: dso
+      indexableObject: dso,
     });
     return reloadedObject;
   }

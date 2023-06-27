@@ -23,7 +23,7 @@ export class StoreEffects {
 
   resize = createEffect(() => this.actions.pipe(
     ofType(StoreActionTypes.REPLAY, StoreActionTypes.REHYDRATE),
-    map(() => new HostWindowResizeAction(window.innerWidth, window.innerHeight))
+    map(() => new HostWindowResizeAction(window.innerWidth, window.innerHeight)),
   ));
 
   constructor(private actions: Actions, private store: Store<AppState>) {

@@ -82,7 +82,7 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
     this.bitstreamDownloadUrl = getBitstreamDownloadRoute(this.bitstream);
     this.format$ = this.bitstream.format.pipe(
       getFirstSucceededRemoteData(),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
     );
   }
 

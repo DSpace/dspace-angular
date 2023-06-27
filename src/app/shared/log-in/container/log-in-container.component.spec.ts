@@ -26,7 +26,7 @@ describe('LogInContainerComponent', () => {
   beforeEach(waitForAsync(() => {
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
       redirect: {},
-      getCurrentRoute: {}
+      getCurrentRoute: {},
     });
     // refine the test module by declaring the test component
     TestBed.configureTestingModule({
@@ -35,19 +35,19 @@ describe('LogInContainerComponent', () => {
         ReactiveFormsModule,
         StoreModule.forRoot(authReducer),
         SharedModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: HardRedirectService, useValue: hardRedirectService },
-        LogInContainerComponent
+        LogInContainerComponent,
       ],
       schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
     })
       .compileComponents();
 
@@ -108,7 +108,7 @@ describe('LogInContainerComponent', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

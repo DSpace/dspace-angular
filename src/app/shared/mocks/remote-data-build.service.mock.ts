@@ -16,7 +16,7 @@ export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observab
         return toRemoteDataObservable$;
       } else {
         return payload$.pipe(map((payload) => ({
-          payload
+          payload,
         } as RemoteData<any>)));
       }
     },
@@ -30,7 +30,7 @@ export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observab
     },
     buildFromRequestUUID: (id: string) => createSuccessfulRemoteDataObject$({}),
     buildFromRequestUUIDAndAwait: (id: string, callback: (rd?: RemoteData<any>) => Observable<any>) => createSuccessfulRemoteDataObject$({}),
-    buildFromHref: (href: string) => createSuccessfulRemoteDataObject$({})
+    buildFromHref: (href: string) => createSuccessfulRemoteDataObject$({}),
   } as RemoteDataBuildService;
 
 }
@@ -43,7 +43,7 @@ export function getMockRemoteDataBuildServiceHrefMap(toRemoteDataObservable$?: O
         return toRemoteDataObservable$;
       } else {
         return payload$.pipe(map((payload) => ({
-          payload
+          payload,
         } as RemoteData<any>)));
       }
     },
@@ -63,12 +63,12 @@ export function getMockRemoteDataBuildServiceHrefMap(toRemoteDataObservable$?: O
           } else {
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
           }
-        })
+        }),
       );
     },
     buildFromRequestUUID: (id: string) => createSuccessfulRemoteDataObject$({}),
     buildFromRequestUUIDAndAwait: (id: string, callback: (rd?: RemoteData<any>) => Observable<any>) => createSuccessfulRemoteDataObject$({}),
-    buildFromHref: (href: string) => createSuccessfulRemoteDataObject$({})
+    buildFromHref: (href: string) => createSuccessfulRemoteDataObject$({}),
   } as RemoteDataBuildService;
 
 }

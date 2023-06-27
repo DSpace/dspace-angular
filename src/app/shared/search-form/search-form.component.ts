@@ -17,7 +17,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-search-form',
   styleUrls: ['./search-form.component.scss'],
-  templateUrl: './search-form.component.html'
+  templateUrl: './search-form.component.html',
 })
 /**
  * Component that represents the search form
@@ -118,7 +118,7 @@ export class SearchFormComponent implements OnChanges {
 
     void this.router.navigate(this.getSearchLinkParts(), {
       queryParams: queryParams,
-      queryParamsHandling: 'merge'
+      queryParamsHandling: 'merge',
     });
   }
 

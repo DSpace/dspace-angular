@@ -20,7 +20,7 @@ describe('CreateCommunityPageGuard', () => {
           } else if (id === 'error-id') {
             return createFailedRemoteDataObject$('not found', 404);
           }
-        }
+        },
       };
       router = new RouterMock();
 
@@ -32,7 +32,7 @@ describe('CreateCommunityPageGuard', () => {
         .pipe(first())
         .subscribe(
           (canActivate) =>
-            expect(canActivate).toEqual(true)
+            expect(canActivate).toEqual(true),
         );
     });
 
@@ -41,7 +41,7 @@ describe('CreateCommunityPageGuard', () => {
         .pipe(first())
         .subscribe(
           (canActivate) =>
-            expect(canActivate).toEqual(true)
+            expect(canActivate).toEqual(true),
         );
     });
 
@@ -50,7 +50,7 @@ describe('CreateCommunityPageGuard', () => {
         .pipe(first())
         .subscribe(
           (canActivate) =>
-            expect(canActivate).toEqual(false)
+            expect(canActivate).toEqual(false),
         );
     });
 
@@ -59,7 +59,7 @@ describe('CreateCommunityPageGuard', () => {
         .pipe(first())
         .subscribe(
           (canActivate) =>
-            expect(canActivate).toEqual(false)
+            expect(canActivate).toEqual(false),
         );
     });
   });

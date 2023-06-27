@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import isObject from 'lodash/isObject';
@@ -41,7 +41,7 @@ export class ChipsComponent implements OnChanges {
       chosenClass: 'm-0',
       dragClass: 'm-0',
       filter: '.chips-sort-ignore',
-      ghostClass: 'm-0'
+      ghostClass: 'm-0',
     };
   }
 

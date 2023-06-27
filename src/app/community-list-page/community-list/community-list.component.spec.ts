@@ -31,7 +31,7 @@ describe('CommunityListComponent', () => {
     id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
     uuid: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
     name: 'subcommunity2',
-  })
+  }),
   ];
   const mockCollectionsPage1 = [
     Object.assign(new Collection(), {
@@ -43,7 +43,7 @@ describe('CommunityListComponent', () => {
       id: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
       uuid: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
       name: 'collection2',
-    })
+    }),
   ];
   const mockCollectionsPage2 = [
     Object.assign(new Collection(), {
@@ -55,7 +55,7 @@ describe('CommunityListComponent', () => {
       id: 'a392e16b-fcf2-400a-9a88-53ef7ecbdcd3',
       uuid: 'a392e16b-fcf2-400a-9a88-53ef7ecbdcd3',
       name: 'collection4',
-    })
+    }),
   ];
 
   const mockTopCommunitiesWithChildrenArrays = [
@@ -86,7 +86,7 @@ describe('CommunityListComponent', () => {
         subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockSubcommunities1Page1)),
         collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         name: 'community1',
-      }), observableOf(true), 0, false, null
+      }), observableOf(true), 0, false, null,
     ),
     toFlatNode(
       Object.assign(new Community(), {
@@ -95,7 +95,7 @@ describe('CommunityListComponent', () => {
         subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [...mockCollectionsPage1, ...mockCollectionsPage2])),
         name: 'community2',
-      }), observableOf(true), 0, false, null
+      }), observableOf(true), 0, false, null,
     ),
     toFlatNode(
       Object.assign(new Community(), {
@@ -104,7 +104,7 @@ describe('CommunityListComponent', () => {
         subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         name: 'community3',
-      }), observableOf(false), 0, false, null
+      }), observableOf(false), 0, false, null,
     ),
   ];
   let communityListServiceStub;
@@ -183,14 +183,14 @@ describe('CommunityListComponent', () => {
           }
           return observableOf(flatnodes);
         }
-      }
+      },
     };
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
+            useClass: TranslateLoaderMock,
           },
         }),
         CdkTreeModule,
@@ -198,7 +198,7 @@ describe('CommunityListComponent', () => {
         RouterLinkWithHref],
       declarations: [CommunityListComponent],
       providers: [CommunityListComponent,
-        { provide: CommunityListService, useValue: communityListServiceStub },],
+        { provide: CommunityListService, useValue: communityListServiceStub }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .compileComponents();
@@ -242,7 +242,7 @@ describe('CommunityListComponent', () => {
       const showMoreLink = fixture.debugElement.query(By.css('.show-more-node .btn-outline-primary'));
       showMoreLink.triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();

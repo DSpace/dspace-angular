@@ -16,7 +16,7 @@ import { FieldUpdates } from '../../core/data/object-updates/field-updates.model
 
 @Component({
   selector: 'ds-mock-paginated-drag-drop-abstract',
-  template: ''
+  template: '',
 })
 class MockAbstractPaginatedDragAndDropListComponent extends AbstractPaginatedDragAndDropListComponent<DSpaceObject> {
 
@@ -55,7 +55,7 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
 
   const updates = {
     [object1.uuid]: { field: object1, changeType: undefined },
-    [object2.uuid]: { field: object2, changeType: undefined }
+    [object2.uuid]: { field: object2, changeType: undefined },
   } as FieldUpdates;
 
   let paginationComponent: PaginationComponent;
@@ -63,16 +63,16 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
   beforeEach(() => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService', {
       initialize: {},
-      getFieldUpdatesExclusive: observableOf(updates)
+      getFieldUpdatesExclusive: observableOf(updates),
     });
     elRef = {
       nativeElement: jasmine.createSpyObj('nativeElement', {
-        querySelector: {}
-      })
+        querySelector: {},
+      }),
     };
     objectValuesPipe = new ObjectValuesPipe();
     paginationComponent = jasmine.createSpyObj('paginationComponent', {
-      doPageChange: {}
+      doPageChange: {},
     });
     paginationService = new PaginationServiceStub();
     objectsRD$ = new BehaviorSubject(objectsRD);
@@ -96,7 +96,7 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
     const event = {
       previousIndex: 0,
       currentIndex: 1,
-      item: { element: { nativeElement: { id: object1.uuid } } }
+      item: { element: { nativeElement: { id: object1.uuid } } },
     } as any;
 
     describe('when the user is hovering over a new page', () => {
@@ -113,7 +113,7 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
         expect(component.dropObject.emit).toHaveBeenCalledWith(Object.assign({
           fromIndex: ((component.currentPage$.value.currentPage - 1) * component.pageSize) + event.previousIndex,
           toIndex: ((hoverPage - 1) * component.pageSize),
-          finish: jasmine.anything()
+          finish: jasmine.anything(),
         }));
       });
     });
@@ -128,7 +128,7 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
         expect(component.dropObject.emit).toHaveBeenCalledWith(Object.assign({
           fromIndex: event.previousIndex,
           toIndex: event.currentIndex,
-          finish: jasmine.anything()
+          finish: jasmine.anything(),
         }));
       });
     });

@@ -51,8 +51,8 @@ const initialState = {
     auth: {
       loading: false,
       blocking: true,
-    }
-  }
+    },
+  },
 };
 
 
@@ -74,7 +74,7 @@ describe('InitService', () => {
 
       expect(providers).toContain(objectContaining({
         provide: InitService,
-        useClass: ConcreteInitServiceMock
+        useClass: ConcreteInitServiceMock,
       }));
 
       expect(providers).toContain(objectContaining({
@@ -142,7 +142,7 @@ describe('InitService', () => {
         'transfer',
       ]);
       transferStateSpy = jasmine.createSpyObj('dspaceTransferStateSpy', [
-        'get', 'hasKey'
+        'get', 'hasKey',
       ]);
       breadcrumbsServiceSpy = jasmine.createSpyObj('breadcrumbsServiceSpy', [
         'listenForRouteChanges',
@@ -163,8 +163,8 @@ describe('InitService', () => {
           TranslateModule.forRoot({
             loader: {
               provide: TranslateLoader,
-              useClass: TranslateLoaderMock
-            }
+              useClass: TranslateLoaderMock,
+            },
           }),
         ],
         providers: [
@@ -183,7 +183,7 @@ describe('InitService', () => {
           provideMockStore({ initialState }),
           AppComponent,
           RouteService,
-        ]
+        ],
       });
     }));
 

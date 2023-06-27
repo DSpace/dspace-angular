@@ -40,7 +40,7 @@ describe('ThumbnailComponent', () => {
       isAuthorized: observableOf(true),
     });
     fileService = jasmine.createSpyObj('FileService', {
-      retrieveFileDownloadLink: null
+      retrieveFileDownloadLink: null,
     });
     fileService.retrieveFileDownloadLink.and.callFake((url) => observableOf(`${url}?authentication-token=fake`));
 
@@ -49,8 +49,8 @@ describe('ThumbnailComponent', () => {
       providers: [
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: FileService, useValue: fileService }
-      ]
+        { provide: FileService, useValue: fileService },
+      ],
     }).compileComponents();
   }));
 
@@ -290,7 +290,7 @@ describe('ThumbnailComponent', () => {
         bundle: { href: 'bundle.url' },
         format: { href: 'format.url' },
         content: { href: CONTENT },
-        thumbnail: undefined
+        thumbnail: undefined,
       };
     });
 

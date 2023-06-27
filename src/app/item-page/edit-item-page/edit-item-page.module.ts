@@ -44,7 +44,7 @@ import { ThemedItemStatusComponent } from './item-status/themed-item-status.comp
 import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
 import { ResultsBackButtonModule } from '../../shared/results-back-button/results-back-button.module';
 import {
-  AccessControlFormModule
+  AccessControlFormModule,
 } from '../../shared/access-control-form-container/access-control-form.module';
 
 /**
@@ -98,11 +98,11 @@ import {
   providers: [
     BundleDataService,
     IdentifierDataService,
-    ObjectValuesPipe
+    ObjectValuesPipe,
   ],
   exports: [
     ItemOperationComponent,
-  ]
+  ],
 })
 export class EditItemPageModule {
 

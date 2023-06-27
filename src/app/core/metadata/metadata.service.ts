@@ -11,7 +11,7 @@ import {
   Observable,
   of as observableOf,
   concat as observableConcat,
-  EMPTY
+  EMPTY,
 } from 'rxjs';
 import { filter, map, switchMap, take, mergeMap } from 'rxjs/operators';
 
@@ -27,7 +27,7 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
 import {
   getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload
+  getFirstSucceededRemoteDataPayload,
 } from '../shared/operators';
 import { RootDataService } from '../data/root-data.service';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
@@ -51,7 +51,7 @@ import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
  */
 const metaTagSelector = createSelector(
   coreSelector,
-  (state: CoreState) => state.metaTag
+  (state: CoreState) => state.metaTag,
 );
 
 /**
@@ -96,7 +96,7 @@ export class MetadataService {
     private store: Store<CoreState>,
     private hardRedirectService: HardRedirectService,
     @Inject(APP_CONFIG) private appConfig: AppConfig,
-    private authorizationService: AuthorizationDataService
+    private authorizationService: AuthorizationDataService,
   ) {
   }
 
@@ -311,8 +311,8 @@ export class MetadataService {
           findListOptions: {
             // limit the number of bitstreams used to find the citation pdf url to the number
             // shown by default on an item page
-            elementsPerPage: this.appConfig.item.bitstream.pageSize
-          }
+            elementsPerPage: this.appConfig.item.bitstream.pageSize,
+          },
         }, followLink('format')),
       ).pipe(
         getFirstSucceededRemoteDataPayload(),
@@ -329,8 +329,8 @@ export class MetadataService {
             }),
             getDownloadableBitstream(this.authorizationService),
             // return the bundle as well so we can use it again if there's no primary bitstream
-            map((bitstream: Bitstream) => [bundle, bitstream])
-          )
+            map((bitstream: Bitstream) => [bundle, bitstream]),
+          ),
         ),
         switchMap(([bundle, primaryBitstream]: [Bundle, Bitstream]) => {
           if (hasValue(primaryBitstream)) {
@@ -348,16 +348,16 @@ export class MetadataService {
                   // Otherwise check all bitstreams to see if one matches the format whitelist
                   return this.getFirstAllowedFormatBitstreamLink(bitstreamRd);
                 }
-              })
+              }),
             );
           }
         }),
-        take(1)
+        take(1),
       ).subscribe((link: string) => {
         // Use the found link to set the <meta> tag
         this.addMetaTag(
           'citation_pdf_url',
-          new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString()
+          new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString(),
         );
       });
     }
@@ -373,7 +373,7 @@ export class MetadataService {
           // Otherwise check all bitstreams to see if one matches the format whitelist
           return this.getFirstAllowedFormatBitstreamLink(bitstreamRd);
         }
-      })
+      }),
     );
   }
 
@@ -397,13 +397,13 @@ export class MetadataService {
           getFirstSucceededRemoteDataPayload(),
           // Keep the original bitstream, because it, not the format, is what we'll need
           // for the link at the end
-          map((format: BitstreamFormat) => [bitstream, format])
-        ))
+          map((format: BitstreamFormat) => [bitstream, format]),
+        )),
       ).pipe(
         // Verify that the bitstream is downloadable
         mergeMap(([bitstream, format]: [Bitstream, BitstreamFormat]) => observableOf(bitstream).pipe(
           getDownloadableBitstream(this.authorizationService),
-          map((bit: Bitstream) => [bit, format])
+          map((bit: Bitstream) => [bit, format]),
         )),
         // Filter out only pairs with whitelisted formats and non-null bitstreams, null from download check
         filter(([bitstream, format]: [Bitstream, BitstreamFormat]) =>
@@ -412,7 +412,7 @@ export class MetadataService {
         take(1),
         // Emit the link of the match
         // tap((v) => console.log('result', v)),
-        map(([bitstream, ]: [Bitstream, BitstreamFormat]) => getBitstreamDownloadRoute(bitstream))
+        map(([bitstream ]: [Bitstream, BitstreamFormat]) => getBitstreamDownloadRoute(bitstream)),
       );
     } else {
       return EMPTY;
@@ -489,7 +489,7 @@ export class MetadataService {
   public clearMetaTags() {
     this.store.pipe(
       select(tagsInUseSelector),
-      take(1)
+      take(1),
     ).subscribe((tagsInUse: string[]) => {
       for (const name of tagsInUse) {
         this.meta.removeTag('name=\'' + name + '\'');

@@ -26,7 +26,7 @@ import { TranslateService } from '@ngx-translate/core';
  * Creates the menus for the dspace object pages
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection[] }> {
 
@@ -66,14 +66,14 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
               map((menus) => {
                 return {
                   ...route.data?.menu,
-                  [MenuID.DSO_EDIT]: menus
+                  [MenuID.DSO_EDIT]: menus,
                 };
-              })
+              }),
             );
           } else {
             return observableOf({...route.data?.menu});
           }
-        })
+        }),
       );
     }
   }
@@ -84,7 +84,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
   getDsoMenus(dso, route, state): Observable<MenuSection[]>[] {
     return [
       this.getItemMenu(dso),
-      this.getCommonMenu(dso, state)
+      this.getCommonMenu(dso, state),
     ];
   }
 
@@ -104,13 +104,13 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
             model: {
               type: MenuItemType.LINK,
               text: this.getDsoType(dso) + '.page.edit',
-              link: new URLCombiner(getDSORoute(dso), 'edit', 'metadata').toString()
+              link: new URLCombiner(getDSORoute(dso), 'edit', 'metadata').toString(),
             } as LinkMenuItemModel,
             icon: 'pencil-alt',
-            index: 2
+            index: 2,
           },
         ];
-      })
+      }),
     );
   }
 
@@ -136,10 +136,10 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
               model: {
                 type: MenuItemType.LINK,
                 text: 'item.page.orcid.tooltip',
-                link: new URLCombiner(getDSORoute(dso), 'orcid').toString()
+                link: new URLCombiner(getDSORoute(dso), 'orcid').toString(),
               } as LinkMenuItemModel,
               icon: 'orcid fab fa-lg',
-              index: 0
+              index: 0,
             },
             {
               id: 'version-dso',
@@ -151,10 +151,10 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
                 disabled: disableVersioning,
                 function: () => {
                   this.dsoVersioningModalService.openCreateVersionModal(dso);
-                }
+                },
               } as OnClickMenuItemModel,
               icon: 'code-branch',
-              index: 1
+              index: 1,
             },
             {
               id: 'claim-dso',
@@ -165,10 +165,10 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
                 text: 'item.page.claim.button',
                 function: () => {
                   this.claimResearcher(dso);
-                }
+                },
               } as OnClickMenuItemModel,
               icon: 'hand-paper',
-              index: 3
+              index: 3,
             },
           ];
         }),
@@ -216,11 +216,11 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
   protected addDsoUuidToMenuIDs(menus, dso) {
     return menus.map((menu) => {
       Object.assign(menu, {
-        id: menu.id + '-' + dso.uuid
+        id: menu.id + '-' + dso.uuid,
       });
       if (hasValue(menu.parentID)) {
         Object.assign(menu, {
-          parentID: menu.parentID + '-' + dso.uuid
+          parentID: menu.parentID + '-' + dso.uuid,
         });
       }
       return menu;

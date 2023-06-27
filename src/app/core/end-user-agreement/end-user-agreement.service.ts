@@ -44,12 +44,12 @@ export class EndUserAgreementService {
       switchMap((authenticated) => {
         if (authenticated) {
           return this.authService.getAuthenticatedUserFromStore().pipe(
-            map((user) => hasValue(user) && user.hasMetadata(END_USER_AGREEMENT_METADATA_FIELD) && user.firstMetadata(END_USER_AGREEMENT_METADATA_FIELD).value === 'true')
+            map((user) => hasValue(user) && user.hasMetadata(END_USER_AGREEMENT_METADATA_FIELD) && user.firstMetadata(END_USER_AGREEMENT_METADATA_FIELD).value === 'true'),
           );
         } else {
           return observableOf(acceptedWhenAnonymous);
         }
-      })
+      }),
     );
   }
 
@@ -76,14 +76,14 @@ export class EndUserAgreementService {
               return this.ePersonService.patch(user, [operation]);
             }),
             getFirstCompletedRemoteData(),
-            map((response) => response.hasSucceeded)
+            map((response) => response.hasSucceeded),
           );
         } else {
           this.setCookieAccepted(accepted);
           return observableOf(true);
         }
       }),
-      take(1)
+      take(1),
     );
   }
 

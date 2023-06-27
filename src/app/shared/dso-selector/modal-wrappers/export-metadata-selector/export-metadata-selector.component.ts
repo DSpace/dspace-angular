@@ -62,7 +62,7 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
           return startScriptSucceeded$.pipe(
             switchMap((r: boolean) => {
               return observableOf(r);
-            })
+            }),
           );
         } else {
           const modalRefExport = this.modalService.open(ExportMetadataSelectorComponent);

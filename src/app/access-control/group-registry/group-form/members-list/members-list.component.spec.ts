@@ -72,7 +72,7 @@ describe('MembersListComponent', () => {
       },
       getEPeoplePageRouterLink(): string {
         return '/access-control/epeople';
-      }
+      },
     };
     groupsDataServiceStub = {
       activeGroup: activeGroup,
@@ -114,7 +114,7 @@ describe('MembersListComponent', () => {
           this.epersonMembers = [];
         }
         return observableOf(new RestResponse(true, 200, 'Success'));
-      }
+      },
     };
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
@@ -125,8 +125,8 @@ describe('MembersListComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [MembersListComponent],
@@ -139,7 +139,7 @@ describe('MembersListComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: DSONameService, useValue: new DSONameServiceMock() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

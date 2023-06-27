@@ -5,7 +5,7 @@ import { hasValue } from '../../empty.util';
 @Component({
   selector: 'ds-truncatable-part',
   templateUrl: './truncatable-part.component.html',
-  styleUrls: ['./truncatable-part.component.scss']
+  styleUrls: ['./truncatable-part.component.scss'],
 })
 
 /**

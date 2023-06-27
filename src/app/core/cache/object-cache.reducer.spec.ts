@@ -54,7 +54,7 @@ describe('objectCacheReducer', () => {
         type: Item.type,
         self: selfLink2,
         foo: 'baz',
-        _links: { self: { href: selfLink2 } }
+        _links: { self: { href: selfLink2 } },
       },
       alternativeLinks: [altLink3, altLink4],
       timeCompleted: new Date().getTime(),
@@ -62,8 +62,8 @@ describe('objectCacheReducer', () => {
       requestUUIDs: [requestUUID2],
       dependentRequestUUIDs: [requestUUID1],
       patches: [],
-      isDirty: false
-    }
+      isDirty: false,
+    },
   };
   deepFreeze(testState);
 
@@ -170,7 +170,7 @@ describe('objectCacheReducer', () => {
     const action = new AddPatchObjectCacheAction(selfLink1, [{
       op: 'replace',
       path: '/name',
-      value: 'random string'
+      value: 'random string',
     }]);
     // testState has already been frozen above
     objectCacheReducer(testState, action);

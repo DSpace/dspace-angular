@@ -19,16 +19,16 @@ const mockItem = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.description': [
       {
         language: 'en_US',
-        value: 'The project description'
-      }
-    ]
-  }
+        value: 'The project description',
+      },
+    ],
+  },
 });
 
 describe('ProjectGridElementComponent', () => {
@@ -47,9 +47,9 @@ describe('ProjectGridElementComponent', () => {
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ProjectGridElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

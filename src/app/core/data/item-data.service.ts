@@ -140,7 +140,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
         return new PostRequest(this.requestService.generateRequestId(), endpointURL, collectionHref, options);
       }),
       sendRequest(this.requestService),
-      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID(request.uuid))
+      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID(request.uuid)),
     );
   }
 
@@ -152,7 +152,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   public setWithDrawn(item: Item, withdrawn: boolean): Observable<RemoteData<Item>> {
 
     const patchOperation = {
-      op: 'replace', path: '/withdrawn', value: withdrawn
+      op: 'replace', path: '/withdrawn', value: withdrawn,
     } as Operation;
     this.requestService.removeByHrefSubstring('/discover');
 
@@ -166,7 +166,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    */
   public setDiscoverable(item: Item, discoverable: boolean): Observable<RemoteData<Item>> {
     const patchOperation = {
-      op: 'replace', path: '/discoverable', value: discoverable
+      op: 'replace', path: '/discoverable', value: discoverable,
     } as Operation;
     this.requestService.removeByHrefSubstring('/discover');
 
@@ -180,7 +180,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    */
   public getBundlesEndpoint(itemId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      switchMap((url: string) => this.halService.getEndpoint('bundles', `${url}/${itemId}`))
+      switchMap((url: string) => this.halService.getEndpoint('bundles', `${url}/${itemId}`)),
     );
   }
 
@@ -191,10 +191,10 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    */
   public getBundles(itemId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<Bundle>>> {
     const hrefObs = this.getBundlesEndpoint(itemId).pipe(
-      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
+      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href),
     );
     hrefObs.pipe(
-      take(1)
+      take(1),
     ).subscribe((href) => {
       const request = new GetRequest(this.requestService.generateRequestId(), href);
       this.requestService.send(request);
@@ -215,11 +215,11 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
 
     const bundleJson = {
       name: bundleName,
-      metadata: metadata ? metadata : {}
+      metadata: metadata ? metadata : {},
     };
 
     hrefObs.pipe(
-      take(1)
+      take(1),
     ).subscribe((href) => {
       const options: HttpOptions = Object.create({});
       let headers = new HttpHeaders();
@@ -238,7 +238,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    */
   public getIdentifiersEndpoint(itemId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      switchMap((url: string) => this.halService.getEndpoint('identifiers', `${url}/${itemId}`))
+      switchMap((url: string) => this.halService.getEndpoint('identifiers', `${url}/${itemId}`)),
     );
   }
 
@@ -249,7 +249,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   public getMoveItemEndpoint(itemId: string, inheritPolicies: boolean): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getIDHref(endpoint, itemId)),
-      map((endpoint: string) => `${endpoint}/owningCollection?inheritPolicies=${inheritPolicies}`)
+      map((endpoint: string) => `${endpoint}/owningCollection?inheritPolicies=${inheritPolicies}`),
     );
   }
 
@@ -275,10 +275,10 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
           // TODO: for now, the move Item endpoint returns a malformed collection -- only look at the status code
           getResponseParser(): GenericConstructor<ResponseParsingService> {
             return StatusCodeOnlyResponseParsingService;
-          }
+          },
         });
         return request;
-      })
+      }),
     ).subscribe((request) => {
       this.requestService.send(request);
     });
@@ -305,7 +305,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
       map((href: string) => {
         const request = new PostRequest(requestId, href, externalSourceEntry._links.self.href, options);
         this.requestService.send(request);
-      })
+      }),
     ).subscribe();
 
     return this.rdbService.buildFromRequestUUID(requestId);
@@ -317,7 +317,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    */
   public getBitstreamsEndpoint(itemId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      switchMap((url: string) => this.halService.getEndpoint('bitstreams', `${url}/${itemId}`))
+      switchMap((url: string) => this.halService.getEndpoint('bitstreams', `${url}/${itemId}`)),
     );
   }
 

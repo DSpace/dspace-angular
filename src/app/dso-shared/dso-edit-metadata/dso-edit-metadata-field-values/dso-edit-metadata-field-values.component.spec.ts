@@ -57,7 +57,7 @@ describe('DsoEditMetadataFieldValuesComponent', () => {
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

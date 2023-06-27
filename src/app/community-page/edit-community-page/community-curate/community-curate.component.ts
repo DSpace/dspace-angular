@@ -35,7 +35,7 @@ export class CommunityCurateComponent implements OnInit {
       filter((rd: RemoteData<Community>) => hasValue(rd)),
       map((rd: RemoteData<Community>) => {
         return this.dsoNameService.getName(rd.payload);
-      })
+      }),
     );
   }
 

@@ -37,30 +37,30 @@ describe('DsoPageSomeFeatureGuard', () => {
 
   function init() {
     object = {
-      self: 'test-selflink'
+      self: 'test-selflink',
     } as DSpaceObject;
 
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     router = jasmine.createSpyObj('router', {
-      parseUrl: {}
+      parseUrl: {},
     });
     resolver = jasmine.createSpyObj('resolver', {
-      resolve: createSuccessfulRemoteDataObject$(object)
+      resolve: createSuccessfulRemoteDataObject$(object),
     });
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true)
+      isAuthenticated: observableOf(true),
     });
     parentRoute = {
       params: {
-        id: '3e1a5327-dabb-41ff-af93-e6cab9d032f0'
-      }
+        id: '3e1a5327-dabb-41ff-af93-e6cab9d032f0',
+      },
     };
     route = {
       params: {
       },
-      parent: parentRoute
+      parent: parentRoute,
     };
     guard = new DsoPageSomeFeatureGuardImpl(resolver, authorizationService, router, authService, []);
   }

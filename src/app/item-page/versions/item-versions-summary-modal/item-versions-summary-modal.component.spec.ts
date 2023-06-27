@@ -15,7 +15,7 @@ describe('ItemVersionsSummaryModalComponent', () => {
       imports: [ TranslateModule.forRoot(), RouterTestingModule.withRoutes([]) ],
       providers: [
         { provide: NgbActiveModal },
-      ]
+      ],
     }).compileComponents();
   });
 

@@ -6,7 +6,7 @@ import {
   getAllCompletedRemoteData,
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload
+  getFirstSucceededRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { hasValue, hasValueOperator } from '../../../../shared/empty.util';
@@ -61,7 +61,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
               private collectionService: CollectionDataService,
               private translateService: TranslateService,
               private httpClient: HttpClient,
-              private bitstreamService: BitstreamDataService
+              private bitstreamService: BitstreamDataService,
   ) {
   }
 
@@ -70,7 +70,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
     this.contentSource$ = this.collectionService.findByHref(this.collection._links.self.href, false).pipe(
       getAllSucceededRemoteDataPayload(),
       switchMap((collection) => this.collectionService.getContentSource(collection.uuid, false)),
-      getAllSucceededRemoteDataPayload()
+      getAllSucceededRemoteDataPayload(),
     );
   }
 
@@ -123,7 +123,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
         });
         this.testConfigRunning$.next(false);
       }
-    }
+    },
     ));
   }
 
@@ -170,7 +170,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
           this.requestService.setStaleByHrefSubstring(this.collection._links.self.href);
           this.importRunning$.next(false);
         }
-      }
+      },
       ));
   }
 
@@ -217,7 +217,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
           this.requestService.setStaleByHrefSubstring(this.collection._links.self.href);
           this.reImportRunning$.next(false);
         }
-      }
+      },
       ));
   }
 

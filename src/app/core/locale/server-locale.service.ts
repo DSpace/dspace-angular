@@ -21,7 +21,7 @@ export class ServerLocaleService extends LocaleService {
     protected translate: TranslateService,
     protected authService: AuthService,
     protected routeService: RouteService,
-    @Inject(DOCUMENT) protected document: any
+    @Inject(DOCUMENT) protected document: any,
   ) {
     super(_window, cookie, translate, authService, routeService, document);
   }
@@ -34,7 +34,7 @@ export class ServerLocaleService extends LocaleService {
   getLanguageCodeList(): Observable<string[]> {
     const obs$ = combineLatest([
       this.authService.isAuthenticated(),
-      this.authService.isAuthenticationLoaded()
+      this.authService.isAuthenticationLoaded(),
     ]);
 
     return obs$.pipe(
@@ -54,7 +54,7 @@ export class ServerLocaleService extends LocaleService {
                   !isEmpty(this.translate.currentLang)));
               }
               return languages;
-            })
+            }),
           );
         }
         return epersonLang$.pipe(
@@ -70,13 +70,13 @@ export class ServerLocaleService extends LocaleService {
               languages.push(...epersonLang);
             }
             if (hasValue(this.req.headers['accept-language'])) {
-              languages.push(...this.req.headers['accept-language'].split(',')
+              languages.push(...this.req.headers['accept-language'].split(','),
               );
             }
             return languages;
-          })
+          }),
         );
-      })
+      }),
     );
   }
 

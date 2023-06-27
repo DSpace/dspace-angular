@@ -51,7 +51,7 @@ export class MiradorViewerService {
       mergeMap((bundle: Bundle) => {
         return bitstreamDataService.findAllByItemAndBundleName(item, bundle.name, {
           currentPage: 1,
-          elementsPerPage: 5
+          elementsPerPage: 5,
         }, true, true, ...this.LINKS_TO_FOLLOW).pipe(
           getFirstCompletedRemoteData(),
           map((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {
@@ -70,11 +70,11 @@ export class MiradorViewerService {
               }
               return count;
             }),
-          )
-          )
+          ),
+          ),
         );
       }),
-      last()
+      last(),
     );
   }
 

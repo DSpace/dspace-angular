@@ -38,10 +38,10 @@ describe('ProcessFormComponent', () => {
         invoke: observableOf({
           response:
             {
-              isSuccessful: true
-            }
-        })
-      }
+              isSuccessful: true,
+            },
+        }),
+      },
     );
     router = {
       navigateByUrl: () => undefined,
@@ -56,8 +56,8 @@ describe('ProcessFormComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         })],
       declarations: [ProcessFormComponent],
       providers: [
@@ -66,7 +66,7 @@ describe('ProcessFormComponent', () => {
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeBySubstring', 'removeByHrefSubstring']) },
         { provide: Router, useValue: jasmine.createSpyObj('router', ['navigateByUrl']) },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

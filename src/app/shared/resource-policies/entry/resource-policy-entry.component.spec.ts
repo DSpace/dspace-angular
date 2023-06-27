@@ -37,17 +37,17 @@ const groupRP: any = {
   uuid: 'resource-policy-1',
   _links: {
     eperson: {
-      href: 'https://rest.api/rest/api/resourcepolicies/1/eperson'
+      href: 'https://rest.api/rest/api/resourcepolicies/1/eperson',
     },
     group: {
-      href: 'https://rest.api/rest/api/resourcepolicies/1/group'
+      href: 'https://rest.api/rest/api/resourcepolicies/1/group',
     },
     self: {
-      href: 'https://rest.api/rest/api/resourcepolicies/1'
+      href: 'https://rest.api/rest/api/resourcepolicies/1',
     },
   },
   eperson: observableOf(createSuccessfulRemoteDataObject(undefined)),
-  group: observableOf(createSuccessfulRemoteDataObject(GroupMock))
+  group: observableOf(createSuccessfulRemoteDataObject(GroupMock)),
 };
 
 const epersonRP: any = {
@@ -62,24 +62,24 @@ const epersonRP: any = {
   uuid: 'resource-policy-1',
   _links: {
     eperson: {
-      href: 'https://rest.api/rest/api/resourcepolicies/1/eperson'
+      href: 'https://rest.api/rest/api/resourcepolicies/1/eperson',
     },
     group: {
-      href: 'https://rest.api/rest/api/resourcepolicies/1/group'
+      href: 'https://rest.api/rest/api/resourcepolicies/1/group',
     },
     self: {
-      href: 'https://rest.api/rest/api/resourcepolicies/1'
+      href: 'https://rest.api/rest/api/resourcepolicies/1',
     },
   },
   eperson: observableOf(createSuccessfulRemoteDataObject(EPersonMock)),
-  group: observableOf(createSuccessfulRemoteDataObject(undefined))
+  group: observableOf(createSuccessfulRemoteDataObject(undefined)),
 };
 
 const item = Object.assign(new Item(), {
   uuid: 'itemUUID',
   id: 'itemUUID',
   _links: {
-    self: { href: 'item-selflink' }
+    self: { href: 'item-selflink' },
   },
 });
 
@@ -99,25 +99,25 @@ describe('ResourcePolicyEntryComponent', () => {
 
   beforeEach(() => {
     dsoNameService = createSpyObj('dsoNameMock', {
-      getName: 'NAME'
+      getName: 'NAME',
     });
     groupService = jasmine.createSpyObj('groupService', {
       findByHref: jasmine.createSpy('findByHref'),
     });
     routeStub = {
       data: observableOf({
-        item: createSuccessfulRemoteDataObject(item)
-      })
+        item: createSuccessfulRemoteDataObject(item),
+      }),
     };
     routerStub = Object.assign(new RouterStub(), {
-      url: `url/edit`
+      url: `url/edit`,
     });
 
 
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         ResourcePolicyEntryComponent,
@@ -126,7 +126,7 @@ describe('ResourcePolicyEntryComponent', () => {
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
         { provide: GroupDataService, useValue: groupService },
-        { provide: DSONameService, useValue: dsoNameService }
+        { provide: DSONameService, useValue: dsoNameService },
       ],
       // schemas: [
       //   NO_ERRORS_SCHEMA

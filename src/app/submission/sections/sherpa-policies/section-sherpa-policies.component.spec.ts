@@ -45,7 +45,7 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
     errorsToShow: [],
     serverValidationErrors: [],
     isLoading: false,
-    isValid: true
+    isValid: true,
   };
 
   describe('SubmissionSectionSherpaPoliciesComponent', () => {
@@ -58,11 +58,11 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
           TranslateModule.forRoot({
             loader: {
               provide: TranslateLoader,
-              useClass: TranslateLoaderMock
-            }
+              useClass: TranslateLoaderMock,
+            },
           }),
           NgbCollapseModule,
-          SharedModule
+          SharedModule,
         ],
         declarations: [SubmissionSectionSherpaPoliciesComponent],
         providers: [
@@ -72,7 +72,7 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
           { provide: Store, useValue: storeStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
-        ]
+        ],
       })
         .compileComponents();
     });

@@ -117,7 +117,7 @@ describe('AdvancedWorkflowActionComponent', () => {
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
-  template: ''
+  template: '',
 })
 class TestComponent extends AdvancedWorkflowActionComponent {
 

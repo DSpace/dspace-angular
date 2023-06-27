@@ -23,7 +23,7 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-bitstream-request-a-copy-page',
-  templateUrl: './bitstream-request-a-copy-page.component.html'
+  templateUrl: './bitstream-request-a-copy-page.component.html',
 })
 /**
  * Page component for requesting a copy for a bitstream
@@ -64,7 +64,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
       }),
       email: new UntypedFormControl('', {
         validators: [Validators.required,
-          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')],
       }),
       allfiles: new UntypedFormControl(''),
       message: new UntypedFormControl(''),
@@ -73,7 +73,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
 
     this.item$ = this.route.data.pipe(
       map((data) => data.dso),
-      getFirstSucceededRemoteDataPayload()
+      getFirstSucceededRemoteDataPayload(),
     );
 
     this.subs.push(this.item$.subscribe((item) => {
@@ -84,7 +84,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
     this.bitstream$ = this.route.queryParams.pipe(
       filter((params) => hasValue(params) && hasValue(params.bitstream)),
       switchMap((params) => this.bitstreamService.findById(params.bitstream)),
-      getFirstSucceededRemoteDataPayload()
+      getFirstSucceededRemoteDataPayload(),
     );
 
     this.subs.push(this.bitstream$.subscribe((bitstream) => {
@@ -93,7 +93,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
     }));
 
     this.canDownload$ = this.bitstream$.pipe(
-      switchMap((bitstream) => this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(bitstream) ? bitstream.self : undefined))
+      switchMap((bitstream) => this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(bitstream) ? bitstream.self : undefined)),
     );
     const canRequestCopy$ = this.bitstream$.pipe(
       switchMap((bitstream) => this.authorizationService.isAuthorized(FeatureID.CanRequestACopy, isNotEmpty(bitstream) ? bitstream.self : undefined)),
@@ -149,7 +149,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
         } else {
           return observableOf(undefined);
         }
-      })
+      }),
     );
 
   }
@@ -171,7 +171,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
     itemRequest.requestMessage = this.message.value;
 
     this.itemRequestDataService.requestACopy(itemRequest).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get('bitstream-request-a-copy.submit.success'));

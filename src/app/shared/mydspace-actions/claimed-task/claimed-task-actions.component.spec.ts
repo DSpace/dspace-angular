@@ -57,28 +57,28 @@ function init() {
       'dc.title': [
         {
           language: 'en_US',
-          value: 'This is just another title'
-        }
+          value: 'This is just another title',
+        },
       ],
       'dc.type': [
         {
           language: null,
-          value: 'Article'
-        }
+          value: 'Article',
+        },
       ],
       'dc.contributor.author': [
         {
           language: 'en_US',
-          value: 'Smith, Donald'
-        }
+          value: 'Smith, Donald',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '2015-06-26'
-        }
-      ]
-    }
+          value: '2015-06-26',
+        },
+      ],
+    },
   });
   rdItem = createSuccessfulRemoteDataObject(item);
   workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem), id: '333' });
@@ -87,7 +87,7 @@ function init() {
   workflowAction = Object.assign(new WorkflowAction(), { id: 'action-1', options: ['option-1', 'option-2'] });
 
   workflowActionService = jasmine.createSpyObj('workflowActionService', {
-    findById: createSuccessfulRemoteDataObject$(workflowAction)
+    findById: createSuccessfulRemoteDataObject$(workflowAction),
   });
 }
 
@@ -99,9 +99,9 @@ describe('ClaimedTaskActionsComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [ClaimedTaskActionsComponent, VarDirective],
       providers: [
@@ -111,11 +111,11 @@ describe('ClaimedTaskActionsComponent', () => {
         { provide: ClaimedTaskDataService, useValue: mockDataService },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
-        { provide: WorkflowActionDataService, useValue: workflowActionService }
+        { provide: WorkflowActionDataService, useValue: workflowActionService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ClaimedTaskActionsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

@@ -25,17 +25,17 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
-          }
+            value: 'This is just another title',
+          },
         ],
         'dc.description': [
           {
             language: 'en_US',
-            value: 'A description about the OrgUnit'
-          }
-        ]
-      }
-    })
+            value: 'A description about the OrgUnit',
+          },
+        ],
+      },
+    }),
   });
 const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
@@ -46,23 +46,23 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
-          }
-        ]
-      }
-    })
+            value: 'This is just another title',
+          },
+        ],
+      },
+    }),
   });
 
 const environmentUseThumbs = {
   browseBy: {
-    showThumbnails: true
-  }
+    showThumbnails: true,
+  },
 };
 
 const enviromentNoThumbs = {
   browseBy: {
-    showThumbnails: false
-  }
+    showThumbnails: false,
+  },
 };
 
 describe('OrgUnitSearchResultListElementComponent', () => {
@@ -71,20 +71,20 @@ describe('OrgUnitSearchResultListElementComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }
+          useClass: TranslateLoaderMock,
+        },
+      },
       )],
       declarations: [ OrgUnitSearchResultListElementComponent , TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
       ],
 
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [ NO_ERRORS_SCHEMA ],
     }).overrideComponent(OrgUnitSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -141,20 +141,20 @@ describe('OrgUnitSearchResultListElementComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }
+          useClass: TranslateLoaderMock,
+        },
+      },
       )],
       declarations: [OrgUnitSearchResultListElementComponent, TruncatePipe],
       providers: [
         {provide: TruncatableService, useValue: {}},
         {provide: DSONameService, useClass: DSONameServiceMock},
-        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(OrgUnitSearchResultListElementComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: {changeDetection: ChangeDetectionStrategy.Default},
     }).compileComponents();
   }));
 

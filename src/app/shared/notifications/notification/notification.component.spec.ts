@@ -29,7 +29,7 @@ describe('NotificationComponent', () => {
   beforeEach(waitForAsync(() => {
     const store: Store<Notification> = jasmine.createSpyObj('store', {
       /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
-      notifications: []
+      notifications: [],
     });
 
     TestBed.configureTestingModule({
@@ -40,8 +40,8 @@ describe('NotificationComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         })],
       declarations: [NotificationComponent], // declare the test component
       providers: [
@@ -49,7 +49,7 @@ describe('NotificationComponent', () => {
         ChangeDetectorRef,
         NotificationsService,
         TranslateService,
-      ]
+      ],
     }).compileComponents();  // compile template and css
 
   }));
@@ -62,7 +62,7 @@ describe('NotificationComponent', () => {
       type: NotificationType.Info,
       title: 'Notif. title',
       content: 'Notif. content',
-      options: new NotificationOptions()
+      options: new NotificationOptions(),
     };
 
     fixture.detectChanges();
@@ -105,7 +105,7 @@ describe('NotificationComponent', () => {
       title: 'Notif. title',
       content: htmlContent,
       options: new NotificationOptions(),
-      html: true
+      html: true,
     };
 
     fixture.detectChanges();
@@ -129,9 +129,9 @@ describe('NotificationComponent', () => {
         content: 'test',
         options: Object.assign(
           new NotificationOptions(),
-          { timeout: TIMEOUT }
+          { timeout: TIMEOUT },
         ),
-        html: true
+        html: true,
       };
     });
 

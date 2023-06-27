@@ -22,14 +22,14 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
       {
         path: COMMUNITY_CREATE_PATH,
         component: CreateCommunityPageComponent,
-        canActivate: [AuthenticatedGuard, CreateCommunityPageGuard]
+        canActivate: [AuthenticatedGuard, CreateCommunityPageGuard],
       },
       {
         path: ':id',
         resolve: {
           dso: CommunityPageResolver,
           breadcrumb: CommunityBreadcrumbResolver,
-          menu: DSOEditMenuResolver
+          menu: DSOEditMenuResolver,
         },
         runGuardsAndResolvers: 'always',
         children: [
@@ -37,7 +37,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             path: COMMUNITY_EDIT_PATH,
             loadChildren: () => import('./edit-community-page/edit-community-page.module')
               .then((m) => m.EditCommunityPageModule),
-            canActivate: [CommunityPageAdministratorGuard]
+            canActivate: [CommunityPageAdministratorGuard],
           },
           {
             path: 'delete',
@@ -49,7 +49,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             path: '',
             component: ThemedCommunityPageComponent,
             pathMatch: 'full',
-          }
+          },
         ],
         data: {
           menu: {
@@ -67,7 +67,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
           },
         },
       },
-    ])
+    ]),
   ],
   providers: [
     CommunityPageResolver,
@@ -76,7 +76,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
     LinkService,
     CreateCommunityPageGuard,
     CommunityPageAdministratorGuard,
-  ]
+  ],
 })
 export class CommunityPageRoutingModule {
 

@@ -14,7 +14,7 @@ import { GenericItemPageFieldComponent } from './simple/field-components/specifi
 import { MetadataRepresentationListComponent } from './simple/metadata-representation-list/metadata-representation-list.component';
 import { RelatedItemsComponent } from './simple/related-items/related-items-component';
 import {
-  ThemedMetadataRepresentationListComponent
+  ThemedMetadataRepresentationListComponent,
 } from './simple/metadata-representation-list/themed-metadata-representation-list.component';
 
 const ENTRY_COMPONENTS = [
@@ -36,23 +36,23 @@ const COMPONENTS = [
 
 @NgModule({
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
   ],
   imports: [
     CommonModule,
     SearchModule,
     SharedModule,
-    TranslateModule
+    TranslateModule,
   ],
   exports: [
-    ...COMPONENTS
+    ...COMPONENTS,
   ],
   providers: [
     {
       provide: DYNAMIC_FORM_CONTROL_MAP_FN,
-      useValue: dsDynamicFormControlMapFn
+      useValue: dsDynamicFormControlMapFn,
     },
     ...ENTRY_COMPONENTS,
-  ]
+  ],
 })
 export class ItemSharedModule { }

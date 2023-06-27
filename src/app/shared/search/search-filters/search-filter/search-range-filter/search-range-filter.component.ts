@@ -11,7 +11,7 @@ import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
-  SearchFilterService
+  SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { Router } from '@angular/router';
@@ -40,7 +40,7 @@ export const RANGE_FILTER_MAX_SUFFIX = '.max';
   selector: 'ds-search-range-filter',
   styleUrls: ['./search-range-filter.component.scss'],
   templateUrl: './search-range-filter.component.html',
-  animations: [facetLoad]
+  animations: [facetLoad],
 })
 
 /**
@@ -103,7 +103,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
         const minimum = hasValue(min) ? min : this.min;
         const maximum = hasValue(max) ? max : this.max;
         return [minimum, maximum];
-      })
+      }),
     ).subscribe((minmax) => this.range = minmax);
   }
 
@@ -121,9 +121,9 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
       queryParams:
         {
           [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: newMin,
-          [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: newMax
+          [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: newMax,
         },
-      queryParamsHandling: 'merge'
+      queryParamsHandling: 'merge',
     });
     this.filter = '';
   }

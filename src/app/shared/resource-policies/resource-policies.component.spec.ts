@@ -59,17 +59,17 @@ describe('ResourcePoliciesComponent test suite', () => {
     uuid: 'resource-policy-1',
     _links: {
       eperson: {
-        href: 'https://rest.api/rest/api/eperson'
+        href: 'https://rest.api/rest/api/eperson',
       },
       group: {
-        href: 'https://rest.api/rest/api/group'
+        href: 'https://rest.api/rest/api/group',
       },
       self: {
-        href: 'https://rest.api/rest/api/resourcepolicies/1'
+        href: 'https://rest.api/rest/api/resourcepolicies/1',
       },
     },
     eperson: observableOf(createSuccessfulRemoteDataObject({})),
-    group: observableOf(createSuccessfulRemoteDataObject(GroupMock))
+    group: observableOf(createSuccessfulRemoteDataObject(GroupMock)),
   };
 
   const anotherResourcePolicy: any = {
@@ -84,65 +84,65 @@ describe('ResourcePoliciesComponent test suite', () => {
     uuid: 'resource-policy-2',
     _links: {
       eperson: {
-        href: 'https://rest.api/rest/api/eperson'
+        href: 'https://rest.api/rest/api/eperson',
       },
       group: {
-        href: 'https://rest.api/rest/api/group'
+        href: 'https://rest.api/rest/api/group',
       },
       self: {
-        href: 'https://rest.api/rest/api/resourcepolicies/1'
+        href: 'https://rest.api/rest/api/resourcepolicies/1',
       },
     },
     eperson: observableOf(createSuccessfulRemoteDataObject(EPersonMock)),
-    group: observableOf(createSuccessfulRemoteDataObject({}))
+    group: observableOf(createSuccessfulRemoteDataObject({})),
   };
 
   const bitstream1 = Object.assign(new Bitstream(), {
     id: 'bitstream1',
-    uuid: 'bitstream1'
+    uuid: 'bitstream1',
   });
   const bitstream2 = Object.assign(new Bitstream(), {
     id: 'bitstream2',
-    uuid: 'bitstream2'
+    uuid: 'bitstream2',
   });
   const bitstream3 = Object.assign(new Bitstream(), {
     id: 'bitstream3',
-    uuid: 'bitstream3'
+    uuid: 'bitstream3',
   });
   const bitstream4 = Object.assign(new Bitstream(), {
     id: 'bitstream4',
-    uuid: 'bitstream4'
+    uuid: 'bitstream4',
   });
   const bundle1 = Object.assign(new Bundle(), {
     id: 'bundle1',
     uuid: 'bundle1',
     _links: {
-      self: { href: 'bundle1-selflink' }
+      self: { href: 'bundle1-selflink' },
     },
-    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2]))
+    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2])),
   });
   const bundle2 = Object.assign(new Bundle(), {
     id: 'bundle2',
     uuid: 'bundle2',
     _links: {
-      self: { href: 'bundle2-selflink' }
+      self: { href: 'bundle2-selflink' },
     },
-    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream3, bitstream4]))
+    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream3, bitstream4])),
   });
 
   const item = Object.assign(new Item(), {
     uuid: 'itemUUID',
     id: 'itemUUID',
     _links: {
-      self: { href: 'item-selflink' }
+      self: { href: 'item-selflink' },
     },
-    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle1, bundle2]))
+    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle1, bundle2])),
   });
 
   const routeStub = {
     data: observableOf({
-      item: createSuccessfulRemoteDataObject(item)
-    })
+      item: createSuccessfulRemoteDataObject(item),
+    }),
   };
 
   const epersonService = jasmine.createSpyObj('epersonService', {
@@ -154,7 +154,7 @@ describe('ResourcePoliciesComponent test suite', () => {
   });
 
   routerStub = Object.assign(new RouterStub(), {
-    url: `url/edit`
+    url: `url/edit`,
   });
 
   const getInitEntries = () => {
@@ -162,13 +162,13 @@ describe('ResourcePoliciesComponent test suite', () => {
       Object.assign({}, {
         id: resourcePolicy.id,
         policy: resourcePolicy,
-        checked: false
+        checked: false,
       }),
       Object.assign({}, {
         id: anotherResourcePolicy.id,
         policy: anotherResourcePolicy,
-        checked: false
-      })
+        checked: false,
+      }),
     ];
   };
 
@@ -176,13 +176,13 @@ describe('ResourcePoliciesComponent test suite', () => {
     {
       id: resourcePolicy.id,
       policy: resourcePolicy,
-      checked: true
+      checked: true,
     },
     {
       id: anotherResourcePolicy.id,
       policy: anotherResourcePolicy,
-      checked: false
-    }
+      checked: false,
+    },
   ];
 
   const pageInfo = new PageInfo();
@@ -191,7 +191,7 @@ describe('ResourcePoliciesComponent test suite', () => {
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
   const dsoNameService = jasmine.createSpyObj('dsoNameMock', {
-    getName: 'NAME'
+    getName: 'NAME',
   });
 
   beforeEach(waitForAsync(() => {
@@ -200,12 +200,12 @@ describe('ResourcePoliciesComponent test suite', () => {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         ResourcePoliciesComponent,
         ResourcePolicyEntryComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: LinkService, useValue: linkService },
@@ -218,10 +218,10 @@ describe('ResourcePoliciesComponent test suite', () => {
         { provide: Router, useValue: routerStub },
         { provide: DSONameService, useValue: dsoNameService },
         ChangeDetectorRef,
-        ResourcePoliciesComponent
+        ResourcePoliciesComponent,
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 
@@ -232,7 +232,7 @@ describe('ResourcePoliciesComponent test suite', () => {
     // synchronous beforeEach
     beforeEach(() => {
       resourcePolicyService.searchByResource.and.returnValue(hot('a|', {
-        a: paginatedListRD
+        a: paginatedListRD,
       }));
       const html = `
         <ds-resource-policies [resourceUUID]="resourceUUID" [resourceType]="resourceType"></ds-resource-policies>`;
@@ -278,7 +278,7 @@ describe('ResourcePoliciesComponent test suite', () => {
       const expected = getInitEntries();
       compAsAny.isActive = true;
       resourcePolicyService.searchByResource.and.returnValue(hot('a|', {
-        a: paginatedListRD
+        a: paginatedListRD,
       }));
 
       scheduler = getTestScheduler();
@@ -326,7 +326,7 @@ describe('ResourcePoliciesComponent test suite', () => {
 
       it('should return false when no row is selected', () => {
         expect(comp.canDelete()).toBeObservable(cold('(a|)', {
-          a: false
+          a: false,
         }));
       });
 
@@ -335,7 +335,7 @@ describe('ResourcePoliciesComponent test suite', () => {
         const event = { target: { checked: true } };
         checkbox.triggerEventHandler('change', event);
         expect(comp.canDelete()).toBeObservable(cold('(a|)', {
-          a: true
+          a: true,
         }));
       });
     });
@@ -387,7 +387,7 @@ describe('ResourcePoliciesComponent test suite', () => {
     it('should get the resource\'s policy list', () => {
       const initResourcePolicyEntries = getInitEntries();
       expect(comp.getResourcePolicies()).toBeObservable(cold('a', {
-        a: initResourcePolicyEntries
+        a: initResourcePolicyEntries,
       }));
 
     });
@@ -421,7 +421,7 @@ describe('ResourcePoliciesComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

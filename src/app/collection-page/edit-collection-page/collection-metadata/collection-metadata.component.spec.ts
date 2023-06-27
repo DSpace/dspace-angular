@@ -24,16 +24,16 @@ describe('CollectionMetadataComponent', () => {
 
   const template = Object.assign(new Item(), {
     _links: {
-      self: { href: 'template-selflink' }
-    }
+      self: { href: 'template-selflink' },
+    },
   });
   const collection = Object.assign(new Collection(), {
     uuid: 'collection-id',
     id: 'collection-id',
     name: 'Fake Collection',
     _links: {
-      self: { href: 'collection-selflink' }
-    }
+      self: { href: 'collection-selflink' },
+    },
   });
   const collectionTemplateHref = 'rest/api/test/collections/template';
 
@@ -46,10 +46,10 @@ describe('CollectionMetadataComponent', () => {
 
   const notificationsService = jasmine.createSpyObj('notificationsService', {
     success: {},
-    error: {}
+    error: {},
   });
   const requestService = jasmine.createSpyObj('requestService', {
-    setStaleByHrefSubstring: {}
+    setStaleByHrefSubstring: {},
   });
 
   const routerMock = {
@@ -67,9 +67,9 @@ describe('CollectionMetadataComponent', () => {
         { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: RequestService, useValue: requestService },
-        { provide: Router, useValue: routerMock}
+        { provide: Router, useValue: routerMock},
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

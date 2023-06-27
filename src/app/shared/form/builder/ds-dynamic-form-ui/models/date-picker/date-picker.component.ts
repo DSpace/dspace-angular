@@ -5,7 +5,7 @@ import { hasValue } from '../../../../../empty.util';
 import {
   DynamicFormControlComponent,
   DynamicFormLayoutService,
-  DynamicFormValidationService
+  DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 
 export const DS_DATE_PICKER_SEPARATOR = '-';
@@ -51,7 +51,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
   disabledDay = true;
 
   constructor(protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
+              protected validationService: DynamicFormValidationService,
   ) {
     super(layoutService, validationService);
   }

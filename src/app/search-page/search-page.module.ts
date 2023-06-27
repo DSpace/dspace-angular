@@ -15,7 +15,7 @@ import { SearchModule } from '../shared/search/search.module';
 
 const components = [
   SearchPageComponent,
-  ThemedSearchPageComponent
+  ThemedSearchPageComponent,
 ];
 
 @NgModule({
@@ -26,16 +26,16 @@ const components = [
     CoreModule.forRoot(),
     StatisticsModule.forRoot(),
     JournalEntitiesModule.withEntryComponents(),
-    ResearchEntitiesModule.withEntryComponents()
+    ResearchEntitiesModule.withEntryComponents(),
   ],
   declarations: components,
   providers: [
     SidebarService,
     SearchFilterService,
     ConfigurationSearchPageGuard,
-    SearchConfigurationService
+    SearchConfigurationService,
   ],
-  exports: components
+  exports: components,
 })
 
 /**

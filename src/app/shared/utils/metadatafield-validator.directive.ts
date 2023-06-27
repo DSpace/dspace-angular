@@ -15,8 +15,8 @@ import { getFirstSucceededRemoteData } from '../../core/shared/operators';
   selector: '[ngModel][dsMetadataFieldValidator]',
   // We add our directive to the list of existing validators
   providers: [
-    { provide: NG_VALIDATORS, useExisting: MetadataFieldValidator, multi: true }
-  ]
+    { provide: NG_VALIDATORS, useExisting: MetadataFieldValidator, multi: true },
+  ],
 })
 @Injectable({ providedIn: 'root' })
 export class MetadataFieldValidator implements AsyncValidator {
@@ -48,13 +48,13 @@ export class MetadataFieldValidator implements AsyncValidator {
               } else if (matchingFieldRD.payload.pageInfo.totalElements === 1) {
                 return null;
               }
-            })
+            }),
           );
 
         res.pipe(take(1)).subscribe();
 
         return res;
-      })
+      }),
     );
     resTimer.pipe(take(1)).subscribe();
     return resTimer;

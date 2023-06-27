@@ -9,7 +9,7 @@ import { HealthInfoResponse, HealthResponse } from './models/health-component.mo
 @Component({
   selector: 'ds-health-page',
   templateUrl: './health-page.component.html',
-  styleUrls: ['./health-page.component.scss']
+  styleUrls: ['./health-page.component.scss'],
 })
 export class HealthPageComponent implements OnInit {
 
@@ -48,7 +48,7 @@ export class HealthPageComponent implements OnInit {
       error: () => {
         this.healthResponse.next(null);
         this.healthResponseInitialised.next(true);
-      }
+      },
     });
 
     this.healthDataService.getInfo().pipe(take(1)).subscribe({
@@ -59,7 +59,7 @@ export class HealthPageComponent implements OnInit {
       error: () => {
         this.healthInfoResponse.next(null);
         this.healthInfoResponseInitialised.next(true);
-      }
+      },
     });
 
   }

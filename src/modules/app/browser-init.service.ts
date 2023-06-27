@@ -56,7 +56,7 @@ export class BrowserInitService extends InitService {
     protected authService: AuthService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
-    private rootDataService: RootDataService
+    private rootDataService: RootDataService,
   ) {
     super(
       store,
@@ -120,7 +120,7 @@ export class BrowserInitService extends InitService {
     this.store.dispatch(new StoreAction(StoreActionTypes.REHYDRATE, state));
     return this.store.select(coreSelector).pipe(
       find((core: any) => isNotEmpty(core)),
-      map(() => true)
+      map(() => true),
     ).toPromise();
   }
 
@@ -150,12 +150,12 @@ export class BrowserInitService extends InitService {
   private externalAuthCheck() {
 
     this.sub = this.authService.isExternalAuthentication().pipe(
-      filter((externalAuth: boolean) => externalAuth)
+      filter((externalAuth: boolean) => externalAuth),
     ).subscribe(() => {
       // Clear the transferState data.
       this.rootDataService.invalidateRootCache();
       this.authService.setExternalAuthStatus(false);
-    }
+    },
     );
 
     this.closeAuthCheckSubscription();

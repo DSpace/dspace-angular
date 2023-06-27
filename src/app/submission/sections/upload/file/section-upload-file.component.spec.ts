@@ -20,7 +20,7 @@ import {
   mockSubmissionCollectionId,
   mockSubmissionId,
   mockUploadConfigResponse,
-  mockUploadFiles
+  mockUploadFiles,
 } from '../../../../shared/mocks/submission.mock';
 
 import { SubmissionService } from '../../../submission.service';
@@ -38,10 +38,10 @@ const configMetadataFormMock = {
     fields: [{
       selectableMetadata: [
         {metadata: 'dc.title', label: null, closed: false},
-        {metadata: 'dc.description', label: null, closed: false}
-      ]
-    }]
-  }]
+        {metadata: 'dc.description', label: null, closed: false},
+      ],
+    }],
+  }],
 };
 
 describe('SubmissionSectionUploadFileComponent test suite', () => {
@@ -80,12 +80,12 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         BrowserModule,
         CommonModule,
         NgbModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         FileSizePipe,
         SubmissionSectionUploadFileComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: FormService, useValue: getMockFormService() },
@@ -98,9 +98,9 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         NgbModal,
         SubmissionSectionUploadFileComponent,
         SubmissionSectionUploadFileEditComponent,
-        FormBuilderService
+        FormBuilderService,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
   }));
 
@@ -237,7 +237,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

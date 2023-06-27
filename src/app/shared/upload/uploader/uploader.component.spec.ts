@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
@@ -27,7 +27,7 @@ describe('Chips component', () => {
     TestBed.configureTestingModule({
       imports: [
         FileUploadModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         UploaderComponent,
@@ -41,7 +41,7 @@ describe('Chips component', () => {
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock('mock-token') },
         { provide: CookieService, useValue: new CookieServiceMock() },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
 
   }));
@@ -67,14 +67,14 @@ describe('Chips component', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
   public uploadFilesOptions: UploaderOptions = Object.assign(new UploaderOptions(), {
     url: 'http://test',
     authToken: null,
     disableMultipart: false,
-    itemAlias: null
+    itemAlias: null,
   });
 
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */

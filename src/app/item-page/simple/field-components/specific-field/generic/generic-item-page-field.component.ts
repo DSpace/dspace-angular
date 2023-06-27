@@ -5,7 +5,7 @@ import { ItemPageFieldComponent } from '../item-page-field.component';
 
 @Component({
   selector: 'ds-generic-item-page-field',
-  templateUrl: '../item-page-field.component.html'
+  templateUrl: '../item-page-field.component.html',
 })
 /**
  * This component can be used to represent metadata on a simple item page.

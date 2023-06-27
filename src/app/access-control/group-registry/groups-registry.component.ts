@@ -8,7 +8,7 @@ import {
   EMPTY,
   Observable,
   of as observableOf,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import { catchError, defaultIfEmpty, map, switchMap, tap } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
@@ -28,7 +28,7 @@ import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../core/shared/operators';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { hasValue } from '../../shared/empty.util';
@@ -57,7 +57,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'gl',
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   });
 
   /**
@@ -155,7 +155,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
                   this.canManageGroup$(isSiteAdmin, group),
                   this.hasLinkedDSO(group),
                   this.getSubgroups(group),
-                  this.getMembers(group)
+                  this.getMembers(group),
                 ]).pipe(
                   map(([canDelete, canManageGroup, hasLinkedDSO, subgroups, members]:
                          [boolean, boolean, boolean, RemoteData<PaginatedList<Group>>, RemoteData<PaginatedList<EPerson>>]) => {
@@ -166,8 +166,8 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
                     groupDtoModel.subgroups = subgroups.payload;
                     groupDtoModel.epersons = members.payload;
                     return groupDtoModel;
-                  }
-                  )
+                  },
+                  ),
                 );
               } else {
                 return EMPTY;
@@ -175,9 +175,9 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
             })]).pipe(defaultIfEmpty([]), map((dtos: GroupDtoModel[]) => {
               return buildPaginatedList(groups.pageInfo, dtos);
             }));
-          })
+          }),
         );
-      })
+      }),
     ).subscribe((value: PaginatedList<GroupDtoModel>) => {
       this.groupsDto$.next(value);
       this.pageInfoState$.next(value.pageInfo);

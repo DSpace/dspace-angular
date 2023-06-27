@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'ds-context-help-toggle',
   templateUrl: './context-help-toggle.component.html',
-  styleUrls: ['./context-help-toggle.component.scss']
+  styleUrls: ['./context-help-toggle.component.scss'],
 })
 export class ContextHelpToggleComponent implements OnInit {
   buttonVisible$: Observable<boolean>;

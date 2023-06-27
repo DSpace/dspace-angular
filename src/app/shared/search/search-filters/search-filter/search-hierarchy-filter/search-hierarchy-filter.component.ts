@@ -4,13 +4,13 @@ import { FilterType } from '../../../models/filter-type.model';
 import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
-  VocabularyEntryDetail
+  VocabularyEntryDetail,
 } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
-  SearchFilterService, REFRESH_FILTER
+  SearchFilterService, REFRESH_FILTER,
 } from '../../../../../core/shared/search/search-filter.service';
 import { Router } from '@angular/router';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
@@ -31,7 +31,7 @@ import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-tr
   selector: 'ds-search-hierarchy-filter',
   styleUrls: ['./search-hierarchy-filter.component.scss'],
   templateUrl: './search-hierarchy-filter.component.html',
-  animations: [facetLoad]
+  animations: [facetLoad],
 })
 
 /**
@@ -49,7 +49,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
-              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>
+              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
   ) {
     super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters);
   }
@@ -85,11 +85,11 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
   showVocabularyTree() {
     const modalRef: NgbModalRef = this.modalService.open(VocabularyTreeviewModalComponent, {
       size: 'lg',
-      windowClass: 'treeview'
+      windowClass: 'treeview',
     });
     modalRef.componentInstance.vocabularyOptions = {
       name: this.getVocabularyEntry(),
-      closed: true
+      closed: true,
     };
     modalRef.result.then((detail: VocabularyEntryDetail) => {
       this.selectedValues$

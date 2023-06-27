@@ -33,11 +33,11 @@ export class AuthRequestServiceStub {
             href: 'dspace.org/api/status',
           },
           eperson: {
-            href: this.mockUser._links.self.href
+            href: this.mockUser._links.self.href,
           },
           specialGroups: {
-            href: this.mockUser._links.self.href
-          }
+            href: this.mockUser._links.self.href,
+          },
         };
       } else {
         authStatusStub.authenticated = false;
@@ -65,11 +65,11 @@ export class AuthRequestServiceStub {
               href: 'dspace.org/api/status',
             },
             eperson: {
-              href: this.mockUser._links.self.href
+              href: this.mockUser._links.self.href,
             },
             specialGroups: {
-              href: this.mockUser._links.self.href
-            }
+              href: this.mockUser._links.self.href,
+            },
           };
         } else {
           authStatusStub.authenticated = false;

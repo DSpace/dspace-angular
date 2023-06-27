@@ -60,11 +60,11 @@ export class ItemRequestDataService extends IdentifiableDataService<ItemRequest>
       map((href: string) => {
         const request = new PostRequest(requestId, href, itemRequest);
         this.requestService.send(request);
-      })
+      }),
     ).subscribe();
 
     return this.rdbService.buildFromRequestUUID<ItemRequest>(requestId).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     );
   }
 

@@ -104,7 +104,7 @@ const DIRECTIVES = [
   providers: [
     {
       provide: DYNAMIC_FORM_CONTROL_MAP_FN,
-      useValue: dsDynamicFormControlMapFn
+      useValue: dsDynamicFormControlMapFn,
     },
     DynamicFormLayoutService,
     DynamicFormService,
@@ -112,7 +112,7 @@ const DIRECTIVES = [
     FormBuilderService,
     DsDynamicTypeBindRelationService,
     FormService,
-  ]
+  ],
 })
 export class FormModule {
 }

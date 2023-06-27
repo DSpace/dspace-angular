@@ -65,7 +65,7 @@ const ENTRY_COMPONENTS = [
 const COMPONENTS = [
   NameVariantModalComponent,
   PersonInputSuggestionsComponent,
-  ...ENTRY_COMPONENTS
+  ...ENTRY_COMPONENTS,
 ];
 
 @NgModule({
@@ -79,7 +79,7 @@ const COMPONENTS = [
   ],
   declarations: [
     ...COMPONENTS,
-  ]
+  ],
 })
 export class ResearchEntitiesModule {
   /**
@@ -89,7 +89,7 @@ export class ResearchEntitiesModule {
   static withEntryComponents() {
     return {
       ngModule: ResearchEntitiesModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component }))
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component })),
     };
   }
 }

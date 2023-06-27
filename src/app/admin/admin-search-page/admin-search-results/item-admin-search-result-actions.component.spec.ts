@@ -14,7 +14,7 @@ import {
   ITEM_EDIT_PRIVATE_PATH,
   ITEM_EDIT_PUBLIC_PATH,
   ITEM_EDIT_REINSTATE_PATH,
-  ITEM_EDIT_WITHDRAW_PATH
+  ITEM_EDIT_WITHDRAW_PATH,
 } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
 
 describe('ItemAdminSearchResultActionsComponent', () => {
@@ -34,10 +34,10 @@ describe('ItemAdminSearchResultActionsComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
       ],
       declarations: [ItemAdminSearchResultActionsComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

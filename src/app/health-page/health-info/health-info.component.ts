@@ -14,7 +14,7 @@ import { HealthInfoResponse } from '../models/health-component.model';
 @Component({
   selector: 'ds-health-info',
   templateUrl: './health-info.component.html',
-  styleUrls: ['./health-info.component.scss']
+  styleUrls: ['./health-info.component.scss'],
 })
 export class HealthInfoComponent implements OnInit  {
 

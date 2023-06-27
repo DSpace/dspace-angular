@@ -4,7 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'ds-item-versions-delete-modal',
   templateUrl: './item-versions-delete-modal.component.html',
-  styleUrls: ['./item-versions-delete-modal.component.scss']
+  styleUrls: ['./item-versions-delete-modal.component.scss'],
 })
 export class ItemVersionsDeleteModalComponent {
   /**
@@ -16,7 +16,7 @@ export class ItemVersionsDeleteModalComponent {
   versionNumber: number;
 
   constructor(
-    protected activeModal: NgbActiveModal,) {
+    protected activeModal: NgbActiveModal) {
   }
 
   onModalClose() {

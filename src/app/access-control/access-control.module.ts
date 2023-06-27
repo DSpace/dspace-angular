@@ -55,9 +55,9 @@ export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
   providers: [
     {
       provide: DYNAMIC_ERROR_MESSAGES_MATCHER,
-      useValue: ValidateEmailErrorStateMatcher
+      useValue: ValidateEmailErrorStateMatcher,
     },
-  ]
+  ],
 })
 /**
  * This module handles all components related to the access control pages

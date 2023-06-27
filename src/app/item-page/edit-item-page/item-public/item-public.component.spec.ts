@@ -33,22 +33,22 @@ describe('ItemPublicComponent', () => {
       id: 'fake-id',
       handle: 'fake/handle',
       lastModified: '2018',
-      isWithdrawn: true
+      isWithdrawn: true,
     });
 
     itemPageUrl = `fake-url/${mockItem.id}`;
     routerStub = Object.assign(new RouterStub(), {
-      url: `${itemPageUrl}/edit`
+      url: `${itemPageUrl}/edit`,
     });
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
-      setDiscoverable: createSuccessfulRemoteDataObject$(mockItem)
+      setDiscoverable: createSuccessfulRemoteDataObject$(mockItem),
     });
 
     routeStub = {
       data: observableOf({
-        dso: createSuccessfulRemoteDataObject(mockItem)
-      })
+        dso: createSuccessfulRemoteDataObject(mockItem),
+      }),
     };
 
     notificationsServiceStub = new NotificationsServiceStub();
@@ -62,8 +62,8 @@ describe('ItemPublicComponent', () => {
         { provide: ItemDataService, useValue: mockItemDataService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
       ], schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 

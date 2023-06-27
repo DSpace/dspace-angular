@@ -53,9 +53,9 @@ describe('CollectionsComponent', () => {
         { provide: CollectionDataService, useValue: collectionDataService },
       ],
 
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [ NO_ERRORS_SCHEMA ],
     }).overrideComponent(CollectionsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

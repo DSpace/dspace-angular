@@ -44,7 +44,7 @@ describe('SearchFacetOptionComponent', () => {
     filterType: FilterType.authority,
     hasFacets: false,
     isOpenByDefault: false,
-    pageSize: 2
+    pageSize: 2,
   });
 
   const value: FacetValue = {
@@ -53,8 +53,8 @@ describe('SearchFacetOptionComponent', () => {
     count: 20,
     _links: {
       self: { href: 'selectedValue-self-link2' },
-      search: { href: `` }
-    }
+      search: { href: `` },
+    },
   };
 
   const selectedValue: FacetValue = {
@@ -63,8 +63,8 @@ describe('SearchFacetOptionComponent', () => {
     count: 20,
     _links: {
       self: { href: 'selectedValue-self-link1' },
-      search: { href: `http://test.org/api/discover/search/objects?f.${filterName1}=${value1},${operator}` }
-    }
+      search: { href: `http://test.org/api/discover/search/objects?f.${filterName1}=${value1},${operator}` },
+    },
   };
 
   const authorityValue: FacetValue = {
@@ -73,8 +73,8 @@ describe('SearchFacetOptionComponent', () => {
     count: 20,
     _links: {
       self: { href: 'authorityValue-self-link2' },
-      search: { href: `http://test.org/api/discover/search/objects?f.${filterName2}=${value2},${operator}` }
-    }
+      search: { href: `http://test.org/api/discover/search/objects?f.${filterName2}=${value2},${operator}` },
+    },
   };
 
   const searchLink = '/search';
@@ -98,8 +98,8 @@ describe('SearchFacetOptionComponent', () => {
         {
           provide: SearchConfigurationService, useValue: {
             paginationID: 'page-id',
-            searchOptions: observableOf({})
-          }
+            searchOptions: observableOf({}),
+          },
         },
         {
           provide: SearchFilterService, useValue: {
@@ -110,14 +110,14 @@ describe('SearchFacetOptionComponent', () => {
             incrementPage: (filterName: string) => {
             },
             resetPage: (filterName: string) => {
-            }
+            },
             /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-          }
-        }
+          },
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFacetOptionComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -139,7 +139,7 @@ describe('SearchFacetOptionComponent', () => {
       (comp as any).updateAddParams(selectedValues);
       expect(comp.addQueryParams).toEqual({
         [mockFilterConfig.paramName]: [`${value1},${operator}`, value.value + ',equals'],
-        ['page-id.page']: 1
+        ['page-id.page']: 1,
       });
     });
   });
@@ -154,7 +154,7 @@ describe('SearchFacetOptionComponent', () => {
       (comp as any).updateAddParams(selectedValues);
       expect(comp.addQueryParams).toEqual({
         [mockAuthorityFilterConfig.paramName]: [value1 + ',equals', `${value2},${operator}`],
-        ['page-id.page']: 1
+        ['page-id.page']: 1,
       });
     });
   });

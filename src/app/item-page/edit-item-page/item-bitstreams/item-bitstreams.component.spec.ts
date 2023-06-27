@@ -35,34 +35,34 @@ const warningNotification: INotification = new Notification('id', NotificationTy
 const successNotification: INotification = new Notification('id', NotificationType.Success, 'success');
 const bitstream1 = Object.assign(new Bitstream(), {
   id: 'bitstream1',
-  uuid: 'bitstream1'
+  uuid: 'bitstream1',
 });
 const bitstream2 = Object.assign(new Bitstream(), {
   id: 'bitstream2',
-  uuid: 'bitstream2'
+  uuid: 'bitstream2',
 });
 const fieldUpdate1 = {
   field: bitstream1,
-  changeType: undefined
+  changeType: undefined,
 };
 const fieldUpdate2 = {
   field: bitstream2,
-  changeType: FieldChangeType.REMOVE
+  changeType: FieldChangeType.REMOVE,
 };
 const bundle = Object.assign(new Bundle(), {
   id: 'bundle1',
   uuid: 'bundle1',
   _links: {
-    self: { href: 'bundle1-selflink' }
+    self: { href: 'bundle1-selflink' },
   },
-  bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2]))
+  bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2])),
 });
 const moveOperations = [
   {
     op: 'move',
     from: '/0',
-    path: '/1'
-  }
+    path: '/1',
+  },
 ];
 const date = new Date();
 const url = 'thisUrl';
@@ -100,52 +100,52 @@ describe('ItemBitstreamsComponent', () => {
         hasUpdates: observableOf(true),
         isReinstatable: observableOf(false),
         isValidPage: observableOf(true),
-        getMoveOperations: observableOf(moveOperations)
-      }
+        getMoveOperations: observableOf(moveOperations),
+      },
     );
     router = Object.assign(new RouterStub(), {
-      url: url
+      url: url,
     });
     notificationsService = jasmine.createSpyObj('notificationsService',
       {
         info: infoNotification,
         warning: warningNotification,
-        success: successNotification
-      }
+        success: successNotification,
+      },
     );
     bitstreamService = new BitstreamDataServiceStub();
     objectCache = jasmine.createSpyObj('objectCache', {
-      remove: jasmine.createSpy('remove')
+      remove: jasmine.createSpy('remove'),
     });
     requestService = getMockRequestService();
     searchConfig = Object.assign({
-      paginatedSearchOptions: observableOf({})
+      paginatedSearchOptions: observableOf({}),
     });
 
     item = Object.assign(new Item(), {
       uuid: 'item',
       id: 'item',
       _links: {
-        self: { href: 'item-selflink' }
+        self: { href: 'item-selflink' },
       },
       bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle])),
-      lastModified: date
+      lastModified: date,
     });
     itemService = Object.assign({
       getBitstreams: () => createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2])),
       findByHref: () => createSuccessfulRemoteDataObject$(item),
       findById: () => createSuccessfulRemoteDataObject$(item),
-      getBundles: () => createSuccessfulRemoteDataObject$(createPaginatedList([bundle]))
+      getBundles: () => createSuccessfulRemoteDataObject$(createPaginatedList([bundle])),
     });
     route = Object.assign({
       parent: {
-        data: observableOf({ dso: createSuccessfulRemoteDataObject(item) })
+        data: observableOf({ dso: createSuccessfulRemoteDataObject(item) }),
       },
       data: observableOf({}),
-      url: url
+      url: url,
     });
     bundleService = jasmine.createSpyObj('bundleService', {
-      patch: observableOf(new RestResponse(true, 200, 'OK'))
+      patch: observableOf(new RestResponse(true, 200, 'OK')),
     });
 
     TestBed.configureTestingModule({
@@ -162,10 +162,10 @@ describe('ItemBitstreamsComponent', () => {
         { provide: RequestService, useValue: requestService },
         { provide: SearchConfigurationService, useValue: searchConfig },
         { provide: BundleDataService, useValue: bundleService },
-        ChangeDetectorRef
+        ChangeDetectorRef,
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 
@@ -197,7 +197,7 @@ describe('ItemBitstreamsComponent', () => {
       toIndex: 50,
       // eslint-disable-next-line no-empty,@typescript-eslint/no-empty-function
       finish: () => {
-      }
+      },
     };
 
     beforeEach(() => {
@@ -212,7 +212,7 @@ describe('ItemBitstreamsComponent', () => {
         toIndex: 50,
         finish: () => {
           done();
-        }
+        },
       });
     });
 

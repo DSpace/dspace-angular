@@ -10,7 +10,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../core/shared/operators';
 import { HeadTagConfig, Theme, ThemeConfig, themeFactory } from '../../../config/theme.model';
 import { NO_OP_ACTION_TYPE, NoOpAction } from '../ngrx/no-op.action';
@@ -29,11 +29,11 @@ export const themeStateSelector = createFeatureSelector<ThemeState>('theme');
 
 export const currentThemeSelector = createSelector(
   themeStateSelector,
-  (state: ThemeState): string => hasValue(state) ? state.currentTheme : undefined
+  (state: ThemeState): string => hasValue(state) ? state.currentTheme : undefined,
 );
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ThemeService {
   /**
@@ -63,7 +63,7 @@ export class ThemeService {
     this.hasDynamicTheme = environment.themes.some((themeConfig: any) =>
       hasValue(themeConfig.regex) ||
       hasValue(themeConfig.handle) ||
-      hasValue(themeConfig.uuid)
+      hasValue(themeConfig.uuid),
     );
   }
 
@@ -82,9 +82,9 @@ export class ThemeService {
     let currentTheme: string;
     this.store.pipe(
       select(currentThemeSelector),
-      take(1)
+      take(1),
     ).subscribe((name: string) =>
-      currentTheme = name
+      currentTheme = name,
     );
     return currentTheme;
   }
@@ -94,7 +94,7 @@ export class ThemeService {
    */
   getThemeName$(): Observable<string> {
     return this.store.pipe(
-      select(currentThemeSelector)
+      select(currentThemeSelector),
     );
   }
 
@@ -145,7 +145,7 @@ export class ThemeService {
         } else {
           return [false];
         }
-      })
+      }),
     ).subscribe((changed) => {
       distinctNext(this._isThemeLoading$, changed);
     });
@@ -256,8 +256,8 @@ export class ThemeService {
               'rel': 'icon',
               'href': 'assets/images/favicon.ico',
               'sizes': 'any',
-            }
-          })
+            },
+          }),
         ];
       }
 
@@ -315,7 +315,7 @@ export class ThemeService {
                 map((dsos: DSpaceObject[]) => {
                   const dsoMatch = this.matchThemeToDSOs(dsos, currentRouteUrl);
                   return this.getActionForMatch(dsoMatch, currentTheme);
-                })
+                }),
               );
             }
           }
@@ -329,7 +329,7 @@ export class ThemeService {
               map((dsos: DSpaceObject[]) => {
                 const dsoMatch = this.matchThemeToDSOs(dsos, currentRouteUrl);
                 return this.getActionForMatch(dsoMatch, currentTheme);
-              })
+              }),
             );
           }
 
@@ -413,7 +413,7 @@ export class ThemeService {
         // only allow through DSOs that have a value
         filter((dso: DSpaceObject) => hasValue(dso)),
         // Wait for recursion to complete, and emit all results at once, in an array
-        toArray()
+        toArray(),
       );
   }
 

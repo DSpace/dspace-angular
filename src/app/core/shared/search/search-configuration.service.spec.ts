@@ -20,25 +20,25 @@ describe('SearchConfigurationService', () => {
   const prefixFilter = {
     'f.author': ['another value'],
     'f.date.min': ['2013'],
-    'f.date.max': ['2018']
+    'f.date.max': ['2018'],
   };
   const defaults = new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), { id: 'page-id', currentPage: 1, pageSize: 20 }),
     sort: new SortOptions('score', SortDirection.DESC),
     configuration: 'default',
     query: '',
-    scope: ''
+    scope: '',
   });
 
   const backendFilters = [
     new SearchFilter('f.author', ['another value']),
-    new SearchFilter('f.date', ['[2013 TO 2018]'], 'equals')
+    new SearchFilter('f.date', ['[2013 TO 2018]'], 'equals'),
   ];
 
   const routeService = jasmine.createSpyObj('RouteService', {
     getQueryParameterValue: observableOf(value1),
     getQueryParamsWithPrefix: observableOf(prefixFilter),
-    getRouteParameterValue: observableOf('')
+    getRouteParameterValue: observableOf(''),
   });
 
   const paginationService = new PaginationServiceStub();
@@ -49,7 +49,7 @@ describe('SearchConfigurationService', () => {
   const requestService: any = getMockRequestService();
   const halService: any = {
     getEndpoint: () => {
-    }
+    },
   };
 
   const rdb: any = {
@@ -57,7 +57,7 @@ describe('SearchConfigurationService', () => {
       return observableCombineLatest([requestEntryObs, payloadObs]).pipe(
         map(([req, pay]) => {
           return { req, pay };
-        })
+        }),
       );
     },
     aggregate: (input: Observable<RemoteData<any>>[]): Observable<RemoteData<any[]>> => {
@@ -65,9 +65,9 @@ describe('SearchConfigurationService', () => {
     },
     buildFromHref: (href: string): Observable<RemoteData<any>> => {
       return createSuccessfulRemoteDataObject$(Object.assign(new SearchObjects(), {
-        page: []
+        page: [],
       }));
-    }
+    },
   };
   beforeEach(() => {
     service = new SearchConfigurationService(routeService, paginationService as any, activatedRoute, linkService, halService, requestService, rdb);

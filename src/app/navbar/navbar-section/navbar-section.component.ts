@@ -11,7 +11,7 @@ import { MenuID } from '../../shared/menu/menu-id.model';
   /* eslint-disable @angular-eslint/component-selector */
   selector: 'li[ds-navbar-section]',
   templateUrl: './navbar-section.component.html',
-  styleUrls: ['./navbar-section.component.scss']
+  styleUrls: ['./navbar-section.component.scss'],
 })
 @rendersSectionForMenu(MenuID.PUBLIC, false)
 export class NavbarSectionComponent extends MenuSectionComponent implements OnInit {
@@ -22,7 +22,7 @@ export class NavbarSectionComponent extends MenuSectionComponent implements OnIn
 
   constructor(@Inject('sectionDataProvider') menuSection,
               protected menuService: MenuService,
-              protected injector: Injector
+              protected injector: Injector,
   ) {
     super(menuSection, menuService, injector);
   }

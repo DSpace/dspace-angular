@@ -13,8 +13,8 @@ describe('PageErrorComponent', () => {
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
     queryParams: observableOf({
       status: 401,
-      code: 'orcid.generic-error'
-    })
+      code: 'orcid.generic-error',
+    }),
   });
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -23,13 +23,13 @@ describe('PageErrorComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-      ]
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PageErrorComponent);

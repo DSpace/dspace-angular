@@ -3,7 +3,7 @@ import { combineLatest as observableCombineLatest, Observable, of } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import {
   DeleteRelationship,
-  RelationshipIdentifiable
+  RelationshipIdentifiable,
 } from '../../../../core/data/object-updates/object-updates.reducer';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { Item } from '../../../../core/shared/item.model';
@@ -83,20 +83,20 @@ export class EditRelationshipComponent implements OnChanges {
       this.leftItem$ = this.relationship.leftItem.pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
-        filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid))
+        filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid)),
       );
       this.rightItem$ = this.relationship.rightItem.pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
-        filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid))
+        filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid)),
       );
       this.relatedItem$ = observableCombineLatest(
         this.leftItem$,
         this.rightItem$,
       ).pipe(
         map((items: Item[]) =>
-          items.find((item) => item.uuid !== this.editItem.uuid)
-        )
+          items.find((item) => item.uuid !== this.editItem.uuid),
+        ),
       );
     } else {
       this.relatedItem$ = of(this.update.relatedItem);
@@ -114,7 +114,7 @@ export class EditRelationshipComponent implements OnChanges {
     ).pipe(
       map((items: Item[]) =>
         items.map((item) => this.objectUpdatesService
-          .isSelectedVirtualMetadata(this.url, this.relationship.id, item.uuid))
+          .isSelectedVirtualMetadata(this.url, this.relationship.id, item.uuid)),
       ),
       switchMap((selection$) => observableCombineLatest(selection$)),
       map((selection: boolean[]) => {
@@ -123,12 +123,12 @@ export class EditRelationshipComponent implements OnChanges {
           {
             keepLeftVirtualMetadata: selection[0] === true,
             keepRightVirtualMetadata: selection[1] === true,
-          }
+          },
         ) as DeleteRelationship;
       }),
       take(1),
     ).subscribe((deleteRelationship: DeleteRelationship) =>
-      this.objectUpdatesService.saveRemoveFieldUpdate(this.url, deleteRelationship)
+      this.objectUpdatesService.saveRemoveFieldUpdate(this.url, deleteRelationship),
     );
   }
 

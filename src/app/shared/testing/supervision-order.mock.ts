@@ -9,85 +9,85 @@ const itemMock = Object.assign(new Item(), {
   metadata: {
     'dc.title': [
       {
-        value: 'Item one'
-      }
+        value: 'Item one',
+      },
     ],
     'dc.contributor.author': [
       {
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.publisher': [
       {
-        value: 'a publisher'
-      }
+        value: 'a publisher',
+      },
     ],
     'dc.date.issued': [
       {
-        value: '2015-06-26'
-      }
+        value: '2015-06-26',
+      },
     ],
     'dc.description.abstract': [
       {
-        value: 'This is the abstract'
-      }
-    ]
-  }
+        value: 'This is the abstract',
+      },
+    ],
+  },
 });
 
 const anotherItemMock = Object.assign(new Item(), {
   metadata: {
     'dc.title': [
       {
-        value: 'Item two'
-      }
+        value: 'Item two',
+      },
     ],
     'dc.contributor.author': [
       {
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.publisher': [
       {
-        value: 'a publisher'
-      }
+        value: 'a publisher',
+      },
     ],
     'dc.date.issued': [
       {
-        value: '2015-06-26'
-      }
+        value: '2015-06-26',
+      },
     ],
     'dc.description.abstract': [
       {
-        value: 'This is the abstract'
-      }
-    ]
-  }
+        value: 'This is the abstract',
+      },
+    ],
+  },
 });
 
 export const supervisionOrderMock: any = Object.assign(new SupervisionOrder(),{
   id: '1',
   item: createSuccessfulRemoteDataObject$(itemMock),
-  group: createSuccessfulRemoteDataObject$(GroupMock)
+  group: createSuccessfulRemoteDataObject$(GroupMock),
 });
 
 export const anotherSupervisionOrderMock: any = {
   id: '2',
   item: createSuccessfulRemoteDataObject$(anotherItemMock),
-  group: createSuccessfulRemoteDataObject$(GroupMock2)
+  group: createSuccessfulRemoteDataObject$(GroupMock2),
 };
 
 export const supervisionOrderListMock = [supervisionOrderMock, anotherSupervisionOrderMock];
 export const supervisionOrderEntryMock = {
   supervisionOrder: supervisionOrderMock,
-  group: GroupMock
+  group: GroupMock,
 };
 
 const pageInfo = new PageInfo({
   elementsPerPage: 10,
   totalElements: 2,
   totalPages: 1,
-  currentPage: 1
+  currentPage: 1,
 });
 const array = [supervisionOrderMock, anotherSupervisionOrderMock];
 const paginatedList = buildPaginatedList(pageInfo, array);

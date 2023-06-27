@@ -73,7 +73,7 @@ export function dateToNgbDateStruct(date?: Date): NgbDateStruct {
   return {
     year: date.getUTCFullYear(),
     month: date.getUTCMonth() + 1,
-    day: date.getUTCDate()
+    day: date.getUTCDate(),
   };
 }
 

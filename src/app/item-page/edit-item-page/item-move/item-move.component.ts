@@ -20,7 +20,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-item-move',
-  templateUrl: './item-move.component.html'
+  templateUrl: './item-move.component.html',
 })
 /**
  * Component that handles the moving of an item to a different collection
@@ -63,15 +63,15 @@ export class ItemMoveComponent implements OnInit {
 
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
-      map((data) => data.dso), getFirstSucceededRemoteData()
+      map((data) => data.dso), getFirstSucceededRemoteData(),
     ) as Observable<RemoteData<Item>>;
     this.itemPageRoute$ = this.itemRD$.pipe(
       getAllSucceededRemoteDataPayload(),
-      map((item) => getItemPageRoute(item))
+      map((item) => getItemPageRoute(item)),
     );
     this.itemRD$.subscribe((rd) => {
       this.item = rd.payload;
-    }
+    },
     );
     this.itemRD$.pipe(
       getFirstSucceededRemoteData(),
@@ -124,9 +124,9 @@ export class ItemMoveComponent implements OnInit {
           this.item.id,
           false,
           true,
-          followLink('owningCollection')
+          followLink('owningCollection'),
         )),
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe(() => {
       this.processing = false;
       this.router.navigate([getItemEditRoute(this.item)]);

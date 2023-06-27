@@ -8,7 +8,7 @@ import {
   Input,
   OnInit,
   Output,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
@@ -31,7 +31,7 @@ import { CollectionElementLinkType } from '../object-collection/collection-eleme
   selector: 'ds-object-grid',
   styleUrls: ['./object-grid.component.scss'],
   templateUrl: './object-grid.component.html',
-  animations: [fadeIn]
+  animations: [fadeIn],
 })
 
 export class ObjectGridComponent implements OnInit {
@@ -183,7 +183,7 @@ export class ObjectGridComponent implements OnInit {
           }
         }
       }),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     ).pipe(startWith(3));
 
     this.columns$ = observableCombineLatest(

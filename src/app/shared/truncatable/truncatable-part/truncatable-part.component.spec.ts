@@ -26,7 +26,7 @@ describe('TruncatablePartComponent', () => {
       } else {
         return observableOf(false);
       }
-    }
+    },
   };
   beforeEach(waitForAsync(() => {
     translateService = getMockTranslateService();
@@ -35,8 +35,8 @@ describe('TruncatablePartComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [TruncatablePartComponent],
@@ -44,9 +44,9 @@ describe('TruncatablePartComponent', () => {
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(TruncatablePartComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
   beforeEach(() => {
@@ -118,8 +118,8 @@ describe('TruncatablePartComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [TruncatablePartComponent],
@@ -127,9 +127,9 @@ describe('TruncatablePartComponent', () => {
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: TruncatableService, useValue: mockTruncatableService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(TruncatablePartComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

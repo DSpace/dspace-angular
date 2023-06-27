@@ -20,7 +20,7 @@ describe('communityListReducer', () => {
       subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockSubcommunities1Page1)),
       collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
       name: 'community1',
-    }), observableOf(true), 0, false, null
+    }), observableOf(true), 0, false, null,
   );
 
   it ('should set init state of the expandedNodes and loadingNode', () => {

@@ -8,7 +8,7 @@ import {
   ContextHelpRemoveAction,
   ContextHelpShowTooltipAction,
   ContextHelpHideTooltipAction,
-  ContextHelpToggleTooltipAction
+  ContextHelpToggleTooltipAction,
 } from './context-help.actions';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -17,20 +17,20 @@ const contextHelpStateSelector =
   createFeatureSelector<ContextHelpState>('contextHelp');
 const allIconsVisibleSelector = createSelector(
   contextHelpStateSelector,
-  (state: ContextHelpState): boolean => state.allIconsVisible
+  (state: ContextHelpState): boolean => state.allIconsVisible,
 );
 const contextHelpSelector =
   (id: string): MemoizedSelector<ContextHelpState, ContextHelp> => createSelector(
     contextHelpStateSelector,
-    (state: ContextHelpState) => state.models[id]
+    (state: ContextHelpState) => state.models[id],
   );
 const allContextHelpSelector = createSelector(
   contextHelpStateSelector,
-  ((state: ContextHelpState) => state.models)
+  ((state: ContextHelpState) => state.models),
 );
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ContextHelpService {
   constructor(private store: Store<ContextHelpState>) { }

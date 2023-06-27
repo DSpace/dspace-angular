@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'ds-metadata-field-wrapper',
   styleUrls: ['./metadata-field-wrapper.component.scss'],
-  templateUrl: './metadata-field-wrapper.component.html'
+  templateUrl: './metadata-field-wrapper.component.html',
 })
 export class MetadataFieldWrapperComponent {
 

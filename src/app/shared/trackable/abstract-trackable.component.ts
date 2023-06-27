@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
  */
 @Component({
   selector: 'ds-abstract-trackable',
-  template: ''
+  template: '',
 })
 export class AbstractTrackableComponent {
 

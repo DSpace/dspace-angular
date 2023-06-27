@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpRequest,
   HttpResponse,
-  HttpXsrfTokenExtractor
+  HttpXsrfTokenExtractor,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
@@ -102,7 +102,7 @@ export class XsrfInterceptor implements HttpInterceptor {
         }
         // Return error response as is.
         return throwError(error);
-      })
+      }),
     ) as any;
   }
 

@@ -41,7 +41,7 @@ describe('LogInExternalProviderComponent', () => {
 
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
       getCurrentRoute: {},
-      redirect: {}
+      redirect: {},
     });
 
     initialState = {
@@ -51,9 +51,9 @@ describe('LogInExternalProviderComponent', () => {
           loaded: false,
           blocking: false,
           loading: false,
-          authMethods: []
-        }
-      }
+          authMethods: [],
+        },
+      },
     };
   });
 
@@ -62,10 +62,10 @@ describe('LogInExternalProviderComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
-        LogInExternalProviderComponent
+        LogInExternalProviderComponent,
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
@@ -78,8 +78,8 @@ describe('LogInExternalProviderComponent', () => {
         provideMockStore({ initialState }),
       ],
       schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
     })
       .compileComponents();
 

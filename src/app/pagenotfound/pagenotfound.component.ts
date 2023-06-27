@@ -9,7 +9,7 @@ import { AuthService } from '../core/auth/auth.service';
   selector: 'ds-pagenotfound',
   styleUrls: ['./pagenotfound.component.scss'],
   templateUrl: './pagenotfound.component.html',
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class PageNotFoundComponent implements OnInit {
 

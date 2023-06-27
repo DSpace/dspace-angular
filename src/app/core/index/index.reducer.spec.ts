@@ -5,7 +5,7 @@ import { indexReducer, MetaIndexState } from './index.reducer';
 import {
   AddToIndexAction,
   RemoveFromIndexBySubstringAction,
-  RemoveFromIndexByValueAction
+  RemoveFromIndexByValueAction,
 } from './index.actions';
 import { IndexName } from './index-name.model';
 
@@ -25,12 +25,12 @@ describe('requestReducer', () => {
   const val2 = 'https://dspace7.4science.it/dspace-spring-rest/api/core/items/1911e8a4-6939-490c-b58b-a5d70f8d91fb';
   const testState: MetaIndexState = {
     [IndexName.OBJECT]: {
-      [key1]: val1
+      [key1]: val1,
     }, [IndexName.ALTERNATIVE_OBJECT_LINK]: {
-      [key1]: val1
+      [key1]: val1,
     }, [IndexName.REQUEST]: {
-      [key1]: val1
-    }
+      [key1]: val1,
+    },
   };
   deepFreeze(testState);
 

@@ -86,7 +86,7 @@ export class ResearcherProfileDataService extends IdentifiableDataService<Resear
     const relatedItem$ = researcherProfile.item ? researcherProfile.item : this.itemService.findByHref(researcherProfile._links.item.href, false);
     return relatedItem$.pipe(
       getFirstCompletedRemoteData(),
-      map((itemRD: RemoteData<Item>) => (itemRD.hasSucceeded && itemRD.payload) ? itemRD.payload.id : null)
+      map((itemRD: RemoteData<Item>) => (itemRD.hasSucceeded && itemRD.payload) ? itemRD.payload.id : null),
     );
   }
 
@@ -100,7 +100,7 @@ export class ResearcherProfileDataService extends IdentifiableDataService<Resear
     const replaceOperation: ReplaceOperation<boolean> = {
       path: '/visible',
       op: 'replace',
-      value: visible
+      value: visible,
     };
 
     return this.patch(researcherProfile, [replaceOperation]);

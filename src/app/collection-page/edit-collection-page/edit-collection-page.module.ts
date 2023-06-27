@@ -10,7 +10,7 @@ import { CollectionSourceComponent } from './collection-source/collection-source
 import { CollectionAuthorizationsComponent } from './collection-authorizations/collection-authorizations.component';
 import { CollectionFormModule } from '../collection-form/collection-form.module';
 import {
-  CollectionSourceControlsComponent
+  CollectionSourceControlsComponent,
 } from './collection-source/collection-source-controls/collection-source-controls.component';
 import { ResourcePoliciesModule } from '../../shared/resource-policies/resource-policies.module';
 import { FormModule } from '../../shared/form/form.module';
@@ -40,8 +40,8 @@ import { AccessControlFormModule } from '../../shared/access-control-form-contai
     CollectionSourceComponent,
     CollectionAccessControlComponent,
     CollectionSourceControlsComponent,
-    CollectionAuthorizationsComponent
-  ]
+    CollectionAuthorizationsComponent,
+  ],
 })
 export class EditCollectionPageModule {
 

@@ -7,7 +7,7 @@ import {
   SetParameterAction,
   SetParametersAction,
   SetQueryParameterAction,
-  SetQueryParametersAction
+  SetQueryParametersAction,
 } from './route.actions';
 import { isNotEmpty } from '../../shared/empty.util';
 
@@ -24,7 +24,7 @@ export interface RouteState {
  */
 const initialState: RouteState = {
   queryParams: {},
-  params: {}
+  params: {},
 };
 
 /**

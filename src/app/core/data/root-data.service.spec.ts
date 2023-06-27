@@ -49,28 +49,28 @@ describe('RootDataService', () => {
     it('should return observable of true when root endpoint is available', () => {
       const mockResponse = {
         statusCode: 200,
-        statusText: 'OK'
+        statusText: 'OK',
       } as RawRestResponse;
 
       restService.get.and.returnValue(of(mockResponse));
       result$ = service.checkServerAvailability();
 
       expect(result$).toBeObservable(cold('(a|)', {
-        a: true
+        a: true,
       }));
     });
 
     it('should return observable of false when root endpoint is not available', () => {
       const mockResponse = {
         statusCode: 500,
-        statusText: 'Internal Server Error'
+        statusText: 'Internal Server Error',
       } as RawRestResponse;
 
       restService.get.and.returnValue(of(mockResponse));
       result$ = service.checkServerAvailability();
 
       expect(result$).toBeObservable(cold('(a|)', {
-        a: false
+        a: false,
       }));
     });
 

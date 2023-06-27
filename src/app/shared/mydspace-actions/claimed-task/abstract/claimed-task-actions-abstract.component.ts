@@ -25,7 +25,7 @@ import { isEmpty } from '../../../empty.util';
  */
 @Component({
   selector: 'ds-claimed-task-action-abstract',
-  template: ''
+  template: '',
 })
 export abstract class ClaimedTaskActionsAbstractComponent extends MyDSpaceReloadableActionsComponent<ClaimedTask, ClaimedTaskDataService> implements OnDestroy {
 
@@ -75,7 +75,7 @@ export abstract class ClaimedTaskActionsAbstractComponent extends MyDSpaceReload
    */
   createbody(): any {
     return {
-      [this.option]: 'true'
+      [this.option]: 'true',
     };
   }
 

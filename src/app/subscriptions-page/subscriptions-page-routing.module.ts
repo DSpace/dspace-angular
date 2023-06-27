@@ -18,10 +18,10 @@ import { SubscriptionsPageComponent } from './subscriptions-page.component';
             path: '',
             component: SubscriptionsPageComponent,
           },
-        ]
+        ],
       },
-    ])
-  ]
+    ]),
+  ],
 })
 export class SubscriptionsPageRoutingModule {
 }

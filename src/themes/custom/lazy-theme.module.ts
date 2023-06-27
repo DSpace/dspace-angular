@@ -84,10 +84,10 @@ import { CommunityListComponent } from './app/community-list-page/community-list
 import { ComcolPageHandleComponent } from './app/shared/comcol-page-handle/comcol-page-handle.component';
 import { AuthNavMenuComponent } from './app/shared/auth-nav-menu/auth-nav-menu.component';
 import {
-  ExpandableNavbarSectionComponent
+  ExpandableNavbarSectionComponent,
 } from './app/navbar/expandable-navbar-section/expandable-navbar-section.component';
 import {
-  EditItemTemplatePageComponent
+  EditItemTemplatePageComponent,
 } from './app/collection-page/edit-item-template-page/edit-item-template-page.component';
 import { LoadingComponent } from './app/shared/loading/loading.component';
 import { SearchResultsComponent } from './app/shared/search/search-results/search-results.component';
@@ -103,7 +103,7 @@ import { BrowseByDatePageComponent } from './app/browse-by/browse-by-date-page/b
 import { BrowseByTitlePageComponent } from './app/browse-by/browse-by-title-page/browse-by-title-page.component';
 import { BrowseByTaxonomyPageComponent } from './app/browse-by/browse-by-taxonomy-page/browse-by-taxonomy-page.component';
 import {
-  ExternalSourceEntryImportModalComponent
+  ExternalSourceEntryImportModalComponent,
 } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
 import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
 import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
@@ -123,31 +123,31 @@ import { SystemWideAlertModule } from '../../app/system-wide-alert/system-wide-a
 import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
 import { ItemAlertsComponent } from './app/item-page/alerts/item-alerts.component';
 import {
-  FullFileSectionComponent
+  FullFileSectionComponent,
 } from './app/item-page/full/field-components/file-section/full-file-section.component';
 import { MetadataRepresentationListComponent } from './app/item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { DsDynamicLookupRelationSearchTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
 import { FeedbackFormComponent } from './app/info/feedback/feedback-form/feedback-form.component';
 import {
-  ItemPageTitleFieldComponent
+  ItemPageTitleFieldComponent,
 } from './app/item-page/simple/field-components/specific-field/title/item-page-title-field.component';
 import { MediaViewerComponent } from './app/item-page/media-viewer/media-viewer.component';
 import {
-  MediaViewerImageComponent
+  MediaViewerImageComponent,
 } from './app/item-page/media-viewer/media-viewer-image/media-viewer-image.component';
 import {
-  MediaViewerVideoComponent
+  MediaViewerVideoComponent,
 } from './app/item-page/media-viewer/media-viewer-video/media-viewer-video.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import {
-  DenyRequestCopyComponent
+  DenyRequestCopyComponent,
 } from './app/request-copy/deny-request-copy/deny-request-copy.component';
 import {
-  EmailRequestCopyComponent
+  EmailRequestCopyComponent,
 } from './app/request-copy/email-request-copy/email-request-copy.component';
 import {
-  GrantRequestCopyComponent
+  GrantRequestCopyComponent,
 } from './app/request-copy/grant-request-copy/grant-request-copy.component';
 import { WorkspaceItemsDeletePageComponent } from './app/workspace-items-delete-page/workspace-items-delete/workspace-items-delete.component';
 import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
@@ -302,8 +302,8 @@ const DECLARATIONS = [
   ],
   declarations: DECLARATIONS,
   exports: [
-    CommunityPageSubCollectionListComponent
-  ]
+    CommunityPageSubCollectionListComponent,
+  ],
 })
 
 /**

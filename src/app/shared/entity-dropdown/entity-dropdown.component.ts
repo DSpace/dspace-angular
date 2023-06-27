@@ -7,7 +7,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
+  Output,
 } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { hasValue } from '../empty.util';
@@ -22,7 +22,7 @@ import { FindListOptions } from '../../core/data/find-list-options.model';
 @Component({
   selector: 'ds-entity-dropdown',
   templateUrl: './entity-dropdown.component.html',
-  styleUrls: ['./entity-dropdown.component.scss']
+  styleUrls: ['./entity-dropdown.component.scss'],
 })
 export class EntityDropdownComponent implements OnInit, OnDestroy {
   /**
@@ -89,7 +89,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private entityTypeService: EntityTypeDataService,
-    private el: ElementRef
+    private el: ElementRef,
   ) { }
 
   /**
@@ -154,7 +154,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
     // Set the pagination info
     const findOptions: FindListOptions = {
       elementsPerPage: 10,
-      currentPage: page
+      currentPage: page,
     };
     let searchListEntity$;
     if (this.isSubmission) {
@@ -171,13 +171,13 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
         return entityType.payload.page;
       }),
       reduce((acc: any, value: any) => [...acc, value], []),
-      startWith([])
+      startWith([]),
     );
     this.subs.push(
       this.searchListEntity$.subscribe(
         (next) => { this.searchListEntity.push(...next); }, undefined,
-        () => { this.hideShowLoader(false); this.changeDetectorRef.detectChanges(); }
-      )
+        () => { this.hideShowLoader(false); this.changeDetectorRef.detectChanges(); },
+      ),
     );
   }
 

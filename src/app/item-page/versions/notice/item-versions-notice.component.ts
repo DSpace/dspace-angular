@@ -8,7 +8,7 @@ import { hasValue, hasValueOperator } from '../../../shared/empty.util';
 import {
   getAllSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { map, startWith, switchMap } from 'rxjs/operators';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
@@ -17,7 +17,7 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-versions-notice',
-  templateUrl: './item-versions-notice.component.html'
+  templateUrl: './item-versions-notice.component.html',
 })
 /**
  * Component for displaying a warning notice when the item is not the latest version within its version history
@@ -73,12 +73,12 @@ export class ItemVersionsNoticeComponent implements OnInit {
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
         hasValueOperator(),
-        switchMap((version: Version) => version.versionhistory)
+        switchMap((version: Version) => version.versionhistory),
       );
 
       this.latestVersion$ = this.versionHistoryRD$.pipe(
         getFirstSucceededRemoteDataPayload(),
-        switchMap((vh) => this.versionHistoryService.getLatestVersionFromHistory$(vh))
+        switchMap((vh) => this.versionHistoryService.getLatestVersionFromHistory$(vh)),
       );
 
       this.showLatestVersionNotice$ = this.versionRD$.pipe(

@@ -26,11 +26,11 @@ const extendEnvironmentWithAppConfig = (env: any, appConfig: AppConfig): void =>
  */
 const mergeConfig = (destinationConfig: any, sourceConfig: AppConfig): void => {
   const mergeOptions = {
-    arrayMerge: (destinationArray, sourceArray, options) => sourceArray
+    arrayMerge: (destinationArray, sourceArray, options) => sourceArray,
   };
   Object.assign(destinationConfig, all([
     destinationConfig,
-    sourceConfig
+    sourceConfig,
   ], mergeOptions));
 };
 
@@ -43,12 +43,12 @@ const getDefaultThemeConfig = (): ThemeConfig => {
   return environment.themes.find((themeConfig: any) =>
     hasNoValue(themeConfig.regex) &&
     hasNoValue(themeConfig.handle) &&
-    hasNoValue(themeConfig.uuid)
+    hasNoValue(themeConfig.uuid),
   );
 };
 
 export {
   extendEnvironmentWithAppConfig,
   mergeConfig,
-  getDefaultThemeConfig
+  getDefaultThemeConfig,
 };

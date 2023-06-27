@@ -31,8 +31,8 @@ describe('MetadataFieldDataService', () => {
       prefix: 'dc',
       namespace: 'namespace',
       _links: {
-        self: { href: 'selflink' }
-      }
+        self: { href: 'selflink' },
+      },
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: '34cfed7c-f597-49ef-9cbe-ea351f0023c2',
@@ -73,7 +73,7 @@ describe('MetadataFieldDataService', () => {
     it('should call searchBy with the correct arguments', () => {
       metadataFieldService.findBySchema(schema);
       const expectedOptions = Object.assign(new FindListOptions(), {
-        searchParams: [new RequestParam('schema', schema.prefix)]
+        searchParams: [new RequestParam('schema', schema.prefix)],
       });
       expect(metadataFieldService.searchBy).toHaveBeenCalledWith('bySchema', expectedOptions, true, true);
     });

@@ -39,14 +39,14 @@ describe('ItemSelectComponent', () => {
         {
           key: 'dc.title',
           language: 'en_US',
-          value: 'This is just a title'
+          value: 'This is just a title',
         },
         {
           key: 'dc.type',
           language: null,
-          value: 'Article'
+          value: 'Article',
         }],
-      _links: { self: { href: 'selfId1' } }
+      _links: { self: { href: 'selfId1' } },
     }),
     Object.assign(new Item(), {
       id: 'id2',
@@ -55,21 +55,21 @@ describe('ItemSelectComponent', () => {
         {
           key: 'dc.title',
           language: 'en_US',
-          value: 'This is just another title'
+          value: 'This is just another title',
         },
         {
           key: 'dc.type',
           language: null,
-          value: 'Article'
+          value: 'Article',
         }],
-      _links: { self: { href: 'selfId2' } }
-    })
+      _links: { self: { href: 'selfId2' } },
+    }),
   ];
   const mockItems = createSuccessfulRemoteDataObject$(createPaginatedList(mockItemList));
   const mockPaginationOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'search-page-configuration',
     pageSize: 10,
-    currentPage: 1
+    currentPage: 1,
   });
 
   paginationService = new PaginationServiceStub(mockPaginationOptions);
@@ -77,7 +77,7 @@ describe('ItemSelectComponent', () => {
   const authorizationDataService = new AuthorizationDataService(null, null, null, null, null);
 
   const linkHeadService = jasmine.createSpyObj('linkHeadService', {
-    addTag: ''
+    addTag: '',
   });
 
   const groupDataService = jasmine.createSpyObj('groupsDataService', {
@@ -90,9 +90,9 @@ describe('ItemSelectComponent', () => {
     findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
       name: 'test',
       values: [
-        'org.dspace.ctask.general.ProfileFormats = test'
-      ]
-    }))
+        'org.dspace.ctask.general.ProfileFormats = test',
+      ],
+    })),
   });
 
   beforeEach(waitForAsync(() => {
@@ -109,7 +109,7 @@ describe('ItemSelectComponent', () => {
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

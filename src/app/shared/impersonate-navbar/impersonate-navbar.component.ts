@@ -7,7 +7,7 @@ import { isAuthenticated } from '../../core/auth/selectors';
 
 @Component({
   selector: 'ds-impersonate-navbar',
-  templateUrl: 'impersonate-navbar.component.html'
+  templateUrl: 'impersonate-navbar.component.html',
 })
 /**
  * Navbar component for actions to take concerning impersonating users

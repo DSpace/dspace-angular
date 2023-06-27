@@ -182,15 +182,15 @@ describe('PatchDataImpl', () => {
       _links: {
         self: {
           href: 'dso-href',
-        }
-      }
+        },
+      },
     };
     const operations = [
       Object.assign({
         op: 'move',
         from: '/1',
-        path: '/5'
-      }) as Operation
+        path: '/5',
+      }) as Operation,
     ];
 
     it('should send a PatchRequest', () => {
@@ -224,12 +224,12 @@ describe('PatchDataImpl', () => {
 
       dso = Object.assign(new DSpaceObject(), {
         _links: { self: { href: selfLink } },
-        metadata: [{ key: 'dc.title', value: name1 }]
+        metadata: [{ key: 'dc.title', value: name1 }],
       });
 
       dso2 = Object.assign(new DSpaceObject(), {
         _links: { self: { href: selfLink } },
-        metadata: [{ key: 'dc.title', value: name2 }]
+        metadata: [{ key: 'dc.title', value: name2 }],
       });
 
       spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(dso));

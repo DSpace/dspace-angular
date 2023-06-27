@@ -4,7 +4,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { ItemRequest } from '../../core/shared/item-request.model';
 import { Observable } from 'rxjs';
 import {
-  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload
+  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { AuthService } from '../../core/auth/auth.service';
@@ -23,7 +23,7 @@ import { redirectOn4xx } from '../../core/shared/authorized.operators';
 @Component({
   selector: 'ds-deny-request-copy',
   styleUrls: ['./deny-request-copy.component.scss'],
-  templateUrl: './deny-request-copy.component.html'
+  templateUrl: './deny-request-copy.component.html',
 })
 /**
  * Component for denying an item request
@@ -98,7 +98,7 @@ export class DenyRequestCopyComponent implements OnInit {
     this.itemRequestRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
       switchMap((itemRequest: ItemRequest) => this.itemRequestService.deny(itemRequest.token, email)),
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get('deny-request-copy.success'));

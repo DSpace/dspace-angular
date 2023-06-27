@@ -41,12 +41,12 @@ let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
 const menuService = new MenuServiceStub();
 const initialState = {
-  core: { auth: { loading: false } }
+  core: { auth: { loading: false } },
 };
 
 export function getMockLocaleService(): LocaleService {
   return jasmine.createSpyObj('LocaleService', {
-    setCurrentLanguageCode: jasmine.createSpy('setCurrentLanguageCode')
+    setCurrentLanguageCode: jasmine.createSpy('setCurrentLanguageCode'),
   });
 }
 
@@ -64,8 +64,8 @@ describe('App component', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [AppComponent], // declare the test component
@@ -85,9 +85,9 @@ describe('App component', () => {
         { provide: APP_CONFIG, useValue: environment },
         provideMockStore({ initialState }),
         AppComponent,
-        RouteService
+        RouteService,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     };
   };
 

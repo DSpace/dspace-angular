@@ -7,7 +7,7 @@ import {
   SelectableListDeselectAction,
   SelectableListDeselectSingleAction,
   SelectableListSelectAction,
-  SelectableListSelectSingleAction
+  SelectableListSelectSingleAction,
 } from './selectable-list.actions';
 import { AppState } from '../../../app.reducer';
 
@@ -48,9 +48,9 @@ describe('SelectableListService', () => {
 
       providers: [
         {
-          provide: Store, useValue: store
-        }
-      ]
+          provide: Store, useValue: store,
+        },
+      ],
     }).compileComponents();
   }));
 

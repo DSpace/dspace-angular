@@ -13,7 +13,7 @@ export const LINK_DEFINITION_FACTORY = new InjectionToken<<T extends HALResource
 });
 export const LINK_DEFINITION_MAP_FACTORY = new InjectionToken<<T extends HALResource>(source: GenericConstructor<T>) => Map<keyof T['_links'], LinkDefinition<T>>>('getLinkDefinitions', {
   providedIn: 'root',
-  factory: () => getLinkDefinitions
+  factory: () => getLinkDefinitions,
 });
 
 const resolvedLinkKey = Symbol('resolvedLink');
@@ -81,7 +81,7 @@ export const link = <T extends HALResource>(
       resourceType,
       isList,
       linkName,
-      propertyName
+      propertyName,
     });
 
     linkMap.set(target.constructor, targetMap);

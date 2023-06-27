@@ -15,14 +15,14 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
   let fixture: ComponentFixture<TabbedRelatedEntitiesSearchComponent>;
 
   const mockItem = Object.assign(new Item(), {
-    id: 'id1'
+    id: 'id1',
   });
   const mockRelationType = 'publications';
   const relationTypes = [
     {
       label: mockRelationType,
-      filter: mockRelationType
-    }
+      filter: mockRelationType,
+    },
   ];
 
   const router = new RouterMock();
@@ -35,12 +35,12 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            queryParams: observableOf({ tab: mockRelationType })
+            queryParams: observableOf({ tab: mockRelationType }),
           },
         },
-        { provide: Router, useValue: router }
+        { provide: Router, useValue: router },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -61,7 +61,7 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
   describe('onTabChange', () => {
     const event = {
       currentId: mockRelationType,
-      nextId: 'nextTab'
+      nextId: 'nextTab',
     };
 
     beforeEach(() => {
@@ -72,9 +72,9 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
       expect(router.navigate).toHaveBeenCalledWith([], {
         relativeTo: (comp as any).route,
         queryParams: {
-          tab: event.nextId
+          tab: event.nextId,
         },
-        queryParamsHandling: 'merge'
+        queryParamsHandling: 'merge',
       });
     });
   });

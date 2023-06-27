@@ -14,10 +14,10 @@ import { CommunityFormModule } from './community-form/community-form.module';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
 import { ComcolModule } from '../shared/comcol/comcol.module';
 import {
-  ThemedCommunityPageSubCommunityListComponent
+  ThemedCommunityPageSubCommunityListComponent,
 } from './sub-community-list/themed-community-page-sub-community-list.component';
 import {
-  ThemedCollectionPageSubCollectionListComponent
+  ThemedCollectionPageSubCollectionListComponent,
 } from './sub-collection-list/themed-community-page-sub-collection-list.component';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 
@@ -41,11 +41,11 @@ const DECLARATIONS = [CommunityPageComponent,
     DsoPageModule,
   ],
   declarations: [
-    ...DECLARATIONS
+    ...DECLARATIONS,
   ],
   exports: [
-    ...DECLARATIONS
-  ]
+    ...DECLARATIONS,
+  ],
 })
 
 export class CommunityPageModule {

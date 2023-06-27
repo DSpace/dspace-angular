@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -11,12 +11,12 @@ import { DynamicDsDatePickerModel } from './date-picker.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
 import {
   mockDynamicFormLayoutService,
-  mockDynamicFormValidationService
+  mockDynamicFormValidationService,
 } from '../../../../../testing/dynamic-form-mock-services';
 
 
 export const DATE_TEST_GROUP = new UntypedFormGroup({
-  date: new UntypedFormControl()
+  date: new UntypedFormControl(),
 });
 
 export const DATE_TEST_MODEL_CONFIG = {
@@ -28,7 +28,7 @@ export const DATE_TEST_MODEL_CONFIG = {
   placeholder: 'Date',
   readOnly: false,
   required: true,
-  toggleIcon: 'fas fa-calendar'
+  toggleIcon: 'fas fa-calendar',
 };
 
 describe('DsDatePickerComponent test suite', () => {
@@ -44,7 +44,7 @@ describe('DsDatePickerComponent test suite', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        NgbModule
+        NgbModule,
       ],
       declarations: [
         DsDatePickerComponent,
@@ -54,9 +54,9 @@ describe('DsDatePickerComponent test suite', () => {
         ChangeDetectorRef,
         DsDatePickerComponent,
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
-        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService }
+        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
 
   }));
@@ -108,7 +108,7 @@ describe('DsDatePickerComponent test suite', () => {
       it('should set year and enable month field when year field is entered', () => {
         const event = {
           field: 'year',
-          value: '1983'
+          value: '1983',
         };
         dateComp.onChange(event);
 
@@ -120,7 +120,7 @@ describe('DsDatePickerComponent test suite', () => {
       it('should set month and enable day field when month field is entered', () => {
         const event = {
           field: 'month',
-          value: '11'
+          value: '11',
         };
 
         dateComp.year = '1983';
@@ -138,7 +138,7 @@ describe('DsDatePickerComponent test suite', () => {
       it('should set day when day field is entered', () => {
         const event = {
           field: 'day',
-          value: '18'
+          value: '18',
         };
 
         dateComp.year = '1983';
@@ -195,7 +195,7 @@ describe('DsDatePickerComponent test suite', () => {
       it('should disable month and day fields when year field is canceled', () => {
         const event = {
           field: 'year',
-          value: null
+          value: null,
         };
         dateComp.onChange(event);
 
@@ -209,7 +209,7 @@ describe('DsDatePickerComponent test suite', () => {
       it('should disable day field when month field is canceled', () => {
         const event = {
           field: 'month',
-          value: null
+          value: null,
         };
         dateComp.onChange(event);
 
@@ -223,7 +223,7 @@ describe('DsDatePickerComponent test suite', () => {
       it('should not disable day field when day field is canceled', () => {
         const event = {
           field: 'day',
-          value: null
+          value: null,
         };
         dateComp.onChange(event);
 
@@ -241,7 +241,7 @@ describe('DsDatePickerComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

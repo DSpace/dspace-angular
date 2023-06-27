@@ -12,7 +12,7 @@ import { AuthService } from '../../core/auth/auth.service';
 @Component({
   selector: 'ds-item-statistics-page',
   templateUrl: '../statistics-page/statistics-page.component.html',
-  styleUrls: ['./item-statistics-page.component.scss']
+  styleUrls: ['./item-statistics-page.component.scss'],
 })
 export class ItemStatisticsPageComponent extends StatisticsPageComponent<Item> {
 
@@ -32,7 +32,7 @@ export class ItemStatisticsPageComponent extends StatisticsPageComponent<Item> {
     protected router: Router,
     protected usageReportService: UsageReportDataService,
     protected nameService: DSONameService,
-    protected authService: AuthService
+    protected authService: AuthService,
   ) {
     super(
       route,

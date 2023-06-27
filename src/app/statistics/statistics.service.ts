@@ -24,7 +24,7 @@ export class StatisticsService {
     const requestId = this.requestService.generateRequestId();
     this.halService.getEndpoint(linkPath).pipe(
       map((endpoint: string) => new TrackRequest(requestId, endpoint, JSON.stringify(body))),
-      take(1) // otherwise the previous events will fire again
+      take(1), // otherwise the previous events will fire again
     ).subscribe((request: RestRequest) => this.requestService.send(request));
   }
 
@@ -35,12 +35,12 @@ export class StatisticsService {
    */
   trackViewEvent(
     dso: DSpaceObject,
-    referrer: string
+    referrer: string,
   ) {
     this.sendEvent('/statistics/viewevents', {
       targetId: dso.uuid,
       targetType: (dso as any).type,
-      referrer
+      referrer,
     });
   }
 
@@ -65,11 +65,11 @@ export class StatisticsService {
         size: page.size,
         totalElements: page.totalElements,
         totalPages: page.totalPages,
-        number: page.number
+        number: page.number,
       },
       sort: {
         by: sort.by,
-        order: sort.order.toLowerCase()
+        order: sort.order.toLowerCase(),
       },
     };
     if (hasValue(searchOptions.configuration)) {
@@ -89,7 +89,7 @@ export class StatisticsService {
           filter: filter.filter,
           operator: filter.operator,
           value: filter.value,
-          label: filter.label
+          label: filter.label,
         });
       }
       Object.assign(body, { appliedFilters: bodyFilters });

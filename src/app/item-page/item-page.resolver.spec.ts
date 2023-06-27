@@ -12,8 +12,8 @@ describe('ItemPageResolver', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([{
         path: 'entities/:entity-type/:id',
-        component: {} as any
-      }])]
+        component: {} as any,
+      }])],
     });
   });
 
@@ -33,10 +33,10 @@ describe('ItemPageResolver', () => {
           uuid: uuid,
           firstMetadataValue(_keyOrKeys: string | string[], _valueFilter?: MetadataValueFilter): string {
             return entityType;
-          }
+          },
         });
         itemService = {
-          findById: (_id: string) => createSuccessfulRemoteDataObject$(item)
+          findById: (_id: string) => createSuccessfulRemoteDataObject$(item),
         };
         store = jasmine.createSpyObj('store', {
           dispatch: {},
@@ -54,7 +54,7 @@ describe('ItemPageResolver', () => {
             () => {
               expect(router.navigateByUrl).toHaveBeenCalledWith(router.parseUrl(`/entities/${entityType}/${uuid}`).toString());
               done();
-            }
+            },
           );
       });
 
@@ -68,7 +68,7 @@ describe('ItemPageResolver', () => {
             () => {
               expect(router.navigateByUrl).not.toHaveBeenCalled();
               done();
-            }
+            },
           );
       });
     }

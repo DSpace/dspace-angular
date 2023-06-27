@@ -18,7 +18,7 @@ export const ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID = 'item-access-contro
 @Component({
   selector: 'ds-item-access-control-select-bitstreams-modal',
   templateUrl: './item-access-control-select-bitstreams-modal.component.html',
-  styleUrls: [ './item-access-control-select-bitstreams-modal.component.scss' ]
+  styleUrls: [ './item-access-control-select-bitstreams-modal.component.scss' ],
 })
 export class ItemAccessControlSelectBitstreamsModalComponent implements OnInit {
 
@@ -37,7 +37,7 @@ export class ItemAccessControlSelectBitstreamsModalComponent implements OnInit {
     private bitstreamService: BitstreamDataService,
     protected paginationService: PaginationService,
     protected translateService: TranslateService,
-    public activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal,
   ) { }
 
   ngOnInit() {

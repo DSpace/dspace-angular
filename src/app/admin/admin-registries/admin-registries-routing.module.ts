@@ -15,25 +15,25 @@ import { BITSTREAMFORMATS_MODULE_PATH } from './admin-registries-routing-paths';
         children: [
           {
             path: '',
-            component: MetadataRegistryComponent
+            component: MetadataRegistryComponent,
           },
           {
             path: ':schemaName',
             resolve: { breadcrumb: I18nBreadcrumbResolver },
             component: MetadataSchemaComponent,
-            data: {title: 'admin.registries.schema.title', breadcrumbKey: 'admin.registries.schema'}
-          }
-        ]
+            data: {title: 'admin.registries.schema.title', breadcrumbKey: 'admin.registries.schema'},
+          },
+        ],
       },
       {
         path: BITSTREAMFORMATS_MODULE_PATH,
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         loadChildren: () => import('./bitstream-formats/bitstream-formats.module')
           .then((m) => m.BitstreamFormatsModule),
-        data: {title: 'admin.registries.bitstream-formats.title', breadcrumbKey: 'admin.registries.bitstream-formats'}
+        data: {title: 'admin.registries.bitstream-formats.title', breadcrumbKey: 'admin.registries.bitstream-formats'},
       },
-    ])
-  ]
+    ]),
+  ],
 })
 export class AdminRegistriesRoutingModule {
 

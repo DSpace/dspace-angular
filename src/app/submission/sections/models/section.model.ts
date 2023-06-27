@@ -16,7 +16,7 @@ export interface SectionDataModel {
  */
 @Component({
   selector: 'ds-section-model',
-  template: ''
+  template: '',
 })
 export abstract class SectionModelComponent implements OnDestroy, OnInit, SectionDataModel {
   protected abstract sectionService: SectionsService;

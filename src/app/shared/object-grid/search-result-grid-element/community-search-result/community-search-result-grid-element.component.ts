@@ -30,7 +30,7 @@ export class CommunitySearchResultGridElementComponent extends SearchResultGridE
     public dsoNameService: DSONameService,
     private linkService: LinkService,
     protected truncatableService: TruncatableService,
-    protected bitstreamDataService: BitstreamDataService
+    protected bitstreamDataService: BitstreamDataService,
   ) {
     super(dsoNameService, truncatableService, bitstreamDataService);
   }

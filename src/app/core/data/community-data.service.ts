@@ -44,14 +44,14 @@ export class CommunityDataService extends ComColDataService<Community> {
   findTop(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Community>[]): Observable<RemoteData<PaginatedList<Community>>> {
     return this.getEndpoint().pipe(
       map(href => `${href}/search/top`),
-      switchMap(href => this.findListByHref(href, options, true, true, ...linksToFollow))
+      switchMap(href => this.findListByHref(href, options, true, true, ...linksToFollow)),
     );
   }
 
   protected getFindByParentHref(parentUUID: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       switchMap((communityEndpointHref: string) =>
-        this.halService.getEndpoint('subcommunities', `${communityEndpointHref}/${parentUUID}`))
+        this.halService.getEndpoint('subcommunities', `${communityEndpointHref}/${parentUUID}`)),
     );
   }
 
@@ -59,7 +59,7 @@ export class CommunityDataService extends ComColDataService<Community> {
     return this.getEndpoint().pipe(
       map((endpoint: string) => this.getIDHref(endpoint, options.scopeID)),
       filter((href: string) => isNotEmpty(href)),
-      take(1)
+      take(1),
     );
   }
 }

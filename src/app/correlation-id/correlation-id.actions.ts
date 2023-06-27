@@ -2,7 +2,7 @@ import { type } from '../shared/ngrx/type';
 import { Action } from '@ngrx/store';
 
 export const CorrelationIDActionTypes = {
-  SET: type('dspace/core/correlationId/SET')
+  SET: type('dspace/core/correlationId/SET'),
 };
 
 /**

@@ -58,7 +58,7 @@ describe('ChipsItem model test suite', () => {
     item = new ChipsItem(
       {
         label: 'A',
-        value: 'a'
+        value: 'a',
       },
       'label');
 
@@ -69,7 +69,7 @@ describe('ChipsItem model test suite', () => {
     item = new ChipsItem(
       {
         toDisplay: new FormFieldMetadataValueObject('a', null, 'a'),
-        otherProperty: 'other'
+        otherProperty: 'other',
       },
       'value', 'toDisplay');
 

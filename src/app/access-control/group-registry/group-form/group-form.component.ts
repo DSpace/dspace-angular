@@ -6,7 +6,7 @@ import {
   DynamicFormControlModel,
   DynamicFormLayout,
   DynamicInputModel,
-  DynamicTextAreaModel
+  DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -35,7 +35,7 @@ import {
   getRemoteDataPayload,
   getFirstSucceededRemoteData,
   getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload
+  getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { AlertType } from '../../../shared/alert/aletr-type';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
@@ -51,7 +51,7 @@ import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'ds-group-form',
-  templateUrl: './group-form.component.html'
+  templateUrl: './group-form.component.html',
 })
 /**
  * A form used for creating and editing groups
@@ -83,13 +83,13 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   formLayout: DynamicFormLayout = {
     groupName: {
       grid: {
-        host: 'row'
-      }
+        host: 'row',
+      },
     },
     groupDescription: {
       grid: {
-        host: 'row'
-      }
+        host: 'row',
+      },
     },
   };
 
@@ -171,12 +171,12 @@ export class GroupFormComponent implements OnInit, OnDestroy {
           (isAuthorized: ObservedValueOf<Observable<boolean>>, hasLinkedDSO: ObservedValueOf<Observable<boolean>>) => {
             return isAuthorized && !hasLinkedDSO;
           });
-      })
+      }),
     );
     observableCombineLatest(
       this.translateService.get(`${this.messagePrefix}.groupName`),
       this.translateService.get(`${this.messagePrefix}.groupCommunity`),
-      this.translateService.get(`${this.messagePrefix}.groupDescription`)
+      this.translateService.get(`${this.messagePrefix}.groupDescription`),
     ).subscribe(([groupName, groupCommunity, groupDescription]) => {
       this.groupName = new DynamicInputModel({
         id: 'groupName',
@@ -219,7 +219,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
           this.groupDataService.getActiveGroup(),
           this.canEdit$,
           this.groupDataService.getActiveGroup()
-            .pipe(filter((activeGroup) => hasValue(activeGroup)),switchMap((activeGroup) => this.getLinkedDSO(activeGroup).pipe(getFirstSucceededRemoteDataPayload())))
+            .pipe(filter((activeGroup) => hasValue(activeGroup)),switchMap((activeGroup) => this.getLinkedDSO(activeGroup).pipe(getFirstSucceededRemoteDataPayload()))),
         ).subscribe(([activeGroup, canEdit, linkedObject]) => {
 
           if (activeGroup != null) {
@@ -252,7 +252,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
               }
             }, 200);
           }
-        })
+        }),
       );
     });
   }
@@ -280,9 +280,9 @@ export class GroupFormComponent implements OnInit, OnDestroy {
           metadata: {
             'dc.description': [
               {
-                value: this.groupDescription.value
-              }
-            ]
+                value: this.groupDescription.value,
+              },
+            ],
           },
         };
         if (group === null) {
@@ -290,7 +290,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         } else {
           this.editGroup(group);
         }
-      }
+      },
     );
   }
 
@@ -301,7 +301,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   createNewGroup(values) {
     const groupToCreate = Object.assign(new Group(), values);
     this.groupDataService.create(groupToCreate).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<Group>) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.created.success', { name: groupToCreate.name }));
@@ -330,7 +330,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     // Relevant message for group name in use
     this.subs.push(this.groupDataService.searchGroups(group.name, {
       currentPage: 1,
-      elementsPerPage: 0
+      elementsPerPage: 0,
     }).pipe(getFirstSucceededRemoteData(), getRemoteDataPayload())
       .subscribe((list: PaginatedList<Group>) => {
         if (list.totalElements > 0) {
@@ -352,7 +352,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       operations = [...operations, {
         op: 'add',
         path: '/metadata/dc.description',
-        value: this.groupDescription.value
+        value: this.groupDescription.value,
       }];
     }
 
@@ -360,12 +360,12 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       operations = [...operations, {
         op: 'replace',
         path: '/name',
-        value: this.groupName.value
+        value: this.groupName.value,
       }];
     }
 
     this.groupDataService.patch(group, operations).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<Group>) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.edited.success', { name: this.dsoNameService.getName(rd.payload) }));
@@ -504,7 +504,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
                 return getCollectionEditRolesRoute(rd.payload.id);
             }
           }
-        })
+        }),
       );
     }
   }

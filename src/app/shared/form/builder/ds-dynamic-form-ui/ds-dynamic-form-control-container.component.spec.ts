@@ -25,7 +25,7 @@ import {
   DynamicSliderModel,
   DynamicSwitchModel,
   DynamicTextAreaModel,
-  DynamicTimePickerModel, MATCH_VISIBLE, OR_OPERATOR
+  DynamicTimePickerModel, MATCH_VISIBLE, OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
 import {
   DynamicNGBootstrapCalendarComponent,
@@ -35,13 +35,13 @@ import {
   DynamicNGBootstrapRadioGroupComponent,
   DynamicNGBootstrapSelectComponent,
   DynamicNGBootstrapTextAreaComponent,
-  DynamicNGBootstrapTimePickerComponent
+  DynamicNGBootstrapTimePickerComponent,
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import {
   DsDynamicFormControlContainerComponent,
-  dsDynamicFormControlMapFn
+  dsDynamicFormControlMapFn,
 } from './ds-dynamic-form-control-container.component';
 import { SharedModule } from '../../../shared.module';
 import { DynamicDsDatePickerModel } from './models/date-picker/date-picker.model';
@@ -86,7 +86,7 @@ function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationSer
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
     getRelatedFormModel: jasmine.createSpy('getRelatedFormModel'),
     matchesCondition: jasmine.createSpy('matchesCondition'),
-    subscribeRelations: jasmine.createSpy('subscribeRelations')
+    subscribeRelations: jasmine.createSpy('subscribeRelations'),
   });
 }
 
@@ -94,7 +94,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
 
   const vocabularyOptions: VocabularyOptions = {
     name: 'type_programme',
-    closed: false
+    closed: false,
   };
   const formModel = [
     new DynamicCheckboxModel({ id: 'checkbox' }),
@@ -111,7 +111,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     new DynamicSelectModel({
       id: 'select',
       options: [{ value: 'One' }, { value: 'Two' }],
-      value: 'One'
+      value: 'One',
     }),
     new DynamicSliderModel({ id: 'slider' }),
     new DynamicSwitchModel({ id: 'switch' }),
@@ -126,8 +126,8 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       typeBindRelations: [{
         match: MATCH_VISIBLE,
         operator: OR_OPERATOR,
-        when: [{id: 'dc.type', value: 'Book'}]
-      }]
+        when: [{id: 'dc.type', value: 'Book'}],
+      }],
     }),
     new DynamicScrollableDropdownModel({
       id: 'scrollableDropdown',
@@ -135,14 +135,14 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       metadataFields: [],
       repeatable: false,
       submissionId: '1234',
-      hasSelectableMetadata: false
+      hasSelectableMetadata: false,
     }),
     new DynamicTagModel({
       id: 'tag',
       metadataFields: [],
       repeatable: false,
       submissionId: '1234',
-      hasSelectableMetadata: false
+      hasSelectableMetadata: false,
     }),
     new DynamicListCheckboxGroupModel({
       id: 'checkboxList',
@@ -167,7 +167,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       submissionScope: '',
       repeatable: false,
       metadataFields: [],
-      hasSelectableMetadata: false
+      hasSelectableMetadata: false,
     }),
     new DynamicDsDatePickerModel({ id: 'datepicker' }),
     new DynamicLookupModel({
@@ -175,16 +175,16 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       metadataFields: [],
       repeatable: false,
       submissionId: '1234',
-      hasSelectableMetadata: false
+      hasSelectableMetadata: false,
     }),
     new DynamicLookupNameModel({
       id: 'lookupName',
       metadataFields: [],
       repeatable: false,
       submissionId: '1234',
-      hasSelectableMetadata: false
+      hasSelectableMetadata: false,
     }),
-    new DynamicQualdropModel({ id: 'combobox', readOnly: false, required: false })
+    new DynamicQualdropModel({ id: 'combobox', readOnly: false, required: false }),
   ];
   const testModel = formModel[8];
   let formGroup: UntypedFormGroup;
@@ -200,8 +200,8 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     TestBed.overrideModule(BrowserDynamicTestingModule, {
 
       set: {
-        entryComponents: [DynamicNGBootstrapInputComponent]
-      }
+        entryComponents: [DynamicNGBootstrapInputComponent],
+      },
     });
 
     TestBed.configureTestingModule({
@@ -231,13 +231,13 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         {
           provide: SubmissionObjectDataService,
           useValue: {
-            findById: () => observableOf(createSuccessfulRemoteDataObject(testWSI))
-          }
+            findById: () => observableOf(createSuccessfulRemoteDataObject(testWSI)),
+          },
         },
         { provide: NgZone, useValue: new NgZone({}) },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environment },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents().then(() => {
 
       fixture = TestBed.createComponent(DsDynamicFormControlContainerComponent);
@@ -261,7 +261,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     component.ngOnChanges({
 
       group: new SimpleChange(null, component.group, true),
-      model: new SimpleChange(null, component.model, true)
+      model: new SimpleChange(null, component.model, true),
     });
 
     fixture.detectChanges();

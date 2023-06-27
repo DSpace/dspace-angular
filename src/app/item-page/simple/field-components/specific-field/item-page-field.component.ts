@@ -13,7 +13,7 @@ import { getRemoteDataPayload } from '../../../../core/shared/operators';
  */
 
 @Component({
-  templateUrl: './item-page-field.component.html'
+  templateUrl: './item-page-field.component.html',
 })
 export class ItemPageFieldComponent {
 
@@ -58,7 +58,7 @@ export class ItemPageFieldComponent {
     get browseDefinition(): Observable<BrowseDefinition> {
       return this.browseDefinitionDataService.findByFields(this.fields).pipe(
         getRemoteDataPayload(),
-        map((def) => def)
+        map((def) => def),
       );
     }
 }

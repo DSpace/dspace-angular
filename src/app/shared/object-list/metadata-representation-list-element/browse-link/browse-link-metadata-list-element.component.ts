@@ -9,7 +9,7 @@ import { VALUE_LIST_BROWSE_DEFINITION } from '../../../../core/shared/value-list
 @metadataRepresentationComponent('Publication', MetadataRepresentationType.BrowseLink)
 @Component({
   selector: 'ds-browse-link-metadata-list-element',
-  templateUrl: './browse-link-metadata-list-element.component.html'
+  templateUrl: './browse-link-metadata-list-element.component.html',
 })
 /**
  * A component for displaying MetadataRepresentation objects in the form of plain text

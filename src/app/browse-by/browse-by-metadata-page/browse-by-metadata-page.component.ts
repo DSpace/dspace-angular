@@ -28,7 +28,7 @@ export const BBM_PAGINATION_ID = 'bbm';
 @Component({
   selector: 'ds-browse-by-metadata-page',
   styleUrls: ['./browse-by-metadata-page.component.scss'],
-  templateUrl: './browse-by-metadata-page.component.html'
+  templateUrl: './browse-by-metadata-page.component.html',
 })
 /**
  * Component for browsing (items) by metadata definition.
@@ -150,7 +150,7 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
       observableCombineLatest([this.route.params, this.route.queryParams, this.currentPagination$, this.currentSort$]).pipe(
         map(([routeParams, queryParams, currentPage, currentSort]) => {
           return [Object.assign({}, routeParams, queryParams),currentPage,currentSort];
-        })
+        }),
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
         this.browseId = params.id || this.defaultBrowseId;
         this.authority = params.authority;
@@ -225,7 +225,7 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
         true,
         true,
         ...linksToFollow() as FollowLinkConfig<DSpaceObject>[]).pipe(
-        getFirstSucceededRemoteData()
+        getFirstSucceededRemoteData(),
       );
     }
   }
@@ -238,7 +238,7 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
       this.logo$ = this.parent$.pipe(
         map((rd: RemoteData<Collection | Community>) => rd.payload),
         filter((collectionOrCommunity: Collection | Community) => hasValue(collectionOrCommunity.logo)),
-        mergeMap((collectionOrCommunity: Collection | Community) => collectionOrCommunity.logo)
+        mergeMap((collectionOrCommunity: Collection | Community) => collectionOrCommunity.logo),
       );
     }
   }
@@ -319,6 +319,6 @@ export function browseParamsToOptions(params: any,
     sortConfig,
     params.startsWith,
     params.scope,
-    fetchThumbnail
+    fetchThumbnail,
   );
 }

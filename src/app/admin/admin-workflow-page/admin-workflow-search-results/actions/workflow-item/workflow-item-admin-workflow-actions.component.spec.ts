@@ -9,7 +9,7 @@ import { WorkflowItemAdminWorkflowActionsComponent } from './workflow-item-admin
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import {
   getWorkflowItemDeleteRoute,
-  getWorkflowItemSendBackRoute
+  getWorkflowItemSendBackRoute,
 } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { of } from 'rxjs';
 import { Item } from '../../../../../core/shared/item.model';
@@ -37,10 +37,10 @@ describe('WorkflowItemAdminWorkflowActionsComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
       ],
       declarations: [WorkflowItemAdminWorkflowActionsComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

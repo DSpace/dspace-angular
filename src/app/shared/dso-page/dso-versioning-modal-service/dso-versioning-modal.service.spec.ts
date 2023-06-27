@@ -25,24 +25,24 @@ describe('DsoVersioningModalService', () => {
     relationships: createRelationshipsObservable(),
     _links: {
       self: {
-        href: 'item-href'
+        href: 'item-href',
       },
       version: {
-        href: 'version-href'
-      }
-    }
+        href: 'version-href',
+      },
+    },
   });
 
   beforeEach(waitForAsync(() => {
     modalService = jasmine.createSpyObj('modalService', {
-      open: {componentInstance: {firstVersion: {}, versionNumber: {}, createVersionEvent: EMPTY}}
+      open: {componentInstance: {firstVersion: {}, versionNumber: {}, createVersionEvent: EMPTY}},
     });
     versionService = jasmine.createSpyObj('versionService', {
       findByHref: createSuccessfulRemoteDataObject$<Version>(new Version()),
     });
     versionHistoryService = jasmine.createSpyObj('versionHistoryService', {
       createVersion: createSuccessfulRemoteDataObject$<Version>(new Version()),
-      hasDraftVersion$: observableOf(false)
+      hasDraftVersion$: observableOf(false),
     });
     itemVersionShared = jasmine.createSpyObj('itemVersionShared', ['notifyCreateNewVersion']);
     router = jasmine.createSpyObj('router', ['navigateByUrl']);
@@ -56,7 +56,7 @@ describe('DsoVersioningModalService', () => {
       itemVersionShared,
       router,
       workspaceItemDataService,
-      itemService
+      itemService,
     );
   }));
   describe('when onCreateNewVersion() is called', () => {

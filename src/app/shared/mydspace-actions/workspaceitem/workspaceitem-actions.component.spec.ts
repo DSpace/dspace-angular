@@ -19,7 +19,7 @@ import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../remote-data.utils';
 import { RequestService } from '../../../core/data/request.service';
 import { getMockRequestService } from '../../mocks/request.service.mock';
@@ -37,7 +37,7 @@ let authorizationService;
 let authService;
 
 const mockDataService = jasmine.createSpyObj('WorkspaceitemDataService', {
-  delete: jasmine.createSpy('delete')
+  delete: jasmine.createSpy('delete'),
 });
 
 const searchService = getMockSearchService();
@@ -50,28 +50,28 @@ const item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.type': [
       {
         language: null,
-        value: 'Article'
-      }
+        value: 'Article',
+      },
     ],
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.date.issued': [
       {
         language: null,
-        value: '2015-06-26'
-      }
-    ]
-  }
+        value: '2015-06-26',
+      },
+    ],
+  },
 });
 const rd = createSuccessfulRemoteDataObject(item);
 mockObject = Object.assign(new WorkspaceItem(), { item: observableOf(rd), id: '1234', uuid: '1234' });
@@ -152,13 +152,13 @@ const ePersonMock: EPerson = Object.assign(new EPerson(), {
 });
 
 authService = jasmine.createSpyObj('authService', {
-  getAuthenticatedUserFromStore: jasmine.createSpy('getAuthenticatedUserFromStore')
+  getAuthenticatedUserFromStore: jasmine.createSpy('getAuthenticatedUserFromStore'),
 });
 
 describe('WorkspaceitemActionsComponent', () => {
   beforeEach(waitForAsync(async () => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     await TestBed.configureTestingModule({
       imports: [
@@ -166,9 +166,9 @@ describe('WorkspaceitemActionsComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [WorkspaceitemActionsComponent],
       providers: [
@@ -180,11 +180,11 @@ describe('WorkspaceitemActionsComponent', () => {
         { provide: RequestService, useValue: requestServce },
         { provide: AuthService, useValue:  authService },
         { provide: AuthorizationDataService, useValue: authorizationService},
-        NgbModal
+        NgbModal,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(WorkspaceitemActionsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

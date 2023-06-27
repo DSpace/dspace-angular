@@ -7,7 +7,7 @@ import { ItemComponent } from '../../../../item-page/simple/item-types/shared/it
 @Component({
   selector: 'ds-person',
   styleUrls: ['./person.component.scss'],
-  templateUrl: './person.component.html'
+  templateUrl: './person.component.html',
 })
 /**
  * The component for displaying metadata and relations of an item of the type Person

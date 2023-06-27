@@ -16,7 +16,7 @@ describe('BitstreamListItemComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ BitstreamListItemComponent ],
       imports: [ CommonModule, SharedModule, TranslateModule, RouterTestingModule ],
-      providers: [{ provide: DSONameService, useValue: new DSONameServiceMock() }]
+      providers: [{ provide: DSONameService, useValue: new DSONameServiceMock() }],
     })
       .compileComponents();
   });

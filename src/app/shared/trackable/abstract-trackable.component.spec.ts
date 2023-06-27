@@ -24,8 +24,8 @@ describe('AbstractTrackableComponent', () => {
     {
       info: infoNotification,
       warning: warningNotification,
-      success: successNotification
-    }
+      success: successNotification,
+    },
   );
 
   const url = 'http://test-url.com/test-url';
@@ -39,8 +39,8 @@ describe('AbstractTrackableComponent', () => {
         initialize: {},
         hasUpdates: observableOf(true),
         isReinstatable: observableOf(false), // should always return something --> its in ngOnInit
-        isValidPage: observableOf(true)
-      }
+        isValidPage: observableOf(true),
+      },
     );
 
     scheduler = getTestScheduler();
@@ -52,8 +52,8 @@ describe('AbstractTrackableComponent', () => {
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: NotificationsService, useValue: notificationsService },
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 

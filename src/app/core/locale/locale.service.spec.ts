@@ -25,7 +25,7 @@ describe('LocaleService test suite', () => {
 
   authService = jasmine.createSpyObj('AuthService', {
     isAuthenticated: jasmine.createSpy('isAuthenticated'),
-    isAuthenticationLoaded: jasmine.createSpy('isAuthenticationLoaded')
+    isAuthenticationLoaded: jasmine.createSpy('isAuthenticationLoaded'),
   });
 
   const langList = ['en', 'xx', 'de'];
@@ -36,8 +36,8 @@ describe('LocaleService test suite', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       providers: [
@@ -45,7 +45,7 @@ describe('LocaleService test suite', () => {
         { provide: AuthService, userValue: authService },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Document, useValue: document },
-      ]
+      ],
     });
   }));
 

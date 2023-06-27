@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, UntypedFormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isEmpty } from '../../empty.util';
 
@@ -7,7 +7,7 @@ import { isEmpty } from '../../empty.util';
   styleUrls: ['./number-picker.component.scss'],
   templateUrl: './number-picker.component.html',
   providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: NumberPickerComponent, multi: true}
+    {provide: NG_VALUE_ACCESSOR, useExisting: NumberPickerComponent, multi: true},
   ],
 })
 

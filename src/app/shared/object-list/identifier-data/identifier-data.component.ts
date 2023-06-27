@@ -8,7 +8,7 @@ import { IdentifierDataService } from '../../../core/data/identifier-data.servic
 
 @Component({
   selector: 'ds-identifier-data',
-  templateUrl: './identifier-data.component.html'
+  templateUrl: './identifier-data.component.html',
 })
 /**
  * Component rendering an identifier, eg. DOI or handle

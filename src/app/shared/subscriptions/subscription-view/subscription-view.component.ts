@@ -18,7 +18,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[ds-subscription-view]',
   templateUrl: './subscription-view.component.html',
-  styleUrls: ['./subscription-view.component.scss']
+  styleUrls: ['./subscription-view.component.scss'],
 })
 /**
  * Table row representing a subscription that displays all information and action buttons to manage it

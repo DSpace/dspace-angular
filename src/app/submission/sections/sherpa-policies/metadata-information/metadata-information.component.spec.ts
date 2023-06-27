@@ -19,11 +19,11 @@ describe('MetadataInformationComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
-      declarations: [MetadataInformationComponent]
+      declarations: [MetadataInformationComponent],
     })
       .compileComponents();
   });

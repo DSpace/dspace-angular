@@ -40,8 +40,8 @@ describe('ParameterValueInputComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         })],
       declarations: [
         ParameterValueInputComponent,
@@ -50,9 +50,9 @@ describe('ParameterValueInputComponent', () => {
         FileValueInputComponent,
         DateValueInputComponent,
         FileValueAccessorDirective,
-        FileValidator
+        FileValidator,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

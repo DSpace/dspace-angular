@@ -67,7 +67,7 @@ export class ReorderableFormFieldMetadataValue extends Reorderable {
     public control: UntypedFormControl,
     public group: DynamicFormArrayGroupModel,
     oldIndex?: number,
-    newIndex?: number
+    newIndex?: number,
   ) {
     super(oldIndex, newIndex);
     this.metadataValue = metadataValue;
@@ -136,7 +136,7 @@ export class ReorderableRelationship extends Reorderable {
 @Component({
   selector: 'ds-existing-metadata-list-element',
   templateUrl: './existing-metadata-list-element.component.html',
-  styleUrls: ['./existing-metadata-list-element.component.scss']
+  styleUrls: ['./existing-metadata-list-element.component.scss'],
 })
 export class ExistingMetadataListElementComponent implements OnInit, OnChanges, OnDestroy   {
   @Input() listId: string;
@@ -156,7 +156,7 @@ export class ExistingMetadataListElementComponent implements OnInit, OnChanges, 
   constructor(
     private selectableListService: SelectableListService,
     private store: Store<AppState>,
-    private submissionService: SubmissionService
+    private submissionService: SubmissionService,
   ) {
   }
 
@@ -174,7 +174,7 @@ export class ExistingMetadataListElementComponent implements OnInit, OnChanges, 
       this.subs.push(item$.pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
-        filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid))
+        filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid)),
       ).subscribe((item: Item) => {
         this.relatedItem = item;
         const relationMD: MetadataValue = this.submissionItem.firstMetadata(this.relationshipOptions.metadataField, { value: this.relatedItem.uuid });
@@ -183,7 +183,7 @@ export class ExistingMetadataListElementComponent implements OnInit, OnChanges, 
 
           const nextValue = Object.assign(
             new ItemMetadataRepresentation(metadataRepresentationMD),
-            this.relatedItem
+            this.relatedItem,
           );
           this.metadataRepresentation$.next(nextValue);
         }

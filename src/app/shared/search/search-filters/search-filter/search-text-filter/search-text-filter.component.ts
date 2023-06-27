@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FilterType } from '../../../models/filter-type.model';
 import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { renderFacetFor } from '../search-filter-type-decorator';
-import { addOperatorToFilterValue, } from '../../../search.utils';
+import { addOperatorToFilterValue } from '../../../search.utils';
 
 /**
  * This component renders a simple item page.
@@ -14,7 +14,7 @@ import { addOperatorToFilterValue, } from '../../../search.utils';
   selector: 'ds-search-text-filter',
   styleUrls: ['./search-text-filter.component.scss'],
   templateUrl: './search-text-filter.component.html',
-  animations: [facetLoad]
+  animations: [facetLoad],
 })
 
 /**

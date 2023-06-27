@@ -14,7 +14,7 @@ import { FullItemPageComponent as BaseComponent } from '../../../../../app/item-
   // templateUrl: './full-item-page.component.html',
   templateUrl: '../../../../../app/item-page/full/full-item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeInOut]
+  animations: [fadeInOut],
 })
 export class FullItemPageComponent extends BaseComponent {
 }

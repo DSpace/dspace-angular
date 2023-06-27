@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 export class FileService {
   constructor(
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
-    private authService: AuthService
+    private authService: AuthService,
   ) { }
 
   /**
@@ -25,7 +25,7 @@ export class FileService {
    */
   retrieveFileDownloadLink(url: string): Observable<string> {
     return this.authService.getShortlivedToken().pipe(take(1), map((token) =>
-      hasValue(token) ? new URLCombiner(url, `?authentication-token=${token}`).toString() : url
+      hasValue(token) ? new URLCombiner(url, `?authentication-token=${token}`).toString() : url,
     ));
   }
   /**

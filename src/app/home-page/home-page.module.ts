@@ -21,7 +21,7 @@ const DECLARATIONS = [
   ThemedTopLevelCommunityListComponent,
   ThemedHomeNewsComponent,
   HomeNewsComponent,
-  RecentItemListComponent
+  RecentItemListComponent,
 ];
 
 @NgModule({
@@ -31,7 +31,7 @@ const DECLARATIONS = [
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
     HomePageRoutingModule,
-    StatisticsModule.forRoot()
+    StatisticsModule.forRoot(),
   ],
   declarations: [
     ...DECLARATIONS,

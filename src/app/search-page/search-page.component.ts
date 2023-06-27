@@ -8,9 +8,9 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
 })
 /**
  * This component represents the whole search page

@@ -15,7 +15,7 @@ export class BrowserAuthRequestService extends AuthRequestService {
   constructor(
     halService: HALEndpointService,
     requestService: RequestService,
-    rdbService: RemoteDataBuildService
+    rdbService: RemoteDataBuildService,
   ) {
     super(halService, requestService, rdbService);
   }

@@ -10,6 +10,6 @@ export function getMockSectionUploadService(): SubmissionFormsConfigDataService 
     getDefaultPolicies: jasmine.createSpy('getDefaultPolicies'),
     addUploadedFile: jasmine.createSpy('addUploadedFile'),
     updateFileData: jasmine.createSpy('updateFileData'),
-    removeUploadedFile: jasmine.createSpy('removeUploadedFile')
+    removeUploadedFile: jasmine.createSpy('removeUploadedFile'),
   });
 }

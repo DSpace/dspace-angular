@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { defaultIfEmpty, filter, map, switchMap, take } from 'rxjs/operators';
 import {
-  AbstractSimpleItemActionComponent
+  AbstractSimpleItemActionComponent,
 } from '../simple-item-action/abstract-simple-item-action.component';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -18,7 +18,7 @@ import { Relationship } from '../../../core/shared/item-relationships/relationsh
 import {
   getRemoteDataPayload,
   getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData
+  getFirstCompletedRemoteData,
 } from '../../../core/shared/operators';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { Item } from '../../../core/shared/item.model';
@@ -39,7 +39,7 @@ import { NoContent } from '../../../core/shared/NoContent.model';
 
 @Component({
   selector: 'ds-item-delete',
-  templateUrl: '../item-delete/item-delete.component.html'
+  templateUrl: '../item-delete/item-delete.component.html',
 })
 /**
  * Component responsible for rendering the item delete page
@@ -143,17 +143,17 @@ export class ItemDeleteComponent
                 } else {
                   return includedTypes;
                 }
-              }, [])
+              }, []),
             ),
           );
-        })
+        }),
       ).subscribe((types: RelationshipType[]) => this.types$.next(types)));
     }
 
     this.subs.push(this.types$.pipe(
       take(1),
     ).subscribe((types) =>
-      this.objectUpdatesService.initialize(this.url, types, this.item.lastModified)
+      this.objectUpdatesService.initialize(this.url, types, this.item.lastModified),
     ));
   }
 
@@ -194,7 +194,7 @@ export class ItemDeleteComponent
       switchMap((relationships) =>
         this.isLeftItem(relationships[0]).pipe(
           map((isLeftItem) => isLeftItem ? relationshipType.leftwardType : relationshipType.rightwardType),
-        )
+        ),
       ),
     );
   }
@@ -212,15 +212,15 @@ export class ItemDeleteComponent
           // filter on type
           switchMap((relationships) =>
             observableCombineLatest(
-              relationships.map((relationship) => this.getRelationshipType(relationship))
+              relationships.map((relationship) => this.getRelationshipType(relationship)),
             ).pipe(
               defaultIfEmpty([]),
               map((types) => relationships.filter(
-                (relationship, index) => relationshipType.id === types[index].id
+                (relationship, index) => relationshipType.id === types[index].id,
               )),
-            )
+            ),
           ),
-        )
+        ),
       );
     }
 
@@ -242,7 +242,7 @@ export class ItemDeleteComponent
     return relationship.relationshipType.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-      filter((relationshipType: RelationshipType) => hasValue(relationshipType) && isNotEmpty(relationshipType.uuid))
+      filter((relationshipType: RelationshipType) => hasValue(relationshipType) && isNotEmpty(relationshipType.uuid)),
     );
   }
 
@@ -289,9 +289,9 @@ export class ItemDeleteComponent
                     metadataValue: metadata,
                   };
                 }))
-              .reduce((previous, current) => previous.concat(current))
+              .reduce((previous, current) => previous.concat(current)),
           ),
-        )
+        ),
       );
     }
 
@@ -308,7 +308,7 @@ export class ItemDeleteComponent
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid)),
-      map((leftItem) => leftItem.uuid === this.item.uuid)
+      map((leftItem) => leftItem.uuid === this.item.uuid),
     );
   }
 
@@ -337,22 +337,22 @@ export class ItemDeleteComponent
     this.subs.push(this.types$.pipe(
       switchMap((types) =>
         combineLatest(
-          types.map((type) => this.isSelected(type))
+          types.map((type) => this.isSelected(type)),
         ).pipe(
           defaultIfEmpty([]),
           map((selection) => types.filter(
-            (type, index) => selection[index]
+            (type, index) => selection[index],
           )),
           map((selectedTypes) => selectedTypes.map((type) => type.id)),
-        )
+        ),
       ),
       switchMap((types) =>
-        this.itemDataService.delete(this.item.id, types).pipe(getFirstCompletedRemoteData())
-      )
+        this.itemDataService.delete(this.item.id, types).pipe(getFirstCompletedRemoteData()),
+      ),
     ).subscribe(
       (rd: RemoteData<NoContent>) => {
         this.notify(rd.hasSucceeded);
-      }
+      },
     ));
   }
 

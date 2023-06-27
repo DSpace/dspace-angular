@@ -39,7 +39,7 @@ export class RootDataService extends BaseDataService<Root> {
         console.error(err);
         return observableOf(false);
       }),
-      map((res: RawRestResponse) => res.statusCode === 200)
+      map((res: RawRestResponse) => res.statusCode === 200),
     );
   }
 

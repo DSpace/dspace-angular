@@ -22,9 +22,9 @@ describe('CommunityMetadataComponent', () => {
       providers: [
         { provide: CommunityDataService, useValue: {} },
         { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: { payload: {} } }) } } },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

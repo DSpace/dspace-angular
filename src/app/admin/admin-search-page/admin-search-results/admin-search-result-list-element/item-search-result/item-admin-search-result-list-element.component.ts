@@ -10,7 +10,7 @@ import { SearchResultListElementComponent } from '../../../../../shared/object-l
 @Component({
   selector: 'ds-item-admin-search-result-list-element',
   styleUrls: ['./item-admin-search-result-list-element.component.scss'],
-  templateUrl: './item-admin-search-result-list-element.component.html'
+  templateUrl: './item-admin-search-result-list-element.component.html',
 })
 /**
  * The component for displaying a list element for an item search result on the admin search page

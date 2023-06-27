@@ -39,7 +39,7 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
   }
 
   const linkService = jasmine.createSpyObj('linkService', {
-    resolveLink: {}
+    resolveLink: {},
   });
 
   beforeEach(waitForAsync(() => {
@@ -49,7 +49,7 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        SharedModule
+        SharedModule,
       ],
       declarations: [CommunityAdminSearchResultGridElementComponent],
       providers: [
@@ -61,7 +61,7 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: ThemeService, useValue: getMockThemeService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

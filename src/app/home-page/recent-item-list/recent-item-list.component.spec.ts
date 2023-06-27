@@ -23,7 +23,7 @@ describe('RecentItemListComponent', () => {
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
     search: () => observableOf(emptyList),
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    clearDiscoveryRequests: () => {}
+    clearDiscoveryRequests: () => {},
     /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
   });
   paginationService = new PaginationServiceStub();
@@ -31,12 +31,12 @@ describe('RecentItemListComponent', () => {
     pagination: Object.assign(new PaginationComponentOptions(), {
       id: 'search-page-configuration',
       pageSize: 10,
-      currentPage: 1
+      currentPage: 1,
     }),
     sort: new SortOptions('dc.date.accessioned', SortDirection.DESC),
   }));
   const searchConfigServiceStub = {
-    paginatedSearchOptions: mockSearchOptions
+    paginatedSearchOptions: mockSearchOptions,
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({

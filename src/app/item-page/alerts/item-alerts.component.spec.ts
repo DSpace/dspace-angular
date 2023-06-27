@@ -14,7 +14,7 @@ describe('ItemAlertsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ItemAlertsComponent],
       imports: [TranslateModule.forRoot()],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));
@@ -28,7 +28,7 @@ describe('ItemAlertsComponent', () => {
   describe('when the item is discoverable', () => {
     beforeEach(() => {
       item = Object.assign(new Item(), {
-        isDiscoverable: true
+        isDiscoverable: true,
       });
       component.item = item;
       fixture.detectChanges();
@@ -43,7 +43,7 @@ describe('ItemAlertsComponent', () => {
   describe('when the item is not discoverable', () => {
     beforeEach(() => {
       item = Object.assign(new Item(), {
-        isDiscoverable: false
+        isDiscoverable: false,
       });
       component.item = item;
       fixture.detectChanges();
@@ -58,7 +58,7 @@ describe('ItemAlertsComponent', () => {
   describe('when the item is withdrawn', () => {
     beforeEach(() => {
       item = Object.assign(new Item(), {
-        isWithdrawn: true
+        isWithdrawn: true,
       });
       component.item = item;
       fixture.detectChanges();
@@ -73,7 +73,7 @@ describe('ItemAlertsComponent', () => {
   describe('when the item is not withdrawn', () => {
     beforeEach(() => {
       item = Object.assign(new Item(), {
-        isWithdrawn: false
+        isWithdrawn: false,
       });
       component.item = item;
       fixture.detectChanges();

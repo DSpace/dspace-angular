@@ -10,7 +10,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { of as observableOf } from 'rxjs';
 import {
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { ItemRequest } from '../../core/shared/item-request.model';
 import { Item } from '../../core/shared/item.model';
@@ -37,7 +37,7 @@ describe('GrantDenyRequestCopyComponent', () => {
   beforeEach(waitForAsync(() => {
     itemRequest = Object.assign(new ItemRequest(), {
       token: 'item-request-token',
-      requestName: 'requester name'
+      requestName: 'requester name',
     });
     itemName = 'item-name';
     item = Object.assign(new Item(), {
@@ -45,15 +45,15 @@ describe('GrantDenyRequestCopyComponent', () => {
       metadata: {
         'dc.identifier.uri': [
           {
-            value: itemUrl
-          }
+            value: itemUrl,
+          },
         ],
         'dc.title': [
           {
-            value: itemName
-          }
-        ]
-      }
+            value: itemName,
+          },
+        ],
+      },
     });
     itemUrl = getItemPageRoute(item);
 
@@ -81,7 +81,7 @@ describe('GrantDenyRequestCopyComponent', () => {
         { provide: ItemDataService, useValue: itemDataService },
         { provide: DSONameService, useValue: nameService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -130,7 +130,7 @@ describe('GrantDenyRequestCopyComponent', () => {
 
     it('should be displayed when decisionDate is defined', () => {
       component.itemRequestRD$ = createSuccessfulRemoteDataObject$(Object.assign(new ItemRequest(), itemRequest, {
-        decisionDate: 'defined-date'
+        decisionDate: 'defined-date',
       }));
       fixture.detectChanges();
 

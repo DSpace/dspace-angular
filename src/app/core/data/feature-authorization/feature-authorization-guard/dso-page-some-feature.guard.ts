@@ -28,7 +28,7 @@ export abstract class DsoPageSomeFeatureGuard<T extends DSpaceObject> extends So
     const routeWithObjectID = this.getRouteWithDSOId(route);
     return (this.resolver.resolve(routeWithObjectID, state) as Observable<RemoteData<T>>).pipe(
       getAllSucceededRemoteDataPayload(),
-      map((dso) => dso.self)
+      map((dso) => dso.self),
     );
   }
 

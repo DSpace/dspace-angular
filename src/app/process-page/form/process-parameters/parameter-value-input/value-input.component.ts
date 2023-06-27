@@ -5,7 +5,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
  */
 @Component({
   selector: 'ds-value-input',
-  template: ''
+  template: '',
 })
 export abstract class ValueInputComponent<T> {
   @Input() index: number;

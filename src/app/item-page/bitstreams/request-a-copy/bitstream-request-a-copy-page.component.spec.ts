@@ -6,7 +6,7 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -50,22 +50,22 @@ describe('BitstreamRequestACopyPageComponent', () => {
       metadata: {
         'eperson.firstname': [{value: 'Test'}],
         'eperson.lastname': [{value: 'User'}],
-      }
+      },
     });
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(false),
-      getAuthenticatedUserFromStore: observableOf(eperson)
+      getAuthenticatedUserFromStore: observableOf(eperson),
     });
     authorizationService = jasmine.createSpyObj('authorizationSerivice', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
 
     itemRequestDataService = jasmine.createSpyObj('itemRequestDataService', {
-      requestACopy: createSuccessfulRemoteDataObject$({})
+      requestACopy: createSuccessfulRemoteDataObject$({}),
     });
 
     location = jasmine.createSpyObj('location', {
-      back: {}
+      back: {},
     });
 
     notificationsService = new NotificationsServiceStub();
@@ -77,22 +77,22 @@ describe('BitstreamRequestACopyPageComponent', () => {
       _links: {
         content: {href: 'bitstream-content-link'},
         self: {href: 'bitstream-self-link'},
-      }
+      },
     });
 
     activatedRoute = {
       data: observableOf({
         dso: createSuccessfulRemoteDataObject(
-          item
-        )
+          item,
+        ),
       }),
       queryParams: observableOf({
-        bitstream : bitstream.uuid
-      })
+        bitstream : bitstream.uuid,
+      }),
     };
 
     bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
-      findById: createSuccessfulRemoteDataObject$(bitstream)
+      findById: createSuccessfulRemoteDataObject$(bitstream),
     });
 
     router = new RouterStub();
@@ -112,7 +112,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
         {provide: NotificationsService, useValue: notificationsService},
         {provide: DSONameService, useValue: new DSONameServiceMock()},
         {provide: BitstreamDataService, useValue: bitstreamDataService},
-      ]
+      ],
     })
       .compileComponents();
   }
@@ -176,11 +176,11 @@ describe('BitstreamRequestACopyPageComponent', () => {
         activatedRoute = {
           data: observableOf({
             dso: createSuccessfulRemoteDataObject(
-              item
-            )
+              item,
+            ),
           }),
           queryParams: observableOf({
-          })
+          }),
         };
         initTestbed();
       }));
@@ -243,7 +243,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
             allfiles: 'false',
             requestEmail: 'user@name.org',
             requestName: 'User Name',
-            requestMessage: 'I would like to request a copy'
+            requestMessage: 'I would like to request a copy',
           });
 
         expect(itemRequestDataService.requestACopy).toHaveBeenCalledWith(itemRequest);
@@ -277,7 +277,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
             allfiles: 'false',
             requestEmail: 'user@name.org',
             requestName: 'User Name',
-            requestMessage: 'I would like to request a copy'
+            requestMessage: 'I would like to request a copy',
           });
 
         expect(itemRequestDataService.requestACopy).toHaveBeenCalledWith(itemRequest);

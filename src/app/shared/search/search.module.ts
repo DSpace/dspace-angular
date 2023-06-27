@@ -83,25 +83,25 @@ export const MODELS = [
   SearchObjects,
   FacetConfigResponse,
   FacetValues,
-  SearchResult
+  SearchResult,
 ];
 
 @NgModule({
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
   ],
   imports: [
     CommonModule,
     TranslateModule.forChild({
       missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
-      useDefaultLang: true
+      useDefaultLang: true,
     }),
     SharedModule.withEntryComponents(),
     NouisliderModule,
   ],
   exports: [
-    ...COMPONENTS
-  ]
+    ...COMPONENTS,
+  ],
 })
 export class SearchModule {
   /**
@@ -111,7 +111,7 @@ export class SearchModule {
   static withEntryComponents() {
     return {
       ngModule: SearchModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component }))
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component })),
     };
   }
 }

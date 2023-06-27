@@ -8,7 +8,7 @@ import { RootDataService } from '../data/root-data.service';
 import { getPageInternalServerErrorRoute } from '../../app-routing-paths';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 /**
  * A guard that checks if root api endpoint is reachable.
@@ -32,7 +32,7 @@ export class ServerCheckGuard implements CanActivateChild {
           this.rootDataService.invalidateRootCache();
           this.router.navigateByUrl(getPageInternalServerErrorRoute());
         }
-      })
+      }),
     );
 
   }

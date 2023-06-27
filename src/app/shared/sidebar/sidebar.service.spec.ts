@@ -12,25 +12,25 @@ describe('SidebarService', () => {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-    pipe: observableOf(true)
+    pipe: observableOf(true),
   });
   const windowService = jasmine.createSpyObj('hostWindowService',
     {
       isXs: observableOf(true),
       isSm: observableOf(false),
-      isXsOrSm: observableOf(true)
+      isXsOrSm: observableOf(true),
     });
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
 
       providers: [
         {
-          provide: Store, useValue: store
+          provide: Store, useValue: store,
         },
         {
-          provide: HostWindowService, useValue: windowService
+          provide: HostWindowService, useValue: windowService,
         },
-      ]
+      ],
     }).compileComponents();
   }));
 

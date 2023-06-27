@@ -15,8 +15,8 @@ describe('ContextHelpService', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(appReducers, storeModuleConfig)
-      ]
+        StoreModule.forRoot(appReducers, storeModuleConfig),
+      ],
     });
   });
 
@@ -69,7 +69,7 @@ describe('ContextHelpService', () => {
     service.add({id: 'a', isTooltipVisible: false});
     testScheduler.run(({cold, expectObservable}) => {
       const hideShowCalls = cold('-shssshhs', {
-        s: () => service.showTooltip('a'), h: () => service.hideTooltip('a')
+        s: () => service.showTooltip('a'), h: () => service.hideTooltip('a'),
       });
       hideShowCalls.subscribe(fn => fn());
       expectObservable(service.getContextHelp$('a')).toBe('010111001', mkContextHelp('a'));

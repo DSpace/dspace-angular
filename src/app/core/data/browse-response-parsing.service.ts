@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { hasValue } from '../../shared/empty.util';
 import {
-  HIERARCHICAL_BROWSE_DEFINITION
+  HIERARCHICAL_BROWSE_DEFINITION,
 } from '../shared/hierarchical-browse-definition.resource-type';
 import { FLAT_BROWSE_DEFINITION } from '../shared/flat-browse-definition.resource-type';
 import { HierarchicalBrowseDefinition } from '../shared/hierarchical-browse-definition.model';

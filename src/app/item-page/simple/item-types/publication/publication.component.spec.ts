@@ -26,7 +26,7 @@ import { TruncatableService } from '../../../../shared/truncatable/truncatable.s
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import {
-  createRelationshipsObservable, getIIIFEnabled, getIIIFSearchEnabled, mockRouteService
+  createRelationshipsObservable, getIIIFEnabled, getIIIFSearchEnabled, mockRouteService,
 } from '../shared/item.component.spec';
 import { PublicationComponent } from './publication.component';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
@@ -38,7 +38,7 @@ import { WorkspaceitemDataService } from '../../../../core/submission/workspacei
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import {
-  BrowseDefinitionDataServiceStub
+  BrowseDefinitionDataServiceStub,
 } from '../../../../shared/testing/browse-definition-data-service.stub';
 
 const noMetadata = new MetadataMap();
@@ -47,7 +47,7 @@ function getItem(metadata: MetadataMap) {
   return Object.assign(new Item(), {
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     metadata: metadata,
-    relationships: createRelationshipsObservable()
+    relationships: createRelationshipsObservable(),
   });
 }
 
@@ -59,15 +59,15 @@ describe('PublicationComponent', () => {
     const mockBitstreamDataService = {
       getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
         return createSuccessfulRemoteDataObject$(new Bitstream());
-      }
+      },
     };
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
         RouterTestingModule,
       ],
@@ -95,9 +95,9 @@ describe('PublicationComponent', () => {
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PublicationComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: {changeDetection: ChangeDetectionStrategy.Default},
     });
   }));
 
@@ -171,7 +171,7 @@ describe('PublicationComponent', () => {
     const localMockRouteService = {
       getPreviousUrl(): Observable<string> {
         return of('/search?query=test%20query&fakeParam=true');
-      }
+      },
     };
     beforeEach(waitForAsync(() => {
       const iiifEnabledMap: MetadataMap = {
@@ -201,7 +201,7 @@ describe('PublicationComponent', () => {
     const localMockRouteService = {
       getPreviousUrl(): Observable<string> {
         return of('/item');
-      }
+      },
     };
     beforeEach(waitForAsync(() => {
       const iiifEnabledMap: MetadataMap = {

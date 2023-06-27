@@ -19,7 +19,7 @@ import { FieldUpdates } from '../../../core/data/object-updates/field-updates.mo
 
 @Component({
   selector: 'ds-abstract-item-update',
-  template: ''
+  template: '',
 })
 /**
  * Abstract component for managing object updates of an item
@@ -52,7 +52,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
     public router: Router,
     public notificationsService: NotificationsService,
     public translateService: TranslateService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
   ) {
     super(objectUpdatesService, notificationsService, translateService);
   }
@@ -74,7 +74,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
         switchMap((rd: RemoteData<Item>) => {
           return this.itemService.findByHref(rd.payload._links.self.href, true, true, ...ITEM_PAGE_LINKS_TO_FOLLOW);
         }),
-        getAllSucceededRemoteData()
+        getAllSucceededRemoteData(),
       ).subscribe((rd: RemoteData<Item>) => {
         this.setItem(rd.payload);
       });
@@ -176,7 +176,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
           this.notificationsService.warning(this.getNotificationTitle('outdated'), this.getNotificationContent('outdated'));
           this.initializeOriginalFields();
         }
-      }
+      },
     );
   }
 }

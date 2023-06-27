@@ -6,7 +6,7 @@ import {
   OBJECT_UPDATES_TRASH_PATH,
   ObjectUpdatesEntry,
   ObjectUpdatesState,
-  VirtualMetadataSource
+  VirtualMetadataSource,
 } from './object-updates.reducer';
 import { Observable } from 'rxjs';
 import {
@@ -17,7 +17,7 @@ import {
   RemoveFieldUpdateAction,
   SelectVirtualMetadataAction,
   SetEditableFieldUpdateAction,
-  SetValidFieldUpdateAction
+  SetValidFieldUpdateAction,
 } from './object-updates.actions';
 import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import {
@@ -25,7 +25,7 @@ import {
   hasValue,
   isEmpty,
   isNotEmpty,
-  hasValueOperator
+  hasValueOperator,
 } from '../../../shared/empty.util';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 import { Operation } from 'fast-json-patch';
@@ -122,7 +122,7 @@ export class ObjectUpdatesService {
               fieldUpdates[uuid] = fieldUpdatesExclusive[uuid];
             });
             return fieldUpdates;
-          })
+          }),
         );
       }),
     );
@@ -161,7 +161,7 @@ export class ObjectUpdatesService {
     return fieldState$.pipe(
       filter((fieldState) => hasValue(fieldState)),
       map((fieldState) => fieldState.editable),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -175,7 +175,7 @@ export class ObjectUpdatesService {
     return fieldState$.pipe(
       filter((fieldState) => hasValue(fieldState)),
       map((fieldState) => fieldState.isValid),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -189,7 +189,7 @@ export class ObjectUpdatesService {
       map((entry: ObjectUpdatesEntry) => {
         return Object.values(entry.fieldStates).findIndex((state: FieldState) => !state.isValid) < 0;
       }),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -367,7 +367,7 @@ export class ObjectUpdatesService {
           patch = this.injector.get(entry.patchOperationService).fieldUpdatesToPatchOperations(entry.fieldUpdates);
         }
         return patch;
-      })
+      }),
     );
   }
 }

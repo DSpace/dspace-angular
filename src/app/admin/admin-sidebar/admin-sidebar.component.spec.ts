@@ -37,23 +37,23 @@ describe('AdminSidebarComponent', () => {
     lastModified: '2018',
     _links: {
       self: {
-        href: 'https://localhost:8000/items/fake-id'
-      }
-    }
+        href: 'https://localhost:8000/items/fake-id',
+      },
+    },
   });
 
 
   const routeStub = {
     data: observableOf({
-      dso: createSuccessfulRemoteDataObject(mockItem)
+      dso: createSuccessfulRemoteDataObject(mockItem),
     }),
-    children: []
+    children: [],
   };
 
 
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     scriptService = jasmine.createSpyObj('scriptService', { scriptWithNameExistsAndCanExecute: observableOf(true) });
     TestBed.configureTestingModule({
@@ -72,15 +72,15 @@ describe('AdminSidebarComponent', () => {
         {
           provide: NgbModal, useValue: {
             open: () => {/*comment*/
-            }
-          }
-        }
+            },
+          },
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(AdminSidebarComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
-      }
+      },
     }).compileComponents();
   }));
 
@@ -146,7 +146,7 @@ describe('AdminSidebarComponent', () => {
       const sidebarToggler = fixture.debugElement.query(By.css('#sidebar-collapse-toggle > a'));
       sidebarToggler.triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
     });
 
@@ -161,7 +161,7 @@ describe('AdminSidebarComponent', () => {
       const sidebarToggler = fixture.debugElement.query(By.css('nav.navbar'));
       sidebarToggler.triggerEventHandler('mouseenter', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick(99);
       expect(menuService.expandMenuPreview).not.toHaveBeenCalled();
@@ -176,7 +176,7 @@ describe('AdminSidebarComponent', () => {
       const sidebarToggler = fixture.debugElement.query(By.css('nav.navbar'));
       sidebarToggler.triggerEventHandler('mouseleave', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick(399);
       expect(menuService.collapseMenuPreview).not.toHaveBeenCalled();

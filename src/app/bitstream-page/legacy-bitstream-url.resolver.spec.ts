@@ -20,7 +20,7 @@ describe(`LegacyBitstreamUrlResolver`, () => {
 
     route = {
       params: {},
-      queryParams: {}
+      queryParams: {},
     };
     state = {};
     remoteDataMocks = {
@@ -30,7 +30,7 @@ describe(`LegacyBitstreamUrlResolver`, () => {
       Error: new RemoteData(0, 0, 0, RequestEntryState.Error, 'Internal server error', undefined, 500),
     };
     bitstreamDataService = {
-      findByItemHandle: () => undefined
+      findByItemHandle: () => undefined,
     } as any;
     resolver = new LegacyBitstreamUrlResolver(bitstreamDataService);
   });
@@ -44,8 +44,8 @@ describe(`LegacyBitstreamUrlResolver`, () => {
             prefix: '123456789',
             suffix: '1234',
             filename: 'some-file.pdf',
-            sequence_id: '5'
-          }
+            sequence_id: '5',
+          },
         });
       });
       it(`should call findByItemHandle with the handle, sequence id, and filename from the route`, () => {
@@ -54,7 +54,7 @@ describe(`LegacyBitstreamUrlResolver`, () => {
           expect(bitstreamDataService.findByItemHandle).toHaveBeenCalledWith(
             `${route.params.prefix}/${route.params.suffix}`,
             route.params.sequence_id,
-            route.params.filename
+            route.params.filename,
           );
         });
       });
@@ -71,8 +71,8 @@ describe(`LegacyBitstreamUrlResolver`, () => {
               filename: 'some-file.pdf',
             },
             queryParams: {
-              sequenceId: '5'
-            }
+              sequenceId: '5',
+            },
           });
         });
         it(`should call findByItemHandle with the handle and filename from the route, and the sequence ID from the queryParams`, () => {
@@ -81,7 +81,7 @@ describe(`LegacyBitstreamUrlResolver`, () => {
             expect(bitstreamDataService.findByItemHandle).toHaveBeenCalledWith(
               `${route.params.prefix}/${route.params.suffix}`,
               route.queryParams.sequenceId,
-              route.params.filename
+              route.params.filename,
             );
           });
         });
@@ -103,7 +103,7 @@ describe(`LegacyBitstreamUrlResolver`, () => {
             expect(bitstreamDataService.findByItemHandle).toHaveBeenCalledWith(
               `${route.params.prefix}/${route.params.suffix}`,
               undefined,
-              route.params.filename
+              route.params.filename,
             );
           });
         });

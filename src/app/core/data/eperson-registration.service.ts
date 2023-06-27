@@ -81,11 +81,11 @@ export class EpersonRegistrationService {
       map((href: string) => {
         const request = new PostRequest(requestId, href, registration, options);
         this.requestService.send(request);
-      })
+      }),
     ).subscribe();
 
     return this.rdbService.buildFromRequestUUID<Registration>(requestId).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     );
   }
 
@@ -105,7 +105,7 @@ export class EpersonRegistrationService {
       Object.assign(request, {
         getResponseParser(): GenericConstructor<ResponseParsingService> {
           return RegistrationResponseParsingService;
-        }
+        },
       });
       this.requestService.send(request, true);
     });
@@ -117,7 +117,7 @@ export class EpersonRegistrationService {
         } else {
           return rd;
         }
-      })
+      }),
     );
   }
 

@@ -9,7 +9,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-community-list-element',
   styleUrls: ['./community-list-element.component.scss'],
-  templateUrl: './community-list-element.component.html'
+  templateUrl: './community-list-element.component.html',
 })
 /**
  * Component representing a list element for a community

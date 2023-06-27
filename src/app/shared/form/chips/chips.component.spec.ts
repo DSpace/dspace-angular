@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 
 import { Chips } from './models/chips.model';
 import { ChipsComponent } from './chips.component';
@@ -30,18 +30,18 @@ describe('ChipsComponent test suite', () => {
       imports: [
         NgbModule,
         SortablejsModule.forRoot({ animation: 150 }),
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         ChipsComponent,
         TestComponent,
-        AuthorityConfidenceStateDirective
+        AuthorityConfidenceStateDirective,
       ], // declare the test component
       providers: [
         ChangeDetectorRef,
         ChipsComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
 
   }));
@@ -145,7 +145,7 @@ describe('ChipsComponent test suite', () => {
       const item = {
         mainField: new FormFieldMetadataValueObject('main test', null, 'test001', 'main test', 0, ConfidenceType.CF_ACCEPTED),
         relatedField: new FormFieldMetadataValueObject('related test', null, 'test002', 'related test', 0, ConfidenceType.CF_ACCEPTED),
-        otherRelatedField: new FormFieldMetadataValueObject('other related test')
+        otherRelatedField: new FormFieldMetadataValueObject('other related test'),
       };
 
       chips = new Chips([item], 'display', 'mainField', environment.submission.icons.metadata);
@@ -179,7 +179,7 @@ describe('ChipsComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

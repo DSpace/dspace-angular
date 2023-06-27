@@ -1,7 +1,7 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -18,7 +18,7 @@ import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/
 import { createTestComponent, hasClass } from '../../../../../testing/utils.test';
 import {
   mockDynamicFormLayoutService,
-  mockDynamicFormValidationService
+  mockDynamicFormValidationService,
 } from '../../../../../testing/dynamic-form-mock-services';
 
 export const SD_TEST_GROUP = new UntypedFormGroup({
@@ -28,7 +28,7 @@ export const SD_TEST_GROUP = new UntypedFormGroup({
 export const SD_TEST_MODEL_CONFIG = {
   vocabularyOptions: {
     closed: false,
-    name: 'common_iso_languages'
+    name: 'common_iso_languages',
   } as VocabularyOptions,
   disabled: false,
   errorMessages: { required: 'Required field.' },
@@ -43,7 +43,7 @@ export const SD_TEST_MODEL_CONFIG = {
   value: undefined,
   metadataFields: [],
   submissionId: '1234',
-  hasSelectableMetadata: false
+  hasSelectableMetadata: false,
 };
 
 describe('Dynamic Dynamic Scrollable Dropdown component', () => {
@@ -68,7 +68,7 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         InfiniteScrollModule,
         ReactiveFormsModule,
         NgbModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         DsDynamicScrollableDropdownComponent,
@@ -79,9 +79,9 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         DsDynamicScrollableDropdownComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
-        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService }
+        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
 
   }));
@@ -215,7 +215,7 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

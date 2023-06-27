@@ -31,7 +31,7 @@ export class LookupRelationService {
    */
   private singleResultOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'single-result-options',
-    pageSize: 1
+    pageSize: 1,
   });
 
   constructor(protected externalSourceService: ExternalSourceDataService,
@@ -47,7 +47,7 @@ export class LookupRelationService {
    */
   getLocalResults(relationship: RelationshipOptions, searchOptions: PaginatedSearchOptions, setSearchConfig = true): Observable<RemoteData<PaginatedList<SearchResult<Item>>>> {
     const newConfig = Object.assign(new PaginatedSearchOptions({}), searchOptions,
-      { fixedFilter: relationship.filter, configuration: relationship.searchConfiguration }
+      { fixedFilter: relationship.filter, configuration: relationship.searchConfiguration },
     );
     if (setSearchConfig) {
       this.searchConfig = newConfig;
@@ -59,8 +59,8 @@ export class LookupRelationService {
         () => new ReplaySubject(1),
         (subject) => subject.pipe(
           takeWhile((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => rd.isLoading),
-          concat(subject.pipe(take(1)))
-        )
+          concat(subject.pipe(take(1))),
+        ),
       ) as any
       ,
     ) as Observable<RemoteData<PaginatedList<SearchResult<Item>>>>;
@@ -76,7 +76,7 @@ export class LookupRelationService {
       getAllSucceededRemoteData(),
       getRemoteDataPayload(),
       map((results: PaginatedList<SearchResult<Item>>) => results.totalElements),
-      startWith(0)
+      startWith(0),
     );
   }
 
@@ -91,7 +91,7 @@ export class LookupRelationService {
       getRemoteDataPayload(),
       map((results: PaginatedList<ExternalSourceEntry>) => results.totalElements),
       startWith(0),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 

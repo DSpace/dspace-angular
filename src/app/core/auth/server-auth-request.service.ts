@@ -7,12 +7,12 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import {
   HttpHeaders,
   HttpClient,
-  HttpResponse
+  HttpResponse,
 } from '@angular/common/http';
 import {
   XSRF_REQUEST_HEADER,
   XSRF_RESPONSE_HEADER,
-  DSPACE_XSRF_COOKIE
+  DSPACE_XSRF_COOKIE,
 } from '../xsrf/xsrf.constants';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -59,8 +59,8 @@ export class ServerAuthRequestService extends AuthRequestService {
           {
             headers: headers,
           },
-        )
-      )
+        ),
+      ),
     );
   }
 

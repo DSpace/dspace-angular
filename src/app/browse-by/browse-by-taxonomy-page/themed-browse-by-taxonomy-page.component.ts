@@ -6,7 +6,7 @@ import { BrowseByTaxonomyPageComponent } from './browse-by-taxonomy-page.compone
 @Component({
   selector: 'ds-themed-browse-by-taxonomy-page',
   templateUrl: '../../shared/theme-support/themed.component.html',
-  styleUrls: []
+  styleUrls: [],
 })
 /**
  * Themed wrapper for BrowseByTaxonomyPageComponent

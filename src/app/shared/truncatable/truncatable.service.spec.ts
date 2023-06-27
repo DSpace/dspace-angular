@@ -13,16 +13,16 @@ describe('TruncatableService', () => {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-    select: observableOf(true)
+    select: observableOf(true),
   });
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
 
       providers: [
         {
-          provide: Store, useValue: store
-        }
-      ]
+          provide: Store, useValue: store,
+        },
+      ],
     }).compileComponents();
   }));
 

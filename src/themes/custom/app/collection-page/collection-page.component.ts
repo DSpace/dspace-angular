@@ -12,8 +12,8 @@ import { fadeIn, fadeInOut } from '../../../../app/shared/animations/fade';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
 })
 /**
  * This component represents a detail page for a single collection

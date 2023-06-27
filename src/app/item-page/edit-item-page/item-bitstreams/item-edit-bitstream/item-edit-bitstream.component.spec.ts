@@ -21,11 +21,11 @@ const columnSizes = new ResponsiveTableSizes([
   new ResponsiveColumnSizes(2, 2, 3, 4, 4),
   new ResponsiveColumnSizes(2, 3, 3, 3, 3),
   new ResponsiveColumnSizes(2, 2, 2, 2, 2),
-  new ResponsiveColumnSizes(6, 5, 4, 3, 3)
+  new ResponsiveColumnSizes(6, 5, 4, 3, 3),
 ]);
 
 const format = Object.assign(new BitstreamFormat(), {
-  shortDescription: 'PDF'
+  shortDescription: 'PDF',
 });
 const bitstream = Object.assign(new Bitstream(), {
   uuid: 'bitstreamUUID',
@@ -33,14 +33,14 @@ const bitstream = Object.assign(new Bitstream(), {
   bundleName: 'ORIGINAL',
   description: 'Description',
   _links: {
-    content: { href: 'content-link' }
+    content: { href: 'content-link' },
   },
 
-  format: createSuccessfulRemoteDataObject$(format)
+  format: createSuccessfulRemoteDataObject$(format),
 });
 const fieldUpdate = {
   field: bitstream,
-  changeType: undefined
+  changeType: undefined,
 };
 const date = new Date();
 const url = 'thisUrl';
@@ -67,8 +67,8 @@ describe('ItemEditBitstreamComponent', () => {
         getLastModified: observableOf(date),
         hasUpdates: observableOf(true),
         isReinstatable: observableOf(false),
-        isValidPage: observableOf(true)
-      }
+        isValidPage: observableOf(true),
+      },
     );
 
     TestBed.configureTestingModule({
@@ -79,10 +79,10 @@ describe('ItemEditBitstreamComponent', () => {
         BrowserOnlyMockPipe,
       ],
       providers: [
-        { provide: ObjectUpdatesService, useValue: objectUpdatesService }
+        { provide: ObjectUpdatesService, useValue: objectUpdatesService },
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 

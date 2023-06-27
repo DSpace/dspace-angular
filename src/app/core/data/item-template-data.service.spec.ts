@@ -46,7 +46,7 @@ describe('ItemTemplateDataService', () => {
     },
     commit(method?: RestRequestMethod) {
       // Do nothing
-    }
+    },
   } as RequestService;
   const rdbService = {} as RemoteDataBuildService;
   const store = {} as Store<CoreState>;
@@ -62,18 +62,18 @@ describe('ItemTemplateDataService', () => {
   const halEndpointService = {
     getEndpoint(linkPath: string): Observable<string> {
       return cold('a', { a: itemEndpoint });
-    }
+    },
   } as HALEndpointService;
   const notificationsService = {} as NotificationsService;
   const comparator = {
     diff(first, second) {
       return [{}];
-    }
+    },
   } as any;
   const collectionService = {
     getIDHrefObs(id): Observable<string> {
       return observableOf(collectionEndpoint);
-    }
+    },
   } as CollectionDataService;
 
   function initTestService() {

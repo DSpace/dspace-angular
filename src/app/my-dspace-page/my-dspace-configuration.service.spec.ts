@@ -20,25 +20,25 @@ describe('MyDSpaceConfigurationService', () => {
   const prefixFilter = {
     'f.namedresourcetype': ['another value'],
     'f.dateSubmitted.min': ['2013'],
-    'f.dateSubmitted.max': ['2018']
+    'f.dateSubmitted.max': ['2018'],
   };
   const defaults = new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 }),
     sort: new SortOptions('score', SortDirection.DESC),
     query: '',
-    scope: ''
+    scope: '',
   });
 
   const backendFilters = [
     new SearchFilter('f.namedresourcetype', ['another value']),
-    new SearchFilter('f.dateSubmitted', ['[2013 TO 2018]'], 'equals')
+    new SearchFilter('f.dateSubmitted', ['[2013 TO 2018]'], 'equals'),
   ];
 
   const spy = jasmine.createSpyObj('RouteService', {
     getQueryParameterValue: observableOf(value1),
     getQueryParamsWithPrefix: observableOf(prefixFilter),
     getRouteParameterValue: observableOf(''),
-    getRouteDataValue: observableOf({})
+    getRouteDataValue: observableOf({}),
   });
 
   const paginationService = new PaginationServiceStub();
@@ -184,8 +184,8 @@ describe('MyDSpaceConfigurationService', () => {
 
       expect(list$).toBeObservable(cold('(b|)', {
         b: [
-          MyDSpaceConfigurationValueType.Workspace
-        ]
+          MyDSpaceConfigurationValueType.Workspace,
+        ],
       }));
     });
 
@@ -199,8 +199,8 @@ describe('MyDSpaceConfigurationService', () => {
       expect(list$).toBeObservable(cold('(b|)', {
         b: [
           MyDSpaceConfigurationValueType.SupervisedItems,
-          MyDSpaceConfigurationValueType.Workflow
-        ]
+          MyDSpaceConfigurationValueType.Workflow,
+        ],
       }));
     });
 
@@ -214,8 +214,8 @@ describe('MyDSpaceConfigurationService', () => {
       expect(list$).toBeObservable(cold('(b|)', {
         b: [
           MyDSpaceConfigurationValueType.SupervisedItems,
-          MyDSpaceConfigurationValueType.Workflow
-        ]
+          MyDSpaceConfigurationValueType.Workflow,
+        ],
       }));
     });
 
@@ -230,8 +230,8 @@ describe('MyDSpaceConfigurationService', () => {
         b: [
           MyDSpaceConfigurationValueType.Workspace,
           MyDSpaceConfigurationValueType.SupervisedItems,
-          MyDSpaceConfigurationValueType.Workflow
-        ]
+          MyDSpaceConfigurationValueType.Workflow,
+        ],
       }));
     });
   });
@@ -242,8 +242,8 @@ describe('MyDSpaceConfigurationService', () => {
       spyOn(service, 'getAvailableConfigurationTypes').and.returnValue(hot('a', {
         a: [
           MyDSpaceConfigurationValueType.Workspace,
-          MyDSpaceConfigurationValueType.Workflow
-        ]
+          MyDSpaceConfigurationValueType.Workflow,
+        ],
       }));
 
       const list$ = service.getAvailableConfigurationOptions();
@@ -253,14 +253,14 @@ describe('MyDSpaceConfigurationService', () => {
           {
             value: MyDSpaceConfigurationValueType.Workspace,
             label: `mydspace.show.${MyDSpaceConfigurationValueType.Workspace}`,
-            context: Context.Workspace
+            context: Context.Workspace,
           },
           {
             value: MyDSpaceConfigurationValueType.Workflow,
             label: `mydspace.show.${MyDSpaceConfigurationValueType.Workflow}`,
-            context: Context.Workflow
-          }
-        ]
+            context: Context.Workflow,
+          },
+        ],
       }));
     });
   });

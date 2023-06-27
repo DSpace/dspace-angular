@@ -17,7 +17,7 @@ import { EditBitstreamFormatComponent } from './edit-bitstream-format.component'
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../../shared/remote-data.utils';
 
 describe('EditBitstreamFormatComponent', () => {
@@ -36,8 +36,8 @@ describe('EditBitstreamFormatComponent', () => {
 
   const routeStub = {
     data: observableOf({
-      bitstreamFormat: createSuccessfulRemoteDataObject(bitstreamFormat)
-    })
+      bitstreamFormat: createSuccessfulRemoteDataObject(bitstreamFormat),
+    }),
   };
 
   let router;
@@ -48,7 +48,7 @@ describe('EditBitstreamFormatComponent', () => {
     router = new RouterStub();
     notificationService = new NotificationsServiceStub();
     bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
-      updateBitstreamFormat: createSuccessfulRemoteDataObject$({})
+      updateBitstreamFormat: createSuccessfulRemoteDataObject$({}),
     });
 
     TestBed.configureTestingModule({
@@ -60,7 +60,7 @@ describe('EditBitstreamFormatComponent', () => {
         { provide: NotificationsService, useValue: notificationService },
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   };
 
@@ -99,7 +99,7 @@ describe('EditBitstreamFormatComponent', () => {
       router = new RouterStub();
       notificationService = new NotificationsServiceStub();
       bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
-        updateBitstreamFormat: createFailedRemoteDataObject$('Error', 500)
+        updateBitstreamFormat: createFailedRemoteDataObject$('Error', 500),
       });
 
       TestBed.configureTestingModule({
@@ -111,7 +111,7 @@ describe('EditBitstreamFormatComponent', () => {
           { provide: NotificationsService, useValue: notificationService },
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
         ],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
       }).compileComponents();
     }));
     beforeEach(initBeforeEach);

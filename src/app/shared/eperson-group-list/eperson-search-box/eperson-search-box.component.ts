@@ -57,7 +57,7 @@ export class EpersonSearchBoxComponent {
   submit(data: any) {
     const event: SearchEvent = {
       scope: isNotNull(data) ? data.scope : 'metadata',
-      query: isNotNull(data) ? data.query : ''
+      query: isNotNull(data) ? data.query : '',
     };
 
     this.search.emit(event);

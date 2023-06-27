@@ -7,7 +7,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { PostRequest } from '../data/request.models';
 import {
   XSRF_REQUEST_HEADER,
-  XSRF_RESPONSE_HEADER
+  XSRF_RESPONSE_HEADER,
 } from '../xsrf/xsrf.constants';
 
 describe(`ServerAuthRequestService`, () => {
@@ -22,20 +22,20 @@ describe(`ServerAuthRequestService`, () => {
   beforeEach(() => {
     href = 'https://rest.api/auth/shortlivedtokens';
     requestService = jasmine.createSpyObj('requestService', {
-      'generateRequestId': '8bb0582d-5013-4337-af9c-763beb25aae2'
+      'generateRequestId': '8bb0582d-5013-4337-af9c-763beb25aae2',
     });
     let headers = new HttpHeaders();
     headers = headers.set(XSRF_RESPONSE_HEADER, mockToken);
     httpResponse = {
       body: { bar: false },
       headers: headers,
-      statusText: '200'
+      statusText: '200',
     } as HttpResponse<any>;
     httpClient = jasmine.createSpyObj('httpClient', {
       get: observableOf(httpResponse),
     });
     halService = jasmine.createSpyObj('halService', {
-      'getRootHref': '/api'
+      'getRootHref': '/api',
     });
     service = new ServerAuthRequestService(halService, requestService, null, httpClient);
   });

@@ -30,7 +30,7 @@ import { LinkHeadService } from '../../core/services/link-head.service';
   styleUrls: ['./full-item-page.component.scss'],
   templateUrl: './full-item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeInOut]
+  animations: [fadeInOut],
 })
 export class FullItemPageComponent extends ItemPageComponent implements OnInit, OnDestroy {
 
@@ -66,11 +66,11 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
     this.metadata$ = this.itemRD$.pipe(
       map((rd: RemoteData<Item>) => rd.payload),
       filter((item: Item) => hasValue(item)),
-      map((item: Item) => item.metadata),);
+      map((item: Item) => item.metadata));
 
     this.subs.push(this.route.data.subscribe((data: Data) => {
       this.fromSubmissionObject = hasValue(data.wfi) || hasValue(data.wsi);
-    })
+    }),
     );
   }
 

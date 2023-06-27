@@ -11,9 +11,9 @@ import { SearchConfigurationService } from '../../../../app/core/shared/search/s
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
 })
 
 /**

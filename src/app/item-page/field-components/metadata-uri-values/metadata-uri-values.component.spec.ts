@@ -15,12 +15,12 @@ let fixture: ComponentFixture<MetadataUriValuesComponent>;
 const mockMetadata = [
   {
     language: 'en_US',
-    value: 'http://fakelink.org'
+    value: 'http://fakelink.org',
   },
   {
     language: 'en_US',
-    value: 'http://another.fakelink.org'
-  }
+    value: 'http://another.fakelink.org',
+  },
 ] as MetadataValue[];
 const mockSeperator = '<br/>';
 const mockLabel = 'fake.message';
@@ -32,16 +32,16 @@ describe('MetadataUriValuesComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       })],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
       ],
       declarations: [MetadataUriValuesComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataUriValuesComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: {changeDetection: ChangeDetectionStrategy.Default},
     }).compileComponents();
   }));
 

@@ -15,7 +15,7 @@ export class TranslateBrowserLoader implements TranslateLoader {
     protected transferState: TransferState,
     protected http: HttpClient,
     protected prefix?: string,
-    protected suffix?: string
+    protected suffix?: string,
   ) {
   }
 
@@ -36,7 +36,7 @@ export class TranslateBrowserLoader implements TranslateLoader {
       // If they're not available on the transfer state (e.g. when running in dev mode), retrieve
       // them using HttpClient
       return this.http.get('' + this.prefix + lang + this.suffix, { responseType: 'text' }).pipe(
-        map((json: any) => JSON.parse(json))
+        map((json: any) => JSON.parse(json)),
       );
     }
   }

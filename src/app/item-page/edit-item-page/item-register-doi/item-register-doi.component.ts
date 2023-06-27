@@ -17,7 +17,7 @@ import { Identifier } from '../../../shared/object-list/identifier-data/identifi
 
 @Component({
   selector: 'ds-item-register-doi',
-  templateUrl: './item-register-doi-component.html'
+  templateUrl: './item-register-doi-component.html',
 })
 /**
  * Component responsible for rendering the Item Register DOI page
@@ -44,7 +44,7 @@ export class ItemRegisterDoiComponent extends AbstractSimpleItemActionComponent 
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.dso),
-      getFirstSucceededRemoteData()
+      getFirstSucceededRemoteData(),
     )as Observable<RemoteData<Item>>;
 
     this.itemRD$.pipe(first()).subscribe((rd) => {
@@ -59,7 +59,7 @@ export class ItemRegisterDoiComponent extends AbstractSimpleItemActionComponent 
           }
         }),
       );
-    }
+    },
     );
 
     this.confirmMessage = 'item.edit.' + this.messageKey + '.confirm';
@@ -88,7 +88,7 @@ export class ItemRegisterDoiComponent extends AbstractSimpleItemActionComponent 
           this.processing = false;
           this.processRestResponse(response);
         }
-      }
+      },
     );
   }
 

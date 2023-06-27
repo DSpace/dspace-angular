@@ -13,12 +13,12 @@ const mockItem = Object.assign(new Item(), {
   lastModified: '2018',
   metadata: {
     'dc.title': [
-      { value: 'Mock item title', language: 'en' }
+      { value: 'Mock item title', language: 'en' },
     ],
     'dc.contributor.author': [
-      { value: 'Mayer, Ed', language: '' }
-    ]
-  }
+      { value: 'Mayer, Ed', language: '' },
+    ],
+  },
 });
 
 describe('ModifyItemOverviewComponent', () => {

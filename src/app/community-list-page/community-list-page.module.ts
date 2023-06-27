@@ -13,7 +13,7 @@ const DECLARATIONS = [
   CommunityListPageComponent,
   CommunityListComponent,
   ThemedCommunityListPageComponent,
-  ThemedCommunityListComponent
+  ThemedCommunityListComponent,
 ];
 /**
  * The page which houses a title and the community list, as described in community-list.component
@@ -26,7 +26,7 @@ const DECLARATIONS = [
     CdkTreeModule,
   ],
   declarations: [
-    ...DECLARATIONS
+    ...DECLARATIONS,
   ],
   exports: [
     ...DECLARATIONS,

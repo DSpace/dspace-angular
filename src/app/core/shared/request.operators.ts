@@ -14,19 +14,19 @@ export const getRequestFromRequestHref = (requestService: RequestService) =>
   (source: Observable<string>): Observable<RequestEntry> =>
     source.pipe(
       mergeMap((href: string) => requestService.getByHref(href)),
-      hasValueOperator()
+      hasValueOperator(),
     );
 export const getRequestFromRequestUUID = (requestService: RequestService) =>
   (source: Observable<string>): Observable<RequestEntry> =>
     source.pipe(
       mergeMap((uuid: string) => requestService.getByUUID(uuid)),
-      hasValueOperator()
+      hasValueOperator(),
     );
 export const getResponseFromEntry = () =>
   (source: Observable<RequestEntry>): Observable<ResponseState> =>
     source.pipe(
       filter((entry: RequestEntry) => hasValue(entry) && hasValue(entry.response)),
-      map((entry: RequestEntry) => entry.response)
+      map((entry: RequestEntry) => entry.response),
     );
 export const sendRequest = (requestService: RequestService) =>
   (source: Observable<RestRequest>): Observable<RestRequest> =>

@@ -20,7 +20,7 @@ import {
   isEmpty,
   isNotEmpty,
   isNotNull,
-  isNotUndefined
+  isNotUndefined,
 } from '../../shared/empty.util';
 import { CookieService } from '../services/cookie.service';
 import {
@@ -30,7 +30,7 @@ import {
   isAuthenticated,
   isAuthenticatedLoaded,
   isIdle,
-  isTokenRefreshing
+  isTokenRefreshing,
 } from './selectors';
 import { AppState } from '../../app.reducer';
 import {
@@ -39,7 +39,7 @@ import {
   ResetAuthenticationMessagesAction, SetAuthCookieStatus,
   SetRedirectUrlAction,
   SetUserAsIdleAction,
-  UnsetUserAsIdleAction
+  UnsetUserAsIdleAction,
 } from './auth.actions';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { RouteService } from '../services/route.service';
@@ -90,13 +90,13 @@ export class AuthService {
               protected store: Store<AppState>,
               protected hardRedirectService: HardRedirectService,
               private notificationService: NotificationsService,
-              private translateService: TranslateService
+              private translateService: TranslateService,
   ) {
     this.store.pipe(
       // when this service is constructed the store is not fully initialized yet
       filter((state: any) => state?.core?.auth !== undefined),
       select(isAuthenticated),
-      startWith(false)
+      startWith(false),
     ).subscribe((authenticated: boolean) => this._authenticated = authenticated);
   }
 
@@ -136,7 +136,7 @@ export class AuthService {
     options.headers = headers;
     options.withCredentials = true;
     return this.authRequestService.getRequest('status', options).pipe(
-      map((rd: RemoteData<AuthStatus>) => Object.assign(new AuthStatus(), rd.payload))
+      map((rd: RemoteData<AuthStatus>) => Object.assign(new AuthStatus(), rd.payload)),
     );
   }
 
@@ -202,7 +202,7 @@ export class AuthService {
    */
   public retrieveAuthenticatedUserByHref(userHref: string): Observable<EPerson> {
     return this.epersonService.findByHref(userHref).pipe(
-      getAllSucceededRemoteDataPayload()
+      getAllSucceededRemoteDataPayload(),
     );
   }
 
@@ -212,7 +212,7 @@ export class AuthService {
    */
   public retrieveAuthenticatedUserById(userId: string): Observable<EPerson> {
     return this.epersonService.findById(userId).pipe(
-      getAllSucceededRemoteDataPayload()
+      getAllSucceededRemoteDataPayload(),
     );
   }
 
@@ -225,7 +225,7 @@ export class AuthService {
       select(getAuthenticatedUserId),
       hasValueOperator(),
       switchMap((id: string) => this.epersonService.findById(id)),
-      getAllSucceededRemoteDataPayload()
+      getAllSucceededRemoteDataPayload(),
     );
   }
 
@@ -248,7 +248,7 @@ export class AuthService {
         } else {
           return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(),[]));
         }
-      })
+      }),
     );
   }
 
@@ -267,7 +267,7 @@ export class AuthService {
         } else {
           throw false;
         }
-      })
+      }),
     );
   }
 
@@ -411,7 +411,7 @@ export class AuthService {
           const token = this.getToken();
           return token.expires - (60 * 5 * 1000) < Date.now();
         }
-      })
+      }),
     );
   }
 
@@ -515,7 +515,7 @@ export class AuthService {
         } else {
           return this.storage.get(REDIRECT_COOKIE);
         }
-      })
+      }),
     );
   }
 
@@ -608,7 +608,7 @@ export class AuthService {
    */
   getShortlivedToken(): Observable<string> {
     return this.isAuthenticated().pipe(
-      switchMap((authenticated) => authenticated ? this.authRequestService.getShortlivedToken() : observableOf(null))
+      switchMap((authenticated) => authenticated ? this.authRequestService.getShortlivedToken() : observableOf(null)),
     );
   }
 

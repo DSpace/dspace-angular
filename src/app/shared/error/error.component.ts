@@ -8,7 +8,7 @@ import { AlertType } from '../alert/aletr-type';
 @Component({
   selector: 'ds-error',
   styleUrls: ['./error.component.scss'],
-  templateUrl: './error.component.html'
+  templateUrl: './error.component.html',
 })
 export class ErrorComponent {
 

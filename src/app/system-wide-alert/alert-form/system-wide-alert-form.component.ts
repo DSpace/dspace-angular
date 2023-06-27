@@ -22,7 +22,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'ds-system-wide-alert-form',
   styleUrls: ['./system-wide-alert-form.component.scss'],
-  templateUrl: './system-wide-alert-form.component.html'
+  templateUrl: './system-wide-alert-form.component.html',
 })
 export class SystemWideAlertFormComponent implements OnInit {
 
@@ -82,7 +82,7 @@ export class SystemWideAlertFormComponent implements OnInit {
     protected notificationsService: NotificationsService,
     protected router: Router,
     protected requestService: RequestService,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
   ) {
   }
 
@@ -98,7 +98,7 @@ export class SystemWideAlertFormComponent implements OnInit {
       }),
       map((payload: PaginatedList<SystemWideAlert>) => payload.page),
       filter((page) => isNotEmpty(page)),
-      map((page) => page[0])
+      map((page) => page[0]),
     );
     this.createForm();
 
@@ -121,7 +121,7 @@ export class SystemWideAlertFormComponent implements OnInit {
         validators: [Validators.required],
       }),
       formActive: new UntypedFormControl(false),
-    }
+    },
     );
     this.setDateTime(new Date());
   }
@@ -229,7 +229,7 @@ export class SystemWideAlertFormComponent implements OnInit {
 
   private handleResponse(response$: Observable<RemoteData<SystemWideAlert>>, messagePrefix, navigateToHomePage: boolean) {
     response$.pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((response: RemoteData<SystemWideAlert>) => {
       if (response.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(`${messagePrefix}.success`));

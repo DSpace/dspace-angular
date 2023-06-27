@@ -37,7 +37,7 @@ describe('SubmissionSubmitComponent Component', () => {
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([
           { path: '', component: SubmissionSubmitComponent, pathMatch: 'full' },
-        ])
+        ]),
       ],
       declarations: [SubmissionSubmitComponent],
       providers: [
@@ -47,9 +47,9 @@ describe('SubmissionSubmitComponent Component', () => {
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-        ViewContainerRef
+        ViewContainerRef,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

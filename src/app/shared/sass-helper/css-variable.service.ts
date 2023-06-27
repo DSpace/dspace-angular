@@ -14,7 +14,7 @@ import { CSSVariablesState } from './css-variable.reducer';
  * This service deals with adding and retrieving CSS variables to and from the store
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CSSVariableService {
   isSameDomain = (styleSheet) => {
@@ -104,17 +104,17 @@ export class CSSVariableService {
                   .map((propName) => {
                     return {
                       key: propName.trim(),
-                      value: rule.style.getPropertyValue(propName).trim()
+                      value: rule.style.getPropertyValue(propName).trim(),
                     } as KeyValuePair<string, string>;
-                  }
+                  },
                   )
                   // Discard any props that don't start with "--". Custom props are required to.
                   .filter(({ key }: KeyValuePair<string, string>) => key.indexOf('--') === 0);
 
                 return [...propValArr, ...props];
-              }, [])
+              }, []),
             ),
-          []
+          [],
         );
     } else {
       return [];

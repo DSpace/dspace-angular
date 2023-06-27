@@ -15,7 +15,7 @@ import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
 import {
   PaginatedList,
-  buildPaginatedList
+  buildPaginatedList,
 } from '../../../../../../core/data/paginated-list.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
@@ -26,7 +26,7 @@ import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 @Component({
   selector: 'ds-dynamic-lookup',
   styleUrls: ['./dynamic-lookup.component.scss'],
-  templateUrl: './dynamic-lookup.component.html'
+  templateUrl: './dynamic-lookup.component.html',
 })
 export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
 
@@ -49,7 +49,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
   constructor(protected vocabularyService: VocabularyService,
               private cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
+              protected validationService: DynamicFormValidationService,
   ) {
     super(vocabularyService, layoutService, validationService);
   }
@@ -159,7 +159,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
         this.pageInfo.elementsPerPage,
         this.pageInfo.currentPage + 1,
         this.pageInfo.totalElements,
-        this.pageInfo.totalPages
+        this.pageInfo.totalPages,
       );
       this.search();
     }
@@ -199,7 +199,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
     if (isNotEmpty(this.getCurrentValue())) {
       const newValue = Object.assign(new VocabularyEntry(), this.model.value, {
         display: this.getCurrentValue(),
-        value: this.getCurrentValue()
+        value: this.getCurrentValue(),
       });
       this.updateModel(newValue);
     } else {
@@ -221,14 +221,14 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
       this.getCurrentValue(),
       false,
       this.model.vocabularyOptions,
-      this.pageInfo
+      this.pageInfo,
     ).pipe(
       getFirstSucceededRemoteDataPayload(),
       catchError(() =>
         observableOf(buildPaginatedList(
           new PageInfo(),
-          []
-        ))
+          [],
+        )),
       ),
       distinctUntilChanged())
       .subscribe((list: PaginatedList<VocabularyEntry>) => {
@@ -237,7 +237,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
           list.pageInfo.elementsPerPage,
           list.pageInfo.currentPage,
           list.pageInfo.totalElements,
-          list.pageInfo.totalPages
+          list.pageInfo.totalPages,
         );
         this.loading = false;
         this.cdr.detectChanges();

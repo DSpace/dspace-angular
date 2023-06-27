@@ -13,7 +13,7 @@ import { MenuSection } from '../../../menu/menu-section.model';
   /* tslint:disable:component-selector */
   selector: 'ds-dso-edit-menu-section',
   templateUrl: './dso-edit-menu-section.component.html',
-  styleUrls: ['./dso-edit-menu-section.component.scss']
+  styleUrls: ['./dso-edit-menu-section.component.scss'],
 })
 @rendersSectionForMenu(MenuID.DSO_EDIT, false)
 export class DsoEditMenuSectionComponent extends MenuSectionComponent implements OnInit {

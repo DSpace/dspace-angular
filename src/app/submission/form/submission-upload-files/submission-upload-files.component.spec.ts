@@ -13,7 +13,7 @@ import {
   mockSubmissionObject,
   mockUploadResponse1ParsedErrors,
   mockUploadResponse2Errors,
-  mockUploadResponse2ParsedErrors
+  mockUploadResponse2ParsedErrors,
 } from '../../../shared/mocks/submission.mock';
 import { SubmissionService } from '../../submission.service';
 
@@ -47,18 +47,18 @@ describe('SubmissionUploadFilesComponent Component', () => {
 
   const store: any = jasmine.createSpyObj('store', {
     dispatch: jasmine.createSpy('dispatch'),
-    select: jasmine.createSpy('select')
+    select: jasmine.createSpy('select'),
   });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         SharedModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         SubmissionUploadFilesComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
@@ -68,9 +68,9 @@ describe('SubmissionUploadFilesComponent Component', () => {
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
         { provide: Store, useValue: store },
         ChangeDetectorRef,
-        SubmissionUploadFilesComponent
+        SubmissionUploadFilesComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -116,7 +116,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
         url: '',
         authToken: null,
         disableMultipart: false,
-        itemAlias: null
+        itemAlias: null,
       });
 
     });
@@ -134,12 +134,12 @@ describe('SubmissionUploadFilesComponent Component', () => {
     it('should init uploadEnabled properly', () => {
       sectionsServiceStub.isSectionTypeAvailable.and.returnValue(hot('-a-b', {
         a: false,
-        b: true
+        b: true,
       }));
 
       const expected = cold('-c-d', {
         c: false,
-        d: true
+        d: true,
       });
 
       comp.ngOnChanges();
@@ -166,7 +166,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
             sectionId,
             mockSectionsData[sectionId],
             expectedErrors[sectionId],
-            expectedErrors[sectionId]
+            expectedErrors[sectionId],
           );
         });
 
@@ -181,7 +181,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
 
         comp.onCompleteItem(Object.assign({}, uploadRestResponse, {
           sections: mockSectionsData,
-          errors: responseErrors.errors
+          errors: responseErrors.errors,
         }));
 
         Object.keys(mockSectionsData).forEach((sectionId) => {
@@ -190,7 +190,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
             sectionId,
             mockSectionsData[sectionId],
             expectedErrors[sectionId],
-            expectedErrors[sectionId]
+            expectedErrors[sectionId],
           );
         });
 
@@ -204,7 +204,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 
@@ -214,7 +214,7 @@ class TestComponent {
     url: '',
     authToken: null,
     disableMultipart: false,
-    itemAlias: null
+    itemAlias: null,
   });
 
 }

@@ -21,7 +21,7 @@ export function createSuccessfulRemoteDataObject<T>(object: T, timeCompleted = F
     RequestEntryState.Success,
     undefined,
     object,
-    200
+    200,
   );
 }
 
@@ -49,7 +49,7 @@ export function createFailedRemoteDataObject<T>(errorMessage?: string, statusCod
     RequestEntryState.Error,
     errorMessage,
     undefined,
-    statusCode
+    statusCode,
   );
 }
 
@@ -76,7 +76,7 @@ export function createPendingRemoteDataObject<T>(lastVerified = FIXED_TIMESTAMP)
     RequestEntryState.ResponsePending,
     undefined,
     undefined,
-    undefined
+    undefined,
   );
 }
 

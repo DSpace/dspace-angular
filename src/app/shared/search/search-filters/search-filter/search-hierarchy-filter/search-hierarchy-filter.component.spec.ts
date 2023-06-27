@@ -16,7 +16,7 @@ import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   SearchFilterService,
-  REFRESH_FILTER
+  REFRESH_FILTER,
 } from '../../../../../core/shared/search/search-filter.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { Router } from '@angular/router';
@@ -49,7 +49,7 @@ describe('SearchHierarchyFilterComponent', () => {
   const ngbModal = jasmine.createSpyObj('modal', {
     open: {
       componentInstance: VocabularyTreeViewComponent,
-    }
+    },
   });
   const vocabularyService = {
     searchTopEntries: () => undefined,
@@ -75,7 +75,7 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: FILTER_CONFIG, useValue: Object.assign(new SearchFilterConfig(), { name: testSearchFilter }) },
-        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false)}
+        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false)},
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
@@ -91,7 +91,7 @@ describe('SearchHierarchyFilterComponent', () => {
 
     beforeEach(() => {
       spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
-        undefined, 0, 0, RequestEntryState.Error, undefined, undefined, 404
+        undefined, 0, 0, RequestEntryState.Error, undefined, undefined, 404,
       )));
       init();
     });
@@ -105,7 +105,7 @@ describe('SearchHierarchyFilterComponent', () => {
 
     beforeEach(() => {
       spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
-        undefined, 0, 0, RequestEntryState.Success, undefined, buildPaginatedList(new PageInfo(), []), 200
+        undefined, 0, 0, RequestEntryState.Success, undefined, buildPaginatedList(new PageInfo(), []), 200,
       )));
       init();
     });
@@ -125,7 +125,7 @@ describe('SearchHierarchyFilterComponent', () => {
       beforeEach(async () => {
         showVocabularyTreeLink.nativeElement.click();
         fixture.componentInstance.selectedValues$ = observableOf(
-          alreadySelectedValues.map(value => Object.assign(new FacetValue(), { value }))
+          alreadySelectedValues.map(value => Object.assign(new FacetValue(), { value })),
         );
         VocabularyTreeViewComponent.select.emit(Object.assign(new VocabularyEntryDetail(), {
           value: newSelectedValue,

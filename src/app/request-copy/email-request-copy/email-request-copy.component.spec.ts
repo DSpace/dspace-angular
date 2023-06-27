@@ -22,7 +22,7 @@ describe('EmailRequestCopyComponent', () => {
       providers: [
         { provide: Location, useValue: location },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

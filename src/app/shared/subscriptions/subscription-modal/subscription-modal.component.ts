@@ -22,7 +22,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-subscription-modal',
   templateUrl: './subscription-modal.component.html',
-  styleUrls: ['./subscription-modal.component.scss']
+  styleUrls: ['./subscription-modal.component.scss'],
 })
 /**
  * Modal that allows to manage the subscriptions for the selected item
@@ -151,7 +151,7 @@ export class SubscriptionModalComponent implements OnInit {
     }
 
     this.subscriptionForm = this.formBuilder.group({
-      [this.subscription.subscriptionType]: formGroup
+      [this.subscription.subscriptionType]: formGroup,
     });
   }
 
@@ -182,7 +182,7 @@ export class SubscriptionModalComponent implements OnInit {
       },
       error: err => {
         this.processing$.next(false);
-      }
+      },
     });
   }
 
@@ -201,7 +201,7 @@ export class SubscriptionModalComponent implements OnInit {
         const body = this.createBody(
           subscriptionGroup.controls.subscriptionId.value,
           subscriptionType,
-          subscriptionGroup.controls.frequencies as UntypedFormGroup
+          subscriptionGroup.controls.frequencies as UntypedFormGroup,
         );
 
         if (isNotEmpty(body.id)) {
@@ -218,7 +218,7 @@ export class SubscriptionModalComponent implements OnInit {
       toBeProcessed.push(from(subscriptionsToBeCreated).pipe(
         mergeMap((subscriptionBody) => {
           return this.subscriptionService.createSubscription(subscriptionBody, this.ePersonId, this.dso.uuid).pipe(
-            getFirstCompletedRemoteData()
+            getFirstCompletedRemoteData(),
           );
         }),
         tap((res: RemoteData<Subscription>) => {
@@ -228,7 +228,7 @@ export class SubscriptionModalComponent implements OnInit {
           } else {
             this.notificationsService.error(null, this.translate.instant('subscriptions.modal.create.error'));
           }
-        })
+        }),
       ));
     }
 
@@ -236,7 +236,7 @@ export class SubscriptionModalComponent implements OnInit {
       toBeProcessed.push(from(subscriptionsToBeUpdated).pipe(
         mergeMap((subscriptionBody) => {
           return this.subscriptionService.updateSubscription(subscriptionBody, this.ePersonId, this.dso.uuid).pipe(
-            getFirstCompletedRemoteData()
+            getFirstCompletedRemoteData(),
           );
         }),
         tap((res: RemoteData<Subscription>) => {
@@ -249,7 +249,7 @@ export class SubscriptionModalComponent implements OnInit {
           } else {
             this.notificationsService.error(null, this.translate.instant('subscriptions.modal.update.error'));
           }
-        })
+        }),
       ));
     }
 
@@ -263,7 +263,7 @@ export class SubscriptionModalComponent implements OnInit {
     const body = {
       id: (isNotEmpty(subscriptionId) ? subscriptionId : null),
       subscriptionType: subscriptionType,
-      subscriptionParameterList: []
+      subscriptionParameterList: [],
     };
 
     for (const frequency of this.frequencyDefaultValues) {
@@ -272,7 +272,7 @@ export class SubscriptionModalComponent implements OnInit {
           {
             name: 'frequency',
             value: frequency,
-          }
+          },
         );
       }
     }

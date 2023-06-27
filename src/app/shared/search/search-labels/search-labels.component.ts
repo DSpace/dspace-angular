@@ -39,7 +39,7 @@ export class SearchLabelsComponent {
             labels[key] = [...params[key].map((value) => value)];
           });
         return labels;
-      })
+      }),
     );
   }
 }

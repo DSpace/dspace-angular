@@ -7,7 +7,7 @@ import {
   combineLatest,
   Observable,
   of as observableOf,
-  zip
+  zip,
 } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
@@ -26,7 +26,7 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 @Component({
   selector: 'ds-metadata-schema',
   templateUrl: './metadata-schema.component.html',
-  styleUrls: ['./metadata-schema.component.scss']
+  styleUrls: ['./metadata-schema.component.scss'],
 })
 /**
  * A component used for managing all existing metadata fields within the current metadata schema.
@@ -49,7 +49,7 @@ export class MetadataSchemaComponent implements OnInit {
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'rm',
     pageSize: 25,
-    pageSizeOptions: [25, 50, 100, 200]
+    pageSizeOptions: [25, 50, 100, 200],
   });
 
   /**
@@ -92,7 +92,7 @@ export class MetadataSchemaComponent implements OnInit {
           this.needsUpdate$.next(false);
         }
         return this.registryService.getMetadataFieldsBySchema(schema, toFindListOptions(currentPagination), !update, true);
-      })
+      }),
     );
   }
 
@@ -125,7 +125,7 @@ export class MetadataSchemaComponent implements OnInit {
    */
   isActive(field: MetadataField): Observable<boolean> {
     return this.getActiveField().pipe(
-      map((activeField) => field === activeField)
+      map((activeField) => field === activeField),
     );
   }
 
@@ -153,7 +153,7 @@ export class MetadataSchemaComponent implements OnInit {
    */
   isSelected(field: MetadataField): Observable<boolean> {
     return this.registryService.getSelectedMetadataFields().pipe(
-      map((fields) => fields.find((selectedField) => selectedField === field) != null)
+      map((fields) => fields.find((selectedField) => selectedField === field) != null),
     );
   }
 
@@ -181,7 +181,7 @@ export class MetadataSchemaComponent implements OnInit {
           this.registryService.deselectAllMetadataField();
           this.registryService.cancelEditMetadataField();
         });
-      }
+      },
     );
   }
 
@@ -195,7 +195,7 @@ export class MetadataSchemaComponent implements OnInit {
     const suffix = success ? 'success' : 'failure';
     const messages = observableCombineLatest(
       this.translateService.get(success ? `${prefix}.${suffix}` : `${prefix}.${suffix}`),
-      this.translateService.get(`${prefix}.field.deleted.${suffix}`, { amount: amount })
+      this.translateService.get(`${prefix}.field.deleted.${suffix}`, { amount: amount }),
     );
     messages.subscribe(([head, content]) => {
       if (success) {

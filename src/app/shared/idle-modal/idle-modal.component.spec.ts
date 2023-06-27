@@ -27,9 +27,9 @@ describe('IdleModalComponent', () => {
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: AuthService, useValue: authServiceStub },
-        { provide: Store, useValue: storeStub }
+        { provide: Store, useValue: storeStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -93,7 +93,7 @@ describe('IdleModalComponent', () => {
       spyOn(component, 'extendSessionPressed');
       debugElement.query(By.css('button.confirm')).triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();
@@ -108,7 +108,7 @@ describe('IdleModalComponent', () => {
       spyOn(component, 'logOutPressed');
       debugElement.query(By.css('button.cancel')).triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();
@@ -123,7 +123,7 @@ describe('IdleModalComponent', () => {
       spyOn(component, 'closePressed');
       debugElement.query(By.css('.close')).triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();

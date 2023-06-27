@@ -15,7 +15,7 @@ import { storeModuleConfig } from '../../app.reducer';
 describe('NotificationsService test', () => {
   const store: Store<Notification> = jasmine.createSpyObj('store', {
     dispatch: {},
-    select: observableOf(true)
+    select: observableOf(true),
   });
   let service: NotificationsService;
 
@@ -26,16 +26,16 @@ describe('NotificationsService test', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [NotificationComponent, NotificationsBoardComponent],
       providers: [
         { provide: Store, useValue: store },
         NotificationsService,
-        TranslateService
-      ]
+        TranslateService,
+      ],
     });
 
     service = TestBed.inject(NotificationsService);

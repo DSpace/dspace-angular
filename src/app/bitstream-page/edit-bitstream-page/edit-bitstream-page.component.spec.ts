@@ -62,8 +62,8 @@ describe('EditBitstreamPageComponent', () => {
         supportLevel: BitstreamFormatSupportLevel.Unknown,
         mimetype: 'application/octet-stream',
         _links: {
-          self: { href: 'format-selflink-1' }
-        }
+          self: { href: 'format-selflink-1' },
+        },
       }),
       Object.assign({
         id: '2',
@@ -72,8 +72,8 @@ describe('EditBitstreamPageComponent', () => {
         supportLevel: BitstreamFormatSupportLevel.Known,
         mimetype: 'image/png',
         _links: {
-          self: { href: 'format-selflink-2' }
-        }
+          self: { href: 'format-selflink-2' },
+        },
       }),
       Object.assign({
         id: '3',
@@ -82,9 +82,9 @@ describe('EditBitstreamPageComponent', () => {
         supportLevel: BitstreamFormatSupportLevel.Known,
         mimetype: 'image/gif',
         _links: {
-          self: { href: 'format-selflink-3' }
-        }
-      })
+          self: { href: 'format-selflink-3' },
+        },
+      }),
     ] as BitstreamFormat[];
     selectedFormat = allFormats[1];
 
@@ -98,33 +98,33 @@ describe('EditBitstreamPageComponent', () => {
           return new UntypedFormGroup(controls);
         }
         return undefined;
-      }
+      },
     });
 
     bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
-      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(allFormats))
+      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(allFormats)),
     });
 
     notificationsService = jasmine.createSpyObj('notificationsService',
       {
         info: infoNotification,
         warning: warningNotification,
-        success: successNotification
-      }
+        success: successNotification,
+      },
     );
 
     bundle = {
       _links: {
         primaryBitstream: {
-          href: 'bundle-selflink'
-        }
+          href: 'bundle-selflink',
+        },
       },
       item: createSuccessfulRemoteDataObject$(Object.assign(new Item(), {
         uuid: 'some-uuid',
         firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
           return undefined;
         },
-      }))
+      })),
     };
 
     const result = createSuccessfulRemoteDataObject$(bundle);
@@ -143,15 +143,15 @@ describe('EditBitstreamPageComponent', () => {
       bundle = {
         _links: {
           primaryBitstream: {
-            href: 'bundle-selflink'
-          }
+            href: 'bundle-selflink',
+          },
         },
         item: createSuccessfulRemoteDataObject$(Object.assign(new Item(), {
           uuid: 'some-uuid',
           firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
             return undefined;
           },
-        }))
+        })),
       };
       const bundleName = 'ORIGINAL';
 
@@ -161,20 +161,20 @@ describe('EditBitstreamPageComponent', () => {
         metadata: {
           'dc.description': [
             {
-              value: 'Bitstream description'
-            }
+              value: 'Bitstream description',
+            },
           ],
           'dc.title': [
             {
-              value: 'Bitstream title'
-            }
-          ]
+              value: 'Bitstream title',
+            },
+          ],
         },
         format: createSuccessfulRemoteDataObject$(selectedFormat),
         _links: {
-          self: 'bitstream-selflink'
+          self: 'bitstream-selflink',
         },
-        bundle: createSuccessfulRemoteDataObject$(bundle)
+        bundle: createSuccessfulRemoteDataObject$(bundle),
       });
       bitstreamService = jasmine.createSpyObj('bitstreamService', {
         findById: createSuccessfulRemoteDataObject$(bitstream),
@@ -182,13 +182,13 @@ describe('EditBitstreamPageComponent', () => {
         update: createSuccessfulRemoteDataObject$(bitstream),
         updateFormat: createSuccessfulRemoteDataObject$(bitstream),
         commitUpdates: {},
-        patch: {}
+        patch: {},
       });
       bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
-        findAll: createSuccessfulRemoteDataObject$(createPaginatedList(allFormats))
+        findAll: createSuccessfulRemoteDataObject$(createPaginatedList(allFormats)),
       });
       dsoNameService = jasmine.createSpyObj('dsoNameService', {
-        getName: bundleName
+        getName: bundleName,
       });
 
       TestBed.configureTestingModule({
@@ -201,16 +201,16 @@ describe('EditBitstreamPageComponent', () => {
             provide: ActivatedRoute,
             useValue: {
               data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
-              snapshot: { queryParams: {} }
-            }
+              snapshot: { queryParams: {} },
+            },
           },
           { provide: BitstreamDataService, useValue: bitstreamService },
           { provide: DSONameService, useValue: dsoNameService },
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
-          ChangeDetectorRef
+          ChangeDetectorRef,
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
 
     }));
@@ -374,8 +374,8 @@ describe('EditBitstreamPageComponent', () => {
         beforeEach(() => {
           comp.formGroup.patchValue({
             formatContainer: {
-              selectedFormat: allFormats[2].id
-            }
+              selectedFormat: allFormats[2].id,
+            },
           });
           fixture.detectChanges();
           comp.onSubmit();
@@ -420,51 +420,51 @@ describe('EditBitstreamPageComponent', () => {
         metadata: {
           'dc.description': [
             {
-              value: 'Bitstream description'
-            }
+              value: 'Bitstream description',
+            },
           ],
           'dc.title': [
             {
-              value: 'Bitstream title'
-            }
+              value: 'Bitstream title',
+            },
           ],
           'iiif.label': [
             {
-              value: 'chapter one'
-            }
+              value: 'chapter one',
+            },
           ],
           'iiif.toc': [
             {
-              value: 'chapter one'
-            }
+              value: 'chapter one',
+            },
           ],
           'iiif.image.width': [
             {
-              value: '2400'
-            }
+              value: '2400',
+            },
           ],
           'iiif.image.height': [
             {
-              value: '2800'
-            }
+              value: '2800',
+            },
           ],
         },
         format: createSuccessfulRemoteDataObject$(allFormats[1]),
         _links: {
-          self: 'bitstream-selflink'
+          self: 'bitstream-selflink',
         },
         bundle: createSuccessfulRemoteDataObject$({
           _links: {
             primaryBitstream: {
-              href: 'bundle-selflink'
-            }
+              href: 'bundle-selflink',
+            },
           },
           item: createSuccessfulRemoteDataObject$(Object.assign(new Item(), {
             uuid: 'some-uuid',
             firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
               return 'True';
-            }
-          }))
+            },
+          })),
         }),
       });
       bitstreamService = jasmine.createSpyObj('bitstreamService', {
@@ -473,11 +473,11 @@ describe('EditBitstreamPageComponent', () => {
         update: createSuccessfulRemoteDataObject$(bitstream),
         updateFormat: createSuccessfulRemoteDataObject$(bitstream),
         commitUpdates: {},
-        patch: {}
+        patch: {},
       });
 
       dsoNameService = jasmine.createSpyObj('dsoNameService', {
-        getName: bundleName
+        getName: bundleName,
       });
 
       TestBed.configureTestingModule({
@@ -490,16 +490,16 @@ describe('EditBitstreamPageComponent', () => {
             provide: ActivatedRoute,
             useValue: {
               data: observableOf({bitstream: createSuccessfulRemoteDataObject(bitstream)}),
-              snapshot: {queryParams: {}}
-            }
+              snapshot: {queryParams: {}},
+            },
           },
           {provide: BitstreamDataService, useValue: bitstreamService},
           {provide: DSONameService, useValue: dsoNameService},
           {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
-          ChangeDetectorRef
+          ChangeDetectorRef,
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
     }));
 
@@ -545,51 +545,51 @@ describe('EditBitstreamPageComponent', () => {
         metadata: {
           'dc.description': [
             {
-              value: 'Bitstream description'
-            }
+              value: 'Bitstream description',
+            },
           ],
           'dc.title': [
             {
-              value: 'Bitstream title'
-            }
+              value: 'Bitstream title',
+            },
           ],
           'iiif.label': [
             {
-              value: 'chapter one'
-            }
+              value: 'chapter one',
+            },
           ],
           'iiif.toc': [
             {
-              value: 'chapter one'
-            }
+              value: 'chapter one',
+            },
           ],
           'iiif.image.width': [
             {
-              value: '2400'
-            }
+              value: '2400',
+            },
           ],
           'iiif.image.height': [
             {
-              value: '2800'
-            }
+              value: '2800',
+            },
           ],
         },
         format: createSuccessfulRemoteDataObject$(allFormats[2]),
         _links: {
-          self: 'bitstream-selflink'
+          self: 'bitstream-selflink',
         },
         bundle: createSuccessfulRemoteDataObject$({
           _links: {
             primaryBitstream: {
-              href: 'bundle-selflink'
-            }
+              href: 'bundle-selflink',
+            },
           },
           item: createSuccessfulRemoteDataObject$(Object.assign(new Item(), {
             uuid: 'some-uuid',
             firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
               return 'True';
-            }
-          }))
+            },
+          })),
         }),
       });
       bitstreamService = jasmine.createSpyObj('bitstreamService', {
@@ -598,11 +598,11 @@ describe('EditBitstreamPageComponent', () => {
         update: createSuccessfulRemoteDataObject$(bitstream),
         updateFormat: createSuccessfulRemoteDataObject$(bitstream),
         commitUpdates: {},
-        patch: {}
+        patch: {},
       });
 
       dsoNameService = jasmine.createSpyObj('dsoNameService', {
-        getName: bundleName
+        getName: bundleName,
       });
 
       TestBed.configureTestingModule({
@@ -614,16 +614,16 @@ describe('EditBitstreamPageComponent', () => {
           {provide: ActivatedRoute,
             useValue: {
               data: observableOf({bitstream: createSuccessfulRemoteDataObject(bitstream)}),
-              snapshot: {queryParams: {}}
-            }
+              snapshot: {queryParams: {}},
+            },
           },
           {provide: BitstreamDataService, useValue: bitstreamService},
           {provide: DSONameService, useValue: dsoNameService},
           {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
-          ChangeDetectorRef
+          ChangeDetectorRef,
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
     }));
 

@@ -6,11 +6,11 @@ import { hasValue } from '../../../empty.util';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DSOSelectorModalWrapperComponent,
-  SelectorActionType
+  SelectorActionType,
 } from '../dso-selector-modal-wrapper.component';
 import {
   getCommunityCreateRoute,
-  COMMUNITY_PARENT_PARAMETER
+  COMMUNITY_PARENT_PARAMETER,
 } from '../../../../community-page/community-page-routing-paths';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 import { environment } from '../../../../../environments/environment';
@@ -46,7 +46,7 @@ export class CreateCommunityParentSelectorComponent extends DSOSelectorModalWrap
       navigationExtras = {
         queryParams: {
           [COMMUNITY_PARENT_PARAMETER]: dso.uuid,
-        }
+        },
       };
     }
     this.router.navigate([getCommunityCreateRoute()], navigationExtras);

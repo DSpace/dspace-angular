@@ -26,15 +26,15 @@ describe('BrowseByGuard', () => {
 
     beforeEach(() => {
       dsoService = {
-        findById: (dsoId: string) => observableOf({ payload: { name: name }, hasSucceeded: true })
+        findById: (dsoId: string) => observableOf({ payload: { name: name }, hasSucceeded: true }),
       };
 
       translateService = {
-        instant: () => field
+        instant: () => field,
       };
 
       browseDefinitionService = {
-        findById: () => createSuccessfulRemoteDataObject$(browseDefinition)
+        findById: () => createSuccessfulRemoteDataObject$(browseDefinition),
       };
 
       router = new RouterStub() as any;
@@ -53,8 +53,8 @@ describe('BrowseByGuard', () => {
         },
         queryParams: {
           scope,
-          value
-        }
+          value,
+        },
       };
       guard.canActivate(scopedRoute as any, undefined)
         .pipe(first())
@@ -66,12 +66,12 @@ describe('BrowseByGuard', () => {
               browseDefinition,
               collection: name,
               field,
-              value: '"' + value + '"'
+              value: '"' + value + '"',
             };
             expect(scopedRoute.data).toEqual(result);
             expect(router.navigate).not.toHaveBeenCalled();
             expect(canActivate).toEqual(true);
-          }
+          },
         );
     });
 
@@ -85,8 +85,8 @@ describe('BrowseByGuard', () => {
           id,
         },
         queryParams: {
-          scope
-        }
+          scope,
+        },
       };
 
       guard.canActivate(scopedNoValueRoute as any, undefined)
@@ -99,12 +99,12 @@ describe('BrowseByGuard', () => {
               browseDefinition,
               collection: name,
               field,
-              value: ''
+              value: '',
             };
             expect(scopedNoValueRoute.data).toEqual(result);
             expect(router.navigate).not.toHaveBeenCalled();
             expect(canActivate).toEqual(true);
-          }
+          },
         );
     });
 
@@ -118,8 +118,8 @@ describe('BrowseByGuard', () => {
           id,
         },
         queryParams: {
-          value
-        }
+          value,
+        },
       };
       guard.canActivate(route as any, undefined)
         .pipe(first())
@@ -131,12 +131,12 @@ describe('BrowseByGuard', () => {
               browseDefinition,
               collection: '',
               field,
-              value: '"' + value + '"'
+              value: '"' + value + '"',
             };
             expect(route.data).toEqual(result);
             expect(router.navigate).not.toHaveBeenCalled();
             expect(canActivate).toEqual(true);
-          }
+          },
         );
     });
 
@@ -152,8 +152,8 @@ describe('BrowseByGuard', () => {
         },
         queryParams: {
           scope,
-          value
-        }
+          value,
+        },
       };
       guard.canActivate(scopedRoute as any, undefined)
         .pipe(first())

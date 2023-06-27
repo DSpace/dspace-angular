@@ -8,7 +8,7 @@ xdescribe('ItemAccessControlComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ItemAccessControlComponent ]
+      declarations: [ ItemAccessControlComponent ],
     })
       .compileComponents();
   });

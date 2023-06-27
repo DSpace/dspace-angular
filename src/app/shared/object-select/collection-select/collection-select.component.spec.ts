@@ -32,26 +32,26 @@ describe('CollectionSelectComponent', () => {
   const mockCollectionList = [
     Object.assign(new Collection(), {
       id: 'id1',
-      name: 'name1'
+      name: 'name1',
     }),
     Object.assign(new Collection(), {
       id: 'id2',
-      name: 'name2'
-    })
+      name: 'name2',
+    }),
   ];
   const mockCollections = createSuccessfulRemoteDataObject$(createPaginatedList(mockCollectionList));
   const mockPaginationOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'search-page-configuration',
     pageSize: 10,
-    currentPage: 1
+    currentPage: 1,
   });
 
   const authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-    isAuthorized: observableOf(true)
+    isAuthorized: observableOf(true),
   });
 
   const linkHeadService = jasmine.createSpyObj('linkHeadService', {
-    addTag: ''
+    addTag: '',
   });
 
   const groupDataService = jasmine.createSpyObj('groupsDataService', {
@@ -64,9 +64,9 @@ describe('CollectionSelectComponent', () => {
     findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
       name: 'test',
       values: [
-        'org.dspace.ctask.general.ProfileFormats = test'
-      ]
-    }))
+        'org.dspace.ctask.general.ProfileFormats = test',
+      ],
+    })),
   });
 
   const paginationService = new PaginationServiceStub();
@@ -84,7 +84,7 @@ describe('CollectionSelectComponent', () => {
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

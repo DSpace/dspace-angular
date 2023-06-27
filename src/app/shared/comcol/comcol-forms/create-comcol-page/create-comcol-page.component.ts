@@ -8,7 +8,7 @@ import { CommunityDataService } from '../../../../core/data/community-data.servi
 import { RemoteData } from '../../../../core/data/remote-data';
 import { RouteService } from '../../../../core/services/route.service';
 import { Community } from '../../../../core/shared/community.model';
-import { getFirstSucceededRemoteDataPayload, } from '../../../../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { ResourceType } from '../../../../core/shared/resource-type';
 import { hasValue, isNotEmpty, isNotUndefined } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
@@ -22,7 +22,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
  */
 @Component({
   selector: 'ds-create-comcol',
-  template: ''
+  template: '',
 })
 export class CreateComColPageComponent<TDomain extends Collection | Community> implements OnInit {
   /**
@@ -58,7 +58,7 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
     protected router: Router,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
-    protected requestService: RequestService
+    protected requestService: RequestService,
   ) {
 
   }
@@ -85,7 +85,7 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
       mergeMap((uuid: string) => {
         const params = uuid ? [new RequestParam('parent', uuid)] : [];
         return this.dsoDataService.create(dso, ...params)
-          .pipe(getFirstSucceededRemoteDataPayload()
+          .pipe(getFirstSucceededRemoteDataPayload(),
           );
       }))
       .subscribe((dsoRD: TDomain) => {

@@ -18,7 +18,7 @@ export interface SupervisionOrderListEntry {
 @Component({
   selector: 'ds-supervision-order-status',
   templateUrl: './supervision-order-status.component.html',
-  styleUrls: ['./supervision-order-status.component.scss']
+  styleUrls: ['./supervision-order-status.component.scss'],
 })
 export class SupervisionOrderStatusComponent implements OnChanges {
 
@@ -61,13 +61,13 @@ export class SupervisionOrderStatusComponent implements OnChanges {
           if (sogRD.hasSucceeded) {
             const entry: SupervisionOrderListEntry = {
               supervisionOrder: so,
-              group: sogRD.payload
+              group: sogRD.payload,
             };
             return entry;
           } else {
             return null;
           }
-        })
+        }),
       )),
       reduce((acc: SupervisionOrderListEntry[], value: any) => {
         if (isNotEmpty(value)) {

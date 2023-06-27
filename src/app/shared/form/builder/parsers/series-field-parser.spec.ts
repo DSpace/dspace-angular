@@ -13,7 +13,7 @@ describe('SeriesFieldParser test suite', () => {
     readOnly: false,
     submissionScope: 'testScopeUUID',
     collectionUUID: null,
-    typeField: 'dc_type'
+    typeField: 'dc_type',
   };
 
   beforeEach(() => {
@@ -26,9 +26,9 @@ describe('SeriesFieldParser test suite', () => {
       selectableMetadata: [
         {
           metadata: 'series',
-        }
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
   });

@@ -14,7 +14,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-community-grid-element',
   styleUrls: ['./community-grid-element.component.scss'],
-  templateUrl: './community-grid-element.component.html'
+  templateUrl: './community-grid-element.component.html',
 })
 
 @listableObjectComponent(Community, ViewMode.GridElement)

@@ -15,7 +15,7 @@ import { environment } from '../../../../../../../environments/environment';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import {
   PaginatedList,
-  buildPaginatedList
+  buildPaginatedList,
 } from '../../../../../../core/data/paginated-list.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
@@ -27,7 +27,7 @@ import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 @Component({
   selector: 'ds-dynamic-tag',
   styleUrls: ['./dynamic-tag.component.scss'],
-  templateUrl: './dynamic-tag.component.html'
+  templateUrl: './dynamic-tag.component.html',
 })
 export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implements OnInit {
 
@@ -53,7 +53,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
   constructor(protected vocabularyService: VocabularyService,
               private cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
+              protected validationService: DynamicFormValidationService,
   ) {
     super(vocabularyService, layoutService, validationService);
   }
@@ -83,7 +83,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
               this.searchFailed = true;
               return observableOf(buildPaginatedList(
                 new PageInfo(),
-                []
+                [],
               ));
             }));
         }

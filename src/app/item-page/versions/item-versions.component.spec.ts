@@ -1,6 +1,6 @@
 import { ItemVersionsComponent } from './item-versions.component';
 import {
-  ComponentFixture, TestBed, waitForAsync
+  ComponentFixture, TestBed, waitForAsync,
 } from '@angular/core/testing';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
@@ -80,9 +80,9 @@ describe('ItemVersionsComponent', () => {
     version: createSuccessfulRemoteDataObject$(version1),
     _links: {
       self: {
-        href: '/items/item-identifier-1'
-      }
-    }
+        href: '/items/item-identifier-1',
+      },
+    },
   });
   const item2 = Object.assign(new Item(), {
     id: 'item-identifier-2',
@@ -91,9 +91,9 @@ describe('ItemVersionsComponent', () => {
     version: createSuccessfulRemoteDataObject$(version2),
     _links: {
       self: {
-        href: '/items/item-identifier-2'
-      }
-    }
+        href: '/items/item-identifier-2',
+      },
+    },
   });
   const items = [item1, item2];
   version1.item = createSuccessfulRemoteDataObject$(item1);
@@ -106,10 +106,10 @@ describe('ItemVersionsComponent', () => {
   });
   const authenticationServiceSpy = jasmine.createSpyObj('authenticationService', {
     isAuthenticated: observableOf(true),
-    setRedirectUrl: {}
+    setRedirectUrl: {},
   });
   const authorizationServiceSpy = jasmine.createSpyObj('authorizationService', {
-    isAuthorized: observableOf(true)
+    isAuthorized: observableOf(true),
   });
   const workspaceItemDataServiceSpy = jasmine.createSpyObj('workspaceItemDataService', {
     findByItem: EMPTY,
@@ -152,7 +152,7 @@ describe('ItemVersionsComponent', () => {
         {provide: ConfigurationDataService, useValue: configurationServiceSpy},
         { provide: Router, useValue: routerSpy },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     versionHistoryService = TestBed.inject(VersionHistoryDataService);

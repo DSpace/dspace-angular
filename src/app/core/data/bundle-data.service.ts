@@ -91,7 +91,7 @@ export class BundleDataService extends IdentifiableDataService<Bundle> implement
               RequestEntryState.Success,
               null,
               matchingBundle,
-              200
+              200,
             );
           } else {
             return new RemoteData(
@@ -101,7 +101,7 @@ export class BundleDataService extends IdentifiableDataService<Bundle> implement
               RequestEntryState.Error,
               `The bundle with name ${bundleName} was not found.`,
               null,
-              404
+              404,
             );
           }
         } else {
@@ -119,7 +119,7 @@ export class BundleDataService extends IdentifiableDataService<Bundle> implement
   getBitstreamsEndpoint(bundleId: string, searchOptions?: PaginatedSearchOptions): Observable<string> {
     return this.getBrowseEndpoint().pipe(
       switchMap((href: string) => this.halService.getEndpoint(this.bitstreamsEndpoint, `${href}/${bundleId}`)),
-      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
+      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href),
     );
   }
 

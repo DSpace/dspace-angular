@@ -21,7 +21,7 @@ import { Context } from '../../../../../core/shared/context.model';
 @Component({
   selector: 'ds-claimed-declined-task-search-result-list-element',
   styleUrls: ['../../../search-result-list-element/search-result-list-element.component.scss'],
-  templateUrl: './claimed-declined-task-search-result-list-element.component.html'
+  templateUrl: './claimed-declined-task-search-result-list-element.component.html',
 })
 @listableObjectComponent(ClaimedDeclinedTaskTaskSearchResult, ViewMode.ListElement)
 export class ClaimedDeclinedTaskSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> implements OnInit {
@@ -59,7 +59,7 @@ export class ClaimedDeclinedTaskSearchResultListElementComponent extends SearchR
       followLink('workflowitem',
         { useCachedVersionIfAvailable: false },
         followLink('item'),
-        followLink('submitter')
+        followLink('submitter'),
       ),
       followLink('action'));
     this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;

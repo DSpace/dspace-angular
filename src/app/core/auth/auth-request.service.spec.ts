@@ -30,7 +30,7 @@ describe(`AuthRequestService`, () => {
     constructor(
       hes: HALEndpointService,
       rs: RequestService,
-      rdbs: RemoteDataBuildService
+      rdbs: RemoteDataBuildService,
     ) {
       super(hes, rs, rdbs);
     }
@@ -44,19 +44,19 @@ describe(`AuthRequestService`, () => {
     endpointURL = 'https://rest.api/auth';
     requestID = 'requestID';
     shortLivedToken = Object.assign(new ShortLivedToken(), {
-      value: 'some-token'
+      value: 'some-token',
     });
     shortLivedTokenRD = createSuccessfulRemoteDataObject(shortLivedToken);
 
     halService = jasmine.createSpyObj('halService', {
-      'getEndpoint': cold('a', { a: endpointURL })
+      'getEndpoint': cold('a', { a: endpointURL }),
     });
     requestService = jasmine.createSpyObj('requestService', {
       'generateRequestId': requestID,
       'send': null,
     });
     rdbService = jasmine.createSpyObj('rdbService', {
-      'buildFromRequestUUID': cold('a', { a: shortLivedTokenRD })
+      'buildFromRequestUUID': cold('a', { a: shortLivedTokenRD }),
     });
 
     service = new TestAuthRequestService(halService, requestService, rdbService);

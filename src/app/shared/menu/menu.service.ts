@@ -85,8 +85,8 @@ export class MenuService {
         return Object.values(sections)
           .filter((section: MenuSection) => hasNoValue(section.parentID))
           .filter((section: MenuSection) => !mustBeVisible || section.visible);
-      }
-      )
+      },
+      ),
     );
   }
 
@@ -103,9 +103,9 @@ export class MenuService {
       select(getSubSectionsFromSectionSelector(parentID)),
       map((ids: string[]) => isNotEmpty(ids) ? ids : []),
       switchMap((ids: string[]) =>
-        observableCombineLatest(ids.map((id: string) => this.getMenuSection(menuID, id)))
+        observableCombineLatest(ids.map((id: string) => this.getMenuSection(menuID, id))),
       ),
-      map((sections: MenuSection[]) => sections.filter((section: MenuSection) => hasValue(section) && (!mustBeVisible || section.visible)))
+      map((sections: MenuSection[]) => sections.filter((section: MenuSection) => hasValue(section) && (!mustBeVisible || section.visible))),
     );
   }
 
@@ -119,7 +119,7 @@ export class MenuService {
     return this.store.pipe(
       select(menuByIDSelector(menuID)),
       select(getSubSectionsFromSectionSelector(parentID)),
-      map((ids: string[]) => isNotEmpty(ids))
+      map((ids: string[]) => isNotEmpty(ids)),
     );
   }
 
@@ -142,7 +142,7 @@ export class MenuService {
    */
   getNonPersistentMenuSections(menuID: MenuID): Observable<MenuSection[]> {
     return this.getMenu(menuID).pipe(
-      map((state: MenuState) => Object.values(state.sections).filter((section: MenuSection) => !section.shouldPersistOnRouteChange))
+      map((state: MenuState) => Object.values(state.sections).filter((section: MenuSection) => !section.shouldPersistOnRouteChange)),
     );
   }
 
@@ -171,7 +171,7 @@ export class MenuService {
    */
   isMenuCollapsed(menuID: MenuID): Observable<boolean> {
     return this.getMenu(menuID).pipe(
-      map((state: MenuState) => hasValue(state) ? state.collapsed : undefined)
+      map((state: MenuState) => hasValue(state) ? state.collapsed : undefined),
     );
   }
 
@@ -182,7 +182,7 @@ export class MenuService {
    */
   isMenuPreviewCollapsed(menuID: MenuID): Observable<boolean> {
     return this.getMenu(menuID).pipe(
-      map((state: MenuState) => hasValue(state) ? state.previewCollapsed : undefined)
+      map((state: MenuState) => hasValue(state) ? state.previewCollapsed : undefined),
     );
   }
 
@@ -194,7 +194,7 @@ export class MenuService {
    */
   isMenuVisibleWithVisibleSections(menuID: MenuID): Observable<boolean> {
     return observableCombineLatest([this.isMenuVisible(menuID), this.menuHasVisibleSections(menuID)]).pipe(
-      map(([menuVisible, visibleSections]) => menuVisible && visibleSections)
+      map(([menuVisible, visibleSections]) => menuVisible && visibleSections),
     );
   }
 
@@ -205,7 +205,7 @@ export class MenuService {
    */
   isMenuVisible(menuID: MenuID): Observable<boolean> {
     return this.getMenu(menuID).pipe(
-      map((state: MenuState) => hasValue(state) ? state.visible : undefined)
+      map((state: MenuState) => hasValue(state) ? state.visible : undefined),
     );
   }
 
@@ -219,7 +219,7 @@ export class MenuService {
       map((state: MenuState) => hasValue(state)
         ? Object.values(state.sections)
           .some(section => section.visible && section.parentID === undefined)
-        : undefined)
+        : undefined),
     );
   }
 
@@ -363,7 +363,7 @@ export class MenuService {
   buildRouteMenuSections(menuID: MenuID) {
     this.getNonPersistentMenuSections(menuID).pipe(
       map((sections) => sections.map((section) => section.id)),
-      take(1)
+      take(1),
     ).subscribe((shouldNotPersistIDs: string[]) => {
       const resolvedSections = this.resolveRouteMenuSections(this.route.root, menuID);
       resolvedSections.forEach((section) => {
@@ -415,7 +415,7 @@ export class MenuService {
     } else if (typeof object === 'string') {
       resolved = object;
       Object.entries(params).forEach(([key, value]: [string, string]) =>
-        resolved = resolved.replaceAll(`:${key}`, value)
+        resolved = resolved.replaceAll(`:${key}`, value),
       );
     } else if (Array.isArray(object)) {
       resolved = [];

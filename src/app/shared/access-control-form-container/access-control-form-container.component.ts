@@ -10,21 +10,21 @@ import { map, take } from 'rxjs/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import {
   ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID,
-  ItemAccessControlSelectBitstreamsModalComponent
+  ItemAccessControlSelectBitstreamsModalComponent,
 } from './item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
 import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { BulkAccessConditionOptions } from '../../core/config/models/bulk-access-condition-options.model';
 import { AlertType } from '../alert/aletr-type';
 import {
-  createAccessControlInitialFormState
+  createAccessControlInitialFormState,
 } from './access-control-form-container-intial-state';
 
 @Component({
   selector: 'ds-access-control-form-container',
   templateUrl: './access-control-form-container.component.html',
   styleUrls: [ './access-control-form-container.component.scss' ],
-  exportAs: 'dsAccessControlForm'
+  exportAs: 'dsAccessControlForm',
 })
 export class AccessControlFormContainerComponent<T extends DSpaceObject> implements OnDestroy {
 
@@ -60,7 +60,7 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
     private bulkAccessControlService: BulkAccessControlService,
     public selectableListService: SelectableListService,
     protected modalService: NgbModal,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {}
 
   state = createAccessControlInitialFormState();
@@ -78,12 +78,12 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
     console.log({
       bitstream: this.bitstreamAccessCmp.getValue(),
       item: this.itemAccessCmp.getValue(),
-      state: this.state
+      state: this.state,
     });
     return {
       bitstream: this.bitstreamAccessCmp.getValue(),
       item: this.itemAccessCmp.getValue(),
-      state: this.state
+      state: this.state,
     };
   }
 
@@ -108,12 +108,12 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
     const { file } = this.bulkAccessControlService.createPayloadFile({
       bitstreamAccess,
       itemAccess,
-      state: this.state
+      state: this.state,
     });
 
     this.bulkAccessControlService.executeScript(
       [ this.itemRD.payload.uuid ],
-      file
+      file,
     ).pipe(take(1)).subscribe((res) => {
       console.log('success', res);
     });
@@ -145,7 +145,7 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
 
     ref.closed.pipe(
       concatMap(() => this.selectableListService.getSelectableList(ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID)),
-      take(1)
+      take(1),
     ).subscribe((list) => {
       this.state.bitstream.selectedBitstreams = list?.selection || [];
       this.cdr.detectChanges();

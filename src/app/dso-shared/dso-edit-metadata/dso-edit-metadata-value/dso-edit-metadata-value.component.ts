@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
 import {
   MetadataRepresentation,
-  MetadataRepresentationType
+  MetadataRepresentationType,
 } from '../../../core/shared/metadata-representation/metadata-representation.model';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
@@ -112,8 +112,8 @@ export class DsoEditMetadataValueComponent implements OnInit {
       this.relationshipService.resolveMetadataRepresentation(this.mdValue.newValue, this.dso, 'Item')
         .pipe(
           map((mdRepresentation: MetadataRepresentation) =>
-            mdRepresentation.representationType === MetadataRepresentationType.Item ? mdRepresentation as ItemMetadataRepresentation : null
-          )
+            mdRepresentation.representationType === MetadataRepresentationType.Item ? mdRepresentation as ItemMetadataRepresentation : null,
+          ),
         ) : EMPTY;
     this.mdRepresentationItemRoute$ = this.mdRepresentation$.pipe(
       map((mdRepresentation: ItemMetadataRepresentation) => mdRepresentation ? getItemPageRoute(mdRepresentation) : null),

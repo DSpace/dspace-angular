@@ -12,7 +12,7 @@ import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-br
 @Component({
   selector: 'ds-metadata-values',
   styleUrls: ['./metadata-values.component.scss'],
-  templateUrl: './metadata-values.component.html'
+  templateUrl: './metadata-values.component.html',
 })
 export class MetadataValuesComponent implements OnChanges {
 

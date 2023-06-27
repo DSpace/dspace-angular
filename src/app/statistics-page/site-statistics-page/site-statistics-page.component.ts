@@ -14,7 +14,7 @@ import { AuthService } from '../../core/auth/auth.service';
 @Component({
   selector: 'ds-site-statistics-page',
   templateUrl: '../statistics-page/statistics-page.component.html',
-  styleUrls: ['./site-statistics-page.component.scss']
+  styleUrls: ['./site-statistics-page.component.scss'],
 })
 export class SiteStatisticsPageComponent extends StatisticsPageComponent<Site> {
 

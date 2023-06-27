@@ -63,12 +63,12 @@ describe('IdentifiableDataService', () => {
       },
       getByHref: () => {
         /* empty */
-      }
+      },
     } as any;
     selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
     linksToFollow = [
       followLink('a'),
-      followLink('b')
+      followLink('b'),
     ];
 
     testScheduler = new TestScheduler((actual, expected) => {
@@ -132,7 +132,7 @@ describe('IdentifiableDataService', () => {
         resourceIdMock,
         followLink('bundles', { shouldEmbed: false }),
         followLink('owningCollection', { shouldEmbed: false }),
-        followLink('templateItemOf')
+        followLink('templateItemOf'),
       );
       expect(result).toEqual(expected);
     });

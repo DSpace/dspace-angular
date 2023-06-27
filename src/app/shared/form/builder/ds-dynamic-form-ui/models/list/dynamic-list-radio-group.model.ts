@@ -2,7 +2,7 @@ import {
   DynamicFormControlLayout,
   DynamicRadioGroupModel,
   DynamicRadioGroupModelConfig,
-  serializable
+  serializable,
 } from '@ng-dynamic-forms/core';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { hasValue } from '../../../../../empty.util';

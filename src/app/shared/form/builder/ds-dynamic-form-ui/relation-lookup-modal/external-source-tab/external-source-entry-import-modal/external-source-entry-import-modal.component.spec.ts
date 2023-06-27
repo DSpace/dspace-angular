@@ -33,10 +33,10 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
     metadata: {
       'dc.identifier.uri': [
         {
-          value: uri
-        }
-      ]
-    }
+          value: uri,
+        },
+      ],
+    },
   });
 
   const label = 'Author';
@@ -54,12 +54,12 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   function init() {
     lookupRelationService = jasmine.createSpyObj('lookupRelationService', {
       getLocalResults: createSuccessfulRemoteDataObject$(createPaginatedList([searchResult1, searchResult2, searchResult3])),
-      removeLocalResultsCache: {}
+      removeLocalResultsCache: {},
     });
     selectService = jasmine.createSpyObj('selectService', ['deselectAll']);
     notificationsService = jasmine.createSpyObj('notificationsService', ['success']);
     itemService = jasmine.createSpyObj('itemService', {
-      importExternalSourceEntry: createSuccessfulRemoteDataObject$(importedItem)
+      importExternalSourceEntry: createSuccessfulRemoteDataObject$(importedItem),
     });
     modalStub = jasmine.createSpyObj('modal', ['close']);
   }
@@ -74,9 +74,9 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
         { provide: SelectableListService, useValue: selectService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: ItemDataService, useValue: itemService },
-        { provide: NgbActiveModal, useValue: modalStub }
+        { provide: NgbActiveModal, useValue: modalStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

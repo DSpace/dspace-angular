@@ -51,38 +51,38 @@ describe('CollectionSourceControlsComponent', () => {
         {
           id: 'dc',
           label: 'Simple Dublin Core',
-          nameSpace: 'http://www.openarchives.org/OAI/2.0/oai_dc/'
+          nameSpace: 'http://www.openarchives.org/OAI/2.0/oai_dc/',
         },
         {
           id: 'qdc',
           label: 'Qualified Dublin Core',
-          nameSpace: 'http://purl.org/dc/terms/'
+          nameSpace: 'http://purl.org/dc/terms/',
         },
         {
           id: 'dim',
           label: 'DSpace Intermediate Metadata',
-          nameSpace: 'http://www.dspace.org/xmlns/dspace/dim'
-        }
+          nameSpace: 'http://www.dspace.org/xmlns/dspace/dim',
+        },
       ],
       oaiSource: 'oai-harvest-source',
       oaiSetId: 'oai-set-id',
-      _links: {self: {href: 'contentsource-selflink'}}
+      _links: {self: {href: 'contentsource-selflink'}},
     });
     process = Object.assign(new Process(), {
       processId: 'process-id', processStatus: 'COMPLETED',
-      _links: {output: {href: 'output-href'}}
+      _links: {output: {href: 'output-href'}},
     });
 
     bitstream = Object.assign(new Bitstream(), {_links: {content: {href: 'content-href'}}});
 
     collection = Object.assign(new Collection(), {
       uuid: 'fake-collection-id',
-      _links: {self: {href: 'collection-selflink'}}
+      _links: {self: {href: 'collection-selflink'}},
     });
     notificationsService = new NotificationsServiceStub();
     collectionService = jasmine.createSpyObj('collectionService', {
       getContentSource: createSuccessfulRemoteDataObject$(contentSource),
-      findByHref: createSuccessfulRemoteDataObject$(collection)
+      findByHref: createSuccessfulRemoteDataObject$(collection),
     });
     scriptDataService = jasmine.createSpyObj('scriptDataService', {
       invoke: createSuccessfulRemoteDataObject$(process),
@@ -108,9 +108,9 @@ describe('CollectionSourceControlsComponent', () => {
         {provide: NotificationsService, useValue: notificationsService},
         {provide: CollectionDataService, useValue: collectionService},
         {provide: HttpClient, useValue: httpClient},
-        {provide: BitstreamDataService, useValue: bitstreamService}
+        {provide: BitstreamDataService, useValue: bitstreamService},
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
   beforeEach(() => {

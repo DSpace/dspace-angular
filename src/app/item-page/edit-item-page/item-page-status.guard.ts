@@ -9,7 +9,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { DsoPageSomeFeatureGuard } from '../../core/data/feature-authorization/feature-authorization-guard/dso-page-some-feature.guard';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 /**
  * Guard for preventing unauthorized access to certain {@link Item} pages requiring any of the rights required for

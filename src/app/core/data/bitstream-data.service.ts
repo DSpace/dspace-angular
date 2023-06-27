@@ -107,7 +107,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
         } else {
           return [bundleRD as any];
         }
-      })
+      }),
     );
   }
 
@@ -120,10 +120,10 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
     const requestId = this.requestService.generateRequestId();
     const bitstreamHref$ = this.getBrowseEndpoint().pipe(
       map((href: string) => `${href}/${bitstream.id}`),
-      switchMap((href: string) => this.halService.getEndpoint('format', href))
+      switchMap((href: string) => this.halService.getEndpoint('format', href)),
     );
     const formatHref$ = this.bitstreamFormatService.getBrowseEndpoint().pipe(
-      map((href: string) => `${href}/${format.id}`)
+      map((href: string) => `${href}/${format.id}`),
     );
     observableCombineLatest([bitstreamHref$, formatHref$]).pipe(
       map(([bitstreamHref, formatHref]) => {
@@ -134,7 +134,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
         return new PutRequest(requestId, bitstreamHref, formatHref, options);
       }),
       sendRequest(this.requestService),
-      take(1)
+      take(1),
     ).subscribe(() => {
       this.requestService.removeByHrefSubstring(bitstream.self + '/format');
     });
@@ -177,7 +177,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
     const hrefObs = this.getSearchByHref(
       'byItemHandle',
       { searchParams },
-      ...linksToFollow
+      ...linksToFollow,
     );
 
     return this.findByHref(

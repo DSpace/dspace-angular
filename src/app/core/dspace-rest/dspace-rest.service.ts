@@ -40,20 +40,20 @@ export class DspaceRestService {
   get(absoluteURL: string): Observable<RawRestResponse> {
     const requestOptions = {
       observe: 'response' as any,
-      headers: new HttpHeaders({'Content-Type': DEFAULT_CONTENT_TYPE})
+      headers: new HttpHeaders({'Content-Type': DEFAULT_CONTENT_TYPE}),
     };
     return this.http.get(absoluteURL, requestOptions).pipe(
       map((res: HttpResponse<any>) => ({
         payload: res.body,
         statusCode: res.status,
-        statusText: res.statusText
+        statusText: res.statusText,
       })),
       catchError((err) => {
         console.log('Error: ', err);
         return observableThrowError({
           statusCode: err.status,
           statusText: err.statusText,
-          message: (hasValue(err.error) && isNotEmpty(err.error.message)) ? err.error.message : err.message
+          message: (hasValue(err.error) && isNotEmpty(err.error.message)) ? err.error.message : err.message,
         });
       }));
   }
@@ -109,14 +109,14 @@ export class DspaceRestService {
         payload: res.body,
         headers: res.headers,
         statusCode: res.status,
-        statusText: res.statusText
+        statusText: res.statusText,
       })),
       catchError((err) => {
         if (hasValue(err.status)) {
           return observableThrowError({
             statusCode: err.status,
             statusText: err.statusText,
-            message: (hasValue(err.error) && isNotEmpty(err.error.message)) ? err.error.message : err.message
+            message: (hasValue(err.error) && isNotEmpty(err.error.message)) ? err.error.message : err.message,
           });
         } else {
           return observableThrowError(err);

@@ -21,7 +21,7 @@ import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/
 @Component({
   selector: 'ds-submission-section-identifiers',
   templateUrl: './section-identifiers.component.html',
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 
 @renderSectionFor(SectionsType.Identifiers)

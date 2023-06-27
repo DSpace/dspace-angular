@@ -21,7 +21,7 @@ import { Context } from '../core/shared/context.model';
 export const MyDSpaceConfigurationToContextMap = new Map([
   [MyDSpaceConfigurationValueType.Workspace, Context.Workspace],
   [MyDSpaceConfigurationValueType.SupervisedItems, Context.SupervisedItems],
-  [MyDSpaceConfigurationValueType.Workflow, Context.Workflow]
+  [MyDSpaceConfigurationValueType.Workflow, Context.Workflow],
 ]);
 
 
@@ -36,7 +36,7 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
   protected defaultPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'mydspace-page',
     pageSize: 10,
-    currentPage: 1
+    currentPage: 1,
   });
 
   /**
@@ -135,7 +135,7 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
           configurationOptions.push({ value, label, context });
         });
         return configurationOptions;
-      })
+      }),
     );
   }
 

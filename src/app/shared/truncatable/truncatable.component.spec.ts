@@ -17,9 +17,9 @@ describe('TruncatableComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(TruncatableComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
   beforeEach(() => {

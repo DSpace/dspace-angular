@@ -44,7 +44,7 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
   let selectableListService;
   let lookupRelationService;
   const relationshipService = jasmine.createSpyObj('searchByItemsAndType',{
-    searchByItemsAndType: observableOf(relatedRelationships)
+    searchByItemsAndType: observableOf(relatedRelationships),
   });
 
   const relationshipType = {
@@ -64,7 +64,7 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
       filter: 'filter',
       relationshipType: 'isAuthorOfPublication',
       nameVariants: true,
-      searchConfiguration: 'personConfig'
+      searchConfiguration: 'personConfig',
     });
     pSearchOptions = new PaginatedSearchOptions({});
     item1 = Object.assign(new Item(), { uuid: 'e1c51c69-896d-42dc-8221-1d5f2ad5516e' });
@@ -80,11 +80,11 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
 
     results = buildPaginatedList(undefined, [searchResult1, searchResult2, searchResult3]);
     searchResult = Object.assign(new SearchObjects(), {
-      page: [searchResult1, searchResult2, searchResult3]
+      page: [searchResult1, searchResult2, searchResult3],
     });
     selectableListService = jasmine.createSpyObj('selectableListService', ['deselect', 'select', 'deselectAll']);
     lookupRelationService = jasmine.createSpyObj('lookupRelationService', {
-      getLocalResults: createSuccessfulRemoteDataObject$(results)
+      getLocalResults: createSuccessfulRemoteDataObject$(results),
     });
     lookupRelationService.searchConfig = {};
   }
@@ -97,19 +97,19 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
       providers: [
         { provide: SearchService, useValue: { search: () => createSuccessfulRemoteDataObject$(results) } },
         {
-          provide: SelectableListService, useValue: selectableListService
+          provide: SelectableListService, useValue: selectableListService,
         },
         {
           provide: SearchConfigurationService, useValue: {
-            paginatedSearchOptions: observableOf(pSearchOptions)
-          }
+            paginatedSearchOptions: observableOf(pSearchOptions),
+          },
         },
         { provide: LookupRelationService, useValue: lookupRelationService },
         { provide: PaginationService, useValue: new PaginationServiceStub() },
-        { provide: RelationshipDataService, useValue: relationshipService }
+        { provide: RelationshipDataService, useValue: relationshipService },
 
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

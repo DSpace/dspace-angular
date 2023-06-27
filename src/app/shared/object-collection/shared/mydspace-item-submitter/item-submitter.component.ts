@@ -18,7 +18,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-item-submitter',
   styleUrls: ['./item-submitter.component.scss'],
-  templateUrl: './item-submitter.component.html'
+  templateUrl: './item-submitter.component.html',
 })
 export class ItemSubmitterComponent implements OnInit {
 
@@ -43,7 +43,7 @@ export class ItemSubmitterComponent implements OnInit {
    */
   ngOnInit() {
     this.linkService.resolveLinks(this.object, followLink('workflowitem', {},
-      followLink('submitter',{})
+      followLink('submitter',{}),
     ));
     this.submitter$ = (this.object.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
       getFirstCompletedRemoteData(),
@@ -57,7 +57,7 @@ export class ItemSubmitterComponent implements OnInit {
               } else {
                 return null;
               }
-            })
+            }),
           );
         } else {
           return EMPTY;

@@ -61,5 +61,5 @@ const APP_CONFIG_STATE = makeStateKey<AppConfig>('APP_CONFIG_STATE');
 export {
   AppConfig,
   APP_CONFIG,
-  APP_CONFIG_STATE
+  APP_CONFIG_STATE,
 };

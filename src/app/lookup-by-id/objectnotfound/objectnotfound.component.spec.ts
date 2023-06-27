@@ -15,21 +15,21 @@ describe('ObjectNotFoundComponent', () => {
   const handlePrefix = '123456789';
   const handleId = '22';
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: observableOf({id: testUUID, idType: uuidType})
+    params: observableOf({id: testUUID, idType: uuidType}),
   });
   const activatedRouteStubHandle = Object.assign(new ActivatedRouteStub(), {
-    params: observableOf({id: handleId, idType: handlePrefix})
+    params: observableOf({id: handleId, idType: handlePrefix}),
   });
   describe('uuid request', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [
-          TranslateModule.forRoot()
+          TranslateModule.forRoot(),
         ], providers: [
-          {provide: ActivatedRoute, useValue: activatedRouteStub}
+          {provide: ActivatedRoute, useValue: activatedRouteStub},
         ],
         declarations: [ObjectNotFoundComponent],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
     }));
 
@@ -54,12 +54,12 @@ describe('ObjectNotFoundComponent', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [
-          TranslateModule.forRoot()
+          TranslateModule.forRoot(),
         ], providers: [
-          {provide: ActivatedRoute, useValue: activatedRouteStubHandle}
+          {provide: ActivatedRoute, useValue: activatedRouteStubHandle},
         ],
         declarations: [ObjectNotFoundComponent],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
     }));
 

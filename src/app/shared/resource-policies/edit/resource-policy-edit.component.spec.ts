@@ -45,38 +45,38 @@ describe('ResourcePolicyEditComponent test suite', () => {
     uuid: 'resource-policy-1',
     _links: {
       eperson: {
-        href: 'https://rest.api/rest/api/eperson'
+        href: 'https://rest.api/rest/api/eperson',
       },
       group: {
-        href: 'https://rest.api/rest/api/group'
+        href: 'https://rest.api/rest/api/group',
       },
       self: {
-        href: 'https://rest.api/rest/api/resourcepolicies/1'
+        href: 'https://rest.api/rest/api/resourcepolicies/1',
       },
     },
     eperson: observableOf(createSuccessfulRemoteDataObject({})),
-    group: observableOf(createSuccessfulRemoteDataObject(GroupMock))
+    group: observableOf(createSuccessfulRemoteDataObject(GroupMock)),
   };
 
   const resourcePolicyService: any = getMockResourcePolicyService();
   const linkService: any = getMockLinkService();
   const routeStub = {
     data: observableOf({
-      resourcePolicy: createSuccessfulRemoteDataObject(resourcePolicy)
-    })
+      resourcePolicy: createSuccessfulRemoteDataObject(resourcePolicy),
+    }),
   };
   const routerStub = Object.assign(new RouterStub(), {
-    url: `url/edit`
+    url: `url/edit`,
   });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         ResourcePolicyEditComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: LinkService, useValue: linkService },
@@ -86,11 +86,11 @@ describe('ResourcePolicyEditComponent test suite', () => {
         { provide: Router, useValue: routerStub },
         ResourcePolicyEditComponent,
         ChangeDetectorRef,
-        Injector
+        Injector,
       ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 
@@ -149,7 +149,7 @@ describe('ResourcePolicyEditComponent test suite', () => {
     it('should return true when is Processing', (done) => {
       compAsAny.processing$.next(true);
       expect(comp.isProcessing()).toBeObservable(cold('a', {
-        a: true
+        a: true,
       }));
       done();
     });
@@ -157,7 +157,7 @@ describe('ResourcePolicyEditComponent test suite', () => {
     it('should return false when is not Processing', (done) => {
       compAsAny.processing$.next(false);
       expect(comp.isProcessing()).toBeObservable(cold('a', {
-        a: false
+        a: false,
       }));
       done();
     });
@@ -173,7 +173,7 @@ describe('ResourcePolicyEditComponent test suite', () => {
         eventPayload.object = submittedResourcePolicy;
         eventPayload.target = {
           type: 'group',
-          uuid: GroupMock.id
+          uuid: GroupMock.id,
         };
 
         compAsAny.resourcePolicy = resourcePolicy;
@@ -181,7 +181,7 @@ describe('ResourcePolicyEditComponent test suite', () => {
         updatedObject = Object.assign({}, submittedResourcePolicy, {
           id: resourcePolicy.id,
           type: RESOURCE_POLICY.value,
-          _links: resourcePolicy._links
+          _links: resourcePolicy._links,
         });
       });
 
@@ -214,7 +214,7 @@ describe('ResourcePolicyEditComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

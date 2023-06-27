@@ -21,7 +21,7 @@ export class HeaderComponent {
   menuID = MenuID.PUBLIC;
 
   constructor(
-    private menuService: MenuService
+    private menuService: MenuService,
   ) {
   }
 

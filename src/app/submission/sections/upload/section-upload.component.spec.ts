@@ -46,13 +46,13 @@ function getMockSubmissionUploadsConfigService(): SubmissionFormsConfigDataServi
     getConfigByHref: jasmine.createSpy('getConfigByHref'),
     getConfigByName: jasmine.createSpy('getConfigByName'),
     getConfigBySearch: jasmine.createSpy('getConfigBySearch'),
-    findByHref: jasmine.createSpy('findByHref')
+    findByHref: jasmine.createSpy('findByHref'),
   });
 }
 
 function getMockCollectionDataService(): CollectionDataService {
   return jasmine.createSpyObj('CollectionDataService', {
-    findById: jasmine.createSpy('findById')
+    findById: jasmine.createSpy('findById'),
   });
 }
 
@@ -65,7 +65,7 @@ function getMockGroupEpersonService(): GroupDataService {
 
 function getMockResourcePolicyService(): ResourcePolicyDataService {
   return jasmine.createSpyObj('ResourcePolicyService', {
-    findByHref: jasmine.createSpy('findByHref')
+    findByHref: jasmine.createSpy('findByHref'),
   });
 }
 
@@ -96,13 +96,13 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/upload',
       mandatory: true,
       data: {
-        files: []
+        files: [],
       },
       errorsToShow: [],
       serverValidationErrors: [],
       header: 'submit.progressbar.describe.upload',
       id: 'upload-id',
-      sectionType: SectionsType.Upload
+      sectionType: SectionsType.Upload,
     };
     submissionId = mockSubmissionId;
     collectionId = mockSubmissionCollectionId;
@@ -114,18 +114,18 @@ describe('SubmissionSectionUploadComponent test suite', () => {
         {
           key: 'dc.title',
           language: 'en_US',
-          value: 'Community 1-Collection 1'
+          value: 'Community 1-Collection 1',
         }],
       _links: {
-        defaultAccessConditions: collectionId + '/defaultAccessConditions'
-      }
+        defaultAccessConditions: collectionId + '/defaultAccessConditions',
+      },
     });
 
     mockDefaultAccessCondition = Object.assign(new ResourcePolicy(), {
       name: null,
       groupUUID: '11cc35e5-a11d-4b64-b5b9-0052a5d15509',
       id: 20,
-      uuid: 'resource-policy-20'
+      uuid: 'resource-policy-20',
     });
     uploadsConfigService = getMockSubmissionUploadsConfigService();
 
@@ -145,18 +145,18 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
 
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new Collection(), mockCollection, {
-        defaultAccessConditions: createSuccessfulRemoteDataObject$(mockDefaultAccessCondition)
+        defaultAccessConditions: createSuccessfulRemoteDataObject$(mockDefaultAccessCondition),
       })));
 
       resourcePolicyService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
 
       uploadsConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(
-        buildPaginatedList(new PageInfo(), [mockUploadConfigResponse as any]))
+        buildPaginatedList(new PageInfo(), [mockUploadConfigResponse as any])),
       );
 
       groupService.findById.and.returnValues(
         createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
-        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup))
+        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
       );
 
       bitstreamService.getUploadedFileList.and.returnValue(observableOf([]));
@@ -166,11 +166,11 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       imports: [
         BrowserModule,
         CommonModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         SubmissionSectionUploadComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: CollectionDataService, useValue: collectionDataService },
@@ -183,9 +183,9 @@ describe('SubmissionSectionUploadComponent test suite', () => {
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
         ChangeDetectorRef,
-        SubmissionSectionUploadComponent
+        SubmissionSectionUploadComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
   }));
 
@@ -234,7 +234,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
 
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new Collection(), mockCollection, {
-        defaultAccessConditions: createSuccessfulRemoteDataObject$(mockDefaultAccessCondition)
+        defaultAccessConditions: createSuccessfulRemoteDataObject$(mockDefaultAccessCondition),
       })));
 
       resourcePolicyService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
@@ -243,7 +243,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       groupService.findById.and.returnValues(
         createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
-        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup))
+        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
       );
 
       bitstreamService.getUploadedFileList.and.returnValue(observableOf([]));
@@ -279,7 +279,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       groupService.findById.and.returnValues(
         createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
-        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup))
+        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
       );
 
       bitstreamService.getUploadedFileList.and.returnValue(observableOf(mockUploadFiles));
@@ -314,12 +314,12 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       groupService.findById.and.returnValues(
         createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
-        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup))
+        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
       );
 
       bitstreamService.getUploadedFileList.and.returnValue(cold('-a-b', {
         a: [],
-        b: mockUploadFiles
+        b: mockUploadFiles,
       }));
 
       comp.onSectionInit();
@@ -328,7 +328,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       expect(compAsAny.getSectionStatus()).toBeObservable(cold('-c-d', {
         c: false,
-        d: true
+        d: true,
       }));
     });
 
@@ -343,12 +343,12 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       groupService.findById.and.returnValues(
         createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
-        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup))
+        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
       );
 
       bitstreamService.getUploadedFileList.and.returnValue(cold('-a-b', {
         a: [],
-        b: mockUploadFiles
+        b: mockUploadFiles,
       }));
 
       comp.onSectionInit();
@@ -357,7 +357,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       expect(compAsAny.getSectionStatus()).toBeObservable(cold('-c-d', {
         c: true,
-        d: true
+        d: true,
       }));
     });
   });
@@ -366,7 +366,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

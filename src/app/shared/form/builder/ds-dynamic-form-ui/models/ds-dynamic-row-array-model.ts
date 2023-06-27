@@ -3,7 +3,7 @@ import {
   DynamicFormArrayModelConfig,
   DynamicFormControlLayout,
   DynamicFormControlRelation,
-  serializable
+  serializable,
 } from '@ng-dynamic-forms/core';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { hasValue } from '../../../../empty.util';

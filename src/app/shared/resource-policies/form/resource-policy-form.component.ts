@@ -5,14 +5,14 @@ import {
   of as observableOf,
   combineLatest as observableCombineLatest,
   Subscription,
-  BehaviorSubject
+  BehaviorSubject,
 } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 import {
   DynamicDatePickerModel,
   DynamicFormControlModel,
   DynamicFormGroupModel,
-  DynamicSelectModel
+  DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
 
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
@@ -27,7 +27,7 @@ import {
   RESOURCE_POLICY_FORM_NAME_CONFIG,
   RESOURCE_POLICY_FORM_POLICY_TYPE_CONFIG,
   RESOURCE_POLICY_FORM_START_DATE_CONFIG,
-  RESOURCE_POLICY_FORM_START_DATE_LAYOUT
+  RESOURCE_POLICY_FORM_START_DATE_LAYOUT,
 } from './resource-policy-form.model';
 import { DsDynamicTextAreaModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
@@ -163,10 +163,10 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
 
     if (this.isBeingEdited()) {
       const epersonRD$ = this.ePersonService.findByHref(this.resourcePolicy._links.eperson.href, false).pipe(
-        getFirstSucceededRemoteData()
+        getFirstSucceededRemoteData(),
       );
       const groupRD$ = this.groupService.findByHref(this.resourcePolicy._links.group.href, false).pipe(
-        getFirstSucceededRemoteData()
+        getFirstSucceededRemoteData(),
       );
       const dsoRD$: Observable<RemoteData<DSpaceObject>> = observableCombineLatest([epersonRD$, groupRD$]).pipe(
         map((rdArr: RemoteData<DSpaceObject>[]) => {
@@ -181,7 +181,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
           this.resourcePolicyGrant = dsoRD.payload;
           this.navActiveId = String(dsoRD.payload.type);
           this.resourcePolicyTargetName$.next(this.getResourcePolicyTargetName());
-        })
+        }),
       );
     }
   }
@@ -193,7 +193,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    */
   isFormValid(): Observable<boolean> {
     return this.formService.isValid(this.formId).pipe(
-      map((isValid: boolean) => isValid && isNotEmpty(this.resourcePolicyGrant))
+      map((isValid: boolean) => isValid && isNotEmpty(this.resourcePolicyGrant)),
     );
   }
 
@@ -209,16 +209,16 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
       new DsDynamicInputModel(RESOURCE_POLICY_FORM_NAME_CONFIG),
       new DsDynamicTextAreaModel(RESOURCE_POLICY_FORM_DESCRIPTION_CONFIG),
       new DynamicSelectModel(RESOURCE_POLICY_FORM_POLICY_TYPE_CONFIG),
-      new DynamicSelectModel(RESOURCE_POLICY_FORM_ACTION_TYPE_CONFIG)
+      new DynamicSelectModel(RESOURCE_POLICY_FORM_ACTION_TYPE_CONFIG),
     );
 
     const startDateModel = new DynamicDatePickerModel(
       RESOURCE_POLICY_FORM_START_DATE_CONFIG,
-      RESOURCE_POLICY_FORM_START_DATE_LAYOUT
+      RESOURCE_POLICY_FORM_START_DATE_LAYOUT,
     );
     const endDateModel = new DynamicDatePickerModel(
       RESOURCE_POLICY_FORM_END_DATE_CONFIG,
-      RESOURCE_POLICY_FORM_END_DATE_LAYOUT
+      RESOURCE_POLICY_FORM_END_DATE_LAYOUT,
     );
     const dateGroupConfig = Object.assign({}, RESOURCE_POLICY_FORM_DATE_GROUP_CONFIG, { group: [] });
     dateGroupConfig.group.push(startDateModel, endDateModel);
@@ -301,7 +301,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
         eventPayload.object = this.createResourcePolicyByFormData(data);
         eventPayload.target = {
           type: this.resourcePolicyGrantType,
-          uuid: this.resourcePolicyGrant.id
+          uuid: this.resourcePolicyGrant.id,
         };
         eventPayload.updateTarget = this.resourcePolicyTargetUpdated;
         this.submit.emit(eventPayload);

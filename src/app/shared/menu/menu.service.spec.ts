@@ -18,7 +18,7 @@ import {
   RemoveMenuSectionAction,
   ShowMenuAction,
   ToggleActiveMenuSectionAction,
-  ToggleMenuAction
+  ToggleMenuAction,
 } from './menu.actions';
 import { menusReducer } from './menu.reducer';
 import { storeModuleConfig } from '../../app.reducer';
@@ -52,31 +52,31 @@ describe('MenuService', () => {
     visibleSection1 = {
       id: 'section',
       visible: true,
-      active: false
+      active: false,
     };
     visibleSection2 = {
       id: 'section_2',
-      visible: true
+      visible: true,
     };
     hiddenSection3 = {
       id: 'section_3',
-      visible: false
+      visible: false,
     };
     subSection4 = {
       id: 'section_4',
       visible: true,
-      parentID: 'section'
+      parentID: 'section',
     };
     subSection4 = {
       id: 'section_4',
       visible: true,
-      parentID: 'section'
+      parentID: 'section',
     };
     topSections = {
       section: visibleSection1,
       section_2: visibleSection2,
       section_3: hiddenSection3,
-      section_4: subSection4
+      section_4: subSection4,
     };
 
     fakeMenu = {
@@ -86,14 +86,14 @@ describe('MenuService', () => {
       sections: topSections,
       previewCollapsed: true,
       sectionToSubsectionIndex: {
-        'section': ['section_4']
-      }
+        'section': ['section_4'],
+      },
     } as any;
 
     initialState = {
       menus: {
-        'admin-sidebar': fakeMenu
-      }
+        'admin-sidebar': fakeMenu,
+      },
     };
 
     routeDataMenuSection = {
@@ -103,8 +103,8 @@ describe('MenuService', () => {
       model: {
         type: MenuItemType.LINK,
         text: 'menu.section.mockSection',
-        link: 'path/:linkparam'
-      } as LinkMenuItemModel
+        link: 'path/:linkparam',
+      } as LinkMenuItemModel,
     };
     routeDataMenuSectionResolved = {
       id: 'mockSection_id_param_resolved',
@@ -113,8 +113,8 @@ describe('MenuService', () => {
       model: {
         type: MenuItemType.LINK,
         text: 'menu.section.mockSection',
-        link: 'path/link_param_resolved'
-      } as LinkMenuItemModel
+        link: 'path/link_param_resolved',
+      } as LinkMenuItemModel,
     };
     routeDataMenuChildSection = {
       id: 'mockChildSection',
@@ -124,8 +124,8 @@ describe('MenuService', () => {
       model: {
         type: MenuItemType.LINK,
         text: 'menu.section.mockChildSection',
-        link: ''
-      } as LinkMenuItemModel
+        link: '',
+      } as LinkMenuItemModel,
     };
     toBeRemovedMenuSection = {
       id: 'toBeRemovedSection',
@@ -134,8 +134,8 @@ describe('MenuService', () => {
       model: {
         type: MenuItemType.LINK,
         text: 'menu.section.toBeRemovedSection',
-        link: ''
-      } as LinkMenuItemModel
+        link: '',
+      } as LinkMenuItemModel,
     };
     alreadyPresentMenuSection = {
       id: 'alreadyPresentSection',
@@ -144,36 +144,36 @@ describe('MenuService', () => {
       model: {
         type: MenuItemType.LINK,
         text: 'menu.section.alreadyPresentSection',
-        link: ''
-      } as LinkMenuItemModel
+        link: '',
+      } as LinkMenuItemModel,
     };
     route = {
       root: {
         snapshot: {
           data: {
             menu: {
-              [MenuID.PUBLIC]: [routeDataMenuSection, alreadyPresentMenuSection]
-            }
+              [MenuID.PUBLIC]: [routeDataMenuSection, alreadyPresentMenuSection],
+            },
           },
           params: {
             idparam: 'id_param_resolved',
             linkparam: 'link_param_resolved',
-          }
+          },
         },
         firstChild: {
           snapshot: {
             data: {
               menu: {
-                [MenuID.PUBLIC]: routeDataMenuChildSection
-              }
-            }
-          }
-        }
-      }
+                [MenuID.PUBLIC]: routeDataMenuChildSection,
+              },
+            },
+          },
+        },
+      },
     };
 
     router = {
-      events: observableOf(new NavigationEnd(1, 'test-url', 'test-url'))
+      events: observableOf(new NavigationEnd(1, 'test-url', 'test-url')),
     };
   }
 
@@ -181,12 +181,12 @@ describe('MenuService', () => {
     init();
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({menus: menusReducer}, storeModuleConfig)
+        StoreModule.forRoot({menus: menusReducer}, storeModuleConfig),
       ],
       providers: [
         provideMockStore({initialState}),
-        {provide: MenuService, useValue: service}
-      ]
+        {provide: MenuService, useValue: service},
+      ],
     }).compileComponents();
   }));
 
@@ -201,7 +201,7 @@ describe('MenuService', () => {
 
       const result = service.getMenu(MenuID.ADMIN);
       const expected = cold('b', {
-        b: fakeMenu
+        b: fakeMenu,
       });
 
       expect(result).toBeObservable(expected);
@@ -214,7 +214,7 @@ describe('MenuService', () => {
 
       const result = service.getMenuTopSections(MenuID.ADMIN);
       const expected = cold('b', {
-        b: [visibleSection1, visibleSection2]
+        b: [visibleSection1, visibleSection2],
       });
 
       expect(result).toBeObservable(expected);
@@ -224,7 +224,7 @@ describe('MenuService', () => {
 
       const result = service.getMenuTopSections(MenuID.ADMIN, false);
       const expected = cold('b', {
-        b: [visibleSection1, visibleSection2, hiddenSection3]
+        b: [visibleSection1, visibleSection2, hiddenSection3],
       });
 
       expect(result).toBeObservable(expected);
@@ -237,7 +237,7 @@ describe('MenuService', () => {
 
         const result = service.getSubSectionsByParentID(MenuID.ADMIN, 'section');
         const expected = cold('b', {
-          b: [subSection4]
+          b: [subSection4],
         });
 
         expect(result).toBeObservable(expected);
@@ -261,7 +261,7 @@ describe('MenuService', () => {
 
         const result = service.hasSubSections(MenuID.ADMIN, 'section');
         const expected = cold('b', {
-          b: true
+          b: true,
         });
 
         expect(result).toBeObservable(expected);
@@ -273,7 +273,7 @@ describe('MenuService', () => {
 
         const result = service.hasSubSections(MenuID.ADMIN, 'fakeId');
         const expected = cold('b', {
-          b: false
+          b: false,
         });
 
         expect(result).toBeObservable(expected);
@@ -286,7 +286,7 @@ describe('MenuService', () => {
 
       const result = service.getMenuSection(MenuID.ADMIN, 'section_3');
       const expected = cold('b', {
-        b: hiddenSection3
+        b: hiddenSection3,
       });
 
       expect(result).toBeObservable(expected);
@@ -296,7 +296,7 @@ describe('MenuService', () => {
 
       const result = service.getMenuSection(MenuID.ADMIN, 'fake');
       const expected = cold('b', {
-        b: undefined
+        b: undefined,
       });
 
       expect(result).toBeObservable(expected);
@@ -311,7 +311,7 @@ describe('MenuService', () => {
 
       const result = service.isMenuCollapsed(MenuID.ADMIN);
       const expected = cold('(b|)', {
-        b: fakeMenu.collapsed
+        b: fakeMenu.collapsed,
       });
 
       expect(result).toBeObservable(expected);
@@ -326,7 +326,7 @@ describe('MenuService', () => {
 
       const result = service.isMenuPreviewCollapsed(MenuID.ADMIN);
       const expected = cold('(b|)', {
-        b: fakeMenu.previewCollapsed
+        b: fakeMenu.previewCollapsed,
       });
 
       expect(result).toBeObservable(expected);
@@ -341,13 +341,13 @@ describe('MenuService', () => {
         visible: true,
         sections: {},
         previewCollapsed: false,
-        sectionToSubsectionIndex: {}
+        sectionToSubsectionIndex: {},
       } as any;
       spyOn(service, 'getMenu').and.returnValue(observableOf(testMenu));
 
       const result = service.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
       const expected = cold('(b|)', {
-        b: false
+        b: false,
       });
 
       expect(result).toBeObservable(expected);
@@ -369,13 +369,13 @@ describe('MenuService', () => {
         sectionToSubsectionIndex: {
           'section': ['section_4'],
           'section_2': ['section_5'],
-        }
+        },
       } as any;
       spyOn(service, 'getMenu').and.returnValue(observableOf(testMenu));
 
       const result = service.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
       const expected = cold('(b|)', {
-        b: false
+        b: false,
       });
 
       expect(result).toBeObservable(expected);
@@ -398,13 +398,13 @@ describe('MenuService', () => {
         sectionToSubsectionIndex: {
           'section': ['section_4'],
           'section_2': ['section_5'],
-        }
+        },
       } as any;
       spyOn(service, 'getMenu').and.returnValue(observableOf(testMenu));
 
       const result = service.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
       const expected = cold('(b|)', {
-        b: true
+        b: true,
       });
 
       expect(result).toBeObservable(expected);
@@ -420,7 +420,7 @@ describe('MenuService', () => {
 
       const result = service.isMenuVisible(MenuID.ADMIN);
       const expected = cold('(b|)', {
-        b: fakeMenu.visible
+        b: fakeMenu.visible,
       });
 
       expect(result).toBeObservable(expected);
@@ -435,7 +435,7 @@ describe('MenuService', () => {
     it('should return false when the section is not active', () => {
       const result = service.isSectionActive(MenuID.ADMIN, 'fakeID');
       const expected = cold('(b|)', {
-        b: visibleSection1.active
+        b: visibleSection1.active,
       });
 
       expect(result).toBeObservable(expected);
@@ -450,7 +450,7 @@ describe('MenuService', () => {
     it('should return false when the section is hidden', () => {
       const result = service.isSectionVisible(MenuID.ADMIN, 'fakeID');
       const expected = cold('(b|)', {
-        b: hiddenSection3.visible
+        b: hiddenSection3.visible,
       });
       expect(result).toBeObservable(expected);
     });

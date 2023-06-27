@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import {
-  DSOSelectorModalWrapperComponent
+  DSOSelectorModalWrapperComponent,
 } from '../../shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -22,7 +22,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
  */
 @Component({
   selector: 'ds-profile-claim-item-modal',
-  templateUrl: './profile-claim-item-modal.component.html'
+  templateUrl: './profile-claim-item-modal.component.html',
 })
 export class ProfileClaimItemModalComponent extends DSOSelectorModalWrapperComponent implements OnInit {
 
@@ -70,7 +70,7 @@ export class ProfileClaimItemModalComponent extends DSOSelectorModalWrapperCompo
     this.profileClaimService.searchForSuggestions(this.dso as EPerson).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe(
-      (result: RemoteData<SearchObjects<DSpaceObject>>) => this.listEntries$.next(result)
+      (result: RemoteData<SearchObjects<DSpaceObject>>) => this.listEntries$.next(result),
     );
   }
 

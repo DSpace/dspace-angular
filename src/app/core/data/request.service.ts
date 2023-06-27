@@ -14,7 +14,7 @@ import { UUIDService } from '../shared/uuid.service';
 import {
   RequestConfigureAction,
   RequestExecuteAction,
-  RequestStaleAction
+  RequestStaleAction,
 } from './request.actions';
 import { GetRequest} from './request.models';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
@@ -31,7 +31,7 @@ import { RequestEntry } from './request-entry.model';
  */
 const requestCacheSelector = createSelector(
   coreSelector,
-  (state: CoreState) => state['data/request']
+  (state: CoreState) => state['data/request'],
 );
 
 /**
@@ -42,7 +42,7 @@ const entryFromUUIDSelector = (uuid: string): MemoizedSelector<CoreState, Reques
   requestCacheSelector,
   (state: RequestState) => {
     return hasValue(state) ? state[uuid] : undefined;
-  }
+  },
 );
 
 /**
@@ -65,7 +65,7 @@ const entryFromHrefSelector = (href: string): MemoizedSelector<CoreState, Reques
     } else {
       return undefined;
     }
-  }
+  },
 );
 
 /**
@@ -77,7 +77,7 @@ const entryFromHrefSelector = (href: string): MemoizedSelector<CoreState, Reques
 const uuidsFromHrefSubstringSelector =
   (selector: MemoizedSelector<CoreState, IndexState>, href: string): MemoizedSelector<CoreState, string[]> => createSelector(
     selector,
-    (state: IndexState) => getUuidsFromHrefSubstring(state, href)
+    (state: IndexState) => getUuidsFromHrefSubstring(state, href),
   );
 
 /**
@@ -129,7 +129,7 @@ const isValid = (entry: RequestEntry): boolean => {
  * A service to interact with the request state in the store
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RequestService {
   private requestsOnTheirWayToTheStore: string[] = [];
@@ -176,7 +176,7 @@ export class RequestService {
     return this.store.pipe(
       select(entryFromUUIDSelector(uuid)),
       this.fixRequestHeaders(),
-      this.checkStale()
+      this.checkStale(),
     );
   }
 
@@ -195,7 +195,7 @@ export class RequestService {
           entry.request.options.headers = Object.assign(new HttpHeaders(), entry.request.options.headers);
         }
         return entry;
-      })
+      }),
       );
     };
   }
@@ -212,7 +212,7 @@ export class RequestService {
           if (hasValue(entry) && hasValue(entry.request) && !isStale(entry.state) && !isValid(entry)) {
             this.store.dispatch(new RequestStaleAction(entry.request.uuid));
           }
-        })
+        }),
       );
     };
   }
@@ -224,7 +224,7 @@ export class RequestService {
     return this.store.pipe(
       select(entryFromHrefSelector(href)),
       this.fixRequestHeaders(),
-      this.checkStale()
+      this.checkStale(),
     );
   }
 
@@ -305,7 +305,7 @@ export class RequestService {
   setStaleByHrefSubstring(href: string): Observable<boolean> {
     this.store.pipe(
       select(uuidsFromHrefSubstringSelector(requestIndexSelector, href)),
-      take(1)
+      take(1),
     ).subscribe((uuids: string[]) => {
       for (const uuid of uuids) {
         this.store.dispatch(new RequestStaleAction(uuid));
@@ -315,7 +315,7 @@ export class RequestService {
 
     return this.store.pipe(
       select(uuidsFromHrefSubstringSelector(requestIndexSelector, href)),
-      map((uuids) => isEmpty(uuids))
+      map((uuids) => isEmpty(uuids)),
     );
   }
 
@@ -391,7 +391,7 @@ export class RequestService {
     this.requestsOnTheirWayToTheStore = [...this.requestsOnTheirWayToTheStore, request.href];
     this.getByHref(request.href).pipe(
       filter((re: RequestEntry) => hasValue(re) && hasValue(re.request) && re.request.uuid === request.uuid),
-      take(1)
+      take(1),
     ).subscribe((re: RequestEntry) => {
       this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingHref: string) => pendingHref !== request.href);
     });
@@ -438,7 +438,7 @@ export class RequestService {
    */
   hasByHref$(href: string, checkValidity = true): Observable<boolean> {
     return this.getByHref(href).pipe(
-      map((requestEntry: RequestEntry) => checkValidity ? isValid(requestEntry) : hasValue(requestEntry))
+      map((requestEntry: RequestEntry) => checkValidity ? isValid(requestEntry) : hasValue(requestEntry)),
     );
   }
 
@@ -475,7 +475,7 @@ export class RequestService {
    */
   hasByUUID$(uuid: string, checkValidity = true): Observable<boolean> {
     return this.getByUUID(uuid).pipe(
-      map((requestEntry: RequestEntry) => checkValidity ? isValid(requestEntry) : hasValue(requestEntry))
+      map((requestEntry: RequestEntry) => checkValidity ? isValid(requestEntry) : hasValue(requestEntry)),
     );
   }
 

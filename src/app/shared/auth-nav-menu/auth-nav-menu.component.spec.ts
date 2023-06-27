@@ -30,13 +30,13 @@ describe('AuthNavMenuComponent', () => {
   let authService: AuthService;
 
   let routerState = {
-    url: '/home'
+    url: '/home',
   };
 
   function serviceInit() {
     authService = jasmine.createSpyObj('authService', {
       getAuthenticatedUserFromStore: of(EPersonMock),
-      setRedirectUrl: {}
+      setRedirectUrl: {},
     });
   }
 
@@ -46,7 +46,7 @@ describe('AuthNavMenuComponent', () => {
       loaded: false,
       blocking: false,
       loading: false,
-      idle: false
+      idle: false,
     };
     authState = {
       authenticated: true,
@@ -55,7 +55,7 @@ describe('AuthNavMenuComponent', () => {
       loading: false,
       authToken: new AuthTokenInfo('test_token'),
       userId: EPersonMock.id,
-      idle: false
+      idle: false,
     };
   }
 
@@ -72,22 +72,22 @@ describe('AuthNavMenuComponent', () => {
           StoreModule.forRoot(authReducer, {
             runtimeChecks: {
               strictStateImmutability: false,
-              strictActionImmutability: false
-            }
+              strictActionImmutability: false,
+            },
           }),
-          TranslateModule.forRoot()
+          TranslateModule.forRoot(),
         ],
         declarations: [
           AuthNavMenuComponent,
-          BrowserOnlyMockPipe
+          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: HostWindowService, useValue: window },
-          { provide: AuthService, useValue: authService }
+          { provide: AuthService, useValue: authService },
         ],
         schemas: [
-          CUSTOM_ELEMENTS_SCHEMA
-        ]
+          CUSTOM_ELEMENTS_SCHEMA,
+        ],
       })
         .compileComponents();
 
@@ -99,7 +99,7 @@ describe('AuthNavMenuComponent', () => {
     describe('when route is /login and user is not authenticated', () => {
       beforeEach(inject([Store], (store: Store<AppState>) => {
         routerState = {
-          url: '/login'
+          url: '/login',
         };
         store
           .subscribe((state) => {
@@ -137,7 +137,7 @@ describe('AuthNavMenuComponent', () => {
     describe('when route is /logout and user is authenticated', () => {
       beforeEach(inject([Store], (store: Store<AppState>) => {
         routerState = {
-          url: '/logout'
+          url: '/logout',
         };
         store
           .subscribe((state) => {
@@ -179,7 +179,7 @@ describe('AuthNavMenuComponent', () => {
 
         beforeEach(inject([Store], (store: Store<AppState>) => {
           routerState = {
-            url: '/home'
+            url: '/home',
           };
           store
             .subscribe((state) => {
@@ -218,7 +218,7 @@ describe('AuthNavMenuComponent', () => {
       describe('when user is authenticated', () => {
         beforeEach(inject([Store], (store: Store<AppState>) => {
           routerState = {
-            url: '/home'
+            url: '/home',
           };
           store
             .subscribe((state) => {
@@ -267,21 +267,21 @@ describe('AuthNavMenuComponent', () => {
           StoreModule.forRoot(authReducer, {
             runtimeChecks: {
               strictStateImmutability: false,
-              strictActionImmutability: false
-            }
+              strictActionImmutability: false,
+            },
           }),
-          TranslateModule.forRoot()
+          TranslateModule.forRoot(),
         ],
         declarations: [
-          AuthNavMenuComponent
+          AuthNavMenuComponent,
         ],
         providers: [
           { provide: HostWindowService, useValue: window },
-          { provide: AuthService, useValue: authService }
+          { provide: AuthService, useValue: authService },
         ],
         schemas: [
-          CUSTOM_ELEMENTS_SCHEMA
-        ]
+          CUSTOM_ELEMENTS_SCHEMA,
+        ],
       })
         .compileComponents();
 

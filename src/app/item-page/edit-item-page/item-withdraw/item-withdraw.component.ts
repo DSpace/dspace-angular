@@ -12,7 +12,7 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-item-withdraw',
-  templateUrl: '../simple-item-action/abstract-simple-item-action.component.html'
+  templateUrl: '../simple-item-action/abstract-simple-item-action.component.html',
 })
 /**
  * Component responsible for rendering the Item Withdraw page
@@ -37,7 +37,7 @@ export class ItemWithdrawComponent extends AbstractSimpleItemActionComponent {
     this.itemDataService.setWithDrawn(this.item, true).pipe(getFirstCompletedRemoteData()).subscribe(
       (response: RemoteData<Item>) => {
         this.processRestResponse(response);
-      }
+      },
     );
   }
 }

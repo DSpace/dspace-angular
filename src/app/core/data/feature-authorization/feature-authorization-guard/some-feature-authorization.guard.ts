@@ -24,9 +24,9 @@ export abstract class SomeFeatureAuthorizationGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
     return observableCombineLatest(this.getFeatureIDs(route, state), this.getObjectUrl(route, state), this.getEPersonUuid(route, state)).pipe(
       switchMap(([featureIDs, objectUrl, ePersonUuid]) =>
-        observableCombineLatest(...featureIDs.map((featureID) => this.authorizationService.isAuthorized(featureID, objectUrl, ePersonUuid)))
+        observableCombineLatest(...featureIDs.map((featureID) => this.authorizationService.isAuthorized(featureID, objectUrl, ePersonUuid))),
       ),
-      returnForbiddenUrlTreeOrLoginOnAllFalse(this.router, this.authService, state.url)
+      returnForbiddenUrlTreeOrLoginOnAllFalse(this.router, this.authService, state.url),
     );
   }
 

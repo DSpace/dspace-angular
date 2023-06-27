@@ -15,35 +15,35 @@ describe('BulkAccessSettingsComponent', () => {
         'startDate': {
           'year': 2026,
           'month': 5,
-          'day': 31
+          'day': 31,
         },
-        'endDate': null
-      }
+        'endDate': null,
+      },
     ],
     'state': {
       'item': {
         'toggleStatus': true,
-        'accessMode': 'replace'
+        'accessMode': 'replace',
       },
       'bitstream': {
         'toggleStatus': false,
         'accessMode': '',
         'changesLimit': '',
-        'selectedBitstreams': []
-      }
-    }
+        'selectedBitstreams': [],
+      },
+    },
   };
 
   const mockControl: any = jasmine.createSpyObj('AccessControlFormContainerComponent',  {
     getFormValue: jasmine.createSpy('getFormValue'),
-    reset: jasmine.createSpy('reset')
+    reset: jasmine.createSpy('reset'),
   });
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [NgbAccordionModule, TranslateModule.forRoot()],
       declarations: [BulkAccessSettingsComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 

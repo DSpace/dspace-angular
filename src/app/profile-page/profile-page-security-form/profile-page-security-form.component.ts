@@ -11,7 +11,7 @@ import { debounceTimeWorkaround as debounceTime } from '../../core/shared/operat
 
 @Component({
   selector: 'ds-profile-page-security-form',
-  templateUrl: './profile-page-security-form.component.html'
+  templateUrl: './profile-page-security-form.component.html',
 })
 /**
  * Component for a user to edit their security information
@@ -39,13 +39,13 @@ export class ProfilePageSecurityFormComponent implements OnInit {
     new DynamicInputModel({
       id: 'password',
       name: 'password',
-      inputType: 'password'
+      inputType: 'password',
     }),
     new DynamicInputModel({
       id: 'passwordrepeat',
       name: 'passwordrepeat',
-      inputType: 'password'
-    })
+      inputType: 'password',
+    }),
   ];
 
   /**
@@ -79,7 +79,7 @@ export class ProfilePageSecurityFormComponent implements OnInit {
         id: 'current-password',
         name: 'current-password',
         inputType: 'password',
-        required: true
+        required: true,
       }));
     }
     if (this.passwordCanBeEmpty) {
@@ -98,8 +98,8 @@ export class ProfilePageSecurityFormComponent implements OnInit {
     this.subs.push(
       this.formGroup.statusChanges.pipe(
         debounceTime(300),
-        map((status: string) => status !== 'VALID')
-      ).subscribe((status) => this.isInvalid.emit(status))
+        map((status: string) => status !== 'VALID'),
+      ).subscribe((status) => this.isInvalid.emit(status)),
     );
 
     this.subs.push(this.formGroup.valueChanges.pipe(
@@ -119,7 +119,7 @@ export class ProfilePageSecurityFormComponent implements OnInit {
     this.formModel.forEach(
       (fieldModel: DynamicInputModel) => {
         fieldModel.label = this.translate.instant(this.FORM_PREFIX + 'label.' + fieldModel.id);
-      }
+      },
     );
   }
 

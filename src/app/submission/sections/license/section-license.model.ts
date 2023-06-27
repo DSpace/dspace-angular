@@ -5,9 +5,9 @@ export const SECTION_LICENSE_FORM_LAYOUT = {
     element: {
       container: 'custom-control custom-checkbox pl-1',
       control: 'custom-control-input',
-      label: 'custom-control-label pt-1'
-    }
-  }
+      label: 'custom-control-label pt-1',
+    },
+  },
 };
 
 export const SECTION_LICENSE_FORM_MODEL = [
@@ -17,12 +17,12 @@ export const SECTION_LICENSE_FORM_MODEL = [
     required: true,
     value: false,
     validators: {
-      required: null
+      required: null,
     },
     errorMessages: {
       required: 'submission.sections.license.required',
-      notgranted: 'submission.sections.license.notgranted'
+      notgranted: 'submission.sections.license.notgranted',
     },
     type: 'CHECKBOX',
-  }
+  },
 ];

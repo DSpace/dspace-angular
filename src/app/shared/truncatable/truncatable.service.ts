@@ -6,7 +6,7 @@ import { TruncatablesState, TruncatableState } from './truncatable.reducer';
 import {
   TruncatableExpandAction,
   TruncatableToggleAction,
-  TruncatableCollapseAction
+  TruncatableCollapseAction,
 } from './truncatable.actions';
 import { hasValue } from '../empty.util';
 
@@ -35,7 +35,7 @@ export class TruncatableService {
         } else {
           return false;
         }
-      })
+      }),
     );
   }
 

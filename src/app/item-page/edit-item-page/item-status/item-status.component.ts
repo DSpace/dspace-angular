@@ -25,8 +25,8 @@ import { IdentifierData } from '../../../shared/object-list/identifier-data/iden
   changeDetection: ChangeDetectionStrategy.Default,
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
 })
 /**
  * Component for displaying an item's status
@@ -82,12 +82,12 @@ export class ItemStatusComponent implements OnInit {
   ngOnInit(): void {
     this.itemRD$ = this.route.parent.data.pipe(map((data) => data.dso));
     this.itemRD$.pipe(
-      map((data: RemoteData<Item>) => data.payload)
+      map((data: RemoteData<Item>) => data.payload),
     ).subscribe((item: Item) => {
       this.statusData = Object.assign({
         id: item.id,
         handle: item.handle,
-        lastModified: item.lastModified
+        lastModified: item.lastModified,
       });
       this.statusDataKeys = Object.keys(this.statusData);
 
@@ -112,7 +112,7 @@ export class ItemStatusComponent implements OnInit {
           }
           // Otherwise, return false
           return false;
-        })
+        }),
       );
 
       /*
@@ -169,7 +169,7 @@ export class ItemStatusComponent implements OnInit {
           return registerConfigEnabled$.pipe(
             map((enabled: boolean) => {
               return enabled && (pending || no_doi);
-            }
+            },
             ));
         }),
         // Switch map pushes the register DOI operation onto a copy of the base array then returns to the pipe
@@ -185,7 +185,7 @@ export class ItemStatusComponent implements OnInit {
           if (hasValue(op.featureID)) {
             return this.authorizationService.isAuthorized(op.featureID, item.self).pipe(
               distinctUntilChanged(),
-              map((authorized) => new ItemOperation(op.operationKey, op.operationUrl, op.featureID, !authorized, authorized))
+              map((authorized) => new ItemOperation(op.operationKey, op.operationUrl, op.featureID, !authorized, authorized)),
             );
           } else {
             return [op];
@@ -201,7 +201,7 @@ export class ItemStatusComponent implements OnInit {
 
     this.itemPageRoute$ = this.itemRD$.pipe(
       getAllSucceededRemoteDataPayload(),
-      map((item) => getItemPageRoute(item))
+      map((item) => getItemPageRoute(item)),
     );
 
   }

@@ -48,7 +48,7 @@ export class EntityTypeDataService extends BaseDataService<ItemType> implements 
    */
   getRelationshipTypesEndpoint(entityTypeId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      switchMap((href) => this.halService.getEndpoint('relationshiptypes', `${href}/${entityTypeId}`))
+      switchMap((href) => this.halService.getEndpoint('relationshiptypes', `${href}/${entityTypeId}`)),
     );
   }
 
@@ -84,7 +84,7 @@ export class EntityTypeDataService extends BaseDataService<ItemType> implements 
   hasMoreThanOneAuthorized(): Observable<boolean> {
     const findListOptions: FindListOptions = {
       elementsPerPage: 2,
-      currentPage: 1
+      currentPage: 1,
     };
     return this.getAllAuthorizedRelationshipType(findListOptions).pipe(
       map((result: RemoteData<PaginatedList<ItemType>>) => {
@@ -95,7 +95,7 @@ export class EntityTypeDataService extends BaseDataService<ItemType> implements 
           output = false;
         }
         return output;
-      })
+      }),
     );
   }
 
@@ -118,7 +118,7 @@ export class EntityTypeDataService extends BaseDataService<ItemType> implements 
   hasMoreThanOneAuthorizedImport(): Observable<boolean> {
     const findListOptions: FindListOptions = {
       elementsPerPage: 2,
-      currentPage: 1
+      currentPage: 1,
     };
     return this.getAllAuthorizedRelationshipTypeImport(findListOptions).pipe(
       map((result: RemoteData<PaginatedList<ItemType>>) => {
@@ -129,7 +129,7 @@ export class EntityTypeDataService extends BaseDataService<ItemType> implements 
           output = false;
         }
         return output;
-      })
+      }),
     );
   }
 

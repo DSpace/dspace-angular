@@ -19,12 +19,12 @@ describe('ProfilePageSecurityFormComponent', () => {
 
   function init() {
     epersonService = jasmine.createSpyObj('epersonService', {
-      patch: observableOf(new RestResponse(true, 200, 'OK'))
+      patch: observableOf(new RestResponse(true, 200, 'OK')),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', {
       success: {},
       error: {},
-      warning: {}
+      warning: {},
     });
   }
 
@@ -36,9 +36,9 @@ describe('ProfilePageSecurityFormComponent', () => {
       providers: [
         {provide: EPersonDataService, useValue: epersonService},
         {provide: NotificationsService, useValue: notificationsService},
-        FormBuilderService
+        FormBuilderService,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

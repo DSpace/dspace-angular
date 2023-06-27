@@ -13,7 +13,7 @@ import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.
 export class ItemFromWorkspaceResolver extends SubmissionObjectResolver<Item> implements Resolve<RemoteData<Item>>  {
   constructor(
         private workspaceItemService: WorkspaceitemDataService,
-        protected store: Store<any>
+        protected store: Store<any>,
   ) {
     super(workspaceItemService, store);
   }

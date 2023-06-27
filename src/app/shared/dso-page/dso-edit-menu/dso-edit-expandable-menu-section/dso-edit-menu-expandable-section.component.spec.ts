@@ -25,9 +25,9 @@ describe('DsoEditMenuExpandableSectionComponent', () => {
     model: {
       type: MenuItemType.TEXT,
       disabled: false,
-      text: 'text'
+      text: 'text',
     },
-    icon: iconString
+    icon: iconString,
   };
 
   beforeEach(waitForAsync(() => {
@@ -39,11 +39,11 @@ describe('DsoEditMenuExpandableSectionComponent', () => {
         {provide: MenuService, useValue: menuService},
         {provide: CSSVariableService, useClass: CSSVariableServiceStub},
         {provide: Router, useValue: new RouterStub()},
-      ]
+      ],
     }).overrideComponent(DsoEditMenuExpandableSectionComponent, {
       set: {
-        entryComponents: [TestComponent]
-      }
+        entryComponents: [TestComponent],
+      },
     })
       .compileComponents();
   }));
@@ -69,7 +69,7 @@ describe('DsoEditMenuExpandableSectionComponent', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 }

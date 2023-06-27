@@ -18,7 +18,7 @@ import { hasValue } from '../../shared/empty.util';
   selector: 'ds-community-page-sub-community-list',
   styleUrls: ['./community-page-sub-community-list.component.scss'],
   templateUrl: './community-page-sub-community-list.component.html',
-  animations: [fadeIn]
+  animations: [fadeIn],
 })
 /**
  * Component to render the sub-communities of a Community
@@ -84,9 +84,9 @@ export class CommunityPageSubCommunityListComponent implements OnInit, OnDestroy
         return     this.cds.findByParent(this.community.id, {
           currentPage: currentPagination.currentPage,
           elementsPerPage: currentPagination.pageSize,
-          sort: { field: currentSort.field, direction: currentSort.direction }
+          sort: { field: currentSort.field, direction: currentSort.direction },
         });
-      })
+      }),
     ).subscribe((results) => {
       this.subCommunitiesRDObs.next(results);
     });

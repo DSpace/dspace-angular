@@ -33,11 +33,11 @@ describe('FullFileSectionComponent', () => {
       bundleName: 'ORIGINAL',
       _links: {
         self: {
-          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713'
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713',
         },
         content: {
-          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content'
-        }
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
+        },
       },
       id: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
       uuid: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
@@ -46,14 +46,14 @@ describe('FullFileSectionComponent', () => {
         'dc.title': [
           {
             language: null,
-            value: 'test_word.docx'
-          }
-        ]
-      }
+            value: 'test_word.docx',
+          },
+        ],
+      },
     });
 
   const bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
-    findAllByItemAndBundleName: createSuccessfulRemoteDataObject$(createPaginatedList([mockBitstream, mockBitstream, mockBitstream]))
+    findAllByItemAndBundleName: createSuccessfulRemoteDataObject$(createPaginatedList([mockBitstream, mockBitstream, mockBitstream])),
   });
 
   const paginationService = new PaginationServiceStub();
@@ -64,8 +64,8 @@ describe('FullFileSectionComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       }), BrowserAnimationsModule],
       declarations: [FullFileSectionComponent, VarDirective, FileSizePipe, MetadataFieldWrapperComponent],
       providers: [
@@ -75,7 +75,7 @@ describe('FullFileSectionComponent', () => {
         { provide: APP_CONFIG, useValue: environment },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

@@ -8,7 +8,7 @@ import {
   OnDestroy,
   OnInit,
   TemplateRef,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { trigger } from '@angular/animations';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -36,12 +36,12 @@ import { filter, first } from 'rxjs/operators';
       fromLeftEnter, fromLeftInState, fromLeftLeave, fromLeftOutState,
       fromTopEnter, fromTopInState, fromTopLeave, fromTopOutState,
       rotateInState, rotateEnter, rotateOutState, rotateLeave,
-      scaleInState, scaleEnter, scaleOutState, scaleLeave
-    ])
+      scaleInState, scaleEnter, scaleOutState, scaleLeave,
+    ]),
   ],
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class NotificationComponent implements OnInit, OnDestroy {

@@ -2,30 +2,30 @@ import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../../shared/shared.module';
 import {
-  WorkflowItemSearchResultAdminWorkflowGridElementComponent
+  WorkflowItemSearchResultAdminWorkflowGridElementComponent,
 } from './admin-workflow-search-results/admin-workflow-search-result-grid-element/workflow-item/workflow-item-search-result-admin-workflow-grid-element.component';
 import {
-  WorkflowItemAdminWorkflowActionsComponent
+  WorkflowItemAdminWorkflowActionsComponent,
 } from './admin-workflow-search-results/actions/workflow-item/workflow-item-admin-workflow-actions.component';
 import {
-  WorkflowItemSearchResultAdminWorkflowListElementComponent
+  WorkflowItemSearchResultAdminWorkflowListElementComponent,
 } from './admin-workflow-search-results/admin-workflow-search-result-list-element/workflow-item/workflow-item-search-result-admin-workflow-list-element.component';
 import { AdminWorkflowPageComponent } from './admin-workflow-page.component';
 import { SearchModule } from '../../shared/search/search.module';
 import {
-  WorkspaceItemAdminWorkflowActionsComponent
+  WorkspaceItemAdminWorkflowActionsComponent,
 } from './admin-workflow-search-results/actions/workspace-item/workspace-item-admin-workflow-actions.component';
 import {
-  WorkspaceItemSearchResultAdminWorkflowListElementComponent
+  WorkspaceItemSearchResultAdminWorkflowListElementComponent,
 } from './admin-workflow-search-results/admin-workflow-search-result-list-element/workspace-item/workspace-item-search-result-admin-workflow-list-element.component';
 import {
-  WorkspaceItemSearchResultAdminWorkflowGridElementComponent
+  WorkspaceItemSearchResultAdminWorkflowGridElementComponent,
 } from './admin-workflow-search-results/admin-workflow-search-result-grid-element/workspace-item/workspace-item-search-result-admin-workflow-grid-element.component';
 import {
-  SupervisionOrderGroupSelectorComponent
+  SupervisionOrderGroupSelectorComponent,
 } from './admin-workflow-search-results/actions/workspace-item/supervision-order-group-selector/supervision-order-group-selector.component';
 import {
-  SupervisionOrderStatusComponent
+  SupervisionOrderStatusComponent,
 } from './admin-workflow-search-results/actions/workspace-item/supervision-order-status/supervision-order-status.component';
 
 const ENTRY_COMPONENTS = [
@@ -33,13 +33,13 @@ const ENTRY_COMPONENTS = [
   WorkflowItemSearchResultAdminWorkflowListElementComponent,
   WorkflowItemSearchResultAdminWorkflowGridElementComponent,
   WorkspaceItemSearchResultAdminWorkflowListElementComponent,
-  WorkspaceItemSearchResultAdminWorkflowGridElementComponent
+  WorkspaceItemSearchResultAdminWorkflowGridElementComponent,
 ];
 
 @NgModule({
   imports: [
     SearchModule,
-    SharedModule.withEntryComponents()
+    SharedModule.withEntryComponents(),
   ],
   declarations: [
     AdminWorkflowPageComponent,
@@ -47,11 +47,11 @@ const ENTRY_COMPONENTS = [
     SupervisionOrderStatusComponent,
     WorkflowItemAdminWorkflowActionsComponent,
     WorkspaceItemAdminWorkflowActionsComponent,
-    ...ENTRY_COMPONENTS
+    ...ENTRY_COMPONENTS,
   ],
   exports: [
-    AdminWorkflowPageComponent
-  ]
+    AdminWorkflowPageComponent,
+  ],
 })
 export class AdminWorkflowModuleModule {
   /**
@@ -61,7 +61,7 @@ export class AdminWorkflowModuleModule {
   static withEntryComponents() {
     return {
       ngModule: SharedModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component})),
     };
   }
 }

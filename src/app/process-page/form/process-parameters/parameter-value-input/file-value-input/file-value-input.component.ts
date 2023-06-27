@@ -12,7 +12,7 @@ import { controlContainerFactory } from '../../../process-form.component';
   styleUrls: ['./file-value-input.component.scss'],
   viewProviders: [ { provide: ControlContainer,
     useFactory: controlContainerFactory,
-    deps: [[new Optional(), NgForm]] } ]
+    deps: [[new Optional(), NgForm]] } ],
 })
 export class FileValueInputComponent extends ValueInputComponent<File> {
   /**

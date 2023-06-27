@@ -212,7 +212,7 @@ export class ResourcePolicyDataService extends IdentifiableDataService<ResourceP
       Object.assign(request, {
         getResponseParser(): GenericConstructor<ResponseParsingService> {
           return StatusCodeOnlyResponseParsingService;
-        }
+        },
       });
       this.requestService.send(request);
     });

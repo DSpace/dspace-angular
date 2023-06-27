@@ -37,7 +37,7 @@ let store: Store<AppState>;
 let initialState: any;
 
 const authorizationService = jasmine.createSpyObj('authorizationService', {
-  isAuthorized: observableOf(true)
+  isAuthorized: observableOf(true),
 });
 
 const mockItem = Object.assign(new Item(), {
@@ -47,16 +47,16 @@ const mockItem = Object.assign(new Item(), {
   lastModified: '2018',
   _links: {
     self: {
-      href: 'https://localhost:8000/items/fake-id'
-    }
-  }
+      href: 'https://localhost:8000/items/fake-id',
+    },
+  },
 });
 
 const routeStub = {
   data: observableOf({
-    dso: createSuccessfulRemoteDataObject(mockItem)
+    dso: createSuccessfulRemoteDataObject(mockItem),
   }),
-  children: []
+  children: [],
 };
 
 
@@ -71,31 +71,31 @@ describe('NavbarComponent', () => {
         new FlatBrowseDefinition(), {
           id: 'title',
           dataType: BrowseByDataType.Title,
-        }
+        },
       ),
       Object.assign(
         new FlatBrowseDefinition(), {
           id: 'dateissued',
           dataType: BrowseByDataType.Date,
-          metadataKeys: ['dc.date.issued']
-        }
+          metadataKeys: ['dc.date.issued'],
+        },
       ),
       Object.assign(
         new ValueListBrowseDefinition(), {
           id: 'author',
           dataType: BrowseByDataType.Metadata,
-        }
+        },
       ),
       Object.assign(
         new ValueListBrowseDefinition(), {
           id: 'subject',
           dataType: BrowseByDataType.Metadata,
-        }
+        },
       ),
       Object.assign(
         new HierarchicalBrowseDefinition(), {
           id: 'srsc',
-        }
+        },
       ),
     ];
     initialState = {
@@ -107,9 +107,9 @@ describe('NavbarComponent', () => {
           loading: false,
           authToken: new AuthTokenInfo('test_token'),
           userId: EPersonMock.id,
-          authMethods: []
-        }
-      }
+          authMethods: [],
+        },
+      },
     };
 
     TestBed.configureTestingModule({
@@ -130,7 +130,7 @@ describe('NavbarComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         provideMockStore({ initialState }),
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();  // compile template and css
   }));

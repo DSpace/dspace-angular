@@ -30,7 +30,7 @@ export function itemLinksToFollow(showThumbnail: boolean):  FollowLinkConfig<Rel
   if (showThumbnail) {
     linksToFollow = [
       followLink('leftItem',{}, followLink('thumbnail')),
-      followLink('rightItem',{}, followLink('thumbnail'))
+      followLink('rightItem',{}, followLink('thumbnail')),
     ];
   } else {
     linksToFollow = [followLink('leftItem'), followLink('rightItem')];

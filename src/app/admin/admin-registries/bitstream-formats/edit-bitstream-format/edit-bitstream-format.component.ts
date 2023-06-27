@@ -36,7 +36,7 @@ export class EditBitstreamFormatComponent implements OnInit {
 
   ngOnInit(): void {
     this.bitstreamFormatRD$ = this.route.data.pipe(
-      map((data) => data.bitstreamFormat as RemoteData<BitstreamFormat>)
+      map((data) => data.bitstreamFormat as RemoteData<BitstreamFormat>),
     );
   }
 
@@ -57,7 +57,7 @@ export class EditBitstreamFormatComponent implements OnInit {
         this.notificationService.error('admin.registries.bitstream-formats.edit.failure.head',
           'admin.registries.bitstream-formats.create.edit.content');
       }
-    }
+    },
     );
   }
 }

@@ -33,11 +33,11 @@ describe('CurationFormComponent', () => {
   beforeEach(waitForAsync(() => {
 
     scriptDataService = jasmine.createSpyObj('scriptDataService', {
-      invoke: createSuccessfulRemoteDataObject$(process)
+      invoke: createSuccessfulRemoteDataObject$(process),
     });
 
     processDataService = jasmine.createSpyObj('processDataService', {
-      findByHref: createSuccessfulRemoteDataObject$(process)
+      findByHref: createSuccessfulRemoteDataObject$(process),
     });
 
     configurationDataService = jasmine.createSpyObj('configurationDataService', {
@@ -48,13 +48,13 @@ describe('CurationFormComponent', () => {
           '',
           'org.dspace.ctask.general.RequiredMetadata = requiredmetadata',
           'org.dspace.ctask.general.MetadataValueLinkChecker = checklinks',
-          'value-to-be-skipped'
-        ]
-      }))
+          'value-to-be-skipped',
+        ],
+      })),
     });
 
     handleService = {
-      normalizeHandle: (a) => a
+      normalizeHandle: (a) => a,
     } as any;
 
     notificationsService = new NotificationsServiceStub();
@@ -71,7 +71,7 @@ describe('CurationFormComponent', () => {
         { provide: Router, useValue: router},
         { provide: ConfigurationDataService, useValue: configurationDataService },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 

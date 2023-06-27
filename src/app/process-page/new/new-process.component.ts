@@ -40,7 +40,7 @@ export class NewProcessComponent implements OnInit {
       this.script$ = this.fromExisting$.pipe(
         map((process: Process) => this.linkService.resolveLink<Process>(process, followLink('script'))),
         switchMap((process: Process) => process.script),
-        getFirstSucceededRemoteDataPayload()
+        getFirstSucceededRemoteDataPayload(),
       );
     }
   }

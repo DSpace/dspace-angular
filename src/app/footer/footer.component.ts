@@ -9,7 +9,7 @@ import { FeatureID } from '../core/data/feature-authorization/feature-id';
 @Component({
   selector: 'ds-footer',
   styleUrls: ['footer.component.scss'],
-  templateUrl: 'footer.component.html'
+  templateUrl: 'footer.component.html',
 })
 export class FooterComponent {
   dateObj: number = Date.now();

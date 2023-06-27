@@ -33,7 +33,7 @@ describe('SubmissionFormFooterComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         SubmissionFormFooterComponent,
@@ -45,9 +45,9 @@ describe('SubmissionFormFooterComponent', () => {
         { provide: SubmissionRestService, useClass: SubmissionRestServiceStub },
         ChangeDetectorRef,
         NgbModal,
-        SubmissionFormFooterComponent
+        SubmissionFormFooterComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -98,17 +98,17 @@ describe('SubmissionFormFooterComponent', () => {
       beforeEach(() => {
         submissionServiceStub.getSubmissionStatus.and.returnValue(hot('-a-b', {
           a: false,
-          b: true
+          b: true,
         }));
 
         submissionServiceStub.getSubmissionSaveProcessingStatus.and.returnValue(hot('-a-b', {
           a: false,
-          b: true
+          b: true,
         }));
 
         submissionServiceStub.getSubmissionDepositProcessingStatus.and.returnValue(hot('-a-b', {
           a: false,
-          b: true
+          b: true,
         }));
       });
 
@@ -116,11 +116,11 @@ describe('SubmissionFormFooterComponent', () => {
 
         const expected = cold('-c-d', {
           c: true,
-          d: false
+          d: false,
         });
 
         comp.ngOnChanges({
-          submissionId: new SimpleChange(null, submissionId, true)
+          submissionId: new SimpleChange(null, submissionId, true),
         });
 
         fixture.detectChanges();
@@ -132,11 +132,11 @@ describe('SubmissionFormFooterComponent', () => {
 
         const expected = cold('-c-d', {
           c: false,
-          d: true
+          d: true,
         });
 
         comp.ngOnChanges({
-          submissionId: new SimpleChange(null, submissionId, true)
+          submissionId: new SimpleChange(null, submissionId, true),
         });
 
         fixture.detectChanges();
@@ -148,11 +148,11 @@ describe('SubmissionFormFooterComponent', () => {
 
         const expected = cold('-c-d', {
           c: false,
-          d: true
+          d: true,
         });
 
         comp.ngOnChanges({
-          submissionId: new SimpleChange(null, submissionId, true)
+          submissionId: new SimpleChange(null, submissionId, true),
         });
 
         fixture.detectChanges();
@@ -249,7 +249,7 @@ describe('SubmissionFormFooterComponent', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

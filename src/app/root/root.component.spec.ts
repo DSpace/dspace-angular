@@ -41,8 +41,8 @@ describe('RootComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [RootComponent], // declare the test component
@@ -59,9 +59,9 @@ describe('RootComponent', () => {
         { provide: LocaleService, useValue: {} },
         provideMockStore({ core: { auth: { loading: false } } } as any),
         RootComponent,
-        RouteService
+        RouteService,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   });
 

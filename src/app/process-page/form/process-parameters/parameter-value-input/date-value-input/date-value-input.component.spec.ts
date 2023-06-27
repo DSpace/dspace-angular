@@ -17,10 +17,10 @@ describe('DateValueInputComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         })],
-      declarations: [DateValueInputComponent]
+      declarations: [DateValueInputComponent],
     })
       .compileComponents();
   }));

@@ -13,8 +13,8 @@ import { ThemedLogoutPageComponent } from './themed-logout-page.component';
   ],
   declarations: [
     LogoutPageComponent,
-    ThemedLogoutPageComponent
-  ]
+    ThemedLogoutPageComponent,
+  ],
 })
 export class LogoutPageModule {
 

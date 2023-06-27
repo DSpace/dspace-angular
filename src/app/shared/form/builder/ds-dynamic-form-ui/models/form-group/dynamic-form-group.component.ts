@@ -10,13 +10,13 @@ import {
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
-  DynamicTemplateDirective
+  DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
 
 @Component({
   selector: 'ds-dynamic-form-group',
   templateUrl: './dynamic-form-group.component.html',
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class DsDynamicFormGroupComponent extends DynamicFormControlComponent {
 

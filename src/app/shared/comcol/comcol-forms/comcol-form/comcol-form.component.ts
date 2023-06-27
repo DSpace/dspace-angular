@@ -29,7 +29,7 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 @Component({
   selector: 'ds-comcol-form',
   styleUrls: ['./comcol-form.component.scss'],
-  templateUrl: './comcol-form.component.html'
+  templateUrl: './comcol-form.component.html',
 })
 export class ComColFormComponent<T extends Collection | Community> implements OnInit, OnDestroy {
 
@@ -73,7 +73,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    * @type {UploaderOptions}
    */
   uploadFilesOptions: UploaderOptions = Object.assign(new UploaderOptions(), {
-    autoUpload: false
+    autoUpload: false,
   });
 
   /**
@@ -131,7 +131,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
       this.formModel.forEach(
         (fieldModel: DynamicInputModel) => {
           fieldModel.value = this.dso.firstMetadataValue(fieldModel.name);
-        }
+        },
       );
       this.formGroup = this.formService.createFormGroup(this.formModel);
 
@@ -145,7 +145,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
         this.subs.push(
           observableCombineLatest([
             this.dsoService.getLogoEndpoint(this.dso.id),
-            this.dso.logo
+            this.dso.logo,
           ]).subscribe(([href, logoRD]: [string, RemoteData<Bitstream>]) => {
             this.uploadFilesOptions.url = href;
             this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
@@ -154,7 +154,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
               this.uploadFilesOptions.method = RestRequestMethod.PUT;
             }
             this.initializedUploaderOptions.next(true);
-          })
+          }),
         );
       } else {
         // Set a placeholder URL to not break the uploader component. This will be replaced once the object is created.
@@ -171,17 +171,17 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   onSubmit() {
     if (this.markLogoForDeletion && hasValue(this.dso.id) && hasValue(this.dso._links.logo)) {
       this.dsoService.deleteLogo(this.dso).pipe(
-        getFirstCompletedRemoteData()
+        getFirstCompletedRemoteData(),
       ).subscribe((response: RemoteData<NoContent>) => {
         if (response.hasSucceeded) {
           this.notificationsService.success(
             this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.title'),
-            this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.content')
+            this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.content'),
           );
         } else {
           this.notificationsService.error(
             this.translate.get(this.type.value + '.edit.logo.notifications.delete.error.title'),
-            response.errorMessage
+            response.errorMessage,
           );
         }
         this.dso.logo = undefined;
@@ -194,7 +194,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
     this.formModel.forEach((fieldModel: DynamicInputModel) => {
       const value: MetadataValue = {
         value: fieldModel.value as string,
-        language: null
+        language: null,
       } as any;
       if (formMetadata.hasOwnProperty(fieldModel.name)) {
         formMetadata[fieldModel.name].push(value);
@@ -206,9 +206,9 @@ export class ComColFormComponent<T extends Collection | Community> implements On
     const updatedDSO = Object.assign({}, this.dso, {
       metadata: {
         ...this.dso.metadata,
-        ...formMetadata
+        ...formMetadata,
       },
-      type: Community.type
+      type: Community.type,
     });
 
     const operations: Operation[] = [];
@@ -246,7 +246,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
             fieldModel.errorMessages[key] = this.translate.instant(this.type.value + this.ERROR_KEY_PREFIX + fieldModel.id + '.' + key);
           });
         }
-      }
+      },
     );
   }
 

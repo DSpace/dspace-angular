@@ -6,7 +6,7 @@ import {
   OnChanges,
   TemplateRef,
   ViewContainerRef,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
 import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
@@ -44,7 +44,7 @@ export class ContextHelpDirective implements OnChanges, OnDestroy {
     private templateRef: TemplateRef<any>,
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private contextHelpService: ContextHelpService
+    private contextHelpService: ContextHelpService,
   ) {}
 
   ngOnChanges() {

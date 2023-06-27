@@ -37,18 +37,18 @@ describe('EditRelationshipComponent', () => {
       id: '1',
       uuid: '1',
       leftwardType: 'isAuthorOfPublication',
-      rightwardType: 'isPublicationOfAuthor'
+      rightwardType: 'isPublicationOfAuthor',
     });
 
     item = Object.assign(new Item(), {
       _links: {
         self: {
-          href: 'fake-item-url/publication'
-        }
+          href: 'fake-item-url/publication',
+        },
       },
       id: 'publication',
       uuid: 'publication',
-      relationships: createSuccessfulRemoteDataObject$(createPaginatedList(relationships))
+      relationships: createSuccessfulRemoteDataObject$(createPaginatedList(relationships)),
     });
 
     relatedItem = Object.assign(new Item(), {
@@ -58,7 +58,7 @@ describe('EditRelationshipComponent', () => {
     relationships = [
       Object.assign(new Relationship(), {
         _links: {
-          self: { href: url + '/2' }
+          self: { href: url + '/2' },
         },
         id: '2',
         uuid: '2',
@@ -70,23 +70,23 @@ describe('EditRelationshipComponent', () => {
       }),
       Object.assign(new Relationship(), {
         _links: {
-          self: { href: url + '/3' }
+          self: { href: url + '/3' },
         },
         id: '3',
         uuid: '3',
         leftId: 'author2',
         rightId: 'publication',
-        relationshipType: createSuccessfulRemoteDataObject$(relationshipType)
-      })
+        relationshipType: createSuccessfulRemoteDataObject$(relationshipType),
+      }),
     ];
 
     author1 = Object.assign(new Item(), {
       id: 'author1',
-      uuid: 'author1'
+      uuid: 'author1',
     });
     author2 = Object.assign(new Item(), {
       id: 'author2',
-      uuid: 'author2'
+      uuid: 'author2',
     });
 
     fieldUpdate1 = {
@@ -94,14 +94,14 @@ describe('EditRelationshipComponent', () => {
         uuid: relationships[0].uuid,
         relationship: relationships[0],
       },
-      changeType: undefined
+      changeType: undefined,
     };
     fieldUpdate2 = {
       field: {
         uuid: relationships[1].uuid,
         relationship: relationships[1],
       },
-      changeType: FieldChangeType.REMOVE
+      changeType: FieldChangeType.REMOVE,
     };
 
     const itemSelection = {};
@@ -124,12 +124,12 @@ describe('EditRelationshipComponent', () => {
         {
           provide: NgbModal, useValue: {
             open: () => {/*comment*/
-            }
+            },
           },
         },
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 

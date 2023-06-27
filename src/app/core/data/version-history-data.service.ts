@@ -57,7 +57,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
    */
   getVersionsEndpoint(versionHistoryId: string): Observable<string> {
     return this.getBrowseEndpoint().pipe(
-      switchMap((href: string) => this.halService.getEndpoint(this.versionsEndpoint, `${href}/${versionHistoryId}`))
+      switchMap((href: string) => this.halService.getEndpoint(this.versionsEndpoint, `${href}/${versionHistoryId}`)),
     );
   }
 
@@ -74,7 +74,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
    */
   getVersions(versionHistoryId: string, searchOptions?: PaginatedSearchOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Version>[]): Observable<RemoteData<PaginatedList<Version>>> {
     const hrefObs = this.getVersionsEndpoint(versionHistoryId).pipe(
-      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
+      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href),
     );
 
     return this.versionDataService.findListByHref(hrefObs, undefined, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
@@ -97,7 +97,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
       map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL, itemHref, requestOptions)),
       sendRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.rdbService.buildFromRequestUUID(restRequest.uuid)),
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ) as Observable<RemoteData<Version>>;
   }
 
@@ -111,7 +111,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
     const latestVersionOptions = Object.assign(new PaginationComponentOptions(), {
       id: 'item-newest-version-options',
       currentPage: 1,
-      pageSize: 1
+      pageSize: 1,
     });
 
     const latestVersionSearch = new PaginatedSearchOptions({pagination: latestVersionOptions});
@@ -121,7 +121,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
       getRemoteDataPayload(),
       hasValueOperator(),
       filter((versions) => versions.page.length > 0),
-      map((versions) => versions.page[0])
+      map((versions) => versions.page[0]),
     );
 
   }
@@ -148,7 +148,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
   isLatest$(version: Version): Observable<boolean> {
     return version ? this.getLatestVersion$(version).pipe(
       take(1),
-      switchMap((latestVersion) => of(version.version === latestVersion.version))
+      switchMap((latestVersion) => of(version.version === latestVersion.version)),
     ) : of(null);
   }
 

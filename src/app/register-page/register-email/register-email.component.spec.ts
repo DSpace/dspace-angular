@@ -14,7 +14,7 @@ describe('RegisterEmailComponent', () => {
     TestBed.configureTestingModule({
       imports: [CommonModule, TranslateModule.forRoot(), ReactiveFormsModule],
       declarations: [RegisterEmailComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
   beforeEach(() => {

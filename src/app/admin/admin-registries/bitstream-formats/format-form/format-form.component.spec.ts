@@ -45,7 +45,7 @@ describe('FormatFormComponent', () => {
       providers: [
         { provide: Router, useValue: router },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   };
 

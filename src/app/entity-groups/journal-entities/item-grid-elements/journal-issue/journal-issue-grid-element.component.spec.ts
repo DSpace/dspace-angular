@@ -19,22 +19,22 @@ const mockItem = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'creativework.datePublished': [
       {
         language: null,
-        value: '2015-06-26'
-      }
+        value: '2015-06-26',
+      },
     ],
     'journal.title': [
       {
         language: 'en_US',
-        value: 'The journal title'
-      }
-    ]
-  }
+        value: 'The journal title',
+      },
+    ],
+  },
 });
 
 describe('JournalIssueGridElementComponent', () => {
@@ -53,9 +53,9 @@ describe('JournalIssueGridElementComponent', () => {
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalIssueGridElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

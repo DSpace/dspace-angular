@@ -32,7 +32,7 @@ describe('WorkflowItemActionPageComponent', () => {
 
   function init() {
     wfiService = jasmine.createSpyObj('workflowItemService', {
-      sendBack: observableOf(true)
+      sendBack: observableOf(true),
     });
     itemRD$ = createSuccessfulRemoteDataObject$(itemRD$);
     wfi = new WorkflowItem();
@@ -46,8 +46,8 @@ describe('WorkflowItemActionPageComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       })],
       declarations: [TestComponent, VarDirective],
       providers: [
@@ -59,7 +59,7 @@ describe('WorkflowItemActionPageComponent', () => {
         { provide: WorkflowItemDataService, useValue: wfiService },
         { provide: RequestService, useClass: RequestServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));
@@ -107,8 +107,8 @@ describe('WorkflowItemActionPageComponent', () => {
 
 @Component({
   selector: 'ds-workflow-item-test-action-page',
-  templateUrl: 'workflow-item-action-page.component.html'
-}
+  templateUrl: 'workflow-item-action-page.component.html',
+},
 )
 class TestComponent extends WorkflowItemActionPageComponent {
   constructor(protected route: ActivatedRoute,

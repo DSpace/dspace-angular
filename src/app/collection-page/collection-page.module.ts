@@ -38,7 +38,7 @@ import { DsoPageModule } from '../shared/dso-page/dso-page.module';
     DeleteCollectionPageComponent,
     EditItemTemplatePageComponent,
     ThemedEditItemTemplatePageComponent,
-    CollectionItemMapperComponent
+    CollectionItemMapperComponent,
   ],
   providers: [
     SearchService,

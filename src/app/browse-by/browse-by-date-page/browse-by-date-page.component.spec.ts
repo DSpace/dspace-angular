@@ -35,9 +35,9 @@ describe('BrowseByDatePageComponent', () => {
     metadata: [
       {
         key: 'dc.title',
-        value: 'test community'
-      }
-    ]
+        value: 'test community',
+      },
+    ],
   });
 
   const firstItem = Object.assign(new Item(), {
@@ -45,40 +45,40 @@ describe('BrowseByDatePageComponent', () => {
     metadata: {
       'dc.date.issued': [
         {
-          value: '1950-01-01'
-        }
-      ]
-    }
+          value: '1950-01-01',
+        },
+      ],
+    },
   });
   const lastItem = Object.assign(new Item(), {
     id: 'last-item-id',
     metadata: {
       'dc.date.issued': [
         {
-          value: '1960-01-01'
-        }
-      ]
-    }
+          value: '1960-01-01',
+        },
+      ],
+    },
   });
 
   const mockBrowseService = {
     getBrowseEntriesFor: (options: BrowseEntrySearchOptions) => toRemoteData([]),
     getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData([firstItem]),
-    getFirstItemFor: (definition: string, scope?: string, sortDirection?: SortDirection) => null
+    getFirstItemFor: (definition: string, scope?: string, sortDirection?: SortDirection) => null,
   };
 
   const mockDsoService = {
-    findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
+    findById: () => createSuccessfulRemoteDataObject$(mockCommunity),
   };
 
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
     params: observableOf({}),
     queryParams: observableOf({}),
-    data: observableOf({ metadata: 'dateissued', metadataField: 'dc.date.issued' })
+    data: observableOf({ metadata: 'dateissued', metadataField: 'dc.date.issued' }),
   });
 
   const mockCdRef = Object.assign({
-    detectChanges: () => fixture.detectChanges()
+    detectChanges: () => fixture.detectChanges(),
   });
 
   paginationService = new PaginationServiceStub();
@@ -94,9 +94,9 @@ describe('BrowseByDatePageComponent', () => {
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
         { provide: ChangeDetectorRef, useValue: mockCdRef },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environment },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

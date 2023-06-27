@@ -31,19 +31,19 @@ describe('BitstreamFormatDataService', () => {
   const store = {
     dispatch(action: Action) {
       // Do Nothing
-    }
+    },
   } as Store<CoreState>;
 
   const requestUUIDs = ['some', 'uuid'];
 
   const objectCache = jasmine.createSpyObj('objectCache', {
-    getByHref: observableOf({ requestUUIDs })
+    getByHref: observableOf({ requestUUIDs }),
   }) as ObjectCacheService;
 
   const halEndpointService = {
     getEndpoint(linkPath: string): Observable<string> {
       return cold('a', { a: bitstreamFormatsEndpoint });
-    }
+    },
   } as HALEndpointService;
 
   const notificationsService = {} as NotificationsService;
@@ -83,7 +83,7 @@ describe('BitstreamFormatDataService', () => {
         getByUUID: cold('a', { a: responseCacheEntry }),
         setStaleByUUID: observableOf(true),
         generateRequestId: 'request-id',
-        removeByHrefSubstring: {}
+        removeByHrefSubstring: {},
       });
       service = initTestService(halEndpointService);
     }));
@@ -104,7 +104,7 @@ describe('BitstreamFormatDataService', () => {
         getByUUID: cold('a', { a: responseCacheEntry }),
         setStaleByUUID: observableOf(true),
         generateRequestId: 'request-id',
-        removeByHrefSubstring: {}
+        removeByHrefSubstring: {},
       });
       service = initTestService(halEndpointService);
     }));
@@ -127,7 +127,7 @@ describe('BitstreamFormatDataService', () => {
         getByUUID: cold('a', { a: responseCacheEntry }),
         setStaleByUUID: observableOf(true),
         generateRequestId: 'request-id',
-        removeByHrefSubstring: {}
+        removeByHrefSubstring: {},
       });
       service = initTestService(halEndpointService);
     }));
@@ -149,7 +149,7 @@ describe('BitstreamFormatDataService', () => {
         getByUUID: cold('a', { a: responseCacheEntry }),
         setStaleByUUID: observableOf(true),
         generateRequestId: 'request-id',
-        removeByHrefSubstring: {}
+        removeByHrefSubstring: {},
       });
       service = initTestService(halEndpointService);
     }));
@@ -174,7 +174,7 @@ describe('BitstreamFormatDataService', () => {
         getByUUID: cold('a', { a: responseCacheEntry }),
         setStaleByUUID: observableOf(true),
         generateRequestId: 'request-id',
-        removeByHrefSubstring: {}
+        removeByHrefSubstring: {},
       });
       service = initTestService(halEndpointService);
     }));
@@ -198,12 +198,12 @@ describe('BitstreamFormatDataService', () => {
         getByUUID: cold('a', { a: responseCacheEntry }),
         setStaleByUUID: observableOf(true),
         generateRequestId: 'request-id',
-        removeByHrefSubstring: {}
+        removeByHrefSubstring: {},
       });
       const halService = {
         getEndpoint(linkPath: string): Observable<string> {
           return observableOf(bitstreamFormatsEndpoint);
-        }
+        },
       } as HALEndpointService;
       service = initTestService(halService);
       service.clearBitStreamFormatRequests().subscribe();
@@ -222,7 +222,7 @@ describe('BitstreamFormatDataService', () => {
         getByUUID: cold('a', { a: responseCacheEntry }),
         setStaleByUUID: observableOf(true),
         generateRequestId: 'request-id',
-        removeByHrefSubstring: {}
+        removeByHrefSubstring: {},
       });
       service = initTestService(halEndpointService);
       spyOn(store, 'dispatch');
@@ -245,7 +245,7 @@ describe('BitstreamFormatDataService', () => {
         getByUUID: cold('a', { a: responseCacheEntry }),
         setStaleByUUID: observableOf(true),
         generateRequestId: 'request-id',
-        removeByHrefSubstring: {}
+        removeByHrefSubstring: {},
       });
       service = initTestService(halEndpointService);
       spyOn(store, 'dispatch');
@@ -268,7 +268,7 @@ describe('BitstreamFormatDataService', () => {
         getByUUID: cold('a', { a: responseCacheEntry }),
         setStaleByUUID: observableOf(true),
         generateRequestId: 'request-id',
-        removeByHrefSubstring: {}
+        removeByHrefSubstring: {},
       });
       service = initTestService(halEndpointService);
       spyOn(store, 'dispatch');
@@ -289,12 +289,12 @@ describe('BitstreamFormatDataService', () => {
         getByUUID: hot('a', { a: responseCacheEntry }),
         setStaleByUUID: observableOf(true),
         generateRequestId: 'request-id',
-        removeByHrefSubstring: {}
+        removeByHrefSubstring: {},
       });
       const halService = {
         getEndpoint(linkPath: string): Observable<string> {
           return observableOf(bitstreamFormatsEndpoint);
-        }
+        },
       } as HALEndpointService;
       service = initTestService(halService);
     }));

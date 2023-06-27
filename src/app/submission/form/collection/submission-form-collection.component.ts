@@ -7,13 +7,13 @@ import {
   OnInit,
   Output,
   SimpleChanges,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 
 import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
 import {
   find,
-  map, mergeMap
+  map, mergeMap,
 } from 'rxjs/operators';
 
 import { Collection } from '../../../core/shared/collection.model';
@@ -37,7 +37,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-submission-form-collection',
   styleUrls: ['./submission-form-collection.component.scss'],
-  templateUrl: './submission-form-collection.component.html'
+  templateUrl: './submission-form-collection.component.html',
 })
 export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
 
@@ -137,7 +137,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
 
       this.selectedCollectionName$ = this.collectionDataService.findById(this.currentCollectionId).pipe(
         find((collectionRD: RemoteData<Collection>) => isNotEmpty(collectionRD.payload)),
-        map((collectionRD: RemoteData<Collection>) => this.dsoNameService.getName(collectionRD.payload))
+        map((collectionRD: RemoteData<Collection>) => this.dsoNameService.getName(collectionRD.payload)),
       );
     }
   }
@@ -174,9 +174,9 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
       mergeMap((submissionObject: SubmissionObject[]) => {
         // retrieve the full submission object with embeds
         return this.submissionService.retrieveSubmission(submissionObject[0].id).pipe(
-          getFirstSucceededRemoteDataPayload()
+          getFirstSucceededRemoteDataPayload(),
         );
-      })
+      }),
     ).subscribe((submissionObject: SubmissionObject) => {
       this.selectedCollectionId = event.collection.id;
       this.selectedCollectionName$ = observableOf(event.collection.name);
@@ -184,7 +184,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
       this.submissionService.changeSubmissionCollection(this.submissionId, event.collection.id);
       this.processingChange$.next(false);
       this.cdr.detectChanges();
-    })
+    }),
     );
   }
 

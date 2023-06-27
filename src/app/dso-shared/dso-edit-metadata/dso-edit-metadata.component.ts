@@ -118,7 +118,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
     if (hasNoValue(this.dso)) {
       this.dsoUpdateSubscription = observableCombineLatest([this.route.data, this.route.parent.data]).pipe(
         map(([data, parentData]: [Data, Data]) => Object.assign({}, data, parentData)),
-        map((data: any) => data.dso)
+        map((data: any) => data.dso),
       ).subscribe((rd: RemoteData<DSpaceObject>) => {
         this.dso = rd.payload;
         this.initDataService();
@@ -147,7 +147,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
       const provider = this.getDataServiceFor(type);
       this.updateDataService = Injector.create({
         providers: [],
-        parent: this.parentInjector
+        parent: this.parentInjector,
       }).get(provider);
     }
     this.dsoType = type.value;
@@ -179,7 +179,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
   submit(): void {
     this.saving$.next(true);
     this.updateDataService.patch(this.dso, this.form.getOperations(this.arrayMoveChangeAnalyser)).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<DSpaceObject>) => {
       this.saving$.next(false);
       if (rd.hasFailed) {
@@ -187,7 +187,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
       } else {
         this.notificationsService.success(
           this.translateService.instant(`${this.dsoType}.edit.metadata.notifications.saved.title`),
-          this.translateService.instant(`${this.dsoType}.edit.metadata.notifications.saved.content`)
+          this.translateService.instant(`${this.dsoType}.edit.metadata.notifications.saved.content`),
         );
         this.dso = rd.payload;
         this.initForm();

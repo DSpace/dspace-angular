@@ -4,7 +4,7 @@ import { TYPE_REQUEST_REGISTER } from '../../register-email-form/register-email-
 @Component({
   selector: 'ds-register-email',
   styleUrls: ['./register-email.component.scss'],
-  templateUrl: './register-email.component.html'
+  templateUrl: './register-email.component.html',
 })
 /**
  * Component responsible the email registration step when registering as a new user

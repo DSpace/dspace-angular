@@ -16,7 +16,7 @@ import { Item } from '../core/shared/item.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteData,
-  toDSpaceObjectListRD
+  toDSpaceObjectListRD,
 } from '../core/shared/operators';
 
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
@@ -39,8 +39,8 @@ import { APP_CONFIG, AppConfig } from '../../../src/config/app-config.interface'
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
 })
 export class CollectionPageComponent implements OnInit {
   collectionRD$: Observable<RemoteData<Collection>>;
@@ -87,18 +87,18 @@ export class CollectionPageComponent implements OnInit {
     this.collectionRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Collection>),
       redirectOn4xx(this.router, this.authService),
-      take(1)
+      take(1),
     );
     this.logoRD$ = this.collectionRD$.pipe(
       map((rd: RemoteData<Collection>) => rd.payload),
       filter((collection: Collection) => hasValue(collection)),
-      mergeMap((collection: Collection) => collection.logo)
+      mergeMap((collection: Collection) => collection.logo),
     );
     this.isCollectionAdmin$ = this.authorizationDataService.isAuthorized(FeatureID.IsCollectionAdmin);
 
     this.paginationChanges$ = new BehaviorSubject({
       paginationConfig: this.paginationConfig,
-      sortConfig: this.sortConfig
+      sortConfig: this.sortConfig,
     });
 
     const currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
@@ -114,18 +114,18 @@ export class CollectionPageComponent implements OnInit {
               scope: id,
               pagination: currentPagination,
               sort: currentSort,
-              dsoTypes: [DSpaceObjectType.ITEM]
+              dsoTypes: [DSpaceObjectType.ITEM],
             }), null, true, true, ...BROWSE_LINKS_TO_FOLLOW)
             .pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>;
         }),
-        startWith(undefined) // Make sure switching pages shows loading component
-      )
-      )
+        startWith(undefined), // Make sure switching pages shows loading component
+      ),
+      ),
     );
 
     this.collectionPageRoute$ = this.collectionRD$.pipe(
       getAllSucceededRemoteDataPayload(),
-      map((collection) => getCollectionPageRoute(collection.id))
+      map((collection) => getCollectionPageRoute(collection.id)),
     );
   }
 

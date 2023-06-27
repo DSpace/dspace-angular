@@ -18,17 +18,17 @@ describe('DsoInputSuggestionsComponent', () => {
 
   const dso1 = {
     uuid: 'test-uuid-1',
-    name: 'test-name-1'
+    name: 'test-name-1',
   } as DSpaceObject;
 
   const dso2 = {
     uuid: 'test-uuid-2',
-    name: 'test-name-2'
+    name: 'test-name-2',
   } as DSpaceObject;
 
   const dso3 = {
     uuid: 'test-uuid-3',
-    name: 'test-name-3'
+    name: 'test-name-3',
   } as DSpaceObject;
 
   const suggestions = [dso1, dso2, dso3];
@@ -38,9 +38,9 @@ describe('DsoInputSuggestionsComponent', () => {
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule],
       declarations: [DsoInputSuggestionsComponent],
       providers: [],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(DsoInputSuggestionsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

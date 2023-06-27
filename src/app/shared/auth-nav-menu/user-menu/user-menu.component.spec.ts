@@ -26,7 +26,7 @@ describe('UserMenuComponent', () => {
 
   function serviceInit() {
     authService = jasmine.createSpyObj('authService', {
-      getAuthenticatedUserFromStore: of(EPersonMock)
+      getAuthenticatedUserFromStore: of(EPersonMock),
     });
   }
 
@@ -38,7 +38,7 @@ describe('UserMenuComponent', () => {
       loading: false,
       authToken: new AuthTokenInfo('test_token'),
       userId: EPersonMock.id,
-      idle: false
+      idle: false,
     };
     authStateLoading = {
       authenticated: true,
@@ -47,7 +47,7 @@ describe('UserMenuComponent', () => {
       loading: true,
       authToken: null,
       userId: EPersonMock.id,
-      idle: false
+      idle: false,
     };
   }
 
@@ -58,25 +58,25 @@ describe('UserMenuComponent', () => {
         StoreModule.forRoot(authReducer, {
           runtimeChecks: {
             strictStateImmutability: false,
-            strictActionImmutability: false
-          }
+            strictActionImmutability: false,
+          },
         }),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       providers: [
-        { provide: AuthService, useValue: authService }
+        { provide: AuthService, useValue: authService },
       ],
       declarations: [
-        UserMenuComponent
+        UserMenuComponent,
       ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
 
   }));
@@ -112,11 +112,11 @@ describe('UserMenuComponent', () => {
       expect(component).toBeDefined();
 
       expect(component.loading$).toBeObservable(cold('b', {
-        b: true
+        b: true,
       }));
 
       expect(component.user$).toBeObservable(cold('(c|)', {
-        c: EPersonMock
+        c: EPersonMock,
       }));
 
       expect(deUserMenu).toBeNull();
@@ -151,11 +151,11 @@ describe('UserMenuComponent', () => {
       expect(component).toBeDefined();
 
       expect(component.loading$).toBeObservable(cold('b', {
-        b: false
+        b: false,
       }));
 
       expect(component.user$).toBeObservable(cold('(c|)', {
-        c: EPersonMock
+        c: EPersonMock,
       }));
 
       expect(deUserMenu).toBeDefined();

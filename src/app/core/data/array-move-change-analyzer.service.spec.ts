@@ -28,7 +28,7 @@ describe('ArrayMoveChangeAnalyzer', () => {
         '4d7d0798-a8fa-45b8-b4fc-deb2819606c8',
         'e56eb99e-2f7c-4bee-9b3f-d3dcc83386b1',
         '0f608168-cdfc-46b0-92ce-889f7d3ac684',
-        '546f9f5c-15dc-4eec-86fe-648007ac9e1c'
+        '546f9f5c-15dc-4eec-86fe-648007ac9e1c',
       ];
     });
 
@@ -72,7 +72,7 @@ describe('ArrayMoveChangeAnalyzer', () => {
         '4d7d0798-a8fa-45b8-b4fc-deb2819606c8',
         undefined,
         undefined,
-        '546f9f5c-15dc-4eec-86fe-648007ac9e1c'
+        '546f9f5c-15dc-4eec-86fe-648007ac9e1c',
       ];
     });
 

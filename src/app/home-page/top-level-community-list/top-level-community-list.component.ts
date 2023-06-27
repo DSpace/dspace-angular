@@ -22,7 +22,7 @@ import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
   styleUrls: ['./top-level-community-list.component.scss'],
   templateUrl: './top-level-community-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeInOut]
+  animations: [fadeInOut],
 })
 
 export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
@@ -54,7 +54,7 @@ export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     private cds: CommunityDataService,
-    private paginationService: PaginationService
+    private paginationService: PaginationService,
   ) {
     this.config = new PaginationComponentOptions();
     this.config.id = this.pageId;
@@ -80,9 +80,9 @@ export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
         return this.cds.findTop({
           currentPage: currentPagination.currentPage,
           elementsPerPage: currentPagination.pageSize,
-          sort: {field: currentSort.field, direction: currentSort.direction}
+          sort: {field: currentSort.field, direction: currentSort.direction},
         });
-      })
+      }),
     ).subscribe((results) => {
       this.communitiesRD$.next(results);
     });

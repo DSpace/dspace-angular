@@ -43,7 +43,7 @@ export abstract class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceO
         } else {
           return undefined;
         }
-      })
+      }),
     );
   }
 

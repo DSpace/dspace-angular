@@ -65,7 +65,7 @@ export class WorkflowItemDataService extends IdentifiableDataService<WorkflowIte
   sendBack(id: string): Observable<boolean> {
     return this.deleteWFI(id, false).pipe(
       getFirstCompletedRemoteData(),
-      map((response: RemoteData<NoContent>) => response.hasSucceeded)
+      map((response: RemoteData<NoContent>) => response.hasSucceeded),
     );
   }
 

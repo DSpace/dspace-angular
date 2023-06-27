@@ -17,11 +17,11 @@ import { ResearchEntitiesModule } from '../entity-groups/research-entities/resea
     ImportExternalRoutingModule,
     SubmissionModule,
     JournalEntitiesModule.withEntryComponents(),
-    ResearchEntitiesModule.withEntryComponents()
+    ResearchEntitiesModule.withEntryComponents(),
   ],
   declarations: [
-    ImportExternalPageComponent
-  ]
+    ImportExternalPageComponent,
+  ],
 })
 
 /**

@@ -50,7 +50,7 @@ export class ExternalSourceDataService extends IdentifiableDataService<ExternalS
   getEntriesEndpoint(externalSourceId: string): Observable<string> {
     return this.getBrowseEndpoint().pipe(
       map((href) => this.getIDHref(href, externalSourceId)),
-      switchMap((href) => this.halService.getEndpoint('entries', href))
+      switchMap((href) => this.halService.getEndpoint('entries', href)),
     );
   }
 
@@ -78,7 +78,7 @@ export class ExternalSourceDataService extends IdentifiableDataService<ExternalS
     return this.hasCachedErrorResponse(href$).pipe(
       switchMap((hasCachedErrorResponse) => {
         return this.findListByHref(href$, undefined, !hasCachedErrorResponse, reRequestOnStale, ...linksToFollow as any);
-      })
+      }),
     ) as any;
   }
 

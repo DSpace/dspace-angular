@@ -15,7 +15,7 @@ import { NotificationsServiceStub } from '../shared/testing/notifications-servic
 import {
   RegisterEmailFormComponent,
   TYPE_REQUEST_REGISTER,
-  TYPE_REQUEST_FORGOT
+  TYPE_REQUEST_FORGOT,
 } from './register-email-form.component';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
@@ -34,7 +34,7 @@ describe('RegisterEmailFormComponent', () => {
   let notificationsService;
 
   const configurationDataService = jasmine.createSpyObj('configurationDataService', {
-    findByPropertyName: jasmine.createSpy('findByPropertyName')
+    findByPropertyName: jasmine.createSpy('findByPropertyName'),
   });
 
   const captchaVersion$ = of('v3');
@@ -55,7 +55,7 @@ describe('RegisterEmailFormComponent', () => {
     notificationsService = new NotificationsServiceStub();
 
     epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
-      registerEmail: createSuccessfulRemoteDataObject$({})
+      registerEmail: createSuccessfulRemoteDataObject$({}),
     });
 
     jasmine.getEnv().allowRespy(true);
@@ -72,7 +72,7 @@ describe('RegisterEmailFormComponent', () => {
         {provide: CookieService, useValue: new CookieServiceMock()},
         {provide: GoogleRecaptchaService, useValue: googleRecaptchaService},
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
   beforeEach(() => {

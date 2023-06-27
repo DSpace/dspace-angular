@@ -21,7 +21,7 @@ import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-ac
 
 @Component({
   selector: 'ds-claimed-task-actions-loader',
-  templateUrl: './claimed-task-actions-loader.component.html'
+  templateUrl: './claimed-task-actions-loader.component.html',
 })
 /**
  * Component for loading a ClaimedTaskAction component depending on the "option" input

@@ -11,7 +11,7 @@ import {
   flush,
   flushMicrotasks,
   TestBed,
-  tick
+  tick,
 } from '@angular/core/testing';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
@@ -28,7 +28,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
@@ -67,21 +67,21 @@ describe('ProcessDetailComponent', () => {
       parameters: [
         {
           name: '-f',
-          value: 'file.xml'
+          value: 'file.xml',
         },
         {
           name: '-i',
-          value: 'identifier'
-        }
+          value: 'identifier',
+        },
       ],
       _links: {
         self: {
-          href: 'https://rest.api/processes/1'
+          href: 'https://rest.api/processes/1',
         },
         output: {
-          href: 'https://rest.api/processes/1/output'
-        }
-      }
+          href: 'https://rest.api/processes/1/output',
+        },
+      },
     });
     fileName = 'fake-file-name';
     files = [
@@ -91,20 +91,20 @@ describe('ProcessDetailComponent', () => {
           'dc.title': [
             {
               value: fileName,
-              language: null
-            }
-          ]
+              language: null,
+            },
+          ],
         },
         _links: {
-          content: { href: 'file-selflink' }
-        }
-      })
+          content: { href: 'file-selflink' },
+        },
+      }),
     ];
     const logBitstream = Object.assign(new Bitstream(), {
       id: 'output.log',
       _links: {
-        content: { href: 'log-selflink' }
-      }
+        content: { href: 'log-selflink' },
+      },
     });
     processService = jasmine.createSpyObj('processService', {
       getFiles: createSuccessfulRemoteDataObject$(createPaginatedList(files)),
@@ -112,30 +112,30 @@ describe('ProcessDetailComponent', () => {
       findById: createSuccessfulRemoteDataObject$(process),
     });
     bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
-      findByHref: createSuccessfulRemoteDataObject$(logBitstream)
+      findByHref: createSuccessfulRemoteDataObject$(logBitstream),
     });
     nameService = jasmine.createSpyObj('nameService', {
-      getName: fileName
+      getName: fileName,
     });
     httpClient = jasmine.createSpyObj('httpClient', {
-      get: observableOf(processOutput)
+      get: observableOf(processOutput),
     });
 
     modalService = jasmine.createSpyObj('modalService', {
-      open: {}
+      open: {},
     });
 
     notificationsService = new NotificationsServiceStub();
 
     router = jasmine.createSpyObj('router', {
-      navigateByUrl:{}
+      navigateByUrl:{},
     });
 
     route = jasmine.createSpyObj('route', {
       data: observableOf({ process: createSuccessfulRemoteDataObject(process) }),
       snapshot: {
-        params: { id: process.processId }
-      }
+        params: { id: process.processId },
+      },
     });
   }
 
@@ -147,7 +147,7 @@ describe('ProcessDetailComponent', () => {
       providers: [
         {
           provide: ActivatedRoute,
-          useValue: { data: observableOf({ process: createSuccessfulRemoteDataObject(process) }) }
+          useValue: { data: observableOf({ process: createSuccessfulRemoteDataObject(process) }) },
         },
         { provide: ProcessDataService, useValue: processService },
         { provide: BitstreamDataService, useValue: bitstreamDataService },
@@ -158,7 +158,7 @@ describe('ProcessDetailComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: Router, useValue: router },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -203,7 +203,7 @@ describe('ProcessDetailComponent', () => {
       const showOutputButton = fixture.debugElement.query(By.css('#showOutputButton'));
       showOutputButton.triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
     }));
@@ -228,7 +228,7 @@ describe('ProcessDetailComponent', () => {
       const showOutputButton = fixture.debugElement.query(By.css('#showOutputButton'));
       showOutputButton.triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();

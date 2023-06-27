@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import {
   BrowseByMetadataPageComponent,
   browseParamsToOptions,
-  getBrowseSearchOptions
+  getBrowseSearchOptions,
 } from '../browse-by-metadata-page/browse-by-metadata-page.component';
 import { combineLatest as observableCombineLatest } from 'rxjs';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
@@ -23,7 +23,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-browse-by-date-page',
   styleUrls: ['../browse-by-metadata-page/browse-by-metadata-page.component.scss'],
-  templateUrl: '../browse-by-metadata-page/browse-by-metadata-page.component.html'
+  templateUrl: '../browse-by-metadata-page/browse-by-metadata-page.component.html',
 })
 /**
  * Component for browsing items by metadata definition of type 'date'
@@ -61,7 +61,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
         this.currentPagination$, this.currentSort$]).pipe(
         map(([routeParams, queryParams, data, currentPage, currentSort]) => {
           return [Object.assign({}, routeParams, queryParams, data), currentPage, currentSort];
-        })
+        }),
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
         const metadataKeys = params.browseDefinition ? params.browseDefinition.metadataKeys : this.defaultMetadataKeys;
         this.browseId = params.id || this.defaultBrowseId;
@@ -116,7 +116,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
           this.startsWithOptions = options;
           this.cdRef.detectChanges();
         }
-      })
+      }),
     );
   }
 

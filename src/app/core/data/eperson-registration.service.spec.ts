@@ -44,7 +44,7 @@ describe('EpersonRegistrationService', () => {
       generateRequestId: 'request-id',
       send: {},
       getByUUID: cold('a',
-        { a: Object.assign(new RequestEntry(), { response: new RestResponse(true, 200, 'Success') }) })
+        { a: Object.assign(new RequestEntry(), { response: new RestResponse(true, 200, 'Success') }) }),
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: observableOf(rd),
@@ -53,7 +53,7 @@ describe('EpersonRegistrationService', () => {
     service = new EpersonRegistrationService(
       requestService,
       rdbService,
-      halService
+      halService,
     );
   });
 
@@ -111,9 +111,9 @@ describe('EpersonRegistrationService', () => {
           payload: Object.assign(new Registration(), {
             email: registrationWithUser.email,
             token: 'test-token',
-            user: registrationWithUser.user
-          })
-        })
+            user: registrationWithUser.user,
+          }),
+        }),
       }));
     });
 
@@ -128,10 +128,10 @@ describe('EpersonRegistrationService', () => {
           jasmine.objectContaining({
             uuid: 'request-id', method: 'GET',
             href: 'rest-url/registrations/search/findByToken?token=test-token',
-          }), true
+          }), true,
         );
         expectObservable(rdbService.buildSingle.calls.argsFor(0)[0]).toBe('(a|)', {
-          a: 'rest-url/registrations/search/findByToken?token=test-token'
+          a: 'rest-url/registrations/search/findByToken?token=test-token',
         });
       });
     });

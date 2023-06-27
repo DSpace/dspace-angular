@@ -12,7 +12,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-item-select',
-  templateUrl: './item-select.component.html'
+  templateUrl: './item-select.component.html',
 })
 
 /**
@@ -55,7 +55,7 @@ export class ItemSelectComponent extends ObjectSelectComponent<Item> {
         const itemPageRoutes = {};
         items.page.forEach((item) => itemPageRoutes[item.uuid] = getItemPageRoute(item));
         return itemPageRoutes;
-      })
+      }),
     );
   }
 

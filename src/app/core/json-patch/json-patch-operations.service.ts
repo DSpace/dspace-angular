@@ -11,7 +11,7 @@ import { JsonPatchOperationsResourceEntry } from './json-patch-operations.reduce
 import {
   CommitPatchOperationsAction, DeletePendingJsonPatchOperationsAction,
   RollbacktPatchOperationsAction,
-  StartTransactionPatchOperationsAction
+  StartTransactionPatchOperationsAction,
 } from './json-patch-operations.actions';
 import { JsonPatchOperationModel } from './json-patch.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
@@ -99,9 +99,9 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
                 return rd.payload.dataDefinition;
               }
             }),
-            distinctUntilChanged()
+            distinctUntilChanged(),
           );
-        }))
+        })),
     );
   }
 

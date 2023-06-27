@@ -12,7 +12,7 @@ import { MetadataValue } from '../../../../../core/shared/metadata.models';
 @Component({
   selector: 'ds-external-source-entry-list-submission-element',
   styleUrls: ['./external-source-entry-list-submission-element.component.scss'],
-  templateUrl: './external-source-entry-list-submission-element.component.html'
+  templateUrl: './external-source-entry-list-submission-element.component.html',
 })
 /**
  * The component for displaying a list element of an external source entry

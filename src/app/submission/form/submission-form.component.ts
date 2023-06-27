@@ -184,7 +184,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
               this.item,
               this.submissionErrors);
             this.changeDetectorRef.detectChanges();
-          })
+          }),
       );
 
       // start auto save
@@ -198,7 +198,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   private getCollectionVisibility(): SubmissionSectionVisibility {
     const submissionSectionModel: SubmissionSectionModel =
       this.submissionDefinition.sections.page.find(
-        (section) => isEqual(section.sectionType, SectionsType.Collection)
+        (section) => isEqual(section.sectionType, SectionsType.Collection),
       );
 
     return isNotUndefined(submissionSectionModel.visibility) ? submissionSectionModel.visibility : null;

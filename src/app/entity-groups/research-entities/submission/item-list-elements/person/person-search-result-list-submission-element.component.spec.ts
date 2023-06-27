@@ -40,14 +40,14 @@ let mockRelationshipService;
 
 const environmentUseThumbs = {
   browseBy: {
-    showThumbnails: true
-  }
+    showThumbnails: true,
+  },
 };
 
 const enviromentNoThumbs = {
   browseBy: {
-    showThumbnails: false
-  }
+    showThumbnails: false,
+  },
 };
 
 function init() {
@@ -60,17 +60,17 @@ function init() {
           'dc.title': [
             {
               language: 'en_US',
-              value: 'This is just another title'
-            }
+              value: 'This is just another title',
+            },
           ],
           'person.jobTitle': [
             {
               language: 'en_US',
-              value: 'Developer'
-            }
-          ]
-        }
-      })
+              value: 'Developer',
+            },
+          ],
+        },
+      }),
     });
   mockItemWithoutMetadata = Object.assign(
     new ItemSearchResult(),
@@ -81,16 +81,16 @@ function init() {
           'dc.title': [
             {
               language: 'en_US',
-              value: 'This is just another title'
-            }
-          ]
-        }
-      })
+              value: 'This is just another title',
+            },
+          ],
+        },
+      }),
     });
 
   nameVariant = 'Doe J.';
   mockRelationshipService = {
-    getNameVariant: () => observableOf(nameVariant)
+    getNameVariant: () => observableOf(nameVariant),
   };
 }
 
@@ -98,7 +98,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   const mockBitstreamDataService = {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
       return createSuccessfulRemoteDataObject$(new Bitstream());
-    }
+    },
   };
   beforeEach(waitForAsync(() => {
     init();
@@ -122,12 +122,12 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PersonSearchResultListSubmissionElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -178,7 +178,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   const mockBitstreamDataService = {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
       return createSuccessfulRemoteDataObject$(new Bitstream());
-    }
+    },
   };
   beforeEach(waitForAsync(() => {
     init();
@@ -202,12 +202,12 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PersonSearchResultListSubmissionElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

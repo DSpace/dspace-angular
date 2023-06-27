@@ -26,8 +26,8 @@ describe('ScriptsSelectComponent', () => {
     script2 = new Script();
     scriptService = jasmine.createSpyObj('scriptService',
       {
-        findAll: createSuccessfulRemoteDataObject$(buildPaginatedList(undefined, [script1, script2]))
-      }
+        findAll: createSuccessfulRemoteDataObject$(buildPaginatedList(undefined, [script1, script2])),
+      },
     );
   }
 
@@ -39,8 +39,8 @@ describe('ScriptsSelectComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         })],
       declarations: [ScriptsSelectComponent],
       providers: [
@@ -48,7 +48,7 @@ describe('ScriptsSelectComponent', () => {
         { provide: Router, useClass: RouterStub },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

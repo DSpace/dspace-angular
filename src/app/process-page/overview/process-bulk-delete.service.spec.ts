@@ -13,7 +13,7 @@ describe('ProcessBulkDeleteService', () => {
 
   beforeEach(waitForAsync(() => {
     processDataService = jasmine.createSpyObj('processDataService', {
-      delete: createSuccessfulRemoteDataObject$(null)
+      delete: createSuccessfulRemoteDataObject$(null),
     });
     notificationsService = new NotificationsServiceStub();
     mockTranslateService = getMockTranslateService();

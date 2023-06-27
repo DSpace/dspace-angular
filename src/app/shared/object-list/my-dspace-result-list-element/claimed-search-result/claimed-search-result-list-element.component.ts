@@ -10,7 +10,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { followLink } from '../../../utils/follow-link-config.model';
 import {
-  SearchResultListElementComponent
+  SearchResultListElementComponent,
 } from '../../search-result-list-element/search-result-list-element.component';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
@@ -25,7 +25,7 @@ import { Context } from '../../../../core/shared/context.model';
 @Component({
   selector: 'ds-claimed-search-result-list-element',
   styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
-  templateUrl: './claimed-search-result-list-element.component.html'
+  templateUrl: './claimed-search-result-list-element.component.html',
 })
 @listableObjectComponent(ClaimedTaskSearchResult, ViewMode.ListElement)
 export class ClaimedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> implements OnInit, OnDestroy {
@@ -60,7 +60,7 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
     protected truncatableService: TruncatableService,
     public dsoNameService: DSONameService,
     protected objectCache: ObjectCacheService,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(truncatableService, dsoNameService, appConfig);
   }
@@ -72,7 +72,7 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
     super.ngOnInit();
     this.linkService.resolveLinks(this.dso, followLink('workflowitem', {},
       followLink('item', {}, followLink('bundles')),
-      followLink('submitter')
+      followLink('submitter'),
     ), followLink('action'));
 
     (this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
@@ -81,7 +81,7 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
         if (wfiRD.hasSucceeded) {
           this.workflowitem$.next(wfiRD.payload);
           return (wfiRD.payload.item as Observable<RemoteData<Item>>).pipe(
-            getFirstCompletedRemoteData()
+            getFirstCompletedRemoteData(),
           );
         } else {
           return EMPTY;
@@ -91,7 +91,7 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
         if (isNotEmpty(itemRD) && itemRD.hasSucceeded) {
           this.item$.next(itemRD.payload);
         }
-      })
+      }),
     ).subscribe();
 
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;

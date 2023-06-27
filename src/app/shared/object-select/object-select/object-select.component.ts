@@ -15,7 +15,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
  */
 @Component({
   selector: 'ds-object-select-abstract',
-  template: ''
+  template: '',
 })
 export abstract class ObjectSelectComponent<TDomain> implements OnInit, OnDestroy {
 
@@ -133,7 +133,7 @@ export abstract class ObjectSelectComponent<TDomain> implements OnInit, OnDestro
    */
   confirmSelected() {
     this.selectedIds$.pipe(
-      take(1)
+      take(1),
     ).subscribe((ids: string[]) => {
       this.confirm.emit(ids);
       this.objectSelectService.reset(this.key);

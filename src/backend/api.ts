@@ -36,12 +36,12 @@ function toHALResponse(req, data, included?) {
   const result = {
     _embedded: data,
     _links: {
-      self: req.protocol + '://' + req.get('host') + req.originalUrl
-    }
+      self: req.protocol + '://' + req.get('host') + req.originalUrl,
+    },
   };
   if (included && Array.isArray(included) && included.length > 0) {
     Object.assign(result, {
-      included: included
+      included: included,
     });
   }
   return result;

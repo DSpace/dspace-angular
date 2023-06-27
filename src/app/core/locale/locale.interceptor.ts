@@ -26,7 +26,7 @@ export class LocaleInterceptor implements HttpInterceptor {
           // Clone the request to add the new header.
           newReq = req.clone({
             headers: req.headers
-              .set('Accept-Language', languages.toString())
+              .set('Accept-Language', languages.toString()),
           });
           // Pass on the new request instead of the original request.
           return next.handle(newReq);

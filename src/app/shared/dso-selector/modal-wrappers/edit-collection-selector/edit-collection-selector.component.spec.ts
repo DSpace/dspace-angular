@@ -19,8 +19,8 @@ describe('EditCollectionSelectorComponent', () => {
   collection.metadata = {
     'dc.title': [Object.assign(new MetadataValue(), {
       value: 'Collection title',
-      language: undefined
-    })]
+      language: undefined,
+    })],
   };
   const router = new RouterStub();
   const collectionRD = createSuccessfulRemoteDataObject(collection);
@@ -42,14 +42,14 @@ describe('EditCollectionSelectorComponent', () => {
                   dso: collectionRD,
                 },
               },
-            }
+            },
           },
         },
         {
-          provide: Router, useValue: router
-        }
+          provide: Router, useValue: router,
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
   }));

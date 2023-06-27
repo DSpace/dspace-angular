@@ -35,28 +35,28 @@ describe('VersionDataService test', () => {
       'dc.title': [
         {
           language: 'en_US',
-          value: 'This is just another title'
-        }
+          value: 'This is just another title',
+        },
       ],
       'dc.type': [
         {
           language: null,
-          value: 'Article'
-        }
+          value: 'Article',
+        },
       ],
       'dc.contributor.author': [
         {
           language: 'en_US',
-          value: 'Smith, Donald'
-        }
+          value: 'Smith, Donald',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '2015-06-26'
-        }
-      ]
-    }
+          value: '2015-06-26',
+        },
+      ],
+    },
   });
   const itemRD = createSuccessfulRemoteDataObject(item);
 
@@ -84,7 +84,7 @@ describe('VersionDataService test', () => {
       rdbService,
       objectCache,
       halService,
-      comparatorEntry
+      comparatorEntry,
     );
   }
 
@@ -99,7 +99,7 @@ describe('VersionDataService test', () => {
       scheduler = getTestScheduler();
 
       halService = jasmine.createSpyObj('halService', {
-        getEndpoint: cold('a', { a: endpointURL })
+        getEndpoint: cold('a', { a: endpointURL }),
       });
       responseCacheEntry = new RequestEntry();
       responseCacheEntry.request = { href: 'https://rest.api/' } as any;
@@ -114,8 +114,8 @@ describe('VersionDataService test', () => {
       });
       rdbService = jasmine.createSpyObj('rdbService', {
         buildSingle: hot('(a|)', {
-          a: mockVersionRD
-        })
+          a: mockVersionRD,
+        }),
       });
 
       service = initTestService();
@@ -138,7 +138,7 @@ describe('VersionDataService test', () => {
       it('should return a VersionHistory', () => {
         const result = service.getHistoryFromVersion(mockVersion, true, true);
         const expected = cold('(a|)', {
-          a: versionHistory
+          a: versionHistory,
         });
         expect(result).toBeObservable(expected);
       });
@@ -156,7 +156,7 @@ describe('VersionDataService test', () => {
 
         const result = service.getHistoryIdFromVersion(mockVersion);
         const expected = cold('(a|)', {
-          a: versionHistory.id
+          a: versionHistory.id,
         });
         expect(result).toBeObservable(expected);
       });

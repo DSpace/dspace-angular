@@ -36,8 +36,8 @@ describe('SelectableListItemControlComponent', () => {
       selectSingle: jasmine.createSpy('selectSingle'),
       deselectSingle: jasmine.createSpy('deselectSingle'),
       isObjectSelected: observableOf(true),
-      getSelectableList: observableOf({ selection })
-    }
+      getSelectableList: observableOf({ selection }),
+    },
     );
   }
 
@@ -49,10 +49,10 @@ describe('SelectableListItemControlComponent', () => {
       providers: [
         {
           provide: SelectableListService,
-          useValue: selectionService
-        }
+          useValue: selectionService,
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

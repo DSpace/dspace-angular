@@ -5,7 +5,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Version } from '../../core/shared/version.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ItemVersionsSharedService {
 

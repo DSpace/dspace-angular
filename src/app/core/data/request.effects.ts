@@ -14,7 +14,7 @@ import {
   RequestErrorAction,
   RequestExecuteAction,
   RequestSuccessAction,
-  ResetResponseTimestampsAction
+  ResetResponseTimestampsAction,
 } from './request.actions';
 import { RequestService } from './request.service';
 import { ParsedResponse } from '../cache/response.models';
@@ -29,7 +29,7 @@ export class RequestEffects {
     ofType(RequestActionTypes.EXECUTE),
     mergeMap((action: RequestExecuteAction) => {
       return this.requestService.getByUUID(action.payload).pipe(
-        take(1)
+        take(1),
       );
     }),
     filter((entry: RequestEntry) => hasValue(entry)),
@@ -51,9 +51,9 @@ export class RequestEffects {
             // if it's a client side error, throw it
             throw error;
           }
-        })
+        }),
       );
-    })
+    }),
   ));
 
   /**
@@ -66,14 +66,14 @@ export class RequestEffects {
    */
   fixTimestampsOnRehydrate = createEffect(() => this.actions$
     .pipe(ofType(StoreActionTypes.REHYDRATE),
-      map(() => new ResetResponseTimestampsAction(new Date().getTime()))
+      map(() => new ResetResponseTimestampsAction(new Date().getTime())),
     ));
 
   constructor(
     private actions$: Actions,
     private restApi: DspaceRestService,
     private injector: Injector,
-    protected requestService: RequestService
+    protected requestService: RequestService,
   ) { }
 
 }

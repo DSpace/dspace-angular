@@ -16,7 +16,7 @@ import { ThemedWorkspaceItemsDeletePageComponent } from './workspaceitems-delete
   declarations: [
     WorkspaceItemsDeletePageComponent,
     ThemedWorkspaceItemsDeletePageComponent,
-  ]
+  ],
 })
 /**
  * This module handles all modules that need to access the workspaceitems edit page.

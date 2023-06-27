@@ -14,7 +14,7 @@ import { of as observableOf } from 'rxjs';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { ItemRequest } from '../../core/shared/item-request.model';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -43,20 +43,20 @@ describe('DenyRequestCopyComponent', () => {
   beforeEach(waitForAsync(() => {
     itemRequest = Object.assign(new ItemRequest(), {
       token: 'item-request-token',
-      requestName: 'requester name'
+      requestName: 'requester name',
     });
     user = Object.assign(new EPerson(), {
       metadata: {
         'eperson.firstname': [
           {
-            value: 'first'
-          }
+            value: 'first',
+          },
         ],
         'eperson.lastname': [
           {
-            value: 'last'
-          }
-        ]
+            value: 'last',
+          },
+        ],
       },
       email: 'user-email',
     });
@@ -67,15 +67,15 @@ describe('DenyRequestCopyComponent', () => {
       metadata: {
         'dc.identifier.uri': [
           {
-            value: itemUrl
-          }
+            value: itemUrl,
+          },
         ],
         'dc.title': [
           {
-            value: itemName
-          }
-        ]
-      }
+            value: itemName,
+          },
+        ],
+      },
     });
 
     router = jasmine.createSpyObj('router', {
@@ -110,7 +110,7 @@ describe('DenyRequestCopyComponent', () => {
         { provide: ItemRequestDataService, useValue: itemRequestService },
         { provide: NotificationsService, useValue: notificationsService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

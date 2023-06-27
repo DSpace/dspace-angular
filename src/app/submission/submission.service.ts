@@ -19,11 +19,11 @@ import {
   SaveForLaterSubmissionFormAction,
   SaveSubmissionFormAction,
   SaveSubmissionSectionFormAction,
-  SetActiveSectionAction
+  SetActiveSectionAction,
 } from './objects/submission-objects.actions';
 import {
   SubmissionObjectEntry,
-  SubmissionSectionEntry
+  SubmissionSectionEntry,
 } from './objects/submission-objects.reducer';
 import { submissionObjectFromIdSelector } from './selectors';
 import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
@@ -217,7 +217,7 @@ export class SubmissionService {
    */
   dispatchSave(submissionId, manual?: boolean) {
     this.getSubmissionSaveProcessingStatus(submissionId).pipe(
-      find((isPending: boolean) => !isPending)
+      find((isPending: boolean) => !isPending),
     ).subscribe(() => {
       this.store.dispatch(new SaveSubmissionFormAction(submissionId, manual));
     });
@@ -505,7 +505,7 @@ export class SubmissionService {
             } else {
               this.router.navigateByUrl(previousUrl);
             }
-          })))
+          }))),
     ).subscribe();
   }
 
@@ -536,7 +536,7 @@ export class SubmissionService {
     selfUrl: string,
     submissionDefinition: SubmissionDefinitionsModel,
     sections: WorkspaceitemSectionsObject,
-    item: Item
+    item: Item,
   ) {
     this.store.dispatch(new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, sections, submissionDefinition, item));
   }
@@ -554,7 +554,7 @@ export class SubmissionService {
         submissionObjects[0])),
       catchError((errorResponse: ErrorResponse) => {
         return createFailedRemoteDataObject$<SubmissionObject>(errorResponse.errorMessage, errorResponse.statusCode);
-      })
+      }),
     );
   }
 

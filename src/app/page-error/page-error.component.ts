@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'ds-page-error',
   styleUrls: ['./page-error.component.scss'],
   templateUrl: './page-error.component.html',
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class PageErrorComponent {
   status: number;

@@ -3,7 +3,7 @@ import {
   MetadataMapInterface,
   MetadataValue,
   MetadataValueFilter,
-  MetadatumViewModel
+  MetadatumViewModel,
 } from './metadata.models';
 import groupBy from 'lodash/groupBy';
 import sortBy from 'lodash/sortBy';
@@ -188,7 +188,7 @@ export class Metadata {
               metadataValue,
               {
                 order: index,
-                key
+                key,
               }));
         metadatumList = [...metadatumList, ...fields];
       });
@@ -213,7 +213,7 @@ export class Metadata {
           delete (val as any).order;
           delete (val as any).key;
           return val;
-        }
+        },
         );
       });
     return metadataMap;

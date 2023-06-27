@@ -16,7 +16,7 @@ export class HALEndpointService {
 
   constructor(
     private requestService: RequestService,
-    private rdbService: RemoteDataBuildService
+    private rdbService: RemoteDataBuildService,
   ) {
   }
 
@@ -70,7 +70,7 @@ export class HALEndpointService {
         } else {
           throw new Error(`${JSON.stringify(endpointMap)} doesn't contain the link ${nextName}`);
         }
-      })
+      }),
     ) as Observable<string>;
 
     if (halNames.length === 1) {
@@ -78,7 +78,7 @@ export class HALEndpointService {
     } else {
       return nextHref$.pipe(
         switchMap((nextHref) => this.getEndpointAt(nextHref, ...halNames.slice(1))),
-        take(1)
+        take(1),
       );
     }
   }
@@ -88,7 +88,7 @@ export class HALEndpointService {
       // TODO this only works when there's no / in linkPath
       map((endpointMap: EndpointMap) => isNotEmpty(endpointMap[linkPath])),
       startWith(undefined),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 

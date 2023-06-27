@@ -41,7 +41,7 @@ export class LocaleService {
     protected translate: TranslateService,
     protected authService: AuthService,
     protected routeService: RouteService,
-    @Inject(DOCUMENT) protected document: any
+    @Inject(DOCUMENT) protected document: any,
   ) {
   }
 
@@ -72,7 +72,7 @@ export class LocaleService {
   getLanguageCodeList(): Observable<string[]> {
     const obs$ = combineLatest([
       this.authService.isAuthenticated(),
-      this.authService.isAuthenticationLoaded()
+      this.authService.isAuthenticationLoaded(),
     ]);
 
     return obs$.pipe(
@@ -112,13 +112,13 @@ export class LocaleService {
               languages.push(...this.setQuality(
                 Object.assign([], navigator.languages),
                 LANG_ORIGIN.BROWSER,
-                !isEmpty(this.translate.currentLang))
+                !isEmpty(this.translate.currentLang)),
               );
             }
             return languages;
-          })
+          }),
         );
-      })
+      }),
     );
   }
 

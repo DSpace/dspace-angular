@@ -51,13 +51,13 @@ describe('MediaViewerComponent', () => {
 
   const bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
     findAllByItemAndBundleName: createSuccessfulRemoteDataObject$(
-      createPaginatedList([mockBitstream])
+      createPaginatedList([mockBitstream]),
     ),
   });
 
   const mockMediaViewerItem: MediaViewerItem = Object.assign(
     new MediaViewerItem(),
-    { bitstream: mockBitstream, format: 'image', thumbnail: null }
+    { bitstream: mockBitstream, format: 'image', thumbnail: null },
   );
 
   beforeEach(waitForAsync(() => {
@@ -106,7 +106,7 @@ describe('MediaViewerComponent', () => {
       const mediaItem = comp.createMediaViewerItem(
         mockBitstream,
         MockBitstreamFormat1,
-        undefined
+        undefined,
       );
       expect(mediaItem).toBeTruthy();
       expect(mediaItem.thumbnail).toBe(null);
@@ -133,7 +133,7 @@ describe('MediaViewerComponent', () => {
       const mediaItem = comp.createMediaViewerItem(
         mockBitstream,
         MockBitstreamFormat1,
-        undefined
+        undefined,
       );
       expect(mediaItem).toBeTruthy();
       expect(mediaItem.thumbnail).toBe(null);
@@ -141,7 +141,7 @@ describe('MediaViewerComponent', () => {
 
     it('should display a default, thumbnail', () => {
       const defaultThumbnail = fixture.debugElement.query(
-        By.css('ds-themed-media-viewer-image')
+        By.css('ds-themed-media-viewer-image'),
       );
       expect(defaultThumbnail.nativeElement).toBeDefined();
     });

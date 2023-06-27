@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { ThemedNavbarComponent } from './themed-navbar.component';
 
 const effects = [
-  NavbarEffects
+  NavbarEffects,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -32,7 +32,7 @@ const ENTRY_COMPONENTS = [
     MenuModule,
     FormsModule,
     EffectsModule.forFeature(effects),
-    CoreModule.forRoot()
+    CoreModule.forRoot(),
   ],
   declarations: [
     ...ENTRY_COMPONENTS,
@@ -43,8 +43,8 @@ const ENTRY_COMPONENTS = [
   exports: [
     ThemedNavbarComponent,
     NavbarSectionComponent,
-    ThemedExpandableNavbarSectionComponent
-  ]
+    ThemedExpandableNavbarSectionComponent,
+  ],
 })
 
 /**
@@ -58,7 +58,7 @@ export class NavbarModule {
   static withEntryComponents() {
     return {
       ngModule: NavbarModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component})),
     };
   }
 

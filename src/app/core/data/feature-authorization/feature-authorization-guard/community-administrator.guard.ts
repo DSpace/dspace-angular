@@ -11,7 +11,7 @@ import { FeatureID } from '../feature-id';
  * isn't a Community administrator
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CommunityAdministratorGuard extends SingleFeatureAuthorizationGuard {
   constructor(protected authorizationService: AuthorizationDataService, protected router: Router, protected authService: AuthService) {

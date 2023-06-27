@@ -39,7 +39,7 @@ describe('MetadataSchemaComponent', () => {
         },
       },
       prefix: 'dc',
-      namespace: 'http://dublincore.org/documents/dcmi-terms/'
+      namespace: 'http://dublincore.org/documents/dcmi-terms/',
     },
     {
       id: 2,
@@ -49,8 +49,8 @@ describe('MetadataSchemaComponent', () => {
         },
       },
       prefix: 'mock',
-      namespace: 'http://dspace.org/mockschema'
-    }
+      namespace: 'http://dspace.org/mockschema',
+    },
   ];
   const mockFieldsList = [
     {
@@ -63,7 +63,7 @@ describe('MetadataSchemaComponent', () => {
       element: 'contributor',
       qualifier: 'advisor',
       scopeNote: null,
-      schema: createSuccessfulRemoteDataObject$(mockSchemasList[0])
+      schema: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
     },
     {
       id: 2,
@@ -75,7 +75,7 @@ describe('MetadataSchemaComponent', () => {
       element: 'contributor',
       qualifier: 'author',
       scopeNote: null,
-      schema: createSuccessfulRemoteDataObject$(mockSchemasList[0])
+      schema: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
     },
     {
       id: 3,
@@ -87,7 +87,7 @@ describe('MetadataSchemaComponent', () => {
       element: 'contributor',
       qualifier: 'editor',
       scopeNote: 'test scope note',
-      schema: createSuccessfulRemoteDataObject$(mockSchemasList[1])
+      schema: createSuccessfulRemoteDataObject$(mockSchemasList[1]),
     },
     {
       id: 4,
@@ -99,8 +99,8 @@ describe('MetadataSchemaComponent', () => {
       element: 'contributor',
       qualifier: 'illustrator',
       scopeNote: null,
-      schema: createSuccessfulRemoteDataObject$(mockSchemasList[1])
-    }
+      schema: createSuccessfulRemoteDataObject$(mockSchemasList[1]),
+    },
   ];
   const mockSchemas = createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockSchemasList));
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
@@ -117,14 +117,14 @@ describe('MetadataSchemaComponent', () => {
     deleteMetadataField: () => observableOf(new RestResponse(true, 200, 'OK')),
     deselectAllMetadataField: () => {
     },
-    clearMetadataFieldRequests: () => observableOf(undefined)
+    clearMetadataFieldRequests: () => observableOf(undefined),
   };
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   const schemaNameParam = 'mock';
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
     params: observableOf({
-      schemaName: schemaNameParam
-    })
+      schemaName: schemaNameParam,
+    }),
   });
 
   const paginationService = new PaginationServiceStub();
@@ -139,9 +139,9 @@ describe('MetadataSchemaComponent', () => {
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: Router, useValue: new RouterStub() },
         { provide: PaginationService, useValue: paginationService },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

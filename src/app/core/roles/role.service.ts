@@ -25,7 +25,7 @@ export class RoleService {
    */
   isSubmitter(): Observable<boolean> {
     return this.collectionService.hasAuthorizedCollection().pipe(
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 

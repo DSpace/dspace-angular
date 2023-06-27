@@ -35,23 +35,23 @@ describe('MenuComponent', () => {
     lastModified: '2018',
     _links: {
       self: {
-        href: 'https://localhost:8000/items/fake-id'
-      }
-    }
+        href: 'https://localhost:8000/items/fake-id',
+      },
+    },
   });
 
 
   const routeStub = {
     data: observableOf({
-      dso: createSuccessfulRemoteDataObject(mockItem)
+      dso: createSuccessfulRemoteDataObject(mockItem),
     }),
-    children: []
+    children: [],
   };
 
   beforeEach(waitForAsync(() => {
 
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(false)
+      isAuthorized: observableOf(false),
     });
 
     TestBed.configureTestingModule({
@@ -64,9 +64,9 @@ describe('MenuComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ActivatedRoute, useValue: routeStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MenuComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

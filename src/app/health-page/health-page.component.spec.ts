@@ -24,13 +24,13 @@ describe('HealthPageComponent', () => {
   const healthRestResponse$ = of({
     payload: HealthResponseObj,
     statusCode: 200,
-    statusText: 'OK'
+    statusText: 'OK',
   } as RawRestResponse);
 
   const healthInfoRestResponse$ = of({
     payload: HealthInfoResponseObj,
     statusCode: 200,
-    statusText: 'OK'
+    statusText: 'OK',
   } as RawRestResponse);
 
   beforeEach(async () => {
@@ -41,14 +41,14 @@ describe('HealthPageComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [ HealthPageComponent ],
       providers: [
-        { provide: HealthService, useValue: healthService }
-      ]
+        { provide: HealthService, useValue: healthService },
+      ],
     })
       .compileComponents();
   });

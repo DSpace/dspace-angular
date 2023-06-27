@@ -11,5 +11,5 @@ export const appEffects = [
   NotificationsEffects,
   SidebarEffects,
   ThemeEffects,
-  RelationshipEffects
+  RelationshipEffects,
 ];

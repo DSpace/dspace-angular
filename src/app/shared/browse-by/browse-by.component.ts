@@ -20,8 +20,8 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './browse-by.component.html',
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
 })
 /**
  * Component to display a browse-by page for any ListableObject
@@ -185,16 +185,16 @@ export class BrowseByComponent implements OnInit, OnDestroy {
     this.objectInjector = Injector.create({
       providers: [
         { provide: 'startsWithOptions', useFactory: () => (this.startsWithOptions), deps:[] },
-        { provide: 'paginationId', useFactory: () => (this.paginationConfig?.id), deps:[] }
+        { provide: 'paginationId', useFactory: () => (this.paginationConfig?.id), deps:[] },
       ],
-      parent: this.injector
+      parent: this.injector,
     });
 
     const startsWith$ = this.routeService.getQueryParameterValue('startsWith');
     const value$ = this.routeService.getQueryParameterValue('value');
 
     this.shouldDisplayResetButton$ = observableCombineLatest([startsWith$, value$]).pipe(
-      map(([startsWith, value]) => hasValue(startsWith) || hasValue(value))
+      map(([startsWith, value]) => hasValue(startsWith) || hasValue(value)),
     );
     this.sub = this.routeService.getQueryParameterValue(this.paginationConfig.id + '.return').subscribe(this.previousPage$);
   }

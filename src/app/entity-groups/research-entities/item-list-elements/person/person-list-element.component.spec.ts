@@ -15,16 +15,16 @@ const mockItem: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'person.jobTitle': [
       {
         language: 'en_US',
-        value: 'Developer'
-      }
-    ]
-  }
+        value: 'Developer',
+      },
+    ],
+  },
 });
 
 describe('PersonListElementComponent', () => {
@@ -42,9 +42,9 @@ describe('PersonListElementComponent', () => {
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PersonListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

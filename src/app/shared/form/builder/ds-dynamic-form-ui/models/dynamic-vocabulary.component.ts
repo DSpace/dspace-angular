@@ -4,7 +4,7 @@ import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormControlComponent,
   DynamicFormLayoutService,
-  DynamicFormValidationService
+  DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf } from 'rxjs';
@@ -21,7 +21,7 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
  */
 @Component({
   selector: 'ds-dynamic-vocabulary',
-  template: ''
+  template: '',
 })
 export abstract class DsDynamicVocabularyComponent extends DynamicFormControlComponent {
 
@@ -36,7 +36,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
 
   protected constructor(protected vocabularyService: VocabularyService,
                         protected layoutService: DynamicFormLayoutService,
-                        protected validationService: DynamicFormValidationService
+                        protected validationService: DynamicFormValidationService,
   ) {
     super(layoutService, validationService);
   }
@@ -70,7 +70,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
             initEntry.display,
             (this.model.value as any).place,
             null,
-            initEntry.otherInformation || null
+            initEntry.otherInformation || null,
           );
         } else {
           return this.model.value as any;
@@ -85,8 +85,8 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
           this.model.value.display,
           0,
           null,
-          this.model.value.otherInformation || null
-        )
+          this.model.value.otherInformation || null,
+        ),
       );
     } else {
       initValue$ = observableOf(new FormFieldMetadataValueObject(this.model.value));
@@ -131,7 +131,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       elementsPerPage: elementsPerPage,
       currentPage: currentPage,
       totalElements: totalElements,
-      totalPages: totalPages
+      totalPages: totalPages,
     });
   }
 }

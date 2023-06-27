@@ -13,7 +13,7 @@ describe('RegistrationResolver', () => {
 
   beforeEach(() => {
     epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
-      searchByToken: createSuccessfulRemoteDataObject$(registration)
+      searchByToken: createSuccessfulRemoteDataObject$(registration),
     });
     resolver = new RegistrationResolver(epersonRegistrationService);
   });
@@ -27,7 +27,7 @@ describe('RegistrationResolver', () => {
             expect(resolved.payload.email).toEqual('test@email.org');
             expect(resolved.payload.user).toEqual('user-uuid');
             done();
-          }
+          },
         );
     });
   });

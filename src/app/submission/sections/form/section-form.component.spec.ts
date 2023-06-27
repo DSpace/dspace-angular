@@ -63,7 +63,7 @@ const sectionObject: SectionDataObject = {
   serverValidationErrors: [],
   header: 'submit.progressbar.describe.stepone',
   id: 'traditionalpageone',
-  sectionType: SectionsType.SubmissionForm
+  sectionType: SectionsType.SubmissionForm,
 };
 
 const testFormConfiguration = {
@@ -73,7 +73,7 @@ const testFormConfiguration = {
       fields: [
         {
           input: {
-            type: 'onebox'
+            type: 'onebox',
           },
           label: 'Title',
           mandatory: 'true',
@@ -81,18 +81,18 @@ const testFormConfiguration = {
           hints: ' Enter Title.',
           selectableMetadata: [
             {
-              metadata: 'dc.title'
-            }
+              metadata: 'dc.title',
+            },
           ],
-          languageCodes: []
-        } as FormFieldModel
-      ]
+          languageCodes: [],
+        } as FormFieldModel,
+      ],
     } as FormRowModel,
     {
       fields: [
         {
           input: {
-            type: 'onebox'
+            type: 'onebox',
           },
           label: 'Author',
           mandatory: 'false',
@@ -100,20 +100,20 @@ const testFormConfiguration = {
           hints: ' Enter Author.',
           selectableMetadata: [
             {
-              metadata: 'dc.contributor'
-            }
+              metadata: 'dc.contributor',
+            },
           ],
-          languageCodes: []
-        } as FormFieldModel
-      ]
+          languageCodes: [],
+        } as FormFieldModel,
+      ],
     } as FormRowModel,
   ],
   type: 'submissionform',
   _links: {
     self: {
-      href: 'testFormConfiguration.url'
-    }
-  }
+      href: 'testFormConfiguration.url',
+    },
+  },
 } as any;
 
 const testFormModel = [
@@ -124,7 +124,7 @@ const testFormModel = [
   new DynamicRowGroupModel({
     id: 'df-row-group-config-2',
     group: [new DsDynamicInputModel({ id: 'dc.contributor', metadataFields: [], repeatable: false, submissionId: '1234', hasSelectableMetadata: false })],
-  })
+  }),
 ];
 
 const dynamicFormControlEvent: DynamicFormControlEvent = {
@@ -133,7 +133,7 @@ const dynamicFormControlEvent: DynamicFormControlEvent = {
   control: null,
   group: testFormModel[0] as any,
   model: testFormModel[0].group[0],
-  type: DynamicFormControlEventType.Change
+  type: DynamicFormControlEventType.Change,
 };
 
 describe('SubmissionSectionFormComponent test suite', () => {
@@ -162,12 +162,12 @@ describe('SubmissionSectionFormComponent test suite', () => {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         FormComponent,
         SubmissionSectionFormComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
@@ -185,9 +185,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
         { provide: 'submissionIdProvider', useValue: submissionId },
         { provide: SubmissionObjectDataService, useValue: { getHrefByID: () => observableOf('testUrl'), findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem()) } },
         ChangeDetectorRef,
-        SubmissionSectionFormComponent
+        SubmissionSectionFormComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
   }));
 
@@ -281,7 +281,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       const sectionData = {};
       const sectionError: SubmissionSectionError = {
         message: 'test' + 'Error: test',
-        path: '/sections/' + sectionObject.id
+        path: '/sections/' + sectionObject.id,
       };
 
       comp.initForm(sectionData);
@@ -293,11 +293,11 @@ describe('SubmissionSectionFormComponent test suite', () => {
 
     it('should return true when has Metadata Enrichment', () => {
       const newSectionData = {
-        'dc.title': [new FormFieldMetadataValueObject('test')]
+        'dc.title': [new FormFieldMetadataValueObject('test')],
       };
       compAsAny.formData = {};
       compAsAny.sectionData.data = {
-        'dc.title': [new FormFieldMetadataValueObject('test')]
+        'dc.title': [new FormFieldMetadataValueObject('test')],
       };
       spyOn(compAsAny, 'inCurrentSubmissionScope').and.callThrough();
 
@@ -307,11 +307,11 @@ describe('SubmissionSectionFormComponent test suite', () => {
 
     it('should return false when has not Metadata Enrichment', () => {
       const newSectionData = {
-        'dc.title': [new FormFieldMetadataValueObject('test')]
+        'dc.title': [new FormFieldMetadataValueObject('test')],
       };
       compAsAny.formData = newSectionData;
       compAsAny.sectionData.data = {
-        'dc.title': [new FormFieldMetadataValueObject('test')]
+        'dc.title': [new FormFieldMetadataValueObject('test')],
       };
       spyOn(compAsAny, 'inCurrentSubmissionScope').and.callThrough();
 
@@ -321,7 +321,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
 
     it('should return false when metadata has Metadata Enrichment but not belonging to sectionMetadata', () => {
       const newSectionData = {
-        'dc.title': [new FormFieldMetadataValueObject('test')]
+        'dc.title': [new FormFieldMetadataValueObject('test')],
       };
       compAsAny.formData = newSectionData;
       compAsAny.sectionMetadata = [];
@@ -338,16 +338,16 @@ describe('SubmissionSectionFormComponent test suite', () => {
                 {
                   selectableMetadata: [{ metadata: 'scoped.workflow' }],
                   scope: 'WORKFLOW',
-                } as FormFieldModel
-              ]
+                } as FormFieldModel,
+              ],
             },
             {
               fields: [
                 {
                   selectableMetadata: [{ metadata: 'scoped.workspace' }],
                   scope: 'WORKSPACE',
-                } as FormFieldModel
-              ]
+                } as FormFieldModel,
+              ],
             },
             {
               fields: [
@@ -369,10 +369,10 @@ describe('SubmissionSectionFormComponent test suite', () => {
               fields: [
                 {
                   selectableMetadata: [{ metadata: 'dc.title' }],
-                } as FormFieldModel
-              ]
-            }
-          ]
+                } as FormFieldModel,
+              ],
+            },
+          ],
         };
       });
 
@@ -435,7 +435,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       spyOn(comp, 'initForm');
       spyOn(comp, 'checksForErrors');
       const sectionData: any = {
-        'dc.title': [new FormFieldMetadataValueObject('test')]
+        'dc.title': [new FormFieldMetadataValueObject('test')],
       };
       const sectionError = [];
       comp.sectionData.data = {};
@@ -456,7 +456,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       spyOn(comp, 'initForm');
       spyOn(comp, 'checksForErrors');
       const sectionData: any = {
-        'dc.title': [new FormFieldMetadataValueObject('test')]
+        'dc.title': [new FormFieldMetadataValueObject('test')],
       };
       comp.sectionData.data = {};
       comp.sectionData.errorsToShow = [];
@@ -495,7 +495,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
         sectionObject.id,
         'test',
         parsedSectionErrors,
-        []
+        [],
       );
       expect(comp.sectionData.errorsToShow).toEqual(parsedSectionErrors);
     });
@@ -504,7 +504,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       formService.isValid.and.returnValue(observableOf(true));
       sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf([]));
       const expected = cold('(b|)', {
-        b: true
+        b: true,
       });
 
       expect(compAsAny.getSectionStatus()).toBeObservable(expected);
@@ -514,7 +514,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       formService.isValid.and.returnValue(observableOf(true));
       sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf(parsedSectionErrors));
       const expected = cold('(b|)', {
-        b: false
+        b: false,
       });
 
       expect(compAsAny.getSectionStatus()).toBeObservable(expected);
@@ -524,7 +524,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       formService.isValid.and.returnValue(observableOf(false));
       sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf([]));
       const expected = cold('(b|)', {
-        b: false
+        b: false,
       });
 
       expect(compAsAny.getSectionStatus()).toBeObservable(expected);
@@ -533,14 +533,14 @@ describe('SubmissionSectionFormComponent test suite', () => {
     it('should subscribe to state properly', () => {
       spyOn(comp, 'updateForm');
       const formData = {
-        'dc.title': [new FormFieldMetadataValueObject('test')]
+        'dc.title': [new FormFieldMetadataValueObject('test')],
       };
       const sectionData: any = {
-        'dc.title': [new FormFieldMetadataValueObject('test')]
+        'dc.title': [new FormFieldMetadataValueObject('test')],
       };
       const sectionState = {
         data: sectionData,
-        errorsToShow: parsedSectionErrors
+        errorsToShow: parsedSectionErrors,
       };
 
       formService.getFormData.and.returnValue(observableOf(formData));
@@ -617,7 +617,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
 
     it('should check if has stored value in the section state', () => {
       comp.sectionData.data = {
-        'dc.title': [new FormFieldMetadataValueObject('test')]
+        'dc.title': [new FormFieldMetadataValueObject('test')],
       } as any;
 
       expect(comp.hasStoredValue('dc.title', 0)).toBeTruthy();
@@ -631,7 +631,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

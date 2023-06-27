@@ -23,9 +23,9 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       ],
       providers: [
         NgbActiveModal,
-        SubmissionImportExternalCollectionComponent
+        SubmissionImportExternalCollectionComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
   }));
 
@@ -70,11 +70,11 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       const entry = {
         communities: [
           { id: 'community1' },
-          { id: 'community2' }
+          { id: 'community2' },
         ],
         collection: {
-          id: 'collection'
-        }
+          id: 'collection',
+        },
       } as CollectionListEntry;
       comp.selectObject(entry);
 
@@ -134,7 +134,7 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

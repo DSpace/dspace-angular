@@ -96,14 +96,14 @@ export abstract class BaseResponseParsingService {
       list = this.flattenSingleKeyObject(list);
     }
     const page: ObjectDomain[] = this.processArray(list, request);
-    return buildPaginatedList<ObjectDomain>(pageInfo, page,);
+    return buildPaginatedList<ObjectDomain>(pageInfo, page);
   }
 
   protected processArray<ObjectDomain>(data: any, request: RestRequest): ObjectDomain[] {
     let array: ObjectDomain[] = [];
     data.forEach((datum) => {
       array = [...array, this.process(datum, request)];
-    }
+    },
     );
     return array;
   }
@@ -139,7 +139,7 @@ export abstract class BaseResponseParsingService {
       let dataJSON: string;
       if (hasValue(data._embedded)) {
         dataJSON = JSON.stringify(Object.assign({}, data, {
-          _embedded: '...'
+          _embedded: '...',
         }));
       } else {
         dataJSON = JSON.stringify(data);

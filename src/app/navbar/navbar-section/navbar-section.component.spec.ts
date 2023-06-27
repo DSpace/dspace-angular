@@ -21,12 +21,12 @@ describe('NavbarSectionComponent', () => {
       providers: [
         { provide: 'sectionDataProvider', useValue: {} },
         { provide: MenuService, useValue: menuService },
-        { provide: HostWindowService, useValue: new HostWindowServiceStub(800) }
-      ]
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+      ],
     }).overrideComponent(NavbarSectionComponent, {
       set: {
-        entryComponents: [TestComponent]
-      }
+        entryComponents: [TestComponent],
+      },
     })
       .compileComponents();
   }));
@@ -48,7 +48,7 @@ describe('NavbarSectionComponent', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 }

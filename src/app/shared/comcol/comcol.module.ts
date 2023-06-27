@@ -29,12 +29,12 @@ const COMPONENTS = [
   ComcolPageBrowseByComponent,
   ThemedComcolPageBrowseByComponent,
   ComcolRoleComponent,
-  ThemedComcolPageHandleComponent
+  ThemedComcolPageHandleComponent,
 ];
 
 @NgModule({
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
   ],
   imports: [
     CommonModule,
@@ -45,6 +45,6 @@ const COMPONENTS = [
   exports: [
     ...COMPONENTS,
     UploadModule,
-  ]
+  ],
 })
 export class ComcolModule { }

@@ -28,7 +28,7 @@ export class ViewTrackerComponent implements OnInit, OnDestroy {
 
   constructor(
     public angulartics2: Angulartics2,
-    public referrerService: ReferrerService
+    public referrerService: ReferrerService,
   ) {
   }
 
@@ -40,7 +40,7 @@ export class ViewTrackerComponent implements OnInit, OnDestroy {
           action: 'page_view',
           properties: {
             object: this.object,
-            referrer
+            referrer,
           },
         });
       });

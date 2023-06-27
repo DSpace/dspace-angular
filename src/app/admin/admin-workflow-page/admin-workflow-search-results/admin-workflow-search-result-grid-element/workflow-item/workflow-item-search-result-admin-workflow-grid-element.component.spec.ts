@@ -8,20 +8,20 @@ import { CollectionElementLinkType } from '../../../../../shared/object-collecti
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
-  WorkflowItemSearchResultAdminWorkflowGridElementComponent
+  WorkflowItemSearchResultAdminWorkflowGridElementComponent,
 } from './workflow-item-search-result-admin-workflow-grid-element.component';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { Item } from '../../../../../core/shared/item.model';
 import {
-  ItemGridElementComponent
+  ItemGridElementComponent,
 } from '../../../../../shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';
 import {
-  ListableObjectDirective
+  ListableObjectDirective,
 } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
 import {
-  WorkflowItemSearchResult
+  WorkflowItemSearchResult,
 } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
@@ -67,16 +67,16 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
           {
             provide: TruncatableService, useValue: {
               isCollapsed: () => observableOf(true),
-            }
+            },
           },
           { provide: BitstreamDataService, useValue: {} },
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       })
       .overrideComponent(WorkflowItemSearchResultAdminWorkflowGridElementComponent, {
         set: {
-          entryComponents: [ItemGridElementComponent]
-        }
+          entryComponents: [ItemGridElementComponent],
+        },
       })
       .compileComponents();
   }));

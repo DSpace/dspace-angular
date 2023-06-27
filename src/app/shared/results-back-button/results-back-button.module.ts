@@ -7,15 +7,15 @@ import { ThemedResultsBackButtonComponent } from './themed-results-back-button.c
 @NgModule({
   declarations: [
     ResultsBackButtonComponent,
-    ThemedResultsBackButtonComponent
+    ThemedResultsBackButtonComponent,
   ],
   imports: [
     CommonModule,
-    TranslateModule
+    TranslateModule,
   ],
   exports: [
-    ThemedResultsBackButtonComponent
-  ]
+    ThemedResultsBackButtonComponent,
+  ],
 })
 export class ResultsBackButtonModule {
 

@@ -13,13 +13,13 @@ describe('DspaceRestService', () => {
   const mockError: any = {
     statusCode: 0,
     statusText: 'Unknown Error',
-    message: 'Http failure response for http://www.dspace.org/: 0 '
+    message: 'Http failure response for http://www.dspace.org/: 0 ',
   };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [DspaceRestService]
+      providers: [DspaceRestService],
     });
 
     dspaceRestService = TestBed.inject(DspaceRestService);
@@ -35,7 +35,7 @@ describe('DspaceRestService', () => {
   describe('#get', () => {
     it('should return an Observable<RawRestResponse>', () => {
       const mockPayload = {
-        page: 1
+        page: 1,
       };
       const mockStatusCode = 200;
       const mockStatusText = 'GREAT';
@@ -83,7 +83,7 @@ describe('DspaceRestService', () => {
   describe('#request', () => {
     it('should return an Observable<RawRestResponse>', () => {
       const mockPayload = {
-        page: 1
+        page: 1,
       };
       const mockStatusCode = 200;
       const mockStatusText = 'GREAT';
@@ -121,7 +121,7 @@ describe('DspaceRestService', () => {
     it('should return the correct data', () => {
       const name = 'testname';
       const dso: DSpaceObject = {
-        name: name
+        name: name,
       } as DSpaceObject;
       const formdata = dspaceRestService.buildFormData(dso);
       expect(formdata.get('name')).toBe(name);

@@ -23,7 +23,7 @@ import { By } from '@angular/platform-browser';
       [dontParseLinks]="dontParseLinks"
     >
     </ds-context-help-wrapper>
-  `
+  `,
 })
 class TemplateComponent {
   @Input() content: string;
@@ -35,11 +35,11 @@ class TemplateComponent {
 
 const messages = {
   lorem: 'lorem ipsum dolor sit amet',
-  linkTest: 'This is text, [this](https://dspace.lyrasis.org/) is a link, and [so is this](https://google.com/)'
+  linkTest: 'This is text, [this](https://dspace.lyrasis.org/) is a link, and [so is this](https://google.com/)',
 };
 const exampleContextHelp: ContextHelp = {
   id: 'test-tooltip',
-  isTooltipVisible: false
+  isTooltipVisible: false,
 };
 
 describe('ContextHelpWrapperComponent', () => {
@@ -68,7 +68,7 @@ describe('ContextHelpWrapperComponent', () => {
       'toggleIcons',
       'toggleTooltip',
       'showTooltip',
-      'hideTooltip'
+      'hideTooltip',
     ]);
 
     TestBed.configureTestingModule({
@@ -77,7 +77,7 @@ describe('ContextHelpWrapperComponent', () => {
         { provide: TranslateService, useValue: translateService },
         { provide: ContextHelpService, useValue: contextHelpService },
       ],
-      declarations: [ TemplateComponent, ContextHelpWrapperComponent ]
+      declarations: [ TemplateComponent, ContextHelpWrapperComponent ],
     }).compileComponents();
   }));
 

@@ -14,10 +14,10 @@ const mockCommunityWithAbstract: Community = Object.assign(new Community(), {
     'dc.description.abstract': [
       {
         language: 'en_US',
-        value: 'Short description'
-      }
-    ]
-  }
+        value: 'Short description',
+      },
+    ],
+  },
 });
 
 const mockCommunityWithoutAbstract: Community = Object.assign(new Community(), {
@@ -25,10 +25,10 @@ const mockCommunityWithoutAbstract: Community = Object.assign(new Community(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'Test title'
-      }
-    ]
-  }
+        value: 'Test title',
+      },
+    ],
+  },
 });
 
 describe('CommunityListElementComponent', () => {
@@ -37,12 +37,12 @@ describe('CommunityListElementComponent', () => {
       declarations: [CommunityListElementComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
-        { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) }
+        { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CommunityListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

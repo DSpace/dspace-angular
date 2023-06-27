@@ -30,16 +30,16 @@ export function getMockFormBuilderService(): FormBuilderService {
       value: {
         value: 'boundType',
         display: 'Bound Type',
-        authority: 'bound-auth-key'
+        authority: 'bound-auth-key',
       },
       submissionId: '1234',
       metadataFields: ['dc.type'],
       hasSelectableMetadata: false,
       typeBindRelations: [
-        {match: 'VISIBLE', operator: 'OR', when: [{id: 'dc.type', value: 'boundType'}]}
-      ]
-    }
-    )
+        {match: 'VISIBLE', operator: 'OR', when: [{id: 'dc.type', value: 'boundType'}]},
+      ],
+    },
+    ),
   });
 
 }

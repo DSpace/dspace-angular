@@ -16,7 +16,7 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../core/shared/operators';
 import { map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -30,7 +30,7 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import {
   getItemEditVersionhistoryRoute,
   getItemPageRoute,
-  getItemVersionRoute
+  getItemVersionRoute,
 } from '../item-page-routing-paths';
 import { UntypedFormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -52,7 +52,7 @@ import { ConfigurationDataService } from '../../core/data/configuration-data.ser
 @Component({
   selector: 'ds-item-versions',
   templateUrl: './item-versions.component.html',
-  styleUrls: ['./item-versions.component.scss']
+  styleUrls: ['./item-versions.component.scss'],
 })
 
 /**
@@ -137,7 +137,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
   options = Object.assign(new PaginationComponentOptions(), {
     id: 'ivo',
     currentPage: 1,
-    pageSize: this.pageSize
+    pageSize: this.pageSize,
   });
 
   /**
@@ -238,7 +238,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
       getFirstSucceededRemoteData(),
       switchMap((findRes: RemoteData<Version>) => {
         const payload = findRes.payload;
-        const summary = {summary: this.versionBeingEditedSummary,};
+        const summary = {summary: this.versionBeingEditedSummary};
         const updatedVersion = Object.assign({}, payload, summary);
         return this.versionService.update(updatedVersion).pipe(getFirstCompletedRemoteData<Version>());
       }),
@@ -250,7 +250,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
         this.notificationsService.warning(null, this.translateService.get(failureMessageKey, {'version': this.versionBeingEditedNumber}));
       }
       this.disableVersionEditing();
-    }
+    },
     );
   }
 
@@ -290,12 +290,12 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
           // Retrieve version history
           mergeMap((item: Item) => combineLatest([
             of(item),
-            this.versionHistoryService.getVersionHistoryFromVersion$(version)
+            this.versionHistoryService.getVersionHistoryFromVersion$(version),
           ])),
           // Delete item
           mergeMap(([item, versionHistory]: [Item, VersionHistory]) => combineLatest([
             this.deleteItemAndGetResult$(item),
-            of(versionHistory)
+            of(versionHistory),
           ])),
           // Retrieve new latest version
           mergeMap(([deleteItemResult, versionHistory]: [boolean, VersionHistory]) => combineLatest([
@@ -304,7 +304,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
               tap(() => {
                 this.getAllVersions(of(versionHistory));
               }),
-            )
+            ),
           ])),
         ).subscribe(([deleteHasSucceeded, newLatestVersionItem]: [boolean, Item]) => {
           // Notify operation result and redirect to latest item
@@ -337,7 +337,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
     activeModal.componentInstance.createVersionEvent.pipe(
       mergeMap((summary: string) => combineLatest([
         of(summary),
-        version.item.pipe(getFirstSucceededRemoteDataPayload())
+        version.item.pipe(getFirstSucceededRemoteDataPayload()),
       ])),
       mergeMap(([summary, item]: [string, Item]) => this.versionHistoryService.createVersion(item._links.self.href, summary)),
       getFirstCompletedRemoteData(),
@@ -402,7 +402,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
     return combineLatest([includeSubmitter$, isAdmin$]).pipe(
       map(([includeSubmitter, isAdmin]) => {
         return includeSubmitter && isAdmin;
-      })
+      }),
     );
 
   }
@@ -505,7 +505,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
 
       this.createVersionTitle$ = this.hasDraftVersion$.pipe(
         take(1),
-        switchMap((res) => of(res ? 'item.version.history.table.action.hasDraft' : 'item.version.history.table.action.newVersion'))
+        switchMap((res) => of(res ? 'item.version.history.table.action.hasDraft' : 'item.version.history.table.action.newVersion')),
       );
 
       this.getAllVersions(this.versionHistory$);
@@ -514,7 +514,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
         getRemoteDataPayload(),
         hasValueOperator(),
         map((versions: PaginatedList<Version>) => versions.page.filter((version: Version) => version.eperson !== undefined).length > 0),
-        startWith(false)
+        startWith(false),
       );
       this.itemPageRoutes$ = this.versionsRD$.pipe(
         getAllSucceededRemoteDataPayload(),
@@ -523,7 +523,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
           const itemPageRoutes = {};
           versions.forEach((item) => itemPageRoutes[item.uuid] = getItemPageRoute(item));
           return itemPageRoutes;
-        })
+        }),
       );
     }
   }

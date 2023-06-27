@@ -52,7 +52,7 @@ export class BrowseByGuard implements CanActivate {
                 const name = this.dsoNameService.getName(dso);
                 route.data = this.createData(title, id, browseDefinition, name, metadataTranslated, value, route);
                 return true;
-              })
+              }),
             );
           } else {
             route.data = this.createData(title, id, browseDefinition, '', metadataTranslated, value, route);
@@ -62,7 +62,7 @@ export class BrowseByGuard implements CanActivate {
           void this.router.navigate([PAGE_NOT_FOUND_PATH]);
           return observableOf(false);
         }
-      })
+      }),
     );
   }
 
@@ -73,7 +73,7 @@ export class BrowseByGuard implements CanActivate {
       browseDefinition: browseDefinition,
       collection: collection,
       field: field,
-      value: hasValue(value) ? `"${value}"` : ''
+      value: hasValue(value) ? `"${value}"` : '',
     });
   }
 }

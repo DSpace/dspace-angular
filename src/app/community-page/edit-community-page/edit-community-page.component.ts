@@ -9,14 +9,14 @@ import { getCommunityPageRoute } from '../community-page-routing-paths';
  */
 @Component({
   selector: 'ds-edit-community',
-  templateUrl: '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component.html'
+  templateUrl: '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component.html',
 })
 export class EditCommunityPageComponent extends EditComColPageComponent<Community> {
   type = 'community';
 
   public constructor(
     protected router: Router,
-    protected route: ActivatedRoute
+    protected route: ActivatedRoute,
   ) {
     super(router, route);
   }

@@ -16,9 +16,9 @@ const imports = [
       component: ThemedFeedbackComponent,
       resolve: { breadcrumb: I18nBreadcrumbResolver },
       data: { title: 'info.feedback.title', breadcrumbKey: 'info.feedback' },
-      canActivate: [FeedbackGuard]
-    }
-  ])
+      canActivate: [FeedbackGuard],
+    },
+  ]),
 ];
 
 if (environment.info.enableEndUserAgreement) {
@@ -28,8 +28,8 @@ if (environment.info.enableEndUserAgreement) {
         path: END_USER_AGREEMENT_PATH,
         component: ThemedEndUserAgreementComponent,
         resolve: { breadcrumb: I18nBreadcrumbResolver },
-        data: { title: 'info.end-user-agreement.title', breadcrumbKey: 'info.end-user-agreement' }
-      }
+        data: { title: 'info.end-user-agreement.title', breadcrumbKey: 'info.end-user-agreement' },
+      },
     ]));
 }
 if (environment.info.enablePrivacyStatement) {
@@ -39,15 +39,15 @@ if (environment.info.enablePrivacyStatement) {
         path: PRIVACY_PATH,
         component: ThemedPrivacyComponent,
         resolve: { breadcrumb: I18nBreadcrumbResolver },
-        data: { title: 'info.privacy.title', breadcrumbKey: 'info.privacy' }
-      }
+        data: { title: 'info.privacy.title', breadcrumbKey: 'info.privacy' },
+      },
     ]));
 }
 
 @NgModule({
   imports: [
-    ...imports
-  ]
+    ...imports,
+  ],
 })
 /**
  * Module for navigating to components within the info module

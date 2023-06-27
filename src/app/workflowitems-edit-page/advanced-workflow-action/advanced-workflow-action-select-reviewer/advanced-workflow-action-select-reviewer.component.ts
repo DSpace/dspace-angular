@@ -1,15 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import {
-  rendersAdvancedWorkflowTaskOption
+  rendersAdvancedWorkflowTaskOption,
 } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import {
-  SelectReviewerAdvancedWorkflowInfo
+  SelectReviewerAdvancedWorkflowInfo,
 } from '../../../core/tasks/models/select-reviewer-advanced-workflow-info.model';
 import {
-  EPersonListActionConfig
+  EPersonListActionConfig,
 } from '../../../access-control/group-registry/group-form/members-list/members-list.component';
 import { Subscription } from 'rxjs';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
@@ -84,7 +84,7 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
         remove: {
           css: 'btn-outline-danger',
           disabled: false,
-          icon: 'fas fa-minus'
+          icon: 'fas fa-minus',
         },
       };
     } else {
@@ -97,7 +97,7 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
         remove: {
           css: 'btn-primary',
           disabled: true,
-          icon: 'fas fa-check'
+          icon: 'fas fa-check',
         },
       };
     }

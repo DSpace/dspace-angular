@@ -11,7 +11,7 @@ import { AlertType } from '../../../shared/alert/aletr-type';
 @Component({
   selector: 'ds-submission-section-container',
   templateUrl: './section-container.component.html',
-  styleUrls: ['./section-container.component.scss']
+  styleUrls: ['./section-container.component.scss'],
 })
 export class SubmissionSectionContainerComponent implements OnInit {
 
@@ -68,7 +68,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
         { provide: 'sectionDataProvider', useFactory: () => (this.sectionData), deps: [] },
         { provide: 'submissionIdProvider', useFactory: () => (this.submissionId), deps: [] },
       ],
-      parent: this.injector
+      parent: this.injector,
     });
   }
 

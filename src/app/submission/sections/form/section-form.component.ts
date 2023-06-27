@@ -183,7 +183,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
           this.submissionObjectService.findById(this.submissionId, true, false, followLink('item')).pipe(
             getFirstSucceededRemoteData(),
             getRemoteDataPayload()),
-          this.sectionService.isSectionReadOnly(this.submissionId, this.sectionData.id, this.submissionService.getSubmissionScope())
+          this.sectionService.isSectionReadOnly(this.submissionId, this.sectionData.id, this.submissionService.getSubmissionScope()),
         ])),
       take(1))
       .subscribe(([sectionData, submissionObject, isSectionReadOnly]: [WorkspaceitemSectionFormObject, SubmissionObject, boolean]) => {
@@ -219,11 +219,11 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
   protected getSectionStatus(): Observable<boolean> {
     const formStatus$ = this.formService.isValid(this.formId);
     const serverValidationStatus$ = this.sectionService.getSectionServerErrors(this.submissionId, this.sectionData.id).pipe(
-      map((validationErrors) => isEmpty(validationErrors))
+      map((validationErrors) => isEmpty(validationErrors)),
     );
 
     return observableCombineLatest([formStatus$, serverValidationStatus$]).pipe(
-      map(([formValidation, serverSideValidation]: [boolean, boolean]) => formValidation && serverSideValidation)
+      map(([formValidation, serverSideValidation]: [boolean, boolean]) => formValidation && serverSideValidation),
     );
   }
 
@@ -304,7 +304,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
         this.collectionId,
         sectionData,
         this.submissionService.getSubmissionScope(),
-        this.isSectionReadonly
+        this.isSectionReadonly,
       );
       const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
       this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors, sectionMetadata);
@@ -312,7 +312,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
       const msg: string = this.translate.instant('error.submission.sections.init-form-error') + e.toString();
       const sectionError: SubmissionSectionError = {
         message: msg,
-        path: '/sections/' + this.sectionData.id
+        path: '/sections/' + this.sectionData.id,
       };
       console.error(e.stack);
       this.sectionService.setSectionError(this.submissionId, this.sectionData.id, sectionError);
@@ -390,7 +390,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
           this.fieldsOnTheirWayToBeRemoved = new Map();
           this.sectionMetadata = sectionState.metadata;
           this.updateForm(sectionState.data as WorkspaceitemSectionFormObject, sectionState.errorsToShow);
-        })
+        }),
     );
   }
 

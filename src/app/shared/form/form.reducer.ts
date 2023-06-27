@@ -8,7 +8,7 @@ import {
   FormInitAction,
   FormRemoveAction,
   FormRemoveErrorAction,
-  FormStatusChangeAction
+  FormStatusChangeAction,
 } from './form.actions';
 import { hasValue } from '../empty.util';
 import isEqual from 'lodash/isEqual';
@@ -84,19 +84,19 @@ function addFormErrors(state: FormState, action: FormAddError) {
     const error: FormError = {
       fieldId: action.payload.fieldId,
       fieldIndex: action.payload.fieldIndex,
-      message: action.payload.errorMessage
+      message: action.payload.errorMessage,
     };
     const metadata = action.payload.fieldId.replace(/\_/g, '.');
     const touched = Object.assign({}, state[formId].touched, {
-      [metadata]: true
+      [metadata]: true,
     });
     return Object.assign({}, state, {
       [formId]: {
         data: state[formId].data,
         valid: state[formId].valid,
         errors: state[formId].errors ? uniqWith(state[formId].errors.concat(error), isEqual) : [].concat(error),
-        touched
-      }
+        touched,
+      },
     });
   } else {
     return state;
@@ -148,7 +148,7 @@ function initForm(state: FormState, action: FormInitAction): FormState {
   };
   if (!hasValue(state[action.payload.formId])) {
     return Object.assign({}, state, {
-      [action.payload.formId]: formState
+      [action.payload.formId]: formState,
     });
   } else {
     const newState = Object.assign({}, state);
@@ -172,8 +172,8 @@ function changeDataForm(state: FormState, action: FormChangeAction): FormState {
     const newState = Object.assign({}, state);
     newState[action.payload.formId] = Object.assign({}, newState[action.payload.formId], {
       data: action.payload.formData,
-      valid: state[action.payload.formId].valid
-    }
+      valid: state[action.payload.formId].valid,
+    },
     );
     return newState;
   } else {
@@ -196,15 +196,15 @@ function changeStatusForm(state: FormState, action: FormStatusChangeAction): For
     return Object.assign({}, state, {
       [action.payload.formId]: {
         data: state[action.payload.formId].data,
-        valid: action.payload.valid
-      }
+        valid: action.payload.valid,
+      },
     });
   } else {
     const newState = Object.assign({}, state);
     newState[action.payload.formId] = Object.assign({}, newState[action.payload.formId], {
       data: state[action.payload.formId].data,
-      valid: action.payload.valid
-    }
+      valid: action.payload.valid,
+    },
     );
     return newState;
   }

@@ -19,8 +19,8 @@ describe('CommunityAuthorizationsComponent', () => {
     uuid: 'community',
     id: 'community',
     _links: {
-      self: { href: 'community-selflink' }
-    }
+      self: { href: 'community-selflink' },
+    },
   });
 
   const communityRD = createSuccessfulRemoteDataObject(community);
@@ -29,16 +29,16 @@ describe('CommunityAuthorizationsComponent', () => {
     parent: {
       parent: {
         data: observableOf({
-          dso: communityRD
-        })
-      }
-    }
+          dso: communityRD,
+        }),
+      },
+    },
   };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        CommonModule
+        CommonModule,
       ],
       declarations: [CommunityAuthorizationsComponent],
       providers: [

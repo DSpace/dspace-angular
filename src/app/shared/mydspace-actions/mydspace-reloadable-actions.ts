@@ -72,7 +72,7 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
               (reloadedObject) => {
                 this.processing$.next(false);
                 this.handleReloadableActionResponse(res.hasSucceeded, reloadedObject);
-              })
+              }),
           );
         } else {
           this.processing$.next(false);
@@ -120,7 +120,7 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
   convertReloadedObject(dso: DSpaceObject): DSpaceObject {
     const constructor = getSearchResultFor((dso as any).constructor);
     const reloadedObject = Object.assign(new constructor(), dso, {
-      indexableObject: dso
+      indexableObject: dso,
     });
     return reloadedObject;
   }

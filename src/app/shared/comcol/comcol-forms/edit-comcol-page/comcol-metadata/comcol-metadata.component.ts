@@ -15,7 +15,7 @@ import { Collection } from '../../../../../core/shared/collection.model';
 
 @Component({
   selector: 'ds-comcol-metadata',
-  template: ''
+  template: '',
 })
 export class ComcolMetadataComponent<TDomain extends Community | Collection> implements OnInit {
   /**
@@ -37,7 +37,7 @@ export class ComcolMetadataComponent<TDomain extends Community | Collection> imp
     protected router: Router,
     protected route: ActivatedRoute,
     protected notificationsService: NotificationsService,
-    protected translate: TranslateService
+    protected translate: TranslateService,
   ) {
   }
 
@@ -84,7 +84,7 @@ export class ComcolMetadataComponent<TDomain extends Community | Collection> imp
   navigateToHomePage() {
     this.dsoRD$.pipe(
       getFirstSucceededRemoteData(),
-      take(1)
+      take(1),
     ).subscribe((dsoRD: RemoteData<TDomain>) => {
       this.router.navigate([this.frontendURL + dsoRD.payload.id]);
     });

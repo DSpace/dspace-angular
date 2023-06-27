@@ -4,6 +4,6 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class Angulartics2Mock {
   public eventTrack = {
-    next: (param: any): void => {}
+    next: (param: any): void => {},
   };
 }

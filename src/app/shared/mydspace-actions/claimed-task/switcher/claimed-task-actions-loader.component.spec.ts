@@ -34,28 +34,28 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
       'dc.title': [
         {
           language: 'en_US',
-          value: 'This is just another title'
-        }
+          value: 'This is just another title',
+        },
       ],
       'dc.type': [
         {
           language: null,
-          value: 'Article'
-        }
+          value: 'Article',
+        },
       ],
       'dc.contributor.author': [
         {
           language: 'en_US',
-          value: 'Smith, Donald'
-        }
+          value: 'Smith, Donald',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '2015-06-26'
-        }
-      ]
-    }
+          value: '2015-06-26',
+        },
+      ],
+    },
   });
 
   const workflowitem = Object.assign(new WorkflowItem(), { id: '333' });
@@ -72,13 +72,13 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
-        { provide: PoolTaskDataService, useValue: {} }
-      ]
+        { provide: PoolTaskDataService, useValue: {} },
+      ],
     }).overrideComponent(ClaimedTaskActionsLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
-        entryComponents: [ClaimedTaskActionsEditMetadataComponent]
-      }
+        entryComponents: [ClaimedTaskActionsEditMetadataComponent],
+      },
     }).compileComponents();
   }));
 

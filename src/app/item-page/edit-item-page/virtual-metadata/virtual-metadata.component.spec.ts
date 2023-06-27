@@ -48,10 +48,10 @@ describe('VirtualMetadataComponent', () => {
       declarations: [VirtualMetadataComponent, VarDirective],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environment },
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(VirtualMetadataComponent);
@@ -98,7 +98,7 @@ describe('VirtualMetadataComponent', () => {
         url,
         relationshipId,
         item.uuid,
-        true
+        true,
       );
     });
   });

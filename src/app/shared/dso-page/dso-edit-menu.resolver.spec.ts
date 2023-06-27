@@ -24,7 +24,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 describe('DSOEditMenuResolver', () => {
 
   const MENU_STATE = {
-    id: 'some menu'
+    id: 'some menu',
   };
 
   let resolver: DSOEditMenuResolver;
@@ -44,15 +44,15 @@ describe('DSOEditMenuResolver', () => {
           id: 'statistics-dummy-1',
           active: false,
           visible: true,
-          model: null
-        }]
-      }
+          model: null,
+        }],
+      },
     },
     params: {id: 'test-uuid'},
   };
 
   const state = {
-    url: 'test-url'
+    url: 'test-url',
   };
 
   const testObject = Object.assign(new Item(), {uuid: 'test-uuid', type: 'item', _links: {self: {href: 'self-link'}}});
@@ -61,32 +61,32 @@ describe('DSOEditMenuResolver', () => {
     id: 'dummy-1',
     active: false,
     visible: true,
-    model: null
+    model: null,
   },
   {
     id: 'dummy-2',
     active: false,
     visible: true,
-    model: null
+    model: null,
   }];
 
   const dummySections2 = [{
     id: 'dummy-3',
     active: false,
     visible: true,
-    model: null
+    model: null,
   },
   {
     id: 'dummy-4',
     active: false,
     visible: true,
-    model: null
+    model: null,
   },
   {
     id: 'dummy-5',
     active: false,
     visible: true,
-    model: null
+    model: null,
   }];
 
   beforeEach(waitForAsync(() => {
@@ -94,15 +94,15 @@ describe('DSOEditMenuResolver', () => {
     spyOn(menuService, 'getMenu').and.returnValue(observableOf(MENU_STATE));
 
     dSpaceObjectDataService = jasmine.createSpyObj('dSpaceObjectDataService', {
-      findById: createSuccessfulRemoteDataObject$(testObject)
+      findById: createSuccessfulRemoteDataObject$(testObject),
     });
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     dsoVersioningModalService = jasmine.createSpyObj('dsoVersioningModalService', {
       isNewVersionButtonDisabled: observableOf(false),
       getVersioningTooltipMessage: observableOf('message'),
-      openCreateVersionModal: {}
+      openCreateVersionModal: {},
     });
     researcherProfileService = jasmine.createSpyObj('researcherProfileService', {
       createFromExternalSourceAndReturnRelatedItemId: observableOf('mock-id'),
@@ -129,11 +129,11 @@ describe('DSOEditMenuResolver', () => {
         {
           provide: NgbModal, useValue: {
             open: () => {/*comment*/
-            }
-          }
-        }
+            },
+          },
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     });
     resolver = TestBed.inject(DSOEditMenuResolver);
 
@@ -147,7 +147,7 @@ describe('DSOEditMenuResolver', () => {
   describe('resolve', () => {
     it('should create all menus when a dso is found based on the route id param', (done) => {
       spyOn(resolver, 'getDsoMenus').and.returnValue(
-        [observableOf(dummySections1), observableOf(dummySections2)]
+        [observableOf(dummySections1), observableOf(dummySections2)],
       );
       resolver.resolve(route as any, null).subscribe(resolved => {
         expect(resolved).toEqual(
@@ -155,9 +155,9 @@ describe('DSOEditMenuResolver', () => {
             ...route.data.menu,
             [MenuID.DSO_EDIT]: [
               ...dummySections1.map((menu) => Object.assign(menu, {id: menu.id + '-test-uuid'})),
-              ...dummySections2.map((menu) => Object.assign(menu, {id: menu.id + '-test-uuid'}))
-            ]
-          }
+              ...dummySections2.map((menu) => Object.assign(menu, {id: menu.id + '-test-uuid'})),
+            ],
+          },
         );
         expect(dSpaceObjectDataService.findById).toHaveBeenCalledWith('test-uuid', true, false);
         expect(resolver.getDsoMenus).toHaveBeenCalled();
@@ -166,7 +166,7 @@ describe('DSOEditMenuResolver', () => {
     });
     it('should create all menus when a dso is found based on the route scope query param when no id param is present', (done) => {
       spyOn(resolver, 'getDsoMenus').and.returnValue(
-        [observableOf(dummySections1), observableOf(dummySections2)]
+        [observableOf(dummySections1), observableOf(dummySections2)],
       );
       const routeWithScope = {
         data: {
@@ -175,9 +175,9 @@ describe('DSOEditMenuResolver', () => {
               id: 'statistics-dummy-1',
               active: false,
               visible: true,
-              model: null
-            }]
-          }
+              model: null,
+            }],
+          },
         },
         params: {},
         queryParams: {scope: 'test-scope-uuid'},
@@ -189,9 +189,9 @@ describe('DSOEditMenuResolver', () => {
             ...route.data.menu,
             [MenuID.DSO_EDIT]: [
               ...dummySections1.map((menu) => Object.assign(menu, {id: menu.id + '-test-scope-uuid'})),
-              ...dummySections2.map((menu) => Object.assign(menu, {id: menu.id + '-test-scope-uuid'}))
-            ]
-          }
+              ...dummySections2.map((menu) => Object.assign(menu, {id: menu.id + '-test-scope-uuid'})),
+            ],
+          },
         );
         expect(dSpaceObjectDataService.findById).toHaveBeenCalledWith('test-scope-uuid', true, false);
         expect(resolver.getDsoMenus).toHaveBeenCalled();
@@ -204,8 +204,8 @@ describe('DSOEditMenuResolver', () => {
       resolver.resolve(route as any, null).subscribe(resolved => {
         expect(resolved).toEqual(
           {
-            ...route.data.menu
-          }
+            ...route.data.menu,
+          },
         );
         done();
       });

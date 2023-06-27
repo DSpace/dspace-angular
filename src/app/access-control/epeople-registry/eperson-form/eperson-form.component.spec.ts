@@ -106,7 +106,7 @@ describe('EPersonFormComponent', () => {
       },
       getEPersonByEmail(email): Observable<RemoteData<EPerson>> {
         return createSuccessfulRemoteDataObject$(null);
-      }
+      },
     };
     builderService = Object.assign(getMockFormBuilderService(),{
       createFormGroup(formModel, options = null) {
@@ -169,7 +169,7 @@ describe('EPersonFormComponent', () => {
       },
       isObject(value) {
         return typeof value === 'object' && value !== null;
-      }
+      },
     });
     authService = new AuthServiceStub();
     authorizationService = jasmine.createSpyObj('authorizationService', {
@@ -178,7 +178,7 @@ describe('EPersonFormComponent', () => {
     });
     groupsDataService = jasmine.createSpyObj('groupsDataService', {
       findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
-      getGroupRegistryRouterLink: ''
+      getGroupRegistryRouterLink: '',
     });
 
     paginationService = new PaginationServiceStub();
@@ -187,8 +187,8 @@ describe('EPersonFormComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [EPersonFormComponent],
@@ -202,14 +202,14 @@ describe('EPersonFormComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring'])},
         { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
-        EPeopleRegistryComponent
+        EPeopleRegistryComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
   epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
-    registerEmail: createSuccessfulRemoteDataObject$(null)
+    registerEmail: createSuccessfulRemoteDataObject$(null),
   });
 
   beforeEach(() => {
@@ -241,12 +241,12 @@ describe('EPersonFormComponent', () => {
         metadata: {
           'eperson.firstname': [
             {
-              value: firstName
-            }
+              value: firstName,
+            },
           ],
           'eperson.lastname': [
             {
-              value: lastName
+              value: lastName,
             },
           ],
         },
@@ -329,7 +329,7 @@ describe('EPersonFormComponent', () => {
         const ePersonServiceWithEperson = Object.assign(ePersonDataServiceStub,{
           getEPersonByEmail(): Observable<RemoteData<EPerson>> {
             return createSuccessfulRemoteDataObject$(EPersonMock);
-          }
+          },
         });
         component.formGroup.controls.email.setValue('test@test.com');
         component.formGroup.controls.email.setAsyncValidators(ValidateEmailNotTaken.createValidator(ePersonServiceWithEperson));
@@ -366,12 +366,12 @@ describe('EPersonFormComponent', () => {
         metadata: {
           'eperson.firstname': [
             {
-              value: firstName
-            }
+              value: firstName,
+            },
           ],
           'eperson.lastname': [
             {
-              value: lastName
+              value: lastName,
             },
           ],
         },
@@ -409,19 +409,19 @@ describe('EPersonFormComponent', () => {
           metadata: {
             'eperson.firstname': [
               {
-                value: firstName
-              }
+                value: firstName,
+              },
             ],
             'eperson.lastname': [
               {
-                value: lastName
+                value: lastName,
               },
             ],
           },
           email: email,
           canLogIn: canLogIn,
           requireCertificate: requireCertificate,
-          _links: undefined
+          _links: undefined,
         });
         spyOn(ePersonDataServiceStub, 'getActiveEPerson').and.returnValue(observableOf(expectedWithId));
         component.onSubmit();
@@ -443,7 +443,7 @@ describe('EPersonFormComponent', () => {
       spyOn(authService, 'impersonate').and.callThrough();
       ePersonId = 'testEPersonId';
       component.epersonInitial = Object.assign(new EPerson(), {
-        id: ePersonId
+        id: ePersonId,
       });
       component.impersonate();
     });
@@ -531,7 +531,7 @@ describe('EPersonFormComponent', () => {
       ePersonEmail = 'person.email@4science.it';
       component.epersonInitial = Object.assign(new EPerson(), {
         id: ePersonId,
-        email: ePersonEmail
+        email: ePersonEmail,
       });
       component.resetPassword();
     });

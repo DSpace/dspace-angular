@@ -49,9 +49,9 @@ describe('ClaimedTaskActionsEditMetadataComponent', () => {
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
       ],
       declarations: [ClaimedTaskActionsEditMetadataComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ClaimedTaskActionsEditMetadataComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

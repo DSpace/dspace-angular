@@ -47,14 +47,14 @@ describe('ExistingRelationListElementComponent', () => {
       relationshipType: 'isPublicationOfAuthor',
       filter: 'test.filter',
       searchConfiguration: 'personConfiguration',
-      nameVariants: true
+      nameVariants: true,
     });
     relatedItem = Object.assign(new Item(), { uuid: uuid2 });
     leftItemRD$ = createSuccessfulRemoteDataObject$(relatedItem);
     rightItemRD$ = createSuccessfulRemoteDataObject$(submissionItem);
     relatedSearchResult = Object.assign(new ItemSearchResult(), { indexableObject: relatedItem });
     relationshipService = {
-      updatePlace: () => observableOf({})
+      updatePlace: () => observableOf({}),
     } as any;
 
     relationship = Object.assign(new Relationship(), { leftItem: leftItemRD$, rightItem: rightItemRD$ });
@@ -69,9 +69,9 @@ describe('ExistingRelationListElementComponent', () => {
       providers: [
         { provide: SelectableListService, useValue: selectionService },
         { provide: Store, useValue: store },
-        { provide: SubmissionService, useClass: SubmissionServiceStub }
+        { provide: SubmissionService, useClass: SubmissionServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

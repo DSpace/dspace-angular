@@ -11,7 +11,7 @@ import { SubmissionImportExternalComponent as BaseComponent } from '../../../../
   styleUrls: ['../../../../../app/submission/import-external/submission-import-external.component.scss'],
   // templateUrl: './submission-import-external.component.html',
   templateUrl: '../../../../../app/submission/import-external/submission-import-external.component.html',
-  animations: [fadeIn]
+  animations: [fadeIn],
 })
 export class SubmissionImportExternalComponent extends BaseComponent {
 

@@ -14,7 +14,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-collection-search-result-grid-element',
   styleUrls: ['../search-result-grid-element.component.scss', 'collection-search-result-grid-element.component.scss'],
-  templateUrl: 'collection-search-result-grid-element.component.html'
+  templateUrl: 'collection-search-result-grid-element.component.html',
 })
 /**
  * Component representing a grid element for a collection search result
@@ -27,7 +27,7 @@ export class CollectionSearchResultGridElementComponent extends SearchResultGrid
     public dsoNameService: DSONameService,
     private linkService: LinkService,
     protected truncatableService: TruncatableService,
-    protected bitstreamDataService: BitstreamDataService
+    protected bitstreamDataService: BitstreamDataService,
   ) {
     super(dsoNameService, truncatableService, bitstreamDataService);
   }
@@ -38,7 +38,7 @@ export class CollectionSearchResultGridElementComponent extends SearchResultGrid
     if (hasValue(this._dso) && hasNoValue(this._dso.logo)) {
       this.linkService.resolveLink<Collection>(
         this._dso,
-        followLink('logo')
+        followLink('logo'),
       );
     }
   }

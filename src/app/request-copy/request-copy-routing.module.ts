@@ -12,7 +12,7 @@ import { ThemedGrantRequestCopyComponent } from './grant-request-copy/themed-gra
       {
         path: ':token',
         resolve: {
-          request: RequestCopyResolver
+          request: RequestCopyResolver,
         },
         children: [
           {
@@ -27,14 +27,14 @@ import { ThemedGrantRequestCopyComponent } from './grant-request-copy/themed-gra
             path: REQUEST_COPY_GRANT_PATH,
             component: ThemedGrantRequestCopyComponent,
           },
-        ]
-      }
-    ])
+        ],
+      },
+    ]),
   ],
   providers: [
     RequestCopyResolver,
-    GrantDenyRequestCopyComponent
-  ]
+    GrantDenyRequestCopyComponent,
+  ],
 })
 export class RequestCopyRoutingModule {
 }

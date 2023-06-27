@@ -6,7 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
 import {
   getCollectionCreateRoute,
-  COLLECTION_PARENT_PARAMETER
+  COLLECTION_PARENT_PARAMETER,
 } from '../../../../collection-page/collection-page-routing-paths';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 import { environment } from '../../../../../environments/environment';
@@ -37,7 +37,7 @@ export class CreateCollectionParentSelectorComponent extends DSOSelectorModalWra
     const navigationExtras: NavigationExtras = {
       queryParams: {
         [COLLECTION_PARENT_PARAMETER]: dso.uuid,
-      }
+      },
     };
     this.router.navigate([getCollectionCreateRoute()], navigationExtras);
   }

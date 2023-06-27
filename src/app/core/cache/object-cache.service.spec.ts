@@ -69,8 +69,8 @@ describe('ObjectCacheService', () => {
       type: Item.type,
       _links: {
         self: { href: selfLink },
-        anotherLink: { href: anotherLink }
-      }
+        anotherLink: { href: anotherLink },
+      },
     };
     cacheEntry = {
       data: objectToCache,
@@ -96,8 +96,8 @@ describe('ObjectCacheService', () => {
         'cache/syncbuffer': {},
         'cache/object-updates': {},
         'data/request': {},
-        'index': {}
-      }
+        'index': {},
+      },
     };
   }
 
@@ -105,12 +105,12 @@ describe('ObjectCacheService', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(coreReducers, storeModuleConfig)
+        StoreModule.forRoot(coreReducers, storeModuleConfig),
       ],
       providers: [
         provideMockStore({ initialState }),
-        { provide: ObjectCacheService, useValue: service }
-      ]
+        { provide: ObjectCacheService, useValue: service },
+      ],
     }).compileComponents();
   }));
 
@@ -120,7 +120,7 @@ describe('ObjectCacheService', () => {
     mockStore = store as MockStore<CoreState>;
     mockStore.setState(initialState);
     linkServiceStub = {
-      removeResolvedLinks: (a) => a
+      removeResolvedLinks: (a) => a,
     };
     spyOn(linkServiceStub, 'removeResolvedLinks').and.callThrough();
     spyOn(store, 'dispatch');
@@ -209,7 +209,7 @@ describe('ObjectCacheService', () => {
   describe('getList', () => {
     it('should return an observable of the array of cached objects with the specified self link and type', () => {
       const item = Object.assign(new Item(), {
-        _links: { self: { href: selfLink } }
+        _links: { self: { href: selfLink } },
       });
       spyOn(service, 'getObjectByHref').and.returnValue(observableOf(item));
 
@@ -251,7 +251,7 @@ describe('ObjectCacheService', () => {
               'something',
               'something-else',
               'specific-request',
-            ]
+            ],
           })));
         });
 
@@ -266,7 +266,7 @@ describe('ObjectCacheService', () => {
             requestUUIDs: [
               'something',
               'something-else',
-            ]
+            ],
           })));
         });
 
@@ -292,9 +292,9 @@ describe('ObjectCacheService', () => {
       const state = Object.assign({}, initialState, {
         core: Object.assign({}, initialState.core, {
           'cache/object': {
-            [selfLink]: cacheEntry
-          }
-        })
+            [selfLink]: cacheEntry,
+          },
+        }),
       });
       mockStore.setState(state);
       const expected: TestColdObservable = cold('a', { a: cacheEntry });
@@ -310,14 +310,14 @@ describe('ObjectCacheService', () => {
       const state = Object.assign({}, initialState, {
         core: Object.assign({}, initialState.core, {
           'cache/object': {
-            [selfLink]: cacheEntry
+            [selfLink]: cacheEntry,
           },
           'index': {
             'object/alt-link-to-self-link': {
-              [anotherLink]: selfLink
-            }
-          }
-        })
+              [anotherLink]: selfLink,
+            },
+          },
+        }),
       });
       mockStore.setState(state);
       (service as any).getByAlternativeLink(anotherLink).subscribe();
@@ -335,8 +335,8 @@ describe('ObjectCacheService', () => {
     it('isDirty should return true when the patches list in the cache entry is not empty', () => {
       cacheEntry.patches = [
         {
-          operations: operations
-        } as Patch
+          operations: operations,
+        } as Patch,
       ];
       const result = (service as any).isDirty(cacheEntry);
       expect(result).toBe(true);
@@ -371,9 +371,9 @@ describe('ObjectCacheService', () => {
               [anotherLink]: selfLink,
               ['objectWithoutDependentsAlt']: 'objectWithoutDependents',
               ['objectWithDependentsAlt']: 'objectWithDependents',
-            }
-          }
-        })
+            },
+          },
+        }),
       });
       mockStore.setState(state);
     });
@@ -421,11 +421,11 @@ describe('ObjectCacheService', () => {
         testScheduler.run(({ cold: tsCold, flush }) => {
           const href$ = tsCold('--y-n-n', {
             y: selfLink,
-            n: 'NOPE'
+            n: 'NOPE',
           });
           const dependsOnHref$ = tsCold('-y-n-n', {
             y: 'objectWithoutDependents',
-            n: 'NOPE'
+            n: 'NOPE',
           });
 
           service.addDependency(href$, dependsOnHref$);

@@ -18,14 +18,14 @@ import { IdentifiableDataService } from '../data/base/identifiable-data.service'
  * without knowing their type
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SubmissionObjectDataService {
   constructor(
     private workspaceitemDataService: WorkspaceitemDataService,
     private workflowItemDataService: WorkflowItemDataService,
     private submissionService: SubmissionService,
-    private halService: HALEndpointService
+    private halService: HALEndpointService,
   ) {
   }
 
@@ -66,7 +66,7 @@ export class SubmissionObjectDataService {
           RequestEntryState.Error,
           'The request couldn\'t be sent. Unable to determine the type of submission object',
           undefined,
-          400
+          400,
         ));
       }
     }

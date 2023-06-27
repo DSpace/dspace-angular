@@ -17,7 +17,7 @@ describe('DsoPageSubscriptionButtonComponent', () => {
   let de: DebugElement;
 
   const authorizationService = jasmine.createSpyObj('authorizationService', {
-    isAuthorized: jasmine.createSpy('isAuthorized') // observableOf(true)
+    isAuthorized: jasmine.createSpy('isAuthorized'), // observableOf(true)
   });
 
   const mockItem = Object.assign(new Item(), {
@@ -28,9 +28,9 @@ describe('DsoPageSubscriptionButtonComponent', () => {
     type: ITEM,
     _links: {
       self: {
-        href: 'https://localhost:8000/items/fake-id'
-      }
-    }
+        href: 'https://localhost:8000/items/fake-id',
+      },
+    },
   });
 
   beforeEach(async () => {
@@ -40,14 +40,14 @@ describe('DsoPageSubscriptionButtonComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [ DsoPageSubscriptionButtonComponent ],
       providers: [
         { provide: AuthorizationDataService, useValue: authorizationService },
-      ]
+      ],
     })
       .compileComponents();
   });

@@ -15,7 +15,7 @@ export const RequestActionTypes = {
   ERROR: type('dspace/core/data/request/ERROR'),
   STALE: type('dspace/core/data/request/STALE'),
   RESET_TIMESTAMPS: type('dspace/core/data/request/RESET_TIMESTAMPS'),
-  REMOVE: type('dspace/core/data/request/REMOVE')
+  REMOVE: type('dspace/core/data/request/REMOVE'),
 };
 
 export abstract class RequestUpdateAction implements Action {
@@ -32,7 +32,7 @@ export class RequestConfigureAction extends RequestUpdateAction {
   payload: RestRequest;
 
   constructor(
-    request: RestRequest
+    request: RestRequest,
   ) {
     super();
     this.payload = request;
@@ -88,7 +88,7 @@ export class RequestSuccessAction extends RequestUpdateAction {
       timeCompleted: new Date().getTime(),
       statusCode,
       link,
-      unCacheableObject
+      unCacheableObject,
     };
   }
 }
@@ -121,7 +121,7 @@ export class RequestErrorAction extends RequestUpdateAction {
       uuid,
       timeCompleted: new Date().getTime(),
       statusCode,
-      errorMessage
+      errorMessage,
     };
   }
 }

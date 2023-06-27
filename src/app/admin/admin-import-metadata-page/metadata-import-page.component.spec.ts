@@ -28,14 +28,14 @@ describe('MetadataImportPageComponent', () => {
     notificationService = new NotificationsServiceStub();
     scriptService = jasmine.createSpyObj('scriptService',
       {
-        invoke: createSuccessfulRemoteDataObject$({ processId: '45' })
-      }
+        invoke: createSuccessfulRemoteDataObject$({ processId: '45' }),
+      },
     );
     router = jasmine.createSpyObj('router', {
-      navigateByUrl: jasmine.createSpy('navigateByUrl')
+      navigateByUrl: jasmine.createSpy('navigateByUrl'),
     });
     locationStub = jasmine.createSpyObj('location', {
-      back: jasmine.createSpy('back')
+      back: jasmine.createSpy('back'),
     });
   }
 
@@ -45,7 +45,7 @@ describe('MetadataImportPageComponent', () => {
       imports: [
         FormsModule,
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
       ],
       declarations: [MetadataImportPageComponent, FileValueAccessorDirective, FileValidator],
       providers: [
@@ -54,7 +54,7 @@ describe('MetadataImportPageComponent', () => {
         { provide: Router, useValue: router },
         { provide: Location, useValue: locationStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

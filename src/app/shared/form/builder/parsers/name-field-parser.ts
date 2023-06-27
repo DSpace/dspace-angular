@@ -10,7 +10,7 @@ export class NameFieldParser extends ConcatFieldParser {
     @Inject(SUBMISSION_ID) submissionId: string,
     @Inject(CONFIG_DATA) configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) initFormValues,
-    @Inject(PARSER_OPTIONS) parserOptions: ParserOptions
+    @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
   ) {
     super(submissionId, configData, initFormValues, parserOptions, ',', 'form.last-name', 'form.first-name');
   }

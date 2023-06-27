@@ -17,7 +17,7 @@ import { SubmissionImportExternalCollectionComponent } from '../import-external-
 @Component({
   selector: 'ds-submission-import-external-preview',
   styleUrls: ['./submission-import-external-preview.component.scss'],
-  templateUrl: './submission-import-external-preview.component.html'
+  templateUrl: './submission-import-external-preview.component.html',
 })
 export class SubmissionImportExternalPreviewComponent implements OnInit {
   /**
@@ -50,7 +50,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
     private submissionService: SubmissionService,
     private modalService: NgbModal,
     private router: Router,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
   ) { }
 
   /**
@@ -62,7 +62,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
     metadataKeys.forEach((key) => {
       this.metadataList.push({
         key: key,
-        value: Metadata.first(this.externalSourceEntry.metadata, key)
+        value: Metadata.first(this.externalSourceEntry.metadata, key),
       });
     });
   }
@@ -87,7 +87,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
     this.modalRef.componentInstance.selectedEvent.pipe(
       mergeMap((collectionListEntry: CollectionListEntry) => {
         return this.submissionService.createSubmissionFromExternalSource(this.externalSourceEntry._links.self.href, collectionListEntry.collection.id);
-      })
+      }),
     ).subscribe((submissionObjects: SubmissionObject[]) => {
       let isValid = false;
       if (submissionObjects.length === 1) {

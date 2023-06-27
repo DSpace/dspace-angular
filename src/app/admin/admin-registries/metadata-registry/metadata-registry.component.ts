@@ -18,7 +18,7 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 @Component({
   selector: 'ds-metadata-registry',
   templateUrl: './metadata-registry.component.html',
-  styleUrls: ['./metadata-registry.component.scss']
+  styleUrls: ['./metadata-registry.component.scss'],
 })
 /**
  * A component used for managing all existing metadata schemas within the repository.
@@ -36,7 +36,7 @@ export class MetadataRegistryComponent {
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'rm',
-    pageSize: 25
+    pageSize: 25,
   });
 
   /**
@@ -60,7 +60,7 @@ export class MetadataRegistryComponent {
     this.metadataSchemas = this.needsUpdate$.pipe(
       filter((update) => update === true),
       switchMap(() => this.paginationService.getCurrentPagination(this.config.id, this.config)),
-      switchMap((currentPagination) => this.registryService.getMetadataSchemas(toFindListOptions(currentPagination)))
+      switchMap((currentPagination) => this.registryService.getMetadataSchemas(toFindListOptions(currentPagination))),
     );
   }
 
@@ -92,7 +92,7 @@ export class MetadataRegistryComponent {
    */
   isActive(schema: MetadataSchema): Observable<boolean> {
     return this.getActiveSchema().pipe(
-      map((activeSchema) => schema === activeSchema)
+      map((activeSchema) => schema === activeSchema),
     );
   }
 
@@ -120,7 +120,7 @@ export class MetadataRegistryComponent {
    */
   isSelected(schema: MetadataSchema): Observable<boolean> {
     return this.registryService.getSelectedMetadataSchemas().pipe(
-      map((schemas) => schemas.find((selectedSchema) => selectedSchema === schema) != null)
+      map((schemas) => schemas.find((selectedSchema) => selectedSchema === schema) != null),
     );
   }
 
@@ -148,7 +148,7 @@ export class MetadataRegistryComponent {
           this.registryService.deselectAllMetadataSchema();
           this.registryService.cancelEditMetadataSchema();
         });
-      }
+      },
     );
   }
 
@@ -162,7 +162,7 @@ export class MetadataRegistryComponent {
     const suffix = success ? 'success' : 'failure';
     const messages = observableCombineLatest(
       this.translateService.get(success ? `${prefix}.${suffix}` : `${prefix}.${suffix}`),
-      this.translateService.get(`${prefix}.deleted.${suffix}`, {amount: amount})
+      this.translateService.get(`${prefix}.deleted.${suffix}`, {amount: amount}),
     );
     messages.subscribe(([head, content]) => {
       if (success) {

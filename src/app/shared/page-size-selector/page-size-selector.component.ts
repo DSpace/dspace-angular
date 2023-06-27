@@ -11,7 +11,7 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 @Component({
   selector: 'ds-page-size-selector',
   styleUrls: ['./page-size-selector.component.scss'],
-  templateUrl: './page-size-selector.component.html'
+  templateUrl: './page-size-selector.component.html',
 })
 
 /**
@@ -44,7 +44,7 @@ export class PageSizeSelectorComponent implements OnInit {
   reloadRPP(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     this.paginationOptions$.pipe(
-      take(1)
+      take(1),
     ).subscribe((pagination: PaginationComponentOptions) => {
       this.paginationService.updateRoute(pagination.id, {page: 1, pageSize: +value});
     }) ;

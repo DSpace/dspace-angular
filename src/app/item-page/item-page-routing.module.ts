@@ -28,7 +28,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
         resolve: {
           dso: ItemPageResolver,
           breadcrumb: ItemBreadcrumbResolver,
-          menu: DSOEditMenuResolver
+          menu: DSOEditMenuResolver,
         },
         runGuardsAndResolvers: 'always',
         children: [
@@ -49,7 +49,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
           {
             path: UPLOAD_BITSTREAM_PATH,
             component: UploadBitstreamComponent,
-            canActivate: [AuthenticatedGuard]
+            canActivate: [AuthenticatedGuard],
           },
           {
             path: REQUEST_COPY_MODULE_PATH,
@@ -58,8 +58,8 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
           {
             path: ORCID_PATH,
             component: OrcidPageComponent,
-            canActivate: [AuthenticatedGuard, OrcidPageGuard]
-          }
+            canActivate: [AuthenticatedGuard, OrcidPageGuard],
+          },
         ],
         data: {
           menu: {
@@ -86,10 +86,10 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             resolve: {
               dso: VersionResolver,
             },
-          }
+          },
         ],
-      }
-    ])
+      },
+    ]),
   ],
   providers: [
     ItemPageResolver,
@@ -98,8 +98,8 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
     LinkService,
     ItemPageAdministratorGuard,
     VersionResolver,
-    OrcidPageGuard
-  ]
+    OrcidPageGuard,
+  ],
 
 })
 export class ItemPageRoutingModule {

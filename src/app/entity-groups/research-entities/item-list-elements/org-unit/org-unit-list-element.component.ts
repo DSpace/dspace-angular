@@ -8,7 +8,7 @@ import { Item } from '../../../../core/shared/item.model';
 @Component({
   selector: 'ds-org-unit-list-element',
   styleUrls: ['./org-unit-list-element.component.scss'],
-  templateUrl: './org-unit-list-element.component.html'
+  templateUrl: './org-unit-list-element.component.html',
 })
 /**
  * The component for displaying a list element for an item of the type Organisation Unit

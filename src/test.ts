@@ -5,7 +5,7 @@ import { getTestBed } from '@angular/core/testing';
 import { MockStore } from '@ngrx/store/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -13,7 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting(),
-  { teardown: { destroyAfterEach: false } }
+  { teardown: { destroyAfterEach: false } },
 );
 
 jasmine.getEnv().afterEach(() => {

@@ -30,37 +30,37 @@ describe('ItemStatusComponent', () => {
     handle: 'fake/handle',
     lastModified: '2018',
     _links: {
-      self: { href: 'test-item-selflink' }
-    }
+      self: { href: 'test-item-selflink' },
+    },
   });
 
   mockIdentifierDataService = jasmine.createSpyObj('mockIdentifierDataService', {
     getIdentifierDataFor: createSuccessfulRemoteDataObject$({'identifiers': []}),
-    getIdentifierRegistrationConfiguration: createSuccessfulRemoteDataObject$('true')
+    getIdentifierRegistrationConfiguration: createSuccessfulRemoteDataObject$('true'),
   });
 
   mockConfigurationDataService = jasmine.createSpyObj('configurationDataService', {
     findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
       name: 'identifiers.item-status.register-doi',
       values: [
-        'true'
-      ]
-    }))
+        'true',
+      ],
+    })),
   });
 
   const itemPageUrl = `/items/${mockItem.uuid}`;
 
   const routeStub = {
     parent: {
-      data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
-    }
+      data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) }),
+    },
   };
 
   let authorizationService: AuthorizationDataService;
 
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
 
     TestBed.configureTestingModule({
@@ -71,8 +71,8 @@ describe('ItemStatusComponent', () => {
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: IdentifierDataService, useValue: mockIdentifierDataService },
-        { provide: ConfigurationDataService, useValue: mockConfigurationDataService }
-      ], schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        { provide: ConfigurationDataService, useValue: mockConfigurationDataService },
+      ], schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 

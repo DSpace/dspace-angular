@@ -50,7 +50,7 @@ const LAZY_KLARO = new InjectionToken<Promise<any>>(
   {
     providedIn: 'root',
     factory: async () => (await import('klaro/dist/klaro-no-translations')),
-  }
+  },
 );
 
 /**
@@ -102,7 +102,7 @@ export class BrowserKlaroService extends KlaroService {
     const hideRegistrationVerification$ = this.configService.findByPropertyName(this.REGISTRATION_VERIFICATION_ENABLED_KEY).pipe(
       getFirstCompletedRemoteData(),
       map((remoteData) =>
-        !remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) || remoteData.payload.values[0].toLowerCase() !== 'true'
+        !remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) || remoteData.payload.values[0].toLowerCase() !== 'true',
       ),
     );
 
@@ -116,7 +116,7 @@ export class BrowserKlaroService extends KlaroService {
           servicesToHideArray.push(CAPTCHA_NAME);
         }
         return servicesToHideArray;
-      })
+      }),
     );
 
     this.translateService.setDefaultLang(environment.defaultLanguage);
@@ -163,7 +163,7 @@ export class BrowserKlaroService extends KlaroService {
           storageName = this.getStorageName(user.uuid);
         }
         return this.cookieService.get(storageName);
-      })
+      }),
     );
   }
 
@@ -198,7 +198,7 @@ export class BrowserKlaroService extends KlaroService {
           }
           return observableOf(undefined);
         }),
-        take(1)
+        take(1),
       );
   }
 
@@ -240,7 +240,7 @@ export class BrowserKlaroService extends KlaroService {
     this.klaroConfig.services.forEach((app) => {
       this.klaroConfig.translations.zz[app.name] = {
         title: this.getTitleTranslation(app.name),
-        description: this.getDescriptionTranslation(app.name)
+        description: this.getDescriptionTranslation(app.name),
       };
       app.purposes.forEach((purpose) => {
         this.klaroConfig.translations.zz.purposes[purpose] = this.getPurposeTranslation(purpose);
@@ -302,8 +302,8 @@ export class BrowserKlaroService extends KlaroService {
             return this.ePersonService.patch(user, operations);
           }
           return observableOf(undefined);
-        }
-        )
+        },
+        ),
       ).subscribe();
   }
 

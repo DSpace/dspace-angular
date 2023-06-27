@@ -10,12 +10,12 @@ import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnot
       {
         matcher: urlMatcher,
         canActivate: [LookupGuard],
-        component: ThemedObjectNotFoundComponent  }
-    ])
+        component: ThemedObjectNotFoundComponent  },
+    ]),
   ],
   providers: [
-    LookupGuard
-  ]
+    LookupGuard,
+  ],
 })
 
 export class LookupRoutingModule {
@@ -35,8 +35,8 @@ export function urlMatcher(url) {
       consumed: url,
       posParams: {
         idType: new UrlSegment(idType, {}),
-        id: new UrlSegment(id, {})
-      }
+        id: new UrlSegment(id, {}),
+      },
     };
   }
   return null;

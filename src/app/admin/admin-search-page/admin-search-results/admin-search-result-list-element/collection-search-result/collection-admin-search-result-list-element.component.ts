@@ -11,7 +11,7 @@ import { getCollectionEditRoute } from '../../../../../collection-page/collectio
 @Component({
   selector: 'ds-collection-admin-search-result-list-element',
   styleUrls: ['./collection-admin-search-result-list-element.component.scss'],
-  templateUrl: './collection-admin-search-result-list-element.component.html'
+  templateUrl: './collection-admin-search-result-list-element.component.html',
 })
 /**
  * The component for displaying a list element for a collection search result on the admin search page

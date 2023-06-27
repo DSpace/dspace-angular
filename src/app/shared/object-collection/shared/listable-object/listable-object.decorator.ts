@@ -63,7 +63,7 @@ class MatchRelevancy {
  */
 export const GET_THEME_CONFIG_FOR_FACTORY = new InjectionToken<(str) => ThemeConfig>('getThemeConfigFor', {
   providedIn: 'root',
-  factory: () => getThemeConfigFor
+  factory: () => getThemeConfigFor,
 });
 
 const map = new Map();

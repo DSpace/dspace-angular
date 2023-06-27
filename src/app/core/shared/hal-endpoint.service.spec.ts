@@ -15,22 +15,22 @@ describe('HALEndpointService', () => {
   let envConfig;
   const endpointMap = {
     test: {
-      href: 'https://rest.api/test'
+      href: 'https://rest.api/test',
     },
     foo: {
-      href: 'https://rest.api/foo'
+      href: 'https://rest.api/foo',
     },
     bar: {
-      href: 'https://rest.api/bar'
+      href: 'https://rest.api/bar',
     },
     endpoint: {
-      href: 'https://rest.api/endpoint'
+      href: 'https://rest.api/endpoint',
     },
     link: {
-      href: 'https://rest.api/link'
+      href: 'https://rest.api/link',
     },
     another: {
-      href: 'https://rest.api/another'
+      href: 'https://rest.api/another',
     },
   };
   const start = 'http://start.com';
@@ -39,19 +39,19 @@ describe('HALEndpointService', () => {
   const endpointMaps = {
     [start]: {
       one: {
-        href: one
+        href: one,
       },
       two: {
-        href: 'empty'
+        href: 'empty',
       },
       endpoint: {
-        href: 'https://rest.api/endpoint'
+        href: 'https://rest.api/endpoint',
       },
       link: {
-        href: 'https://rest.api/link'
+        href: 'https://rest.api/link',
       },
       another: {
-        href: 'https://rest.api/another'
+        href: 'https://rest.api/another',
       },
     },
     [one]: {
@@ -63,8 +63,8 @@ describe('HALEndpointService', () => {
       },
       bar: {
         href: 'https://rest.api/bar',
-      }
-    }
+      },
+    },
   };
   const linkPath = 'test';
 
@@ -72,17 +72,17 @@ describe('HALEndpointService', () => {
     requestService = getMockRequestService();
     rdbService = jasmine.createSpyObj('rdbService', {
       buildFromHref: createSuccessfulRemoteDataObject$({
-        _links: endpointMap
-      })
+        _links: endpointMap,
+      }),
     });
 
     envConfig = {
-      rest: { baseUrl: 'https://rest.api/' }
+      rest: { baseUrl: 'https://rest.api/' },
     } as any;
 
     service = new HALEndpointService(
       requestService,
-      rdbService
+      rdbService,
     );
   });
 
@@ -106,7 +106,7 @@ describe('HALEndpointService', () => {
 
     beforeEach(() => {
       envConfig = {
-        rest: { baseUrl: 'https://rest.api/' }
+        rest: { baseUrl: 'https://rest.api/' },
       } as any;
     });
 
@@ -177,7 +177,7 @@ describe('HALEndpointService', () => {
     beforeEach(() => {
       service = new HALEndpointService(
         requestService,
-        rdbService
+        rdbService,
       );
 
     });

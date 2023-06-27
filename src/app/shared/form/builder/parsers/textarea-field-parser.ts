@@ -2,7 +2,7 @@ import { FieldParser } from './field-parser';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import {
   DsDynamicTextAreaModel,
-  DsDynamicTextAreaModelConfig
+  DsDynamicTextAreaModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { environment } from '../../../../../environments/environment';
 
@@ -13,8 +13,8 @@ export class TextareaFieldParser extends FieldParser {
 
     const layout = {
       element: {
-        label: 'col-form-label'
-      }
+        label: 'col-form-label',
+      },
     };
 
     textAreaModelConfig.rows = 10;

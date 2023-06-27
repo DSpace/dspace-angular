@@ -19,7 +19,7 @@ export const SearchFilterActionTypes = {
   TOGGLE: type('dspace/search-filter/TOGGLE'),
   DECREMENT_PAGE: type('dspace/search-filter/DECREMENT_PAGE'),
   INCREMENT_PAGE: type('dspace/search-filter/INCREMENT_PAGE'),
-  RESET_PAGE: type('dspace/search-filter/RESET_PAGE')
+  RESET_PAGE: type('dspace/search-filter/RESET_PAGE'),
 };
 
 export class SearchFilterAction implements Action {

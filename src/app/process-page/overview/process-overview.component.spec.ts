@@ -42,44 +42,44 @@ describe('ProcessOverviewComponent', () => {
         scriptName: 'script-name',
         startTime: '2020-03-19 00:30:00',
         endTime: '2020-03-19 23:30:00',
-        processStatus: ProcessStatus.COMPLETED
+        processStatus: ProcessStatus.COMPLETED,
       }),
       Object.assign(new Process(), {
         processId: 2,
         scriptName: 'script-name',
         startTime: '2020-03-20 00:30:00',
         endTime: '2020-03-20 23:30:00',
-        processStatus: ProcessStatus.FAILED
+        processStatus: ProcessStatus.FAILED,
       }),
       Object.assign(new Process(), {
         processId: 3,
         scriptName: 'another-script-name',
         startTime: '2020-03-21 00:30:00',
         endTime: '2020-03-21 23:30:00',
-        processStatus: ProcessStatus.RUNNING
-      })
+        processStatus: ProcessStatus.RUNNING,
+      }),
     ];
     ePerson = Object.assign(new EPerson(), {
       metadata: {
         'eperson.firstname': [
           {
             value: 'John',
-            language: null
-          }
+            language: null,
+          },
         ],
         'eperson.lastname': [
           {
             value: 'Doe',
-            language: null
-          }
-        ]
-      }
+            language: null,
+          },
+        ],
+      },
     });
     processService = jasmine.createSpyObj('processService', {
-      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(processes))
+      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(processes)),
     });
     ePersonService = jasmine.createSpyObj('ePersonService', {
-      findById: createSuccessfulRemoteDataObject$(ePerson)
+      findById: createSuccessfulRemoteDataObject$(ePerson),
     });
 
     paginationService = new PaginationServiceStub();
@@ -91,7 +91,7 @@ describe('ProcessOverviewComponent', () => {
       hasSelected: true,
       isToBeDeleted: true,
       toggleDelete: {},
-      getAmountOfSelectedProcesses: 5
+      getAmountOfSelectedProcesses: 5,
 
     });
 
@@ -104,7 +104,7 @@ describe('ProcessOverviewComponent', () => {
     });
 
     modalService = jasmine.createSpyObj('modalService', {
-      open: {}
+      open: {},
     });
   }
 
@@ -120,7 +120,7 @@ describe('ProcessOverviewComponent', () => {
         { provide: ProcessBulkDeleteService, useValue: processBulkDeleteService },
         { provide: NgbModal, useValue: modalService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

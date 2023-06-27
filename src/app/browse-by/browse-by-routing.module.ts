@@ -13,7 +13,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
         path: '',
         resolve: {
           breadcrumb: BrowseByDSOBreadcrumbResolver,
-          menu: DSOEditMenuResolver
+          menu: DSOEditMenuResolver,
         },
         children: [
           {
@@ -21,15 +21,15 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             component: ThemedBrowseBySwitcherComponent,
             canActivate: [BrowseByGuard],
             resolve: { breadcrumb: BrowseByI18nBreadcrumbResolver },
-            data: { title: 'browse.title.page', breadcrumbKey: 'browse.metadata' }
-          }
-        ]
-      }])
+            data: { title: 'browse.title.page', breadcrumbKey: 'browse.metadata' },
+          },
+        ],
+      }]),
   ],
   providers: [
     BrowseByI18nBreadcrumbResolver,
-    BrowseByDSOBreadcrumbResolver
-  ]
+    BrowseByDSOBreadcrumbResolver,
+  ],
 })
 export class BrowseByRoutingModule {
 

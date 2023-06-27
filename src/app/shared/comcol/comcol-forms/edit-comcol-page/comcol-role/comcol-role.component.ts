@@ -22,7 +22,7 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 @Component({
   selector: 'ds-comcol-role',
   styleUrls: ['./comcol-role.component.scss'],
-  templateUrl: './comcol-role.component.html'
+  templateUrl: './comcol-role.component.html',
 })
 export class ComcolRoleComponent implements OnInit {
 
@@ -105,7 +105,7 @@ export class ComcolRoleComponent implements OnInit {
    */
   create() {
     this.groupService.createComcolGroup(this.dso, this.comcolRole.name, this.groupLink).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<Group>) => {
 
       if (rd.hasSucceeded) {
@@ -114,9 +114,9 @@ export class ComcolRoleComponent implements OnInit {
       } else {
         this.notificationsService.error(
           this.roleName$.pipe(
-            switchMap(role => this.translateService.get('comcol-role.edit.create.error.title', { role }))
+            switchMap(role => this.translateService.get('comcol-role.edit.create.error.title', { role })),
           ),
-          `${rd.statusCode} ${rd.errorMessage}`
+          `${rd.statusCode} ${rd.errorMessage}`,
         );
       }
     });
@@ -127,7 +127,7 @@ export class ComcolRoleComponent implements OnInit {
    */
   delete() {
     this.groupService.deleteComcolGroup(this.groupLink).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<NoContent>) => {
       if (rd.hasSucceeded) {
         this.groupService.clearGroupsRequests();
@@ -135,9 +135,9 @@ export class ComcolRoleComponent implements OnInit {
       } else {
         this.notificationsService.error(
           this.roleName$.pipe(
-            switchMap(role => this.translateService.get('comcol-role.edit.delete.error.title', { role }))
+            switchMap(role => this.translateService.get('comcol-role.edit.delete.error.title', { role })),
           ),
-          rd.errorMessage
+          rd.errorMessage,
         );
       }
     });
@@ -157,7 +157,7 @@ export class ComcolRoleComponent implements OnInit {
         } else {
           return undefined;
         }
-      })
+      }),
     );
 
     this.editGroupLink$ = this.group$.pipe(

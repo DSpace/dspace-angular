@@ -16,7 +16,7 @@ import { isEmpty } from '../../shared/empty.util';
 import { RemoteData } from '../../core/data/remote-data';
 import {
   END_USER_AGREEMENT_METADATA_FIELD,
-  EndUserAgreementService
+  EndUserAgreementService,
 } from '../../core/end-user-agreement/end-user-agreement.service';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { CoreState } from '../../core/core-state.model';
@@ -27,7 +27,7 @@ import { CoreState } from '../../core/core-state.model';
 @Component({
   selector: 'ds-create-profile',
   styleUrls: ['./create-profile.component.scss'],
-  templateUrl: './create-profile.component.html'
+  templateUrl: './create-profile.component.html',
 })
 export class CreateProfileComponent implements OnInit {
   registration$: Observable<Registration>;
@@ -54,7 +54,7 @@ export class CreateProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: UntypedFormBuilder,
     private notificationsService: NotificationsService,
-    private endUserAgreementService: EndUserAgreementService
+    private endUserAgreementService: EndUserAgreementService,
   ) {
 
   }
@@ -126,37 +126,37 @@ export class CreateProfileComponent implements OnInit {
         metadata: {
           'eperson.firstname': [
             {
-              value: this.firstName.value
-            }
+              value: this.firstName.value,
+            },
           ],
           'eperson.lastname': [
             {
-              value: this.lastName.value
+              value: this.lastName.value,
             },
           ],
           'eperson.phone': [
             {
-              value: this.contactPhone.value
-            }
+              value: this.contactPhone.value,
+            },
           ],
           'eperson.language': [
             {
-              value: this.language.value
-            }
-          ]
+              value: this.language.value,
+            },
+          ],
         },
         email: this.email,
         password: this.password,
         canLogIn: true,
-        requireCertificate: false
+        requireCertificate: false,
       };
 
       // If the End User Agreement cookie is accepted, add end-user agreement metadata to the user
       if (this.endUserAgreementService.isCookieAccepted()) {
         values.metadata[END_USER_AGREEMENT_METADATA_FIELD] = [
           {
-            value: String(true)
-          }
+            value: String(true),
+          },
         ];
         this.endUserAgreementService.removeCookieAccepted();
       }

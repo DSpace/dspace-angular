@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
 import { LogOutAction } from '../../core/auth/auth.actions';
-import { getLogOutError, } from '../../core/auth/selectors';
+import { getLogOutError } from '../../core/auth/selectors';
 import { AppState } from '../../app.reducer';
 import { fadeOut } from '../animations/fade';
 
@@ -13,7 +13,7 @@ import { fadeOut } from '../animations/fade';
   selector: 'ds-log-out',
   templateUrl: './log-out.component.html',
   styleUrls: ['./log-out.component.scss'],
-  animations: [fadeOut]
+  animations: [fadeOut],
 })
 export class LogOutComponent implements OnInit {
   /**

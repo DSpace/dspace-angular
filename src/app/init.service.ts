@@ -68,7 +68,7 @@ export abstract class InitService {
   public static providers(): Provider[] {
     if (!InitService.isPrototypeOf(this)) {
       throw new Error(
-        'Initalization providers should only be generated from concrete subclasses of InitService'
+        'Initalization providers should only be generated from concrete subclasses of InitService',
       );
     }
     return [
@@ -82,7 +82,7 @@ export abstract class InitService {
           this.resolveAppConfig(transferState);
           return environment;
         },
-        deps: [ TransferState ]
+        deps: [ TransferState ],
       },
       {
         provide: APP_INITIALIZER,
@@ -103,7 +103,7 @@ export abstract class InitService {
    * @protected
    */
   protected static resolveAppConfig(
-    transferState: TransferState
+    transferState: TransferState,
   ): void {
     // overriden in subclasses if applicable
   }
@@ -159,7 +159,7 @@ export abstract class InitService {
     this.translate.addLangs(
       environment.languages
         .filter((LangConfig) => LangConfig.active === true)
-        .map((a) => a.code)
+        .map((a) => a.code),
     );
 
     // Load the default language from the config file
@@ -198,7 +198,7 @@ export abstract class InitService {
     return this.store.pipe(
       select(isAuthenticationBlocking),
       distinctUntilChanged(),
-      find((b: boolean) => b === false)
+      find((b: boolean) => b === false),
     );
   }
 }

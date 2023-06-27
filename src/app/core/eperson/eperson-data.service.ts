@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { find, map, take } from 'rxjs/operators';
 import {
   EPeopleRegistryCancelEPersonAction,
-  EPeopleRegistryEditEPersonAction
+  EPeopleRegistryEditEPersonAction,
 } from '../../access-control/epeople-registry/epeople-registry.actions';
 import { EPeopleRegistryState } from '../../access-control/epeople-registry/epeople-registry.reducers';
 import { AppState } from '../../app.reducer';
@@ -100,16 +100,16 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
                   elementsPerPage: options.elementsPerPage,
                   totalElements: page.length,
                   totalPages: page.length,
-                  currentPage: 1
+                  currentPage: 1,
                 }), page),
-                rd.statusCode
+                rd.statusCode,
               );
             } else {
               // If it hasn't succeeded, there can be no payload, so we can re-cast the existing
               // RemoteData object
               return rd as RemoteData<PaginatedList<EPerson>>;
             }
-          })
+          }),
         );
       default:
         return this.getEpeopleByMetadata(query.trim(), options, useCachedVersionIfAvailable);
@@ -187,7 +187,7 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
     oldVersion$.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-      take(1)
+      take(1),
     ).subscribe((oldEPerson: EPerson) => {
       const operations = this.generateOperations(oldEPerson, ePerson);
       const patchRequest = new PatchRequest(requestId, ePerson._links.self.href, operations);
@@ -207,17 +207,17 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
     let operations = this.comparator.diff(oldEPerson, newEPerson).filter((operation: Operation) => operation.op === 'replace');
     if (hasValue(oldEPerson.email) && oldEPerson.email !== newEPerson.email) {
       operations = [...operations, {
-        op: 'replace', path: '/email', value: newEPerson.email
+        op: 'replace', path: '/email', value: newEPerson.email,
       }];
     }
     if (hasValue(oldEPerson.requireCertificate) && oldEPerson.requireCertificate !== newEPerson.requireCertificate) {
       operations = [...operations, {
-        op: 'replace', path: '/certificate', value: newEPerson.requireCertificate
+        op: 'replace', path: '/certificate', value: newEPerson.requireCertificate,
       }];
     }
     if (hasValue(oldEPerson.canLogIn) && oldEPerson.canLogIn !== newEPerson.canLogIn) {
       operations = [...operations, {
-        op: 'replace', path: '/canLogIn', value: newEPerson.canLogIn
+        op: 'replace', path: '/canLogIn', value: newEPerson.canLogIn,
       }];
     }
     return operations;

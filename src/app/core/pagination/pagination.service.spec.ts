@@ -33,7 +33,7 @@ describe('PaginationService', () => {
           value = 'score';
         }
         return observableOf(value);
-      }
+      },
     };
 
     service = new PaginationService(routeService, router);
@@ -44,7 +44,7 @@ describe('PaginationService', () => {
       service.getCurrentPagination('test-id', defaultPagination).subscribe((currentPagination) => {
         expect(currentPagination).toEqual(Object.assign(new PaginationComponentOptions(), {
           currentPage: 5,
-          pageSize: 10
+          pageSize: 10,
         }));
       });
     });
@@ -67,7 +67,7 @@ describe('PaginationService', () => {
             value = 10;
           }
           return observableOf(value);
-        }
+        },
       };
       service = new PaginationService(routeService, router);
 
@@ -83,7 +83,7 @@ describe('PaginationService', () => {
           {
             sort: new SortOptions('score', SortDirection.ASC ),
             currentPage: 5,
-            elementsPerPage: 10
+            elementsPerPage: 10,
           }));
       });
     });

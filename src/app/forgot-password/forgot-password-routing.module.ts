@@ -17,12 +17,12 @@ import { RegistrationGuard } from '../register-page/registration.guard';
         path: ':token',
         component: ThemedForgotPasswordFormComponent,
         canActivate: [ RegistrationGuard ],
-      }
-    ])
+      },
+    ]),
   ],
   providers: [
     ItemPageResolver,
-  ]
+  ],
 })
 /**
  * This module defines the routing to the components related to the forgot password components.

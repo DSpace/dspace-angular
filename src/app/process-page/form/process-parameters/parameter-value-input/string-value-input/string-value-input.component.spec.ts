@@ -17,12 +17,12 @@ describe('StringValueInputComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         })],
       declarations: [StringValueInputComponent],
       providers: [
-      ]
+      ],
     })
       .compileComponents();
   }));

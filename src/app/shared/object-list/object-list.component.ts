@@ -16,7 +16,7 @@ import { CollectionElementLinkType } from '../object-collection/collection-eleme
   selector: 'ds-object-list',
   styleUrls: ['./object-list.component.scss'],
   templateUrl: './object-list.component.html',
-  animations: [fadeIn]
+  animations: [fadeIn],
 })
 export class ObjectListComponent {
   /**

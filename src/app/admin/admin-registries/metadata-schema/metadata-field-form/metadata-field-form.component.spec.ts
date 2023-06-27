@@ -21,7 +21,7 @@ describe('MetadataFieldFormComponent', () => {
   const metadataSchema = Object.assign(new MetadataSchema(), {
     id: 1,
     namespace: 'fake schema',
-    prefix: 'fake'
+    prefix: 'fake',
   });
 
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
@@ -33,7 +33,7 @@ describe('MetadataFieldFormComponent', () => {
     },
     cancelEditMetadataSchema: () => {
     },
-    clearMetadataFieldRequests: () => observableOf(undefined)
+    clearMetadataFieldRequests: () => observableOf(undefined),
   };
   const formBuilderServiceStub = {
     createFormGroup: () => {
@@ -43,7 +43,7 @@ describe('MetadataFieldFormComponent', () => {
         reset(_value?: any, _options?: { onlySelf?: boolean; emitEvent?: boolean; }): void {
         },
       };
-    }
+    },
   };
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
@@ -53,9 +53,9 @@ describe('MetadataFieldFormComponent', () => {
       declarations: [MetadataFieldFormComponent, EnumKeysPipe],
       providers: [
         { provide: RegistryService, useValue: registryServiceStub },
-        { provide: FormBuilderService, useValue: formBuilderServiceStub }
+        { provide: FormBuilderService, useValue: formBuilderServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -83,7 +83,7 @@ describe('MetadataFieldFormComponent', () => {
     const expected = Object.assign(new MetadataField(), {
       element: element,
       qualifier: qualifier,
-      scopeNote: scopeNote
+      scopeNote: scopeNote,
     });
 
     beforeEach(() => {
@@ -112,7 +112,7 @@ describe('MetadataFieldFormComponent', () => {
         schema: metadataSchema,
         element: element,
         qualifier: qualifier,
-        scopeNote: scopeNote
+        scopeNote: scopeNote,
       });
 
       beforeEach(() => {

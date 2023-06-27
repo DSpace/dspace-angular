@@ -11,7 +11,7 @@ import { getCommunityEditRoute } from '../../../../../community-page/community-p
 @Component({
   selector: 'ds-community-admin-search-result-grid-element',
   styleUrls: ['./community-admin-search-result-grid-element.component.scss'],
-  templateUrl: './community-admin-search-result-grid-element.component.html'
+  templateUrl: './community-admin-search-result-grid-element.component.html',
 })
 /**
  * The component for displaying a list element for a community search result on the admin search page

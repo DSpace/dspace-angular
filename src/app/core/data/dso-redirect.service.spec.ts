@@ -33,26 +33,26 @@ describe('DsoRedirectService', () => {
     scheduler = getTestScheduler();
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: cold('a', { a: pidLink })
+      getEndpoint: cold('a', { a: pidLink }),
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
-      send: true
+      send: true,
     });
 
     remoteData = createSuccessfulRemoteDataObject(Object.assign(new Item(), {
       type: 'item',
-      uuid: '123456789'
+      uuid: '123456789',
     }));
 
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('a', {
-        a: remoteData
-      })
+        a: remoteData,
+      }),
     });
 
     redirectService = jasmine.createSpyObj('redirectService', {
-      redirect: {}
+      redirect: {},
     });
 
     service = new DsoRedirectService(
@@ -60,7 +60,7 @@ describe('DsoRedirectService', () => {
       rdbService,
       objectCache,
       halService,
-      redirectService
+      redirectService,
     );
   });
 
@@ -115,8 +115,8 @@ describe('DsoRedirectService', () => {
         'dspace.entity.type': [
           {
             language: 'en_US',
-            value: 'Publication'
-          }
+            value: 'Publication',
+          },
         ],
       };
       const redir = service.findByIdAndIDType(dsoHandle, IdentifierType.HANDLE);

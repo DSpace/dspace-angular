@@ -46,7 +46,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
    */
   getFilesEndpoint(processId: string): Observable<string> {
     return this.getBrowseEndpoint().pipe(
-      switchMap((href) => this.halService.getEndpoint('files', `${href}/${processId}`))
+      switchMap((href) => this.halService.getEndpoint('files', `${href}/${processId}`)),
     );
   }
 

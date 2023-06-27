@@ -15,7 +15,7 @@ import { MenuItemType } from '../menu-item-type.model';
  */
 @Component({
   selector: 'ds-menu-section',
-  template: ''
+  template: '',
 })
 export class MenuSectionComponent implements OnInit, OnDestroy {
 
@@ -97,21 +97,21 @@ export class MenuSectionComponent implements OnInit, OnDestroy {
     this.updateSectionMap(
       this.section.id,
       this.getItemModelInjector(this.section.model),
-      this.getMenuItemComponent(this.section.model)
+      this.getMenuItemComponent(this.section.model),
     );
     this.subSections$ = this.menuService.getSubSectionsByParentID(this.menuID, this.section.id);
     this.subs.push(
       this.subSections$.pipe(
         // if you return an array from a switchMap it will emit each element as a separate event.
         // So this switchMap is equivalent to a subscribe with a forEach inside
-        switchMap((sections: MenuSection[]) => sections)
+        switchMap((sections: MenuSection[]) => sections),
       ).subscribe((section: MenuSection) => {
         this.updateSectionMap(
           section.id,
           this.getItemModelInjector(section.model),
-          this.getMenuItemComponent(section.model)
+          this.getMenuItemComponent(section.model),
         );
-      })
+      }),
     );
   }
 
@@ -148,7 +148,7 @@ export class MenuSectionComponent implements OnInit, OnDestroy {
     }
     return Injector.create({
       providers: [{ provide: 'itemModelProvider', useFactory: () => (itemModel), deps: [] }],
-      parent: this.injector
+      parent: this.injector,
     });
   }
 

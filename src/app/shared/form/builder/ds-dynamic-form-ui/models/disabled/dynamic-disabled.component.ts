@@ -10,7 +10,7 @@ import { DynamicDisabledModel } from './dynamic-disabled.model';
  */
 @Component({
   selector: 'ds-dynamic-disabled',
-  templateUrl: './dynamic-disabled.component.html'
+  templateUrl: './dynamic-disabled.component.html',
 })
 /**
  * Component for displaying a form input with a disabled property
@@ -27,7 +27,7 @@ export class DsDynamicDisabledComponent extends DynamicFormControlComponent {
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
+              protected validationService: DynamicFormValidationService,
   ) {
     super(layoutService, validationService);
   }

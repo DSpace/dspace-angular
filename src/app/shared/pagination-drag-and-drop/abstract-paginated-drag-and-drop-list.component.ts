@@ -8,7 +8,7 @@ import { hasValue } from '../empty.util';
 import {
   paginatedListToArray,
   getFirstSucceededRemoteData,
-  getAllSucceededRemoteData
+  getAllSucceededRemoteData,
 } from '../../core/shared/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -44,7 +44,7 @@ export const compareArraysUsingFieldUuids = () =>
  */
 @Component({
   selector: 'ds-paginated-drag-drop-abstract',
-  template: ''
+  template: '',
 })
 export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpaceObject> implements OnDestroy {
   /**
@@ -92,7 +92,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   options = Object.assign(new PaginationComponentOptions(),{
     id: 'dad',
     currentPage: 1,
-    pageSize: this.pageSize
+    pageSize: this.pageSize,
   });
 
   /**
@@ -116,7 +116,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   protected constructor(protected objectUpdatesService: ObjectUpdatesService,
                         protected elRef: ElementRef,
                         protected objectValuesPipe: ObjectValuesPipe,
-                        protected paginationService: PaginationService
+                        protected paginationService: PaginationService,
   ) {
   }
 
@@ -162,19 +162,19 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
     this.updates$ = this.objectsRD$.pipe(
       getAllSucceededRemoteData(),
       paginatedListToArray(),
-      switchMap((objects: T[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, objects))
+      switchMap((objects: T[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, objects)),
     );
     this.subs.push(
       this.updates$.pipe(
         map((fieldUpdates) => this.objectValuesPipe.transform(fieldUpdates)),
-        distinctUntilChanged(compareArraysUsingFieldUuids())
+        distinctUntilChanged(compareArraysUsingFieldUuids()),
       ).subscribe((updateValues) => {
         this.customOrder = updateValues.map((fieldUpdate) => fieldUpdate.field.uuid);
         // We received new values, stop displaying a loading indicator if it's present
         this.loading$.next(false);
       }),
       // Disable the pagination when objects are loading
-      this.loading$.subscribe((loading) => this.options.disabled = loading)
+      this.loading$.subscribe((loading) => this.options.disabled = loading),
     );
   }
 
@@ -224,7 +224,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
           if (isNewPage) {
             this.paginationComponent.doPageChange(redirectPage);
           }
-        }
+        },
       }));
     }
   }

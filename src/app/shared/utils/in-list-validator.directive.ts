@@ -9,8 +9,8 @@ import { inListValidator } from './validator.functions';
   selector: '[ngModel][dsInListValidator]',
   // We add our directive to the list of existing validators
   providers: [
-    { provide: NG_VALIDATORS, useExisting: InListValidator, multi: true }
-  ]
+    { provide: NG_VALIDATORS, useExisting: InListValidator, multi: true },
+  ],
 })
 export class InListValidator implements Validator {
   /**

@@ -12,7 +12,7 @@ import { CommunityListComponent as BaseComponent } from '../../../../../app/comm
   selector: 'ds-community-list',
   // styleUrls: ['./community-list.component.scss'],
   // templateUrl: './community-list.component.html'
-  templateUrl: '../../../../../app/community-list-page/community-list/community-list.component.html'
+  templateUrl: '../../../../../app/community-list-page/community-list/community-list.component.html',
 })
 export class CommunityListComponent extends BaseComponent {}
 

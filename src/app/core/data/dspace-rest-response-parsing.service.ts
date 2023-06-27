@@ -144,8 +144,8 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
         console.warn(`The response for '${request.href}' doesn't have a self link. This could mean there's an issue with the REST endpoint`);
         response.payload._links = Object.assign({}, response.payload._links, {
           self: {
-            href: urlWithoutEmbedParams
-          }
+            href: urlWithoutEmbedParams,
+          },
         });
 
       } else {
@@ -155,8 +155,8 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
           console.warn(`The response for '${urlWithoutEmbedParams}' has the self link '${response.payload._links.self.href}'. These don't match. This could mean there's an issue with the REST endpoint`);
           response.payload._links = Object.assign({}, response.payload._links, {
             self: {
-              href: urlWithoutEmbedParams
-            }
+              href: urlWithoutEmbedParams,
+            },
           });
         }
       }
@@ -185,7 +185,7 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
     let array: ObjectDomain[] = [];
     data.forEach((datum) => {
       array = [...array, this.process(datum, request)];
-    }
+    },
     );
     return array;
   }
@@ -231,7 +231,7 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
       let dataJSON: string;
       if (hasValue(data._embedded)) {
         dataJSON = JSON.stringify(Object.assign({}, data, {
-          _embedded: '...'
+          _embedded: '...',
         }));
       } else {
         dataJSON = JSON.stringify(data);

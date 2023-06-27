@@ -17,20 +17,20 @@ describe('CommunityCurateComponent', () => {
   let dsoNameService;
 
   const community = Object.assign(new Community(), {
-    metadata: {'dc.title': ['Community Name'], 'dc.identifier.uri': [ { value: '123456789/1'}]}
+    metadata: {'dc.title': ['Community Name'], 'dc.identifier.uri': [ { value: '123456789/1'}]},
   });
 
   beforeEach(waitForAsync(() => {
     routeStub = {
       parent: {
         data: observableOf({
-          dso: createSuccessfulRemoteDataObject(community)
-        })
-      }
+          dso: createSuccessfulRemoteDataObject(community),
+        }),
+      },
     };
 
     dsoNameService = jasmine.createSpyObj('dsoNameService', {
-      getName: 'Community Name'
+      getName: 'Community Name',
     });
 
     TestBed.configureTestingModule({
@@ -38,9 +38,9 @@ describe('CommunityCurateComponent', () => {
       declarations: [CommunityCurateComponent],
       providers: [
         {provide: ActivatedRoute, useValue: routeStub},
-        {provide: DSONameService, useValue: dsoNameService}
+        {provide: DSONameService, useValue: dsoNameService},
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -58,7 +58,7 @@ describe('CommunityCurateComponent', () => {
     });
     it('should contain the community information provided in the route', () => {
       comp.dsoRD$.subscribe((value) => {
-        expect(value.payload.handle
+        expect(value.payload.handle,
         ).toEqual('123456789/1');
       });
       comp.communityName$.subscribe((value) => {

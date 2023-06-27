@@ -89,7 +89,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
               this.handleActionResponse(response.hasSucceeded);
             });
         }
-      }
+      },
     );
   }
 
@@ -104,7 +104,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
           getRemoteDataPayload(),
           switchMap((item: Item) => {
             return this.authorizationService.isAuthorized(FeatureID.CanEditItem, item?._links?.self.href, eperson.uuid);
-          })
+          }),
         ) as Observable<boolean>;
       }));
   }

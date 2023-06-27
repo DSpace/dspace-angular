@@ -51,13 +51,13 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     Object.assign(new ExternalSource(), {
       id: 'orcidV2',
       name: 'orcidV2',
-      hierarchical: false
+      hierarchical: false,
     }),
     Object.assign(new ExternalSource(), {
       id: 'sherpaPublisher',
       name: 'sherpaPublisher',
-      hierarchical: false
-    })
+      hierarchical: false,
+    }),
   ];
   const totalLocal = 10;
   const totalExternal = 8;
@@ -81,21 +81,21 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       relationshipType: 'isAuthorOfPublication',
       nameVariants: true,
       searchConfiguration: 'personConfig',
-      externalSources: ['orcidV2', 'sherpaPublisher']
+      externalSources: ['orcidV2', 'sherpaPublisher'],
     });
     nameVariant = 'Doe, J.';
     metadataField = 'dc.contributor.author';
     pSearchOptions = new PaginatedSearchOptions({});
     externalSourceService = jasmine.createSpyObj('externalSourceService', {
       findAll: createSuccessfulRemoteDataObject$(createPaginatedList(externalSources)),
-      findById: createSuccessfulRemoteDataObject$(externalSources[0])
+      findById: createSuccessfulRemoteDataObject$(externalSources[0]),
     });
     lookupRelationService = jasmine.createSpyObj('lookupRelationService', {
       getTotalLocalResults: observableOf(totalLocal),
-      getTotalExternalResults: observableOf(totalExternal)
+      getTotalExternalResults: observableOf(totalExternal),
     });
     rdbService = jasmine.createSpyObj('rdbService', {
-      aggregate: createSuccessfulRemoteDataObject$(externalSources)
+      aggregate: createSuccessfulRemoteDataObject$(externalSources),
     });
     submissionId = '1234';
   }
@@ -108,16 +108,16 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       providers: [
         {
           provide: SearchConfigurationService, useValue: {
-            paginatedSearchOptions: observableOf(pSearchOptions)
-          }
+            paginatedSearchOptions: observableOf(pSearchOptions),
+          },
         },
         { provide: ExternalSourceDataService, useValue: externalSourceService },
         { provide: LookupRelationService, useValue: lookupRelationService },
         {
-          provide: SelectableListService, useValue: selectableListService
+          provide: SelectableListService, useValue: selectableListService,
         },
         {
-          provide: RelationshipDataService, useValue: { getNameVariant: () => observableOf(nameVariant) }
+          provide: RelationshipDataService, useValue: { getNameVariant: () => observableOf(nameVariant) },
         },
         { provide: RelationshipTypeDataService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: rdbService },
@@ -125,13 +125,13 @@ describe('DsDynamicLookupRelationModalComponent', () => {
           provide: Store, useValue: {
             // eslint-disable-next-line no-empty, @typescript-eslint/no-empty-function
             dispatch: () => {
-            }
-          }
+            },
+          },
         },
         { provide: NgZone, useValue: new NgZone({}) },
-        NgbActiveModal
+        NgbActiveModal,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

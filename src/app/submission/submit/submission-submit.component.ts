@@ -22,7 +22,7 @@ import { ItemDataService } from '../../core/data/item-data.service';
 @Component({
   selector: 'ds-submission-submit',
   styleUrls: ['./submission-submit.component.scss'],
-  templateUrl: './submission-submit.component.html'
+  templateUrl: './submission-submit.component.html',
 })
 export class SubmissionSubmitComponent implements OnDestroy, OnInit {
 
@@ -127,7 +127,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
       this.itemLink$.pipe(
         isNotEmptyOperator(),
         switchMap((itemLink: string) =>
-          this.itemDataService.findByHref(itemLink)
+          this.itemDataService.findByHref(itemLink),
         ),
         getAllSucceededRemoteData(),
         // Multiple sources can update the item in quick succession.
@@ -136,7 +136,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
       ).subscribe((itemRd: RemoteData<Item>) => {
         this.item = itemRd.payload;
         this.changeDetectorRef.detectChanges();
-      })
+      }),
     );
   }
 

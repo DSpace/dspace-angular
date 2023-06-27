@@ -19,7 +19,7 @@ describe('MenuSectionComponent', () => {
     dummySection = {
       id: 'section',
       visible: true,
-      active: false
+      active: false,
     } as any;
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule],
@@ -29,9 +29,9 @@ describe('MenuSectionComponent', () => {
         { provide: MenuService, useClass: MenuServiceStub },
         { provide: MenuSection, useValue: dummySection },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MenuSectionComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

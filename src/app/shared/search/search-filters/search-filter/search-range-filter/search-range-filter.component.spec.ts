@@ -6,7 +6,7 @@ import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
-  SearchFilterService
+  SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { FilterType } from '../../../models/filter-type.model';
@@ -51,37 +51,37 @@ describe('SearchRangeFilterComponent', () => {
       count: 52,
       _links: {
         self: {
-          href: ''
+          href: '',
         },
         search: {
-          href: ''
-        }
-      }
+          href: '',
+        },
+      },
     }, {
       label: value2,
       value: value2,
       count: 20,
       _links: {
         self: {
-          href: ''
+          href: '',
         },
         search: {
-          href: ''
-        }
-      }
+          href: '',
+        },
+      },
     }, {
       label: value3,
       value: value3,
       count: 5,
       _links: {
         self: {
-          href: ''
+          href: '',
         },
         search: {
-          href: ''
-        }
-      }
-    }
+          href: '',
+        },
+      },
+    },
   ];
 
   const searchLink = '/search';
@@ -114,14 +114,14 @@ describe('SearchRangeFilterComponent', () => {
             incrementPage: (filterName: string) => {
             },
             resetPage: (filterName: string) => {
-            }
+            },
             /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-          }
-        }
+          },
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchRangeFilterComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -148,9 +148,9 @@ describe('SearchRangeFilterComponent', () => {
       expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
         queryParams: {
           [mockFilterConfig.paramName + minSuffix]: [1900],
-          [mockFilterConfig.paramName + maxSuffix]: [1950]
+          [mockFilterConfig.paramName + maxSuffix]: [1950],
         },
-        queryParamsHandling: 'merge'
+        queryParamsHandling: 'merge',
       });
     });
   });

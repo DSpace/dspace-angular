@@ -12,13 +12,13 @@ describe('DisabledFieldParser test suite', () => {
     readOnly: false,
     submissionScope: null,
     collectionUUID: null,
-    typeField: 'dc_type'
+    typeField: 'dc_type',
   };
 
   beforeEach(() => {
     field = {
       input: {
-        type: ''
+        type: '',
       },
       label: 'Description',
       mandatory: 'false',
@@ -26,10 +26,10 @@ describe('DisabledFieldParser test suite', () => {
       hints: 'Enter a description.',
       selectableMetadata: [
         {
-          metadata: 'description'
-        }
+          metadata: 'description',
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
   });

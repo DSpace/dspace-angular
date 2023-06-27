@@ -24,35 +24,35 @@ describe('ItemAuthorizationsComponent test suite', () => {
 
   const bitstream1 = Object.assign(new Bitstream(), {
     id: 'bitstream1',
-    uuid: 'bitstream1'
+    uuid: 'bitstream1',
   });
   const bitstream2 = Object.assign(new Bitstream(), {
     id: 'bitstream2',
-    uuid: 'bitstream2'
+    uuid: 'bitstream2',
   });
   const bitstream3 = Object.assign(new Bitstream(), {
     id: 'bitstream3',
-    uuid: 'bitstream3'
+    uuid: 'bitstream3',
   });
   const bitstream4 = Object.assign(new Bitstream(), {
     id: 'bitstream4',
-    uuid: 'bitstream4'
+    uuid: 'bitstream4',
   });
   const bundle1 = Object.assign(new Bundle(), {
     id: 'bundle1',
     uuid: 'bundle1',
     _links: {
-      self: { href: 'bundle1-selflink' }
+      self: { href: 'bundle1-selflink' },
     },
-    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2]))
+    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2])),
   });
   const bundle2 = Object.assign(new Bundle(), {
     id: 'bundle2',
     uuid: 'bundle2',
     _links: {
-      self: { href: 'bundle2-selflink' }
+      self: { href: 'bundle2-selflink' },
     },
-    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream3, bitstream4]))
+    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream3, bitstream4])),
   });
   const bundles = [bundle1, bundle2];
 
@@ -60,35 +60,35 @@ describe('ItemAuthorizationsComponent test suite', () => {
     uuid: 'item',
     id: 'item',
     _links: {
-      self: { href: 'item-selflink' }
+      self: { href: 'item-selflink' },
     },
-    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle1, bundle2]))
+    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle1, bundle2])),
   });
 
   const routeStub = {
     data: observableOf({
-      dso: createSuccessfulRemoteDataObject(item)
-    })
+      dso: createSuccessfulRemoteDataObject(item),
+    }),
   };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         ItemAuthorizationsComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: LinkService, useValue: linkService },
         { provide: ActivatedRoute, useValue: routeStub },
-        ItemAuthorizationsComponent
+        ItemAuthorizationsComponent,
       ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 
@@ -139,18 +139,18 @@ describe('ItemAuthorizationsComponent test suite', () => {
       expect(compAsAny.bundleBitstreamsMap.has('bundle2')).toBeTruthy();
       let bitstreamList = compAsAny.bundleBitstreamsMap.get('bundle1');
       expect(bitstreamList.bitstreams).toBeObservable(cold('(a|)', {
-        a : [bitstream1, bitstream2]
+        a : [bitstream1, bitstream2],
       }));
       bitstreamList = compAsAny.bundleBitstreamsMap.get('bundle2');
       expect(bitstreamList.bitstreams).toBeObservable(cold('(a|)', {
-        a: [bitstream3, bitstream4]
+        a: [bitstream3, bitstream4],
       }));
     });
 
     it('should get the item UUID', () => {
 
       expect(comp.getItemUUID()).toBeObservable(cold('(a|)', {
-        a: item.id
+        a: item.id,
       }));
 
     });
@@ -158,7 +158,7 @@ describe('ItemAuthorizationsComponent test suite', () => {
     it('should get the item\'s bundle', () => {
 
       expect(comp.getItemBundles()).toBeObservable(cold('a', {
-        a: bundles
+        a: bundles,
       }));
 
     });
@@ -168,7 +168,7 @@ describe('ItemAuthorizationsComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

@@ -3,7 +3,7 @@ import {
   DynamicFormControlModel,
   DynamicFormValueControlModel,
   DynamicInputModel,
-  DynamicSelectModel
+  DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -19,7 +19,7 @@ import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'ds-profile-page-metadata-form',
-  templateUrl: './profile-page-metadata-form.component.html'
+  templateUrl: './profile-page-metadata-form.component.html',
 })
 /**
  * Component for a user to edit their metadata
@@ -43,17 +43,17 @@ export class ProfilePageMetadataFormComponent implements OnInit {
     new DynamicInputModel({
       id: 'email',
       name: 'email',
-      readOnly: true
+      readOnly: true,
     }),
     new DynamicInputModel({
       id: 'firstname',
       name: 'eperson.firstname',
       required: true,
       validators: {
-        required: null
+        required: null,
       },
       errorMessages: {
-        required: 'This field is required'
+        required: 'This field is required',
       },
     }),
     new DynamicInputModel({
@@ -61,20 +61,20 @@ export class ProfilePageMetadataFormComponent implements OnInit {
       name: 'eperson.lastname',
       required: true,
       validators: {
-        required: null
+        required: null,
       },
       errorMessages: {
-        required: 'This field is required'
+        required: 'This field is required',
       },
     }),
     new DynamicInputModel({
       id: 'phone',
-      name: 'eperson.phone'
+      name: 'eperson.phone',
     }),
     new DynamicSelectModel<string>({
       id: 'language',
-      name: 'eperson.language'
-    })
+      name: 'eperson.language',
+    }),
   ];
 
   /**
@@ -135,7 +135,7 @@ export class ProfilePageMetadataFormComponent implements OnInit {
           (fieldModel as DynamicSelectModel<string>).options =
             this.activeLangs.map((langConfig) => Object.assign({ value: langConfig.code, label: langConfig.label }));
         }
-      }
+      },
     );
     this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
   }
@@ -153,7 +153,7 @@ export class ProfilePageMetadataFormComponent implements OnInit {
             fieldModel.errorMessages[key] = this.translate.instant(this.ERROR_PREFIX + fieldModel.id + '.' + key);
           });
         }
-      }
+      },
     );
   }
 
@@ -187,7 +187,7 @@ export class ProfilePageMetadataFormComponent implements OnInit {
       } else if (hasValue(fieldModel.value)) {
         newMetadata[fieldModel.name] = [{
           value: fieldModel.value,
-          language: null
+          language: null,
         } as any];
         changed = true;
       }
@@ -196,13 +196,13 @@ export class ProfilePageMetadataFormComponent implements OnInit {
     if (changed) {
       this.epersonService.update(Object.assign(cloneDeep(this.user), {metadata: newMetadata})).pipe(
         getFirstSucceededRemoteData(),
-        getRemoteDataPayload()
+        getRemoteDataPayload(),
       ).subscribe((user) => {
         this.user = user;
         this.setFormValues();
         this.notificationsService.success(
           this.translate.instant(this.NOTIFICATION_PREFIX + 'success.title'),
-          this.translate.instant(this.NOTIFICATION_PREFIX + 'success.content')
+          this.translate.instant(this.NOTIFICATION_PREFIX + 'success.content'),
         );
       });
     }

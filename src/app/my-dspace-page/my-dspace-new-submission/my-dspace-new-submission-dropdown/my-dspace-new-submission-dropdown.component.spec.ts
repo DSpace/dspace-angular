@@ -20,26 +20,26 @@ export function getMockEntityTypeService(): EntityTypeDataService {
     label: 'Publication',
     uuid: '1',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
   const type2: ItemType = {
     id: '2',
     label: 'Journal',
     uuid: '2',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
   const type3: ItemType = {
     id: '2',
     label: 'DataPackage',
     uuid: '2',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
   const rd$ = createSuccessfulRemoteDataObject$(createPaginatedList([type1, type2, type3]));
   return jasmine.createSpyObj('entityTypeService', {
     getAllAuthorizedRelationshipType: rd$,
-    hasMoreThanOneAuthorized: observableOf(true)
+    hasMoreThanOneAuthorized: observableOf(true),
   });
 }
 
@@ -50,12 +50,12 @@ export function getMockEmptyEntityTypeService(): EntityTypeDataService {
     label: 'Publication',
     uuid: '1',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
   const rd$ = createSuccessfulRemoteDataObject$(createPaginatedList([type1]));
   return jasmine.createSpyObj('entityTypeService', {
     getAllAuthorizedRelationshipType: rd$,
-    hasMoreThanOneAuthorized: observableOf(false)
+    hasMoreThanOneAuthorized: observableOf(false),
   });
 }
 
@@ -70,13 +70,13 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
     label: 'Publication',
     uuid: '1',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
 
   const modalStub = {
     open: () => null,
     close: () => null,
-    dismiss: () => null
+    dismiss: () => null,
   };
 
   describe('With only one Entity', () => {
@@ -94,9 +94,9 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
           { provide: NgbModal, useValue: modalStub },
-          MyDSpaceNewSubmissionDropdownComponent
+          MyDSpaceNewSubmissionDropdownComponent,
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
 
       const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
@@ -146,9 +146,9 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
           { provide: NgbModal, useValue: modalStub },
-          MyDSpaceNewSubmissionDropdownComponent
+          MyDSpaceNewSubmissionDropdownComponent,
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
 
       const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
@@ -188,7 +188,7 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
   reload = (event) => {

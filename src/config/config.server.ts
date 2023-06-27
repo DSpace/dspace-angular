@@ -155,7 +155,7 @@ const buildBaseUrl = (config: ServerConfig): void => {
     config.ssl ? 'https://' : 'http://',
     config.host,
     config.port && config.port !== 80 && config.port !== 443 ? `:${config.port}` : '',
-    config.nameSpace && config.nameSpace.startsWith('/') ? config.nameSpace : `/${config.nameSpace}`
+    config.nameSpace && config.nameSpace.startsWith('/') ? config.nameSpace : `/${config.nameSpace}`,
   ].join('');
 };
 

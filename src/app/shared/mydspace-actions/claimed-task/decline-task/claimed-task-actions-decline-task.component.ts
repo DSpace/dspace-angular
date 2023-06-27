@@ -8,7 +8,7 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { RequestService } from '../../../../core/data/request.service';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import {
-  ClaimedDeclinedTaskTaskSearchResult
+  ClaimedDeclinedTaskTaskSearchResult,
 } from '../../../object-collection/shared/claimed-declined-task-task-search-result.model';
 import { Observable, of as observableOf } from 'rxjs';
 import { RemoteData } from 'src/app/core/data/remote-data';
@@ -19,7 +19,7 @@ export const WORKFLOW_TASK_OPTION_DECLINE_TASK = 'submit_decline_task';
 @Component({
   selector: 'ds-claimed-task-actions-decline-task',
   templateUrl: './claimed-task-actions-decline-task.component.html',
-  styleUrls: ['./claimed-task-actions-decline-task.component.scss']
+  styleUrls: ['./claimed-task-actions-decline-task.component.scss'],
 })
 /**
  * Component for displaying and processing the decline task action on a workflow task item
@@ -43,7 +43,7 @@ export class ClaimedTaskActionsDeclineTaskComponent extends ClaimedTaskActionsAb
 
   convertReloadedObject(dso: DSpaceObject): DSpaceObject {
     return Object.assign(new ClaimedDeclinedTaskTaskSearchResult(), dso, {
-      indexableObject: dso
+      indexableObject: dso,
     });
   }
 

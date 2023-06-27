@@ -17,7 +17,7 @@ describe('ProcessBreadcrumbResolver', () => {
       path = 'rest.com/path/to/breadcrumb/12345';
       processBreadcrumbService = {};
       processDataService = {
-        findById: () => createSuccessfulRemoteDataObject$(process)
+        findById: () => createSuccessfulRemoteDataObject$(process),
       } as any;
       resolver = new ProcessBreadcrumbResolver(processBreadcrumbService, processDataService);
     });

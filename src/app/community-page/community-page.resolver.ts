@@ -17,7 +17,7 @@ export const COMMUNITY_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Community>[] = [
   followLink('logo'),
   followLink('subcommunities'),
   followLink('collections'),
-  followLink('parentCommunity')
+  followLink('parentCommunity'),
 ];
 
 /**
@@ -27,7 +27,7 @@ export const COMMUNITY_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Community>[] = [
 export class CommunityPageResolver implements Resolve<RemoteData<Community>> {
   constructor(
     private communityService: CommunityDataService,
-    private store: Store<any>
+    private store: Store<any>,
   ) {
   }
 
@@ -43,7 +43,7 @@ export class CommunityPageResolver implements Resolve<RemoteData<Community>> {
       route.params.id,
       true,
       false,
-      ...COMMUNITY_PAGE_LINKS_TO_FOLLOW
+      ...COMMUNITY_PAGE_LINKS_TO_FOLLOW,
     ).pipe(
       getFirstCompletedRemoteData(),
     );

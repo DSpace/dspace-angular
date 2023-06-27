@@ -21,27 +21,27 @@ const entities: ItemType[] = [
   Object.assign(new ItemType(), {
     id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
     label: 'Entity_1',
-    uuid: 'UUID-ce64f48e-2c9b-411a-ac36-ee429c0e6a88'
+    uuid: 'UUID-ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
   }),
   Object.assign(new ItemType(), {
     id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
     label: 'Entity_2',
-    uuid: 'UUID-59ee713b-ee53-4220-8c3f-9860dc84fe33'
+    uuid: 'UUID-59ee713b-ee53-4220-8c3f-9860dc84fe33',
   }),
   Object.assign(new ItemType(), {
     id: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
     label: 'Entity_3',
-    uuid: 'UUID-7127-415f-8919-55be34a6e9ed'
+    uuid: 'UUID-7127-415f-8919-55be34a6e9ed',
   }),
   Object.assign(new ItemType(), {
     id: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
     label: 'Entity_4',
-    uuid: 'UUID-59da2ff0-9bf4-45bf-88be-e35abd33f304'
+    uuid: 'UUID-59da2ff0-9bf4-45bf-88be-e35abd33f304',
   }),
   Object.assign(new ItemType(), {
     id: 'a5159760-f362-4659-9e81-e3253ad91ede',
     label: 'Entity_5',
-    uuid: 'UUID-a5159760-f362-4659-9e81-e3253ad91ede'
+    uuid: 'UUID-a5159760-f362-4659-9e81-e3253ad91ede',
   }),
 ];
 
@@ -49,8 +49,8 @@ const listElementMock: ItemType = Object.assign(
   new ItemType(), {
     id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
     label: 'Entity_1',
-    uuid: 'UUID-ce64f48e-2c9b-411a-ac36-ee429c0e6a88'
-  }
+    uuid: 'UUID-ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
+  },
 );
 
 describe('EntityDropdownComponent', () => {
@@ -61,7 +61,7 @@ describe('EntityDropdownComponent', () => {
 
   const entityTypeServiceMock: any = jasmine.createSpyObj('EntityTypeService', {
     getAllAuthorizedRelationshipType: jasmine.createSpy('getAllAuthorizedRelationshipType'),
-    getAllAuthorizedRelationshipTypeImport: jasmine.createSpy('getAllAuthorizedRelationshipTypeImport')
+    getAllAuthorizedRelationshipTypeImport: jasmine.createSpy('getAllAuthorizedRelationshipTypeImport'),
   });
 
 
@@ -76,9 +76,9 @@ describe('EntityDropdownComponent', () => {
       declarations: [EntityDropdownComponent, MockTranslatePipe],
       providers: [
         { provide: EntityTypeDataService, useValue: entityTypeServiceMock },
-        ChangeDetectorRef
+        ChangeDetectorRef,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

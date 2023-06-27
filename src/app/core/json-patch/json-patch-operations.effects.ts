@@ -5,7 +5,7 @@ import { createEffect, Actions, ofType } from '@ngrx/effects';
 
 import {
   CommitPatchOperationsAction, FlushPatchOperationsAction,
-  JsonPatchOperationsActionTypes
+  JsonPatchOperationsActionTypes,
 } from './json-patch-operations.actions';
 
 /**

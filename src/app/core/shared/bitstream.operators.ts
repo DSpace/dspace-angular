@@ -20,5 +20,5 @@ export const getDownloadableBitstream = (authService: AuthorizationDataService) 
         } else {
           return observableOf(null);
         }
-      })
+      }),
     );

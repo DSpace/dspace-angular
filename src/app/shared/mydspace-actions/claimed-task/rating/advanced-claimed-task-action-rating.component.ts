@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { RequestService } from '../../../../core/data/request.service';
 import {
-  AdvancedClaimedTaskActionsAbstractComponent
+  AdvancedClaimedTaskActionsAbstractComponent,
 } from '../abstract/advanced-claimed-task-actions-abstract.component';
 import {
   ADVANCED_WORKFLOW_ACTION_RATING,
@@ -20,7 +20,7 @@ import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-deco
 @Component({
   selector: 'ds-advanced-claimed-task-action-rating-reviewer',
   templateUrl: './advanced-claimed-task-action-rating.component.html',
-  styleUrls: ['./advanced-claimed-task-action-rating.component.scss']
+  styleUrls: ['./advanced-claimed-task-action-rating.component.scss'],
 })
 export class AdvancedClaimedTaskActionRatingComponent extends AdvancedClaimedTaskActionsAbstractComponent {
 

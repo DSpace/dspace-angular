@@ -12,7 +12,7 @@ const MY_DSPACE_STATUS_CONTEXTS = [
   Context.MyDSpaceDeclined,
   Context.MyDSpaceApproved,
   Context.MyDSpaceWaitingController,
-  Context.MyDSpaceValidation
+  Context.MyDSpaceValidation,
 ];
 
 /**
@@ -21,7 +21,7 @@ const MY_DSPACE_STATUS_CONTEXTS = [
 @Component({
   selector: 'ds-badges',
   templateUrl: './badges.component.html',
-  styleUrls: ['./badges.component.scss']
+  styleUrls: ['./badges.component.scss'],
 })
 export class BadgesComponent {
   /**

@@ -6,12 +6,12 @@ import {
   OnDestroy,
   OnInit,
   SimpleChanges,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { DynamicFormControlModel, } from '@ng-dynamic-forms/core';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { SectionUploadService } from '../section-upload.service';
@@ -186,8 +186,8 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
           .pipe(filter((bitstream) => isNotUndefined(bitstream)))
           .subscribe((bitstream) => {
             this.fileData = bitstream;
-          }
-          )
+          },
+          ),
       );
     }
   }
@@ -211,7 +211,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
           this.processingDelete$.next(true);
           this.deleteFile();
         }
-      }
+      },
     );
   }
 
@@ -222,7 +222,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    */
   public getBitstream(): Bitstream {
     return Object.assign(new Bitstream(), {
-      uuid: this.fileData.uuid
+      uuid: this.fileData.uuid,
     });
   }
 
@@ -265,7 +265,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
           this.formMetadata.push(metadatum.metadata);
         });
       });
-    }
+    },
     );
   }
 

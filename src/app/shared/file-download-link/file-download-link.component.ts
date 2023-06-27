@@ -11,7 +11,7 @@ import { Item } from '../../core/shared/item.model';
 @Component({
   selector: 'ds-file-download-link',
   templateUrl: './file-download-link.component.html',
-  styleUrls: ['./file-download-link.component.scss']
+  styleUrls: ['./file-download-link.component.scss'],
 })
 /**
  * Component displaying a download link
@@ -56,7 +56,7 @@ export class FileDownloadLinkComponent implements OnInit {
       this.canDownload$ = this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
       const canRequestACopy$ = this.authorizationService.isAuthorized(FeatureID.CanRequestACopy, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
       this.bitstreamPath$ = observableCombineLatest([this.canDownload$, canRequestACopy$]).pipe(
-        map(([canDownload, canRequestACopy]) => this.getBitstreamPath(canDownload, canRequestACopy))
+        map(([canDownload, canRequestACopy]) => this.getBitstreamPath(canDownload, canRequestACopy)),
       );
     } else {
       this.bitstreamPath$ = observableOf(this.getBitstreamDownloadPath());
@@ -74,7 +74,7 @@ export class FileDownloadLinkComponent implements OnInit {
   getBitstreamDownloadPath() {
     return {
       routerLink: getBitstreamDownloadRoute(this.bitstream),
-      queryParams: {}
+      queryParams: {},
     };
   }
 }

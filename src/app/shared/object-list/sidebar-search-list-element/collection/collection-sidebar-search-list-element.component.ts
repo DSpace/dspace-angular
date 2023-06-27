@@ -10,7 +10,7 @@ import { SidebarSearchListElementComponent } from '../sidebar-search-list-elemen
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.SideBarSearchModalCurrent)
 @Component({
   selector: 'ds-collection-sidebar-search-list-element',
-  templateUrl: '../sidebar-search-list-element.component.html'
+  templateUrl: '../sidebar-search-list-element.component.html',
 })
 /**
  * Component displaying a list element for a {@link CollectionSearchResult} within the context of a sidebar search modal

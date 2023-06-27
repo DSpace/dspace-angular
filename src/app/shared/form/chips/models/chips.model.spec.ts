@@ -53,15 +53,15 @@ describe('Chips model test suite', () => {
     items = [
       {
         label: 'A',
-        value: 'a'
+        value: 'a',
       },
       {
         label: 'B',
-        value: 'b'
+        value: 'b',
       },
       {
         label: 'C',
-        value: 'c'
+        value: 'c',
       },
     ];
     chips = new Chips(items, 'label');
@@ -73,15 +73,15 @@ describe('Chips model test suite', () => {
     items = [
       {
         toDisplay: new FormFieldMetadataValueObject('a', null, 'a'),
-        otherProperty: 'a'
+        otherProperty: 'a',
       },
       {
         toDisplay: new FormFieldMetadataValueObject('a', null, 'a'),
-        otherProperty: 'a'
+        otherProperty: 'a',
       },
       {
         toDisplay: new FormFieldMetadataValueObject('a', null, 'a'),
-        otherProperty: 'a'
+        otherProperty: 'a',
       },
     ];
     chips = new Chips(items, 'value', 'toDisplay');
@@ -94,21 +94,21 @@ describe('Chips model test suite', () => {
     items = [
       {
         toDisplay: new FormFieldMetadataValueObject('a', null, 'a'),
-        otherProperty: 'a'
+        otherProperty: 'a',
       },
       {
         toDisplay: new FormFieldMetadataValueObject('a', null, 'a'),
-        otherProperty: 'a'
+        otherProperty: 'a',
       },
       {
         toDisplay: new FormFieldMetadataValueObject('a', null, 'a'),
-        otherProperty: 'a'
+        otherProperty: 'a',
       },
     ];
     const iconsConfig = [{
       name: 'toDisplay',
       visibleWhenAuthorityEmpty: false,
-      style: 'fa-user'
+      style: 'fa-user',
     }];
     chips = new Chips(items, 'value', 'toDisplay', iconsConfig);
 

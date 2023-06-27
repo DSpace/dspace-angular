@@ -147,7 +147,7 @@ export class ProfilePageResearcherFormComponent implements OnInit {
    */
   toggleProfileVisibility(researcherProfile: ResearcherProfile): void {
     this.researcherProfileService.setVisibility(researcherProfile, !researcherProfile.visible).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<ResearcherProfile>) => {
       if (rd.hasSucceeded) {
         this.researcherProfile$.next(rd.payload);
@@ -181,7 +181,7 @@ export class ProfilePageResearcherFormComponent implements OnInit {
   createProfileFromScratch() {
     this.processingCreate$.next(true);
     this.researcherProfileService.create().pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((remoteData) => {
       this.processingCreate$.next(false);
       if (remoteData.isSuccess) {

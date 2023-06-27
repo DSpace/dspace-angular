@@ -25,7 +25,7 @@ export class VersionResolver implements Resolve<RemoteData<Version>> {
   constructor(
     protected versionService: VersionDataService,
     protected store: Store<any>,
-    protected router: Router
+    protected router: Router,
   ) {
   }
 
@@ -40,7 +40,7 @@ export class VersionResolver implements Resolve<RemoteData<Version>> {
     const versionRD$ = this.versionService.findById(route.params.id,
       true,
       false,
-      ...VERSION_PAGE_LINKS_TO_FOLLOW
+      ...VERSION_PAGE_LINKS_TO_FOLLOW,
     ).pipe(
       getFirstCompletedRemoteData(),
     );

@@ -13,13 +13,13 @@ import { fadeIn, fadeInOut } from '../../../../../../../../../app/shared/animati
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
+      useClass: SearchConfigurationService,
+    },
   ],
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
 })
 export class DsDynamicLookupRelationExternalSourceTabComponent extends BaseComponent {
 

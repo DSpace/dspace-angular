@@ -4,7 +4,7 @@ import { PageInfo } from '../../../../core/shared/page-info.model';
 import { JournalIssueComponent } from './journal-issue.component';
 import {
   createRelationshipsObservable,
-  getItemPageFieldsTest
+  getItemPageFieldsTest,
 } from '../../../../item-page/simple/item-types/shared/item.component.spec';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 
@@ -14,29 +14,29 @@ const mockItem: Item = Object.assign(new Item(), {
     'publicationissue.issueNumber': [
       {
         language: 'en_US',
-        value: '1234'
-      }
+        value: '1234',
+      },
     ],
     'creativework.datePublished': [
       {
         language: 'en_US',
-        value: '2018'
-      }
+        value: '2018',
+      },
     ],
     'dc.description': [
       {
         language: 'en_US',
-        value: 'desc'
-      }
+        value: 'desc',
+      },
     ],
     'creativework.keywords': [
       {
         language: 'en_US',
-        value: 'keyword'
-      }
-    ]
+        value: 'keyword',
+      },
+    ],
   },
-  relationships: createRelationshipsObservable()
+  relationships: createRelationshipsObservable(),
 });
 
 describe('JournalIssueComponent', getItemPageFieldsTest(mockItem, JournalIssueComponent));

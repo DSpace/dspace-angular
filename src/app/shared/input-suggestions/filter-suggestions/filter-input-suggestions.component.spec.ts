@@ -16,7 +16,7 @@ describe('FilterInputSuggestionsComponent', () => {
   let el: HTMLElement;
   const suggestions = [{ displayValue: 'suggestion uno', value: 'suggestion uno' }, {
     displayValue: 'suggestion dos',
-    value: 'suggestion dos'
+    value: 'suggestion dos',
   }, { displayValue: 'suggestion tres', value: 'suggestion tres' }];
 
   beforeEach(waitForAsync(() => {
@@ -24,9 +24,9 @@ describe('FilterInputSuggestionsComponent', () => {
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule],
       declarations: [FilterInputSuggestionsComponent],
       providers: [],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(FilterInputSuggestionsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

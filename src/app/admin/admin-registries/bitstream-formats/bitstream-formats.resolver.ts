@@ -24,7 +24,7 @@ export class BitstreamFormatsResolver implements Resolve<RemoteData<BitstreamFor
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<BitstreamFormat>> {
     return this.bitstreamFormatDataService.findById(route.params.id)
       .pipe(
-        getFirstCompletedRemoteData()
+        getFirstCompletedRemoteData(),
       );
   }
 }

@@ -18,7 +18,7 @@ import { hasValue } from '../shared/empty.util';
 @Component({
   selector: 'ds-subscriptions-page',
   templateUrl: './subscriptions-page.component.html',
-  styleUrls: ['./subscriptions-page.component.scss']
+  styleUrls: ['./subscriptions-page.component.scss'],
 })
 /**
  * List and allow to manage all the active subscription for the current user
@@ -36,7 +36,7 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'elp',
     pageSize: 10,
-    currentPage: 1
+    currentPage: 1,
   });
 
   /**
@@ -57,7 +57,7 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
   constructor(
     private paginationService: PaginationService,
     private authService: AuthService,
-    private subscriptionService: SubscriptionsDataService
+    private subscriptionService: SubscriptionsDataService,
   ) {
 
   }
@@ -85,9 +85,9 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
       tap(() => this.loading$.next(true)),
       switchMap(([currentPagination, ePersonId]) => this.subscriptionService.findByEPerson(ePersonId,{
         currentPage: currentPagination.currentPage,
-        elementsPerPage: currentPagination.pageSize
+        elementsPerPage: currentPagination.pageSize,
       })),
-      getAllCompletedRemoteData()
+      getAllCompletedRemoteData(),
     ).subscribe((res: RemoteData<PaginatedList<Subscription>>) => {
       if (res.hasSucceeded) {
         this.subscriptions$.next(res.payload);

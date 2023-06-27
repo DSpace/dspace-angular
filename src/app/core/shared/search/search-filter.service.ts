@@ -3,7 +3,7 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
 import { Injectable, InjectionToken } from '@angular/core';
 import {
   SearchFiltersState,
-  SearchFilterState
+  SearchFilterState,
 } from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import {
@@ -13,9 +13,9 @@ import {
   SearchFilterIncrementPageAction,
   SearchFilterInitializeAction,
   SearchFilterResetPageAction,
-  SearchFilterToggleAction
+  SearchFilterToggleAction,
 } from '../../../shared/search/search-filters/search-filter/search-filter.actions';
-import { hasValue, isNotEmpty, } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
 import { RouteService } from '../../services/route.service';
@@ -85,7 +85,7 @@ export class SearchFilterService {
     return observableCombineLatest(page$, size$).pipe(map(([page, size]) => {
       return Object.assign(new PaginationComponentOptions(), pagination, {
         currentPage: page || 1,
-        pageSize: size || pagination.pageSize
+        pageSize: size || pagination.pageSize,
       });
     }));
   }
@@ -103,7 +103,7 @@ export class SearchFilterService {
       const field = sortField || defaultSort.field;
       const direction = SortDirection[sortDirection] || defaultSort.direction;
       return new SortOptions(field, direction);
-    }
+    },
     ));
   }
 
@@ -139,8 +139,8 @@ export class SearchFilterService {
           return values;
         }
         return prefixValues;
-      }
-      )
+      },
+      ),
     );
   }
 
@@ -159,7 +159,7 @@ export class SearchFilterService {
           return false;
         }
       }),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 

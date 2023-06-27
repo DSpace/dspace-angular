@@ -27,11 +27,11 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: Router, useValue: new RouterStub() },
-      ]
+      ],
     }).overrideComponent(ExpandableAdminSidebarSectionComponent, {
       set: {
-        entryComponents: [TestComponent]
-      }
+        entryComponents: [TestComponent],
+      },
     })
       .compileComponents();
   }));
@@ -59,7 +59,7 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
       const sidebarToggler = fixture.debugElement.query(By.css('.sidebar-section > div.nav-item'));
       sidebarToggler.triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
     });
 
@@ -72,7 +72,7 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 }

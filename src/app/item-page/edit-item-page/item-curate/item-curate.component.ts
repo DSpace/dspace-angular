@@ -33,7 +33,7 @@ export class ItemCurateComponent implements OnInit {
       filter((rd: RemoteData<Item>) => hasValue(rd)),
       map((rd: RemoteData<Item>) => {
         return this.dsoNameService.getName(rd.payload);
-      })
+      }),
     );
   }
 }

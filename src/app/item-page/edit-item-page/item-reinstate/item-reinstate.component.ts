@@ -11,7 +11,7 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-item-reinstate',
-  templateUrl: '../simple-item-action/abstract-simple-item-action.component.html'
+  templateUrl: '../simple-item-action/abstract-simple-item-action.component.html',
 })
 /**
  * Component responsible for rendering the Item Reinstate page
@@ -36,7 +36,7 @@ export class ItemReinstateComponent extends AbstractSimpleItemActionComponent {
     this.itemDataService.setWithDrawn(this.item, false).pipe(getFirstCompletedRemoteData()).subscribe(
       (response: RemoteData<Item>) => {
         this.processRestResponse(response);
-      }
+      },
     );
   }
 }

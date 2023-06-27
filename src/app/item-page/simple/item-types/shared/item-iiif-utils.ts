@@ -31,6 +31,6 @@ export const getDSpaceQuery = (item: Item, routeService: RouteService): Observab
       const url: UrlTree = new DefaultUrlSerializer().parse(r);
       return url.queryParamMap.get('query');
     }),
-    take(1)
+    take(1),
   );
 };

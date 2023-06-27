@@ -17,15 +17,15 @@ describe('FilteredDiscoveryPageResponseParsingService', () => {
     const request = Object.assign(new GetRequest('client/f5b4ccb8-fbb0-4548-b558-f234d9fdfad6', 'https://rest.api/path'), {
       getResponseParser(): GenericConstructor<ResponseParsingService> {
         return FilteredDiscoveryPageResponseParsingService;
-      }
+      },
     });
 
     const mockResponse = {
       payload: {
-        'discovery-query': 'query'
+        'discovery-query': 'query',
       },
       statusCode: 200,
-      statusText: 'OK'
+      statusText: 'OK',
     } as RawRestResponse;
 
     it('should return a FilteredDiscoveryQueryResponse containing the correct query', () => {

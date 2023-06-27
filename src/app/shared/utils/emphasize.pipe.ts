@@ -26,7 +26,7 @@ export class EmphasizePipe implements PipeTransform {
     , '\\'
     , '^'
     , '$'
-    , '|'
+    , '|',
   ];
   /**
    * Regular expression for escaping the string we're trying to find

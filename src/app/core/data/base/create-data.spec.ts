@@ -149,7 +149,7 @@ describe('CreateDataImpl', () => {
   describe('create', () => {
     it('should POST the object to the root endpoint with the given parameters and return the remote data', (done) => {
       const params = [
-        new RequestParam('abc', 123), new RequestParam('def', 456)
+        new RequestParam('abc', 123), new RequestParam('def', 456),
       ];
       buildFromRequestUUIDSpy.and.returnValue(observableOf(remoteDataMocks.Success));
 

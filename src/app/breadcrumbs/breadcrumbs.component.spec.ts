@@ -50,7 +50,7 @@ describe('BreadcrumbsComponent', () => {
           loader: {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
-          }
+          },
         }),
       ],
       providers: [

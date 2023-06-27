@@ -7,7 +7,7 @@ export interface HostWindowState {
 
 const initialState: HostWindowState = {
   width: null,
-  height: null
+  height: null,
 };
 
 export function hostWindowReducer(state = initialState, action: HostWindowAction): HostWindowState {

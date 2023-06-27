@@ -21,12 +21,12 @@ import { RegistrationGuard } from './registration.guard';
           RegistrationGuard,
           EndUserAgreementCookieGuard,
         ],
-      }
-    ])
+      },
+    ]),
   ],
   providers: [
-    ItemPageResolver
-  ]
+    ItemPageResolver,
+  ],
 })
 /**
  * Module related to the navigation to components used to register a new user

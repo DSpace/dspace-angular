@@ -24,7 +24,7 @@ import { SupervisionOrderDataService } from '../../../../../core/supervision-ord
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
 import { supervisionOrderEntryMock } from '../../../../../shared/testing/supervision-order.mock';
 import {
-  SupervisionOrderGroupSelectorComponent
+  SupervisionOrderGroupSelectorComponent,
 } from './supervision-order-group-selector/supervision-order-group-selector.component';
 
 describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
@@ -56,15 +56,15 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
       imports: [
         NgbModalModule,
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
       ],
       declarations: [WorkspaceItemAdminWorkflowActionsComponent],
       providers: [
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: NotificationsService, useValue: notificationService },
-        { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService }
+        { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));
@@ -97,7 +97,7 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
     beforeEach(() => {
       spyOn(component.delete, 'emit');
       spyOn((component as any).modalService, 'open').and.returnValue({
-        componentInstance: { response: of(true) }
+        componentInstance: { response: of(true) },
       });
     });
 
@@ -138,7 +138,7 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
     beforeEach(() => {
       spyOn(component.create, 'emit');
       spyOn((component as any).modalService, 'open').and.returnValue({
-        componentInstance: { create: of(true) }
+        componentInstance: { create: of(true) },
       });
     });
 
@@ -146,7 +146,7 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
       component.openSupervisionModal();
       expect((component as any).modalService.open).toHaveBeenCalledWith(SupervisionOrderGroupSelectorComponent, {
         size: 'lg',
-        backdrop: 'static'
+        backdrop: 'static',
       });
       expect(component.create.emit).toHaveBeenCalled();
     });

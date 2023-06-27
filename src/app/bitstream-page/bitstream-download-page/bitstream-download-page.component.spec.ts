@@ -33,48 +33,48 @@ describe('BitstreamDownloadPageComponent', () => {
   const mocklink = {
     href: 'http://test.org',
     rel: 'test',
-    type: 'test'
+    type: 'test',
   };
 
   const mocklink2 = {
     href: 'http://test2.org',
     rel: 'test',
-    type: 'test'
+    type: 'test',
   };
 
   function init() {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
-      setRedirectUrl: {}
+      setRedirectUrl: {},
     });
     authorizationService = jasmine.createSpyObj('authorizationSerivice', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
 
     fileService = jasmine.createSpyObj('fileService', {
-      retrieveFileDownloadLink: observableOf('content-url-with-headers')
+      retrieveFileDownloadLink: observableOf('content-url-with-headers'),
     });
 
     hardRedirectService = jasmine.createSpyObj('fileService', {
-      redirect: {}
+      redirect: {},
     });
     bitstream = Object.assign(new Bitstream(), {
       uuid: 'bitstreamUuid',
       _links: {
         content: { href: 'bitstream-content-link' },
         self: { href: 'bitstream-self-link' },
-      }
+      },
     });
 
     activatedRoute = {
       data: observableOf({
         bitstream: createSuccessfulRemoteDataObject(
-          bitstream
-        )
+          bitstream,
+        ),
       }),
       params: observableOf({
-        id: 'testid'
-      })
+        id: 'testid',
+      }),
     };
 
     router = jasmine.createSpyObj('router', ['navigateByUrl']);
@@ -84,7 +84,7 @@ describe('BitstreamDownloadPageComponent', () => {
     });
 
     signpostingDataService = jasmine.createSpyObj('SignpostingDataService', {
-      getLinks: observableOf([mocklink, mocklink2])
+      getLinks: observableOf([mocklink, mocklink2]),
     });
   }
 
@@ -101,8 +101,8 @@ describe('BitstreamDownloadPageComponent', () => {
         { provide: HardRedirectService, useValue: hardRedirectService },
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
-        { provide: PLATFORM_ID, useValue: 'server' }
-      ]
+        { provide: PLATFORM_ID, useValue: 'server' },
+      ],
     })
       .compileComponents();
   }

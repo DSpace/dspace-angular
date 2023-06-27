@@ -21,7 +21,7 @@ export class LookupGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>  {
     const params = this.getLookupParams(route);
     return this.dsoService.findByIdAndIDType(params.id, params.type).pipe(
-      map((response: RemoteData<DSpaceObject>) => response.hasFailed)
+      map((response: RemoteData<DSpaceObject>) => response.hasFailed),
     );
   }
 
@@ -47,7 +47,7 @@ export class LookupGuard implements CanActivate {
     }
     return {
       type: type,
-      id: id
+      id: id,
     };
   }
 }

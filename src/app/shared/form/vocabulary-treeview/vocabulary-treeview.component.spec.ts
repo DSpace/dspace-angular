@@ -56,7 +56,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
     findEntryDetailById: jasmine.createSpy('findEntryDetailById'),
     searchTopEntries: jasmine.createSpy('searchTopEntries'),
     getEntryDetailChildren: jasmine.createSpy('getEntryDetailChildren'),
-    clearSearchTopRequests: jasmine.createSpy('clearSearchTopRequests')
+    clearSearchTopRequests: jasmine.createSpy('clearSearchTopRequests'),
   });
 
   initialState = {
@@ -68,9 +68,9 @@ describe('VocabularyTreeviewComponent test suite', () => {
         loading: false,
         authToken: new AuthTokenInfo('test_token'),
         userId: 'testid',
-        authMethods: []
-      }
-    }
+        authMethods: [],
+      },
+    },
   };
 
   beforeEach(waitForAsync(() => {
@@ -78,11 +78,11 @@ describe('VocabularyTreeviewComponent test suite', () => {
       imports: [
         CdkTreeModule,
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         VocabularyTreeviewComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: VocabularyTreeviewService, useValue: vocabularyTreeviewServiceStub },
@@ -90,9 +90,9 @@ describe('VocabularyTreeviewComponent test suite', () => {
         { provide: NgbActiveModal, useValue: modalStub },
         provideMockStore({ initialState }),
         ChangeDetectorRef,
-        VocabularyTreeviewComponent
+        VocabularyTreeviewComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then(() => {
       vocabularyTreeviewServiceStub.getData.and.returnValue(observableOf([]));
       vocabularyTreeviewServiceStub.isLoading.and.returnValue(observableOf(false));
@@ -142,7 +142,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
       const currentValue = new FormFieldMetadataValueObject();
       currentValue.value = 'testValue';
       currentValue.otherInformation = {
-        id: 'entryID'
+        id: 'entryID',
       };
       comp.selectedItems = [currentValue.value];
       fixture.detectChanges();
@@ -154,7 +154,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
       const currentValue = new VocabularyEntry();
       currentValue.value = 'testValue';
       currentValue.otherInformation = {
-        id: 'entryID'
+        id: 'entryID',
       };
       comp.selectedItems = [currentValue.value];
       fixture.detectChanges();
@@ -242,20 +242,20 @@ describe('VocabularyTreeviewComponent test suite', () => {
         {
           'item': {
             'id': 'srsc:SCB11',
-            'display': 'HUMANITIES and RELIGION'
-          }
+            'display': 'HUMANITIES and RELIGION',
+          },
         } as TreeviewNode,
         {
           'item': {
             'id': 'srsc:SCB12',
-            'display': 'LAW/JURISPRUDENCE'
-          }
+            'display': 'LAW/JURISPRUDENCE',
+          },
         } as TreeviewNode,
         {
           'item': {
             'id': 'srsc:SCB13',
-            'display': 'SOCIAL SCIENCES'
-          }
+            'display': 'SOCIAL SCIENCES',
+          },
         } as TreeviewNode,
       ]));
       fixture = TestBed.createComponent(VocabularyTreeviewComponent);
@@ -284,7 +284,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

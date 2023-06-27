@@ -11,5 +11,5 @@ export const fakeDemoRedisCache = {
     return cache;
   },
   set: (key, data) => fakeDemoRedisCache._cache[key] = data,
-  clear: () => fakeDemoRedisCache._cache = {}
+  clear: () => fakeDemoRedisCache._cache = {},
 };

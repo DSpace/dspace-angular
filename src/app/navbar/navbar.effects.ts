@@ -7,7 +7,7 @@ import { HostWindowActionTypes } from '../shared/host-window.actions';
 import {
   CollapseMenuAction,
   ExpandMenuPreviewAction,
-  MenuActionTypes
+  MenuActionTypes,
 } from '../shared/menu/menu.actions';
 import { MenuService } from '../shared/menu/menu.service';
 import { NoOpAction } from '../shared/ngrx/no-op.action';
@@ -24,7 +24,7 @@ export class NavbarEffects {
   resize$ = createEffect(() => this.actions$
     .pipe(
       ofType(HostWindowActionTypes.RESIZE),
-      map(() => new CollapseMenuAction(this.menuID))
+      map(() => new CollapseMenuAction(this.menuID)),
     ));
 
   /**
@@ -34,7 +34,7 @@ export class NavbarEffects {
   routeChange$ = createEffect(() => this.actions$
     .pipe(
       ofType(ROUTER_NAVIGATION),
-      map(() => new CollapseMenuAction(this.menuID))
+      map(() => new CollapseMenuAction(this.menuID)),
     ));
   /**
    * Effect that collapses the public menu when the admin sidebar opens
@@ -54,7 +54,7 @@ export class NavbarEffects {
             }
             return new NoOpAction();
           }));
-      })
+      }),
     ));
   constructor(private actions$: Actions, private menuService: MenuService) {
 

@@ -23,11 +23,11 @@ describe('AuthorizedCollectionSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     collection = Object.assign(new Collection(), {
-      id: 'authorized-collection'
+      id: 'authorized-collection',
     });
     collectionService = jasmine.createSpyObj('collectionService', {
       getAuthorizedCollection: createSuccessfulRemoteDataObject$(createPaginatedList([collection])),
-      getAuthorizedCollectionByEntityType: createSuccessfulRemoteDataObject$(createPaginatedList([collection]))
+      getAuthorizedCollectionByEntityType: createSuccessfulRemoteDataObject$(createPaginatedList([collection])),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
     TestBed.configureTestingModule({
@@ -38,7 +38,7 @@ describe('AuthorizedCollectionSelectorComponent', () => {
         { provide: CollectionDataService, useValue: collectionService },
         { provide: NotificationsService, useValue: notificationsService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

@@ -5,7 +5,7 @@ const PREFIX_REGEX = /handle\/([^\/]+\/[^\/]+)$/;
 const NO_PREFIX_REGEX = /^([^\/]+\/[^\/]+)$/;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HandleService {
 

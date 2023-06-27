@@ -38,7 +38,7 @@ describe('AddBitstreamFormatComponent', () => {
     notificationService = new NotificationsServiceStub();
     bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
       createBitstreamFormat: createSuccessfulRemoteDataObject$({}),
-      clearBitStreamFormatRequests: observableOf(null)
+      clearBitStreamFormatRequests: observableOf(null),
     });
 
     TestBed.configureTestingModule({
@@ -49,7 +49,7 @@ describe('AddBitstreamFormatComponent', () => {
         { provide: NotificationsService, useValue: notificationService },
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   };
 
@@ -78,7 +78,7 @@ describe('AddBitstreamFormatComponent', () => {
       notificationService = new NotificationsServiceStub();
       bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
         createBitstreamFormat: createFailedRemoteDataObject$('Error', 500),
-        clearBitStreamFormatRequests: observableOf(null)
+        clearBitStreamFormatRequests: observableOf(null),
       });
 
       TestBed.configureTestingModule({
@@ -89,7 +89,7 @@ describe('AddBitstreamFormatComponent', () => {
           { provide: NotificationsService, useValue: notificationService },
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
         ],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
       }).compileComponents();
     }));
     beforeEach(initBeforeEach);

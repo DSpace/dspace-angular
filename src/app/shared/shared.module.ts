@@ -14,13 +14,13 @@ import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core'
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import {
-  ExportMetadataSelectorComponent
+  ExportMetadataSelectorComponent,
 } from './dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import {
-  ExportBatchSelectorComponent
+  ExportBatchSelectorComponent,
 } from './dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
 import {
-  ImportBatchSelectorComponent
+  ImportBatchSelectorComponent,
 } from './dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
 import { ItemListElementComponent } from './object-list/item-list-element/item-types/item/item-list-element.component';
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
@@ -29,20 +29,20 @@ import { MetadataFieldValidator } from './utils/metadatafield-validator.directiv
 import { SafeUrlPipe } from './utils/safe-url-pipe';
 import { ConsolePipe } from './utils/console.pipe';
 import {
-  CollectionListElementComponent
+  CollectionListElementComponent,
 } from './object-list/collection-list-element/collection-list-element.component';
 import { CommunityListElementComponent } from './object-list/community-list-element/community-list-element.component';
 import {
-  SearchResultListElementComponent
+  SearchResultListElementComponent,
 } from './object-list/search-result-list-element/search-result-list-element.component';
 import { ObjectListComponent } from './object-list/object-list.component';
 import { ThemedObjectListComponent } from './object-list/themed-object-list.component';
 import {
-  CollectionGridElementComponent
+  CollectionGridElementComponent,
 } from './object-grid/collection-grid-element/collection-grid-element.component';
 import { CommunityGridElementComponent } from './object-grid/community-grid-element/community-grid-element.component';
 import {
-  AbstractListableElementComponent
+  AbstractListableElementComponent,
 } from './object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { ObjectGridComponent } from './object-grid/object-grid.component';
 import { ObjectCollectionComponent } from './object-collection/object-collection.component';
@@ -54,7 +54,7 @@ import { ThemedThumbnailComponent } from '../thumbnail/themed-thumbnail.componen
 import { SearchFormComponent } from './search-form/search-form.component';
 import { ThemedSearchFormComponent } from './search-form/themed-search-form.component';
 import {
-  SearchResultGridElementComponent
+  SearchResultGridElementComponent,
 } from './object-grid/search-result-grid-element/search-result-grid-element.component';
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
 import { VarDirective } from './utils/var.directive';
@@ -69,12 +69,12 @@ import { TruncatablePartComponent } from './truncatable/truncatable-part/truncat
 import { MockAdminGuard } from './mocks/admin-guard.service.mock';
 import { AlertComponent } from './alert/alert.component';
 import {
-  SearchResultDetailElementComponent
+  SearchResultDetailElementComponent,
 } from './object-detail/my-dspace-result-detail-element/search-result-detail-element.component';
 import { ObjectDetailComponent } from './object-detail/object-detail.component';
 import { ObjNgFor } from './utils/object-ngfor.pipe';
 import {
-  BrowseEntryListElementComponent
+  BrowseEntryListElementComponent,
 } from './object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { DebounceDirective } from './utils/debounce.directive';
 import { ClickOutsideDirective } from './utils/click-outside.directive';
@@ -84,16 +84,16 @@ import { CapitalizePipe } from './utils/capitalize.pipe';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 import {
-  PlainTextMetadataListElementComponent
+  PlainTextMetadataListElementComponent,
 } from './object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
 import {
-  BrowseLinkMetadataListElementComponent
+  BrowseLinkMetadataListElementComponent,
 } from './object-list/metadata-representation-list-element/browse-link/browse-link-metadata-list-element.component';
 import {
-  ItemMetadataListElementComponent
+  ItemMetadataListElementComponent,
 } from './object-list/metadata-representation-list-element/item/item-metadata-list-element.component';
 import {
-  MetadataRepresentationListElementComponent
+  MetadataRepresentationListElementComponent,
 } from './object-list/metadata-representation-list-element/metadata-representation-list-element.component';
 import { ObjectValuesPipe } from './utils/object-values-pipe';
 import { InListValidator } from './utils/in-list-validator.directive';
@@ -102,92 +102,92 @@ import { StartsWithDateComponent } from './starts-with/date/starts-with-date.com
 import { StartsWithTextComponent } from './starts-with/text/starts-with-text.component';
 import { DSOSelectorComponent } from './dso-selector/dso-selector/dso-selector.component';
 import {
-  CreateCommunityParentSelectorComponent
+  CreateCommunityParentSelectorComponent,
 } from './dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
 import {
-  ThemedCreateCommunityParentSelectorComponent
+  ThemedCreateCommunityParentSelectorComponent,
 } from './dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
 import {
-  CreateItemParentSelectorComponent
+  CreateItemParentSelectorComponent,
 } from './dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import {
-  ThemedCreateItemParentSelectorComponent
+  ThemedCreateItemParentSelectorComponent,
 } from './dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
 import {
-  CreateCollectionParentSelectorComponent
+  CreateCollectionParentSelectorComponent,
 } from './dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 import {
-  ThemedCreateCollectionParentSelectorComponent
+  ThemedCreateCollectionParentSelectorComponent,
 } from './dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
 import {
-  CommunitySearchResultListElementComponent
+  CommunitySearchResultListElementComponent,
 } from './object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 import {
-  CollectionSearchResultListElementComponent
+  CollectionSearchResultListElementComponent,
 } from './object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
 import {
-  EditItemSelectorComponent
+  EditItemSelectorComponent,
 } from './dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import {
-  ThemedEditItemSelectorComponent
+  ThemedEditItemSelectorComponent,
 } from './dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
 import {
-  EditCommunitySelectorComponent
+  EditCommunitySelectorComponent,
 } from './dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import {
-  ThemedEditCommunitySelectorComponent
+  ThemedEditCommunitySelectorComponent,
 } from './dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
 import {
-  EditCollectionSelectorComponent
+  EditCollectionSelectorComponent,
 } from './dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 import {
-  ThemedEditCollectionSelectorComponent
+  ThemedEditCollectionSelectorComponent,
 } from './dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
 import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
 import {
-  CollectionSearchResultGridElementComponent
+  CollectionSearchResultGridElementComponent,
 } from './object-grid/search-result-grid-element/collection-search-result/collection-search-result-grid-element.component';
 import {
-  CommunitySearchResultGridElementComponent
+  CommunitySearchResultGridElementComponent,
 } from './object-grid/search-result-grid-element/community-search-result/community-search-result-grid-element.component';
 import { PageSizeSelectorComponent } from './page-size-selector/page-size-selector.component';
 import { AbstractTrackableComponent } from './trackable/abstract-trackable.component';
 import {
-  ComcolMetadataComponent
+  ComcolMetadataComponent,
 } from './comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { ItemSelectComponent } from './object-select/item-select/item-select.component';
 import { CollectionSelectComponent } from './object-select/collection-select/collection-select.component';
 import {
-  FilterInputSuggestionsComponent
+  FilterInputSuggestionsComponent,
 } from './input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import {
-  DsoInputSuggestionsComponent
+  DsoInputSuggestionsComponent,
 } from './input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { ItemGridElementComponent } from './object-grid/item-grid-element/item-types/item/item-grid-element.component';
 import { TypeBadgeComponent } from './object-collection/shared/badges/type-badge/type-badge.component';
 import { AccessStatusBadgeComponent } from './object-collection/shared/badges/access-status-badge/access-status-badge.component';
 import {
-  MetadataRepresentationLoaderComponent
+  MetadataRepresentationLoaderComponent,
 } from './metadata-representation/metadata-representation-loader.component';
 import { MetadataRepresentationDirective } from './metadata-representation/metadata-representation.directive';
 import {
-  ListableObjectComponentLoaderComponent
+  ListableObjectComponentLoaderComponent,
 } from './object-collection/shared/listable-object/listable-object-component-loader.component';
 import {
-  ItemSearchResultListElementComponent
+  ItemSearchResultListElementComponent,
 } from './object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { ListableObjectDirective } from './object-collection/shared/listable-object/listable-object.directive';
 import {
-  ItemMetadataRepresentationListElementComponent
+  ItemMetadataRepresentationListElementComponent,
 } from './object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
 import { PageWithSidebarComponent } from './sidebar/page-with-sidebar.component';
 import { SidebarDropdownComponent } from './sidebar/sidebar-dropdown.component';
 import {
-  SelectableListItemControlComponent
+  SelectableListItemControlComponent,
 } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import {
-  ImportableListItemControlComponent
+  ImportableListItemControlComponent,
 } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
 import { LogInContainerComponent } from './log-in/container/log-in-container.component';
 import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
@@ -196,7 +196,7 @@ import { MissingTranslationHelper } from './translate/missing-translation.helper
 import { FileValidator } from './utils/require-file.validator';
 import { FileValueAccessorDirective } from './utils/file-value-accessor.directive';
 import {
-  ModifyItemOverviewComponent
+  ModifyItemOverviewComponent,
 } from '../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/switcher/claimed-task-actions.directive';
 import { ImpersonateNavbarComponent } from './impersonate-navbar/impersonate-navbar.component';
@@ -207,29 +207,29 @@ import { CollectionDropdownComponent } from './collection-dropdown/collection-dr
 import { EntityDropdownComponent } from './entity-dropdown/entity-dropdown.component';
 import { CurationFormComponent } from '../curation-form/curation-form.component';
 import {
-  PublicationSidebarSearchListElementComponent
+  PublicationSidebarSearchListElementComponent,
 } from './object-list/sidebar-search-list-element/item-types/publication/publication-sidebar-search-list-element.component';
 import {
-  SidebarSearchListElementComponent
+  SidebarSearchListElementComponent,
 } from './object-list/sidebar-search-list-element/sidebar-search-list-element.component';
 import {
-  CollectionSidebarSearchListElementComponent
+  CollectionSidebarSearchListElementComponent,
 } from './object-list/sidebar-search-list-element/collection/collection-sidebar-search-list-element.component';
 import {
-  CommunitySidebarSearchListElementComponent
+  CommunitySidebarSearchListElementComponent,
 } from './object-list/sidebar-search-list-element/community/community-sidebar-search-list-element.component';
 import {
-  BundleListElementComponent
+  BundleListElementComponent,
 } from './object-list/bundle-list-element/bundle-list-element.component';
 import {
-  AuthorizedCollectionSelectorComponent
+  AuthorizedCollectionSelectorComponent,
 } from './dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { HoverClassDirective } from './hover-class.directive';
 import {
-  ValidationSuggestionsComponent
+  ValidationSuggestionsComponent,
 } from './input-suggestions/validation-suggestions/validation-suggestions.component';
 import {
-  ItemSearchResultGridElementComponent
+  ItemSearchResultGridElementComponent,
 } from './object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
@@ -242,13 +242,13 @@ import { BrowserOnlyPipe } from './utils/browser-only.pipe';
 import { ThemedLoadingComponent } from './loading/themed-loading.component';
 import { SearchExportCsvComponent } from './search/search-export-csv/search-export-csv.component';
 import {
-  ItemPageTitleFieldComponent
+  ItemPageTitleFieldComponent,
 } from '../item-page/simple/field-components/specific-field/title/item-page-title-field.component';
 import { MarkdownPipe } from './utils/markdown.pipe';
 import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha.module';
 import { MenuModule } from './menu/menu.module';
 import {
-  ListableNotificationObjectComponent
+  ListableNotificationObjectComponent,
 } from './object-list/listable-notification-object/listable-notification-object.component';
 import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
@@ -264,23 +264,23 @@ import { MyDSpaceStatusBadgeComponent } from './object-collection/shared/badges/
 
 import { ShortNumberPipe } from './utils/short-number.pipe';
 import {
-  LogInExternalProviderComponent
+  LogInExternalProviderComponent,
 } from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
 import {
-  AdvancedClaimedTaskActionSelectReviewerComponent
+  AdvancedClaimedTaskActionSelectReviewerComponent,
 } from './mydspace-actions/claimed-task/select-reviewer/advanced-claimed-task-action-select-reviewer.component';
 import {
-  AdvancedClaimedTaskActionRatingComponent
+  AdvancedClaimedTaskActionRatingComponent,
 } from './mydspace-actions/claimed-task/rating/advanced-claimed-task-action-rating.component';
 import { ClaimedTaskActionsDeclineTaskComponent } from './mydspace-actions/claimed-task/decline-task/claimed-task-actions-decline-task.component';
 import {
-  DsoPageSubscriptionButtonComponent
+  DsoPageSubscriptionButtonComponent,
 } from './dso-page/dso-page-subscription-button/dso-page-subscription-button.component';
 import { EpersonGroupListComponent } from './eperson-group-list/eperson-group-list.component';
 import { EpersonSearchBoxComponent } from './eperson-group-list/eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './eperson-group-list/group-search-box/group-search-box.component';
 import {
-  ThemedItemPageTitleFieldComponent
+  ThemedItemPageTitleFieldComponent,
 } from '../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { BitstreamListItemComponent } from './object-list/bitstream-list-item/bitstream-list-item.component';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -299,14 +299,14 @@ const MODULES = [
   DragDropModule,
   GoogleRecaptchaModule,
   MenuModule,
-  NgxPaginationModule
+  NgxPaginationModule,
 ];
 
 const ROOT_MODULES = [
   TranslateModule.forChild({
     missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
-    useDefaultLang: true
-  })
+    useDefaultLang: true,
+  }),
 ];
 
 const PIPES = [
@@ -323,7 +323,7 @@ const PIPES = [
   ObjNgFor,
   BrowserOnlyPipe,
   MarkdownPipe,
-  ShortNumberPipe
+  ShortNumberPipe,
 ];
 
 const COMPONENTS = [
@@ -465,13 +465,13 @@ const ENTRY_COMPONENTS = [
   AdvancedClaimedTaskActionRatingComponent,
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
-  GroupSearchBoxComponent
+  GroupSearchBoxComponent,
 ];
 
 const PROVIDERS = [
   TruncatableService,
   MockAdminGuard,
-  AbstractTrackableComponent
+  AbstractTrackableComponent,
 ];
 
 const DIRECTIVES = [
@@ -496,7 +496,7 @@ const DIRECTIVES = [
 @NgModule({
   imports: [
     ...MODULES,
-    ...ROOT_MODULES
+    ...ROOT_MODULES,
   ],
   declarations: [
     ...PIPES,
@@ -505,7 +505,7 @@ const DIRECTIVES = [
     ...DIRECTIVES,
   ],
   providers: [
-    ...PROVIDERS
+    ...PROVIDERS,
   ],
   exports: [
     ...MODULES,
@@ -514,7 +514,7 @@ const DIRECTIVES = [
     ...ENTRY_COMPONENTS,
     ...DIRECTIVES,
     TranslateModule,
-  ]
+  ],
 })
 
 /**
@@ -528,7 +528,7 @@ export class SharedModule {
   static withEntryComponents() {
     return {
       ngModule: SharedModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component }))
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component })),
     };
   }
 }

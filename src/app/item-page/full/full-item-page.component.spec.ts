@@ -30,23 +30,23 @@ const mockItem: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'test item'
-      }
-    ]
-  }
+        value: 'test item',
+      },
+    ],
+  },
 });
 
 const mockWithdrawnItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: [],
   relationships: createRelationshipsObservable(),
-  isWithdrawn: true
+  isWithdrawn: true,
 });
 
 const metadataServiceStub = {
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   processRemoteData: () => {
-  }
+  },
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 };
 
@@ -65,19 +65,19 @@ describe('FullItemPageComponent', () => {
   const mocklink = {
     href: 'http://test.org',
     rel: 'test',
-    type: 'test'
+    type: 'test',
   };
 
   const mocklink2 = {
     href: 'http://test2.org',
     rel: 'test',
-    type: 'test'
+    type: 'test',
   };
 
   beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
-      setRedirectUrl: {}
+      setRedirectUrl: {},
     });
 
     routeData = {
@@ -85,7 +85,7 @@ describe('FullItemPageComponent', () => {
     };
 
     routeStub = Object.assign(new ActivatedRouteStub(), {
-      data: observableOf(routeData)
+      data: observableOf(routeData),
     });
 
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
@@ -109,8 +109,8 @@ describe('FullItemPageComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       }), RouterTestingModule.withRoutes([]), BrowserAnimationsModule],
       declarations: [FullItemPageComponent, TruncatePipe, VarDirective],
       providers: [
@@ -122,11 +122,11 @@ describe('FullItemPageComponent', () => {
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
-        { provide: PLATFORM_ID, useValue: 'server' }
+        { provide: PLATFORM_ID, useValue: 'server' },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(FullItemPageComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import {
-  WorkspaceitemSectionSherpaPoliciesObject
+  WorkspaceitemSectionSherpaPoliciesObject,
 } from '../../../core/submission/models/workspaceitem-section-sherpa-policies.model';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
@@ -22,7 +22,7 @@ import { hasValue, isEmpty } from '../../../shared/empty.util';
 @Component({
   selector: 'ds-section-sherpa-policies',
   templateUrl: './section-sherpa-policies.component.html',
-  styleUrls: ['./section-sherpa-policies.component.scss']
+  styleUrls: ['./section-sherpa-policies.component.scss'],
 })
 @renderSectionFor(SectionsType.SherpaPolicies)
 export class SubmissionSectionSherpaPoliciesComponent extends SectionModelComponent {
@@ -95,7 +95,7 @@ export class SubmissionSectionSherpaPoliciesComponent extends SectionModelCompon
       this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType)
         .subscribe((sherpaPolicies: WorkspaceitemSectionSherpaPoliciesObject) => {
           this.sherpaPoliciesData$.next(sherpaPolicies);
-        })
+        }),
     );
   }
 

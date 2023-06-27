@@ -78,24 +78,24 @@ describe('GroupsRegistryComponent', () => {
               elementsPerPage: 1,
               totalElements: 0,
               totalPages: 0,
-              currentPage: 1
+              currentPage: 1,
             }), []));
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/epersons':
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
               elementsPerPage: 1,
               totalElements: 1,
               totalPages: 1,
-              currentPage: 1
+              currentPage: 1,
             }), [EPersonMock]));
           default:
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
               elementsPerPage: 1,
               totalElements: 0,
               totalPages: 0,
-              currentPage: 1
+              currentPage: 1,
             }), []));
         }
-      }
+      },
     };
     groupsDataServiceStub = {
       allGroups: mockGroups,
@@ -106,21 +106,21 @@ describe('GroupsRegistryComponent', () => {
               elementsPerPage: 1,
               totalElements: 0,
               totalPages: 0,
-              currentPage: 1
+              currentPage: 1,
             }), []));
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/groups':
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
               elementsPerPage: 1,
               totalElements: 1,
               totalPages: 1,
-              currentPage: 1
+              currentPage: 1,
             }), [GroupMock2]));
           default:
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
               elementsPerPage: 1,
               totalElements: 0,
               totalPages: 0,
-              currentPage: 1
+              currentPage: 1,
             }), []));
         }
       },
@@ -136,7 +136,7 @@ describe('GroupsRegistryComponent', () => {
             elementsPerPage: this.allGroups.length,
             totalElements: this.allGroups.length,
             totalPages: 1,
-            currentPage: 1
+            currentPage: 1,
           }), this.allGroups));
         }
         const result = this.allGroups.find((group: Group) => {
@@ -146,7 +146,7 @@ describe('GroupsRegistryComponent', () => {
           elementsPerPage: [result].length,
           totalElements: [result].length,
           totalPages: 1,
-          currentPage: 1
+          currentPage: 1,
         }), [result]));
       },
       delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
@@ -156,7 +156,7 @@ describe('GroupsRegistryComponent', () => {
     dsoDataServiceStub = {
       findByHref(href: string): Observable<RemoteData<DSpaceObject>> {
         return createSuccessfulRemoteDataObject$(undefined);
-      }
+      },
     };
 
     authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
@@ -167,8 +167,8 @@ describe('GroupsRegistryComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [GroupsRegistryComponent],
@@ -182,9 +182,9 @@ describe('GroupsRegistryComponent', () => {
         { provide: Router, useValue: new RouterMock() },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: PaginationService, useValue: paginationService },
-        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) }
+        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -237,16 +237,16 @@ describe('GroupsRegistryComponent', () => {
 
       it('should not check the canManageGroup permissions', () => {
         expect(authorizationService.isAuthorized).not.toHaveBeenCalledWith(
-          FeatureID.CanManageGroup, mockGroups[0].self
+          FeatureID.CanManageGroup, mockGroups[0].self,
         );
         expect(authorizationService.isAuthorized).not.toHaveBeenCalledWith(
-          FeatureID.CanManageGroup, mockGroups[0].self, undefined // treated differently
+          FeatureID.CanManageGroup, mockGroups[0].self, undefined, // treated differently
         );
         expect(authorizationService.isAuthorized).not.toHaveBeenCalledWith(
-          FeatureID.CanManageGroup, mockGroups[1].self
+          FeatureID.CanManageGroup, mockGroups[1].self,
         );
         expect(authorizationService.isAuthorized).not.toHaveBeenCalledWith(
-          FeatureID.CanManageGroup, mockGroups[1].self, undefined // treated differently
+          FeatureID.CanManageGroup, mockGroups[1].self, undefined, // treated differently
         );
       });
     });

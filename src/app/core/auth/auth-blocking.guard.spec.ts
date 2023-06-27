@@ -21,9 +21,9 @@ describe('AuthBlockingGuard', () => {
         loaded: false,
         blocking: undefined,
         loading: false,
-        authMethods: []
-      }
-    }
+        authMethods: [],
+      },
+    },
   };
 
   beforeEach(waitForAsync(() => {
@@ -33,8 +33,8 @@ describe('AuthBlockingGuard', () => {
       ],
       providers: [
         provideMockStore({ initialState }),
-        { provide: AuthBlockingGuard, useValue: guard }
-      ]
+        { provide: AuthBlockingGuard, useValue: guard },
+      ],
     }).compileComponents();
   }));
 
@@ -58,9 +58,9 @@ describe('AuthBlockingGuard', () => {
         const state = Object.assign({}, initialState, {
           core: Object.assign({}, initialState.core, {
             'auth': {
-              blocking: true
-            }
-          })
+              blocking: true,
+            },
+          }),
         });
         mockStore.setState(state);
       });
@@ -76,9 +76,9 @@ describe('AuthBlockingGuard', () => {
         const state = Object.assign({}, initialState, {
           core: Object.assign({}, initialState.core, {
             'auth': {
-              blocking: false
-            }
-          })
+              blocking: false,
+            },
+          }),
         });
         mockStore.setState(state);
       });

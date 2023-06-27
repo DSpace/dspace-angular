@@ -10,7 +10,7 @@ import { HealthResponse } from '../models/health-component.model';
 @Component({
   selector: 'ds-health-panel',
   templateUrl: './health-panel.component.html',
-  styleUrls: ['./health-panel.component.scss']
+  styleUrls: ['./health-panel.component.scss'],
 })
 export class HealthPanelComponent implements OnInit {
 

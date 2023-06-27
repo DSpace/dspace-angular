@@ -53,7 +53,7 @@ const parseSectionErrorPaths = (path: string | string[]): SectionErrorPath[] => 
       };
     }
 
-  }
+  },
   );
 };
 

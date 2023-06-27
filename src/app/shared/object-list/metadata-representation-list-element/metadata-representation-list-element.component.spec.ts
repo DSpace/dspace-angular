@@ -7,11 +7,11 @@ import { MetadataRepresentationListElementComponent } from './metadata-represent
 // Mock metadata representation values
 const mockMetadataRepresentation = Object.assign(new MetadatumRepresentation('type', mockData[1]), {
   key: 'dc.contributor.author',
-  value: 'Test Author'
+  value: 'Test Author',
 });
 const mockMetadataRepresentationUrl = Object.assign(new MetadatumRepresentation('type', mockData[1]), {
   key: 'dc.subject',
-  value: 'https://www.google.com'
+  value: 'https://www.google.com',
 });
 
 describe('MetadataRepresentationListElementComponent', () => {
@@ -22,9 +22,9 @@ describe('MetadataRepresentationListElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [],
       declarations: [MetadataRepresentationListElementComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataRepresentationListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

@@ -183,7 +183,7 @@ export const languageHelper = {
   yi: 'Yiddish',
   yo: 'Yoruba',
   za: 'Zhuang, Chuang',
-  zu: 'Zulu'
+  zu: 'Zulu',
 };
 
 

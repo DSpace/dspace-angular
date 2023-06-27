@@ -18,7 +18,7 @@ export const mockData: BrowseDefinition[] = [
     'order' : 'ASC',
     'type' : 'browse',
     'metadataKeys' : [ 'dc.date.issued' ],
-    '_links' : EMPTY
+    '_links' : EMPTY,
   }),
   Object.assign(new ValueListBrowseDefinition(), {
     'id' : 'author',
@@ -28,8 +28,8 @@ export const mockData: BrowseDefinition[] = [
     'order' : 'ASC',
     'type' : 'browse',
     'metadataKeys' : [ 'dc.contributor.*', 'dc.creator' ],
-    '_links' : EMPTY
-  })
+    '_links' : EMPTY,
+  }),
 ];
 
 export const BrowseDefinitionDataServiceStub: any = {
@@ -60,6 +60,6 @@ export const BrowseDefinitionDataServiceStub: any = {
     });
     // Return just the first, as a pretend match
     return observableOf(createSuccessfulRemoteDataObject(mockData[0]));
-  }
+  },
 
 };

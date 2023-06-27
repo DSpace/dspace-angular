@@ -8,7 +8,7 @@ import { SubmissionState } from '../../submission.reducers';
 import {
   DeleteUploadedFileAction,
   EditFileDataAction,
-  NewUploadedFileAction
+  NewUploadedFileAction,
 } from '../../objects/submission-objects.actions';
 import { submissionUploadedFileFromUuidSelector, submissionUploadedFilesFromIdSelector } from '../../selectors';
 import { isUndefined } from '../../../shared/empty.util';
@@ -100,7 +100,7 @@ export class SectionUploadService {
    */
   public addUploadedFile(submissionId: string, sectionId: string, fileUUID: string, data: WorkspaceitemSectionUploadFileObject) {
     this.store.dispatch(
-      new NewUploadedFileAction(submissionId, sectionId, fileUUID, data)
+      new NewUploadedFileAction(submissionId, sectionId, fileUUID, data),
     );
   }
 
@@ -118,7 +118,7 @@ export class SectionUploadService {
    */
   public updateFileData(submissionId: string, sectionId: string, fileUUID: string, data: WorkspaceitemSectionUploadFileObject) {
     this.store.dispatch(
-      new EditFileDataAction(submissionId, sectionId, fileUUID, data)
+      new EditFileDataAction(submissionId, sectionId, fileUUID, data),
     );
   }
 
@@ -134,7 +134,7 @@ export class SectionUploadService {
    */
   public removeUploadedFile(submissionId: string, sectionId: string, fileUUID: string) {
     this.store.dispatch(
-      new DeleteUploadedFileAction(submissionId, sectionId, fileUUID)
+      new DeleteUploadedFileAction(submissionId, sectionId, fileUUID),
     );
   }
 }

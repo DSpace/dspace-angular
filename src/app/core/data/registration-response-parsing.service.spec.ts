@@ -10,7 +10,7 @@ describe('RegistrationResponseParsingService', () => {
     const data = {
       payload: { email: 'test@email.org', token: 'test-token' },
       statusCode: 200,
-      statusText: 'Success'
+      statusText: 'Success',
     };
 
     it('should parse a registration response', () => {

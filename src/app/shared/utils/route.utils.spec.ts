@@ -7,12 +7,12 @@ describe('Route Utils', () => {
         primary: {
           segments: [
             { path: 'test' },
-            { path: 'path' }
-          ]
-        }
+            { path: 'path' },
+          ],
+        },
 
-      }
-    }
+      },
+    },
   };
   const router = { parseUrl: () => urlTree } as any;
   it('Should return the correct current path based on the router', () => {

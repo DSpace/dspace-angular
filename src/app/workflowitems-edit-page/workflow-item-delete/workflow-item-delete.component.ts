@@ -15,7 +15,7 @@ import { Location } from '@angular/common';
 
 @Component({
   selector: 'ds-workflow-item-delete',
-  templateUrl: '../workflow-item-action-page.component.html'
+  templateUrl: '../workflow-item-action-page.component.html',
 })
 /**
  * Component representing a page to delete a workflow item
@@ -47,7 +47,7 @@ export class WorkflowItemDeleteComponent extends WorkflowItemActionPageComponent
   sendRequest(id: string): Observable<boolean> {
     return this.workflowItemService.delete(id).pipe(
       getFirstCompletedRemoteData(),
-      map((response: RemoteData<NoContent>) => response.hasSucceeded)
+      map((response: RemoteData<NoContent>) => response.hasSucceeded),
     );
   }
 }

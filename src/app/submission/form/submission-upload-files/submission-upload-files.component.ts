@@ -148,7 +148,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
             }
 
           }
-        })
+        }),
     );
   }
 

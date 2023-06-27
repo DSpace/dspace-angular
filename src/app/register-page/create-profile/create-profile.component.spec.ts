@@ -18,12 +18,12 @@ import { RouterStub } from '../../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import {
   END_USER_AGREEMENT_METADATA_FIELD,
-  EndUserAgreementService
+  EndUserAgreementService,
 } from '../../core/end-user-agreement/end-user-agreement.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { CoreState } from '../../core/core-state.model';
 
@@ -50,63 +50,63 @@ describe('CreateProfileComponent', () => {
       metadata: {
         'eperson.firstname': [
           {
-            value: 'First'
-          }
+            value: 'First',
+          },
         ],
         'eperson.lastname': [
           {
-            value: 'Last'
+            value: 'Last',
           },
         ],
         'eperson.phone': [
           {
-            value: 'Phone'
-          }
+            value: 'Phone',
+          },
         ],
         'eperson.language': [
           {
-            value: 'en'
-          }
-        ]
+            value: 'en',
+          },
+        ],
       },
       email: 'test@email.org',
       password: 'password',
       canLogIn: true,
-      requireCertificate: false
+      requireCertificate: false,
     };
     eperson = Object.assign(new EPerson(), values);
     valuesWithAgreement = {
       metadata: {
         'eperson.firstname': [
           {
-            value: 'First'
-          }
+            value: 'First',
+          },
         ],
         'eperson.lastname': [
           {
-            value: 'Last'
+            value: 'Last',
           },
         ],
         'eperson.phone': [
           {
-            value: 'Phone'
-          }
+            value: 'Phone',
+          },
         ],
         'eperson.language': [
           {
-            value: 'en'
-          }
+            value: 'en',
+          },
         ],
         [END_USER_AGREEMENT_METADATA_FIELD]: [
           {
-            value: 'true'
-          }
-        ]
+            value: 'true',
+          },
+        ],
       },
       email: 'test@email.org',
       password: 'password',
       canLogIn: true,
-      requireCertificate: false
+      requireCertificate: false,
     };
     epersonWithAgreement = Object.assign(new EPerson(), valuesWithAgreement);
 
@@ -115,7 +115,7 @@ describe('CreateProfileComponent', () => {
     notificationsService = new NotificationsServiceStub();
 
     ePersonDataService = jasmine.createSpyObj('ePersonDataService', {
-      createEPersonForToken: createSuccessfulRemoteDataObject$({})
+      createEPersonForToken: createSuccessfulRemoteDataObject$({}),
     });
 
     store = jasmine.createSpyObj('store', {
@@ -124,7 +124,7 @@ describe('CreateProfileComponent', () => {
 
     endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
       isCookieAccepted: false,
-      removeCookieAccepted: {}
+      removeCookieAccepted: {},
     });
 
     TestBed.configureTestingModule({
@@ -139,7 +139,7 @@ describe('CreateProfileComponent', () => {
         {provide: NotificationsService, useValue: notificationsService},
         {provide: EndUserAgreementService, useValue: endUserAgreementService},
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
   beforeEach(() => {

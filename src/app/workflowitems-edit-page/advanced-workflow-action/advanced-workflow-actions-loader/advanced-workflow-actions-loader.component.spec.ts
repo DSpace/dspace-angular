@@ -5,7 +5,7 @@ import { RouterStub } from '../../../shared/testing/router.stub';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AdvancedWorkflowActionsDirective } from './advanced-workflow-actions.directive';
 import {
-  rendersAdvancedWorkflowTaskOption
+  rendersAdvancedWorkflowTaskOption,
 } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { By } from '@angular/platform-browser';
 import { PAGE_NOT_FOUND_PATH } from '../../../app-routing-paths';

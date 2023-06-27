@@ -18,7 +18,7 @@ import { ItemMoveComponent } from './item-move.component';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestService } from '../../../core/data/request.service';
@@ -31,22 +31,22 @@ describe('ItemMoveComponent', () => {
   const mockItem = Object.assign(new Item(), {
     id: 'fake-id',
     handle: 'fake/handle',
-    lastModified: '2018'
+    lastModified: '2018',
   });
 
   const itemPageUrl = `fake-url/${mockItem.id}`;
   const routerStub = Object.assign(new RouterStub(), {
-    url: `${itemPageUrl}/edit`
+    url: `${itemPageUrl}/edit`,
   });
 
   const collection1 = Object.assign(new Collection(), {
     uuid: 'collection-uuid-1',
-    name: 'Test collection 1'
+    name: 'Test collection 1',
   });
 
   const collection2 = Object.assign(new Collection(), {
     uuid: 'collection-uuid-2',
-    name: 'Test collection 2'
+    name: 'Test collection 2',
   });
 
   let itemDataService;
@@ -67,9 +67,9 @@ describe('ItemMoveComponent', () => {
         id: 'item1',
         owningCollection: createSuccessfulRemoteDataObject$(Object.assign(new Collection(), {
           id: 'originalOwningCollection',
-        }))
-      }))
-    })
+        })),
+      })),
+    }),
   };
 
   const mockSearchService = {
@@ -77,13 +77,13 @@ describe('ItemMoveComponent', () => {
       return createSuccessfulRemoteDataObject$(createPaginatedList([
         {
           indexableObject: collection1,
-          hitHighlights: {}
+          hitHighlights: {},
         }, {
           indexableObject: collection2,
-          hitHighlights: {}
-        }
+          hitHighlights: {},
+        },
       ]));
-    }
+    },
   };
 
   const notificationsServiceStub = new NotificationsServiceStub();
@@ -102,8 +102,8 @@ describe('ItemMoveComponent', () => {
         { provide: SearchService, useValue: mockSearchService },
         { provide: RequestService, useValue: getMockRequestService() },
       ], schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
     }).compileComponents();
     fixture = TestBed.createComponent(ItemMoveComponent);
     comp = fixture.componentInstance;

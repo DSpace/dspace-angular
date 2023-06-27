@@ -8,7 +8,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'ds-submission-import-external-collection',
   styleUrls: ['./submission-import-external-collection.component.scss'],
-  templateUrl: './submission-import-external-collection.component.html'
+  templateUrl: './submission-import-external-collection.component.html',
 })
 export class SubmissionImportExternalCollectionComponent {
   /**
@@ -31,7 +31,7 @@ export class SubmissionImportExternalCollectionComponent {
    * @param {NgbActiveModal} activeModal
    */
   constructor(
-    private activeModal: NgbActiveModal
+    private activeModal: NgbActiveModal,
   ) { }
 
   /**

@@ -11,7 +11,7 @@ import { expandSearchInput } from '../shared/animations/slide';
   selector: 'ds-search-navbar',
   templateUrl: './search-navbar.component.html',
   styleUrls: ['./search-navbar.component.scss'],
-  animations: [expandSearchInput]
+  animations: [expandSearchInput],
 })
 export class SearchNavbarComponent {
 
@@ -67,7 +67,7 @@ export class SearchNavbarComponent {
 
     this.router.navigate(linkToNavigateTo, {
       queryParams: queryParams,
-      queryParamsHandling: 'merge'
+      queryParamsHandling: 'merge',
     });
   }
 }

@@ -6,7 +6,7 @@ import {
   SelectableListDeselectSingleAction,
   SelectableListSelectAction,
   SelectableListSelectSingleAction,
-  SelectableListSetSelectionAction
+  SelectableListSetSelectionAction,
 } from './selectable-list.actions';
 import { selectableListReducer } from './selectable-list.reducer';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';

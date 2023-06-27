@@ -58,9 +58,9 @@ describe('ItemDeleteComponent', () => {
       isWithdrawn: true,
       metadata: {
         'dspace.entity.type': [
-          { value: 'Person' }
-        ]
-      }
+          { value: 'Person' },
+        ],
+      },
     });
 
     itemType = Object.assign(new ItemType(), {
@@ -99,17 +99,17 @@ describe('ItemDeleteComponent', () => {
 
     itemPageUrl = `fake-url/${mockItem.id}`;
     routerStub = Object.assign(new RouterStub(), {
-      url: `${itemPageUrl}/edit`
+      url: `${itemPageUrl}/edit`,
     });
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
-      delete: createSuccessfulRemoteDataObject$({})
+      delete: createSuccessfulRemoteDataObject$({}),
     });
 
     routeStub = {
       data: observableOf({
-        dso: createSuccessfulRemoteDataObject(mockItem)
-      })
+        dso: createSuccessfulRemoteDataObject(mockItem),
+      }),
     };
 
     typesSelection = {
@@ -121,7 +121,7 @@ describe('ItemDeleteComponent', () => {
       {
         getEntityTypeByLabel: createSuccessfulRemoteDataObject$(itemType),
         getEntityTypeRelationships: createSuccessfulRemoteDataObject$(createPaginatedList(types)),
-      }
+      },
     );
 
     objectUpdatesServiceStub = {
@@ -134,13 +134,13 @@ describe('ItemDeleteComponent', () => {
     relationshipService = jasmine.createSpyObj('relationshipService',
       {
         getItemRelationshipsArray: observableOf(relationships),
-      }
+      },
     );
 
     linkService = jasmine.createSpyObj('linkService',
       {
         resolveLinks: relationships[0],
-      }
+      },
     );
 
     notificationsServiceStub = new NotificationsServiceStub();
@@ -159,8 +159,8 @@ describe('ItemDeleteComponent', () => {
         { provide: RelationshipTypeDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
       ], schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 
@@ -210,7 +210,7 @@ describe('ItemDeleteComponent', () => {
         (comp as any).entityTypeService = jasmine.createSpyObj('entityTypeService',
           {
             getEntityTypeByLabel: EMPTY,
-          }
+          },
         );
       });
 

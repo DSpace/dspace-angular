@@ -9,7 +9,7 @@ import { MenuItemType } from '../menu-item-type.model';
  */
 @Component({
   selector: 'ds-external-link-menu-item',
-  templateUrl: './external-link-menu-item.component.html'
+  templateUrl: './external-link-menu-item.component.html',
 })
 @rendersMenuItemForType(MenuItemType.EXTERNAL)
 export class ExternalLinkMenuItemComponent implements OnInit {
@@ -18,7 +18,7 @@ export class ExternalLinkMenuItemComponent implements OnInit {
   hasLink: boolean;
 
   constructor(
-    @Inject('itemModelProvider') item: ExternalLinkMenuItemModel
+    @Inject('itemModelProvider') item: ExternalLinkMenuItemModel,
   ) {
     this.item = item;
   }

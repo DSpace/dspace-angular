@@ -7,7 +7,7 @@ export const slide = trigger('slide', [
   state('*', style({ height: '*' })),
   transition(':enter', [animate('200ms')]),
   transition(':leave', [animate('200ms')]),
-  transition('expanded <=> collapsed', animate(250))
+  transition('expanded <=> collapsed', animate(250)),
 ]);
 
 export const slideMobileNav = trigger('slideMobileNav', [
@@ -16,7 +16,7 @@ export const slideMobileNav = trigger('slideMobileNav', [
 
   state('collapsed', style({ height: 0 })),
 
-  transition('expanded <=> collapsed', animate('300ms'))
+  transition('expanded <=> collapsed', animate('300ms')),
 ]);
 
 const collapsedStyle = style({ marginLeft: '-{{ sidebarWidth }}' });
@@ -30,7 +30,7 @@ export const slideSidebar = trigger('slideSidebar', [
       [
         query('@*', animateChild()),
         query('.sidebar-collapsible', expandedStyle, options),
-        query('.sidebar-collapsible', animate('300ms ease-in-out', collapsedStyle))
+        query('.sidebar-collapsible', animate('300ms ease-in-out', collapsedStyle)),
       ],
     )),
 
@@ -39,9 +39,9 @@ export const slideSidebar = trigger('slideSidebar', [
       [
         query('@*', animateChild()),
         query('.sidebar-collapsible', collapsedStyle),
-        query('.sidebar-collapsible', animate('300ms ease-in-out', expandedStyle), options)
-      ]
-    ))
+        query('.sidebar-collapsible', animate('300ms ease-in-out', expandedStyle), options),
+      ],
+    )),
 ]);
 
 export const slideSidebarPadding = trigger('slideSidebarPadding', [
@@ -56,26 +56,26 @@ export const slideSidebarPadding = trigger('slideSidebarPadding', [
 export const expandSearchInput = trigger('toggleAnimation', [
   state('collapsed', style({
     width: '30px',
-    opacity: '0'
+    opacity: '0',
   })),
   state('expanded', style({
     width: '250px',
-    opacity: '1'
+    opacity: '1',
   })),
   transition('* => collapsed', group([
     animate('300ms ease-in-out', style({
-      width: '30px'
+      width: '30px',
     })),
     animate('300ms ease-in', style({
-      opacity: '0'
-    }))
+      opacity: '0',
+    })),
   ])),
   transition('* => expanded', group([
     animate('300ms ease-out', style({
-      opacity: '1'
+      opacity: '1',
     })),
     animate('300ms ease-in-out', style({
-      width: '250px'
-    }))
-  ]))
+      width: '250px',
+    })),
+  ])),
 ]);

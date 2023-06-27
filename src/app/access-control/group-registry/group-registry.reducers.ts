@@ -27,13 +27,13 @@ export function groupRegistryReducer(state = initialState, action: GroupRegistry
 
     case GroupRegistryActionTypes.EDIT_GROUP: {
       return Object.assign({}, state, {
-        editGroup: (action as GroupRegistryEditGroupAction).group
+        editGroup: (action as GroupRegistryEditGroupAction).group,
       });
     }
 
     case GroupRegistryActionTypes.CANCEL_EDIT_GROUP: {
       return Object.assign({}, state, {
-        editGroup: null
+        editGroup: null,
       });
     }
 

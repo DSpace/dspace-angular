@@ -11,7 +11,7 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 @Component({
   selector: 'ds-dso-page-subscription-button',
   templateUrl: './dso-page-subscription-button.component.html',
-  styleUrls: ['./dso-page-subscription-button.component.scss']
+  styleUrls: ['./dso-page-subscription-button.component.scss'],
 })
 /**
  * Display a button that opens the modal to manage subscriptions

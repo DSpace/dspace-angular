@@ -47,7 +47,7 @@ export class PoolTaskDataService extends TasksService<PoolTask> {
   public findByItem(uuid: string): Observable<RemoteData<PoolTask>> {
     const options = new FindListOptions();
     options.searchParams = [
-      new RequestParam('uuid', uuid)
+      new RequestParam('uuid', uuid),
     ];
     return this.searchTask('findByItem', options).pipe(getFirstCompletedRemoteData());
   }

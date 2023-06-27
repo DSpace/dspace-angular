@@ -67,7 +67,7 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
               protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
               protected router: Router,
-              protected paginationService: PaginationService
+              protected paginationService: PaginationService,
   ) {
   }
 
@@ -109,7 +109,7 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
     const page = this.paginationService.getPageParam(this.searchConfigService.paginationID);
     this.addQueryParams = {
       [this.filterConfig.paramName]: [...selectedValues.map((facetValue: FacetValue) => getFacetValueForType(facetValue, this.filterConfig)), this.getFacetValue()],
-      [page]: 1
+      [page]: 1,
     };
   }
 

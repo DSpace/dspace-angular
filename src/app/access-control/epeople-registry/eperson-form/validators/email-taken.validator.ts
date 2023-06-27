@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
-import { getFirstSucceededRemoteData, } from '../../../../core/shared/operators';
+import { getFirstSucceededRemoteData } from '../../../../core/shared/operators';
 
 export class ValidateEmailNotTaken {
 
@@ -18,7 +18,7 @@ export class ValidateEmailNotTaken {
           getFirstSucceededRemoteData(),
           map(res => {
             return res.payload ? { emailTaken: true } : null;
-          })
+          }),
         );
     };
   }

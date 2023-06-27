@@ -12,9 +12,9 @@ import { SearchConfigurationService } from '../../../../../../../../../app/core/
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
 })
 export class DsDynamicLookupRelationSearchTabComponent extends BaseComponent {
 

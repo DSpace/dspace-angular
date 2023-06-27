@@ -20,12 +20,12 @@ describe('ContentAccordionComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
-        NgbCollapseModule
+        NgbCollapseModule,
       ],
-      declarations: [ContentAccordionComponent]
+      declarations: [ContentAccordionComponent],
     })
       .compileComponents();
   });

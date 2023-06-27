@@ -14,7 +14,7 @@ import { EndpointMockingRestService } from '../shared/mocks/dspace-rest/endpoint
 import {
   MOCK_RESPONSE_MAP,
   mockResponseMap,
-  ResponseMapMock
+  ResponseMapMock,
 } from '../shared/mocks/dspace-rest/mocks/response-map.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
@@ -127,7 +127,7 @@ import { Authorization } from './shared/authorization.model';
 import { FeatureDataService } from './data/feature-authorization/feature-data.service';
 import { AuthorizationDataService } from './data/feature-authorization/authorization-data.service';
 import {
-  SiteAdministratorGuard
+  SiteAdministratorGuard,
 } from './data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { Registration } from './shared/registration.model';
 import { MetadataSchemaDataService } from './data/metadata-schema-data.service';
@@ -198,7 +198,7 @@ export const restServiceFactory = (mocks: ResponseMapMock, http: HttpClient) => 
 const IMPORTS = [
   CommonModule,
   StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
-  EffectsModule.forFeature(coreEffects)
+  EffectsModule.forFeature(coreEffects),
 ];
 
 const DECLARATIONS = [];
@@ -304,7 +304,7 @@ const PROVIDERS = [
   OrcidAuthService,
   OrcidQueueDataService,
   OrcidHistoryDataService,
-  SupervisionOrderDataService
+  SupervisionOrderDataService,
 ];
 
 /**
@@ -380,22 +380,22 @@ export const models =
     IdentifierData,
     Subscription,
     ItemRequest,
-    BulkAccessConditionOptions
+    BulkAccessConditionOptions,
   ];
 
 @NgModule({
   imports: [
-    ...IMPORTS
+    ...IMPORTS,
   ],
   declarations: [
-    ...DECLARATIONS
+    ...DECLARATIONS,
   ],
   exports: [
-    ...EXPORTS
+    ...EXPORTS,
   ],
   providers: [
-    ...PROVIDERS
-  ]
+    ...PROVIDERS,
+  ],
 })
 
 export class CoreModule {
@@ -403,8 +403,8 @@ export class CoreModule {
     return {
       ngModule: CoreModule,
       providers: [
-        ...PROVIDERS
-      ]
+        ...PROVIDERS,
+      ],
     };
   }
 

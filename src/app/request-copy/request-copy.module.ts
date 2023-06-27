@@ -14,7 +14,7 @@ import { ThemedGrantRequestCopyComponent } from './grant-request-copy/themed-gra
   imports: [
     CommonModule,
     SharedModule,
-    RequestCopyRoutingModule
+    RequestCopyRoutingModule,
   ],
   declarations: [
     GrantDenyRequestCopyComponent,
@@ -28,7 +28,7 @@ import { ThemedGrantRequestCopyComponent } from './grant-request-copy/themed-gra
   exports: [
     ThemedEmailRequestCopyComponent,
   ],
-  providers: []
+  providers: [],
 })
 
 /**

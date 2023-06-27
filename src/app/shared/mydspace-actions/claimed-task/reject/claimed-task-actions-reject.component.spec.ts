@@ -35,7 +35,7 @@ const requestService = getMockRequestService();
 const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
 
 const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
-  submitTask: of(new ProcessTaskResponse(true))
+  submitTask: of(new ProcessTaskResponse(true)),
 });
 
 let mockPoolTaskDataService: PoolTaskDataService;
@@ -66,9 +66,9 @@ describe('ClaimedTaskActionsRejectComponent', () => {
         UntypedFormBuilder,
         NgbModal,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ClaimedTaskActionsRejectComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
     fixture = TestBed.createComponent(ClaimedTaskActionsRejectComponent);
     component = fixture.componentInstance;
@@ -122,7 +122,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
 
       expectedBody = {
         [component.option]: 'true',
-        reason: null
+        reason: null,
       };
 
       const btn = fixture.debugElement.query(By.css('.btn-danger'));
@@ -150,7 +150,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
       spyOn((component.rejectForm as any), 'get').and.returnValue({value: 'required'});
       expectedBody = {
         [component.option]: 'true',
-        reason: 'required'
+        reason: 'required',
       };
     });
 

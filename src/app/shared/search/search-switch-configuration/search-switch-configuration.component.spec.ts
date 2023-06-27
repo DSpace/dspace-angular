@@ -23,19 +23,19 @@ describe('SearchSwitchConfigurationComponent', () => {
   let select: any;
 
   const searchServiceStub = jasmine.createSpyObj('SearchService', {
-    getSearchLink: jasmine.createSpy('getSearchLink')
+    getSearchLink: jasmine.createSpy('getSearchLink'),
   });
 
   const configurationList = [
     {
       value: MyDSpaceConfigurationValueType.Workspace,
       label: 'workspace',
-      context: Context.Workspace
+      context: Context.Workspace,
     },
     {
       value: MyDSpaceConfigurationValueType.Workflow,
       label: 'workflow',
-      context: Context.Workflow
+      context: Context.Workflow,
     },
   ];
   beforeEach(waitForAsync(() => {
@@ -44,9 +44,9 @@ describe('SearchSwitchConfigurationComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [SearchSwitchConfigurationComponent],
       providers: [
@@ -54,7 +54,7 @@ describe('SearchSwitchConfigurationComponent', () => {
         { provide: SearchService, useValue: searchServiceStub },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

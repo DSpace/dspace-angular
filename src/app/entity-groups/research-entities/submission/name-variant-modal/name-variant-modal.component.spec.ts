@@ -19,7 +19,7 @@ describe('NameVariantModalComponent', () => {
     TestBed.configureTestingModule({
       declarations: [NameVariantModalComponent],
       imports: [NgbModule, TranslateModule.forRoot()],
-      providers: [{ provide: NgbActiveModal, useValue: modal }]
+      providers: [{ provide: NgbActiveModal, useValue: modal }],
     })
       .compileComponents();
   }));

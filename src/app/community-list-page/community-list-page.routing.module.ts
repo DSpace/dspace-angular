@@ -17,14 +17,14 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
         component: ThemedCommunityListPageComponent,
         pathMatch: 'full',
         resolve: {
-          breadcrumb: I18nBreadcrumbResolver
+          breadcrumb: I18nBreadcrumbResolver,
         },
-        data: { title: 'communityList.tabTitle', breadcrumbKey: 'communityList' }
-      }
+        data: { title: 'communityList.tabTitle', breadcrumbKey: 'communityList' },
+      },
     ]),
     CdkTreeModule,
   ],
-  providers: [CommunityListService]
+  providers: [CommunityListService],
 })
 export class CommunityListPageRoutingModule {
 }

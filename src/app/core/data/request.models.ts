@@ -4,7 +4,7 @@ import { ResponseParsingService } from './parsing.service';
 import { EndpointMapResponseParsingService } from './endpoint-map-response-parsing.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import {
-  SubmissionResponseParsingService
+  SubmissionResponseParsingService,
 } from '../submission/submission-response-parsing.service';
 import { RestRequestMethod } from './rest-request-method';
 import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
@@ -32,7 +32,7 @@ export class GetRequest extends DSpaceRestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
   ) {
     super(uuid, href, RestRequestMethod.GET, body, options);
   }
@@ -43,7 +43,7 @@ export class PostRequest extends DSpaceRestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
   ) {
     super(uuid, href, RestRequestMethod.POST, body);
   }
@@ -58,7 +58,7 @@ export class MultipartPostRequest extends DSpaceRestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
   )  {
     super(uuid, href, RestRequestMethod.POST, body);
   }
@@ -69,7 +69,7 @@ export class PutRequest extends DSpaceRestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
   ) {
     super(uuid, href, RestRequestMethod.PUT, body);
   }
@@ -80,7 +80,7 @@ export class DeleteRequest extends DSpaceRestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
   ) {
     super(uuid, href, RestRequestMethod.DELETE, body);
   }
@@ -91,7 +91,7 @@ export class OptionsRequest extends DSpaceRestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
   ) {
     super(uuid, href, RestRequestMethod.OPTIONS, body);
   }
@@ -102,7 +102,7 @@ export class HeadRequest extends DSpaceRestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
   ) {
     super(uuid, href, RestRequestMethod.HEAD, body);
   }
@@ -113,7 +113,7 @@ export class PatchRequest extends DSpaceRestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
   ) {
     super(uuid, href, RestRequestMethod.PATCH, body);
   }
@@ -235,7 +235,7 @@ export class DeleteByIDRequest extends DeleteRequest {
   constructor(
     uuid: string,
     href: string,
-    public resourceID: string
+    public resourceID: string,
   ) {
     super(uuid, href);
   }

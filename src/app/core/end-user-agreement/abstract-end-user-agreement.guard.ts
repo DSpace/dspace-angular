@@ -23,7 +23,7 @@ export abstract class AbstractEndUserAgreementGuard implements CanActivate {
       return observableOf(true);
     }
     return this.hasAccepted().pipe(
-      returnEndUserAgreementUrlTreeOnFalse(this.router, state.url)
+      returnEndUserAgreementUrlTreeOnFalse(this.router, state.url),
     );
   }
 

@@ -18,7 +18,7 @@ import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import {
   mockSubscriptionEperson,
   subscriptionMock,
-  subscriptionMock2
+  subscriptionMock2,
 } from '../shared/testing/subscriptions-data.mock';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { VarDirective } from '../shared/utils/var.directive';
@@ -33,11 +33,11 @@ describe('SubscriptionsPageComponent', () => {
   let de: DebugElement;
 
   const authServiceStub = jasmine.createSpyObj('authorizationService', {
-    getAuthenticatedUserFromStore: observableOf(mockSubscriptionEperson)
+    getAuthenticatedUserFromStore: observableOf(mockSubscriptionEperson),
   });
 
   const subscriptionServiceStub = jasmine.createSpyObj('SubscriptionsDataService', {
-    findByEPerson: jasmine.createSpy('findByEPerson')
+    findByEPerson: jasmine.createSpy('findByEPerson'),
   });
 
   const paginationService = new PaginationServiceStub();
@@ -45,11 +45,11 @@ describe('SubscriptionsPageComponent', () => {
   const mockSubscriptionList = [subscriptionMock, subscriptionMock2];
 
   const emptyPageInfo = Object.assign(new PageInfo(), {
-    totalElements: 0
+    totalElements: 0,
   });
 
   const pageInfo = Object.assign(new PageInfo(), {
-    totalElements: 2
+    totalElements: 2,
   });
 
   beforeEach(waitForAsync(() => {
@@ -61,19 +61,19 @@ describe('SubscriptionsPageComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
-        NoopAnimationsModule
+        NoopAnimationsModule,
       ],
       declarations: [SubscriptionsPageComponent, SubscriptionViewComponent, VarDirective],
       providers: [
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: AuthService, useValue: authServiceStub },
-        { provide: PaginationService, useValue: paginationService }
+        { provide: PaginationService, useValue: paginationService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

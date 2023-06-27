@@ -15,7 +15,7 @@ import { FieldChangeType } from '../field-change-type.model';
  * This expects the fields within every {@link FieldUpdate} to be {@link MetadatumViewModel}s
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MetadataPatchOperationService implements PatchOperationService {
 
@@ -75,7 +75,7 @@ export class MetadataPatchOperationService implements PatchOperationService {
       const metadatum = update.field as MetadatumViewModel;
       const val = {
         value: metadatum.value,
-        language: metadatum.language
+        language: metadatum.language,
       };
 
       let operation: MetadataPatchOperation;

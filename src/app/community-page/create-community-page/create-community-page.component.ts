@@ -15,7 +15,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-create-community',
   styleUrls: ['./create-community-page.component.scss'],
-  templateUrl: './create-community-page.component.html'
+  templateUrl: './create-community-page.component.html',
 })
 export class CreateCommunityPageComponent extends CreateComColPageComponent<Community> {
   protected frontendURL = '/communities/';
@@ -28,7 +28,7 @@ export class CreateCommunityPageComponent extends CreateComColPageComponent<Comm
     protected router: Router,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
-    protected requestService: RequestService
+    protected requestService: RequestService,
   ) {
     super(communityDataService, dsoNameService, communityDataService, routeService, router, notificationsService, translate, requestService);
   }
