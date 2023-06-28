@@ -282,11 +282,11 @@ describe('Pagination component', () => {
 
       changePage(testFixture, 3);
       tick();
-      expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ page: '3' }), {},  false);
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ page: 3 }), {},  false);
 
       changePage(testFixture, 0);
       tick();
-      expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ page: '2' }), {},  false);
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ page: 2 }), {},  false);
     }));
 
     it('should set correct pageSize route parameters', fakeAsync(() => {
@@ -296,7 +296,7 @@ describe('Pagination component', () => {
 
       changePageSize(testFixture, '20');
       tick();
-      expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ pageId: 'test', page: 1, pageSize: 20 }), {},  false);
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ page: 1, pageSize: 20 }), {},  false);
     }));
 
     it('should respond to windows resize', () => {

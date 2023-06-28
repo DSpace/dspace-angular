@@ -39,8 +39,8 @@
           <button (click)="onCancel()"
                   class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> {{messagePrefix + '.return' | translate}}</button>
         </div>
-        <div after *ngIf="groupBeingEdited !== null" class="btn-group">
-          <button class="btn btn-danger delete-button" [disabled]="(canEdit$ | async) === false || groupBeingEdited.permanent"
+        <div after *ngIf="groupBeingEdited !== undefined" class="btn-group">
+          <button class="btn btn-danger delete-button" [disabled]="(canEdit$ | async) === false || groupBeingEdited?.permanent"
                   (click)="delete()">
             <i class="fa fa-trash"></i> {{ messagePrefix + '.actions.delete' | translate}}
           </button>
@@ -48,10 +48,10 @@
       </ds-form>
 
       <div class="mb-5">
-        <ds-members-list *ngIf="groupBeingEdited !== null"
+        <ds-members-list *ngIf="groupBeingEdited !== undefined"
                          [messagePrefix]="messagePrefix + '.members-list'"></ds-members-list>
       </div>
-      <ds-subgroups-list *ngIf="groupBeingEdited !== null"
+      <ds-subgroups-list *ngIf="groupBeingEdited !== undefined"
                          [messagePrefix]="messagePrefix + '.subgroups-list'"></ds-subgroups-list>
 
 
