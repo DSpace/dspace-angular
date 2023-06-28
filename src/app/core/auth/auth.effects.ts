@@ -1,6 +1,7 @@
 import {
   Injectable,
   NgZone,
+  Type,
 } from '@angular/core';
 // import @ngrx
 import {
@@ -50,6 +51,7 @@ import {
   AuthenticatedSuccessAction,
   AuthenticationErrorAction,
   AuthenticationSuccessAction,
+  AuthErrorActionsWithErrorPayload,
   CheckAuthenticationTokenCookieAction,
   LogOutErrorAction,
   LogOutSuccessAction,
@@ -81,6 +83,16 @@ const IDLE_TIMER_IGNORE_TYPES: string[]
   = [...Object.values(AuthActionTypes).filter((t: string) => t !== AuthActionTypes.UNSET_USER_AS_IDLE),
     ...Object.values(RequestActionTypes), ...Object.values(NotificationsActionTypes)];
 
+export function errorToAuthAction$<T extends AuthErrorActionsWithErrorPayload>(actionType: Type<T>, error: unknown): Observable<T> {
+  if (error instanceof Error) {
+    return observableOf(new actionType(error));
+  }
+
+  // If we caught something that's not an Error: complain & drop type safety
+  console.warn('AuthEffects caught non-Error object:', error);
+  return observableOf(new actionType(error as any));
+}
+
 @Injectable()
 export class AuthEffects {
 
@@ -94,7 +106,7 @@ export class AuthEffects {
       return this.authService.authenticate(action.payload.email, action.payload.password).pipe(
         take(1),
         map((response: AuthStatus) => new AuthenticationSuccessAction(response.token)),
-        catchError((error) => observableOf(new AuthenticationErrorAction(error))),
+        catchError((error: unknown) => errorToAuthAction$(AuthenticationErrorAction, error)),
       );
     }),
   ));
@@ -109,7 +121,8 @@ export class AuthEffects {
     switchMap((action: AuthenticatedAction) => {
       return this.authService.authenticatedUser(action.payload).pipe(
         map((userHref: string) => new AuthenticatedSuccessAction((userHref !== null), action.payload, userHref)),
-        catchError((error) => observableOf(new AuthenticatedErrorAction(error))));
+        catchError((error: unknown) => errorToAuthAction$(AuthenticatedErrorAction, error)),
+      );
     }),
   ));
 
@@ -155,7 +168,8 @@ export class AuthEffects {
       }
       return user$.pipe(
         map((user: EPerson) => new RetrieveAuthenticatedEpersonSuccessAction(user.id)),
-        catchError((error) => observableOf(new RetrieveAuthenticatedEpersonErrorAction(error))));
+        catchError((error: unknown) => errorToAuthAction$(RetrieveAuthenticatedEpersonErrorAction, error)),
+      );
     }),
   ));
 
@@ -163,7 +177,7 @@ export class AuthEffects {
     switchMap(() => {
       return this.authService.hasValidAuthenticationToken().pipe(
         map((token: AuthTokenInfo) => new AuthenticatedAction(token)),
-        catchError((error) => observableOf(new CheckAuthenticationTokenCookieAction())),
+        catchError((error: unknown) => observableOf(new CheckAuthenticationTokenCookieAction())),
       );
     }),
   ));
@@ -181,7 +195,7 @@ export class AuthEffects {
             return new RetrieveAuthMethodsAction(response);
           }
         }),
-        catchError((error) => observableOf(new AuthenticatedErrorAction(error))),
+        catchError((error: unknown) => errorToAuthAction$(AuthenticatedErrorAction, error)),
       );
     }),
   ));
@@ -192,7 +206,7 @@ export class AuthEffects {
       return this.authService.refreshAuthenticationToken(null).pipe(
         take(1),
         map((token: AuthTokenInfo) => new AuthenticationSuccessAction(token)),
-        catchError((error) => observableOf(new AuthenticationErrorAction(error))),
+        catchError((error: unknown) => errorToAuthAction$(AuthenticationErrorAction, error)),
       );
     }),
   ));
@@ -201,7 +215,7 @@ export class AuthEffects {
     switchMap((action: RefreshTokenAction) => {
       return this.authService.refreshAuthenticationToken(action.payload).pipe(
         map((token: AuthTokenInfo) => new RefreshTokenSuccessAction(token)),
-        catchError((error) => observableOf(new RefreshTokenErrorAction())),
+        catchError((error: unknown) => observableOf(new RefreshTokenErrorAction())),
       );
     }),
   ));
@@ -245,8 +259,8 @@ export class AuthEffects {
       switchMap(() => {
         this.authService.stopImpersonating();
         return this.authService.logout().pipe(
-          map((value) => new LogOutSuccessAction()),
-          catchError((error) => observableOf(new LogOutErrorAction(error))),
+          map(() => new LogOutSuccessAction()),
+          catchError((error: unknown) => errorToAuthAction$(LogOutErrorAction, error)),
         );
       }),
     ));
@@ -272,7 +286,7 @@ export class AuthEffects {
         return this.authService.retrieveAuthMethodsFromAuthStatus(action.payload)
           .pipe(
             map((authMethodModels: AuthMethod[]) => new RetrieveAuthMethodsSuccessAction(authMethodModels)),
-            catchError((error) => observableOf(new RetrieveAuthMethodsErrorAction())),
+            catchError(() => observableOf(new RetrieveAuthMethodsErrorAction())),
           );
       }),
     ));

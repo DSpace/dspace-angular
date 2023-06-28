@@ -204,7 +204,7 @@ export class SubscriptionModalComponent implements OnInit {
         }
         this.processing$.next(false);
       },
-      error: err => {
+      error: (err: unknown) => {
         this.processing$.next(false);
       },
     });

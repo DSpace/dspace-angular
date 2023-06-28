@@ -47,7 +47,7 @@ export class LinkHeadService {
       renderer.appendChild(head, link);
       return renderer;
     } catch (e) {
-      console.error('Error within linkService : ', e);
+      console.error('Error within linkService: ', e);
     }
   }
 
@@ -73,7 +73,9 @@ export class LinkHeadService {
           renderer.removeChild(head, link);
         }
       } catch (e) {
-        console.log('Error while removing tag ' + e.message);
+        if (e instanceof Error) {
+          console.error('Error while removing tag: ' + e.message);
+        }
       }
     }
   }

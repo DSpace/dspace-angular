@@ -296,7 +296,7 @@ export class AuthInterceptor implements HttpInterceptor {
           return response;
         }
       }),
-      catchError((error, caught) => {
+      catchError((error: unknown, caught) => {
         // Intercept an error response
         if (error instanceof HttpErrorResponse) {
 

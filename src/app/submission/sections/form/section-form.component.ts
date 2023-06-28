@@ -341,7 +341,9 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
         message: msg,
         path: '/sections/' + this.sectionData.id,
       };
-      console.error(e.stack);
+      if (e instanceof Error) {
+        console.error(e.stack);
+      }
       this.sectionService.setSectionError(this.submissionId, this.sectionData.id, sectionError);
     }
   }

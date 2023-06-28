@@ -11,6 +11,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';
+import { RequestError } from '../data/request-error.model';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { CookieService } from '../services/cookie.service';
@@ -153,12 +154,13 @@ describe(`XsrfInterceptor`, () => {
     const mockErrorMessage = 'CSRF token mismatch';
 
     service.request(RestRequestMethod.GET, 'server/api/core/items').subscribe({
-      error: (error) => {
+      error: (error: unknown) => {
         expect(error).toBeTruthy();
+        expect(error instanceof RequestError).toBeTrue();
 
         // ensure mock error (added in below flush() call) is returned.
-        expect(error.statusCode).toBe(mockErrorCode);
-        expect(error.statusText).toBe(mockErrorText);
+        expect((error as RequestError).statusCode).toBe(mockErrorCode);
+        expect((error as RequestError).statusText).toBe(mockErrorText);
 
         // ensure our XSRF-TOKEN cookie exists & has the same value as the new DSPACE-XSRF-TOKEN header
         expect(cookieService.get('XSRF-TOKEN')).not.toBeNull();

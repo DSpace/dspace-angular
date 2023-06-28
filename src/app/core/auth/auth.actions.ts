@@ -428,15 +428,22 @@ export class UnsetUserAsIdleAction implements Action {
 }
 
 /**
+ * Authentication error actions that include Error payloads.
+ */
+export type AuthErrorActionsWithErrorPayload
+  = AuthenticatedErrorAction
+  | AuthenticationErrorAction
+  | LogOutErrorAction
+  | RetrieveAuthenticatedEpersonErrorAction;
+
+/**
  * Actions type.
  * @type {AuthActions}
  */
 export type AuthActions
   = AuthenticateAction
   | AuthenticatedAction
-  | AuthenticatedErrorAction
   | AuthenticatedSuccessAction
-  | AuthenticationErrorAction
   | AuthenticationSuccessAction
   | CheckAuthenticationTokenAction
   | CheckAuthenticationTokenCookieAction
@@ -453,10 +460,9 @@ export type AuthActions
   | RetrieveAuthMethodsErrorAction
   | RetrieveTokenAction
   | RetrieveAuthenticatedEpersonAction
-  | RetrieveAuthenticatedEpersonErrorAction
   | RetrieveAuthenticatedEpersonSuccessAction
   | SetRedirectUrlAction
   | RedirectAfterLoginSuccessAction
   | SetUserAsIdleAction
-  | UnsetUserAsIdleAction;
-
+  | UnsetUserAsIdleAction
+  | AuthErrorActionsWithErrorPayload;

@@ -1,8 +1,8 @@
 import {
   HttpClient,
+  HttpErrorResponse,
   HttpHeaders,
   HttpParams,
-  HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
@@ -16,9 +16,9 @@ import {
 
 import {
   hasNoValue,
-  hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
+import { RequestError } from '../data/request-error.model';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { RawRestResponse } from './raw-rest-response.model';
@@ -53,24 +53,7 @@ export class DspaceRestService {
    *      An Observable<string> containing the response from the server
    */
   get(absoluteURL: string): Observable<RawRestResponse> {
-    const requestOptions = {
-      observe: 'response' as any,
-      headers: new HttpHeaders({ 'Content-Type': DEFAULT_CONTENT_TYPE }),
-    };
-    return this.http.get(absoluteURL, requestOptions).pipe(
-      map((res: HttpResponse<any>) => ({
-        payload: res.body,
-        statusCode: res.status,
-        statusText: res.statusText,
-      })),
-      catchError((err) => {
-        console.log('Error: ', err);
-        return observableThrowError({
-          statusCode: err.status,
-          statusText: err.statusText,
-          message: (hasValue(err.error) && isNotEmpty(err.error.message)) ? err.error.message : err.message,
-        });
-      }));
+    return this.request(RestRequestMethod.GET, absoluteURL);
   }
 
   /**
@@ -126,17 +109,23 @@ export class DspaceRestService {
         statusCode: res.status,
         statusText: res.statusText,
       })),
-      catchError((err) => {
-        if (hasValue(err.status)) {
-          return observableThrowError({
-            statusCode: err.status,
-            statusText: err.statusText,
-            message: (hasValue(err.error) && isNotEmpty(err.error.message)) ? err.error.message : err.message,
-          });
+      catchError((err: unknown) => observableThrowError(() => {
+        console.log('Error: ', err);
+        if (err instanceof HttpErrorResponse) {
+          const error = new RequestError(
+            (isNotEmpty(err?.error?.message)) ? err.error.message : err.message,
+          );
+
+          error.statusCode = err.status;
+          error.statusText = err.statusText;
+
+          return error;
         } else {
-          return observableThrowError(err);
+          console.error('Cannot construct RequestError from', err);
+          return err;
         }
-      }));
+      })),
+    );
   }
 
   /**

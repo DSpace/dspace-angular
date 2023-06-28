@@ -42,7 +42,7 @@ export class RootDataService extends BaseDataService<Root> {
    */
   checkServerAvailability(): Observable<boolean> {
     return this.restService.get(this.halService.getRootHref()).pipe(
-      catchError((err ) => {
+      catchError((err: unknown) => {
         console.error(err);
         return observableOf(false);
       }),

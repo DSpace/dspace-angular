@@ -102,7 +102,7 @@ export class XsrfInterceptor implements HttpInterceptor {
           }
         }
       }),
-      catchError((error) => {
+      catchError((error: unknown) => {
         if (error instanceof HttpErrorResponse) {
           // For every error that comes back, also check for the custom
           // DSPACE-XSRF-TOKEN header sent from the backend.

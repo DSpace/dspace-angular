@@ -39,7 +39,7 @@ export class SignpostingDataService {
     const baseUrl = `${this.appConfig.rest.baseUrl}`;
 
     return this.restService.get(`${baseUrl}/signposting/links/${uuid}`).pipe(
-      catchError((err) => {
+      catchError((err: unknown) => {
         return observableOf([]);
       }),
       map((res: RawRestResponse) => res.statusCode === 200 ? res.payload as SignpostingLink[] : []),

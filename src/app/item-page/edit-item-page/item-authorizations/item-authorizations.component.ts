@@ -180,7 +180,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
       filter((item: Item) => isNotEmpty(item.bundles)),
       mergeMap((item: Item) => item.bundles),
       getFirstSucceededRemoteDataWithNotEmptyPayload(),
-      catchError((error) => {
+      catchError((error: unknown) => {
         console.error(error);
         return observableOf(buildPaginatedList(null, []));
       }),
@@ -229,7 +229,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
   private getBundleBitstreams(bundle: Bundle): Observable<PaginatedList<Bitstream>> {
     return bundle.bitstreams.pipe(
       getFirstSucceededRemoteDataPayload(),
-      catchError((error) => {
+      catchError((error: unknown) => {
         console.error(error);
         return observableOf(buildPaginatedList(null, []));
       }),

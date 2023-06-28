@@ -1,4 +1,7 @@
-import { HttpHeaders } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController,
@@ -19,11 +22,14 @@ describe('DspaceRestService', () => {
   let dspaceRestService: DspaceRestService;
   let httpMock: HttpTestingController;
   const url = 'http://www.dspace.org/';
-  const mockError: any = {
-    statusCode: 0,
+
+  const mockError = new HttpErrorResponse({
+    status: 0,
     statusText: 'Unknown Error',
-    message: 'Http failure response for http://www.dspace.org/: 0 ',
-  };
+    error: {
+      message: 'Http failure response for http://www.dspace.org/: 0 ',
+    },
+  });
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -61,24 +67,28 @@ describe('DspaceRestService', () => {
       req.flush(mockPayload, { status: mockStatusCode, statusText: mockStatusText });
     });
     it('should throw an error', () => {
-      dspaceRestService.get(url).subscribe(() => undefined, (err) => {
-        expect(err).toEqual(mockError);
+      dspaceRestService.get(url).subscribe(() => undefined, (err: unknown) => {
+        expect(err).toEqual(jasmine.objectContaining({
+          statusCode: 0,
+          statusText: 'Unknown Error',
+          message: 'Http failure response for http://www.dspace.org/: 0 ',
+        }));
       });
       const req = httpMock.expectOne(url);
       expect(req.request.method).toBe('GET');
-      req.error(mockError);
+      req.error({ error: mockError } as ErrorEvent);
     });
 
     it('should log an error', () => {
       spyOn(console, 'log');
 
-      dspaceRestService.get(url).subscribe(() => undefined, (err) => {
+      dspaceRestService.get(url).subscribe(() => undefined, (err: unknown) => {
         expect(console.log).toHaveBeenCalled();
       });
 
       const req = httpMock.expectOne(url);
       expect(req.request.method).toBe('GET');
-      req.error(mockError);
+      req.error({ error: mockError } as ErrorEvent);
     });
 
     it('when no content-type header is provided, it should use application/json', () => {

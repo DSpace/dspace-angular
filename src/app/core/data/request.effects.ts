@@ -58,8 +58,8 @@ export class RequestEffects {
       return this.restApi.request(request.method, request.href, body, request.options, request.isMultipart).pipe(
         map((data: RawRestResponse) => this.injector.get(request.getResponseParser()).parse(request, data)),
         map((response: ParsedResponse) => new RequestSuccessAction(request.uuid, response.statusCode, response.link, response.unCacheableObject)),
-        catchError((error: RequestError) => {
-          if (hasValue(error.statusCode)) {
+        catchError((error: unknown) => {
+          if (error instanceof RequestError) {
             // if it's an error returned by the server, complete the request
             return [new RequestErrorAction(request.uuid, error.statusCode, error.message)];
           } else {

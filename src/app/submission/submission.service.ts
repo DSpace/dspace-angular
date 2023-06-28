@@ -576,8 +576,10 @@ export class SubmissionService {
       find((submissionObjects: SubmissionObject[]) => isNotUndefined(submissionObjects)),
       map((submissionObjects: SubmissionObject[]) => createSuccessfulRemoteDataObject(
         submissionObjects[0])),
-      catchError((errorResponse: ErrorResponse) => {
-        return createFailedRemoteDataObject$<SubmissionObject>(errorResponse.errorMessage, errorResponse.statusCode);
+      catchError((errorResponse: unknown) => {
+        if (errorResponse instanceof ErrorResponse) {
+          return createFailedRemoteDataObject$<SubmissionObject>(errorResponse.errorMessage, errorResponse.statusCode);
+        }
       }),
     );
   }

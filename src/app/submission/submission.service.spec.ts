@@ -29,7 +29,9 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { environment } from '../../environments/environment';
 import { storeModuleConfig } from '../app.reducer';
+import { ErrorResponse } from '../core/cache/response.models';
 import { RequestService } from '../core/data/request.service';
+import { RequestError } from '../core/data/request-error.model';
 import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
 import { RouteService } from '../core/services/route.service';
 import { Item } from '../core/shared/item.model';
@@ -959,11 +961,12 @@ describe('SubmissionService test suite', () => {
     });
 
     it('should catch error from REST endpoint', () => {
+      const requestError = new RequestError('Internal Server Error');
+      requestError.statusCode = 500;
+      const errorResponse = new ErrorResponse(requestError);
+
       (service as any).restService.getDataById.and.callFake(
-        () => observableThrowError({
-          statusCode: 500,
-          errorMessage: 'Internal Server Error',
-        }),
+        () => observableThrowError(errorResponse),
       );
 
       service.retrieveSubmission('826').subscribe((r) => {
