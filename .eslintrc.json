@@ -239,7 +239,6 @@
           "method"
         ],
 
-        "rxjs/no-implicit-any-catch": "off",  // todo: investigate how best to solve these
         "rxjs/no-nested-subscribe": "off"     // todo: go over _all_ cases
       }
     },
