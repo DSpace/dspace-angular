@@ -2,13 +2,6 @@
 name: Deploy DSpace
 
 on:
-  workflow_run:
-    workflows: ["Docker images", "Erase database"]
-    types:
-      - completed
-    branches:
-      - dtq-dev
-      - dtq-dev-present
   workflow_dispatch:
 
 jobs:
@@ -25,12 +18,23 @@ jobs:
 
           touch .env.dev-5 || true
           echo DSPACE_REST_HOST=dev-5.pc > .env.dev-5
-          echo REST_URL=http://dev-5.pc:8080/server >> .env.dev-5
-          echo UI_URL=http://dev-5.pc >> .env.dev-5
+          echo REST_URL=http://dev-5.pc:8082/server >> .env.dev-5
+          echo UI_URL=http://dev-5.pc:82 >> .env.dev-5
           echo DSPACE_REST_IMAGE=dataquest/dspace:dspace-7_x >> .env.dev-5
           echo DOCKER_OWNER=dataquest >> .env.dev-5
           ## echo NODE_ENV="development" >> .env.dev-5
           echo DSPACE_UI_IMAGE="dataquest/dspace-angular:dspace-7_x" >> .env.dev-5
+          echo INSTANCE=2 >> .env.dev-5
+          echo DSPACE_VER="dspace-7_x" >> .env.dev-5
+          
+          # echo S3_STORAGE=1 >> .env.dev-5
+          # echo S3_ENABLED=true >> .env.dev-5
+          # echo S3_RELATIVE_PATH=true >> .env.dev-5
+          # echo S3_BUCKET=dev-5 >> .env.dev-5
+          # echo S3_SUBFOLDER=seven-five >> .env.dev-5
+          # echo S3_ACCESS=${{ secrets.AMAZON_ACCESS }} >> .env.dev-5
+          # echo S3_SECRET=${{ secrets.AMAZON_SECRET }} >> .env.dev-5
+          # echo S3_REGION_NAME=us-east-1 >> .env.dev-5
 
           export ENVFILE=$(pwd)/.env.dev-5
-          ./start.sh
+          ./start.sh dspace-2

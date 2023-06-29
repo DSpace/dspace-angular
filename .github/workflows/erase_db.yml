@@ -4,28 +4,24 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  restart_db:
+    env: 
+      INSTANCE: 2
     runs-on: dspace-dep-1
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: false
-      - name: deploy
+      - name: stop and remove containers
         run: |
-          cd $GITHUB_WORKSPACE/build-scripts/run/
-          pwd
-
-          touch .env.dev-5 || true
-          echo DSPACE_REST_HOST=dev-5.pc > .env.dev-5
-          echo REST_URL=http://dev-5.pc:8080/server >> .env.dev-5
-          echo UI_URL=http://dev-5.pc >> .env.dev-5
-          echo DSPACE_REST_IMAGE=dataquest/dspace:dspace-7_x >> .env.dev-5
-          echo DOCKER_OWNER=dataquest >> .env.dev-5
-          ## echo NODE_ENV="development" >> .env.dev-5
-          echo DSPACE_UI_IMAGE="dataquest/dspace-angular:dspace-7_x" >> .env.dev-5
-
-          export ENVFILE=$(pwd)/.env.dev-5
-          docker stop dspacedb dspace dspace-angular
-          docker rm dspacedb dspace dspace-angular
-          docker volume rm dq-d7_pgdata 
+          docker stop dspacedb$INSTANCE dspace$INSTANCE dspace-angular$INSTANCE
+          docker rm dspacedb$INSTANCE dspace$INSTANCE dspace-angular$INSTANCE
+      - name: remove volumes
+        if: '!cancelled()'
+        run: |
+          docker volume rm dspace-${{env.INSTANCE}}_pgdata dspace-${{env.INSTANCE}}_assetstore
+      - name: redeploy
+        if: '!cancelled()'
+        run: |
+          curl -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" --request POST https://api.github.com/repos/dataquest-dev/dspace-angular/actions/workflows/deploy.yml/dispatches --data "{\"ref\":\"refs/heads/internal/multideploy-support\"}"
           

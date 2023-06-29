@@ -17,7 +17,7 @@ services:
   # DSpace (backend) webapp container
   dspace:
     restart: unless-stopped
-    container_name: dspace
+    container_name: dspace${INSTANCE}
     environment:
       # Below syntax may look odd, but it is how to override dspace.cfg settings via env variables.
       # See https://github.com/DSpace/DSpace/blob/main/dspace/config/config-definition.xml
@@ -25,22 +25,31 @@ services:
       # __D__ => "-" (e.g. google__D__metadata => google-metadata)
       # dspace.dir, dspace.server.url, dspace.ui.url and dspace.name
       dspace__P__dir: /dspace
-      dspace__P__server__P__url: ${REST_URL:-http://localhost:8080/server}
-      dspace__P__ui__P__url: ${UI_URL:-http://localhost:4000}
+      dspace__P__server__P__url: ${REST_URL:-http://127.0.0.1:8080/server}
+      dspace__P__ui__P__url: ${UI_URL:-http://127.0.0.1:4000}
       dspace__P__name: 'DSpace Started with Docker Compose'
       # db.url: Ensure we are using the 'dspacedb' image for our database
-      db__P__url: 'jdbc:postgresql://dspacedb:5432/dspace'
+      db__P__url: 'jdbc:postgresql://dspacedb:543${INSTANCE}/dspace'
       # solr.server: Ensure we are using the 'dspacesolr' image for Solr
-      solr__P__server: http://dspacesolr:8983/solr
-    image: ${DSPACE_REST_IMAGE:-dataquest/dspace:dspace-7_x-test}
+      solr__P__server: http://dspacesolr:898${INSTANCE}/solr
+      #S3 config
+      assetstore__P__index__P__primary: ${S3_STORAGE:-0}
+      assetstore__P__s3__P__enabled: ${S3_ENABLED:-false}
+      assetstore__P__s3__P__useRelativePath: ${S3_RELATIVE_PATH:-false}
+      assetstore__P__s3__P__bucketName: ${S3_BUCKET:-bucket-for-dspace}
+      assetstore__P__s3__P__subfolder: ${S3_SUBFOLDER:-}
+      assetstore__P__s3__P__awsAccessKey: ${S3_ACCESS:-}
+      assetstore__P__s3__P__awsSecretKey: ${S3_SECRET:-}
+      assetstore__P__s3__P__awsRegionName: ${S3_REGION_NAME:-}
+    image: ${DSPACE_REST_IMAGE:-dataquest/dspace:dtq-dev-7.5}
     depends_on:
     - dspacedb
     networks:
       dspacenet:
     ports:
-    - published: 8080
+    - published: 808${INSTANCE}
       target: 8080
-    - published: 8000
+    - published: 800${INSTANCE}
       target: 8000
     stdin_open: true
     tty: true
@@ -56,29 +65,30 @@ services:
     - /bin/bash
     - '-c'
     - |
-      while (!</dev/tcp/dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
-      /dspace/bin/dspace database migrate
+      while (!</dev/tcp/dspacedb/543${INSTANCE}) > /dev/null 2>&1; do sleep 1; done;
+      /dspace/bin/dspace database migrate force
       custom_run.sh
   # DSpace database container
   dspacedb:
     restart: unless-stopped
-    container_name: dspacedb
+    container_name: dspacedb${INSTANCE}
     environment:
       PGDATA: /pgdata
     image: dspace/dspace-postgres-pgcrypto
     networks:
       dspacenet:
     ports:
-    - published: 5432
-      target: 5432
+    - published: 543${INSTANCE}
+      target: 543${INSTANCE}
     stdin_open: true
     tty: true
     volumes:
     - pgdata:/pgdata
+    command: -p 543${INSTANCE}
   # DSpace Solr container
   dspacesolr:
     restart: unless-stopped
-    container_name: dspacesolr
+    container_name: dspacesolr${INSTANCE}
     # Uses official Solr image at https://hub.docker.com/_/solr/
     image: solr:8.11-slim
     # Needs main 'dspace' container to start first to guarantee access to solr_configs
@@ -87,8 +97,8 @@ services:
     networks:
       dspacenet:
     ports:
-    - published: 8983
-      target: 8983
+    - published: 898${INSTANCE}
+      target: 898${INSTANCE}
     stdin_open: true
     tty: true
     working_dir: /var/solr/data
@@ -115,7 +125,7 @@ services:
       cp -r -u /opt/solr/server/solr/configsets/dspace/search/* search
       precreate-core statistics /opt/solr/server/solr/configsets/dspace/statistics
       cp -r -u /opt/solr/server/solr/configsets/dspace/statistics/* statistics
-      exec solr -f -m 4g
+      exec solr -p 898${INSTANCE} -f -m 4g
 volumes:
   assetstore:
   pgdata:
