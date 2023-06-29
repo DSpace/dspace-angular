@@ -23,5 +23,5 @@ jobs:
       - name: redeploy
         if: '!cancelled()'
         run: |
-          curl -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" --request POST https://api.github.com/repos/dataquest-dev/dspace-angular/actions/workflows/deploy.yml/dispatches --data "{\"ref\":\"refs/heads/internal/multideploy-support\"}"
+          curl -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" --request POST https://api.github.com/repos/dataquest-dev/dspace-angular/actions/workflows/deploy.yml/dispatches --data "{\"ref\":\"refs/heads/dtq-dev\"}"
           
