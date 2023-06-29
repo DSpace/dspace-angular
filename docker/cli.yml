@@ -16,7 +16,7 @@ version: "3.7"
 
 services:
   dspace-cli:
-    image: "${DOCKER_OWNER:-dspace}/dspace-cli:${DSPACE_VER:-dspace-7_x}"
+    image: "${DOCKER_OWNER:-dataquest}/dspace-cli:${DSPACE_VER:-dspace-7_x}"
     container_name: dspace-cli
     environment:
       # Below syntax may look odd, but it is how to override dspace.cfg settings via env variables.
@@ -26,9 +26,21 @@ services:
       # dspace.dir
       dspace__P__dir: /dspace
       # db.url: Ensure we are using the 'dspacedb' image for our database
-      db__P__url: 'jdbc:postgresql://dspacedb:5432/dspace'
+      db__P__url: 'jdbc:postgresql://dspacedb:543${INSTANCE}/dspace'
       # solr.server: Ensure we are using the 'dspacesolr' image for Solr
-      solr__P__server: http://dspacesolr:8983/solr
+
+      solr__P__server: http://dspacesolr:898${INSTANCE}/solr
+  
+      # S3
+      assetstore__P__index__P__primary: ${S3_STORAGE:-0}
+      assetstore__P__s3__P__enabled: ${S3_ENABLED:-false}
+      assetstore__P__s3__P__useRelativePath: ${S3_RELATIVE_PATH:-false}
+      assetstore__P__s3__P__bucketName: ${S3_BUCKET:-bucket-for-dspace}
+      assetstore__P__s3__P__subfolder: ${S3_SUBFOLDER:-}
+      assetstore__P__s3__P__awsAccessKey: ${S3_ACCESS:-}
+      assetstore__P__s3__P__awsSecretKey: ${S3_SECRET:-}
+      assetstore__P__s3__P__awsRegionName: ${S3_REGION_NAME:-}   
+
     volumes:
     - "assetstore:/dspace/assetstore"
     entrypoint: /dspace/bin/dspace

@@ -15,15 +15,15 @@ networks:
 services:
   dspace-angular:
     restart: unless-stopped
-    container_name: dspace-angular
+    container_name: dspace-angular${INSTANCE}
     environment:
       DSPACE_UI_SSL: 'false'
       DSPACE_UI_HOST: dspace-angular
-      DSPACE_UI_PORT: '4000'
+      DSPACE_UI_PORT: 400${INSTANCE}
       DSPACE_UI_NAMESPACE: /
       DSPACE_REST_SSL: 'false'
       DSPACE_REST_HOST: ${DSPACE_REST_HOST:-localhost}
-      DSPACE_REST_PORT: 8080
+      DSPACE_REST_PORT: 808${INSTANCE}
       DSPACE_REST_NAMESPACE: /server
     image: ${DSPACE_UI_IMAGE:-dataquest/dspace-angular:dspace-7_x}
     build:
@@ -32,9 +32,9 @@ services:
     networks:
       dspacenet:
     ports:
-    - published: 4000
-      target: 4000
-    - published: 9876
-      target: 9876
+    - published: 400${INSTANCE}
+      target: 400${INSTANCE}
+    - published: 987${INSTANCE}
+      target: 987${INSTANCE}
     stdin_open: true
     tty: true
