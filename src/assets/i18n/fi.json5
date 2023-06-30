@@ -742,8 +742,8 @@
   "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Voit lisätä tai poistaa ryhmän käyttäjän joko napsauttamalla 'Selaa kaikkia' -painiketta tai käyttämällä alla olevaa hakupalkkia käyttäjien etsimiseen (käytä hakupalkin vasemmalla puolella olevaa pudotusvalikkoa valitaksesi, haetaanko metatietojen vai sähköpostin perusteella). Napsauta sitten plus-kuvaketta jokaisen käyttäjän kohdalla, jonka haluat lisätä alla olevaan luetteloon, tai roskakorikuvaketta jokaisen käyttäjän kohdalla, jonka haluat poistaa. Alla olevassa luettelossa voi olla useita sivuja: voit siirtyä seuraaville sivuille luettelon alapuolella olevilla sivunohjaimilla. Kun olet valmis, tallenna muutokset napsauttamalla yläosassa olevaa Tallenna-painiketta.",
 
   // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
-  // TODO New key - Add a translation - ree tästä tehty tiketti 2321 DSpaden githubiin
-  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Jos haluat lisätä alaryhmän tähän ryhmään tai poistaa alaryhmän tästä ryhmästä, napsauta joko 'Selaa kaikkia' -painiketta tai käytä alla olevaa hakupalkkia käyttäjien etsimiseen. Napsauta sitten plus-kuvaketta jokaisen käyttäjän kohdalla, jonka haluat lisätä alla olevassa luettelossa, tai roskakorikuvaketta jokaisen käyttäjän kohdalla, jonka haluat poistaa. Alla olevassa luettelossa voi olla useita sivuja: voit siirtyä seuraaville sivuille luettelon alapuolella olevilla sivunohjaimilla. Kun olet valmis, tallenna muutokset napsauttamalla yläosassa olevaa Tallenna-painiketta.",
+  // TODO New key - Add a translation - ree made ticket 2321 to DSpace's github
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Jos haluat lisätä tai poistaa alaryhmän tähän ryhmään tai tästä ryhmästä, napsauta joko 'Selaa kaikkia' -painiketta tai käytä alla olevaa hakupalkkia käyttäjien etsimiseen. Napsauta sitten luettelossa plus-kuvaketta jokaisen käyttäjän kohdalla, jonka haluat lisätä, tai roskakorikuvaketta jokaisen käyttäjän kohdalla, jonka haluat poistaa. Luettelossa voi olla useita sivuja: voit siirtyä seuraaville sivuille luettelon alapuolella olevilla sivunohjaimilla. Kun olet valmis, tallenna muutokset napsauttamalla yläosassa olevaa Tallenna-painiketta.",
 
   // "admin.search.breadcrumbs": "Administrative Search",
   "admin.search.breadcrumbs": "Ylläpitäjän haku",
@@ -2075,7 +2075,7 @@
   "curation.form.submit.error.content": "Virhe kuratointitehtävää aloitettaessa.",
 
   // "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
-  "curation.form.submit.error.invalid-handle": "Objektin handlea ei voitu määrittää",
+  "curation.form.submit.error.invalid-handle": "Kohteen handlea ei voitu määrittää",
 
   // "curation.form.handle.label": "Handle:",
   "curation.form.handle.label": "Handle:",
@@ -2990,12 +2990,10 @@
   "item.edit.identifiers.doi.status.IS_RESERVED": "Varattu",
 
   // "item.edit.identifiers.doi.status.UPDATE_RESERVED": "Reserved (update queued)",
-  // TODO New key - Add a translation
-  "item.edit.identifiers.doi.status.UPDATE_RESERVED": "Varattu (update queued)",
+  "item.edit.identifiers.doi.status.UPDATE_RESERVED": "Varattu (päivitysjonossa)",
 
   // "item.edit.identifiers.doi.status.UPDATE_REGISTERED": "Registered (update queued)",
-  // TODO New key - Add a translation
-  "item.edit.identifiers.doi.status.UPDATE_REGISTERED": "Rekisteröity (update queued)",
+  "item.edit.identifiers.doi.status.UPDATE_REGISTERED": "Rekisteröity (päivitysjonossa)",
 
   // "item.edit.identifiers.doi.status.UPDATE_BEFORE_REGISTRATION": "Queued for update and registration",
   "item.edit.identifiers.doi.status.UPDATE_BEFORE_REGISTRATION": "Päivitys- ja rekisteröintijonossa",
@@ -3010,8 +3008,7 @@
   "item.edit.identifiers.doi.status.PENDING": "Vireillä (ei rekisteröity)",
 
   // "item.edit.identifiers.doi.status.MINTED": "Minted (not registered)",
-  // TODO New key - Add a translation
-  "item.edit.identifiers.doi.status.MINTED": "Minted (not registered)",
+  "item.edit.identifiers.doi.status.MINTED": "Luotu (ei rekisteröity)",
 
   // "item.edit.tabs.status.buttons.register-doi.label": "Register a new or pending DOI",
   "item.edit.tabs.status.buttons.register-doi.label": "Rekisteröi uusi tai vireillä oleva DOI",
@@ -3023,8 +3020,7 @@
   "item.edit.register-doi.header": "Rekisteröi uusi tai vireillä oleva DOI",
 
   // "item.edit.register-doi.description": "Review any pending identifiers and item metadata below and click Confirm to proceed with DOI registration, or Cancel to back out",
-  // TODO New key - Add a translation
-  "item.edit.register-doi.description": "Review any pending identifiers and item metadata below and click Confirm to proceed with DOI registration, or Cancel to back out",
+  "item.edit.register-doi.description": "Tarkasta vireillä olevat tunnisteet ja tietueitten metadata alapuolella. Napsauta Vahvista jatkaaksesi DOI-tunnuksen rekisteröintiä tai Peruuta peruuttaaksesi.",
 
   // "item.edit.register-doi.confirm": "Confirm",
   "item.edit.register-doi.confirm": "Vahvista",
@@ -3039,8 +3035,7 @@
   "item.edit.register-doi.error": "Virhe rekisteröitäessä DOI-tunnusta",
 
   // "item.edit.register-doi.to-update": "The following DOI has already been minted and will be queued for registration online",
-  // TODO New key - Add a translation
-  "item.edit.register-doi.to-update": "The following DOI has already been minted and will be queued for registration online",
+  "item.edit.register-doi.to-update": "DOI on jo luotu ja lisätään rekisteröintijonoon verkossa",
 
   // "item.edit.item-mapper.buttons.add": "Map item to selected collections",
   "item.edit.item-mapper.buttons.add": "Liitä tietue valittuihin kokoelmiin",
@@ -3088,8 +3083,7 @@
   "item.edit.item-mapper.notifications.remove.success.head": "Liitos poistettu",
 
   // "item.edit.item-mapper.search-form.placeholder": "Search collections...",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.search-form.placeholder": "Search collections...",
+  "item.edit.item-mapper.search-form.placeholder": "Hae kokoelmia...",
 
   // "item.edit.item-mapper.tabs.browse": "Browse mapped collections",
   "item.edit.item-mapper.tabs.browse": "Selaa liitettyjä kokoelmia",
@@ -3104,12 +3098,10 @@
   "item.edit.metadata.discard-button": "Hylkää",
 
   // "item.edit.metadata.edit.buttons.confirm": "Confirm",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.confirm": "Confirm",
+  "item.edit.metadata.edit.buttons.confirm": "Vahvista",
 
   // "item.edit.metadata.edit.buttons.drag": "Drag to reorder",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.drag": "Drag to reorder",
+  "item.edit.metadata.edit.buttons.drag": "Raahaa uudelleenjärjestääksesi",
 
   // "item.edit.metadata.edit.buttons.edit": "Edit",
   "item.edit.metadata.edit.buttons.edit": "Muokkaa",
@@ -3124,8 +3116,7 @@
   "item.edit.metadata.edit.buttons.unedit": "Lopeta muokkaus",
 
   // "item.edit.metadata.edit.buttons.virtual": "This is a virtual metadata value, i.e. a value inherited from a related entity. It can’t be modified directly. Add or remove the corresponding relationship in the \"Relationships\" tab",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.virtual": "This is a virtual metadata value, i.e. a value inherited from a related entity. It can’t be modified directly. Add or remove the corresponding relationship in the \"Relationships\" tab",
+  "item.edit.metadata.edit.buttons.virtual": "Tämä on virtuaalinen metadata-arvo eli arvo, joka on peritty liittyvältä entiteetiltä. Sitä ei voi muokata suoraan. Lisää tai poista yhteys \"Suhteet\"-välilehdellä,",
 
   // "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
   "item.edit.metadata.empty": "Tietueessa ei ole metadataa. Valitse Lisää lisätäksesi metadataa.",
@@ -3143,8 +3134,7 @@
   "item.edit.metadata.headers.value": "Arvo",
 
   // "item.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
-  // TODO New key - Add a translation
-  "item.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
+  "item.edit.metadata.metadatafield.error": "Virhe validoitaessa metadatakenttää",
 
   // "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
   "item.edit.metadata.metadatafield.invalid": "Valitse oikea metadatakenttä",
@@ -3153,7 +3143,6 @@
   "item.edit.metadata.notifications.discarded.content": "Muutokset hylätty. Valitse 'Kumoa' palauttaaksesi muutokset",
 
   // "item.edit.metadata.notifications.discarded.title": "Changes discarded",
-  // TODO Source message changed - Revise the translation
   "item.edit.metadata.notifications.discarded.title": "Muutokset hylätty",
 
   // "item.edit.metadata.notifications.error.title": "An error occurred",
@@ -3169,7 +3158,6 @@
   "item.edit.metadata.notifications.outdated.content": "Toinen käyttäjä on muuttanut parhaillaan muokkaamaasi tietuetta. Tekemäsi muutokset on hylätty ristiriitojen estämiseksi",
 
   // "item.edit.metadata.notifications.outdated.title": "Changes outdated",
-  // TODO Source message changed - Revise the translation
   "item.edit.metadata.notifications.outdated.title": "Muutokset vanhentuneet",
 
   // "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
@@ -3200,12 +3188,10 @@
   "item.edit.move.cancel": "Paluu",
 
   // "item.edit.move.save-button": "Save",
-  // TODO New key - Add a translation
-  "item.edit.move.save-button": "Save",
+  "item.edit.move.save-button": "Tallenna",
 
   // "item.edit.move.discard-button": "Discard",
-  // TODO New key - Add a translation
-  "item.edit.move.discard-button": "Discard",
+  "item.edit.move.discard-button": "Hylkää",
 
   // "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
   "item.edit.move.description": "Valitse kokoelma, johon haluat siirtää tietueen. Voit antaa hakulausekkeen kokoelmien määrän pienentämiseksi.",
@@ -3241,7 +3227,6 @@
   "item.edit.private.cancel": "Peruuta",
 
   // "item.edit.private.confirm": "Make it non-discoverable",
-  // TODO Source message changed - Revise the translation
   "item.edit.private.confirm": "Muuta yksityiseksi",
 
   // "item.edit.private.description": "Are you sure this item should be made non-discoverable in the archive?",
@@ -3650,7 +3635,7 @@
   "item.preview.dc.contributor.author": "Tekijät:",
 
   // "item.preview.dc.date.issued": "Published date:",
-  "item.preview.dc.date.issued": "Julkaisuajankohta:",
+  "item.preview.dc.date.issued": "Julkaisuaika:",
 
   // "item.preview.dc.description.abstract": "Abstract:",
   "item.preview.dc.description.abstract": "Tiivistelmä:",
@@ -4028,48 +4013,37 @@
   "journalvolume.page.volume": "Vuosikerta",
 
   // "iiifsearchable.listelement.badge": "Document Media",
-  // TODO New key - Add a translation
-  "iiifsearchable.listelement.badge": "Document Media",
+  "iiifsearchable.listelement.badge": "Dokumenttimedia",
 
   // "iiifsearchable.page.titleprefix": "Document: ",
-  // TODO New key - Add a translation
-  "iiifsearchable.page.titleprefix": "Document: ",
+  "iiifsearchable.page.titleprefix": "Dokumentti: ",
 
   // "iiifsearchable.page.doi": "Permanent Link: ",
-  // TODO New key - Add a translation
-  "iiifsearchable.page.doi": "Permanent Link: ",
+  "iiifsearchable.page.doi": "Pysyvä linkki: ",
 
   // "iiifsearchable.page.issue": "Issue: ",
-  // TODO New key - Add a translation
-  "iiifsearchable.page.issue": "Issue: ",
+  "iiifsearchable.page.issue": "Numero: ",
 
   // "iiifsearchable.page.description": "Description: ",
-  // TODO New key - Add a translation
-  "iiifsearchable.page.description": "Description: ",
+  "iiifsearchable.page.description": "Kuvaus: ",
 
   // "iiifviewer.fullscreen.notice": "Use full screen for better viewing.",
-  // TODO New key - Add a translation
-  "iiifviewer.fullscreen.notice": "Use full screen for better viewing.",
+  "iiifviewer.fullscreen.notice": "Käytä koko näytön tilaa nähdäksesi paremmin",
 
   // "iiif.listelement.badge": "Image Media",
-  // TODO New key - Add a translation
-  "iiif.listelement.badge": "Image Media",
+  "iiif.listelement.badge": "Kuvamedia",
 
   // "iiif.page.titleprefix": "Image: ",
-  // TODO New key - Add a translation
-  "iiif.page.titleprefix": "Image: ",
+  "iiif.page.titleprefix": "Kuva: ",
 
   // "iiif.page.doi": "Permanent Link: ",
-  // TODO New key - Add a translation
-  "iiif.page.doi": "Permanent Link: ",
+  "iiif.page.doi": "Pysyvä linkki: ",
 
   // "iiif.page.issue": "Issue: ",
-  // TODO New key - Add a translation
-  "iiif.page.issue": "Issue: ",
+  "iiif.page.issue": "Numero: ",
 
   // "iiif.page.description": "Description: ",
-  // TODO New key - Add a translation
-  "iiif.page.description": "Description: ",
+  "iiif.page.description": "Kuvaus: ",
 
   // "loading.bitstream": "Loading bitstream...",
   "loading.bitstream": "Ladataan tiedostoa...",
@@ -4141,12 +4115,10 @@
   "login.form.or-divider": "tai",
 
   // "login.form.oidc": "Log in with OIDC",
-  // TODO New key - Add a translation
-  "login.form.oidc": "Log in with OIDC",
+  "login.form.oidc": "Kirjaudu OIDC-tunnuksella",
 
   // "login.form.orcid": "Log in with ORCID",
-  // TODO New key - Add a translation
-  "login.form.orcid": "Log in with ORCID",
+  "login.form.orcid": "Kirjaudu ORCID-tunnuksella",
 
   // "login.form.password": "Password",
   "login.form.password": "Salasana",
@@ -4173,15 +4145,13 @@
   "logout.title": "Uloskirjautuminen",
 
   // "menu.header.admin": "Management",
-  // TODO Source message changed - Revise the translation
-  "menu.header.admin": "Ylläpitäjä",
+  "menu.header.admin": "Hallinto",
 
   // "menu.header.image.logo": "Repository logo",
   "menu.header.image.logo": "Arkiston logo",
 
   // "menu.header.admin.description": "Management menu",
-  // TODO New key - Add a translation
-  "menu.header.admin.description": "Management menu",
+  "menu.header.admin.description": "Hallintovalikko",
 
   // "menu.section.access_control": "Access Control",
   "menu.section.access_control": "Pääsyoikeudet",
@@ -4205,7 +4175,7 @@
   "menu.section.browse_community_by_author": "Tekijän mukaan",
 
   // "menu.section.browse_community_by_issue_date": "By Issue Date",
-  "menu.section.browse_community_by_issue_date": "Julkaisuajankohdan mukaan",
+  "menu.section.browse_community_by_issue_date": "Julkaisuajan mukaan",
 
   // "menu.section.browse_community_by_title": "By Title",
   "menu.section.browse_community_by_title": "Nimekkeen mukaan",
@@ -4217,7 +4187,7 @@
   "menu.section.browse_global_by_author": "Tekijän mukaan",
 
   // "menu.section.browse_global_by_dateissued": "By Issue Date",
-  "menu.section.browse_global_by_dateissued": "Julkaisuajankohdan mukaan",
+  "menu.section.browse_global_by_dateissued": "Julkaisuajan mukaan",
 
   // "menu.section.browse_global_by_subject": "By Subject",
   "menu.section.browse_global_by_subject": "Asiasanan mukaan",
@@ -4265,8 +4235,7 @@
   "menu.section.export_metadata": "Metadata",
 
   // "menu.section.export_batch": "Batch Export (ZIP)",
-  // TODO New key - Add a translation
-  "menu.section.export_batch": "Batch Export (ZIP)",
+  "menu.section.export_batch": "Erän eksportointi(ZIP)",
 
   // "menu.section.icon.access_control": "Access Control menu section",
   "menu.section.icon.access_control": "Pääsyoikeudet",
@@ -4278,8 +4247,7 @@
   "menu.section.icon.control_panel": "Hallintapaneeli",
 
   // "menu.section.icon.curation_tasks": "Curation Task menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.curation_tasks": "Curation Task menu section",
+  "menu.section.icon.curation_tasks": "Kuratointitehtävä",
 
   // "menu.section.icon.edit": "Edit menu section",
   "menu.section.icon.edit": "Muokkaus",
@@ -4291,8 +4259,7 @@
   "menu.section.icon.find": "Haku",
 
   // "menu.section.icon.health": "Health check menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.health": "Health check menu section",
+  "menu.section.icon.health": "Järjestelmän kunnon tarkistus",
 
   // "menu.section.icon.import": "Import menu section",
   "menu.section.icon.import": "Importointi",
@@ -4304,8 +4271,7 @@
   "menu.section.icon.pin": "Kiinnitä sivupalkki",
 
   // "menu.section.icon.processes": "Processes Health",
-  // TODO Source message changed - Revise the translation
-  "menu.section.icon.processes": "Prosessit",
+  "menu.section.icon.processes": "Prosessien kunto",
 
   // "menu.section.icon.registries": "Registries menu section",
   "menu.section.icon.registries": "Rekisterit",
@@ -4314,8 +4280,7 @@
   "menu.section.icon.statistics_task": "Tilastot",
 
   // "menu.section.icon.workflow": "Administer workflow menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.workflow": "Administer workflow menu section",
+  "menu.section.icon.workflow": "Työnkulku hallinta",
 
   // "menu.section.icon.unpin": "Unpin sidebar",
   "menu.section.icon.unpin": "Vapauta sivupalkki",
@@ -4507,20 +4472,16 @@
   "mydspace.show.workspace": "Tallennuksesi",
 
   // "mydspace.show.supervisedWorkspace": "Supervised items",
-  // TODO New key - Add a translation
-  "mydspace.show.supervisedWorkspace": "Supervised items",
+  "mydspace.show.supervisedWorkspace": "Valvotut tietueet",
 
   // "mydspace.status.mydspaceArchived": "Archived",
-  // TODO New key - Add a translation
-  "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Arkistoitu",
 
   // "mydspace.status.mydspaceValidation": "Validation",
-  // TODO New key - Add a translation
-  "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Validointi",
 
   // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
-  // TODO New key - Add a translation
-  "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Odottaa tarkastajaa",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",
   "mydspace.status.mydspaceWorkflow": "Työnkulku",
@@ -4562,8 +4523,7 @@
   "nav.login": "Kirjaudu sisään",
 
   // "nav.user-profile-menu-and-logout": "User profile menu and Log Out",
-  // TODO New key - Add a translation
-  "nav.user-profile-menu-and-logout": "User profile menu and Log Out",
+  "nav.user-profile-menu-and-logout": "Käyttäjäprofiilivalikko ja uloskirjautuminen",
 
   // "nav.logout": "Log Out",
   "nav.logout": "Kirjaudu ulos",
@@ -4860,24 +4820,19 @@
   "process.overview.delete.processing": "{{count}} prosessi(a) poistetaan. Odota poiston päättymistä. Poisto saattaa kestää hetken.",
 
   // "process.overview.delete.body": "Are you sure you want to delete {{count}} process(es)?",
-  // TODO New key - Add a translation
-  "process.overview.delete.body": "Haluatko varmasti poistaa {{count}} prosessi(n|a)?",
+  "process.overview.delete.body": "Haluatko varmasti poistaa {{count}} prosessin/prosessia?",
 
   // "process.overview.delete.header": "Delete processes",
-  // TODO New key - Add a translation
-  "process.overview.delete.header": "Delete processes",
+  "process.overview.delete.header": "Poista prosessi",
 
   // "process.bulk.delete.error.head": "Error on deleteing process",
-  // TODO New key - Add a translation
-  "process.bulk.delete.error.head": "Error on deleteing process",
+  "process.bulk.delete.error.head": "Virhe poistettaessa prosessia",
 
   // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
-  // TODO New key - Add a translation
-  "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
+  "process.bulk.delete.error.body": "Prosessia, jonka ID on {{processId}}, ei voitu poistaa. Muiden prosessien poistamista jatketaan.",
 
   // "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
-  // TODO New key - Add a translation
-  "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+  "process.bulk.delete.success": "{{count}} prosessi(a) poistettu",
 
   // "profile.breadcrumbs": "Update Profile",
   "profile.breadcrumbs": "Päivitä profiili",
@@ -4889,15 +4844,13 @@
   "profile.card.security": "Suojaus",
 
   // "profile.form.submit": "Save",
-  // TODO Source message changed - Revise the translation
-  "profile.form.submit": "Päivitä profiili",
+  "profile.form.submit": "Tallenna",
 
   // "profile.groups.head": "Authorization groups you belong to",
-  "profile.groups.head": "Ryhmät, joihin kuulut",
+  "profile.groups.head": "Käyttöoikeusryhmät, joihin kuulut",
 
   // "profile.special.groups.head": "Authorization special groups you belong to",
-  // TODO New key - Add a translation
-  "profile.special.groups.head": "Authorization special groups you belong to",
+  "profile.special.groups.head": "Erityiset käyttöoikeusryhmät, joihin kuulut",
 
   // "profile.head": "Update Profile",
   "profile.head": "Päivitä profiili",
@@ -4939,8 +4892,7 @@
   "profile.security.form.error.matching-passwords": "Salasanat eivät täsmää.",
 
   // "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box.",
-  // TODO Source message changed - Revise the translation
-  "profile.security.form.info": "Voit kirjoittaa uuden salasanan alla olevaan kenttään ja varmentaa sen kirjoittamalla sen uudelleen seuraavaan kenttään. Salasanan pituus on vähintään kuusi merkkiä.",
+  "profile.security.form.info": "Voit kirjoittaa uuden salasanan alla olevaan kenttään ja varmentaa sen kirjoittamalla sen uudelleen seuraavaan kenttään.",
 
   // "profile.security.form.label.password": "Password",
   "profile.security.form.label.password": "Salasana",
@@ -4949,8 +4901,7 @@
   "profile.security.form.label.passwordrepeat": "Kirjoita uudelleen",
 
   // "profile.security.form.label.current-password": "Current password",
-  // TODO New key - Add a translation
-  "profile.security.form.label.current-password": "Current password",
+  "profile.security.form.label.current-password": "Nykyinen salasana",
 
   // "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
   "profile.security.form.notifications.success.content": "Muuttunut salasana on tallennettu.",
@@ -4962,22 +4913,19 @@
   "profile.security.form.notifications.error.title": "Virhe salasanaa muutettaessa",
 
   // "profile.security.form.notifications.error.change-failed": "An error occurred while trying to change the password. Please check if the current password is correct.",
-  // TODO New key - Add a translation
-  "profile.security.form.notifications.error.change-failed": "An error occurred while trying to change the password. Please check if the current password is correct.",
+  "profile.security.form.notifications.error.change-failed": "Tapahtui virhe salasanaa muutettaessa. Tarkista, että nykyinen salasana on oikea.",
 
   // "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
   "profile.security.form.notifications.error.not-same": "Annetut salasanat eivät täsmää.",
 
   // "profile.security.form.notifications.error.general": "Please fill required fields of security form.",
-  // TODO New key - Add a translation
-  "profile.security.form.notifications.error.general": "Please fill required fields of security form.",
+  "profile.security.form.notifications.error.general": "Täytä suojauslomakkeen vaaditut kentät.",
 
   // "profile.title": "Update Profile",
   "profile.title": "Päivitä profiili",
 
   // "profile.card.researcher": "Researcher Profile",
-  // TODO New key - Add a translation
-  "profile.card.researcher": "Researcher Profile",
+  "profile.card.researcher": "Tutkijaprofiili",
 
   // "project.listelement.badge": "Research Project",
   "project.listelement.badge": "Tutkimusprojekti",
@@ -5013,8 +4961,7 @@
   "project.search.results.head": "Projektihaun tulokset",
 
   // "project-relationships.search.results.head": "Project Search Results",
-  // TODO New key - Add a translation
-  "project-relationships.search.results.head": "Project Search Results",
+  "project-relationships.search.results.head": "Projektihaun tulokset",
 
   // "publication.listelement.badge": "Publication",
   "publication.listelement.badge": "Julkaisu",
@@ -5047,20 +4994,16 @@
   "publication-relationships.search.results.head": "Aineistohaun tulokset",
 
   // "publication.search.title": "Publication Search",
-  // TODO Source message changed - Revise the translation
   "publication.search.title": "Aineistohaku",
 
   // "media-viewer.next": "Next",
-  // TODO New key - Add a translation
-  "media-viewer.next": "Next",
+  "media-viewer.next": "Seuraava",
 
   // "media-viewer.previous": "Previous",
-  // TODO New key - Add a translation
-  "media-viewer.previous": "Previous",
+  "media-viewer.previous": "Edellinen",
 
   // "media-viewer.playlist": "Playlist",
-  // TODO New key - Add a translation
-  "media-viewer.playlist": "Playlist",
+  "media-viewer.playlist": "Soittolista",
 
   // "register-email.title": "New user registration",
   "register-email.title": "Uuden käyttäjän rekisteröinti",
@@ -5096,8 +5039,7 @@
   "register-page.create-profile.security.header": "Suojaus",
 
   // "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box.",
-  // TODO Source message changed - Revise the translation
-  "register-page.create-profile.security.info": "Syötä salasana alla olevaan kenttään ja vahvista se kirjoittamalla salasana uudelleen seuraavaan kenttään. Salasanan on oltava vähintään kuusi merkkiä pitkä.",
+  "register-page.create-profile.security.info": "Syötä salasana alla olevaan kenttään ja vahvista se kirjoittamalla salasana uudelleen seuraavaan kenttään.",
 
   // "register-page.create-profile.security.label.password": "Password *",
   "register-page.create-profile.security.label.password": "Salasana *",
@@ -5139,12 +5081,10 @@
   "register-page.registration.email.error.required": "Anna sähköpostiosoite",
 
   // "register-page.registration.email.error.not-email-form": "Please fill in a valid email address.",
-  // TODO New key - Add a translation
-  "register-page.registration.email.error.not-email-form": "Please fill in a valid email address.",
+  "register-page.registration.email.error.not-email-form": "Anna toimiva sähköpostiosoite",
 
   // "register-page.registration.email.error.not-valid-domain": "Use email with allowed domains: {{ domains }}",
-  // TODO New key - Add a translation
-  "register-page.registration.email.error.not-valid-domain": "Use email with allowed domains: {{ domains }}",
+  "register-page.registration.email.error.not-valid-domain": "Käytä sähköpostiosoitetta näillä verkkoalueilla: {{ domains }}",
 
   // "register-page.registration.email.hint": "This address will be verified and used as your login name.",
   "register-page.registration.email.hint": "Osoite varmistetaan, ja se toimii käyttäjätunnuksenasi kirjautumisessa.",
@@ -5165,36 +5105,28 @@
   "register-page.registration.error.content": "Virhe rekisteröitäessä tätä sähköpostiosoitetta: {{ email }}",
 
   // "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
-  // TODO New key - Add a translation
-  "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
+  "register-page.registration.error.recaptcha": "Virhe autentikoitaessa recaptcha-toiminnolla",
 
   // "register-page.registration.google-recaptcha.must-accept-cookies": "In order to register you must accept the <b>Registration and Password recovery</b> (Google reCaptcha) cookies.",
-  // TODO New key - Add a translation
-  "register-page.registration.google-recaptcha.must-accept-cookies": "In order to register you must accept the <b>Registration and Password recovery</b> (Google reCaptcha) cookies.",
+  "register-page.registration.google-recaptcha.must-accept-cookies": "Rekisteröityäksesi sinun on hyväksyttävä <b>Rekisteröinnin ja salasanan palauttamisen</b> (Google reCaptcha) evästeet.",
 
   // "register-page.registration.error.maildomain": "This email address is not on the list of domains who can register. Allowed domains are {{ domains }}",
-  // TODO New key - Add a translation
-  "register-page.registration.error.maildomain": "This email address is not on the list of domains who can register. Allowed domains are {{ domains }}",
+  "register-page.registration.error.maildomain": "Annettu sähköpostiosoite ei ole rekisteröinnille sallittujen verkkoalueiden joukossa. Sallitut verkkoalueet ovat {{ domains }}",
 
   // "register-page.registration.google-recaptcha.open-cookie-settings": "Open cookie settings",
-  // TODO New key - Add a translation
-  "register-page.registration.google-recaptcha.open-cookie-settings": "Open cookie settings",
+  "register-page.registration.google-recaptcha.open-cookie-settings": "Avaa evästeasetukset",
 
   // "register-page.registration.google-recaptcha.notification.title": "Google reCaptcha",
-  // TODO New key - Add a translation
   "register-page.registration.google-recaptcha.notification.title": "Google reCaptcha",
 
   // "register-page.registration.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
-  // TODO New key - Add a translation
-  "register-page.registration.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
+  "register-page.registration.google-recaptcha.notification.message.error": "Virhe reCaptcha-todennuksessa",
 
   // "register-page.registration.google-recaptcha.notification.message.expired": "Verification expired. Please verify again.",
-  // TODO New key - Add a translation
-  "register-page.registration.google-recaptcha.notification.message.expired": "Verification expired. Please verify again.",
+  "register-page.registration.google-recaptcha.notification.message.expired": "Todentaminen vanhentunut. Todenna uudelleen.",
 
   // "register-page.registration.info.maildomain": "Accounts can be registered for mail addresses of the domains",
-  // TODO New key - Add a translation
-  "register-page.registration.info.maildomain": "Accounts can be registered for mail addresses of the domains",
+  "register-page.registration.info.maildomain": "Tili voidaan rekisteröidä näiden verkkoalueiden sähköpostiosoitteille",
 
   // "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
   "relationships.add.error.relationship-type.content": "Ei {{ type }}-tyyppistä yhteysvastaavuutta kahden tietueen välillä",
@@ -5251,28 +5183,22 @@
   "relationships.isContributorOf": "Muut tekijät",
 
   // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  // TODO New key - Add a translation
-  "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+  "relationships.isContributorOf.OrgUnit": "Osallistuja (Organisaatioyksikkö)",
 
   // "relationships.isContributorOf.Person": "Contributor",
-  // TODO New key - Add a translation
-  "relationships.isContributorOf.Person": "Contributor",
+  "relationships.isContributorOf.Person": "Osallistuja",
 
   // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  // TODO New key - Add a translation
-  "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+  "relationships.isFundingAgencyOf.OrgUnit": "Rahoittaja",
 
   // "repository.image.logo": "Repository logo",
-  // TODO New key - Add a translation
-  "repository.image.logo": "Repository logo",
+  "repository.image.logo": "Julkaisuarkiston logo",
 
   // "repository.title": "DSpace Repository",
-  // TODO New key - Add a translation
-  "repository.title": "DSpace Repository",
+  "repository.title": "Julkaisuarkisto",
 
   // "repository.title.prefix": "DSpace Repository :: ",
-  // TODO New key - Add a translation
-  "repository.title.prefix": "DSpace Repository :: ",
+  "repository.title.prefix": "Julkaisuarkisto :: ",
 
   // "resource-policies.add.button": "Add",
   "resource-policies.add.button": "Lisää",
@@ -5326,12 +5252,10 @@
   "resource-policies.edit.page.failure.content": "Virhe muokattaessa resurssikäytäntöä.",
 
   // "resource-policies.edit.page.target-failure.content": "An error occurred while editing the target (ePerson or group) of the resource policy.",
-  // TODO New key - Add a translation
-  "resource-policies.edit.page.target-failure.content": "An error occurred while editing the target (ePerson or group) of the resource policy.",
+  "resource-policies.edit.page.target-failure.content": "Tapahtui virhe muokattaessa resurssikäytännön kohdetta (käyttäjä tai ryhmä).",
 
   // "resource-policies.edit.page.other-failure.content": "An error occurred while editing the resource policy. The target (ePerson or group) has been successfully updated.",
-  // TODO New key - Add a translation
-  "resource-policies.edit.page.other-failure.content": "An error occurred while editing the resource policy. The target (ePerson or group) has been successfully updated.",
+  "resource-policies.edit.page.other-failure.content": "Tapahtui virhe resurssikäytäntöä muokattaessa. Kohde (käyttäjä tai ryhmä) on päivitetty onnistuneesti.",
 
   // "resource-policies.edit.page.success.content": "Operation successful",
   "resource-policies.edit.page.success.content": "Toiminto onnistui",
@@ -5367,30 +5291,24 @@
   "resource-policies.form.eperson-group-list.table.headers.name": "Nimi",
 
   // "resource-policies.form.eperson-group-list.modal.header": "Cannot change type",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.modal.header": "Cannot change type",
+  "resource-policies.form.eperson-group-list.modal.header": "Tyypin muuttaminen ei onnistu",
 
   // "resource-policies.form.eperson-group-list.modal.text1.toGroup": "It is not possible to replace an ePerson with a group.",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.modal.text1.toGroup": "It is not possible to replace an ePerson with a group.",
+  "resource-policies.form.eperson-group-list.modal.text1.toGroup": "Käyttäjän korvaaminen ryhmällä ei ole mahdollista.",
 
   // "resource-policies.form.eperson-group-list.modal.text1.toEPerson": "It is not possible to replace a group with an ePerson.",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.modal.text1.toEPerson": "It is not possible to replace a group with an ePerson.",
+  "resource-policies.form.eperson-group-list.modal.text1.toEPerson": "Ryhmän korvaaminen käyttäjällä ei ole mahdollista.",
 
   // "resource-policies.form.eperson-group-list.modal.text2": "Delete the current resource policy and create a new one with the desired type.",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.modal.text2": "Delete the current resource policy and create a new one with the desired type.",
+  "resource-policies.form.eperson-group-list.modal.text2": "Poista nykyinen resurssikäytäntö ja luo uusi halutulla tyypillä.",
 
   // "resource-policies.form.eperson-group-list.modal.close": "Ok",
-  // TODO New key - Add a translation
   "resource-policies.form.eperson-group-list.modal.close": "Ok",
 
   // "resource-policies.form.date.end.label": "End Date",
   "resource-policies.form.date.end.label": "Loppupäivämäärä",
 
   // "resource-policies.form.date.start.label": "Start Date",
-  // TODO Source message changed - Revise the translation
   "resource-policies.form.date.start.label": "Alkupäivämäärä",
 
   // "resource-policies.form.description.label": "Description",
@@ -5523,8 +5441,7 @@
   "search.filters.filter.author.placeholder": "Tekijän nimi",
 
   // "search.filters.filter.author.label": "Search author name",
-  // TODO New key - Add a translation
-  "search.filters.filter.author.label": "Search author name",
+  "search.filters.filter.author.label": "Hae tekijän nimellä",
 
   // "search.filters.filter.birthDate.head": "Birth Date",
   "search.filters.filter.birthDate.head": "Syntymäaika",
@@ -5533,22 +5450,19 @@
   "search.filters.filter.birthDate.placeholder": "Syntymäaika",
 
   // "search.filters.filter.birthDate.label": "Search birth date",
-  // TODO New key - Add a translation
-  "search.filters.filter.birthDate.label": "Search birth date",
+  "search.filters.filter.birthDate.label": "Hae syntymäajalla",
 
   // "search.filters.filter.collapse": "Collapse filter",
-  // TODO New key - Add a translation
-  "search.filters.filter.collapse": "Collapse filter",
+  "search.filters.filter.collapse": "Sulje suodatin",
 
   // "search.filters.filter.creativeDatePublished.head": "Date Published",
-  "search.filters.filter.creativeDatePublished.head": "Julkaisuajankohta",
+  "search.filters.filter.creativeDatePublished.head": "Julkaisuaika",
 
   // "search.filters.filter.creativeDatePublished.placeholder": "Date Published",
-  "search.filters.filter.creativeDatePublished.placeholder": "Julkaisuajankohta",
+  "search.filters.filter.creativeDatePublished.placeholder": "Julkaisuaika",
 
   // "search.filters.filter.creativeDatePublished.label": "Search date published",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeDatePublished.label": "Search date published",
+  "search.filters.filter.creativeDatePublished.label": "Hae julkaisuaikaa",
 
   // "search.filters.filter.creativeWorkEditor.head": "Editor",
   "search.filters.filter.creativeWorkEditor.head": "Toimittaja",
@@ -5557,8 +5471,7 @@
   "search.filters.filter.creativeWorkEditor.placeholder": "Toimittaja",
 
   // "search.filters.filter.creativeWorkEditor.label": "Search editor",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkEditor.label": "Search editor",
+  "search.filters.filter.creativeWorkEditor.label": "Hae toimittajaa",
 
   // "search.filters.filter.creativeWorkKeywords.head": "Subject",
   "search.filters.filter.creativeWorkKeywords.head": "Asiasana",
@@ -5567,8 +5480,7 @@
   "search.filters.filter.creativeWorkKeywords.placeholder": "Asiasana",
 
   // "search.filters.filter.creativeWorkKeywords.label": "Search subject",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkKeywords.label": "Search subject",
+  "search.filters.filter.creativeWorkKeywords.label": "Hae asiasanaa",
 
   // "search.filters.filter.creativeWorkPublisher.head": "Publisher",
   "search.filters.filter.creativeWorkPublisher.head": "Julkaisija",
@@ -5577,27 +5489,22 @@
   "search.filters.filter.creativeWorkPublisher.placeholder": "Julkaisija",
 
   // "search.filters.filter.creativeWorkPublisher.label": "Search publisher",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkPublisher.label": "Search publisher",
+  "search.filters.filter.creativeWorkPublisher.label": "Hae julkaisijaa",
 
   // "search.filters.filter.dateIssued.head": "Date",
   "search.filters.filter.dateIssued.head": "Päivämäärä",
 
   // "search.filters.filter.dateIssued.max.placeholder": "Maximum Date",
-  // TODO Source message changed - Revise the translation
-  "search.filters.filter.dateIssued.max.placeholder": "Alkupäivämäärä",
+  "search.filters.filter.dateIssued.max.placeholder": "Suurin päivämäärä",
 
   // "search.filters.filter.dateIssued.max.label": "End",
-  // TODO New key - Add a translation
-  "search.filters.filter.dateIssued.max.label": "End",
+  "search.filters.filter.dateIssued.max.label": "Loppu",
 
   // "search.filters.filter.dateIssued.min.placeholder": "Minimum Date",
-  // TODO Source message changed - Revise the translation
-  "search.filters.filter.dateIssued.min.placeholder": "Loppupäivämäärä",
+  "search.filters.filter.dateIssued.min.placeholder": "Pienin päivämäärä",
 
   // "search.filters.filter.dateIssued.min.label": "Start",
-  // TODO New key - Add a translation
-  "search.filters.filter.dateIssued.min.label": "Start",
+  "search.filters.filter.dateIssued.min.label": "Alku",
 
   // "search.filters.filter.dateSubmitted.head": "Date submitted",
   "search.filters.filter.dateSubmitted.head": "Tallennusajankohta",
@@ -5606,11 +5513,9 @@
   "search.filters.filter.dateSubmitted.placeholder": "Tallennnusajankohta",
 
   // "search.filters.filter.dateSubmitted.label": "Search date submitted",
-  // TODO New key - Add a translation
-  "search.filters.filter.dateSubmitted.label": "Search date submitted",
+  "search.filters.filter.dateSubmitted.label": "Hakupäivä lähetetty",
 
   // "search.filters.filter.discoverable.head": "Non-discoverable",
-  // TODO Source message changed - Revise the translation
   "search.filters.filter.discoverable.head": "Yksityinen",
 
   // "search.filters.filter.withdrawn.head": "Withdrawn",
@@ -5647,8 +5552,7 @@
   "search.filters.filter.jobTitle.placeholder": "Tehtävänimike",
 
   // "search.filters.filter.jobTitle.label": "Search job title",
-  // TODO New key - Add a translation
-  "search.filters.filter.jobTitle.label": "Search job title",
+  "search.filters.filter.jobTitle.label": "Hae tehtävänimikettä",
 
   // "search.filters.filter.knowsLanguage.head": "Known language",
   "search.filters.filter.knowsLanguage.head": "Tunnettu kieli",
@@ -5657,8 +5561,7 @@
   "search.filters.filter.knowsLanguage.placeholder": "Tunnettu kieli",
 
   // "search.filters.filter.knowsLanguage.label": "Search known language",
-  // TODO New key - Add a translation
-  "search.filters.filter.knowsLanguage.label": "Search known language",
+  "search.filters.filter.knowsLanguage.label": "Hae tunnettua kieltä",
 
   // "search.filters.filter.namedresourcetype.head": "Status",
   "search.filters.filter.namedresourcetype.head": "Tila",
@@ -5667,8 +5570,7 @@
   "search.filters.filter.namedresourcetype.placeholder": "Tila",
 
   // "search.filters.filter.namedresourcetype.label": "Search status",
-  // TODO New key - Add a translation
-  "search.filters.filter.namedresourcetype.label": "Search status",
+  "search.filters.filter.namedresourcetype.label": "Haun tila",
 
   // "search.filters.filter.objectpeople.head": "People",
   "search.filters.filter.objectpeople.head": "Käyttäjät",
@@ -5677,8 +5579,7 @@
   "search.filters.filter.objectpeople.placeholder": "Käyttäjät",
 
   // "search.filters.filter.objectpeople.label": "Search people",
-  // TODO New key - Add a translation
-  "search.filters.filter.objectpeople.label": "Search people",
+  "search.filters.filter.objectpeople.label": "Hae ihmisiä",
 
   // "search.filters.filter.organizationAddressCountry.head": "Country",
   "search.filters.filter.organizationAddressCountry.head": "Maa",
@@ -5687,8 +5588,7 @@
   "search.filters.filter.organizationAddressCountry.placeholder": "Maa",
 
   // "search.filters.filter.organizationAddressCountry.label": "Search country",
-  // TODO New key - Add a translation
-  "search.filters.filter.organizationAddressCountry.label": "Search country",
+  "search.filters.filter.organizationAddressCountry.label": "Hae maata",
 
   // "search.filters.filter.organizationAddressLocality.head": "City",
   "search.filters.filter.organizationAddressLocality.head": "Kaupunki",
@@ -5697,8 +5597,7 @@
   "search.filters.filter.organizationAddressLocality.placeholder": "Kaupunki",
 
   // "search.filters.filter.organizationAddressLocality.label": "Search city",
-  // TODO New key - Add a translation
-  "search.filters.filter.organizationAddressLocality.label": "Search city",
+  "search.filters.filter.organizationAddressLocality.label": "Hae kaupunkia",
 
   // "search.filters.filter.organizationFoundingDate.head": "Date Founded",
   "search.filters.filter.organizationFoundingDate.head": "Perustamispäivämäärä",
@@ -5707,18 +5606,16 @@
   "search.filters.filter.organizationFoundingDate.placeholder": "Perustamispäivämäärä",
 
   // "search.filters.filter.organizationFoundingDate.label": "Search date founded",
-  // TODO New key - Add a translation
-  "search.filters.filter.organizationFoundingDate.label": "Search date founded",
+  "search.filters.filter.organizationFoundingDate.label": "Hae perustamispäivämäärää",
 
   // "search.filters.filter.scope.head": "Scope",
   "search.filters.filter.scope.head": "Rajaus",
 
   // "search.filters.filter.scope.placeholder": "Scope filter",
-  "search.filters.filter.scope.placeholder": "Haun tarkennus",
+  "search.filters.filter.scope.placeholder": "Hakusuodattimet",
 
   // "search.filters.filter.scope.label": "Search scope filter",
-  // TODO New key - Add a translation
-  "search.filters.filter.scope.label": "Search scope filter",
+  "search.filters.filter.scope.label": "Hae hakusuodatinta",
 
   // "search.filters.filter.show-less": "Collapse",
   "search.filters.filter.show-less": "Sulje",
@@ -5733,8 +5630,7 @@
   "search.filters.filter.subject.placeholder": "Asiasana",
 
   // "search.filters.filter.subject.label": "Search subject",
-  // TODO New key - Add a translation
-  "search.filters.filter.subject.label": "Search subject",
+  "search.filters.filter.subject.label": "Hae asiasanaa",
 
   // "search.filters.filter.submitter.head": "Submitter",
   "search.filters.filter.submitter.head": "Tallentaja",
@@ -5743,12 +5639,10 @@
   "search.filters.filter.submitter.placeholder": "Tallentaja",
 
   // "search.filters.filter.submitter.label": "Search submitter",
-  // TODO New key - Add a translation
-  "search.filters.filter.submitter.label": "Search submitter",
+  "search.filters.filter.submitter.label": "Hae tallentajaa",
 
   // "search.filters.filter.show-tree": "Browse {{ name }} tree",
-  // TODO New key - Add a translation
-  "search.filters.filter.show-tree": "Browse {{ name }} tree",
+  "search.filters.filter.show-tree": "Selaa {{ name }}-puuta",
 
   // "search.filters.filter.supervisedBy.head": "Supervised By",
   "search.filters.filter.supervisedBy.head": "Ohjaajana:",
@@ -5928,7 +5822,7 @@
   "statistics.table.header.views": "Katseluita",
 
   // "statistics.table.no-name": "(object name could not be loaded)",
-  "statistics.table.no-name": "(objektin nimeä ei voitu ladata)",
+  "statistics.table.no-name": "(kohteen nimeä ei voitu ladata)",
 
   // "submission.edit.breadcrumbs": "Edit Submission",
   "submission.edit.breadcrumbs": "Muokkaa tallennusta",
@@ -5985,28 +5879,22 @@
   "submission.import-external.title.JournalIssue": "Importoi kausijulkaisun numero ulkoisesta lähteestä",
 
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
+  "submission.import-external.title.JournalVolume": "Importoi kausijulkaisun vuosikerta ulkoisesta lähteestä",
 
   // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
+  "submission.import-external.title.OrgUnit": "Importoi julkaisija ulkoisesta lähteestä",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.Person": "Import a person from an external source",
+  "submission.import-external.title.Person": "Importoi käyttäjä ulkoisesta lähteestä",
 
   // "submission.import-external.title.Project": "Import a project from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.Project": "Import a project from an external source",
+  "submission.import-external.title.Project": "Importoi projekti ulkoisesta lähteestä",
 
   // "submission.import-external.title.Publication": "Import a publication from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.Publication": "Import a publication from an external source",
+  "submission.import-external.title.Publication": "Importoi julkaisu ulkoisesta lähteestä",
 
   // "submission.import-external.title.none": "Import metadata from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.none": "Import metadata from an external source",
+  "submission.import-external.title.none": "Importoi metadata ulkoisesta lähteestä",
 
   // "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
   "submission.import-external.page.hint": "Anna hakulauseke etsiäksesi verkosta julkaisuarkistoon importoitavia tietueita.",
@@ -6030,44 +5918,34 @@
   "submission.import-external.source.arxiv": "arXiv",
 
   // "submission.import-external.source.ads": "NASA/ADS",
-  // TODO New key - Add a translation
   "submission.import-external.source.ads": "NASA/ADS",
 
   // "submission.import-external.source.cinii": "CiNii",
-  // TODO New key - Add a translation
   "submission.import-external.source.cinii": "CiNii",
 
   // "submission.import-external.source.crossref": "CrossRef",
-  // TODO New key - Add a translation
   "submission.import-external.source.crossref": "CrossRef",
 
   // "submission.import-external.source.datacite": "DataCite",
-  // TODO New key - Add a translation
   "submission.import-external.source.datacite": "DataCite",
 
   // "submission.import-external.source.scielo": "SciELO",
-  // TODO New key - Add a translation
   "submission.import-external.source.scielo": "SciELO",
 
   // "submission.import-external.source.scopus": "Scopus",
-  // TODO New key - Add a translation
   "submission.import-external.source.scopus": "Scopus",
 
   // "submission.import-external.source.vufind": "VuFind",
-  // TODO New key - Add a translation
   "submission.import-external.source.vufind": "VuFind",
 
   // "submission.import-external.source.wos": "Web Of Science",
-  // TODO New key - Add a translation
   "submission.import-external.source.wos": "Web Of Science",
 
   // "submission.import-external.source.orcidWorks": "ORCID",
-  // TODO New key - Add a translation
   "submission.import-external.source.orcidWorks": "ORCID",
 
   // "submission.import-external.source.epo": "European Patent Office (EPO)",
-  // TODO New key - Add a translation
-  "submission.import-external.source.epo": "European Patent Office (EPO)",
+  "submission.import-external.source.epo": "Euroopan patenttivirasto (EPO)",
 
   // "submission.import-external.source.loading": "Loading ...",
   "submission.import-external.source.loading": "Ladataan ...",
@@ -6076,15 +5954,13 @@
   "submission.import-external.source.sherpaJournal": "SHERPA-kausijulkaisut",
 
   // "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
-  // TODO New key - Add a translation
-  "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
+  "submission.import-external.source.sherpaJournalIssn": "SHERPA-kausijulkaisut ISSN-tunnuksen mukaan",
 
   // "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
   "submission.import-external.source.sherpaPublisher": "SHERPA-kustantajat",
 
   // "submission.import-external.source.openAIREFunding": "Funding OpenAIRE API",
-  // TODO New key - Add a translation
-  "submission.import-external.source.openAIREFunding": "Funding OpenAIRE API",
+  "submission.import-external.source.openAIREFunding": "OpenAIRE API-rahoitus",
 
   // "submission.import-external.source.orcid": "ORCID",
   "submission.import-external.source.orcid": "ORCID-tunniste",
@@ -6093,8 +5969,7 @@
   "submission.import-external.source.pubmed": "Pubmed",
 
   // "submission.import-external.source.pubmedeu": "Pubmed Europe",
-  // TODO New key - Add a translation
-  "submission.import-external.source.pubmedeu": "Pubmed Europe",
+  "submission.import-external.source.pubmedeu": "Euroopan Pubmed",
 
   // "submission.import-external.source.lcname": "Library of Congress Names",
   "submission.import-external.source.lcname": "Library of Congress -nimet",
@@ -6103,28 +5978,22 @@
   "submission.import-external.preview.title": "Tietueen esikatselu",
 
   // "submission.import-external.preview.title.Publication": "Publication Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.Publication": "Publication Preview",
+  "submission.import-external.preview.title.Publication": "Julkaisun esikatselu",
 
   // "submission.import-external.preview.title.none": "Item Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.none": "Item Preview",
+  "submission.import-external.preview.title.none": "Tietueen esikatselu",
 
   // "submission.import-external.preview.title.Journal": "Journal Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.Journal": "Journal Preview",
+  "submission.import-external.preview.title.Journal": "Kausijulkaisun esikatselu",
 
   // "submission.import-external.preview.title.OrgUnit": "Organizational Unit Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.OrgUnit": "Organizational Unit Preview",
+  "submission.import-external.preview.title.OrgUnit": "Organisaatioyksikön esikatselu",
 
   // "submission.import-external.preview.title.Person": "Person Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.Person": "Person Preview",
+  "submission.import-external.preview.title.Person": "Käyttäjän esikatselu",
 
   // "submission.import-external.preview.title.Project": "Project Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.Project": "Project Preview",
+  "submission.import-external.preview.title.Project": "Projektin esikatselu",
 
   // "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
   "submission.import-external.preview.subtitle": "Alla oleva metadata importoitiin ulkoisesta lähteestä. Sillä esitäytetään metadata, kun aloitat tallennuksen.",
@@ -6166,47 +6035,37 @@
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Importoi tapahtuma ulkoisesta lähteestä",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Import remote product",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Import remote product",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Importoi tuote ulkoisesta lähteestä",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Import remote equipment",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Import remote equipment",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Importoi laite ulkoisesta lähteestä",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Import remote organizational unit",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Import remote organizational unit",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Importoi organisaatioyksikkö ulkoisesta lähteestä",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Funding": "Import remote fund",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Funding": "Import remote fund",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Funding": "Importoi rahoitus ulkoisesta lähteestä",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Import remote person",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Import remote person",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Importoi käyttäjä ulkoisesta lähteestä",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Import remote patent",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Import remote patent",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Importoi patentti ulkoisesta lähteestä",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Import remote project",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Import remote project",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Importoi projekti ulkoisesta lähteestä",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Import remote publication",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Import remote publication",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Importoi julkaisu ulkoisesta lähteestä",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "Uusi entiteetti lisätty",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Projekti",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API-rahoitus",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Importoi tekijä ulkoisesta lähteestä",
@@ -6389,12 +6248,10 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Projektin rahoittaja",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "Publication of the Author",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "Publication of the Author",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "Tekijän julkaisu",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "OpenAIRE API API-rahoitus",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Projekti",
@@ -6592,8 +6449,7 @@
   "submission.sections.general.add-more": "Lisää enemmän",
 
   // "submission.sections.general.cannot_deposit": "Deposit cannot be completed due to errors in the form.<br>Please fill out all required fields to complete the deposit.",
-  // TODO New key - Add a translation
-  "submission.sections.general.cannot_deposit": "Deposit cannot be completed due to errors in the form.<br>Please fill out all required fields to complete the deposit.",
+  "submission.sections.general.cannot_deposit": "Tallennus ei onnistu, koska lomakkeella on virheitä.<br>Täytä kaikki pakolliset kentät viimeistelläksesi tallennuksen.",
 
   // "submission.sections.general.collection": "Collection",
   "submission.sections.general.collection": "Kokoelma",
@@ -6638,12 +6494,10 @@
   "submission.sections.identifiers.info": "Tietueellesi luodaan seuraavat tunnisteet:",
 
   // "submission.sections.identifiers.no_handle": "No handles have been minted for this item.",
-  // TODO New key - Add a translation
-  "submission.sections.identifiers.no_handle": "No handles have been minted for this item.",
+  "submission.sections.identifiers.no_handle": "Tietueelle ei ole luotu handleja.",
 
   // "submission.sections.identifiers.no_doi": "No DOIs have been minted for this item.",
-  // TODO New key - Add a translation
-  "submission.sections.identifiers.no_doi": "No DOIs have been minted for this item.",
+  "submission.sections.identifiers.no_doi": "Tietueelle ei ole luotu DOI-tunnuksia.",
 
   // "submission.sections.identifiers.handle_label": "Handle: ",
   "submission.sections.identifiers.handle_label": "Handle: ",
@@ -6706,7 +6560,6 @@
   "submission.sections.status.errors.aria": "sisältää virheitä",
 
   // "submission.sections.status.valid.aria": "is valid",
-  // TODO New key - Add a translation
   "submission.sections.status.valid.aria": "on validi",
 
   // "submission.sections.status.warnings.aria": "has warnings",
@@ -7070,167 +6923,127 @@
   "subscriptions.item": "Tietueiden tilaukset",
 
   // "subscriptions.collection": "Subscriptions for collections",
-  // TODO New key - Add a translation
-  "subscriptions.collection": "Subscriptions for collections",
+  "subscriptions.collection": "Kokoelmien tilaukset",
 
   // "subscriptions.community": "Subscriptions for communities",
-  // TODO New key - Add a translation
-  "subscriptions.community": "Subscriptions for communities",
+  "subscriptions.community": "Yhteisöjen tilaukset",
 
   // "subscriptions.subscription_type": "Subscription type",
-  // TODO New key - Add a translation
-  "subscriptions.subscription_type": "Subscription type",
+  "subscriptions.subscription_type": "Tilaustyyppi",
 
   // "subscriptions.frequency": "Subscription frequency",
-  // TODO New key - Add a translation
-  "subscriptions.frequency": "Subscription frequency",
+  "subscriptions.frequency": "Tilaustiheys",
 
   // "subscriptions.frequency.D": "Daily",
-  // TODO New key - Add a translation
-  "subscriptions.frequency.D": "Daily",
+  "subscriptions.frequency.D": "Päivittäin",
 
   // "subscriptions.frequency.M": "Monthly",
-  // TODO New key - Add a translation
-  "subscriptions.frequency.M": "Monthly",
+  "subscriptions.frequency.M": "Kuukausittain",
 
   // "subscriptions.frequency.W": "Weekly",
-  // TODO New key - Add a translation
-  "subscriptions.frequency.W": "Weekly",
+  "subscriptions.frequency.W": "Viikoittain",
 
   // "subscriptions.tooltip": "Subscribe",
-  // TODO New key - Add a translation
-  "subscriptions.tooltip": "Subscribe",
+  "subscriptions.tooltip": "Tilaa",
 
   // "subscriptions.modal.title": "Subscriptions",
-  // TODO New key - Add a translation
-  "subscriptions.modal.title": "Subscriptions",
+  "subscriptions.modal.title": "Tilaukset",
 
   // "subscriptions.modal.type-frequency": "Type and frequency",
-  // TODO New key - Add a translation
-  "subscriptions.modal.type-frequency": "Type and frequency",
+  "subscriptions.modal.type-frequency": "Tyyppi ja tiheys",
 
   // "subscriptions.modal.close": "Close",
-  // TODO New key - Add a translation
-  "subscriptions.modal.close": "Close",
+  "subscriptions.modal.close": "Sulje",
 
   // "subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
-  // TODO New key - Add a translation
-  "subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
+  "subscriptions.modal.delete-info": "Voit poistaa tilauksen käyttäjäprofiilisi \"Tilaukset\"-sivulla ",
 
   // "subscriptions.modal.new-subscription-form.type.content": "Content",
-  // TODO New key - Add a translation
-  "subscriptions.modal.new-subscription-form.type.content": "Content",
+  "subscriptions.modal.new-subscription-form.type.content": "Sisältö",
 
   // "subscriptions.modal.new-subscription-form.frequency.D": "Daily",
-  // TODO New key - Add a translation
-  "subscriptions.modal.new-subscription-form.frequency.D": "Daily",
+  "subscriptions.modal.new-subscription-form.frequency.D": "Päivittäin",
 
   // "subscriptions.modal.new-subscription-form.frequency.W": "Weekly",
-  // TODO New key - Add a translation
-  "subscriptions.modal.new-subscription-form.frequency.W": "Weekly",
+  "subscriptions.modal.new-subscription-form.frequency.W": "Viikottain",
 
   // "subscriptions.modal.new-subscription-form.frequency.M": "Monthly",
-  // TODO New key - Add a translation
-  "subscriptions.modal.new-subscription-form.frequency.M": "Monthly",
+  "subscriptions.modal.new-subscription-form.frequency.M": "Kuukausittain",
 
   // "subscriptions.modal.new-subscription-form.submit": "Submit",
   "subscriptions.modal.new-subscription-form.submit": "Lähetä",
 
   // "subscriptions.modal.new-subscription-form.processing": "Processing...",
-  // TODO New key - Add a translation
-  "subscriptions.modal.new-subscription-form.processing": "Processing...",
+  "subscriptions.modal.new-subscription-form.processing": "Käsitellään...",
 
   // "subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
-  // TODO New key - Add a translation
-  "subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
+  "subscriptions.modal.create.success": "Tilaus {{ type }} onnistui.",
 
   // "subscriptions.modal.delete.success": "Subscription deleted successfully",
-  // TODO New key - Add a translation
-  "subscriptions.modal.delete.success": "Subscription deleted successfully",
+  "subscriptions.modal.delete.success": "Tilaus poistettu",
 
   // "subscriptions.modal.update.success": "Subscription to {{ type }} updated successfully",
-  // TODO New key - Add a translation
-  "subscriptions.modal.update.success": "Subscription to {{ type }} updated successfully",
+  "subscriptions.modal.update.success": "Tilaus {{ type }} päivitetty",
 
   // "subscriptions.modal.create.error": "An error occurs during the subscription creation",
-  // TODO New key - Add a translation
-  "subscriptions.modal.create.error": "An error occurs during the subscription creation",
+  "subscriptions.modal.create.error": "Virhe tilausta luotaessa",
 
   // "subscriptions.modal.delete.error": "An error occurs during the subscription delete",
-  // TODO New key - Add a translation
-  "subscriptions.modal.delete.error": "An error occurs during the subscription delete",
+  "subscriptions.modal.delete.error": "Virhe tilausta poistettaessa",
 
   // "subscriptions.modal.update.error": "An error occurs during the subscription update",
-  // TODO New key - Add a translation
-  "subscriptions.modal.update.error": "An error occurs during the subscription update",
+  "subscriptions.modal.update.error": "Virhe tilausta päivitettäessä",
 
   // "subscriptions.table.dso": "Subject",
-  // TODO New key - Add a translation
-  "subscriptions.table.dso": "Subject",
+  "subscriptions.table.dso": "Asiasana",
 
   // "subscriptions.table.subscription_type": "Subscription Type",
-  // TODO New key - Add a translation
-  "subscriptions.table.subscription_type": "Subscription Type",
+  "subscriptions.table.subscription_type": "Tilaustyyppi",
 
   // "subscriptions.table.subscription_frequency": "Subscription Frequency",
-  // TODO New key - Add a translation
-  "subscriptions.table.subscription_frequency": "Subscription Frequency",
+  "subscriptions.table.subscription_frequency": "Tilaustiheys",
 
   // "subscriptions.table.action": "Action",
-  // TODO New key - Add a translation
-  "subscriptions.table.action": "Action",
+  "subscriptions.table.action": "Toiminto",
 
   // "subscriptions.table.edit": "Edit",
-  // TODO New key - Add a translation
-  "subscriptions.table.edit": "Edit",
+  "subscriptions.table.edit": "Muokkaa",
 
   // "subscriptions.table.delete": "Delete",
-  // TODO New key - Add a translation
-  "subscriptions.table.delete": "Delete",
+  "subscriptions.table.delete": "Poista",
 
   // "subscriptions.table.not-available": "Not available",
-  // TODO New key - Add a translation
-  "subscriptions.table.not-available": "Not available",
+  "subscriptions.table.not-available": "Ei saatavilla",
 
   // "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
-  // TODO New key - Add a translation
-  "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
+  "subscriptions.table.not-available-message": "Tilattu tietue on poistettu, tai sinulla ei ole oikeuksia nähdä sitä",
 
   // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
-  // TODO New key - Add a translation
-  "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
+  "subscriptions.table.empty.message": "Sinulla ei tällä hetkellä ole tilauksia. Voit tilata yhteisön tai kokoelman sähköposti-ilmoitukset kohteen sivulla olevalla tilauspainikkeella.",
 
   // "thumbnail.default.alt": "Thumbnail Image",
-  // TODO New key - Add a translation
-  "thumbnail.default.alt": "Thumbnail Image",
+  "thumbnail.default.alt": "Pienoiskuva",
 
   // "thumbnail.default.placeholder": "No Thumbnail Available",
-  // TODO New key - Add a translation
-  "thumbnail.default.placeholder": "No Thumbnail Available",
+  "thumbnail.default.placeholder": "Ei pienoiskuvaa saatavilla",
 
   // "thumbnail.project.alt": "Project Logo",
-  // TODO New key - Add a translation
-  "thumbnail.project.alt": "Project Logo",
+  "thumbnail.project.alt": "Projektin logo",
 
   // "thumbnail.project.placeholder": "Project Placeholder Image",
-  // TODO New key - Add a translation
-  "thumbnail.project.placeholder": "Project Placeholder Image",
+  "thumbnail.project.placeholder": "Projektin paikkamerkin kuva",
 
   // "thumbnail.orgunit.alt": "OrgUnit Logo",
-  // TODO New key - Add a translation
-  "thumbnail.orgunit.alt": "OrgUnit Logo",
+  "thumbnail.orgunit.alt": "Organisaatioykiskön logo",
 
   // "thumbnail.orgunit.placeholder": "OrgUnit Placeholder Image",
-  // TODO New key - Add a translation
-  "thumbnail.orgunit.placeholder": "OrgUnit Placeholder Image",
+  "thumbnail.orgunit.placeholder": "Organisaatioyksikön paikkamerkin kuva",
 
   // "thumbnail.person.alt": "Profile Picture",
-  // TODO New key - Add a translation
-  "thumbnail.person.alt": "Profile Picture",
+  "thumbnail.person.alt": "Profiilikuva",
 
   // "thumbnail.person.placeholder": "No Profile Picture Available",
-  // TODO New key - Add a translation
-  "thumbnail.person.placeholder": "No Profile Picture Available",
+  "thumbnail.person.placeholder": "Ei profiilikuva saatavilla",
 
   // "title": "DSpace",
   "title": "Julkaisuarkisto",
@@ -7257,8 +7070,7 @@
   "vocabulary-treeview.tree.description.srsc": "Tutkimusaiheiden kategoriat",
 
   // "vocabulary-treeview.info": "Select a subject to add as search filter",
-  // TODO New key - Add a translation
-  "vocabulary-treeview.info": "Select a subject to add as search filter",
+  "vocabulary-treeview.info": "Valitse asiasana hakusuodattimeksi",
 
   // "uploader.browse": "browse",
   "uploader.browse": "selaa",
@@ -7267,8 +7079,7 @@
   "uploader.drag-message": "Raahaa tiedostot tähän",
 
   // "uploader.delete.btn-title": "Delete",
-  // TODO New key - Add a translation
-  "uploader.delete.btn-title": "Delete",
+  "uploader.delete.btn-title": "Poista",
 
   // "uploader.or": ", or ",
   "uploader.or": " tai",
@@ -7289,31 +7100,25 @@
   "virtual-metadata.delete-relationship.modal-head": "Valitse tietueet, joiden virtuaalisen metadatan haluat tallentaa varsinaiseksi metadataksi",
 
   // "supervisedWorkspace.search.results.head": "Supervised Items",
-  // TODO New key - Add a translation
-  "supervisedWorkspace.search.results.head": "Supervised Items",
+  "supervisedWorkspace.search.results.head": "Valvotut tietueet",
 
   // "workspace.search.results.head": "Your submissions",
-  // TODO New key - Add a translation
-  "workspace.search.results.head": "Your submissions",
+  "workspace.search.results.head": "Tallennuksesi",
 
   // "workflowAdmin.search.results.head": "Administer Workflow",
   "workflowAdmin.search.results.head": "Hallinnoi työnkulkua",
 
   // "workflow.search.results.head": "Workflow tasks",
-  // TODO New key - Add a translation
-  "workflow.search.results.head": "Workflow tasks",
+  "workflow.search.results.head": "Työnkulun tehtävät",
 
   // "supervision.search.results.head": "Workflow and Workspace tasks",
-  // TODO New key - Add a translation
-  "supervision.search.results.head": "Workflow and Workspace tasks",
+  "supervision.search.results.head": "Työnkulun ja työtilan tehtävät",
 
   // "workflow-item.edit.breadcrumbs": "Edit workflowitem",
-  // TODO New key - Add a translation
-  "workflow-item.edit.breadcrumbs": "Edit workflowitem",
+  "workflow-item.edit.breadcrumbs": "Muokkaa työnkulun tietuetta",
 
   // "workflow-item.edit.title": "Edit workflowitem",
-  // TODO New key - Add a translation
-  "workflow-item.edit.title": "Edit workflowitem",
+  "workflow-item.edit.title": "Muokkaa työnkulun tietuetta",
 
   // "workflow-item.delete.notification.success.title": "Deleted",
   "workflow-item.delete.notification.success.title": "Poistettu",
@@ -7514,8 +7319,7 @@
   "researcherprofile.success.claim.body": "Profiili haettu",
 
   // "researcherprofile.success.claim.title": "Success",
-  // TODO New key - Add a translation
-  "researcherprofile.success.claim.title": "Success",
+  "researcherprofile.success.claim.title": "Valmis",
 
   // "person.page.orcid.create": "Create an ORCID ID",
   "person.page.orcid.create": "Luo ORCID-tunniste",
@@ -7551,8 +7355,7 @@
   "person.page.orcid.missing-authorizations-message": "Seuraavat valtuudet puuttuvat:",
 
   // "person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
-  // TODO New key - Add a translation
-  "person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
+  "person.page.orcid.no-missing-authorizations-message": "Hyvä! Tämä laatikko on tyhjä, joten olet myöntänyt kaikki käyttöoikeudet instituutiosi tarjoamiin toimintoihin.",
 
   // "person.page.orcid.no-orcid-message": "No ORCID iD associated yet. By clicking on the button below it is possible to link this profile with an ORCID account.",
   "person.page.orcid.no-orcid-message": "ORCID-tunnistetta ei ole vielä liitetty. Painamalla alapuolella olevaa painiketta voit yhdistää tämän profiilin ORCID-tiliin.",
@@ -7573,12 +7376,10 @@
   "person.page.orcid.save.preference.changes": "Muokkaa asetuksia",
 
   // "person.page.orcid.sync-profile.affiliation": "Affiliation",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.affiliation": "Affiliation",
+  "person.page.orcid.sync-profile.affiliation": "Affiliaatio",
 
   // "person.page.orcid.sync-profile.biographical": "Biographical data",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.biographical": "Biographical data",
+  "person.page.orcid.sync-profile.biographical": "Elämäkerralliset tiedot",
 
   // "person.page.orcid.sync-profile.education": "Education",
   "person.page.orcid.sync-profile.education": "Koulutus",
@@ -7632,8 +7433,7 @@
   "person.page.orcid.sync-queue.table.header.action": "Toiminto",
 
   // "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
+  "person.page.orcid.sync-queue.description.affiliation": "Affiliaatiot",
 
   // "person.page.orcid.sync-queue.description.country": "Country",
   "person.page.orcid.sync-queue.description.country": "Maa",
@@ -7672,8 +7472,7 @@
   "person.page.orcid.sync-queue.tooltip.project": "Projekti",
 
   // "person.page.orcid.sync-queue.tooltip.affiliation": "Affiliation",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.affiliation": "Affiliation",
+  "person.page.orcid.sync-queue.tooltip.affiliation": "Affiliaatio",
 
   // "person.page.orcid.sync-queue.tooltip.education": "Education",
   "person.page.orcid.sync-queue.tooltip.education": "Koulutus",
@@ -7697,7 +7496,6 @@
   "person.page.orcid.sync-queue.tooltip.researcher_urls": "Tutkijan URL-osoite",
 
   // "person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
-  // TODO New key - Add a translation
   "person.page.orcid.sync-queue.send": "Synkronoi ORCID-rekisterin kanssa",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
@@ -7707,271 +7505,205 @@
   "person.page.orcid.sync-queue.send.unauthorized-error.content": "Napsauta <a href='{{orcid}}'>tästä</a> myöntääksesi vaaditut käyttöoikeudet. Jos virhe jatkuu, ota yhteyttä ylläpitäjään.",
 
   // "person.page.orcid.sync-queue.send.bad-request-error": "The submission to ORCID failed because the resource sent to ORCID registry is not valid",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.bad-request-error": "The submission to ORCID failed because the resource sent to ORCID registry is not valid",
+  "person.page.orcid.sync-queue.send.bad-request-error": "ORCID-lähetys epäonnistui, koska ORCID-rekisteriin lähetetty resurssi ei ole kelvollinen",
 
   // "person.page.orcid.sync-queue.send.error": "The submission to ORCID failed",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.error": "The submission to ORCID failed",
+  "person.page.orcid.sync-queue.send.error": "ORCID-lähetys epäonnistui",
 
   // "person.page.orcid.sync-queue.send.conflict-error": "The submission to ORCID failed because the resource is already present on the ORCID registry",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.conflict-error": "The submission to ORCID failed because the resource is already present on the ORCID registry",
+  "person.page.orcid.sync-queue.send.conflict-error": "ORCID-lähetys epäonnistui, koska lähetetty resurssi on jo ORCID-rekisterissä",
 
   // "person.page.orcid.sync-queue.send.not-found-warning": "The resource does not exists anymore on the ORCID registry.",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.not-found-warning": "The resource does not exists anymore on the ORCID registry.",
+  "person.page.orcid.sync-queue.send.not-found-warning": "Resurssia ei enää ole ORCID-rekisterissä..",
 
   // "person.page.orcid.sync-queue.send.success": "The submission to ORCID was completed successfully",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.success": "The submission to ORCID was completed successfully",
+  "person.page.orcid.sync-queue.send.success": "ORCID-lähetys onnistui",
 
   // "person.page.orcid.sync-queue.send.validation-error": "The data that you want to synchronize with ORCID is not valid",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error": "The data that you want to synchronize with ORCID is not valid",
+  "person.page.orcid.sync-queue.send.validation-error": "ORCIDin kanssa synkronoitava data ei ole kelvollista",
 
   // "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "The amount's currency is required",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "The amount's currency is required",
+  "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "Valuutta on pakollinen tieto",
 
   // "person.page.orcid.sync-queue.send.validation-error.external-id.required": "The resource to be sent requires at least one identifier",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.external-id.required": "The resource to be sent requires at least one identifier",
+  "person.page.orcid.sync-queue.send.validation-error.external-id.required": "Lähetettävällä resurssilla on oltava ainakin yksi tunniste",
 
   // "person.page.orcid.sync-queue.send.validation-error.title.required": "The title is required",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.title.required": "The title is required",
+  "person.page.orcid.sync-queue.send.validation-error.title.required": "Nimeke on pakollinen tieto",
 
   // "person.page.orcid.sync-queue.send.validation-error.type.required": "The dc.type is required",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.type.required": "The dc.type is required",
+  "person.page.orcid.sync-queue.send.validation-error.type.required": "dc.type on pakollinen tieto",
 
   // "person.page.orcid.sync-queue.send.validation-error.start-date.required": "The start date is required",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.start-date.required": "The start date is required",
+  "person.page.orcid.sync-queue.send.validation-error.start-date.required": "Alkupäivämäärä on pakollinen tieto",
 
   // "person.page.orcid.sync-queue.send.validation-error.funder.required": "The funder is required",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.funder.required": "The funder is required",
+  "person.page.orcid.sync-queue.send.validation-error.funder.required": "Rahoittaja on pakollinen tieto",
 
   // "person.page.orcid.sync-queue.send.validation-error.country.invalid": "Invalid 2 digits ISO 3166 country",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.country.invalid": "Invalid 2 digits ISO 3166 country",
+  "person.page.orcid.sync-queue.send.validation-error.country.invalid": "Virheelliset kaksi merkkiä ISO 3166 -maatunnisteessa",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.required": "The organization is required",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.organization.required": "The organization is required",
+  "person.page.orcid.sync-queue.send.validation-error.organization.required": "Organisaatio on pakollinen tieto",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "The organization's name is required",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "The organization's name is required",
+  "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "Organisaation nimi on pakollinen tieto",
 
   // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "Julkaisuajan on oltava vuoden 1900 jälkeen",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
+  "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "Organisaatiolla on oltava osoite",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.city-required": "The address of the organization to be sent requires a city",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.organization.city-required": "The address of the organization to be sent requires a city",
+  "person.page.orcid.sync-queue.send.validation-error.organization.city-required": "Organisaation osoitteessa on oltava kaupunki",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "The address of the organization to be sent requires a valid 2 digits ISO 3166 country",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "The address of the organization to be sent requires a valid 2 digits ISO 3166 country",
+  "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "Organisaation osoitteessa on oltava oikeelliset kaksi ISO 3166 -maatunnisteen merkkiä",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "An identifier to disambiguate organizations is required. Supported ids are GRID, Ringgold, Legal Entity identifiers (LEIs) and Crossref Funder Registry identifiers",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "An identifier to disambiguate organizations is required. Supported ids are GRID, Ringgold, Legal Entity identifiers (LEIs) and Crossref Funder Registry identifiers",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "Tunniste vaaditaan organisaatioiden erottelemiseksi. Tuetut tunnisteet ovat GRID, Ringgold, Legal Entity identifier -tunnisteet (LEIt) ja Crossrefin rahoittaharekisterin tunnisteet (FUNDREF)",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "The organization's identifiers requires a value",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "The organization's identifiers requires a value",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "Organisaation tunnisteilla on oltava arvo",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "The organization's identifiers requires a source",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "The organization's identifiers requires a source",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "Organisaation tunnisteilla on oltava lähde",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "The source of one of the organization identifiers is invalid. Supported sources are RINGGOLD, GRID, LEI and FUNDREF",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "The source of one of the organization identifiers is invalid. Supported sources are RINGGOLD, GRID, LEI and FUNDREF",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "Organisaation tunnisteen lähde ei ole validi. Tuetut lähteet ovat RINGGOLD, GRID, LEI ja FUNDREF",
 
   // "person.page.orcid.synchronization-mode": "Synchronization mode",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode": "Synchronization mode",
+  "person.page.orcid.synchronization-mode": "Synkronointimoodi",
 
   // "person.page.orcid.synchronization-mode.batch": "Batch",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode.batch": "Batch",
+  "person.page.orcid.synchronization-mode.batch": "Erä",
 
   // "person.page.orcid.synchronization-mode.label": "Synchronization mode",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode.label": "Synchronization mode",
+  "person.page.orcid.synchronization-mode.label": "Synkronointimoodi",
 
   // "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
+  "person.page.orcid.synchronization-mode-message": "Valitse, miten haluat synkronoinnin ORCIDiin tapahtuvan. Vaihtoehdot ovat \"Manuaalinen\" (sinun on lähetettävä tietosi ORCIDiin manuaalisesti) tai \"Erä\" (järjestelmä lähettää tietosi ORCIDiin ajastetun skriptin avulla).",
 
   // "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
+  "person.page.orcid.synchronization-mode-funding-message": "Valitse, lähetetäänkö linkitetyt projektisi ORCID-rekisterin rahoitustietoluetteloon.",
 
   // "person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
+  "person.page.orcid.synchronization-mode-publication-message": "Valitse, lähetetäänkö linkitetyt julkaisusi ORCID-rekisterin luetteloon.",
 
   // "person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
+  "person.page.orcid.synchronization-mode-profile-message": "Valitse, lähetetäänkö elämäkerralliset tietosi tai henkilökohtaiset tunnisteesi ORCID-rekisteriin.",
 
   // "person.page.orcid.synchronization-settings-update.success": "The synchronization settings have been updated successfully",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-settings-update.success": "The synchronization settings have been updated successfully",
+  "person.page.orcid.synchronization-settings-update.success": "Synkronisointiasetukset päivitetty",
 
   // "person.page.orcid.synchronization-settings-update.error": "The update of the synchronization settings failed",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-settings-update.error": "The update of the synchronization settings failed",
+  "person.page.orcid.synchronization-settings-update.error": "Synkronisointiasetusten päivittäminen epäonnistui",
 
   // "person.page.orcid.synchronization-mode.manual": "Manual",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode.manual": "Manual",
+  "person.page.orcid.synchronization-mode.manual": "Manuaalinen",
 
   // "person.page.orcid.scope.authenticate": "Get your ORCID iD",
-  // TODO New key - Add a translation
-  "person.page.orcid.scope.authenticate": "Get your ORCID iD",
+  "person.page.orcid.scope.authenticate": "Hae ORCID-tunnisteesi",
 
   // "person.page.orcid.scope.read-limited": "Read your information with visibility set to Trusted Parties",
   // TODO New key - Add a translation
   "person.page.orcid.scope.read-limited": "Read your information with visibility set to Trusted Parties",
 
   // "person.page.orcid.scope.activities-update": "Add/update your research activities",
-  // TODO New key - Add a translation
-  "person.page.orcid.scope.activities-update": "Add/update your research activities",
+  "person.page.orcid.scope.activities-update": "Lisää/päivitä tutkimustoimiasi",
 
   // "person.page.orcid.scope.person-update": "Add/update other information about you",
-  // TODO New key - Add a translation
-  "person.page.orcid.scope.person-update": "Add/update other information about you",
+  "person.page.orcid.scope.person-update": "Lisää/päivitä muita tietojasi",
 
   // "person.page.orcid.unlink.success": "The disconnection between the profile and the ORCID registry was successful",
-  // TODO New key - Add a translation
-  "person.page.orcid.unlink.success": "The disconnection between the profile and the ORCID registry was successful",
+  "person.page.orcid.unlink.success": "Yhteys katkaistu profiilin ja ORCID-rekisterin välillä",
 
   // "person.page.orcid.unlink.error": "An error occurred while disconnecting between the profile and the ORCID registry. Try again",
-  // TODO New key - Add a translation
-  "person.page.orcid.unlink.error": "An error occurred while disconnecting between the profile and the ORCID registry. Try again",
+  "person.page.orcid.unlink.error": "Tapahtui virhe katkaistaessa yhteyttä profiilin ja ORCID-rekisterin välillä. Yritä uudelleen",
 
   // "person.orcid.sync.setting": "ORCID Synchronization settings",
-  // TODO New key - Add a translation
-  "person.orcid.sync.setting": "ORCID Synchronization settings",
+  "person.orcid.sync.setting": "ORCIDin synkronisointiasetukset",
 
   // "person.orcid.registry.queue": "ORCID Registry Queue",
-  // TODO New key - Add a translation
-  "person.orcid.registry.queue": "ORCID Registry Queue",
+  "person.orcid.registry.queue": "ORCIDin rekisteröintijono",
 
   // "person.orcid.registry.auth": "ORCID Authorizations",
-  // TODO New key - Add a translation
-  "person.orcid.registry.auth": "ORCID Authorizations",
+  "person.orcid.registry.auth": "ORCID-käyttöoikeudet",
 
   // "home.recent-submissions.head": "Recent Submissions",
-  // TODO New key - Add a translation
-  "home.recent-submissions.head": "Recent Submissions",
+  "home.recent-submissions.head": "Viimeksi tallennetut",
 
   // "listable-notification-object.default-message": "This object couldn't be retrieved",
-  // TODO New key - Add a translation
-  "listable-notification-object.default-message": "This object couldn't be retrieved",
+  "listable-notification-object.default-message": "Kohdetta ei voitu noutaa",
 
   // "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
-  // TODO New key - Add a translation
-  "system-wide-alert-banner.retrieval.error": "Virhe wrong retrieving the system-wide alert banner",
+  "system-wide-alert-banner.retrieval.error": "Virhe noudettaessa järjestelmänlaajuista hälytysbanneria",
 
   // "system-wide-alert-banner.countdown.prefix": "In",
-  // TODO New key - Add a translation
-  "system-wide-alert-banner.countdown.prefix": "In",
+  "system-wide-alert-banner.countdown.prefix": "Aikaa",
 
   // "system-wide-alert-banner.countdown.days": "{{days}} day(s),",
-  // TODO New key - Add a translation
-  "system-wide-alert-banner.countdown.days": "{{days}} day(s),",
+  "system-wide-alert-banner.countdown.days": "{{days}} päivää(ä),",
 
   // "system-wide-alert-banner.countdown.hours": "{{hours}} hour(s) and",
-  // TODO New key - Add a translation
-  "system-wide-alert-banner.countdown.hours": "{{hours}} hour(s) and",
+  "system-wide-alert-banner.countdown.hours": "{{hours}} tunti(a) and",
 
   // "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
-  // TODO New key - Add a translation
-  "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
+  "system-wide-alert-banner.countdown.minutes": "{{minutes}} minuutti(a):",
 
   // "menu.section.system-wide-alert": "System-wide Alert",
-  // TODO New key - Add a translation
-  "menu.section.system-wide-alert": "System-wide Alert",
+  "menu.section.system-wide-alert": "Järjestelmänlaajuinen hälytys",
 
   // "system-wide-alert.form.header": "System-wide Alert",
-  // TODO New key - Add a translation
-  "system-wide-alert.form.header": "System-wide Alert",
+  "system-wide-alert.form.header": "Järjestelmänlaajuinen hälytys",
 
   // "system-wide-alert-form.retrieval.error": "Something went wrong retrieving the system-wide alert",
-  // TODO New key - Add a translation
-  "system-wide-alert-form.retrieval.error": "Virhe wrong retrieving the system-wide alert",
+  "system-wide-alert-form.retrieval.error": "Virhe noudettaessa järjestelmänlaajuista hälytystä",
 
   // "system-wide-alert.form.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "system-wide-alert.form.cancel": "Cancel",
+  "system-wide-alert.form.cancel": "Peruuta",
 
   // "system-wide-alert.form.save": "Save",
-  // TODO New key - Add a translation
-  "system-wide-alert.form.save": "Save",
+  "system-wide-alert.form.save": "Tallenna",
 
   // "system-wide-alert.form.label.active": "ACTIVE",
-  // TODO New key - Add a translation
-  "system-wide-alert.form.label.active": "ACTIVE",
+  "system-wide-alert.form.label.active": "AKTIIVINEN",
 
   // "system-wide-alert.form.label.inactive": "INACTIVE",
-  // TODO New key - Add a translation
-  "system-wide-alert.form.label.inactive": "INACTIVE",
+  "system-wide-alert.form.label.inactive": "EI-AKTIIVINEN",
 
   // "system-wide-alert.form.error.message": "The system wide alert must have a message",
-  // TODO New key - Add a translation
-  "system-wide-alert.form.error.message": "The system wide alert must have a message",
+  "system-wide-alert.form.error.message": "Järjestelmänlaajuisessa hälytyksessä on oltava viesti",
 
   // "system-wide-alert.form.label.message": "Alert message",
-  // TODO New key - Add a translation
-  "system-wide-alert.form.label.message": "Alert message",
+  "system-wide-alert.form.label.message": "Hälytysviesti",
 
   // "system-wide-alert.form.label.countdownTo.enable": "Enable a countdown timer",
-  // TODO New key - Add a translation
-  "system-wide-alert.form.label.countdownTo.enable": "Enable a countdown timer",
+  "system-wide-alert.form.label.countdownTo.enable": "Ota käyttöön lähtölaskennan ajastin",
 
   // "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
-  // TODO New key - Add a translation
-  "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
+  "system-wide-alert.form.label.countdownTo.hint": "Vinkki: Aseta lähtölaskennan ajastin. Kun se on käytössä, voidaan päivämäärä asettaa tulevaisuuteen,  jolloin  järjestelmänlaajuinen hälytysbanneri suorittaa lähtölaskennan asetettuun päivämäärään. Kun ajastin päättyy, hälytys katoaa. Palvelinta EI pysäytetä automaattisesti.",
 
   // "system-wide-alert.form.label.preview": "System-wide alert preview",
-  // TODO New key - Add a translation
-  "system-wide-alert.form.label.preview": "System-wide alert preview",
+  "system-wide-alert.form.label.preview": "Järjestelmänlaajuisen hälytyksen esikatselu",
 
   // "system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
-  // TODO New key - Add a translation
-  "system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
+  "system-wide-alert.form.update.success": "Järjestelmänlaajuinen hälytys päivitetty",
 
   // "system-wide-alert.form.update.error": "Something went wrong when updating the system-wide alert",
-  // TODO New key - Add a translation
-  "system-wide-alert.form.update.error": "Virhe wrong when updating the system-wide alert",
+  "system-wide-alert.form.update.error": "Virhe päivitettäessä järjestelmänlaajuista hälytystä",
 
   // "system-wide-alert.form.create.success": "The system-wide alert was successfully created",
-  // TODO New key - Add a translation
-  "system-wide-alert.form.create.success": "The system-wide alert was successfully created",
+  "system-wide-alert.form.create.success": "Järjestelmänlaajuinen hälytys luotu",
 
   // "system-wide-alert.form.create.error": "Something went wrong when creating the system-wide alert",
-  // TODO New key - Add a translation
-  "system-wide-alert.form.create.error": "Virhe wrong when creating the system-wide alert",
+  "system-wide-alert.form.create.error": "Virhe luotaessa järjestelmänlaajuista hälytystä",
 
   // "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
-  // TODO New key - Add a translation
-  "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
+  "admin.system-wide-alert.breadcrumbs": "Järjestelmänlaajuiset hälytykset",
 
   // "admin.system-wide-alert.title": "System-wide Alerts",
-  // TODO New key - Add a translation
-  "admin.system-wide-alert.title": "System-wide Alerts",
+  "admin.system-wide-alert.title": "Järjestelmänlaajuiset hälytykset",
 
 }
