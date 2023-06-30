@@ -871,8 +871,8 @@ export const mockSubmissionDefinitionResponse = {
       mandatory: true,
       sectionType: 'utils',
       visibility: {
-        main: 'HIDDEN',
-        other: 'HIDDEN'
+        submission: SubmissionVisibilityValue.Hidden,
+        workflow: SubmissionVisibilityValue.Hidden
       },
       type: 'submissionsection',
       _links: {
@@ -884,8 +884,7 @@ export const mockSubmissionDefinitionResponse = {
       mandatory: true,
       sectionType: 'collection',
       visibility: {
-        main: 'HIDDEN',
-        other: 'HIDDEN'
+        workflow: SubmissionVisibilityValue.Hidden
       },
       type: 'submissionsection',
       _links: {
