@@ -22,6 +22,7 @@ import {
 } from './my-dspace-new-submission/my-dspace-new-bulk-import/my-dspace-new-bulk-import.component';
 import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
 import { SearchModule } from '../shared/search/search.module';
+import { UploadModule } from '../shared/upload/upload.module';
 
 const DECLARATIONS = [
   MyDSpacePageComponent,
@@ -40,7 +41,8 @@ const DECLARATIONS = [
     SearchModule,
     MyDspacePageRoutingModule,
     MyDspaceSearchModule.withEntryComponents(),
-    OpenaireModule
+    OpenaireModule,
+    UploadModule,
   ],
   declarations: DECLARATIONS,
   providers: [

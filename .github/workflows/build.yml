@@ -6,34 +6,39 @@ name: Build
 # Run this Build for all pushes / PRs to current branch
 on: [push, pull_request]
 
+permissions:
+  contents: read  #  to fetch code (actions/checkout)
+
 jobs:
   tests:
     runs-on: ubuntu-latest
     env:
       # The ci step will test the dspace-angular code against DSpace REST.
       # Direct that step to utilize a DSpace REST service that has been started in docker.
-      DSPACE_REST_HOST: localhost
+      DSPACE_REST_HOST: 127.0.0.1
       DSPACE_REST_PORT: 8080
       DSPACE_REST_NAMESPACE: '/server'
       DSPACE_REST_SSL: false
+      # Spin up UI on 127.0.0.1 to avoid host resolution issues in e2e tests with Node 18+
+      DSPACE_UI_HOST: 127.0.0.1
       # When Chrome version is specified, we pin to a specific version of Chrome
       # Comment this out to use the latest release
       #CHROME_VERSION: "90.0.4430.212-1"
     strategy:
       # Create a matrix of Node versions to test against (in parallel)
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [16.x, 18.x]
       # Do NOT exit immediately if one matrix job fails
       fail-fast: false
     # These are the actual CI steps to perform per job
     steps:
       # https://github.com/actions/checkout
       - name: Checkout codebase
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # https://github.com/actions/setup-node
       - name: Install Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -58,7 +63,7 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache Yarn dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           # Cache entire Yarn cache directory (see previous step)
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -85,7 +90,7 @@ jobs:
       # Upload coverage reports to Codecov (for one version of Node only)
       # https://github.com/codecov/codecov-action
       - name: Upload coverage to Codecov.io
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         if: matrix.node-version == '16.x'
 
       # Using docker-compose start backend using CI configuration
@@ -100,7 +105,7 @@ jobs:
       # https://github.com/cypress-io/github-action
       # (NOTE: to run these e2e tests locally, just use 'ng e2e')
       - name: Run e2e tests (integration tests)
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v4
         with:
           # Run tests in Chrome, headless mode
           browser: chrome
@@ -109,14 +114,14 @@ jobs:
           start: yarn run serve:ssr
           # Wait for backend & frontend to be available
           # NOTE: We use the 'sites' REST endpoint to also ensure the database is ready
-          wait-on: http://localhost:8080/server/api/core/sites, http://localhost:4000
+          wait-on: http://127.0.0.1:8080/server/api/core/sites, http://127.0.0.1:4000
           # Wait for 2 mins max for everything to respond
           wait-on-timeout: 120
 
       # Cypress always creates a video of all e2e tests (whether they succeeded or failed)
       # Save those in an Artifact
       - name: Upload e2e test videos to Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: always()
         with:
           name: e2e-test-videos
@@ -125,7 +130,7 @@ jobs:
       # If e2e tests fail, Cypress creates a screenshot of what happened
       # Save those in an Artifact
       - name: Upload e2e test failure screenshots to Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: e2e-test-screenshots
@@ -144,7 +149,7 @@ jobs:
         run: |
           nohup yarn run serve:ssr &
           printf 'Waiting for app to start'
-          until curl --output /dev/null --silent --head --fail http://localhost:4000/home; do
+          until curl --output /dev/null --silent --head --fail http://127.0.0.1:4000/home; do
             printf '.'
             sleep 2
           done
@@ -155,7 +160,7 @@ jobs:
       # This step also prints entire HTML of homepage for easier debugging if grep fails.
       - name: Verify SSR (server-side rendering)
         run: |
-          result=$(wget -O- -q http://localhost:4000/home)
+          result=$(wget -O- -q http://127.0.0.1:4000/home)
           echo "$result"
           echo "$result" | grep -oE "<meta name=\"title\" [^>]*>" | grep DSpace
 

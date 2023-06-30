@@ -1,15 +1,17 @@
-import { getRemoteDataPayload } from './../../../core/shared/operators';
-import { SEARCH_CONFIG_SERVICE } from './../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from './../../../core/shared/search/search-configuration.service';
-import { SearchService } from './../../../core/shared/search/search.service';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
 
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { filter, map, switchMap, take, tap, mergeMap } from 'rxjs/operators';
+import { filter, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
+
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { shrinkInOut } from '../../animations/shrink';
 import { hasValue, isNotEmpty } from '../../empty.util';
+import { getRemoteDataPayload } from '../../../core/shared/operators';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SearchService } from '../../../core/shared/search/search.service';
 
 @Component({
   selector: 'ds-search-charts',
@@ -57,25 +59,37 @@ export class SearchChartsComponent implements OnInit {
    */
   selectedFilter: SearchFilterConfig;
 
+  /**
+   * Whether a platform id represents a browser platform.
+   */
+  isPlatformBrowser: boolean;
 
-  constructor(private searchService: SearchService,
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private searchService: SearchService,
+    @Inject(PLATFORM_ID) protected platformId: Object,
     @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService) {
   }
 
   ngOnInit(): void {
-    this.filters.pipe(
-      filter((rd: RemoteData<SearchFilterConfig[]>) => isNotEmpty(rd)),
-      take(1),
-      mergeMap((rd: RemoteData<SearchFilterConfig[]>) => {
-        return this.hasFacetValues(rd.payload[0]).pipe(
-          tap((hasValues) => {
-            this.selectedFilter = this.selectedFilter
-              ? this.selectedFilter
-              : rd.hasSucceeded && hasValues ? rd.payload[0] : null;
-          })
-        );
-      }),
-    ).subscribe();
+    this.isPlatformBrowser = isPlatformBrowser(this.platformId);
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.filters.pipe(
+        filter((rd: RemoteData<SearchFilterConfig[]>) => isNotEmpty(rd)),
+        take(1),
+        mergeMap((rd: RemoteData<SearchFilterConfig[]>) => {
+          return this.hasFacetValues(rd.payload[0]).pipe(
+            tap((hasValues) => {
+              this.selectedFilter = this.selectedFilter
+                ? this.selectedFilter
+                : rd.hasSucceeded && hasValues ? rd.payload[0] : null;
+              this.cdr.detectChanges();
+            })
+          );
+        }),
+      ).subscribe();
+    }
   }
 
   /**

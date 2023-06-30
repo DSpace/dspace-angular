@@ -5,7 +5,7 @@ import { UsageReport } from '../../../../core/statistics/models/usage-report.mod
 import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
 import { USAGE_REPORT } from '../../../../core/statistics/models/usage-report.resource-type';
 import { ExportServiceStub } from '../../../../shared/testing/export-service.stub';
-import { ExportService } from '../../../../core/export-service/export.service';
+import { BrowserExportService } from '../../../../core/export-service/browser-export.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StatisticsChartBarComponent } from '../statistics-chart-bar/statistics-chart-bar.component';
@@ -51,7 +51,7 @@ describe('StatisticsChartWrapperComponent', () => {
       ],
       providers: [
         { provide: REPORT_DATA, useValue: report },
-        { provide: ExportService, useValue: exportServiceStub },
+        { provide: BrowserExportService, useValue: exportServiceStub },
         { provide: 'categoryType', useValue: 'mainReports' },
       ],
       schemas: [NO_ERRORS_SCHEMA]

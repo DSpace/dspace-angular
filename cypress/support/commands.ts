@@ -19,6 +19,14 @@ declare global {
              * @param password password to login as
              */
             login(email: string, password: string): typeof login;
+
+            /**
+             * Login via form before accessing the next page. Useful to fill out login
+             * form when a cy.visit() call is to an a page which requires authentication.
+             * @param email email to login as
+             * @param password password to login as
+             */
+             loginViaForm(email: string, password: string): typeof loginViaForm;
         }
     }
 }
@@ -26,6 +34,8 @@ declare global {
 /**
  * Login user via REST API directly, and pass authentication token to UI via
  * the UI's dsAuthInfo cookie.
+ * WARNING: WHILE THIS METHOD WORKS, OCCASIONALLY RANDOM AUTHENTICATION ERRORS OCCUR.
+ * At this time "loginViaForm()" seems more consistent/stable.
  * @param email email to login as
  * @param password password to login as
  */
@@ -81,3 +91,20 @@ function login(email: string, password: string): void {
 }
 // Add as a Cypress command (i.e. assign to 'cy.login')
 Cypress.Commands.add('login', login);
+
+
+/**
+ * Login user via displayed login form
+ * @param email email to login as
+ * @param password password to login as
+ */
+ function loginViaForm(email: string, password: string): void {
+    // Enter email
+    cy.get('ds-log-in [data-test="email"]').type(email);
+    // Enter password
+    cy.get('ds-log-in [data-test="password"]').type(password);
+    // Click login button
+    cy.get('ds-log-in [data-test="login-button"]').click();
+}
+// Add as a Cypress command (i.e. assign to 'cy.loginViaForm')
+Cypress.Commands.add('loginViaForm', loginViaForm);

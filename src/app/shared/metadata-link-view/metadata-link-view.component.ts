@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 
-import { isNotEmpty } from '../empty.util';
+import { isEmpty, isNotEmpty } from '../empty.util';
 import { Item } from '../../core/shared/item.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { PLACEHOLDER_PARENT_METADATA } from '../form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
@@ -11,6 +11,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { Metadata } from '../../core/shared/metadata.utils';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { environment } from '../../../environments/environment';
 
 interface MetadataView {
@@ -41,12 +42,11 @@ export class MetadataLinkViewComponent implements OnInit {
   /**
    * Item of the metadata value
    */
-  @Input() item: Item;
-
+  @Input() item: DSpaceObject;
   /**
    * The metadata name from where to take the value of the cris style
    */
-  crisRefMetadata = environment.crisLayout.crisRefStyleMetadata || 'cris.entity.style';
+  crisRefMetadata = environment.crisLayout.crisRefStyleMetadata;
 
   /**
    * Processed metadata to create MetadataOrcid with the information needed to show
@@ -74,12 +74,13 @@ export class MetadataLinkViewComponent implements OnInit {
             getFirstCompletedRemoteData(),
             map((itemRD: RemoteData<Item>) => {
               if (itemRD.hasSucceeded) {
+                const entityStyleValue = this.getCrisRefMetadata(itemRD.payload?.entityType);
                 return {
                   authority: metadataValue.authority,
                   value: metadataValue.value,
                   orcidAuthenticated: this.getOrcid(itemRD.payload),
                   entityType: itemRD.payload?.entityType,
-                  entityStyle: itemRD.payload?.firstMetadataValue(this.crisRefMetadata)
+                  entityStyle: itemRD.payload?.firstMetadataValue(entityStyleValue)
                 };
               } else {
                 return {
@@ -129,6 +130,20 @@ export class MetadataLinkViewComponent implements OnInit {
     } else {
       return value;
     }
+  }
+
+  private getCrisRefMetadata(entity: string): string {
+    if (isEmpty(this.crisRefMetadata)) {
+      return 'cris.entity.style';
+    }
+    let metadata;
+    if (isNotEmpty(entity)) {
+      const asLowercase = entity.toLowerCase();
+      metadata = this.crisRefMetadata[Object.keys(this.crisRefMetadata)
+        .find(k => k.toLowerCase() === asLowercase)
+        ];
+    }
+    return metadata ?? this.crisRefMetadata?.default;
   }
 
 }

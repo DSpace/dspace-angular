@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 import { map, switchMap } from 'rxjs/operators';

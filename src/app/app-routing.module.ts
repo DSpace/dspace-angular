@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, NoPreloading } from '@angular/router';
+import { NoPreloading, RouterModule } from '@angular/router';
 import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
@@ -10,9 +10,9 @@ import {
   ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
   BITSTREAM_MODULE_PATH,
-  ERROR_PAGE,
   BULK_IMPORT_PATH,
   EDIT_ITEM_PATH,
+  ERROR_PAGE,
   FORBIDDEN_PATH,
   FORGOT_PASSWORD_PATH,
   HEALTH_PAGE_PATH,
@@ -22,6 +22,7 @@ import {
   PROFILE_MODULE_PATH,
   REGISTER_PATH,
   REQUEST_COPY_MODULE_PATH,
+  STATISTICS_PAGE_PATH,
   WORKFLOW_ITEM_MODULE_PATH,
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
@@ -43,7 +44,7 @@ import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
-import { StatisticsAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
+import { RedirectService } from './redirect/redirect.service';
 
 @NgModule({
   imports: [
@@ -247,7 +248,7 @@ import { StatisticsAdministratorGuard } from './core/data/feature-authorization/
             component: ThemedForbiddenComponent
           },
           {
-            path: 'statistics',
+            path: STATISTICS_PAGE_PATH,
             loadChildren: () => import('./statistics-page/statistics-page-routing.module')
               .then((m) => m.StatisticsPageRoutingModule),
           },
@@ -282,7 +283,7 @@ import { StatisticsAdministratorGuard } from './core/data/feature-authorization/
             loadChildren: () => import('./invitation/invitation.module')
               .then((m) => m.InvitationModule)
           },
-          { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
+          { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent, canActivate: [RedirectService] },
         ]
       }
     ], {

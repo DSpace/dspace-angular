@@ -1,4 +1,3 @@
-import { of as observableOf } from 'rxjs';
 
 import { DetectDuplicateService } from '../../submission/sections/detect-duplicate/detect-duplicate.service';
 

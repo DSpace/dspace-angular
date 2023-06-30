@@ -1,1 +1,4 @@
-<ds-item-version-container *ngIf="isAuthorized$ | async" [object]="injectedContextMenuObject"></ds-item-version-container>
+<button *ngIf="(canShow$ | async)" class="dropdown-item" (click)="createNewVersion()">
+  <span [innerHtml]="'item.page.version.create' | translate">
+  </span>
+</button>

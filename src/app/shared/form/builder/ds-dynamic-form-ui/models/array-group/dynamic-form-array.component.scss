@@ -25,7 +25,7 @@
     text-indent: calc(0.5 * var(--bs-spacer))
   }
 
-  &:hover, &:focus {
+  &:hover:not(.cdk-drag-disabled), &:focus:not(.cdk-drag-disabled) {
     cursor: grab;
     .drag-icon {
       visibility: visible;
@@ -36,7 +36,7 @@
 
 .drag-handle {
   &:hover {
-    cursor: move;
+    cursor: grab;
   }
 
   &:focus {

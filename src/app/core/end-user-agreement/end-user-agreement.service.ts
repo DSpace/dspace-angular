@@ -7,7 +7,6 @@ import { hasValue } from '../../shared/empty.util';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { ConfigurationDataService } from '../data/configuration-data.service';
-import { calcPossibleSecurityContexts } from '@angular/compiler/src/template_parser/binding_parser';
 
 export const END_USER_AGREEMENT_COOKIE = 'hasAgreedEndUser';
 export const END_USER_AGREEMENT_METADATA_FIELD = 'dspace.agreements.end-user';

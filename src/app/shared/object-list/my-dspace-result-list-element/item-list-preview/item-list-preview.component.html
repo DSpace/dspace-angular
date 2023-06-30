@@ -15,10 +15,10 @@
       <ds-truncatable [id]="item.id">
         <h3 [innerHTML]="dsoTitle" [ngClass]="{'lead': true,'text-muted': !item.firstMetadataValue('dc.title')}"></h3>
         <div>
-      <span class="text-muted">
-        <ds-truncatable-part [id]="item.id" [minLines]="1">
-          (<span *ngIf="item.hasMetadata('dc.publisher')" class="item-list-publisher"
-                 [innerHTML]="item.firstMetadataValue('dc.publisher') + ', '"></span>
+          <span class="text-muted">
+            <ds-truncatable-part [id]="item.id" [minLines]="1">
+              (<span *ngIf="item.hasMetadata('dc.publisher')" class="item-list-publisher"
+                [innerHTML]="item.firstMetadataValue('dc.publisher') + ', '"></span>
           <span class="item-list-date" [innerHTML]="item.firstMetadataValue('dc.date.issued') || ('mydspace.results.no-date' | translate)"></span>)
           <ng-container *ngVar="['dc.contributor.author', 'dc.creator', 'dc.contributor.*'] as mdList">
             <span *ngIf="item.hasMetadata(mdList);"
@@ -29,18 +29,21 @@
                 </span>
             </span>
           </ng-container>
-          </ds-truncatable-part>
-      </span>
+            </ds-truncatable-part>
+          </span>
 
           <ds-truncatable-part [id]="item.id" [minLines]="1" class="item-list-abstract">
-        <span [ngClass]="{'text-muted': !item.firstMetadataValue('dc.description.abstract')}"
+            <span [ngClass]="{'text-muted': !item.firstMetadataValue('dc.description.abstract')}"
               [innerHTML]="(item.firstMetadataValue('dc.description.abstract')) || ('mydspace.results.no-abstract' | translate)"></span>
           </ds-truncatable-part>
+
+      <ds-additional-metadata [object]="item"></ds-additional-metadata>
 
         </div>
       </ds-truncatable>
   <ds-item-correction [item]="item"></ds-item-correction>
       <ds-item-submitter *ngIf="showSubmitter" [object]="object.indexableObject"></ds-item-submitter>
+      <ds-item-collection [object]="object.indexableObject"></ds-item-collection>
     </div>
   </div>
 </div>

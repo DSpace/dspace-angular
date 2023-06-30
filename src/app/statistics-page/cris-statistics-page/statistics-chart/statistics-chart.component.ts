@@ -1,20 +1,18 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
 import { StatisticsCategory } from '../../../core/statistics/models/statistics-category.model';
-
 
 @Component({
   selector: 'ds-statistics-chart',
   styleUrls: ['./statistics-chart.component.scss'],
-  templateUrl: './statistics-chart.component.html',
-  // animations: [slide],
+  templateUrl: './statistics-chart.component.html'
 })
 
 /**
  * Represents a part of the chart section for a single type of chart
  */
 export class StatisticsChartComponent implements OnInit {
-
 
   /**
    * Represents selected category

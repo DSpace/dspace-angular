@@ -18,7 +18,6 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { AuthStatus } from '../core/auth/models/auth-status.model';
 
 @Component({
   selector: 'ds-profile-page',

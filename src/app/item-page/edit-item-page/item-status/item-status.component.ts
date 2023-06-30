@@ -4,13 +4,18 @@ import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
 import { ItemOperation } from '../item-operation/itemOperation.model';
 import { distinctUntilChanged, first, map, mergeMap, switchMap, toArray } from 'rxjs/operators';
-import { BehaviorSubject, combineLatest, from as observableFrom, Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { hasValue } from '../../../shared/empty.util';
-import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, } from '../../../core/shared/operators';
+import { IdentifierDataService } from '../../../core/data/identifier-data.service';
+import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { IdentifierData } from '../../../shared/object-list/identifier-data/identifier-data.model';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 
 @Component({
@@ -48,9 +53,15 @@ export class ItemStatusComponent implements OnInit {
   operations$: BehaviorSubject<ItemOperation[]> = new BehaviorSubject<ItemOperation[]>([]);
 
   /**
-   * The keys of the actions (to loop over)
+   * Identifiers (handles, DOIs)
    */
-  actionsKeys;
+  identifiers$: Observable<Identifier[]>;
+
+  /**
+   * Configuration and state variables regarding DOIs
+   */
+
+  public subs: Subscription[] = [];
 
   /**
    * Route to the item's page
@@ -59,9 +70,14 @@ export class ItemStatusComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private authorizationService: AuthorizationDataService,
+              private identifierDataService: IdentifierDataService,
+              private configurationService: ConfigurationDataService,
               private orcidAuthService: OrcidAuthService) {
   }
 
+  /**
+   * Initialise component
+   */
   ngOnInit(): void {
     this.itemRD$ = this.route.parent.data.pipe(map((data) => data.dso));
     this.itemRD$.pipe(
@@ -75,12 +91,31 @@ export class ItemStatusComponent implements OnInit {
           lastModified: item.lastModified
         });
         this.statusDataKeys = Object.keys(this.statusData);
-        /*
-          The key is used to build messages
-            i18n example: 'item.edit.tabs.status.buttons.<key>.label'
-          The value is supposed to be a href for the button
-        */
-        const operations = [];
+
+      // Observable for item identifiers (retrieved from embedded link)
+      this.identifiers$ = this.identifierDataService.getIdentifierDataFor(item).pipe(
+        map((identifierRD) => {
+          if (identifierRD.statusCode !== 401 && hasValue(identifierRD.payload)) {
+            return identifierRD.payload.identifiers;
+          } else {
+            return null;
+          }
+        }),
+      );
+
+      // Observable for configuration determining whether the Register DOI feature is enabled
+      let registerConfigEnabled$: Observable<boolean> = this.configurationService.findByPropertyName('identifiers.item-status.register-doi').pipe(
+        getFirstCompletedRemoteData(),
+        map((enabledRD: RemoteData<ConfigurationProperty>) => enabledRD.hasSucceeded && enabledRD.payload.values.length > 0)
+      );
+
+      /**
+       * Construct a base list of operations.
+       * The key is used to build messages
+       * i18n example: 'item.edit.tabs.status.buttons.<key>.label'
+       * The value is supposed to be a href for the button
+       */
+      const operations: ItemOperation[] = [];
         operations.push(new ItemOperation('authorizations', this.getCurrentUrl(item) + '/authorizations', FeatureID.CanManagePolicies, true));
         operations.push(new ItemOperation('mappedCollections', this.getCurrentUrl(item) + '/mapper', FeatureID.CanManageMappings, true));
         if (item.isWithdrawn) {
@@ -95,10 +130,53 @@ export class ItemStatusComponent implements OnInit {
         }
         operations.push(new ItemOperation('delete', this.getCurrentUrl(item) + '/delete', FeatureID.CanDelete, true));
         operations.push(new ItemOperation('move', this.getCurrentUrl(item) + '/move', FeatureID.CanMove, true));
-
         this.operations$.next(operations);
 
-        const ops$ = observableFrom(operations).pipe(
+        /**
+         *  When the identifier data stream changes, determine whether the register DOI button should be shown or not.
+         *  This is based on whether the DOI is in the right state (minted or pending, not already queued for registration
+         *  or registered) and whether the configuration property identifiers.item-status.register-doi is true
+         */
+        const ops$ = this.identifierDataService.getIdentifierDataFor(item).pipe(
+          getFirstCompletedRemoteData(),
+          mergeMap((dataRD: RemoteData<IdentifierData>) => {
+            if (dataRD.hasSucceeded) {
+              let identifiers = dataRD.payload.identifiers;
+              let no_doi = true;
+              let pending = false;
+              if (identifiers !== undefined && identifiers !== null) {
+                identifiers.forEach((identifier: Identifier) => {
+                  if (hasValue(identifier) && identifier.identifierType === 'doi') {
+                    // The item has some kind of DOI
+                    no_doi = false;
+                    if (identifier.identifierStatus === 'PENDING' || identifier.identifierStatus === 'MINTED'
+                      || identifier.identifierStatus == null) {
+                      // The item's DOI is pending, minted or null.
+                      // It isn't registered, reserved, queued for registration or reservation or update, deleted
+                      // or queued for deletion.
+                      pending = true;
+                    }
+                  }
+                });
+              }
+              // If there is no DOI, or a pending/minted/null DOI, and the config is enabled, return true
+              return registerConfigEnabled$.pipe(
+                map((enabled: boolean) => {
+                    return enabled && (pending || no_doi);
+                  }
+                ));
+            } else {
+              return of(false);
+            }
+          }),
+          // Switch map pushes the register DOI operation onto a copy of the base array then returns to the pipe
+          switchMap((showDoi: boolean) => {
+            let ops = [...operations];
+            if (showDoi) {
+              ops.push(new ItemOperation('register-doi', this.getCurrentUrl(item) + '/register-doi', FeatureID.CanRegisterDOI, true));
+            }
+            return ops;
+          }),
           mergeMap((operation) => {
             if (hasValue(operation.featureID)) {
               return this.authorizationService.isAuthorized(operation.featureID, item.self).pipe(
@@ -112,7 +190,7 @@ export class ItemStatusComponent implements OnInit {
           toArray()
         );
 
-        let orcidOps$ = observableOf([]);
+        let orcidOps$ = of([]);
         if (this.orcidAuthService.isLinkedToOrcid(item)) {
           orcidOps$ = this.orcidAuthService.onlyAdminCanDisconnectProfileFromOrcid().pipe(
               map((canDisconnect) => {
@@ -134,6 +212,7 @@ export class ItemStatusComponent implements OnInit {
       getAllSucceededRemoteDataPayload(),
       map((item) => getItemPageRoute(item))
     );
+
   }
 
   /**
@@ -146,6 +225,12 @@ export class ItemStatusComponent implements OnInit {
 
   trackOperation(index: number, operation: ItemOperation) {
     return hasValue(operation) ? operation.operationKey : undefined;
+  }
+
+  ngOnDestroy(): void {
+    this.subs
+      .filter((subscription) => hasValue(subscription))
+      .forEach((subscription) => subscription.unsubscribe());
   }
 
 }
