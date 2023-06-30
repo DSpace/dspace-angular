@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { combineLatest, Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import { first, map, take } from 'rxjs/operators';
 
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 import { RoleService } from '../core/roles/role.service';
@@ -103,9 +103,9 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
    *    Emits the available configuration list
    */
   public getAvailableConfigurationTypes(): Observable<MyDSpaceConfigurationValueType[]> {
-    return combineLatest(this.isSubmitter$, this.isController$, this.isAdmin$).pipe(
-      first(),
-      map(([isSubmitter, isController, isAdmin]: [boolean, boolean, boolean]) => {
+    return combineLatest([this.isSubmitter$, this.isController$, this.isAdmin$]).pipe(
+      take(1),
+       map(([isSubmitter, isController, isAdmin]: [boolean, boolean, boolean]) => {
         const availableConf: MyDSpaceConfigurationValueType[] = [];
         if (isSubmitter) {
           availableConf.push(MyDSpaceConfigurationValueType.Workspace);
