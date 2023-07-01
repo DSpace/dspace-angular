@@ -77,7 +77,7 @@ export interface DeleteRelationship extends RelationshipIdentifiable {
  */
 export interface ObjectUpdatesEntry {
   fieldStates: FieldStates;
-  fieldUpdates: FieldUpdates;
+  fieldUpdates?: FieldUpdates;
   virtualMetadataSources: VirtualMetadataSources;
   lastModified: Date;
   patchOperationService?: GenericConstructor<PatchOperationService>;
