@@ -19,7 +19,7 @@ describe('MetadataRepresentationListElementComponent', () => {
   let fixture: ComponentFixture<MetadataRepresentationListElementComponent>;
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [],
       declarations: [MetadataRepresentationListElementComponent],
       schemas: [NO_ERRORS_SCHEMA]
@@ -39,9 +39,7 @@ describe('MetadataRepresentationListElementComponent', () => {
       comp.mdRepresentation = mockMetadataRepresentation;
     });
     it('isLink correctly detects a non-URL string as false', () => {
-      waitForAsync(() => {
-        expect(comp.isLink()).toBe(false);
-      });
+      expect(comp.isLink()).toBe(false);
     });
   });
 
@@ -50,9 +48,7 @@ describe('MetadataRepresentationListElementComponent', () => {
       comp.mdRepresentation = mockMetadataRepresentationUrl;
     });
     it('isLink correctly detects a URL string as true', () => {
-      waitForAsync(() => {
-        expect(comp.isLink()).toBe(true);
-      });
+      expect(comp.isLink()).toBe(true);
     });
   });
 
