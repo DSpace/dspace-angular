@@ -44,6 +44,10 @@ describe('hostWindowReducer', () => {
 
     const action = new HostWindowResizeAction(1024, 768);
     hostWindowReducer(state, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
 });
