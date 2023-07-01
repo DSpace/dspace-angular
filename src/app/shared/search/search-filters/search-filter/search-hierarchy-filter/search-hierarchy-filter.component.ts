@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { renderFacetFor } from '../search-filter-type-decorator';
 import { FilterType } from '../../../models/filter-type.model';
 import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
@@ -21,7 +21,7 @@ import { FacetValue } from '../../../models/facet-value.model';
 import { getFacetValueForType } from '../../../search.utils';
 import { filter, map, take } from 'rxjs/operators';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { environment } from '../../../../../../environments/environment';
 import { addOperatorToFilterValue } from '../../../search.utils';
@@ -38,7 +38,9 @@ import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-tr
  * Component that represents a hierarchy facet for a specific filter configuration
  */
 @renderFacetFor(FilterType.hierarchy)
-export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent implements OnInit {
+export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent implements OnDestroy, OnInit {
+
+  subscriptions: Subscription[] = [];
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
@@ -55,6 +57,11 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
   }
 
   vocabularyExists$: Observable<boolean>;
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+  }
 
   /**
    * Submits a new active custom value to the filter from the input field
@@ -91,11 +98,11 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
       name: this.getVocabularyEntry(),
       closed: true
     };
-    modalRef.result.then((detail: VocabularyEntryDetail) => {
+    this.subscriptions.push(modalRef.componentInstance.select.subscribe((detail: VocabularyEntryDetail) => {
       this.selectedValues$
         .pipe(take(1))
         .subscribe((selectedValues) => {
-          this.router.navigate(
+          void this.router.navigate(
             [this.searchService.getSearchLink()],
             {
               queryParams: {
@@ -106,7 +113,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
             },
           );
         });
-    }).catch();
+    }));
   }
 
   /**
