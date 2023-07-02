@@ -12,7 +12,6 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { getMockRequestService } from '../mocks/request.service.mock';
 import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
-import { SearchDataImpl } from '../../core/data/base/search-data';
 import { NotificationsServiceStub } from '../testing/notifications-service.stub';
 import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
 import { createPaginatedList } from '../testing/utils.test';
@@ -22,7 +21,6 @@ describe('SubscriptionsDataService', () => {
 
 
   let service: SubscriptionsDataService;
-  let searchData: SearchDataImpl<Subscription>;
 
   let comparator: DSOChangeAnalyzer<Subscription>;
   let http: HttpClient;
@@ -121,11 +119,11 @@ describe('SubscriptionsDataService', () => {
     });
 
     it('should get the subscriptions', () => {
+      spyOn((service as any).searchData, 'searchBy');
       const id = 'test-id';
       const ePersonId = 'test-ePersonId';
-      service.getSubscriptionsByPersonDSO(ePersonId, id).subscribe(() => {
-        expect(searchData.searchBy).toHaveBeenCalled();
-      });
+      service.getSubscriptionsByPersonDSO(ePersonId, id);
+      expect((service as any).searchData.searchBy).toHaveBeenCalled();
     });
 
   });
