@@ -1,4 +1,4 @@
-<h3>{{filterLable+'.filters.head' | translate}}</h3>
+<label class="h3">{{filterLable+'.filters.head' | translate}}</label>
 <div *ngIf="(filters | async)?.hasSucceeded">
     <div *ngFor="let filter of (filters | async)?.payload; trackBy: trackUpdate">
         <ds-search-filter [filter]="filter" [inPlaceSearch]="inPlaceSearch" [refreshFilters]="refreshFilters"></ds-search-filter>
