@@ -9640,8 +9640,7 @@
   "submission.general.save-later": "Für später speichern",
 
   // "submission.general.save-later.edit-item": "Save and return",
-  // TODO New key - Add a translation
-  "submission.general.save-later.edit-item": "Save and return",
+  "submission.general.save-later.edit-item": "Speichern und Beenden",
 
   // "submission.import-external.page.title": "Import metadata from an external source",
   "submission.import-external.page.title": "Importieren von Metadaten aus einer externen Quelle",
