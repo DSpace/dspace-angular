@@ -3340,20 +3340,16 @@
   "confirmation-modal.delete-subscription.confirm": "Delete",
 
   // "confirmation-modal.pending-changes.header": "Unsaved changes",
-  // TODO New key - Add a translation
-  "confirmation-modal.pending-changes.header": "Unsaved changes",
+  "confirmation-modal.pending-changes.header": "Nicht gespeicherte Änderungen",
 
   // "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
-  // TODO New key - Add a translation
-  "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
+  "confirmation-modal.pending-changes.info": "Auf dieser Seite gibt es Änderungen, die noch nicht gespeichert wurden. Wollen Sie diese Seite wirklich verlassen?",
 
   // "confirmation-modal.pending-changes.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "confirmation-modal.pending-changes.cancel": "Cancel",
+  "confirmation-modal.pending-changes.cancel": "Abbrechen",
 
   // "confirmation-modal.pending-changes.confirm": "Leave",
-  // TODO New key - Add a translation
-  "confirmation-modal.pending-changes.confirm": "Leave",
+  "confirmation-modal.pending-changes.confirm": "Seite verlassen",
 
 
   // "dataset.listelement.badge" : "Dataset",
