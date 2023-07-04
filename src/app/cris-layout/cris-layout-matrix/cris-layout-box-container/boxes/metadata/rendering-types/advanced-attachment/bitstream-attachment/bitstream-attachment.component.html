@@ -1,11 +1,11 @@
 <ng-container *ngIf="attachment">
-  <div class="d-flex flex-row flex-wrap flex-lg-nowrap card-container mt-1 mb-2" data-test="attachment-info">
+  <div class="d-flex flex-row flex-wrap flex-lg-nowrap card-container mt-1" data-test="attachment-info">
 
-    <div class="order-lg-1 mr-lg-3 thumbnail-wrapper">
+    <div class="order-lg-1 mr-lg-3 mb-3 thumbnail-wrapper">
       <ds-thumbnail [thumbnail]="attachment.thumbnail | async"></ds-thumbnail>
     </div>
 
-    <div class="order-lg-3 pl-3 ml-auto">
+    <div class="order-lg-3 pl-3 ml-auto mb-3">
       <div class="d-flex flex-column align-items-end">
         <ng-container *ngFor="let renderingType of allAttachmentProviders">
           <div class="mb-3 text-nowrap">
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div class="order-lg-2 w-100 mt-3 mt-lg-0">
+    <div class="order-lg-2 w-100 mb-3">
       <ng-container *ngFor="let attachmentConf of envMetadata">
 
         <div class="content" [attr.data-test]="attachmentConf.name"
