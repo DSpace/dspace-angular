@@ -7,7 +7,10 @@
           <!-- Community name -->
           <ds-comcol-page-header [name]="dsoNameService.getName(communityPayload)"></ds-comcol-page-header>
           <!-- Community logo -->
-          <ds-comcol-page-logo *ngIf="logoRD$" [logo]="(logoRD$ | async)?.payload" [alternateText]="'Community Logo'">
+          <ds-comcol-page-logo *ngIf="logoRD$" [logo]="(logoRD$ | async)?.payload"
+                               [alternateText]="'Community Logo'"
+                               [imageWidthConstraint]="environment.layout.logo.imageWidthConstraint"
+                               [imageHeightConstraint]="environment.layout.logo.imageHeightConstraint">
           </ds-comcol-page-logo>
           <!-- Handle -->
           <ds-themed-comcol-page-handle [content]="communityPayload.handle" [title]="'community.page.handle'">

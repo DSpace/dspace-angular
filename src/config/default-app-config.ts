@@ -23,6 +23,7 @@ import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import {QualityAssuranceConfig} from './quality-assurance.config';
+import { LayoutConfig } from "./layout-config.interfaces";
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -442,4 +443,13 @@ export class DefaultAppConfig implements AppConfig {
     },
     pageSize: 5,
   };
+
+  layout: LayoutConfig = {
+    logo: {
+      // Change the values of those lines to set the size constraint for the logo
+      imageWidthConstraint: 500,
+      imageHeightConstraint: 500
+    },
+  };
+
 }

@@ -22,6 +22,7 @@ import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { Operation } from 'fast-json-patch';
 import { NoContent } from '../../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { environment } from '../../../../../environments/environment';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -117,6 +118,11 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    * The service used to fetch from or send data to
    */
   protected dsoService: ComColDataService<Community | Collection>;
+
+  /**
+   * The service used to fetch the config from the environment
+   */
+  public readonly environment = environment;
 
   public constructor(protected formService: DynamicFormService,
                      protected translate: TranslateService,

@@ -20,6 +20,7 @@ import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { getCommunityPageRoute } from './community-page-routing-paths';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'ds-community-page',
@@ -51,6 +52,9 @@ export class CommunityPageComponent implements OnInit {
    * Route to the community page
    */
   communityPageRoute$: Observable<string>;
+
+  public readonly environment = environment;
+
 
   constructor(
     private communityDataService: CommunityDataService,

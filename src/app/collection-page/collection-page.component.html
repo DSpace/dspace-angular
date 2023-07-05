@@ -11,9 +11,10 @@
                           [name]="dsoNameService.getName(collection)">
                   </ds-comcol-page-header>
                   <!-- Collection logo -->
-                  <ds-comcol-page-logo *ngIf="logoRD$"
-                                   [logo]="(logoRD$ | async)?.payload"
-                                   [alternateText]="'Collection Logo'">
+                  <ds-comcol-page-logo *ngIf="logoRD$" [logo]="(logoRD$ | async)?.payload"
+                                       [alternateText]="'Community Logo'"
+                                       [imageWidthConstraint]="environment.layout.logo.imageWidthConstraint"
+                                       [imageHeightConstraint]="environment.layout.logo.imageHeightConstraint">
                   </ds-comcol-page-logo>
 
                   <!-- Handle -->

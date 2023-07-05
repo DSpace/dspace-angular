@@ -319,5 +319,13 @@ export const environment: BuildConfig = {
       vocabulary: 'srsc',
       enabled: true
     }
-  ]
+  ],
+
+  layout: {
+    logo: {
+      // Change the values of those lines to set the size constraint for the logo
+      imageWidthConstraint: 500,
+      imageHeightConstraint: 500
+    }
+  },
 };

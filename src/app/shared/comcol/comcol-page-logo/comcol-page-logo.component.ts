@@ -12,6 +12,9 @@ export class ComcolPageLogoComponent {
 
   @Input() alternateText: string;
 
+  @Input() imageWidthConstraint = 200;
+  @Input() imageHeightConstraint = 200;
+
   /**
    * The default 'holder.js' image
    */

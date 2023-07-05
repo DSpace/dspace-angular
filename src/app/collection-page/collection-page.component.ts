@@ -31,6 +31,8 @@ import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { BROWSE_LINKS_TO_FOLLOW } from '../core/browse/browse.service';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../src/config/app-config.interface';
+import { environment } from '../../environments/environment';
+
 
 @Component({
   selector: 'ds-collection-page',
@@ -62,6 +64,9 @@ export class CollectionPageComponent implements OnInit {
    * Route to the community page
    */
   collectionPageRoute$: Observable<string>;
+
+  public readonly environment = environment;
+
 
   constructor(
     private collectionDataService: CollectionDataService,
