@@ -7,9 +7,6 @@ on:
   push:
     branches:
       - dtq-dev
-      - dtq-dev-present
-    tags:
-      - 'dspace-**'
   pull_request:
   workflow_dispatch:
 
