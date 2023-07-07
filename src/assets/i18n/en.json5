@@ -782,6 +782,8 @@
 
   "browse.comcol.by.srsc": "By Subject Category",
 
+  "browse.comcol.by.nsi": "By Norwegian Science Index",
+
   "browse.comcol.by.title": "By Title",
 
   "browse.comcol.head": "Browse",
@@ -803,6 +805,8 @@
   "browse.metadata.subject.breadcrumbs": "Browse by Subject",
 
   "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
+
+  "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
@@ -2825,6 +2829,8 @@
   "menu.section.browse_global_by_subject": "By Subject",
 
   "menu.section.browse_global_by_srsc": "By Subject Category",
+
+  "menu.section.browse_global_by_nsi": "By Norwegian Science Index",
 
   "menu.section.browse_global_by_title": "By Title",
 
