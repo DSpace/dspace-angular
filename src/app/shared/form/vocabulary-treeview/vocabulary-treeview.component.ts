@@ -1,5 +1,5 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 
 import { map } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
@@ -28,7 +28,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operato
   templateUrl: './vocabulary-treeview.component.html',
   styleUrls: ['./vocabulary-treeview.component.scss']
 })
-export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
+export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges {
 
   /**
    * The {@link VocabularyOptions} object
@@ -321,5 +321,10 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    */
   private getEntryId(entry: VocabularyEntry): string {
     return entry.authority || entry.otherInformation.id || undefined;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.reset();
+    this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), this.selectedItems, null);
   }
 }
