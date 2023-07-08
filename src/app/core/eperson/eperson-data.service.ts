@@ -36,7 +36,7 @@ import { RestRequestMethod } from '../data/rest-request-method';
 import { dataService } from '../data/base/data-service.decorator';
 
 const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
-const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
+export const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
 
 /**
  * A service to retrieve {@link EPerson}s from the REST API & EPerson related CRUD actions
