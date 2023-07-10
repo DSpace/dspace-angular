@@ -284,6 +284,7 @@ import {
 } from '../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { BitstreamListItemComponent } from './object-list/bitstream-list-item/bitstream-list-item.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import {ThemedUserMenuComponent} from './auth-nav-menu/user-menu/themed-user-menu.component';
 
 const MODULES = [
   CommonModule,
@@ -332,6 +333,7 @@ const COMPONENTS = [
   AuthNavMenuComponent,
   ThemedAuthNavMenuComponent,
   UserMenuComponent,
+  ThemedUserMenuComponent,
   DsSelectComponent,
   ErrorComponent,
   LangSwitchComponent,
