@@ -22,6 +22,7 @@ export const BULK_EXPORT_LIMIT_NOTLOGGEDIN = 'bulk-export.limit.notLoggedIn';
 
 @Component({
   selector: 'ds-item-export-modal-launcher',
+  styleUrls: ['./item-export-modal-launcher.component.scss'],
   templateUrl: './item-export-modal-launcher.component.html'
 })
 export class ItemExportModalLauncherComponent implements OnInit {
