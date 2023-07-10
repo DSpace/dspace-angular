@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core'
+import {Component, Input} from '@angular/core';
 import {ThemedComponent} from '../../theme-support/themed.component';
 import {UserMenuComponent} from './user-menu.component';
 
