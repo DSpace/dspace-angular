@@ -1,16 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { BehaviorSubject, Observable, Subscription as rxSubscription } from 'rxjs';
-import { switchMap, take, tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatestWith, Observable, shareReplay, Subscription as rxjsSubscription } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
-import { PaginatedList } from '../core/data/paginated-list.model';
-import { SubscriptionService } from '../shared/subscriptions/subscription.service';
+import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
+import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { PaginationService } from '../core/pagination/pagination.service';
+import { PageInfo } from '../core/shared/page-info.model';
 import { AuthService } from '../core/auth/auth.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { getAllCompletedRemoteData } from '../core/shared/operators';
 import { RemoteData } from '../core/data/remote-data';
 import { hasValue } from '../shared/empty.util';
 
@@ -19,16 +20,18 @@ import { hasValue } from '../shared/empty.util';
   templateUrl: './subscriptions-page.component.html',
   styleUrls: ['./subscriptions-page.component.scss']
 })
+/**
+ * List and allow to manage all the active subscription for the current user
+ */
 export class SubscriptionsPageComponent implements OnInit, OnDestroy {
 
   /**
    * The subscriptions to show on this page, as an Observable list.
    */
-  subscriptions$: BehaviorSubject<PaginatedList<Subscription>> = new BehaviorSubject(null);
+  subscriptions$: BehaviorSubject<PaginatedList<Subscription>> = new BehaviorSubject(buildPaginatedList<Subscription>(new PageInfo(), []));
 
   /**
-   * The current pagination configuration for the page used by the FindAll method
-   * Currently simply renders subscriptions
+   * The current pagination configuration for the page
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'elp',
@@ -37,86 +40,72 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
   });
 
   /**
-   * Subscription to be unsubscribed
-   */
-  sub: rxSubscription;
-
-  /**
    * A boolean representing if is loading
    */
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
-   * EPerson id of the logged in user
+   * The current eperson id
    */
-  eperson: string;
+  ePersonId$: Observable<string>;
+
+  /**
+   * The rxjs subscription used to retrieve the result list
+   */
+  sub: rxjsSubscription = null;
 
   constructor(
     private paginationService: PaginationService,
     private authService: AuthService,
-    private subscriptionService: SubscriptionService
+    private subscriptionService: SubscriptionsDataService
   ) {
+
   }
 
   /**
-   * Subscribe the pagination service to send a request with specific pagination
-   * When page is changed it will request the new subscriptions for the new page config
+   * Retrieve the current eperson id and call method to retrieve the subscriptions
    */
   ngOnInit(): void {
-    this.loading$.next(true);
-    this.authService.getAuthenticatedUserFromStore().pipe(
+    this.ePersonId$ = this.authService.getAuthenticatedUserFromStore().pipe(
       take(1),
-      tap((eperson: EPerson) => {
-        this.eperson = eperson.id;
-      }),
-      switchMap(() => this.retrieveSubscriptions())
-    ).subscribe({
-      next: (res: RemoteData<PaginatedList<Subscription>>) => {
-        if (res.hasSucceeded) {
-          this.subscriptions$.next(res.payload);
-        }
-        this.loading$.next(false);
-      },
-      error: () => {
-        this.loading$.next(false);
-      }
-    });
+      map((ePerson: EPerson) => ePerson.id),
+      shareReplay()
+    );
+    this.retrieveSubscriptions();
   }
 
   /**
-   * When an action is made and the information is changed refresh the information
+   * Retrieve subscription list related to the current user.
+   * When page is changed it will request the new subscriptions for the new page config
+   * @private
+   */
+  private retrieveSubscriptions(): void {
+    this.sub = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
+      combineLatestWith(this.ePersonId$),
+      tap(() => this.loading$.next(true)),
+      switchMap(([currentPagination, ePersonId]) => this.subscriptionService.findByEPerson(ePersonId,{
+        currentPage: currentPagination.currentPage,
+        elementsPerPage: currentPagination.pageSize
+      })),
+      getAllCompletedRemoteData()
+    ).subscribe((res: RemoteData<PaginatedList<Subscription>>) => {
+      if (res.hasSucceeded) {
+        this.subscriptions$.next(res.payload);
+      }
+      this.loading$.next(false);
+    });
+  }
+  /**
+   * When a subscription is deleted refresh the subscription list
    */
   refresh(): void {
-    this.loading$.next(true);
-    this.retrieveSubscriptions().subscribe({
-      next: (res: any) => {
-        if (res.hasSucceeded) {
-          this.subscriptions$.next(res.payload);
-        }
-        this.loading$.next(false);
-      },
-      error: () => {
-        this.loading$.next(false);
-      }
-    });
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
+
+    this.retrieveSubscriptions();
   }
 
-  private retrieveSubscriptions(): Observable<RemoteData<PaginatedList<Subscription>>> {
-    return this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
-      switchMap((findListOptions) => {
-          return this.subscriptionService.findByEPerson(this.eperson, {
-            currentPage: findListOptions.currentPage,
-            elementsPerPage: findListOptions.pageSize
-          });
-        }
-      ),
-      getFirstCompletedRemoteData()
-    );
-  }
-
-  /**
-   * Unsubscribe from pagination subscription
-   */
   ngOnDestroy(): void {
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();

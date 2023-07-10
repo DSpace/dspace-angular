@@ -17,7 +17,9 @@ import { CollectionFormModule } from './collection-form/collection-form.module';
 import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 import { ComcolModule } from '../shared/comcol/comcol.module';
-import { EditCollectionResolver } from './../core/shared/resolvers/edit-collection.resolver';
+import { DsoSharedModule } from '../dso-shared/dso-shared.module';
+import { DsoPageModule } from '../shared/dso-page/dso-page.module';
+import { EditCollectionResolver } from '../core/shared/resolvers/edit-collection.resolver';
 
 @NgModule({
   imports: [
@@ -28,6 +30,8 @@ import { EditCollectionResolver } from './../core/shared/resolvers/edit-collecti
     EditItemPageModule,
     CollectionFormModule,
     ComcolModule,
+    DsoSharedModule,
+    DsoPageModule,
     ContextMenuModule.withEntryComponents(),
   ],
   declarations: [

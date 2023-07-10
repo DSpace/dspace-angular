@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { first, map, mergeMap, switchMap } from 'rxjs/operators';
-import { FollowLinkConfig, followLink } from '../../../shared/utils/follow-link-config.model';
+import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RequestService } from '../../data/request.service';
 import { RemoteData } from '../../data/remote-data';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { Vocabulary } from './models/vocabulary.model';
 import { VocabularyEntry } from './models/vocabulary-entry.model';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import {
-  getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteListPayload
-} from '../../shared/operators';
+import { getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from '../../shared/operators';
 import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
 import { VocabularyEntryDetail } from './models/vocabulary-entry-detail.model';
 import { RequestParam } from '../../cache/models/request-param.model';
@@ -153,8 +150,27 @@ export class VocabularyService {
    */
   getPublicVocabularyEntryByValue(vocabularyName: string, value: string): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
     const params: RequestParam[] = [
-      new RequestParam('filter',value),
-      new RequestParam('exact','true')
+      new RequestParam('filter', value),
+      new RequestParam('exact', 'true')
+    ];
+    const options = Object.assign(new FindListOptions(), {
+      searchParams: params,
+      elementsPerPage: 1,
+    });
+    const href$ = this.vocabularyDataService.getFindAllHref(options, vocabularyName + '/entries');
+    return this.vocabularyEntryDetailDataService.findListByHref(href$);
+  }
+
+  /**
+   * Get the display value for a hierarchical vocabulary item,
+   * given the vocabulary name and the entryID of that vocabulary-entry
+   *
+   * @param vocabularyName
+   * @param entryID
+   */
+  getPublicVocabularyEntryByID(vocabularyName: string, entryID: string): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
+    const params: RequestParam[] = [
+      new RequestParam('entryID', entryID)
     ];
     const options = Object.assign(new FindListOptions(), {
       searchParams: params,

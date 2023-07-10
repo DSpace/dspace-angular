@@ -77,6 +77,6 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
    * If the drag feature is disabled for this DynamicRowArrayModel.
    */
   get dragDisabled(): boolean {
-    return this.model.groups.length === 1 || !this.model.isDraggable;
+    return this.model.groups.length === 1 || !this.model.isDraggable || this.model.notRepeatable;
   }
 }

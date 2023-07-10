@@ -1,4 +1,4 @@
-<div *ngIf="(filters | async)?.hasSucceeded && (filters | async)?.payload?.length > 0" class="container">
+<div *ngIf="isPlatformBrowser && (filters | async)?.hasSucceeded && (filters | async)?.payload?.length > 0" class="container">
   <div class="row">
     <div class="col-md-12 mb-40">
       <div class="d-flex align-items-center mb-2">
@@ -12,14 +12,16 @@
       </div>
       <div *ngIf="!collapseChart && selectedFilter" @shrinkInOut data-test="search-charts">
         <ul class="nav nav-pills mb-2">
-          <li class="nav-item mr-3" *ngFor="let filter of (filters | async)?.payload; trackBy: trackUpdate; let i = index"
-              (click)="changeChartType(filter)">
-            <a class="nav-link" [ngClass]="{'active' : selectedFilter.name == filter.name}" data-test="search-charts-tab">
-              {{'search.filters.applied.charts.' + filter.name + '.tab' | translate}}
-            </a>
-          </li>
+          <ng-container *ngFor="let filter of (filters | async)?.payload; trackBy: trackUpdate; let i = index">
+            <li class="nav-item mr-3" *ngIf="(canShowChart(filter) | async)"
+                (click)="changeChartType(filter)">
+              <a class="nav-link" [ngClass]="{'active' : selectedFilter.name == filter.name}" data-test="search-charts-tab">
+                {{'search.filters.applied.charts.' + filter.name + '.tab' | translate}}
+              </a>
+            </li>
+          </ng-container>
         </ul>
-        <div>
+        <div *ngIf="(canShowChart(selectedFilter) | async)">
           <ds-search-chart [filter]="selectedFilter"
                            [inPlaceSearch]="inPlaceSearch"
                            [refreshFilters]="refreshFilters"></ds-search-chart>

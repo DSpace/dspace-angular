@@ -1,4 +1,4 @@
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import { environment } from '../../../../../environments/environment';
 import { MetricVisualizationConfig } from '../../../../../config/metric-visualization-config.interfaces';
 import { Metric } from '../../../../core/shared/metric.model';

@@ -1,11 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-import { BehaviorSubject, Observable } from 'rxjs';
-
 import { SearchOptions } from '../../../models/search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
 import { SearchObjects } from '../../../models/search-objects.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
@@ -66,8 +64,7 @@ export class ItemExportListComponent implements OnInit {
 
   constructor(
     private paginationService: PaginationService,
-    private searchManager: SearchManager
-  ) {
+    private searchManager: SearchManager) {
   }
 
   ngOnInit(): void {

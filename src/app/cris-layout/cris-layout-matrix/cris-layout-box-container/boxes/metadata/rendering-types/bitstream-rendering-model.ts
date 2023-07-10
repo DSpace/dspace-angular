@@ -125,7 +125,15 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
    */
   getBitstreamsByItem(options?: FindListOptions): Observable<PaginatedList<Bitstream>> {
     return this.bitstreamDataService
-      .findByItem(this.item.uuid, this.field.bitstream.bundle, this.getMetadataFilters(), options, false, false, followLink('thumbnail'))
+      .findByItem(
+        this.item.uuid,
+        this.field.bitstream.bundle,
+        this.getMetadataFilters(),
+        options,
+        false,
+        false,
+        followLink('thumbnail')
+      )
       .pipe(
         getFirstCompletedRemoteData(),
         map((response: RemoteData<PaginatedList<Bitstream>>) => {
@@ -150,6 +158,5 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
     }
     return filters;
   }
-
 
 }

@@ -20,7 +20,8 @@ import { InfoConfig } from './info-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
-import { AddThisPluginConfig } from './addThisPlugin-config';
+import { FilterVocabularyConfig } from './filter-vocabulary-config';
+import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
 import { CmsMetadata } from './cms-metadata';
 import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-config.interfaces';
 import { MetadataSecurityConfig } from './metadata-security-config';
@@ -31,6 +32,7 @@ import {
   AdvancedAttachmentRenderingConfig
 } from './advanced-attachment-rendering.config';
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
+import { SearchResultConfig } from './search-result-config.interface';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -77,11 +79,34 @@ export class DefaultAppConfig implements AppConfig {
     msToLive: {
       default: 15 * 60 * 1000 // 15 minutes
     },
-    control: 'max-age=60', // revalidate browser
+    // Cache-Control HTTP Header
+    control: 'max-age=604800', // revalidate browser
     autoSync: {
       defaultTime: 0,
       maxBufferSize: 100,
       timePerMethod: { [RestRequestMethod.PATCH]: 3 } as any // time in seconds
+    },
+    // In-memory cache of server-side rendered content
+    serverSide: {
+      debug: false,
+      // Cache specific to known bots.  Allows you to serve cached contents to bots only.
+      // Defaults to caching 1,000 pages. Each page expires after 1 day
+      botCache: {
+        // Maximum number of pages (rendered via SSR) to cache. Setting max=0 disables the cache.
+        max: 1000,
+        // Amount of time after which cached pages are considered stale (in ms)
+        timeToLive: 24 * 60 * 60 * 1000, // 1 day
+        allowStale: true,
+      },
+      // Cache specific to anonymous users. Allows you to serve cached content to non-authenticated users.
+      // Defaults to caching 0 pages. But, when enabled, each page expires after 10 seconds (to minimize anonymous users seeing out-of-date content)
+      anonymousCache: {
+        // Maximum number of pages (rendered via SSR) to cache. Setting max=0 disables the cache.
+        max: 0, // disabled by default
+        // Amount of time after which cached pages are considered stale (in ms)
+        timeToLive: 10 * 1000, // 10 seconds
+        allowStale: true,
+      }
     }
   };
 
@@ -104,6 +129,7 @@ export class DefaultAppConfig implements AppConfig {
 
   // Form settings
   form: FormConfig = {
+    spellCheck: true,
     // NOTE: Map server-side validators to comparative Angular form validators
     validatorMap: {
       required: 'required',
@@ -195,11 +221,23 @@ export class DefaultAppConfig implements AppConfig {
           },
           {
             value: 500,
-            style: 'text-info'
+            style: 'text-warning'
           },
           {
             value: 400,
-            style: 'text-warning'
+            style: 'text-danger'
+          },
+          {
+            value: 300,
+            style: 'text-dark'
+          },
+          {
+            value: 200,
+            style: 'text-dark'
+          },
+          {
+            value: 100,
+            style: 'text-dark'
           },
           // default configuration
           {
@@ -225,6 +263,7 @@ export class DefaultAppConfig implements AppConfig {
   // When set to active, users will be able to switch to the use of this language in the user interface.
   languages: LangConfig[] = [
     { code: 'en', label: 'English', active: true },
+    { code: 'ca', label: 'Català', active: true },
     { code: 'cs', label: 'Čeština', active: true },
     { code: 'de', label: 'Deutsch', active: true },
     { code: 'es', label: 'Español', active: true },
@@ -234,6 +273,7 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'lv', label: 'Latviešu', active: true },
     { code: 'hu', label: 'Magyar', active: true },
     { code: 'nl', label: 'Nederlands', active: true },
+    { code: 'pl', label: 'Polski', active: true },
     { code: 'pt-PT', label: 'Português', active: true },
     { code: 'pt-BR', label: 'Português do Brasil', active: true },
     { code: 'fi', label: 'Suomi', active: true },
@@ -242,7 +282,8 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'kk', label: 'Қазақ', active: true },
     { code: 'bn', label: 'বাংলা', active: true },
     { code: 'hi', label: 'हिंदी', active: true},
-    { code: 'el', label: 'Ελληνικά', active: true }
+    { code: 'el', label: 'Ελληνικά', active: true },
+    { code: 'uk', label: 'Yкраї́нська', active: true}
   ];
 
   // Browse-By Pages
@@ -283,7 +324,13 @@ export class DefaultAppConfig implements AppConfig {
       undoTimeout: 10000 // 10 seconds
     },
     // Show the item access status label in items lists
-    showAccessStatuses: false
+    showAccessStatuses: false,
+    bitstream: {
+      // Number of entries in the bitstream list in the item view page.
+      // Rounded to the nearest size in the list of selectable sizes on the
+      // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
+      pageSize: 5
+    }
   };
 
   // When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
@@ -437,6 +484,17 @@ export class DefaultAppConfig implements AppConfig {
     mathjax: false,
   };
 
+  // Which vocabularies should be used for which search filters
+  // and whether to show the filter in the search sidebar
+  // Take a look at the filter-vocabulary-config.ts file for documentation on how the options are obtained
+  vocabularies: FilterVocabularyConfig[] = [
+    {
+      filter: 'subject',
+      vocabulary: 'srsc',
+      enabled: false
+    }
+    ];
+
   crisLayout: CrisLayoutConfig = {
     urn: [
       {
@@ -498,7 +556,9 @@ export class DefaultAppConfig implements AppConfig {
         }
       }
     ],
-    crisRefStyleMetadata: 'cris.entity.style',
+    crisRefStyleMetadata: {
+      default: 'cris.entity.style',
+    },
     itemPage: {
       OrgUnit: {
         orientation: 'vertical'
@@ -559,10 +619,15 @@ export class DefaultAppConfig implements AppConfig {
     ]
   };
 
-  addThisPlugin: AddThisPluginConfig = {
-    siteId: '',
-    scriptUrl: 'http://s7.addthis.com/js/300/addthis_widget.js#pubid=',
-    socialNetworksEnabled: false
+  addToAnyPlugin: AddToAnyPluginConfig = {
+    scriptUrl: 'https://static.addtoany.com/menu/page.js',
+    socialNetworksEnabled: false,
+    buttons: ['facebook', 'twitter', 'linkedin', 'email', 'copy_link'],
+    showPlusButton: true,
+    showCounters: true,
+    title: 'DSpace CRIS 7 demo',
+    // link: 'https://dspacecris7.4science.cloud/',
+    // The link to be shown in the shared post, if different from document.location.origin
   };
 
   metricVisualizationConfig: MetricVisualizationConfig[] = [
@@ -650,4 +715,9 @@ export class DefaultAppConfig implements AppConfig {
       }
     ]
   };
+
+  searchResult: SearchResultConfig = {
+    additionalMetadataFields: []
+  };
+
 }

@@ -1,0 +1,77 @@
+<div *ngIf="additionalMetadataFields">
+  <ng-container *ngFor="let metadataFieldConfiguration of additionalMetadataFields">
+    <div *ngFor="let metadataItem of metadataFieldConfiguration"
+         [ngClass]="{'d-inline-block mr-1': metadataFieldConfiguration.length > 1}">
+
+      <ng-template #label>
+        <span class="font-weight-bold mr-1 text-muted">{{metadataItem.label | translate}}:</span>
+      </ng-template>
+
+      <span
+        *ngFor="let metadataValue of (metadataItem.startFromLast ? object.allMetadata(metadataItem.name).reverse() : object.allMetadata(metadataItem.name)); let c = count; let f = first; let l = last; let i = index">
+
+        <ng-container [ngSwitch]="metadataRenderingType(metadataItem)"
+                      *ngIf="!metadataItem.limitTo || (i < metadataItem.limitTo)">
+
+          <span *ngIf="metadataItem.label && metadataRenderingType(metadataItem) !== 'currentRole' && metadataRenderingType(metadataItem) !== 'lastRole'">
+            <ng-container *ngTemplateOutlet="label"></ng-container>
+          </span>
+        <ng-container *ngIf="metadataItem.prefix">{{ metadataItem.prefix }}</ng-container>
+
+          <ng-container *ngSwitchCase="'crisref'">
+            <ds-metadata-link-view [item]="object" [metadata]="metadataValue"></ds-metadata-link-view>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'link'">
+            <ng-container *ngVar="linkData(metadataItem, metadataValue) as linkData">
+              <a href="{{linkData.href}}" target="_blank" [innerHTML]="linkData.text"></a>
+            </ng-container>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'identifier'">
+            <ng-container *ngVar="identifierData(metadataItem, metadataValue) as identifierData">
+              <a href="{{identifierData.href}}" target="_blank" [innerHTML]="identifierData.text"></a>
+            </ng-container>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'valuepair'">
+            {{ valuepairData(metadataValue, metadataRenderingSubtype(metadataItem)) | async }}
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'currentRole'">
+            <ng-container *ngVar="currentRoleData(object) as currentRole">
+              <ng-container *ngIf="f && currentRole">
+                <ng-container *ngTemplateOutlet="label"></ng-container>
+                {{ currentRole }}
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'lastRole'">
+            <ng-container *ngVar="lastRoleData(object) as lastRole">
+              <ng-container *ngIf="f && lastRole">
+                <ng-container *ngTemplateOutlet="label"></ng-container>
+                {{ lastRole }}
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'date'">
+            <span class="metadata">{{ metadataValue.value | date:dateFormat }}</span>
+          </ng-container>
+
+          <ng-container *ngSwitchDefault>
+            <span class="metadata" [innerHTML]="metadataValue.value"></span>
+          </ng-container>
+
+          <ng-container *ngIf="metadataItem.suffix">{{ metadataItem.suffix }}</ng-container>
+
+          <ng-container *ngIf="!l && (!metadataItem.limitTo || (i !== metadataItem.limitTo - 1))">;&nbsp;</ng-container>
+
+        </ng-container>
+
+      </span>
+    </div>
+  </ng-container>
+
+</div>

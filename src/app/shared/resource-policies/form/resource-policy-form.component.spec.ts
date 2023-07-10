@@ -24,7 +24,7 @@ import { ResourcePolicyEvent, ResourcePolicyFormComponent } from './resource-pol
 import { FormService } from '../../form/form.service';
 import { getMockFormService } from '../../mocks/form-service.mock';
 import { FormBuilderService } from '../../form/builder/form-builder.service';
-import { EpersonGroupListComponent } from './eperson-group-list/eperson-group-list.component';
+import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { FormComponent } from '../../form/form.component';
 import { dateToISOFormat, stringToNgbDateStruct } from '../../date.util';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';

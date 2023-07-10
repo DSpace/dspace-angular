@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
 import { Operation } from 'fast-json-patch';
 import { Item } from '../shared/item.model';

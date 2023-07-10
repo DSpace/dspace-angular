@@ -2,7 +2,6 @@ import { RegistrationGuard } from './registration.guard';
 import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../core/auth/auth.service';
-import { Location } from '@angular/common';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,

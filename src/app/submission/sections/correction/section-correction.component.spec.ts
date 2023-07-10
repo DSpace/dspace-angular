@@ -1,14 +1,14 @@
+import { ChangeDetectorRef, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { mockSubmissionCollectionId, mockSubmissionId } from '../../../shared/mocks/submission.mock';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { of } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
-import { SectionFormOperationsService } from '../form/section-form-operations.service';
-import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
-import { FormService } from '../../../shared/form/form.service';
-import { getMockFormService } from '../../../shared/mocks/form-service.mock';
-import { ChangeDetectorRef, DebugElement } from '@angular/core';
+
+import { mockSubmissionCollectionId, mockSubmissionId } from '../../../shared/mocks/submission.mock';
+import { SubmissionSectionCorrectionComponent } from './section-correction.component';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { SubmissionSectionLicenseComponent } from '../license/section-license.component';
 import { SectionDataObject } from '../models/section-data.model';
@@ -18,7 +18,6 @@ import { SectionsService } from '../sections.service';
 import { OperationType } from '../../../core/submission/models/workspaceitem-section-correction.model';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SubmissionSectionCorrectionComponent } from './section-correction.component';
 
 const sectionObject: SectionDataObject = {
   config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/license',
@@ -92,7 +91,7 @@ const collectionId = mockSubmissionCollectionId;
 describe('CorrectionComponent', () => {
   let component: SubmissionSectionCorrectionComponent;
   let fixture: ComponentFixture<SubmissionSectionCorrectionComponent>;
-  const sectionsServiceStub: SectionsServiceStub = undefined;
+  let sectionsService: any;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -109,8 +108,6 @@ describe('CorrectionComponent', () => {
         SubmissionSectionCorrectionComponent
       ],
       providers: [
-        {provide: SectionFormOperationsService, useValue: getMockFormOperationsService()},
-        {provide: FormService, useValue: getMockFormService()},
         {provide: SectionsService, useClass: SectionsServiceStub},
         {provide: 'collectionIdProvider', useValue: collectionId},
         {provide: 'sectionDataProvider', useValue: sectionObject},
@@ -123,11 +120,13 @@ describe('CorrectionComponent', () => {
       .compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(SubmissionSectionCorrectionComponent);
     component = fixture.componentInstance;
+    sectionsService = TestBed.inject(SectionsService);
+    sectionsService.getSectionData.and.returnValue(of(sectionObject.data));
     fixture.detectChanges();
-  });
+  }));
 
   it('should create correction component', () => {
     expect(component).toBeTruthy();

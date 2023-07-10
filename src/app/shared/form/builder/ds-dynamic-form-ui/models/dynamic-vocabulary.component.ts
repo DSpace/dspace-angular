@@ -21,7 +21,9 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { FormBuilderService } from '../../form-builder.service';
 import { Vocabulary } from '../../../../../core/submission/vocabularies/models/vocabulary.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
-import { VocabularyExternalSourceComponent } from '../../../../vocabulary-external-source/vocabulary-external-source.component';
+import {
+  VocabularyExternalSourceComponent
+} from '../../../../vocabulary-external-source/vocabulary-external-source.component';
 import { SubmissionScopeType } from '../../../../../core/submission/submission-scope-type';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
@@ -92,7 +94,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
             initEntry.authority,
             initEntry.display,
             (this.model.value as any).place,
-            null,
+            (this.model.value as any).confidence || null,
             initEntry.otherInformation || null
           );
         } else {
@@ -108,7 +110,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
           this.model.value.authority,
           this.model.value.display,
           0,
-          null,
+          (this.model.value as any).confidence || null,
           this.model.value.otherInformation || null
         )
       );

@@ -7,6 +7,7 @@
   <a [ngClass]="inExpandableNavbar ? 'nav-item nav-link' : 'dropdown-item'" [routerLink]="[profileRoute]" routerLinkActive="active">{{'nav.profile' | translate}}</a>
   <a [ngClass]="inExpandableNavbar ? 'nav-item nav-link' : 'dropdown-item'" [routerLink]="[mydspaceRoute]" routerLinkActive="active">{{'nav.mydspace' | translate}}</a>
   <a [ngClass]="inExpandableNavbar ? 'nav-item nav-link' : 'dropdown-item'" [routerLink]="[subscriptionsRoute]" routerLinkActive="active">{{'nav.subscriptions' | translate}}</a>
+
   <div class="dropdown-divider"></div>
   <ds-log-out *ngIf="!inExpandableNavbar" data-test="log-out-component"></ds-log-out>
 </div>

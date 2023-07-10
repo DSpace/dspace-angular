@@ -1,7 +1,7 @@
 import {Inject} from '@angular/core';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { DynamicFormControlLayout, DynamicInputModel, DynamicInputModelConfig } from '@ng-dynamic-forms/core';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import {
   CONCAT_FIRST_INPUT_SUFFIX,
   CONCAT_GROUP_SUFFIX,

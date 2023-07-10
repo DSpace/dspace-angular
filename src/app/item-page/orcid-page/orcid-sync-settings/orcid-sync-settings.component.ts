@@ -156,7 +156,8 @@ export class OrcidSyncSettingsComponent implements OnInit {
         }
       }),
     ).subscribe((remoteData: RemoteData<ResearcherProfile>) => {
-      if (remoteData.isSuccess) {
+      // hasSucceeded is true if the response is success or successStale
+      if (remoteData.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.synchronization-settings-update.success'));
         this.settingsUpdated.emit();
       } else {

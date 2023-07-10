@@ -7,7 +7,6 @@ import { createSelector } from '@ngrx/store';
  * notation packages up all of the exports into a single object.
  */
 import { AuthState } from './auth.reducer';
-import { AppState } from '../../app.reducer';
 import { CoreState } from '../core-state.model';
 import { coreSelector } from '../core.selectors';
 

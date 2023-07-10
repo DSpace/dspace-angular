@@ -19,6 +19,8 @@ export const XSRF_REQUEST_HEADER = 'X-XSRF-TOKEN';
 export const XSRF_RESPONSE_HEADER = 'DSPACE-XSRF-TOKEN';
 // Name of cookie where we store the XSRF token
 export const XSRF_COOKIE = 'XSRF-TOKEN';
+// Name of cookie the backend expects the XSRF token to be in
+export const DSPACE_XSRF_COOKIE = 'DSPACE-XSRF-COOKIE';
 
 /**
  * Custom Http Interceptor intercepting Http Requests & Responses to
