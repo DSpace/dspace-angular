@@ -74,6 +74,7 @@ services:
     container_name: dspacedb${INSTANCE}
     environment:
       PGDATA: /pgdata
+      POSTGRES_PASSWORD: dspace
     image: dspace/dspace-postgres-pgcrypto
     networks:
       dspacenet:
