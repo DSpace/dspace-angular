@@ -1,5 +1,6 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Observable, Subject } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -11,13 +12,10 @@ import {
   RemoveFieldUpdateAction,
   RemoveObjectUpdatesAction
 } from './object-updates.actions';
-import {
-  INotification,
-  Notification
-} from '../../../shared/notifications/models/notification.model';
+import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { Action } from '@ngrx/store';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
-import { filter } from 'rxjs/operators';
-import { hasValue } from '../../../shared/empty.util';
 import { NoOpAction } from '../../../shared/ngrx/no-op.action';
 
 describe('ObjectUpdatesEffects', () => {
@@ -31,13 +29,7 @@ describe('ObjectUpdatesEffects', () => {
       providers: [
         ObjectUpdatesEffects,
         provideMockActions(() => actions),
-        {
-          provide: NotificationsService,
-          useValue: {
-            remove: (notification) => { /* empty */
-            }
-          }
-        },
+        { provide: NotificationsService, useClass: NotificationsServiceStub },
       ],
     });
   }));
@@ -59,7 +51,6 @@ describe('ObjectUpdatesEffects', () => {
         action = new RemoveObjectUpdatesAction(testURL);
       });
       it('should emit the action from the actionMap\'s value which key matches the action\'s URL', () => {
-        action = new RemoveObjectUpdatesAction(testURL);
         actions = hot('--a-', { a: action });
         (updatesEffects as any).actionMap$[testURL].subscribe((act) => emittedAction = act);
         const expected = cold('--b-', { b: undefined });
@@ -81,14 +72,19 @@ describe('ObjectUpdatesEffects', () => {
           removeAction = new RemoveObjectUpdatesAction(testURL);
         });
         it('should return a RemoveObjectUpdatesAction', () => {
-          actions = hot('a|', { a: new DiscardObjectUpdatesAction(testURL, infoNotification) });
-          updatesEffects.removeAfterDiscardOrReinstateOnUndo$.pipe(
-            filter(((action) => hasValue(action))))
-            .subscribe((t) => {
-                expect(t).toEqual(removeAction);
-              }
-            )
-          ;
+          actions = hot('a', { a: new DiscardObjectUpdatesAction(testURL, infoNotification) });
+
+          // Because we use Subject and not BehaviourSubject we need to subscribe to it beforehand because it does not
+          // keep track of the current state
+          let emittedAction: Action | undefined;
+          updatesEffects.removeAfterDiscardOrReinstateOnUndo$.subscribe((action: Action | NoOpAction) => {
+            emittedAction = action;
+          });
+
+          // This expect ensures that the mapLastActions$ was processed
+          expect(updatesEffects.mapLastActions$).toBeObservable(cold('a', { a: undefined }));
+
+          expect(emittedAction).toEqual(removeAction);
         });
       });
 
@@ -98,12 +94,24 @@ describe('ObjectUpdatesEffects', () => {
           infoNotification.options.timeOut = 10;
         });
         it('should return an action with type NO_ACTION', () => {
-          actions = hot('a', { a: new DiscardObjectUpdatesAction(testURL, infoNotification) });
-          actions = hot('b', { b: new ReinstateObjectUpdatesAction(testURL) });
-          updatesEffects.removeAfterDiscardOrReinstateOnUndo$.subscribe((t) => {
-              expect(t).toEqual(new NoOpAction());
-            }
-          );
+          actions = hot('--(ab)', {
+            a: new DiscardObjectUpdatesAction(testURL, infoNotification),
+            b: new ReinstateObjectUpdatesAction(testURL),
+          });
+
+          // Because we use Subject and not BehaviourSubject we need to subscribe to it beforehand because it does not
+          // keep track of the current state
+          let emittedAction: Action | undefined;
+          updatesEffects.removeAfterDiscardOrReinstateOnUndo$.pipe(
+            take(2)
+          ).subscribe((action: Action | NoOpAction) => {
+            emittedAction = action;
+          });
+
+          // This expect ensures that the mapLastActions$ was processed
+          expect(updatesEffects.mapLastActions$).toBeObservable(cold('--(ab)', { a: undefined, b: undefined }));
+
+          expect(emittedAction).toEqual(new RemoveObjectUpdatesAction(testURL));
         });
       });
 
@@ -113,12 +121,22 @@ describe('ObjectUpdatesEffects', () => {
           infoNotification.options.timeOut = 10;
         });
         it('should return a RemoveObjectUpdatesAction', () => {
-          actions = hot('a', { a: new DiscardObjectUpdatesAction(testURL, infoNotification) });
-          actions = hot('b', { b: new RemoveFieldUpdateAction(testURL, testUUID) });
+          actions = hot('--(ab)', {
+            a: new DiscardObjectUpdatesAction(testURL, infoNotification),
+            b: new RemoveFieldUpdateAction(testURL, testUUID),
+          });
 
-          updatesEffects.removeAfterDiscardOrReinstateOnUndo$.subscribe((t) =>
-            expect(t).toEqual(new RemoveObjectUpdatesAction(testURL))
-          );
+          // Because we use Subject and not BehaviourSubject we need to subscribe to it beforehand because it does not
+          // keep track of the current state
+          let emittedAction: Action | undefined;
+          updatesEffects.removeAfterDiscardOrReinstateOnUndo$.subscribe((action: Action | NoOpAction) => {
+            emittedAction = action;
+          });
+
+          // This expect ensures that the mapLastActions$ was processed
+          expect(updatesEffects.mapLastActions$).toBeObservable(cold('--(ab)', { a: undefined, b: undefined }));
+
+          expect(emittedAction).toEqual(new RemoveObjectUpdatesAction(testURL));
         });
       });
     });
