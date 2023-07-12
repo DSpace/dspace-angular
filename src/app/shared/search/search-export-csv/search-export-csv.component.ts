@@ -94,6 +94,19 @@ export class SearchExportCsvComponent implements OnInit {
           }
         });
       }
+      if (isNotEmpty(this.searchConfig.fixedFilter)) {
+        const fixedFilter = this.searchConfig.fixedFilter.substring(2);
+        const keyAndValue = fixedFilter.split('=');
+        if (keyAndValue.length > 1) {
+          const key = keyAndValue[0];
+          const valueAndOperator = keyAndValue[1].split(',');
+          if (valueAndOperator.length > 1) {
+            const value = valueAndOperator[0];
+            const operator = valueAndOperator[1];
+            parameters.push({name: '-f', value: `${key},${operator}=${value}`});
+          }
+        }
+      }
     }
 
     this.scriptDataService.invoke('metadata-export-search', parameters, []).pipe(
