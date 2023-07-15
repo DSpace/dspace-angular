@@ -32,7 +32,7 @@ import { SearchConfigurationServiceStub } from '../../shared/testing/search-conf
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
-describe('TopLevelCommunityList Component', () => {
+describe('TopLevelCommunityListComponent', () => {
   let comp: TopLevelCommunityListComponent;
   let fixture: ComponentFixture<TopLevelCommunityListComponent>;
   let communityDataServiceStub: any;
@@ -173,17 +173,17 @@ describe('TopLevelCommunityList Component', () => {
   });
 
 
-  it('should display a list of top-communities', () => {
-    waitForAsync(() => {
-      const subComList = fixture.debugElement.queryAll(By.css('li'));
+  it('should display a list of top-communities', async () => {
+    await fixture.whenStable();
+    fixture.detectChanges();
+    const subComList = fixture.debugElement.queryAll(By.css('li'));
 
-      expect(subComList.length).toEqual(5);
-      expect(subComList[0].nativeElement.textContent).toContain('TopCommunity 1');
-      expect(subComList[1].nativeElement.textContent).toContain('TopCommunity 2');
-      expect(subComList[2].nativeElement.textContent).toContain('TopCommunity 3');
-      expect(subComList[3].nativeElement.textContent).toContain('TopCommunity 4');
-      expect(subComList[4].nativeElement.textContent).toContain('TopCommunity 5');
-    });
+    expect(subComList.length).toEqual(5);
+    expect(subComList[0].nativeElement.textContent).toContain('TopCommunity 1');
+    expect(subComList[1].nativeElement.textContent).toContain('TopCommunity 2');
+    expect(subComList[2].nativeElement.textContent).toContain('TopCommunity 3');
+    expect(subComList[3].nativeElement.textContent).toContain('TopCommunity 4');
+    expect(subComList[4].nativeElement.textContent).toContain('TopCommunity 5');
   });
 
 });

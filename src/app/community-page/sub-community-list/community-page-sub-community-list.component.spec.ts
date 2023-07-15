@@ -30,7 +30,7 @@ import { SearchConfigurationServiceStub } from '../../shared/testing/search-conf
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 
-describe('CommunityPageSubCommunityListComponent Component', () => {
+describe('CommunityPageSubCommunityListComponent', () => {
   let comp: CommunityPageSubCommunityListComponent;
   let fixture: ComponentFixture<CommunityPageSubCommunityListComponent>;
   let communityDataServiceStub: any;
@@ -179,19 +179,19 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
   });
 
 
-  it('should display a list of sub-communities', () => {
-    waitForAsync(() => {
-      subCommList = subcommunities;
-      fixture.detectChanges();
+  it('should display a list of sub-communities', async () => {
+    subCommList = subcommunities;
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
 
-      const subComList = fixture.debugElement.queryAll(By.css('li'));
-      expect(subComList.length).toEqual(5);
-      expect(subComList[0].nativeElement.textContent).toContain('SubCommunity 1');
-      expect(subComList[1].nativeElement.textContent).toContain('SubCommunity 2');
-      expect(subComList[2].nativeElement.textContent).toContain('SubCommunity 3');
-      expect(subComList[3].nativeElement.textContent).toContain('SubCommunity 4');
-      expect(subComList[4].nativeElement.textContent).toContain('SubCommunity 5');
-    });
+    const subComList = fixture.debugElement.queryAll(By.css('li'));
+    expect(subComList.length).toEqual(5);
+    expect(subComList[0].nativeElement.textContent).toContain('SubCommunity 1');
+    expect(subComList[1].nativeElement.textContent).toContain('SubCommunity 2');
+    expect(subComList[2].nativeElement.textContent).toContain('SubCommunity 3');
+    expect(subComList[3].nativeElement.textContent).toContain('SubCommunity 4');
+    expect(subComList[4].nativeElement.textContent).toContain('SubCommunity 5');
   });
 
   it('should not display the header when list of sub-communities is empty', () => {
