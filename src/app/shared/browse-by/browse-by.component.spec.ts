@@ -5,7 +5,6 @@ import { By } from '@angular/platform-browser';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { Item } from '../../core/shared/item.model';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -48,10 +47,10 @@ import { SharedModule } from '../shared.module';
 import { BrowseByRoutingModule } from '../../browse-by/browse-by-routing.module';
 import { AccessControlRoutingModule } from '../../access-control/access-control-routing.module';
 
-@listableObjectComponent(BrowseEntry, ViewMode.ListElement, DEFAULT_CONTEXT, 'custom')
+@listableObjectComponent(BrowseEntry, ViewMode.ListElement, DEFAULT_CONTEXT, 'dspace')
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
-  selector: '',
+  selector: 'ds-browse-entry-list-element',
   template: ''
 })
 class MockThemedBrowseEntryListElementComponent {
@@ -60,28 +59,6 @@ class MockThemedBrowseEntryListElementComponent {
 describe('BrowseByComponent', () => {
   let comp: BrowseByComponent;
   let fixture: ComponentFixture<BrowseByComponent>;
-
-  const mockItems = [
-    Object.assign(new Item(), {
-      id: 'fakeId-1',
-      metadata: [
-        {
-          key: 'dc.title',
-          value: 'First Fake Title'
-        }
-      ]
-    }),
-    Object.assign(new Item(), {
-      id: 'fakeId-2',
-      metadata: [
-        {
-          key: 'dc.title',
-          value: 'Second Fake Title'
-        }
-      ]
-    })
-  ];
-  const mockItemsRD$ = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockItems));
 
   const groupDataService = jasmine.createSpyObj('groupsDataService', {
     findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -113,8 +90,8 @@ describe('BrowseByComponent', () => {
   let themeService;
 
   beforeEach(waitForAsync(() => {
-    themeService = getMockThemeService('dspace');
-    TestBed.configureTestingModule({
+    themeService = getMockThemeService('base');
+    void TestBed.configureTestingModule({
       imports: [
         BrowseByRoutingModule,
         AccessControlRoutingModule,
@@ -200,40 +177,40 @@ describe('BrowseByComponent', () => {
     });
 
     describe('when theme is base', () => {
-      beforeEach(() => {
+      beforeEach(async () => {
         themeService.getThemeName.and.returnValue('base');
         themeService.getThemeName$.and.returnValue(observableOf('base'));
+        fixture.detectChanges();
+        await fixture.whenStable();
         fixture.detectChanges();
       });
 
       it('should use the base component to render browse entries', () => {
-        waitForAsync(() => {
-          const componentLoaders = fixture.debugElement.queryAll(By.directive(ListableObjectComponentLoaderComponent));
-          expect(componentLoaders.length).toEqual(browseEntries.length);
-          componentLoaders.forEach((componentLoader) => {
-            const browseEntry = componentLoader.query(By.css('ds-browse-entry-list-element'));
-            expect(browseEntry.componentInstance).toBeInstanceOf(BrowseEntryListElementComponent);
-          });
+        const componentLoaders = fixture.debugElement.queryAll(By.directive(ListableObjectComponentLoaderComponent));
+        expect(componentLoaders.length).toEqual(browseEntries.length);
+        componentLoaders.forEach((componentLoader) => {
+          const browseEntry = componentLoader.query(By.css('ds-browse-entry-list-element'));
+          expect(browseEntry.componentInstance).toBeInstanceOf(BrowseEntryListElementComponent);
         });
       });
     });
 
-    describe('when theme is custom', () => {
-      beforeEach(() => {
-        themeService.getThemeName.and.returnValue('custom');
-        themeService.getThemeName$.and.returnValue(observableOf('custom'));
+    describe('when theme is dspace', () => {
+      beforeEach(async () => {
+        themeService.getThemeName.and.returnValue('dspace');
+        themeService.getThemeName$.and.returnValue(observableOf('dspace'));
+        fixture.detectChanges();
+        await fixture.whenStable();
         fixture.detectChanges();
       });
 
       it('should use the themed component to render browse entries', () => {
-        waitForAsync(() => {
           const componentLoaders = fixture.debugElement.queryAll(By.directive(ListableObjectComponentLoaderComponent));
           expect(componentLoaders.length).toEqual(browseEntries.length);
           componentLoaders.forEach((componentLoader) => {
             const browseEntry = componentLoader.query(By.css('ds-browse-entry-list-element'));
             expect(browseEntry.componentInstance).toBeInstanceOf(MockThemedBrowseEntryListElementComponent);
           });
-        });
       });
     });
   });

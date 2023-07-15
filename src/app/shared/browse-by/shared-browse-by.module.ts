@@ -6,10 +6,14 @@ import { ResultsBackButtonModule } from '../results-back-button/results-back-but
 import { BrowseByRoutingModule } from '../../browse-by/browse-by-routing.module';
 import { AccessControlRoutingModule } from '../../access-control/access-control-routing.module';
 
+const DECLARATIONS = [
+  BrowseByComponent,
+];
+
 @NgModule({
   declarations: [
-    BrowseByComponent,
-],
+    ...DECLARATIONS,
+  ],
   imports: [
     ResultsBackButtonModule,
     BrowseByRoutingModule,
@@ -18,8 +22,8 @@ import { AccessControlRoutingModule } from '../../access-control/access-control-
     SharedModule,
   ],
   exports: [
-    BrowseByComponent,
-    SharedModule,
+    ...DECLARATIONS,
   ]
 })
-export class SharedBrowseByModule { }
+export class SharedBrowseByModule {
+}
