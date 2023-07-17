@@ -26,7 +26,6 @@ import * as ejs from 'ejs';
 import * as compression from 'compression';
 import * as expressStaticGzip from 'express-static-gzip';
 /* eslint-enable import/no-namespace */
-
 import axios from 'axios';
 import LRU from 'lru-cache';
 import isbot from 'isbot';
@@ -34,7 +33,7 @@ import { createCertificate } from 'pem';
 import { createServer } from 'https';
 import { json } from 'body-parser';
 
-import { existsSync, readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import { join } from 'path';
 
 import { enableProdMode } from '@angular/core';
@@ -54,7 +53,7 @@ import { buildAppConfig } from './src/config/config.server';
 import { APP_CONFIG, AppConfig } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 import { logStartupMessage } from './startup-message';
-import { TOKENITEM } from 'src/app/core/auth/models/auth-token-info.model';
+import { TOKENITEM } from './src/app/core/auth/models/auth-token-info.model';
 
 
 /*
@@ -176,6 +175,15 @@ export function app() {
    */
   router.use('/sitemap**', createProxyMiddleware({
     target: `${environment.rest.baseUrl}/sitemaps`,
+    pathRewrite: path => path.replace(environment.ui.nameSpace, '/'),
+    changeOrigin: true
+  }));
+
+  /**
+   * Proxy the linksets
+   */
+  router.use('/signposting**', createProxyMiddleware({
+    target: `${environment.rest.baseUrl}`,
     pathRewrite: path => path.replace(environment.ui.nameSpace, '/'),
     changeOrigin: true
   }));
@@ -366,9 +374,19 @@ function cacheCheck(req, res, next) {
   }
 
   // If cached copy exists, return it to the user.
-  if (cachedCopy) {
+  if (cachedCopy && cachedCopy.page) {
+    if (cachedCopy.headers) {
+      Object.keys(cachedCopy.headers).forEach((header) => {
+        if (cachedCopy.headers[header]) {
+          if (environment.cache.serverSide.debug) {
+            console.log(`Restore cached ${header} header`);
+          }
+          res.setHeader(header, cachedCopy.headers[header]);
+        }
+      });
+    }
     res.locals.ssr = true;  // mark response as SSR-generated (enables text compression)
-    res.send(cachedCopy);
+    res.send(cachedCopy.page);
 
     // Tell Express to skip all other handlers for this path
     // This ensures we don't try to re-render the page since we've already returned the cached copy
@@ -443,22 +461,50 @@ function saveToCache(req, page: any) {
     const key = getCacheKey(req);
     // Avoid caching "/reload/[random]" paths (these are hard refreshes after logout)
     if (key.startsWith('/reload')) { return; }
+    // Avoid caching not successful responses (status code different from 2XX status)
+    if (hasNotSucceeded(req.res.statusCode)) { return; }
 
+    // Retrieve response headers to save, if any
+    const headers = retrieveHeaders(req.res);
     // If bot cache is enabled, save it to that cache if it doesn't exist or is expired
     // (NOTE: has() will return false if page is expired in cache)
     if (botCacheEnabled() && !botCache.has(key)) {
-      botCache.set(key, page);
+      botCache.set(key, { page, headers });
       if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in bot cache.`); }
     }
 
     // If anonymous cache is enabled, save it to that cache if it doesn't exist or is expired
     if (anonymousCacheEnabled() && !anonymousCache.has(key)) {
-      anonymousCache.set(key, page);
+      anonymousCache.set(key, { page, headers });
       if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in anonymous cache.`); }
     }
   }
 }
 
+/**
+ * Check if status code is different from 2XX
+ * @param statusCode
+ */
+function hasNotSucceeded(statusCode) {
+  const rgx = new RegExp(/^20+/);
+  return !rgx.test(statusCode)
+}
+
+function retrieveHeaders(response) {
+  const headers = Object.create({});
+  if (Array.isArray(environment.cache.serverSide.headers) && environment.cache.serverSide.headers.length > 0) {
+    environment.cache.serverSide.headers.forEach((header) => {
+      if (response.hasHeader(header)) {
+        if (environment.cache.serverSide.debug) {
+          console.log(`Save ${header} header to cache`);
+        }
+        headers[header] = response.getHeader(header);
+      }
+    });
+  }
+
+  return headers;
+}
 /**
  * Whether a user is authenticated or not
  */

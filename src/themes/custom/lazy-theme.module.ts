@@ -101,6 +101,7 @@ import { ObjectListComponent } from './app/shared/object-list/object-list.compon
 import { BrowseByMetadataPageComponent } from './app/browse-by/browse-by-metadata-page/browse-by-metadata-page.component';
 import { BrowseByDatePageComponent } from './app/browse-by/browse-by-date-page/browse-by-date-page.component';
 import { BrowseByTitlePageComponent } from './app/browse-by/browse-by-title-page/browse-by-title-page.component';
+import { BrowseByTaxonomyPageComponent } from './app/browse-by/browse-by-taxonomy-page/browse-by-taxonomy-page.component';
 import {
   ExternalSourceEntryImportModalComponent
 } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
@@ -139,12 +140,22 @@ import {
   MediaViewerVideoComponent
 } from './app/item-page/media-viewer/media-viewer-video/media-viewer-video.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import {
+    DenyRequestCopyComponent
+} from './app/request-copy/deny-request-copy/deny-request-copy.component';
+import {
+    EmailRequestCopyComponent
+} from './app/request-copy/email-request-copy/email-request-copy.component';
+import {
+    GrantRequestCopyComponent
+} from './app/request-copy/grant-request-copy/grant-request-copy.component';
 import { WorkspaceItemsDeletePageComponent } from './app/workspace-items-delete-page/workspace-items-delete/workspace-items-delete.component';
 import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
 import { SubmissionSectionUploadFileComponent } from './app/submission/sections/upload/file/section-upload-file.component';
 import { ItemStatusComponent } from './app/item-page/edit-item-page/item-status/item-status.component';
 import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
 import { FormModule } from '../../app/shared/form/form.module';
+import { RequestCopyModule } from 'src/app/request-copy/request-copy.module';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -200,6 +211,7 @@ const DECLARATIONS = [
   BrowseByMetadataPageComponent,
   BrowseByDatePageComponent,
   BrowseByTitlePageComponent,
+  BrowseByTaxonomyPageComponent,
   ExternalSourceEntryImportModalComponent,
   SearchFiltersComponent,
   SearchSidebarComponent,
@@ -219,6 +231,9 @@ const DECLARATIONS = [
   MediaViewerComponent,
   MediaViewerImageComponent,
   MediaViewerVideoComponent,
+  DenyRequestCopyComponent,
+  EmailRequestCopyComponent,
+  GrantRequestCopyComponent,
   WorkspaceItemsDeletePageComponent,
   ThumbnailComponent,
   SubmissionSectionUploadFileComponent,
@@ -283,6 +298,7 @@ const DECLARATIONS = [
     SystemWideAlertModule,
     NgxGalleryModule,
     FormModule,
+    RequestCopyModule,
   ],
   declarations: DECLARATIONS,
   exports: [

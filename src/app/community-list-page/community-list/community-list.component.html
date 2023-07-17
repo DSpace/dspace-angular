@@ -33,11 +33,15 @@
         <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}"
               aria-hidden="true"></span>
       </button>
-      <h5 class="align-middle pt-2">
-        <a [routerLink]="node.route" class="lead">
-          {{ dsoNameService.getName(node.payload) }}
-        </a>
-      </h5>
+      <div class="d-flex flex-row">
+        <h5 class="align-middle pt-2">
+          <a [routerLink]="node.route" class="lead">
+            {{ dsoNameService.getName(node.payload) }}
+          </a>
+          <span class="pr-2">&nbsp;</span>
+          <span *ngIf="node.payload.archivedItemsCount >= 0" class="badge badge-pill badge-secondary align-top archived-items-lead">{{node.payload.archivedItemsCount}}</span>
+        </h5>
+      </div>
     </div>
     <ds-truncatable [id]="node.id">
       <div class="text-muted" cdkTreeNodePadding>
