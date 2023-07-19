@@ -4629,5 +4629,32 @@
 
   "language.czech": "Czech",
 
-  "repository.policy.page": "Change me: policy page"
+  "repository.policy.page": "Change me: policy page",
+
+
+  "navbar.repository": "Repository",
+
+  "navbar.community-list": "Catalogue",
+
+  "navbar.education": "Education",
+
+  "navbar.project": "Projects",
+
+  "navbar.tools": "Tools",
+
+  "navbar.services": "Services",
+
+  "navbar.about": "About",
+
+  "navbar.about.partners": "Partners",
+
+  "navbar.about.mission-statement": "Mission Statement",
+
+  "navbar.about.clarin": "CLARIN",
+
+  "navbar.about.dariah": "DARIAH",
+
+  "navbar.about.service-integrations": "Service integrations",
+
+  "navbar.about.project-partnership": "Project partnerships"
 }
