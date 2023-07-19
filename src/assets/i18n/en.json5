@@ -2816,7 +2816,7 @@
 
   "menu.section.browse_community_by_title": "By Title",
 
-  "menu.section.browse_global": "All of DSpace",
+  "menu.section.browse_global": "Browse",
 
   "menu.section.browse_global_by_author": "By Author",
 
@@ -2827,6 +2827,8 @@
   "menu.section.browse_global_by_srsc": "By Subject Category",
 
   "menu.section.browse_global_by_title": "By Title",
+
+  "menu.section.browse_global_by_type": "By Type",
 
   "menu.section.browse_global_communities_and_collections": "Communities & Collections",
 

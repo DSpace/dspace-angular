@@ -6,9 +6,17 @@ ui:
 
 rest:
   ssl: true
-  host: ecommons7-dev.library.cornell.edu
+  host: dspace7-dev.library.cornell.edu
   port: 443
   nameSpace: /server
+
+auth:
+  ui:
+    timeUntilIdle: 14400000
+    idleGracePeriod: 14400000
+
+info:
+  enableEndUserAgreement: false
 
 themes:
   - name: ilr
