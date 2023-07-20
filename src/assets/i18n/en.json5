@@ -5606,6 +5606,10 @@
 
   "statistics.table.itemReports.header.item" : "Item",
 
+  "statistics.table.mainReports.header.community" : "Community",
+
+  "statistics.table.mainReports.header.collection" : "Collection",
+
   "statistics.table.itemReports.title.TopContinents" : "Top region Item views",
 
   "statistics.table.itemReports.title.TopCities" : "Top cities Item views",
