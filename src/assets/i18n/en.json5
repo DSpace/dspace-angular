@@ -5596,6 +5596,26 @@
 
   "statistics.categories.downloadReports.tab": "Downloads reports",
 
+  "statistics.categories.itemReports.tab": "Item views reports",
+
+  "statistics.table.itemReports.header.continent" : "Continent",
+
+  "statistics.table.itemReports.header.views" : "Views",
+
+  "statistics.table.itemReports.header.city" : "City",
+
+  "statistics.table.itemReports.header.item" : "Item",
+
+  "statistics.table.itemReports.title.TopContinents" : "Top region Item views",
+
+  "statistics.table.itemReports.title.TopCities" : "Top cities Item views",
+
+  "statistics.table.itemReports.title.TopItems" : "Most viewed Items",
+
+  "statistics.table.itemReports.title.TopCategories" : "Top Item category",
+
+  "statistics.table.itemReports.title.TotalVisitsPerMonth" : "Top Item views per month",
+
   "statistics.reports.title": "Reports",
 
   "submission.edit.breadcrumbs": "Edit Submission",
