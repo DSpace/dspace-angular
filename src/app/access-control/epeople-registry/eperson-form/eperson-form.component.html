@@ -32,9 +32,6 @@
       <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.stop-impersonating' | translate}}
     </button>
   </div>
-  <button after class="btn btn-danger delete-button" [disabled]="!(canDelete$ | async)" (click)="delete()">
-    <i class="fas fa-trash"></i> {{'admin.access-control.epeople.actions.delete' | translate}}
-  </button>
 </ds-form>
 
 <ds-themed-loading [showMessage]="false" *ngIf="!formGroup"></ds-themed-loading>

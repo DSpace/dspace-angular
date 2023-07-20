@@ -491,35 +491,6 @@ describe('EPersonFormComponent', () => {
 
     });
 
-    it('the delete button should be active if the eperson can be deleted', () => {
-      const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      expect(deleteButton.nativeElement.disabled).toBe(false);
-    });
-
-    it('the delete button should be disabled if the eperson cannot be deleted', () => {
-      component.canDelete$ = observableOf(false);
-      fixture.detectChanges();
-      const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      expect(deleteButton.nativeElement.disabled).toBe(true);
-    });
-
-    it('should call the epersonFormComponent delete when clicked on the button', () => {
-      spyOn(component, 'delete').and.stub();
-      spyOn(component.epersonService, 'deleteEPerson').and.returnValue(createSuccessfulRemoteDataObject$('No Content', 204));
-      const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      deleteButton.triggerEventHandler('click', null);
-      expect(component.delete).toHaveBeenCalled();
-    });
-
-    it('should call the epersonService delete when clicked on the button', () => {
-      // ePersonDataServiceStub.activeEPerson = eperson;
-      spyOn(component.epersonService, 'deleteEPerson').and.returnValue(createSuccessfulRemoteDataObject$('No Content', 204));
-      const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      expect(deleteButton.nativeElement.disabled).toBe(false);
-      deleteButton.triggerEventHandler('click', null);
-      fixture.detectChanges();
-      expect(component.epersonService.deleteEPerson).toHaveBeenCalledWith(eperson);
-    });
   });
 
   describe('Reset Password', () => {
