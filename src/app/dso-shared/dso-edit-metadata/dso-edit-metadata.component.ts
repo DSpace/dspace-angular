@@ -1,5 +1,5 @@
 import { Component, Inject, Injector, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AlertType } from '../../shared/alert/aletr-type';
+import { AlertType } from '../../shared/alert/alert-type';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DsoEditMetadataForm } from './dso-edit-metadata-form';
 import { map } from 'rxjs/operators';
