@@ -37,7 +37,7 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload
 } from '../../../core/shared/operators';
-import { AlertType } from '../../../shared/alert/aletr-type';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue, isNotEmpty, hasValueOperator } from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
