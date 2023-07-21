@@ -29,9 +29,8 @@
             <i class="fa fa-key"></i> {{'admin.access-control.epeople.actions.reset' | translate}}
           </button>
         </div>
-        <div between class="btn-group ml-1">
-          <button *ngIf="!isImpersonated" class="btn btn-primary" [ngClass]="{'d-none' : !(canImpersonate$ | async)}"
-                  (click)="impersonate()">
+        <div *ngIf="canImpersonate$ | async" between class="btn-group">
+          <button *ngIf="!isImpersonated" class="btn btn-primary" (click)="impersonate()">
             <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.impersonate' | translate}}
           </button>
           <button *ngIf="isImpersonated" class="btn btn-primary" (click)="stopImpersonating()">
