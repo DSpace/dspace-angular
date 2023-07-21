@@ -21,7 +21,7 @@ jobs:
         run: |
           docker volume rm dspace-${{env.INSTANCE}}_pgdata dspace-${{env.INSTANCE}}_assetstore
       - name: redeploy
-        if: '!cancelled()'
+        if: 'false'
         run: |
           curl -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" --request POST https://api.github.com/repos/dataquest-dev/dspace-angular/actions/workflows/deploy.yml/dispatches --data "{\"ref\":\"refs/heads/dtq-dev\"}"
           
