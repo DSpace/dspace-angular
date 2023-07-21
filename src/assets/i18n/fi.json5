@@ -3261,20 +3261,20 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Tallennuksesi",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Arkistoitu",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Arkistoitu",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Tarkastaminen",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Tarkastaminen",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Odotetaan tarkastajaa",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Odotetaan tarkastajaa",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Työnkulku",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Työnkulku",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Työtila",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Työtila",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "Oma DSpace",

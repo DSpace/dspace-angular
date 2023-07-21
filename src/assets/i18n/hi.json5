@@ -2677,15 +2677,15 @@
 
   "mydspace.show.workspace": "आपकी प्रस्तुतियां",
 
-  "mydspace.status.archived": "संग्रहीत",
+  "mydspace.status.mydspaceArchived": "संग्रहीत",
 
-  "mydspace.status.validation": "सत्यापन",
+  "mydspace.status.mydspaceValidation": "सत्यापन",
 
-  "mydspace.status.waiting-for-controller": "नियंत्रक की प्रतीक्षा कर रहा है",
+  "mydspace.status.mydspaceWaitingController": "नियंत्रक की प्रतीक्षा कर रहा है",
 
-  "mydspace.status.workflow": "कार्यप्रवाह",
+  "mydspace.status.mydspaceWorkflow": "कार्यप्रवाह",
 
-  "mydspace.status.workspace": "कार्यस्थान",
+  "mydspace.status.mydspaceWorkspace": "कार्यस्थान",
 
   "mydspace.title": "मेरा डीस्पेस",
 
