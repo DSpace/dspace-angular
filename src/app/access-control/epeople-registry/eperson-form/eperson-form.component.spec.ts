@@ -484,16 +484,16 @@ describe('EPersonFormComponent', () => {
 
     });
 
-    it('the delete button should be active if the eperson can be deleted', () => {
+    it('the delete button should be visible if the ePerson can be deleted', () => {
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      expect(deleteButton.nativeElement.disabled).toBe(false);
+      expect(deleteButton).not.toBeNull();
     });
 
-    it('the delete button should be disabled if the eperson cannot be deleted', () => {
+    it('the delete button should be hidden if the ePerson cannot be deleted', () => {
       component.canDelete$ = observableOf(false);
       fixture.detectChanges();
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      expect(deleteButton.nativeElement.disabled).toBe(true);
+      expect(deleteButton).toBeNull();
     });
 
     it('should call the epersonFormComponent delete when clicked on the button', () => {
