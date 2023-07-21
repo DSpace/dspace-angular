@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { EPeopleRegistryComponent } from './epeople-registry/epeople-registry.component';
 import { GroupFormComponent } from './group-registry/group-form/group-form.component';
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
-import { EPERSON_PATH, GROUP_EDIT_PATH } from './access-control-routing-paths';
+import { EPERSON_PATH, GROUP_PATH } from './access-control-routing-paths';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { GroupPageGuard } from './group-registry/group-page.guard';
 import {
@@ -48,7 +48,7 @@ import { EPersonResolver } from './epeople-registry/eperson-resolver.service';
         canActivate: [SiteAdministratorGuard],
       },
       {
-        path: GROUP_EDIT_PATH,
+        path: GROUP_PATH,
         component: GroupsRegistryComponent,
         resolve: {
           breadcrumb: I18nBreadcrumbResolver
@@ -57,7 +57,7 @@ import { EPersonResolver } from './epeople-registry/eperson-resolver.service';
         canActivate: [GroupAdministratorGuard]
       },
       {
-        path: `${GROUP_EDIT_PATH}/newGroup`,
+        path: `${GROUP_PATH}/create`,
         component: GroupFormComponent,
         resolve: {
           breadcrumb: I18nBreadcrumbResolver
@@ -66,7 +66,7 @@ import { EPersonResolver } from './epeople-registry/eperson-resolver.service';
         canActivate: [GroupAdministratorGuard]
       },
       {
-        path: `${GROUP_EDIT_PATH}/:groupId`,
+        path: `${GROUP_PATH}/:groupId`,
         component: GroupFormComponent,
         resolve: {
           breadcrumb: I18nBreadcrumbResolver
