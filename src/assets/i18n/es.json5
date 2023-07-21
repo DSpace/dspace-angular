@@ -4560,20 +4560,20 @@
   // "mydspace.show.supervisedWorkspace": "Supervised items",
   "mydspace.show.supervisedWorkspace": "Ítems supervisados",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Archivado",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Archivado",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Validación",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Validación",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Esperando al controlador",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Esperando al controlador",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Flujo de trabajo",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Flujo de trabajo",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Espacio de trabajo",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Espacio de trabajo",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "Mi DSpace",
