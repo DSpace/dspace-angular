@@ -75,7 +75,6 @@ export abstract class ThemedComponent<T> implements AfterViewInit, OnDestroy, On
   }
 
   ngAfterViewInit(): void {
-    this.destroyComponentInstance();
     this.initComponentInstance();
   }
 
@@ -96,8 +95,6 @@ export abstract class ThemedComponent<T> implements AfterViewInit, OnDestroy, On
     }
 
     if (hasNoValue(this.lazyLoadObs)) {
-      this.destroyComponentInstance();
-
       this.lazyLoadObs = combineLatest([
         observableOf(changes),
         this.resolveThemedComponent(this.themeService.getThemeName()).pipe(
@@ -120,6 +117,7 @@ export abstract class ThemedComponent<T> implements AfterViewInit, OnDestroy, On
     }
 
     this.lazyLoadSub = this.lazyLoadObs.subscribe(([simpleChanges, constructor]: [SimpleChanges, GenericConstructor<T>]) => {
+      this.destroyComponentInstance();
       const factory = this.resolver.resolveComponentFactory(constructor);
       this.compRef = this.vcr.createComponent(factory, undefined, undefined, [this.themedElementContent.nativeElement.childNodes]);
       if (hasValue(simpleChanges)) {
