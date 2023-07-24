@@ -4,6 +4,7 @@ import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/for
 
 import { Observable, Subscription } from 'rxjs';
 import {
+  DynamicFormArrayGroupModel,
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
@@ -18,6 +19,10 @@ import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
 import { FormService } from './form.service';
 import { FormEntry, FormError } from './form.reducer';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
+import cloneDeep from 'lodash/cloneDeep';
+import {
+  DynamicScrollableDropdownModel
+} from './builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 
 /**
  * The default form component.
@@ -297,7 +302,7 @@ export class FormComponent implements OnDestroy, OnInit {
     if (this.emitChange) {
       this.change.emit(event);
     }
-}
+  }
 
   /**
    * Method called on submit.
@@ -332,12 +337,27 @@ export class FormComponent implements OnDestroy, OnInit {
       // In case of qualdrop value or inline-group remove event must be dispatched before removing the control from array
       this.removeArrayItem.emit(event);
     }
-    this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
+    if (index === 0 && formArrayControl.value?.length === 1) {
+      event.model = cloneDeep(event.model);
+      const fieldId = event.model.id;
+      formArrayControl.at(0).get(fieldId).setValue(null);
+    } else {
+      this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
+    }
+
     this.formService.changeForm(this.formId, this.formModel);
     if (!this.formBuilderService.isQualdropGroup(event.model as DynamicFormControlModel) && !this.isInlineGroupForm) {
       // dispatch remove event for any field type except for qualdrop value and inline-group
       this.removeArrayItem.emit(event);
     }
+  }
+
+  clearScrollableDropdown($event, model: DynamicFormControlModel): void {
+    const control = this.formGroup.get(this.formBuilderService.getPath(model)) as FormControl;
+    const event = { $event, type: 'remove', model: cloneDeep(model), context: null, control, group: control.parent } as DynamicFormControlEvent;
+    control.setValue(null);
+    this.formService.changeForm(this.formId, this.formModel);
+    this.removeArrayItem.emit(event);
   }
 
   insertItem($event, arrayContext: DynamicFormArrayModel, index: number): void {
@@ -360,6 +380,14 @@ export class FormComponent implements OnDestroy, OnInit {
     const context = arrayContext.groups[index];
     const value: FormFieldMetadataValueObject = (context.group[0] as any).metadataValue;
     return isNotEmpty(value) && value.isVirtual;
+  }
+
+  isArrayGroupEmpty(group): boolean {
+    return group.context.groups?.length <= 1 && !group.context.groups?.[0]?.group?.[0]?.value;
+  }
+
+  isTheOnlyFieldInArrayGroup(model: DynamicScrollableDropdownModel) {
+    return model.parent instanceof DynamicFormArrayGroupModel && model.parent?.group?.length === 1;
   }
 
   protected getEvent($event: any, arrayContext: DynamicFormArrayModel, index: number, type: string, formGroup?: FormGroup): DynamicFormControlEvent {
