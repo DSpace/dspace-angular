@@ -60,7 +60,6 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
   }
 
   ngOnInit(): void {
-    this.destroyComponentInstance();
     this.initComponentInstance();
   }
 
@@ -81,8 +80,6 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
     }
 
     if (hasNoValue(this.lazyLoadObs)) {
-      this.destroyComponentInstance();
-
       this.lazyLoadObs = combineLatest([
         observableOf(changes),
         this.resolveThemedComponent(this.themeService.getThemeName()).pipe(
@@ -104,6 +101,7 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
     }
 
     this.lazyLoadSub = this.lazyLoadObs.subscribe(([simpleChanges, constructor]: [SimpleChanges, GenericConstructor<T>]) => {
+      this.destroyComponentInstance();
       const factory = this.resolver.resolveComponentFactory(constructor);
       this.compRef = this.vcr.createComponent(factory);
       if (hasValue(simpleChanges)) {
