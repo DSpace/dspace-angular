@@ -1,10 +1,10 @@
 import {
+  AfterViewInit,
   Component,
   ViewChild,
   ViewContainerRef,
   ComponentRef,
   SimpleChanges,
-  OnInit,
   OnDestroy,
   ComponentFactoryResolver,
   ChangeDetectorRef,
@@ -24,7 +24,7 @@ import { BASE_THEME_NAME } from './theme.constants';
   styleUrls: ['./themed.component.scss'],
   templateUrl: './themed.component.html',
 })
-export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges {
+export abstract class ThemedComponent<T> implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
   @ViewChild('content') themedElementContent: ElementRef;
   protected compRef: ComponentRef<T>;
@@ -74,7 +74,7 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
     }
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.destroyComponentInstance();
     this.initComponentInstance();
   }
