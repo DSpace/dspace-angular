@@ -35,15 +35,15 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
   });
 
   beforeEach(waitForAsync(() => {
-    mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
+    mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null);
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       providers: [
         { provide: ClaimedTaskDataService, useValue: claimedTaskService },
@@ -72,7 +72,7 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
   it('should display return to pool button', () => {
     const btn = fixture.debugElement.query(By.css('.btn-secondary'));
 
-    expect(btn).toBeDefined();
+    expect(btn).not.toBeNull();
   });
 
   it('should display spin icon when return to pool action is pending', () => {
@@ -81,7 +81,7 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
 
     const span = fixture.debugElement.query(By.css('.btn-secondary .fa-spin'));
 
-    expect(span).toBeDefined();
+    expect(span).not.toBeNull();
   });
 
   describe('actionExecution', () => {

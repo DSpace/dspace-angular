@@ -143,7 +143,7 @@ export class CollectionItemMapperComponent implements OnInit {
         if (shouldUpdate === true) {
           this.shouldUpdate$.next(false);
         }
-        return this.itemDataService.findAllByHref(collectionRD.payload._links.mappedItems.href, Object.assign(options, {
+        return this.itemDataService.findListByHref(collectionRD.payload._links.mappedItems.href, Object.assign(options, {
           sort: this.defaultSortOptions
         }),!shouldUpdate, false, followLink('owningCollection')).pipe(
           getAllSucceededRemoteData()
@@ -157,7 +157,7 @@ export class CollectionItemMapperComponent implements OnInit {
           scope: undefined,
           dsoTypes: [DSpaceObjectType.ITEM],
           sort: this.defaultSortOptions
-        }), 10000).pipe(
+        }), 10000, undefined, undefined, followLink('owningCollection')).pipe(
           toDSpaceObjectListRD(),
           startWith(undefined)
         );

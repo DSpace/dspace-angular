@@ -1,13 +1,12 @@
 import { map } from 'rxjs/operators';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AuthenticateAction, ResetAuthenticationMessagesAction } from '../../../../core/auth/auth.actions';
 
 import { getAuthenticationError, getAuthenticationInfo, } from '../../../../core/auth/selectors';
-import { CoreState } from '../../../../core/core.reducers';
 import { isNotEmpty } from '../../../empty.util';
 import { fadeOut } from '../../../animations/fade';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
@@ -15,6 +14,7 @@ import { renderAuthMethodFor } from '../log-in.methods-decorator';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { CoreState } from '../../../../core/core-state.model';
 
 /**
  * /users/sign-in
@@ -63,7 +63,7 @@ export class LogInPasswordComponent implements OnInit {
    * The authentication form.
    * @type {FormGroup}
    */
-  public form: FormGroup;
+  public form: UntypedFormGroup;
 
   /**
    * @constructor
@@ -79,7 +79,7 @@ export class LogInPasswordComponent implements OnInit {
     @Inject('isStandalonePage') public isStandalonePage: boolean,
     private authService: AuthService,
     private hardRedirectService: HardRedirectService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private store: Store<CoreState>
   ) {
     this.authMethod = injectedAuthMethodModel;

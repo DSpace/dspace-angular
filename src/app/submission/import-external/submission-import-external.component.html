@@ -22,10 +22,13 @@
                                 [importConfig]="importConfig"
                                 (importObject)="import($event)">
         </ds-viewable-collection>
-        <ds-loading *ngIf="(isLoading$ | async)"
-                    message="{{'loading.search-results' | translate}}"></ds-loading>
-        <div *ngIf="!(isLoading$ | async) && entriesRD?.payload?.page?.length === 0" id="empty-external-entry-list">
+        <ds-themed-loading *ngIf="(isLoading$ | async)"
+                    message="{{'loading.search-results' | translate}}"></ds-themed-loading>
+        <div *ngIf="!(isLoading$ | async) && entriesRD?.payload?.page?.length === 0" data-test="empty-external-entry-list">
           <ds-alert [type]="'alert-info'">{{ 'search.results.empty' | translate }}</ds-alert>
+        </div>
+        <div *ngIf="!(isLoading$ | async) && entriesRD.statusCode === 500" data-test="empty-external-error-500">
+          <ds-alert [type]="'alert-info'">{{ 'search.results.response.500' | translate }}</ds-alert>
         </div>
       </ng-container>
     </div>

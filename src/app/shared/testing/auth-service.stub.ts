@@ -17,6 +17,7 @@ export class AuthServiceStub {
   token: AuthTokenInfo = new AuthTokenInfo('token_test');
   impersonating: string;
   private _tokenExpired = false;
+  private _isExternalAuth = false;
   private redirectUrl;
 
   constructor() {
@@ -33,7 +34,7 @@ export class AuthServiceStub {
       return observableOf(authStatus);
     } else {
       console.log('error');
-      throw(new Error('Message Error test'));
+      throw (new Error('Message Error test'));
     }
   }
 
@@ -41,7 +42,7 @@ export class AuthServiceStub {
     if (token.accessToken === 'token_test') {
       return observableOf(EPersonMock._links.self.href);
     } else {
-      throw(new Error('Message Error test'));
+      throw (new Error('Message Error test'));
     }
   }
 
@@ -121,6 +122,13 @@ export class AuthServiceStub {
 
   checkAuthenticationCookie() {
     return;
+  }
+  setExternalAuthStatus(externalCookie: boolean) {
+    this._isExternalAuth = externalCookie;
+  }
+
+  isExternalAuthentication(): Observable<boolean> {
+    return observableOf(this._isExternalAuth);
   }
 
   retrieveAuthMethodsFromAuthStatus(status: AuthStatus) {

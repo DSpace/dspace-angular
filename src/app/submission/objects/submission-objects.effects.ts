@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { isEqual, union } from 'lodash';
+import findKey from 'lodash/findKey';
+import isEqual from 'lodash/isEqual';
+import union from 'lodash/union';
 
 import { from as observableFrom, Observable, of as observableOf } from 'rxjs';
 import { catchError, filter, map, mergeMap, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
@@ -43,7 +45,7 @@ import {
   UpdateSectionDataAction,
   UpdateSectionDataSuccessAction
 } from './submission-objects.actions';
-import { SubmissionObjectEntry, SubmissionSectionError, SubmissionSectionObject } from './submission-objects.reducer';
+import { SubmissionObjectEntry } from './submission-objects.reducer';
 import { Item } from '../../core/shared/item.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
@@ -51,6 +53,8 @@ import { SubmissionObjectDataService } from '../../core/submission/submission-ob
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { FormState } from '../../shared/form/form.reducer';
+import { SubmissionSectionObject } from './submission-section-object.model';
+import { SubmissionSectionError } from './submission-section-error.model';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -58,7 +62,7 @@ export class SubmissionObjectEffects {
   /**
    * Dispatch a [InitSectionAction] for every submission sections and dispatch a [CompleteInitSubmissionFormAction]
    */
-  @Effect() loadForm$ = this.actions$.pipe(
+  loadForm$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.INIT_SUBMISSION_FORM),
     map((action: InitSubmissionFormAction) => {
       const definition = action.payload.submissionDefinition;
@@ -97,12 +101,12 @@ export class SubmissionObjectEffects {
         result.mappedActions.concat(
           new CompleteInitSubmissionFormAction(result.action.payload.submissionId)
         ));
-    }));
+    })));
 
   /**
    * Dispatch a [InitSubmissionFormAction]
    */
-  @Effect() resetForm$ = this.actions$.pipe(
+  resetForm$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.RESET_SUBMISSION_FORM),
     map((action: ResetSubmissionFormAction) =>
       new InitSubmissionFormAction(
@@ -113,65 +117,66 @@ export class SubmissionObjectEffects {
         action.payload.sections,
         action.payload.item,
         null
-      )));
+      ))));
 
   /**
    * Dispatch a [SaveSubmissionFormSuccessAction] or a [SaveSubmissionFormErrorAction] on error
    */
-  @Effect() saveSubmission$ = this.actions$.pipe(
+  saveSubmission$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM),
     switchMap((action: SaveSubmissionFormAction) => {
       return this.operationsService.jsonPatchByResourceType(
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
         'sections').pipe(
-        map((response: SubmissionObject[]) => new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, action.payload.isManual)),
-        catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
-    }));
+          map((response: SubmissionObject[]) => new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, action.payload.isManual, action.payload.isManual)),
+          catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
+    })));
 
   /**
    * Dispatch a [SaveForLaterSubmissionFormSuccessAction] or a [SaveSubmissionFormErrorAction] on error
    */
-  @Effect() saveForLaterSubmission$ = this.actions$.pipe(
+  saveForLaterSubmission$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM),
     switchMap((action: SaveForLaterSubmissionFormAction) => {
       return this.operationsService.jsonPatchByResourceType(
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
         'sections').pipe(
-        map((response: SubmissionObject[]) => new SaveForLaterSubmissionFormSuccessAction(action.payload.submissionId, response)),
-        catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
-    }));
+          map((response: SubmissionObject[]) => new SaveForLaterSubmissionFormSuccessAction(action.payload.submissionId, response)),
+          catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
+    })));
 
   /**
    * Call parseSaveResponse and dispatch actions
    */
-  @Effect() saveSubmissionSuccess$ = this.actions$.pipe(
+  saveSubmissionSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS),
     withLatestFrom(this.store$),
     map(([action, currentState]: [SaveSubmissionFormSuccessAction, any]) => {
       return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId],
-        action.payload.submissionObject, action.payload.submissionId, currentState.forms, action.payload.notify);
+        action.payload.submissionObject, action.payload.submissionId, currentState.forms,
+        action.payload.showNotifications, action.payload.showErrors);
     }),
-    mergeMap((actions) => observableFrom(actions)));
+    mergeMap((actions) => observableFrom(actions))));
 
   /**
    * Call parseSaveResponse and dispatch actions.
    * Notification system is forced to be disabled.
    */
-  @Effect() saveSubmissionSectionSuccess$ = this.actions$.pipe(
+  saveSubmissionSectionSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS),
     withLatestFrom(this.store$),
     map(([action, currentState]: [SaveSubmissionSectionFormSuccessAction, any]) => {
       return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId],
-        action.payload.submissionObject, action.payload.submissionId, currentState.forms, false);
+        action.payload.submissionObject, action.payload.submissionId, currentState.forms, false, false);
     }),
-    mergeMap((actions) => observableFrom(actions)));
+    mergeMap((actions) => observableFrom(actions))));
 
   /**
    * Dispatch a [SaveSubmissionSectionFormSuccessAction] or a [SaveSubmissionSectionFormErrorAction] on error
    */
-  @Effect() saveSection$ = this.actions$.pipe(
+  saveSection$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM),
     switchMap((action: SaveSubmissionSectionFormAction) => {
       return this.operationsService.jsonPatchByResourceID(
@@ -179,22 +184,22 @@ export class SubmissionObjectEffects {
         action.payload.submissionId,
         'sections',
         action.payload.sectionId).pipe(
-        map((response: SubmissionObject[]) => new SaveSubmissionSectionFormSuccessAction(action.payload.submissionId, response)),
-        catchError(() => observableOf(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId))));
-    }));
+          map((response: SubmissionObject[]) => new SaveSubmissionSectionFormSuccessAction(action.payload.submissionId, response)),
+          catchError(() => observableOf(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId))));
+    })));
 
   /**
    * Show a notification on error
    */
-  @Effect({ dispatch: false }) saveError$ = this.actions$.pipe(
+  saveError$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_ERROR, SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_ERROR),
     withLatestFrom(this.store$),
-    tap(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.save_error_notice'))));
+    tap(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.save_error_notice')))), { dispatch: false });
 
   /**
    * Call parseSaveResponse and dispatch actions or dispatch [SaveSubmissionFormErrorAction] on error
    */
-  @Effect() saveAndDeposit$ = this.actions$.pipe(
+  saveAndDeposit$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION),
     withLatestFrom(this.submissionService.hasUnsavedModification()),
     switchMap(([action, hasUnsavedModification]: [SaveAndDepositSubmissionAction, boolean]) => {
@@ -215,62 +220,68 @@ export class SubmissionObjectEffects {
           if (this.canDeposit(response)) {
             return new DepositSubmissionAction(action.payload.submissionId);
           } else {
-            return new SaveSubmissionFormSuccessAction(action.payload.submissionId, response);
+            this.notificationsService.warning(
+              null,
+              this.translate.instant('submission.sections.general.cannot_deposit'),
+              null,
+              true
+            );
+            return new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, false, true);
           }
         }),
         catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
-    }));
+    })));
 
   /**
    * Dispatch a [DepositSubmissionSuccessAction] or a [DepositSubmissionErrorAction] on error
    */
-  @Effect() depositSubmission$ = this.actions$.pipe(
+  depositSubmission$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION),
     withLatestFrom(this.store$),
     switchMap(([action, state]: [DepositSubmissionAction, any]) => {
       return this.submissionService.depositSubmission(state.submission.objects[action.payload.submissionId].selfUrl).pipe(
         map(() => new DepositSubmissionSuccessAction(action.payload.submissionId)),
         catchError((error) => observableOf(new DepositSubmissionErrorAction(action.payload.submissionId))));
-    }));
+    })));
 
   /**
    * Show a notification on success and redirect to MyDSpace page
    */
-  @Effect({ dispatch: false }) saveForLaterSubmissionSuccess$ = this.actions$.pipe(
+  saveForLaterSubmissionSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS),
     tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.save_success_notice'))),
-    tap(() => this.submissionService.redirectToMyDSpace()));
+    tap(() => this.submissionService.redirectToMyDSpace())), { dispatch: false });
 
   /**
    * Show a notification on success and redirect to MyDSpace page
    */
-  @Effect({ dispatch: false }) depositSubmissionSuccess$ = this.actions$.pipe(
+  depositSubmissionSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_SUCCESS),
     tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.deposit_success_notice'))),
-    tap(() => this.submissionService.redirectToMyDSpace()));
+    tap(() => this.submissionService.redirectToMyDSpace())), { dispatch: false });
 
   /**
    * Show a notification on error
    */
-  @Effect({ dispatch: false }) depositSubmissionError$ = this.actions$.pipe(
+  depositSubmissionError$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_ERROR),
-    tap(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.deposit_error_notice'))));
+    tap(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.deposit_error_notice')))), { dispatch: false });
 
   /**
    * Dispatch a [DiscardSubmissionSuccessAction] or a [DiscardSubmissionErrorAction] on error
    */
-  @Effect() discardSubmission$ = this.actions$.pipe(
+  discardSubmission$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DISCARD_SUBMISSION),
     switchMap((action: DepositSubmissionAction) => {
       return this.submissionService.discardSubmission(action.payload.submissionId).pipe(
         map(() => new DiscardSubmissionSuccessAction(action.payload.submissionId)),
         catchError(() => observableOf(new DiscardSubmissionErrorAction(action.payload.submissionId))));
-    }));
+    })));
 
   /**
    * Adds all metadata an item to the SubmissionForm sections of the submission
    */
-  @Effect() addAllMetadataToSectionData = this.actions$.pipe(
+  addAllMetadataToSectionData = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.UPDATE_SECTION_DATA),
     switchMap((action: UpdateSectionDataAction) => {
       return this.sectionService.getSectionState(action.payload.submissionId, action.payload.sectionId, SectionsType.Upload)
@@ -298,32 +309,31 @@ export class SubmissionObjectEffects {
         return observableOf(new UpdateSectionDataSuccessAction());
       }
     }),
-  );
+  ));
 
   /**
    * Show a notification on success and redirect to MyDSpace page
    */
-  @Effect({ dispatch: false })
-  discardSubmissionSuccess$ = this.actions$.pipe(
+  discardSubmissionSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DISCARD_SUBMISSION_SUCCESS),
     tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.discard_success_notice'))),
-    tap(() => this.submissionService.redirectToMyDSpace()));
+    tap(() => this.submissionService.redirectToMyDSpace())), { dispatch: false });
 
   /**
    * Show a notification on error
    */
-  @Effect({ dispatch: false }) discardSubmissionError$ = this.actions$.pipe(
+  discardSubmissionError$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DISCARD_SUBMISSION_ERROR),
-    tap(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.discard_error_notice'))));
+    tap(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.discard_error_notice')))), { dispatch: false });
 
   constructor(private actions$: Actions,
-              private notificationsService: NotificationsService,
-              private operationsService: SubmissionJsonPatchOperationsService,
-              private sectionService: SectionsService,
-              private store$: Store<any>,
-              private submissionService: SubmissionService,
-              private submissionObjectService: SubmissionObjectDataService,
-              private translate: TranslateService) {
+    private notificationsService: NotificationsService,
+    private operationsService: SubmissionJsonPatchOperationsService,
+    private sectionService: SectionsService,
+    private store$: Store<any>,
+    private submissionService: SubmissionService,
+    private submissionObjectService: SubmissionObjectDataService,
+    private translate: TranslateService) {
   }
 
   /**
@@ -362,18 +372,23 @@ export class SubmissionObjectEffects {
    *    A boolean that indicate if show notification or not
    * @return SubmissionObjectAction[]
    *    List of SubmissionObjectAction to dispatch
+   * @param showNotifications
+   *    A boolean representing if to show notifications on save
+   * @param showErrors
+   *    A boolean representing if to show errors on save
    */
   protected parseSaveResponse(
     currentState: SubmissionObjectEntry,
     response: SubmissionObject[],
     submissionId: string,
     forms: FormState,
-    notify: boolean = true): SubmissionObjectAction[] {
+    showNotifications: boolean = true,
+    showErrors: boolean = true): SubmissionObjectAction[] {
 
     const mappedActions = [];
 
     if (isNotEmpty(response)) {
-      if (notify) {
+      if (showNotifications) {
         this.notificationsService.success(null, this.translate.get('submission.sections.general.save_success_notice'));
       }
 
@@ -385,7 +400,7 @@ export class SubmissionObjectEffects {
         if (errors && !isEmpty(errors)) {
           // to avoid dispatching an action for every error, create an array of errors per section
           errorsList = parseSectionErrors(errors);
-          if (notify) {
+          if (showNotifications) {
             this.notificationsService.warning(null, this.translate.get('submission.sections.general.sections_not_valid'));
           }
         }
@@ -404,15 +419,23 @@ export class SubmissionObjectEffects {
             continue;
           }
 
-          if (notify && !currentState.sections[sectionId].enabled) {
+          if (showNotifications && !currentState.sections[sectionId].enabled) {
             this.submissionService.notifyNewSection(submissionId, sectionId, currentState.sections[sectionId].sectionType);
           }
 
           const sectionForm = getForm(forms, currentState, sectionId);
-          const filteredErrors = filterErrors(sectionForm, sectionErrors, currentState.sections[sectionId].sectionType, notify);
+          const filteredErrors = filterErrors(sectionForm, sectionErrors, currentState.sections[sectionId].sectionType, showErrors);
           mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, filteredErrors, sectionErrors));
         }
+
+        // Sherpa Policies section needs to be updated when the rest response section is empty
+        const sherpaPoliciesSectionId = findKey(currentState.sections, (section) => section.sectionType === SectionsType.SherpaPolicies);
+        if (isNotUndefined(sherpaPoliciesSectionId) && isNotEmpty(currentState.sections[sherpaPoliciesSectionId]?.data)
+          && isEmpty(sections[sherpaPoliciesSectionId])) {
+          mappedActions.push(new UpdateSectionDataAction(submissionId, sherpaPoliciesSectionId, null, [], []));
+        }
       });
+
     }
     return mappedActions;
   }

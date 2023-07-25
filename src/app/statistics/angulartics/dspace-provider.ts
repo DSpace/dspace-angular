@@ -24,14 +24,15 @@ export class Angulartics2DSpace {
   }
 
   private eventTrack(event) {
-    if (event.action === 'pageView') {
-      this.statisticsService.trackViewEvent(event.properties.object);
+    if (event.action === 'page_view') {
+      this.statisticsService.trackViewEvent(event.properties.object, event.properties.referrer);
     } else if (event.action === 'search') {
       this.statisticsService.trackSearchEvent(
         event.properties.searchOptions,
         event.properties.page,
         event.properties.sort,
-        event.properties.filters
+        event.properties.filters,
+        event.properties.clickedObject,
       );
     }
   }

@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { hasValue } from '../empty.util';
 import { PaginationService } from '../../core/pagination/pagination.service';
 
@@ -21,7 +21,7 @@ export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
   /**
    * The formdata controlling the StartsWith input
    */
-  formData: FormGroup;
+  formData: UntypedFormGroup;
 
   /**
    * List of subscriptions
@@ -43,8 +43,8 @@ export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
         }
       })
     );
-    this.formData = new FormGroup({
-      startsWith: new FormControl()
+    this.formData = new UntypedFormGroup({
+      startsWith: new UntypedFormControl()
     });
   }
 
@@ -70,20 +70,23 @@ export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
    */
   setStartsWith(startsWith: string) {
     this.startsWith = startsWith;
-    this.setStartsWithParam();
   }
 
   /**
    * Add/Change the url query parameter startsWith using the local variable
    */
-  setStartsWithParam() {
+  setStartsWithParam(resetPage = true) {
     if (this.startsWith === '-1') {
       this.startsWith = undefined;
     }
-    this.router.navigate([], {
-      queryParams: Object.assign({ startsWith: this.startsWith }),
-      queryParamsHandling: 'merge'
-    });
+    if (resetPage) {
+      this.paginationService.updateRoute(this.paginationId, {page: 1}, { startsWith: this.startsWith });
+    } else {
+      this.router.navigate([], {
+        queryParams: Object.assign({ startsWith: this.startsWith }),
+        queryParamsHandling: 'merge'
+      });
+    }
   }
 
   /**

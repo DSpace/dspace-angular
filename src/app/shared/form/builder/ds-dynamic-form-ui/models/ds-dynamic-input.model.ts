@@ -1,14 +1,15 @@
 import {
   DynamicFormControlLayout,
+  DynamicFormControlRelation,
   DynamicInputModel,
   DynamicInputModelConfig,
   serializable
 } from '@ng-dynamic-forms/core';
-import { Subject } from 'rxjs';
+import {Subject} from 'rxjs';
 
 import { LanguageCode } from '../../models/form-field-language-value.model';
 import { VocabularyOptions } from '../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { hasValue } from '../../../../empty.util';
+import {hasValue} from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 
@@ -18,13 +19,15 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   language?: string;
   place?: number;
   value?: any;
+  typeBindRelations?: DynamicFormControlRelation[];
   relationship?: RelationshipOptions;
   repeatable: boolean;
   metadataFields: string[];
   submissionId: string;
   hasSelectableMetadata: boolean;
   metadataValue?: FormFieldMetadataValueObject;
-
+  isModelOfInnerForm?: boolean;
+  hideErrorMessages?: boolean;
 }
 
 export class DsDynamicInputModel extends DynamicInputModel {
@@ -33,12 +36,18 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() private _languageCodes: LanguageCode[];
   @serializable() private _language: string;
   @serializable() languageUpdates: Subject<string>;
+  @serializable() place: number;
+  @serializable() typeBindRelations: DynamicFormControlRelation[];
+  @serializable() typeBindHidden = false;
   @serializable() relationship?: RelationshipOptions;
   @serializable() repeatable?: boolean;
   @serializable() metadataFields: string[];
   @serializable() submissionId: string;
   @serializable() hasSelectableMetadata: boolean;
   @serializable() metadataValue: FormFieldMetadataValueObject;
+  @serializable() isModelOfInnerForm: boolean;
+  @serializable() hideErrorMessages?: boolean;
+
 
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
@@ -46,11 +55,15 @@ export class DsDynamicInputModel extends DynamicInputModel {
     this.metadataFields = config.metadataFields;
     this.hint = config.hint;
     this.readOnly = config.readOnly;
+    this.disabled = config.readOnly;
     this.value = config.value;
     this.relationship = config.relationship;
     this.submissionId = config.submissionId;
     this.hasSelectableMetadata = config.hasSelectableMetadata;
     this.metadataValue = config.metadataValue;
+    this.place = config.place;
+    this.isModelOfInnerForm = (hasValue(config.isModelOfInnerForm) ? config.isModelOfInnerForm : false);
+    this.hideErrorMessages = config.hideErrorMessages;
 
     this.language = config.language;
     if (!this.language) {
@@ -70,6 +83,8 @@ export class DsDynamicInputModel extends DynamicInputModel {
     this.languageUpdates.subscribe((lang: string) => {
       this.language = lang;
     });
+
+    this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
 
     this.vocabularyOptions = config.vocabularyOptions;
   }

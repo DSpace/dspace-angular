@@ -28,9 +28,16 @@ import { MissingTranslationHelper } from '../translate/missing-translation.helpe
 import { SharedModule } from '../shared.module';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { SearchComponent } from './search.component';
+import { ThemedSearchComponent } from './themed-search.component';
+import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
+import { ThemedSearchSettingsComponent } from './search-settings/themed-search-settings.component';
+import { NouisliderModule } from 'ng2-nouislider';
+import { ThemedSearchFiltersComponent } from './search-filters/themed-search-filters.component';
+import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
 
 const COMPONENTS = [
   SearchComponent,
+  ThemedSearchComponent,
   SearchResultsComponent,
   SearchSidebarComponent,
   SearchSettingsComponent,
@@ -50,7 +57,11 @@ const COMPONENTS = [
   SearchAuthorityFilterComponent,
   SearchSwitchConfigurationComponent,
   ConfigurationSearchPageComponent,
-  ThemedConfigurationSearchPageComponent
+  ThemedConfigurationSearchPageComponent,
+  ThemedSearchResultsComponent,
+  ThemedSearchSettingsComponent,
+  ThemedSearchFiltersComponent,
+  ThemedSearchSidebarComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -85,7 +96,8 @@ export const MODELS = [
       missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
       useDefaultLang: true
     }),
-    SharedModule.withEntryComponents()
+    SharedModule.withEntryComponents(),
+    NouisliderModule,
   ],
   exports: [
     ...COMPONENTS

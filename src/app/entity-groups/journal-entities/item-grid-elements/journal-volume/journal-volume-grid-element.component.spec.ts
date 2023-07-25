@@ -10,6 +10,8 @@ import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 
 const mockItem = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
@@ -48,6 +50,7 @@ describe('JournalVolumeGridElementComponent', () => {
       imports: [NoopAnimationsModule],
       declarations: [JournalVolumeGridElementComponent, TruncatePipe],
       providers: [
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]

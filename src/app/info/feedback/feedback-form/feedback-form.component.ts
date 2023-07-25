@@ -3,7 +3,7 @@ import { NoContent } from '../../../core/shared/NoContent.model';
 import { FeedbackDataService } from '../../../core/feedback/feedback-data.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { RouteService } from '../../../core/services/route.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -37,7 +37,7 @@ export class FeedbackFormComponent implements OnInit {
   constructor(
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
     public routeService: RouteService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
     private feedbackDataService: FeedbackDataService,

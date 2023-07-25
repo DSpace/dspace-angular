@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -25,23 +25,24 @@ import { ClaimedDeclinedTaskSearchResult } from '../../../object-collection/shar
 
 let component: ClaimedTaskActionsRejectComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsRejectComponent>;
-let formBuilder: FormBuilder;
+let formBuilder: UntypedFormBuilder;
 let modalService: NgbModal;
 
 const searchService = getMockSearchService();
 
 const requestService = getMockRequestService();
 
+const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
+
+const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
+  submitTask: of(new ProcessTaskResponse(true))
+});
+
 let mockPoolTaskDataService: PoolTaskDataService;
 
 describe('ClaimedTaskActionsRejectComponent', () => {
-  const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
-  const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
-    submitTask: of(new ProcessTaskResponse(true))
-  });
-
   beforeEach(waitForAsync(() => {
-    mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
+    mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null);
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
@@ -49,49 +50,46 @@ describe('ClaimedTaskActionsRejectComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [ClaimedTaskActionsRejectComponent],
       providers: [
         { provide: ClaimedTaskDataService, useValue: claimedTaskService },
-        { provide: Injector, useValue: {} },
+        Injector,
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
-        FormBuilder,
-        NgbModal
+        UntypedFormBuilder,
+        NgbModal,
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ClaimedTaskActionsRejectComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
-  }));
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(ClaimedTaskActionsRejectComponent);
     component = fixture.componentInstance;
-    formBuilder = TestBed.inject(FormBuilder);
+    formBuilder = TestBed.inject(UntypedFormBuilder);
     modalService = TestBed.inject(NgbModal);
     component.object = object;
     component.modalRef = modalService.open('ok');
     spyOn(component, 'initReloadAnchor').and.returnValue(undefined);
     fixture.detectChanges();
-  });
+  }));
 
   it('should init reject form properly', () => {
     expect(component.rejectForm).toBeDefined();
-    expect(component.rejectForm instanceof FormGroup).toBeTruthy();
+    expect(component.rejectForm instanceof UntypedFormGroup).toBeTruthy();
     expect(component.rejectForm.controls.reason).toBeDefined();
   });
 
   it('should display reject button', () => {
     const btn = fixture.debugElement.query(By.css('.btn-danger'));
 
-    expect(btn).toBeDefined();
+    expect(btn).not.toBeNull();
   });
 
   it('should display spin icon when reject is pending', () => {
@@ -100,7 +98,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
 
     const span = fixture.debugElement.query(By.css('.btn-danger .fa-spin'));
 
-    expect(span).toBeDefined();
+    expect(span).not.toBeNull();
   });
 
   it('should call openRejectModal on reject button click', () => {

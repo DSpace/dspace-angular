@@ -25,6 +25,7 @@
               <thead>
               <tr>
                 <th></th>
+                <th scope="col">{{'admin.registries.schema.fields.table.id' | translate}}</th>
                 <th scope="col">{{'admin.registries.schema.fields.table.field' | translate}}</th>
                 <th scope="col">{{'admin.registries.schema.fields.table.scopenote' | translate}}</th>
               </tr>
@@ -33,13 +34,14 @@
               <tr *ngFor="let field of fields?.page"
                   [ngClass]="{'table-primary' : isActive(field) | async}">
                 <td>
-                  <label>
+                  <label class="mb-0">
                     <input type="checkbox"
                            [checked]="isSelected(field) | async"
                            (change)="selectMetadataField(field, $event)">
                   </label>
                 </td>
-                <td class="selectable-row" (click)="editField(field)">{{schema?.prefix}}.{{field.element}}<label *ngIf="field.qualifier">.</label>{{field.qualifier}}</td>
+                <td class="selectable-row" (click)="editField(field)">{{field.id}}</td>
+                <td class="selectable-row" (click)="editField(field)">{{schema?.prefix}}.{{field.element}}<label *ngIf="field.qualifier" class="mb-0">.</label>{{field.qualifier}}</td>
                 <td class="selectable-row" (click)="editField(field)">{{field.scopeNote}}</td>
               </tr>
               </tbody>

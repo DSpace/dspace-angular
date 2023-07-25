@@ -6,9 +6,14 @@ $sidebar-items-width: 250px !default;
 $total-sidebar-width: $collapsed-sidebar-width + $sidebar-items-width !default;
 
 /* Fonts */
-$fa-font-path: "/assets/fonts" !default;
+// Starting this url with a caret (^) allows it to be a relative path based on UI's deployment path
+// See https://github.com/angular/angular-cli/issues/12797#issuecomment-598534241
+$fa-font-path: "^assets/fonts" !default;
 /* Images */
 $image-path: "../assets/images" !default;
+
+// enable-responsive-font-sizes allows text to scale more naturally across device and viewport sizes
+$enable-responsive-font-sizes: true;
 
 /** Bootstrap Variables **/
 /* Colors */
@@ -22,6 +27,8 @@ $cyan:   #006666 !default;
 $yellow: #ec9433 !default;
 $red:    #CF4444 !default;
 $dark:   darken($blue, 17%) !default;
+
+
 
 $theme-colors: (
         primary: $blue,
@@ -44,3 +51,10 @@ $navbar-light-toggler-icon-bg: url("data:image/svg+xml;charset=utf8,<svg+viewBox
 $enable-shadows: true !default;
 
 $yiq-contrasted-threshold:  165 !default;
+
+$primary-bg: #{lighten(map-get($theme-colors, primary), 30%)} !default;
+$secondary-bg: #{lighten(map-get($theme-colors, secondary), 30%)} !default;
+$success-bg: #{lighten(map-get($theme-colors, success), 30%)} !default;
+$info-bg: #{lighten(map-get($theme-colors, info), 30%)} !default;
+$warning-bg: #{lighten(map-get($theme-colors, warning), 30%)} !default;
+$danger-bg: #{lighten(map-get($theme-colors, danger), 30%)} !default;

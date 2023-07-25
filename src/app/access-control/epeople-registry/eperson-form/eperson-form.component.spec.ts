@@ -2,13 +2,12 @@ import { Observable, of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { FindListOptions } from '../../../core/data/request.models';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
@@ -29,6 +28,7 @@ import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestService } from '../../../core/data/request.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
 
@@ -116,9 +116,9 @@ describe('EPersonFormComponent', () => {
             const controlModel = model;
             const controlState = { value: controlModel.value, disabled: controlModel.disabled };
             const controlOptions = this.createAbstractControlOptions(controlModel.validators, controlModel.asyncValidators, controlModel.updateOn);
-            controls[model.id] = new FormControl(controlState, controlOptions);
+            controls[model.id] = new UntypedFormControl(controlState, controlOptions);
         });
-        return new FormGroup(controls, options);
+        return new UntypedFormGroup(controls, options);
       },
       createAbstractControlOptions(validatorsConfig = null, asyncValidatorsConfig = null, updateOn = null) {
         return {
@@ -177,7 +177,7 @@ describe('EPersonFormComponent', () => {
 
     });
     groupsDataService = jasmine.createSpyObj('groupsDataService', {
-      findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+      findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
       getGroupRegistryRouterLink: ''
     });
 
@@ -537,7 +537,7 @@ describe('EPersonFormComponent', () => {
     });
 
     it('should call epersonRegistrationService.registerEmail', () => {
-      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith(ePersonEmail);
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith(ePersonEmail, null, 'forgot');
     });
   });
 });

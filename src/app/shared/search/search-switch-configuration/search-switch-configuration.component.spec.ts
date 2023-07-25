@@ -78,13 +78,13 @@ describe('SearchSwitchConfigurationComponent', () => {
 
   it('should display select field properly', () => {
     const selectField = fixture.debugElement.query(By.css('.form-control'));
-    expect(selectField).toBeDefined();
+    expect(selectField).not.toBeNull();
 
     const childElements = selectField.children;
     expect(childElements.length).toEqual(comp.configurationList.length);
   });
 
-  it('should call onSelect method when selecting an option', () => {
+  it('should call onSelect method when selecting an option', waitForAsync(() => {
     fixture.whenStable().then(() => {
       spyOn(comp, 'onSelect');
       select = fixture.debugElement.query(By.css('select'));
@@ -94,8 +94,7 @@ describe('SearchSwitchConfigurationComponent', () => {
       fixture.detectChanges();
       expect(comp.onSelect).toHaveBeenCalled();
     });
-
-  });
+  }));
 
   it('should navigate to the route when selecting an option', () => {
     spyOn((comp as any), 'getSearchLinkParts').and.returnValue([MYDSPACE_ROUTE]);

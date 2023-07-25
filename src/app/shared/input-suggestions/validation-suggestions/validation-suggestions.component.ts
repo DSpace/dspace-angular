@@ -1,5 +1,5 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { MetadataFieldValidator } from '../../utils/metadatafield-validator.directive';
@@ -14,7 +14,7 @@ import { InputSuggestion } from '../input-suggestions.model';
     {
       provide: NG_VALUE_ACCESSOR,
       // Usage of forwardRef necessary https://github.com/angular/angular.io/issues/1151
-      // tslint:disable-next-line:no-forward-ref
+      // eslint-disable-next-line @angular-eslint/no-forward-ref
       useExisting: forwardRef(() => ValidationSuggestionsComponent),
       multi: true
     }
@@ -26,7 +26,7 @@ import { InputSuggestion } from '../input-suggestions.model';
  */
 export class ValidationSuggestionsComponent extends InputSuggestionsComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   /**
    * The current url of this page
@@ -52,8 +52,8 @@ export class ValidationSuggestionsComponent extends InputSuggestionsComponent im
   }
 
   ngOnInit() {
-    this.form = new FormGroup({
-      metadataNameField: new FormControl(this._value, {
+    this.form = new UntypedFormGroup({
+      metadataNameField: new UntypedFormControl(this._value, {
         asyncValidators: [this.metadataFieldValidator.validate.bind(this.metadataFieldValidator)],
         validators: [Validators.required]
       })

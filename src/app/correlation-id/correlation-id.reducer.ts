@@ -1,13 +1,6 @@
-import {
-  CorrelationIdAction,
-  CorrelationIDActionTypes,
-  SetCorrelationIdAction
-} from './correlation-id.actions';
-import { AppState } from '../app.reducer';
+import { CorrelationIdAction, CorrelationIDActionTypes, SetCorrelationIdAction } from './correlation-id.actions';
 
 const initialState = null;
-
-export const correlationIdSelector = (state: AppState) => state.correlationId;
 
 /**
  * Reducer that handles actions to update the correlation ID

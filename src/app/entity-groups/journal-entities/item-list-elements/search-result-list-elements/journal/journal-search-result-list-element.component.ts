@@ -13,4 +13,5 @@ import { ItemSearchResultListElementComponent } from '../../../../../shared/obje
  * The component for displaying a list element for an item search result of the type Journal
  */
 export class JournalSearchResultListElementComponent extends ItemSearchResultListElementComponent {
+
 }

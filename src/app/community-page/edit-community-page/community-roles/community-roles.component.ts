@@ -19,28 +19,14 @@ export class CommunityRolesComponent implements OnInit {
   dsoRD$: Observable<RemoteData<Community>>;
 
   /**
-   * The community to manage, as an observable.
+   * The different roles for the community, as an observable.
    */
-  get community$(): Observable<Community> {
-    return this.dsoRD$.pipe(
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
-    );
-  }
+  comcolRoles$: Observable<HALLink[]>;
 
   /**
-   * The different roles for the community.
+   * The community to manage, as an observable.
    */
-  getComcolRoles$(): Observable<HALLink[]> {
-    return this.community$.pipe(
-      map((community) => [
-        {
-          name: 'community-admin',
-          href: community._links.adminGroup.href,
-        },
-      ]),
-    );
-  }
+  community$: Observable<Community>;
 
   constructor(
     protected route: ActivatedRoute,
@@ -51,6 +37,23 @@ export class CommunityRolesComponent implements OnInit {
     this.dsoRD$ = this.route.parent.data.pipe(
       first(),
       map((data) => data.dso),
+    );
+
+    this.community$ = this.dsoRD$.pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+    );
+
+    /**
+     * The different roles for the community.
+     */
+    this.comcolRoles$ = this.community$.pipe(
+      map((community) => [
+        {
+          name: 'community-admin',
+          href: community._links.adminGroup.href,
+        },
+      ]),
     );
   }
 }

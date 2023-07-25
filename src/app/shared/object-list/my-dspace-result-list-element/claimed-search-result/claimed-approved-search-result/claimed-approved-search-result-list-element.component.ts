@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { ClaimedApprovedTaskSearchResult } from '../../../../object-collection/shared/claimed-approved-task-search-result.model';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
-import { MyDspaceItemStatusType } from '../../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
@@ -13,6 +12,8 @@ import { SearchResultListElementComponent } from '../../../search-result-list-el
 import { ClaimedTaskSearchResult } from '../../../../object-collection/shared/claimed-task-search-result.model';
 import { ClaimedTask } from '../../../../../core/tasks/models/claimed-task-object.model';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
+import { Context } from 'src/app/core/shared/context.model';
 
 /**
  * This component renders claimed task approved object for the search result in the list view.
@@ -31,9 +32,9 @@ export class ClaimedApprovedSearchResultListElementComponent extends SearchResul
   public showSubmitter = true;
 
   /**
-   * Represent item's status
+   * Represents the badge context
    */
-  public status = MyDspaceItemStatusType.APPROVED;
+  public badgeContext = Context.MyDSpaceApproved;
 
   /**
    * The workflowitem object that belonging to the result object
@@ -43,9 +44,10 @@ export class ClaimedApprovedSearchResultListElementComponent extends SearchResul
   public constructor(
     protected linkService: LinkService,
     protected truncatableService: TruncatableService,
-    protected dsoNameService: DSONameService
+    public dsoNameService: DSONameService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
-    super(truncatableService, dsoNameService);
+    super(truncatableService, dsoNameService, appConfig);
   }
 
   /**

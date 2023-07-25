@@ -3,13 +3,17 @@ import { Injectable } from '@angular/core';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { RestResponse, DSOSuccessResponse } from '../cache/response.models';
-import { RestRequest } from './request.models';
 
 import { ResponseParsingService } from './parsing.service';
 import { BaseResponseParsingService } from './base-response-parsing.service';
 import { hasNoValue, hasValue } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { RestRequest } from './rest-request.model';
 
+/**
+ * @deprecated use DspaceRestResponseParsingService for new code, this is only left to support a
+ * few legacy use cases, and should get removed eventually
+ */
 @Injectable()
 export class DSOResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
   protected toCache = true;

@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { AppState } from '../../app.reducer';
 import { LogOutComponent } from './log-out.component';
 import { RouterStub } from '../testing/router.stub';
+import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
 
 describe('LogOutComponent', () => {
 
@@ -46,7 +47,8 @@ describe('LogOutComponent', () => {
         TranslateModule.forRoot()
       ],
       declarations: [
-        LogOutComponent
+        LogOutComponent,
+        BrowserOnlyMockPipe,
       ],
       providers: [
         { provide: Router, useValue: routerStub },

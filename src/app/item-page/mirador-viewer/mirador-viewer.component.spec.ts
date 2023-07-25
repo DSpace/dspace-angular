@@ -12,6 +12,7 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { of as observableOf } from 'rxjs';
 import { MiradorViewerService } from './mirador-viewer.service';
 import { HostWindowService } from '../../shared/host-window.service';
+import { BundleDataService } from '../../core/data/bundle-data.service';
 
 
 function getItem(metadata: MetadataMap) {
@@ -46,6 +47,7 @@ describe('MiradorViewerComponent with search', () => {
       declarations: [MiradorViewerComponent],
       providers: [
         { provide: BitstreamDataService, useValue: {} },
+        { provide: BundleDataService, useValue: {} },
         { provide: HostWindowService, useValue: mockHostWindowService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -108,6 +110,7 @@ describe('MiradorViewerComponent with multiple images', () => {
       declarations: [MiradorViewerComponent],
       providers: [
         { provide: BitstreamDataService, useValue: {} },
+        { provide: BundleDataService, useValue: {} },
         { provide: HostWindowService, useValue: mockHostWindowService  }
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -167,6 +170,7 @@ describe('MiradorViewerComponent with a single image', () => {
       declarations: [MiradorViewerComponent],
       providers: [
         { provide: BitstreamDataService, useValue: {} },
+        { provide: BundleDataService, useValue: {} },
         { provide: HostWindowService, useValue: mockHostWindowService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -225,6 +229,7 @@ describe('MiradorViewerComponent in development mode', () => {
       set: {
         providers: [
           { provide: MiradorViewerService, useValue: viewerService },
+          { provide: BundleDataService, useValue: {} },
           { provide: HostWindowService, useValue: mockHostWindowService  }
         ]
       }
@@ -248,7 +253,7 @@ describe('MiradorViewerComponent in development mode', () => {
     it('should show message', (() => {
       const value = fixture.debugElement
         .nativeElement.querySelector('#viewer-message');
-      expect(value).toBeDefined();
+      expect(value).not.toBeNull();
     }));
 
   });
