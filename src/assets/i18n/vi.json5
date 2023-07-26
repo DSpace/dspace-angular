@@ -671,7 +671,7 @@
   "curation-task.task.citationpage.label": "Tạo trang trích dẫn",
   "curation-task.task.noop.label": "NOOP",
   "curation-task.task.profileformats.label": "Định dạng tệp tin",
-  "curation-task.task.register-doi.label": "Đăng ký DOI",
+  "curation-task.task.registerdoi.label": "Đăng ký DOI",
   "curation-task.task.requiredmetadata.label": "Kiểm tra các trường dữ liệu bắt buộc",
   "curation-task.task.translate.label": "Bộ dịch của Microsoft",
   "curation-task.task.vscan.label": "Quét Virus",
