@@ -22,6 +22,18 @@
     }
 
     .bottom-footer {
+      .notify-enabled {
+        .coar-notify-support-route{
+          padding: 0 calc(var(--bs-spacer) / 2);
+          color: inherit
+        }
+        .n-coar{
+          height: var(--ds-footer-n-coar-height);
+          margin-bottom: 7px;
+        }
+        margin-top: 15px;
+        margin-left: 50px;
+      }
       ul {
         li {
           display: inline-flex;
@@ -43,5 +55,6 @@
     }
   }
 }
+
 
 

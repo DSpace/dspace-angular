@@ -13,6 +13,7 @@ import { FeedbackFormComponent } from './feedback/feedback-form/feedback-form.co
 import { ThemedFeedbackFormComponent } from './feedback/feedback-form/themed-feedback-form.component';
 import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
 import { FeedbackGuard } from '../core/feedback/feedback.guard';
+import { NotifyInfoComponent } from '../core/coar-notify/notify-info/notify-info.component';
 
 
 const DECLARATIONS = [
@@ -25,7 +26,8 @@ const DECLARATIONS = [
   FeedbackComponent,
   FeedbackFormComponent,
   ThemedFeedbackFormComponent,
-  ThemedFeedbackComponent
+  ThemedFeedbackComponent,
+  NotifyInfoComponent
 ];
 
 @NgModule({
