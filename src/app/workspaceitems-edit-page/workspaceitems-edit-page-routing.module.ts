@@ -8,6 +8,8 @@ import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-
 import { ItemFromWorkspaceResolver } from './item-from-workspace.resolver';
 import { WorkspaceItemPageResolver } from './workspace-item-page.resolver';
 import { PendingChangesGuard } from '../submission/edit/pending-changes/pending-changes.guard';
+import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/workspaceitems-delete-page.component';
+import { ThemedWorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/themed-workspaceitems-delete-page.component';
 
 @NgModule({
   imports: [
@@ -36,7 +38,27 @@ import { PendingChangesGuard } from '../submission/edit/pending-changes/pending-
               breadcrumb: I18nBreadcrumbResolver
             },
             data: { title: 'workspace-item.view.title', breadcrumbKey: 'workspace-item.view' }
-          }
+          },
+          {
+            canActivate: [AuthenticatedGuard],
+            path: 'delete',
+            component: WorkspaceItemsDeletePageComponent,
+            resolve: {
+              dso: ItemFromWorkspaceResolver,
+              breadcrumb: I18nBreadcrumbResolver
+            },
+            data: { title: 'workspace-item.delete', breadcrumbKey: 'workspace-item.delete' }
+          },
+          {
+            canActivate: [AuthenticatedGuard],
+            path: 'delete',
+            component: ThemedWorkspaceItemsDeletePageComponent,
+            resolve: {
+              dso: ItemFromWorkspaceResolver,
+              breadcrumb: I18nBreadcrumbResolver
+            },
+            data: { title: 'workspace-item.delete', breadcrumbKey: 'workspace-item.delete' }
+          },
         ]
       }
     ])
