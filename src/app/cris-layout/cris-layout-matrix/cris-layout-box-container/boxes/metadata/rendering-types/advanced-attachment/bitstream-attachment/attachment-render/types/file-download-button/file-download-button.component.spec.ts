@@ -6,8 +6,8 @@ import { of } from 'rxjs';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
 import { Item } from 'src/app/core/shared/item.model';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-import { SharedModule } from '../shared.module';
+import { TranslateLoaderMock } from '../../../../../../../../../../../shared/mocks/translate-loader.mock';
+import { SharedModule } from '../../../../../../../../../../../shared/shared.module';
 
 import { FileDownloadButtonComponent } from './file-download-button.component';
 
