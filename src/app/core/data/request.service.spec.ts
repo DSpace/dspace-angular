@@ -1,6 +1,6 @@
 import { Store, StoreModule } from '@ngrx/store';
 import { cold, getTestScheduler } from 'jasmine-marbles';
-import { EMPTY, of as observableOf } from 'rxjs';
+import { EMPTY, Observable, of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
@@ -637,5 +637,49 @@ describe('RequestService', () => {
       const done$ = service.setStaleByUUID('something');
       expect(done$).toBeObservable(cold('-----(t|)', { t: true }));
     }));
+  });
+
+  describe('setStaleByHrefSubstring', () => {
+    let dispatchSpy: jasmine.Spy;
+    let getByUUIDSpy: jasmine.Spy;
+
+    beforeEach(() => {
+      dispatchSpy = spyOn(store, 'dispatch');
+      getByUUIDSpy = spyOn(service, 'getByUUID').and.callThrough();
+    });
+
+    describe('with an empty/no matching requests in the state', () => {
+      it('should return true', () => {
+        const done$: Observable<boolean> = service.setStaleByHrefSubstring('https://rest.api/endpoint/selfLink');
+        expect(done$).toBeObservable(cold('(a|)', { a: true }));
+      });
+    });
+
+    describe('with a matching request in the state', () => {
+      beforeEach(() => {
+        const state = Object.assign({}, initialState, {
+          core: Object.assign({}, initialState.core, {
+            'index': {
+              'get-request/href-to-uuid': {
+                'https://rest.api/endpoint/selfLink': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb'
+              }
+            }
+          })
+        });
+        mockStore.setState(state);
+      });
+
+      it('should return an Observable that emits true as soon as the request is stale', () => {
+        dispatchSpy.and.callFake(() => { /* empty */ });   // don't actually set as stale
+        getByUUIDSpy.and.returnValue(cold('a-b--c--d-', {  // but fake the state in the cache
+          a: { state: RequestEntryState.ResponsePending },
+          b: { state: RequestEntryState.Success },
+          c: { state: RequestEntryState.SuccessStale },
+          d: { state: RequestEntryState.Error },
+        }));
+        const done$: Observable<boolean> = service.setStaleByHrefSubstring('https://rest.api/endpoint/selfLink');
+        expect(done$).toBeObservable(cold('-----(a|)', { a: true }));
+      });
+    });
   });
 });
