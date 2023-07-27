@@ -11,20 +11,36 @@
       (dfChange)="onChange($event)"
       (dfFocus)="onFocus($event)"
        (ngbEvent)="onCustomEvent($event)">
+
+      <ng-template modelType="SCROLLABLE_DROPDOWN" let-model="model">
+        <div *ngIf="!isTheOnlyFieldInArrayGroup(model)"
+             class="col-xs-2 d-flex flex-column justify-content-start align-items-end"
+             [style.padding]="'0 5px 0 10px'"
+             [class]="arrayButtonsStyle">
+          <button type="button" class="btn btn-secondary" role="button"
+                  title="{{'form.remove' | translate}}"
+                  attr.aria-label="{{'form.remove' | translate}}"
+                  (click)="clearScrollableDropdown($event, model)"
+                  [disabled]="!model.value">
+            <span><i class="fas fa-trash" aria-hidden="false"></i></span>
+          </button>
+        </div>
+      </ng-template>
+
       <ng-template modelType="ARRAY" let-group let-index="index" let-context="context">
         <!--Array with repeatable items-->
         <div *ngIf="(!context.notRepeatable) && !isVirtual(context, index)"
              [class.isInlineGroupForm-delete]="isInlineGroupForm"
              class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end"
              [class]="arrayButtonsStyle" [ngClass]="{'justify-content-sm-end' : isInlineGroupForm }">
-            <button type="button" class="btn btn-secondary" role="button"
-                    title="{{'form.remove' | translate}}"
-                    attr.aria-label="{{'form.remove' | translate}}"
-                    (click)="removeItem($event, context, index)"
-                    [disabled]="group.context.groups.length === 1 || isItemReadOnly(context, index)">
-              <span><i class="fas fa-trash" aria-hidden="true"></i></span>
-            </button>
-            <div *ngIf="isInlineGroupForm" class="clearfix w-100 mb-2"></div>
+          <button type="button" class="btn btn-secondary" role="button"
+                  title="{{'form.remove' | translate}}"
+                  attr.aria-label="{{'form.remove' | translate}}"
+                  (click)="removeItem($event, context, index)"
+                  [disabled]="isArrayGroupEmpty(group) || isItemReadOnly(context, index)">
+            <span><i class="fas fa-trash" aria-hidden="true"></i></span>
+          </button>
+          <div *ngIf="isInlineGroupForm" class="clearfix w-100 mb-2"></div>
         </div>
 
         <div *ngIf="(!context.notRepeatable) && isInlineGroupForm" class="clearfix pl-4 w-100">

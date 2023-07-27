@@ -429,6 +429,10 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    *    the [[DynamicFormControlEvent]] emitted
    */
   onFocus(event: DynamicFormControlEvent): void {
+    this.updatePreviousValue(event);
+  }
+
+  private updatePreviousValue(event: DynamicFormControlEvent): void {
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
     const path = this.formBuilderService.getPath(event.model);
     if (this.formBuilderService.hasMappedGroupValue(event.model)) {
@@ -440,6 +444,11 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
     }
   }
 
+  private clearPreviousValue(): void {
+    this.previousValue.path = null;
+    this.previousValue.value = null;
+  }
+
   /**
    * Method called when a form remove event is fired.
    * Dispatch form operations based on changes.
@@ -448,6 +457,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    *    the [[DynamicFormControlEvent]] emitted
    */
   onRemove(event: DynamicFormControlEvent): void {
+    this.updatePreviousValue(event);
     const fieldId = this.formBuilderService.getId(event.model);
     const fieldIndex = this.formOperationsService.getArrayIndexFromEvent(event);
 
@@ -465,7 +475,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
       event,
       this.previousValue,
       this.hasStoredValue(fieldId, fieldIndex));
-
+    this.clearPreviousValue();
   }
 
   /**

@@ -4,9 +4,11 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
+  DynamicFormArrayGroupModel,
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
+  DynamicFormGroupModel,
   DynamicFormValidationService,
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
@@ -24,6 +26,11 @@ import { FormFieldMetadataValueObject } from './builder/models/form-field-metada
 import { createTestComponent } from '../testing/utils.test';
 import { BehaviorSubject } from 'rxjs';
 import { storeModuleConfig } from '../../app.reducer';
+import {
+  DynamicScrollableDropdownModel,
+  DynamicScrollableDropdownModelConfig
+} from './builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { DynamicFormGroupModelConfig } from '@ng-dynamic-forms/core/lib/model/form-group/dynamic-form-group.model';
 
 let TEST_FORM_MODEL;
 
@@ -433,6 +440,167 @@ describe('FormComponent test suite', () => {
 
       expect(formComp.removeArrayItem.emit).toHaveBeenCalled();
     }));
+
+    it('should emit removeArrayItem Event when an scrollable dropdown field has been cleaned', inject([FormBuilderService], (service: FormBuilderService) => {
+      spyOn(formComp.removeArrayItem, 'emit');
+
+      formComp.clearScrollableDropdown(new Event('click'), formComp.formModel[0] as DynamicFormControlModel);
+
+      expect(formComp.removeArrayItem.emit).toHaveBeenCalled();
+    }));
+  });
+
+  describe('isArrayGroupEmpty', () => {
+    init();
+    beforeEach(() => {
+      formFixture = TestBed.createComponent(FormComponent);
+      store = TestBed.inject(Store as any);
+      formComp = formFixture.componentInstance;
+      formComp.formId = 'testFormArray';
+      formComp.formModel = TEST_FORM_MODEL_WITH_ARRAY;
+      formComp.displaySubmit = false;
+      formComp.displayCancel = false;
+      formFixture.detectChanges();
+      spyOn(store, 'dispatch');
+    });
+
+    afterEach(() => {
+      formFixture.destroy();
+      formComp = null;
+    });
+
+    it('should return false if array group has multiple values', () => {
+      const group = {
+        context: {
+          groups: [
+            {
+              group: [
+                {
+                  id: 'groupId',
+                  value: 'groupValue1'
+                }
+              ],
+            },
+            {
+              group: [
+                {
+                  id: 'groupId',
+                  value: 'groupValue2'
+                }
+              ],
+            }
+          ]
+        }
+      };
+
+      const result = formComp.isArrayGroupEmpty(group);
+
+      expect(result).toBeFalse();
+    });
+
+    it('should return false if array group has only one value', () => {
+      const group = {
+        context: {
+          groups: [
+            {
+              group: [
+                {
+                  id: 'groupId',
+                  value: 'groupValue1'
+                }
+              ],
+            }
+          ]
+        }
+      };
+
+      const result = formComp.isArrayGroupEmpty(group);
+
+      expect(result).toBeFalse();
+    });
+
+    it('should return true if array group has one group but without value', () => {
+      const group = {
+        context: {
+          groups: [
+            {
+              group: [
+                {
+                  id: 'groupId',
+                  value: null
+                }
+              ],
+            }
+          ]
+        }
+      };
+
+      const result = formComp.isArrayGroupEmpty(group);
+
+      expect(result).toBeTrue();
+    });
+
+    it('should return true if array group does not have any value', () => {
+      const group = {
+        context: {
+          groups: []
+        }
+      };
+
+      const result = formComp.isArrayGroupEmpty(group);
+
+      expect(result).toBeTrue();
+    });
+  });
+
+  describe('isTheOnlyFieldInArrayGroup', () => {
+    init();
+    beforeEach(() => {
+      formFixture = TestBed.createComponent(FormComponent);
+      store = TestBed.inject(Store as any);
+      formComp = formFixture.componentInstance;
+      formComp.formId = 'testFormArray';
+      formComp.formModel = TEST_FORM_MODEL_WITH_ARRAY;
+      formComp.displaySubmit = false;
+      formComp.displayCancel = false;
+      formFixture.detectChanges();
+      spyOn(store, 'dispatch');
+    });
+
+    afterEach(() => {
+      formFixture.destroy();
+      formComp = null;
+    });
+
+    it('should return true if it is the only field in array group', () => {
+      const parent = new DynamicFormArrayGroupModel({} as DynamicFormArrayModel, [{} as DynamicFormControlModel]);
+      const model = new DynamicScrollableDropdownModel({} as DynamicScrollableDropdownModelConfig);
+      model.parent = parent;
+
+      const result = formComp.isTheOnlyFieldInArrayGroup(model);
+
+      expect(result).toBeTrue();
+    });
+
+    it('should return false if it is not the only field in array group', () => {
+      const parent = new DynamicFormArrayGroupModel({} as DynamicFormArrayModel, [{} as DynamicFormControlModel, {} as DynamicFormControlModel]);
+      const model = new DynamicScrollableDropdownModel({} as DynamicScrollableDropdownModelConfig);
+      model.parent = parent;
+
+      const result = formComp.isTheOnlyFieldInArrayGroup(model);
+
+      expect(result).toBeFalse();
+    });
+
+    it('should return false if it is a field in not array group', () => {
+      const parent = new DynamicFormGroupModel({} as DynamicFormGroupModelConfig);
+      const model = new DynamicScrollableDropdownModel({} as DynamicScrollableDropdownModelConfig);
+      model.parent = parent;
+
+      const result = formComp.isTheOnlyFieldInArrayGroup(model);
+
+      expect(result).toBeFalse();
+    });
   });
 });
 
