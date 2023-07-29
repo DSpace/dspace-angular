@@ -12,14 +12,13 @@ describe('Item', () => {
   const bitstream1Path = 'document.pdf';
   const bitstream2Path = 'otherfile.doc';
 
-  const nonExistingBundleName = 'c1e568f7-d14e-496b-bdd7-07026998cc00';
   let bitstreams;
   let remoteDataThumbnail;
   let remoteDataThumbnailList;
   let remoteDataFiles;
   let remoteDataBundles;
 
-  beforeEach(() => {
+  it('should be possible to create an Item without any errors', () => {
     const thumbnail = {
       content: thumbnailPath
     };
@@ -51,5 +50,6 @@ describe('Item', () => {
     remoteDataBundles = createSuccessfulRemoteDataObject$(createPaginatedList(bundles));
 
     item = Object.assign(new Item(), { bundles: remoteDataBundles });
+    expect().nothing();
   });
 });
