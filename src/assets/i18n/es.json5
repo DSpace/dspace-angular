@@ -4237,7 +4237,7 @@
   "menu.section.browse_global_by_dateissued": "Por fecha de publicación",
 
   // "menu.section.browse_global_by_subject": "By Subject",
-  "menu.section.browse_global_by_subject": "Por tema",
+  "menu.section.browse_global_by_subject": "Por materia",
 
   // "menu.section.browse_global_by_srsc": "By Subject Category",
   "menu.section.browse_global_by_srsc": "Por categoría de materia",
@@ -5461,7 +5461,7 @@
   "search.filters.applied.f.namedresourcetype": "Estado",
 
   // "search.filters.applied.f.subject": "Subject",
-  "search.filters.applied.f.subject": "Tema",
+  "search.filters.applied.f.subject": "Materia",
 
   // "search.filters.applied.f.submitter": "Submitter",
   "search.filters.applied.f.submitter": "Remitente",
@@ -7042,7 +7042,7 @@
   "subscriptions.modal.update.error": "Un error ocurrió durante la actualización de la suscripción",
 
   // "subscriptions.table.dso": "Subject",
-  "subscriptions.table.dso": "Tema",
+  "subscriptions.table.dso": "Materia",
 
   // "subscriptions.table.subscription_type": "Subscription Type",
   "subscriptions.table.subscription_type": "Tipo de suscripción",
@@ -7117,7 +7117,7 @@
   "vocabulary-treeview.tree.description.srsc": "Categorías de temas de investigación",
 
   // "vocabulary-treeview.info": "Select a subject to add as search filter",
-  "vocabulary-treeview.info": "Selecciona un tema para agregar como filtro de búsqueda",
+  "vocabulary-treeview.info": "Selecciona una materia para agregar como filtro de búsqueda",
 
   // "uploader.browse": "browse",
   "uploader.browse": "examinar",
