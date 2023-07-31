@@ -1174,7 +1174,7 @@
   "browse.comcol.by.srsc": "Por categoría de materia",
 
   // "browse.comcol.by.title": "By Title",
-  "browse.comcol.by.title": "Por titulo",
+  "browse.comcol.by.title": "Por título",
 
   // "browse.comcol.head": "Browse",
   "browse.comcol.head": "Examinar",
@@ -4225,7 +4225,7 @@
   "menu.section.browse_community_by_issue_date": "Por fecha de publicación",
 
   // "menu.section.browse_community_by_title": "By Title",
-  "menu.section.browse_community_by_title": "Por titulo",
+  "menu.section.browse_community_by_title": "Por título",
 
   // "menu.section.browse_global": "All of DSpace",
   "menu.section.browse_global": "Todo DSpace",
@@ -4243,7 +4243,7 @@
   "menu.section.browse_global_by_srsc": "Por categoría de materia",
 
   // "menu.section.browse_global_by_title": "By Title",
-  "menu.section.browse_global_by_title": "Por titulo",
+  "menu.section.browse_global_by_title": "Por título",
 
   // "menu.section.browse_global_communities_and_collections": "Communities & Collections",
   "menu.section.browse_global_communities_and_collections": "Comunidades",
