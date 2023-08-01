@@ -20,6 +20,7 @@ import { MetadataService } from '../../app/core/metadata/metadata.service';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { take } from 'rxjs/operators';
+import { MenuService } from '../../app/shared/menu/menu.service';
 
 /**
  * Performs server-side initialization.
@@ -37,6 +38,7 @@ export class ServerInitService extends InitService {
     protected metadata: MetadataService,
     protected breadcrumbsService: BreadcrumbsService,
     protected themeService: ThemeService,
+    protected menuService: MenuService
   ) {
     super(
       store,
@@ -48,6 +50,7 @@ export class ServerInitService extends InitService {
       metadata,
       breadcrumbsService,
       themeService,
+      menuService,
     );
   }
 

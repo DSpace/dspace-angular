@@ -12,6 +12,12 @@ import { GroupsRegistryComponent } from './group-registry/groups-registry.compon
 import { FormModule } from '../shared/form/form.module';
 import { DYNAMIC_ERROR_MESSAGES_MATCHER, DynamicErrorMessagesMatcher } from '@ng-dynamic-forms/core';
 import { AbstractControl } from '@angular/forms';
+import { BulkAccessComponent } from './bulk-access/bulk-access.component';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { BulkAccessBrowseComponent } from './bulk-access/browse/bulk-access-browse.component';
+import { BulkAccessSettingsComponent } from './bulk-access/settings/bulk-access-settings.component';
+import { SearchModule } from '../shared/search/search.module';
+import { AccessControlFormModule } from '../shared/access-control-form-container/access-control-form.module';
 
 /**
  * Condition for displaying error messages on email form field
@@ -27,7 +33,13 @@ export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
     SharedModule,
     RouterModule,
     AccessControlRoutingModule,
-    FormModule
+    FormModule,
+    NgbAccordionModule,
+    SearchModule,
+    AccessControlFormModule,
+  ],
+  exports: [
+    MembersListComponent,
   ],
   declarations: [
     EPeopleRegistryComponent,
@@ -35,7 +47,10 @@ export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
     GroupsRegistryComponent,
     GroupFormComponent,
     SubgroupsListComponent,
-    MembersListComponent
+    MembersListComponent,
+    BulkAccessComponent,
+    BulkAccessBrowseComponent,
+    BulkAccessSettingsComponent,
   ],
   providers: [
     {

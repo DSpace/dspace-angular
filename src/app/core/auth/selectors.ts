@@ -116,6 +116,8 @@ const _getRedirectUrl = (state: AuthState) => state.redirectUrl;
 
 const _getAuthenticationMethods = (state: AuthState) => state.authMethods;
 
+const _getExternalAuthCookieStatus = (state: AuthState) => state.externalAuth;
+
 /**
  * Returns true if the user is idle.
  * @function _isIdle
@@ -177,6 +179,16 @@ export const isAuthenticated = createSelector(getAuthState, _isAuthenticated);
  * @return {boolean}
  */
 export const isAuthenticatedLoaded = createSelector(getAuthState, _isAuthenticatedLoaded);
+
+/**
+ * Returns the authentication cookie status. Expect to be true when external authentication
+ * is used.
+ * @function getExternalAuthCookieStatus
+ * @param {AuthState} state
+ * @param {any} props
+ * @return {boolean}
+ */
+export const getExternalAuthCookieStatus = createSelector(getAuthState, _getExternalAuthCookieStatus);
 
 /**
  * Returns true if the authentication request is loading.

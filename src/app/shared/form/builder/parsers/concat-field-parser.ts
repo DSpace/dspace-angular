@@ -83,6 +83,8 @@ export class ConcatFieldParser extends FieldParser {
       input1ModelConfig.required = true;
     }
 
+    concatGroup.disabled = input1ModelConfig.readOnly;
+
     if (isNotEmpty(this.firstPlaceholder)) {
       input1ModelConfig.placeholder = this.firstPlaceholder;
     }

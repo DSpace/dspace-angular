@@ -55,7 +55,8 @@ export class ActivatedRouteStub {
     return {
       params: this.testParams,
       paramMap: convertToParamMap(this.params),
-      queryParamMap: convertToParamMap(this.testParams)
+      queryParamMap: convertToParamMap(this.testParams),
+      queryParams: {} as Params,
     };
   }
 }

@@ -6,6 +6,7 @@ import { MenuItemType } from '../../menu-item-type.model';
  */
 export class SearchMenuItemModel implements MenuItemModel {
   type = MenuItemType.SEARCH;
+  disabled: boolean;
   placeholder: string;
   action: string;
 }

@@ -21,9 +21,11 @@ import { Version } from './version.model';
 import { VERSION } from './version.resource-type';
 import { BITSTREAM } from './bitstream.resource-type';
 import { Bitstream } from './bitstream.model';
-import { ACCESS_STATUS } from 'src/app/shared/object-list/access-status-badge/access-status.resource-type';
-import { AccessStatusObject } from 'src/app/shared/object-list/access-status-badge/access-status.model';
+import { ACCESS_STATUS } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
+import { AccessStatusObject } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { HandleObject } from './handle-object.model';
+import { IDENTIFIERS } from '../../shared/object-list/identifier-data/identifier-data.resource-type';
+import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';
 
 /**
  * Class representing a DSpace Item
@@ -76,6 +78,7 @@ export class Item extends DSpaceObject implements ChildHALResource, HandleObject
     version: HALLink;
     thumbnail: HALLink;
     accessStatus: HALLink;
+    identifiers: HALLink;
     self: HALLink;
   };
 
@@ -120,6 +123,13 @@ export class Item extends DSpaceObject implements ChildHALResource, HandleObject
    */
    @link(ACCESS_STATUS)
    accessStatus?: Observable<RemoteData<AccessStatusObject>>;
+
+  /**
+   * The identifier data for this Item
+   * Will be undefined unless the identifiers {@link HALLink} has been resolved.
+   */
+  @link(IDENTIFIERS, false, 'identifiers')
+  identifiers?: Observable<RemoteData<IdentifierData>>;
 
   /**
    * Method that returns as which type of object this object should be rendered

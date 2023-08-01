@@ -10,6 +10,8 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { SharedModule } from '../../shared/shared.module';
 import { DeleteCommunityPageComponent } from './delete-community-page.component';
 import { RequestService } from '../../core/data/request.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
 
 describe('DeleteCommunityPageComponent', () => {
   let comp: DeleteCommunityPageComponent;
@@ -20,6 +22,7 @@ describe('DeleteCommunityPageComponent', () => {
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
       declarations: [DeleteCommunityPageComponent],
       providers: [
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: CommunityDataService, useValue: {} },
         { provide: ActivatedRoute, useValue: { data: observableOf({ dso: { payload: {} } }) } },
         { provide: NotificationsService, useValue: {} },

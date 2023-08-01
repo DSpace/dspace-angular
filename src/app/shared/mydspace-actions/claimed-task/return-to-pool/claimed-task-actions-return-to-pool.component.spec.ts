@@ -72,7 +72,7 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
   it('should display return to pool button', () => {
     const btn = fixture.debugElement.query(By.css('.btn-secondary'));
 
-    expect(btn).toBeDefined();
+    expect(btn).not.toBeNull();
   });
 
   it('should display spin icon when return to pool action is pending', () => {
@@ -81,7 +81,7 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
 
     const span = fixture.debugElement.query(By.css('.btn-secondary .fa-spin'));
 
-    expect(span).toBeDefined();
+    expect(span).not.toBeNull();
   });
 
   describe('actionExecution', () => {

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
@@ -21,6 +21,7 @@ import { RequestService } from '../../core/data/request.service';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-epeople-registry',
@@ -89,11 +90,13 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
               private authorizationService: AuthorizationDataService,
-              private formBuilder: FormBuilder,
+              private formBuilder: UntypedFormBuilder,
               private router: Router,
               private modalService: NgbModal,
               private paginationService: PaginationService,
-              public requestService: RequestService) {
+              public requestService: RequestService,
+              public dsoNameService: DSONameService,
+  ) {
     this.currentSearchQuery = '';
     this.currentSearchScope = 'metadata';
     this.searchForm = this.formBuilder.group(({
@@ -121,7 +124,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
     this.subs.push(this.ePeople$.pipe(
       switchMap((epeople: PaginatedList<EPerson>) => {
         if (epeople.pageInfo.totalElements > 0) {
-          return combineLatest(...epeople.page.map((eperson) => {
+          return combineLatest([...epeople.page.map((eperson: EPerson) => {
             return this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(eperson) ? eperson.self : undefined).pipe(
               map((authorized) => {
                 const epersonDtoModel: EpersonDtoModel = new EpersonDtoModel();
@@ -130,7 +133,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
                 return epersonDtoModel;
               })
             );
-          })).pipe(map((dtos: EpersonDtoModel[]) => {
+          })]).pipe(map((dtos: EpersonDtoModel[]) => {
             return buildPaginatedList(epeople.pageInfo, dtos);
           }));
         } else {
@@ -237,7 +240,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
           if (hasValue(ePerson.id)) {
             this.epersonService.deleteEPerson(ePerson).pipe(getFirstCompletedRemoteData()).subscribe((restResponse: RemoteData<NoContent>) => {
               if (restResponse.hasSucceeded) {
-                this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', {name: ePerson.name}));
+                this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', {name: this.dsoNameService.getName(ePerson)}));
               } else {
                 this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + ePerson.id + ' with code: ' + restResponse.statusCode + ' and message: ' + restResponse.errorMessage);
               }
@@ -284,14 +287,17 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   /**
    * This method will set everything to stale, which will cause the lists on this page to update.
    */
-  reset() {
+  reset(): void {
     this.epersonService.getBrowseEndpoint().pipe(
-      take(1)
-    ).subscribe((href: string) => {
-      this.requestService.setStaleByHrefSubstring(href).pipe(take(1)).subscribe(() => {
-        this.epersonService.cancelEditEPerson();
-        this.isEPersonFormShown = false;
-      });
+      take(1),
+      switchMap((href: string) => {
+        return this.requestService.setStaleByHrefSubstring(href).pipe(
+          take(1),
+        );
+      })
+    ).subscribe(()=>{
+      this.epersonService.cancelEditEPerson();
+      this.isEPersonFormShown = false;
     });
   }
 }

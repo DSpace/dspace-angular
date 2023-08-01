@@ -7,6 +7,8 @@ import { SharedModule } from '../../../../../shared/shared.module';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { By } from '@angular/platform-browser';
+import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
+import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
 
 let comp: ItemPageAbstractFieldComponent;
 let fixture: ComponentFixture<ItemPageAbstractFieldComponent>;
@@ -25,6 +27,7 @@ describe('ItemPageAbstractFieldComponent', () => {
       ],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
       ],
       declarations: [ItemPageAbstractFieldComponent],
       schemas: [NO_ERRORS_SCHEMA]
@@ -41,6 +44,6 @@ describe('ItemPageAbstractFieldComponent', () => {
   }));
 
   it('should render a ds-metadata-values', () => {
-    expect(fixture.debugElement.query(By.css('ds-metadata-values'))).toBeDefined();
+    expect(fixture.debugElement.query(By.css('ds-metadata-values'))).not.toBeNull();
   });
 });

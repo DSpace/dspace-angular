@@ -22,8 +22,8 @@
   --ds-header-bg: #{$white};
   --ds-header-logo-height: 50px;
   --ds-header-logo-height-xs: 50px;
-  --ds-header-icon-color: #{$cyan};
-  --ds-header-icon-color-hover: #{darken($white, 15%)};
+  --ds-header-icon-color: #{$link-color};
+  --ds-header-icon-color-hover: #{$link-hover-color};
   --ds-header-navbar-border-top-color: #{$white};
   --ds-header-navbar-border-bottom-color: #{$gray-400};
   --ds-navbar-link-color: #{$cyan};
@@ -86,5 +86,15 @@
 
   --ds-search-form-scope-max-width: 150px;
 
+  --ds-context-x-offset: -16px;
+  --ds-context-help-icon-size: 16px;
+  --ds-context-help-tooltip-width: 300px;
+  --ds-context-help-tooltip-link-color: $white;
+
   --ds-gap: 0.25rem;
+
+  --ds-dso-edit-field-width: 210px;
+  --ds-dso-edit-lang-width: 90px;
+  --ds-dso-edit-actions-width: 173px;
+  --ds-dso-edit-virtual-tooltip-min-width: 300px;
 }

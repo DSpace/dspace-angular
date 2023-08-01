@@ -641,6 +641,62 @@ describe('BaseDataService', () => {
     });
   });
 
+  describe('hasCachedResponse', () => {
+    it('should return false when the request will be dispatched', (done) => {
+      const result = service.hasCachedResponse('test-href');
+
+      result.subscribe((hasCachedResponse) => {
+        expect(hasCachedResponse).toBeFalse();
+        done();
+      });
+    });
+
+    it('should return true when the request will not be dispatched', (done) => {
+      (requestService.shouldDispatchRequest as jasmine.Spy).and.returnValue(false);
+      const result = service.hasCachedResponse('test-href');
+
+      result.subscribe((hasCachedResponse) => {
+        expect(hasCachedResponse).toBeTrue();
+        done();
+      });
+    });
+  });
+
+  describe('hasCachedErrorResponse', () => {
+    it('should return false when no response is cached', (done) => {
+      spyOn(service,'hasCachedResponse').and.returnValue(observableOf(false));
+      const result = service.hasCachedErrorResponse('test-href');
+
+      result.subscribe((hasCachedErrorResponse) => {
+        expect(hasCachedErrorResponse).toBeFalse();
+        done();
+      });
+    });
+    it('should return false when no error response is cached', (done) => {
+      spyOn(service,'hasCachedResponse').and.returnValue(observableOf(true));
+      spyOn(rdbService,'buildSingle').and.returnValue(createSuccessfulRemoteDataObject$({}));
+
+      const result = service.hasCachedErrorResponse('test-href');
+
+      result.subscribe((hasCachedErrorResponse) => {
+        expect(hasCachedErrorResponse).toBeFalse();
+        done();
+      });
+    });
+
+    it('should return true when an error response is cached', (done) => {
+      spyOn(service,'hasCachedResponse').and.returnValue(observableOf(true));
+      spyOn(rdbService,'buildSingle').and.returnValue(createFailedRemoteDataObject$());
+
+      const result = service.hasCachedErrorResponse('test-href');
+
+      result.subscribe((hasCachedErrorResponse) => {
+        expect(hasCachedErrorResponse).toBeTrue();
+        done();
+      });
+    });
+  });
+
   describe('addDependency', () => {
     let addDependencySpy;
 

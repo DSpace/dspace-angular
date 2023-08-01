@@ -48,9 +48,14 @@ export class SearchResultsComponent {
   @Input() searchConfig: PaginatedSearchOptions;
 
   /**
-   * A boolean representing if show export button
+   * A boolean representing if show csv export button
    */
-  @Input() showExport = true;
+  @Input() showCsvExport = false;
+
+  /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
 
   /**
    * The current sorting configuration of the search
