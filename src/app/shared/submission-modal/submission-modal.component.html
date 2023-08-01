@@ -1,0 +1,97 @@
+<div class="modal" id="submissionModal" tabindex="-1" aria-labelledby="submissionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title text-center" id="submissionModalLabel">Make a deposit on eCommmons</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="clearfix text-center" *ngIf="!(isAuthenticated | async)">
+                    <h4>Please sign in with your Cornell NetID to continue.</h4>
+                    <ds-log-in authMethod="shibboleth"></ds-log-in>
+                </div>
+
+                <div class="clearfix" *ngIf="(isAuthenticated | async)">
+                    <h4>Presubmission Checklist</h4>
+                    <ol class="pl-4">
+                        <li>If you are new to eCommons, we suggest you review our <a
+                                href="https://guides.library.cornell.edu/ecommons/help">help pages for submitters</a>.
+                        </li>
+
+                        <li>If you are depositing data, we suggest you contact the <a
+                                href="https://data.research.cornell.edu/contact">Research Data Management Service
+                            Group</a> for assistance and consult their information on <a
+                                href="https://data.research.cornell.edu/content/data-curation-services">Data Curation
+                            Services</a> and <a
+                                href="https://data.research.cornell.edu/content/submission-checklist-datasets-ecommons">Submission
+                            checklist for datasets in eCommons</a>.
+                        </li>
+
+                        <li>
+                            <a href="https://guides.library.cornell.edu/ecommons/accessibility">Check your content for
+                                accessibility</a>, and correct issues. NOTE: <a
+                                href="https://guides.library.cornell.edu/ecommons/accessibilitypolicy">accessibility is
+                            a requirement</a>.
+                        </li>
+
+                        <li>Identify the collection to which you wish to submit. Request permission to submit to an <a
+                                href="/community.html">existing collection</a> if the one you want does not appear in
+                            the dropdown menu below by <a href="/page/contact">contacting the ecommons
+                                administrators</a>.
+                        </li>
+
+                        <li>Complete the <a href="https://cornell.qualtrics.com/jfe/form/SV_dcZgmcBJ5D4Qq3z">eCommons
+                            New Collection Request Form</a>, if a new collection is needed.
+                        </li>
+
+                        <li>Review the <a href="https://guides.library.cornell.edu/ecommons/license">eCommons
+                            License</a>, and consider whether you want to apply a <a
+                                href="https://guides.library.cornell.edu/ecommons/copyright">Creative Commons
+                            license</a> to your work.
+                        </li>
+
+                        <li>Have your <a href="https://guides.library.cornell.edu/ecommons/metadata">metadata</a> and <a
+                                href="http://guides.library.cornell.edu/ecommons/contentpolicy">files</a> ready.
+                        </li>
+
+                    </ol>
+
+                    <hr />
+
+                </div>
+
+                <div class="clearfix" *ngIf="(isAuthenticated | async)">
+                    <h4>Please select the collection you wish to submit an item to.</h4>
+
+                    <ds-authorized-collection-selector
+                            [entityType]="entityType"
+                            [types]="selectorTypes"
+                            (onSelect)="selectObject($event)"></ds-authorized-collection-selector>
+
+                    <hr/>
+
+                    <div class="alert alert-info" role="alert">
+                        <h4 class="alert-heading">No collections found? Read this!</h4>
+                        <p>If you don't see the collection you want to submit to, please <a
+                                href="https://ecommons.cornell.edu/page/contact" target="_blank">contact the eCommons
+                            Administrators</a> to request access.</p>
+                        <hr>
+                        <p class="mb-0">Does the collection you are looking for not exist? Request a new collection by
+                            completing <a href="https://cornell.qualtrics.com/jfe/form/SV_dcZgmcBJ5D4Qq3z"
+                                          target="_blank">this online form</a>.</p>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a type="button" class="btn btn-primary" href="/info/feedback" target="_blank">Contact eCommons
+                    Administrators</a>
+            </div>
+        </div>
+    </div>
+</div>
