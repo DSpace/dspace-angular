@@ -3,11 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { provideMockStore } from '@ngrx/store/testing';
-import { Store, StoreModule } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { EPersonMock } from '../../../testing/eperson.mock';
 import { authReducer } from '../../../../core/auth/auth.reducer';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthServiceStub } from '../../../testing/auth-service.stub';
@@ -20,23 +17,22 @@ import { RouterStub } from '../../../testing/router.stub';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { NativeWindowMockFactory } from '../../../mocks/mock-native-window-ref';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataServiceStub } from '../../../testing/authorization-service.stub';
 
 
 describe('LogInOidcComponent', () => {
 
   let component: LogInOidcComponent;
   let fixture: ComponentFixture<LogInOidcComponent>;
-  let page: Page;
-  let user: EPerson;
   let componentAsAny: any;
   let setHrefSpy;
-  let oidcBaseUrl;
-  let location;
+  let oidcBaseUrl: string;
+  let location: string;
   let initialState: any;
   let hardRedirectService: HardRedirectService;
 
   beforeEach(() => {
-    user = EPersonMock;
     oidcBaseUrl = 'dspace-rest.test/oidc?redirectUrl=';
     location = oidcBaseUrl + 'http://dspace-angular.test/home';
 
@@ -60,7 +56,7 @@ describe('LogInOidcComponent', () => {
 
   beforeEach(waitForAsync(() => {
     // refine the test module by declaring the test component
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot()
@@ -70,7 +66,8 @@ describe('LogInOidcComponent', () => {
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
-        { provide: 'authMethodProvider', useValue: new AuthMethod(AuthMethodType.Oidc, location) },
+        { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
+        { provide: 'authMethodProvider', useValue: new AuthMethod(AuthMethodType.Oidc, 0, location) },
         { provide: 'isStandalonePage', useValue: true },
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: Router, useValue: new RouterStub() },
@@ -95,7 +92,6 @@ describe('LogInOidcComponent', () => {
     componentAsAny = component;
 
     // create page
-    page = new Page(component, fixture);
     setHrefSpy = spyOnProperty(componentAsAny._window.nativeWindow.location, 'href', 'set').and.callThrough();
 
   });
@@ -131,25 +127,3 @@ describe('LogInOidcComponent', () => {
   });
 
 });
-
-/**
- * I represent the DOM elements and attach spies.
- *
- * @class Page
- */
-class Page {
-
-  public emailInput: HTMLInputElement;
-  public navigateSpy: jasmine.Spy;
-  public passwordInput: HTMLInputElement;
-
-  constructor(private component: LogInOidcComponent, private fixture: ComponentFixture<LogInOidcComponent>) {
-    // use injector to get services
-    const injector = fixture.debugElement.injector;
-    const store = injector.get(Store);
-
-    // add spies
-    this.navigateSpy = spyOn(store, 'dispatch');
-  }
-
-}

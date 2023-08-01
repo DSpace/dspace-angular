@@ -3,11 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { provideMockStore } from '@ngrx/store/testing';
-import { Store, StoreModule } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { EPersonMock } from '../../../testing/eperson.mock';
 import { authReducer } from '../../../../core/auth/auth.reducer';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthServiceStub } from '../../../testing/auth-service.stub';
@@ -26,17 +23,14 @@ describe('LogInShibbolethComponent', () => {
 
   let component: LogInShibbolethComponent;
   let fixture: ComponentFixture<LogInShibbolethComponent>;
-  let page: Page;
-  let user: EPerson;
   let componentAsAny: any;
   let setHrefSpy;
-  let shibbolethBaseUrl;
-  let location;
+  let shibbolethBaseUrl: string;
+  let location: string;
   let initialState: any;
   let hardRedirectService: HardRedirectService;
 
   beforeEach(() => {
-    user = EPersonMock;
     shibbolethBaseUrl = 'dspace-rest.test/shibboleth?redirectUrl=';
     location = shibbolethBaseUrl + 'http://dspace-angular.test/home';
 
@@ -60,7 +54,7 @@ describe('LogInShibbolethComponent', () => {
 
   beforeEach(waitForAsync(() => {
     // refine the test module by declaring the test component
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot()
@@ -70,7 +64,7 @@ describe('LogInShibbolethComponent', () => {
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
-        { provide: 'authMethodProvider', useValue: new AuthMethod(AuthMethodType.Shibboleth, location) },
+        { provide: 'authMethodProvider', useValue: new AuthMethod(AuthMethodType.Shibboleth, 0, location) },
         { provide: 'isStandalonePage', useValue: true },
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: Router, useValue: new RouterStub() },
@@ -95,7 +89,6 @@ describe('LogInShibbolethComponent', () => {
     componentAsAny = component;
 
     // create page
-    page = new Page(component, fixture);
     setHrefSpy = spyOnProperty(componentAsAny._window.nativeWindow.location, 'href', 'set').and.callThrough();
 
   });
@@ -131,25 +124,3 @@ describe('LogInShibbolethComponent', () => {
   });
 
 });
-
-/**
- * I represent the DOM elements and attach spies.
- *
- * @class Page
- */
-class Page {
-
-  public emailInput: HTMLInputElement;
-  public navigateSpy: jasmine.Spy;
-  public passwordInput: HTMLInputElement;
-
-  constructor(private component: LogInShibbolethComponent, private fixture: ComponentFixture<LogInShibbolethComponent>) {
-    // use injector to get services
-    const injector = fixture.debugElement.injector;
-    const store = injector.get(Store);
-
-    // add spies
-    this.navigateSpy = spyOn(store, 'dispatch');
-  }
-
-}
