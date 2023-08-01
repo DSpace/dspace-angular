@@ -53,7 +53,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
     return this.dSpaceObjectDataService.findById(id, true, false).pipe(
       getFirstCompletedRemoteData(),
       switchMap((dsoRD) => {
-        if (dsoRD.hasSucceeded) {
+        if (dsoRD.hasSucceeded && dsoRD.payload != null) {
           const dso = dsoRD.payload;
           return combineLatest(this.getDsoMenus(dso, route, state)).pipe(
             // Menu sections are retrieved as an array of arrays and flattened into a single array
