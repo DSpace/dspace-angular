@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { AuthMethod } from '../../core/auth/models/auth.method';
 import {
@@ -35,7 +35,7 @@ export class LogInComponent implements OnInit {
    * The list of authentication methods available
    * @type {AuthMethod[]}
    */
-  public authMethods: AuthMethod[];
+  public authMethods: Observable<AuthMethod[]>;
 
   /**
    * Whether user is authenticated.
@@ -55,13 +55,11 @@ export class LogInComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.store.pipe(
+    this.authMethods = this.store.pipe(
       select(getAuthenticationMethods),
-    ).subscribe(methods => {
       // ignore the ip authentication method when it's returned by the backend
-      this.authMethods = methods.filter(a => a.authMethodType !== AuthMethodType.Ip);
-    });
+      map((methods: AuthMethod[]) => methods.filter((authMethod: AuthMethod) => authMethod.authMethodType !== AuthMethodType.Ip)),
+    );
 
     // set loading
     this.loading = this.store.pipe(select(isAuthenticationLoading));
