@@ -4,6 +4,7 @@ import { CollectionElementLinkType } from '../../collection-element-link.type';
 import { Context } from '../../../../core/shared/context.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-abstract-object-element',
@@ -42,6 +43,11 @@ export class AbstractListableElementComponent<T extends ListableObject> {
   @Input() showLabel = true;
 
   /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
+
+  /**
    * The context we matched on to get this component
    */
   @Input() context: Context;
@@ -70,4 +76,10 @@ export class AbstractListableElementComponent<T extends ListableObject> {
    * The available contexts
    */
   contexts = Context;
+
+  constructor(
+    public dsoNameService: DSONameService,
+  ) {
+  }
+
 }

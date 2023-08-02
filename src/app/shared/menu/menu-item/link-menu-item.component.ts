@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { LinkMenuItemModel } from './models/link.model';
 import { rendersMenuItemForType } from '../menu-item.decorator';
 import { isNotEmpty } from '../../empty.util';
@@ -36,7 +36,7 @@ export class LinkMenuItemComponent implements OnInit {
 
   navigate(event: any) {
     event.preventDefault();
-    if (this.getRouterLink()) {
+    if (!this.item.disabled && this.getRouterLink()) {
       this.router.navigate([this.getRouterLink()]);
     }
     event.stopPropagation();

@@ -49,7 +49,7 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
               private itemDataService: ItemDataService,
               private bitstreamDataService: BitstreamDataService,
               private selectableListService: SelectableListService,
-              protected dsoNameService: DSONameService,
+              public dsoNameService: DSONameService,
               @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
     super(truncatableService, dsoNameService, appConfig);
@@ -61,7 +61,7 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
     this.useNameVariants = this.context === Context.EntitySearchModalWithNameVariants;
 
     if (this.useNameVariants) {
-      const defaultValue = this.dsoTitle;
+      const defaultValue = this.dso ? this.dsoNameService.getName(this.dso) : undefined;
       const alternatives = this.allMetadataValues(this.alternativeField);
       this.allSuggestions = [defaultValue, ...alternatives];
 

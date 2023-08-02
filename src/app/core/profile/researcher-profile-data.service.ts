@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Operation, ReplaceOperation } from 'fast-json-patch';
-import { Observable } from 'rxjs';
-import { find, map } from 'rxjs/operators';
+import { Observable, of as observableOf } from 'rxjs';
+import { find, map, mergeMap } from 'rxjs/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -128,6 +128,24 @@ export class ResearcherProfileDataService extends IdentifiableDataService<Resear
     });
 
     return this.rdbService.buildFromRequestUUID(requestId, followLink('item'));
+  }
+
+  /**
+   * Creates a researcher profile starting from an external source URI and returns the related item's ID
+   * Emits null if the researcher profile doesn't exist after sending out the request
+   * @param sourceUri
+   */
+  createFromExternalSourceAndReturnRelatedItemId(sourceUri: string): Observable<string> {
+    return this.createFromExternalSource(sourceUri).pipe(
+      getFirstCompletedRemoteData(),
+      mergeMap((rd: RemoteData<ResearcherProfile>) => {
+        if (rd.hasSucceeded) {
+          return this.findRelatedItemId(rd.payload);
+        } else {
+          return observableOf(null);
+        }
+      }),
+    );
   }
 
 

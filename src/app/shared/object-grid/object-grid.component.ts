@@ -1,11 +1,12 @@
-import { combineLatest as observableCombineLatest, BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
-import { startWith, distinctUntilChanged, map } from 'rxjs/operators';
+import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
 import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input, OnInit,
+  Input,
+  OnInit,
   Output,
   ViewEncapsulation
 } from '@angular/core';
@@ -53,6 +54,11 @@ export class ObjectGridComponent implements OnInit {
    * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
    */
   @Input() showPaginator = true;
+
+  /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
 
   /**
    * The whether or not the gear is hidden

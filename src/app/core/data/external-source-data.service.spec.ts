@@ -5,6 +5,7 @@ import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { of as observableOf } from 'rxjs';
 import { GetRequest } from './request.models';
 import { testSearchDataImplementation } from './base/search-data.spec';
+import { take } from 'rxjs/operators';
 
 describe('ExternalSourceService', () => {
   let service: ExternalSourceDataService;
@@ -64,19 +65,42 @@ describe('ExternalSourceService', () => {
   });
 
   describe('getExternalSourceEntries', () => {
-    let result;
 
-    beforeEach(() => {
-      result = service.getExternalSourceEntries('test');
+    describe('when no error response is cached', () => {
+      let result;
+      beforeEach(() => {
+        spyOn(service, 'hasCachedErrorResponse').and.returnValue(observableOf(false));
+        result = service.getExternalSourceEntries('test');
+      });
+
+      it('should send a GetRequest', () => {
+        result.pipe(take(1)).subscribe();
+        expect(requestService.send).toHaveBeenCalledWith(jasmine.any(GetRequest), true);
+      });
+
+      it('should return the entries', () => {
+        result.subscribe((resultRD) => {
+          expect(resultRD.payload.page).toBe(entries);
+        });
+      });
     });
 
-    it('should send a GetRequest', () => {
-      expect(requestService.send).toHaveBeenCalledWith(jasmine.any(GetRequest), true);
-    });
+    describe('when an error response is cached', () => {
+      let result;
+      beforeEach(() => {
+        spyOn(service, 'hasCachedErrorResponse').and.returnValue(observableOf(true));
+        result = service.getExternalSourceEntries('test');
+      });
 
-    it('should return the entries', () => {
-      result.subscribe((resultRD) => {
-        expect(resultRD.payload.page).toBe(entries);
+      it('should send a GetRequest', () => {
+        result.pipe(take(1)).subscribe();
+        expect(requestService.send).toHaveBeenCalledWith(jasmine.any(GetRequest), false);
+      });
+
+      it('should return the entries', () => {
+        result.subscribe((resultRD) => {
+          expect(resultRD.payload.page).toBe(entries);
+        });
       });
     });
   });

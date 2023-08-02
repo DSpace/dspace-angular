@@ -6,7 +6,9 @@
     "eslint-plugin-import",
     "eslint-plugin-jsdoc",
     "eslint-plugin-deprecation",
-    "eslint-plugin-unused-imports"
+    "unused-imports",
+    "eslint-plugin-lodash",
+    "eslint-plugin-jsonc"
   ],
   "overrides": [
     {
@@ -202,7 +204,13 @@
         "deprecation/deprecation": "warn",
 
         "import/order": "off",
-        "import/no-deprecated": "warn"
+        "import/no-deprecated": "warn",
+        "import/no-namespace": "error",
+        "unused-imports/no-unused-imports": "error",
+        "lodash/import-scope": [
+          "error",
+          "method"
+        ]
       }
     },
     {
@@ -216,6 +224,42 @@
         // todo: re-enable & fix errors
         "@angular-eslint/template/no-negated-async": "off",
         "@angular-eslint/template/eqeqeq": "off"
+      }
+    },
+    {
+      "files": [
+        "*.json5"
+      ],
+      "extends": [
+        "plugin:jsonc/recommended-with-jsonc"
+      ],
+      "rules": {
+        "no-irregular-whitespace": "error",
+        "no-trailing-spaces": "error",
+        "jsonc/comma-dangle": [
+          "error",
+          "always-multiline"
+        ],
+        "jsonc/indent": [
+          "error",
+          2
+        ],
+        "jsonc/key-spacing": [
+          "error",
+          {
+            "beforeColon": false,
+            "afterColon": true,
+            "mode": "strict"
+          }
+        ],
+        "jsonc/no-dupe-keys": "off",
+        "jsonc/quotes": [
+          "error",
+          "double",
+          {
+            "avoidEscape": false
+          }
+        ]
       }
     }
   ]

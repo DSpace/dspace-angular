@@ -1,5 +1,5 @@
 <ds-themed-loading *ngIf="(loading | async) || (isAuthenticated | async)" class="m-5"></ds-themed-loading>
-<div *ngIf="!(loading | async) && !(isAuthenticated | async)" class="px-4 py-3 login-container">
+<div *ngIf="!(loading | async) && !(isAuthenticated | async)" class="px-4 py-3 mx-auto login-container">
   <ng-container *ngFor="let authMethod of getOrderedAuthMethods(authMethods | async); let last = last">
     <div [class.d-none]="contentRef.innerText.trim().length === 0">
       <div #contentRef>

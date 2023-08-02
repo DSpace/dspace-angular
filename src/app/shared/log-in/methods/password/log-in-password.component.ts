@@ -1,6 +1,6 @@
 import { map } from 'rxjs/operators';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -66,7 +66,7 @@ export class LogInPasswordComponent implements OnInit {
    * The authentication form.
    * @type {FormGroup}
    */
-  public form: FormGroup;
+  public form: UntypedFormGroup;
 
   /**
    * Whether the current user (or anonymous) is authorized to register an account
@@ -78,7 +78,7 @@ export class LogInPasswordComponent implements OnInit {
     @Inject('isStandalonePage') public isStandalonePage: boolean,
     private authService: AuthService,
     private hardRedirectService: HardRedirectService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     protected store: Store<CoreState>,
     protected authorizationService: AuthorizationDataService,
   ) {

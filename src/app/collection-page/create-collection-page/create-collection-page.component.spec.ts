@@ -13,16 +13,19 @@ import { CreateCollectionPageComponent } from './create-collection-page.componen
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RequestService } from '../../core/data/request.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
 
 describe('CreateCollectionPageComponent', () => {
   let comp: CreateCollectionPageComponent;
   let fixture: ComponentFixture<CreateCollectionPageComponent>;
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
       declarations: [CreateCollectionPageComponent],
       providers: [
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: CollectionDataService, useValue: {} },
         {
           provide: CommunityDataService,

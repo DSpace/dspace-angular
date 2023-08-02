@@ -32,16 +32,16 @@ export class ItemSearchResultGridElementComponent extends SearchResultGridElemen
   dsoTitle: string;
 
   constructor(
+    public dsoNameService: DSONameService,
     protected truncatableService: TruncatableService,
     protected bitstreamDataService: BitstreamDataService,
-    private dsoNameService: DSONameService,
   ) {
-    super(truncatableService, bitstreamDataService);
+    super(dsoNameService, truncatableService, bitstreamDataService);
   }
 
   ngOnInit(): void {
     super.ngOnInit();
     this.itemPageRoute = getItemPageRoute(this.dso);
-    this.dsoTitle = this.dsoNameService.getName(this.dso);
+    this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.dso);
   }
 }

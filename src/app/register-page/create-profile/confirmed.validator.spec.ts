@@ -1,4 +1,4 @@
-import { FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { fakeAsync, waitForAsync } from '@angular/core/testing';
 import { ConfirmedValidator } from './confirmed.validator';
 
@@ -7,9 +7,9 @@ describe('ConfirmedValidator', () => {
 
   beforeEach(waitForAsync(() => {
 
-    passwordForm = (new FormBuilder()).group({
-      password: new FormControl('', {}),
-      confirmPassword: new FormControl('', {})
+    passwordForm = (new UntypedFormBuilder()).group({
+      password: new UntypedFormControl('', {}),
+      confirmPassword: new UntypedFormControl('', {})
     }, {
       validator: ConfirmedValidator('password', 'confirmPassword')
     });
