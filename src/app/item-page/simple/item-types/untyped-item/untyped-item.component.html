@@ -26,13 +26,20 @@
     </div>
     <ds-themed-item-page-file-section [item]="object"></ds-themed-item-page-file-section>
 
+    <ds-generic-item-page-field [item]="object"
+                                [fields]="['dc.description.embargo']"
+                                [label]="'No Access Until'">
+    </ds-generic-item-page-field>
+
+    <h5>Permanent Link(s)</h5>
+
     <ds-item-page-uri-field [item]="object"
                             [fields]="['dc.identifier.doi']"
-                            label="DOI">
+                            label="">
     </ds-item-page-uri-field>
     <ds-item-page-uri-field [item]="object"
                             [fields]="['dc.identifier.uri']"
-                            label="Handle">
+                            label="">
     </ds-item-page-uri-field>
 
     <ds-item-page-collections [item]="object"></ds-item-page-collections>
@@ -162,10 +169,10 @@
                                 [fields]="['dc.relation.hasversion']"
                                 [label]="'Related Version'">
     </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="object"
+    <ds-item-page-uri-field     [item]="object"
                                 [fields]="['dc.relation.doi']"
                                 [label]="'Related DOI'">
-    </ds-generic-item-page-field>
+    </ds-item-page-uri-field>
     <ds-generic-item-page-field [item]="object"
                                 [fields]="['dc.relation']"
                                 [label]="'Related To'">
@@ -236,10 +243,10 @@
                                 [fields]="['dc.rights']"
                                 [label]="'Rights'">
     </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="object"
+    <ds-item-page-uri-field     [item]="object"
                                 [fields]="['dc.rights.uri']"
                                 [label]="'Rights URI'">
-    </ds-generic-item-page-field>
+    </ds-item-page-uri-field >
     <ds-generic-item-page-field [item]="object"
                                 [fields]="['dc.type']"
                                 [label]="'Types'">
