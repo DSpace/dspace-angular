@@ -1,8 +1,11 @@
 <div class="row row-offcanvas row-offcanvas-right">
   <div class="col-xs-12 col-sm-12 col-md-9 main-content">
     <form class="primary" [formGroup]="feedbackForm" (ngSubmit)="createFeedback()">
-      <h2>{{ 'info.feedback.head' | translate }}</h2>
-      <p>{{ 'info.feedback.info' | translate }}</p>
+      <h2>Contact Us</h2>
+      <p><b>Do you wish to create an account?</b></p>
+      <p>By <a href="/login">logging in through Shibboleth</a>, you will automatically be registered for an eCommons account.</p>
+
+      <p>For any other questions or problems, please use this form and include your name in the comments. If you are writing to request approval to submit to a collection, please also include the URL of the desired collection in your request. If writing about a specific item, please include the handle in your message.</p>
       <fieldset class="col p-0">
         <div class="row">
           <div class="control-group col-sm-12">
@@ -21,6 +24,7 @@
           <div class="control-group col-sm-12">
             <label class="control-label" for="comments">{{ 'info.feedback.comments' | translate }}:&nbsp;</label>
             <textarea id="comments" formControlName="message" class="form-control" name="message" cols="20" rows="5"> </textarea>
+            <p class="alert alert-info mt-2">Please remember to include your name in the comments.</p>
           </div>
         </div>
         <ng-container *ngIf="feedbackForm.controls.message.invalid && (feedbackForm.controls.message.dirty || feedbackForm.controls.message.touched)"
@@ -29,14 +33,14 @@
         </ng-container>
         <div class="row">
           <div class="control-group col-sm-12">
-            <label class="control-label" for="page">{{ 'info.feedback.page-label' | translate }}&nbsp;</label>
+            <label class="control-label" for="page">{{ 'info.feedback.page-label' | translate }}:&nbsp;</label>
             <input id="page" readonly class="form-control" name="page" type="text" value="" formControlName="page" autofocus="autofocus" title="{{ 'info.feedback.page_help' | translate }}">
-            <small class="text-muted">{{ 'info.feedback.page_help' | translate }}</small>
+            <small class="text-muted">This is the page where the contact link was clicked.</small>
           </div>
         </div>
         <div class="row py-2">
           <div class="control-group col-sm-12 text-right">
-            <button [disabled]="!feedbackForm.valid" class="btn btn-primary" name="submit" type="submit">{{ 'info.feedback.send' | translate }}</button>
+            <button [disabled]="!feedbackForm.valid" class="btn btn-primary" name="submit" type="submit">Send Message</button>
           </div>
         </div>
       </fieldset>
