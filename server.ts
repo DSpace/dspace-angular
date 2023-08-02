@@ -367,9 +367,9 @@ function cacheCheck(req, res, next) {
   let cachedCopy;
 
   // If the bot cache is enabled and this request looks like a bot, check the bot cache for a cached page.
-  if (botCacheEnabled() && isbot(req.get('user-agent'))) {
+  if (botCache && isbot(req.get('user-agent'))) {
     cachedCopy = checkCacheForRequest('bot', botCache, req, res);
-  } else if (anonymousCacheEnabled() && !isUserAuthenticated(req)) {
+  } else if (anonymousCache && !isUserAuthenticated(req)) {
     cachedCopy = checkCacheForRequest('anonymous', anonymousCache, req, res);
   }
 
@@ -468,13 +468,13 @@ function saveToCache(req, page: any) {
     const headers = retrieveHeaders(req.res);
     // If bot cache is enabled, save it to that cache if it doesn't exist or is expired
     // (NOTE: has() will return false if page is expired in cache)
-    if (botCacheEnabled() && !botCache.has(key)) {
+    if (botCache && !botCache.has(key)) {
       botCache.set(key, { page, headers });
       if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in bot cache.`); }
     }
 
     // If anonymous cache is enabled, save it to that cache if it doesn't exist or is expired
-    if (anonymousCacheEnabled() && !anonymousCache.has(key)) {
+    if (anonymousCache && !anonymousCache.has(key)) {
       anonymousCache.set(key, { page, headers });
       if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in anonymous cache.`); }
     }
