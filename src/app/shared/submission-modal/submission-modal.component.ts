@@ -37,6 +37,14 @@ export class SubmissionModalComponent implements OnInit {
     }
 
     selectObject(dso: DSpaceObject) {
+        document.getElementById('submissionModal').style.removeProperty('display');
+        document.querySelector('body').style.removeProperty('modal-open');
+
+        let mdbackdrop = document.querySelector('.modal-backdrop');
+        if (mdbackdrop){
+            mdbackdrop.classList.remove('modal-backdrop', 'show');
+        }
+
         this.navigate(dso);
     }
 

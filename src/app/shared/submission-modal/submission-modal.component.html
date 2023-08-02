@@ -14,11 +14,17 @@
                     <ds-log-in authMethod="shibboleth"></ds-log-in>
                 </div>
 
-                <div class="clearfix" *ngIf="(isAuthenticated | async)">
+                <div class="clearfix" *ngIf="!(isAuthenticated | async)">
                     <h4>Presubmission Checklist</h4>
                     <ol class="pl-4">
                         <li>If you are new to eCommons, we suggest you review our <a
                                 href="https://guides.library.cornell.edu/ecommons/help">help pages for submitters</a>.
+                        </li>
+
+                        <li>Identify the collection to which you wish to submit. Request permission to submit to an <a
+                                href="/community-list">existing collection</a> if the one you want does not appear in
+                            the dropdown menu below by <a href="/page/contact">contacting the eCommons
+                                Administrators</a>.
                         </li>
 
                         <li>If you are depositing data, we suggest you contact the <a
@@ -37,12 +43,6 @@
                             a requirement</a>.
                         </li>
 
-                        <li>Identify the collection to which you wish to submit. Request permission to submit to an <a
-                                href="/community.html">existing collection</a> if the one you want does not appear in
-                            the dropdown menu below by <a href="/page/contact">contacting the ecommons
-                                administrators</a>.
-                        </li>
-
                         <li>Complete the <a href="https://cornell.qualtrics.com/jfe/form/SV_dcZgmcBJ5D4Qq3z">eCommons
                             New Collection Request Form</a>, if a new collection is needed.
                         </li>
@@ -54,7 +54,7 @@
                         </li>
 
                         <li>Have your <a href="https://guides.library.cornell.edu/ecommons/metadata">metadata</a> and <a
-                                href="http://guides.library.cornell.edu/ecommons/contentpolicy">files</a> ready.
+                                href="https://guides.library.cornell.edu/ecommons/contentpolicy">files</a> ready.
                         </li>
 
                     </ol>
@@ -76,7 +76,7 @@
                     <div class="alert alert-info" role="alert">
                         <h4 class="alert-heading">No collections found? Read this!</h4>
                         <p>If you don't see the collection you want to submit to, please <a
-                                href="https://ecommons.cornell.edu/page/contact" target="_blank">contact the eCommons
+                                href="/info/feedback" target="_blank">contact the eCommons
                             Administrators</a> to request access.</p>
                         <hr>
                         <p class="mb-0">Does the collection you are looking for not exist? Request a new collection by
