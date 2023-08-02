@@ -798,6 +798,8 @@
 
   "browse.metadata.title": "Title",
 
+  "browse.metadata.type": "Type",
+
   "browse.metadata.author.breadcrumbs": "Browse by Author",
 
   "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
@@ -807,6 +809,8 @@
   "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
+
+  "browse.metadata.type.breadcrumbs": "Browse by Type",
 
   "pagination.next.button": "Next",
 
@@ -1618,7 +1622,7 @@
 
   "file-section.error.header": "Error obtaining files for this item",
 
-  "footer.copyright": "copyright © 2002-{{ year }}",
+  "footer.copyright": "© {{ year }}",
 
   "footer.link.dspace": "DSpace software",
 
