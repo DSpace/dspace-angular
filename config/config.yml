@@ -17,6 +17,7 @@ auth:
 
 info:
   enableEndUserAgreement: false
+  enablePrivacyStatement: false
 
 themes:
   - name: ilr
