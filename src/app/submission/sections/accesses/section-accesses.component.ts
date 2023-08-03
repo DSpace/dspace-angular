@@ -32,6 +32,7 @@ import {
   ACCESS_CONDITION_GROUP_LAYOUT,
   ACCESS_CONDITIONS_FORM_ARRAY_CONFIG,
   ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT,
+  ACCESS_CONDITIONS_FORM_TRANSLATION_CONFIG,
   ACCESS_FORM_CHECKBOX_CONFIG,
   ACCESS_FORM_CHECKBOX_LAYOUT,
   FORM_ACCESS_CONDITION_END_DATE_CONFIG,
@@ -336,7 +337,7 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
     for (const accessCondition of this.availableAccessConditionOptions) {
       accessConditionTypeOptions.push(
         {
-          label: accessCondition.name,
+          label: this.translate.instant(`${ACCESS_CONDITIONS_FORM_TRANSLATION_CONFIG}${accessCondition.name}`),
           value: accessCondition.name
         }
       );

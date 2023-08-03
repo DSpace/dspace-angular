@@ -29,6 +29,7 @@ import {
   BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT,
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG,
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT,
+  BITSTREAM_FORM_ACCESS_CONDITIONS_TRANSLATION_CONFIG,
   BITSTREAM_METADATA_FORM_GROUP_CONFIG,
   BITSTREAM_METADATA_FORM_GROUP_LAYOUT
 } from './section-upload-file-edit.model';
@@ -59,6 +60,7 @@ import { Subscription } from 'rxjs';
 import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
 import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
 import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/select/dynamic-select.model';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * This component represents the edit form for bitstream
@@ -188,6 +190,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
     private operationsBuilder: JsonPatchOperationsBuilder,
     private operationsService: SubmissionJsonPatchOperationsService,
     private uploadService: SectionUploadService,
+    private translate: TranslateService,
   ) {
   }
 
@@ -315,7 +318,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
       for (const accessCondition of this.availableAccessConditionOptions) {
         accessConditionTypeOptions.push(
           {
-            label: accessCondition.name,
+            label: this.translate.instant(`${BITSTREAM_FORM_ACCESS_CONDITIONS_TRANSLATION_CONFIG}${accessCondition.name}`),
             value: accessCondition.name
           }
         );

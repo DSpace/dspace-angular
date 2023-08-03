@@ -6368,6 +6368,28 @@
 
   "submission.sections.accesses.form.until-placeholder": "Until",
 
+  "access.condition.value.openaccess": "Open Access",
+
+  "access.condition.value.embargo": "Embargo",
+
+  "access.condition.value.vlan48": "ITG Subnet",
+
+  "access.condition.value.vlan-campus": "IAS Campus Network",
+
+  "access.condition.value.ldap": "IAS Users",
+
+  "access.condition.value.staff": "Staff Only",
+
+  "access.condition.value.faculty": "Faculty Only",
+
+  "access.condition.value.member": "Members Only",
+
+  "access.condition.value.administrator": "Administrator Only",
+
+  "access.condition.value.embargoed": "Embargoed",
+
+  "access.condition.value.lease": "Lease",
+
   "submission.sections.license.granted-label": "I confirm the license above",
 
   "submission.sections.license.required": "You must accept the license",
