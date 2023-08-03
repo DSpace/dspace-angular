@@ -6,9 +6,24 @@
   </div>
   <div class="modal-body">
     <h5 *ngIf="header" class="px-2">{{header | translate}}</h5>
+
     <ds-authorized-collection-selector [currentDSOId]="dsoRD?.payload.uuid"
                                        [entityType]="entityType"
                                        [types]="selectorTypes"
                                        (onSelect)="selectObject($event)"></ds-authorized-collection-selector>
+
+    <hr />
+
+    <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading">No collections found? Read this!</h4>
+      <p>If you don't see the collection you want to submit to, please <a
+              href="/info/feedback" target="_blank">contact the eCommons
+        Administrators</a> to request access.</p>
+      <hr>
+      <p class="mb-0">Does the collection you are looking for not exist? Request a new collection by
+        completing <a href="https://cornell.qualtrics.com/jfe/form/SV_dcZgmcBJ5D4Qq3z"
+                      target="_blank">this form</a>.</p>
+    </div>
+
   </div>
 </div>
