@@ -2,12 +2,22 @@
   <div *ngIf="showThumbnails" class="col-3 col-md-2">
     <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
        [routerLink]="[itemPageRoute]" class="dont-break-out">
-    <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="true">
-    </ds-thumbnail>
+      <ng-container *ngIf="object?.indexableObject?.metadata['dc.description.embargo']">
+        <img class="thumbnail-content img-fluid  border border-dark" src="assets/images/under_embargo.png"/>
+      </ng-container>
+
+      <ng-container *ngIf="!object?.indexableObject?.metadata['dc.description.embargo']">
+        <ds-themed-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="true"></ds-themed-thumbnail>
+      </ng-container>
     </a>
     <span *ngIf="linkType == linkTypes.None" class="dont-break-out">
-    <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="true">
-    </ds-thumbnail>
+      <ng-container *ngIf="object?.indexableObject?.metadata['dc.description.embargo']">
+        <img class="thumbnail-content img-fluid  border border-dark" src="assets/images/under_embargo.png"/>
+      </ng-container>
+
+      <ng-container *ngIf="!object?.indexableObject?.metadata['dc.description.embargo']">
+            <ds-themed-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="true"></ds-themed-thumbnail>
+      </ng-container>
     </span>
   </div>
   <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">

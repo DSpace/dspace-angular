@@ -12,12 +12,16 @@
 <div class="d-flex flex-row">
   <ds-themed-item-page-title-field [item]="object" class="mr-auto">
   </ds-themed-item-page-title-field>
+
   <ds-dso-edit-menu></ds-dso-edit-menu>
 </div>
 <div class="row">
   <div class="col-xs-12 col-md-4">
     <ng-container *ngIf="!(mediaViewer.image || mediaViewer.video)">
-      <ds-metadata-field-wrapper [hideIfNoTextContent]="false">
+      <ng-container *ngIf="object.metadata['dc.description.embargo']">
+        <img class="thumbnail-content img-fluid border border-dark mb-2" src="assets/images/under_embargo.png" />
+      </ng-container>
+      <ds-metadata-field-wrapper *ngIf="!object.metadata['dc.description.embargo']" [hideIfNoTextContent]="false">
         <ds-themed-thumbnail [thumbnail]="object?.thumbnail | async"></ds-themed-thumbnail>
       </ds-metadata-field-wrapper>
     </ng-container>
@@ -31,7 +35,9 @@
                                 [label]="'No Access Until'">
     </ds-generic-item-page-field>
 
-    <h5>Permanent Link(s)</h5>
+    <div *ngIf="object.metadata['dc.identifier.doi'] || object.metadata['dc.identifier.uri']" class="mb-2">
+      <h5>Permanent Link(s)</h5>
+    </div>
 
     <ds-item-page-uri-field [item]="object"
                             [fields]="['dc.identifier.doi']"
