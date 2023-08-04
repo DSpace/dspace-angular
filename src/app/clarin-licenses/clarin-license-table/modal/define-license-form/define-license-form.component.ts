@@ -8,7 +8,6 @@ import {
 import { ClarinLicenseLabelDataService } from '../../../../core/data/clarin/clarin-license-label-data.service';
 import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/operators';
 import { validateLicenseLabel } from './define-license-form-validator';
-import wait from 'fork-ts-checker-webpack-plugin/lib/utils/async/wait';
 import { isNull, isUndefined } from '../../../../shared/empty.util';
 
 /**
@@ -100,9 +99,10 @@ export class DefineLicenseFormComponent implements OnInit {
    */
   ngAfterViewInit(): void {
     // wait because the form is not loaded immediately after init - do not know why
-    wait(500).then(r => {
+    setTimeout(() => {
       this.loadArrayValuesToForm();
-    });
+    },
+    500);
   }
 
   /**

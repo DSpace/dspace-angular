@@ -1,8 +1,8 @@
 <div class="container">
     <div class="collection-page"
          *ngVar="(collectionRD$ | async) as collectionRD">
-        <div *ngIf="collectionRD?.hasSucceeded" @fadeInOut>
-            <div *ngIf="collectionRD?.payload as collection">
+              <div *ngIf="collectionRD?.hasSucceeded" @fadeInOut>
+                      <div *ngIf="collectionRD?.payload as collection">
               <ds-view-tracker [object]="collection"></ds-view-tracker>
               <div class="d-flex flex-row border-bottom mb-4 pb-4">
                 <header class="comcol-header mr-auto">
@@ -13,15 +13,14 @@
                   <!-- Collection logo -->
                   <ds-comcol-page-logo *ngIf="logoRD$"
                                    [logo]="(logoRD$ | async)?.payload"
-                                   [alternateText]="'Collection Logo'"
-                      [alternateText]="'Collection Logo'">
+                                   [alternateText]="'Collection Logo'">
                   </ds-comcol-page-logo>
 
                   <!-- Handle -->
-                  <ds-comcol-page-handle
+                  <ds-themed-comcol-page-handle
                           [content]="collection.handle"
                           [title]="'collection.page.handle'" >
-                  </ds-comcol-page-handle>
+                  </ds-themed-comcol-page-handle>
                   <!-- Introductory text -->
                   <ds-comcol-page-content
                           [content]="collection.introductoryText"
@@ -34,16 +33,17 @@
                           [title]="'collection.page.news'">
                   </ds-comcol-page-content>
                 </header>
-                <div class="pl-2">
-                  <ds-dso-page-edit-button *ngIf="isCollectionAdmin$ | async"  [pageRoute]="collectionPageRoute$ | async" [dso]="collection" [tooltipMsg]="'collection.page.edit'"></ds-dso-page-edit-button>
+                <ds-dso-edit-menu></ds-dso-edit-menu>
+                <div class="pl-2 space-children-mr">
+                  <ds-dso-page-subscription-button [dso]="collection"></ds-dso-page-subscription-button>
                 </div>
               </div>
               <section class="comcol-page-browse-section">
               <!-- Browse-By Links -->
-              <ds-comcol-page-browse-by
+              <ds-themed-comcol-page-browse-by
                       [id]="collection.id"
                       [contentType]="collection.type">
-              </ds-comcol-page-browse-by>
+              </ds-themed-comcol-page-browse-by>
 
             <ng-container *ngVar="(itemRD$ | async) as itemRD">
                 <div class="mt-4" *ngIf="itemRD?.hasSucceeded" @fadeIn>
@@ -57,8 +57,8 @@
                 </div>
                 <ds-error *ngIf="itemRD?.hasFailed"
                           message="{{'error.recent-submissions' | translate}}"></ds-error>
-                <ds-loading *ngIf="!itemRD || itemRD.isLoading"
-                            message="{{'loading.recent-submissions' | translate}}"></ds-loading>
+                <ds-themed-loading *ngIf="!itemRD || itemRD.isLoading"
+                            message="{{'loading.recent-submissions' | translate}}"></ds-themed-loading>
                 <div *ngIf="!itemRD?.isLoading && itemRD?.payload?.page.length === 0" class="alert alert-info w-100" role="alert">
                         {{'collection.page.browse.recent.empty' | translate}}
                 </div>
@@ -75,7 +75,7 @@
     </div>
         <ds-error *ngIf="collectionRD?.hasFailed"
             message="{{'error.collection' | translate}}"></ds-error>
-        <ds-loading *ngIf="collectionRD?.isLoading"
-            message="{{'loading.collection' | translate}}"></ds-loading>
+        <ds-themed-loading *ngIf="collectionRD?.isLoading"
+            message="{{'loading.collection' | translate}}"></ds-themed-loading>
   </div>
 </div>

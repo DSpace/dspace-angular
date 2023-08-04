@@ -3,7 +3,7 @@ import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { isNull, isUndefined } from './empty.util';
 import { MetadataValue } from '../core/shared/metadata.models';
-import { AuthorNameLink } from './clarin-item-box-view/clarin-item-box-view.component';
+import { AuthorNameLink } from './clarin-item-box-view/clarin-author-name-link.model';
 
 /**
  * Convert raw byte array to the image is not secure - this function make it secure

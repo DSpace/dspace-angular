@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, Renderer2, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { JsonPatchOperationPathCombiner, } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
@@ -11,7 +11,7 @@ import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 import { SectionsService } from '../sections.service';
 import { RequestService } from '../../../core/data/request.service';
-import { FindListOptions, PatchRequest } from '../../../core/data/request.models';
+import { PatchRequest } from '../../../core/data/request.models';
 import { Operation } from 'fast-json-patch';
 import { ClarinLicenseDataService } from '../../../core/data/clarin/clarin-license-data.service';
 import { ClarinLicense } from '../../../core/shared/clarin/clarin-license.model';
@@ -29,11 +29,12 @@ import { HELP_DESK_PROPERTY } from '../../../item-page/tombstone/tombstone.compo
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { hasFailed } from '../../../core/data/request.reducer';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { Item } from '../../../core/shared/item.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { TranslateService } from '@ngx-translate/core';
+import { FindListOptions } from 'src/app/core/data/find-list-options.model';
+import { hasFailed } from 'src/app/core/data/request-entry-state.model';
 
 /**
  * This component render resource license step in the submission workflow.

@@ -1,19 +1,5 @@
-import { MenusState } from './menu.reducer';
-
-/**
- * Availavle Menu IDs
- */
-export enum MenuID {
-  ADMIN = 'admin-sidebar',
-  PUBLIC = 'public'
-}
-
-/**
- * List of possible MenuItemTypes
- */
-export enum MenuItemType {
-  TEXT, LINK, ALTMETRIC, SEARCH, ONCLICK
-}
+import { MenusState } from './menus-state.model';
+import { MenuID } from './menu-id.model';
 
 /**
  * The initial state of the menus
@@ -36,5 +22,14 @@ export const initialMenusState: MenusState = {
       visible: true,
       sections: {},
       sectionToSubsectionIndex: {}
-    }
+    },
+  [MenuID.DSO_EDIT]:
+    {
+      id: MenuID.DSO_EDIT,
+      collapsed: true,
+      previewCollapsed: true,
+      visible: false,
+      sections: {},
+      sectionToSubsectionIndex: {}
+    },
 };

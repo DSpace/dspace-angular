@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 /**
  * Component which wraps clarin license table into the container
@@ -8,13 +8,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './clarin-license-page.component.html',
   styleUrls: ['./clarin-license-page.component.scss']
 })
-export class ClarinLicensePageComponent implements OnInit {
+export class ClarinLicensePageComponent {
 
-  // tslint:disable-next-line:no-empty
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() { }
-
-  // tslint:disable-next-line:no-empty
-  ngOnInit(): void {
-  }
-
 }

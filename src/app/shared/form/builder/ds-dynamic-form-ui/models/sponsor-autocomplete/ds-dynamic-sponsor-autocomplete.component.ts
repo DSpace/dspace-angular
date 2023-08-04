@@ -78,7 +78,7 @@ export class DsDynamicSponsorAutocompleteComponent extends DsDynamicAutocomplete
       fundingName = fundingFields?.[3];
     }
     return DsDynamicAutocompleteService.pretifySuggestion(fundingProjectCode, fundingName, this.translateService);
-  }
+  };
 
   /**
    * Converts a text values stream from the `<input>` element to the array stream of the items
@@ -122,7 +122,7 @@ export class DsDynamicSponsorAutocompleteComponent extends DsDynamicAutocomplete
         return list.page;
       }),
       tap(() => this.changeSearchingStatus(false)),
-      merge(this.hideSearchingWhenUnsubscribed))
+      merge(this.hideSearchingWhenUnsubscribed));
 
   /**
    * Check if in the complex input type is funding type selected as EU.
@@ -146,14 +146,22 @@ export class DsDynamicSponsorAutocompleteComponent extends DsDynamicAutocomplete
     let newValue = AUTOCOMPLETE_COMPLEX_PREFIX + SEPARATOR;
     let fundingType = this.loadNoneSponsorFundingType();
     let fundingProjectCode = '';
+    let fundingOrganization = updateValue?.metadata?.['project.funder.name']?.[0]?.value;
+    let fundingProjectName = updateValue?.value;
 
     if (updateValue?.id.startsWith(EU_PROJECT_PREFIX)) {
       fundingType = this.loadEUFundingType();
       fundingProjectCode = this.getProjectCodeFromId(updateValue?.id);
     }
-    newValue += fundingType + SEPARATOR +
-      fundingProjectCode + SEPARATOR +
-      updateValue?.metadata?.['project.funder.name']?.[0]?.value + SEPARATOR + updateValue?.value;
+
+    // Remove SEPARATOR character from every part of the sponsor, because then it's throws an error because of
+    // wrong separation.
+    fundingType = this.replaceSeparatorValue(fundingType, '');
+    fundingProjectCode = this.replaceSeparatorValue(fundingProjectCode, '');
+    fundingOrganization = this.replaceSeparatorValue(fundingOrganization, '');
+    fundingProjectName = this.replaceSeparatorValue(fundingProjectName, '');
+
+    newValue += [fundingType, fundingProjectCode, fundingOrganization, fundingProjectName].join(SEPARATOR);
     if (updateValue?.id.startsWith(EU_PROJECT_PREFIX)) {
       newValue += SEPARATOR + updateValue?.id;
     }
@@ -233,5 +241,13 @@ export class DsDynamicSponsorAutocompleteComponent extends DsDynamicAutocomplete
       query: term,
     });
     return options;
+  }
+
+  /**
+   * Remove SEPARATOR character from every part of the sponsor, because then it's throws an error because of
+   * wrong separation.
+   */
+  private replaceSeparatorValue(value, replacement) {
+    return value.replace(SEPARATOR, replacement);
   }
 }

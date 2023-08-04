@@ -20,7 +20,7 @@ import { ClarinLicenseLabel } from '../../core/shared/clarin/clarin-license-labe
 import { ClarinLicenseLabelDataService } from '../../core/data/clarin/clarin-license-label-data.service';
 import { ClarinLicenseLabelExtendedSerializer } from '../../core/shared/clarin/clarin-license-label-extended-serializer';
 import { ClarinLicenseRequiredInfoSerializer } from '../../core/shared/clarin/clarin-license-required-info-serializer';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { RequestParam } from '../../core/cache/models/request-param.model';
 
 /**

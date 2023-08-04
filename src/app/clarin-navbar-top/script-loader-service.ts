@@ -11,7 +11,7 @@ export const ScriptStore: Scripts[] = [
   { name: 'discojuice', src: 'discojuice.js' }
 ];
 
-declare var document: any;
+declare let document: any;
 
 /**
  * The class for loading the js files dynamically. The scripts must be loaded by a webpack.

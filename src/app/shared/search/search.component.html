@@ -29,16 +29,18 @@
                         | translate}}
                 </button>
             </div>
-          <ds-search-results [searchResults]="resultsRD$ | async"
-                             [searchConfig]="searchOptions$ | async"
-                             [configuration]="(currentConfiguration$ | async)"
-                             [disableHeader]="!searchEnabled"
-                             [linkType]="linkType"
-                             [context]="(currentContext$ | async)"
-                             [selectable]="selectable"
-                             [selectionConfig]="selectionConfig"
-                             (deselectObject)="deselectObject.emit($event)"
-                             (selectObject)="selectObject.emit($event)"></ds-search-results>
+            <ds-themed-search-results [searchResults]="resultsRD$ | async"
+                                      [searchConfig]="searchOptions$ | async"
+                                      [configuration]="(currentConfiguration$ | async)"
+                                      [disableHeader]="!searchEnabled"
+                                      [linkType]="linkType"
+                                      [context]="(currentContext$ | async)"
+                                      [selectable]="selectable"
+                                      [selectionConfig]="selectionConfig"
+                                      [showCsvExport]="showCsvExport"
+                                      (contentChange)="onContentChange($event)"
+                                      (deselectObject)="deselectObject.emit($event)"
+                                      (selectObject)="selectObject.emit($event)"></ds-themed-search-results>
         </div>
     </div>
 </ng-template>
@@ -48,6 +50,8 @@
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
+                       [filters]="filtersRD$.asObservable()"
+                       [refreshFilters]="refreshFilters"
                        [resultCount]="(resultsRD$ | async)?.payload?.totalElements"
                        [searchOptions]="(searchOptions$ | async)"
                        [sortOptionsList]="(sortOptionsList$ | async)"
@@ -61,6 +65,8 @@
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
+                       [filters]="filtersRD$.asObservable()"
+                       [refreshFilters]="refreshFilters"
                        [resultCount]="(resultsRD$ | async)?.payload.totalElements"
                        [searchOptions]="(searchOptions$ | async)"
                        [sortOptionsList]="(sortOptionsList$ | async)"
@@ -78,7 +84,7 @@
                     [query]="(searchOptions$ | async)?.query"
                     [scope]="(searchOptions$ | async)?.scope"
                     [currentUrl]="searchLink"
-                    [showScopeSelector]="true"
+                    [showScopeSelector]="showScopeSelector"
                     [inPlaceSearch]="inPlaceSearch"
                     [searchPlaceholder]="searchFormPlaceholder | translate">
     </ds-search-form>

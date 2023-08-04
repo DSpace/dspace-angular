@@ -1,6 +1,6 @@
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { getHandleTableModulePath } from '../../app-routing-paths';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { getHandleTableModulePath } from '../handle-page-routing-paths';
 
 export const paginationID = 'hdl';
 

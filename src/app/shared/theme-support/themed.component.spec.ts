@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { ThemedComponent } from './themed.component';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
@@ -7,7 +8,6 @@ import { getMockThemeService } from '../mocks/theme-service.mock';
 import { TestComponent } from './test/test.component.spec';
 import { ThemeConfig } from '../../../config/theme.model';
 
-/* tslint:disable:max-classes-per-file */
 @Component({
   selector: 'ds-test-themed-component',
   templateUrl: './themed.component.html'
@@ -71,6 +71,12 @@ describe('ThemedComponent', () => {
         expect((component as any).compRef.instance.testInput).toEqual('changed');
       });
     }));
+
+    it(`should set usedTheme to the name of the matched theme`, waitForAsync(() => {
+      fixture.whenStable().then(() => {
+        expect(component.usedTheme).toEqual('custom');
+      });
+    }));
   });
 
   describe('when the current theme doesn\'t match a themed component', () => {
@@ -90,6 +96,12 @@ describe('ThemedComponent', () => {
       it('should sync up this component\'s input with the default component', waitForAsync(() => {
         fixture.whenStable().then(() => {
           expect((component as any).compRef.instance.testInput).toEqual('changed');
+        });
+      }));
+
+      it(`should set usedTheme to the name of the base theme`, waitForAsync(() => {
+        fixture.whenStable().then(() => {
+          expect(component.usedTheme).toEqual('base');
         });
       }));
     });
@@ -117,6 +129,12 @@ describe('ThemedComponent', () => {
             expect((component as any).compRef.instance.testInput).toEqual('changed');
           });
         }));
+
+        it(`should set usedTheme to the name of the base theme`, waitForAsync(() => {
+          fixture.whenStable().then(() => {
+            expect(component.usedTheme).toEqual('base');
+          });
+        }));
       });
 
       describe('that does match it', () => {
@@ -139,6 +157,12 @@ describe('ThemedComponent', () => {
         it('should sync up this component\'s input with the themed component', waitForAsync(() => {
           fixture.whenStable().then(() => {
             expect((component as any).compRef.instance.testInput).toEqual('changed');
+          });
+        }));
+
+        it(`should set usedTheme to the name of the matched theme`, waitForAsync(() => {
+          fixture.whenStable().then(() => {
+            expect(component.usedTheme).toEqual('custom');
           });
         }));
       });
@@ -167,6 +191,12 @@ describe('ThemedComponent', () => {
             expect((component as any).compRef.instance.testInput).toEqual('changed');
           });
         }));
+
+        it(`should set usedTheme to the name of the base theme`, waitForAsync(() => {
+          fixture.whenStable().then(() => {
+            expect(component.usedTheme).toEqual('base');
+          });
+        }));
       });
 
       describe('that extends another theme that does match it', () => {
@@ -193,8 +223,13 @@ describe('ThemedComponent', () => {
             expect((component as any).compRef.instance.testInput).toEqual('changed');
           });
         }));
+
+        it(`should set usedTheme to the name of the matched theme`, waitForAsync(() => {
+          fixture.whenStable().then(() => {
+            expect(component.usedTheme).toEqual('custom');
+          });
+        }));
       });
     });
   });
 });
-/* tslint:enable:max-classes-per-file */

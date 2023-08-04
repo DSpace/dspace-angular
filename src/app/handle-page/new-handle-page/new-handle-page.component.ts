@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CreateRequest } from '../../core/data/request.models';
-import { RequestService } from '../../core/data/request.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { take } from 'rxjs/operators';
 import { redirectBackWithPaginationOption } from '../handle-table/handle-table-pagination';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { ActivatedRoute } from '@angular/router';
-import { SUCCESSFUL_RESPONSE_START_CHAR } from '../../core/handle/handle.resource-type';
 import {HandleDataService} from '../../core/data/handle-data.service';
 import {getFirstCompletedRemoteData} from '../../core/shared/operators';
 import {Handle} from '../../core/handle/handle.model';

@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": ["grecaptcha"]
   },
   "files": [
     "src/main.browser.ts",
@@ -23,7 +23,6 @@
     "src/**/mocks/*"
   ],
   "angularCompilerOptions": {
-    "entryModule": "./src/modules/app/browser-app.module#BrowserAppModule",
-    "preserveWhitespaces": true
+    "entryModule": "./src/modules/app/browser-app.module#BrowserAppModule"
   }
 }

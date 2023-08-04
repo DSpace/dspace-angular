@@ -9,7 +9,7 @@ import { RouteService } from '../../../core/services/route.service';
 import { Router } from '@angular/router';
 import { pushInOut } from '../../animations/push';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import { hasValue } from '../../empty.util';
 import { combineLatest, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
@@ -71,7 +71,7 @@ export class ClarinSearchComponent extends SearchComponent implements OnInit {
       .getCurrentConfiguration(this.configuration).pipe(distinctUntilChanged());
     const searchSortOptions$: Observable<SortOptions[]> = configuration$.pipe(
       switchMap((configuration: string) => this.searchConfigService
-        .getConfigurationSearchConfig(configuration, this.service)),
+        .getConfigurationSearchConfig(configuration)),
       map((searchConfig: SearchConfig) => this.searchConfigService.getConfigurationSortOptions(searchConfig)),
       distinctUntilChanged()
     );
@@ -113,6 +113,7 @@ export class ClarinSearchComponent extends SearchComponent implements OnInit {
         this.initialized$.next(true);
         // retrieve results
         this.retrieveSearchResults(newSearchOptions);
+        this.retrieveFilters(searchOptions);
       }
     });
   }

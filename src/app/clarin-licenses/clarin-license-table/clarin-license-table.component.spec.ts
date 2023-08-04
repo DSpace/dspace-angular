@@ -24,6 +24,13 @@ import {
   mockLicense, mockLicenseRD$,
   mockNonExtendedLicenseLabel, successfulResponse
 } from '../../shared/testing/clarin-license-mock';
+import {GroupDataService} from '../../core/eperson/group-data.service';
+import {createSuccessfulRemoteDataObject$} from '../../shared/remote-data.utils';
+import {createPaginatedList} from '../../shared/testing/utils.test';
+import {LinkHeadService} from '../../core/services/link-head.service';
+import {ConfigurationDataService} from '../../core/data/configuration-data.service';
+import {ConfigurationProperty} from '../../core/shared/configuration-property.model';
+import {SearchConfigurationService} from '../../core/shared/search/search-configuration.service';
 
 describe('ClarinLicenseTableComponent', () => {
   let component: ClarinLicenseTableComponent;
@@ -34,6 +41,9 @@ describe('ClarinLicenseTableComponent', () => {
   let requestService: RequestService;
   let notificationService: NotificationsServiceStub;
   let modalStub: NgbActiveModal;
+  let groupsDataService: GroupDataService;
+  let service: ConfigurationDataService;
+  let searchConfigurationServiceStub: SearchConfigurationService;
 
   beforeEach(async () => {
     notificationService = new NotificationsServiceStub();
@@ -53,6 +63,28 @@ describe('ClarinLicenseTableComponent', () => {
       generateRequestId: observableOf('123456'),
     });
     modalStub = jasmine.createSpyObj('modalService', ['close', 'open']);
+    groupsDataService = jasmine.createSpyObj('groupsDataService', {
+      findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+      getGroupRegistryRouterLink: ''
+    });
+    const linkHeadService = jasmine.createSpyObj('linkHeadService', {
+      addTag: {},
+      removeTag: {}
+    });
+    const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'test',
+        values: [
+          'org.dspace.ctask.general.ProfileFormats = test'
+        ]
+      }))
+    });
+    searchConfigurationServiceStub = jasmine.createSpyObj('SearchConfigurationService', {
+      getCurrentConfiguration: observableOf('default'),
+      getCurrentScope: observableOf('test-id'),
+      updateFixedFilter: jasmine.createSpy('updateFixedFilter'),
+      setPaginationId: jasmine.createSpy('setPaginationId')
+    });
 
     await TestBed.configureTestingModule({
       imports: [
@@ -71,6 +103,10 @@ describe('ClarinLicenseTableComponent', () => {
         { provide: NotificationsService, useValue: notificationService },
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+        { provide: GroupDataService, useValue: groupsDataService },
+        { provide: LinkHeadService, useValue: linkHeadService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: SearchConfigurationService, useValue: searchConfigurationServiceStub },
       ],
     })
     .compileComponents();

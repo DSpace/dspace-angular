@@ -8,7 +8,7 @@ import { GLOBAL_ACTIONS_PATH } from '../handle-page-routing-paths';
 })
 export class HandleGlobalActionsComponent implements OnInit {
 
-  // tslint:disable-next-line:no-empty
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() { }
 
   /**

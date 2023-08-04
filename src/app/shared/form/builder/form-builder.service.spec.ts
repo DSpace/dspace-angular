@@ -81,7 +81,6 @@ describe('FormBuilderService test suite', () => {
 
   beforeEach(() => {
     configSpy = createConfigSuccessSpy(typeFieldTestValue);
-
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
       providers: [
@@ -120,7 +119,7 @@ describe('FormBuilderService test suite', () => {
       new DynamicInputModel(
         {
           id: 'testInput',
-          mask: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
+          mask: '(000) 000-0000',
         }
       ),
 
@@ -213,7 +212,7 @@ describe('FormBuilderService test suite', () => {
         repeatable: false,
         metadataFields: [],
         submissionId: '1234',
-        hasSelectableMetadata: false
+        hasSelectableMetadata: false,
       }),
 
       new DynamicScrollableDropdownModel({
@@ -326,6 +325,14 @@ describe('FormBuilderService test suite', () => {
           typeBindRelations: [{ match: 'VISIBLE', operator: 'OR', when: [{id: 'dc.type', value: 'Book' }]}]
         },
       ),
+
+      new DynamicConcatModel({
+        id: 'testConcatGroup_CONCAT_GROUP',
+        group: [
+          new DynamicInputModel({ id: 'testConcatGroup_CONCAT_FIRST_INPUT' }),
+          new DynamicInputModel({ id: 'testConcatGroup_CONCAT_SECOND_INPUT' }),
+        ]
+      } as any)
     ];
 
     testFormConfiguration = {
@@ -464,6 +471,7 @@ describe('FormBuilderService test suite', () => {
     expect(service.findById('testTimePicker', testModel) instanceof DynamicTimePickerModel).toBe(true);
     expect(service.findById('testRating', testModel) instanceof DynamicRatingModel).toBe(true);
     expect(service.findById('testColorPicker', testModel) instanceof DynamicColorPickerModel).toBe(true);
+    expect(service.findById('testConcatGroup', testModel) instanceof DynamicConcatModel).toBe(true);
   });
 
   it('should find a nested dynamic form control model by id', () => {

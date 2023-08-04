@@ -37,7 +37,13 @@
 
 .label-info {
   background-color: #5bc0de;
+  border: none !important;
 }
+
+.label-icon {
+  border-radius: 0.25em 0 0 0.25em !important;
+}
+
 .label {
   padding: 0 3px 0 4px;
   font-size: 75%;
@@ -91,6 +97,10 @@
 
 .clarin-font-size {
   font-size: 15px;
+}
+
+.clarin-license-icon-mr {
+  margin-right: 2px;
 }
 
 //body {

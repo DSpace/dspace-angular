@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { AuthorNameLink } from '../clarin-item-box-view/clarin-item-box-view.component';
 import { getBaseUrl, loadItemAuthors } from '../clarin-shared-util';
 import { Item } from '../../core/shared/item.model';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { AuthorNameLink } from '../clarin-item-box-view/clarin-author-name-link.model';
 
 @Component({
   selector: 'ds-clarin-item-author-preview',

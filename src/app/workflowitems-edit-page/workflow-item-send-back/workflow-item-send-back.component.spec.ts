@@ -1,5 +1,5 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { Location } from '@angular/common';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouteService } from '../../core/services/route.service';
@@ -17,6 +17,7 @@ import { RouterStub } from '../../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { LocationStub } from '../../shared/testing/location.stub';
 
 describe('WorkflowItemSendBackComponent', () => {
   let component: WorkflowItemSendBackComponent;
@@ -50,6 +51,7 @@ describe('WorkflowItemSendBackComponent', () => {
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub({}, { wfi: createSuccessfulRemoteDataObject(wfi) }) },
         { provide: Router, useClass: RouterStub },
         { provide: RouteService, useValue: {} },
+        { provide: Location, useValue: new LocationStub() },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: WorkflowItemDataService, useValue: wfiService },
         { provide: RequestService, useValue: getMockRequestService() },

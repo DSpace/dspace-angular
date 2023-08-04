@@ -5,11 +5,10 @@ import { RemoteData } from '../../core/data/remote-data';
 import { AuthService } from '../../core/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, switchMap, take } from 'rxjs/operators';
-import { getRemoteDataPayload, redirectOn4xx } from '../../core/shared/operators';
+import { getRemoteDataPayload } from '../../core/shared/operators';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { GetRequest } from '../../core/data/request.models';
 import { RequestService } from '../../core/data/request.service';
-import {hasCompleted, hasFailed, RequestEntryState} from '../../core/data/request.reducer';
 import {
   DOWNLOAD_TOKEN_EXPIRED_EXCEPTION,
   HTTP_STATUS_UNAUTHORIZED,
@@ -17,13 +16,15 @@ import {
 } from '../../core/shared/clarin/constants';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { hasValue, isEmpty, isNotEmpty, isNotNull, isUndefined } from '../../shared/empty.util';
-import { isEqual } from 'lodash';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { AuthrnBitstream } from '../../core/shared/clarin/bitstream-authorization.model';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FileService } from '../../core/shared/file.service';
 import { getForbiddenRoute } from '../../app-routing-paths';
+import { redirectOn4xx } from 'src/app/core/shared/authorized.operators';
+import { hasCompleted, hasFailed, RequestEntryState } from 'src/app/core/data/request-entry-state.model';
+import isEqual from 'lodash/isEqual';
 
 /**
  * `/<BITSTREAM_UUID>/download` page
@@ -117,7 +118,7 @@ export class ClarinBitstreamDownloadPageComponent implements OnInit {
         this.downloadStatus.next(RequestEntryState.Success);
         this.hardRedirectService.redirect(bitstreamURL);
       } else if (!(isAuthorized || isAuthorizedByClarin) && isLoggedIn &&
-          this.downloadStatus.value === RequestEntryState.Error) {
+        this.downloadStatus.value === RequestEntryState.Error) {
         // this.downloadStatus is `ERROR` - no CLARIN exception is thrown up
         this.downloadStatus.next(HTTP_STATUS_UNAUTHORIZED.toString());
         this.router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});

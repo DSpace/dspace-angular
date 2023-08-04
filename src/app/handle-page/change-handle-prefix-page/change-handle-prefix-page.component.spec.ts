@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeHandlePrefixPageComponent } from './change-handle-prefix-page.component';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { RequestService } from '../../core/data/request.service';
 import { of as observableOf } from 'rxjs';
 import { SharedModule } from '../../shared/shared.module';
@@ -15,7 +15,7 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { cold } from 'jasmine-marbles';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import {Store} from '@ngrx/store';
+import { Store } from '@ngrx/store';
 
 /**
  * The test for the ChangeHandlePrefixPageComponent. Test changing of the handle prefix.
@@ -70,7 +70,7 @@ describe('ChangeHandlePrefixPageComponent', () => {
       { provide: TranslateService, useValue: getMockTranslateService() },
       {
         provide: Store, useValue: {
-          // tslint:disable-next-line:no-empty
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
           dispatch: () => {
           }
         }

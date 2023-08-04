@@ -28,7 +28,7 @@ export const FUNDING_TYPE_INDEX = 0;
 /**
  * Configuration for the DynamicComplexModel.
  */
-export interface DynamicComplexModelConfig extends DynamicConcatModelConfig {}
+export type DynamicComplexModelConfig = DynamicConcatModelConfig;
 
 /**
  * The model for the Complex input field which consist of multiple input fields.

@@ -169,6 +169,8 @@
   
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Naam",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.id" : "ID",
   
   // "admin.registries.bitstream-formats.table.return": "Return",
   "admin.registries.bitstream-formats.table.return": "Terug",
@@ -250,6 +252,8 @@
   
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Veld",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.id" : "ID",
   
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Opmerking over bereik",
@@ -2911,7 +2915,7 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Beheer gemapte collecties",
   
-  // "item.edit.tabs.status.buttons.move.button": "Move...",
+  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
   "item.edit.tabs.status.buttons.move.button": "Verplaats ..",
   
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
@@ -2935,8 +2939,8 @@
   // "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
   "item.edit.tabs.status.buttons.reinstate.label": "Zet het item terug in het repository",
   
-  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  "item.edit.tabs.status.buttons.withdraw.button": "Trek terug ...",
+  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
+  "item.edit.tabs.status.buttons.withdraw.button": "onttrek hierdie item",
   
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
   "item.edit.tabs.status.buttons.withdraw.label": "Trek het item terug uit het repository",
@@ -5748,7 +5752,7 @@
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
   "submission.sections.upload.header.policy.default.withlist": "Let op: bestanden in de collectie {{collectionName}} zullen niet alleen toegankelijk zijn volgens de expliciet toegekende rechten per bestand, maar ook volgens de volgende groep(en):",
   
-  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "Hier vindt u alle bestanden van het item. U kunt de metadata en toegangsrechten bewerken of <strong>meer bestanden toevoegen door ze naar deze pagina te slepen.</strong>",
   
   // "submission.sections.upload.no-entry": "No",
@@ -5907,7 +5911,8 @@
   // TODO Source message changed - Revise the translation
   "uploader.or": ", of",
   
-  // "uploader.processing": "Processing",
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
+  // TODO Source message changed - Revise the translation
   "uploader.processing": "Bezig",
   
   // "uploader.queue-length": "Queue length",

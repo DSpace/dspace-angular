@@ -5,11 +5,11 @@ import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dyna
 import { Observable, of as observableOf } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, merge, switchMap, tap } from 'rxjs/operators';
 import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { DynamicTagModel } from './dynamic-tag.model';
-import { Chips } from '../../../../../chips/models/chips.model';
+import { Chips } from '../../../../chips/models/chips.model';
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { environment } from '../../../../../../../environments/environment';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
@@ -90,7 +90,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
       }),
       map((list: PaginatedList<VocabularyEntry>) => list.page),
       tap(() => this.changeSearchingStatus(false)),
-      merge(this.hideSearchingWhenUnsubscribed))
+      merge(this.hideSearchingWhenUnsubscribed));
 
   /**
    * Initialize the component, setting up the init form value

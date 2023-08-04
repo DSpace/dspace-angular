@@ -1,3 +1,18 @@
+// ***********************************************************
+// This example support/index.js is processed and
+// loaded automatically before your test files.
+//
+// This is a great place to put global configuration and
+// behavior that modifies Cypress.
+//
+// You can change the location of this file or turn off
+// automatically serving support files with the
+// 'supportFile' configuration option.
+//
+// You can read more here:
+// https://on.cypress.io/configuration
+// ***********************************************************
+
 // Import all custom Commands (from commands.ts) for all tests
 import './commands';
 
@@ -7,18 +22,18 @@ import 'cypress-axe';
 
 // Runs once before the first test in each "block"
 beforeEach(() => {
-  // Pre-agree to all Klaro cookies by setting the klaro-anonymous cookie
-  // This just ensures it doesn't get in the way of matching other objects in the page.
-  cy.setCookie('klaro-anonymous', '{%22authentication%22:true%2C%22preferences%22:true%2C%22acknowledgement%22:true%2C%22google-analytics%22:true%2C%22google-recaptcha%22:true}');
+    // Pre-agree to all Klaro cookies by setting the klaro-anonymous cookie
+    // This just ensures it doesn't get in the way of matching other objects in the page.
+    cy.setCookie('klaro-anonymous', '{%22authentication%22:true%2C%22preferences%22:true%2C%22acknowledgement%22:true%2C%22google-analytics%22:true%2C%22google-recaptcha%22:true}');
 });
 
 // For better stability between tests, we visit "about:blank" (i.e. blank page) after each test.
 // This ensures any remaining/outstanding XHR requests are killed, so they don't affect the next test.
 // Borrowed from: https://glebbahmutov.com/blog/visit-blank-page-between-tests/
 afterEach(() => {
-  cy.window().then((win) => {
-    win.location.href = 'about:blank';
-  });
+    cy.window().then((win) => {
+      win.location.href = 'about:blank';
+    });
 });
 
 
@@ -44,11 +59,10 @@ export const TEST_SEARCH_TERM = Cypress.env('DSPACE_TEST_SEARCH_TERM') || 'test'
 // Collection used for submission tests
 export const TEST_SUBMIT_COLLECTION_NAME = Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME') || 'Sample Collection';
 export const TEST_SUBMIT_COLLECTION_UUID = Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_UUID') || '9d8334e9-25d3-4a67-9cea-3dffdef80144';
-
-export const TEST_SUBMIT_CLARIAH_COLLECTION_UUID = Cypress.env('DSPACE_TEST_SUBMIT_CLARIAH_COLLECTION_UUID') || '7eb3562b-27f5-445f-8303-db771969cbff';
 export const TEST_SUBMIT_USER = Cypress.env('DSPACE_TEST_SUBMIT_USER') || 'dspacedemo+submit@gmail.com';
 export const TEST_SUBMIT_USER_PASSWORD = Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD') || 'dspace';
 
+export const TEST_SUBMIT_CLARIAH_COLLECTION_UUID = Cypress.env('DSPACE_TEST_SUBMIT_CLARIAH_COLLECTION_UUID') || '7eb3562b-27f5-445f-8303-db771969cbff';
 export const TEST_WITHDRAWN_ITEM = Cypress.env('CLARIN_TEST_WITHDRAWN_ITEM') || '921d256f-c64f-438e-b17e-13fb75a64e19';
 export const TEST_WITHDRAWN_ITEM_WITH_REASON = Cypress.env('CLARIN_TEST_WITHDRAWN_ITEM_WITH_REASON') || 'ce6ceeb4-8f47-4d5a-ad22-e87b3110cc04';
 export const TEST_WITHDRAWN_ITEM_WITH_REASON_AND_AUTHORS = Cypress.env('CLARIN_TEST_WITHDRAWN_ITEM_WITH_REASON_AND_AUTHORS') || 'ad27520a-98c0-40a4-bfc3-2edd857b3418';
@@ -58,3 +72,6 @@ export const TEST_WITHDRAWN_REPLACED_ITEM_WITH_AUTHORS = Cypress.env('CLARIN_TES
 export const TEST_WITHDRAWN_REASON = Cypress.env('CLARIN_TEST_WITHDRAWN_REASON') || 'reason';
 export const TEST_WITHDRAWN_REPLACEMENT = Cypress.env('CLARIN_TEST_WITHDRAWN_REPLACEMENT') || 'new URL';
 export const TEST_WITHDRAWN_AUTHORS = Cypress.env('CLARIN_TEST_WITHDRAWN_AUTHORS') || 'author1, author2';
+
+export const TEST_COLLECTION_NAME = 'Col';
+export const TEST_COMMUNITY_NAME = 'Com';

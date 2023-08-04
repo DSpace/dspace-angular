@@ -19,13 +19,11 @@ import { getMockFormOperationsService } from '../../../shared/mocks/form-operati
 import { SectionFormOperationsService } from './section-form-operations.service';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { FormService } from '../../../shared/form/form.service';
-import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
+import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsType } from '../sections-type';
 import {
-  mockSubmissionCollectionId,
-  mockSubmissionId,
-  mockUploadResponse1ParsedErrors
+  mockSubmissionCollectionId, mockSubmissionId, mockUploadResponse1ParsedErrors,
 } from '../../../shared/mocks/submission.mock';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
@@ -35,7 +33,6 @@ import { FormFieldModel } from '../../../shared/form/builder/models/form-field.m
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { DynamicRowGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { SubmissionSectionError } from '../../objects/submission-objects.reducer';
 import { DynamicFormControlEvent, DynamicFormControlEventType } from '@ng-dynamic-forms/core';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
@@ -45,10 +42,13 @@ import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { cold } from 'jasmine-marbles';
-import { mockItemWithMetadataFieldAndValue } from '../../../item-page/simple/field-components/specific-field/item-page-field.component.spec';
-import wait from 'fork-ts-checker-webpack-plugin/lib/utils/async/wait';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { SubmissionSectionError } from '../../objects/submission-section-error.model';
+import {
+  mockItemWithMetadataFieldsAndValue
+} from '../../../item-page/simple/field-components/specific-field/item-page-field.component.spec';
 
-function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
+function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('FormOperationsService', {
     getConfigAll: jasmine.createSpy('getConfigAll'),
     getConfigByHref: jasmine.createSpy('getConfigByHref'),
@@ -184,7 +184,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         { provide: SectionFormOperationsService, useValue: getMockFormOperationsService() },
         { provide: FormService, useValue: formService },
-        { provide: SubmissionFormsConfigService, useValue: formConfigService },
+        { provide: SubmissionFormsConfigDataService, useValue: formConfigService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
@@ -310,8 +310,10 @@ describe('SubmissionSectionFormComponent test suite', () => {
       };
       compAsAny.formData = {};
       compAsAny.sectionMetadata = ['dc.title'];
+      spyOn(compAsAny, 'inCurrentSubmissionScope').and.callThrough();
 
       expect(comp.hasMetadataEnrichment(newSectionData)).toBeTruthy();
+      expect(compAsAny.inCurrentSubmissionScope).toHaveBeenCalledWith('dc.title');
     });
 
     it('should return false when has not Metadata Enrichment', () => {
@@ -320,7 +322,10 @@ describe('SubmissionSectionFormComponent test suite', () => {
       };
       compAsAny.formData = newSectionData;
       compAsAny.sectionMetadata = ['dc.title'];
+      spyOn(compAsAny, 'inCurrentSubmissionScope').and.callThrough();
+
       expect(comp.hasMetadataEnrichment(newSectionData)).toBeFalsy();
+      expect(compAsAny.inCurrentSubmissionScope).toHaveBeenCalledWith('dc.title');
     });
 
     it('should return false when metadata has Metadata Enrichment but not belonging to sectionMetadata', () => {
@@ -330,6 +335,77 @@ describe('SubmissionSectionFormComponent test suite', () => {
       compAsAny.formData = newSectionData;
       compAsAny.sectionMetadata = [];
       expect(comp.hasMetadataEnrichment(newSectionData)).toBeFalsy();
+    });
+
+    describe('inCurrentSubmissionScope', () => {
+      beforeEach(() => {
+        // @ts-ignore
+        comp.formConfig = {
+          rows: [
+            {
+              fields: [
+                {
+                  selectableMetadata: [{ metadata: 'scoped.workflow' }],
+                  scope: 'WORKFLOW',
+                } as FormFieldModel
+              ]
+            },
+            {
+              fields: [
+                {
+                  selectableMetadata: [{ metadata: 'scoped.workspace' }],
+                  scope: 'WORKSPACE',
+                } as FormFieldModel
+              ]
+            },
+            {
+              fields: [
+                {
+                  selectableMetadata: [{ metadata: 'dc.title' }],
+                } as FormFieldModel
+              ]
+            }
+          ]
+        };
+      });
+
+      describe('in workspace scope', () => {
+        beforeEach(() => {
+          // @ts-ignore
+          comp.submissionObject = { type: WorkspaceItem.type.value };
+        });
+
+        it('should return true for unscoped fields', () => {
+          expect((comp as any).inCurrentSubmissionScope('dc.title')).toBe(true);
+        });
+
+        it('should return true for fields scoped to workspace', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workspace')).toBe(true);
+        });
+
+        it('should return false for fields scoped to workflow', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workflow')).toBe(false);
+        });
+      });
+
+      describe('in workflow scope', () => {
+        beforeEach(() => {
+          // @ts-ignore
+          comp.submissionObject = { type: WorkflowItem.type.value };
+        });
+
+        it('should return true when field is unscoped', () => {
+          expect((comp as any).inCurrentSubmissionScope('dc.title')).toBe(true);
+        });
+
+        it('should return true for fields scoped to workflow', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workflow')).toBe(true);
+        });
+
+        it('should return false for fields scoped to workspace', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workspace')).toBe(false);
+        });
+      });
     });
 
     it('should update form properly', () => {
@@ -537,7 +613,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       formBuilderService = TestBed.inject(FormBuilderService);
       formOperationsService = TestBed.inject(SectionFormOperationsService);
       translateService = TestBed.inject(TranslateService);
-      formConfigService = TestBed.inject(SubmissionFormsConfigService as any);
+      formConfigService = TestBed.inject(SubmissionFormsConfigDataService as any);
 
       compAsAny.pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionObject.id);
     });
@@ -563,7 +639,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       spyOn(comp, 'subscriptions');
 
       const wi = new WorkspaceItem();
-      wi.item = createSuccessfulRemoteDataObject$(mockItemWithMetadataFieldAndValue('local.sponsor', EU_SPONSOR));
+      wi.item = createSuccessfulRemoteDataObject$(mockItemWithMetadataFieldsAndValue(['local.sponsor'], EU_SPONSOR));
 
       submissionObjectDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(wi));
 
@@ -590,3 +666,4 @@ describe('SubmissionSectionFormComponent test suite', () => {
 class TestComponent {
 
 }
+

@@ -1,4 +1,3 @@
-import { UNDEFINED_NAME } from '../../shared/mocks/dso-name.service.mock';
 import {COLLECTION, COMMUNITY, ITEM, SITE} from './handle.resource-type';
 
 /**

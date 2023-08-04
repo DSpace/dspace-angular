@@ -2,7 +2,7 @@ import { deserializeAs, inheritSerialization } from 'cerialize';
 import { inheritLinkAnnotations, typedObject } from '../../cache/builders/build-decorators';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { SubmissionObject } from './submission-object.model';
-import { ResourceType } from '../../shared/resource-type';
+import { WORKSPACEITEM } from '../../eperson/models/workspaceitem.resource-type';
 
 /**
  * A model class for a WorkspaceItem.
@@ -11,7 +11,7 @@ import { ResourceType } from '../../shared/resource-type';
 @inheritSerialization(SubmissionObject)
 @inheritLinkAnnotations(SubmissionObject)
 export class WorkspaceItem extends SubmissionObject {
-  static type = new ResourceType('workspaceitem');
+  static type = WORKSPACEITEM;
 
   /**
    * The universally unique identifier of this WorkspaceItem

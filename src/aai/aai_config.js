@@ -34,7 +34,6 @@ jQuery(document).ready(
                     '<p style="margin: 5px; color: #607890; text-decoration: underline;"><a href="' + instance.target + 'forgot">Forgot your password?</a></p>' +
                     '<p  style="" ><input type="submit" style="margin: 20px 2px" name="submit" value="Sign in" /></p>' +
                     '</form>';
-	    // XXX there should be a better way then hardcoding this
             instance.target = instance.target + "authn/shibboleth";
             return instance;
         })();

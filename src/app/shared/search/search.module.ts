@@ -29,9 +29,14 @@ import { SharedModule } from '../shared.module';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { ClarinSearchComponent } from './clarin-search/clarin-search.component';
 import { SearchComponent } from './search.component';
+import { ThemedSearchComponent } from './themed-search.component';
+import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
+import { ThemedSearchSettingsComponent } from './search-settings/themed-search-settings.component';
+import { NouisliderModule } from 'ng2-nouislider';
 
 const COMPONENTS = [
   SearchComponent,
+  ThemedSearchComponent,
   SearchResultsComponent,
   SearchSidebarComponent,
   SearchSettingsComponent,
@@ -51,7 +56,9 @@ const COMPONENTS = [
   SearchAuthorityFilterComponent,
   SearchSwitchConfigurationComponent,
   ConfigurationSearchPageComponent,
-  ThemedConfigurationSearchPageComponent
+  ThemedConfigurationSearchPageComponent,
+  ThemedSearchResultsComponent,
+  ThemedSearchSettingsComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -88,6 +95,8 @@ export const MODELS = [
       useDefaultLang: true
     }),
     SharedModule.withEntryComponents(),
+    SharedModule.withEntryComponents(),
+    NouisliderModule,
   ],
     exports: [
         ...COMPONENTS,

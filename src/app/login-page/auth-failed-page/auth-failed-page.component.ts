@@ -10,9 +10,9 @@ import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { RequestService } from '../../core/data/request.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
-import { hasSucceeded } from '../../core/data/request.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { hasSucceeded } from 'src/app/core/data/request-entry-state.model';
 
 /**
  * If the ShibbolethAuthorization has failed because the IdP hasn't sent the `SHIB-EMAIL` header this component is

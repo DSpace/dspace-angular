@@ -1,5 +1,4 @@
 import { TEST_ADMIN_PASSWORD, TEST_ADMIN_USER } from '../support';
-import { loginProcess } from '../support/commands';
 
 /**
  * Test for checking if the handle page is loaded after redirecting.
@@ -13,10 +12,10 @@ describe('Handle Page', () => {
     },
     defaultCommandTimeout: 10000
   }, () => {
-    cy.visit('/');
+    cy.visit('/login');
 
     // Login as admin
-    loginProcess.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
+    cy.loginViaForm(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
 
     cy.visit('/handle-table');
 

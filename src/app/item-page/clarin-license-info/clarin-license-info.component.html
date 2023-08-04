@@ -1,8 +1,8 @@
 <div class="container alert alert-dismissible alert-info fade show w-100">
   <div class="text-center">
     <div>
-      <span>{{'item.page.license.message.0' | translate}}</span>
-      <span [ngClass]="'label ' + ' label-' + licenseLabel + ' rounded pl-1'">
+      <span class="pr-1">{{'item.page.license.message.0' | translate}}</span>
+      <span [ngClass]="'label ' + ' label-' + licenseLabel + ' rounded'">
         {{licenseType}}
       </span>
       <span class="pl-1">{{'item.page.license.message.1' | translate}}</span>
@@ -11,7 +11,7 @@
       <a [href]="licenseURI">{{license}}</a>
     </div>
     <div class="d-inline" *ngFor="let icon of licenseLabelIcons">
-      <img [src]="secureImageData(icon)" alt="" width="24px">
+      <img class="mr-1" [src]="secureImageData(icon)" alt="" width="24px">
     </div>
   </div>
 </div>

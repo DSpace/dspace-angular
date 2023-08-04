@@ -1,4 +1,4 @@
-import * as merge from 'deepmerge';
+import { all } from 'deepmerge';
 
 import { environment } from '../environments/environment';
 
@@ -28,7 +28,7 @@ const mergeConfig = (destinationConfig: any, sourceConfig: AppConfig): void => {
   const mergeOptions = {
     arrayMerge: (destinationArray, sourceArray, options) => sourceArray
   };
-  Object.assign(destinationConfig, merge.all([
+  Object.assign(destinationConfig, all([
     destinationConfig,
     sourceConfig
   ], mergeOptions));

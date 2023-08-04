@@ -5,7 +5,8 @@
     "outDir": "./out-tsc/spec",
     "types": [
       "jasmine",
-      "node"
+      "node",
+      "grecaptcha"
     ]
   },
   "files": [
@@ -15,6 +16,7 @@
   ],
   "include": [
     "src/**/*.spec.ts",
-    "src/**/*.d.ts"
-  ]
+    "src/**/*.d.ts",
+    "src/themes/**/*.module.ts"
+  ],
 }

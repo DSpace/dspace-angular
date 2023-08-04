@@ -18,7 +18,9 @@ import {
   DynamicPathable,
   parseReviver,
 } from '@ng-dynamic-forms/core';
-import { isObject, isString, mergeWith } from 'lodash';
+import isObject from 'lodash/isObject';
+import isString from 'lodash/isString';
+import mergeWith from 'lodash/mergeWith';
 
 import {
   hasNoValue,
@@ -120,8 +122,8 @@ export class FormBuilderService extends DynamicFormService {
         }
 
         if (this.isConcatGroup(controlModel)) {
-          if (controlModel.id.match(new RegExp(findId + CONCAT_GROUP_SUFFIX + `_\\d+$`))) {
-            result = (controlModel as DynamicConcatModel).group[0];
+          if (controlModel.id.match(new RegExp(findId + CONCAT_GROUP_SUFFIX))) {
+            result = (controlModel as DynamicConcatModel);
             break;
           }
         }
@@ -292,8 +294,8 @@ export class FormBuilderService extends DynamicFormService {
   modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {},
                          submissionScope?: string, readOnly = false, typeBindModel = null,
                          isInnerForm = false): DynamicFormControlModel[] | never {
-    let rows: DynamicFormControlModel[] = [];
-    const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
+     let rows: DynamicFormControlModel[] = [];
+     const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {
         const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope,
@@ -305,17 +307,16 @@ export class FormBuilderService extends DynamicFormService {
             rows.push(rowParsed);
           }
         }
-
-        if (hasNoValue(typeBindModel)) {
-          typeBindModel = this.findById(this.typeField, rows);
-        }
-
-        if (hasValue(typeBindModel)) {
-          this.setTypeBindModel(typeBindModel);
-        }
       });
     }
 
+    if (hasNoValue(typeBindModel)) {
+      typeBindModel = this.findById(this.typeField, rows);
+    }
+
+    if (hasValue(typeBindModel)) {
+      this.setTypeBindModel(typeBindModel);
+    }
     return rows;
   }
 

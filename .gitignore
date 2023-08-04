@@ -1,3 +1,4 @@
+/.angular/cache
 /__build__
 /__server_build__
 /node_modules
@@ -42,3 +43,5 @@ python_data_import/debug.log.txt
 python_data_import/logs.txt
 python_data_import/date.txt
 */__pycache__/
+
+junit.xml

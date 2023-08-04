@@ -7,11 +7,13 @@ import { CoreModule } from '../core/core.module';
 import { NavbarEffects } from './navbar.effects';
 import { NavbarSectionComponent } from './navbar-section/navbar-section.component';
 import { ExpandableNavbarSectionComponent } from './expandable-navbar-section/expandable-navbar-section.component';
+import { ThemedExpandableNavbarSectionComponent } from './expandable-navbar-section/themed-expandable-navbar-section.component';
 import { NavbarComponent } from './navbar.component';
 import { MenuModule } from '../shared/menu/menu.module';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { ThemedNavbarComponent } from './themed-navbar.component';
+import {ClarinNavbarTopComponent} from '../clarin-navbar-top/clarin-navbar-top.component';
 
 const effects = [
   NavbarEffects
@@ -21,6 +23,8 @@ const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
   NavbarSectionComponent,
   ExpandableNavbarSectionComponent,
+  ThemedExpandableNavbarSectionComponent,
+  ClarinNavbarTopComponent
 ];
 
 @NgModule({
@@ -33,22 +37,16 @@ const ENTRY_COMPONENTS = [
     CoreModule.forRoot()
   ],
   declarations: [
+    ...ENTRY_COMPONENTS,
     NavbarComponent,
     ThemedNavbarComponent,
-    NavbarSectionComponent,
-    ExpandableNavbarSectionComponent
   ],
-  providers: [
-
-  ],
-  entryComponents: [
-    NavbarSectionComponent,
-    ExpandableNavbarSectionComponent
-  ],
+  providers: [],
   exports: [
     ThemedNavbarComponent,
     NavbarSectionComponent,
-    ExpandableNavbarSectionComponent
+    ThemedExpandableNavbarSectionComponent,
+    ClarinNavbarTopComponent
   ]
 })
 

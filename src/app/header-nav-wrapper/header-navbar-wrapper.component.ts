@@ -4,7 +4,7 @@ import { AppState } from '../app.reducer';
 import { hasValue } from '../shared/empty.util';
 import { Observable, Subscription } from 'rxjs';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '../shared/menu/initial-menus-state';
+import { MenuID } from '../shared/menu/menu-id.model';
 
 /**
  * This component represents a wrapper for the horizontal navbar and the header

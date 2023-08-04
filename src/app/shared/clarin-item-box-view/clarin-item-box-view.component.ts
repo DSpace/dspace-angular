@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../core/shared/item.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
@@ -59,7 +60,7 @@ export class ClarinItemBoxViewComponent implements OnInit {
   /**
    * The subject of the Item e.g., `Article,..`
    */
-  itemType ='';
+  itemType = '';
   /**
    * The name of the Item.
    */
@@ -96,7 +97,7 @@ export class ClarinItemBoxViewComponent implements OnInit {
   /**
    * Current License Label icon as byte array.
    */
-  licenseLabelIcons: any[] = [];
+  licenseLabelIcons: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
   constructor(protected collectionService: CollectionDataService,
               protected bundleService: BundleDataService,
@@ -199,11 +200,11 @@ export class ClarinItemBoxViewComponent implements OnInit {
         getFirstCompletedRemoteData(),
         switchMap((clList: RemoteData<PaginatedList<ClarinLicense>>) => clList?.payload?.page))
       .subscribe(clarinLicense => {
+        let iconsList = [];
         clarinLicense.extendedClarinLicenseLabels.forEach(extendedCll => {
-          this.licenseLabelIcons.push(extendedCll?.icon);
+          iconsList.push(extendedCll?.icon);
         });
-        // For now show only extended CLL icons
-        // this.licenseLabelIcons.push(clarinLicense?.clarinLicenseLabel?.icon);
+        this.licenseLabelIcons.next(iconsList);
       });
   }
 

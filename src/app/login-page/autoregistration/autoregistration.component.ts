@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FindListOptions, GetRequest, PostRequest } from '../../core/data/request.models';
+import { GetRequest, PostRequest } from '../../core/data/request.models';
 import { getFirstCompletedRemoteData,getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
-import { hasSucceeded } from '../../core/data/request.reducer';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from '../../core/data/request.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -10,7 +9,6 @@ import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-bu
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticatedAction } from '../../core/auth/auth.actions';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../../core/core.reducers';
 import { BehaviorSubject } from 'rxjs';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { ClarinVerificationTokenDataService } from '../../core/data/clarin/clarin-verification-token-data.service';
@@ -20,6 +18,11 @@ import { HttpOptions } from '../../core/dspace-rest/dspace-rest.service';
 import { HttpHeaders } from '@angular/common/http';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { isEmpty } from '../../shared/empty.util';
+import { CoreState } from 'src/app/core/core-state.model';
+import { hasSucceeded } from 'src/app/core/data/request-entry-state.model';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import { getBaseUrl } from '../../shared/clarin-shared-util';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 
 /**
  * This component is showed up when the user has clicked on the `verification token`.
@@ -54,6 +57,11 @@ export class AutoregistrationComponent implements OnInit {
    */
   shibHeaders$: BehaviorSubject<ShibHeader[]> = new BehaviorSubject<ShibHeader[]>(null);
 
+  /**
+   * UI URL loaded from the server.
+   */
+  baseUrl = '';
+
   constructor(protected router: Router,
     public route: ActivatedRoute,
     private requestService: RequestService,
@@ -66,13 +74,14 @@ export class AutoregistrationComponent implements OnInit {
     private store: Store<CoreState>
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     // Retrieve the token from the request param
     this.verificationToken = this.route?.snapshot?.queryParams?.['verification-token'];
     // Load the repository name for the welcome message
     this.loadRepositoryName();
     // Load the `ClarinVerificationToken` based on the `verificationToken` value
     this.loadVerificationToken();
+    await this.assignBaseUrl();
   }
 
   /**
@@ -146,6 +155,9 @@ export class AutoregistrationComponent implements OnInit {
           this.deleteVerificationToken();
           this.store.dispatch(new AuthenticatedAction(authToken));
           this.router.navigate(['home']);
+        } else {
+          this.notificationService.error(this.translateService.instant('clarin.autologin.error.message'));
+          console.error(responseRD$.errorMessage);
         }
       });
   }
@@ -162,9 +174,11 @@ export class AutoregistrationComponent implements OnInit {
    * Retrieve the `ClarinVerificationToken` object by the `verificationToken` value.
    */
   private loadVerificationToken() {
+    console.log('I am here');
     this.verificationTokenService.searchBy('byToken', this.createSearchOptions(this.verificationToken))
       .pipe(getFirstSucceededRemoteListPayload())
       .subscribe(res => {
+        console.log('res', res);
         if (isEmpty(res?.[0])) {
           return;
         }
@@ -218,6 +232,13 @@ export class AutoregistrationComponent implements OnInit {
       .pipe(getFirstCompletedRemoteData())
       .subscribe(res => {
         this.dspaceName$.next(res?.payload?.values?.[0]);
+      });
+  }
+
+  async assignBaseUrl() {
+    this.baseUrl = await getBaseUrl(this.configurationService)
+      .then((baseUrlResponse: ConfigurationProperty) => {
+        return baseUrlResponse?.values?.[0];
       });
   }
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -12,12 +12,12 @@ import { CommunityDataService } from '../../../../core/data/community-data.servi
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
-import { RelationshipService } from '../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { Item } from '../../../../core/shared/item.model';
-import { MetadataMap } from '../../../../core/shared/metadata.models';
+import { MetadataMap  } from '../../../../core/shared/metadata.models';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
@@ -26,22 +26,20 @@ import { TruncatableService } from '../../../../shared/truncatable/truncatable.s
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import {
-  createRelationshipsObservable,
-  iiifEnabled,
-  iiifSearchEnabled, mockRouteService
+  createRelationshipsObservable, getIIIFEnabled, getIIIFSearchEnabled, mockRouteService
 } from '../shared/item.component.spec';
 import { PublicationComponent } from './publication.component';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { RouteService } from '../../../../core/services/route.service';
-
-const iiifEnabledMap: MetadataMap = {
-  'dspace.iiif.enabled': [iiifEnabled],
-};
-
-const iiifEnabledWithSearchMap: MetadataMap = {
-  'dspace.iiif.enabled': [iiifEnabled],
-  'iiif.search.enabled': [iiifSearchEnabled],
-};
+import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
+import { VersionDataService } from '../../../../core/data/version-data.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
+import {
+  BrowseDefinitionDataServiceStub
+} from '../../../../shared/testing/browse-definition-data-service.stub';
 
 const noMetadata = new MetadataMap();
 
@@ -64,17 +62,20 @@ describe('PublicationComponent', () => {
       }
     };
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      })],
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        }),
+        RouterTestingModule,
+      ],
       declarations: [PublicationComponent, GenericItemPageFieldComponent, TruncatePipe],
       providers: [
         { provide: ItemDataService, useValue: {} },
         { provide: TruncatableService, useValue: {} },
-        { provide: RelationshipService, useValue: {} },
+        { provide: RelationshipDataService, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
         { provide: Store, useValue: {} },
@@ -85,18 +86,24 @@ describe('PublicationComponent', () => {
         { provide: HttpClient, useValue: {} },
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
+        { provide: VersionHistoryDataService, useValue: {} },
+        { provide: VersionDataService, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        { provide: RouteService, useValue: mockRouteService }
+        { provide: WorkspaceitemDataService, useValue: {} },
+        { provide: SearchService, useValue: {} },
+        { provide: RouteService, useValue: mockRouteService },
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PublicationComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
-    }).compileComponents();
+      set: {changeDetection: ChangeDetectionStrategy.Default}
+    });
   }));
 
   describe('default view', () => {
     beforeEach(waitForAsync(() => {
+      TestBed.compileComponents();
       fixture = TestBed.createComponent(PublicationComponent);
       comp = fixture.componentInstance;
       comp.object = getItem(noMetadata);
@@ -112,6 +119,42 @@ describe('PublicationComponent', () => {
   describe('with IIIF viewer', () => {
 
     beforeEach(waitForAsync(() => {
+      const iiifEnabledMap: MetadataMap = {
+        'dspace.iiif.enabled': [getIIIFEnabled(true)],
+        'iiif.search.enabled': [getIIIFSearchEnabled(false)],
+      };
+      TestBed.compileComponents();
+      fixture = TestBed.createComponent(PublicationComponent);
+      comp = fixture.componentInstance;
+      comp.object = getItem(iiifEnabledMap);
+      fixture.detectChanges();
+    }));
+
+    it('should contain an iiif viewer component', () => {
+      const fields = fixture.debugElement.queryAll(By.css('ds-mirador-viewer'));
+      expect(fields.length).toBeGreaterThanOrEqual(1);
+    });
+    it('should not retrieve the query term for previous route', fakeAsync((): void => {
+      //tick(10)
+      expect(comp.iiifQuery$).toBeFalsy();
+    }));
+
+  });
+
+  describe('with IIIF viewer and search', () => {
+
+    const localMockRouteService = {
+      getPreviousUrl(): Observable<string> {
+        return of('/search?query=test%20query&fakeParam=true');
+      }
+    };
+    beforeEach(waitForAsync(() => {
+      const iiifEnabledMap: MetadataMap = {
+        'dspace.iiif.enabled': [getIIIFEnabled(true)],
+        'iiif.search.enabled': [getIIIFSearchEnabled(true)],
+      };
+      TestBed.overrideProvider(RouteService, {useValue: localMockRouteService});
+      TestBed.compileComponents();
       fixture = TestBed.createComponent(PublicationComponent);
       comp = fixture.componentInstance;
       comp.object = getItem(iiifEnabledMap);
@@ -123,15 +166,28 @@ describe('PublicationComponent', () => {
       expect(fields.length).toBeGreaterThanOrEqual(1);
     });
 
+    it('should retrieve the query term for previous route', fakeAsync((): void => {
+      expect(comp.iiifQuery$.subscribe(result => expect(result).toEqual('test query')));
+    }));
+
   });
 
-  describe('with IIIF viewer and search', () => {
-
+  describe('with IIIF viewer and search but no previous search query', () => {
+    const localMockRouteService = {
+      getPreviousUrl(): Observable<string> {
+        return of('/item');
+      }
+    };
     beforeEach(waitForAsync(() => {
-      mockRouteService.getPreviousUrl.and.returnValue(of(['/search?q=bird&motivation=painting','/item']));
+      const iiifEnabledMap: MetadataMap = {
+        'dspace.iiif.enabled': [getIIIFEnabled(true)],
+        'iiif.search.enabled': [getIIIFSearchEnabled(true)],
+      };
+      TestBed.overrideProvider(RouteService, {useValue: localMockRouteService});
+      TestBed.compileComponents();
       fixture = TestBed.createComponent(PublicationComponent);
       comp = fixture.componentInstance;
-      comp.object = getItem(iiifEnabledWithSearchMap);
+      comp.object = getItem(iiifEnabledMap);
       fixture.detectChanges();
     }));
 
@@ -140,11 +196,12 @@ describe('PublicationComponent', () => {
       expect(fields.length).toBeGreaterThanOrEqual(1);
     });
 
-    it('should call the RouteService getHistory method', () => {
-      expect(mockRouteService.getPreviousUrl).toHaveBeenCalled();
-    });
+    it('should not retrieve the query term for previous route', fakeAsync( () => {
+      let emitted;
+      comp.iiifQuery$.subscribe(result => emitted = result);
+      tick(10);
+      expect(emitted).toBeUndefined();
+    }));
 
   });
-
 });
-

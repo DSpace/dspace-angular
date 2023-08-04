@@ -56,14 +56,14 @@ describe('NewHandlePageComponent', () => {
         { provide: TranslateService, useValue: getMockTranslateService() },
         {
           provide: Store, useValue: {
-            // tslint:disable-next-line:no-empty
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             dispatch: () => {
             }
           }
         },
       ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

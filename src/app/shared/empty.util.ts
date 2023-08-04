@@ -168,7 +168,6 @@ export const isNotEmptyOperator = () =>
   <T>(source: Observable<T>): Observable<T> =>
     source.pipe(filter((obj: T) => isNotEmpty(obj)));
 
-
 /**
  * Tests each value emitted by the source Observable,
  * let's arrays pass through, turns other values in to
@@ -197,9 +196,10 @@ export function isObjectEmpty(obj?: any): boolean {
   }
 
   for (const key in obj) {
-    if (obj.hasOwnProperty(key) && isNotEmpty(obj[key])) {
-      return false;
-    }
+      if (obj.hasOwnProperty(key) && isNotEmpty(obj[key])) {
+        return false;
+      }
   }
   return true;
 }
+

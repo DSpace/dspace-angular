@@ -3,24 +3,23 @@ import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@a
 
 import { Observable } from 'rxjs';
 
-import { getDataServiceFor } from '../../../core/cache/builders/build-decorators';
 import { ResourceType } from '../../../core/shared/resource-type';
-import { DataService } from '../../../core/data/data.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { isEmpty } from '../../empty.util';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { IdentifiableDataService } from '../../../core/data/base/identifiable-data.service';
+import { getDataServiceFor } from '../../../core/data/base/data-service.decorator';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated
  */
 @Injectable()
 export class ResourcePolicyTargetResolver implements Resolve<RemoteData<DSpaceObject>> {
-
   /**
    * The data service used to make request.
    */
-  private dataService: DataService<DSpaceObject>;
+  private dataService: IdentifiableDataService<DSpaceObject>;
 
   constructor(private parentInjector: Injector, private router: Router) {
   }

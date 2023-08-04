@@ -1,21 +1,21 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule, TransferState } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ServerModule } from '@angular/platform-server';
-import { RouterModule } from '@angular/router';
+import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { Angulartics2 } from 'angulartics2';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import {
+  Angulartics2,
+  Angulartics2GoogleAnalytics,
+  Angulartics2GoogleGlobalSiteTag
+} from 'angulartics2';
 
 import { AppComponent } from '../../app/app.component';
 
 import { AppModule } from '../../app/app.module';
-import { DSpaceServerTransferStateModule } from '../transfer-state/dspace-server-transfer-state.module';
-import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.service';
-import { TranslateJson5UniversalLoader } from '../../ngx-translate-loaders/translate-json5-universal.loader';
+import { TranslateServerLoader } from '../../ngx-translate-loaders/translate-server.loader';
 import { CookieService } from '../../app/core/services/cookie.service';
 import { ServerCookieService } from '../../app/core/services/server-cookie.service';
 import { AuthService } from '../../app/core/auth/auth.service';
@@ -32,13 +32,12 @@ import { ServerHardRedirectService } from '../../app/core/services/server-hard-r
 import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mock';
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { ServerAuthRequestService } from '../../app/core/auth/server-auth-request.service';
-import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
-import { AppConfig, APP_CONFIG_STATE } from '../../config/app-config.interface';
+import { ServerInitService } from './server-init.service';
+import { XhrFactory } from '@angular/common';
+import { ServerXhrService } from '../../app/core/services/server-xhr.service';
 
-import { environment } from '../../environments/environment';
-
-export function createTranslateLoader() {
-  return new TranslateJson5UniversalLoader('dist/server/assets/i18n/', '.json5');
+export function createTranslateLoader(transferState: TransferState) {
+  return new TranslateServerLoader(transferState, 'dist/server/assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -47,44 +46,30 @@ export function createTranslateLoader() {
     BrowserModule.withServerTransition({
       appId: 'dspace-angular'
     }),
-    RouterModule.forRoot([], {
-      useHash: false
-    }),
     NoopAnimationsModule,
-    DSpaceServerTransferStateModule,
+    ServerTransferStateModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
-        deps: []
+        deps: [TransferState]
       }
     }),
+    AppModule,
     ServerModule,
-    AppModule
   ],
   providers: [
-    // Initialize app config and extend environment
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (
-        transferState: TransferState,
-        dspaceTransferState: DSpaceTransferState,
-        correlationIdService: CorrelationIdService,
-      ) => {
-        transferState.set<AppConfig>(APP_CONFIG_STATE, environment as AppConfig);
-        dspaceTransferState.transfer();
-        correlationIdService.initCorrelationId();
-        return () => true;
-      },
-      deps: [TransferState, DSpaceTransferState, CorrelationIdService],
-      multi: true
-    },
+    ...ServerInitService.providers(),
     {
       provide: Angulartics2,
       useClass: Angulartics2Mock
     },
     {
       provide: Angulartics2GoogleAnalytics,
+      useClass: AngularticsProviderMock
+    },
+    {
+      provide: Angulartics2GoogleGlobalSiteTag,
       useClass: AngularticsProviderMock
     },
     {
@@ -120,6 +105,10 @@ export function createTranslateLoader() {
     {
       provide: HardRedirectService,
       useClass: ServerHardRedirectService,
+    },
+    {
+      provide: XhrFactory,
+      useClass: ServerXhrService,
     },
   ]
 })

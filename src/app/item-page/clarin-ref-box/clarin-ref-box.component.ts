@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Item } from '../../core/shared/item.model';
 
 /**
@@ -9,15 +9,11 @@ import { Item } from '../../core/shared/item.model';
   templateUrl: './clarin-ref-box.component.html',
   styleUrls: ['./clarin-ref-box.component.scss']
 })
-export class ClarinRefBoxComponent implements OnInit {
+export class ClarinRefBoxComponent {
 
   @Input() item: Item;
 
-  // tslint:disable-next-line:no-empty
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() { }
-
-  // tslint:disable-next-line:no-empty
-  ngOnInit(): void {
-  }
 
 }

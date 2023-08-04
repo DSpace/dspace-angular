@@ -5,7 +5,7 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { By } from '@angular/platform-browser';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TextMaskModule } from 'angular2-text-mask';
+
 import {
   DynamicCheckboxGroupModel,
   DynamicCheckboxModel,
@@ -66,7 +66,7 @@ import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-gr
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
-import { RelationshipService } from '../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Store } from '@ngrx/store';
@@ -78,6 +78,9 @@ import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { FormService } from '../../form.service';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { FormBuilderService } from '../form-builder.service';
+import { NgxMaskModule } from 'ngx-mask';
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
@@ -208,17 +211,17 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         DynamicFormsCoreModule.forRoot(),
         SharedModule,
         TranslateModule.forRoot(),
-        TextMaskModule,
+        NgxMaskModule.forRoot(),
       ],
       providers: [
         DsDynamicFormControlContainerComponent,
         DynamicFormService,
         { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
-        { provide: RelationshipService, useValue: {} },
+        { provide: RelationshipDataService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
         { provide: ItemDataService, useValue: {} },
         { provide: Store, useValue: {} },
-        { provide: RelationshipService, useValue: {} },
+        { provide: RelationshipDataService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
         { provide: FormService, useValue: {} },
         { provide: FormBuilderService, useValue: {} },
@@ -229,7 +232,8 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
             findById: () => observableOf(createSuccessfulRemoteDataObject(testWSI))
           }
         },
-        { provide: NgZone, useValue: new NgZone({}) }
+        { provide: NgZone, useValue: new NgZone({}) },
+        { provide: APP_CONFIG, useValue: environment }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents().then(() => {
@@ -238,7 +242,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
 
       const ngZone = TestBed.inject(NgZone);
 
-      // tslint:disable-next-line:ban-types
+      // eslint-disable-next-line @typescript-eslint/ban-types
       spyOn(ngZone, 'runOutsideAngular').and.callFake((fn: Function) => fn());
       component = fixture.componentInstance;
       debugElement = fixture.debugElement;

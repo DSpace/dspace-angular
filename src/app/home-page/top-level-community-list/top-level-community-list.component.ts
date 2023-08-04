@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, Inject } from '@angular/core';
 
 import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
 
@@ -12,6 +12,7 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { hasValue } from '../../shared/empty.util';
 import { switchMap } from 'rxjs/operators';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 
 /**
  * this component renders the Top-Level Community list
@@ -50,11 +51,14 @@ export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
    */
   currentPageSubscription: Subscription;
 
-  constructor(private cds: CommunityDataService,
-              private paginationService: PaginationService) {
+  constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    private cds: CommunityDataService,
+    private paginationService: PaginationService
+  ) {
     this.config = new PaginationComponentOptions();
     this.config.id = this.pageId;
-    this.config.pageSize = 5;
+    this.config.pageSize = appConfig.homePage.topLevelCommunityList.pageSize;
     this.config.currentPage = 1;
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
   }

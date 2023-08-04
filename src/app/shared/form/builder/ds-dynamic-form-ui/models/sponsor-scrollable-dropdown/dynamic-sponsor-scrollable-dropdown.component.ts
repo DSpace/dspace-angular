@@ -15,10 +15,10 @@ import {
   DEFAULT_EU_DISPLAY_VALUE,
   DsDynamicSponsorAutocompleteModel
 } from '../sponsor-autocomplete/ds-dynamic-sponsor-autocomplete.model';
-import { DynamicComplexModel, EU_IDENTIFIER_INDEX, SEPARATOR } from '../ds-dynamic-complex.model';
+import { DynamicComplexModel, EU_IDENTIFIER_INDEX } from '../ds-dynamic-complex.model';
 import { DsDynamicInputModel } from '../ds-dynamic-input.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_AUTOCOMPLETE } from '../autocomplete/ds-dynamic-autocomplete.model';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 const DYNAMIC_INPUT_TYPE = 'INPUT';
 
@@ -74,12 +74,11 @@ export class DsDynamicSponsorScrollableDropdownComponent extends DsDynamicScroll
       }
     }
 
-    // tslint:disable-next-line:no-shadowed-variable
-    result.pipe(take(1)).subscribe(value => {
-      if (!this.shouldCleanInputs(value, this.model?.parent)) {
+    result.pipe(take(1)).subscribe(resultValue => {
+      if (!this.shouldCleanInputs(resultValue, this.model?.parent)) {
         return;
       }
-      this.cleanSponsorInputs(value, this.model?.parent);
+      this.cleanSponsorInputs(resultValue, this.model?.parent);
     });
 
     this.currentValue = result;

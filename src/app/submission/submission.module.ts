@@ -20,19 +20,31 @@ import { SubmissionSectionUploadComponent } from './sections/upload/section-uplo
 import { SectionUploadService } from './sections/upload/section-upload.service';
 import { SubmissionUploadFilesComponent } from './form/submission-upload-files/submission-upload-files.component';
 import { SubmissionSectionLicenseComponent } from './sections/license/section-license.component';
+import { SubmissionUploadsConfigDataService } from '../core/config/submission-uploads-config-data.service';
 import { SubmissionSectionClarinLicenseComponent } from './sections/clarin-license-resource/section-license.component';
-import { SubmissionUploadsConfigService } from '../core/config/submission-uploads-config.service';
 import { SubmissionEditComponent } from './edit/submission-edit.component';
 import { SubmissionSectionUploadFileComponent } from './sections/upload/file/section-upload-file.component';
-import { SubmissionSectionUploadFileEditComponent } from './sections/upload/file/edit/section-upload-file-edit.component';
-import { SubmissionSectionUploadFileViewComponent } from './sections/upload/file/view/section-upload-file-view.component';
-import { SubmissionSectionUploadAccessConditionsComponent } from './sections/upload/accessConditions/submission-section-upload-access-conditions.component';
+import {
+  SubmissionSectionUploadFileEditComponent
+} from './sections/upload/file/edit/section-upload-file-edit.component';
+import {
+  SubmissionSectionUploadFileViewComponent
+} from './sections/upload/file/view/section-upload-file-view.component';
+import {
+  SubmissionSectionUploadAccessConditionsComponent
+} from './sections/upload/accessConditions/submission-section-upload-access-conditions.component';
 import { SubmissionSubmitComponent } from './submit/submission-submit.component';
 import { storeModuleConfig } from '../app.reducer';
 import { SubmissionImportExternalComponent } from './import-external/submission-import-external.component';
-import { SubmissionImportExternalSearchbarComponent } from './import-external/import-external-searchbar/submission-import-external-searchbar.component';
-import { SubmissionImportExternalPreviewComponent } from './import-external/import-external-preview/submission-import-external-preview.component';
-import { SubmissionImportExternalCollectionComponent } from './import-external/import-external-collection/submission-import-external-collection.component';
+import {
+  SubmissionImportExternalSearchbarComponent
+} from './import-external/import-external-searchbar/submission-import-external-searchbar.component';
+import {
+  SubmissionImportExternalPreviewComponent
+} from './import-external/import-external-preview/submission-import-external-preview.component';
+import {
+  SubmissionImportExternalCollectionComponent
+} from './import-external/import-external-collection/submission-import-external-collection.component';
 import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/submission-section-cc-licenses.component';
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
@@ -40,10 +52,22 @@ import { ThemedSubmissionEditComponent } from './edit/themed-submission-edit.com
 import { ThemedSubmissionSubmitComponent } from './submit/themed-submission-submit.component';
 import { ThemedSubmissionImportExternalComponent } from './import-external/themed-submission-import-external.component';
 import { FormModule } from '../shared/form/form.module';
-import { NgbAccordionModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionModule, NgbCollapseModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionSectionAccessesComponent } from './sections/accesses/section-accesses.component';
-import { SubmissionAccessesConfigService } from '../core/config/submission-accesses-config.service';
+import { SubmissionAccessesConfigDataService } from '../core/config/submission-accesses-config-data.service';
 import { SectionAccessesService } from './sections/accesses/section-accesses.service';
+import { SubmissionSectionSherpaPoliciesComponent } from './sections/sherpa-policies/section-sherpa-policies.component';
+import { ContentAccordionComponent } from './sections/sherpa-policies/content-accordion/content-accordion.component';
+import { PublisherPolicyComponent } from './sections/sherpa-policies/publisher-policy/publisher-policy.component';
+import {
+  PublicationInformationComponent
+} from './sections/sherpa-policies/publication-information/publication-information.component';
+import { UploadModule } from '../shared/upload/upload.module';
+import {
+  MetadataInformationComponent
+} from './sections/sherpa-policies/metadata-information/metadata-information.component';
+import { SectionFormOperationsService } from './sections/form/section-form-operations.service';
+import {SubmissionSectionIdentifiersComponent} from './sections/identifiers/section-identifiers.component';
 import {SubmissionSectionClarinLicenseDistributionComponent} from './sections/clarin-license-distribution/clarin-license-distribution.component';
 import {SubmissionSectionClarinNoticeComponent} from './sections/clarin-notice/clarin-notice.component';
 
@@ -57,7 +81,8 @@ const ENTRY_COMPONENTS = [
   SubmissionSectionAccessesComponent,
   SubmissionSectionUploadFileEditComponent,
   SubmissionSectionClarinLicenseDistributionComponent,
-  SubmissionSectionClarinNoticeComponent
+  SubmissionSectionClarinNoticeComponent,
+  SubmissionSectionSherpaPoliciesComponent,
 ];
 
 const DECLARATIONS = [
@@ -77,11 +102,16 @@ const DECLARATIONS = [
   SubmissionSectionUploadFileComponent,
   SubmissionSectionUploadFileEditComponent,
   SubmissionSectionUploadFileViewComponent,
+  SubmissionSectionIdentifiersComponent,
   SubmissionImportExternalComponent,
   ThemedSubmissionImportExternalComponent,
   SubmissionImportExternalSearchbarComponent,
   SubmissionImportExternalPreviewComponent,
   SubmissionImportExternalCollectionComponent,
+  ContentAccordionComponent,
+  PublisherPolicyComponent,
+  PublicationInformationComponent,
+  MetadataInformationComponent,
 ];
 
 @NgModule({
@@ -94,18 +124,25 @@ const DECLARATIONS = [
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
     FormModule,
+    NgbModalModule,
+    NgbCollapseModule,
     NgbAccordionModule,
+    UploadModule,
     NgbModalModule,
     NgToggleModule
   ],
   declarations: DECLARATIONS,
-  exports: DECLARATIONS,
+  exports: [
+    ...DECLARATIONS,
+    FormModule,
+  ],
   providers: [
     SectionUploadService,
     SectionsService,
-    SubmissionUploadsConfigService,
-    SubmissionAccessesConfigService,
-    SectionAccessesService
+    SubmissionUploadsConfigDataService,
+    SubmissionAccessesConfigDataService,
+    SectionAccessesService,
+    SectionFormOperationsService,
   ]
 })
 

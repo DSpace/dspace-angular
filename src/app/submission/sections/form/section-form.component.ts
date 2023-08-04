@@ -4,17 +4,17 @@ import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-fo
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, find, map, mergeMap, take, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
-import { findIndex, isEqual } from 'lodash';
+import findIndex from 'lodash/findIndex';
+import isEqual from 'lodash/isEqual';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { SectionModelComponent } from '../models/section.model';
-import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
+import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { hasValue, isEmpty, isNotEmpty, isUndefined } from '../../../shared/empty.util';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { SectionDataObject } from '../models/section-data.model';
 import { renderSectionFor } from '../sections-decorator';
@@ -34,6 +34,11 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { environment } from '../../../../environments/environment';
 import { ConfigObject } from '../../../core/config/models/config.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
+import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SPONSOR_METADATA_NAME } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-complex.model';
 import { AUTHOR_METADATA_FIELD_NAME } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/clarin-name.model';
 
@@ -122,6 +127,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    */
   public sponsorRefreshTimeout = 20;
 
+  protected submissionObject: SubmissionObject;
   /**
    * The FormComponent reference
    */
@@ -134,7 +140,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    * @param {FormBuilderService} formBuilderService
    * @param {SectionFormOperationsService} formOperationsService
    * @param {FormService} formService
-   * @param {SubmissionFormsConfigService} formConfigService
+   * @param {SubmissionFormsConfigDataService} formConfigService
    * @param {NotificationsService} notificationsService
    * @param {SectionsService} sectionService
    * @param {SubmissionService} submissionService
@@ -150,7 +156,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
               protected formBuilderService: FormBuilderService,
               protected formOperationsService: SectionFormOperationsService,
               protected formService: FormService,
-              protected formConfigService: SubmissionFormsConfigService,
+              protected formConfigService: SubmissionFormsConfigDataService,
               protected notificationsService: NotificationsService,
               protected sectionService: SectionsService,
               protected submissionService: SubmissionService,
@@ -182,10 +188,10 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
             getRemoteDataPayload())
         ])),
       take(1))
-      .subscribe(([sectionData, workspaceItem]: [WorkspaceitemSectionFormObject, WorkspaceItem]) => {
+      .subscribe(([sectionData, submissionObject]: [WorkspaceitemSectionFormObject, SubmissionObject]) => {
         if (isUndefined(this.formModel)) {
           // this.sectionData.errorsToShow = [];
-          this.workspaceItem = workspaceItem;
+          this.submissionObject = submissionObject;
           // Is the first loading so init form
           this.initForm(sectionData);
           this.sectionData.data = sectionData;
@@ -232,7 +238,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
 
     const sectionDataToCheck = {};
     Object.keys(sectionData).forEach((key) => {
-      if (this.sectionMetadata && this.sectionMetadata.includes(key)) {
+      if (this.sectionMetadata && this.sectionMetadata.includes(key) && this.inCurrentSubmissionScope(key)) {
         sectionDataToCheck[key] = sectionData[key];
       }
     });
@@ -253,6 +259,28 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
         });
       });
     return isNotEmpty(diffResult);
+  }
+
+  /**
+   * Whether a specific field is editable in the current scope. Unscoped fields always return true.
+   * @private
+   */
+  private inCurrentSubmissionScope(field: string): boolean {
+    const scope = this.formConfig?.rows.find(row => {
+      return row.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
+    }).fields?.[0]?.scope;
+
+    switch (scope) {
+      case SubmissionScopeType.WorkspaceItem: {
+        return (this.submissionObject as any).type === WorkspaceItem.type.value;
+      }
+      case SubmissionScopeType.WorkflowItem: {
+        return (this.submissionObject as any).type === WorkflowItem.type.value;
+      }
+      default: {
+        return true;
+      }
+    }
   }
 
   /**
