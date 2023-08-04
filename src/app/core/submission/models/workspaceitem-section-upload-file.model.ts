@@ -1,5 +1,5 @@
-import { SubmissionUploadFileAccessConditionObject } from './submission-upload-file-access-condition.model';
-import { WorkspaceitemSectionFormObject } from './workspaceitem-section-form.model';
+import {SubmissionUploadFileAccessConditionObject} from './submission-upload-file-access-condition.model';
+import {WorkspaceitemSectionFormObject} from './workspaceitem-section-form.model';
 
 /**
  * An interface to represent submission's upload section file entry.
@@ -27,6 +27,18 @@ export class WorkspaceitemSectionUploadFileObject {
   checkSum: {
     checkSumAlgorithm: string;
     value: string;
+  };
+
+  /**
+   * The file check sum
+   */
+  format: {
+    shortDescription: string,
+    description: string,
+    mimetype: string,
+    supportLevel: string,
+    internal: boolean,
+    type: string
   };
 
   /**
