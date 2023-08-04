@@ -22,7 +22,7 @@
                     <p>
                       <label for="inheritPoliciesCheckbox">
                         <ng-template #tooltipContent>
-                          The original item read access policy for this item will be replaced by the collection’s one
+                          {{ 'item.edit.move.inheritpolicies.tooltip' | translate }}
                         </ng-template>
                         <input type="checkbox" name="tc" [(ngModel)]="inheritPolicies" id="inheritPoliciesCheckbox" [ngbTooltip]="tooltipContent"
                         >
