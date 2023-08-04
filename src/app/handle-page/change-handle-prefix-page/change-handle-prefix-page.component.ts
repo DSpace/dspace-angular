@@ -14,7 +14,6 @@ import { redirectBackWithPaginationOption } from '../handle-table/handle-table-p
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { PaginatedList } from '../../core/data/paginated-list.model';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { SUCCESSFUL_RESPONSE_START_CHAR } from '../../core/handle/handle.resource-type';
 
 /**

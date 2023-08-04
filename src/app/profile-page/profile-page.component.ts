@@ -18,7 +18,6 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-profile-page',
@@ -86,9 +85,7 @@ export class ProfilePageComponent implements OnInit {
               private translate: TranslateService,
               private epersonService: EPersonDataService,
               private authorizationService: AuthorizationDataService,
-              private configurationService: ConfigurationDataService,
-              public dsoNameService: DSONameService,
-  ) {
+              private configurationService: ConfigurationDataService) {
   }
 
   ngOnInit(): void {
@@ -161,7 +158,7 @@ export class ProfilePageComponent implements OnInit {
         } else {
           this.notificationsService.error(
             this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.title'),
-            this.getPasswordErrorMessage(response)
+            this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.change-failed')
           );
         }
       });
@@ -197,20 +194,6 @@ export class ProfilePageComponent implements OnInit {
    */
   isResearcherProfileEnabled(): Observable<boolean> {
     return this.isResearcherProfileEnabled$.asObservable();
-  }
-
-  /**
-   * Returns an error message from a password validation request with a specific reason or
-   * a default message without specific reason.
-   * @param response from the validation password patch request.
-   */
-  getPasswordErrorMessage(response) {
-    if (response.hasFailed && isNotEmpty(response.errorMessage)) {
-      // Response has a specific error message. Show this message in the error notification.
-      return this.translate.instant(response.errorMessage);
-    }
-    // Show default error message notification.
-    return this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.change-failed');
   }
 
 }

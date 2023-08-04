@@ -4,7 +4,7 @@
     <ds-themed-item-list-preview *ngIf="workflowitem"
                           [item]="(workflowitem?.item | async)?.payload"
                           [object]="object"
-                          [badgeContext]="badgeContext"
+                          [status]="status"
                           [showSubmitter]="showSubmitter"></ds-themed-item-list-preview>
   </div>
 </ng-container>

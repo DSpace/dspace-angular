@@ -11,11 +11,11 @@ export class ThemedCollectionDropdownComponent extends ThemedComponent<Collectio
 
   @Input() entityType: string;
 
-  @Output() searchComplete: EventEmitter<any> = new EventEmitter();
+  @Output() searchComplete = new EventEmitter<any>();
 
-  @Output() theOnlySelectable: EventEmitter<CollectionListEntry> = new EventEmitter();
+  @Output() theOnlySelectable = new EventEmitter<CollectionListEntry>();
 
-  @Output() selectionChange = new EventEmitter();
+  @Output() selectionChange = new EventEmitter<CollectionListEntry>();
 
   protected inAndOutputNames: (keyof CollectionDropdownComponent & keyof this)[] = ['entityType', 'searchComplete', 'theOnlySelectable', 'selectionChange'];
 

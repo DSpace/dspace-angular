@@ -33,8 +33,6 @@ import { ThemedSearchComponent } from './themed-search.component';
 import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
 import { ThemedSearchSettingsComponent } from './search-settings/themed-search-settings.component';
 import { NouisliderModule } from 'ng2-nouislider';
-import { ThemedSearchFiltersComponent } from './search-filters/themed-search-filters.component';
-import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
 
 const COMPONENTS = [
   SearchComponent,
@@ -61,8 +59,6 @@ const COMPONENTS = [
   ThemedConfigurationSearchPageComponent,
   ThemedSearchResultsComponent,
   ThemedSearchSettingsComponent,
-  ThemedSearchFiltersComponent,
-  ThemedSearchSidebarComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -99,6 +95,8 @@ export const MODELS = [
       useDefaultLang: true
     }),
     SharedModule.withEntryComponents(),
+    SharedModule.withEntryComponents(),
+    NouisliderModule,
   ],
     exports: [
         ...COMPONENTS,

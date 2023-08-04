@@ -23,7 +23,7 @@
         </div>
         <div class="col-4">
             <p class="m-1">
-                <a href="{{journal.url}}" target="_blank" rel="noopener noreferrer">
+                <a href="{{journal.url}}" target="_blank">
                     {{journal.url}}
                 </a>
             </p>
@@ -35,7 +35,7 @@
         </div>
         <div class="col-4" *ngFor="let publisher of journal.publishers">
             <p class="m-1">
-                <a href="{{publisher.uri}}" target="_blank" rel="noopener noreferrer">
+                <a href="{{publisher.uri}}" target="_blank">
                     {{publisher.name}}
                 </a>
             </p>

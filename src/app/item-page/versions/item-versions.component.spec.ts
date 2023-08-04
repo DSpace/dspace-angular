@@ -18,7 +18,7 @@ import { PaginationServiceStub } from '../../shared/testing/pagination-service.s
 import { AuthService } from '../../core/auth/auth.service';
 import { VersionDataService } from '../../core/data/version-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';

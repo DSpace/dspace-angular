@@ -107,11 +107,6 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         loading: true,
       });
 
-    case AuthActionTypes.SET_AUTH_COOKIE_STATUS:
-      return Object.assign({}, state, {
-        externalAuth: (action as SetAuthCookieStatus).payload
-      });
-
     case AuthActionTypes.AUTHENTICATED_ERROR:
     case AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON_ERROR:
       return Object.assign({}, state, {

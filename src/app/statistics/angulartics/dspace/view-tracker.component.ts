@@ -33,24 +33,9 @@ export class ViewTrackerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.sub = this.referrerService.getReferrer()
-      .pipe(take(1))
-      .subscribe((referrer: string) => {
-        this.angulartics2.eventTrack.next({
-          action: 'page_view',
-          properties: {
-            object: this.object,
-            referrer
-          },
-        });
-      });
-  }
-
-  ngOnDestroy(): void {
-    // unsubscribe in the case that this component is destroyed before
-    // this.referrerService.getReferrer() has emitted
-    if (hasValue(this.sub)) {
-      this.sub.unsubscribe();
-    }
+    this.angulartics2.eventTrack.next({
+      action: 'page_view',
+      properties: {object: this.object},
+    });
   }
 }

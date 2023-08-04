@@ -31,8 +31,6 @@ import { SearchObjects } from './models/search-objects.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { FilterType } from './models/filter-type.model';
-import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
-import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;

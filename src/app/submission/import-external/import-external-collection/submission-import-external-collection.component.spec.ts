@@ -64,7 +64,7 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       compAsAny = null;
     });
 
-    it('should emit from selectedEvent on selectObject and set loading to true', () => {
+    it('should emit from selectedEvent on selectObject', () => {
       spyOn(comp.selectedEvent, 'emit').and.callThrough();
 
       const entry = {
@@ -79,7 +79,6 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       comp.selectObject(entry);
 
       expect(comp.selectedEvent.emit).toHaveBeenCalledWith(entry);
-      expect(comp.loading).toBeTrue();
     });
 
     it('should dismiss modal on closeCollectionModal', () => {

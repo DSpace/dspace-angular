@@ -66,7 +66,6 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     this.valueUpdates = new Subject<string>();
     this.valueUpdates.subscribe((value: string) => this.value = value);
     this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
-    this.readOnly = config.disabled;
   }
 
   get value() {

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 
@@ -26,7 +26,7 @@ describe('OrcidSyncSettingsComponent test suite', () => {
   let scheduler: TestScheduler;
   let researcherProfileService: jasmine.SpyObj<ResearcherProfileDataService>;
   let notificationsService;
-  let formGroup: UntypedFormGroup;
+  let formGroup: FormGroup;
 
   const mockResearcherProfile: ResearcherProfile = Object.assign(new ResearcherProfile(), {
     id: 'test-id',
@@ -186,12 +186,12 @@ describe('OrcidSyncSettingsComponent test suite', () => {
     beforeEach(() => {
       scheduler = getTestScheduler();
       notificationsService = (comp as any).notificationsService;
-      formGroup = new UntypedFormGroup({
-        syncMode: new UntypedFormControl('MANUAL'),
-        syncFundings: new UntypedFormControl('ALL'),
-        syncPublications: new UntypedFormControl('ALL'),
-        syncProfile_BIOGRAPHICAL: new UntypedFormControl(true),
-        syncProfile_IDENTIFIERS: new UntypedFormControl(true),
+      formGroup = new FormGroup({
+        syncMode: new FormControl('MANUAL'),
+        syncFundings: new FormControl('ALL'),
+        syncPublications: new FormControl('ALL'),
+        syncProfile_BIOGRAPHICAL: new FormControl(true),
+        syncProfile_IDENTIFIERS: new FormControl(true),
       });
       spyOn(comp.settingsUpdated, 'emit');
     });

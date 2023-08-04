@@ -14,4 +14,14 @@ import { ItemSearchResultListElementComponent } from '../../../../../shared/obje
  */
 export class JournalIssueSearchResultListElementComponent extends ItemSearchResultListElementComponent {
 
+  /**
+   * Display thumbnails if required by configuration
+   */
+  showThumbnails: boolean;
+
+  ngOnInit(): void {
+    super.ngOnInit();
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
+  }
+
 }

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -36,8 +36,6 @@ import { NotificationsServiceStub } from '../../../shared/testing/notifications-
 import { Operation } from 'fast-json-patch';
 import { ValidateGroupExists } from './validators/group-exists.validator';
 import { NoContent } from '../../../core/shared/NoContent.model';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 
 describe('GroupFormComponent', () => {
   let component: GroupFormComponent;
@@ -306,8 +304,8 @@ describe('GroupFormComponent', () => {
         expect(groupsDataServiceStub.patch).toHaveBeenCalledWith(expected, operations);
       });
 
-      it('should emit the existing group using the correct new values', (async () => {
-        await fixture.whenStable().then(() => {
+      it('should emit the existing group using the correct new values', waitForAsync(() => {
+        fixture.whenStable().then(() => {
           expect(component.submitForm.emit).toHaveBeenCalledWith(expected2);
         });
       }));

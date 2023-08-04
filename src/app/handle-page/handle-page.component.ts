@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 
 /**
  * The component which contains the handle-table and the change-global-prefix section.
@@ -8,16 +8,9 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
   templateUrl: './handle-page.component.html',
   styleUrls: ['./handle-page.component.scss']
 })
-export class HandlePageComponent implements OnInit {
+export class HandlePageComponent {
 
   constructor(private cdr: ChangeDetectorRef) {
-  }
-
-  /**
-   * Initialize the component
-   */
-  // tslint:disable-next-line:no-empty
-  ngOnInit(): void {
   }
 
   ngAfterViewInit() {

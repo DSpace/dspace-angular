@@ -16,8 +16,6 @@ import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { FlatNode } from '../flat-node.model';
-import { RouterLinkWithHref } from '@angular/router';
-import { v4 as uuidv4 } from 'uuid';
 
 describe('CommunityListComponent', () => {
   let component: CommunityListComponent;

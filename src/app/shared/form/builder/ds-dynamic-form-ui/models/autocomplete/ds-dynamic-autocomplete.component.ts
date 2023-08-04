@@ -7,7 +7,7 @@ import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { catchError, debounceTime, distinctUntilChanged, map, merge, switchMap, tap } from 'rxjs/operators';
-import { buildPaginatedList, PaginatedList } from '../../../../../../core/data/paginated-list.model';
+import { buildPaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { isEmpty, isNotEmpty } from '../../../../../empty.util';
 import { DsDynamicTagComponent } from '../tag/dynamic-tag.component';
 import { MetadataValueDataService } from '../../../../../../core/data/metadata-value-data.service';
@@ -130,7 +130,7 @@ export class DsDynamicAutocompleteComponent extends DsDynamicTagComponent implem
    */
   formatter = (x: { display: string }) => {
     return x.display;
-  }
+  };
 
   /**
    * Pretify suggestion.
@@ -139,7 +139,7 @@ export class DsDynamicAutocompleteComponent extends DsDynamicTagComponent implem
   suggestionFormatter = (suggestion: TemplateRef<any>) => {
     // @ts-ignore
     return suggestion.display;
-  }
+  };
 
   /**
    * Converts a text values stream from the `<input>` element to the array stream of the items
@@ -172,5 +172,5 @@ export class DsDynamicAutocompleteComponent extends DsDynamicTagComponent implem
         return list.page;
       }),
       tap(() => this.changeSearchingStatus(false)),
-      merge(this.hideSearchingWhenUnsubscribed))
+      merge(this.hideSearchingWhenUnsubscribed));
 }

@@ -51,7 +51,11 @@ import { RemoteData } from '../data/remote-data';
 import { environment } from '../../../environments/environment';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { MISSING_HEADERS_FROM_IDP_EXCEPTION, USER_WITHOUT_EMAIL_EXCEPTION } from '../shared/clarin/constants';
+import { buildPaginatedList, PaginatedList } from '../data/paginated-list.model';
+import { Group } from '../eperson/models/group.model';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { PageInfo } from '../shared/page-info.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';

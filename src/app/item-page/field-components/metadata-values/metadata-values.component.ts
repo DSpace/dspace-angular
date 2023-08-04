@@ -3,7 +3,6 @@ import { MetadataValue } from '../../../core/shared/metadata.models';
 import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
 import { hasValue } from '../../../shared/empty.util';
-import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-browse-definition.resource-type';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component.
@@ -85,7 +84,7 @@ export class MetadataValuesComponent implements OnChanges {
    */
   getQueryParams(value) {
     let queryParams = {startsWith: value};
-    if (this.browseDefinition.getRenderType() === VALUE_LIST_BROWSE_DEFINITION.value) {
+    if (this.browseDefinition.metadataBrowse) {
       return {value: value};
     }
     return queryParams;

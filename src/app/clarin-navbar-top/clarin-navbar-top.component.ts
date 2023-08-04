@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, Renderer2} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../core/auth/auth.service';
 import { take } from 'rxjs/operators';
 import { EPerson } from '../core/eperson/models/eperson.model';
@@ -58,15 +58,15 @@ export class ClarinNavbarTopComponent implements OnInit {
 
   private loadDiscoJuice = (): Promise<any> => {
     return this.scriptLoader.load('discojuice');
-  }
+  };
 
   private loadAAI = (): Promise<any> => {
     return this.scriptLoader.load('aai');
-  }
+  };
 
   private loadAAIConfig = (): Promise<any> => {
     return this.scriptLoader.load('aaiConfig');
-  }
+  };
 
   private loadRepositoryPath() {
     this.repositoryPath = this.halService.getRootHref();

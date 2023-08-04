@@ -32,8 +32,6 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { NoContent } from '../../core/shared/NoContent.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock, UNDEFINED_NAME } from '../../shared/mocks/dso-name.service.mock';
 
 describe('GroupsRegistryComponent', () => {
   let component: GroupsRegistryComponent;

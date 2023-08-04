@@ -9,9 +9,9 @@ import {
   getFirstSucceededRemoteDataPayload, getPaginatedListPayload
  } from '../../../../core/shared/operators';
 import { map, scan, startWith, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { FindListOptions } from '../../../../core/data/request.models';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { hasValue } from '../../../../shared/empty.util';
+import { FindListOptions } from 'src/app/core/data/find-list-options.model';
 
 @Component({
   selector: 'ds-clarin-collections-item-field',

@@ -6,6 +6,9 @@ import { mergeMap, tap } from 'rxjs/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
+import {
+  MyDspaceItemStatusType
+} from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
@@ -14,10 +17,8 @@ import { followLink } from '../../../utils/follow-link-config.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { Item } from '../../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { isNotEmpty, hasValue } from '../../../empty.util';
+import { isNotEmpty } from '../../../empty.util';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { Context } from 'src/app/core/shared/context.model';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component renders pool task object for the search result in the detail view.
@@ -51,12 +52,8 @@ export class PoolSearchResultDetailElementComponent extends SearchResultDetailEl
    */
   public workflowitem$: BehaviorSubject<WorkflowItem> = new BehaviorSubject<WorkflowItem>(null);
 
-  constructor(
-    public dsoNameService: DSONameService,
-    protected linkService: LinkService,
-    protected objectCache: ObjectCacheService,
-  ) {
-    super(dsoNameService);
+  constructor(protected linkService: LinkService, protected objectCache: ObjectCacheService) {
+    super();
   }
 
   /**
@@ -92,9 +89,7 @@ export class PoolSearchResultDetailElementComponent extends SearchResultDetailEl
 
   ngOnDestroy() {
     // This ensures the object is removed from cache, when action is performed on task
-    if (hasValue(this.dso)) {
-      this.objectCache.remove(this.dso._links.workflowitem.href);
-    }
+    this.objectCache.remove(this.dso._links.workflowitem.href);
   }
 
 }

@@ -8,7 +8,7 @@ import { ProcessParameter } from '../../process-page/processes/process-parameter
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { Process } from '../../process-page/processes/process.model';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { isNotEmpty } from '../../shared/empty.util';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
 import {
   ImportBatchSelectorComponent
@@ -32,21 +32,10 @@ export class BatchImportPageComponent {
    * The validate only flag
    */
   validateOnly = true;
-
   /**
    * dso object for community or collection
    */
   dso: DSpaceObject = null;
-
-  /**
-   * The flag between upload and url
-   */
-  isUpload = true;
-
-  /**
-   * File URL when flag is for url
-   */
-  fileURL: string;
 
   public constructor(private location: Location,
                      protected translate: TranslateService,
@@ -83,22 +72,13 @@ export class BatchImportPageComponent {
    * Starts import-metadata script with --zip fileName (and the selected file)
    */
   public importMetadata() {
-    if (this.fileObject == null && isEmpty(this.fileURL)) {
-      if (this.isUpload) {
-        this.notificationsService.error(this.translate.get('admin.metadata-import.page.error.addFile'));
-      } else {
-        this.notificationsService.error(this.translate.get('admin.metadata-import.page.error.addFileUrl'));
-      }
+    if (this.fileObject == null) {
+      this.notificationsService.error(this.translate.get('admin.metadata-import.page.error.addFile'));
     } else {
       const parameterValues: ProcessParameter[] = [
+        Object.assign(new ProcessParameter(), { name: '--zip', value: this.fileObject.name }),
         Object.assign(new ProcessParameter(), { name: '--add' })
       ];
-      if (this.isUpload) {
-        parameterValues.push(Object.assign(new ProcessParameter(), { name: '--zip', value: this.fileObject.name }));
-      } else {
-        this.fileObject = null;
-        parameterValues.push(Object.assign(new ProcessParameter(), { name: '--url', value: this.fileURL }));
-      }
       if (this.dso) {
         parameterValues.push(Object.assign(new ProcessParameter(), { name: '--collection', value: this.dso.uuid }));
       }
@@ -117,15 +97,9 @@ export class BatchImportPageComponent {
             this.router.navigateByUrl(getProcessDetailRoute(rd.payload.processId));
           }
         } else {
-          if (rd.statusCode === 413) {
-            const title = this.translate.get('process.new.notification.error.title');
-            const content = this.translate.get('process.new.notification.error.max-upload.content');
-            this.notificationsService.error(title, content);
-          } else {
-            const title = this.translate.get('process.new.notification.error.title');
-            const content = this.translate.get('process.new.notification.error.content');
-            this.notificationsService.error(title, content);
-          }
+          const title = this.translate.get('process.new.notification.error.title');
+          const content = this.translate.get('process.new.notification.error.content');
+          this.notificationsService.error(title, content);
         }
       });
     }
@@ -146,12 +120,5 @@ export class BatchImportPageComponent {
    */
   removeDspaceObject(): void {
     this.dso = null;
-  }
-
-  /**
-   * toggle the flag between upload and url
-   */
-  toggleUpload() {
-    this.isUpload = !this.isUpload;
   }
 }

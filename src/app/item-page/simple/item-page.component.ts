@@ -1,9 +1,9 @@
-import {map, take} from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isPlatformServer } from '@angular/common';
 
 import { Observable} from 'rxjs';
+import { map, take } from 'rxjs/operators';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
@@ -15,6 +15,7 @@ import { getItemPageRoute } from '../item-page-routing-paths';
 import { isNotEmpty } from '../../shared/empty.util';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
 
 /**
  * This component renders a simple item page.
@@ -65,13 +66,16 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    */
   withdrawnTombstone = false;
 
+  itemUrl: string;
+
   constructor(
     protected route: ActivatedRoute,
     private router: Router,
     private items: ItemDataService,
     private authService: AuthService,
-    private authorizationService: AuthorizationDataService,
-  ) { }
+    private authorizationService: AuthorizationDataService
+  ) {
+  }
 
   /**
    * Initialize instance variables

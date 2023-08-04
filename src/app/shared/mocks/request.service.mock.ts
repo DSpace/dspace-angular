@@ -14,7 +14,6 @@ export function getMockRequestService(requestEntry$: Observable<RequestEntry> = 
     removeByHrefSubstring: observableOf(true),
     setStaleByHrefSubstring: observableOf(true),
     setStaleByUUID: observableOf(true),
-    hasByHref$: observableOf(false),
-    shouldDispatchRequest: true
+    hasByHref$: observableOf(false)
   });
 }

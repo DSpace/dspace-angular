@@ -1,5 +1,5 @@
 import { take } from 'rxjs/operators';
-import {isEmpty, isNotEmpty} from '../../../../../empty.util';
+import {isEmpty } from '../../../../../empty.util';
 
 /**
  * Util methods for the DsAutocompleteComponent.
@@ -8,7 +8,7 @@ export class DsDynamicAutocompleteService {
 
   static pretifySuggestion(fundingProjectCode, fundingName, translateService) {
     if (isEmpty(fundingProjectCode) || isEmpty(fundingName)) {
-      throw(new Error('The suggestion returns wrong data!'));
+      throw (new Error('The suggestion returns wrong data!'));
     }
 
     // create variable with default values - they will be overridden

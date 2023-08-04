@@ -2,9 +2,6 @@ import { Component, Optional } from '@angular/core';
 import { hasValue } from '../shared/empty.util';
 import { KlaroService } from '../shared/cookies/klaro.service';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
 
 @Component({
   selector: 'ds-footer',
@@ -20,7 +17,6 @@ export class FooterComponent {
   showTopFooter = false;
   showPrivacyPolicy = environment.info.enablePrivacyStatement;
   showEndUserAgreement = environment.info.enableEndUserAgreement;
-  showSendFeedback$: Observable<boolean>;
 
   constructor(
     @Optional() private cookies: KlaroService,

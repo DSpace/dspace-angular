@@ -359,7 +359,45 @@ export class MenuResolver implements Resolve<boolean> {
             link: '/health'
           } as LinkMenuItemModel,
           icon: 'heartbeat',
+          index: 13
+        },        /* Workflow tasks */
+        {
+          id: 'submissions',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.submissions',
+            link: '/mydspace'
+          } as LinkMenuItemModel,
+          icon: 'upload',
+          index: 2
+        },
+        /* Handle table */
+        {
+          id: 'handle_table',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.handle',
+            link: '/handle-table'
+          } as LinkMenuItemModel,
+          icon: 'table',
           index: 11
+        },
+        /* License administration */
+        {
+          id: 'licenses',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.licenses',
+            link: '/licenses'
+          } as LinkMenuItemModel,
+          icon: 'scroll',
+          index: 12
         },
       ];
       menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
@@ -617,7 +655,7 @@ export class MenuResolver implements Resolve<boolean> {
             link: '/admin/system-wide-alert'
           } as LinkMenuItemModel,
           icon: 'exclamation-circle',
-          index: 12
+          index: 14
         },
       ];
 
@@ -657,17 +695,6 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.LINK,
             text: 'menu.section.access_control_groups',
             link: '/access-control/groups'
-          } as LinkMenuItemModel,
-        },
-        {
-          id: 'access_control_bulk',
-          parentID: 'access_control',
-          active: false,
-          visible: isSiteAdmin,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.access_control_bulk',
-            link: '/access-control/bulk-access'
           } as LinkMenuItemModel,
         },
         // TODO: enable this menu item once the feature has been implemented

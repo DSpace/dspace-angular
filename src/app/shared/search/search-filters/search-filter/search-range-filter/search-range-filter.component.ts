@@ -114,8 +114,6 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     super.ngOnInit();
     this.min = yearFromString(this.filterConfig.minValue) || this.min;
     this.max = yearFromString(this.filterConfig.maxValue) || this.max;
-    this.minLabel = this.translateService.instant('search.filters.filter.' + this.filterConfig.name + '.min.placeholder');
-    this.maxLabel = this.translateService.instant('search.filters.filter.' + this.filterConfig.name + '.max.placeholder');
     const iniMin = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX).pipe(startWith(undefined));
     const iniMax = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX).pipe(startWith(undefined));
     this.sub = observableCombineLatest(iniMin, iniMax).pipe(

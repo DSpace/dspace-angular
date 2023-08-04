@@ -67,7 +67,8 @@
               "src/license-selector.js",
               "src/license-selector-creation.js",
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ]
+            ],
+            "baseHref": "/"
           },
           "configurations": {
             "development": {
@@ -141,7 +142,7 @@
                 "loaders": "prepend"
               }
             },
-            "main": "src/test-dtq.ts",
+            "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
@@ -271,8 +272,7 @@
           "options": {
             "lintFilePatterns": [
               "src/**/*.ts",
-              "src/**/*.html",
-              "src/**/*.json5"
+              "src/**/*.html"
             ]
           }
         }
@@ -281,16 +281,6 @@
   },
   "cli": {
     "analytics": false,
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
-  },
-  "schematics": {
-    "@angular-eslint/schematics:application": {
-      "setParserOptionsProject": true
-    },
-    "@angular-eslint/schematics:library": {
-      "setParserOptionsProject": true
-    }
+    "defaultCollection": "@angular-eslint/schematics"
   }
 }

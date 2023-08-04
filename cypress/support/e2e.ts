@@ -30,11 +30,11 @@ beforeEach(() => {
 // For better stability between tests, we visit "about:blank" (i.e. blank page) after each test.
 // This ensures any remaining/outstanding XHR requests are killed, so they don't affect the next test.
 // Borrowed from: https://glebbahmutov.com/blog/visit-blank-page-between-tests/
-/*afterEach(() => {
+afterEach(() => {
     cy.window().then((win) => {
       win.location.href = 'about:blank';
     });
-});*/
+});
 
 
 // Global constants used in tests
@@ -55,14 +55,19 @@ export const TEST_SEARCH_TERM = Cypress.env('DSPACE_TEST_SEARCH_TERM') || 'test'
 // Collection used for submission tests
 export const TEST_SUBMIT_COLLECTION_NAME = Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME') || 'Sample Collection';
 export const TEST_SUBMIT_COLLECTION_UUID = Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_UUID') || '9d8334e9-25d3-4a67-9cea-3dffdef80144';
-
-export const TEST_SUBMIT_CLARIAH_COLLECTION_UUID = Cypress.env('DSPACE_TEST_SUBMIT_CLARIAH_COLLECTION_UUID') || '7eb3562b-27f5-445f-8303-db771969cbff';
 export const TEST_SUBMIT_USER = Cypress.env('DSPACE_TEST_SUBMIT_USER') || 'dspacedemo+submit@gmail.com';
 export const TEST_SUBMIT_USER_PASSWORD = Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD') || 'dspace';
 
+export const TEST_SUBMIT_CLARIAH_COLLECTION_UUID = Cypress.env('DSPACE_TEST_SUBMIT_CLARIAH_COLLECTION_UUID') || '7eb3562b-27f5-445f-8303-db771969cbff';
+export const TEST_WITHDRAWN_ITEM = Cypress.env('CLARIN_TEST_WITHDRAWN_ITEM') || '921d256f-c64f-438e-b17e-13fb75a64e19';
+export const TEST_WITHDRAWN_ITEM_WITH_REASON = Cypress.env('CLARIN_TEST_WITHDRAWN_ITEM_WITH_REASON') || 'ce6ceeb4-8f47-4d5a-ad22-e87b3110cc04';
+export const TEST_WITHDRAWN_ITEM_WITH_REASON_AND_AUTHORS = Cypress.env('CLARIN_TEST_WITHDRAWN_ITEM_WITH_REASON_AND_AUTHORS') || 'ad27520a-98c0-40a4-bfc3-2edd857b3418';
+export const TEST_WITHDRAWN_REPLACED_ITEM = Cypress.env('CLARIN_TEST_WITHDRAWN_REPLACED_ITEM') || '94c48fc7-0425-48dc-9be6-7e7087534a3d';
+export const TEST_WITHDRAWN_REPLACED_ITEM_WITH_AUTHORS = Cypress.env('CLARIN_TEST_WITHDRAWN_REPLACED_ITEM_WITH_AUTHORS') || '0e9ef1cb-5b9f-4acc-a7ca-5a9a66a6ddbd';
 
-// USEFUL REGEX for testing
+export const TEST_WITHDRAWN_REASON = Cypress.env('CLARIN_TEST_WITHDRAWN_REASON') || 'reason';
+export const TEST_WITHDRAWN_REPLACEMENT = Cypress.env('CLARIN_TEST_WITHDRAWN_REPLACEMENT') || 'new URL';
+export const TEST_WITHDRAWN_AUTHORS = Cypress.env('CLARIN_TEST_WITHDRAWN_AUTHORS') || 'author1, author2';
 
-// Match any string that contains at least one non-space character
-// Can be used with "contains()" to determine if an element has a non-empty text value
-export const REGEX_MATCH_NON_EMPTY_TEXT = /^(?!\s*$).+/;
+export const TEST_COLLECTION_NAME = 'Col';
+export const TEST_COMMUNITY_NAME = 'Com';

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { createSelector, select, Store } from '@ngrx/store';
 import { Observable, zip as observableZip } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction
@@ -40,7 +40,6 @@ import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
 import { Operation } from 'fast-json-patch';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { dataService } from '../data/base/data-service.decorator';
-import { getGroupEditRoute } from '../../access-control/access-control-routing-paths';
 
 const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
 const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);

@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import {
   BrowseByMetadataPageComponent,
-  browseParamsToOptions,
-  getBrowseSearchOptions
+  browseParamsToOptions, getBrowseSearchOptions
 } from '../browse-by-metadata-page/browse-by-metadata-page.component';
 import { combineLatest as observableCombineLatest } from 'rxjs';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
@@ -15,10 +14,7 @@ import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { isValidDate } from '../../shared/date.util';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-browse-by-date-page',
@@ -43,10 +39,8 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
                      protected router: Router,
                      protected paginationService: PaginationService,
                      protected cdRef: ChangeDetectorRef,
-                     @Inject(APP_CONFIG) public appConfig: AppConfig,
-                     public dsoNameService: DSONameService,
-  ) {
-    super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService);
+                     @Inject(APP_CONFIG) public appConfig: AppConfig) {
+    super(route, browseService, dsoService, paginationService, router, appConfig);
   }
 
   ngOnInit(): void {
@@ -88,12 +82,20 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
     const firstItemRD = this.browseService.getFirstItemFor(definition, scope, SortDirection.ASC);
     const lastItemRD = this.browseService.getFirstItemFor(definition, scope, SortDirection.DESC);
     this.subs.push(
-      observableCombineLatest([firstItemRD, lastItemRD]).subscribe(([firstItem, lastItem]) => {
-        let lowerLimit: number = this.getLimit(firstItem, metadataKeys, this.appConfig.browseBy.defaultLowerLimit);
-        let upperLimit: number = this.getLimit(lastItem, metadataKeys, new Date().getUTCFullYear());
-        const options: number[] = [];
-        const oneYearBreak: number = Math.floor((upperLimit - this.appConfig.browseBy.oneYearLimit) / 5) * 5;
-        const fiveYearBreak: number = Math.floor((upperLimit - this.appConfig.browseBy.fiveYearLimit) / 10) * 10;
+      this.browseService.getFirstItemFor(definition, scope).subscribe((firstItemRD: RemoteData<Item>) => {
+        let lowerLimit = this.appConfig.browseBy.defaultLowerLimit;
+        if (hasValue(firstItemRD.payload)) {
+          const date = firstItemRD.payload.firstMetadataValue(metadataKeys);
+          if (isNotEmpty(date) && isValidDate(date)) {
+            const dateObj = new Date(date);
+            // TODO: it appears that getFullYear (based on local time) is sometimes unreliable. Switching to UTC.
+            lowerLimit = isNaN(dateObj.getUTCFullYear()) ? lowerLimit : dateObj.getUTCFullYear();
+          }
+        }
+        const options = [];
+        const currentYear = new Date().getUTCFullYear();
+        const oneYearBreak = Math.floor((currentYear - this.appConfig.browseBy.oneYearLimit) / 5) * 5;
+        const fiveYearBreak = Math.floor((currentYear - this.appConfig.browseBy.fiveYearLimit) / 10) * 10;
         if (lowerLimit <= fiveYearBreak) {
           lowerLimit -= 10;
         } else if (lowerLimit <= oneYearBreak) {

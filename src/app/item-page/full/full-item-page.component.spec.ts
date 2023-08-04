@@ -18,6 +18,8 @@ import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } f
 import { AuthService } from '../../core/auth/auth.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
+import { RemoteData } from '../../core/data/remote-data';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -52,7 +54,7 @@ describe('FullItemPageComponent', () => {
   let authService: AuthService;
   let routeStub: ActivatedRouteStub;
   let routeData;
-  const authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
+  let authorizationDataService: AuthorizationDataService;
 
   const mocklink = {
     href: 'http://test.org',
@@ -84,19 +86,6 @@ describe('FullItemPageComponent', () => {
       isAuthorized: observableOf(false),
     });
 
-    serverResponseService = jasmine.createSpyObj('ServerResponseService', {
-      setHeader: jasmine.createSpy('setHeader'),
-    });
-
-    signpostingDataService = jasmine.createSpyObj('SignpostingDataService', {
-      getLinks: observableOf([mocklink, mocklink2]),
-    });
-
-    linkHeadService = jasmine.createSpyObj('LinkHeadService', {
-      addTag: jasmine.createSpy('setHeader'),
-      removeTag: jasmine.createSpy('removeTag'),
-    });
-
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -110,7 +99,7 @@ describe('FullItemPageComponent', () => {
         { provide: ItemDataService, useValue: {} },
         { provide: MetadataService, useValue: metadataServiceStub },
         { provide: AuthService, useValue: authService },
-        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: AuthorizationDataService, useValue: authorizationDataService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(FullItemPageComponent, {
@@ -161,12 +150,7 @@ describe('FullItemPageComponent', () => {
 
     it('should display the item', () => {
       const objectLoader = fixture.debugElement.query(By.css('.full-item-info'));
-      expect(objectLoader.nativeElement).not.toBeNull();
-    });
-
-    it('should add the signposting links', () => {
-      expect(serverResponseService.setHeader).toHaveBeenCalled();
-      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+      expect(objectLoader.nativeElement).toBeDefined();
     });
   });
   describe('when the item is withdrawn and the user is not an admin', () => {
@@ -190,12 +174,7 @@ describe('FullItemPageComponent', () => {
 
     it('should display the item', () => {
       const objectLoader = fixture.debugElement.query(By.css('.full-item-info'));
-      expect(objectLoader).not.toBeNull();
-    });
-
-    it('should add the signposting links', () => {
-      expect(serverResponseService.setHeader).toHaveBeenCalled();
-      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+      expect(objectLoader.nativeElement).toBeDefined();
     });
   });
 
@@ -207,12 +186,7 @@ describe('FullItemPageComponent', () => {
 
     it('should display the item', () => {
       const objectLoader = fixture.debugElement.query(By.css('.full-item-info'));
-      expect(objectLoader).not.toBeNull();
-    });
-
-    it('should add the signposting links', () => {
-      expect(serverResponseService.setHeader).toHaveBeenCalled();
-      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+      expect(objectLoader.nativeElement).toBeDefined();
     });
   });
 });

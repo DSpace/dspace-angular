@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 
@@ -14,7 +14,6 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { TranslateService } from '@ngx-translate/core';
 import { hasValue, isEmpty } from '../../../../shared/empty.util';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 
 /**
@@ -53,10 +52,9 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
     protected paginationService: PaginationService,
-    public dsoNameService: DSONameService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
-    super(bitstreamDataService, notificationsService, translateService, dsoNameService, appConfig);
+    super(bitstreamDataService, notificationsService, translateService, appConfig);
   }
 
   ngOnInit(): void {

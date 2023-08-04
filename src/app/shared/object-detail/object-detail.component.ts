@@ -65,11 +65,6 @@ export class ObjectDetailComponent {
   @Input() showPaginator = true;
 
   /**
-   * Whether to show the thumbnail preview
-   */
-  @Input() showThumbnails;
-
-  /**
    * Emit when one of the listed object has changed.
    */
   @Output() contentChange = new EventEmitter<any>();

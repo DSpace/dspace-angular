@@ -130,13 +130,12 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
    */
   relatedEntityType: ItemType;
 
-  constructor(
-    protected router: Router,
-    public searchConfigService: SearchConfigurationService,
-    protected externalSourceService: ExternalSourceDataService,
-    protected modalService: NgbModal,
-    protected selectableListService: SelectableListService,
-    protected paginationService: PaginationService,
+  constructor(private router: Router,
+              public searchConfigService: SearchConfigurationService,
+              private externalSourceService: ExternalSourceDataService,
+              private modalService: NgbModal,
+              private selectableListService: SelectableListService,
+              private paginationService: PaginationService
   ) {
   }
 

@@ -24,9 +24,8 @@ import { FlatNode } from './flat-node.model';
 import { ShowMoreFlatNode } from './show-more-flat-node.model';
 import { FindListOptions } from '../core/data/find-list-options.model';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
-import { v4 as uuidv4 } from 'uuid';
 
-// Helper method to combine and flatten an array of observables of flatNode arrays
+// Helper method to combine an flatten an array of observables of flatNode arrays
 export const combineAndFlatten = (obsList: Observable<FlatNode[]>[]): Observable<FlatNode[]> =>
   observableCombineLatest([...obsList]).pipe(
     map((matrix: any[][]) => [].concat(...matrix)),

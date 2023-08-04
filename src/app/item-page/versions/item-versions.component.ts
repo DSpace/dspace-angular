@@ -1,9 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../../core/shared/item.model';
-import { Version } from '../../../core/shared/version.model';
-import { RemoteData } from '../../../core/data/remote-data';
 import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
-import { VersionHistory } from '../../../core/shared/version-history.model';
 import {
   getAllSucceededRemoteData,
   getAllSucceededRemoteDataPayload,
@@ -13,20 +9,12 @@ import {
   getRemoteDataPayload
 } from '../../core/shared/operators';
 import { map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
-import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
-import { AlertType } from '../../alert/aletr-type';
-import { followLink } from '../../utils/follow-link-config.model';
-import { hasValue, hasValueOperator, isNotNull } from '../../empty.util';
-import { PaginationService } from '../../../core/pagination/pagination.service';
 import {
   getItemEditVersionhistoryRoute,
   getItemPageRoute,
   getItemVersionRoute
 } from '../item-page-routing-paths';
-import { UntypedFormBuilder } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -42,6 +30,18 @@ import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model'
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { Item } from 'src/app/core/shared/item.model';
+import { AlertType } from 'src/app/shared/alert/aletr-type';
+import { RemoteData } from 'src/app/core/data/remote-data';
+import { VersionHistory } from 'src/app/core/shared/version-history.model';
+import { PaginatedList } from 'src/app/core/data/paginated-list.model';
+import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
+import { VersionHistoryDataService } from 'src/app/core/data/version-history-data.service';
+import { PaginationService } from 'src/app/core/pagination/pagination.service';
+import { Version } from '../../core/shared/version.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { hasValue, hasValueOperator, isNotNull } from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-item-versions',

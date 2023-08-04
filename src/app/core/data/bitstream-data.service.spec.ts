@@ -16,11 +16,6 @@ import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-bu
 import { testSearchDataImplementation } from './base/search-data.spec';
 import { testPatchDataImplementation } from './base/patch-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
-import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import objectContaining = jasmine.objectContaining;
-import { RemoteData } from './remote-data';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 describe('BitstreamDataService', () => {
   let service: BitstreamDataService;
@@ -64,18 +59,7 @@ describe('BitstreamDataService', () => {
     });
     rdbService = getMockRemoteDataBuildService();
 
-    TestBed.configureTestingModule({
-      providers: [
-        { provide: ObjectCacheService, useValue: objectCache },
-        { provide: RequestService, useValue: requestService },
-        { provide: HALEndpointService, useValue: halService },
-        { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
-        { provide: RemoteDataBuildService, useValue: rdbService },
-        { provide: DSOChangeAnalyzer, useValue: {} },
-        { provide: NotificationsService, useValue: {} },
-      ],
-    });
-    service = TestBed.inject(BitstreamDataService);
+    service = new BitstreamDataService(requestService, rdbService, objectCache, halService, null, bitstreamFormatService, null, null);
   });
 
   describe('composition', () => {

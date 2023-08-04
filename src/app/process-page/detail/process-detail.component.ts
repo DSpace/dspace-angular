@@ -26,8 +26,6 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'ds-process-detail',
@@ -78,29 +76,24 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
    */
   dateFormat = 'yyyy-MM-dd HH:mm:ss ZZZZ';
 
-  refreshCounter$ = new BehaviorSubject(0);
-
   /**
    * Reference to NgbModal
    */
   protected modalRef: NgbModalRef;
 
-  private refreshTimerSub?: Subscription;
-
-  constructor(
-    @Inject(PLATFORM_ID) protected platformId: object,
-    protected route: ActivatedRoute,
-    protected router: Router,
-    protected processService: ProcessDataService,
-    protected bitstreamDataService: BitstreamDataService,
-    protected nameService: DSONameService,
-    private zone: NgZone,
-    protected authService: AuthService,
-    protected http: HttpClient,
-    protected modalService: NgbModal,
-    protected notificationsService: NotificationsService,
-    protected translateService: TranslateService
-  ) {}
+  constructor(protected route: ActivatedRoute,
+              protected router: Router,
+              protected processService: ProcessDataService,
+              protected bitstreamDataService: BitstreamDataService,
+              protected nameService: DSONameService,
+              private zone: NgZone,
+              protected authService: AuthService,
+              protected http: HttpClient,
+              protected modalService: NgbModal,
+              protected notificationsService: NotificationsService,
+              protected translateService: TranslateService
+  ) {
+  }
 
   /**
    * Initialize component properties
@@ -269,7 +262,6 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
   openDeleteModal(content) {
     this.modalRef = this.modalService.open(content);
   }
-
   /**
    * Close the modal.
    */
@@ -277,7 +269,4 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
     this.modalRef.close();
   }
 
-  ngOnDestroy(): void {
-    this.stopRefreshTimer();
-  }
 }

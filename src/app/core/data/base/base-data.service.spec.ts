@@ -557,6 +557,26 @@ describe('BaseDataService', () => {
         });
       });
 
+      (service as any).addDependency(
+        createSuccessfulRemoteDataObject$({ _links: { self: { href: 'object-href' } } }),
+        observableOf('dependsOnHref')
+      );
+      expect(addDependencySpy).toHaveBeenCalled();
+    });
+
+    it('should call objectCache.addDependency without an href if request failed', () => {
+      addDependencySpy.and.callFake((href$: Observable<string>, dependsOn$: Observable<string>) => {
+        observableCombineLatest([href$, dependsOn$]).subscribe(([href, dependsOn]) => {
+          expect(href).toBe(undefined);
+          expect(dependsOn).toBe('dependsOnHref');
+        });
+      });
+
+      (service as any).addDependency(
+        createFailedRemoteDataObject$('something went wrong'),
+        observableOf('dependsOnHref')
+      );
+      expect(addDependencySpy).toHaveBeenCalled();
     });
   });
 
@@ -637,62 +657,6 @@ describe('BaseDataService', () => {
         // request from subsequent states are ignored
         expect(requestService.setStaleByUUID).not.toHaveBeenCalledWith('request2');
         expect(requestService.setStaleByUUID).not.toHaveBeenCalledWith('request3');
-      });
-    });
-  });
-
-  describe('hasCachedResponse', () => {
-    it('should return false when the request will be dispatched', (done) => {
-      const result = service.hasCachedResponse('test-href');
-
-      result.subscribe((hasCachedResponse) => {
-        expect(hasCachedResponse).toBeFalse();
-        done();
-      });
-    });
-
-    it('should return true when the request will not be dispatched', (done) => {
-      (requestService.shouldDispatchRequest as jasmine.Spy).and.returnValue(false);
-      const result = service.hasCachedResponse('test-href');
-
-      result.subscribe((hasCachedResponse) => {
-        expect(hasCachedResponse).toBeTrue();
-        done();
-      });
-    });
-  });
-
-  describe('hasCachedErrorResponse', () => {
-    it('should return false when no response is cached', (done) => {
-      spyOn(service,'hasCachedResponse').and.returnValue(observableOf(false));
-      const result = service.hasCachedErrorResponse('test-href');
-
-      result.subscribe((hasCachedErrorResponse) => {
-        expect(hasCachedErrorResponse).toBeFalse();
-        done();
-      });
-    });
-    it('should return false when no error response is cached', (done) => {
-      spyOn(service,'hasCachedResponse').and.returnValue(observableOf(true));
-      spyOn(rdbService,'buildSingle').and.returnValue(createSuccessfulRemoteDataObject$({}));
-
-      const result = service.hasCachedErrorResponse('test-href');
-
-      result.subscribe((hasCachedErrorResponse) => {
-        expect(hasCachedErrorResponse).toBeFalse();
-        done();
-      });
-    });
-
-    it('should return true when an error response is cached', (done) => {
-      spyOn(service,'hasCachedResponse').and.returnValue(observableOf(true));
-      spyOn(rdbService,'buildSingle').and.returnValue(createFailedRemoteDataObject$());
-
-      const result = service.hasCachedErrorResponse('test-href');
-
-      result.subscribe((hasCachedErrorResponse) => {
-        expect(hasCachedErrorResponse).toBeTrue();
-        done();
       });
     });
   });

@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { of, of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
-import { DynamicFormControlEvent, DynamicFormControlEventType } from '@ng-dynamic-forms/core';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createTestComponent} from '../../../shared/testing/utils.test';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -18,7 +17,6 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { FormService } from '../../../shared/form/form.service';
-import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsType } from '../sections-type';
 import {
@@ -39,6 +37,7 @@ import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { RequestService } from '../../../core/data/request.service';
+import { SubmissionFormsConfigDataService } from 'src/app/core/config/submission-forms-config-data.service';
 
 const collectionId = mockSubmissionCollectionId;
 const licenseText = 'License text';
@@ -54,7 +53,7 @@ const mockCollection = Object.assign(new Collection(), {
   license: createSuccessfulRemoteDataObject$(Object.assign(new License(), { text: licenseText }))
 });
 
-function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
+function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('FormOperationsService', {
     getConfigAll: jasmine.createSpy('getConfigAll'),
     getConfigByHref: jasmine.createSpy('getConfigByHref'),
@@ -143,7 +142,7 @@ describe('ClarinSubmissionSectionLicenseComponent test suite', () => {
         { provide: SectionFormOperationsService, useValue: getMockFormOperationsService() },
         { provide: FormService, useValue: getMockFormService() },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
-        { provide: SubmissionFormsConfigService, useValue: getMockSubmissionFormsConfigService() },
+        { provide: SubmissionFormsConfigDataService, useValue: getMockSubmissionFormsConfigService() },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },

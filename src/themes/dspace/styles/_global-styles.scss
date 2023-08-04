@@ -61,13 +61,3 @@
   background-color: #428bca !important;
   border-color: #428bca !important;
 }
-
-header {
-  li > .navbar-section,
-  li > .expandable-navbar-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-  }
-}

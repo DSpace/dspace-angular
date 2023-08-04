@@ -31,7 +31,10 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { SelectionConfig } from './search-results/search-results.component';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';
+import { environment } from 'src/environments/environment';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
+import { SearchFilterConfig } from './models/search-filter-config.model';
+import { WorkspaceItem } from '../..//core/submission/models/workspaceitem.model';
 
 @Component({
   selector: 'ds-search',
@@ -154,11 +157,6 @@ export class SearchComponent implements OnInit {
    * Whether or not to track search statistics by sending updates to the rest api
    */
   @Input() trackStatistics = false;
-
-  /**
-   * The default value for the search query when none is already defined in the {@link SearchConfigurationService}
-   */
-  @Input() query: string;
 
   /**
    * The current configuration used during the search
@@ -390,7 +388,7 @@ export class SearchComponent implements OnInit {
   }
 
   /**
-   * Unsubscribe from the subscriptions
+   * Unsubscribe from the subscription
    */
   ngOnDestroy(): void {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
@@ -407,9 +405,9 @@ export class SearchComponent implements OnInit {
   /**
    * Retrieve search filters by the given search options
    * @param searchOptions
-   * @private
+   * @protected
    */
-  private retrieveFilters(searchOptions: PaginatedSearchOptions) {
+  protected retrieveFilters(searchOptions: PaginatedSearchOptions) {
     this.filtersRD$.next(null);
     this.searchConfigService.getConfig(searchOptions.scope, searchOptions.configuration).pipe(
       getFirstCompletedRemoteData(),
@@ -425,6 +423,15 @@ export class SearchComponent implements OnInit {
    */
   protected retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
     this.resultsRD$.next(null);
+    this.lastSearchOptions = searchOptions;
+    let followLinks = [
+      followLink<Item>('thumbnail', { isOptional: true }),
+      followLink<SubmissionObject>('item', { isOptional: true }, followLink<Item>('thumbnail', { isOptional: true })) as any,
+      followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses }),
+    ];
+    if (this.configuration === 'supervision') {
+      followLinks.push(followLink<WorkspaceItem>('supervisionOrders', { isOptional: true }) as any);
+    }
     this.service.search(
       searchOptions,
       undefined,

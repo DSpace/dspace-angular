@@ -15,10 +15,8 @@ export interface DynamicListCheckboxGroupModelConfig extends DynamicFormGroupMod
   vocabularyOptions: VocabularyOptions;
   groupLength?: number;
   repeatable: boolean;
-  value?: VocabularyEntry[];
+  value?: any;
   typeBindRelations?: DynamicFormControlRelation[];
-  required: boolean;
-  hint?: string;
 }
 
 export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
@@ -28,8 +26,6 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
   @serializable() groupLength: number;
   @serializable() _value: VocabularyEntry[];
   @serializable() typeBindRelations: DynamicFormControlRelation[];
-  @serializable() required: boolean;
-  @serializable() hint: string;
   isListGroup = true;
   valueUpdates: Subject<any>;
 

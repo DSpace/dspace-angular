@@ -28,7 +28,6 @@ describe('SearchFormComponent', () => {
   const searchService = new SearchServiceStub();
   const paginationService = new PaginationServiceStub();
   const searchConfigService = { paginationID: 'test-id' };
-  const firstPage = { 'spc.page': 1 };
   const dspaceObjectService = {
     findById: () => createSuccessfulRemoteDataObject$(undefined),
   };
@@ -105,16 +104,16 @@ describe('SearchFormComponent', () => {
     const scope = 'MCU';
     let searchQuery = {};
 
-    it('should navigate to the search first page even when no parameters are provided', () => {
+    it('should navigate to the search page even when no parameters are provided', () => {
       comp.updateSearch(searchQuery);
 
       expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
-        queryParams: { ...searchQuery, ...firstPage },
+        queryParams: searchQuery,
         queryParamsHandling: 'merge'
       });
     });
 
-    it('should navigate to the search first page with parameters only query if only query is provided', () => {
+    it('should navigate to the search page with parameters only query if only query is provided', () => {
       searchQuery = {
         query: query
       };
@@ -122,12 +121,12 @@ describe('SearchFormComponent', () => {
       comp.updateSearch(searchQuery);
 
       expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
-        queryParams: { ...searchQuery, ...firstPage },
+        queryParams: searchQuery,
         queryParamsHandling: 'merge'
       });
     });
 
-    it('should navigate to the search first page with parameters only query if only scope is provided', () => {
+    it('should navigate to the search page with parameters only query if only scope is provided', () => {
       searchQuery = {
         scope: scope
       };
@@ -135,7 +134,7 @@ describe('SearchFormComponent', () => {
       comp.updateSearch(searchQuery);
 
       expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
-        queryParams: {...searchQuery, ...firstPage},
+        queryParams: searchQuery,
         queryParamsHandling: 'merge'
       });
     });
@@ -173,9 +172,32 @@ describe('SearchFormComponent', () => {
       expect(comp.updateSearch).toHaveBeenCalledWith(searchQuery);
     });
   });
+
+  // it('should call updateSearch when clicking the submit button with correct parameters', fakeAsync(() => {
+  //   comp.query = 'Test String'
+  //   fixture.detectChanges();
+  //   spyOn(comp, 'updateSearch').and.callThrough();
+  //   fixture.detectChanges();
+  //
+  //   const submit = de.query(By.css('button.search-button')).nativeElement;
+  //   const scope = '123456';
+  //   const query = 'test';
+  //   const select = de.query(By.css('select')).nativeElement;
+  //   const input = de.query(By.css('input')).nativeElement;
+  //
+  //   tick();
+  //   select.value = scope;
+  //   input.value = query;
+  //
+  //   fixture.detectChanges();
+  //
+  //   submit.click();
+  //
+  //   expect(comp.updateSearch).toHaveBeenCalledWith({ scope: scope, query: query });
+  // }));
 });
 
-const objects: DSpaceObject[] = [
+export const objects: DSpaceObject[] = [
   Object.assign(new Community(), {
     logo: {
       self: {

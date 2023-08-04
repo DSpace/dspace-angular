@@ -9,7 +9,7 @@
         <button id="resultdropdown" type="button"
                 ngbDropdownToggle
                 class="btn btn-outline-secondary dropdown-toggle"
-                data-toggle="dropdown" aria-haspopup="true"
+                data-bs-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
           <span *ngIf="searchOption != null" [ngModel]="searchOption" name="searchOption" ngDefaultControl>{{searchOption}}</span>
           <span *ngIf="searchOption == null" >{{'handle-table.dropdown.search-option' | translate}}</span>
@@ -22,8 +22,11 @@
       </div>
         <input type="text" id="clarin-dc-search-box" class="form-control" aria-label="Text input with dropdown button"
                [value]="searchQuery"
-               (input)="setSearchQuery()"
                #searchInput>
+        <span class="input-group-append" (click)="searchHandles(searchInput.value)">
+          <button type="submit" class="btn btn-primary search-button">
+            <i class="fas fa-search"></i>{{'handle-table.dropdown.search-button' | translate}}</button>
+        </span>
       </div>
 
       <!-- The table with pagination -->
@@ -79,20 +82,26 @@
             <ds-loading *ngIf="isLoading" class="text-center"></ds-loading>
           </ds-pagination>
           <div class="mt-2">
-            <button type="button" class="btn btn-success"
-                    (click)="redirectWithCurrentPage()">
-              {{'handle-table.button.new-handle' | translate}}
-            </button>
-            <button type="button" class="btn btn-warning"
-                    (click)="redirectWithHandleParams()"
-                    [disabled]="selectedHandle === null">
-              {{'handle-table.button.edit-handle' | translate}}
-            </button>
-            <button type="button" class="btn btn-danger"
-                    (click)="deleteHandles()"
-                    [disabled]="selectedHandle === null">
-              {{'handle-table.button.delete-handle' | translate}}
-            </button>
+            <div class="btn-group pr-1">
+              <button type="button" class="btn btn-success"
+                      (click)="redirectWithCurrentPage()">
+                {{'handle-table.button.new-handle' | translate}}
+              </button>
+            </div>
+            <div class="btn-group pr-1">
+              <button type="button" class="btn btn-warning"
+                      (click)="redirectWithHandleParams()"
+                      [disabled]="selectedHandle === null">
+                {{'handle-table.button.edit-handle' | translate}}
+              </button>
+            </div>
+            <div class="btn-group pr-1">
+              <button type="button" class="btn btn-danger"
+                      (click)="deleteHandles()"
+                      [disabled]="selectedHandle === null">
+                {{'handle-table.button.delete-handle' | translate}}
+              </button>
+            </div>
           </div>
         </div>
       </div>

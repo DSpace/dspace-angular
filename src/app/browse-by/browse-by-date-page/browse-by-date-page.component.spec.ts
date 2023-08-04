@@ -22,7 +22,6 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
-import { SortDirection } from '../../core/cache/models/sort-options.model';
 
 describe('BrowseByDatePageComponent', () => {
   let comp: BrowseByDatePageComponent;

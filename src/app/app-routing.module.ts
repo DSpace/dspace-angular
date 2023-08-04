@@ -13,7 +13,7 @@ import {
   ERROR_PAGE,
   FORBIDDEN_PATH,
   FORGOT_PASSWORD_PATH,
-  HANDLE_TABLE_MODULE_PATH,
+  HEALTH_PAGE_PATH,
   INFO_MODULE_PATH,
   INTERNAL_SERVER_ERROR,
   LEGACY_BITSTREAM_MODULE_PATH,
@@ -42,6 +42,7 @@ import {
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
+import { HANDLE_TABLE_MODULE_PATH } from './handle-page/handle-page-routing-paths';
 
 @NgModule({
   imports: [
@@ -229,9 +230,20 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
               .then((m) => m.HealthPageModule)
           },
           {
+            path: HEALTH_PAGE_PATH,
+            loadChildren: () => import('./health-page/health-page.module')
+              .then((m) => m.HealthPageModule)
+          },
+          {
             path: ACCESS_CONTROL_MODULE_PATH,
             loadChildren: () => import('./access-control/access-control.module').then((m) => m.AccessControlModule),
             canActivate: [GroupAdministratorGuard, EndUserAgreementCurrentUserGuard],
+          },
+          {
+            path: 'subscriptions',
+            loadChildren: () => import('./subscriptions-page/subscriptions-page-routing.module')
+              .then((m) => m.SubscriptionsPageRoutingModule),
+            canActivate: [AuthenticatedGuard]
           },
           {
             path: 'subscriptions',

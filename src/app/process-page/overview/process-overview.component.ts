@@ -14,7 +14,6 @@ import { FindListOptions } from '../../core/data/find-list-options.model';
 import { ProcessBulkDeleteService } from './process-bulk-delete.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../shared/empty.util';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-process-overview',
@@ -60,7 +59,6 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
               protected ePersonService: EPersonDataService,
               protected modalService: NgbModal,
               public processBulkDeleteService: ProcessBulkDeleteService,
-              protected dsoNameService: DSONameService,
   ) {
   }
 

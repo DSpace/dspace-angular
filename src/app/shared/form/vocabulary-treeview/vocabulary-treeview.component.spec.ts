@@ -12,7 +12,7 @@ import { createTestComponent } from '../../testing/utils.test';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview.component';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { TreeviewFlatNode, TreeviewNode } from './vocabulary-treeview-node.model';
+import { TreeviewFlatNode } from './vocabulary-treeview-node.model';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
@@ -20,8 +20,6 @@ import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vo
 import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
 import { authReducer } from '../../../core/auth/auth.reducer';
 import { storeModuleConfig } from '../../../app.reducer';
-import { By } from '@angular/platform-browser';
-import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
 
 describe('VocabularyTreeviewComponent test suite', () => {
 
@@ -147,7 +145,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
       comp.selectedItems = [currentValue.value];
       fixture.detectChanges();
       expect(comp.dataSource.data).toEqual([]);
-      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['testValue'], null);
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), null);
     });
 
     it('should should init component properly with init value as VocabularyEntry', () => {
@@ -159,7 +157,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
       comp.selectedItems = [currentValue.value];
       fixture.detectChanges();
       expect(comp.dataSource.data).toEqual([]);
-      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['testValue'], null);
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), null);
     });
 
     it('should call loadMore function', () => {

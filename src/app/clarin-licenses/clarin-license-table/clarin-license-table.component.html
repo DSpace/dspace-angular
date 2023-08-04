@@ -55,12 +55,12 @@
       </ds-pagination>
 
       <div class="mt-2">
-        <div class="btn-group">
+        <div class="btn-group pr-1">
           <div ngbDropdown class="input-group-prepend">
             <button id="resultdropdown" type="button"
                     ngbDropdownToggle
                     class="btn btn-success dropdown-toggle"
-                    data-toggle="dropdown" aria-haspopup="true"
+                    data-bs-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
               {{"clarin-license.button.define" | translate}}
             </button>
@@ -70,12 +70,12 @@
             </div>
           </div>
         </div>
-        <div class="btn-group">
+        <div class="btn-group pr-1">
           <button type="button" class="btn btn-warning" [disabled]="selectedLicense == null" (click)="openEditLicenseForm()">
             {{'clarin-license.button.edit-license' | translate}}
           </button>
         </div>
-        <div class="btn-group">
+        <div class="btn-group pr-1">
           <button type="button" class="btn btn-danger" [disabled]="selectedLicense == null" (click)="deleteLicense()">
             {{'clarin-license.button.delete-license' | translate}}
           </button>

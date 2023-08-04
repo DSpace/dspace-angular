@@ -38,7 +38,6 @@ export class SubmissionImportExternalCollectionComponent {
    * This method emits the selected Collection from the 'selectedEvent' variable.
    */
   public selectObject(object: CollectionListEntry): void {
-    this.loading = true;
     this.selectedEvent.emit(object);
   }
 

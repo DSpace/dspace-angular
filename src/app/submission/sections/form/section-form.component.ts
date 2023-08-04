@@ -34,6 +34,11 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { environment } from '../../../../environments/environment';
 import { ConfigObject } from '../../../core/config/models/config.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
+import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SPONSOR_METADATA_NAME } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-complex.model';
 import { AUTHOR_METADATA_FIELD_NAME } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/clarin-name.model';
 
@@ -122,6 +127,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    */
   public sponsorRefreshTimeout = 20;
 
+  protected submissionObject: SubmissionObject;
   /**
    * The FormComponent reference
    */
@@ -183,11 +189,10 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
             this.sectionService.isSectionReadOnly(this.submissionId, this.sectionData.id, this.submissionService.getSubmissionScope())
         ])),
       take(1))
-      .subscribe(([sectionData, submissionObject, isSectionReadOnly]: [WorkspaceitemSectionFormObject, SubmissionObject, boolean]) => {
+      .subscribe(([sectionData, submissionObject]: [WorkspaceitemSectionFormObject, SubmissionObject]) => {
         if (isUndefined(this.formModel)) {
           // this.sectionData.errorsToShow = [];
           this.submissionObject = submissionObject;
-          this.isSectionReadonly = isSectionReadOnly;
           // Is the first loading so init form
           this.initForm(sectionData);
           this.sectionData.data = sectionData;
@@ -234,9 +239,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
 
     const sectionDataToCheck = {};
     Object.keys(sectionData).forEach((key) => {
-      // todo: removing Relationships works due to a bug -- dspace.entity.type is included in sectionData, which is what triggers the update;
-      //       if we use this.sectionMetadata.includes(key), this field is filtered out and removed Relationships won't disappear from the form.
-      if (this.inCurrentSubmissionScope(key)) {
+      if (this.sectionMetadata && this.sectionMetadata.includes(key) && this.inCurrentSubmissionScope(key)) {
         sectionDataToCheck[key] = sectionData[key];
       }
     });
@@ -264,15 +267,9 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    * @private
    */
   private inCurrentSubmissionScope(field: string): boolean {
-    const scope = this.formConfig?.rows.find((row: FormRowModel) => {
-      if (row.fields?.[0]?.selectableMetadata) {
-        return row.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
-      } else if (row.fields?.[0]?.selectableRelationship) {
-        return row.fields?.[0]?.selectableRelationship.relationshipType === field.replace(/^relationship\./g, '');
-      } else {
-        return false;
-      }
-    })?.fields?.[0]?.scope;
+    const scope = this.formConfig?.rows.find(row => {
+      return row.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
+    }).fields?.[0]?.scope;
 
     switch (scope) {
       case SubmissionScopeType.WorkspaceItem: {

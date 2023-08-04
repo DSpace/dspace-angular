@@ -40,7 +40,6 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
     protected requestService: RequestService,
-    protected chd: ChangeDetectorRef
   ) {
     super(collectionDataService, router, route, notificationsService, translate);
   }

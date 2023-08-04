@@ -59,6 +59,7 @@ export class SubmissionSectionClarinLicenseDistributionComponent extends Submiss
       operationsBuilder,
       sectionService,
       submissionService,
+      translateService,
       injectedCollectionId,
       injectedSectionData,
       injectedSubmissionId);

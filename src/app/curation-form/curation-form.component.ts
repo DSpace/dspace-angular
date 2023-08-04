@@ -16,7 +16,6 @@ import { getProcessDetailRoute } from '../process-page/process-page-routing.path
 import { HandleService } from '../shared/handle.service';
 
 export const CURATION_CFG = 'plugin.named.org.dspace.curate.CurationTask';
-
 /**
  * Component responsible for rendering the Curation Task form
  */
@@ -41,8 +40,7 @@ export class CurationFormComponent implements OnDestroy, OnInit {
     private notificationsService: NotificationsService,
     private translateService: TranslateService,
     private handleService: HandleService,
-    private router: Router,
-    private cdr: ChangeDetectorRef
+    private router: Router
   ) {
   }
 
@@ -83,38 +81,30 @@ export class CurationFormComponent implements OnDestroy, OnInit {
     const taskName = this.form.get('task').value;
     let handle$: Observable<string | null>;
     if (this.hasHandleValue()) {
-      handle$ = this.handleService.normalizeHandle(this.dsoHandle).pipe(
-        map((handle: string | null) => {
-          if (isEmpty(handle)) {
-            this.notificationsService.error(this.translateService.get('curation.form.submit.error.head'),
-              this.translateService.get('curation.form.submit.error.invalid-handle'));
-          }
-          return handle;
-        }),
-      );
+      handle = this.handleService.normalizeHandle(this.dsoHandle);
+      if (isEmpty(handle)) {
+        this.notificationsService.error(this.translateService.get('curation.form.submit.error.head'),
+          this.translateService.get('curation.form.submit.error.invalid-handle'));
+        return;
+      }
     } else {
-      handle$ = this.handleService.normalizeHandle(this.form.get('handle').value).pipe(
-        map((handle: string | null) => isEmpty(handle) ? 'all' : handle),
-      );
+      handle = this.handleService.normalizeHandle(this.form.get('handle').value);
+      if (isEmpty(handle)) {
+        handle = 'all';
+      }
     }
 
-    this.subs.push(handle$.subscribe((handle: string) => {
-      if (hasValue(handle)) {
-        this.subs.push(this.scriptDataService.invoke('curate', [
-          { name: '-t', value: taskName },
-          { name: '-i', value: handle },
-        ], []).pipe(
-          getFirstCompletedRemoteData(),
-        ).subscribe((rd: RemoteData<Process>) => {
-          if (rd.hasSucceeded) {
-            this.notificationsService.success(this.translateService.get('curation.form.submit.success.head'),
-              this.translateService.get('curation.form.submit.success.content'));
-            void this.router.navigateByUrl(getProcessDetailRoute(rd.payload.processId));
-          } else {
-            this.notificationsService.error(this.translateService.get('curation.form.submit.error.head'),
-              this.translateService.get('curation.form.submit.error.content'));
-          }
-        }));
+    this.scriptDataService.invoke('curate', [
+      { name: '-t', value: taskName },
+      { name: '-i', value: handle },
+    ], []).pipe(getFirstCompletedRemoteData()).subscribe((rd: RemoteData<Process>) => {
+      if (rd.hasSucceeded) {
+        this.notificationsService.success(this.translateService.get('curation.form.submit.success.head'),
+          this.translateService.get('curation.form.submit.success.content'));
+        this.router.navigateByUrl(getProcessDetailRoute(rd.payload.processId));
+      } else {
+        this.notificationsService.error(this.translateService.get('curation.form.submit.error.head'),
+          this.translateService.get('curation.form.submit.error.content'));
       }
     }));
   }

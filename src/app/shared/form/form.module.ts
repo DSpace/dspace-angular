@@ -27,6 +27,19 @@ import { ExistingRelationListElementComponent } from './builder/ds-dynamic-form-
 import { ExternalSourceEntryImportModalComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
 import { CustomSwitchComponent } from './builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.component';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { ChipsComponent } from './chips/chips.component';
+import { NumberPickerComponent } from './number-picker/number-picker.component';
+import { AuthorityConfidenceStateDirective } from './directives/authority-confidence-state.directive';
+import { SortablejsModule } from 'ngx-sortablejs';
+import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
+import { VocabularyTreeviewService } from './vocabulary-treeview/vocabulary-treeview.service';
+import { FormBuilderService } from './builder/form-builder.service';
+import { DsDynamicTypeBindRelationService } from './builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import { FormService } from './form.service';
+import { NgxMaskModule } from 'ngx-mask';
+import { ThemedExternalSourceEntryImportModalComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
+import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { CdkTreeModule } from '@angular/cdk/tree';
 import { DsDynamicAutocompleteComponent } from './builder/ds-dynamic-form-ui/models/autocomplete/ds-dynamic-autocomplete.component';
 import { DsDynamicSponsorAutocompleteComponent } from './builder/ds-dynamic-form-ui/models/sponsor-autocomplete/ds-dynamic-sponsor-autocomplete.component';
 import { DsDynamicSponsorScrollableDropdownComponent } from './builder/ds-dynamic-form-ui/models/sponsor-scrollable-dropdown/dynamic-sponsor-scrollable-dropdown.component';
@@ -62,8 +75,7 @@ const COMPONENTS = [
   ChipsComponent,
   NumberPickerComponent,
   VocabularyTreeviewComponent,
-  VocabularyTreeviewModalComponent,
-  ThemedExternalSourceEntryImportModalComponent,
+  ThemedExternalSourceEntryImportModalComponent
 ];
 
 const DIRECTIVES = [
@@ -97,6 +109,7 @@ const DIRECTIVES = [
       provide: DYNAMIC_FORM_CONTROL_MAP_FN,
       useValue: dsDynamicFormControlMapFn
     },
+    VocabularyTreeviewService,
     DynamicFormLayoutService,
     DynamicFormService,
     DynamicFormValidationService,

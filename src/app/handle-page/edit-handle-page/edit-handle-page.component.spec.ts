@@ -1,4 +1,4 @@
-import {ComponentFixture, fakeAsync, TestBed, tick, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, TestBed } from '@angular/core/testing';
 import { EditHandlePageComponent } from './edit-handle-page.component';
 import { ActivatedRoute, convertToParamMap, Params, Router } from '@angular/router';
 import { PaginationService } from '../../core/pagination/pagination.service';
@@ -16,10 +16,10 @@ import { PatchRequest } from '../../core/data/request.models';
 import { Operation } from 'fast-json-patch';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import {Store} from '@ngrx/store';
-import {cold} from 'jasmine-marbles';
-import {RequestEntry} from '../../core/data/request.reducer';
-import {RestResponse} from '../../core/cache/response.models';
+import { Store } from '@ngrx/store';
+import { cold } from 'jasmine-marbles';
+import { RestResponse } from '../../core/cache/response.models';
+import { RequestEntry } from 'src/app/core/data/request-entry.model';
 
 /**
  * The test class for the EditHandlePageComponent which edit the Handle.
@@ -112,7 +112,7 @@ describe('EditHandlePageComponent', () => {
         { provide: NotificationsService, useValue: notificationServiceStub },
         {
           provide: Store, useValue: {
-            // tslint:disable-next-line:no-empty
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             dispatch: () => {
             }
           }

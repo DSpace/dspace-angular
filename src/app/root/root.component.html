@@ -1,7 +1,3 @@
-<button (click)="skipToMainContent()" class="btn btn-primary" id="skip-to-main-content">
-  {{ 'root.skip-to-content' | translate }}
-</button>
-
 <div class="outer-wrapper" [class.d-none]="shouldShowFullscreenLoader" [@slideSidebarPadding]="{
      value: (!(sidebarVisible | async) ? 'hidden' : (slideSidebarOver | async) ? 'shown' : 'expanded'),
      params: {collapsedSidebarWidth: (collapsedSidebarWidth | async), totalSidebarWidth: (totalSidebarWidth | async)}
@@ -10,8 +6,8 @@
   <div class="inner-wrapper">
     <ds-system-wide-alert-banner></ds-system-wide-alert-banner>
     <ds-themed-header-navbar-wrapper></ds-themed-header-navbar-wrapper>
-    <ds-themed-breadcrumbs></ds-themed-breadcrumbs>
-    <main class="my-cs" id="main-content">
+    <main class="main-content">
+      <ds-themed-breadcrumbs></ds-themed-breadcrumbs>
 
       <div class="container d-flex justify-content-center align-items-center h-100" *ngIf="shouldShowRouteLoader">
         <ds-themed-loading [showMessage]="false"></ds-themed-loading>

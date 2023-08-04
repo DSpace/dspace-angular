@@ -41,6 +41,8 @@ services:
       assetstore__P__s3__P__awsSecretKey: ${S3_SECRET:-}
       assetstore__P__s3__P__awsRegionName: ${S3_REGION_NAME:-}   
 
+      assetstore__P__s3__P__pathStyleAccessEnabled: ${S3_PATH_STYLE_ACCESS:-false}
+      assetstore__P__s3__P__endpoint: ${S3_ENDPOINT:-}
     volumes:
     - "assetstore:/dspace/assetstore"
     entrypoint: /dspace/bin/dspace

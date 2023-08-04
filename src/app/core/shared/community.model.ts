@@ -12,7 +12,6 @@ import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
 import { ChildHALResource } from './child-hal-resource.model';
 import { HandleObject } from './handle-object.model';
-import {excludeFromEquals} from '../utilities/equals.decorators';
 
 @typedObject
 @inheritSerialization(DSpaceObject)

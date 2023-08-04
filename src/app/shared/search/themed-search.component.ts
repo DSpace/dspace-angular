@@ -11,7 +11,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 
 /**
- * Themed wrapper for {@link SearchComponent}
+ * Themed wrapper for SearchComponent
  */
 @Component({
   selector: 'ds-themed-search',
@@ -19,57 +19,53 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
   templateUrl: '../theme-support/themed.component.html',
 })
 export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
-  protected inAndOutputNames: (keyof SearchComponent & keyof this)[] = ['configurationList', 'context', 'configuration', 'fixedFilterQuery', 'useCachedVersionIfAvailable', 'inPlaceSearch', 'linkType', 'paginationId', 'searchEnabled', 'sideBarWidth', 'searchFormPlaceholder', 'selectable', 'selectionConfig', 'showCsvExport', 'showSidebar', 'showThumbnails', 'showViewModes', 'useUniquePageId', 'viewModeList', 'showScopeSelector', 'resultFound', 'deselectObject', 'selectObject', 'trackStatistics', 'query'];
+  protected inAndOutputNames: (keyof SearchComponent & keyof this)[] = ['configurationList', 'context', 'configuration', 'fixedFilterQuery', 'useCachedVersionIfAvailable', 'inPlaceSearch', 'linkType', 'paginationId', 'searchEnabled', 'sideBarWidth', 'searchFormPlaceholder', 'selectable', 'selectionConfig', 'showCsvExport', 'showSidebar', 'showViewModes', 'useUniquePageId', 'viewModeList', 'showScopeSelector', 'resultFound', 'deselectObject', 'selectObject', 'trackStatistics'];
 
-  @Input() configurationList: SearchConfigurationOption[];
+  @Input() configurationList: SearchConfigurationOption[] = [];
 
-  @Input() context: Context;
+  @Input() context: Context = Context.Search;
 
-  @Input() configuration: string;
+  @Input() configuration = 'default';
 
   @Input() fixedFilterQuery: string;
 
-  @Input() useCachedVersionIfAvailable: boolean;
+  @Input() useCachedVersionIfAvailable = true;
 
-  @Input() inPlaceSearch: boolean;
+  @Input() inPlaceSearch = true;
 
   @Input() linkType: CollectionElementLinkType;
 
-  @Input() paginationId: string;
+  @Input() paginationId = 'spc';
 
-  @Input() searchEnabled: boolean;
+  @Input() searchEnabled = true;
 
-  @Input() sideBarWidth: number;
+  @Input() sideBarWidth = 3;
 
-  @Input() searchFormPlaceholder: string;
+  @Input() searchFormPlaceholder = 'search.search-form.placeholder';
 
-  @Input() selectable: boolean;
+  @Input() selectable = false;
 
   @Input() selectionConfig: SelectionConfig;
 
-  @Input() showCsvExport: boolean;
+  @Input() showCsvExport = false;
 
-  @Input() showSidebar: boolean;
+  @Input() showSidebar = true;
 
-  @Input() showThumbnails;
+  @Input() showViewModes = true;
 
-  @Input() showViewModes: boolean;
-
-  @Input() useUniquePageId: boolean;
+  @Input() useUniquePageId: false;
 
   @Input() viewModeList: ViewMode[];
 
-  @Input() showScopeSelector: boolean;
+  @Input() showScopeSelector = true;
 
-  @Input() trackStatistics: boolean;
+  @Input() trackStatistics = false;
 
-  @Input() query: string;
+  @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter<SearchObjects<DSpaceObject>>();
 
-  @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter();
+  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
-  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter();
-
-  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter();
+  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   protected getComponentName(): string {
     return 'SearchComponent';

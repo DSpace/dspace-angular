@@ -67,7 +67,6 @@ describe('CollectionMetadataComponent', () => {
         { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: RequestService, useValue: requestService },
-        { provide: Router, useValue: routerMock}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

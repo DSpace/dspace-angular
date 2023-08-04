@@ -7,8 +7,11 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { debounceTime, distinctUntilChanged, switchMap, take } from 'rxjs/operators';
 import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../core/shared/operators';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { getHandleTableModulePath } from '../../app-routing-paths';
-import { HANDLE_TABLE_EDIT_HANDLE_PATH, HANDLE_TABLE_NEW_HANDLE_PATH } from '../handle-page-routing-paths';
+import {
+  getHandleTableModulePath,
+  HANDLE_TABLE_EDIT_HANDLE_PATH,
+  HANDLE_TABLE_NEW_HANDLE_PATH
+} from '../handle-page-routing-paths';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { Router } from '@angular/router';
 import { DeleteRequest } from '../../core/data/request.models';
@@ -351,8 +354,6 @@ export class HandleTableComponent implements OnInit {
    */
   setSearchOption(event) {
     this.searchOption = event?.target?.innerHTML;
-    this.searchInput.nativeElement.value = '';
-    this.searchHandles('');
   }
 
   /**

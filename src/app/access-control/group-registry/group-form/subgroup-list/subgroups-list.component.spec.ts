@@ -79,9 +79,12 @@ describe('SubgroupsListComponent', () => {
       getSubgroups(): Group {
         return this.subgroups;
       },
-      // This method is used to get all the current subgroups
-      findListByHref(_href: string): Observable<RemoteData<PaginatedList<Group>>> {
-        return createSuccessfulRemoteDataObject$(buildPaginatedList<Group>(new PageInfo(), groupsDataServiceStub.getSubgroups()));
+      findListByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
+        return this.subgroups$.pipe(
+          map((currentGroups: Group[]) => {
+            return createSuccessfulRemoteDataObject(buildPaginatedList<Group>(new PageInfo(), currentGroups));
+          })
+        );
       },
       getGroupEditPageRouterLink(group: Group): string {
         return '/access-control/groups/' + group.id;

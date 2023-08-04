@@ -141,8 +141,8 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     );
 
     // Perform the setup actions from above in order and display notifications
-    removedResponses$.subscribe((responses: RemoteData<NoContent>) => {
-      this.displayNotifications('item.edit.bitstreams.notifications.remove', [responses]);
+    removedResponses$.pipe(take(1)).subscribe((responses: RemoteData<NoContent>[]) => {
+      this.displayNotifications('item.edit.bitstreams.notifications.remove', responses);
       this.submitting = false;
     });
   }

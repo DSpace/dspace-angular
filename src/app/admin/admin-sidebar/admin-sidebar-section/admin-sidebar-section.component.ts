@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
  * Represents a non-expandable section in the admin sidebar
  */
 @Component({
-  selector: 'ds-admin-sidebar-section',
+  /* eslint-disable @angular-eslint/component-selector */
+  selector: 'li[ds-admin-sidebar-section]',
   templateUrl: './admin-sidebar-section.component.html',
   styleUrls: ['./admin-sidebar-section.component.scss'],
 

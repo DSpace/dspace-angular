@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+// noinspection AngularMissingOrInvalidDeclarationInModule
+
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ds-dtq-test-example',

@@ -220,9 +220,6 @@ languages:
   - code: tr
     label: Türkçe
     active: true
-  - code: vi
-    label: Tiếng Việt
-    active: true
   - code: kk
     label: Қазақ
     active: true
@@ -234,9 +231,6 @@ languages:
     active: true
   - code: el
     label: Ελληνικά
-    active: true
-  - code: sr-cyr
-    label: Српски
     active: true
   - code: uk
     label: Yкраї́нська
@@ -381,8 +375,3 @@ vocabularies:
   - filter: 'subject'
     vocabulary: 'srsc'
     enabled: true
-
-# Default collection/community sorting order at Advanced search, Create/update community and collection when there are not a query. 
-comcolSelectionSort:
-  sortField: 'dc.title'
-  sortDirection: 'ASC'

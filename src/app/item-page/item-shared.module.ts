@@ -13,9 +13,6 @@ import { MetadataValuesComponent } from './field-components/metadata-values/meta
 import { GenericItemPageFieldComponent } from './simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { MetadataRepresentationListComponent } from './simple/metadata-representation-list/metadata-representation-list.component';
 import { RelatedItemsComponent } from './simple/related-items/related-items-component';
-import {
-  ThemedMetadataRepresentationListComponent
-} from './simple/metadata-representation-list/themed-metadata-representation-list.component';
 
 const ENTRY_COMPONENTS = [
   ItemVersionsDeleteModalComponent,
@@ -30,7 +27,6 @@ const COMPONENTS = [
   MetadataValuesComponent,
   GenericItemPageFieldComponent,
   MetadataRepresentationListComponent,
-  ThemedMetadataRepresentationListComponent,
   RelatedItemsComponent,
 ];
 

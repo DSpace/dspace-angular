@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 /**
@@ -9,7 +9,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './clarin-ref-citation-modal.component.html',
   styleUrls: ['./clarin-ref-citation-modal.component.scss']
 })
-export class ClarinRefCitationModalComponent implements OnInit {
+export class ClarinRefCitationModalComponent {
 
   constructor(public activeModal: NgbActiveModal) {
   }
@@ -30,10 +30,6 @@ export class ClarinRefCitationModalComponent implements OnInit {
    */
   @Input()
   citationText = '';
-
-  // tslint:disable-next-line:no-empty
-  ngOnInit(): void {
-  }
 
   selectContent() {
     this.citationContentRef?.nativeElement?.select();

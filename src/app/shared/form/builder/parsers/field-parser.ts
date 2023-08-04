@@ -2,8 +2,13 @@ import { SectionVisibility } from './../../../../submission/objects/section-visi
 import { VisibilityType } from './../../../../submission/sections/visibility-type';
 import { Inject, InjectionToken } from '@angular/core';
 
-import { uniqueId } from 'lodash';
-import {DynamicFormControlLayout, DynamicFormControlRelation, MATCH_VISIBLE, OR_OPERATOR} from '@ng-dynamic-forms/core';
+import uniqueId from 'lodash/uniqueId';
+import {
+  DynamicFormControlLayout,
+  DynamicFormControlRelation,
+  MATCH_VISIBLE,
+  OR_OPERATOR
+} from '@ng-dynamic-forms/core';
 
 import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
@@ -333,6 +338,7 @@ export abstract class FieldParser {
    * fields in type bind, made up of a 'match' outcome (make this field visible), an 'operator'
    * (OR) and a 'when' condition (the bindValues array).
    * @param configuredTypeBindValues  array of types from the submission definition (CONFIG_DATA)
+   * @param typeField
    * @private
    * @return DynamicFormControlRelation[] array with one relation in it, for type bind matching to show a field
    */

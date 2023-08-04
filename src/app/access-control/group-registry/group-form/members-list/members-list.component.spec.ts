@@ -50,9 +50,8 @@ describe('MembersListComponent', () => {
     ePersonDataServiceStub = {
       activeGroup: activeGroup,
       epersonMembers: epersonMembers,
-      epersonNonMembers: epersonNonMembers,
-      // This method is used to get all the current members
-      findListByHref(_href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
+      subgroupMembers: subgroupMembers,
+      findListByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
         return createSuccessfulRemoteDataObject$(buildPaginatedList<EPerson>(new PageInfo(), groupsDataServiceStub.getEPersonMembers()));
       },
       // This method is used to search across *non-members*

@@ -13,7 +13,6 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
-import { Context } from '../../../../core/shared/context.model';
 
 let component: ItemSearchResultListElementSubmissionComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementSubmissionComponent>;

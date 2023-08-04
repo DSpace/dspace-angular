@@ -11,7 +11,7 @@ import { combineLatest as observableCombineLatest, Observable, of as observableO
 import { getBitstreamDownloadRoute, getForbiddenRoute } from '../../../app-routing-paths';
 import { TranslateService } from '@ngx-translate/core';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ItemRequestDataService } from '../../../core/data/item-request-data.service';
 import { ItemRequest } from '../../../core/shared/item-request.model';
 import { Item } from '../../../core/shared/item.model';

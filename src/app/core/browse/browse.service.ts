@@ -23,7 +23,6 @@ import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { BrowseDefinitionDataService } from './browse-definition-data.service';
-import { SortDirection } from '../cache/models/sort-options.model';
 
 
 export const BROWSE_LINKS_TO_FOLLOW: FollowLinkConfig<BrowseEntry | Item>[] = [

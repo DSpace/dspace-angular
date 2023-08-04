@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import { Component, OnInit } from '@angular/core';
 import { map, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +16,6 @@ import { FacetValue } from '../shared/search/models/facet-value.model';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { Item } from '../core/shared/item.model';
-import { UsageReportService } from '../core/statistics/usage-report-data.service';
 import { SiteDataService } from '../core/data/site-data.service';
 import { UsageReport } from '../core/statistics/models/usage-report.model';
 import { ItemDataService } from '../core/data/item-data.service';
@@ -27,6 +27,9 @@ import { SearchObjects } from '../shared/search/models/search-objects.model';
 /**
  * The home page component customized for the CLARIN-DSpace.
  */
+import { environment } from '../../environments/environment';
+import { UsageReportDataService } from '../core/statistics/usage-report-data.service';
+import { isUndefined } from '../shared/empty.util';
 @Component({
   selector: 'ds-home-page',
   styleUrls: ['./home-page.component.scss'],
@@ -42,6 +45,7 @@ export class HomePageComponent implements OnInit {
   ];
 
   site$: Observable<Site>;
+  recentSubmissionspageSize: number;
 
   authors$: BehaviorSubject<FastSearchLink[]> = new BehaviorSubject<FastSearchLink[]>([]);
   subjects$: BehaviorSubject<FastSearchLink[]> = new BehaviorSubject<FastSearchLink[]>([]);
@@ -59,11 +63,12 @@ export class HomePageComponent implements OnInit {
     protected searchService: SearchService,
     protected halService: HALEndpointService,
     protected configurationService: ConfigurationDataService,
-    protected usageReportService: UsageReportService,
+    protected usageReportService: UsageReportDataService,
     protected siteService: SiteDataService,
     protected itemService: ItemDataService,
     protected router: Router
   ) {
+    this.recentSubmissionspageSize = environment.homePage.recentSubmissions.pageSize;
     config.interval = 5000;
     config.keyboard = false;
     config.showNavigationArrows = false;
@@ -128,12 +133,15 @@ export class HomePageComponent implements OnInit {
       .then((usageReports: UsageReport[]) => {
         const usageReport = usageReports?.[0];
         for (let i = 0; i < maxTopItemsCount; i++) {
-          top3ItemsId.push(usageReport.points?.[i].id);
+          top3ItemsId.push(usageReport.points?.[i]?.id);
         }
       });
 
     this.topItems$ = new BehaviorSubject<Item[]>([]);
     for (let i = 0; i < maxTopItemsCount; i++) {
+      if (isUndefined(top3ItemsId?.[i])) {
+        return;
+      }
       this.itemService.findById(top3ItemsId?.[i], false)
         .pipe(getFirstSucceededRemoteDataPayload())
         .subscribe((item: Item) => {

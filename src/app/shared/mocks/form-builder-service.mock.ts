@@ -19,6 +19,7 @@ export function getMockFormBuilderService(): FormBuilderService {
     isQualdropGroup: false,
     isModelInCustomGroup: true,
     isRelationGroup: true,
+    isConcatGroup: false,
     hasArrayGroupValue: true,
     getTypeBindModel: new DsDynamicInputModel({
         name: 'dc.type',

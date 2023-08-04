@@ -4,7 +4,7 @@ import { Collection } from './core/shared/collection.model';
 import { Item } from './core/shared/item.model';
 import { getCommunityPageRoute } from './community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from './collection-page/collection-page-routing-paths';
-import {getItemModuleRoute, getItemPageRoute} from './item-page/item-page-routing-paths';
+import { getItemModuleRoute, getItemPageRoute } from './item-page/item-page-routing-paths';
 import { hasValue } from './shared/empty.util';
 import { URLCombiner } from './core/url-combiner/url-combiner';
 
@@ -135,7 +135,10 @@ export function getLicenseContractPagePath() {
   return `/${CONTRACT_PAGE_MODULE_PATH}`;
 }
 
-export const HANDLE_TABLE_MODULE_PATH = 'handle-table';
-export function getHandleTableModulePath() {
-  return `/${HANDLE_TABLE_MODULE_PATH}`;
+export const HEALTH_PAGE_PATH = 'health';
+
+export const SUBSCRIPTIONS_MODULE_PATH = 'subscriptions';
+
+export function getSubscriptionsModuleRoute() {
+  return `/${SUBSCRIPTIONS_MODULE_PATH}`;
 }

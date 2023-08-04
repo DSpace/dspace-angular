@@ -14,7 +14,6 @@ import { getMockFormOperationsService } from '../../../shared/mocks/form-operati
 import { FormService } from '../../../shared/form/form.service';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { SectionsService } from '../sections.service';
@@ -29,6 +28,7 @@ import { SectionDataObject } from '../models/section-data.model';
 import { SectionsType } from '../sections-type';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { of as observableOf, of } from 'rxjs';
+import { SubmissionFormsConfigDataService } from 'src/app/core/config/submission-forms-config-data.service';
 
 const collectionId = mockSubmissionCollectionId;
 const licenseText = 'License text';
@@ -45,7 +45,7 @@ const mockCollection = Object.assign(new Collection(), {
   license: createSuccessfulRemoteDataObject$(Object.assign(new License(), { text: licenseText }))
 });
 
-function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
+function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('FormOperationsService', {
     getConfigAll: jasmine.createSpy('getConfigAll'),
     getConfigByHref: jasmine.createSpy('getConfigByHref'),
@@ -111,7 +111,7 @@ describe('SubmissionSectionClarinLicenseDistributionComponent', () => {
         { provide: SectionFormOperationsService, useValue: getMockFormOperationsService() },
         { provide: FormService, useValue: getMockFormService() },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
-        { provide: SubmissionFormsConfigService, useValue: getMockSubmissionFormsConfigService() },
+        { provide: SubmissionFormsConfigDataService, useValue: getMockSubmissionFormsConfigService() },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },

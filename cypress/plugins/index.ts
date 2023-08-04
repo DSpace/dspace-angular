@@ -19,16 +19,17 @@ module.exports = (on, config) => {
         // Instead, we'll read our running application's config.json, which contains the configs &
         // is regenerated at runtime each time the Angular UI application starts up.
         readUIConfig() {
-          // Check if we have a config.json in the src/assets. If so, use that.
-          // This is where it's written when running "ng e2e" or "yarn serve"
-          if (fs.existsSync('./src/assets/config.json')) {
-            return fs.readFileSync('./src/assets/config.json', 'utf8');
+            // Check if we have a config.json in the src/assets. If so, use that.
+            // This is where it's written when running "ng e2e" or "yarn serve"
+            if (fs.existsSync('./src/assets/config.json')) {
+                return fs.readFileSync('./src/assets/config.json', 'utf8');
             // Otherwise, check the dist/browser/assets
             // This is where it's written when running "serve:ssr", which is what CI uses to start the frontend
-          } else if (fs.existsSync('./dist/browser/assets/config.json')) {
-            return fs.readFileSync('./dist/browser/assets/config.json', 'utf8');
-          }
-          return null;
+            } else if (fs.existsSync('./dist/browser/assets/config.json')) {
+                return fs.readFileSync('./dist/browser/assets/config.json', 'utf8');
+            }
+
+            return null;
         }
     });
 };

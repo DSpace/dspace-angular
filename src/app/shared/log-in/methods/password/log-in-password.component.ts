@@ -15,9 +15,6 @@ import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { CoreState } from '../../../../core/core-state.model';
-import { getForgotPasswordRoute, getRegisterRoute } from '../../../../app-routing-paths';
-import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 
 /**
  * /users/sign-in

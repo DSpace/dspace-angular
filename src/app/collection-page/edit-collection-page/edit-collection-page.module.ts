@@ -30,7 +30,6 @@ import { AccessControlFormModule } from '../../shared/access-control-form-contai
     ResourcePoliciesModule,
     FormModule,
     ComcolModule,
-    AccessControlFormModule,
   ],
   declarations: [
     EditCollectionPageComponent,

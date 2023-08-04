@@ -10,7 +10,6 @@ import { WorkflowItem } from '../../../../core/submission/models/workflowitem.mo
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { followLink } from '../../../utils/follow-link-config.model';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component represents a badge with submitter information.
@@ -32,10 +31,8 @@ export class ItemSubmitterComponent implements OnInit {
    */
   submitter$: Observable<EPerson>;
 
-  public constructor(
-    public dsoNameService: DSONameService,
-    protected linkService: LinkService,
-  ) {
+  public constructor(protected linkService: LinkService) {
+
   }
 
   /**

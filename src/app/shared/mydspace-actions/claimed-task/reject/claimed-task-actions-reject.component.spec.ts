@@ -63,7 +63,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
-        UntypedFormBuilder,
+        FormBuilder,
         NgbModal,
       ],
       schemas: [NO_ERRORS_SCHEMA]

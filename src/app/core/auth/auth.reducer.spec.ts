@@ -215,27 +215,6 @@ describe('authReducer', () => {
       loaded: false,
       blocking: false,
       loading: true,
-      idle: false
-    };
-    expect(newState).toEqual(state);
-  });
-
-  it('should set the authentication cookie status in response to a SET_AUTH_COOKIE_STATUS action', () => {
-    initialState = {
-      authenticated: true,
-      loaded: false,
-      blocking: false,
-      loading: true,
-      externalAuth: false,
-      idle: false
-    };
-    const action = new SetAuthCookieStatus(true);
-    const newState = authReducer(initialState, action);
-    state = {
-      authenticated: true,
-      loaded: false,
-      blocking: false,
-      loading: true,
       externalAuth: true,
       idle: false
     };

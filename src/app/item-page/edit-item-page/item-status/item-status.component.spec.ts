@@ -16,7 +16,6 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { IdentifierDataService } from '../../../core/data/identifier-data.service';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 
 let mockIdentifierDataService: IdentifierDataService;
 let mockConfigurationDataService: ConfigurationDataService;
@@ -78,8 +77,7 @@ describe('ItemStatusComponent', () => {
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: IdentifierDataService, useValue: mockIdentifierDataService },
-        { provide: ConfigurationDataService, useValue: mockConfigurationDataService },
-        { provide: OrcidAuthService, useValue: orcidAuthService },
+        { provide: ConfigurationDataService, useValue: mockConfigurationDataService }
       ], schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));

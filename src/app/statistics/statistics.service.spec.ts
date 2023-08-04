@@ -26,7 +26,7 @@ describe('StatisticsService', () => {
 
     it('should send a request to track an item view ', () => {
       const mockItem: any = {uuid: 'mock-item-uuid', type: 'item'};
-      service.trackViewEvent(mockItem, 'https://www.referrer.com');
+      service.trackViewEvent(mockItem);
       const request: RestRequest = requestService.send.calls.mostRecent().args[0];
       expect(request.body).toBeDefined('request.body');
       const body = JSON.parse(request.body);

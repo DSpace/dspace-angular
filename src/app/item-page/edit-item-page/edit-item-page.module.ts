@@ -38,8 +38,6 @@ import { IdentifierDataService } from '../../core/data/identifier-data.service';
 import { IdentifierDataComponent } from '../../shared/object-list/identifier-data/identifier-data.component';
 import { ItemRegisterDoiComponent } from './item-register-doi/item-register-doi.component';
 import { DsoSharedModule } from '../../dso-shared/dso-shared.module';
-import { ItemCurateComponent } from './item-curate/item-curate.component';
-import { ThemedItemStatusComponent } from './item-status/themed-item-status.component';
 
 import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
 import { ResultsBackButtonModule } from '../../shared/results-back-button/results-back-button.module';
@@ -62,8 +60,6 @@ import {
     NgbModule,
     ItemVersionsModule,
     DsoSharedModule,
-    ResultsBackButtonModule,
-    AccessControlFormModule,
   ],
   declarations: [
     EditItemPageComponent,
@@ -76,7 +72,6 @@ import {
     ItemPublicComponent,
     ItemDeleteComponent,
     ItemStatusComponent,
-    ThemedItemStatusComponent,
     ItemRelationshipsComponent,
     ItemBitstreamsComponent,
     ItemVersionHistoryComponent,
@@ -91,18 +86,13 @@ import {
     VirtualMetadataComponent,
     ItemAuthorizationsComponent,
     IdentifierDataComponent,
-    ItemRegisterDoiComponent,
-    ItemCurateComponent,
-    ItemAccessControlComponent,
+    ItemRegisterDoiComponent
   ],
   providers: [
     BundleDataService,
     IdentifierDataService,
     ObjectValuesPipe
   ],
-  exports: [
-    ItemOperationComponent,
-  ]
 })
 export class EditItemPageModule {
 

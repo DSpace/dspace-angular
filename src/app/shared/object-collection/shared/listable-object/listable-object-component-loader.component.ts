@@ -2,6 +2,7 @@ import {
   ChangeDetectorRef,
   Component,
   ComponentRef,
+  ElementRef,
   EventEmitter,
   Input,
   OnChanges,
@@ -12,7 +13,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { Subscription, combineLatest, of as observableOf, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { ListableObject } from '../listable-object.model';
@@ -22,7 +23,7 @@ import { getListableObjectComponent } from './listable-object.decorator';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ListableObjectDirective } from './listable-object.directive';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
-import { hasValue, isNotEmpty, hasNoValue } from '../../../empty.util';
+import { hasValue, isNotEmpty } from '../../../empty.util';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { ThemeService } from '../../../theme-support/theme.service';
 
@@ -86,6 +87,12 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
   @ViewChild(ListableObjectDirective, { static: true }) listableObjectDirective: ListableObjectDirective;
 
   /**
+   * View on the badges template, to be passed on to the loaded component (which will place the badges in the desired
+   * location, or on top if not specified)
+   */
+  @ViewChild('badges', { static: true }) badges: ElementRef;
+
+  /**
    * Emit when the listable object has been reloaded.
    */
   @Output() contentChange = new EventEmitter<ListableObject>();
@@ -110,7 +117,6 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
     'linkType',
     'listID',
     'showLabel',
-    'showThumbnails',
     'context',
     'viewMode',
     'value',
@@ -163,25 +169,23 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
     this.compRef = viewContainerRef.createComponent(
       component, {
         index: 0,
-        injector: undefined
+        injector: undefined,
+        projectableNodes: [
+          [this.badges.nativeElement],
+        ]
       }
     );
 
-    if (hasValue(changes)) {
-      this.ngOnChanges(changes);
-    } else {
-      this.connectInputsAndOutputs();
-    }
+    this.connectInputsAndOutputs();
 
     if ((this.compRef.instance as any).reloadedObject) {
-      combineLatest([
-        observableOf(changes),
-        (this.compRef.instance as any).reloadedObject.pipe(take(1)) as Observable<DSpaceObject>,
-      ]).subscribe(([simpleChanges, reloadedObject]: [SimpleChanges, DSpaceObject]) => {
+      (this.compRef.instance as any).reloadedObject.pipe(
+        take(1)
+      ).subscribe((reloadedObject: DSpaceObject) => {
         if (reloadedObject) {
           this.compRef.destroy();
           this.object = reloadedObject;
-          this.instantiateComponent(reloadedObject, simpleChanges);
+          this.instantiateComponent(reloadedObject);
           this.cdr.detectChanges();
           this.contentChange.emit(reloadedObject);
         }

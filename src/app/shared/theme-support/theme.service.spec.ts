@@ -24,8 +24,6 @@ import { ROUTER_NAVIGATED } from '@ngrx/router-store';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { RouterMock } from '../mocks/router.mock';
-import { ConfigurationDataServiceStub } from '../testing/configuration-data.service.stub';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 
 /**
  * LinkService able to mock recursively resolving DSO parent links
@@ -100,7 +98,6 @@ describe('ThemeService', () => {
         provideMockActions(() => mockActions),
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: Router, useValue: new RouterMock() },
-        { provide: ConfigurationDataService, useValue: configurationService },
       ]
     });
 
@@ -401,7 +398,6 @@ describe('ThemeService', () => {
       const mockDsoService = {
         findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
       };
-      configurationService = new ConfigurationDataServiceStub();
 
       TestBed.configureTestingModule({
         imports: [
@@ -413,7 +409,6 @@ describe('ThemeService', () => {
           provideMockStore({ initialState }),
           { provide: DSpaceObjectDataService, useValue: mockDsoService },
           { provide: Router, useValue: new RouterMock() },
-          { provide: ConfigurationDataService, useValue: configurationService },
         ]
       });
 

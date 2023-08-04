@@ -1,17 +1,17 @@
 import { ResourceType } from '../../shared/resource-type';
 import { Injectable } from '@angular/core';
-import { dataService } from '../../cache/builders/build-decorators';
-import { DataService } from '../data.service';
 import { RequestService } from '../request.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../../core.reducers';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { DefaultChangeAnalyzer } from '../default-change-analyzer.service';
 import { HttpClient } from '@angular/common/http';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ClruaModel } from '../../shared/clarin/clrua.model';
+import { dataService } from '../base/data-service.decorator';
+import { BaseDataService } from '../base/base-data.service';
+import { CoreState } from '../../core-state.model';
 
 export const linkName = 'clarinlruallowances';
 export const AUTOCOMPLETE = new ResourceType(linkName);
@@ -21,7 +21,7 @@ export const AUTOCOMPLETE = new ResourceType(linkName);
  */
 @Injectable()
 @dataService(ClruaModel.type)
-export class ClruaDataService extends DataService<ClruaModel> {
+export class ClruaDataService extends BaseDataService<ClruaModel> {
   protected linkPath = linkName;
 
   constructor(
@@ -34,6 +34,6 @@ export class ClruaDataService extends DataService<ClruaModel> {
     protected http: HttpClient,
     protected notificationsService: NotificationsService,
   ) {
-    super();
+    super(linkName, requestService, rdbService, objectCache, halService, undefined);
   }
 }

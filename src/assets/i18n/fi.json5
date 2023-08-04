@@ -191,6 +191,8 @@
 
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Nimi",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.id" : "ID",
 
   // "admin.registries.bitstream-formats.table.id": "ID",
   "admin.registries.bitstream-formats.table.id": "ID",
@@ -269,6 +271,8 @@
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Kenttä",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.id" : "ID",
 
   // "admin.registries.schema.fields.table.id": "ID",
   "admin.registries.schema.fields.table.id": "ID",
@@ -779,6 +783,9 @@
 
   // "administrativeView.search.results.head": "Administrative Search",
   "administrativeView.search.results.head": "Ylläpitäjän haku",
+
+
+
 
   // "admin.workflow.breadcrumbs": "Administer Workflow",
   "admin.workflow.breadcrumbs": "Hallinnoi työnkulkua",
@@ -3397,7 +3404,7 @@
   "item.edit.tabs.status.buttons.unauthorized": "Sinulla ei ole valtuuksia suorittaa tätä toimintoa",
 
   // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
-  "item.edit.tabs.status.buttons.withdraw.button": "Poista tämä kohde",
+  "item.edit.tabs.status.buttons.withdraw.button": "poista tämä kohde",
 
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
   "item.edit.tabs.status.buttons.withdraw.label": "Poista tietue käytöstä",
@@ -4167,6 +4174,8 @@
   // "menu.section.admin_search": "Admin Search",
   "menu.section.admin_search": "Ylläpitäjän haku",
 
+
+
   // "menu.section.browse_community": "This Community",
   "menu.section.browse_community": "Tämä yhteisö",
 
@@ -4370,9 +4379,6 @@
 
   // "menu.section.workflow": "Administer Workflow",
   "menu.section.workflow": "Hallinnoi työnkulkua",
-
-  // "metadata-export-search.tooltip": "Export search results as CSV",
-  "metadata-export-search.tooltip": "Eksportoi Hakutulokset CSV-tiedostona",
 
   // "metadata-export-search.submit.success": "The export was started successfully",
   "metadata-export-search.submit.success": "Eksportointi aloitettu",
@@ -5511,10 +5517,7 @@
   // "search.filters.filter.dateSubmitted.placeholder": "Date submitted",
   "search.filters.filter.dateSubmitted.placeholder": "Tallennnusajankohta",
 
-  // "search.filters.filter.dateSubmitted.label": "Search date submitted",
-  "search.filters.filter.dateSubmitted.label": "Hakupäivä lähetetty",
-
-  // "search.filters.filter.discoverable.head": "Non-discoverable",
+  // "search.filters.filter.discoverable.head": "Private",
   "search.filters.filter.discoverable.head": "Yksityinen",
 
   // "search.filters.filter.withdrawn.head": "Withdrawn",
@@ -6652,7 +6655,7 @@
   "submission.sections.upload.header.policy.default.withlist": "Yksittäisten tiedostojen pääsyrajoitusten lisäksi {{collectionName}}-kokoelmaan ladatut tiedostot ovat seuraavien ryhmien saatavilla:",
 
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
-  "submission.sections.upload.info": "Tietueen kaikki tiedostot on lueteltu tässä. Voit päivittää tiedoston metadataa ja pääsyehtoja tai <strong>ladata lisää tiedostoja raahaamalla ne mihin hyvänsä sivun kohtaan.</strong>",
+  "submission.sections.upload.info": "Tietueen kaikki tiedostot on lueteltu tässä. Voit päivittää tiedoston metadataa ja pääsyehtoja tai <strong>ladata lisää tiedostoja raahaamalla ne mihin hyvänsä sivun kohtaan</strong>",
 
   // "submission.sections.upload.no-entry": "No",
   "submission.sections.upload.no-entry": "Ei",
@@ -7084,7 +7087,8 @@
   "uploader.or": " tai",
 
   // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
-  "uploader.processing": "Käsitellään ladattuja tiedostoja... (voit sulkea tämän sivun)",
+  // TODO Source message changed - Revise the translation
+  "uploader.processing": "Käsitellään",
 
   // "uploader.queue-length": "Queue length",
   "uploader.queue-length": "Jonon pituus",
@@ -7106,9 +7110,6 @@
 
   // "workflowAdmin.search.results.head": "Administer Workflow",
   "workflowAdmin.search.results.head": "Hallinnoi työnkulkua",
-
-  // "workflow.search.results.head": "Workflow tasks",
-  "workflow.search.results.head": "Työnkulun tehtävät",
 
   // "supervision.search.results.head": "Workflow and Workspace tasks",
   "supervision.search.results.head": "Työnkulun ja työtilan tehtävät",

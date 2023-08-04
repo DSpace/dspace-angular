@@ -2,16 +2,16 @@
 <ng-container [formGroup]="group">
 
   <div role="group" [formGroupName]="model.id"
-       [id]="id"
-       [class.d-none]="model.hidden"
-       [ngClass]="getClass('element','control')">
-    <ds-dynamic-form-control-container *ngFor="let _model of model.group"
+                    [id]="id"
+                    [class.d-none]="model.hidden"
+                    [ngClass]="getClass('element','control')">
+     <ds-dynamic-form-control-container *ngFor="let _model of model.group"
                                        [formGroup]="group"
                                        [formModel]="formModel"
                                        [group]="control"
                                        [hasErrorMessaging]="model.hasErrorMessages"
                                        [hidden]="_model.hidden"
-                                       [class.d-none]="_model.hidden"
+                                        [class.d-none]="_model.hidden"
                                        [layout]="formLayout"
                                        [model]="_model"
                                        [templates]="templates"

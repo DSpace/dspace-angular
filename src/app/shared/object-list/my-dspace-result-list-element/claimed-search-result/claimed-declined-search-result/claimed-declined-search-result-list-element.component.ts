@@ -14,7 +14,6 @@ import { ClaimedTaskSearchResult } from '../../../../object-collection/shared/cl
 import { ClaimedTask } from '../../../../../core/tasks/models/claimed-task-object.model';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
-import { Context } from '../../../../../core/shared/context.model';
 
 /**
  * This component renders claimed task declined object for the search result in the list view.
@@ -45,7 +44,7 @@ export class ClaimedDeclinedSearchResultListElementComponent extends SearchResul
   public constructor(
     protected linkService: LinkService,
     protected truncatableService: TruncatableService,
-    public dsoNameService: DSONameService,
+    protected dsoNameService: DSONameService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
     super(truncatableService, dsoNameService, appConfig);

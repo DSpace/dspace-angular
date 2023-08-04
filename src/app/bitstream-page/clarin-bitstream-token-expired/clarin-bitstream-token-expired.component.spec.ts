@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { ClarinBitstreamTokenExpiredComponent } from './clarin-bitstream-token-expired.component';
 
 describe('ClarinBitstreamTokenExpiredComponent', () => {

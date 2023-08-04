@@ -1,13 +1,14 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { ObjectListComponent } from './object-list.component';
 import { ThemedComponent } from '../theme-support/themed.component';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { Context } from '../../core/shared/context.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
+import {ViewMode} from '../../core/shared/view-mode.model';
+import {PaginationComponentOptions} from '../pagination/pagination-component-options.model';
+import {SortDirection, SortOptions} from '../../core/cache/models/sort-options.model';
+import {CollectionElementLinkType} from '../object-collection/collection-element-link.type';
+import {Context} from '../../core/shared/context.model';
+import {RemoteData} from '../../core/data/remote-data';
+import {PaginatedList} from '../../core/data/paginated-list.model';
+import {ListableObject} from '../object-collection/shared/listable-object.model';
 
 /**
  * Themed wrapper for ObjectListComponent
@@ -18,6 +19,10 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
   templateUrl: '../theme-support/themed.component.html',
 })
 export class ThemedObjectListComponent extends ThemedComponent<ObjectListComponent> {
+  /**
+   * The view mode of the this component
+   */
+  viewMode = ViewMode.ListElement;
 
   /**
    * The current pagination configuration
@@ -32,20 +37,18 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   /**
    * Whether or not the list elements have a border
    */
-  @Input() hasBorder: boolean;
+  @Input() hasBorder = false;
 
   /**
    * The whether or not the gear is hidden
    */
-  @Input() hideGear: boolean;
+  @Input() hideGear = false;
 
   /**
    * Whether or not the pager is visible when there is only a single page of results
    */
-  @Input() hidePagerWhenSinglePage: boolean;
-
-  @Input() selectable: boolean;
-
+  @Input() hidePagerWhenSinglePage = true;
+  @Input() selectable = false;
   @Input() selectionConfig: { repeatable: boolean, listId: string };
 
   /**
@@ -61,12 +64,12 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   /**
    * Option for hiding the pagination detail
    */
-  @Input() hidePaginationDetail: boolean;
+  @Input() hidePaginationDetail = false;
 
   /**
    * Whether or not to add an import button to the object
    */
-  @Input() importable: boolean;
+  @Input() importable = false;
 
   /**
    * Config used for the import button
@@ -76,29 +79,42 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   /**
    * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
    */
-  @Input() showPaginator: boolean;
-
-  /**
-   * Whether to show the thumbnail preview
-   */
-  @Input() showThumbnails;
+  @Input() showPaginator = true;
 
   /**
    * Emit when one of the listed object has changed.
    */
-  @Output() contentChange: EventEmitter<any> = new EventEmitter();
+  @Output() contentChange = new EventEmitter<any>();
 
   /**
    * If showPaginator is set to true, emit when the previous button is clicked
    */
-  @Output() prev: EventEmitter<boolean> = new EventEmitter();
+  @Output() prev = new EventEmitter<boolean>();
 
   /**
    * If showPaginator is set to true, emit when the next button is clicked
    */
-  @Output() next: EventEmitter<boolean> = new EventEmitter();
+  @Output() next = new EventEmitter<boolean>();
 
-  @Input() objects: RemoteData<PaginatedList<ListableObject>>;
+  /**
+   * The current listable objects
+   */
+  private _objects: RemoteData<PaginatedList<ListableObject>>;
+
+  /**
+   * Setter for the objects
+   * @param objects The new objects
+   */
+  @Input() set objects(objects: RemoteData<PaginatedList<ListableObject>>) {
+    this._objects = objects;
+  }
+
+  /**
+   * Getter to return the current objects
+   */
+  get objects() {
+    return this._objects;
+  }
 
   /**
    * An event fired when the page is changed.
@@ -107,45 +123,48 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   @Output() change: EventEmitter<{
     pagination: PaginationComponentOptions,
     sort: SortOptions
-  }> = new EventEmitter();
+  }> = new EventEmitter<{
+    pagination: PaginationComponentOptions,
+    sort: SortOptions
+  }>();
 
   /**
    * An event fired when the page is changed.
    * Event's payload equals to the newly selected page.
    */
-  @Output() pageChange: EventEmitter<number> = new EventEmitter();
+  @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
 
   /**
    * An event fired when the page wsize is changed.
    * Event's payload equals to the newly selected page size.
    */
-  @Output() pageSizeChange: EventEmitter<number> = new EventEmitter();
+  @Output() pageSizeChange: EventEmitter<number> = new EventEmitter<number>();
 
   /**
    * An event fired when the sort direction is changed.
    * Event's payload equals to the newly selected sort direction.
    */
-  @Output() sortDirectionChange: EventEmitter<SortDirection> = new EventEmitter();
+  @Output() sortDirectionChange: EventEmitter<SortDirection> = new EventEmitter<SortDirection>();
 
   /**
    * An event fired when on of the pagination parameters changes
    */
-  @Output() paginationChange: EventEmitter<any> = new EventEmitter();
+  @Output() paginationChange: EventEmitter<any> = new EventEmitter<any>();
 
-  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter();
+  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
-  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter();
+  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   /**
    * Send an import event to the parent component
    */
-  @Output() importObject: EventEmitter<ListableObject> = new EventEmitter();
+  @Output() importObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   /**
    * An event fired when the sort field is changed.
    * Event's payload equals to the newly selected sort field.
    */
-  @Output() sortFieldChange: EventEmitter<string> = new EventEmitter();
+  @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
 
   inAndOutputNames: (keyof ObjectListComponent & keyof this)[] = [
     'config',
@@ -161,7 +180,6 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
     'importable',
     'importConfig',
     'showPaginator',
-    'showThumbnails',
     'contentChange',
     'prev',
     'next',

@@ -66,10 +66,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
     protected searchService: SearchService,
-    protected requestService: RequestService,
-    private authService: AuthService,
-    public authorizationService: AuthorizationDataService,
-    ) {
+    protected requestService: RequestService) {
     super(WorkspaceItem.type, injector, router, notificationsService, translate, searchService, requestService);
 
   }
@@ -124,4 +121,5 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
   getWorkspaceItemViewRoute(workspaceItem: WorkspaceItem): string {
     return getWorkspaceItemViewRoute(workspaceItem?.id);
   }
+
 }

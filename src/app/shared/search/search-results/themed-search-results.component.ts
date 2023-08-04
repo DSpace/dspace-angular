@@ -21,7 +21,7 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
   templateUrl: '../../theme-support/themed.component.html',
 })
 export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsComponent> {
-  protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = ['linkType', 'searchResults', 'searchConfig', 'showCsvExport', 'showThumbnails', 'sortConfig', 'viewMode', 'configuration', 'disableHeader', 'selectable', 'context', 'hidePaginationDetail', 'selectionConfig', 'contentChange', 'deselectObject', 'selectObject'];
+  protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = ['linkType', 'searchResults', 'searchConfig', 'showCsvExport', 'sortConfig', 'viewMode', 'configuration', 'disableHeader', 'selectable', 'context', 'hidePaginationDetail', 'selectionConfig', 'contentChange', 'deselectObject', 'selectObject'];
 
   @Input() linkType: CollectionElementLinkType;
 
@@ -29,9 +29,7 @@ export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsC
 
   @Input() searchConfig: PaginatedSearchOptions;
 
-  @Input() showCsvExport: boolean;
-
-  @Input() showThumbnails: boolean;
+  @Input() showCsvExport = false;
 
   @Input() sortConfig: SortOptions;
 
@@ -39,21 +37,21 @@ export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsC
 
   @Input() configuration: string;
 
-  @Input() disableHeader: boolean;
+  @Input() disableHeader = false;
 
-  @Input() selectable: boolean;
+  @Input() selectable = false;
 
   @Input() context: Context;
 
-  @Input() hidePaginationDetail: boolean;
+  @Input() hidePaginationDetail = false;
 
-  @Input() selectionConfig: SelectionConfig;
+  @Input() selectionConfig: SelectionConfig = null;
 
-  @Output() contentChange: EventEmitter<ListableObject> = new EventEmitter();
+  @Output() contentChange: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
-  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter();
+  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
-  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter();
+  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   protected getComponentName(): string {
     return 'SearchResultsComponent';

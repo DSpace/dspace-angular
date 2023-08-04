@@ -4,6 +4,7 @@ import { MenuService } from '../../shared/menu/menu.service';
 import { slide } from '../../shared/animations/slide';
 import { first } from 'rxjs/operators';
 import { HostWindowService } from '../../shared/host-window.service';
+import { rendersSectionForMenu } from '../../shared/menu/menu-section.decorator';
 import { MenuID } from '../../shared/menu/menu-id.model';
 
 /**

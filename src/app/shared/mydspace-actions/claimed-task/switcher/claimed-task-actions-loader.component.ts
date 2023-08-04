@@ -17,7 +17,6 @@ import { hasValue, isNotEmpty, hasNoValue } from '../../../empty.util';
 import { MyDSpaceActionsResult } from '../../mydspace-actions';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 @Component({
   selector: 'ds-claimed-task-actions-loader',
@@ -28,6 +27,11 @@ import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-ac
  * Passes on the ClaimedTask to the component and subscribes to the processCompleted output
  */
 export class ClaimedTaskActionsLoaderComponent implements OnInit, OnChanges {
+  /**
+   * The item object that belonging to the ClaimedTask object
+   */
+  @Input() item: Item;
+
   /**
    * The item object that belonging to the ClaimedTask object
    */
@@ -110,12 +114,13 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnChanges {
       const viewContainerRef = this.claimedTaskActionsDirective.viewContainerRef;
       viewContainerRef.clear();
 
-      this.compRef = viewContainerRef.createComponent(componentFactory);
-
-      if (hasValue(changes)) {
-        this.ngOnChanges(changes);
-      } else {
-        this.connectInputsAndOutputs();
+      const componentRef = viewContainerRef.createComponent(componentFactory);
+      const componentInstance = (componentRef.instance as ClaimedTaskActionsAbstractComponent);
+      componentInstance.item = this.item;
+      componentInstance.object = this.object;
+      componentInstance.workflowitem = this.workflowitem;
+      if (hasValue(componentInstance.processCompleted)) {
+        this.subs.push(componentInstance.processCompleted.subscribe((result) => this.processCompleted.emit(result)));
       }
     }
   }

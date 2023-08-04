@@ -6,7 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { SharedModule } from '../../shared.module';
+import { DebugElement } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { SubscriptionViewComponent } from './subscription-view.component';
@@ -60,6 +61,7 @@ describe('SubscriptionViewComponent', () => {
         ReactiveFormsModule,
         BrowserModule,
         RouterTestingModule,
+        SharedModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -72,8 +74,7 @@ describe('SubscriptionViewComponent', () => {
         { provide: ComponentFixtureAutoDetect, useValue: true },
         { provide: NotificationsService, useValue: NotificationsServiceStub },
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
+      ]
     })
     .compileComponents();
   });
@@ -93,7 +94,7 @@ describe('SubscriptionViewComponent', () => {
   });
 
   it('should have dso object info', () => {
-    expect(de.query(By.css('.dso-info > ds-themed-type-badge'))).toBeTruthy();
+    expect(de.query(By.css('.dso-info > ds-type-badge'))).toBeTruthy();
     expect(de.query(By.css('.dso-info > p > a'))).toBeTruthy();
   });
 

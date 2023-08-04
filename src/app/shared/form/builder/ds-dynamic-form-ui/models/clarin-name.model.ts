@@ -15,7 +15,7 @@ export const AUTHOR_METADATA_FIELD_NAME = 'dc.contributor.author';
 /**
  * Configuration for the DynamicClarinNameModel.
  */
-export interface DsDynamicClarinNameModelConfig extends DynamicConcatModelConfig {}
+export type DsDynamicClarinNameModelConfig = DynamicConcatModelConfig;
 
 /**
  * The model which is used for the `author` input field in the submission creating process.

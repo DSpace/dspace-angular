@@ -123,6 +123,8 @@ import { DYNAMIC_FORM_CONTROL_TYPE_AUTOCOMPLETE } from './models/autocomplete/ds
 import { DsDynamicSponsorAutocompleteComponent } from './models/sponsor-autocomplete/ds-dynamic-sponsor-autocomplete.component';
 import { SPONSOR_METADATA_NAME } from './models/ds-dynamic-complex.model';
 import { DsDynamicSponsorScrollableDropdownComponent } from './models/sponsor-scrollable-dropdown/dynamic-sponsor-scrollable-dropdown.component';
+import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
+import { itemLinksToFollow } from '../../../utils/relation-query.utils';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -273,7 +275,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private submissionObjectService: SubmissionObjectDataService,
     private ref: ChangeDetectorRef,
     private formService: FormService,
-    public formBuilderService: FormBuilderService,
+    private formBuilderService: FormBuilderService,
     private submissionService: SubmissionService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {

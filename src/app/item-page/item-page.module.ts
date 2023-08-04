@@ -57,6 +57,19 @@ import { ChartsModule } from 'ng2-charts';
 import { ClarinGenericItemFieldComponent } from './simple/field-components/clarin-generic-item-field/clarin-generic-item-field.component';
 import { ClarinCollectionsItemFieldComponent } from './simple/field-components/clarin-collections-item-field/clarin-collections-item-field.component';
 import { ClarinFilesItemFieldComponent } from './simple/field-components/clarin-files-item-field/clarin-files-item-field.component';
+import { OrcidAuthComponent } from './orcid-page/orcid-auth/orcid-auth.component';
+import { OrcidPageComponent } from './orcid-page/orcid-page.component';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { OrcidSyncSettingsComponent } from './orcid-page/orcid-sync-settings/orcid-sync-settings.component';
+import { OrcidQueueComponent } from './orcid-page/orcid-queue/orcid-queue.component';
+import { UploadModule } from '../shared/upload/upload.module';
+import { ResultsBackButtonModule } from '../shared/results-back-button/results-back-button.module';
+import { ItemAlertsComponent } from './alerts/item-alerts.component';
+import { ItemVersionsModule } from './versions/item-versions.module';
+import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
+import { FileSectionComponent } from './simple/field-components/file-section/file-section.component';
+import { ItemSharedModule } from './item-shared.module';
+import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 
 
 const ENTRY_COMPONENTS = [
@@ -94,6 +107,12 @@ const DECLARATIONS = [
   ThemedMediaViewerImageComponent,
   MiradorViewerComponent,
   VersionPageComponent,
+  OrcidPageComponent,
+  OrcidAuthComponent,
+  OrcidSyncSettingsComponent,
+  OrcidQueueComponent,
+  ItemAlertsComponent,
+  BitstreamRequestACopyPageComponent,
   TombstoneComponent,
   ReplacedTombstoneComponent,
   WithdrawnTombstoneComponent,
@@ -121,15 +140,19 @@ const DECLARATIONS = [
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
     NgxGalleryModule,
+    NgbAccordionModule,
+    ResultsBackButtonModule,
+    UploadModule,
+    DsoPageModule,
     ChartsModule
   ],
   declarations: [
     ...DECLARATIONS,
-    VersionedItemComponent
+
   ],
-    exports: [
-        ...DECLARATIONS
-    ]
+  exports: [
+    ...DECLARATIONS
+  ]
 })
 export class ItemPageModule {
   /**

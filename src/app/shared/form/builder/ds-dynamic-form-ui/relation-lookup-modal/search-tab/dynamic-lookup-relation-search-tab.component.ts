@@ -151,8 +151,8 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     protected selectableListService: SelectableListService,
     public searchConfigService: SearchConfigurationService,
     public lookupRelationService: LookupRelationService,
-    protected relationshipService: RelationshipDataService,
-    protected paginationService: PaginationService,
+    private relationshipService: RelationshipDataService,
+    private paginationService: PaginationService
   ) {
   }
 

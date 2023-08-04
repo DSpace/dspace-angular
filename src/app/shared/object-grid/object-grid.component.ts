@@ -56,11 +56,6 @@ export class ObjectGridComponent implements OnInit {
   @Input() showPaginator = true;
 
   /**
-   * Whether to show the thumbnail preview
-   */
-  @Input() showThumbnails;
-
-  /**
    * The whether or not the gear is hidden
    */
   @Input() hideGear = false;

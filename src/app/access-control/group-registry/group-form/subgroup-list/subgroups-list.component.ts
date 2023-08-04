@@ -132,6 +132,47 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Whether or not the given group is a subgroup of the group currently being edited
+   * @param possibleSubgroup Group that is a possible subgroup (being tested) of the group currently being edited
+   */
+  isSubgroupOfGroup(possibleSubgroup: Group): Observable<boolean> {
+    return this.groupDataService.getActiveGroup().pipe(take(1),
+      mergeMap((activeGroup: Group) => {
+        if (activeGroup != null) {
+          if (activeGroup.uuid === possibleSubgroup.uuid) {
+            return observableOf(false);
+          } else {
+            return this.groupDataService.findListByHref(activeGroup._links.subgroups.href, {
+              currentPage: 1,
+              elementsPerPage: 9999
+            })
+              .pipe(
+                getFirstSucceededRemoteData(),
+                getRemoteDataPayload(),
+                map((listTotalGroups: PaginatedList<Group>) => listTotalGroups.page.filter((groupInList: Group) => groupInList.id === possibleSubgroup.id)),
+                map((groups: Group[]) => groups.length > 0));
+          }
+        } else {
+          return observableOf(false);
+        }
+      }));
+  }
+
+  /**
+   * Whether or not the given group is the current group being edited
+   * @param group Group that is possibly the current group being edited
+   */
+  isActiveGroup(group: Group): Observable<boolean> {
+    return this.groupDataService.getActiveGroup().pipe(take(1),
+      mergeMap((activeGroup: Group) => {
+        if (activeGroup != null && activeGroup.uuid === group.uuid) {
+          return observableOf(true);
+        }
+        return observableOf(false);
+      }));
+  }
+
+  /**
    * Deletes given subgroup from the group currently being edited
    * @param subgroup  Group we want to delete from the subgroups of the group currently being edited
    */

@@ -5,6 +5,9 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
+import {
+  MyDspaceItemStatusType
+} from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
@@ -19,8 +22,7 @@ import { ObjectCacheService } from '../../../../core/cache/object-cache.service'
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { Item } from '../../../../core/shared/item.model';
 import { mergeMap, tap } from 'rxjs/operators';
-import { isNotEmpty, hasValue } from '../../../empty.util';
-import { Context } from '../../../../core/shared/context.model';
+import { isNotEmpty } from '../../../empty.util';
 
 @Component({
   selector: 'ds-claimed-search-result-list-element',
@@ -46,6 +48,11 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
   public item$: BehaviorSubject<Item> = new BehaviorSubject<Item>(null);
 
   /**
+   * The item object that belonging to the result object
+   */
+  public item$: BehaviorSubject<Item> = new BehaviorSubject<Item>(null);
+
+  /**
    * The workflowitem object that belonging to the result object
    */
   public workflowitem$: BehaviorSubject<WorkflowItem> = new BehaviorSubject<WorkflowItem>(null);
@@ -58,7 +65,7 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
   public constructor(
     protected linkService: LinkService,
     protected truncatableService: TruncatableService,
-    public dsoNameService: DSONameService,
+    protected dsoNameService: DSONameService,
     protected objectCache: ObjectCacheService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
@@ -99,9 +106,7 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
 
   ngOnDestroy() {
     // This ensures the object is removed from cache, when action is performed on task
-    if (hasValue(this.dso)) {
-      this.objectCache.remove(this.dso._links.workflowitem.href);
-    }
+    this.objectCache.remove(this.dso._links.workflowitem.href);
   }
 
 }

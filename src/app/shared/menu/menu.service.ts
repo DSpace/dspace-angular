@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { AppState, keySelector } from '../../app.reducer';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,
@@ -17,13 +17,12 @@ import {
   ToggleActiveMenuSectionAction,
   ToggleMenuAction,
 } from './menu.actions';
-import { hasNoValue, hasValue, hasValueOperator, isNotEmpty, isEmpty } from '../empty.util';
+import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '../empty.util';
 import { MenuState } from './menu-state.model';
 import { MenuSections } from './menu-sections.model';
 import { MenuSection } from './menu-section.model';
 import { MenuID } from './menu-id.model';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { compareArraysUsingIds } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 
 export function menuKeySelector<T>(key: string, selector): MemoizedSelector<MenuState, T> {
   return createSelector(selector, (state) => {
@@ -402,8 +401,7 @@ export class MenuService {
       }
 
       if (!last) {
-        const childMenuSections = this.resolveRouteMenuSections(route.firstChild, menuID);
-        return [...menuSections.filter(menu => !(childMenuSections).map(childMenu => childMenu.id).includes(menu.id)), ...childMenuSections];
+        return [...menuSections, ...this.resolveRouteMenuSections(route.firstChild, menuID)];
       } else {
         return [...menuSections];
       }
@@ -413,14 +411,20 @@ export class MenuService {
   }
 
   protected resolveSubstitutions(object, params) {
+
     let resolved;
-    if (isEmpty(params)) {
+    if (typeof object === 'string') {
       resolved = object;
-    } else if (typeof object === 'string') {
-      resolved = object;
-      Object.entries(params).forEach(([key, value]: [string, string]) =>
-        resolved = resolved.replaceAll(`:${key}`, value)
-      );
+      let match: RegExpMatchArray;
+      do {
+        match = resolved.match(/:(\w+)/);
+        if (match) {
+          const substitute = params[match[1]];
+          if (hasValue(substitute)) {
+            resolved = resolved.replace(match[0], `${substitute}`);
+          }
+        }
+      } while (match);
     } else if (Array.isArray(object)) {
       resolved = [];
       object.forEach((entry, index) => {

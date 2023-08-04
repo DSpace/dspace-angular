@@ -70,6 +70,7 @@ export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
    */
   setStartsWith(startsWith: string) {
     this.startsWith = startsWith;
+    this.setStartsWithParam(false);
   }
 
   /**

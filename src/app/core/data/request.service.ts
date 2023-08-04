@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { Observable, from as observableFrom } from 'rxjs';
-import { filter, find, map, mergeMap, switchMap, take, tap, toArray } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { filter, map, take, tap } from 'rxjs/operators';
 import cloneDeep from 'lodash/cloneDeep';
 import { hasValue, isEmpty, isNotEmpty, hasNoValue } from '../../shared/empty.util';
 import { ObjectCacheEntry } from '../cache/object-cache.reducer';
@@ -16,7 +16,7 @@ import {
   RequestExecuteAction,
   RequestStaleAction
 } from './request.actions';
-import { GetRequest } from './request.models';
+import { GetRequest} from './request.models';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
 import { coreSelector } from '../core.selectors';
@@ -373,6 +373,21 @@ export class RequestService {
       map((request: RequestEntry) => isStale(request.state)),
       filter((stale: boolean) => stale),
       take(1)
+    );
+  }
+
+  /**
+   * Mark a request as stale
+   * @param uuid  the UUID of the request
+   * @return      an Observable that will emit true once the Request becomes stale
+   */
+  setStaleByUUID(uuid: string): Observable<boolean> {
+    this.store.dispatch(new RequestStaleAction(uuid));
+
+    return this.getByUUID(uuid).pipe(
+      map((request: RequestEntry) => isStale(request.state)),
+      filter((stale: boolean) => stale),
+      take(1),
     );
   }
 

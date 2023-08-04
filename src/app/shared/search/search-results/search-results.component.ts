@@ -53,11 +53,6 @@ export class SearchResultsComponent {
   @Input() showCsvExport = false;
 
   /**
-   * Whether to show the thumbnail preview
-   */
-  @Input() showThumbnails;
-
-  /**
    * The current sorting configuration of the search
    */
   @Input() sortConfig: SortOptions;

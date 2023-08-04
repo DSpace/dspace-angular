@@ -66,7 +66,7 @@ import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-gr
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
-import { RelationshipService } from '../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Store } from '@ngrx/store';
@@ -81,14 +81,6 @@ import { FormBuilderService } from '../form-builder.service';
 import { NgxMaskModule } from 'ngx-mask';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
-
-function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
-  return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
-    getRelatedFormModel: jasmine.createSpy('getRelatedFormModel'),
-    matchesCondition: jasmine.createSpy('matchesCondition'),
-    subscribeRelations: jasmine.createSpy('subscribeRelations')
-  });
-}
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
@@ -227,7 +219,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         DsDynamicFormControlContainerComponent,
         DynamicFormService,
         { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
-        { provide: RelationshipService, useValue: {} },
+        { provide: RelationshipDataService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
         { provide: ItemDataService, useValue: {} },
         { provide: Store, useValue: {} },

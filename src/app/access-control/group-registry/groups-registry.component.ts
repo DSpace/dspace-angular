@@ -204,7 +204,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
         .subscribe((rd: RemoteData<NoContent>) => {
           if (rd.hasSucceeded) {
             this.deletedGroupsIds = [...this.deletedGroupsIds, group.group.id];
-            this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: this.dsoNameService.getName(group.group) }));
+            this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: group.group.name }));
           } else {
             this.notificationsService.error(
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: this.dsoNameService.getName(group.group) }),
@@ -221,10 +221,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    * @param group
    */
   getMembers(group: Group): Observable<RemoteData<PaginatedList<EPerson>>> {
-    return this.ePersonDataService.findListByHref(group._links.epersons.href, {
-        currentPage: 1,
-        elementsPerPage: 1,
-      }).pipe(getFirstSucceededRemoteData());
+    return this.ePersonDataService.findListByHref(group._links.epersons.href).pipe(getFirstSucceededRemoteData());
   }
 
   /**
@@ -234,10 +231,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    * @param group
    */
   getSubgroups(group: Group): Observable<RemoteData<PaginatedList<Group>>> {
-    return this.groupService.findListByHref(group._links.subgroups.href, {
-        currentPage: 1,
-        elementsPerPage: 1,
-      }).pipe(getFirstSucceededRemoteData());
+    return this.groupService.findListByHref(group._links.subgroups.href).pipe(getFirstSucceededRemoteData());
   }
 
   /**

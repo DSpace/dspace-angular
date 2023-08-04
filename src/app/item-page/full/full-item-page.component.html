@@ -6,11 +6,12 @@
       <ds-view-tracker [object]="item"></ds-view-tracker>
       <div *ngIf="!item.isWithdrawn || (isAdmin$|async)" class="full-item-info">
         <div class="d-flex flex-row">
-          <ds-themed-item-page-title-field class="mr-auto" [item]="item"></ds-themed-item-page-title-field>
-          <ds-dso-edit-menu></ds-dso-edit-menu>
+          <ds-item-page-title-field class="mr-auto" [item]="item"></ds-item-page-title-field>
+        <ds-dso-edit-menu></ds-dso-edit-menu>
+
         </div>
       </div>
-      <div class="simple-view-link my-3" *ngIf="!fromWfi">
+      <div class="simple-view-link my-3" *ngIf="!fromSubmissionObject">
         <a class="btn btn-outline-primary" [routerLink]="[(itemPageRoute$ | async)]">
           {{"item.page.link.simple" | translate}}
         </a>
@@ -30,7 +31,7 @@
       <ds-item-page-collections [item]="item"></ds-item-page-collections>
       <ds-item-versions class="mt-2" [item]="item"></ds-item-versions>
       <ds-clarin-license-info class="mt-2" [item]="item"></ds-clarin-license-info>
-      <div class="button-row bottom" *ngIf="fromWfi">
+      <div class="button-row bottom" *ngIf="fromSubmissionObject">
         <div class="text-right">
           <button class="btn btn-outline-secondary mr-1" (click)="back()"><i class="fas fa-arrow-left"></i> {{'item.page.return' | translate}}</button>
         </div>

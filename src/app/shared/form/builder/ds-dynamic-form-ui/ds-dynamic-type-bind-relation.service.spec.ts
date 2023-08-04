@@ -10,7 +10,7 @@ import {
 } from '@ng-dynamic-forms/core';
 
 import {
-  mockInputWithTypeBindModel, MockRelationModel, mockDcTypeInputModel
+  mockInputWithTypeBindModel, MockRelationModel
 } from '../../../mocks/form-models.mock';
 import {DsDynamicTypeBindRelationService} from './ds-dynamic-type-bind-relation.service';
 import {FormFieldMetadataValueObject} from '../models/form-field-metadata-value.model';
@@ -22,7 +22,6 @@ import {Injector} from '@angular/core';
 describe('DSDynamicTypeBindRelationService test suite', () => {
   let service: DsDynamicTypeBindRelationService;
   let dynamicFormRelationService: DynamicFormRelationService;
-  // tslint:disable-next-line:prefer-const
   let injector: Injector;
 
   beforeEach(() => {
@@ -90,7 +89,7 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
       testModel.typeBindRelations = getTypeBindRelations(['boundType']);
       const dcTypeControl = new FormControl();
       dcTypeControl.setValue('boundType');
-      const subscriptions = service.subscribeRelations(testModel, dcTypeControl);
+      let subscriptions = service.subscribeRelations(testModel, dcTypeControl);
       expect(subscriptions).toHaveSize(1);
     });
 
