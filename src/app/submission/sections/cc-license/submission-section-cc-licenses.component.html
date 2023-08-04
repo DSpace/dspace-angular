@@ -1,4 +1,16 @@
 <div class="mb-4 ccLicense-select">
+
+  <div>
+    <strong>Creative Commons licenses govern what people who read your work may then do with it.</strong>
+    <br>
+    <br>Add a <a href="https://creativecommons.org/">Creative Commons</a> license to your item by using the "Select a license type..." dropdown below.  Your CC license will be selected based on your responses once you select "Next".<br />
+    <br>After answering the questions, to view which license was assigned, use the "Previous" button or select "Creative Commons" from the green progress bar. For more information on Creative Commons licenses, and to preview the license that will result from your answers to the license selection questions, see our <a href="https://guides.library.cornell.edu/ecommons/copyright">help on Copyright and Intellectual Property</a>.<br>
+    <br>If you choose to apply a Creative Commons license to your work, we also recommend that you <a href="https://wiki.creativecommons.org/wiki/Marking_your_work_with_a_CC_license">include the license you select within the work itself</a>.<br>
+    <br>To add a CC0 / Public Domain dedication to your work, select CC0 from the list below.<br>
+    <br>For additional information, please see <a href="http://guides.library.cornell.edu/ecommons/copyright">Copyright and intellectual property concerns for eCommons users</a>.<br>
+    <br>
+  </div>
+
   <ds-select
     [disabled]="!submissionCcLicenses">
 
@@ -80,16 +92,6 @@
       </div>
 
     </ng-template>
-
-    <div>
-        <strong>Creative Commons licenses govern what people who read your work may then do with it.</strong>
-        <br>
-        <br>Add a <a href="https://creativecommons.org/">Creative Commons</a> license to your item by selecting "Creative Commons" below and answering the questions presented.  Your CC license will be selected based on your responses once you select "Next". After answering the questions, to view which license was assigned, use the "Previous" button or select "Creative Commons" from the green progress bar. For more information on Creative Commons licenses, and to preview the license that will result from your answers to the license selection questions, see our <a href="https://guides.library.cornell.edu/ecommons/copyright">help on Copyright and Intellectual Property</a>.<br>
-        <br>If you choose to apply a Creative Commons license to your work, we also recommend that you <a href="https://wiki.creativecommons.org/wiki/Marking_your_work_with_a_CC_license">include the license you select within the work itself</a>.<br>
-        <br>To add a CC0 / Public Domain dedication to your work, select CC0 from the list below.<br>
-        <br>For additional information, please see <a href="http://guides.library.cornell.edu/ecommons/copyright">Copyright and intellectual property concerns for eCommons users</a>.<br>
-        <br>
-    </div>
 
     <ds-select *ngIf="field.enums?.length > 5" [disabled]="field.id === 'jurisdiction' && defaultJurisdiction !== undefined && defaultJurisdiction !== 'none'">
       <ng-container class="selection" *ngVar="getSelectedOption(getSelectedCcLicense(), field) as option">
