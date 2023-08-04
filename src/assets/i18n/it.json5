@@ -4813,20 +4813,20 @@
   // TODO New key - Add a translation
   "mydspace.show.supervisedWorkspace": "Supervised items",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Archiviati",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Archiviati",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Convalida",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Convalida",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "In attesa del controllo",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "In attesa del controllo",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Workflow",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Workflow",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Workspace",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Workspace",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "MyDSpace",

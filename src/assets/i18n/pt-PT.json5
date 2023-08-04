@@ -7713,20 +7713,20 @@
   // "browse.metadata.srsc": "Subject Category",
   "browse.metadata.srsc": "vocabulário controlado (SRSC)",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Depositado",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Depositado",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Em validação",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Em validação",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for Controller",
-  "mydspace.status.waiting-for-controller": "Aguarda validador",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for Controller",
+  "mydspace.status.mydspaceWaitingController": "Aguarda validador",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Em fluxo de trabalho",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Em fluxo de trabalho",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Depósito por terminar",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Depósito por terminar",
 
   // "search.filters.namedresourcetype.Archived": "Archived",
   "search.filters.namedresourcetype.Archived": "Depositado",
