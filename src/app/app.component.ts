@@ -316,14 +316,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       if (hasValue(parentThemeName)) {
         // inherit the head tags of the parent theme
         return this.createHeadTags(parentThemeName);
-      }
-      const defaultThemeConfig = getDefaultThemeConfig();
-      const defaultThemeName = defaultThemeConfig.name;
-      if (
-        hasNoValue(defaultThemeName) ||
-        themeName === defaultThemeName ||
-        themeName === BASE_THEME_NAME
-      ) {
+      } else {
         // last resort, use fallback favicon.ico
         return [
           this.createHeadTag({
@@ -336,9 +329,6 @@ export class AppComponent implements OnInit, AfterViewInit {
           })
         ];
       }
-
-      // inherit the head tags of the default theme
-      return this.createHeadTags(defaultThemeConfig.name);
     }
 
     return headTagConfigs.map(this.createHeadTag.bind(this));
