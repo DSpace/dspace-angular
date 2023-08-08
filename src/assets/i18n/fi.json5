@@ -744,7 +744,7 @@
   // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
   "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Jos haluat lisätä tai poistaa alaryhmän tähän ryhmään tai tästä ryhmästä, napsauta joko 'Selaa kaikkia' -painiketta tai käytä alla olevaa hakupalkkia ryhmien etsimiseen. Napsauta sitten luettelossa plus-kuvaketta jokaisen ryhmän kohdalla, jonka haluat lisätä, tai roskakorikuvaketta jokaisen ryhmän kohdalla, jonka haluat poistaa. Luettelossa voi olla useita sivuja: voit siirtyä seuraaville sivuille luettelon alapuolella olevilla sivunohjaimilla. Kun olet valmis, tallenna muutokset napsauttamalla yläosassa olevaa Tallenna-painiketta.",
 
-// "admin.search.breadcrumbs": "Administrative Search",
+  // "admin.search.breadcrumbs": "Administrative Search",
   "admin.search.breadcrumbs": "Ylläpitäjän haku",
 
   // "admin.search.collection.edit": "Edit",
