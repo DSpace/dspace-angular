@@ -18,4 +18,7 @@ RUN yarn install --network-timeout 300000
 # Listen / accept connections from all IP addresses.
 # NOTE: At this time it is only possible to run Docker container in Production mode
 # if you have a public IP. See https://github.com/DSpace/dspace-angular/issues/1485
-CMD yarn serve --host 0.0.0.0
+RUN apk add tzdata
+RUN yarn build:prod
+RUN npm install pm2 -g
+CMD /bin/sh -c "pm2 start dspace-ui.json && pm2 logs"

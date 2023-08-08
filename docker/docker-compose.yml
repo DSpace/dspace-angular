@@ -6,9 +6,6 @@
 # http://www.dspace.org/license/
 #
 
-# Docker Compose for running the DSpace Angular UI for testing/development
-# Requires also running a REST API backend (either locally or remotely),
-# for example via 'docker-compose-rest.yml'
 version: '3.7'
 networks:
   dspacenet:
@@ -17,6 +14,7 @@ services:
     restart: unless-stopped
     container_name: dspace-angular${INSTANCE}
     environment:
+      TZ: ${TIMEZONE:-Europe/Bratislava}
       DSPACE_UI_SSL: 'false'
       DSPACE_UI_HOST: dspace-angular
       DSPACE_UI_PORT: 400${INSTANCE}
@@ -26,6 +24,8 @@ services:
       DSPACE_REST_PORT: 808${INSTANCE}
       DSPACE_REST_NAMESPACE: /server
     image: ${DSPACE_UI_IMAGE:-dataquest/dspace-angular:dspace-7_x}
+    volumes:
+    - ./config.prod.yml:/app/config/config.prod.yml
     build:
       context: ..
       dockerfile: Dockerfile
@@ -34,7 +34,9 @@ services:
     ports:
     - published: 400${INSTANCE}
       target: 400${INSTANCE}
+      host_ip: 127.0.0.1
     - published: 987${INSTANCE}
       target: 987${INSTANCE}
+      host_ip: 127.0.0.1
     stdin_open: true
     tty: true

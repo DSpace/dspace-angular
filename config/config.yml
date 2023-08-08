@@ -3,3 +3,79 @@ rest:
   host: localhost
   port: 8080
   nameSpace: /server
+
+
+info:
+  # Whether the end user agreement is required before users may use the repository.
+  # If enabled, the user will be required to accept the agreement before they can use the repository.
+  # If disabled, the page will not exist and no agreement is required to use the repository
+  enableEndUserAgreement: false
+  # Whether the privacy statement should exist or not.
+  enablePrivacyStatement: false
+
+# Keep only English language
+languages:
+  - code: en
+    label: English
+    active: true
+  - code: ca
+    label: Català
+    active: false
+  - code: cs
+    label: Čeština
+    active: true
+  - code: de
+    label: Deutsch
+    active: false
+  - code: es
+    label: Español
+    active: false
+  - code: fr
+    label: Français
+    active: false
+  - code: gd
+    label: Gàidhlig
+    active: false
+  - code: lv
+    label: Latviešu
+    active: false
+  - code: hu
+    label: Magyar
+    active: false
+  - code: nl
+    label: Nederlands
+    active: false
+  - code: pl
+    label: Polski
+    active: false
+  - code: pt-PT
+    label: Português
+    active: false
+  - code: pt-BR
+    label: Português do Brasil
+    active: false
+  - code: fi
+    label: Suomi
+    active: false
+  - code: sv
+    label: Svenska
+    active: false
+  - code: tr
+    label: Türkçe
+    active: false
+  - code: kk
+    label: Қазақ
+    active: false
+  - code: bn
+    label: বাংলা
+    active: false
+  - code: hi
+    label: हिंदी
+    active: false
+  - code: el
+    label: Ελληνικά
+    active: false
+  - code: uk
+    label: Yкраї́нська
+    active: false
+

@@ -12,12 +12,12 @@ import { ClarinUserRegistration } from '../../shared/clarin/clarin-user-registra
 import { BaseDataService } from '../base/base-data.service';
 import { dataService } from '../base/data-service.decorator';
 import { CoreState } from '../../core-state.model';
-import {SearchData, SearchDataImpl} from '../base/search-data';
-import {FindListOptions} from '../find-list-options.model';
-import {FollowLinkConfig} from '../../../shared/utils/follow-link-config.model';
-import {Observable} from 'rxjs';
-import {RemoteData} from '../remote-data';
-import {PaginatedList} from '../paginated-list.model';
+import { SearchData, SearchDataImpl } from '../base/search-data';
+import { FindListOptions } from '../find-list-options.model';
+import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { Observable } from 'rxjs';
+import { RemoteData } from '../remote-data';
+import { PaginatedList } from '../paginated-list.model';
 
 export const linkName = 'clarinuserregistrations';
 export const AUTOCOMPLETE = new ResourceType(linkName);

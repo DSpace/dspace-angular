@@ -1,0 +1,19 @@
+<div class="container w-100 h-100">
+    <div class="text-center mt-5 row justify-content-center">
+        <div>
+            <h1>{{'contact-us.title' | translate}}</h1>
+            <div>
+              <p>{{'contact-us.description' | translate}}</p>
+              <div class="text-left">
+                <span>{{'contact-us.form' | translate}} </span>
+                <a href="info/feedback" class="ml-4">{{'contact-us.feedback' | translate}}</a>
+              </div>
+              <div class="text-left">
+                <span>{{'contact-us.email' | translate}}</span>
+                <a *ngIf="emailToContact" [href]="'mailto:' + emailToContact" class="email-text"
+                >{{emailToContact}}</a>
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>

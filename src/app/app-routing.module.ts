@@ -160,6 +160,11 @@ import { HANDLE_TABLE_MODULE_PATH } from './handle-page/handle-page-routing-path
             canActivate: [SiteAdministratorGuard, EndUserAgreementCurrentUserGuard]
           },
           {
+            path: 'contact',
+            loadChildren: () => import('./contact-page/contact-page.module')
+              .then((m) => m.ContactPageModule)
+          },
+          {
             path: 'login',
             loadChildren: () => import('./login-page/login-page.module')
               .then((m) => m.LoginPageModule)
