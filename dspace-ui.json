@@ -1,0 +1,19 @@
+{
+    "apps": [
+        {
+           "name": "dspace-ui",
+           "cwd": "/app",
+           "script": "dist/server/main.js",
+           "instances": "7",
+           "exec_mode": "cluster",
+           "node_args": "--max_old_space_size=4096",
+           "env": {
+              "NODE_ENV": "production",
+              "DSPACE_REST_SSL": "true",
+              "DSPACE_REST_HOST": "dspace.tul.cz",
+              "DSPACE_REST_PORT": "443",
+              "DSPACE_REST_NAMESPACE": "/server"
+            }
+        }
+    ]
+}

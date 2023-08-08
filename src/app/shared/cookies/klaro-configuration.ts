@@ -32,6 +32,11 @@ export const klaroConfiguration: any = {
   hideLearnMore: false,
 
   /*
+  Override cookies modal styles according to customer TUL requirements.
+   */
+  stylePrefix: 'klaro customer-cookies',
+
+  /*
   Setting 'acceptAll' to 'true' will show an "accept all" button in the notice and
   modal, which will enable all third-party services if the user clicks on it. If set
   to 'false', there will be an "accept" button that will only enable the services that

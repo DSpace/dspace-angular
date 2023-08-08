@@ -7,7 +7,7 @@ name: Build
 on:
   push:
     branches:
-      - dtq-dev-7.5
+      - dtq-dev
   pull_request:
 
 permissions:
@@ -20,7 +20,7 @@ jobs:
       # The ci step will test the dspace-angular code against DSpace REST.
       # Direct that step to utilize a DSpace REST service that has been started in docker.
       # Spin up UI on 127.0.0.1 to avoid host resolution issues in e2e tests with Node 18+
-      DSPACE_CI_IMAGE: 'dataquest/dspace:dtq-dev-7.5-test'
+      DSPACE_CI_IMAGE: 'dataquest/dspace:dspace-7_x-test'
       DSPACE_REST_HOST: 127.0.0.1
       DSPACE_REST_PORT: 8080
       DSPACE_REST_NAMESPACE: '/server'
