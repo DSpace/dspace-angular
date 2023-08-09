@@ -4,13 +4,18 @@
     <title>{{ 'coar-notify-support.title' | translate }}</title>
 </head>
 <body>
-<h1>{{ 'coar-notify-support.title' | translate }}</h1>
-<p [innerHTML]="('coar-notify-support-title.content' | translate)"></p>
+<ng-container *ngIf="coarLdnEnabled; else notAllowed">
+    <h1>{{ 'coar-notify-support.title' | translate }}</h1>
+    <p [innerHTML]="('coar-notify-support-title.content' | translate)"></p>
 
-<h2>{{ 'coar-notify-support.ldn-inbox.title' | translate }}</h2>
-<p [innerHTML]="('coar-notify-support.ldn-inbox.content' | translate)"></p>
+    <h2>{{ 'coar-notify-support.ldn-inbox.title' | translate }}</h2>
+    <p [innerHTML]="('coar-notify-support.ldn-inbox.content' | translate)"></p>
 
-<h2>{{ 'coar-notify-support.message-moderation.title' | translate }}</h2>
-<p [innerHTML]="('coar-notify-support.message-moderation.content' | translate)"></p>
+    <h2>{{ 'coar-notify-support.message-moderation.title' | translate }}</h2>
+    <p [innerHTML]="('coar-notify-support.message-moderation.content' | translate)"></p>
+</ng-container>
+<ng-template #notAllowed>
+    <p>Disabled</p>
+</ng-template>
 </body>
 </html>
