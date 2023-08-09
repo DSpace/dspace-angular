@@ -134,8 +134,8 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
     this.pagination = Object.assign(new PaginationComponentOptions(), { id: 'correction-suggestion-manage-relation', pageSize: this.pageSize });
     this.searchOptions = Object.assign(new PaginatedSearchOptions(
       {
-        configuration: 'default', //this.correctionType.discoveryConfiguration,
-        scope: null,
+        configuration: this.correctionType.discoveryConfiguration,
+        scope: this.itemUuid,
         pagination: this.pagination
       }
     ));
