@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
-import { BehaviorSubject, combineLatest } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinctUntilChanged } from 'rxjs';
 
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
@@ -58,10 +58,12 @@ export class ItemVersionMenuComponent extends ContextMenuEntryComponent implemen
     const isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, this.contextMenuObject.self);
     const isDisabled$ = this.versioningModalService.isNewVersionButtonDisabled(this.contextMenuObject);
 
-    combineLatest([isAuthorized$, isDisabled$]).subscribe(([isAuthorized, isDisabled]) => {
+    combineLatest([isAuthorized$, isDisabled$])
+    .pipe(
+      distinctUntilChanged(),
+    ).subscribe(([isAuthorized, isDisabled]) => {
       this.canShow$.next(isAuthorized && !isDisabled);
     });
-
   }
 
   /**
