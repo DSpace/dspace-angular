@@ -26,6 +26,20 @@ import { QualityAssuranceSourceService } from './qa/source/quality-assurance-sou
 import {
   QualityAssuranceSourceDataService
 } from '../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
+import { SuggestionTargetsComponent } from './reciter-suggestions/suggestion-targets/suggestion-targets.component';
+import { SuggestionActionsComponent } from './reciter-suggestions/suggestion-actions/suggestion-actions.component';
+import {
+  SuggestionListElementComponent
+} from './reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
+import {
+  SuggestionEvidencesComponent
+} from './reciter-suggestions/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
+import { SuggestionsPopupComponent } from './reciter-suggestions/suggestions-popup/suggestions-popup.component';
+import {
+  SuggestionsNotificationComponent
+} from './reciter-suggestions/suggestions-notification/suggestions-notification.component';
+import { SuggestionsService } from './reciter-suggestions/suggestions.service';
+import { SuggestionsDataService } from '../core/suggestion-notifications/reciter-suggestions/suggestions-data.service';
 
 const MODULES = [
   CommonModule,
@@ -40,7 +54,13 @@ const MODULES = [
 const COMPONENTS = [
   QualityAssuranceTopicsComponent,
   QualityAssuranceEventsComponent,
-  QualityAssuranceSourceComponent
+  QualityAssuranceSourceComponent,
+  SuggestionTargetsComponent,
+  SuggestionActionsComponent,
+  SuggestionListElementComponent,
+  SuggestionEvidencesComponent,
+  SuggestionsPopupComponent,
+  SuggestionsNotificationComponent
 ];
 
 const DIRECTIVES = [ ];
@@ -55,7 +75,9 @@ const PROVIDERS = [
   QualityAssuranceSourceService,
   QualityAssuranceTopicDataService,
   QualityAssuranceSourceDataService,
-  QualityAssuranceEventDataService
+  QualityAssuranceEventDataService,
+  SuggestionsService,
+  SuggestionsDataService
 ];
 
 @NgModule({
