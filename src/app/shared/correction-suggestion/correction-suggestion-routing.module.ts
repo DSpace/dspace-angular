@@ -1,3 +1,4 @@
+import { AuthenticatedGuard } from './../../core/auth/authenticated.guard';
 import { ItemBreadcrumbResolver } from './../../core/breadcrumbs/item-breadcrumb.resolver';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -10,6 +11,7 @@ const routes: Routes = [
     resolve: {
       breadcrumb: ItemBreadcrumbResolver,
     },
+    canActivate: [AuthenticatedGuard]
   }
 ];
 

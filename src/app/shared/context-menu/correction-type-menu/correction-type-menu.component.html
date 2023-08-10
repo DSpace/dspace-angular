@@ -1,4 +1,4 @@
-<ng-container *ngIf="(isAvailable() | async)">
+<ng-container *ngIf="(isAvailable() | async) && (isAuthorized$ | async)">
   <button ngbDropdownItem
           *ngFor="let type of (getCorrectionTypes() | async)"
           [routerLink]="[getTypeRoute(type.id)]"

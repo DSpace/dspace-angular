@@ -1,10 +1,11 @@
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { getAllSucceededRemoteDataPayload, getPaginatedListPayload } from './../../../core/shared/operators';
 import { CorrectionTypeDataService } from './../../../core/submission/correctiontype-data.service';
 import { DSpaceObject } from './../../../core/shared/dspace-object.model';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
-import { BehaviorSubject, Observable, Subscription, map, startWith} from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, combineLatest, map, startWith} from 'rxjs';
 import { CorrectionType } from '../../../core/submission/models/correction-type-mode.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { NotificationsService } from '../../notifications/notifications.service';
@@ -35,18 +36,26 @@ export class CorrectionTypeMenuComponent extends ContextMenuEntryComponent imple
    */
   private sub: Subscription;
 
+  isAuthorized$: Observable<boolean>;
+
   constructor(
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
     private correctionTypeService: CorrectionTypeDataService,
-    public notificationService: NotificationsService,
+    private notificationService: NotificationsService,
+    private authorizeService: AuthorizationDataService
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.CorrectionType);
   }
 
   ngOnInit(): void {
-    this.notificationService.claimedProfile.subscribe(() => {
-      this.getData();
+    this.isAuthorized$ = this.authorizeService.isAuthorized();
+    combineLatest([this.isAuthorized$, this.notificationService.claimedProfile]).subscribe(([isAuthorized, claimedProfile]) => {
+      if (isAuthorized) {
+        this.getData();
+      } else {
+        this.correctionTypes$.next([]);
+      }
     });
   }
 
