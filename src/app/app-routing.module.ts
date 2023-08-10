@@ -241,7 +241,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           {
             path: 'items',
             loadChildren: () => import('./shared/correction-suggestion/correction-suggestion.module')
-              .then((m) => m.CorrectionSuggestionModule)
+              .then((m) => m.CorrectionSuggestionModule),
+            canActivate: [AuthenticatedGuard]
           },
         ]
       }
