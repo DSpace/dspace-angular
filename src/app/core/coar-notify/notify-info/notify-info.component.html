@@ -5,6 +5,7 @@
 </head>
 <body>
 <ng-container *ngIf="coarLdnEnabled; else notAllowed">
+    <p>{{coarLdnEnabled}}{{coarLdnEnabled | json}}</p>
     <h1>{{ 'coar-notify-support.title' | translate }}</h1>
     <p [innerHTML]="('coar-notify-support-title.content' | translate)"></p>
 
@@ -15,7 +16,7 @@
     <p [innerHTML]="('coar-notify-support.message-moderation.content' | translate)"></p>
 </ng-container>
 <ng-template #notAllowed>
-    <p>Disabled</p>
+    <p>Disabled {{coarLdnEnabled}}{{coarLdnEnabled | json}}</p>
 </ng-template>
 </body>
 </html>

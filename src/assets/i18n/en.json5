@@ -877,7 +877,7 @@
 
   "coar-notify-support.message-moderation.title": "Message Moderation",
 
-  "coar-notify-support.message-moderation.content": "To ensure a secure and productive environment, all incoming LDN messages are moderated. If you are planning to exchange information with us, kindly reach out via our dedicated Feedback form. You can access the Feedback form by clicking <a href=\"/feedback\">here</a>.",
+  "coar-notify-support.message-moderation.content": "To ensure a secure and productive environment, all incoming LDN messages are moderated. If you are planning to exchange information with us, kindly reach out via our dedicated Feedback form. You can access the Feedback form by clicking <a href=\"info/feedback\">here</a>.",
 
 
 

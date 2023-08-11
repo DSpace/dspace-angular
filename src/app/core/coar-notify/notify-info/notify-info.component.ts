@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthorizationDataService } from '../../data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../data/feature-authorization/feature-id';
+import { NotifyInfoService } from './notify-info.service';
+
 
 @Component({
     selector: 'ds-notify-info',
@@ -12,13 +12,13 @@ export class NotifyInfoComponent implements OnInit {
     coarLdnEnabled: boolean;
 
     constructor(
-        private authorizationService: AuthorizationDataService,
-    ) {
-    }
+        public notifyInfoService: NotifyInfoService,
+    ) { }
 
     ngOnInit() {
-        this.authorizationService.isAuthorized(FeatureID.CoarLdnEnabled).subscribe(enabled => {
-            this.coarLdnEnabled = enabled;
-        });
-    }
+        this.coarLdnEnabled = this.notifyInfoService.isCoarConfigEnabled();
+        console.log(this.coarLdnEnabled);
+        }
+
 }
+

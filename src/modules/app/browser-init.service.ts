@@ -32,6 +32,7 @@ import { logStartupMessage } from '../../../startup-message';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { RootDataService } from '../../app/core/data/root-data.service';
 import { firstValueFrom, Subscription } from 'rxjs';
+import { NotifyInfoService } from '../../app/core/coar-notify/notify-info/notify-info.service';
 
 /**
  * Performs client-side initialization.
@@ -50,6 +51,7 @@ export class BrowserInitService extends InitService {
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
     protected googleAnalyticsService: GoogleAnalyticsService,
+    protected notifyInfoService: NotifyInfoService,
     protected metadata: MetadataService,
     protected breadcrumbsService: BreadcrumbsService,
     protected klaroService: KlaroService,
@@ -95,6 +97,7 @@ export class BrowserInitService extends InitService {
       this.initI18n();
       this.initAngulartics();
       this.initGoogleAnalytics();
+      this.retrieveCoarConfig();
       this.initRouteListeners();
       this.themeService.listenForThemeChanges(true);
       this.trackAuthTokenExpiration();
@@ -140,6 +143,10 @@ export class BrowserInitService extends InitService {
 
   protected initGoogleAnalytics() {
     this.googleAnalyticsService.addTrackingIdToPage();
+  }
+
+  protected retrieveCoarConfig() {
+    this.notifyInfoService.isCoarConfigEnabled();
   }
 
   /**
