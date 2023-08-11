@@ -5115,6 +5115,17 @@
   // "item.matomo-statistics.info.message" : "Click on a data point to summarize by year / month."
   "item.matomo-statistics.info.message" : "Kliknutím na datový bod provedete shrnutí podle roku/měsíce.",
 
+
+  // "item.view.box.author.message": "Author(s):",
+  "item.view.box.author.message": "Autoři",
+
+  // "item.view.box.files.message": ["This item contains", "files"],
+  "item.view.box.files.message": ["Tento záznam obsahuje", "souborů"],
+
+  // "item.view.box.no-files.message": "This item contains no files.",
+  "item.view.box.no-files.message": "Tento záznam neobsahuje soubory.",
+
+
   // "item.select.confirm" : "Confirm selected"
   "item.select.confirm" : "Potvrdit vybrané",
 
