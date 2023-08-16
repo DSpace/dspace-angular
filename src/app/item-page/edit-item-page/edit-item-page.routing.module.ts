@@ -42,6 +42,7 @@ import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metada
 import { ItemPageRegisterDoiGuard } from './item-page-register-doi.guard';
 import { ItemCurateComponent } from './item-curate/item-curate.component';
 import { ThemedItemStatusComponent } from './item-status/themed-item-status.component';
+import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -111,6 +112,11 @@ import { ThemedItemStatusComponent } from './item-status/themed-item-status.comp
                 component: ItemVersionHistoryComponent,
                 data: { title: 'item.edit.tabs.versionhistory.title', showBreadcrumbs: true },
                 canActivate: [ItemPageVersionHistoryGuard]
+              },
+              {
+                path: 'access-control',
+                component: ItemAccessControlComponent,
+                data: { title: 'item.edit.tabs.access-control.title', showBreadcrumbs: true }
               },
               {
                 path: 'mapper',

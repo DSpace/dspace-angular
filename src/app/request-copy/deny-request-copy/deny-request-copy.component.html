@@ -3,7 +3,7 @@
   <div *ngIf="itemRequestRD && itemRequestRD.hasSucceeded">
     <p>{{'deny-request-copy.intro' | translate}}</p>
 
-    <ds-email-request-copy [subject]="subject$ | async" [message]="message$ | async" (send)="deny($event)"></ds-email-request-copy>
+    <ds-themed-email-request-copy [subject]="subject$ | async" [message]="message$ | async" (send)="deny($event)"></ds-themed-email-request-copy>
   </div>
   <ds-themed-loading *ngIf="!itemRequestRD || itemRequestRD?.isLoading"></ds-themed-loading>
 </div>

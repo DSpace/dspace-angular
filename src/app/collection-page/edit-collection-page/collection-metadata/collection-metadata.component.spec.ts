@@ -4,7 +4,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CollectionMetadataComponent } from './collection-metadata.component';
@@ -52,6 +52,11 @@ describe('CollectionMetadataComponent', () => {
     setStaleByHrefSubstring: {}
   });
 
+  const routerMock = {
+    events: observableOf(new NavigationEnd(1, 'url', 'url')),
+    navigate: jasmine.createSpy('navigate'),
+  };
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
@@ -62,6 +67,7 @@ describe('CollectionMetadataComponent', () => {
         { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: RequestService, useValue: requestService },
+        { provide: Router, useValue: routerMock}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -70,8 +76,11 @@ describe('CollectionMetadataComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CollectionMetadataComponent);
     comp = fixture.componentInstance;
-    router = (comp as any).router;
     itemTemplateService = (comp as any).itemTemplateService;
+    spyOn(comp, 'ngOnInit');
+    spyOn(comp, 'initTemplateItem');
+
+    routerMock.events = observableOf(new NavigationEnd(1, 'url', 'url'));
     fixture.detectChanges();
   });
 
@@ -83,9 +92,8 @@ describe('CollectionMetadataComponent', () => {
 
   describe('addItemTemplate', () => {
     it('should navigate to the collection\'s itemtemplate page', () => {
-      spyOn(router, 'navigate');
       comp.addItemTemplate();
-      expect(router.navigate).toHaveBeenCalledWith([getCollectionItemTemplateRoute(collection.uuid)]);
+      expect(routerMock.navigate).toHaveBeenCalledWith([getCollectionItemTemplateRoute(collection.uuid)]);
     });
   });
 

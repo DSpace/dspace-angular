@@ -132,6 +132,11 @@ export class SearchComponent implements OnInit {
   @Input() showSidebar = true;
 
   /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
+
+  /**
    * Whether to show the view mode switch
    */
   @Input() showViewModes = true;
