@@ -9,6 +9,7 @@ import { FeedbackGuard } from '../core/feedback/feedback.guard';
 import { environment } from '../../environments/environment';
 import { COAR_NOTIFY_SUPPORT } from '../app-routing-paths';
 import { NotifyInfoComponent } from '../core/coar-notify/notify-info/notify-info.component';
+import { NotifyInfoGuard } from '../core/coar-notify/notify-info/notify-info.guard';
 
 
 const imports = [
@@ -27,8 +28,7 @@ const imports = [
       component: NotifyInfoComponent,
       resolve: { breadcrumb: I18nBreadcrumbResolver },
       data: { title: 'info.coar-notify-support.title', breadcrumbKey: 'info.coar-notify-support' },
-      // TODO: create authGuard for COAR_NOTIFY
-      // canActivate: [FeedbackGuard]
+      canActivate: [NotifyInfoGuard]
     }
   ])
 ];

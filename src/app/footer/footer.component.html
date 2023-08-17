@@ -81,10 +81,10 @@
         </li>
       </ul>
     </div>
-    <div class="notify-enabled">
+    <div class="notify-enabled" [hidden]="!coarLdnEnabled">
       <a class="coar-notify-support-route" routerLink="info/coar-notify-support">
-      <img class="n-coar" src="assets/images/n-coar.png" [attr.alt]="'menu.header.image.logo' | translate" />
-      This site support the COAR Notify protocol
+        <img class="n-coar" src="assets/images/n-coar.png" [attr.alt]="'menu.header.image.logo' | translate" />
+        This site supports the COAR Notify protocol
       </a>
     </div>
   </div>

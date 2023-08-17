@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NotifyInfoService } from './notify-info.service';
 
-
 @Component({
     selector: 'ds-notify-info',
     templateUrl: './notify-info.component.html',
@@ -16,9 +15,9 @@ export class NotifyInfoComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.coarLdnEnabled = this.notifyInfoService.isCoarConfigEnabled();
-        console.log(this.coarLdnEnabled);
-        }
+        this.notifyInfoService.isCoarConfigEnabled().subscribe(value => {
+            this.coarLdnEnabled = value;
+        });
+    }
 
 }
-
