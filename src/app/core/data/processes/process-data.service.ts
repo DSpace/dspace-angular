@@ -6,25 +6,28 @@ import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { Process } from '../../../process-page/processes/process.model';
 import { PROCESS } from '../../../process-page/processes/process.resource-type';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, filter, take } from 'rxjs/operators';
 import { PaginatedList } from '../paginated-list.model';
 import { Bitstream } from '../../shared/bitstream.model';
 import { RemoteData } from '../remote-data';
 import { BitstreamDataService } from '../bitstream-data.service';
 import { IdentifiableDataService } from '../base/identifiable-data.service';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { FollowLinkConfig, followLink } from '../../../shared/utils/follow-link-config.model';
 import { FindAllData, FindAllDataImpl } from '../base/find-all-data';
 import { FindListOptions } from '../find-list-options.model';
 import { dataService } from '../base/data-service.decorator';
 import { DeleteData, DeleteDataImpl } from '../base/delete-data';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NoContent } from '../../shared/NoContent.model';
+import { getAllCompletedRemoteData } from '../../shared/operators';
+import { ProcessStatus } from 'src/app/process-page/processes/process-status.model';
 
 @Injectable()
 @dataService(PROCESS)
 export class ProcessDataService extends IdentifiableDataService<Process> implements FindAllData<Process>, DeleteData<Process> {
   private findAllData: FindAllData<Process>;
   private deleteData: DeleteData<Process>;
+  protected activelyBeingPolled: Set<string> = new Set();
 
   constructor(
     protected requestService: RequestService,
@@ -100,5 +103,42 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
    */
   public deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
     return this.deleteData.deleteByHref(href, copyVirtualMetadata);
+  }
+
+  // TODO
+  public notifyOnCompletion(processId: string, pollingIntervalInMs = 5000): Observable<RemoteData<Process>> {
+    const process$ = this.findById(processId, false, true, followLink('script'))
+      .pipe(
+        getAllCompletedRemoteData(),
+      );
+
+    // TODO: this is horrible
+    const statusIs = (process: Process, status: ProcessStatus) =>
+      process.processStatus === status;
+
+    // If we have to wait too long for the result, we should mark the result as stale.
+    // However, we should make sure this happens only once (in case there are multiple observers waiting
+    // for the result).
+    if (!this.activelyBeingPolled.has(processId)) {
+      this.activelyBeingPolled.add(processId);
+
+      // Create a subscription that marks the data as stale if the polling interval time has been exceeded.
+      const sub = process$.subscribe((rd) => {
+        const process = rd.payload;
+        if (statusIs(process, ProcessStatus.COMPLETED) || statusIs(process, ProcessStatus.FAILED)) {
+          this.activelyBeingPolled.delete(processId);
+          sub.unsubscribe();
+        } else {
+          setTimeout(() => {
+            this.requestService.setStaleByHrefSubstring(process._links.self.href);
+          }, pollingIntervalInMs);
+        }
+      });
+    }
+
+    return process$.pipe(
+      filter(rd => statusIs(rd.payload, ProcessStatus.COMPLETED) || statusIs(rd.payload, ProcessStatus.FAILED)),
+      take(1)
+    );
   }
 }

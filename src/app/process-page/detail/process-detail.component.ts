@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, NgZone, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, NgZone, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, interval, Observable, shareReplay, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { finalize, map, switchMap, take, tap } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -26,8 +26,6 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'ds-process-detail',
@@ -36,7 +34,7 @@ import { isPlatformBrowser } from '@angular/common';
 /**
  * A component displaying detailed information about a DSpace Process
  */
-export class ProcessDetailComponent implements OnInit, OnDestroy {
+export class ProcessDetailComponent implements OnInit {
 
   /**
    * The AlertType enumeration
@@ -107,18 +105,22 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
    * Display a 404 if the process doesn't exist
    */
   ngOnInit(): void {
-    this.processRD$ = this.route.data.pipe(
-      map((data) => {
-        if (isPlatformBrowser(this.platformId)) {
-          if (!this.isProcessFinished(data.process.payload)) {
-            this.startRefreshTimer();
-          }
-        }
+    // this.processRD$ = this.route.data.pipe(
+    //   map((data) => {
+    //     if (isPlatformBrowser(this.platformId)) {
+    //       if (!this.isProcessFinished(data.process.payload)) {
+    //         this.startRefreshTimer();
+    //       }
+    //     }
 
-        return data.process as RemoteData<Process>;
-      }),
-      redirectOn4xx(this.router, this.authService),
-      shareReplay(1)
+    //     return data.process as RemoteData<Process>;
+    //   }),
+    //   redirectOn4xx(this.router, this.authService),
+    //   shareReplay(1)
+    // );
+
+    this.processRD$ = this.processService.notifyOnCompletion(this.route.snapshot.params.id).pipe(
+      redirectOn4xx(this.router, this.authService)
     );
 
     this.filesRD$ = this.processRD$.pipe(
@@ -127,52 +129,69 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
     );
   }
 
-  refresh() {
-    this.processRD$ = this.processService.findById(
-      this.route.snapshot.params.id,
-      false,
-      true,
-      followLink('script')
-    ).pipe(
-      getFirstSucceededRemoteData(),
-      redirectOn4xx(this.router, this.authService),
-      tap((processRemoteData: RemoteData<Process>) => {
-        if (!this.isProcessFinished(processRemoteData.payload)) {
-          this.startRefreshTimer();
-        }
-      }),
-      shareReplay(1)
-    );
+  // refresh() {
 
-    this.filesRD$ = this.processRD$.pipe(
-      getFirstSucceededRemoteDataPayload(),
-      switchMap((process: Process) => this.processService.getFiles(process.processId))
-    );
-  }
+    ////////////////////////////////////////////////////////////////////////////////
 
-  startRefreshTimer() {
-    this.refreshCounter$.next(0);
+    // this.processRD$ = this.processService.findById(
+    //   this.route.snapshot.params.id,
+    //   false,
+    //   true,
+    //   followLink('script')
+    // ).pipe(
+    //   // First get the process state
+    //   getFirstSucceededRemoteData(),
 
-    this.refreshTimerSub = interval(1000).subscribe(
-      value => {
-        if (value > 5) {
-          setTimeout(() => {
-            this.refresh();
-            this.stopRefreshTimer();
-            this.refreshCounter$.next(0);
-          }, 1);
-        } else {
-          this.refreshCounter$.next(5 - value);
-        }
-      });
-  }
+    //   // Error if it goes wrong
+    //   redirectOn4xx(this.router, this.authService),
 
-  stopRefreshTimer() {
-    if (hasValue(this.refreshTimerSub)) {
-      this.refreshTimerSub.unsubscribe();
-      this.refreshTimerSub = undefined;
-    }
-  }
+    //   // If process is not finished, start the refresh timer
+    //   tap((processRemoteData: RemoteData<Process>) => {
+    //     if (!this.isProcessFinished(processRemoteData.payload)) {
+    //       this.startRefreshTimer();
+    //     }
+    //   }),
+
+    //   // ???
+    //   shareReplay(1)
+    // );
+    // this.filesRD$ = this.processRD$.pipe(
+    //   getFirstSucceededRemoteDataPayload(),
+    //   switchMap((process: Process) => this.processService.getFiles(process.processId))
+    // );
+  // }
+
+  // // TODO delete
+  // // call refresh after 5 sec
+  // startRefreshTimer() {
+  //   this.refreshCounter$.next(0);
+  //
+  //   // TODO delete comment
+  //   // This fires every 1000 ms with an incrementing value.
+  //   // So the first time this fires, it adds the value 5 to the refresh counter
+  //   // the second time, it adds the value 4,
+  //   // etc.
+  //   // If the value exceeds 5, the refresh timer is stopped and this.refresh is called.
+  //   this.refreshTimerSub = interval(1000).subscribe(
+  //     value => {
+  //       if (value > 5) {
+  //         setTimeout(() => {
+  //           this.refresh();
+  //           this.stopRefreshTimer();
+  //           this.refreshCounter$.next(0);
+  //         }, 1);
+  //       } else {
+  //         this.refreshCounter$.next(5 - value);
+  //       }
+  //     });
+  // }
+  //
+  // stopRefreshTimer() {
+  //   if (hasValue(this.refreshTimerSub)) {
+  //     this.refreshTimerSub.unsubscribe();
+  //     this.refreshTimerSub = undefined;
+  //   }
+  // }
 
   /**
    * Get the name of a bitstream
@@ -275,9 +294,5 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
    */
   closeModal() {
     this.modalRef.close();
-  }
-
-  ngOnDestroy(): void {
-    this.stopRefreshTimer();
   }
 }
