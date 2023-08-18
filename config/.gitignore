@@ -1,2 +1,3 @@
 config.*.yml
+!config.calypso.yml
 !config.example.yml
