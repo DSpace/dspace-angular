@@ -14,7 +14,7 @@ import {
 import { UntypedFormGroup } from '@angular/forms';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { switchMap, take } from 'rxjs/operators';
+import { switchMap, take, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, combineLatest } from 'rxjs';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
@@ -156,42 +156,48 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
    * Emit the updated/created schema using the EventEmitter submitForm
    */
   onSubmit(): void {
-    const clearMetadataSchemaRequests$ =
-      this.registryService.clearMetadataSchemaRequests();
+        this.registryService
+          .getActiveMetadataSchema()
+          .pipe(
+            take(1),
+            switchMap((schema: MetadataSchema) => {
+              const metadataValues = {
+                prefix: this.name.value,
+                namespace: this.namespace.value,
+              };
 
-    clearMetadataSchemaRequests$
-      .pipe(
-        switchMap(() =>
-          this.registryService.getActiveMetadataSchema().pipe(take(1))
-        ),
-        switchMap((schema: MetadataSchema) => {
-          const metadataValues = {
-            prefix: this.name.value,
-            namespace: this.namespace.value,
-          };
+              let createOrUpdate$: Observable<MetadataSchema>;
 
-          let createOrUpdate$: Observable<MetadataSchema>;
+              if (schema == null) {
+                createOrUpdate$ =
+                  this.registryService.createOrUpdateMetadataSchema(
+                    Object.assign(new MetadataSchema(), metadataValues)
+                  );
+              } else {
+                const updatedSchema = Object.assign(
+                  new MetadataSchema(),
+                  schema,
+                  {
+                    namespace: metadataValues.namespace,
+                  }
+                );
+                createOrUpdate$ =
+                  this.registryService.createOrUpdateMetadataSchema(
+                    updatedSchema
+                  );
+              }
 
-          if (schema == null) {
-            createOrUpdate$ = this.registryService.createOrUpdateMetadataSchema(
-              Object.assign(new MetadataSchema(), metadataValues)
-            );
-          } else {
-            const updatedSchema = Object.assign(new MetadataSchema(), schema, {
-              namespace: metadataValues.namespace,
-            });
-            createOrUpdate$ =
-              this.registryService.createOrUpdateMetadataSchema(updatedSchema);
-          }
-
-          return createOrUpdate$;
-        })
-      )
-      .subscribe((updatedOrCreatedSchema: MetadataSchema) => {
-        this.submitForm.emit(updatedOrCreatedSchema);
-        this.clearFields();
-        this.registryService.cancelEditMetadataSchema();
-      });
+              return createOrUpdate$;
+            }),
+            tap(() => {
+              this.registryService.clearMetadataSchemaRequests().subscribe();
+            })
+          )
+          .subscribe((updatedOrCreatedSchema: MetadataSchema) => {
+            this.submitForm.emit(updatedOrCreatedSchema);
+            this.clearFields();
+            this.registryService.cancelEditMetadataSchema();
+          });
   }
 
   /**
