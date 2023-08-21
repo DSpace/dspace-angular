@@ -23,12 +23,14 @@ const searchOption = params.get('searchable');
 const query = params.get('query');
 const multi = params.get('multi');
 const notMobile = params.get('notMobile');
+const langParam = params.get('lang');
 
 let windowSettings = {};
 let sidbarPanel = 'info';
 let defaultView = 'single';
 let multipleItems = false;
 let thumbNavigation = 'off';
+let lang = 'en' // Default to english, but should not happen
 
 windowSettings.manifestId = manifest;
 
@@ -51,6 +53,9 @@ windowSettings.manifestId = manifest;
       }
     }
   }
+  if ( langParam !== 'null' ) {
+    lang = langParam;
+  }
 })();
 
 (Mirador.viewer(
@@ -59,6 +64,7 @@ windowSettings.manifestId = manifest;
       mainMenuSettings: {
         show: true
       },
+      language: lang,       // The default language set in the application
       thumbnailNavigation: {
         defaultPosition: thumbNavigation, // Which position for the thumbnail navigation to be be displayed. Other possible values are "far-bottom" or "far-right"
         displaySettings: true, // Display the settings for this in WindowTopMenu

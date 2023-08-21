@@ -9,6 +9,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { MiradorViewerService } from './mirador-viewer.service';
 import { HostWindowService, WidthCategory } from '../../shared/host-window.service';
 import { BundleDataService } from '../../core/data/bundle-data.service';
+import { LocaleService } from '../../core/locale/locale.service';
 
 @Component({
   selector: 'ds-mirador-viewer',
@@ -58,6 +59,7 @@ export class MiradorViewerComponent implements OnInit {
               private bitstreamDataService: BitstreamDataService,
               private bundleDataService: BundleDataService,
               private hostWindowService: HostWindowService,
+              private localeService: LocaleService,
               @Inject(PLATFORM_ID) private platformId: any) {
   }
 
@@ -86,6 +88,7 @@ export class MiradorViewerComponent implements OnInit {
     if (this.notMobile) {
       viewerPath += '&notMobile=true';
     }
+    viewerPath += '&lang=' + this.localeService.getCurrentLanguageCode();
 
     // TODO: Should the query term be trusted here?
     return this.sanitizer.bypassSecurityTrustResourceUrl(viewerPath);
