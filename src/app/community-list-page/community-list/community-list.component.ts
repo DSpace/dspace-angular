@@ -28,11 +28,9 @@ export class CommunityListComponent implements OnInit, OnDestroy {
   treeControl = new FlatTreeControl<FlatNode>(
     (node: FlatNode) => node.level, (node: FlatNode) => true
   );
-
   dataSource: CommunityListDatasource;
-  trackBy = (index, node: FlatNode) => node.id;
-
   paginationConfig: FindListOptions;
+  trackBy = (index, node: FlatNode) => node.id;
 
   constructor(
     protected communityListService: CommunityListService,
