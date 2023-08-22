@@ -59,18 +59,28 @@ export class CommunityListComponent implements OnInit, OnDestroy {
     this.communityListService.saveCommunityListStateToStore(this.expandedNodes, this.loadingNode);
   }
 
-  // whether or not this node has children (subcommunities or collections)
+  /**
+   * Whether this node has children (subcommunities or collections)
+   * @param _
+   * @param node
+   */
   hasChild(_: number, node: FlatNode) {
     return node.isExpandable$;
   }
 
-  // whether or not it is a show more node (contains no data, but is indication that there are more topcoms, subcoms or collections
+  /**
+   * Whether this is a show more node that contains no data, but indicates that there is
+   * one or more community or collection.
+   * @param _
+   * @param node
+   */
   isShowMore(_: number, node: FlatNode) {
     return node.isShowMoreNode;
   }
 
   /**
-   * Toggles the expanded variable of a node, adds it to the expanded nodes list and reloads the tree so this node is expanded
+   * Toggles the expanded variable of a node, adds it to the expanded nodes list and reloads the tree
+   * so this node is expanded
    * @param node  Node we want to expand
    */
   toggleExpanded(node: FlatNode) {
@@ -93,9 +103,12 @@ export class CommunityListComponent implements OnInit, OnDestroy {
 
   /**
    * Makes sure the next page of a node is added to the tree (top community, sub community of collection)
-   *      > Finds its parent (if not top community) and increases its corresponding collection/subcommunity currentPage
-   *      > Reloads tree with new page added to corresponding top community lis, sub community list or collection list
-   * @param node  The show more node indicating whether it's an increase in top communities, sub communities or collections
+   *      > Finds its parent (if not top community) and increases its corresponding collection/subcommunity
+   *      currentPage
+   *      > Reloads tree with new page added to corresponding top community lis, sub community list or
+   *      collection list
+   * @param node  The show more node indicating whether it's an increase in top communities, sub communities
+   *              or collections
    */
   getNextPage(node: FlatNode): void {
     this.loadingNode = node;
