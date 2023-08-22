@@ -536,10 +536,12 @@ function createHttpsServer(keys) {
 
   // Graceful shutdown when signalled
   const terminator = createHttpTerminator({server: listener});
-  process.on('SIGINT', ()=> {
-      console.debug('Closing HTTPS server on signal');
-      terminator.terminate().catch(e => { console.error(e); });
-      console.debug('HTTPS server closed');
+  process.on('SIGINT', () => {
+      void (async ()=> {
+        console.debug('Closing HTTPS server on signal');
+        await terminator.terminate().catch(e => { console.error(e); });
+        console.debug('HTTPS server closed');
+      })();
       });
 }
 
@@ -555,10 +557,12 @@ function run() {
 
   // Graceful shutdown when signalled
   const terminator = createHttpTerminator({server: listener});
-  process.on('SIGINT', ()=> {
-      console.debug('Closing HTTP server on signal');
-      terminator.terminate().catch(e => { console.error(e); });
-      console.debug('HTTP server closed.');
+  process.on('SIGINT', () => {
+      void (async () => {
+        console.debug('Closing HTTP server on signal');
+        await terminator.terminate().catch(e => { console.error(e); });
+        console.debug('HTTP server closed.');return undefined;
+        })();
       });
 }
 
