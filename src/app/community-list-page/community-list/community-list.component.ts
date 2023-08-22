@@ -30,6 +30,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
   );
 
   dataSource: CommunityListDatasource;
+  trackBy = (index, node: FlatNode) => node.id;
 
   paginationConfig: FindListOptions;
 
