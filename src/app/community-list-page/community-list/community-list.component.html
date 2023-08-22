@@ -34,13 +34,13 @@
               aria-hidden="true"></span>
       </button>
       <div class="d-flex flex-row">
-        <h5 class="align-middle pt-2">
+        <span class="align-middle pt-2 lead">
           <a [routerLink]="node.route" class="lead">
             {{ dsoNameService.getName(node.payload) }}
           </a>
           <span class="pr-2">&nbsp;</span>
           <span *ngIf="node.payload.archivedItemsCount >= 0" class="badge badge-pill badge-secondary align-top archived-items-lead">{{node.payload.archivedItemsCount}}</span>
-        </h5>
+        </span>
       </div>
     </div>
     <ds-truncatable [id]="node.id">
