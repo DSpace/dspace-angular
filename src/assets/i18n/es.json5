@@ -854,7 +854,7 @@
 
   // "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
   "admin.batch-import.page.toggle.help": "Es posible realizar una importación tanto mediante una subida de fichero como a través de una URL. Use el selector de arriba para especificar la fuente de entrada.",
- 
+
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
   "admin.metadata-import.page.dropMsg": "Suelta un CSV de metadatos para importar",
 
@@ -2677,7 +2677,7 @@
   "grant-request-copy.header": "Conceder solicitud de copia de documento",
 
   // "grant-request-copy.intro": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
-   "grant-request-copy.intro": "Este mensaje se enviará al solicitante de la copia. Se le anexará una copia del documento.",
+  "grant-request-copy.intro": "Este mensaje se enviará al solicitante de la copia. Se le anexará una copia del documento.",
 
   // "grant-request-copy.success": "Successfully granted item request",
   "grant-request-copy.success": "Solicitud de ítem concedida exitosamente",
@@ -2686,13 +2686,13 @@
   "health.breadcrumbs": "Chequeos",
 
   // "health-page.heading": "Health",
-   "health-page.heading": "Chequeos",
+  "health-page.heading": "Chequeos",
 
   // "health-page.info-tab": "Info",
-   "health-page.info-tab": "Información",
+  "health-page.info-tab": "Información",
 
   // "health-page.status-tab": "Status",
-   "health-page.status-tab": "Estado",
+  "health-page.status-tab": "Estado",
 
   // "health-page.error.msg": "The health check service is temporarily unavailable",
   "health-page.error.msg": "El servicio de comprobación no se encuentra temporalmente disponible",
@@ -4744,7 +4744,7 @@
   "process.new.notification.error.content": "Se produjo un error al crear este proceso.",
 
   // "process.new.notification.error.max-upload.content": "The file exceeds the maximum upload size",
-   "process.new.notification.error.max-upload.content": "El fichero sobrepasa el límte máximo de subida",
+  "process.new.notification.error.max-upload.content": "El fichero sobrepasa el límte máximo de subida",
 
   // "process.new.header": "Create a new process",
   "process.new.header": "Crea un nuevo proceso",
