@@ -136,6 +136,7 @@ export class SuggestionTargetsComponent implements OnInit {
       distinctUntilChanged(),
       take(1)
     ).subscribe((options: PaginationComponentOptions) => {
+      console.log('HELLO suggestion called!', options);
       this.suggestionTargetsStateService.dispatchRetrieveReciterSuggestionTargets(
         this.source,
         options.pageSize,

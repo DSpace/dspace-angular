@@ -49,7 +49,9 @@ export class SuggestionsService {
   /**
    * Initialize the service variables.
    * @param {AuthService} authService
-   * @param {ResearcherProfileService} researcherProfileService
+   * @param {ResearcherProfileDataService} researcherProfileService
+   * @param {SuggestionSourceDataService} suggestionSourceDataService
+   * @param {SuggestionTargetDataService} suggestionTargetDataService
    * @param {SuggestionsDataService} suggestionsDataService
    */
   constructor(

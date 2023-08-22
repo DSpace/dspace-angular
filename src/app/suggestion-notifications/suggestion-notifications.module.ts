@@ -40,6 +40,15 @@ import {
 } from './reciter-suggestions/suggestions-notification/suggestions-notification.component';
 import { SuggestionsService } from './reciter-suggestions/suggestions.service';
 import { SuggestionsDataService } from '../core/suggestion-notifications/reciter-suggestions/suggestions-data.service';
+import {
+  SuggestionSourceDataService
+} from '../core/suggestion-notifications/reciter-suggestions/source/suggestion-source-data.service';
+import {
+  SuggestionTargetDataService
+} from '../core/suggestion-notifications/reciter-suggestions/target/suggestion-target-data.service';
+import {
+  SuggestionTargetsStateService
+} from './reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
 
 const MODULES = [
   CommonModule,
@@ -77,6 +86,9 @@ const PROVIDERS = [
   QualityAssuranceSourceDataService,
   QualityAssuranceEventDataService,
   SuggestionsService,
+  SuggestionSourceDataService,
+  SuggestionTargetDataService,
+  SuggestionTargetsStateService,
   SuggestionsDataService
 ];
 

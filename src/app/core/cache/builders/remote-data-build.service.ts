@@ -161,6 +161,7 @@ export class RemoteDataBuildService {
       } else {
         // in case the elements of the paginated list were already filled in, because they're UnCacheableObjects
         paginatedList.page = paginatedList.page
+          .filter((obj: any) => obj != null)
           .map((obj: any) => this.plainObjectToInstance<T>(obj))
           .map((obj: any) =>
             this.linkService.resolveLinks(obj, ...pageLink.linksToFollow)

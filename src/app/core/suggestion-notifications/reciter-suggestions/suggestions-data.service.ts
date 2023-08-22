@@ -168,8 +168,8 @@ export class SuggestionsDataService {
     ...linksToFollow: FollowLinkConfig<SuggestionTarget>[]
   ): Observable<RemoteData<PaginatedList<SuggestionTarget>>> {
     options.searchParams = [new RequestParam('target', userId)];
-
-    return this.suggestionTargetsDataService.getTargetsByUser(this.searchFindByTargetMethod, options, ...linksToFollow);
+    //return this.suggestionTargetsDataService.getTargetsByUser(this.searchFindByTargetMethod, options, ...linksToFollow);
+    return this.suggestionTargetsDataService.getTargetsByUser(userId, options, ...linksToFollow);
   }
 
   /**

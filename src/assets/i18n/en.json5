@@ -24,6 +24,10 @@
 
   "404.page-not-found": "page not found",
 
+  "admin.notifications.recitersuggestion.breadcrumbs": "Suggestions",
+
+  "admin.notifications.recitersuggestion.page.title": "Suggestions",
+
   "error-page.description.401": "unauthorized",
 
   "error-page.description.403": "forbidden",
@@ -3052,6 +3056,12 @@
 
   "mydspace.view-btn": "View",
 
+  "mydspace.import": "Import",
+
+  "mydspace.notification.suggestion": "We found <b>{{count}} publications</b><br> in the {{source}} that seems to be related to your profile.<br> Please <a href='/suggestions/{{suggestionId}}'>review the suggestions</a>",
+
+  "mydspace.notification.suggestion.page": "We found <b>{{count}} {{type}}</b> in the {{source}} that seems to be related to your profile. Please <a href='/suggestions/{{suggestionId}}'>review the suggestions.</a>",
+
   "nav.browse.header": "All of DSpace",
 
   "nav.community-browse.header": "By Community",
@@ -3513,6 +3523,64 @@
   "media-viewer.previous": "Previous",
 
   "media-viewer.playlist": "Playlist",
+
+  "reciter.suggestion.loading": "Loading ...",
+
+  "reciter.suggestion.title": "Suggestions",
+
+  "reciter.suggestion.targets.description": "Below you can see all the suggestions ",
+
+  "reciter.suggestion.targets": "Current Suggestions",
+
+  "reciter.suggestion.table.name": "Researcher Name",
+
+  "reciter.suggestion.table.actions": "Actions",
+
+  "reciter.suggestion.button.review": "Review {{ total }} suggestion(s)",
+
+  "reciter.suggestion.noTargets": "No target found.",
+
+  "reciter.suggestion.target.error.service.retrieve": "An error occurred while loading the Suggestion targets",
+
+  "reciter.suggestion.evidence.type": "Type",
+
+  "reciter.suggestion.evidence.score": "Score",
+
+  "reciter.suggestion.evidence.notes": "Notes",
+
+  "reciter.suggestion.approveAndImport": "Approve & import",
+
+  "reciter.suggestion.approveAndImport.success": "The suggestion has been imported successfully. <a href='/workspaceitems/{{workspaceItemId}}/edit'>View.</a>",
+
+  "reciter.suggestion.approveAndImport.bulk": "Approve & import Selected",
+
+  "reciter.suggestion.approveAndImport.bulk.success": "{{ count }} suggestions have been imported successfully ",
+
+  "reciter.suggestion.approveAndImport.bulk.error": "{{ count }} suggestions haven't been imported due to unexpected server errors",
+
+  "reciter.suggestion.notMine": "Not mine",
+
+  "reciter.suggestion.notMine.success": "The suggestion has been discarded",
+
+  "reciter.suggestion.notMine.bulk": "Not mine Selected",
+
+  "reciter.suggestion.notMine.bulk.success": "{{ count }} suggestions have been discarded ",
+
+  "reciter.suggestion.notMine.bulk.error": "{{ count }} suggestions haven't been discarded due to unexpected server errors",
+
+  "reciter.suggestion.seeEvidence": "See evidence",
+
+  "reciter.suggestion.hideEvidence": "Hide evidence",
+
+  "reciter.suggestion.suggestionFor": "Suggestion for",
+
+  "reciter.suggestion.source.oaire": "OpenAIRE Graph",
+
+  "reciter.suggestion.from.source": "from the ",
+
+  "reciter.suggestion.totalScore": "Total Score",
+
+  "reciter.suggestion.type.oaire": "OpenAIRE",
 
   "register-email.title": "New user registration",
 

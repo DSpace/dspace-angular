@@ -62,7 +62,7 @@ export class SuggestionTargetsEffects {
   /**
    * Fetch the current user suggestion
    */
-  refreshUserTargets$ = createEffect(() => this.actions$.pipe(
+  RefreshUserSuggestionsAction = createEffect(() => this.actions$.pipe(
     ofType(SuggestionTargetActionTypes.REFRESH_USER_SUGGESTIONS),
     switchMap((action: RefreshUserSuggestionsAction) => {
       return this.store$.select((state: any) => state.core.auth.userId)

@@ -27,7 +27,7 @@ export function reciterSuggestionTargetStateSelector(): MemoizedSelector<Suggest
 /**
  * Returns the Reciter Suggestion Targets list.
  * @function reciterSuggestionTargetObjectSelector
- * @return {OpenaireReciterSuggestionTarget[]}
+ * @return {SuggestionTarget[]}
  */
 export function reciterSuggestionTargetObjectSelector(): MemoizedSelector<SuggestionNotificationsState, SuggestionTarget[]> {
   return subStateSelector<SuggestionNotificationsState, SuggestionTarget[]>(reciterSuggestionTargetStateSelector(), 'targets');
@@ -47,7 +47,7 @@ export const isReciterSuggestionTargetLoadedSelector = createSelector(_getRecite
  * @function isDeduplicationSetsProcessingSelector
  * @return {boolean}
  */
-export const isreciterSuggestionTargetProcessingSelector = createSelector(_getReciterSuggestionTargetState,
+export const isReciterSuggestionTargetProcessingSelector = createSelector(_getReciterSuggestionTargetState,
   (state: SuggestionNotificationsState) => state.suggestionTarget.processing
 );
 
@@ -56,7 +56,7 @@ export const isreciterSuggestionTargetProcessingSelector = createSelector(_getRe
  * @function getreciterSuggestionTargetTotalPagesSelector
  * @return {number}
  */
-export const getreciterSuggestionTargetTotalPagesSelector = createSelector(_getReciterSuggestionTargetState,
+export const getReciterSuggestionTargetTotalPagesSelector = createSelector(_getReciterSuggestionTargetState,
   (state: SuggestionNotificationsState) => state.suggestionTarget.totalPages
 );
 
@@ -65,7 +65,7 @@ export const getreciterSuggestionTargetTotalPagesSelector = createSelector(_getR
  * @function getreciterSuggestionTargetCurrentPageSelector
  * @return {number}
  */
-export const getreciterSuggestionTargetCurrentPageSelector = createSelector(_getReciterSuggestionTargetState,
+export const getReciterSuggestionTargetCurrentPageSelector = createSelector(_getReciterSuggestionTargetState,
   (state: SuggestionNotificationsState) => state.suggestionTarget.currentPage
 );
 
@@ -74,7 +74,7 @@ export const getreciterSuggestionTargetCurrentPageSelector = createSelector(_get
  * @function getreciterSuggestionTargetTotalsSelector
  * @return {number}
  */
-export const getreciterSuggestionTargetTotalsSelector = createSelector(_getReciterSuggestionTargetState,
+export const getReciterSuggestionTargetTotalsSelector = createSelector(_getReciterSuggestionTargetState,
   (state: SuggestionNotificationsState) => state.suggestionTarget.totalElements
 );
 

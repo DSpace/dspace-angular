@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -30,6 +30,11 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
   @Input() dsoRD: RemoteData<DSpaceObject>;
 
   /**
+   * Representing if component should emit value of selected entries or navigate
+   */
+  @Input() emitOnly = false;
+
+  /**
    * Optional header to display above the selection list
    * Supports i18n keys
    */
@@ -49,6 +54,11 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
    * The type of action to perform
    */
   action: SelectorActionType;
+
+  /**
+   * Event emitted when a DSO entry is selected if emitOnly is set to true
+   */
+  @Output() select: EventEmitter<DSpaceObject> = new EventEmitter<DSpaceObject>();
 
   /**
    * Default DSO ordering
@@ -93,7 +103,11 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
    */
   selectObject(dso: DSpaceObject) {
     this.close();
-    this.navigate(dso);
+    if (this.emitOnly) {
+      this.select.emit(dso);
+    } else {
+      this.navigate(dso);
+    }
   }
 
   /**

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { dataService } from '../../../data/base/data-service.decorator';
-import { SUGGESTION_SOURCE } from '../models/suggestion-objects.resource-type';
+import { SUGGESTION_SOURCE } from '../models/suggestion-source-object.resource-type';
 import { IdentifiableDataService } from '../../../data/base/identifiable-data.service';
 import { SuggestionSource } from '../models/suggestion-source.model';
 import { FindAllData, FindAllDataImpl } from '../../../data/base/find-all-data';

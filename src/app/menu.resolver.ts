@@ -47,6 +47,7 @@ import {
 import {
   ExportBatchSelectorComponent
 } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
+import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
 
 /**
  * Creates all of the app's menus
@@ -553,6 +554,17 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.LINK,
             text: 'menu.section.quality-assurance',
             link: '/admin/notifications/quality-assurance'
+          } as LinkMenuItemModel,
+        },
+        {
+          id: 'notifications_reciter',
+          parentID: 'notifications',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.notifications_reciter',
+            link: '/admin/notifications/' + NOTIFICATIONS_RECITER_SUGGESTION_PATH
           } as LinkMenuItemModel,
         },
         /*  Admin Search */

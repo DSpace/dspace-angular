@@ -2,7 +2,7 @@ import { autoserialize, deserialize } from 'cerialize';
 
 
 import { CacheableObject } from '../../../cache/cacheable-object.model';
-import { SUGGESTION_TARGET } from './suggestion-objects.resource-type';
+import { SUGGESTION_TARGET } from './suggestion-target-object.resource-type';
 import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { ResourceType } from '../../../shared/resource-type';
 import { HALLink } from '../../../shared/hal-link.model';

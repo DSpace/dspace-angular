@@ -7,10 +7,10 @@ import { map } from 'rxjs/operators';
 import {
   getCurrentUserSuggestionTargetsSelector,
   getCurrentUserSuggestionTargetsVisitedSelector,
-  getreciterSuggestionTargetCurrentPageSelector,
-  getreciterSuggestionTargetTotalsSelector,
+  getReciterSuggestionTargetCurrentPageSelector,
+  getReciterSuggestionTargetTotalsSelector,
   isReciterSuggestionTargetLoadedSelector,
-  isreciterSuggestionTargetProcessingSelector,
+  isReciterSuggestionTargetProcessingSelector,
   reciterSuggestionTargetObjectSelector
 } from '../selectors';
 import { SuggestionTarget } from '../../../core/suggestion-notifications/reciter-suggestions/models/suggestion-target.model';
@@ -74,7 +74,7 @@ export class SuggestionTargetsStateService {
    *    'true' if there are operations running on the targets (ex.: a REST call), 'false' otherwise.
    */
   public isReciterSuggestionTargetsProcessing(): Observable<boolean> {
-    return this.store.pipe(select(isreciterSuggestionTargetProcessingSelector));
+    return this.store.pipe(select(isReciterSuggestionTargetProcessingSelector));
   }
 
   /**
@@ -84,7 +84,7 @@ export class SuggestionTargetsStateService {
    *    The number of the Reciter Suggestion Targets pages.
    */
   public getReciterSuggestionTargetsTotalPages(): Observable<number> {
-    return this.store.pipe(select(getreciterSuggestionTargetTotalsSelector));
+    return this.store.pipe(select(getReciterSuggestionTargetTotalsSelector));
   }
 
   /**
@@ -94,7 +94,7 @@ export class SuggestionTargetsStateService {
    *    The number of the current Reciter Suggestion Targets page.
    */
   public getReciterSuggestionTargetsCurrentPage(): Observable<number> {
-    return this.store.pipe(select(getreciterSuggestionTargetCurrentPageSelector));
+    return this.store.pipe(select(getReciterSuggestionTargetCurrentPageSelector));
   }
 
   /**
@@ -104,7 +104,7 @@ export class SuggestionTargetsStateService {
    *    The number of the Reciter Suggestion Targets.
    */
   public getReciterSuggestionTargetsTotals(): Observable<number> {
-    return this.store.pipe(select(getreciterSuggestionTargetTotalsSelector));
+    return this.store.pipe(select(getReciterSuggestionTargetTotalsSelector));
   }
 
   /**

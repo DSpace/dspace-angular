@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { dataService } from '../../../data/base/data-service.decorator';
-import { SUGGESTION_TARGET } from '../models/suggestion-objects.resource-type';
+
 import { IdentifiableDataService } from '../../../data/base/identifiable-data.service';
 import { SuggestionTarget } from '../models/suggestion-target.model';
 import { FindAllData, FindAllDataImpl } from '../../../data/base/find-all-data';
@@ -20,6 +20,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { RequestParam } from '../../../cache/models/request-param.model';
 import { SearchData, SearchDataImpl } from '../../../data/base/search-data';
 import { DefaultChangeAnalyzer } from '../../../data/default-change-analyzer.service';
+import { SUGGESTION_TARGET } from '../models/suggestion-target-object.resource-type';
 
 @Injectable()
 @dataService(SUGGESTION_TARGET)

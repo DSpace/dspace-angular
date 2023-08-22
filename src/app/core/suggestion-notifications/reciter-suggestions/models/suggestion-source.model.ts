@@ -1,6 +1,6 @@
 import { autoserialize, deserialize } from 'cerialize';
 
-import { SUGGESTION_SOURCE } from './suggestion-objects.resource-type';
+import { SUGGESTION_SOURCE } from './suggestion-source-object.resource-type';
 import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { ResourceType } from '../../../shared/resource-type';
 import { HALLink } from '../../../shared/hal-link.model';

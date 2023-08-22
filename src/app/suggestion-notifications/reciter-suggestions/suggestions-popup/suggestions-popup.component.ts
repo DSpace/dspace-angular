@@ -31,6 +31,8 @@ export class SuggestionsPopupComponent implements OnInit, OnDestroy {
   }
 
   public initializePopup() {
+    console.log('POPUP INIT dispatchRefreshUserSuggestionsAction');
+    this.reciterSuggestionStateService.dispatchRefreshUserSuggestionsAction();
     const notifier = new Subject();
     this.subscription = combineLatest([
       this.reciterSuggestionStateService.getCurrentUserSuggestionTargets(),
