@@ -544,6 +544,9 @@ function createHttpsServer(keys) {
       });
 }
 
+/**
+ * Create an HTTP server with the configured port and host.
+ */
 function run() {
   const port = environment.ui.port || 4000;
   const host = environment.ui.host || '/';
