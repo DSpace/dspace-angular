@@ -18,7 +18,6 @@ import { Process } from '../../../process-page/processes/process.model';
 import { ProcessStatus } from '../../../process-page/processes/process-status.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
-import { CoreModule } from '../../core.module';
 import { ReducerManager } from '@ngrx/store';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { DSOChangeAnalyzer } from '../dso-change-analyzer.service';
@@ -27,7 +26,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 
 describe('ProcessDataService', () => {
   describe('composition', () => {
-    const initService = () => new ProcessDataService(null, null, null, null, null, null);
+    const initService = () => new ProcessDataService(null, null, null, null, null, null, null);
     testFindAllDataImplementation(initService);
     testDeleteDataImplementation(initService);
   });
@@ -38,13 +37,11 @@ describe('ProcessDataService', () => {
 
   describe('notifyOnCompletion', () => {
     beforeEach(waitForAsync(() => {
-      requestService = jasmine.createSpyObj('requestService', ['setStaleByHrefSubstring']);
-
       TestBed.configureTestingModule({
         imports: [],
         providers: [
           ProcessDataService,
-          { provide: RequestService, useValue: requestService },
+          { provide: RequestService, useValue: null },
           { provide: RemoteDataBuildService, useValue: null },
           { provide: ObjectCacheService, useValue: null },
           { provide: ReducerManager, useValue: null },
@@ -56,6 +53,7 @@ describe('ProcessDataService', () => {
       });
 
       processDataService = TestBed.inject(ProcessDataService);
+      spyOn(processDataService, 'invalidateByHref');
     }));
 
     it('TODO', () => {
@@ -71,33 +69,35 @@ describe('ProcessDataService', () => {
       let process$ = processDataService.notifyOnCompletion('instantly');
       process$.subscribe((rd) => {
         expect(processDataService.findById).toHaveBeenCalledTimes(1);
-        expect(requestService.setStaleByHrefSubstring).not.toHaveBeenCalled();
+        expect(processDataService.invalidateByHref).not.toHaveBeenCalled();
       });
       expect(process$).toBeObservable(cold('(c|)', {
         'c': new RemoteData(0, 0, 0, RequestEntryState.Success, null, completedProcess)
       }));
     });
 
-    // it('TODO2', () => {
-    //   let completedProcess = new Process();
-    //   completedProcess.processStatus = ProcessStatus.COMPLETED;
+    it('TODO2', () => {
+      let runningProcess = new Process();
+      runningProcess.processStatus = ProcessStatus.RUNNING;
+      let completedProcess = new Process();
+      completedProcess.processStatus = ProcessStatus.COMPLETED;
 
-    //   spyOn(processDataService, 'findById').and.returnValue(
-    //     cold('p 150ms (c|)', {
-    //       'p': new RemoteData(0, 0, 0, RequestEntryState., null, completedProcess),
-    //       'c': new RemoteData(0, 0, 0, RequestEntryState.Success, null, completedProcess)
-    //     })
-    //   );
+      spyOn(processDataService, 'findById').and.returnValue(
+        cold('p 150ms (c|)', {
+          'p': new RemoteData(0, 0, 0, RequestEntryState.Success, null, runningProcess),
+          'c': new RemoteData(0, 0, 0, RequestEntryState.Success, null, completedProcess)
+        })
+      );
 
-    //   let process$ = processDataService.notifyOnCompletion('foo', 100);
-    //   expect(process$).toBeObservable(cold('---(c|)', {
-    //     'c': new RemoteData(0, 0, 0, RequestEntryState.Success, null, completedProcess)
-    //   }));
-    //   process$.subscribe((rd) => {
-    //     expect(processDataService.findById).toHaveBeenCalledTimes(1);
-    //     expect(requestService.setStaleByHrefSubstring).not.toHaveBeenCalled();
-    //   });
-    // });
+      let process$ = processDataService.notifyOnCompletion('foo', 100);
+      // expect(process$).toBeObservable(cold('- 800ms (c|)', {
+      //   'c': new RemoteData(0, 0, 0, RequestEntryState.Success, null, completedProcess)
+      // }));
+      process$.subscribe((rd) => {
+        expect(processDataService.findById).toHaveBeenCalledTimes(1);
+        expect(processDataService.invalidateByHref).toHaveBeenCalledTimes(1);
+      });
+    });
   });
 
 });

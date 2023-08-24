@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { RequestService } from '../request.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
@@ -36,6 +36,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
     protected halService: HALEndpointService,
     protected bitstreamDataService: BitstreamDataService,
     protected notificationsService: NotificationsService,
+    protected zone: NgZone,
   ) {
     super('processes', requestService, rdbService, objectCache, halService);
 
@@ -129,9 +130,11 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
           this.activelyBeingPolled.delete(processId);
           sub.unsubscribe();
         } else {
-          setTimeout(() => {
-            this.requestService.setStaleByHrefSubstring(process._links.self.href);
-          }, pollingIntervalInMs);
+          this.zone.runOutsideAngular(() =>
+            setTimeout(() => {
+              this.invalidateByHref(process._links.self.href);
+            }, pollingIntervalInMs)
+          );
         }
       });
     }
