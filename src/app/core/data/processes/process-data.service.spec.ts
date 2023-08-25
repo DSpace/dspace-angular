@@ -9,7 +9,7 @@
 import { testFindAllDataImplementation } from '../base/find-all-data.spec';
 import { ProcessDataService } from './process-data.service';
 import { testDeleteDataImplementation } from '../base/delete-data.spec';
-import { cold } from 'jasmine-marbles';
+import { cold, getTestScheduler } from 'jasmine-marbles';
 import { waitForAsync, TestBed } from '@angular/core/testing';
 import { RequestService } from '../request.service';
 import { RemoteData } from '../remote-data';
@@ -23,6 +23,7 @@ import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { DSOChangeAnalyzer } from '../dso-change-analyzer.service';
 import { BitstreamFormatDataService } from '../bitstream-format-data.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { TestScheduler } from 'rxjs/testing';
 
 describe('ProcessDataService', () => {
   describe('composition', () => {
@@ -34,9 +35,11 @@ describe('ProcessDataService', () => {
   let requestService;
   let processDataService;
   let remoteDataBuildService;
+  let scheduler: TestScheduler;
 
   describe('notifyOnCompletion', () => {
     beforeEach(waitForAsync(() => {
+      scheduler = getTestScheduler();
       TestBed.configureTestingModule({
         imports: [],
         providers: [
@@ -90,13 +93,12 @@ describe('ProcessDataService', () => {
       );
 
       let process$ = processDataService.notifyOnCompletion('foo', 100);
-      // expect(process$).toBeObservable(cold('- 800ms (c|)', {
-      //   'c': new RemoteData(0, 0, 0, RequestEntryState.Success, null, completedProcess)
-      // }));
-      process$.subscribe((rd) => {
-        expect(processDataService.findById).toHaveBeenCalledTimes(1);
-        expect(processDataService.invalidateByHref).toHaveBeenCalledTimes(1);
-      });
+      expect(process$).toBeObservable(cold('- 150ms (c|)', {
+        'c': new RemoteData(0, 0, 0, RequestEntryState.Success, null, completedProcess)
+      }));
+      scheduler.flush();
+      expect(processDataService.findById).toHaveBeenCalledTimes(1);
+      expect(processDataService.invalidateByHref).toHaveBeenCalledTimes(1);
     });
   });
 
