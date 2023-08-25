@@ -17,13 +17,16 @@
 </div>
 <div class="row">
   <div class="col-xs-12 col-md-4">
-    <ng-container *ngIf="!(mediaViewer.image || mediaViewer.video)">
-      <ng-container *ngIf="object.metadata['dc.description.embargo']">
-        <img class="thumbnail-content img-fluid border border-dark mb-2" src="assets/images/under_embargo.png" />
-      </ng-container>
-      <ds-metadata-field-wrapper *ngIf="!object.metadata['dc.description.embargo']" [hideIfNoTextContent]="false">
-        <ds-themed-thumbnail [thumbnail]="object?.thumbnail | async"></ds-themed-thumbnail>
-      </ds-metadata-field-wrapper>
+    <ng-container *ngIf="object.metadata['dc.description.embargo']">
+      <img class="thumbnail-content img-fluid border border-dark mb-2" src="assets/images/under_embargo.png" />
+    </ng-container>
+
+    <ng-container *ngIf="!(object.metadata['dc.description.embargo'])">
+        <ng-container *ngIf="!(mediaViewer.image || mediaViewer.video)">
+          <ds-metadata-field-wrapper *ngIf="!object.metadata['dc.description.embargo']" [hideIfNoTextContent]="false">
+            <ds-themed-thumbnail [thumbnail]="object?.thumbnail | async"></ds-themed-thumbnail>
+          </ds-metadata-field-wrapper>
+        </ng-container>
     </ng-container>
     <div *ngIf="mediaViewer.image || mediaViewer.video" class="mb-2">
       <ds-themed-media-viewer [item]="object"></ds-themed-media-viewer>
