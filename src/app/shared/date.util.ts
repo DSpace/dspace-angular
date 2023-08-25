@@ -42,7 +42,7 @@ export function dateToISOFormat(date: Date | NgbDateStruct | string): string {
  *    the Date object
  */
 export function ngbDateStructToDate(date: NgbDateStruct): Date {
-  return new Date(Date.UTC(date.year, (date.month - 1), date.day));
+  return new Date(Date.UTC(date.year, (date.month - 1), date.day, 12));
 }
 
 /**
