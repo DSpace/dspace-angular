@@ -58,3 +58,7 @@ a.dont-break-out {
 	color: var(--cul-gray);
 	border-bottom: 1px solid #eee;
 }
+
+.modal-dialog {
+	max-width: 1140px !important;
+}
