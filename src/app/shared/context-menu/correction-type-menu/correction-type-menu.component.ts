@@ -5,7 +5,7 @@ import { DSpaceObject } from './../../../core/shared/dspace-object.model';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
-import { BehaviorSubject, Observable, Subscription, combineLatest, map, startWith} from 'rxjs';
+import { BehaviorSubject, map, Observable, startWith, Subscription } from 'rxjs';
 import { CorrectionType } from '../../../core/submission/models/correction-type-mode.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { NotificationsService } from '../../notifications/notifications.service';
@@ -49,14 +49,7 @@ export class CorrectionTypeMenuComponent extends ContextMenuEntryComponent imple
   }
 
   ngOnInit(): void {
-    this.isAuthorized$ = this.authorizeService.isAuthorized();
-    combineLatest([this.isAuthorized$, this.notificationService.claimedProfile]).subscribe(([isAuthorized, claimedProfile]) => {
-      if (isAuthorized) {
-        this.getData();
-      } else {
-        this.correctionTypes$.next([]);
-      }
-    });
+    this.getData();
   }
 
   /**
@@ -67,9 +60,9 @@ export class CorrectionTypeMenuComponent extends ContextMenuEntryComponent imple
   }
 
   /**
-   * Check if edit mode is available
+   * Check if any correction type are available
    */
-  isAvailable(): Observable<boolean> {
+  hasCorrectionTypeAvailable(): Observable<boolean> {
     return this.correctionTypes$.asObservable().pipe(
       map((type) => isNotEmpty(type) && type.length > 0)
     );
