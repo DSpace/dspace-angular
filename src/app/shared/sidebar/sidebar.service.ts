@@ -39,7 +39,7 @@ export class SidebarService {
       this.isXsOrSm$,
       this.isCollapsedInStore
     ).pipe(
-      map(([mobile, store]) => mobile || store)
+      map(([mobile, store]) => mobile && store)
     );
   }
 
