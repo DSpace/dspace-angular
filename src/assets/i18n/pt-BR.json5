@@ -3972,20 +3972,20 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Minhas Submissões",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Arquivado",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Arquivado",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Validação",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Validação",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Esperando pelo controlador",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Esperando pelo controlador",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Fluxo de trabalho",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Fluxo de trabalho",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Espaço de trabalho",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Espaço de trabalho",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "MeuDSpace",

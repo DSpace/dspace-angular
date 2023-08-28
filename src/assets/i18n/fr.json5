@@ -3822,20 +3822,20 @@
   //"mydspace.show.supervisedWorkspace": "Supervised items",
   "mydspace.show.supervisedWorkspace": "Items supervisés",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Archivés",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Archivés",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "En cours de validation",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "En cours de validation",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "En attente d'assignation",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "En attente d'assignation",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "En traitement",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "En traitement",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Dépôts en cours",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Dépôts en cours",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "Mon compte DSpace",
