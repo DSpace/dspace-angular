@@ -2054,8 +2054,8 @@
   // "curation-task.task.vscan.label": "Virus Scan",
   "curation-task.task.vscan.label": "Scan de vírus",
 
-  // "curation-task.task.register-doi.label": "Register DOI",
-  "curation-task.task.register-doi.label": "Registo DOI",
+  // "curation-task.task.registerdoi.label": "Register DOI",
+  "curation-task.task.registerdoi.label": "Registo DOI",
 
   // "curation.form.task-select.label": "Task:",
   "curation.form.task-select.label": "Tarefa:",
