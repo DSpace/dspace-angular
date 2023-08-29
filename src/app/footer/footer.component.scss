@@ -23,16 +23,21 @@
 
     .bottom-footer {
       .notify-enabled {
-        .coar-notify-support-route{
+        position: absolute;
+        bottom: 7px;
+        right: 0;
+
+        .coar-notify-support-route {
           padding: 0 calc(var(--bs-spacer) / 2);
-          color: inherit
+          color: inherit;
         }
-        .n-coar{
+
+        .n-coar {
           height: var(--ds-footer-n-coar-height);
-          margin-bottom: 7px;
+          margin-bottom: 8.5px;
         }
+
         margin-top: 15px;
-        margin-left: 50px;
       }
       ul {
         li {
