@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, NgZone, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { finalize, map, switchMap, take, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subscription, interval } from 'rxjs';
+import { finalize, map, switchMap, take, tap, filter, find, startWith } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
@@ -14,7 +14,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload
+  getFirstSucceededRemoteDataPayload, getAllSucceededRemoteDataPayload
 } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { AlertType } from '../../shared/alert/aletr-type';
@@ -26,6 +26,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'ds-process-detail',
@@ -76,7 +77,7 @@ export class ProcessDetailComponent implements OnInit {
    */
   dateFormat = 'yyyy-MM-dd HH:mm:ss ZZZZ';
 
-  refreshCounter$ = new BehaviorSubject(0);
+  isRefreshing$: Observable<boolean>;
 
   /**
    * Reference to NgbModal
@@ -105,93 +106,28 @@ export class ProcessDetailComponent implements OnInit {
    * Display a 404 if the process doesn't exist
    */
   ngOnInit(): void {
-    // this.processRD$ = this.route.data.pipe(
-    //   map((data) => {
-    //     if (isPlatformBrowser(this.platformId)) {
-    //       if (!this.isProcessFinished(data.process.payload)) {
-    //         this.startRefreshTimer();
-    //       }
-    //     }
+    this.processRD$ = this.route.data.pipe(
+      switchMap((data) => {
+        if (isPlatformBrowser(this.platformId)) {
+          return this.processService.autoRefreshUntilCompletion(this.route.snapshot.params.id, 5000);
+        } else {
+          return [data.process as RemoteData<Process>];
+        }
+      }),
+      redirectOn4xx(this.router, this.authService),
+    );
 
-    //     return data.process as RemoteData<Process>;
-    //   }),
-    //   redirectOn4xx(this.router, this.authService),
-    //   shareReplay(1)
-    // );
-
-    this.processRD$ = this.processService.notifyOnCompletion(this.route.snapshot.params.id).pipe(
-      redirectOn4xx(this.router, this.authService)
+    this.isRefreshing$ = this.processRD$.pipe(
+      find((processRD: RemoteData<Process>) => this.processService.hasCompletedOrFailed(processRD.payload)),
+      map(() => false),
+      startWith(true)
     );
 
     this.filesRD$ = this.processRD$.pipe(
-      getFirstSucceededRemoteDataPayload(),
+      getAllSucceededRemoteDataPayload(),
       switchMap((process: Process) => this.processService.getFiles(process.processId))
     );
   }
-
-  // refresh() {
-
-    ////////////////////////////////////////////////////////////////////////////////
-
-    // this.processRD$ = this.processService.findById(
-    //   this.route.snapshot.params.id,
-    //   false,
-    //   true,
-    //   followLink('script')
-    // ).pipe(
-    //   // First get the process state
-    //   getFirstSucceededRemoteData(),
-
-    //   // Error if it goes wrong
-    //   redirectOn4xx(this.router, this.authService),
-
-    //   // If process is not finished, start the refresh timer
-    //   tap((processRemoteData: RemoteData<Process>) => {
-    //     if (!this.isProcessFinished(processRemoteData.payload)) {
-    //       this.startRefreshTimer();
-    //     }
-    //   }),
-
-    //   // ???
-    //   shareReplay(1)
-    // );
-    // this.filesRD$ = this.processRD$.pipe(
-    //   getFirstSucceededRemoteDataPayload(),
-    //   switchMap((process: Process) => this.processService.getFiles(process.processId))
-    // );
-  // }
-
-  // // TODO delete
-  // // call refresh after 5 sec
-  // startRefreshTimer() {
-  //   this.refreshCounter$.next(0);
-  //
-  //   // TODO delete comment
-  //   // This fires every 1000 ms with an incrementing value.
-  //   // So the first time this fires, it adds the value 5 to the refresh counter
-  //   // the second time, it adds the value 4,
-  //   // etc.
-  //   // If the value exceeds 5, the refresh timer is stopped and this.refresh is called.
-  //   this.refreshTimerSub = interval(1000).subscribe(
-  //     value => {
-  //       if (value > 5) {
-  //         setTimeout(() => {
-  //           this.refresh();
-  //           this.stopRefreshTimer();
-  //           this.refreshCounter$.next(0);
-  //         }, 1);
-  //       } else {
-  //         this.refreshCounter$.next(5 - value);
-  //       }
-  //     });
-  // }
-  //
-  // stopRefreshTimer() {
-  //   if (hasValue(this.refreshTimerSub)) {
-  //     this.refreshTimerSub.unsubscribe();
-  //     this.refreshTimerSub = undefined;
-  //   }
-  // }
 
   /**
    * Get the name of a bitstream

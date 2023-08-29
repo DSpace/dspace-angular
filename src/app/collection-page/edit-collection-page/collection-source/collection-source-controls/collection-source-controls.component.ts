@@ -95,7 +95,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
       }),
       // filter out responses that aren't successful since the pinging of the process only needs to happen when the invocation was successful.
       filter((rd) => rd.hasSucceeded && hasValue(rd.payload)),
-      switchMap((rd) => this.processDataService.notifyOnCompletion(rd.payload.processId)),
+      switchMap((rd) => this.processDataService.autoRefreshUntilCompletion(rd.payload.processId)),
       map((rd) => rd.payload)
     ).subscribe((process: Process) => {
       if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
@@ -166,7 +166,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
           }
         }),
         filter((rd) => rd.hasSucceeded && hasValue(rd.payload)),
-        switchMap((rd) => this.processDataService.notifyOnCompletion(rd.payload.processId)),
+        switchMap((rd) => this.processDataService.autoRefreshUntilCompletion(rd.payload.processId)),
         map((rd) => rd.payload)
       ).subscribe((process) => {
         if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
@@ -226,7 +226,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
           }
         }),
         filter((rd) => rd.hasSucceeded && hasValue(rd.payload)),
-        switchMap((rd) => this.processDataService.notifyOnCompletion(rd.payload.processId)),
+        switchMap((rd) => this.processDataService.autoRefreshUntilCompletion(rd.payload.processId)),
         map((rd) => rd.payload)
       ).subscribe((process) => {
         if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {

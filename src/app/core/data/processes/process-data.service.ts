@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, Inject, InjectionToken } from '@angular/core';
 import { RequestService } from '../request.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
@@ -6,7 +6,7 @@ import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { Process } from '../../../process-page/processes/process.model';
 import { PROCESS } from '../../../process-page/processes/process.resource-type';
 import { Observable } from 'rxjs';
-import { switchMap, filter, take } from 'rxjs/operators';
+import { switchMap, filter, distinctUntilChanged, find } from 'rxjs/operators';
 import { PaginatedList } from '../paginated-list.model';
 import { Bitstream } from '../../shared/bitstream.model';
 import { RemoteData } from '../remote-data';
@@ -21,13 +21,23 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { NoContent } from '../../shared/NoContent.model';
 import { getAllCompletedRemoteData } from '../../shared/operators';
 import { ProcessStatus } from 'src/app/process-page/processes/process-status.model';
+import { hasValue } from '../../../shared/empty.util';
+
+/**
+ * Create an InjectionToken for the default JS setTimeout function, purely so we can mock it during
+ * testing. (fakeAsync isn't working for this case)
+ */
+export const TIMER_FACTORY = new InjectionToken<(callback: (...args: any[]) => void, ms?: number, ...args: any[]) => NodeJS.Timeout>('timer', {
+  providedIn: 'root',
+  factory: () => setTimeout
+});
 
 @Injectable()
 @dataService(PROCESS)
 export class ProcessDataService extends IdentifiableDataService<Process> implements FindAllData<Process>, DeleteData<Process> {
   private findAllData: FindAllData<Process>;
   private deleteData: DeleteData<Process>;
-  protected activelyBeingPolled: Set<string> = new Set();
+  protected activelyBeingPolled: Map<string, NodeJS.Timeout> = new Map();
 
   constructor(
     protected requestService: RequestService,
@@ -37,6 +47,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
     protected bitstreamDataService: BitstreamDataService,
     protected notificationsService: NotificationsService,
     protected zone: NgZone,
+    @Inject(TIMER_FACTORY) protected timer: (callback: (...args: any[]) => void, ms?: number, ...args: any[]) => NodeJS.Timeout
   ) {
     super('processes', requestService, rdbService, objectCache, halService);
 
@@ -106,42 +117,83 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
     return this.deleteData.deleteByHref(href, copyVirtualMetadata);
   }
 
-  // TODO
-  public notifyOnCompletion(processId: string, pollingIntervalInMs = 5000): Observable<RemoteData<Process>> {
-    const process$ = this.findById(processId, false, true, followLink('script'))
+  /**
+   * Return true if the given process has the given status
+   * @protected
+   */
+  protected statusIs(process: Process, status: ProcessStatus): boolean {
+    return hasValue(process) && process.processStatus === status;
+  }
+
+  /**
+   * Return true if the given process has the status COMPLETED or FAILED
+   */
+  public hasCompletedOrFailed(process: Process): boolean {
+    return  this.statusIs(process, ProcessStatus.COMPLETED) ||
+            this.statusIs(process, ProcessStatus.FAILED);
+  }
+
+  /**
+   * Clear the timeout for the given process, if that timeout exists
+   * @protected
+   */
+  protected clearCurrentTimeout(processId: string): void {
+    const timeout = this.activelyBeingPolled.get(processId);
+    if (hasValue(timeout)) {
+      clearTimeout(timeout);
+    }
+  };
+
+  /**
+   * Poll the process with the given ID, using the given interval, until that process either
+   * completes successfully or fails
+   *
+   * Return an Observable<RemoteData> for the Process. Note that this will also emit while the
+   * process is still running. It will only emit again when the process (not the RemoteData!) changes
+   * status. That makes it more convenient to retrieve that process for a component: you can replace
+   * a findByID call with this method, rather than having to do a separate findById, and then call
+   * this method
+   * @param processId
+   * @param pollingIntervalInMs
+   */
+  public autoRefreshUntilCompletion(processId: string, pollingIntervalInMs = 5000): Observable<RemoteData<Process>> {
+    const process$ = this.findById(processId, true, true, followLink('script'))
       .pipe(
         getAllCompletedRemoteData(),
       );
 
-    // TODO: this is horrible
-    const statusIs = (process: Process, status: ProcessStatus) =>
-      process.processStatus === status;
+    // Create a subscription that marks the data as stale if the process hasn't been completed and
+    // the polling interval time has been exceeded.
+    const sub = process$.pipe(
+      filter((processRD: RemoteData<Process>) =>
+        !this.hasCompletedOrFailed(processRD.payload) &&
+        !this.activelyBeingPolled.has(processId)
+      )
+    ).subscribe((processRD: RemoteData<Process>) => {
+      this.clearCurrentTimeout(processId);
+      const nextTimeout = this.timer(() => {
+        this.activelyBeingPolled.delete(processId);
+        this.invalidateByHref(processRD.payload._links.self.href);
+      }, pollingIntervalInMs);
 
-    // If we have to wait too long for the result, we should mark the result as stale.
-    // However, we should make sure this happens only once (in case there are multiple observers waiting
-    // for the result).
-    if (!this.activelyBeingPolled.has(processId)) {
-      this.activelyBeingPolled.add(processId);
+      this.activelyBeingPolled.set(processId, nextTimeout);
+    });
 
-      // Create a subscription that marks the data as stale if the polling interval time has been exceeded.
-      const sub = process$.subscribe((rd) => {
-        const process = rd.payload;
-        if (statusIs(process, ProcessStatus.COMPLETED) || statusIs(process, ProcessStatus.FAILED)) {
-          this.activelyBeingPolled.delete(processId);
-          sub.unsubscribe();
-        } else {
-          this.zone.runOutsideAngular(() =>
-            setTimeout(() => {
-              this.invalidateByHref(process._links.self.href);
-            }, pollingIntervalInMs)
-          );
-        }
-      });
-    }
+    // When the process completes create a one off subscription (the `find` completes the
+    // observable) that unsubscribes the previous one, removes the processId from the list of
+    // processes being polled and clears any running timeouts
+    process$.pipe(
+      find((processRD: RemoteData<Process>) => this.hasCompletedOrFailed(processRD.payload))
+    ).subscribe(() => {
+      this.clearCurrentTimeout(processId);
+      this.activelyBeingPolled.delete(processId);
+      sub.unsubscribe();
+    });
 
     return process$.pipe(
-      filter(rd => statusIs(rd.payload, ProcessStatus.COMPLETED) || statusIs(rd.payload, ProcessStatus.FAILED)),
-      take(1)
+      distinctUntilChanged((previous: RemoteData<Process>, current: RemoteData<Process>) =>
+        previous.payload.processStatus === current.payload.processStatus
+      )
     );
   }
 }
