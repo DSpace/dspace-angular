@@ -1,4 +1,3 @@
-import { Options } from 'cypress-axe';
 import { testA11y } from 'cypress/support/utils';
 
 describe('Community List Page', () => {
