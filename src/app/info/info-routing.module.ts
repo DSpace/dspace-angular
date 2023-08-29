@@ -27,7 +27,7 @@ const imports = [
       path: COAR_NOTIFY_SUPPORT,
       component: NotifyInfoComponent,
       resolve: { breadcrumb: I18nBreadcrumbResolver },
-      data: { title: 'info.coar-notify-support.title', breadcrumbKey: 'info.coar-notify-support' },
+      data: { title: 'info.coar-notify-support.title', breadcrumbKey: 'info.coar-notify' },
       canActivate: [NotifyInfoGuard]
     }
   ])
