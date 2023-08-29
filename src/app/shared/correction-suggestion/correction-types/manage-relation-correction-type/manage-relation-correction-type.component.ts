@@ -128,7 +128,7 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
     private translateService: TranslateService
   ) {
     this.correctionType = correctionTypeObject;
-    this.itemUuid = this.aroute.snapshot.params.uuid;
+    this.itemUuid = this.aroute.snapshot.params.id;
   }
 
   /**
