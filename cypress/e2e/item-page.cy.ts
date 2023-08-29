@@ -1,4 +1,3 @@
-import { Options } from 'cypress-axe';
 import { TEST_ENTITY_PUBLICATION } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
@@ -19,13 +18,16 @@ describe('Item  Page', () => {
         cy.get('ds-item-page').should('be.visible');
 
         // Analyze <ds-item-page> for accessibility issues
-        // Disable heading-order checks until it is fixed
-        testA11y('ds-item-page',
-            {
-                rules: {
-                    'heading-order': { enabled: false }
-                }
-            } as Options
-        );
+        testA11y('ds-item-page');
+    });
+
+    it('should pass accessibility tests on full item page', () => {
+        cy.visit(ENTITYPAGE + '/full');
+
+        // <ds-full-item-page> tag must be loaded
+        cy.get('ds-full-item-page').should('be.visible');
+
+        // Analyze <ds-full-item-page> for accessibility issues
+        testA11y('ds-full-item-page');
     });
 });
