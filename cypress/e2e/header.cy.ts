@@ -11,8 +11,7 @@ describe('Header', () => {
         testA11y({
             include: ['ds-header'],
             exclude: [
-                ['#search-navbar-container'], // search in navbar has duplicative ID. Will be fixed in #1174
-                ['.dropdownLogin']            // "Log in" link has color contrast issues. Will be fixed in #1149
+                ['#search-navbar-container'] // search in navbar has duplicative ID. Will be fixed in #1174
             ],
         });
     });
