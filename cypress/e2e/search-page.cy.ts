@@ -27,17 +27,7 @@ describe('Search Page', () => {
         cy.get('[data-test="filter-toggle"]').click({ multiple: true });
 
         // Analyze <ds-search-page> for accessibility issues
-        testA11y(
-            {
-                include: ['ds-search-page'],
-            },
-            {
-                rules: {
-                    // Search filters fail this "moderate" impact rule
-                    'heading-order': { enabled: false },
-                }
-            } as Options
-        );
+        testA11y('ds-search-page');
     });
 
     it('should have a working grid view that passes accessibility tests', () => {
