@@ -1,4 +1,5 @@
 import { TEST_ADMIN_PASSWORD, TEST_ADMIN_USER, TEST_ENTITY_PUBLICATION } from 'cypress/support/e2e';
+import { testA11y } from 'cypress/support/utils';
 
 const page = {
     openLoginMenu() {
@@ -122,5 +123,16 @@ describe('Login Modal', () => {
         cy.get('ds-themed-navbar [data-test="forgot"]').click();
         cy.location('pathname').should('eq', '/forgot');
         cy.get('ds-forgot-email').should('exist');
+    });
+
+    it('should pass accessibility tests', () => {
+        cy.visit('/');
+
+        page.openLoginMenu();
+
+        cy.get('ds-log-in').should('exist');
+
+        // Analyze <ds-log-in> for accessibility issues
+        testA11y('ds-log-in');
     });
 });
