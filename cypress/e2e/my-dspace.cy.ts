@@ -22,15 +22,11 @@ describe('My DSpace page', () => {
         testA11y(
             {
                 include: ['ds-my-dspace-page'],
-                exclude: [
-                    ['nouislider'] // Date filter slider is missing ARIA labels. Will be fixed by #1175
-                ],
             },
             {
                 rules: {
-                    // Search filters fail these two "moderate" impact rules
+                    // Search filters fail this "moderate" impact rules
                     'heading-order': { enabled: false },
-                    'landmark-unique': { enabled: false }
                 }
             } as Options
         );
