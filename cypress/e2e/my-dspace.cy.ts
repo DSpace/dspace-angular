@@ -19,17 +19,7 @@ describe('My DSpace page', () => {
         cy.get('.filter-toggle').click({ multiple: true });
 
         // Analyze <ds-my-dspace-page> for accessibility issues
-        testA11y(
-            {
-                include: ['ds-my-dspace-page'],
-            },
-            {
-                rules: {
-                    // Search filters fail this "moderate" impact rules
-                    'heading-order': { enabled: false },
-                }
-            } as Options
-        );
+        testA11y('ds-my-dspace-page');
     });
 
     it('should have a working detailed view that passes accessibility tests', () => {
