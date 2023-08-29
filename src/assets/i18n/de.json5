@@ -1712,7 +1712,8 @@
   // "curation-task.task.vscan.label": "Virus Scan",
   "curation-task.task.vscan.label": "Virenscan",
 
-
+  // "curation-task.task.registerdoi.label": "Register DOI",
+  "curation-task.task.registerdoi.label": "DOI registrieren",
 
   // "curation.form.task-select.label": "Task:",
   "curation.form.task-select.label": "Aufgabe:",
