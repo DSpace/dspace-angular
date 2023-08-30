@@ -1,4 +1,3 @@
-import { Options } from 'cypress-axe';
 import { TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD, TEST_SUBMIT_COLLECTION_NAME } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
@@ -35,16 +34,8 @@ describe('My DSpace page', () => {
 
         cy.get('ds-object-detail').should('be.visible');
 
-        // Analyze <ds-search-page> for accessibility issues
-        testA11y('ds-my-dspace-page',
-            {
-                rules: {
-                    // Search filters fail these two "moderate" impact rules
-                    'heading-order': { enabled: false },
-                    'landmark-unique': { enabled: false }
-                }
-            } as Options
-        );
+        // Analyze <ds-my-dspace-page> for accessibility issues
+        testA11y('ds-my-dspace-page');
     });
 
     // NOTE: Deleting existing submissions is exercised by submission.spec.ts
@@ -136,6 +127,9 @@ describe('My DSpace page', () => {
 
         // The external import searchbox should be visible
         cy.get('ds-submission-import-external-searchbar').should('be.visible');
+
+        // Test for accessibility issues
+        testA11y('ds-submission-import-external');
     });
 
 });

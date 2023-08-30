@@ -109,6 +109,9 @@ describe('Login Modal', () => {
         cy.get('ds-themed-navbar [data-test="register"]').click();
         cy.location('pathname').should('eq', '/register');
         cy.get('ds-register-email').should('exist');
+
+        // Test accessibility of this page
+        testA11y('ds-register-email');
     });
 
     it('should allow forgot password', () => {
@@ -123,16 +126,26 @@ describe('Login Modal', () => {
         cy.get('ds-themed-navbar [data-test="forgot"]').click();
         cy.location('pathname').should('eq', '/forgot');
         cy.get('ds-forgot-email').should('exist');
+
+        // Test accessibility of this page
+        testA11y('ds-forgot-email');
     });
 
-    it('should pass accessibility tests', () => {
+    it('should pass accessibility tests in menus', () => {
         cy.visit('/');
 
+        // Open login menu & verify accessibility
         page.openLoginMenu();
-
         cy.get('ds-log-in').should('exist');
-
-        // Analyze <ds-log-in> for accessibility issues
         testA11y('ds-log-in');
+
+        // Now login
+        page.submitLoginAndPasswordByPressingButton(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
+        cy.get('ds-log-in').should('not.exist');
+
+        // Open user menu, verify user menu accesibility
+        page.openUserMenu();
+        cy.get('ds-user-menu').should('be.visible');
+        testA11y('ds-user-menu');
     });
 });

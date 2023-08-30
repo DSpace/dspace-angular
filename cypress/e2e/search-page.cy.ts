@@ -46,9 +46,8 @@ describe('Search Page', () => {
         testA11y('ds-search-page',
             {
                 rules: {
-                    // Search filters fail these two "moderate" impact rules
-                    'heading-order': { enabled: false },
-                    'landmark-unique': { enabled: false }
+                    // Card titles fail this test currently
+                    'heading-order': { enabled: false }
                 }
             } as Options
         );
