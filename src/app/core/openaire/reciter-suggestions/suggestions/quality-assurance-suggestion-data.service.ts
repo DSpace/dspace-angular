@@ -72,6 +72,11 @@ export class QualityAssuranceSuggestionDataService extends IdentifiableDataServi
     return this.deleteData.delete(suggestionId);
   }
 
+  public deleteSuggestionAsync(suggestionId: string): Observable<RemoteData<NoContent>> {
+    return this.deleteData.deleteAsync(suggestionId);
+  }
+
+
   /**
    * Return a Suggestion for a given user id
    *

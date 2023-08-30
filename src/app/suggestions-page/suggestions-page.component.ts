@@ -179,6 +179,21 @@ export class SuggestionsPageComponent implements OnInit {
    * Used to delete all selected suggestions.
    */
   notMineAllSelected() {
+    // forkJoin(Object.values(this.selectedSuggestions).map(async (suggestion: OpenaireSuggestion) => {
+      //       const response = await lastValueFrom(this.suggestionsDataService.deleteSuggestion(suggestion.id));
+      //       if (response.isSuccess) {
+      //         return response;
+      //       } else {
+      //         throw new Error('Can\'t delete Suggestion from the Search Target REST service');
+      //       }
+      //     }))
+      //         .pipe(map((results: RemoteData<NoContent>[]) => {
+      //           return {
+      //             success: results.filter((result) => result != null).length,
+      //             fails: results.filter((result) => result == null).length
+      //           };
+      //         }), take(1)).pipe(
+
     this.isBulkOperationPending = true;
     this.suggestionService.notMineMultiple(Object.values(this.selectedSuggestions)).pipe(
       tap((results: SuggestionBulkResult) => {
