@@ -16,7 +16,7 @@ version: "3.7"
 
 services:
   dspace-cli:
-    image: "${DOCKER_OWNER:-dspace}/dspace-cli:${DSPACE_VER:-dspace-7_x}"
+    image: "${DOCKER_OWNER:-dspace}/dspace-cli:${DSPACE_VER:-latest}"
     container_name: dspace-cli
     environment:
       # Below syntax may look odd, but it is how to override dspace.cfg settings via env variables.
