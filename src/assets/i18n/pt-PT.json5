@@ -2259,7 +2259,7 @@
   "confirmation-modal.delete-eperson.header": "Apagar Utilizador \"{{ dsoName }}\"",
 
   // "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
-  "confirmation-modal.delete-eperson.info": "Pretende apagar o utilizar \"{{ dsoName }}\"",
+  "confirmation-modal.delete-eperson.info": "Pretende apagar o utilizador \"{{ dsoName }}\"",
 
   // "confirmation-modal.delete-eperson.cancel": "Cancel",
   "confirmation-modal.delete-eperson.cancel": "Cancelar",
@@ -2666,7 +2666,7 @@
   "health-page.property.status": "Código Estado",
 
   // "health-page.section.db.title": "Database",
-  "health-page.section.db.title": "Base Dados",
+  "health-page.section.db.title": "Base de Dados",
 
   // "health-page.section.geoIp.title": "GeoIp",
   "health-page.section.geoIp.title": "GeoIp",
