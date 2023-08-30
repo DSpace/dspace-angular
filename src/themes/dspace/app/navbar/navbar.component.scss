@@ -7,9 +7,12 @@ nav.navbar {
 /** Mobile menu styling **/
 @media screen and (max-width: map-get($grid-breakpoints, md)-0.02) {
   .navbar {
-    width: 100%;
+    // changed from percent to vw, see: https://github.com/DSpace/dspace-angular/pull/2444
+    width: 100vw;
     background-color: var(--bs-white);
-    position: absolute;
+    // removed to fix safari mobile hamburger menu not working
+    // see: https://github.com/DSpace/dspace-angular/pull/2444
+    //position: absolute;
     overflow: hidden;
     height: 0;
     &.open {
