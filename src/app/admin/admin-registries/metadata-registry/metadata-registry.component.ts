@@ -14,6 +14,9 @@ import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import {
+  MetadataSchemaExportService
+} from '../../../shared/metadata-export/metadata-schema-export/metadata-schema-export.service';
 
 @Component({
   selector: 'ds-metadata-registry',
@@ -48,7 +51,8 @@ export class MetadataRegistryComponent {
               private notificationsService: NotificationsService,
               private router: Router,
               private paginationService: PaginationService,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,
+              private readonly metadataSchemaExportService: MetadataSchemaExportService) {
     this.updateSchemas();
   }
 
@@ -176,4 +180,14 @@ export class MetadataRegistryComponent {
     this.paginationService.clearPagination(this.config.id);
   }
 
+  onDownloadSchema(schema: MetadataSchema): void {
+    this.metadataSchemaExportService.exportSchema(schema)
+      .pipe(
+        take(1),
+        filter(Object)
+      ).subscribe((processId: number) => {
+      const title = this.translateService.get('export-schema.process.title');
+      this.notificationsService.process(processId.toString(), 5000, title);
+    });
+  }
 }

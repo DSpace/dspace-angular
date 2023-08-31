@@ -46,7 +46,7 @@
                             <td class="selectable-row" (click)="editSchema(schema)"><a [routerLink]="[schema.prefix]">{{schema.prefix}}</a></td>
                           <td class="selectable-row">
                             <div class="d-flex justify-content-center">
-                              <i class="fas fa-download" aria-hidden="true"></i>
+                              <i class="fas fa-download" aria-hidden="true" (click)="onDownloadSchema(schema)"></i>
                             </div>
                           </td>
                         </tr>
