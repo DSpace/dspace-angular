@@ -62,7 +62,7 @@ export class EndUserAgreementComponent implements OnInit, OnDestroy {
           if (authorized) {
 
             if (!accepted) {
-              this.notificationsService.warning(this.translate.instant('info.end-user-agreement.accept.warning'));
+              this.notificationsService.warning(this.translate.instant('info.end-user-agreement.accept.warning'), {});
             }
             this.accepted = accepted;
             this.alreadyAccepted = accepted;
