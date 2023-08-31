@@ -27,6 +27,7 @@ import { Bitstream } from '../../core/shared/bitstream.model';
 import { LicenseType } from '../../item-page/clarin-license-info/clarin-license-info.component';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';
+import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 
 /**
  * Show item on the Home/Search page in the customized box with Item's information.
@@ -118,7 +119,7 @@ export class ClarinItemBoxViewComponent implements OnInit {
     // Load Items metadata
     this.itemType = this.item?.metadata?.['dc.type']?.[0]?.value;
     this.itemName = this.item?.metadata?.['dc.title']?.[0]?.value;
-    this.itemUri = this.item?.metadata?.['dc.identifier.uri']?.[0]?.value;
+    this.itemUri = getItemPageRoute(this.item);
     this.itemDescription = this.item?.metadata?.['dc.description']?.[0]?.value;
 
     await this.assignBaseUrl();
