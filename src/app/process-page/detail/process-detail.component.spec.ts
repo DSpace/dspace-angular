@@ -106,10 +106,12 @@ describe('ProcessDetailComponent', () => {
         content: { href: 'log-selflink' }
       }
     });
+    const processRD$ = createSuccessfulRemoteDataObject$(process);
     processService = jasmine.createSpyObj('processService', {
       getFiles: createSuccessfulRemoteDataObject$(createPaginatedList(files)),
       delete: createSuccessfulRemoteDataObject$(null),
-      findById: createSuccessfulRemoteDataObject$(process),
+      findById: processRD$,
+      autoRefreshUntilCompletion: processRD$
     });
     bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
       findByHref: createSuccessfulRemoteDataObject$(logBitstream)
@@ -132,7 +134,7 @@ describe('ProcessDetailComponent', () => {
     });
 
     route = jasmine.createSpyObj('route', {
-      data: observableOf({ process: createSuccessfulRemoteDataObject(process) }),
+      data: observableOf({ process: processRD$ }),
       snapshot: {
         params: { id: process.processId }
       }
@@ -158,7 +160,8 @@ describe('ProcessDetailComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: Router, useValue: router },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      // schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: []
     }).compileComponents();
   }));
 

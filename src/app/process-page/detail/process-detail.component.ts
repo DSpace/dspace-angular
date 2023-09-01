@@ -109,7 +109,10 @@ export class ProcessDetailComponent implements OnInit {
     this.processRD$ = this.route.data.pipe(
       switchMap((data) => {
         if (isPlatformBrowser(this.platformId)) {
-          return this.processService.autoRefreshUntilCompletion(this.route.snapshot.params.id, 5000);
+          const x = this.processService.autoRefreshUntilCompletion(this.route.snapshot.params.id, 5000);
+          //[data.process as RemoteData<Process>];
+          console.log("ASDF", x);
+          return x;
         } else {
           return [data.process as RemoteData<Process>];
         }
@@ -117,6 +120,7 @@ export class ProcessDetailComponent implements OnInit {
       redirectOn4xx(this.router, this.authService),
     );
 
+    this.processRD$.subscribe(x => console.log("QWER", x));
     this.isRefreshing$ = this.processRD$.pipe(
       find((processRD: RemoteData<Process>) => this.processService.hasCompletedOrFailed(processRD.payload)),
       map(() => false),

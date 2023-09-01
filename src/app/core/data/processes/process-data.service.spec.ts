@@ -124,34 +124,5 @@ describe('ProcessDataService', () => {
       expect(processDataService.findById).toHaveBeenCalledTimes(1);
       expect(processDataService.invalidateByHref).toHaveBeenCalledTimes(1);
     });
-
   });
-
-// /**
-//  * Tests whether calls to `FindAllData` methods are correctly patched through in a concrete data service that implements it
-//  */
-// export function testFindAllDataImplementation(serviceFactory: () => FindAllData<any>) {
-//   let service;
-//
-//   describe('FindAllData implementation', () => {
-//     const OPTIONS = Object.assign(new FindListOptions(), { elementsPerPage: 10, currentPage: 3 });
-//     const FOLLOWLINKS = [
-//       followLink('test'),
-//       followLink('something'),
-//     ];
-//
-//     beforeAll(() => {
-//       service = serviceFactory();
-//       (service as any).findAllData =  jasmine.createSpyObj('findAllData', {
-//         findAll: 'TEST findAll',
-//       });
-//     });
-//
-//     it('should handle calls to findAll', () => {
-//       const out: any = service.findAll(OPTIONS, false, true, ...FOLLOWLINKS);
-//
-//       expect((service as any).findAllData.findAll).toHaveBeenCalledWith(OPTIONS, false, true, ...FOLLOWLINKS);
-//       expect(out).toBe('TEST findAll');
-//     });
-//   });
 });
