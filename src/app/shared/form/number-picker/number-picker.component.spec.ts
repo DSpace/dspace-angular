@@ -42,7 +42,6 @@ describe('NumberPickerComponent test suite', () => {
   beforeEach(() => {
     html = `
       <ds-number-picker
-        tabindex="1"
         [disabled]="disabled"
         [min]="min"
         [max]="max"
