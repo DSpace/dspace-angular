@@ -35,6 +35,22 @@ export const TIMER_FACTORY = new InjectionToken<(callback: (...args: any[]) => v
 @Injectable()
 @dataService(PROCESS)
 export class ProcessDataService extends IdentifiableDataService<Process> implements FindAllData<Process>, DeleteData<Process> {
+  /**
+   * Return true if the given process has the given status
+   * @protected
+   */
+  protected static statusIs(process: Process, status: ProcessStatus): boolean {
+    return hasValue(process) && process.processStatus === status;
+  }
+
+  /**
+   * Return true if the given process has the status COMPLETED or FAILED
+   */
+  public static hasCompletedOrFailed(process: Process): boolean {
+    return  ProcessDataService.statusIs(process, ProcessStatus.COMPLETED) ||
+      ProcessDataService.statusIs(process, ProcessStatus.FAILED);
+  }
+
   private findAllData: FindAllData<Process>;
   private deleteData: DeleteData<Process>;
   protected activelyBeingPolled: Map<string, NodeJS.Timeout> = new Map();
@@ -118,22 +134,6 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
   }
 
   /**
-   * Return true if the given process has the given status
-   * @protected
-   */
-  protected statusIs(process: Process, status: ProcessStatus): boolean {
-    return hasValue(process) && process.processStatus === status;
-  }
-
-  /**
-   * Return true if the given process has the status COMPLETED or FAILED
-   */
-  public hasCompletedOrFailed(process: Process): boolean {
-    return  this.statusIs(process, ProcessStatus.COMPLETED) ||
-            this.statusIs(process, ProcessStatus.FAILED);
-  }
-
-  /**
    * Clear the timeout for the given process, if that timeout exists
    * @protected
    */
@@ -142,7 +142,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
     if (hasValue(timeout)) {
       clearTimeout(timeout);
     }
-  };
+  }
 
   /**
    * Poll the process with the given ID, using the given interval, until that process either
@@ -166,7 +166,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
     // the polling interval time has been exceeded.
     const sub = process$.pipe(
       filter((processRD: RemoteData<Process>) =>
-        !this.hasCompletedOrFailed(processRD.payload) &&
+        !ProcessDataService.hasCompletedOrFailed(processRD.payload) &&
         !this.activelyBeingPolled.has(processId)
       )
     ).subscribe((processRD: RemoteData<Process>) => {
@@ -183,7 +183,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
     // observable) that unsubscribes the previous one, removes the processId from the list of
     // processes being polled and clears any running timeouts
     process$.pipe(
-      find((processRD: RemoteData<Process>) => this.hasCompletedOrFailed(processRD.payload))
+      find((processRD: RemoteData<Process>) => ProcessDataService.hasCompletedOrFailed(processRD.payload))
     ).subscribe(() => {
       this.clearCurrentTimeout(processId);
       this.activelyBeingPolled.delete(processId);

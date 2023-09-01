@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, NgZone, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subscription, interval } from 'rxjs';
-import { finalize, map, switchMap, take, tap, filter, find, startWith } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { finalize, map, switchMap, take, tap, find, startWith } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
@@ -109,10 +109,7 @@ export class ProcessDetailComponent implements OnInit {
     this.processRD$ = this.route.data.pipe(
       switchMap((data) => {
         if (isPlatformBrowser(this.platformId)) {
-          const x = this.processService.autoRefreshUntilCompletion(this.route.snapshot.params.id, 5000);
-          //[data.process as RemoteData<Process>];
-          console.log("ASDF", x);
-          return x;
+          return this.processService.autoRefreshUntilCompletion(this.route.snapshot.params.id, 5000);
         } else {
           return [data.process as RemoteData<Process>];
         }
@@ -120,9 +117,8 @@ export class ProcessDetailComponent implements OnInit {
       redirectOn4xx(this.router, this.authService),
     );
 
-    this.processRD$.subscribe(x => console.log("QWER", x));
     this.isRefreshing$ = this.processRD$.pipe(
-      find((processRD: RemoteData<Process>) => this.processService.hasCompletedOrFailed(processRD.payload)),
+      find((processRD: RemoteData<Process>) => ProcessDataService.hasCompletedOrFailed(processRD.payload)),
       map(() => false),
       startWith(true)
     );

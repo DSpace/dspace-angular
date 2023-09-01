@@ -3,13 +3,12 @@ import { ScriptDataService } from '../../../../core/data/processes/script-data.s
 import { ContentSource } from '../../../../core/shared/content-source.model';
 import { ProcessDataService } from '../../../../core/data/processes/process-data.service';
 import {
-  getAllCompletedRemoteData,
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload
 } from '../../../../core/shared/operators';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
-import { hasValue, hasValueOperator } from '../../../../shared/empty.util';
+import { hasValue } from '../../../../shared/empty.util';
 import { ProcessStatus } from '../../../../process-page/processes/process-status.model';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { RequestService } from '../../../../core/data/request.service';

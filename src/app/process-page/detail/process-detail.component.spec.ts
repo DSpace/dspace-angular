@@ -35,7 +35,6 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { getProcessListRoute } from '../process-page-routing.paths';
-import {ProcessStatus} from '../processes/process-status.model';
 
 describe('ProcessDetailComponent', () => {
   let component: ProcessDetailComponent;
@@ -106,12 +105,11 @@ describe('ProcessDetailComponent', () => {
         content: { href: 'log-selflink' }
       }
     });
-    const processRD$ = createSuccessfulRemoteDataObject$(process);
     processService = jasmine.createSpyObj('processService', {
       getFiles: createSuccessfulRemoteDataObject$(createPaginatedList(files)),
       delete: createSuccessfulRemoteDataObject$(null),
-      findById: processRD$,
-      autoRefreshUntilCompletion: processRD$
+      findById: createSuccessfulRemoteDataObject$(process),
+      autoRefreshUntilCompletion: createSuccessfulRemoteDataObject$(process)
     });
     bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
       findByHref: createSuccessfulRemoteDataObject$(logBitstream)
@@ -134,7 +132,7 @@ describe('ProcessDetailComponent', () => {
     });
 
     route = jasmine.createSpyObj('route', {
-      data: observableOf({ process: processRD$ }),
+      data: observableOf({ process: createSuccessfulRemoteDataObject$(process) }),
       snapshot: {
         params: { id: process.processId }
       }
@@ -149,7 +147,12 @@ describe('ProcessDetailComponent', () => {
       providers: [
         {
           provide: ActivatedRoute,
-          useValue: { data: observableOf({ process: createSuccessfulRemoteDataObject(process) }) }
+          useValue: {
+            data: observableOf({ process: createSuccessfulRemoteDataObject(process) }),
+            snapshot: {
+              params: { id: process.processId }
+            }
+          }
         },
         { provide: ProcessDataService, useValue: processService },
         { provide: BitstreamDataService, useValue: bitstreamDataService },
@@ -160,8 +163,7 @@ describe('ProcessDetailComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: Router, useValue: router },
       ],
-      // schemas: [CUSTOM_ELEMENTS_SCHEMA]
-      schemas: []
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 

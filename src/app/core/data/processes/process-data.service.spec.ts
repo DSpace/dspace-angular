@@ -9,7 +9,7 @@
 import { testFindAllDataImplementation } from '../base/find-all-data.spec';
 import { ProcessDataService, TIMER_FACTORY } from './process-data.service';
 import { testDeleteDataImplementation } from '../base/delete-data.spec';
-import { waitForAsync, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { waitForAsync, TestBed } from '@angular/core/testing';
 import { RequestService } from '../request.service';
 import { RemoteData } from '../remote-data';
 import { RequestEntryState } from '../request-entry-state.model';
@@ -22,9 +22,7 @@ import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { DSOChangeAnalyzer } from '../dso-change-analyzer.service';
 import { BitstreamFormatDataService } from '../bitstream-format-data.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TestScheduler, RunHelpers } from 'rxjs/testing';
-import { cold } from 'jasmine-marbles';
-import { of } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
 describe('ProcessDataService', () => {
   let testScheduler;
