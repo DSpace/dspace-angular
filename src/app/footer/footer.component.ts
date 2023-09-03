@@ -18,7 +18,7 @@ export class FooterComponent {
   showTopFooter = false;
   showPrivacyPolicy = environment.info.enablePrivacyStatement;
   showEndUserAgreement = environment.info.enableEndUserAgreement;
-  coarLdnEnabled: boolean; // Add this line
+  coarLdnEnabled: boolean;
 
   constructor(
       @Optional() private cookies: KlaroService,
