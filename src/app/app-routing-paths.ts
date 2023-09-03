@@ -32,8 +32,6 @@ export function getBitstreamRequestACopyRoute(item, bitstream): { routerLink: st
   };
 }
 
-export const COAR_NOTIFY_SUPPORT = 'coar-notify-support';
-
 export const HOME_PAGE_PATH = 'admin';
 
 export function getHomePageRoute() {
