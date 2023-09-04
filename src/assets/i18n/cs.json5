@@ -7097,6 +7097,14 @@
   // "search.filters.withdrawn.false" : "No"
   "search.filters.withdrawn.false" : "Ne",
 
+
+  // "search.filters.filter.language.label":"Search language",
+  "search.filters.filter.language.label":"Hledat jazyk",
+
+  // "search.filters.filter.language.placeholder":"Language",
+  "search.filters.filter.language.placeholder":"Jazyk",
+
+
   // "search.filters.head" : "Filters"
   "search.filters.head" : "Filtry",
 

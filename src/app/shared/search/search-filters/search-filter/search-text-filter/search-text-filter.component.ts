@@ -21,6 +21,7 @@ import { addOperatorToFilterValue, } from '../../../search.utils';
  * Component that represents a text facet for a specific filter configuration
  */
 @renderFacetFor(FilterType.text)
+@renderFacetFor(FilterType.isoLanguage)
 export class SearchTextFilterComponent extends SearchFacetFilterComponent implements OnInit {
   /**
    * Submits a new active custom value to the filter from the input field

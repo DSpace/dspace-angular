@@ -10,7 +10,10 @@
       </div>
       <div class="dont-break-out d-inline" *ngFor="let mdValue of item?.allMetadata(fields); let last=last; let i = index">
         <a *ngIf="type === 'hyperlink'" [href]="mdValue.value">{{mdValue.value}}</a>
-        <a *ngIf="type === 'search'" [href]="getLinkToSearch(i)">{{mdValue.value}}</a>
+        <span *ngIf="type === 'search'">
+          <a [href]="getLinkToSearch(i)">{{mdValue.value}}</a>
+          <span *ngIf="!last" [innerHTML]="separator" class="pr-1"></span>
+        </span>
         <span *ngIf="type === 'subject'">
           <a class="badge badge-info text-white cursor-pointer mr-1"
              *ngFor="let subject of mdValue.value.split(separator);"
