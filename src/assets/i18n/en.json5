@@ -4433,6 +4433,12 @@
 
   "search.filters.withdrawn.false": "No",
 
+
+  "search.filters.filter.language.label":"Search language",
+
+  "search.filters.filter.language.placeholder":"Language",
+
+
   "search.filters.head": "Filters",
 
   "search.filters.reset": "Reset filters",

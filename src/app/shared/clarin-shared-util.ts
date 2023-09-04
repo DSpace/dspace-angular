@@ -34,7 +34,7 @@ export function convertMetadataFieldIntoSearchType(field: string[]) {
       return 'itemtype';
     case field.includes('dc.publisher') || field.includes('creativework.publisher'):
       return 'publisher';
-    case field.includes('dc.language.iso'):
+    case field.includes('dc.language.iso') || field.includes('local.language.name'):
       return 'language';
     case field.includes('dc.subject'):
       return 'subject';
