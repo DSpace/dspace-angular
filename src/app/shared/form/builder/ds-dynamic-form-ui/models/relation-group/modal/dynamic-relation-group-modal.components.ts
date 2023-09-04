@@ -132,8 +132,8 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
   }
 
   isMandatoryFieldEmpty() {
-    const model = this.getMandatoryFieldModel();
-    return model.value == null;
+    const models = this.getMandatoryFields();
+    return models.some(model => !model.value);
   }
 
   hasMandatoryFieldAuthority() {
@@ -267,6 +267,14 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
       });
     });
     return mandatoryFieldModel;
+  }
+
+  private getMandatoryFields(): DsDynamicInputModel[] {
+    return this.formModel
+      .map(row => (row as DynamicFormGroupModel).group)
+      .reduce((previousValue, currentValue) => previousValue.concat(currentValue))
+      .map(model => model as DsDynamicInputModel)
+      .filter(model => !!model.validators && 'required' in model.validators);
   }
 
   private modifyChip() {
