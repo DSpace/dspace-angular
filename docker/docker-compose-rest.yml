@@ -59,6 +59,7 @@ services:
     stdin_open: true
     tty: true
     volumes:
+    - dspace_logs:/dspace/log
     - assetstore:/dspace/assetstore
     # Mount DSpace's solr configs to a volume, so that we can share to 'dspacesolr' container (see below)
     - solr_configs:/dspace/solr
@@ -117,6 +118,7 @@ services:
     volumes:
     # Keep Solr data directory between reboots
     - solr_data:/var/solr/data
+    - solr_logs:/var/solr/logs
     # Initialize all DSpace Solr cores using the mounted local configsets (see above), then start Solr
     # * First, run precreate-core to create the core (if it doesn't yet exist). If exists already, this is a no-op
     # * Second, copy configsets to this core:
@@ -142,3 +144,5 @@ volumes:
   solr_data:
   # Special volume used to share Solr configs from 'dspace' to 'dspacesolr' container (see above)
   solr_configs:
+  dspace_logs:
+  solr_logs:
