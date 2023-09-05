@@ -28,7 +28,7 @@ describe('RssComponent', () => {
     let groupDataService: GroupDataService;
     let linkHeadService: LinkHeadService;
     let configurationDataService: ConfigurationDataService;
-    let paginationService;
+    let paginationService: PaginationServiceStub;
 
     beforeEach(waitForAsync(() => {
         const mockCollection: Collection = Object.assign(new Collection(), {

@@ -10,7 +10,7 @@ import { GroupDataService } from '../../core/eperson/group-data.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { environment } from '../../../../src/environments/environment';
+import { environment } from '../../../environments/environment';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Router } from '@angular/router';
@@ -20,7 +20,7 @@ import { RemoteData } from '../../core/data/remote-data';
 
 
 /**
- * The Rss feed button componenet.
+ * The Rss feed button component.
  */
 @Component({
   exportAs: 'rssComponent',
@@ -49,7 +49,7 @@ export class RSSComponent implements OnInit, OnDestroy  {
               protected paginationService: PaginationService) {
   }
   /**
-   * Removes the linktag created when the component gets removed from the page.
+   * Removes the link tag created when the component gets removed from the page.
    */
   ngOnDestroy(): void {
     this.linkHeadService.removeTag("rel='alternate'");
@@ -65,53 +65,52 @@ export class RSSComponent implements OnInit, OnDestroy  {
   ngOnInit(): void {
     this.configuration$ = this.searchConfigurationService.getCurrentConfiguration('default');
 
-    this.subs.push(this.configurationService.findByPropertyName('websvc.opensearch.enable').pipe(
-      getFirstCompletedRemoteData(),
-    ).subscribe((result) => {
-      if (result.hasSucceeded) {
-        const enabled = (result.payload.values[0] === 'true');
-        this.isEnabled$.next(enabled);
-      }
-    }));
-    this.subs.push(this.configurationService.findByPropertyName('websvc.opensearch.svccontext').pipe(
-      getFirstCompletedRemoteData(),
-      map((result: RemoteData<any>) => {
+    this.subs.push(this.configurationService.findByPropertyName('websvc.opensearch.enable')
+      .pipe(getFirstCompletedRemoteData(), )
+      .subscribe((result) => {
+        if (result.hasSucceeded) {
+          const enabled = (result.payload.values[0] === 'true');
+          this.isEnabled$.next(enabled);
+        }
+      }));
+
+    this.subs.push(this.configurationService.findByPropertyName('websvc.opensearch.svccontext')
+      .pipe(getFirstCompletedRemoteData(),  map((result: RemoteData<any>) => {
         if (result.hasSucceeded) {
           return result.payload.values[0];
         }
         return null;
       }),
-      switchMap((openSearchUri: string) =>
-        this.searchConfigurationService.paginatedSearchOptions.pipe(
-          map((searchOptions: PaginatedSearchOptions) => ({ openSearchUri,  searchOptions }))
-        )
-      ),
-    ).subscribe(({ openSearchUri,  searchOptions }) => {
-      if (!openSearchUri) {
-        return null;
-      }
-      this.uuid = this.groupDataService.getUUIDFromString(this.router.url);
-      const route = environment.rest.baseUrl + this.formulateRoute(this.uuid, openSearchUri, searchOptions.query);
-      this.addLinks(route);
-      this.linkHeadService.addTag({
-        href: environment.rest.baseUrl + '/' + openSearchUri + '/service',
-        type: 'application/atom+xml',
-        rel: 'search',
-        title: 'Dspace'
-      });
-      this.route$.next(route);
-    }));
+        switchMap((openSearchUri: string) => this.searchConfigurationService.paginatedSearchOptions
+          .pipe(map((searchOptions: PaginatedSearchOptions) => ({ openSearchUri,  searchOptions })))),
+        ).subscribe(({ openSearchUri,  searchOptions }) => {
+          if (!openSearchUri) {
+            return null;
+          }
+
+          this.uuid = this.groupDataService.getUUIDFromString(this.router.url);
+          const route = environment.rest.baseUrl + this.formulateRoute(this.uuid, openSearchUri, searchOptions.query);
+          this.addLinks(route);
+          this.linkHeadService.addTag({
+            href: environment.rest.baseUrl + '/opensearch/service',
+            type: 'application/opensearchdescription+xml',
+            rel: 'search',
+            title: 'Dspace'
+          });
+          this.route$.next(route);
+        })
+    );
   }
 
   /**
-   * Function created a route given the different params available to opensearch
-   * @param uuid The uuid if a scope is present
-   * @param opensearch openSearch uri
-   * @param query The query string that was provided in the search
-   * @returns The combine URL to opensearch
+   * Function that creates a route given params available to opensearch
+   * @param {string} uuid The uuid if a scope is present
+   * @param {string} opensearch openSearch uri
+   * @param {string} query The query string that was provided in the search
+   * @returns {string} The combine URL to opensearch
    */
   formulateRoute(uuid: string, opensearch: string, query: string): string {
-    let route = '?format=atom';
+    let route = '/' + opensearch + '?format=atom';
     if (uuid) {
       route += `&scope=${uuid}`;
     }
@@ -120,7 +119,6 @@ export class RSSComponent implements OnInit, OnDestroy  {
     } else {
       route += `&query=*`;
     }
-    route = '/' + opensearch + route;
     return route;
   }
 
@@ -128,10 +126,9 @@ export class RSSComponent implements OnInit, OnDestroy  {
    * Check if the router url contains the specified route
    *
    * @param {string} route
-   * @returns
-   * @memberof MyComponent
+   * @returns {boolean}
    */
-  hasRoute(route: string) {
+  hasRoute(route: string): boolean {
     return this.router.url.includes(route);
   }
 
