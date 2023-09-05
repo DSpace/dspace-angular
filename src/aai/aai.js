@@ -71,7 +71,7 @@
               case 'local':
                 // DiscoJuice.UI.setScreen(opts.localauth);
                 // jQuery('input#login').focus();
-                window.location.href = "/login";
+                window.location = "/login?redirectUrl=" + window.location.href;
                 break;
               //case 'saml':
               default:

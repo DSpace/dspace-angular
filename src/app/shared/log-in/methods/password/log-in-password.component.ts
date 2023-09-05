@@ -4,17 +4,24 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AuthenticateAction, ResetAuthenticationMessagesAction } from '../../../../core/auth/auth.actions';
+import {
+  AuthenticateAction,
+  ResetAuthenticationMessagesAction
+} from '../../../../core/auth/auth.actions';
 
 import { getAuthenticationError, getAuthenticationInfo, } from '../../../../core/auth/selectors';
-import { isNotEmpty } from '../../../empty.util';
+import { isNotEmpty, isNotNull } from '../../../empty.util';
 import { fadeOut } from '../../../animations/fade';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { renderAuthMethodFor } from '../log-in.methods-decorator';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
-import { AuthService } from '../../../../core/auth/auth.service';
+import { AuthService, LOGIN_ROUTE } from '../../../../core/auth/auth.service';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { CoreState } from '../../../../core/core-state.model';
+import { ActivatedRoute , Router} from '@angular/router';
+import { getBaseUrl } from '../../../clarin-shared-util';
+import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
+import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 
 /**
  * /users/sign-in
@@ -66,7 +73,26 @@ export class LogInPasswordComponent implements OnInit {
   public form: UntypedFormGroup;
 
   /**
-   * Whether the current user (or anonymous) is authorized to register an account
+   * The page from where the local login was initiated.
+   */
+  public redirectUrl = '';
+
+  /**
+   * `dspace.ui.url` property fetched from the server.
+   */
+  public baseUrl = '';
+
+  /**
+   * @constructor
+   * @param {AuthMethod} injectedAuthMethodModel
+   * @param {boolean} isStandalonePage
+   * @param {AuthService} authService
+   * @param {HardRedirectService} hardRedirectService
+   * @param {FormBuilder} formBuilder
+   * @param {Store<State>} store
+   * @param route
+   * @param router
+   * @param configurationService
    */
   public canRegister$: Observable<boolean>;
 
@@ -75,9 +101,11 @@ export class LogInPasswordComponent implements OnInit {
     @Inject('isStandalonePage') public isStandalonePage: boolean,
     private authService: AuthService,
     private hardRedirectService: HardRedirectService,
-    private formBuilder: UntypedFormBuilder,
-    protected store: Store<CoreState>,
-    protected authorizationService: AuthorizationDataService,
+    private formBuilder: FormBuilder,
+    private store: Store<CoreState>,
+    private route: ActivatedRoute,
+    protected router: Router,
+    protected configurationService: ConfigurationDataService,
   ) {
     this.authMethod = injectedAuthMethodModel;
   }
@@ -86,8 +114,7 @@ export class LogInPasswordComponent implements OnInit {
    * Lifecycle hook that is called after data-bound properties of a directive are initialized.
    * @method ngOnInit
    */
-  public ngOnInit() {
-
+  public async ngOnInit() {
     // set formGroup
     this.form = this.formBuilder.group({
       email: ['', Validators.required],
@@ -112,15 +139,14 @@ export class LogInPasswordComponent implements OnInit {
       })
     );
 
-    this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration);
-  }
+    // Load `dspace.ui.url` into `baseUrl` property.
+    await this.assignBaseUrl();
 
-  getRegisterRoute() {
-    return getRegisterRoute();
-  }
-
-  getForgotRoute() {
-    return getForgotPasswordRoute();
+    // Store the `redirectUrl` value from the url and then remove that value from url.
+    if (isNotNull(this.route.snapshot.queryParams?.redirectUrl)) {
+      this.redirectUrl = this.route.snapshot.queryParams?.redirectUrl;
+      void this.router.navigate([LOGIN_ROUTE]);
+    }
   }
 
   /**
@@ -148,8 +174,10 @@ export class LogInPasswordComponent implements OnInit {
     email.trim();
     password.trim();
 
-    if (!this.isStandalonePage) {
-      this.authService.setRedirectUrl(this.hardRedirectService.getCurrentRoute());
+    // Local authentication redirects to /login page and the user should be redirected to the page from where
+    // was the login initiated.
+    if (!this.isStandalonePage || isNotEmpty(this.redirectUrl)) {
+      this.authService.setRedirectUrl(this.redirectUrl.replace(this.baseUrl, ''));
     } else {
       this.authService.setRedirectUrlIfNotSet('/');
     }
@@ -159,6 +187,16 @@ export class LogInPasswordComponent implements OnInit {
 
     // clear form
     this.form.reset();
+  }
+
+  /**
+   * Load the `dspace.ui.url` into `baseUrl` property.
+   */
+  async assignBaseUrl() {
+    this.baseUrl = await getBaseUrl(this.configurationService)
+      .then((baseUrlResponse: ConfigurationProperty) => {
+        return baseUrlResponse?.values?.[0];
+      });
   }
 
 }
