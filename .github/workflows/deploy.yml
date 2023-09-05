@@ -21,11 +21,11 @@ jobs:
 
           echo REST_URL=http://dev-5.pc:8085/server >> .env.dev-5
           echo UI_URL=http://dev-5.pc:85 >> .env.dev-5
-          echo DSPACE_REST_IMAGE=dataquest/dspace:dtq-dev-7.5 >> .env.dev-5
+          echo DSPACE_REST_IMAGE=dataquest/dspace:dtq-dev >> .env.dev-5
           echo DOCKER_OWNER=dataquest >> .env.dev-5
           ## echo NODE_ENV="development" >> .env.dev-5
-          echo DSPACE_UI_IMAGE="dataquest/dspace-angular:dtq-dev-7.5" >> .env.dev-5
-          echo DSPACE_VER="dtq-dev-7.5" >> .env.dev-5
+          echo DSPACE_UI_IMAGE="dataquest/dspace-angular:dtq-dev" >> .env.dev-5
+          echo DSPACE_VER="dtq-dev" >> .env.dev-5
           echo INSTANCE=5 >> .env.dev-5
 
           echo S3_STORAGE=1 >> .env.dev-5
