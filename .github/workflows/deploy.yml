@@ -19,7 +19,7 @@ jobs:
           touch .env.dev-5 || true
           echo DSPACE_REST_HOST=dev-5.pc > .env.dev-5
 
-          echo REST_URL=http://dev-5.pc:8085/server >> .env.dev-5
+          echo REST_URL=http://dev-5.pc:85/server >> .env.dev-5
           echo UI_URL=http://dev-5.pc:85 >> .env.dev-5
           echo DSPACE_REST_IMAGE=dataquest/dspace:dspace-7_x >> .env.dev-5
           echo DOCKER_OWNER=dataquest >> .env.dev-5
