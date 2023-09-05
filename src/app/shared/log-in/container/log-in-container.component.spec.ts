@@ -13,6 +13,12 @@ import { AuthMethod } from '../../../core/auth/models/auth.method';
 import { AuthServiceStub } from '../../testing/auth-service.stub';
 import { createTestComponent } from '../../testing/utils.test';
 import { HardRedirectService } from '../../../core/services/hard-redirect.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { of as observableOf } from 'rxjs';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { RouterMock } from '../../mocks/router.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 
 describe('LogInContainerComponent', () => {
 
@@ -22,12 +28,28 @@ describe('LogInContainerComponent', () => {
   const authMethod = new AuthMethod('password');
 
   let hardRedirectService: HardRedirectService;
+  let configurationDataService: ConfigurationDataService;
+  let authService: any;
 
   beforeEach(waitForAsync(() => {
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
       redirect: {},
       getCurrentRoute: {}
     });
+    authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: observableOf(true),
+      setRedirectUrl: {},
+      setRedirectUrlIfNotSet: {}
+    });
+    configurationDataService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'dspace.ui.url',
+        values: [
+          'some url'
+        ]
+      }))
+    });
+
     // refine the test module by declaring the test component
     TestBed.configureTestingModule({
       imports: [
@@ -43,6 +65,17 @@ describe('LogInContainerComponent', () => {
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: HardRedirectService, useValue: hardRedirectService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: ActivatedRoute, useValue: {
+            params: observableOf({}),
+            data: observableOf({ metadata: 'title' }),
+            snapshot: {
+              queryParams: new Map([
+                ['redirectUrl', 'some url'],
+              ])
+            }
+          } },
+        { provide: Router, useValue: new RouterMock() },
         LogInContainerComponent
       ],
       schemas: [

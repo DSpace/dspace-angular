@@ -13,14 +13,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared.module';
 import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NativeWindowService } from '../../core/services/window.service';
 import { provideMockStore } from '@ngrx/store/testing';
 import { createTestComponent } from '../testing/utils.test';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { of } from 'rxjs';
+import { of as observableOf, of } from 'rxjs';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
+import { RouterStub } from '../testing/router.stub';
 
 describe('LogInComponent', () => {
 
@@ -39,6 +43,8 @@ describe('LogInComponent', () => {
   let hardRedirectService: HardRedirectService;
 
   let authorizationService: AuthorizationDataService;
+  let authService: any;
+  let configurationDataService: ConfigurationDataService;
 
   beforeEach(waitForAsync(() => {
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
@@ -47,6 +53,19 @@ describe('LogInComponent', () => {
     });
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: of(true)
+    });
+    authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: observableOf(true),
+      setRedirectUrl: {},
+      setRedirectUrlIfNotSet: {}
+    });
+    configurationDataService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'dspace.ui.url',
+        values: [
+          'some url'
+        ]
+      }))
     });
 
     // refine the test module by declaring the test component
@@ -70,10 +89,11 @@ describe('LogInComponent', () => {
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
-        // { provide: Router, useValue: new RouterStub() },
+        { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: HardRedirectService, useValue: hardRedirectService },
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
         provideMockStore({ initialState }),
         LogInComponent
       ],
