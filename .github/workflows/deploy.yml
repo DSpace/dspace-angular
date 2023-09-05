@@ -12,7 +12,6 @@ jobs:
         with:
           submodules: false
       - name: deploy
-        if: 'false'
         run: |
           cd $GITHUB_WORKSPACE/build-scripts/run/
           pwd
