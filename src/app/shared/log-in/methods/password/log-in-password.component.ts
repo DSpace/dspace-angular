@@ -10,7 +10,7 @@ import {
 } from '../../../../core/auth/auth.actions';
 
 import { getAuthenticationError, getAuthenticationInfo, } from '../../../../core/auth/selectors';
-import { isNotEmpty, isNotNull } from '../../../empty.util';
+import { isNotEmpty } from '../../../empty.util';
 import { fadeOut } from '../../../animations/fade';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { renderAuthMethodFor } from '../log-in.methods-decorator';
@@ -143,9 +143,12 @@ export class LogInPasswordComponent implements OnInit {
     await this.assignBaseUrl();
 
     // Store the `redirectUrl` value from the url and then remove that value from url.
-    if (isNotNull(this.route.snapshot.queryParams?.redirectUrl)) {
+    if (isNotEmpty(this.route.snapshot.queryParams?.redirectUrl)) {
       this.redirectUrl = this.route.snapshot.queryParams?.redirectUrl;
       void this.router.navigate([LOGIN_ROUTE]);
+    } else {
+      // Pop up discojuice login.
+      this.popUpDiscoJuiceLogin();
     }
   }
 
@@ -199,4 +202,14 @@ export class LogInPasswordComponent implements OnInit {
       });
   }
 
+  /**
+   * Show DiscoJuice login modal using javascript functions. The timeout must be set because of angular component
+   * lifecycle. Discojuice won't be showed up without timeout.
+   * @private
+   */
+  private popUpDiscoJuiceLogin() {
+    setTimeout(() => {
+      document?.getElementById('clarin-signon-discojuice')?.click();
+    }, 250);
+  }
 }
