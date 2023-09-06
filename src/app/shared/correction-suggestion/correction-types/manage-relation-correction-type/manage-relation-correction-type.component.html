@@ -11,26 +11,28 @@
         [placeholder]="'correction-type.manage-relation.search.placeholder' | translate" aria-label="" aria-describedby="">
       <div class="input-group-append">
         <button type="button" class="btn btn-outline-secondary" [disabled]="projectTitle === ''"
-          (click)="projectTitle = ''">{{('correction-type.manage-relation.search.btn.clear' | translate)}}</button>
+          (click)="projectTitle = ''; search('')">{{('correction-type.manage-relation.search.btn.clear' | translate)}}</button>
         <button type="button" class="btn btn-primary" [disabled]="projectTitle === ''"
           (click)="search(projectTitle)">{{('correction-type.manage-relation.search.btn.search' | translate)}}</button>
       </div>
     </div>
 
     <ds-loading *ngIf="(isLoading$ | async)" message="{{'loading.search-results' | translate}}"></ds-loading>
-    <ds-search-results *ngIf="(localEntitiesRD$ | async)?.payload?.page?.length > 0 && !(isLoading$ | async)"
-                        [searchResults]="(localEntitiesRD$ | async)"
-                        [sortConfig]="this.searchOptions?.sort"
-                        [searchConfig]="this.searchOptions"
-                        [selectable]="true"
-                        [disableHeader]="true"
-                        [hidePaginationDetail]="false"
-                        [selectionConfig]="{ repeatable: false, listId: entityListId }"
-                        [linkType]="linkTypes.ExternalLink"
-                        [context]="context"
-                        (deselectObject)="deselectEntity()"
-                        (selectObject)="selectEntity($event)">
-    </ds-search-results>
+
+    <ds-viewable-collection
+      *ngIf="(localEntitiesRD$ | async)?.payload?.page?.length > 0 && !(isLoading$ | async)"
+      [config]="pagination"
+      [sortConfig]="searchOptions?.sort"
+      [objects]="(localEntitiesRD$ | async)"
+      [hideGear]="true"
+      [selectable]="true"
+      [selectionConfig]="{ repeatable: false, listId: entityListId }"
+      [linkType]="linkTypes.Link"
+      [context]="context"
+      [hidePaginationDetail]="false"
+      (deselectObject)="deselectEntity()"
+      (selectObject)="selectEntity($event)">
+   </ds-viewable-collection>
 
     <div *ngIf="(localEntitiesRD$ | async)?.payload?.page?.length < 1 && !(isLoading$ | async)">
       <ds-alert [type]="'alert-info'">

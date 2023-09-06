@@ -20,7 +20,7 @@ import { renderCorrectionFor } from '../../correction-suggestion-page.decorator'
 import { CorrectionType } from '../../../../core/submission/models/correction-type-mode.model';
 import { CorrectionTypeForms } from '../correction-type-forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, of as observableOf, Subscription, switchMap } from 'rxjs';
+import { finalize, Observable, of as observableOf, Subscription, switchMap } from 'rxjs';
 import { hasValue, isNotEmpty } from '../../../empty.util';
 import { ListableObject } from '../../../object-collection/shared/listable-object.model';
 import { Item } from '../../../../core/shared/item.model';
@@ -55,9 +55,9 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
   /**
    * Pagination options
    */
-  pagination: PaginationComponentOptions =  Object.assign(new PaginationComponentOptions(), {
+  pagination: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'csmr',
-    pageSize: 3,
+    pageSize: 10,
     currentPage: 1
   });
 
@@ -99,11 +99,11 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
   /**
    * List ID for selecting local entities
    */
-  entityListId = 'correction-suggestion-manage-relation';
+  entityListId = 'csmr';
   /**
    * List ID for selecting local authorities
    */
-  authorityListId = 'correction-suggestion-manage-relation-authority';
+  authorityListId = 'csmr-authority';
 
   /**
  * ImportType enum
@@ -134,23 +134,33 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
    * Get the search results
    */
   ngOnInit(): void {
-    this.searchOptions = Object.assign(new PaginatedSearchOptions(
-      {
-        configuration: this.correctionType.discoveryConfiguration,
-        scope: this.itemUuid,
-        pagination: this.pagination
-      }
-    ));
+    this.getData();
+  }
 
-    this.localEntitiesRD$ = this.searchService.search(this.searchOptions);
-    this.subs.push(
-      this.localEntitiesRD$.pipe(
-        getFirstCompletedRemoteData(),
-      ).subscribe(
-        () => {
-          this.isLoading$ = observableOf(false);
+  private getData(){
+    this.localEntitiesRD$ = this.aroute.queryParams
+    .pipe(
+      switchMap((params) => {
+        if (hasValue(params)) {
+          this.pagination = Object.assign(new PaginationComponentOptions(),{
+             ...this.pagination,
+            currentPage: params[`${this.pagination.id}.page`] || 1
+          });
         }
-      )
+
+        this.searchOptions = Object.assign(new PaginatedSearchOptions(
+          {
+            configuration: this.correctionType.discoveryConfiguration,
+             scope: this.itemUuid,
+            pagination: this.pagination,
+          }
+        ));
+
+        return this.searchService.search(this.searchOptions).pipe(
+          getFirstCompletedRemoteData(),
+          finalize(() => this.isLoading$ = observableOf(false))
+        );
+      })
     );
   }
 
@@ -169,15 +179,24 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
           pagination: this.pagination
         }
       ));
-      this.localEntitiesRD$ = this.searchService.search(this.searchOptions);
-      this.subs.push(
-        this.localEntitiesRD$.pipe(
-          getFirstCompletedRemoteData(),
-        ).subscribe(
-          () => this.isLoading$ = observableOf(false)
-        )
-      );
+    } else {
+      this.searchOptions = Object.assign(new PaginatedSearchOptions(
+        {
+          configuration: this.correctionType.discoveryConfiguration,
+          scope: this.itemUuid,
+          pagination: this.pagination
+        }
+      ));
     }
+
+    this.localEntitiesRD$ = this.searchService.search(this.searchOptions);
+    this.subs.push(
+      this.localEntitiesRD$.pipe(
+        getFirstCompletedRemoteData(),
+      ).subscribe(
+        () => this.isLoading$ = observableOf(false)
+      )
+    );
   }
 
   /**
