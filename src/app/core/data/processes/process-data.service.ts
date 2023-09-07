@@ -35,6 +35,10 @@ export const TIMER_FACTORY = new InjectionToken<(callback: (...args: any[]) => v
 @Injectable()
 @dataService(PROCESS)
 export class ProcessDataService extends IdentifiableDataService<Process> implements FindAllData<Process>, DeleteData<Process> {
+  private findAllData: FindAllData<Process>;
+  private deleteData: DeleteData<Process>;
+  protected activelyBeingPolled: Map<string, NodeJS.Timeout> = new Map();
+
   /**
    * Return true if the given process has the given status
    * @protected
@@ -50,10 +54,6 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
     return  ProcessDataService.statusIs(process, ProcessStatus.COMPLETED) ||
       ProcessDataService.statusIs(process, ProcessStatus.FAILED);
   }
-
-  private findAllData: FindAllData<Process>;
-  private deleteData: DeleteData<Process>;
-  protected activelyBeingPolled: Map<string, NodeJS.Timeout> = new Map();
 
   constructor(
     protected requestService: RequestService,
