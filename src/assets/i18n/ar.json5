@@ -4276,25 +4276,25 @@
   // TODO New key - Add a translation
   "mydspace.show.workspace": "Your Submissions",
 
-  // "mydspace.status.archived": "Archived",
+  // "mydspace.status.mydspaceArchived": "Archived",
   // TODO New key - Add a translation
-  "mydspace.status.archived": "Archived",
+  "mydspace.status.mydspaceArchived": "Archived",
 
-  // "mydspace.status.validation": "Validation",
+  // "mydspace.status.mydspaceValidation": "Validation",
   // TODO New key - Add a translation
-  "mydspace.status.validation": "Validation",
+  "mydspace.status.mydspaceValidation": "Validation",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
   // TODO New key - Add a translation
-  "mydspace.status.waiting-for-controller": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Waiting for controller",
 
-  // "mydspace.status.workflow": "Workflow",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
   // TODO New key - Add a translation
-  "mydspace.status.workflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Workflow",
 
-  // "mydspace.status.workspace": "Workspace",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
   // TODO New key - Add a translation
-  "mydspace.status.workspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Workspace",
 
   // "mydspace.title": "MyDSpace",
   // TODO New key - Add a translation

@@ -782,6 +782,8 @@
 
   "browse.comcol.by.srsc": "By Subject Category",
 
+  "browse.comcol.by.nsi": "By Norwegian Science Index",
+
   "browse.comcol.by.title": "By Title",
 
   "browse.comcol.head": "Browse",
@@ -803,6 +805,8 @@
   "browse.metadata.subject.breadcrumbs": "Browse by Subject",
 
   "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
+
+  "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
@@ -1392,7 +1396,7 @@
 
   "curation-task.task.vscan.label": "Virus Scan",
 
-  "curation-task.task.register-doi.label": "Register DOI",
+  "curation-task.task.registerdoi.label": "Register DOI",
 
   "curation.form.task-select.label": "Task:",
 
@@ -2826,6 +2830,8 @@
 
   "menu.section.browse_global_by_srsc": "By Subject Category",
 
+  "menu.section.browse_global_by_nsi": "By Norwegian Science Index",
+
   "menu.section.browse_global_by_title": "By Title",
 
   "menu.section.browse_global_communities_and_collections": "Communities & Collections",
@@ -3813,6 +3819,16 @@
   "search.filters.discoverable.true": "No",
 
   "search.filters.discoverable.false": "Yes",
+
+  "search.filters.namedresourcetype.Archived": "Archived",
+
+  "search.filters.namedresourcetype.Validation": "Validation",
+
+  "search.filters.namedresourcetype.Waiting for Controller": "Waiting for Controller",
+
+  "search.filters.namedresourcetype.Workflow": "Workflow",
+
+  "search.filters.namedresourcetype.Workspace": "Workspace",
 
   "search.filters.withdrawn.true": "Yes",
 
