@@ -113,36 +113,6 @@ export class CollectionSourceControlsComponent implements OnDestroy {
         this.testConfigRunning$.next(false);
       }
     }));
-
-    //   getAllCompletedRemoteData(),
-    //   filter((rd) => !rd.isStale && (rd.hasSucceeded || rd.hasFailed)),
-    //   map((rd) => rd.payload),
-    //   hasValueOperator(),
-    // ).subscribe((process: Process) => {
-    //     if (process.processStatus.toString() !== ProcessStatus[ProcessStatus.COMPLETED].toString() &&
-    //       process.processStatus.toString() !== ProcessStatus[ProcessStatus.FAILED].toString()) {
-    //       // Ping the current process state every 5s
-    //       setTimeout(() => {
-    //         this.requestService.setStaleByHrefSubstring(process._links.self.href);
-    //       }, 5000);
-    //     }
-    //     if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
-    //       this.notificationsService.error(this.translateService.get('collection.source.controls.test.failed'));
-    //       this.testConfigRunning$.next(false);
-    //     }
-    //     if (process.processStatus.toString() === ProcessStatus[ProcessStatus.COMPLETED].toString()) {
-    //       this.bitstreamService.findByHref(process._links.output.href).pipe(getFirstSucceededRemoteDataPayload()).subscribe((bitstream) => {
-    //         this.httpClient.get(bitstream._links.content.href, {responseType: 'text'}).subscribe((data: any) => {
-    //           const output = data.replaceAll(new RegExp('.*\\@(.*)', 'g'), '$1')
-    //             .replaceAll('The script has started', '')
-    //             .replaceAll('The script has completed', '');
-    //           this.notificationsService.info(this.translateService.get('collection.source.controls.test.completed'), output);
-    //         });
-    //       });
-    //       this.testConfigRunning$.next(false);
-    //     }
-    //   }
-    // ));
   }
 
   /**
@@ -178,31 +148,6 @@ export class CollectionSourceControlsComponent implements OnDestroy {
           this.importRunning$.next(false);
         }
       }));
-
-      //   getAllCompletedRemoteData(),
-      //   filter((rd) => !rd.isStale && (rd.hasSucceeded || rd.hasFailed)),
-      //   map((rd) => rd.payload),
-      //   hasValueOperator(),
-      // ).subscribe((process) => {
-      //     if (process.processStatus.toString() !== ProcessStatus[ProcessStatus.COMPLETED].toString() &&
-      //       process.processStatus.toString() !== ProcessStatus[ProcessStatus.FAILED].toString()) {
-      //       // Ping the current process state every 5s
-      //       setTimeout(() => {
-      //         this.requestService.setStaleByHrefSubstring(process._links.self.href);
-      //         this.requestService.setStaleByHrefSubstring(this.collection._links.self.href);
-      //       }, 5000);
-      //     }
-      //     if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
-      //       this.notificationsService.error(this.translateService.get('collection.source.controls.import.failed'));
-      //       this.importRunning$.next(false);
-      //     }
-      //     if (process.processStatus.toString() === ProcessStatus[ProcessStatus.COMPLETED].toString()) {
-      //       this.notificationsService.success(this.translateService.get('collection.source.controls.import.completed'));
-      //       this.requestService.setStaleByHrefSubstring(this.collection._links.self.href);
-      //       this.importRunning$.next(false);
-      //     }
-      //   }
-      // ));
   }
 
   /**
@@ -238,32 +183,6 @@ export class CollectionSourceControlsComponent implements OnDestroy {
           this.reImportRunning$.next(false);
         }
       }));
-
-      //   switchMap((rd) => this.processDataService.findById(rd.payload.processId, false)),
-      //   getAllCompletedRemoteData(),
-      //   filter((rd) => !rd.isStale && (rd.hasSucceeded || rd.hasFailed)),
-      //   map((rd) => rd.payload),
-      //   hasValueOperator(),
-      // ).subscribe((process) => {
-      //     if (process.processStatus.toString() !== ProcessStatus[ProcessStatus.COMPLETED].toString() &&
-      //       process.processStatus.toString() !== ProcessStatus[ProcessStatus.FAILED].toString()) {
-      //       // Ping the current process state every 5s
-      //       setTimeout(() => {
-      //         this.requestService.setStaleByHrefSubstring(process._links.self.href);
-      //         this.requestService.setStaleByHrefSubstring(this.collection._links.self.href);
-      //       }, 5000);
-      //     }
-      //     if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
-      //       this.notificationsService.error(this.translateService.get('collection.source.controls.reset.failed'));
-      //       this.reImportRunning$.next(false);
-      //     }
-      //     if (process.processStatus.toString() === ProcessStatus[ProcessStatus.COMPLETED].toString()) {
-      //       this.notificationsService.success(this.translateService.get('collection.source.controls.reset.completed'));
-      //       this.requestService.setStaleByHrefSubstring(this.collection._links.self.href);
-      //       this.reImportRunning$.next(false);
-      //     }
-      //   }
-      // ));
   }
 
   ngOnDestroy(): void {
