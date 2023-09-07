@@ -17,11 +17,11 @@ services:
       TZ: ${TIMEZONE:-Europe/Bratislava}
       DSPACE_UI_SSL: 'false'
       DSPACE_UI_HOST: dspace-angular
-      DSPACE_UI_PORT: 400${INSTANCE}
+      DSPACE_UI_PORT: 4000
       DSPACE_UI_NAMESPACE: /
-      DSPACE_REST_SSL: 'false'
-      DSPACE_REST_HOST: ${DSPACE_REST_HOST:-localhost}
-      DSPACE_REST_PORT: 8${INSTANCE}
+      DSPACE_REST_SSL: ${DSPACE_SSL:-false}
+      DSPACE_REST_HOST: ${DSPACE_HOST:-localhost}
+      DSPACE_REST_PORT: ${DSPACE_REST_PORT}
       DSPACE_REST_NAMESPACE: /server
     image: ${DSPACE_UI_IMAGE:-dataquest/dspace-angular:dspace-7_x}
     volumes:
@@ -31,10 +31,10 @@ services:
       dockerfile: Dockerfile
     networks:
       dspacenet:
-    entrypoint: yarn start:dev
+    entrypoint: ${FE_CMD:-/bin/sh -c "pm2 start dspace-ui.json && pm2 logs"}
     ports:
     - published: 400${INSTANCE}
-      target: 400${INSTANCE}
+      target: 4000
       host_ip: 127.0.0.1
     - published: 987${INSTANCE}
       target: 987${INSTANCE}
