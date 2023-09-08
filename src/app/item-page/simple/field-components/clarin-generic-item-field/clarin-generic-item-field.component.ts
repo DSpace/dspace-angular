@@ -56,6 +56,9 @@ export class ClarinGenericItemFieldComponent implements OnInit {
   // tslint:disable-next-line:no-empty
   async ngOnInit(): Promise<void> {
     await this.assignBaseUrl();
+    if (isEmpty(this.separator)) {
+      this.separator = ',';
+    }
   }
 
   /**
