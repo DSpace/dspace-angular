@@ -1,5 +1,5 @@
-import {SubmissionUploadFileAccessConditionObject} from './submission-upload-file-access-condition.model';
-import {WorkspaceitemSectionFormObject} from './workspaceitem-section-form.model';
+import { SubmissionUploadFileAccessConditionObject } from './submission-upload-file-access-condition.model';
+import { WorkspaceitemSectionFormObject } from './workspaceitem-section-form.model';
 
 /**
  * An interface to represent submission's upload section file entry.
