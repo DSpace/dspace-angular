@@ -18,9 +18,9 @@ export class MetadataSchemaExportService {
   private readonly SCRIPT_NAME = 'export-schema';
 
   constructor(
-    protected notificationsService: NotificationsService,
-    protected translate: TranslateService,
-    protected scriptDataService: ScriptDataService
+    protected readonly notificationsService: NotificationsService,
+    protected readonly translate: TranslateService,
+    protected readonly scriptDataService: ScriptDataService
   ) {
   }
 

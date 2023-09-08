@@ -7,7 +7,6 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
@@ -49,7 +48,6 @@ export class MetadataRegistryComponent {
 
   constructor(private registryService: RegistryService,
               private notificationsService: NotificationsService,
-              private router: Router,
               private paginationService: PaginationService,
               private translateService: TranslateService,
               private readonly metadataSchemaExportService: MetadataSchemaExportService) {
