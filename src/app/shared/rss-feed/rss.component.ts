@@ -5,22 +5,33 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import {BehaviorSubject, Subscription} from 'rxjs';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
 import { environment } from '../../../environments/environment';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Router } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { RemoteData } from '../../core/data/remote-data';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 
 
 /**
- * The Rss feed button component.
+ * The RSS feed button component.
+ *
+ * This component needs four configuration variables.
+ * - websvc.opensearch.enable = whether OpenSearch is enabled
+ * - websvc.opensearch.svccontext = context for RSS/Atom request URLs
+ * - websvc.opensearch.autolink = whether an autodiscovery link should be put into every page head
+ * - websvc.opensearch.shortname = short name used in browsers for search service
  */
 @Component({
   exportAs: 'rssComponent',
@@ -31,15 +42,13 @@ import { RemoteData } from '../../core/data/remote-data';
   encapsulation: ViewEncapsulation.Emulated
 })
 export class RSSComponent implements OnInit, OnDestroy  {
-
-  route$: BehaviorSubject<string> = new BehaviorSubject<string>('');
-
-  isEnabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
-
   uuid: string;
-  configuration$: Observable<string>;
-
   subs: Subscription[] = [];
+  // Give default value as DSpace
+  shortname: BehaviorSubject<string> = new BehaviorSubject<string>('DSpace');
+  autolink: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  isEnabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+  route$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(private groupDataService: GroupDataService,
               private linkHeadService: LinkHeadService,
@@ -58,52 +67,84 @@ export class RSSComponent implements OnInit, OnDestroy  {
     });
   }
 
-
   /**
-   * Generates the link tags and the url to opensearch when the component is loaded.
+   * Generates the link tags and the url to OpenSearch when the component is loaded.
+   * And injects these tags into the header tag.
    */
   ngOnInit(): void {
-    this.configuration$ = this.searchConfigurationService.getCurrentConfiguration('default');
+    // Establish whether OpenSearch is enabled in the config
+    this.getSucceededPropertyPayload('websvc.opensearch.enable', (result) => {
+      this.isEnabled$.next(result.values[0] === 'true');
+    });
 
-    this.subs.push(this.configurationService.findByPropertyName('websvc.opensearch.enable')
-      .pipe(getFirstCompletedRemoteData(), )
-      .subscribe((result) => {
-        if (result.hasSucceeded) {
-          const enabled = (result.payload.values[0] === 'true');
-          this.isEnabled$.next(enabled);
-        }
-      }));
+    // If OpenSearch is disabled there is no need to proceed
+    if (!this.isEnabled$) {
+      return;
+    }
 
+    // Inject the three link tag into the header
     this.subs.push(this.configurationService.findByPropertyName('websvc.opensearch.svccontext')
-      .pipe(getFirstCompletedRemoteData(),  map((result: RemoteData<any>) => {
-        if (result.hasSucceeded) {
-          return result.payload.values[0];
-        }
-        return null;
-      }),
+      .pipe(getFirstSucceededRemoteData(),  map((result: RemoteData<ConfigurationProperty>) => result.payload.values[0]),
         switchMap((openSearchUri: string) => this.searchConfigurationService.paginatedSearchOptions
           .pipe(map((searchOptions: PaginatedSearchOptions) => ({ openSearchUri,  searchOptions })))),
-        ).subscribe(({ openSearchUri,  searchOptions }) => {
-          if (!openSearchUri) {
-            return null;
-          }
-
+        )
+      .subscribe(({ openSearchUri,  searchOptions }) => {
           this.uuid = this.groupDataService.getUUIDFromString(this.router.url);
-          const route = environment.rest.baseUrl + this.formulateRoute(this.uuid, openSearchUri, searchOptions.query);
-          this.addLinks(route);
-          this.linkHeadService.addTag({
-            href: environment.rest.baseUrl + '/opensearch/service',
-            type: 'application/opensearchdescription+xml',
-            rel: 'search',
-            title: 'Dspace'
+
+          // We cannot run succeeded property because this variable might not be set?
+          this.getProperty('websvc.opensearch.autolink', (result) => {
+            if (result.hasSucceeded) {
+              this.autolink.next(result.payload.values[0] === 'true');
+            }
           });
+
+          const route = environment.rest.baseUrl + this.formulateRoute(this.uuid, openSearchUri, searchOptions.query);
+          // Inject first two
+          this.addLinks(route);
+
+          if (this.autolink) {
+            // We cannot run succeeded property because this variable might not be set?
+            this.getProperty('websvc.opensearch.shortname', (result) => {
+              if (result.hasSucceeded) {
+                this.shortname.next(result.payload.values[0]);
+              }
+            });
+            // Inject the third
+            this.linkHeadService.addTag({
+              href: environment.rest.baseUrl + '/opensearch/service',
+              type: 'application/opensearchdescription+xml',
+              rel: 'search',
+              title: this.shortname.value
+            });
+          }
           this.route$.next(route);
         })
     );
   }
 
   /**
-   * Function that creates a route given params available to opensearch
+   * Utility function to retrieve a configuration property
+   * @param {string} propertyname
+   * @param {method} callback
+   * @param {method} getmethod
+   */
+  getProperty(propertyname: string, callback: (result) => void, getmethod: any = getFirstCompletedRemoteData) {
+    this.subs.push(this.configurationService.findByPropertyName(propertyname)
+        .pipe(getmethod())
+        .subscribe(callback));
+  }
+
+  /**
+   * Utility method to retrieve a configuration property using getFirstSucceededRemoteDataPayload
+   * @param {string} propertyname
+   * @param {method} callback
+   */
+  getSucceededPropertyPayload(propertyname: string, callback: (result) => void)  {
+    return this.getProperty(propertyname, callback, getFirstSucceededRemoteDataPayload);
+  }
+
+  /**
+   * Function that creates a route given params available to OpenSearch
    * @param {string} uuid The uuid if a scope is present
    * @param {string} opensearch openSearch uri
    * @param {string} query The query string that was provided in the search
@@ -124,7 +165,6 @@ export class RSSComponent implements OnInit, OnDestroy  {
 
   /**
    * Check if the router url contains the specified route
-   *
    * @param {string} route
    * @returns {boolean}
    */
