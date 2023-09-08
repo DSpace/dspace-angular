@@ -1,4 +1,3 @@
-import { TEST_ADMIN_PASSWORD, TEST_ADMIN_USER, TEST_ENTITY_PUBLICATION } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
 const page = {
@@ -37,7 +36,7 @@ const page = {
 
 describe('Login Modal', () => {
     it('should login when clicking button & stay on same page', () => {
-        const ENTITYPAGE = '/entities/publication/'.concat(TEST_ENTITY_PUBLICATION);
+        const ENTITYPAGE = '/entities/publication/'.concat(Cypress.env('DSPACE_TEST_ENTITY_PUBLICATION'));
         cy.visit(ENTITYPAGE);
 
         // Login menu should exist
@@ -47,7 +46,7 @@ describe('Login Modal', () => {
         page.openLoginMenu();
         cy.get('.form-login').should('be.visible');
 
-        page.submitLoginAndPasswordByPressingButton(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
+        page.submitLoginAndPasswordByPressingButton(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
         cy.get('ds-log-in').should('not.exist');
 
         // Verify we are still on the same page
@@ -67,7 +66,7 @@ describe('Login Modal', () => {
         cy.get('.form-login').should('be.visible');
 
         // Login, and the <ds-log-in> tag should no longer exist
-        page.submitLoginAndPasswordByPressingEnter(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
+        page.submitLoginAndPasswordByPressingEnter(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
         cy.get('.form-login').should('not.exist');
 
         // Verify we are still on homepage
@@ -81,7 +80,7 @@ describe('Login Modal', () => {
 
     it('should support logout', () => {
         // First authenticate & access homepage
-        cy.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
+        cy.login(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
         cy.visit('/');
 
         // Verify ds-log-in tag doesn't exist, but ds-log-out tag does exist
@@ -140,7 +139,7 @@ describe('Login Modal', () => {
         testA11y('ds-log-in');
 
         // Now login
-        page.submitLoginAndPasswordByPressingButton(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
+        page.submitLoginAndPasswordByPressingButton(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
         cy.get('ds-log-in').should('not.exist');
 
         // Open user menu, verify user menu accesibility

@@ -9,8 +9,9 @@ export default defineConfig({
     openMode: 0,
   },
   env: {
-    // Global constants used in DSpace e2e tests (see also ./cypress/support/e2e.ts)
-    // May be overridden in our cypress.json config file using specified environment variables.
+    // Global DSpace environment variables used in all our Cypress e2e tests
+    // May be modified in this config, or overridden in a variety of ways.
+    // See Cypress environment variable docs: https://docs.cypress.io/guides/guides/environment-variables
     // Default values listed here are all valid for the Demo Entities Data set available at
     // https://github.com/DSpace-Labs/AIP-Files/releases/tag/demo-entities-data
     // (This is the data set used in our CI environment)
