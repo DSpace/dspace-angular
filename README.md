@@ -14,7 +14,7 @@ For more information, visit http://www.dspace.org/
 
 DSpace consists of both a Java-based backend and an Angular-based frontend.
 
-* Backend (https://github.com/DSpace/DSpace/) provides a REST API, along with other machine-based interfaces (e.g. OAI-PMH, SWORD, etc)
+* Backend (https://github.com/DSpace/DSpace/) provides a REST API, along with other machine-based interfaces (e.g. OAI-PMH, SWORD, etc.)
     * The REST Contract is at https://github.com/DSpace/RestContract
 * Frontend (this codebase) is the User Interface built on the REST API
 
@@ -84,7 +84,7 @@ Table of Contents
 Introduction to the technology
 ------------------------------
 
-You can find more information on the technologies used in this project (Angular.io, Angular CLI, Typescript, Angular Universal, RxJS, etc) on the [LYRASIS wiki](https://wiki.lyrasis.org/display/DSPACE/DSpace+7+UI+Technology+Stack)
+You can find more information on the technologies used in this project (Angular.io, Angular CLI, Typescript, Angular Universal, RxJS, etc.) on the [LYRASIS wiki](https://wiki.lyrasis.org/display/DSPACE/DSpace+7+UI+Technology+Stack)
 
 Requirements
 ------------
@@ -146,7 +146,7 @@ cache.msToLive.default => DSPACE_CACHE_MSTOLIVE_DEFAULT
 auth.ui.timeUntilIdle => DSPACE_AUTH_UI_TIMEUNTILIDLE
 ```
 
-The equavelant to the non-conventional legacy settings:
+The equivalent to the non-conventional legacy settings:
 
 ```bash
 DSPACE_UI_HOST => DSPACE_HOST
@@ -169,7 +169,7 @@ The configuration file can be externalized by using environment variable `DSPACE
 
 #### Buildtime Configuring
 
-Buildtime configuration must defined before build in order to include in transpiled JavaScript. This is primarily for the server. These settings can be found under `src/environment/` folder.
+Buildtime configuration must be defined before build in order to include in transpiled JavaScript. This is primarily for the server. These settings can be found under `src/environment/` folder.
 
 To override the default configuration values for development, create local file that override the build time parameters you need to change.
 
@@ -298,7 +298,7 @@ Before you can run e2e tests, two things are REQUIRED:
        ```
 2. Your backend MUST include our [Entities Test Data set](https://github.com/DSpace-Labs/AIP-Files/releases/tag/demo-entities-data). Some tests run against a specific Community/Collection/Item UUID. These UUIDs are all valid for our Entities Test Data set.
 	 * (Recommended) The Entities Test Data set may be installed easily via Docker, see https://github.com/DSpace/DSpace/tree/main/dspace/src/main/docker-compose#ingest-option-2-ingest-entities-test-data
-	 * Alternatively, the Entities Test Data set may be installed via a simple SQL import (e. g. `psql -U dspace < dspace7-entities-data.sql`). See instructions in link above.
+	 * Alternatively, the Entities Test Data set may be installed via a simple SQL import (e.g. `psql -U dspace < dspace7-entities-data.sql`). See instructions in link above.
 
 After performing the above setup, you can run the e2e tests using
 ```
@@ -527,11 +527,11 @@ Frequently asked questions
 -	What are the naming conventions for Angular?
 	-	See [the official angular style guide](https://angular.io/styleguide)
 -	Why is the size of my app larger in development?
-	-	The production build uses a whole host of techniques (ahead-of-time compilation, rollup to remove unreachable code, minification, etc.) to reduce the size, that aren't used during development in the intrest of build speed.
--	node-pre-gyp ERR in yarn install (Windows)
+	-	The production build uses a whole host of techniques (ahead-of-time compilation, rollup to remove unreachable code, minification, etc.) to reduce the size, that aren't used during development in the interest of build speed.
+-	node-pre-gyp ERR in yarn install (Windows)`
 	-	install Python x86 version between 2.5 and 3.0 on windows. See [this issue](https://github.com/AngularClass/angular2-webpack-starter/issues/626)
--	How do I handle merge conflicts in yarn.lock?
-	-	first check out the yarn.lock file from the branch you're merging in to yours: e.g. `git checkout --theirs yarn.lock`
+-	How do I handle merge conflicts in `yarn.lock`?
+	-	first check out the `yarn.lock` file from the branch you're merging in to yours: e.g. `git checkout --theirs yarn.lock`
 	-	now run `yarn install` again. Yarn will create a new lockfile that contains both sets of changes.
 	-	then run `git add yarn.lock` to stage the lockfile for commit
 	-	and `git commit` to conclude the merge
