@@ -1,5 +1,5 @@
 import { testA11y } from 'cypress/support/utils';
-import { TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD, TEST_SUBMIT_COLLECTION_NAME, TEST_SUBMIT_COLLECTION_UUID, TEST_ADMIN_USER, TEST_ADMIN_PASSWORD } from 'cypress/support/e2e';
+//import { TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD, TEST_SUBMIT_COLLECTION_NAME, TEST_SUBMIT_COLLECTION_UUID, TEST_ADMIN_USER, TEST_ADMIN_PASSWORD } from 'cypress/support/e2e';
 import { Options } from 'cypress-axe';
 
 describe('New Submission page', () => {
@@ -7,10 +7,10 @@ describe('New Submission page', () => {
     // NOTE: We already test that new Item submissions can be started from MyDSpace in my-dspace.spec.ts
     it('should create a new submission when using /submit path & pass accessibility', () => {
         // Test that calling /submit with collection & entityType will create a new submission
-        cy.visit('/submit?collection='.concat(TEST_SUBMIT_COLLECTION_UUID).concat('&entityType=none'));
+        cy.visit('/submit?collection='.concat(Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_UUID')).concat('&entityType=none'));
 
         // This page is restricted, so we will be shown the login form. Fill it out & submit.
-        cy.loginViaForm(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
+        cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
 
         // Should redirect to /workspaceitems, as we've started a new submission
         cy.url().should('include', '/workspaceitems');
@@ -19,7 +19,7 @@ describe('New Submission page', () => {
         cy.get('ds-submission-edit').should('be.visible');
 
         // A Collection menu button should exist & it's value should be the selected collection
-        cy.get('#collectionControlsMenuButton span').should('have.text', TEST_SUBMIT_COLLECTION_NAME);
+        cy.get('#collectionControlsMenuButton span').should('have.text', Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME'));
 
         // 4 sections should be visible by default
         cy.get('div#section_traditionalpageone').should('be.visible');
@@ -51,10 +51,10 @@ describe('New Submission page', () => {
 
     it('should block submission & show errors if required fields are missing', () => {
         // Create a new submission
-        cy.visit('/submit?collection='.concat(TEST_SUBMIT_COLLECTION_UUID).concat('&entityType=none'));
+        cy.visit('/submit?collection='.concat(Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_UUID')).concat('&entityType=none'));
 
         // This page is restricted, so we will be shown the login form. Fill it out & submit.
-        cy.loginViaForm(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
+        cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
 
         // Attempt an immediate deposit without filling out any fields
         cy.get('button#deposit').click();
@@ -111,10 +111,10 @@ describe('New Submission page', () => {
 
     it('should allow for deposit if all required fields completed & file uploaded', () => {
         // Create a new submission
-        cy.visit('/submit?collection='.concat(TEST_SUBMIT_COLLECTION_UUID).concat('&entityType=none'));
+        cy.visit('/submit?collection='.concat(Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_UUID')).concat('&entityType=none'));
 
         // This page is restricted, so we will be shown the login form. Fill it out & submit.
-        cy.loginViaForm(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
+        cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
 
         // Fill out all required fields (Title, Date)
         cy.get('input#dc_title').type('DSpace logo uploaded via e2e tests');
@@ -155,7 +155,7 @@ describe('New Submission page', () => {
 
         // This page is restricted, so we will be shown the login form. Fill it out & submit.
         // NOTE: At this time, we MUST login as admin to submit Person objects
-        cy.loginViaForm(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
+        cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
 
         // Open the New Submission dropdown
         cy.get('button[data-test="submission-dropdown"]').click();
