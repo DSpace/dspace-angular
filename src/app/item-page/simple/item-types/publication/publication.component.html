@@ -47,9 +47,11 @@
                                   [iconName]="'fa-calendar'">
     </ds-clarin-generic-item-field>
     <ds-clarin-generic-item-field [item]="object"
-                                  [fields]="['dc.type']"
+                                  [fields]="['dc.type', 'metashare.ResourceInfo#ContentInfo.mediaType']"
                                   [label]="'item.page.type'"
-                                  [iconName]="'fa-tag'">
+                                  [iconName]="'fa-tag'"
+                                  [separator]="','"
+                                  [type]="'search'">
     </ds-clarin-generic-item-field>
     <ds-clarin-generic-item-field [item]="object"
                                   [fields]="['local.size.info']"
