@@ -30,7 +30,7 @@ export class WorkspaceitemSectionUploadFileObject {
   };
 
   /**
-   * The file check sum
+   * The file format information
    */
   format: {
     shortDescription: string,
