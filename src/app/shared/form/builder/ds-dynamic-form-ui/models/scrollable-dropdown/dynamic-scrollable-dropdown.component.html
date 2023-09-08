@@ -43,7 +43,7 @@
 
       <button class="dropdown-item disabled" *ngIf="optionsList && optionsList.length == 0">{{'form.no-results' | translate}}</button>
       <button class="dropdown-item collection-item text-truncate" *ngFor="let listEntry of optionsList"
-              (click)="onSelect(listEntry); sdRef.close()" (mousedown)="onSelect(listEntry); sdRef.close()"
+              (keydown.enter)="onSelect(listEntry); sdRef.close()" (mousedown)="onSelect(listEntry); sdRef.close()"
               title="{{ listEntry.display }}" role="option"
               [attr.id]="listEntry.display == (currentValue|async) ? ('combobox_' + id + '_selected') : null">
         {{inputFormatter(listEntry)}}
