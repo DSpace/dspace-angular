@@ -320,22 +320,23 @@ function initCache() {
   if (botCacheEnabled()) {
     // Initialize a new "least-recently-used" item cache (where least recently used pages are removed first)
     // See https://www.npmjs.com/package/lru-cache
-    // When enabled, each page defaults to expiring after 1 day
+    // When enabled, each page defaults to expiring after 1 day (defined in default-app-config.ts)
     botCache = new LRU( {
       max: environment.cache.serverSide.botCache.max,
-      ttl: environment.cache.serverSide.botCache.timeToLive || 24 * 60 * 60 * 1000, // 1 day
-      allowStale: environment.cache.serverSide.botCache.allowStale ?? true // if object is stale, return stale value before deleting
+      ttl: environment.cache.serverSide.botCache.timeToLive,
+      allowStale: environment.cache.serverSide.botCache.allowStale
     });
   }
 
   if (anonymousCacheEnabled()) {
     // NOTE: While caches may share SSR pages, this cache must be kept separately because the timeToLive
     // may expire pages more frequently.
-    // When enabled, each page defaults to expiring after 10 seconds (to minimize anonymous users seeing out-of-date content)
+    // When enabled, each page defaults to expiring after 10 seconds (defined in default-app-config.ts)
+    // to minimize anonymous users seeing out-of-date content
     anonymousCache = new LRU( {
       max: environment.cache.serverSide.anonymousCache.max,
-      ttl: environment.cache.serverSide.anonymousCache.timeToLive || 10 * 1000, // 10 seconds
-      allowStale: environment.cache.serverSide.anonymousCache.allowStale ?? true // if object is stale, return stale value before deleting
+      ttl: environment.cache.serverSide.anonymousCache.timeToLive,
+      allowStale: environment.cache.serverSide.anonymousCache.allowStale
     });
   }
 }
