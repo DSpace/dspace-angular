@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
-import { BehaviorSubject, combineLatest } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { combineLatest, distinctUntilChanged, map, Observable, shareReplay } from 'rxjs';
 
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
@@ -26,7 +25,7 @@ export class ItemVersionMenuComponent extends ContextMenuEntryComponent implemen
   /**
    * Whether or not the current user is authorized to subscribe the DSpaceObject
    */
-  canShow$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  canShow$: Observable<boolean>;
 
   /**
    * EPerson id of the logged user
@@ -59,11 +58,13 @@ export class ItemVersionMenuComponent extends ContextMenuEntryComponent implemen
     const isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, this.contextMenuObject.self);
     const isDisabled$ = this.versioningModalService.isNewVersionButtonDisabled(this.contextMenuObject);
 
-    combineLatest([isAuthorized$, isDisabled$]).pipe(
-      take(1)
-    ).subscribe(([isAuthorized, isDisabled]) => {
-      this.canShow$.next(isAuthorized && !isDisabled);
-    });
+    this.canShow$ =
+      combineLatest([isAuthorized$, isDisabled$])
+        .pipe(
+          map(([isAuthorized, isDisabled]) => isAuthorized && !isDisabled),
+          distinctUntilChanged(),
+          shareReplay(1)
+        );
 
   }
 
