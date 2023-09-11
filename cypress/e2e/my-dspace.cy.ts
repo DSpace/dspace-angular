@@ -19,21 +19,7 @@ describe('My DSpace page', () => {
         cy.get('.filter-toggle').click({ multiple: true });
 
         // Analyze <ds-my-dspace-page> for accessibility issues
-        testA11y(
-            {
-                include: ['ds-my-dspace-page'],
-                exclude: [
-                    ['nouislider'] // Date filter slider is missing ARIA labels. Will be fixed by #1175
-                ],
-            },
-            {
-                rules: {
-                    // Search filters fail these two "moderate" impact rules
-                    'heading-order': { enabled: false },
-                    'landmark-unique': { enabled: false }
-                }
-            } as Options
-        );
+        testA11y('ds-my-dspace-page');
     });
 
     it('should have a working detailed view that passes accessibility tests', () => {

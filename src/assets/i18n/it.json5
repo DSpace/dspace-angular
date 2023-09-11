@@ -2160,9 +2160,9 @@
   // "curation-task.task.vscan.label": "Virus Scan",
   "curation-task.task.vscan.label": "Scansione antivirus",
 
-  // "curation-task.task.register-doi.label": "Register DOI",
+  // "curation-task.task.registerdoi.label": "Register DOI",
   // TODO New key - Add a translation
-  "curation-task.task.register-doi.label": "Register DOI",
+  "curation-task.task.registerdoi.label": "Register DOI",
 
 
 
