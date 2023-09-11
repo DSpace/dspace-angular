@@ -44,11 +44,13 @@
                             <td class="selectable-row" (click)="editSchema(schema)"><a [routerLink]="[schema.prefix]">{{schema.id}}</a></td>
                             <td class="selectable-row" (click)="editSchema(schema)"><a [routerLink]="[schema.prefix]">{{schema.namespace}}</a></td>
                             <td class="selectable-row" (click)="editSchema(schema)"><a [routerLink]="[schema.prefix]">{{schema.prefix}}</a></td>
-                          <td class="selectable-row">
-                            <div class="d-flex justify-content-center">
-                              <i class="fas fa-download" aria-hidden="true" (click)="onDownloadSchema(schema)"></i>
-                            </div>
-                          </td>
+                            <td class="selectable-row">
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-sm btn-outline-primary" (click)="onDownloadSchema(schema)">
+                                        <i class="fas fa-download" aria-hidden="true" ></i>
+                                    </button>
+                                </div>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
