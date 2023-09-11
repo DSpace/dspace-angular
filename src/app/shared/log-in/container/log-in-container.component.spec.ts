@@ -13,13 +13,17 @@ import { AuthMethod } from '../../../core/auth/models/auth.method';
 import { AuthServiceStub } from '../../testing/auth-service.stub';
 import { createTestComponent } from '../../testing/utils.test';
 import { HardRedirectService } from '../../../core/services/hard-redirect.service';
+import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LogInContainerComponent', () => {
 
   let component: LogInContainerComponent;
   let fixture: ComponentFixture<LogInContainerComponent>;
 
-  const authMethod = new AuthMethod('password');
+  const authMethod = new AuthMethod(AuthMethodType.Password, 0);
 
   let hardRedirectService: HardRedirectService;
 
@@ -35,13 +39,15 @@ describe('LogInContainerComponent', () => {
         ReactiveFormsModule,
         StoreModule.forRoot(authReducer),
         SharedModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
+        RouterTestingModule,
       ],
       declarations: [
         TestComponent
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
+        { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: HardRedirectService, useValue: hardRedirectService },
         LogInContainerComponent
       ],
@@ -113,6 +119,6 @@ describe('LogInContainerComponent', () => {
 class TestComponent {
 
   isStandalonePage = true;
-  authMethod = new AuthMethod('password');
+  authMethod = new AuthMethod(AuthMethodType.Password, 0);
 
 }
