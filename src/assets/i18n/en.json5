@@ -256,6 +256,7 @@
   "admin.registries.metadata.schemas.table.name": "Name",
 
   "admin.registries.metadata.schemas.table.namespace": "Namespace",
+  "admin.registries.metadata.schemas.table.download": "Download",
 
   "admin.registries.metadata.title": "Metadata Registry",
 
@@ -2226,7 +2227,7 @@
   "explore.researcherprofiles.breadcrumbs": "People",
 
   "explore.title": "Explore section",
-
+  "export-schema.process.title": "Metadata Schema Export",
 
   "feed.description": "Syndication feed",
 
@@ -7162,5 +7163,5 @@
 
   "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
 
-  "admin.system-wide-alert.title": "System-wide Alerts",
+  "admin.system-wide-alert.title": "System-wide Alerts"
 }
