@@ -5611,15 +5611,15 @@
 
   "statistics.table.mainReports.header.collection" : "Collection",
 
-  "statistics.table.itemReports.title.TopContinents" : "Top region Item views",
+  "statistics.table.itemReports.title.TopContinents" : "Top region views",
 
-  "statistics.table.itemReports.title.TopCities" : "Top cities Item views",
+  "statistics.table.itemReports.title.TopCities" : "Top cities views",
 
-  "statistics.table.itemReports.title.TopItems" : "Most viewed Items",
+  "statistics.table.itemReports.title.TopItems" : "Most viewed",
 
-  "statistics.table.itemReports.title.TopCategories" : "Top Item category",
+  "statistics.table.itemReports.title.TopCategories" : "Top categories",
 
-  "statistics.table.itemReports.title.TotalVisitsPerMonth" : "Top Item views per month",
+  "statistics.table.itemReports.title.TotalVisitsPerMonth" : "Top views per month",
 
   "statistics.reports.title": "Reports",
 
