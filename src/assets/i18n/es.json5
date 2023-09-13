@@ -3669,6 +3669,9 @@
   // "item.page.claim.tooltip": "Claim this item as profile",
   "item.page.claim.tooltip": "Reclame este item como perfil",
 
+  // "item.page.metrics": "Metrics",
+  "item.page.metrics": "Métricas",
+
   // "item.preview.dc.identifier.uri": "Identifier:",
   "item.preview.dc.identifier.uri": "Identificador:",
 

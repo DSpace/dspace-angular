@@ -1,0 +1,20 @@
+<div class="item-page-field">
+  <ds-metadata-field-wrapper [hideIfNoTextContent]="false">
+    <div class="simple-view-element">
+      <h2 class="simple-view-element-header">
+        {{ "item.page.metrics" | translate }}
+      </h2>
+      <div class="simple-view-element-body">
+        <div
+          altmetricData
+          [item]="item"
+          class="altmetric-embed"
+          data-hide-no-mentions="false"
+          data-badge-type="donut"
+          data-badge-popover="right"
+          data-link-target="_blank"
+        ></div>
+      </div>
+    </div>
+  </ds-metadata-field-wrapper>
+</div>

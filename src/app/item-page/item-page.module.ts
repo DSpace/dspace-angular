@@ -60,6 +60,8 @@ import { ThemedItemAlertsComponent } from './alerts/themed-item-alerts.component
 import {
   ThemedFullFileSectionComponent
 } from './full/field-components/file-section/themed-full-file-section.component';
+import { ItemPageAltmetricFieldComponent } from './simple/field-components/specific-field/altmetric/item-page-altmetric-field-component';
+import { AltmetricDirective } from './simple/field-components/specific-field/altmetric/item-page-altmetric-field.directive';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -103,6 +105,11 @@ const DECLARATIONS = [
   ItemAlertsComponent,
   ThemedItemAlertsComponent,
   BitstreamRequestACopyPageComponent,
+  ItemPageAltmetricFieldComponent,
+];
+
+const DIRECTIVES = [
+  AltmetricDirective
 ];
 
 @NgModule({
@@ -124,10 +131,11 @@ const DECLARATIONS = [
   ],
   declarations: [
     ...DECLARATIONS,
-
+    ...DIRECTIVES,
   ],
   exports: [
     ...DECLARATIONS,
+    ...DIRECTIVES,
   ]
 })
 export class ItemPageModule {
