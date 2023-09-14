@@ -20,9 +20,9 @@ export class FooterComponent {
   showEndUserAgreement = environment.info.enableEndUserAgreement;
   coarLdnEnabled: boolean;
 
-  constructor(
-      @Optional() private cookies: KlaroService,
-      private notifyInfoService: NotifyInfoService
+  constructor(@Optional()
+              private cookies: KlaroService,
+              private notifyInfoService: NotifyInfoService
   ) {
     this.notifyInfoService.isCoarConfigEnabled().subscribe(coarLdnEnabled => {
       this.coarLdnEnabled = coarLdnEnabled;
