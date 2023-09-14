@@ -32,6 +32,7 @@ import isbot from 'isbot';
 import { createCertificate } from 'pem';
 import { createServer } from 'https';
 import { json } from 'body-parser';
+import { createHttpTerminator } from 'http-terminator';
 
 import { readFileSync } from 'fs';
 import { join } from 'path';
@@ -488,7 +489,7 @@ function saveToCache(req, page: any) {
  */
 function hasNotSucceeded(statusCode) {
   const rgx = new RegExp(/^20+/);
-  return !rgx.test(statusCode)
+  return !rgx.test(statusCode);
 }
 
 function retrieveHeaders(response) {
@@ -526,23 +527,46 @@ function serverStarted() {
  * @param keys SSL credentials
  */
 function createHttpsServer(keys) {
-  createServer({
+  const listener = createServer({
     key: keys.serviceKey,
     cert: keys.certificate
   }, app).listen(environment.ui.port, environment.ui.host, () => {
     serverStarted();
   });
+
+  // Graceful shutdown when signalled
+  const terminator = createHttpTerminator({server: listener});
+  process.on('SIGINT', () => {
+      void (async ()=> {
+        console.debug('Closing HTTPS server on signal');
+        await terminator.terminate().catch(e => { console.error(e); });
+        console.debug('HTTPS server closed');
+      })();
+      });
 }
 
+/**
+ * Create an HTTP server with the configured port and host.
+ */
 function run() {
   const port = environment.ui.port || 4000;
   const host = environment.ui.host || '/';
 
   // Start up the Node server
   const server = app();
-  server.listen(port, host, () => {
+  const listener = server.listen(port, host, () => {
     serverStarted();
   });
+
+  // Graceful shutdown when signalled
+  const terminator = createHttpTerminator({server: listener});
+  process.on('SIGINT', () => {
+      void (async () => {
+        console.debug('Closing HTTP server on signal');
+        await terminator.terminate().catch(e => { console.error(e); });
+        console.debug('HTTP server closed.');return undefined;
+        })();
+      });
 }
 
 function start() {
