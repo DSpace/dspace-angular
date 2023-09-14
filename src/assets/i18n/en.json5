@@ -6373,7 +6373,7 @@
 
   "submission.sections.license.required": "You must accept the license",
 
-  "submission.sections.license.notgranted":  "You must accept the license",
+  "submission.sections.license.notgranted":  "",
 
 
   "submission.sections.sherpa.publication.information": "Publication information",
