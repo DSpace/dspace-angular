@@ -1,31 +1,26 @@
-import { Injectable } from '@angular/core';
-import {
-  AsyncSubject,
-  combineLatest as observableCombineLatest,
-  Observable,
-  of as observableOf,
-} from 'rxjs';
-import { map, switchMap, filter, distinctUntilKeyChanged, startWith } from 'rxjs/operators';
-import { hasValue, isEmpty, isNotEmpty, hasNoValue, isUndefined } from '../../../shared/empty.util';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../../data/paginated-list.model';
-import { RemoteData } from '../../data/remote-data';
-import { RequestService } from '../../data/request.service';
-import { ObjectCacheService } from '../object-cache.service';
-import { LinkService } from './link.service';
-import { HALLink } from '../../shared/hal-link.model';
-import { GenericConstructor } from '../../shared/generic-constructor';
-import { getClassForType } from './build-decorators';
-import { HALResource } from '../../shared/hal-resource.model';
-import { PAGINATED_LIST } from '../../data/paginated-list.resource-type';
-import { getUrlWithoutEmbedParams } from '../../index/index.selectors';
-import { getResourceTypeValueFor } from '../object-cache.reducer';
-import { hasSucceeded, isStale, RequestEntryState } from '../../data/request-entry-state.model';
-import { getRequestFromRequestHref, getRequestFromRequestUUID } from '../../shared/request.operators';
-import { RequestEntry } from '../../data/request-entry.model';
-import { ResponseState } from '../../data/response-state.model';
-import { getFirstCompletedRemoteData } from '../../shared/operators';
+import {Injectable} from '@angular/core';
+import {AsyncSubject, combineLatest as observableCombineLatest, lastValueFrom, Observable, of as observableOf,} from 'rxjs';
+import {distinctUntilKeyChanged, filter, map, startWith, switchMap} from 'rxjs/operators';
+import {hasNoValue, hasValue, isEmpty, isNotEmpty, isUndefined} from '../../../shared/empty.util';
+import {createSuccessfulRemoteDataObject$} from '../../../shared/remote-data.utils';
+import {followLink, FollowLinkConfig} from '../../../shared/utils/follow-link-config.model';
+import {PaginatedList} from '../../data/paginated-list.model';
+import {RemoteData} from '../../data/remote-data';
+import {RequestService} from '../../data/request.service';
+import {ObjectCacheService} from '../object-cache.service';
+import {LinkService} from './link.service';
+import {HALLink} from '../../shared/hal-link.model';
+import {GenericConstructor} from '../../shared/generic-constructor';
+import {getClassForType} from './build-decorators';
+import {HALResource} from '../../shared/hal-resource.model';
+import {PAGINATED_LIST} from '../../data/paginated-list.resource-type';
+import {getUrlWithoutEmbedParams} from '../../index/index.selectors';
+import {getResourceTypeValueFor} from '../object-cache.reducer';
+import {hasSucceeded, isStale, RequestEntryState} from '../../data/request-entry-state.model';
+import {getRequestFromRequestHref, getRequestFromRequestUUID} from '../../shared/request.operators';
+import {RequestEntry} from '../../data/request-entry.model';
+import {ResponseState} from '../../data/response-state.model';
+import {getFirstCompletedRemoteData} from '../../shared/operators';
 
 @Injectable()
 export class RemoteDataBuildService {
@@ -231,6 +226,15 @@ export class RemoteDataBuildService {
         }
       })
     );
+  }
+
+  async buildFromRequestUUIDAsync<T>(requestUUID$: string | Observable<string>, callback: (rd?: RemoteData<T>) => Observable<unknown>, ...linksToFollow: FollowLinkConfig<any>[]): Promise<RemoteData<T>> {
+    const response$ = this.buildFromRequestUUID(requestUUID$, ...linksToFollow);
+
+    const callbackDone$ = new AsyncSubject<boolean>();
+    return await lastValueFrom(response$.pipe(
+        getFirstCompletedRemoteData<T>()
+    ));
   }
 
   /**
