@@ -19,7 +19,7 @@ jobs:
           touch .env.dev-5 || true
           echo INSTANCE=5 >> .env.dev-5
           echo DSPACE_HOST=dev-5.pc >> .env.dev-5
-          echo DSPACE_VER=customer-TUL >> .env.dev-5
+          echo DSPACE_VER=dspace-7_x >> .env.dev-5
           echo DSPACE_SSL=false >> .env.dev-5
           echo DOCKER_OWNER=dataquest >> .env.dev-5
           echo DSPACE_UI_IMAGE=\${DOCKER_OWNER}/dspace-angular:\$DSPACE_VER >> .env.dev-5
