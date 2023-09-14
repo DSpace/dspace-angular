@@ -157,10 +157,13 @@ import { SequenceService } from './shared/sequence.service';
 import { CoreState } from './core-state.model';
 import { GroupDataService } from './eperson/group-data.service';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
+import { QualityAssuranceTopicObject } from './suggestion-notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceEventObject } from './suggestion-notifications/qa/models/quality-assurance-event.model';
+import { QualityAssuranceSourceObject } from './suggestion-notifications/qa/models/quality-assurance-source.model';
 import { RatingAdvancedWorkflowInfo } from './tasks/models/rating-advanced-workflow-info.model';
 import { AdvancedWorkflowInfo } from './tasks/models/advanced-workflow-info.model';
 import { SelectReviewerAdvancedWorkflowInfo } from './tasks/models/select-reviewer-advanced-workflow-info.model';
-import { AccessStatusObject } from '../shared/object-list/access-status-badge/access-status.model';
+import { AccessStatusObject } from '../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { AccessStatusDataService } from './data/access-status-data.service';
 import { LinkHeadService } from './services/link-head.service';
 import { ResearcherProfileDataService } from './profile/researcher-profile-data.service';
@@ -177,6 +180,13 @@ import { IdentifierData } from '../shared/object-list/identifier-data/identifier
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { SupervisionOrderDataService } from './supervision-order/supervision-order-data.service';
 import { ItemRequest } from './shared/item-request.model';
+import { HierarchicalBrowseDefinition } from './shared/hierarchical-browse-definition.model';
+import { FlatBrowseDefinition } from './shared/flat-browse-definition.model';
+import { ValueListBrowseDefinition } from './shared/value-list-browse-definition.model';
+import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-browse-definition';
+import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
+import { SuggestionTarget } from './suggestion-notifications/reciter-suggestions/models/suggestion-target.model';
+import { SuggestionSource } from './suggestion-notifications/reciter-suggestions/models/suggestion-source.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -333,6 +343,10 @@ export const models =
     AuthStatus,
     BrowseEntry,
     BrowseDefinition,
+    NonHierarchicalBrowseDefinition,
+    FlatBrowseDefinition,
+    ValueListBrowseDefinition,
+    HierarchicalBrowseDefinition,
     ClaimedTask,
     TaskObject,
     PoolTask,
@@ -360,9 +374,12 @@ export const models =
     ShortLivedToken,
     Registration,
     UsageReport,
+    QualityAssuranceTopicObject,
+    QualityAssuranceEventObject,
     Root,
     SearchConfig,
     SubmissionAccessesModel,
+    QualityAssuranceSourceObject,
     AccessStatusObject,
     ResearcherProfile,
     OrcidQueue,
@@ -371,6 +388,9 @@ export const models =
     IdentifierData,
     Subscription,
     ItemRequest,
+    BulkAccessConditionOptions,
+    SuggestionTarget,
+    SuggestionSource
   ];
 
 @NgModule({

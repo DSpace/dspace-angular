@@ -1,0 +1,10 @@
+<ds-themed-status-badge [object]="object"></ds-themed-status-badge>
+<ng-container *ngIf="isMyDSpaceStatus">
+    <ds-themed-my-dspace-status-badge [context]="context"></ds-themed-my-dspace-status-badge>
+</ng-container>
+<div>
+    <ds-themed-type-badge class="pr-1" [object]="object"></ds-themed-type-badge>
+    <ng-container *ngIf="showAccessStatus">
+        <ds-themed-access-status-badge [object]="object"></ds-themed-access-status-badge>
+    </ng-container>
+</div>

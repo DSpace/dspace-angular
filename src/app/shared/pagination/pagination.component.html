@@ -11,8 +11,10 @@
           <div id="paginationControlsDropdownMenu" aria-labelledby="paginationControls" ngbDropdownMenu>
             <h6 class="dropdown-header">{{ 'pagination.results-per-page' | translate}}</h6>
             <button class="dropdown-item" *ngFor="let item of pageSizeOptions" (click)="doPageSizeChange(item)"><i [ngClass]="{'invisible': item != (pageSize$|async)}" class="fas fa-check" aria-hidden="true"></i> {{item}} </button>
-            <h6 class="dropdown-header">{{ 'pagination.sort-direction' | translate}}</h6>
-            <button class="dropdown-item" *ngFor="let direction of (sortDirections | dsKeys)" (click)="doSortDirectionChange(direction.value)"><i [ngClass]="{'invisible': direction.value !== (sortDirection$ |async)}" class="fas fa-check" aria-hidden="true"></i> {{'sorting.' + direction.key | translate}} </button>
+            <ng-container *ngIf="!hideSortOptions">
+              <h6 class="dropdown-header">{{ 'pagination.sort-direction' | translate}}</h6>
+              <button class="dropdown-item" *ngFor="let direction of (sortDirections | dsKeys)" (click)="doSortDirectionChange(direction.value)"><i [ngClass]="{'invisible': direction.value !== (sortDirection$ |async)}" class="fas fa-check" aria-hidden="true"></i> {{'sorting.' + direction.key | translate}} </button>
+            </ng-container>
           </div>
         </div>
         <ds-rss></ds-rss>
@@ -39,12 +41,12 @@
     <div *ngIf="!showPaginator" class="d-flex justify-content-between">
         <button id="nav-prev" type="button" class="btn btn-outline-primary float-left"
                 (click)="goPrev()"
-                [disabled]="objects?.payload?.currentPage <= 1">
+                [disabled]="(objects?.payload?.currentPage <= 1) && (paginationOptions?.currentPage <= 1)">
           <i class="fas fa-angle-left"></i> {{'pagination.previous.button' |translate}}
         </button>
       <button id="nav-next" type="button" class="btn btn-outline-primary float-right"
               (click)="goNext()"
-              [disabled]="objects?.payload?.currentPage >= objects?.payload?.totalPages">
+              [disabled]="(objects?.payload?.currentPage >= objects?.payload?.totalPages) || (paginationOptions?.currentPage >= objects?.payload?.totalPages)">
           <span [ngbTooltip]="objects?.payload?.currentPage >= objects?.payload?.totalPages ? ('pagination.next.button.disabled.tooltip' |translate) : null">
             <i class="fas fa-angle-right"></i> {{'pagination.next.button' |translate}}
           </span>

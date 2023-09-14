@@ -28,7 +28,7 @@
   </div>
 
   <ng-container *ngFor="let fileEntry of fileList">
-    <ds-submission-upload-section-file
+    <ds-themed-submission-upload-section-file
                                        [availableAccessConditionOptions]="availableAccessConditionOptions"
                                        [collectionId]="collectionId"
                                        [collectionPolicyType]="collectionPolicyType"
@@ -37,7 +37,7 @@
                                        [fileIndex]="fileList.indexOf(fileEntry)"
                                        [fileName]="fileNames[fileList.indexOf(fileEntry)]"
                                        [sectionId]="sectionData.id"
-                                       [submissionId]="submissionId"></ds-submission-upload-section-file>
+                                       [submissionId]="submissionId"></ds-themed-submission-upload-section-file>
     <div class="row">
       <div class="col-md-12">
         <hr/>

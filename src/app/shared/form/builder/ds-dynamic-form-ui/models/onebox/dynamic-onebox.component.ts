@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import {
@@ -30,8 +30,8 @@ import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyTreeviewModalComponent } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 
 /**
  * Component representing a onebox input field.
@@ -44,7 +44,7 @@ import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabul
 })
 export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnInit {
 
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() model: DynamicOneboxModel;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
@@ -216,16 +216,19 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    * @param event The click event fired
    */
   openTree(event) {
+    if (this.model.readOnly) {
+      return;
+    }
     event.preventDefault();
     event.stopImmediatePropagation();
     this.subs.push(this.vocabulary$.pipe(
       map((vocabulary: Vocabulary) => vocabulary.preloadLevel),
       take(1)
     ).subscribe((preloadLevel) => {
-      const modalRef: NgbModalRef = this.modalService.open(VocabularyTreeviewComponent, { size: 'lg', windowClass: 'treeview' });
+      const modalRef: NgbModalRef = this.modalService.open(VocabularyTreeviewModalComponent, { size: 'lg', windowClass: 'treeview' });
       modalRef.componentInstance.vocabularyOptions = this.model.vocabularyOptions;
       modalRef.componentInstance.preloadLevel = preloadLevel;
-      modalRef.componentInstance.selectedItem = this.currentValue ? this.currentValue : '';
+      modalRef.componentInstance.selectedItems = this.currentValue ? [this.currentValue.value] : [];
       modalRef.result.then((result: VocabularyEntryDetail) => {
         if (result) {
           this.currentValue = result;

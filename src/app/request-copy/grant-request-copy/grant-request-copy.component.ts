@@ -9,12 +9,6 @@ import {
 import { RemoteData } from '../../core/data/remote-data';
 import { AuthService } from '../../core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
-import { combineLatest as observableCombineLatest } from 'rxjs';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { Item } from '../../core/shared/item.model';
-import { isNotEmpty } from '../../shared/empty.util';
 import { ItemRequestDataService } from '../../core/data/item-request-data.service';
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -54,8 +48,6 @@ export class GrantRequestCopyComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private translateService: TranslateService,
-    private itemDataService: ItemDataService,
-    private nameService: DSONameService,
     private itemRequestService: ItemRequestDataService,
     private notificationsService: NotificationsService,
   ) {
@@ -69,31 +61,7 @@ export class GrantRequestCopyComponent implements OnInit {
       redirectOn4xx(this.router, this.authService),
     );
 
-    const msgParams$ = observableCombineLatest(
-      this.itemRequestRD$.pipe(getFirstSucceededRemoteDataPayload()),
-      this.authService.getAuthenticatedUserFromStore(),
-    ).pipe(
-      switchMap(([itemRequest, user]: [ItemRequest, EPerson]) => {
-        return this.itemDataService.findById(itemRequest.itemId).pipe(
-          getFirstSucceededRemoteDataPayload(),
-          map((item: Item) => {
-            const uri = item.firstMetadataValue('dc.identifier.uri');
-            return Object.assign({
-              recipientName: itemRequest.requestName,
-              itemUrl: isNotEmpty(uri) ? uri : item.handle,
-              itemName: this.nameService.getName(item),
-              authorName: user.name,
-              authorEmail: user.email,
-            });
-          }),
-        );
-      }),
-    );
-
     this.subject$ = this.translateService.get('grant-request-copy.email.subject');
-    this.message$ = msgParams$.pipe(
-      switchMap((params) => this.translateService.get('grant-request-copy.email.message', params)),
-    );
   }
 
   /**

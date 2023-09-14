@@ -12,25 +12,29 @@ import { ThemedHomePageComponent } from './themed-home-page.component';
 import { RecentItemListComponent } from './recent-item-list/recent-item-list.component';
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
+import { ThemedTopLevelCommunityListComponent } from './top-level-community-list/themed-top-level-community-list.component';
+import { SuggestionNotificationsModule } from '../suggestion-notifications/suggestion-notifications.module';
 
 const DECLARATIONS = [
   HomePageComponent,
   ThemedHomePageComponent,
   TopLevelCommunityListComponent,
+  ThemedTopLevelCommunityListComponent,
   ThemedHomeNewsComponent,
   HomeNewsComponent,
   RecentItemListComponent
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule.withEntryComponents(),
-    JournalEntitiesModule.withEntryComponents(),
-    ResearchEntitiesModule.withEntryComponents(),
-    HomePageRoutingModule,
-    StatisticsModule.forRoot()
-  ],
+    imports: [
+        CommonModule,
+        SharedModule.withEntryComponents(),
+        JournalEntitiesModule.withEntryComponents(),
+        ResearchEntitiesModule.withEntryComponents(),
+        HomePageRoutingModule,
+        StatisticsModule.forRoot(),
+        SuggestionNotificationsModule
+    ],
   declarations: [
     ...DECLARATIONS,
   ],

@@ -14,6 +14,7 @@ import { AuthConfig } from './auth-config.interfaces';
 import { UIServerConfig } from './ui-server-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { BrowseByConfig } from './browse-by-config.interface';
+import {SuggestionConfig} from './layout-config.interfaces';
 import { BundleConfig } from './bundle-config.interface';
 import { ActuatorsConfig } from './actuators.config';
 import { InfoConfig } from './info-config.interface';
@@ -42,6 +43,7 @@ interface AppConfig extends Config {
   collection: CollectionPageConfig;
   themes: ThemeConfig[];
   mediaViewer: MediaViewerConfig;
+  suggestion: SuggestionConfig[];
   bundle: BundleConfig;
   actuators: ActuatorsConfig
   info: InfoConfig;
@@ -56,7 +58,7 @@ interface AppConfig extends Config {
  */
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
 
-const APP_CONFIG_STATE = makeStateKey('APP_CONFIG_STATE');
+const APP_CONFIG_STATE = makeStateKey<AppConfig>('APP_CONFIG_STATE');
 
 export {
   AppConfig,

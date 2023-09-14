@@ -2,7 +2,6 @@ import {
   ChangeDetectorRef,
   Component,
   ComponentRef,
-  ElementRef,
   EventEmitter,
   Input,
   OnChanges,
@@ -13,7 +12,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { Subscription } from 'rxjs';
+import { Subscription, combineLatest, of as observableOf, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { ListableObject } from '../listable-object.model';
@@ -23,7 +22,7 @@ import { getListableObjectComponent } from './listable-object.decorator';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ListableObjectDirective } from './listable-object.directive';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
-import { hasValue, isNotEmpty } from '../../../empty.util';
+import { hasValue, isNotEmpty, hasNoValue } from '../../../empty.util';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { ThemeService } from '../../../theme-support/theme.service';
 
@@ -72,14 +71,14 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
   @Input() showLabel = true;
 
   /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
+
+  /**
    * The value to display for this element
    */
   @Input() value: string;
-
-  /**
-   * Whether or not informational badges (e.g. Private, Withdrawn) should be hidden
-   */
-  @Input() hideBadges = false;
 
   /**
    * Directive hook used to place the dynamic child component
@@ -87,25 +86,9 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
   @ViewChild(ListableObjectDirective, { static: true }) listableObjectDirective: ListableObjectDirective;
 
   /**
-   * View on the badges template, to be passed on to the loaded component (which will place the badges in the desired
-   * location, or on top if not specified)
-   */
-  @ViewChild('badges', { static: true }) badges: ElementRef;
-
-  /**
    * Emit when the listable object has been reloaded.
    */
   @Output() contentChange = new EventEmitter<ListableObject>();
-
-  /**
-   * Whether or not the "Private" badge should be displayed for this listable object
-   */
-  privateBadge = false;
-
-  /**
-   * Whether or not the "Withdrawn" badge should be displayed for this listable object
-   */
-  withdrawnBadge = false;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -127,6 +110,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
     'linkType',
     'listID',
     'showLabel',
+    'showThumbnails',
     'context',
     'viewMode',
     'value',
@@ -148,8 +132,18 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
    * Whenever the inputs change, update the inputs of the dynamic component
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.inAndOutputNames.some((name: any) => hasValue(changes[name]))) {
-      this.connectInputsAndOutputs();
+    if (hasNoValue(this.compRef)) {
+      // sometimes the component has not been initialized yet, so it first needs to be initialized
+      // before being called again
+      this.instantiateComponent(this.object, changes);
+    } else {
+      // if an input or output has changed
+      if (this.inAndOutputNames.some((name: any) => hasValue(changes[name]))) {
+        this.connectInputsAndOutputs();
+        if (this.compRef?.instance && 'ngOnChanges' in this.compRef.instance) {
+          (this.compRef.instance as any).ngOnChanges(changes);
+        }
+      }
     }
   }
 
@@ -159,9 +153,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
       .forEach((subscription) => subscription.unsubscribe());
   }
 
-  private instantiateComponent(object) {
-
-    this.initBadges();
+  private instantiateComponent(object: ListableObject, changes?: SimpleChanges): void {
 
     const component = this.getComponent(object.getRenderTypes(), this.viewMode, this.context);
 
@@ -171,41 +163,30 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
     this.compRef = viewContainerRef.createComponent(
       component, {
         index: 0,
-        injector: undefined,
-        projectableNodes: [
-          [this.badges.nativeElement],
-        ]
+        injector: undefined
       }
     );
 
-    this.connectInputsAndOutputs();
+    if (hasValue(changes)) {
+      this.ngOnChanges(changes);
+    } else {
+      this.connectInputsAndOutputs();
+    }
 
     if ((this.compRef.instance as any).reloadedObject) {
-      (this.compRef.instance as any).reloadedObject.pipe(
-        take(1)
-      ).subscribe((reloadedObject: DSpaceObject) => {
+      combineLatest([
+        observableOf(changes),
+        (this.compRef.instance as any).reloadedObject.pipe(take(1)) as Observable<DSpaceObject>,
+      ]).subscribe(([simpleChanges, reloadedObject]: [SimpleChanges, DSpaceObject]) => {
         if (reloadedObject) {
           this.compRef.destroy();
           this.object = reloadedObject;
-          this.instantiateComponent(reloadedObject);
+          this.instantiateComponent(reloadedObject, simpleChanges);
           this.cdr.detectChanges();
           this.contentChange.emit(reloadedObject);
         }
       });
     }
-  }
-
-  /**
-   * Initialize which badges should be visible in the listable component
-   */
-  initBadges() {
-    let objectAsAny = this.object as any;
-    if (hasValue(objectAsAny.indexableObject)) {
-      objectAsAny = objectAsAny.indexableObject;
-    }
-    const objectExistsAndValidViewMode = hasValue(objectAsAny) && this.viewMode !== ViewMode.StandalonePage;
-    this.privateBadge = objectExistsAndValidViewMode && hasValue(objectAsAny.isDiscoverable) && !objectAsAny.isDiscoverable;
-    this.withdrawnBadge = objectExistsAndValidViewMode && hasValue(objectAsAny.isWithdrawn) && objectAsAny.isWithdrawn;
   }
 
   /**
@@ -224,7 +205,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
    */
   protected connectInputsAndOutputs(): void {
     if (isNotEmpty(this.inAndOutputNames) && hasValue(this.compRef) && hasValue(this.compRef.instance)) {
-      this.inAndOutputNames.forEach((name: any) => {
+      this.inAndOutputNames.filter((name: any) => this[name] !== undefined).forEach((name: any) => {
         this.compRef.instance[name] = this[name];
       });
     }

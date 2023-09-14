@@ -12,16 +12,18 @@ import { ThemedProfilePageComponent } from './themed-profile-page.component';
 import { FormModule } from '../shared/form/form.module';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { ProfileClaimItemModalComponent } from './profile-claim-item-modal/profile-claim-item-modal.component';
+import { SuggestionNotificationsModule } from '../suggestion-notifications/suggestion-notifications.module';
 
 
 @NgModule({
-  imports: [
-    ProfilePageRoutingModule,
-    CommonModule,
-    SharedModule,
-    FormModule,
-    UiSwitchModule
-  ],
+    imports: [
+        ProfilePageRoutingModule,
+        CommonModule,
+        SharedModule,
+        FormModule,
+        UiSwitchModule,
+        SuggestionNotificationsModule
+    ],
   exports: [
     ProfilePageComponent,
     ThemedProfilePageComponent,

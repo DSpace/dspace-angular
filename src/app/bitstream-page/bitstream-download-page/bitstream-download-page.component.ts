@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { getRemoteDataPayload} from '../../core/shared/operators';
+import { getRemoteDataPayload } from '../../core/shared/operators';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
@@ -13,7 +13,11 @@ import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { getForbiddenRoute } from '../../app-routing-paths';
 import { RemoteData } from '../../core/data/remote-data';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
-import { Location } from '@angular/common';
+import { isPlatformServer, Location } from '@angular/common';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { SignpostingDataService } from '../../core/data/signposting-data.service';
+import { ServerResponseService } from '../../core/services/server-response.service';
+import { SignpostingLink } from '../../core/data/signposting-links.model';
 
 @Component({
   selector: 'ds-bitstream-download-page',
@@ -27,7 +31,6 @@ export class BitstreamDownloadPageComponent implements OnInit {
   bitstream$: Observable<Bitstream>;
   bitstreamRD$: Observable<RemoteData<Bitstream>>;
 
-
   constructor(
     private route: ActivatedRoute,
     protected router: Router,
@@ -36,8 +39,12 @@ export class BitstreamDownloadPageComponent implements OnInit {
     private fileService: FileService,
     private hardRedirectService: HardRedirectService,
     private location: Location,
+    public dsoNameService: DSONameService,
+    private signpostingDataService: SignpostingDataService,
+    private responseService: ServerResponseService,
+    @Inject(PLATFORM_ID) protected platformId: string
   ) {
-
+    this.initPageLinks();
   }
 
   back(): void {
@@ -86,5 +93,26 @@ export class BitstreamDownloadPageComponent implements OnInit {
         this.router.navigateByUrl('login');
       }
     });
+  }
+
+  /**
+   * Create page links if any are retrieved by signposting endpoint
+   *
+   * @private
+   */
+  private initPageLinks(): void {
+    if (isPlatformServer(this.platformId)) {
+      this.route.params.subscribe(params => {
+        this.signpostingDataService.getLinks(params.id).pipe(take(1)).subscribe((signpostingLinks: SignpostingLink[]) => {
+          let links = '';
+
+          signpostingLinks.forEach((link: SignpostingLink) => {
+            links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ');
+          });
+
+          this.responseService.setHeader('Link', links);
+        });
+      });
+    }
   }
 }

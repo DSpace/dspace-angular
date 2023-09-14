@@ -262,7 +262,7 @@
   "admin.registries.schema.fields.table.id": "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
-  "admin.registries.schema.fields.table.scopenote": "Gültigkeitsbereich",
+  "admin.registries.schema.fields.table.scopenote": "Geltungs- bzw. Gültigkeitsbereich",
 
   // "admin.registries.schema.form.create": "Create metadata field",
   "admin.registries.schema.form.create": "Metadatenfeld anlegen",
@@ -277,7 +277,7 @@
   "admin.registries.schema.form.qualifier": "Qualifizierer",
 
   // "admin.registries.schema.form.scopenote": "Scope Note",
-  "admin.registries.schema.form.scopenote": "Geltungsbereich",
+  "admin.registries.schema.form.scopenote": "Geltungs- bzw. Gültigkeitsbereich",
 
   // "admin.registries.schema.head": "Metadata Schema",
   "admin.registries.schema.head": "Metadatenschema",
@@ -949,6 +949,9 @@
 
   // "browse.previous.button": "Previous",
   "browse.previous.button": "Zurück",
+
+  // "browse.startsWith": ", starting with {{ startsWith }}",
+  "browse.startsWith": ", beginnend mit {{ startsWith }}",
 
   // "browse.startsWith.choose_start": "(Choose start)",
   "browse.startsWith.choose_start": "(Startpunkt wählen)",
@@ -2076,9 +2079,6 @@
 
   // "form.no-value": "No value entered",
   "form.no-value": "Kein Wert eingegeben",
-
-  // "form.other-information": {},
-  "form.other-information": {},
 
   // "form.remove": "Remove",
   "form.remove": "Entfernen",

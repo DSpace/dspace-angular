@@ -38,6 +38,7 @@ import {
   ThemedPageInternalServerErrorComponent
 } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
+import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 
@@ -202,6 +203,11 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
               .then((m) => m.ProcessPageModule),
             canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
+          { path: SUGGESTION_MODULE_PATH,
+            loadChildren: () => import('./suggestions-page/suggestions-page.module')
+              .then((m) => m.SuggestionsPageModule),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+          },
           {
             path: INFO_MODULE_PATH,
             loadChildren: () => import('./info/info.module').then((m) => m.InfoModule)
@@ -209,7 +215,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           {
             path: REQUEST_COPY_MODULE_PATH,
             loadChildren: () => import('./request-copy/request-copy.module').then((m) => m.RequestCopyModule),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: FORBIDDEN_PATH,

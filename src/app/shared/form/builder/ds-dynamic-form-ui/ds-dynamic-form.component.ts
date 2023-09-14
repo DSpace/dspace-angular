@@ -8,7 +8,7 @@ import {
   QueryList,
   ViewChildren
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormComponent,
   DynamicFormControlContainerComponent,
@@ -27,7 +27,7 @@ import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-contro
 export class DsDynamicFormComponent extends DynamicFormComponent {
 
   @Input() formId: string;
-  @Input() formGroup: FormGroup;
+  @Input() formGroup: UntypedFormGroup;
   @Input() formModel: DynamicFormControlModel[];
   @Input() formLayout: DynamicFormLayout;
 

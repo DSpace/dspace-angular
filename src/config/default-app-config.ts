@@ -14,6 +14,7 @@ import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.model';
 import { UIServerConfig } from './ui-server-config.interface';
+import {SuggestionConfig} from './layout-config.interfaces';
 import { BundleConfig } from './bundle-config.interface';
 import { ActuatorsConfig } from './actuators.config';
 import { InfoConfig } from './info-config.interface';
@@ -78,6 +79,8 @@ export class DefaultAppConfig implements AppConfig {
     // In-memory cache of server-side rendered content
     serverSide: {
       debug: false,
+      // Link header is used for signposting functionality
+      headers: ['Link'],
       // Cache specific to known bots.  Allows you to serve cached contents to bots only.
       // Defaults to caching 1,000 pages. Each page expires after 1 day
       botCache: {
@@ -220,6 +223,7 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'es', label: 'Español', active: true },
     { code: 'fr', label: 'Français', active: true },
     { code: 'gd', label: 'Gàidhlig', active: true },
+    { code: 'it', label: 'Italiano', active: true },
     { code: 'lv', label: 'Latviešu', active: true },
     { code: 'hu', label: 'Magyar', active: true },
     { code: 'nl', label: 'Nederlands', active: true },
@@ -229,6 +233,7 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'fi', label: 'Suomi', active: true },
     { code: 'sv', label: 'Svenska', active: true },
     { code: 'tr', label: 'Türkçe', active: true },
+    { code: 'vi', label: 'Tiếng Việt', active: true },
     { code: 'kk', label: 'Қазақ', active: true },
     { code: 'bn', label: 'বাংলা', active: true },
     { code: 'hi', label: 'हिंदी', active: true},
@@ -289,6 +294,14 @@ export class DefaultAppConfig implements AppConfig {
       undoTimeout: 10000 // 10 seconds
     }
   };
+
+  suggestion: SuggestionConfig[] = [
+    // {
+    //   // Use this configuration to map a suggestion import to a specific collection based on the suggestion type.
+    //   source: 'suggestionSource',
+    //   collectionId: 'collectionUUID'
+    // }
+  ];
 
   // Theme Config
   themes: ThemeConfig[] = [
