@@ -1,12 +1,12 @@
-import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
-import { Item } from '../../../../../core/shared/item.model';
-import { ItemPageFieldComponent } from '../item-page-field.component';
+import { AfterViewInit, Component, Input } from '@angular/core';
 import { BrowseDefinitionDataService } from 'src/app/core/browse/browse-definition-data.service';
 import { ExternalScriptLoaderService } from 'src/app/shared/utils/scripts-loader/external-script-loader.service';
 import {
   ExternalScriptsNames,
   ExternalScriptsStatus,
 } from 'src/app/shared/utils/scripts-loader/external-script.model';
+import { Item } from '../../../../../core/shared/item.model';
+import { ItemPageFieldComponent } from '../item-page-field.component';
 
 @Component({
   selector: 'ds-item-page-altmetric-field',
@@ -15,10 +15,7 @@ import {
     '../../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component.scss',
   ],
 })
-export class ItemPageAltmetricFieldComponent
-  extends ItemPageFieldComponent
-  implements AfterViewInit
-{
+export class ItemPageAltmetricFieldComponent extends ItemPageFieldComponent implements AfterViewInit {
   @Input() item: Item;
 
   constructor(
@@ -41,7 +38,8 @@ export class ItemPageAltmetricFieldComponent
    */
   private reloadBadge(data: any[]) {
     if (data.find((element) => this.isLoaded(element))) {
-      window['_altmetric_embed_init']();
+      const initMethod = '_altmetric_embed_init';
+      window[initMethod]();
     }
   }
 

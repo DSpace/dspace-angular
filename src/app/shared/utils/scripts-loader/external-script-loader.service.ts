@@ -4,7 +4,7 @@ import {
   ExternalScriptsStatus,
 } from './external-script.model';
 
-declare var document: any;
+declare const document: any;
 
 /**
  * Service used to load external scripts in the DOM when it cannot be loaded from the standard angular methods
@@ -25,7 +25,7 @@ export class ExternalScriptLoaderService {
    * @returns An array of the scripts promises
    */
   load(...scriptsToLoad: string[]): Promise<any[]> {
-    var promises: any[] = [];
+    let promises: any[] = [];
     scriptsToLoad.forEach((script) => promises.push(this.loadScript(script)));
     return Promise.all(promises);
   }

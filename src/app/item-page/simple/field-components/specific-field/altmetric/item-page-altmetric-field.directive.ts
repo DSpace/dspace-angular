@@ -5,7 +5,7 @@ import { Item } from 'src/app/core/shared/item.model';
  * This directive adds the data-* attribute for the Altmetric badge dependening on the first identifier found in the item
  */
 @Directive({
-  selector: '[altmetricData]',
+  selector: '[dsAltmetricData]',
 })
 export class AltmetricDirective implements OnInit {
   @Input() item: Item;
