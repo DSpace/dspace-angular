@@ -15,7 +15,7 @@ export class ThemedUserMenuComponent extends ThemedComponent<UserMenuComponent>{
   /**
    * The input flag to show user details in navbar expandable menu
    */
-  @Input() inExpandableNavbar = false;
+  @Input() inExpandableNavbar: boolean;
 
   protected inAndOutputNames: (keyof UserMenuComponent & keyof this)[] = ['inExpandableNavbar'];
 
