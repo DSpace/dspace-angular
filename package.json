@@ -99,6 +99,7 @@
     "fast-json-patch": "^3.1.1",
     "filesize": "^6.1.0",
     "http-proxy-middleware": "^1.0.5",
+    "http-terminator": "^3.2.0",
     "isbot": "^3.6.10",
     "js-cookie": "2.2.1",
     "js-yaml": "^4.1.0",
