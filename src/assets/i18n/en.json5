@@ -5199,6 +5199,8 @@
 
   "search.filters.filter.investigators.head": "Researcher",
 
+  "search.filters.filter.investigators.label": "Researcher",
+
   "search.filters.filter.investigators.placeholder": "Researcher",
 
   "search.filters.filter.jobTitle.head": "Job Title",
@@ -5220,6 +5222,8 @@
   "search.filters.filter.language.placeholder": "Language",
 
   "search.filters.filter.projectOrgUnits.head" : "Organizations",
+
+  "search.filters.filter.projectOrgUnits.label" : "Organizations",
 
   "search.filters.filter.projectOrgUnits.placeholder" : "Organizations",
 
