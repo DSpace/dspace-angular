@@ -9,8 +9,8 @@
                   </span>
                   <input type="text" [(ngModel)]="range[0]" [name]="filterConfig.paramName + '.min'"
                          class="form-control" (blur)="onSubmit()"
-                         aria-label="Mininum value"
-                         [placeholder]="'search.filters.filter.' + filterConfig.name + '.min.placeholder' | translate"
+                         [attr.aria-label]="minLabel"
+                         [placeholder]="minLabel"
                   />
                 </label>
             </div>
@@ -21,8 +21,8 @@
                     </span>
                     <input type="text" [(ngModel)]="range[1]" [name]="filterConfig.paramName + '.max'"
                            class="form-control" (blur)="onSubmit()"
-                           aria-label="Maximum value"
-                           [placeholder]="'search.filters.filter.' + filterConfig.name + '.max.placeholder' | translate"
+                           [attr.aria-label]="maxLabel"
+                           [placeholder]="maxLabel"
                     />
                 </label>
             </div>
@@ -33,7 +33,7 @@
         </form>
 
         <ng-container *ngIf="shouldShowSlider()">
-            <nouislider [connect]="true" [min]="min" [max]="max" [step]="1"
+            <nouislider [connect]="true" [config]="config" [min]="min" [max]="max" [step]="1"
                         [dsDebounce]="250" (onDebounce)="onSubmit()"
                         (keydown)="startKeyboardControl()" (keyup)="stopKeyboardControl()"
                         [(ngModel)]="range" ngDefaultControl>

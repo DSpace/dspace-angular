@@ -3934,20 +3934,20 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Dina registreringar",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "I arkivet",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "I arkivet",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Validering",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Validering",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Väntar på kontrollant",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Väntar på kontrollant",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Arbetsflöde",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Arbetsflöde",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "I arbetsflödet",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "I arbetsflödet",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "Mitt DSpace",
