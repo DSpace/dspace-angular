@@ -890,6 +890,20 @@
 
   "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
 
+  "coar-notify-support.title": "COAR Notify Protocol",
+
+  "coar-notify-support-title.content":"Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, you can visit their official website <a href=\"https://notify.coar-repositories.org/\">here</a>.",
+
+  "coar-notify-support.ldn-inbox.title": "LDN InBox",
+
+  "coar-notify-support.ldn-inbox.content": "For your convenience, our LDN (Linked Data Notifications) InBox is easily accessible at <code>{restApiUrl}ldn/inbox</code>. The LDN InBox enables seamless communication and data exchange, ensuring efficient and effective collaboration.",
+
+  "coar-notify-support.message-moderation.title": "Message Moderation",
+
+  "coar-notify-support.message-moderation.content": "To ensure a secure and productive environment, all incoming LDN messages are moderated. If you are planning to exchange information with us, kindly reach out via our dedicated Feedback form. You can access the Feedback form by clicking <a href=\"info/feedback\">here</a>.",
+
+
+
   "ldn-registered-services.title": "Registered Services",
   "ldn-registered-services.table.name":"Name",
   "ldn-registered-services.table.description": "Description",
@@ -1901,6 +1915,10 @@
   "info.privacy.title": "Privacy Statement",
 
   "info.feedback.breadcrumbs": "Feedback",
+
+  "info.coar-notify-support.title":"Notify Support",
+
+  "info.coar-notify.breadcrumbs": "Notify Support",
 
   "info.feedback.head": "Feedback",
 
@@ -3946,6 +3964,9 @@
   "search.filters.filter.creativeWorkKeywords.label": "Search subject",
 
   "search.filters.filter.creativeWorkPublisher.head": "Publisher",
+
+
+
 
   "search.filters.filter.creativeWorkPublisher.placeholder": "Publisher",
 
