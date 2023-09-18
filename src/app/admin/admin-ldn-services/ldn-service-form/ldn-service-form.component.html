@@ -1,0 +1,96 @@
+<form (ngSubmit)="submitForm()" [formGroup]="formModel">
+
+    <div class="form-group">
+
+        <!-- In the name section -->
+        <label for="name">Name</label>
+        <input formControlName="name" id="name" name="name" placeholder="Please provide service name" required
+               type="text">
+    </div>
+
+    <!-- In the description section -->
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input formControlName="description" id="description" name="description" placeholder="Please provide a description regarding your service"
+               required type="text">
+    </div>
+
+    <!-- In the url section -->
+    <div class="form-group">
+        <label for="url">Service URL</label>
+        <input formControlName="url" id="url" name="url" placeholder="Please input the URL for users to check out more information about the service"
+               required type="text">
+    </div>
+
+    <!-- In the ldnUrl section -->
+    <div class="form-group">
+        <label for="ldnUrl">LDN Inbox URL</label>
+        <input formControlName="ldnUrl" id="ldnUrl" name="ldnUrl" placeholder="Please specify the URL of the LDN Inbox"
+               required type="text">
+    </div>
+
+    <!-- In the Inbound Patterns section -->
+    <div *ngFor="let patternGroup of formModel.get('notifyServiceInboundPatterns')['controls']; let i = index" class="form-group"
+         formGroupName="notifyServiceInboundPatterns">
+
+        <ng-container [formGroupName]="i">
+
+            <label for="additionalInboundPattern{{i}}">Inbound Pattern {{i + 1}}</label>
+
+            <select #inboundPattern formControlName="pattern" id="additionalInboundPattern{{i}}"
+                    name="additionalInboundPattern{{i}}" required>
+
+                <option disabled value="">Select an Additional Inbound Pattern</option>
+                <option *ngFor="let pattern of inboundPatterns" [ngValue]="pattern.name">{{ pattern.name }}</option>
+
+            </select>
+
+            <div *ngIf="inboundPattern.value" class="form-group">
+
+                <label for="constraint{{i}}">Selected Item Filter</label>
+
+                <select formControlName="constraint" id="constraint{{i}}" name="constraint{{i}}">
+
+                    <option disabled value="">Select an Item Filter</option>
+                    <option *ngFor="let itemFilter of itemFilterList"
+                            [value]="itemFilter.name">{{ itemFilter.name }}</option>
+
+                </select>
+
+            </div>
+
+            <span *ngIf="i > 0" (click)="removeInboundPattern(patternGroup)" class="remove-pattern-link">- Remove</span>
+
+        </ng-container>
+
+    </div>
+
+    <span (click)="addInboundPattern()" class="add-pattern-link">+ Add more</span>
+
+    <!-- In the Outbound Patterns section -->
+    <div *ngFor="let patternGroup of formModel.get('notifyServiceOutboundPatterns')['controls']; let i = index" class="form-group"
+         formGroupName="notifyServiceOutboundPatterns">
+
+        <ng-container [formGroupName]="i">
+
+            <label for="additionalOutboundPattern{{i}}">Outbound Pattern {{i + 1}}</label>
+
+            <select formControlName="pattern" id="additionalOutboundPattern{{i}}" name="additionalOutboundPattern{{i}}"
+                    required>
+
+                <option disabled value="">Select an Additional Outbound Pattern</option>
+                <option *ngFor="let pattern of outboundPatterns" [ngValue]="pattern.name">{{ pattern.name }}</option>
+
+            </select>
+
+            <span *ngIf="i > 0" (click)="removeOutboundPattern(patternGroup)" class="remove-pattern-link">- Remove</span>
+
+        </ng-container>
+
+    </div>
+
+    <span (click)="addOutboundPattern()" class="add-pattern-link">+ Add more</span>
+
+    <button class="btn btn-primary" type="submit">Submit</button>
+
+</form>

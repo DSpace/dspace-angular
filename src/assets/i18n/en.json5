@@ -890,6 +890,28 @@
 
   "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
 
+  "ldn-registered-services.title": "Registered Services",
+  "ldn-registered-services.table.name":"Name",
+  "ldn-registered-services.table.description": "Description",
+  "ldn-registered-services.table.status": "Status",
+  "ldn-registered-services.table.action": "Action",
+  "ldn-registered-services.new": "NEW",
+  "ldn-registered-services.new.breadcrumbs": "Registered Services",
+
+  "ldn-register-new-service.title": "Register a new service",
+  "ldn-register-new-service.name": "Name",
+  "ldn-register-new-service.url": "Service URL",
+  "ldn-register-new-service.ldn.inbox.url": "LDN InBox URL",
+  "ldn-register-new-service.inbound": "Inbound- Patterns supported by the service (i.e. messages that the service is able to receive and understand)",
+  "ldn-register-new-service.outbound": "Outbound- Patterns supported by the service (i.e. messages that the service is likely to generate and that should be processed by DSpace)",
+  "ldn-register-new-service.addmore": "+ Add more",
+  "ldn-register-new-service.breadcrumbs": "New Service",
+
+  "ldn-register-new-service.notification.error.title": "Error",
+  "ldn-register-new-service.notification.error.content": "An error occurred while creating this process",
+  "ldn-register-new-service.notification.success.title": "Success",
+  "ldn-register-new-service.notification.success.content": "The process was successfully created",
+
   "collection.create.head": "Create a Collection",
 
   "collection.create.notifications.success": "Successfully created the Collection",
@@ -3328,6 +3350,10 @@
 
   "process.new.breadcrumbs": "Create a new process",
 
+
+
+
+
   "process.detail.arguments": "Arguments",
 
   "process.detail.arguments.empty": "This process doesn't contain any arguments",
@@ -3409,6 +3435,25 @@
   "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
 
   "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+
+  "service.overview.table.id": "Services ID",
+
+  "service.overview.table.name": "Name",
+
+  "service.overview.table.start": "Start time (UTC)",
+
+  "service.overview.table.status": "Status",
+
+  "service.overview.table.user": "User",
+
+  "service.overview.title": "Services Overview",
+
+  "service.overview.breadcrumbs": "Services Overview",
+
+  "service.overview.table.actions": "Actions",
+
+  "service.overview.table.description": "Description",
+
 
   "profile.breadcrumbs": "Update Profile",
 

@@ -187,6 +187,7 @@ import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-brows
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
 import { SuggestionTarget } from './suggestion-notifications/reciter-suggestions/models/suggestion-target.model';
 import { SuggestionSource } from './suggestion-notifications/reciter-suggestions/models/suggestion-source.model';
+import { LdnServicesService } from '../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -309,7 +310,8 @@ const PROVIDERS = [
   OrcidAuthService,
   OrcidQueueDataService,
   OrcidHistoryDataService,
-  SupervisionOrderDataService
+  SupervisionOrderDataService,
+  LdnServicesService,
 ];
 
 /**
