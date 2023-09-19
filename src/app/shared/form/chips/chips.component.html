@@ -65,7 +65,7 @@
         </a>
       </li>
     </ng-container>
-    <div class="flex-grow-1">
+    <div [class.chips-sort-ignore]="(isDragging | async)" class="flex-grow-1">
       <ng-container *ngTemplateOutlet="inputContent"></ng-container>
     </div>
   </ul>
