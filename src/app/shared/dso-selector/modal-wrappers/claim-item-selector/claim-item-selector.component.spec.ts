@@ -13,7 +13,7 @@ describe('ClaimItemSelectorComponent', () => {
   let fixture: ComponentFixture<ClaimItemSelectorComponent>;
 
   const profileClaimService = jasmine.createSpyObj('profileClaimService', {
-    search: of({ payload: {page: []}})
+    searchForSuggestions: of({ payload: {page: []}})
   });
 
   beforeEach(waitForAsync(() => {

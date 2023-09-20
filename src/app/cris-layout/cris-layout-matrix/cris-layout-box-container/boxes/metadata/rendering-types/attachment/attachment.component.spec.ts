@@ -131,6 +131,7 @@ describe('AttachmentComponent', () => {
       return createSuccessfulRemoteDataObject$(new Bitstream());
     },
     findAllByItemAndBundleName: jasmine.createSpy('findAllByItemAndBundleName'),
+    findByItem: jasmine.createSpy('findByItem'),
   });
 
   const mockAuthorizedService = jasmine.createSpyObj('AuthorizationDataService', {
@@ -167,7 +168,8 @@ describe('AttachmentComponent', () => {
       mockAuthorizedService.isAuthorized.and.returnValues(of(true), of(true));
       component.envPagination.enabled = false;
       mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
-      let spy = spyOn(component, 'getBitstreams');
+      mockBitstreamDataService.findByItem.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
+      let spy = spyOn(component, 'getBitstreamsByItem');
       spy.and.returnValue(of(createPaginatedList(attachmentsMock)));
       component.item = testItem;
       fixture.detectChanges();
@@ -179,7 +181,7 @@ describe('AttachmentComponent', () => {
 
     it('should retrieve bitstreams without pagination', fakeAsync(() => {
       flush();
-      expect(component.getBitstreams).toHaveBeenCalledWith();
+      expect(component.getBitstreamsByItem).toHaveBeenCalled();
     }));
 
     it('should not show view more button', fakeAsync(() => {
@@ -217,8 +219,8 @@ describe('AttachmentComponent', () => {
         fixture = TestBed.createComponent(AttachmentComponent);
         component = fixture.componentInstance;
         de = fixture.debugElement;
-        let spy = spyOn(component, 'getBitstreams');
-        spy.and.returnValue(of(createPaginatedList(attachmentsMock)));
+        let spy = spyOn(component, 'getBitstreamsByItem');
+        spy.and.returnValue(of(createPaginatedList([attachmentsMock[1]])));
         component.item = testItem;
         fixture.detectChanges();
       });
@@ -238,8 +240,8 @@ describe('AttachmentComponent', () => {
         fixture = TestBed.createComponent(AttachmentComponent);
         component = fixture.componentInstance;
         de = fixture.debugElement;
-        let spy = spyOn(component, 'getBitstreams');
-        spy.and.returnValue(of(createPaginatedList(attachmentsMock)));
+        let spy = spyOn(component, 'getBitstreamsByItem');
+        spy.and.returnValue(of(createPaginatedList([attachmentsMock[2]])));
         component.item = testItem;
         fixture.detectChanges();
       });
@@ -259,7 +261,7 @@ describe('AttachmentComponent', () => {
         fixture = TestBed.createComponent(AttachmentComponent);
         component = fixture.componentInstance;
         de = fixture.debugElement;
-        let spy = spyOn(component, 'getBitstreams');
+        let spy = spyOn(component, 'getBitstreamsByItem');
         spy.and.returnValue(of(createPaginatedList([bitstream2])));
         component.item = testItem;
         fixture.detectChanges();
@@ -286,7 +288,7 @@ describe('AttachmentComponent', () => {
         fixture = TestBed.createComponent(AttachmentComponent);
         component = fixture.componentInstance;
         de = fixture.debugElement;
-        let spy = spyOn(component, 'getBitstreams');
+        let spy = spyOn(component, 'getBitstreamsByItem');
         spy.and.returnValue(of(createPaginatedList([bitstream1])));
         component.item = testItem;
         fixture.detectChanges();
@@ -312,8 +314,8 @@ describe('AttachmentComponent', () => {
       de = fixture.debugElement;
       mockAuthorizedService.isAuthorized.and.returnValues(of(true), of(true));
       component.envPagination.enabled = true;
-      let spy = spyOn(component, 'getBitstreams');
-      spy.and.returnValue(of(createPaginatedList([bitstream1, bitstream1, bitstream1, bitstream1])));
+      let spy = spyOn(component, 'getBitstreamsByItem');
+      spy.and.returnValue(of(createPaginatedList([bitstream1, bitstream1])));
       component.item = testItem;
       fixture.detectChanges();
     });
@@ -328,6 +330,8 @@ describe('AttachmentComponent', () => {
 
     it('and view more button is clicked it should show 4 elements', () => {
       const btn = fixture.debugElement.query(By.css('a[data-test="view-more"]'));
+      (component.getBitstreamsByItem as any).and.returnValue(of(createPaginatedList([bitstream1, bitstream1])));
+      fixture.detectChanges();
       btn.nativeElement.click();
       fixture.detectChanges();
       expect(fixture.debugElement.queryAll(By.css('ds-file-download-link')).length).toEqual(4);

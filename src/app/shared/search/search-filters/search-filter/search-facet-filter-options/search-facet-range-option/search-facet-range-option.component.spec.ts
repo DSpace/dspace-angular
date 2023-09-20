@@ -22,6 +22,7 @@ import {
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
+import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 
 describe('SearchFacetRangeOptionComponent', () => {
   let comp: SearchFacetRangeOptionComponent;
@@ -63,7 +64,7 @@ describe('SearchFacetRangeOptionComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchFacetRangeOptionComponent],
+      declarations: [SearchFacetRangeOptionComponent, ShortNumberPipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },

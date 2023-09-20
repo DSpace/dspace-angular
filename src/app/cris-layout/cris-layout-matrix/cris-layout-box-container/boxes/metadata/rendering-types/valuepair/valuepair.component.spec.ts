@@ -6,8 +6,8 @@ import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate
 import { VocabularyService } from '../../../../../../../core/submission/vocabularies/vocabulary.service';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { EMPTY, of } from 'rxjs';
-import {AuthService} from '../../../../../../../core/auth/auth.service';
-import {AuthServiceStub} from '../../../../../../../shared/testing/auth-service.stub';
+import { AuthService } from '../../../../../../../core/auth/auth.service';
+import { AuthServiceStub } from '../../../../../../../shared/testing/auth-service.stub';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
 
@@ -76,14 +76,18 @@ describe('ValuepairComponent', () => {
         return of('Italian');
       case 'common_iso_languages/en':
         return of('English');
-      case 'types':
+      case 'types/types:asd':
         return of('Value');
       default:
         return EMPTY;
     }
   };
 
-  const vocabularyServiceSpy = jasmine.createSpyObj('vocabularyService', { getPublicVocabularyEntryByValue: EMPTY });
+  const vocabularyServiceSpy =
+    jasmine.createSpyObj(
+      'vocabularyService',
+      { getPublicVocabularyEntryByValue: EMPTY, getPublicVocabularyEntryByID: EMPTY }
+    );
 
   describe('when the vocabulary has no authority', () => {
 
@@ -162,7 +166,7 @@ describe('ValuepairComponent', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(ValuepairComponent);
       component = fixture.componentInstance;
-      vocabularyServiceSpy.getPublicVocabularyEntryByValue.and.callFake(vocabularyEntriesMock);
+      vocabularyServiceSpy.getPublicVocabularyEntryByID.and.callFake(vocabularyEntriesMock);
       fixture.detectChanges();
     });
 
@@ -172,7 +176,7 @@ describe('ValuepairComponent', () => {
 
 
     it('should ...', () => {
-      expect(vocabularyService.getPublicVocabularyEntryByValue).toHaveBeenCalledWith(VOCABULARY_NAME_2, 'asd');
+      expect(vocabularyService.getPublicVocabularyEntryByID).toHaveBeenCalledWith(VOCABULARY_NAME_2, `${VOCABULARY_NAME_2}:asd`);
     });
 
 

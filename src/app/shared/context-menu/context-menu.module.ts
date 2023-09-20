@@ -1,5 +1,3 @@
-import { SharedModule } from './../shared.module';
-import { Version } from './../../core/shared/version.model';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -21,8 +19,9 @@ import { StatisticsMenuComponent } from './statistics/statistics-menu.component'
 import { SubscriptionMenuComponent } from './subscription/subscription-menu.component';
 import { SubscriptionsModule } from '../subscriptions/subscriptions.module';
 import { ItemVersionMenuComponent } from './item-version/item-version-menu.component';
-import { ItemVersionContainerComponent } from './item-version/item-version-container/item-version-container.component';
 import { FullItemMenuComponent } from './full-item/full-item-menu.component';
+import { OrcidViewPageMenuComponent } from './orcid-view-page/orcid-view-page-menu.component';
+import { SharedModule } from '../shared.module';
 
 const COMPONENTS = [
   BulkImportMenuComponent,
@@ -38,8 +37,8 @@ const COMPONENTS = [
   StatisticsMenuComponent,
   SubscriptionMenuComponent,
   ItemVersionMenuComponent,
-  ItemVersionContainerComponent,
-  FullItemMenuComponent
+  FullItemMenuComponent,
+  OrcidViewPageMenuComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -55,7 +54,8 @@ const ENTRY_COMPONENTS = [
   StatisticsMenuComponent,
   SubscriptionMenuComponent,
   ItemVersionMenuComponent,
-  FullItemMenuComponent
+  FullItemMenuComponent,
+  OrcidViewPageMenuComponent
 ];
 
 const MODULE = [
@@ -75,9 +75,6 @@ const MODULE = [
   ],
   exports: [
     COMPONENTS
-  ],
-  entryComponents: [
-    ENTRY_COMPONENTS
   ]
 })
 export class ContextMenuModule {

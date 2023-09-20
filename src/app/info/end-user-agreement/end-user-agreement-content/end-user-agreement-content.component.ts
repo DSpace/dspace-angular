@@ -35,10 +35,10 @@ export class EndUserAgreementContentComponent implements OnInit, OnDestroy {
       const langCode = this.localeService.getCurrentLanguageCode();
       const fallbackLangCode = 'en';
 
-      const textArray = site.metadataAsList.filter((metadata) => this.filterMetadata(metadata, langCode));
-      const fallbackTextArray = site.metadataAsList.filter((metadata) => this.filterMetadata(metadata, fallbackLangCode));
+      const textArray = site?.metadataAsList.filter((metadata) => this.filterMetadata(metadata, langCode));
+      const fallbackTextArray = site?.metadataAsList.filter((metadata) => this.filterMetadata(metadata, fallbackLangCode));
 
-      this.userAgreementText$.next(textArray.length ? textArray[0].value : fallbackTextArray[0].value);
+      this.userAgreementText$.next(textArray[0]?.value || fallbackTextArray[0]?.value || '');
     }));
   }
 

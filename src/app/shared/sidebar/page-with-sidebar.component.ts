@@ -38,17 +38,7 @@ export class PageWithSidebarComponent implements OnInit {
   @Input()
   sideBarWidth = 3;
 
-  /**
-   * Observable for whether or not the sidebar is currently collapsed
-   */
-  isSidebarCollapsed$: Observable<boolean>;
-
-  /**
-   * Observable for whether or not the sidebar is currently collapsed
-   */
-  isSidebarCollapsedXL$: Observable<boolean>;
-
-  sidebarClasses: Observable<string>;
+  sidebarClasses$: Observable<string>;
 
   constructor(protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
@@ -64,9 +54,8 @@ export class PageWithSidebarComponent implements OnInit {
         this.closeSidebar();
       }
     });
-    this.isSidebarCollapsed$ = this.isSidebarCollapsed();
-    this.isSidebarCollapsedXL$ = this.isSidebarCollapsedXL();
-    this.sidebarClasses = this.isSidebarCollapsed$.pipe(
+
+    this.sidebarClasses$ = this.isSidebarCollapsed().pipe(
       map((isCollapsed) => isCollapsed ? '' : 'active')
     );
   }
@@ -75,7 +64,7 @@ export class PageWithSidebarComponent implements OnInit {
    * Check if the sidebar is collapsed
    * @returns {Observable<boolean>} emits true if the sidebar is currently collapsed, false if it is expanded
    */
-  private isSidebarCollapsed(): Observable<boolean> {
+  isSidebarCollapsed(): Observable<boolean> {
     return this.sidebarService.isCollapsed;
   }
 
@@ -83,7 +72,7 @@ export class PageWithSidebarComponent implements OnInit {
    * Check if the sidebar is collapsed
    * @returns {Observable<boolean>} emits true if the sidebar is currently collapsed, false if it is expanded
    */
-   private isSidebarCollapsedXL(): Observable<boolean> {
+  isSidebarCollapsedXL(): Observable<boolean> {
     return this.sidebarService.isCollapsedInXL;
   }
 

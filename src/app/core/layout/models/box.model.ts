@@ -1,12 +1,12 @@
 export interface MetadataGroup {
-    leading: string;
-    elements: LayoutField[];
+  leading: string;
+  elements: LayoutField[];
 }
 
 export interface LayoutBitstream {
-    bundle: string;
-    metadataField: string;
-    metadataValue: string;
+  bundle: string;
+  metadataField: string;
+  metadataValue: string;
 }
 
 export enum LayoutFieldType {
@@ -14,46 +14,47 @@ export enum LayoutFieldType {
   METADATAGROUP = 'METADATAGROUP',
   BITSTREAM = 'BITSTREAM'
 }
+
 export interface LayoutField {
-    metadata?: string;
-    bitstream?: LayoutBitstream;
-    label?: string;
-    rendering: string;
-    fieldType: LayoutFieldType|string;
-    style?: string;
-    styleLabel?: string;
-    styleValue?: string;
-    metadataGroup?: MetadataGroup;
-    labelAsHeading: boolean;
-    valuesInline: boolean;
+  metadata?: string;
+  bitstream?: LayoutBitstream;
+  label?: string;
+  rendering: string;
+  fieldType: LayoutFieldType | string;
+  style?: string;
+  styleLabel?: string;
+  styleValue?: string;
+  metadataGroup?: MetadataGroup;
+  labelAsHeading: boolean;
+  valuesInline: boolean;
 }
 
 export interface MetadataBoxConfiguration extends BoxConfiguration {
-    id: string;
-    rows: MetadataBoxRow[];
+  id: string;
+  rows: MetadataBoxRow[];
 }
 
 export interface BoxConfiguration {
-    type: string;
+  type: string;
 }
 
 export interface RelationBoxConfiguration extends BoxConfiguration {
-    'discovery-configuration': string;
+  'discovery-configuration': string;
 }
 
 export interface MetricsBoxConfiguration extends BoxConfiguration {
-    maxColumns: null;
-    metrics: string[];
+  maxColumns: null;
+  metrics: string[];
 }
 
 export interface MetadataBoxCell {
-    style: string;
-    fields: LayoutField[];
+  style: string;
+  fields: LayoutField[];
 }
 
 export interface MetadataBoxRow {
-    style: string;
-    cells: MetadataBoxCell[];
+  style: string;
+  cells: MetadataBoxCell[];
 }
 
 /**
@@ -61,35 +62,35 @@ export interface MetadataBoxRow {
  */
 export class CrisLayoutBox {
 
-    /**
-     * The identifier of this CrisLayoutBox
-     */
-    id: number;
+  /**
+   * The identifier of this CrisLayoutBox
+   */
+  id: number;
 
-    shortname: string;
+  shortname: string;
 
-    header: string;
+  header: string;
 
-    entityType: string;
+  entityType: string;
 
-    collapsed: boolean;
+  collapsed: boolean;
 
-    minor: boolean;
+  minor: boolean;
 
-    style: string;
+  style: string;
 
-    clear: boolean;
+  clear: boolean;
 
-    maxColumn: number;
+  maxColumn: number;
 
-    container: boolean;
+  container: boolean;
 
-    metadataSecurityFields?: string[];
+  metadataSecurityFields?: string[];
 
-    security: number;
+  security: number;
 
-    boxType: string;
+  boxType: string;
 
-    configuration?: RelationBoxConfiguration | MetadataBoxConfiguration | MetricsBoxConfiguration;
+  configuration?: RelationBoxConfiguration | MetadataBoxConfiguration | MetricsBoxConfiguration;
 
 }

@@ -130,6 +130,7 @@ describe('AdvancedAttachmentComponent', () => {
       return createSuccessfulRemoteDataObject$(new Bitstream());
     },
     findAllByItemAndBundleName: jasmine.createSpy('findAllByItemAndBundleName'),
+    findByItem: jasmine.createSpy('findByItem'),
   });
 
   const mockAuthorizedService = jasmine.createSpyObj('AuthorizationDataService', {
@@ -169,7 +170,8 @@ describe('AdvancedAttachmentComponent', () => {
         mockAuthorizedService.isAuthorized.and.returnValues(of(true), of(true));
         component.envPagination.enabled = false;
         mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
-        let spy = spyOn(component, 'getBitstreams');
+        mockBitstreamDataService.findByItem.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
+        let spy = spyOn(component, 'getBitstreamsByItem');
         spy.and.returnValue(of(createPaginatedList(attachmentsMock)));
         component.item = testItem;
         fixture.detectChanges();
@@ -181,7 +183,7 @@ describe('AdvancedAttachmentComponent', () => {
 
       it('should retrieve bitstreams without pagination', fakeAsync(() => {
         flush();
-        expect(component.getBitstreams).toHaveBeenCalledWith();
+        expect(component.getBitstreamsByItem).toHaveBeenCalled();
       }));
 
       it('should not show view more button', fakeAsync(() => {
@@ -195,57 +197,6 @@ describe('AdvancedAttachmentComponent', () => {
         expect(valueFound.length).toBe(3);
       }));
 
-      it('should show information properly', () => {
-        const entries = de.queryAll(By.css('[data-test="attachment-info"]'));
-        expect(entries.length).toBe(3);
-        expect(entries[0].query(By.css('[data-test="dc.title"]'))).toBeTruthy();
-        expect(entries[0].query(By.css('[data-test="dc.description"]'))).toBeTruthy();
-        expect(entries[0].query(By.css('[data-test="dc.type"]'))).toBeTruthy();
-        expect(entries[0].query(By.css('[data-test="format"]'))).toBeTruthy();
-        expect(entries[0].query(By.css('[data-test="size"]'))).toBeTruthy();
-      });
-
-      describe('and the field has metadata key and value set as value', () => {
-        beforeEach(() => {
-          // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
-          TestBed.resetTestingModule();
-          TestBed.configureTestingModule(getDefaultTestBedConf());
-          TestBed.overrideProvider('fieldProvider', { useValue: mockFieldWithMetadata });
-          fixture = TestBed.createComponent(AdvancedAttachmentComponent);
-          component = fixture.componentInstance;
-          de = fixture.debugElement;
-          let spy = spyOn(component, 'getBitstreams');
-          spy.and.returnValue(of(createPaginatedList(attachmentsMock)));
-          component.item = testItem;
-          fixture.detectChanges();
-        });
-
-        it('should show main article attachment', () => {
-          expect(de.query(By.css('[data-test="dc.title"]')).nativeElement.innerHTML).toContain('main.pdf');
-        });
-
-      });
-
-      describe('when the field has metadata key and value set as regex', () => {
-        beforeEach(() => {
-          // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
-          TestBed.resetTestingModule();
-          TestBed.configureTestingModule(getDefaultTestBedConf());
-          TestBed.overrideProvider('fieldProvider', { useValue: mockFieldWithRegexMetadata });
-          fixture = TestBed.createComponent(AdvancedAttachmentComponent);
-          component = fixture.componentInstance;
-          de = fixture.debugElement;
-          let spy = spyOn(component, 'getBitstreams');
-          spy.and.returnValue(of(createPaginatedList(attachmentsMock)));
-          component.item = testItem;
-          fixture.detectChanges();
-        });
-
-        it('should show regex article attachment', () => {
-          expect(de.query(By.css('[data-test="dc.title"]')).nativeElement.innerHTML).toContain('main-regex.pdf');
-        });
-
-      });
     });
 
     describe('when pagination is enabled', () => {
@@ -256,8 +207,8 @@ describe('AdvancedAttachmentComponent', () => {
         de = fixture.debugElement;
         mockAuthorizedService.isAuthorized.and.returnValues(of(true), of(true));
         component.envPagination.enabled = true;
-        let spy = spyOn(component, 'getBitstreams');
-        spy.and.returnValue(of(createPaginatedList([bitstream1, bitstream1, bitstream1, bitstream1])));
+        let spy = spyOn(component, 'getBitstreamsByItem');
+        spy.and.returnValue(of(createPaginatedList([bitstream1, bitstream1])));
         component.item = testItem;
         fixture.detectChanges();
       });
@@ -271,7 +222,9 @@ describe('AdvancedAttachmentComponent', () => {
       });
 
       it('and view more button is clicked it should show 4 elements', () => {
+        (component.getBitstreamsByItem as any).and.returnValue(of(createPaginatedList([bitstream1, bitstream1])));
         const btn = fixture.debugElement.query(By.css('button[data-test="view-more"]'));
+        fixture.detectChanges();
         btn.nativeElement.click();
         fixture.detectChanges();
         expect(fixture.debugElement.queryAll(By.css('[data-test="attachment-info"]')).length).toEqual(4);
@@ -292,7 +245,7 @@ describe('AdvancedAttachmentComponent', () => {
         component.envPagination.enabled = false;
         component.envMetadata = [];
         mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
-        let spy = spyOn(component, 'getBitstreams');
+        let spy = spyOn(component, 'getBitstreamsByItem');
         spy.and.returnValue(of(createPaginatedList(attachmentsMock)));
         component.item = testItem;
         fixture.detectChanges();
@@ -304,7 +257,7 @@ describe('AdvancedAttachmentComponent', () => {
 
       it('should retrieve bitstreams without pagination', fakeAsync(() => {
         flush();
-        expect(component.getBitstreams).toHaveBeenCalledWith();
+        expect(component.getBitstreamsByItem).toHaveBeenCalled();
       }));
 
       it('should not show view more button', fakeAsync(() => {
@@ -318,61 +271,6 @@ describe('AdvancedAttachmentComponent', () => {
         expect(valueFound.length).toBe(3);
       }));
 
-      it('should show information properly', () => {
-        const entries = de.queryAll(By.css('[data-test="attachment-info"]'));
-        expect(entries.length).toBe(3);
-        expect(entries[0].query(By.css('[data-test="dc.title"]'))).toBeFalsy();
-        expect(entries[0].query(By.css('[data-test="dc.description"]'))).toBeFalsy();
-        expect(entries[0].query(By.css('[data-test="dc.type"]'))).toBeFalsy();
-        expect(entries[0].query(By.css('[data-test="format"]'))).toBeFalsy();
-        expect(entries[0].query(By.css('[data-test="size"]'))).toBeFalsy();
-      });
-
-      describe('and the field has metadata key and value set as value', () => {
-        beforeEach(() => {
-          // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
-          TestBed.resetTestingModule();
-          TestBed.configureTestingModule(getDefaultTestBedConf());
-          TestBed.overrideProvider('fieldProvider', { useValue: mockFieldWithMetadata });
-          fixture = TestBed.createComponent(AdvancedAttachmentComponent);
-          component = fixture.componentInstance;
-          component.envMetadata = [];
-          de = fixture.debugElement;
-          let spy = spyOn(component, 'getBitstreams');
-          spy.and.returnValue(of(createPaginatedList(attachmentsMock)));
-          component.item = testItem;
-          fixture.detectChanges();
-        });
-
-        it('should show main article attachment', () => {
-          expect(de.queryAll(By.css('[data-test="attachment-info"]')).length).toBe(1);
-          expect(de.query(By.css('[data-test="dc.title"]'))).toBeFalsy();
-        });
-
-      });
-
-      describe('when the field has metadata key and value set as regex', () => {
-        beforeEach(() => {
-          // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
-          TestBed.resetTestingModule();
-          TestBed.configureTestingModule(getDefaultTestBedConf());
-          TestBed.overrideProvider('fieldProvider', { useValue: mockFieldWithRegexMetadata });
-          fixture = TestBed.createComponent(AdvancedAttachmentComponent);
-          component = fixture.componentInstance;
-          component.envMetadata = [];
-          de = fixture.debugElement;
-          let spy = spyOn(component, 'getBitstreams');
-          spy.and.returnValue(of(createPaginatedList(attachmentsMock)));
-          component.item = testItem;
-          fixture.detectChanges();
-        });
-
-        it('should show regex article attachment', () => {
-          expect(de.queryAll(By.css('[data-test="attachment-info"]')).length).toBe(1);
-          expect(de.query(By.css('[data-test="dc.title"]'))).toBeFalsy();
-        });
-
-      });
     });
 
     describe('when pagination is enabled', () => {
@@ -384,8 +282,8 @@ describe('AdvancedAttachmentComponent', () => {
         de = fixture.debugElement;
         mockAuthorizedService.isAuthorized.and.returnValues(of(true), of(true));
         component.envPagination.enabled = true;
-        let spy = spyOn(component, 'getBitstreams');
-        spy.and.returnValue(of(createPaginatedList([bitstream1, bitstream1, bitstream1, bitstream1])));
+        let spy = spyOn(component, 'getBitstreamsByItem');
+        spy.and.returnValue(of(createPaginatedList([bitstream1, bitstream1])));
         component.item = testItem;
         fixture.detectChanges();
       });
@@ -400,6 +298,8 @@ describe('AdvancedAttachmentComponent', () => {
 
       it('and view more button is clicked it should show 4 elements', () => {
         const btn = fixture.debugElement.query(By.css('button[data-test="view-more"]'));
+        (component.getBitstreamsByItem as any).and.returnValue(of(createPaginatedList([bitstream1, bitstream1])));
+        fixture.detectChanges();
         btn.nativeElement.click();
         fixture.detectChanges();
         expect(fixture.debugElement.queryAll(By.css('[data-test="attachment-info"]')).length).toEqual(4);

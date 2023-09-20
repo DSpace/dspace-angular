@@ -24,7 +24,7 @@ describe('Search Page', () => {
 
         // Click each filter toggle to open *every* filter
         // (As we want to scan filter section for accessibility issues as well)
-        cy.get('.filter-toggle').click({ multiple: true });
+        cy.get('[data-test="filter-toggle"]').click({ multiple: true });
 
         // Analyze <ds-search-page> for accessibility issues
 /*        testA11y(

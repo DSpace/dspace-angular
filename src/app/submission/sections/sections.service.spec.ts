@@ -31,12 +31,12 @@ import {
 import { FormClearErrorsAction } from '../../shared/form/form.actions';
 import parseSectionErrors from '../utils/parseSectionErrors';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
-import { SubmissionSectionError } from '../objects/submission-objects.reducer';
 import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
 import { storeModuleConfig } from '../../app.reducer';
 import { SectionsType } from './sections-type';
 import { FormService } from '../../shared/form/form.service';
 import { getMockFormService } from '../../shared/mocks/form-service.mock';
+import { SubmissionSectionError } from '../objects/submission-section-error.model';
 import { SubmissionVisibilityValue } from '../../core/config/models/config-submission-section.model';
 
 describe('SectionsService test suite', () => {
@@ -354,6 +354,20 @@ describe('SectionsService test suite', () => {
 
       const expected = cold('(b|)', {
         b: false
+      });
+
+      expect(service.isSectionReadOnlyByType(submissionId, sectionType, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
+    });
+
+    it('should return an observable of true when there is no section', () => {
+      submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
+      const mockState = {
+        sections: {}
+      };
+      store.select.and.returnValue(observableOf(mockState));
+
+      const expected = cold('(b|)', {
+        b: true
       });
 
       expect(service.isSectionReadOnlyByType(submissionId, sectionType, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);

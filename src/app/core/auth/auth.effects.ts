@@ -8,7 +8,7 @@ import {
   queueScheduler,
   timer
 } from 'rxjs';
-import { catchError, filter, map, observeOn, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, delay, filter, map, observeOn, switchMap, take, tap } from 'rxjs/operators';
 // import @ngrx
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
@@ -137,6 +137,7 @@ export class AuthEffects {
         user$ = this.authService.retrieveAuthenticatedUserByHref(action.payload);
       }
       return user$.pipe(
+        take(1),
         map((user: EPerson) => new RetrieveAuthenticatedEpersonSuccessAction(user)),
         catchError((error) => observableOf(new RetrieveAuthenticatedEpersonErrorAction(error))));
     })
@@ -270,11 +271,12 @@ export class AuthEffects {
   );
 
   public refreshTokenAndRedirectSuccess$: Observable<Action> = createEffect(() => this.actions$
-    .pipe(ofType(AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS),
-      tap((action: RefreshTokenAndRedirectSuccessAction) => {
-        this.authService.replaceToken(action.payload.token);
-        this.router.navigateByUrl(decodeURIComponent(action.payload.redirectUrl));
-      })), { dispatch: false }
+      .pipe(ofType(AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS),
+        tap((action: RefreshTokenAndRedirectSuccessAction) => this.authService.replaceToken(action.payload.token)),
+        delay(1),
+        tap((action: RefreshTokenAndRedirectSuccessAction) => this.router.navigate([decodeURIComponent(action.payload.redirectUrl)]))
+      ),
+    { dispatch: false }
   );
 
   /**

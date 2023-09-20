@@ -61,8 +61,8 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
    */
   ngOnInit(): void {
     this.setDefaultImage();
-    this.getBitstreams().pipe(
-      map((bitstreamList: PaginatedList<Bitstream>) => this.filterBitstreamsByType(bitstreamList.page)),
+    this.getBitstreamsByItem().pipe(
+      map((bitstreamList: PaginatedList<Bitstream>) => bitstreamList.page),
       switchMap((filteredBitstreams: Bitstream[]) => {
         if (filteredBitstreams.length > 0) {
           if (isEmpty(filteredBitstreams[0].thumbnail)) {
@@ -89,20 +89,6 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
       }
       this.initialized.next(true);
     });
-  }
-
-  /**
-   * Filter bitstreams by size
-   */
-  getFilteredBySize(maxSize: number, bitstreams: Bitstream[]) {
-    if (isNotEmpty(maxSize)) {
-      return bitstreams.filter((bitstream: Bitstream) => {
-        // max size is in KB, so we need to multiply with 1000
-        return bitstream.sizeBytes <= maxSize * 1000;
-      });
-    }
-
-    return bitstreams;
   }
 
   /**

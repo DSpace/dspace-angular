@@ -25,6 +25,8 @@ import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
 import { hasAuthMethodRendering } from '../../shared/log-in/methods/log-in.methods-decorator';
 
+export const ON_BEHALF_OF_HEADER = 'X-On-Behalf-Of';
+
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
@@ -196,7 +198,24 @@ export class AuthInterceptor implements HttpInterceptor {
       authStatus.token = new AuthTokenInfo(accessToken);
     } else {
       authStatus.authenticated = false;
-      authStatus.error = isNotEmpty(error) ? ((typeof error === 'string') ? JSON.parse(error) : error) : null;
+      if (isNotEmpty(error)) {
+        if (typeof error === 'string') {
+          try {
+            authStatus.error = JSON.parse(error);
+          } catch (e) {
+            console.error('Unknown auth error "', error, '" caused ', e);
+            authStatus.error = {
+              error: 'Unknown',
+              message: 'Unknown auth error',
+              status: 500,
+              timestamp: Date.now(),
+              path: ''
+              };
+          }
+        } else {
+          authStatus.error = error;
+        }
+      }
     }
     return authStatus;
   }
@@ -224,7 +243,7 @@ export class AuthInterceptor implements HttpInterceptor {
       // When present, add the ID of the EPerson we're impersonating to the headers
       const impersonatingID = authService.getImpersonateID();
       if (hasValue(impersonatingID)) {
-        newHeaders = newHeaders.set('X-On-Behalf-Of', impersonatingID);
+        newHeaders = newHeaders.set(ON_BEHALF_OF_HEADER, impersonatingID);
       }
 
       // Clone the request to add the new header.

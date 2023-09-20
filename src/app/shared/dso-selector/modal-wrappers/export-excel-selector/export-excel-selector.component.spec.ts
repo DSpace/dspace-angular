@@ -7,16 +7,11 @@ import { RouterStub } from '../../../testing/router.stub';
 import { Collection } from '../../../../core/shared/collection.model';
 import { ExportExcelSelectorComponent } from './export-excel-selector.component';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { RequestService } from '../../../../core/data/request.service';
 import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
-import { RequestEntry } from '../../../../core/data/request.reducer';
-import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { Process } from '../../../../process-page/processes/process.model';
 
 

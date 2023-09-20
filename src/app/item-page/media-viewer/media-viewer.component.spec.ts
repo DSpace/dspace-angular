@@ -13,7 +13,7 @@ import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { MetadataFieldWrapperComponent } from '../field-components/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataFieldWrapperComponent } from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 
 describe('MediaViewerComponent', () => {
@@ -110,7 +110,7 @@ describe('MediaViewerComponent', () => {
     });
 
     it('should display a loading component', () => {
-      const loading = fixture.debugElement.query(By.css('ds-loading'));
+      const loading = fixture.debugElement.query(By.css('ds-themed-loading'));
       expect(loading.nativeElement).toBeDefined();
     });
   });

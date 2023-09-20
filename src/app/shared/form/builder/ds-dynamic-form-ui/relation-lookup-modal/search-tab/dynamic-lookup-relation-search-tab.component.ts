@@ -17,7 +17,7 @@ import { CollectionElementLinkType } from '../../../../../object-collection/coll
 import { Context } from '../../../../../../core/shared/context.model';
 import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { RelationshipService } from '../../../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../../../core/data/relationship-data.service';
 import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
 
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
@@ -151,7 +151,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     private selectableListService: SelectableListService,
     public searchConfigService: SearchConfigurationService,
     public lookupRelationService: LookupRelationService,
-    private relationshipService: RelationshipService,
+    private relationshipService: RelationshipDataService,
     private paginationService: PaginationService
   ) {
   }

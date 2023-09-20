@@ -6,7 +6,7 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { SearchManager } from './search-manager';
 import { toRemoteData } from '../../browse-by/browse-by-metadata-page/browse-by-metadata-page.component.spec';
 import { Item } from '../shared/item.model';
-import { FindListOptions } from '../data/request.models';
+import { FindListOptions } from '../data/find-list-options.model';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { of } from 'rxjs';
 import { MetadataValue } from '../shared/metadata.models';

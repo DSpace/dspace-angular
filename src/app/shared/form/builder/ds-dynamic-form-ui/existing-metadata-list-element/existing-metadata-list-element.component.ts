@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { AppState } from '../../../../../app.reducer';
-import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ItemMetadataRepresentation } from '../../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
@@ -103,7 +102,6 @@ export class ReorderableRelationship extends Reorderable {
   constructor(
     public relationship: Relationship,
     public useLeftItem: boolean,
-    protected relationshipService: RelationshipService,
     protected store: Store<AppState>,
     protected submissionID: string,
     oldIndex?: number,

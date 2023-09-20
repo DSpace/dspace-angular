@@ -45,7 +45,7 @@ import { hasValue, isNotEmpty, isNotNull } from '../../../shared/empty.util';
 import {
   WorkspaceitemSectionAccessesObject
 } from '../../../core/submission/models/workspaceitem-section-accesses.model';
-import { SubmissionAccessesConfigService } from '../../../core/config/submission-accesses-config.service';
+import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
@@ -57,6 +57,8 @@ import {
   SubmissionJsonPatchOperationsService
 } from '../../../core/submission/submission-json-patch-operations.service';
 import { dateToISOFormat } from '../../../shared/date.util';
+import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
+import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
 import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/select/dynamic-select.model';
 
 /**
@@ -131,7 +133,7 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
    * @param {SectionFormOperationsService} formOperationsService
    * @param {FormBuilderService} formBuilderService
    * @param {TranslateService} translate
-   * @param {SubmissionAccessesConfigService} accessesConfigService
+   * @param {SubmissionAccessesConfigDataService} accessesConfigService
    * @param {SectionAccessesService} accessesService
    * @param {SubmissionJsonPatchOperationsService} operationsService
    * @param {string} injectedSubmissionId
@@ -139,7 +141,7 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
   constructor(
     protected sectionService: SectionsService,
     private formBuilderService: FormBuilderService,
-    private accessesConfigService: SubmissionAccessesConfigService,
+    private accessesConfigService: SubmissionAccessesConfigDataService,
     private accessesService: SectionAccessesService,
     protected formOperationsService: SectionFormOperationsService,
     protected operationsBuilder: JsonPatchOperationsBuilder,
@@ -341,32 +343,46 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
     }
     accessConditionTypeModelConfig.options = accessConditionTypeOptions;
 
-    // Dynamically assign of relation in config. For startdate, endDate, groups.
-    const hasStart = [];
-    const hasEnd = [];
-    const hasGroups = [];
+    // Dynamically assign of relation in config. For startDate and endDate.
+    const startDateCondition: DynamicFormControlCondition[] = [];
+    const endDateCondition: DynamicFormControlCondition[] = [];
+    let maxStartDate: DynamicDateControlValue;
+    let maxEndDate: DynamicDateControlValue;
     this.availableAccessConditionOptions.forEach((condition) => {
-      const showStart: boolean = condition.hasStartDate === true;
-      const showEnd: boolean = condition.hasEndDate === true;
-      const showGroups: boolean = showStart || showEnd;
-      if (showStart) {
-        hasStart.push({ id: 'name', value: condition.name });
+
+      if (condition.hasStartDate) {
+        startDateCondition.push({ id: 'name', value: condition.name });
+        if (condition.maxStartDate) {
+          const min = new Date(condition.maxStartDate);
+          maxStartDate = {
+            year: min.getUTCFullYear(),
+            month: min.getUTCMonth() + 1,
+            day: min.getUTCDate()
+          };
+        }
       }
-      if (showEnd) {
-        hasEnd.push({ id: 'name', value: condition.name });
-      }
-      if (showGroups) {
-        hasGroups.push({ id: 'name', value: condition.name });
+      if (condition.hasEndDate) {
+        endDateCondition.push({ id: 'name', value: condition.name });
+        if (condition.maxEndDate) {
+          const max = new Date(condition.maxEndDate);
+          maxEndDate = {
+            year: max.getUTCFullYear(),
+            month: max.getUTCMonth() + 1,
+            day: max.getUTCDate()
+          };
+        }
       }
     });
-    const confStart = { relations: [{ match: MATCH_ENABLED, operator: OR_OPERATOR, when: hasStart }] };
-    const confEnd = { relations: [{ match: MATCH_ENABLED, operator: OR_OPERATOR, when: hasEnd }] };
+    const confStart = { relations: [{ match: MATCH_ENABLED, operator: OR_OPERATOR, when: startDateCondition }] };
+    const confEnd = { relations: [{ match: MATCH_ENABLED, operator: OR_OPERATOR, when: endDateCondition }] };
+    const hasStartDate = startDateCondition.length > 0;
+    const hasEndDate = endDateCondition.length > 0;
 
     if (this.singleAccessCondition) {
-      formModel.push(this.createAccessConditionGroupModel(accessConditionTypeModelConfig, confStart, confEnd, hasStart, hasEnd));
+      formModel.push(this.createAccessConditionGroupModel(accessConditionTypeModelConfig, confStart, confEnd, hasStartDate, maxStartDate, hasEndDate, maxEndDate));
     } else {
       accessConditionsArrayConfig.groupFactory = () => {
-        return [this.createAccessConditionGroupModel(accessConditionTypeModelConfig, confStart, confEnd, hasStart, hasEnd)];
+        return [this.createAccessConditionGroupModel(accessConditionTypeModelConfig, confStart, confEnd, hasStartDate, maxStartDate, hasEndDate, maxEndDate)];
       };
 
       // Number of access conditions blocks in form
@@ -383,20 +399,30 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
   private createAccessConditionGroupModel(accessConditionTypeModelConfig: DynamicSelectModelConfig<any>,
                                           confStart: Partial<DynamicDatePickerModelConfig>,
                                           confEnd: Partial<DynamicDatePickerModelConfig>,
-                                          hasStart: any[],
-                                          hasEnd: any[] ): DynamicFormGroupModel {
+                                          hasStartDate: boolean,
+                                          maxStartDate: DynamicDateControlValue,
+                                          hasEndDate: boolean,
+                                          maxEndDate: DynamicDateControlValue): DynamicFormGroupModel {
+
     const type = new DynamicSelectModel(accessConditionTypeModelConfig, FORM_ACCESS_CONDITION_TYPE_LAYOUT);
     const startDateConfig = Object.assign({}, FORM_ACCESS_CONDITION_START_DATE_CONFIG, confStart);
+      if (maxStartDate) {
+        startDateConfig.max = maxStartDate;
+      }
+
     const endDateConfig = Object.assign({}, FORM_ACCESS_CONDITION_END_DATE_CONFIG, confEnd);
+      if (maxEndDate) {
+        endDateConfig.max = maxEndDate;
+      }
 
     const startDate = new DynamicDatePickerModel(startDateConfig, FORM_ACCESS_CONDITION_START_DATE_LAYOUT);
     const endDate = new DynamicDatePickerModel(endDateConfig, FORM_ACCESS_CONDITION_END_DATE_LAYOUT);
     const accessConditionGroupConfig = Object.assign({}, ACCESS_CONDITION_GROUP_CONFIG);
     accessConditionGroupConfig.group = [type];
-    if (hasStart.length > 0) {
+      if (hasStartDate) {
       accessConditionGroupConfig.group.push(startDate);
     }
-    if (hasEnd.length > 0) {
+      if (hasEndDate) {
       accessConditionGroupConfig.group.push(endDate);
     }
 

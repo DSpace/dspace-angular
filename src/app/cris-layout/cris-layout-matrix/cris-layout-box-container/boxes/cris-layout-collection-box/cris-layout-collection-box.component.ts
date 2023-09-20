@@ -10,10 +10,9 @@ import { getFirstSucceededRemoteDataPayload, getPaginatedListPayload, getFirstCo
 import { shareReplay, tap, map } from 'rxjs/operators';
 import { Collection } from '../../../../../core/shared/collection.model';
 import { CollectionDataService } from '../../../../../core/data/collection-data.service';
-import { FindListOptions } from '../../../../../core/data/request.models';
+import { FindListOptions } from '../../../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { environment } from '../../../../../../environments/environment';
-import { RemoteData } from '../../../../../core/data/remote-data';
 import { hasValue } from 'src/app/shared/empty.util';
 
 @Component({

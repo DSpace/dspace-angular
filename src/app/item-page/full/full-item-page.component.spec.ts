@@ -112,7 +112,7 @@ describe('FullItemPageComponent', () => {
   });
 
   it('should show simple view button when not originated from workflow item', () => {
-    expect(comp.fromWfi).toBe(false);
+    expect(comp.fromSubmissionObject).toBe(false);
     const simpleViewBtn = fixture.debugElement.query(By.css('.simple-view-link'));
     expect(simpleViewBtn).toBeTruthy();
   });
@@ -122,7 +122,7 @@ describe('FullItemPageComponent', () => {
     comp.ngOnInit();
     fixture.detectChanges();
     fixture.whenStable().then(() => {
-      expect(comp.fromWfi).toBe(true);
+      expect(comp.fromSubmissionObject).toBe(true);
       const simpleViewBtn = fixture.debugElement.query(By.css('.simple-view-link'));
       expect(simpleViewBtn).toBeFalsy();
     });

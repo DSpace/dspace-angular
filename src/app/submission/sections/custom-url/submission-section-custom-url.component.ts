@@ -15,7 +15,8 @@ import { SectionFormOperationsService } from '../form/section-form-operations.se
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
-import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
+import { SubmissionSectionError } from '../../objects/submission-section-error.model';
+import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
 import { FormService } from '../../../shared/form/form.service';
 
 /**

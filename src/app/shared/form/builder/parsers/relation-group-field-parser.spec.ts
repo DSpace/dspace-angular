@@ -14,6 +14,7 @@ describe('RelationGroupFieldParser test suite', () => {
     readOnly: false,
     submissionScope: 'testScopeUUID',
     collectionUUID: 'WORKSPACE',
+    typeField: 'dc_type',
     isInnerForm: false
   };
 

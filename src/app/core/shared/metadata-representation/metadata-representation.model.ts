@@ -1,11 +1,14 @@
 /**
  * An Enum defining the representation type of metadata
  */
+import { BrowseDefinition } from '../browse-definition.model';
+
 export enum MetadataRepresentationType {
   None = 'none',
   Item = 'item',
   AuthorityControlled = 'authority_controlled',
-  PlainText = 'plain_text'
+  PlainText = 'plain_text',
+  BrowseLink = 'browse_link'
 }
 
 /**
@@ -25,7 +28,13 @@ export interface MetadataRepresentation {
   representationType: MetadataRepresentationType;
 
   /**
+   * The browse definition (optional)
+   */
+  browseDefinition?: BrowseDefinition;
+
+  /**
    * Fetches the value to be displayed
    */
   getValue(): string;
+
 }

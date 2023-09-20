@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { CollectionDataService } from '../../../../core/data/collection-data.service';
 import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
-import { FindListOptions } from '../../../../core/data/request.models';
+import { FindListOptions } from '../../../../core/data/find-list-options.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { SearchService } from '../../../../core/shared/search/search.service';

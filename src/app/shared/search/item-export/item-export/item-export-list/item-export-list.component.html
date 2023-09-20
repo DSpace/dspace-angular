@@ -1,0 +1,20 @@
+<div>
+  <ng-container *ngVar="(resultsRD$ | async) as resultsRD">
+    <ds-viewable-collection *ngIf="resultsRD?.hasSucceeded && !resultsRD?.isLoading && resultsRD?.payload?.page?.length > 0" @fadeIn
+                            [objects]="resultsRD"
+                            [config]="(currentPagination$ |async)"
+                            [hideGear]="true"
+                            [context]="context"
+                            [selectable]="true"
+                            [selectionConfig]="{ repeatable: true, listId: listId }"
+                            [showMetrics]="false">
+    </ds-viewable-collection>
+    <ds-loading *ngIf="!resultsRD || resultsRD?.isLoading"
+                message="{{'loading.search-results' | translate}}"></ds-loading>
+    <ds-error   *ngIf="resultsRD?.hasFailed && (!resultsRD?.errorMessage || resultsRD?.statusCode != 400)"
+                message="{{'error.search-results' | translate}}"></ds-error>
+    <div *ngIf="resultsRD?.payload?.page?.length == 0 || resultsRD?.statusCode == 400" id="empty-external-entry-list">
+      {{ 'search.results.empty' | translate }}
+    </div>
+  </ng-container>
+</div>

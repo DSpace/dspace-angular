@@ -12,7 +12,6 @@ import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model'
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { RequestService } from '../../../core/data/request.service';
 import { RequestCorrectionMenuComponent } from './request-correction-menu.component';
 import { SubmissionService } from '../../../submission/submission.service';
 import { Item } from '../../../core/shared/item.model';

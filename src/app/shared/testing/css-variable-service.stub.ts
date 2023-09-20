@@ -1,10 +1,11 @@
 import { Observable, of as observableOf } from 'rxjs';
+import { KeyValuePair } from '../key-value-pair.model';
 
 const variables = {
-  smMin: '576px,',
-  mdMin: '768px,',
-  lgMin: '992px',
-  xlMin: '1200px',
+  '--bs-sm-min': '576px,',
+  '--bs-md-min': '768px,',
+  '--bs-lg-min': '992px',
+  '--bs-xl-min': '1200px',
 } as any;
 
 export class CSSVariableServiceStub {
@@ -17,6 +18,18 @@ export class CSSVariableServiceStub {
   }
 
   addCSSVariable(name: string, value: string): void {
+    /**/
+  }
+
+  addCSSVariables(variablesToAdd: KeyValuePair<string, string>[]): void {
+    /**/
+  }
+
+  clearCSSVariables(): void {
+    /**/
+  }
+
+  getCSSVariablesFromStylesheets(document: Document): void {
     /**/
   }
 }

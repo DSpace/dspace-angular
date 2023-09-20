@@ -20,6 +20,7 @@ import { SectionsService } from '../../sections.service';
 import { DuplicateMatchMetadataDetailConfig } from '../models/duplicate-detail-metadata.model';
 import { DetectDuplicateMatch } from '../../../../core/submission/models/workspaceitem-section-deduplication.model';
 import { environment } from '../../../../../environments/environment';
+import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
 
 /**
  * This component shows a single possible duplication within the duplications section.
@@ -77,6 +78,11 @@ export class DuplicateMatchComponent implements OnInit {
    * @type {Item}
    */
   item: Item;
+
+  /**
+   * The item page route
+   */
+  itemPageRoute: string;
 
   /**
    * If TRUE the submission scope is the 'workflow'; 'workspace' otherwise.
@@ -202,6 +208,7 @@ export class DuplicateMatchComponent implements OnInit {
     this.isWorkFlow = this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkflowItem;
     this.decisionType = this.isWorkFlow ? DuplicateDecisionType.WORKFLOW : DuplicateDecisionType.WORKSPACE;
     this.item = Object.assign(new Item(), this.match.matchObject);
+    this.itemPageRoute = getItemPageRoute(this.item);
 
     this.rejectForm = this.formBuilder.group({
       reason: ['']

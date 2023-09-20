@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
 import { ItemDataService } from '../core/data/item-data.service';
 import { followLink } from '../shared/utils/follow-link-config.model';
@@ -32,7 +32,9 @@ export class CrisItemPageResolver implements Resolve<RemoteData<Item>> {
       followLink('bundles'),
       followLink('relationships'),
       followLink('version', {}, followLink('versionhistory')),
-    ).pipe(getFirstCompletedRemoteData());
+    ).pipe(
+      getFirstCompletedRemoteData()
+    );
   }
 
 }

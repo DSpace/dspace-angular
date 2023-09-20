@@ -26,7 +26,8 @@ export const environment: BuildConfig = {
     rateLimiter: {
       windowMs: 1 * 60 * 1000, // 1 minute
       max: 500 // limit each IP to 500 requests per windowMs
-    }
+    },
+    useProxies: true,
   },
 
   // The REST API server settings.
@@ -37,6 +38,10 @@ export const environment: BuildConfig = {
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/api',
     baseUrl: 'https://rest.com/api'
+  },
+
+  actuators: {
+    endpointPath: '/actuator/health'
   },
 
   // Caching settings
@@ -51,6 +56,20 @@ export const environment: BuildConfig = {
       defaultTime: 0,
       maxBufferSize: 100,
       timePerMethod: { [RestRequestMethod.PATCH]: 3 } as any // time in seconds
+    },
+    // In-memory cache of server-side rendered pages. Disabled in test environment (max=0)
+    serverSide: {
+      debug: false,
+      botCache: {
+        max: 0,
+        timeToLive: 24 * 60 * 60 * 1000, // 1 day
+        allowStale: true,
+      },
+      anonymousCache: {
+        max: 0,
+        timeToLive: 10 * 1000, // 10 seconds
+        allowStale: true,
+      }
     }
   },
 
@@ -74,6 +93,7 @@ export const environment: BuildConfig = {
 
   // Form settings
   form: {
+    spellCheck: true,
     // NOTE: Map server-side validators to comparative Angular form validators
     validatorMap: {
       required: 'required',
@@ -100,6 +120,9 @@ export const environment: BuildConfig = {
       metadata: ['dc.title', 'dc.identifier.doi', 'dc.identifier.pmid', 'dc.identifier.arxiv'],
       // NOTE: every how many minutes submission is saved automatically
       timer: 5
+    },
+    typeBind: {
+      field: 'dc.type'
     },
     icons: {
       metadata: [
@@ -128,16 +151,29 @@ export const environment: BuildConfig = {
           },
           {
             value: 500,
-            style: 'text-info'
-          },
-          {
-            value: 400,
             style: 'text-warning'
           },
           {
+            value: 400,
+            style: 'text-danger'
+          },
+          {
+            value: 300,
+            style: 'text-dark'
+          },
+          {
+            value: 200,
+            style: 'text-dark'
+          },
+          {
+            value: 100,
+            style: 'text-dark'
+          },
+          // default configuration
+          {
             value: 'default',
             style: 'text-muted'
-          },
+          }
         ]
       }
     },
@@ -189,6 +225,10 @@ export const environment: BuildConfig = {
     code: 'bn',
     label: 'বাংলা',
     active: true,
+  }, {
+    code: 'el',
+    label: 'Ελληνικά',
+    active: true,
   }],
 
   // Browse-By Pages
@@ -199,6 +239,25 @@ export const environment: BuildConfig = {
     fiveYearLimit: 30,
     // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
     defaultLowerLimit: 1900,
+    // Whether to add item thumbnail images to BOTH browse and search result lists.
+    showThumbnails: true,
+    // The number of entries in a paginated browse results list.
+    // Rounded to the nearest size in the list of selectable sizes on the
+    // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
+    pageSize: 20,
+  },
+  communityList: {
+    pageSize: 20
+  },
+  homePage: {
+    recentSubmissions: {
+      pageSize: 5,
+      //sort record of recent submission
+      sortField: 'dc.date.accessioned',
+    },
+    topLevelCommunityList: {
+      pageSize: 5
+    }
   },
   followAuthorityMetadata: [
     {
@@ -209,6 +268,14 @@ export const environment: BuildConfig = {
   item: {
     edit: {
       undoTimeout: 10000 // 10 seconds
+    },
+    // Show the item access status label in items lists
+    showAccessStatuses: false,
+    bitstream: {
+      // Number of entries in the bitstream list in the item view page.
+      // Rounded to the nearest size in the list of selectable sizes on the
+      // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
+      pageSize: 5
     }
   },
   collection: {
@@ -241,10 +308,30 @@ export const environment: BuildConfig = {
       name: 'base',
     },
   ],
+  bundle: {
+    standardBundles: ['ORIGINAL', 'THUMBNAIL', 'LICENSE'],
+  },
   mediaViewer: {
     image: true,
     video: true
   },
+  info: {
+    enableEndUserAgreement: true,
+    enablePrivacyStatement: true,
+  },
+  markdown: {
+    enabled: false,
+    mathjax: false,
+  },
+
+  vocabularies: [
+    {
+      filter: 'subject',
+      vocabulary: 'srsc',
+      enabled: true
+    }
+  ],
+
   crisLayout: {
     urn: [
       {
@@ -263,17 +350,43 @@ export const environment: BuildConfig = {
     crisRef: [
       {
         entityType: 'DEFAULT',
-        icon: 'fa fa-info'
+        entityStyle: {
+          default: {
+            icon: 'fa fa-user',
+            style: 'text-success'
+          }
+        }
       },
       {
         entityType: 'PERSON',
-        icon: 'fa fa-user'
+        entityStyle: {
+          person: {
+            icon: 'fa fa-user',
+            style: 'text-success'
+          },
+          personStaff: {
+            icon: 'fa fa-user',
+            style: 'text-primary'
+          },
+          default: {
+            icon: 'fa fa-user',
+            style: 'text-success'
+          }
+        }
       },
       {
         entityType: 'ORGUNIT',
-        icon: 'fa fa-university'
+        entityStyle: {
+          default: {
+            icon: 'fa fa-university',
+            style: 'text-success'
+          }
+        }
       }
     ],
+    crisRefStyleMetadata: {
+      default: 'cris.entity.style',
+    },
     itemPage: {
       Person: {
         orientation: 'horizontal'
@@ -298,7 +411,7 @@ export const environment: BuildConfig = {
   layout: {
     navbar: {
       // If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
-      showCommunityCollection: false,
+      showCommunityCollection: true,
     }
   },
   security: {
@@ -328,10 +441,13 @@ export const environment: BuildConfig = {
       'cris.cms.footer',
     ]
   },
-  addThisPlugin: {
-    siteId: '',
-    scriptUrl: 'http://s7.addthis.com/js/300/addthis_widget.js#pubid=',
-    socialNetworksEnabled: false
+  addToAnyPlugin: {
+    scriptUrl: 'https://static.addtoany.com/menu/page.js',
+    socialNetworksEnabled: false,
+    buttons: ['btn1', 'btn2'],
+    showPlusButton: true,
+    showCounters: true,
+    title: 'DSpace CRIS 7 demo',
   },
   metricVisualizationConfig: [
     {
@@ -411,7 +527,21 @@ export const environment: BuildConfig = {
       {
         name: 'format',
         type: AdvancedAttachmentElementType.Attribute,
+      },
+      {
+        name: 'checksum',
+        type: AdvancedAttachmentElementType.Attribute,
+      }
+    ]
+  },
+
+  searchResult: {
+    additionalMetadataFields: [
+      {
+        entityType: 'default',
+        metadataConfiguration: []
       }
     ]
   }
+
 };

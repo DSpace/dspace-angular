@@ -13,6 +13,7 @@ describe('TextareaFieldParser test suite', () => {
     readOnly: false,
     submissionScope: null,
     collectionUUID: null,
+    typeField: 'dc_type',
     isInnerForm: false
   };
 

@@ -1,23 +1,25 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
-import { UsageReportService } from '../../core/statistics/usage-report-data.service';
-import { map, switchMap, take, tap } from 'rxjs/operators';
-import { RemoteData } from '../../core/data/remote-data';
-import { getFirstSucceededRemoteData, getRemoteDataPayload, redirectOn4xx } from '../../core/shared/operators';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { combineLatest, Observable, of } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
+import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+
+import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../core/shared/operators';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { StatisticsCategory } from '../../core/statistics/models/statistics-category.model';
-import { StatisticsCategoriesService } from '../../core/statistics/statistics-categories.service';
+import { StatisticsCategoriesDataService } from '../../core/statistics/statistics-categories-data.service';
 import { SiteDataService } from '../../core/data/site-data.service';
-
-import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-
-import { select, Store } from '@ngrx/store';
 import { getCategoryId, getReportId } from '../../core/statistics/statistics-selector';
 import { CleanCategoryReportAction, SetCategoryReportAction } from '../../core/statistics/statistics.action';
 import { AppState } from '../../app.reducer';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 
 @Component({
   selector: 'ds-cris-statistics-page',
@@ -79,8 +81,8 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
-    protected usageReportService: UsageReportService,
-    protected statisticsCategoriesService: StatisticsCategoriesService,
+    protected usageReportService: UsageReportDataService,
+    protected statisticsCategoriesService: StatisticsCategoriesDataService,
     protected nameService: DSONameService,
     protected authService: AuthService,
     protected siteService: SiteDataService,
@@ -130,15 +132,20 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
       switchMap((scope) => {
         return this.statisticsCategoriesService.getCategoriesStatistics(scope._links.self.href,0,50,this.parseDate(this.dateFrom),this.parseDate(this.dateTo));
       }),
+      map((resultRD: RemoteData<PaginatedList<StatisticsCategory>>) => {
+        return resultRD.hasSucceeded ? resultRD.payload.page : [];
+      }),
       tap((categories: StatisticsCategory[]) => {
         this.categorieList = categories;
         this.getCategoryId().subscribe((categoryId) => {
           if (categoryId) {
-            this.selectedCategory =  this.categorieList.find((cat) => { return cat.id === categoryId; });
-            this.categoryType = this.selectedCategory.categoryType;
+            this.selectedCategory = this.categorieList.find((cat) => {
+              return cat.id === categoryId;
+            });
+            this.categoryType = this.selectedCategory?.categoryType;
           } else {
-            this.selectedCategory = categories[0];
-            this.categoryType = this.selectedCategory.categoryType;
+            this.selectedCategory = categories.length > 0 && categories[0] || null;
+            this.categoryType = this.selectedCategory?.categoryType;
           }
           this.getUserReports(this.selectedCategory);
         });
@@ -173,16 +180,22 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
    * @param category the that is being selected
    */
   getUserReports(category) {
-    this.reports$ = this.getReports$(category.id);
-    combineLatest(this.reports$, this.getReportId(), this.getCategoryId()).subscribe(([report, reportId, categoryId]) => {
+    this.reports$ =
+      of(category)
+        .pipe(
+          switchMap(c => c == null ? [] : this.getReports$(c.id))
+        );
+    combineLatest([
+      this.reports$, this.getReportId(), this.getCategoryId()
+    ]).subscribe(([report, reportId, categoryId]) => {
       if (!reportId && !categoryId) {
-          this.setStatisticsState(report[0].id, category.id);
-          this.selectedReportId = report[0].id;
-        } else {
-          this.setStatisticsState(reportId, categoryId);
-        }
-     });
-    }
+        this.setStatisticsState(report[0].id, category.id);
+        this.selectedReportId = report[0].id;
+      } else {
+        this.setStatisticsState(reportId, categoryId);
+      }
+    });
+  }
 
   /**
    * Get the user reports for the specific category.
@@ -200,7 +213,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
    * Refresh categories when the date from is changed.
    */
   startDateChanged() {
-    if (typeof this.dateFrom === 'object' || this.dateFrom === null && this.dateFrom === undefined) {
+    if (typeof this.dateFrom === 'object' || this.dateFrom === null || this.dateFrom === undefined) {
       this.categories$ = this.getCategories$();
     }
   }

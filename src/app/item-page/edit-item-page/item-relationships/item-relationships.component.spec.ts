@@ -7,11 +7,10 @@ import { combineLatest as observableCombineLatest, of as observableOf } from 'rx
 import { TestScheduler } from 'rxjs/testing';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../core/cache/response.models';
-import { EntityTypeService } from '../../../core/data/entity-type.service';
+import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RelationshipService } from '../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { RequestService } from '../../../core/data/request.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
@@ -25,8 +24,11 @@ import { RouterStub } from '../../../shared/testing/router.stub';
 import { ItemRelationshipsComponent } from './item-relationships.component';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { RelationshipTypeService } from '../../../core/data/relationship-type.service';
+import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
+import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
 import { relationshipTypes } from '../../../shared/testing/relationship-types.mock';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 
 let comp: any;
 let fixture: ComponentFixture<ItemRelationshipsComponent>;
@@ -211,16 +213,17 @@ describe('ItemRelationshipsComponent', () => {
       imports: [SharedModule, TranslateModule.forRoot()],
       declarations: [ItemRelationshipsComponent],
       providers: [
+        { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ItemDataService, useValue: itemService },
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: NotificationsService, useValue: notificationsService },
-        { provide: RelationshipService, useValue: relationshipService },
-        { provide: EntityTypeService, useValue: entityTypeService },
+        { provide: RelationshipDataService, useValue: relationshipService },
+        { provide: EntityTypeDataService, useValue: entityTypeService },
         { provide: ObjectCacheService, useValue: objectCache },
         { provide: RequestService, useValue: requestService },
-        { provide: RelationshipTypeService, useValue: relationshipTypeService },
+        { provide: RelationshipTypeDataService, useValue: relationshipTypeService },
         ChangeDetectorRef
       ], schemas: [
         NO_ERRORS_SCHEMA

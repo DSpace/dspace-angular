@@ -4,8 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { PendingChangesGuardComponentInterface } from './pending-changes/pending-changes.guard';
 import { SubmissionService } from '../submission.service';
+
+interface PendingChangesGuardComponentInterface {
+  canDeactivate: (id: string) => boolean | Observable<boolean>;
+}
 
 @Injectable({
   providedIn: 'root'

@@ -1,4 +1,4 @@
-import { isObject } from 'lodash';
+import isObject from 'lodash/isObject';
 
 import { Item } from '../../../shared/item.model';
 import { isNotEmpty } from '../../../../shared/empty.util';

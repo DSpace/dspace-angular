@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { fadeInOut } from '../../../animations/fade';
 import { Item } from '../../../../core/shared/item.model';
-import { SearchResult } from '../../../search/models/search-result.model';
+import {
+  ManageRelationshipEvent,
+  ManageRelationshipEventType
+} from '../../../../edit-item-relationships/edit-item-relationships.component';
 
 @Component({
   selector: 'ds-relationships-items-list-preview',
@@ -22,24 +25,24 @@ export class RelationshipsItemsListPreviewComponent {
   @Input() customData: any;
 
   /**
-   * The search result object
-   */
-  @Input() object: SearchResult<any>;
-
-  /**
-   * A boolean representing if to show submitter information
+   * A boolean representing whether to show submitter information
    */
   @Input() showSubmitter = false;
 
   /**
-   * An string utilized for specifying the type of view which component is being used for
+   * A string used for specifying the type of view which the component is being used for
    */
   @Input() viewConfig = 'default';
 
   /**
+   * A boolean representing whether the drag-and-drop handle should be hidden
+   */
+  @Input() pendingChanges = false;
+
+  /**
    * Emit when trying to delete the relationship
    */
-  @Output() deleteRelationship = new EventEmitter<any>();
+  @Output() deleteRelationship = new EventEmitter<ManageRelationshipEvent>();
 
   processing = false;
 
@@ -48,6 +51,10 @@ export class RelationshipsItemsListPreviewComponent {
    */
   dispatchDelete(): void {
     this.processing = true;
-    this.deleteRelationship.emit({ action: 'delete', item: this.object, relationship: this.customData.relationship });
+    this.deleteRelationship.emit({
+      action: ManageRelationshipEventType.Unselect,
+      item: this.item,
+      relationship: this.customData.relationship
+    });
   }
 }

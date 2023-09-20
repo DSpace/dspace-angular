@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -19,7 +19,7 @@ import { FacetValues } from '../../../models/facet-values.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
   FILTER_CONFIG,
-  IN_PLACE_SEARCH,
+  IN_PLACE_SEARCH, REFRESH_FILTER,
   SearchFilterService
 } from '../../../../../core/shared/search/search-filter.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
@@ -47,8 +47,9 @@ export class SearchChartPieComponent extends SearchChartFilterComponent {
               protected translate: TranslateService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
-              @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig);
+              @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
+              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>) {
+    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters);
   }
 
   protected getInitData(): Observable<ChartSeries[] | ChartData[]> {

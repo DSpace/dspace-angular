@@ -11,7 +11,7 @@ import { of } from 'rxjs';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { RestResponse } from '../core/cache/response.models';
 import { ScriptDataService } from '../core/data/processes/script-data.service';
-import { RequestEntry } from '../core/data/request.reducer';
+import { RequestEntry } from '../core/data/request-entry.model';
 import { RequestService } from '../core/data/request.service';
 import { Collection } from '../core/shared/collection.model';
 import { getMockRequestService } from '../shared/mocks/request.service.mock';

@@ -1,14 +1,14 @@
-import { FindListOptions } from '../../../../../../core/data/request.models';
+import { FindListOptions } from '../../../../../../core/data/find-list-options.model';
 import { Component, Inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
-import { Bitstream } from '../../../../../../core/shared/bitstream.model';
-import { hasValue, isEmpty } from '../../../../../../shared/empty.util';
+import { Bitstream, ChecksumInfo } from '../../../../../../core/shared/bitstream.model';
+import { hasValue, isNotEmpty } from '../../../../../../shared/empty.util';
 import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
-import { BitstreamDataService } from '../../../../../../core/data/bitstream-data.service';
+import { BitstreamDataService, MetadataFilter } from '../../../../../../core/data/bitstream-data.service';
 import { Item } from '../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../core/layout/models/box.model';
 import { RenderingTypeStructuredModelComponent } from './rendering-type-structured.model';
@@ -70,6 +70,14 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
    * Returns the size of given bitstreams in bytes
    * @param bitstream
    */
+  getChecksum(bitstream: Bitstream): ChecksumInfo {
+    return bitstream.checkSum;
+  }
+
+  /**
+   * Returns the size of given bitstreams in bytes
+   * @param bitstream
+   */
   getSize(bitstream: Bitstream): number {
     return bitstream.sizeBytes;
   }
@@ -111,28 +119,44 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   }
 
   /**
-   * Filter a list of bitstream according to "dc.type" metadata value
+   * Returns the list of bitstreams according to BUNDLE configured in the rendering and filtering by the field configuration
    *
-   * @param bitstreams
+   * @param options The {@link FindListOptions} for the request
    */
-  filterBitstreamsByType(bitstreams: Bitstream[]): Bitstream[] {
-    if (isEmpty(this.field.bitstream.metadataValue)) {
-      return bitstreams;
-    }
-
-    return bitstreams.filter((bitstream) => {
-      const metadataValue = bitstream.firstMetadataValue(
-        this.field.bitstream.metadataField
+  getBitstreamsByItem(options?: FindListOptions): Observable<PaginatedList<Bitstream>> {
+    return this.bitstreamDataService
+      .findByItem(
+        this.item.uuid,
+        this.field.bitstream.bundle,
+        this.getMetadataFilters(),
+        options,
+        false,
+        false,
+        followLink('thumbnail')
+      )
+      .pipe(
+        getFirstCompletedRemoteData(),
+        map((response: RemoteData<PaginatedList<Bitstream>>) => {
+          return response.hasSucceeded ? response.payload : buildPaginatedList(null, []);
+        })
       );
-
-      // if metadata value of the configuration has open and close clauses it is regex pattern
-      if (this.field.bitstream.metadataValue.startsWith('(') && this.field.bitstream.metadataValue.endsWith(')')) {
-        let patternValueArr = this.field.bitstream.metadataValue.slice(1, -1).split('/');
-        const pattern = new RegExp(patternValueArr[1], patternValueArr[3]);
-        return hasValue(metadataValue) && !!metadataValue.match(pattern);
-      } else {
-        return hasValue(metadataValue) && metadataValue.toLowerCase() === this.field.bitstream.metadataValue.toLowerCase();
-      }
-    });
   }
+
+  /**
+   * Composes the {@link MetadataFilter} array used as filter
+   * while retrieving bitstream from remote services.
+   *
+   * @protected
+   */
+  protected getMetadataFilters(): MetadataFilter[] {
+    let filters: MetadataFilter[] = [];
+    if (isNotEmpty(this.field.bitstream.metadataValue)) {
+      filters.push({
+        metadataName: this.field.bitstream.metadataField,
+        metadataValue: this.field.bitstream.metadataValue
+      });
+    }
+    return filters;
+  }
+
 }

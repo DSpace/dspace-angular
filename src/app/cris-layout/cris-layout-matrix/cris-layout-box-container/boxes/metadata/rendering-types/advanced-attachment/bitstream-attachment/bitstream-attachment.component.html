@@ -1,0 +1,59 @@
+<ng-container *ngIf="attachment">
+  <div class="d-flex flex-row flex-wrap flex-lg-nowrap card-container mt-1 mb-3" data-test="attachment-info">
+
+    <div class="order-lg-1 mr-lg-3 mb-3 thumbnail-wrapper">
+      <ds-thumbnail [thumbnail]="attachment.thumbnail | async"></ds-thumbnail>
+    </div>
+
+    <div class="order-lg-3 pl-3 ml-auto mb-3">
+      <div class="d-flex flex-column align-items-end">
+        <ng-container *ngFor="let renderingType of allAttachmentProviders">
+          <div class="mb-3 text-nowrap">
+            <ds-attachment-render [renderingType]="renderingType" [bitstream]="attachment" [item]="item"></ds-attachment-render>
+          </div>
+        </ng-container>
+        <!-- Default download button -->
+        <div class="mb-3 text-nowrap">
+          <ds-attachment-render [renderingType]="AttachmentRenderingType.DOWNLOAD" [bitstream]="attachment" [item]="item"></ds-attachment-render>
+        </div>
+      </div>
+    </div>
+
+    <div class="order-lg-2 w-100 mb-3">
+      <ng-container *ngFor="let attachmentConf of envMetadata">
+
+        <div class="content" [attr.data-test]="attachmentConf.name"
+             *ngIf="attachment.firstMetadataValue(attachmentConf.name) || attachmentConf.type == AdvancedAttachmentElementType.Attribute">
+          <strong>{{ 'cris-layout.advanced-attachment.'+attachmentConf.name | translate }}</strong>
+
+          <ng-container *ngIf="attachmentConf.type == AdvancedAttachmentElementType.Metadata">
+
+            <p class="text-break m-0" *ngIf="!attachmentConf.truncatable">
+              {{attachment.firstMetadataValue(attachmentConf.name)}}
+            </p>
+
+            <ds-truncatable *ngIf="attachmentConf.truncatable" [id]=" attachment.id">
+              <ds-truncatable-part [id]="attachment.id" [minLines]="1">
+                {{attachment.firstMetadataValue(attachmentConf.name)}}
+              </ds-truncatable-part>
+            </ds-truncatable>
+
+          </ng-container>
+
+          <ng-container *ngIf="attachmentConf.type == AdvancedAttachmentElementType.Attribute">
+            <ng-container *ngIf="attachmentConf.name == 'format'">
+              <p class="word-break m-0">{{getFormat(attachment) | async}}</p>
+            </ng-container>
+
+            <ng-container *ngIf="attachmentConf.name == 'size'">
+              <p class="word-break m-0">{{getSize(attachment) | dsFileSize}}</p>
+            </ng-container>
+          </ng-container>
+
+        </div>
+      </ng-container>
+
+    </div>
+
+  </div>
+</ng-container>

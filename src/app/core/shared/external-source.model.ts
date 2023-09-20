@@ -1,10 +1,10 @@
 import { autoserialize, deserialize } from 'cerialize';
 import { link, typedObject } from '../cache/builders/build-decorators';
-import { CacheableObject } from '../cache/object-cache.reducer';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { EXTERNAL_SOURCE } from './external-source.resource-type';
 import { HALLink } from './hal-link.model';
 import { ResourceType } from './resource-type';
+import { CacheableObject } from '../cache/cacheable-object.model';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list.model';
 import { Observable } from 'rxjs';

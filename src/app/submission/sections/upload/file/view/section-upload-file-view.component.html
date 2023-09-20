@@ -25,5 +25,17 @@
   </ng-container>
 
   <span class="clearfix"></span>
+  <span class="font-weight-bold">{{'submission.sections.upload.checksum' | translate}} ({{fileData.checkSum.checkSumAlgorithm}}) <i class="far fa-question-circle text-info hint" #hint="ngbTooltip"
+                                                                                                                                     container="body"
+                                                                                                                                     placement="top"
+                                                                                                                                     [ngbTooltip]="tipContent"
+                                                                                                                                     triggers="manual"
+                                                                                                                                     [autoClose]="false"
+                                                                                                                                     (click)="hint.toggle();$event.preventDefault();"></i> :</span><span> {{fileData.checkSum.value}} </span>
+  <span class="clearfix"></span>
   <ds-submission-section-upload-access-conditions [accessConditions]="fileData.accessConditions"></ds-submission-section-upload-access-conditions>
 </div>
+
+<ng-template #tipContent>
+  <span [innerHTML]="('checksum-tooltip.info.' + fileData.checkSum.checkSumAlgorithm | translate)"></span>
+</ng-template>

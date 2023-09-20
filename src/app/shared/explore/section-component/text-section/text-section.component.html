@@ -1,8 +1,12 @@
-<div *ngIf="textRowSection">
-  <div [ngClass]="{'container' : textRowSection.contentType != 'text-metadata'}">
-    <div *ngIf="textRowSection.contentType == 'image'"><img [src]="textRowSection.content" style="width: 100%"></div>
-    <div *ngIf="textRowSection.contentType == 'text-key'">{{ 'explore.text-section.' + textRowSection.content | translate }}</div>
-    <div *ngIf="textRowSection.contentType == 'text-raw'">{{ 'explore.text-section.' + textRowSection.content }}</div>
-    <div *ngIf="textRowSection.contentType == 'text-metadata'" [innerHTML]="content"></div>
+<ng-container [ngSwitch]="textRowSection?.contentType">
+  <div *ngSwitchCase="'image'"><img [src]="textRowSection.content" style="width: 100%"></div>
+  <div *ngSwitchCase="'text-key'">{{ ('explore.text-section.' + textRowSection.content) | translate }}</div>
+  <div *ngSwitchCase="'text-raw'">{{ textRowSection.content }}</div>
+  <div *ngSwitchCase="'text-metadata'" [innerHTML]="metadataValue(textRowSection.content)" [class.text-section-home-news]="textRowSection.content === 'cris.cms.home-news'"></div>
+  <div *ngSwitchCase="'custom'">
+    <ng-container *ngTemplateOutlet="custom"></ng-container>
   </div>
-</div>
+</ng-container>
+
+<!-- Custom content type -->
+<ng-template #custom></ng-template>
