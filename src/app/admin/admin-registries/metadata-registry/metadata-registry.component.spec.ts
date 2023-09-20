@@ -1,6 +1,6 @@
 import { MetadataRegistryComponent } from './metadata-registry.component';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
+import { of, of as observableOf } from 'rxjs';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
@@ -20,6 +20,9 @@ import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import {
+  MetadataSchemaExportService
+} from '../../../shared/metadata-export/metadata-schema-export/metadata-schema-export.service';
 
 describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
@@ -75,7 +78,13 @@ describe('MetadataRegistryComponent', () => {
         { provide: RegistryService, useValue: registryServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: PaginationService, useValue: paginationService },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        {
+          provide: MetadataSchemaExportService,
+          useValue: jasmine.createSpyObj('metadataSchemaExportService', {
+            exportSchema: of(1),
+          })
+        }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MetadataRegistryComponent, {

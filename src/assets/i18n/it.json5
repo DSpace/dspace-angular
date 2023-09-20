@@ -381,6 +381,9 @@
 
   // "admin.registries.metadata.schemas.table.namespace": "Namespace",
   "admin.registries.metadata.schemas.table.namespace": "Namespace",
+  // "admin.registries.metadata.schemas.table.downloads": "Download",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.table.downloads": "Download",
 
   // "admin.registries.metadata.title": "Metadata Registry",
   "admin.registries.metadata.title": "Registro dei metadati",
