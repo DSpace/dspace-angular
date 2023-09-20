@@ -3,15 +3,13 @@ import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
-import { map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { mergeMap, switchMap, take } from 'rxjs/operators';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Group } from '../../../../core/eperson/models/group.model';
 import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload
+  getFirstCompletedRemoteData
 } from '../../../../core/shared/operators';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
@@ -128,33 +126,6 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
         ))
       ).subscribe((rd: RemoteData<PaginatedList<Group>>) => {
         this.subGroups$.next(rd);
-      }));
-  }
-
-  /**
-   * Whether or not the given group is a subgroup of the group currently being edited
-   * @param possibleSubgroup Group that is a possible subgroup (being tested) of the group currently being edited
-   */
-  isSubgroupOfGroup(possibleSubgroup: Group): Observable<boolean> {
-    return this.groupDataService.getActiveGroup().pipe(take(1),
-      mergeMap((activeGroup: Group) => {
-        if (activeGroup != null) {
-          if (activeGroup.uuid === possibleSubgroup.uuid) {
-            return observableOf(false);
-          } else {
-            return this.groupDataService.findListByHref(activeGroup._links.subgroups.href, {
-              currentPage: 1,
-              elementsPerPage: 9999
-            })
-              .pipe(
-                getFirstSucceededRemoteData(),
-                getRemoteDataPayload(),
-                map((listTotalGroups: PaginatedList<Group>) => listTotalGroups.page.filter((groupInList: Group) => groupInList.id === possibleSubgroup.id)),
-                map((groups: Group[]) => groups.length > 0));
-          }
-        } else {
-          return observableOf(false);
-        }
       }));
   }
 
