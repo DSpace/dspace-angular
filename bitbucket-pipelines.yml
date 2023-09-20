@@ -16,6 +16,21 @@ definitions:
           - yarn run e2e
 
 pipelines:
+  default:
+    - parallel:
+        - stage:
+            name:
+            image: node:16
+            caches:
+              - node
+            steps:
+              - step: *test-code-checks
+        - stage:
+            image: node:18
+            caches:
+              - node
+            steps:
+              - step: *test-code-checks
   branches:
     'dspace-cris-7':
       - parallel:
