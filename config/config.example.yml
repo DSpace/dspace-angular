@@ -235,6 +235,9 @@ languages:
   - code: uk
     label: Yкраї́нська
     active: true
+  - code: sr-lat
+    label: Srpski (lat)
+    active: true
 
 
 # Browse-By Pages
