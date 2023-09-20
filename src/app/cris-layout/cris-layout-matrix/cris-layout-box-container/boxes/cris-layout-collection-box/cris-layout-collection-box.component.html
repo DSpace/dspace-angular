@@ -8,8 +8,8 @@
     </div>
   </div>
   <div class="row" data-test="mappedCollections" *ngIf="(mappedCollections$ | async)?.length > 0">
-    <div class="{{labelStyle}}">{{ 'cris-layout.rendering.collections.mapped-collection.label' | translate }}</div>
-    <div class="{{valueStyle}}" [ngClass]="{'d-inline-flex' : isInline}">
+    <div [class]="labelStyle">{{ 'cris-layout.rendering.collections.mapped-collection.label' | translate }}</div>
+    <div [class]="valueStyle" [ngClass]="{'d-inline-flex' : isInline}">
       <div *ngFor="let mappedCollection of (mappedCollections$ | async); let last=last;">
         <a href="javascript:void(0);"
            [routerLink]="['/collections', mappedCollection.id]">{{ mappedCollection.firstMetadataValue('dc.title') }}</a>
