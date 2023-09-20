@@ -103,7 +103,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
    * Initialize the component, setting up the init form value
    */
   ngOnInit() {
-    this.hasAuthority = this.model.vocabularyOptions && hasValue(this.model.vocabularyOptions.name);
+    this.hasAuthority = hasValue(this.model.vocabularyOptions) && hasValue(this.model.vocabularyOptions.name);
 
     this.chips = new Chips(
       this.model.value as any[],
