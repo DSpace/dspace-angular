@@ -1804,6 +1804,14 @@
 
   "cris-layout.attachment.viewMore": "View More",
 
+  "cris-layout.rendering.collections.owning-collection.label": "Owning collection",
+
+  "cris-layout.rendering.collections.mapped-collection.label": "Mapped collections",
+
+  "cris-layout.rendering.collections.loading": "Loading...",
+
+  "cris-layout.rendering.collections.load-more": "Load more",
+
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
 
   "curation-task.task.noop.label": "NOOP",
