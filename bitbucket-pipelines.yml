@@ -1,0 +1,50 @@
+definitions:
+  steps:
+    - step: &test-code-checks
+        services:
+          - docker
+        script:
+          - yarn install --frozen-lockfile
+          - yarn run lint --quiet
+          - yarn run check-circ-deps
+          - yarn run build:prod
+          - yarn run test:headless
+          - docker-compose -f ./docker/docker-compose-ci.yml up -d
+          - docker-compose -f ./docker/cli.yml -f ./docker/cli.assetstore.yml run --rm dspace-cli
+          - docker container ls
+          - yarn run serve:ssr
+          - yarn run e2e
+
+pipelines:
+  branches:
+    'dspace-cris-7':
+      - parallel:
+          - stage:
+              name:
+              image: node:16
+              caches:
+                - node
+              steps:
+                - step: *test-code-checks
+          - stage:
+              image: node:18
+              caches:
+                - node
+              steps:
+                - step: *test-code-checks
+
+  pull-requests:
+    '**':
+      - parallel:
+          - stage:
+              image: node:16
+              caches:
+                - node
+              steps:
+                - step: *test-code-checks
+          - stage:
+              image: node:18
+              caches:
+                - node
+              steps:
+                - step: *test-code-checks
