@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { forkJoin, Observable, of } from 'rxjs';
-import { catchError, map, mergeMap, take } from 'rxjs/operators';
+import { catchError, map, mergeMap, take, tap } from 'rxjs/operators';
 
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../core/data/find-list-options.model';
@@ -166,6 +166,19 @@ export class SuggestionsService {
     );
   }
 
+  public deleteReviewedSuggestionAsync(suggestionId: string): Observable<RemoteData<NoContent>> {
+    return this.suggestionsDataService.deleteSuggestionAsync(suggestionId).pipe(
+        tap((response: RemoteData<NoContent>) => {
+          if (response.isSuccess) {
+            return response;
+          } else {
+            throw new Error('Can\'t delete Suggestion from the Search Target REST service');
+          }
+        }),
+        take(1)
+    );
+  }
+
   /**
    * Retrieve suggestion targets for the given user
    *
@@ -218,6 +231,12 @@ export class SuggestionsService {
     );
   }
 
+  public notMineAsync(suggestionId): Observable<RemoteData<NoContent>> {
+    return this.deleteReviewedSuggestionAsync(suggestionId).pipe(
+        catchError((error) => of(null))
+    );
+  }
+
   /**
    * Perform a bulk approve and import operation.
    * @param workspaceitemService injected dependency
@@ -243,7 +262,7 @@ export class SuggestionsService {
    * @param suggestions the array containing the suggestions
    */
   public notMineMultiple(suggestions: OpenaireSuggestion[]): Observable<SuggestionBulkResult> {
-    return forkJoin(suggestions.map((suggestion: OpenaireSuggestion) => this.notMine(suggestion.id)))
+    return forkJoin(suggestions.map((suggestion: OpenaireSuggestion) => this.notMineAsync(suggestion.id)))
       .pipe(map((results: RemoteData<NoContent>[]) => {
         return {
           success: results.filter((result) => result != null).length,
