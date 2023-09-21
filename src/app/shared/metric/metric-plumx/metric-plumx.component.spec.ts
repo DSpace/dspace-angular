@@ -6,11 +6,12 @@ import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
 import { ListMetricPropsPipe } from '../pipes/list-metric-props/list-metric-props.pipe';
 import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
+import { Metric } from '../../../core/shared/metric.model';
 
 describe('MetricPlumxComponent', () => {
   let component: MetricPlumxComponent;
   let fixture: ComponentFixture<MetricPlumxComponent>;
-  const metricMock = {
+  const metricMock: Metric = {
     acquisitionDate: new Date(),
     deltaPeriod1: null,
     deltaPeriod2: null,
@@ -20,39 +21,39 @@ describe('MetricPlumxComponent', () => {
     metricCount: 333,
     metricType: 'plumX',
     rank: null,
-    remark: '{' +
-      '  "type":"Publication",' +
-      '  "src":"//cdn.plu.mx/widget-popup.js",' +
-      '  "href":"https://plu.mx/plum/a/?doi=10.1056/NEJMe2025111",' +
-      '  "list-data-publication-badge-enabled":"true",' +
-      '  "data-publication-badge-enabled":"true"},' +
-      '  "data-popup": "left",' +
-      '  "data-hide-when-empty": true,' +
-      '  "data-hide-usage": false,' +
-      '  "data-hide-captures": false,' +
-      '  "data-hide-mentions": false,' +
-      '  "data-hide-socialmedia": false,' +
-      '  "data-hide-citations": false,' +
-      '  "data-pass-hidden-categories": false,' +
-      '  "data-detail-same-page": false,' +
-      '  "list-data-lang": "en",' +
-      '  "list-data-no-name": true,' +
-      '  "list-data-num-artifacts": 5,' +
-      '  "list-data-width": "6em",' +
-      '  "list-data-no-description": true,' +
-      '  "list-data-no-stats": true,' +
-      '  "list-data-no-thumbnail": true,' +
-      '  "list-data-no-artifacts": true,' +
-      '  "list-data-popup": "bottom",' +
-      '  "list-data-hide-when-empty": true,' +
-      '  "list-data-hide-usage": false,' +
-      '  "list-data-hide-captures": false,' +
-      '  "list-data-hide-mentions": false,' +
-      '  "list-data-hide-socialmedia": false,' +
-      '  "list-data-hide-citations": false,' +
-      '  "list-data-pass-hidden-categories": false,' +
-      '  "list-data-detail-same-page": false' +
-      '}',
+    remark: JSON.stringify({
+        'type': 'Publication',
+        'src': '//cdn.plu.mx/widget-popup.js',
+        'href': 'https://plu.mx/plum/a/?doi=10.1056/NEJMe2025111',
+        'list-data-publication-badge-enabled': true,
+        'data-publication-badge-enabled': true,
+        'data-popup':  'left',
+        'data-hide-when-empty':  true,
+        'data-hide-usage':  false,
+        'data-hide-captures':  false,
+        'data-hide-mentions':  false,
+        'data-hide-socialmedia':  false,
+        'data-hide-citations':  false,
+        'data-pass-hidden-categories':  false,
+        'data-detail-same-page':  false,
+        'list-data-lang':  'en',
+        'list-data-no-name':  true,
+        'list-data-num-artifacts':  5,
+        'list-data-width':  '6em',
+        'list-data-no-description':  true,
+        'list-data-no-stats':  true,
+        'list-data-no-thumbnail':  true,
+        'list-data-no-artifacts':  true,
+        'list-data-popup': 'bottom',
+        'list-data-hide-when-empty':  true,
+        'list-data-hide-usage':  false,
+        'list-data-hide-captures':  false,
+        'list-data-hide-mentions':  false,
+        'list-data-hide-socialmedia':  false,
+        'list-data-hide-citations':  false,
+        'list-data-pass-hidden-categories':  false,
+        'list-data-detail-same-page': false
+      }),
     startDate: null,
     type: null,
     _links: null
