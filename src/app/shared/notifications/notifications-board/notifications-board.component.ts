@@ -11,6 +11,7 @@ import {
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import difference from 'lodash/difference';
+import isEqual from 'lodash/isEqual';
 
 import { NotificationsService } from '../notifications.service';
 import { AppState } from '../../../app.reducer';
@@ -132,11 +133,11 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
   }
 
   private checkStandard(checker: INotification, item: INotification): boolean {
-    return checker.type === item.type && checker.title === item.title && checker.content === item.content;
+    return checker.type === item.type && checker.title === item.title && isEqual(checker.content, item.content);
   }
 
   private checkHtml(checker: INotification, item: INotification): boolean {
-    return checker.html ? checker.type === item.type && checker.title === item.title && checker.content === item.content && checker.html === item.html : false;
+    return checker.html ? checker.type === item.type && checker.title === item.title && isEqual(checker.content, item.content) && checker.html === item.html : false;
   }
 
   // Attach all the changes received in the options object
