@@ -1,58 +1,28 @@
+options:
+  runs-on: ubuntu-latest
+
 definitions:
   steps:
-    - step: &test-code-checks
-        services:
-          - docker
+    - step: &unittest-code-checks
+        name: test-code-checks
+        image:
+          name: cypress/browsers:node18.12.0-chrome107
+          run-as-user: 1000
+        size: 2x
+        caches:
+          - node
         script:
           - yarn install --frozen-lockfile
           - yarn run lint --quiet
           - yarn run check-circ-deps
           - yarn run build:prod
           - yarn run test:headless
-          - docker-compose -f ./docker/docker-compose-ci.yml up -d
-          - docker-compose -f ./docker/cli.yml -f ./docker/cli.assetstore.yml run --rm dspace-cli
-          - docker container ls
-          - yarn run serve:ssr
-          - yarn run e2e
 
 pipelines:
-  default:
-    - stage:
-        name:
-        image: node:18
-        caches:
-          - node
-        steps:
-          - step: *test-code-checks
   branches:
     'dspace-cris-7':
-      - parallel:
-          - stage:
-              name:
-              image: node:16
-              caches:
-                - node
-              steps:
-                - step: *test-code-checks
-          - stage:
-              image: node:18
-              caches:
-                - node
-              steps:
-                - step: *test-code-checks
-
+      - step: *unittest-code-checks
   pull-requests:
     '**':
-      - parallel:
-          - stage:
-              image: node:16
-              caches:
-                - node
-              steps:
-                - step: *test-code-checks
-          - stage:
-              image: node:18
-              caches:
-                - node
-              steps:
-                - step: *test-code-checks
+      - step: *unittest-code-checks
+
