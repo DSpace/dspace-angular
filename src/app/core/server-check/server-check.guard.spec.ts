@@ -63,16 +63,18 @@ describe('ServerCheckGuard', () => {
   });
 
   describe(`listenForRouteChanges`, () => {
-    it(`should invalidate the root cache on every NavigationStart event`, () => {
+    it(`should invalidate the root cache when the method is first called, and then on every NavigationStart event`, () => {
         testScheduler.run(() => {
           guard.listenForRouteChanges();
+          expect(rootDataServiceStub.invalidateRootCache).toHaveBeenCalledTimes(1);
+
           eventSubject.next(new NavigationStart(1,''));
           eventSubject.next(new NavigationEnd(1,'', ''));
           eventSubject.next(new NavigationStart(2,''));
           eventSubject.next(new NavigationEnd(2,'', ''));
           eventSubject.next(new NavigationStart(3,''));
         });
-        expect(rootDataServiceStub.invalidateRootCache).toHaveBeenCalledTimes(3);
+        expect(rootDataServiceStub.invalidateRootCache).toHaveBeenCalledTimes(4);
     });
   });
 });
