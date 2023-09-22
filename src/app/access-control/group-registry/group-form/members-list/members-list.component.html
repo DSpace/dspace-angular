@@ -69,16 +69,7 @@
           </td>
           <td class="align-middle">
             <div class="btn-group edit-field">
-              <button *ngIf="ePerson.memberOfGroup"
-                      (click)="deleteMemberFromGroup(ePerson)"
-                      [disabled]="actionConfig.remove.disabled"
-                      [ngClass]="['btn btn-sm', actionConfig.remove.css]"
-                      title="{{messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(ePerson.eperson) } }}">
-                <i [ngClass]="actionConfig.remove.icon"></i>
-              </button>
-
-              <button *ngIf="!ePerson.memberOfGroup"
-                      (click)="addMemberToGroup(ePerson)"
+              <button (click)="addMemberToGroup(ePerson)"
                       [disabled]="actionConfig.add.disabled"
                       [ngClass]="['btn btn-sm', actionConfig.add.css]"
                       title="{{messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(ePerson.eperson) } }}">
@@ -133,19 +124,11 @@
           </td>
           <td class="align-middle">
             <div class="btn-group edit-field">
-              <button *ngIf="ePerson.memberOfGroup"
-                      (click)="deleteMemberFromGroup(ePerson)"
+              <button (click)="deleteMemberFromGroup(ePerson)"
                       [disabled]="actionConfig.remove.disabled"
                       [ngClass]="['btn btn-sm', actionConfig.remove.css]"
                       title="{{messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(ePerson.eperson) } }}">
                 <i [ngClass]="actionConfig.remove.icon"></i>
-              </button>
-              <button *ngIf="!ePerson.memberOfGroup"
-                      (click)="addMemberToGroup(ePerson)"
-                      [disabled]="actionConfig.add.disabled"
-                      [ngClass]="['btn btn-sm', actionConfig.add.css]"
-                      title="{{messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(ePerson.eperson) } }}">
-                <i [ngClass]="actionConfig.add.icon"></i>
               </button>
             </div>
           </td>
