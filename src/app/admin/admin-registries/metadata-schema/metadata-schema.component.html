@@ -41,7 +41,7 @@
                   </label>
                 </td>
                 <td class="selectable-row" (click)="editField(field)">{{field.id}}</td>
-                <td class="selectable-row" (click)="editField(field)">{{schema?.prefix}}.{{field.element}}<label *ngIf="field.qualifier" class="mb-0">.</label>{{field.qualifier}}</td>
+                <td class="selectable-row" (click)="editField(field)">{{schema?.prefix}}.{{field.element}}{{field.qualifier ? '.' + field.qualifier : ''}}</td>
                 <td class="selectable-row" (click)="editField(field)">{{field.scopeNote}}</td>
               </tr>
               </tbody>
