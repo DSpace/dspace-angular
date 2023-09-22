@@ -639,6 +639,43 @@ describe('RequestService', () => {
     }));
   });
 
+  describe('setStaleByHref', () => {
+    const uuid = 'c574a42c-4818-47ac-bbe1-6c3cd622c81f';
+    const href = 'https://rest.api/some/object';
+    const freshRE: any = {
+      request: { uuid, href },
+      state: RequestEntryState.Success
+    };
+    const staleRE: any = {
+      request: { uuid, href },
+      state: RequestEntryState.SuccessStale
+    };
+
+    it(`should call getByHref to retrieve the RequestEntry matching the href`, () => {
+      spyOn(service, 'getByHref').and.returnValue(observableOf(staleRE));
+      service.setStaleByHref(href);
+      expect(service.getByHref).toHaveBeenCalledWith(href);
+    });
+
+    it(`should dispatch a RequestStaleAction for the RequestEntry returned by getByHref`, (done: DoneFn) => {
+      spyOn(service, 'getByHref').and.returnValue(observableOf(staleRE));
+      spyOn(store, 'dispatch');
+      service.setStaleByHref(href).subscribe(() => {
+        expect(store.dispatch).toHaveBeenCalledWith(new RequestStaleAction(uuid));
+        done();
+      });
+    });
+
+   it(`should emit true when the request in the store is stale`, () => {
+     spyOn(service, 'getByHref').and.returnValue(cold('a-b', {
+       a: freshRE,
+       b: staleRE
+     }));
+     const result$ = service.setStaleByHref(href);
+     expect(result$).toBeObservable(cold('--(c|)', { c: true }));
+   });
+  });
+
   describe('setStaleByHrefSubstring', () => {
     let dispatchSpy: jasmine.Spy;
     let getByUUIDSpy: jasmine.Spy;
