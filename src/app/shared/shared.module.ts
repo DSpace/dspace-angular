@@ -166,7 +166,9 @@ import {
 } from './input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { ItemGridElementComponent } from './object-grid/item-grid-element/item-types/item/item-grid-element.component';
 import { TypeBadgeComponent } from './object-collection/shared/badges/type-badge/type-badge.component';
-import { AccessStatusBadgeComponent } from './object-collection/shared/badges/access-status-badge/access-status-badge.component';
+import {
+  AccessStatusBadgeComponent
+} from './object-collection/shared/badges/access-status-badge/access-status-badge.component';
 import {
   MetadataRepresentationLoaderComponent
 } from './metadata-representation/metadata-representation-loader.component';
@@ -219,9 +221,7 @@ import {
 import {
   CommunitySidebarSearchListElementComponent
 } from './object-list/sidebar-search-list-element/community/community-sidebar-search-list-element.component';
-import {
-  BundleListElementComponent
-} from './object-list/bundle-list-element/bundle-list-element.component';
+import { BundleListElementComponent } from './object-list/bundle-list-element/bundle-list-element.component';
 import {
   AuthorizedCollectionSelectorComponent
 } from './dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
@@ -257,11 +257,19 @@ import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata
 import { StatusBadgeComponent } from './object-collection/shared/badges/status-badge/status-badge.component';
 import { BadgesComponent } from './object-collection/shared/badges/badges.component';
 import { ThemedBadgesComponent } from './object-collection/shared/badges/themed-badges.component';
-import { ThemedStatusBadgeComponent } from './object-collection/shared/badges/status-badge/themed-status-badge.component';
+import {
+  ThemedStatusBadgeComponent
+} from './object-collection/shared/badges/status-badge/themed-status-badge.component';
 import { ThemedTypeBadgeComponent } from './object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { ThemedMyDSpaceStatusBadgeComponent } from './object-collection/shared/badges/my-dspace-status-badge/themed-my-dspace-status-badge.component';
-import { ThemedAccessStatusBadgeComponent } from './object-collection/shared/badges/access-status-badge/themed-access-status-badge.component';
-import { MyDSpaceStatusBadgeComponent } from './object-collection/shared/badges/my-dspace-status-badge/my-dspace-status-badge.component';
+import {
+  ThemedMyDSpaceStatusBadgeComponent
+} from './object-collection/shared/badges/my-dspace-status-badge/themed-my-dspace-status-badge.component';
+import {
+  ThemedAccessStatusBadgeComponent
+} from './object-collection/shared/badges/access-status-badge/themed-access-status-badge.component';
+import {
+  MyDSpaceStatusBadgeComponent
+} from './object-collection/shared/badges/my-dspace-status-badge/my-dspace-status-badge.component';
 
 import { ShortNumberPipe } from './utils/short-number.pipe';
 import {
@@ -273,7 +281,9 @@ import {
 import {
   AdvancedClaimedTaskActionRatingComponent
 } from './mydspace-actions/claimed-task/rating/advanced-claimed-task-action-rating.component';
-import { ClaimedTaskActionsDeclineTaskComponent } from './mydspace-actions/claimed-task/decline-task/claimed-task-actions-decline-task.component';
+import {
+  ClaimedTaskActionsDeclineTaskComponent
+} from './mydspace-actions/claimed-task/decline-task/claimed-task-actions-decline-task.component';
 import { EpersonGroupListComponent } from './eperson-group-list/eperson-group-list.component';
 import { EpersonSearchBoxComponent } from './eperson-group-list/eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './eperson-group-list/group-search-box/group-search-box.component';
@@ -283,7 +293,7 @@ import {
 import { BitstreamListItemComponent } from './object-list/bitstream-list-item/bitstream-list-item.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.component';
-import {ThemedUserMenuComponent} from './auth-nav-menu/user-menu/themed-user-menu.component';
+import { ThemedUserMenuComponent } from './auth-nav-menu/user-menu/themed-user-menu.component';
 
 const MODULES = [
   CommonModule,
@@ -467,7 +477,7 @@ const ENTRY_COMPONENTS = [
   AdvancedClaimedTaskActionRatingComponent,
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
-  GroupSearchBoxComponent
+  GroupSearchBoxComponent,
 ];
 
 const PROVIDERS = [
