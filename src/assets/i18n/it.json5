@@ -1021,7 +1021,7 @@
   "bitstream.edit.form.embargo.label": "Embargo fino a data specifica",
 
   // "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
-  "bitstream.edit.form.fileName.hint": "Modificare il nome del file per il bitstream. Si noti che questo cambierà il display bitstream URL , i vecchi collegamenti verranno comunque risolti finché il sequence ID non cambierà  .",
+  "bitstream.edit.form.fileName.hint": "Modificare il nome del file per il bitstream. Si noti che questo cambierà il display bitstream URL, i vecchi collegamenti verranno comunque risolti finché il sequence ID non cambierà.",
 
   // "bitstream.edit.form.fileName.label": "Filename",
   "bitstream.edit.form.fileName.label": "Filename",
@@ -1082,7 +1082,7 @@
   "bitstream.edit.title": "Modifica bitstream",
 
   // "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
-  "bitstream-request-a-copy.alert.canDownload1": "Hai già accesso a questo file. Se si desidera scaricare il file, fare clic su",
+  "bitstream-request-a-copy.alert.canDownload1": "Hai già accesso a questo file. Se si desidera scaricare il file, fare clic su",
 
   // "bitstream-request-a-copy.alert.canDownload2": "here",
   "bitstream-request-a-copy.alert.canDownload2": "qui",
@@ -2060,7 +2060,7 @@
   "cookies.consent.purpose.sharing": "Condivisione",
 
   // "curation-task.task.citationpage.label": "Generate Citation Page",
-  "curation-task.task.citationpage.label":  "Genera una pagina di citazioni",
+  "curation-task.task.citationpage.label": "Genera una pagina di citazioni",
 
   // "curation-task.task.checklinks.label": "Check Links in Metadata",
   "curation-task.task.checklinks.label": "Controllare i collegamenti nei metadati",
