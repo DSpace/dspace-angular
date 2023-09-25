@@ -1,7 +1,4 @@
-import {
-  Observable,
-  of as observableOf,
-} from 'rxjs';
+import { Observable, of as observableOf, } from 'rxjs';
 
 import { AuthMethod } from '../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../core/auth/models/auth.method-type';
@@ -11,6 +8,7 @@ import { EPerson } from '../../core/eperson/models/eperson.model';
 import { hasValue } from '../empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { EPersonMock } from './eperson.mock';
+import { RetrieveAuthMethodsAction } from '../../core/auth/auth.actions';
 
 export const authMethodsMock: AuthMethod[] = [
   new AuthMethod(AuthMethodType.Password, 0),
@@ -128,6 +126,7 @@ export class AuthServiceStub {
   checkAuthenticationCookie() {
     return;
   }
+
   setExternalAuthStatus(externalCookie: boolean) {
     this._isExternalAuth = externalCookie;
   }
@@ -177,6 +176,18 @@ export class AuthServiceStub {
   }
 
   clearRedirectUrl() {
+    return;
+  }
+
+  public replaceToken(token: AuthTokenInfo) {
+    return token;
+  }
+
+  getRetrieveAuthMethodsAction(authStatus: AuthStatus): RetrieveAuthMethodsAction {
+    return;
+  }
+
+  public getExternalServerRedirectUrl(redirectRoute: string, location: string) {
     return;
   }
 }

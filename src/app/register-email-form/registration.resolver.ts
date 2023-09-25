@@ -1,9 +1,5 @@
 import { inject } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  ResolveFn,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot, } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
@@ -17,7 +13,7 @@ export const registrationResolver: ResolveFn<RemoteData<Registration>> = (
   epersonRegistrationService: EpersonRegistrationService = inject(EpersonRegistrationService),
 ): Observable<RemoteData<Registration>> => {
   const token = route.params.token;
-  return epersonRegistrationService.searchByToken(token).pipe(
+  return epersonRegistrationService.searchByTokenAndUpdateData(token).pipe(
     getFirstCompletedRemoteData(),
   );
 };

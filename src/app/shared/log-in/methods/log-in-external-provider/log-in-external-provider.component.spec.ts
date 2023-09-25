@@ -1,13 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import { ActivatedRoute, Router, } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -108,8 +101,7 @@ describe('LogInExternalProviderComponent', () => {
 
     component.redirectToExternalProvider();
 
-    expect(setHrefSpy).toHaveBeenCalledWith(currentUrl);
-
+    expect(hardRedirectService.redirect).toHaveBeenCalled();
   });
 
   it('should not set a new redirectUrl', () => {

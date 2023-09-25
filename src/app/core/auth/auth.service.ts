@@ -1,33 +1,14 @@
 import { HttpHeaders } from '@angular/common/http';
-import {
-  Inject,
-  Injectable,
-  Optional,
-} from '@angular/core';
+import { Inject, Injectable, Optional, } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  select,
-  Store,
-} from '@ngrx/store';
+import { select, Store, } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { CookieAttributes } from 'js-cookie';
-import {
-  Observable,
-  of as observableOf,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  startWith,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { Observable, of as observableOf, } from 'rxjs';
+import { filter, map, startWith, switchMap, take, } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import {
-  REQUEST,
-  RESPONSE,
-} from '../../../express.tokens';
+import { REQUEST, RESPONSE, } from '../../../express.tokens';
 import { AppState } from '../../app.reducer';
 import {
   hasNoValue,
@@ -41,10 +22,7 @@ import {
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../data/paginated-list.model';
+import { buildPaginatedList, PaginatedList, } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
@@ -54,13 +32,16 @@ import { CookieService } from '../services/cookie.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { RouteService } from '../services/route.service';
 import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '../services/window.service';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData,
-} from '../shared/operators';
+  getAuthenticatedUserId,
+  getAuthenticationToken,
+  getExternalAuthCookieStatus,
+  getRedirectUrl,
+  isAuthenticated,
+  isAuthenticatedLoaded,
+  isIdle,
+  isTokenRefreshing
+} from './selectors';
+import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
 import {
   CheckAuthenticationTokenAction,
@@ -74,20 +55,11 @@ import {
 import { AuthRequestService } from './auth-request.service';
 import { AuthMethod } from './models/auth.method';
 import { AuthStatus } from './models/auth-status.model';
-import {
-  AuthTokenInfo,
-  TOKENITEM,
-} from './models/auth-token-info.model';
-import {
-  getAuthenticatedUserId,
-  getAuthenticationToken,
-  getExternalAuthCookieStatus,
-  getRedirectUrl,
-  isAuthenticated,
-  isAuthenticatedLoaded,
-  isIdle,
-  isTokenRefreshing,
-} from './selectors';
+import { AuthTokenInfo, TOKENITEM, } from './models/auth-token-info.model';
+import { NoContent } from '../shared/NoContent.model';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import { MachineToken } from './models/machine-token.model';
+import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -580,6 +552,31 @@ export class AuthService {
   }
 
   /**
+   * Returns the external server redirect URL.
+   * @param origin - The origin route.
+   * @param redirectRoute - The redirect route.
+   * @param location - The location.
+   * @returns The external server redirect URL.
+   */
+  getExternalServerRedirectUrl(origin: string, redirectRoute: string, location: string): string  {
+    const correctRedirectUrl = new URLCombiner(origin, redirectRoute).toString();
+
+    let externalServerUrl = location;
+    const myRegexp = /\?redirectUrl=(.*)/g;
+    const match = myRegexp.exec(location);
+    const redirectUrlFromServer = (match && match[1]) ? match[1] : null;
+
+    // Check whether the current page is different from the redirect url received from rest
+    if (isNotNull(redirectUrlFromServer) && redirectUrlFromServer !== correctRedirectUrl) {
+      // change the redirect url with the current page url
+      const newRedirectUrl = `?redirectUrl=${correctRedirectUrl}`;
+      externalServerUrl = location.replace(/\?redirectUrl=(.*)/g, newRedirectUrl);
+    }
+
+    return externalServerUrl;
+  }
+
+  /**
    * Clear redirect url
    */
   clearRedirectUrl() {
@@ -662,6 +659,20 @@ export class AuthService {
     } else {
       this.store.dispatch(new UnsetUserAsIdleAction());
     }
+  }
+
+  /**
+   * Create a new machine token for the current user
+   */
+  public createMachineToken(): Observable<RemoteData<MachineToken>> {
+    return this.authRequestService.postToMachineTokenEndpoint();
+  }
+
+  /**
+   * Delete the machine token for the current user
+   */
+  public deleteMachineToken(): Observable<RemoteData<NoContent>> {
+    return this.authRequestService.deleteToMachineTokenEndpoint();
   }
 
 }
