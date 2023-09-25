@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { GetRequest, PostRequest } from './request.models';
+import { GetRequest, PatchRequest, PostRequest } from './request.models';
 import { Observable } from 'rxjs';
 import { filter, find, map } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
@@ -15,14 +15,14 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
-
+import { Operation } from 'fast-json-patch';
 @Injectable({
   providedIn: 'root',
 })
 /**
  * Service that will register a new email address and request a token
  */
-export class EpersonRegistrationService {
+export class EpersonRegistrationService{
 
   protected linkPath = 'registrations';
   protected searchByTokenPath = '/search/findByToken?token=';
@@ -32,7 +32,6 @@ export class EpersonRegistrationService {
     protected rdbService: RemoteDataBuildService,
     protected halService: HALEndpointService,
   ) {
-
   }
 
   /**
@@ -141,5 +140,53 @@ export class EpersonRegistrationService {
       this.requestService.send(request, true);
     });
     return this.rdbService.buildSingle<Registration>(href$);
+  }
+
+  /**
+   * Patch the registration object to update the email address
+   * @param value provided by the user during the registration confirmation process
+   * @param registrationId The id of the registration object
+   * @param token The token of the registration object
+   * @param updateValue Flag to indicate if the email should be updated or added
+   * @returns Remote Data state of the patch request
+   */
+  patchUpdateRegistration(value: string, field: string, registrationId: string, token: string, updateValue: boolean) {
+    const requestId = this.requestService.generateRequestId();
+
+    const href$ = this.getRegistrationEndpoint().pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => `${href}/${registrationId}?token=${token}`),
+    );
+
+    href$.subscribe((href: string) => {
+      const operations = this.generateOperations(value, field, updateValue);
+      const patchRequest = new PatchRequest(requestId, href, operations);
+      this.requestService.send(patchRequest);
+    });
+
+    return this.rdbService.buildFromRequestUUID(requestId);
+  }
+
+  /**
+   * Custom method to generate the operations to be performed on the registration object
+   * @param value provided by the user during the registration confirmation process
+   * @param updateValue Flag to indicate if the email should be updated or added
+   * @returns Operations to be performed on the registration object
+   */
+  private generateOperations(value: string, field: string, updateValue: boolean): Operation[] {
+    let operations = [];
+    if (hasValue(value) && updateValue) {
+      operations = [...operations, {
+        op: 'replace', path: `/${field}`, value: value
+      }];
+    }
+
+    if (hasValue(value) && !updateValue) {
+      operations = [...operations, {
+        op: 'add', path: `/${field}`, value: value
+      }];
+    }
+
+    return operations;
   }
 }

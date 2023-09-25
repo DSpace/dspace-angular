@@ -1,0 +1,29 @@
+<div class="row">
+  <h4>{{ 'external-login.confirmation.header' | translate}}</h4>
+</div>
+<div class="row justify-content-center">
+  <ng-container *ngComponentOutlet="getExternalLoginConfirmationType(); injector: objectInjector;">
+  </ng-container>
+</div>
+<div class="row mb-3" [attr.data-test]="'info-text'">
+  {{ informationText }}
+</div>
+<div class="row">
+  <div class="col">
+    <ng-container *ngIf="registrationData?.email;else provideEmail">
+      <ds-confirm-email [registrationId]="registrationData.id" [token]="token"></ds-confirm-email>
+    </ng-container>
+    <ng-template #provideEmail>
+      <ds-provide-email [registrationId]="registrationData.id" [token]="token"></ds-provide-email>
+    </ng-template>
+  </div>
+  <div class="col-2 align-items-center col-2 d-flex justify-content-center">
+    <h4>or</h4>
+  </div>
+  <div class="col">
+    <ds-log-in
+      [excludedAuthMethod]="registrationType"
+      [showRegisterLink]="false"
+    ></ds-log-in>
+  </div>
+</div>

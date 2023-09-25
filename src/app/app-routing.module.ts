@@ -172,6 +172,11 @@ import { RedirectService } from './redirect/redirect.service';
               .then((m) => m.LoginPageModule)
           },
           {
+            path: 'external-login',
+            loadChildren: () => import('./external-login-page/external-login-page.module')
+              .then((m) => m.ExternalLoginPageModule)
+          },
+          {
             path: 'logout',
             loadChildren: () => import('./logout-page/logout-page.module')
               .then((m) => m.LogoutPageModule)

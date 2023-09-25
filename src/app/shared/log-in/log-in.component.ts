@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, take } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import uniqBy from 'lodash/uniqBy';
 
@@ -18,6 +18,7 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { CoreState } from '../../core/core-state.model';
 import { AuthMethodType } from '../../core/auth/models/auth.method-type';
+import de from 'date-fns/esm/locale/de/index.js';
 
 /**
  * /users/sign-in
@@ -35,6 +36,10 @@ export class LogInComponent implements OnInit, OnDestroy {
    * @type {boolean}
    */
   @Input() isStandalonePage: boolean;
+
+  @Input() excludedAuthMethod: AuthMethodType;
+
+  @Input() showRegisterLink = true;
 
   /**
    * The list of authentication methods available
@@ -77,6 +82,10 @@ export class LogInComponent implements OnInit, OnDestroy {
     ).subscribe(methods => {
       // ignore the ip authentication method when it's returned by the backend
       this.authMethods = uniqBy(methods.filter(a => a.authMethodType !== AuthMethodType.Ip), 'authMethodType');
+      // exclude the given auth method in case there is one
+      if (hasValue(this.excludedAuthMethod)) {
+        this.authMethods = this.authMethods.filter((authMethod: AuthMethod) => authMethod.authMethodType !== this.excludedAuthMethod);
+      }
     });
 
     // set loading

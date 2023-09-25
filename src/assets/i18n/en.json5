@@ -7167,5 +7167,31 @@
 
   "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
 
-  "admin.system-wide-alert.title": "System-wide Alerts"
+  "admin.system-wide-alert.title": "System-wide Alerts",
+
+  "external-login.confirmation.header": "Information needed to complete the login process",
+
+  "external-login.noEmail.informationText": "The information received from {{authMethod}} are not sufficient to complete the login process. Please provide the missing information below, or login via a different method to associate your {{authMethod}} to an existing account.",
+
+  "external-login.haveEmail.informationText": "It seems that you have not yet an account in this system. If this is the case, please confirm the data received from {{authMethod}} and a new account will be created for you. Otherwise, if you already have an account in the system, please update the email address to match the one already in use in the system or login via a different method to associate your {{authMethod}} to your existing account.",
+
+  "external-login.confirm-email.header": "Confirm or update email",
+
+  "external-login.confirmation.email-required": "Email is required.",
+
+  "external-login.confirmation.email-invalid": "Invalid email format.",
+
+  "external-login.confirm.button.label": "Confirm this email",
+
+  "external-login.confirm-email-sent.header": "Confirmation email sent",
+
+  "external-login.confirm-email-sent.info": " We have sent an emait to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
+
+  "external-login.validated-email.header": "Email validated",
+
+  "external-login.validated-email.info": "Your email has been validated.<br>You can now login in the system with your prefered authentication method.",
+
+  "external-login.provide-email.header": "Provide email",
+
+  "external-login.provide-email.button.label": "Send Verification link",
 }
