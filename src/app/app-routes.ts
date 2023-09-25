@@ -1,8 +1,4 @@
-import {
-  InMemoryScrollingOptions,
-  Route,
-  RouterConfigOptions,
-} from '@angular/router';
+import { InMemoryScrollingOptions, Route, RouterConfigOptions, } from '@angular/router';
 
 import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 import {
@@ -25,8 +21,12 @@ import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routin
 import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
 import { authBlockingGuard } from './core/auth/auth-blocking.guard';
 import { authenticatedGuard } from './core/auth/authenticated.guard';
-import { groupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
-import { siteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import {
+  groupAdministratorGuard
+} from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
+import {
+  siteAdministratorGuard
+} from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { siteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { endUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
 import { reloadGuard } from './core/reload/reload.guard';
@@ -37,7 +37,9 @@ import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
 import { menuResolver } from './menuResolver';
 import { provideSuggestionNotificationsState } from './notifications/provide-suggestion-notifications-state';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
-import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
+import {
+  ThemedPageInternalServerErrorComponent
+} from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
 import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
 import { provideSubmissionState } from './submission/provide-submission-state';
@@ -256,6 +258,20 @@ export const APP_ROUTES: Route[] = [
         loadChildren: () => import('./subscriptions-page/subscriptions-page-routes')
           .then((m) => m.ROUTES),
         canActivate: [authenticatedGuard],
+      },
+      {
+        path: 'external-login/:token',
+        loadChildren: () => import('./external-login-page/external-login-routes').then((m) => m.ROUTES)
+      },
+      {
+        path: 'review-account/:token',
+        loadChildren: () => import('./external-login-review-account-info-page/external-login-review-account-info-page-routes')
+          .then((m) => m.ROUTES)
+      },
+      {
+        path: 'email-confirmation',
+        loadChildren: () => import('./external-login-email-confirmation-page/external-login-email-confirmation-page-routes')
+          .then((m) => m.ROUTES)
       },
       { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
     ],
