@@ -208,6 +208,9 @@ languages:
   - code: pt-BR
     label: Português do Brasil
     active: true
+  - code: sr-lat
+    label: Srpski (lat)
+    active: true
   - code: fi
     label: Suomi
     active: true
@@ -234,9 +237,6 @@ languages:
     active: true
   - code: uk
     label: Yкраї́нська
-    active: true
-  - code: sr-lat
-    label: Srpski (lat)
     active: true
 
 
