@@ -37,10 +37,10 @@
     </div>
   </form>
 
-  <ds-pagination *ngIf="(ePeopleSearchDtos | async)?.totalElements > 0"
+  <ds-pagination *ngIf="(ePeopleSearch | async)?.totalElements > 0"
                  [paginationOptions]="configSearch"
-                 [pageInfoState]="(ePeopleSearchDtos | async)"
-                 [collectionSize]="(ePeopleSearchDtos | async)?.totalElements"
+                 [pageInfoState]="(ePeopleSearch | async)"
+                 [collectionSize]="(ePeopleSearch | async)?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">
 
@@ -55,24 +55,24 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let ePerson of (ePeopleSearchDtos | async)?.page">
-          <td class="align-middle">{{ePerson.eperson.id}}</td>
+        <tr *ngFor="let eperson of (ePeopleSearch | async)?.page">
+          <td class="align-middle">{{eperson.id}}</td>
           <td class="align-middle">
-            <a (click)="ePersonDataService.startEditingNewEPerson(ePerson.eperson)"
+            <a (click)="ePersonDataService.startEditingNewEPerson(eperson)"
                [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">
-              {{ dsoNameService.getName(ePerson.eperson) }}
+              {{ dsoNameService.getName(eperson) }}
             </a>
           </td>
           <td class="align-middle">
-            {{messagePrefix + '.table.email' | translate}}: {{ ePerson.eperson.email ? ePerson.eperson.email : '-' }}<br/>
-            {{messagePrefix + '.table.netid' | translate}}: {{ ePerson.eperson.netid ? ePerson.eperson.netid : '-' }}
+            {{messagePrefix + '.table.email' | translate}}: {{ eperson.email ? eperson.email : '-' }}<br/>
+            {{messagePrefix + '.table.netid' | translate}}: {{ eperson.netid ? eperson.netid : '-' }}
           </td>
           <td class="align-middle">
             <div class="btn-group edit-field">
-              <button (click)="addMemberToGroup(ePerson)"
+              <button (click)="addMemberToGroup(eperson)"
                       [disabled]="actionConfig.add.disabled"
                       [ngClass]="['btn btn-sm', actionConfig.add.css]"
-                      title="{{messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(ePerson.eperson) } }}">
+                      title="{{messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(eperson) } }}">
                 <i [ngClass]="actionConfig.add.icon"></i>
               </button>
             </div>
@@ -84,7 +84,7 @@
 
   </ds-pagination>
 
-  <div *ngIf="(ePeopleSearchDtos | async)?.totalElements == 0 && searchDone"
+  <div *ngIf="(ePeopleSearch | async)?.totalElements == 0 && searchDone"
        class="alert alert-info w-100 mb-2"
        role="alert">
     {{messagePrefix + '.no-items' | translate}}
@@ -92,10 +92,10 @@
 
   <h4>{{messagePrefix + '.headMembers' | translate}}</h4>
 
-  <ds-pagination *ngIf="(ePeopleMembersOfGroupDtos | async)?.totalElements > 0"
+  <ds-pagination *ngIf="(ePeopleMembersOfGroup | async)?.totalElements > 0"
                  [paginationOptions]="config"
-                 [pageInfoState]="(ePeopleMembersOfGroupDtos | async)"
-                 [collectionSize]="(ePeopleMembersOfGroupDtos | async)?.totalElements"
+                 [pageInfoState]="(ePeopleMembersOfGroup | async)"
+                 [collectionSize]="(ePeopleMembersOfGroup | async)?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">
 
@@ -110,24 +110,24 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let ePerson of (ePeopleMembersOfGroupDtos | async)?.page">
-          <td class="align-middle">{{ePerson.eperson.id}}</td>
+        <tr *ngFor="let eperson of (ePeopleMembersOfGroup | async)?.page">
+          <td class="align-middle">{{eperson.id}}</td>
           <td class="align-middle">
-            <a (click)="ePersonDataService.startEditingNewEPerson(ePerson.eperson)"
+            <a (click)="ePersonDataService.startEditingNewEPerson(eperson)"
                [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">
-              {{ dsoNameService.getName(ePerson.eperson) }}
+              {{ dsoNameService.getName(eperson) }}
             </a>
           </td>
           <td class="align-middle">
-            {{messagePrefix + '.table.email' | translate}}: {{ ePerson.eperson.email ? ePerson.eperson.email : '-' }}<br/>
-            {{messagePrefix + '.table.netid' | translate}}: {{ ePerson.eperson.netid ? ePerson.eperson.netid : '-' }}
+            {{messagePrefix + '.table.email' | translate}}: {{ eperson.email ? eperson.email : '-' }}<br/>
+            {{messagePrefix + '.table.netid' | translate}}: {{ eperson.netid ? eperson.netid : '-' }}
           </td>
           <td class="align-middle">
             <div class="btn-group edit-field">
-              <button (click)="deleteMemberFromGroup(ePerson)"
+              <button (click)="deleteMemberFromGroup(eperson)"
                       [disabled]="actionConfig.remove.disabled"
                       [ngClass]="['btn btn-sm', actionConfig.remove.css]"
-                      title="{{messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(ePerson.eperson) } }}">
+                      title="{{messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(eperson) } }}">
                 <i [ngClass]="actionConfig.remove.icon"></i>
               </button>
             </div>
@@ -139,7 +139,7 @@
 
   </ds-pagination>
 
-  <div *ngIf="(ePeopleMembersOfGroupDtos | async) == undefined || (ePeopleMembersOfGroupDtos | async)?.totalElements == 0" class="alert alert-info w-100 mb-2"
+  <div *ngIf="(ePeopleMembersOfGroup | async) == undefined || (ePeopleMembersOfGroup | async)?.totalElements == 0" class="alert alert-info w-100 mb-2"
        role="alert">
     {{messagePrefix + '.no-members-yet' | translate}}
   </div>
