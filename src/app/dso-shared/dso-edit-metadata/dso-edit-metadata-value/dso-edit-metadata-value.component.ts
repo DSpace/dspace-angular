@@ -12,11 +12,22 @@ import { map } from 'rxjs/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { EMPTY } from 'rxjs/internal/observable/empty';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
+import { RouterLink } from '@angular/router';
+import { DebounceDirective } from '../../../shared/utils/debounce.directive';
+import { FormsModule } from '@angular/forms';
+import { NgClass, NgIf, AsyncPipe } from '@angular/common';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { VarDirective } from '../../../shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-dso-edit-metadata-value',
-  styleUrls: ['./dso-edit-metadata-value.component.scss', '../dso-edit-metadata-shared/dso-edit-metadata-cells.scss'],
-  templateUrl: './dso-edit-metadata-value.component.html',
+    selector: 'ds-dso-edit-metadata-value',
+    styleUrls: ['./dso-edit-metadata-value.component.scss', '../dso-edit-metadata-shared/dso-edit-metadata-cells.scss'],
+    templateUrl: './dso-edit-metadata-value.component.html',
+    standalone: true,
+    imports: [VarDirective, CdkDrag, NgClass, NgIf, FormsModule, DebounceDirective, RouterLink, ThemedTypeBadgeComponent, NgbTooltipModule, CdkDragHandle, AsyncPipe, TranslateModule]
 })
 /**
  * Component displaying a single editable row for a metadata value

@@ -35,14 +35,13 @@ describe('ItemCurateComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ItemCurateComponent],
-      providers: [
-        {provide: ActivatedRoute, useValue: routeStub},
-        {provide: DSONameService, useValue: dsoNameService}
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    imports: [TranslateModule.forRoot(), ItemCurateComponent],
+    providers: [
+        { provide: ActivatedRoute, useValue: routeStub },
+        { provide: DSONameService, useValue: dsoNameService }
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

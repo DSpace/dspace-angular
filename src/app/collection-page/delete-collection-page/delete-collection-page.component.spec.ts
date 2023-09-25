@@ -19,17 +19,16 @@ describe('DeleteCollectionPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
-      declarations: [DeleteCollectionPageComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule, DeleteCollectionPageComponent],
+    providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: CollectionDataService, useValue: {} },
         { provide: ActivatedRoute, useValue: { data: observableOf({ dso: { payload: {} } }) } },
         { provide: NotificationsService, useValue: {} },
         { provide: RequestService, useValue: {} }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Optional } from '@angular/core';
 import {EpersonRegistrationService} from '../core/data/eperson-registration.service';
 import {NotificationsService} from '../shared/notifications/notifications.service';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import {Router} from '@angular/router';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators, ValidatorFn } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators, ValidatorFn, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {Registration} from '../core/shared/registration.model';
 import {RemoteData} from '../core/data/remote-data';
 import {ConfigurationDataService} from '../core/data/configuration-data.service';
@@ -17,13 +17,18 @@ import {AlertType} from '../shared/alert/alert-type';
 import {KlaroService} from '../shared/cookies/klaro.service';
 import {CookieService} from '../core/services/cookie.service';
 import { Subscription } from 'rxjs';
+import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 export const TYPE_REQUEST_FORGOT = 'forgot';
 export const TYPE_REQUEST_REGISTER = 'register';
 
 @Component({
-  selector: 'ds-register-email-form',
-  templateUrl: './register-email-form.component.html'
+    selector: 'ds-register-email-form',
+    templateUrl: './register-email-form.component.html',
+    standalone: true,
+    imports: [NgIf, FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule]
 })
 /**
  * Component responsible to render an email registration form.

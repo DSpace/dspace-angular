@@ -147,15 +147,15 @@ describe('CommunityPageSubCollectionList Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         SharedModule,
         RouterTestingModule.withRoutes([]),
         NgbModule,
-        NoopAnimationsModule
-      ],
-      declarations: [CommunityPageSubCollectionListComponent],
-      providers: [
+        NoopAnimationsModule,
+        CommunityPageSubCollectionListComponent
+    ],
+    providers: [
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: PaginationService, useValue: paginationService },
@@ -165,9 +165,9 @@ describe('CommunityPageSubCollectionList Component', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

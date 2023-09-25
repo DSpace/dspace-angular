@@ -85,9 +85,8 @@ describe('BrowseByDatePageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [BrowseByDatePageComponent, EnumKeysPipe, VarDirective],
-      providers: [
+    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, BrowseByDatePageComponent, EnumKeysPipe, VarDirective],
+    providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
@@ -95,9 +94,9 @@ describe('BrowseByDatePageComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: ChangeDetectorRef, useValue: mockCdRef },
         { provide: APP_CONFIG, useValue: environment }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

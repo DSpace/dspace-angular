@@ -6,15 +6,20 @@ import { first } from 'rxjs/operators';
 import { HostWindowService } from '../../shared/host-window.service';
 import { rendersSectionForMenu } from '../../shared/menu/menu-section.decorator';
 import { MenuID } from '../../shared/menu/menu-id.model';
+import { NgComponentOutlet, NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { RouterLinkActive } from '@angular/router';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 /**
  * Represents an expandable section in the navbar
  */
 @Component({
-  selector: 'ds-expandable-navbar-section',
-  templateUrl: './expandable-navbar-section.component.html',
-  styleUrls: ['./expandable-navbar-section.component.scss'],
-  animations: [slide]
+    selector: 'ds-expandable-navbar-section',
+    templateUrl: './expandable-navbar-section.component.html',
+    styleUrls: ['./expandable-navbar-section.component.scss'],
+    animations: [slide],
+    standalone: true,
+    imports: [VarDirective, RouterLinkActive, NgComponentOutlet, NgIf, NgFor, AsyncPipe]
 })
 @rendersSectionForMenu(MenuID.PUBLIC, true)
 export class ExpandableNavbarSectionComponent extends NavbarSectionComponent implements OnInit {

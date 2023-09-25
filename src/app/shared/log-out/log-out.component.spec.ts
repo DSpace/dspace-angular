@@ -35,28 +35,26 @@ describe('LogOutComponent', () => {
   beforeEach(waitForAsync(() => {
     // refine the test module by declaring the test component
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         FormsModule,
         ReactiveFormsModule,
         StoreModule.forRoot(authReducer, {
-          runtimeChecks: {
-            strictStateImmutability: false,
-            strictActionImmutability: false
-          }
+            runtimeChecks: {
+                strictStateImmutability: false,
+                strictActionImmutability: false
+            }
         }),
-        TranslateModule.forRoot()
-      ],
-      declarations: [
-        LogOutComponent,
-        BrowserOnlyMockPipe,
-      ],
-      providers: [
+        TranslateModule.forRoot(),
+        LogOutComponent
+    ],
+    declarations: [BrowserOnlyMockPipe],
+    providers: [
         { provide: Router, useValue: routerStub },
-      ],
-      schemas: [
+    ],
+    schemas: [
         CUSTOM_ELEMENTS_SCHEMA
-      ]
-    })
+    ]
+})
       .compileComponents();
 
   }));

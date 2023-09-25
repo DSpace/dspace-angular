@@ -2,14 +2,18 @@ import { Component } from '@angular/core';
 import { renderStartsWithFor, StartsWithType } from '../starts-with-decorator';
 import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
 import { hasValue } from '../../empty.util';
+import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 /**
  * A switchable component rendering StartsWith options for the type "Text".
  */
 @Component({
-  selector: 'ds-starts-with-text',
-  styleUrls: ['./starts-with-text.component.scss'],
-  templateUrl: './starts-with-text.component.html'
+    selector: 'ds-starts-with-text',
+    styleUrls: ['./starts-with-text.component.scss'],
+    templateUrl: './starts-with-text.component.html',
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, TranslateModule]
 })
 @renderStartsWithFor(StartsWithType.text)
 export class StartsWithTextComponent extends StartsWithAbstractComponent {

@@ -28,13 +28,12 @@ describe('ItemVersionHistoryComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ItemVersionHistoryComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ItemVersionHistoryComponent, VarDirective],
+    providers: [
         { provide: ActivatedRoute, useValue: activatedRoute }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

@@ -25,20 +25,18 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule.withEntryComponents(),
-    JournalEntitiesModule.withEntryComponents(),
-    ResearchEntitiesModule.withEntryComponents(),
-    HomePageRoutingModule,
-    StatisticsModule.forRoot()
-  ],
-  declarations: [
-    ...DECLARATIONS,
-  ],
-  exports: [
-    ...DECLARATIONS,
-  ],
+    imports: [
+        CommonModule,
+        SharedModule.withEntryComponents(),
+        JournalEntitiesModule.withEntryComponents(),
+        ResearchEntitiesModule.withEntryComponents(),
+        HomePageRoutingModule,
+        StatisticsModule.forRoot(),
+        ...DECLARATIONS
+    ],
+    exports: [
+        ...DECLARATIONS,
+    ]
 })
 export class HomePageModule {
 

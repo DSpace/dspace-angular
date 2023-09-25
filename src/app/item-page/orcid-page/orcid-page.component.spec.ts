@@ -98,26 +98,25 @@ describe('OrcidPageComponent test suite', () => {
     });
 
     void TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-        RouterTestingModule.withRoutes([])
-      ],
-      declarations: [OrcidPageComponent],
-      providers: [
+        RouterTestingModule.withRoutes([]),
+        OrcidPageComponent
+    ],
+    providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: OrcidAuthService, useValue: orcidAuthService },
         { provide: AuthService, useValue: authService },
         { provide: ItemDataService, useValue: itemDataService },
         { provide: PLATFORM_ID, useValue: 'browser' },
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {

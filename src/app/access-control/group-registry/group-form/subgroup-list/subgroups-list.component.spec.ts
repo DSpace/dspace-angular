@@ -100,25 +100,23 @@ describe('SubgroupsListComponent', () => {
 
     paginationService = new PaginationServiceStub();
     TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
+    imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
-      ],
-      declarations: [SubgroupsListComponent],
-      providers: [SubgroupsListComponent,
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }), SubgroupsListComponent],
+    providers: [SubgroupsListComponent,
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: routerStub },
         { provide: PaginationService, useValue: paginationService },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

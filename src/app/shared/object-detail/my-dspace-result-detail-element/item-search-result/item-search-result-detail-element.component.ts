@@ -6,14 +6,18 @@ import { SearchResultDetailElementComponent } from '../search-result-detail-elem
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { Context } from '../../../../core/shared/context.model';
+import { ItemActionsComponent } from '../../../mydspace-actions/item/item-actions.component';
+import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 
 /**
  * This component renders item object for the search result in the detail view.
  */
 @Component({
-  selector: 'ds-item-search-result-detail-element',
-  styleUrls: ['../search-result-detail-element.component.scss', './item-search-result-detail-element.component.scss'],
-  templateUrl: './item-search-result-detail-element.component.html'
+    selector: 'ds-item-search-result-detail-element',
+    styleUrls: ['../search-result-detail-element.component.scss', './item-search-result-detail-element.component.scss'],
+    templateUrl: './item-search-result-detail-element.component.html',
+    standalone: true,
+    imports: [ItemDetailPreviewComponent, ItemActionsComponent]
 })
 
 @listableObjectComponent(ItemSearchResult, ViewMode.DetailedListElement, Context.Workspace)

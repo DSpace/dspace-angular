@@ -35,21 +35,21 @@ describe('HealthPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CommonModule,
         NgbNavModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      declarations: [ HealthPageComponent ],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        HealthPageComponent
+    ],
+    providers: [
         { provide: HealthService, useValue: healthService }
-      ]
-    })
+    ]
+})
     .compileComponents();
   });
 

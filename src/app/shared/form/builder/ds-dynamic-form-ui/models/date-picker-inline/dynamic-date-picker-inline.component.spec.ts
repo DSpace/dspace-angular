@@ -20,16 +20,14 @@ describe('DsDatePickerInlineComponent test suite', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-
-      imports: [
+    imports: [
         ReactiveFormsModule,
         NoopAnimationsModule,
         NgbDatepickerModule,
-        DynamicFormsCoreModule.forRoot()
-      ],
-      declarations: [DsDatePickerInlineComponent]
-
-    }).compileComponents().then(() => {
+        DynamicFormsCoreModule.forRoot(),
+        DsDatePickerInlineComponent
+    ]
+}).compileComponents().then(() => {
 
       fixture = TestBed.createComponent(DsDatePickerInlineComponent);
 

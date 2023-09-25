@@ -9,16 +9,20 @@ import { PaginationComponentOptions } from '../../pagination/pagination-componen
 import { Item } from '../../../core/shared/item.model';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { hasValue } from '../../empty.util';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 export const ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID = 'item-access-control-select-bitstreams';
 
 @Component({
-  selector: 'ds-item-access-control-select-bitstreams-modal',
-  templateUrl: './item-access-control-select-bitstreams-modal.component.html',
-  styleUrls: [ './item-access-control-select-bitstreams-modal.component.scss' ]
+    selector: 'ds-item-access-control-select-bitstreams-modal',
+    templateUrl: './item-access-control-select-bitstreams-modal.component.html',
+    styleUrls: ['./item-access-control-select-bitstreams-modal.component.scss'],
+    standalone: true,
+    imports: [NgIf, ObjectCollectionComponent, AsyncPipe, TranslateModule]
 })
 export class ItemAccessControlSelectBitstreamsModalComponent implements OnInit {
 

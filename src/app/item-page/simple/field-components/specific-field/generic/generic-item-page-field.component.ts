@@ -2,10 +2,14 @@ import { Component, Input } from '@angular/core';
 
 import { Item } from '../../../../../core/shared/item.model';
 import { ItemPageFieldComponent } from '../item-page-field.component';
+import { AsyncPipe } from '@angular/common';
+import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 
 @Component({
-  selector: 'ds-generic-item-page-field',
-  templateUrl: '../item-page-field.component.html'
+    selector: 'ds-generic-item-page-field',
+    templateUrl: '../item-page-field.component.html',
+    standalone: true,
+    imports: [MetadataValuesComponent, AsyncPipe]
 })
 /**
  * This component can be used to represent metadata on a simple item page.

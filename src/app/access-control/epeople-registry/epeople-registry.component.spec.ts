@@ -123,16 +123,14 @@ describe('EPeopleRegistryComponent', () => {
 
     paginationService = new PaginationServiceStub();
     TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
+    imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
-      ],
-      declarations: [EPeopleRegistryComponent],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }), EPeopleRegistryComponent],
+    providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: AuthorizationDataService, useValue: authorizationService },
@@ -140,9 +138,9 @@ describe('EPeopleRegistryComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) },
         { provide: PaginationService, useValue: paginationService }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

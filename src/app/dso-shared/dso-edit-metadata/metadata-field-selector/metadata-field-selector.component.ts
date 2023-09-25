@@ -18,19 +18,23 @@ import {
 } from '../../../core/shared/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { RegistryService } from '../../../core/registry/registry.service';
-import { UntypedFormControl } from '@angular/forms';
+import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { hasValue } from '../../../shared/empty.util';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { of } from 'rxjs/internal/observable/of';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import { ClickOutsideDirective } from '../../../shared/utils/click-outside.directive';
+import { NgClass, NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-metadata-field-selector',
-  styleUrls: ['./metadata-field-selector.component.scss'],
-  templateUrl: './metadata-field-selector.component.html'
+    selector: 'ds-metadata-field-selector',
+    styleUrls: ['./metadata-field-selector.component.scss'],
+    templateUrl: './metadata-field-selector.component.html',
+    standalone: true,
+    imports: [FormsModule, NgClass, ReactiveFormsModule, ClickOutsideDirective, NgIf, NgFor, AsyncPipe, TranslateModule]
 })
 /**
  * Component displaying a searchable input for metadata-fields

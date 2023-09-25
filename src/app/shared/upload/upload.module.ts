@@ -18,21 +18,19 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    FileUploadModule,
-  ],
-  declarations: [
-    ...COMPONENTS,
-  ],
-  providers: [
-    ...COMPONENTS,
-  ],
-  exports: [
-    ...COMPONENTS,
-    FileUploadModule,
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        FileUploadModule,
+        ...COMPONENTS
+    ],
+    providers: [
+        ...COMPONENTS,
+    ],
+    exports: [
+        ...COMPONENTS,
+        FileUploadModule,
+    ]
 })
 export class UploadModule {
 }

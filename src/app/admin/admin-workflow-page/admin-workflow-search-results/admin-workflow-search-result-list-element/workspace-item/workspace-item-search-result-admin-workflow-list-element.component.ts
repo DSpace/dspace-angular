@@ -31,12 +31,18 @@ import { SupervisionOrder } from '../../../../../core/supervision-order/models/s
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { WorkspaceItemAdminWorkflowActionsComponent } from '../../actions/workspace-item/workspace-item-admin-workflow-actions.component';
+import { ListableObjectComponentLoaderComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.ListElement, Context.AdminWorkflowSearch)
 @Component({
-  selector: 'ds-workflow-item-search-result-admin-workflow-list-element',
-  styleUrls: ['./workspace-item-search-result-admin-workflow-list-element.component.scss'],
-  templateUrl: './workspace-item-search-result-admin-workflow-list-element.component.html'
+    selector: 'ds-workflow-item-search-result-admin-workflow-list-element',
+    styleUrls: ['./workspace-item-search-result-admin-workflow-list-element.component.scss'],
+    templateUrl: './workspace-item-search-result-admin-workflow-list-element.component.html',
+    standalone: true,
+    imports: [NgIf, ListableObjectComponentLoaderComponent, WorkspaceItemAdminWorkflowActionsComponent, AsyncPipe, TranslateModule]
 })
 /**
  * The component for displaying a list element for a workflow item on the admin workflow search page

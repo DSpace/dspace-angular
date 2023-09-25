@@ -39,23 +39,23 @@ describe('ItemPageFieldComponent', () => {
 
   const buildTestEnvironment = async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
         SharedModule,
-      ],
-      providers: [
+        ItemPageFieldComponent, MetadataValuesComponent
+    ],
+    providers: [
         { provide: APP_CONFIG, useValue: appConfig },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
-      ],
-      declarations: [ItemPageFieldComponent, MetadataValuesComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ItemPageFieldComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ItemPageFieldComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
     markdownSpy = spyOn(MarkdownPipe.prototype, 'transform');

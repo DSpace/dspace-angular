@@ -33,10 +33,9 @@ describe('ParameterSelectComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [FormsModule],
-      declarations: [ParameterSelectComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    imports: [FormsModule, ParameterSelectComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

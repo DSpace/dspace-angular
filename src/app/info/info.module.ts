@@ -29,18 +29,16 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    InfoRoutingModule,
-  ],
-  declarations: [
-    ...DECLARATIONS
-  ],
-  exports: [
-    ...DECLARATIONS
-  ],
-  providers: [FeedbackGuard]
+    imports: [
+        CommonModule,
+        SharedModule,
+        InfoRoutingModule,
+        ...DECLARATIONS
+    ],
+    exports: [
+        ...DECLARATIONS
+    ],
+    providers: [FeedbackGuard]
 })
 export class InfoModule {
 }

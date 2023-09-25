@@ -37,13 +37,13 @@ describe('JournalListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
-      declarations: [JournalListElementComponent, TruncatePipe],
-      providers: [
+    imports: [JournalListElementComponent, TruncatePipe],
+    providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(JournalListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(JournalListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

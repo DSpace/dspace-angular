@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { FormsModule, UntypedFormGroup } from '@angular/forms';
 
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, merge, switchMap, tap } from 'rxjs/operators';
-import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTypeahead, NgbTypeaheadModule, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import isEqual from 'lodash/isEqual';
 
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
@@ -20,6 +20,8 @@ import {
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
+import { NgIf } from '@angular/common';
+import { ChipsComponent } from '../../../../chips/chips.component';
 
 /**
  * Component representing a tag input field
@@ -27,7 +29,14 @@ import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 @Component({
   selector: 'ds-dynamic-tag',
   styleUrls: ['./dynamic-tag.component.scss'],
-  templateUrl: './dynamic-tag.component.html'
+  templateUrl: './dynamic-tag.component.html',
+  imports: [
+    NgbTypeaheadModule,
+    FormsModule,
+    NgIf,
+    ChipsComponent
+  ],
+  standalone: true
 })
 export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implements OnInit {
 

@@ -183,16 +183,14 @@ describe('EPersonFormComponent', () => {
 
     paginationService = new PaginationServiceStub();
     TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
+    imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
-      ],
-      declarations: [EPersonFormComponent],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }), EPersonFormComponent],
+    providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataService },
         { provide: FormBuilderService, useValue: builderService },
@@ -200,12 +198,12 @@ describe('EPersonFormComponent', () => {
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: PaginationService, useValue: paginationService },
-        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring'])},
+        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) },
         { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
         EPeopleRegistryComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {

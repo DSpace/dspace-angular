@@ -9,9 +9,10 @@ import { ExternalSource } from '../../../../../../core/shared/external-source.mo
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-lookup-relation-external-source-tab.component';
 
 @Component({
-  selector: 'ds-themed-dynamic-lookup-relation-external-source-tab',
-  styleUrls: [],
-  templateUrl: '../../../../../theme-support/themed.component.html',
+    selector: 'ds-themed-dynamic-lookup-relation-external-source-tab',
+    styleUrls: [],
+    templateUrl: '../../../../../theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedDynamicLookupRelationExternalSourceTabComponent extends ThemedComponent<DsDynamicLookupRelationExternalSourceTabComponent> {
   protected inAndOutputNames: (keyof DsDynamicLookupRelationExternalSourceTabComponent & keyof this)[] = ['label', 'listId',

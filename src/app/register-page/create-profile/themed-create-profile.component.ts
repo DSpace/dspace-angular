@@ -6,9 +6,10 @@ import { ThemedComponent } from '../../shared/theme-support/themed.component';
  * Themed wrapper for CreateProfileComponent
  */
 @Component({
-  selector: 'ds-themed-create-profile',
-  styleUrls: [],
-  templateUrl: './../../shared/theme-support/themed.component.html'
+    selector: 'ds-themed-create-profile',
+    styleUrls: [],
+    templateUrl: './../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedCreateProfileComponent extends ThemedComponent<CreateProfileComponent> {
   protected getComponentName(): string {

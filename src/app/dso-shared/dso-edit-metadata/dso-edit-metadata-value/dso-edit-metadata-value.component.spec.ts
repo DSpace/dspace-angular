@@ -49,14 +49,13 @@ describe('DsoEditMetadataValueComponent', () => {
     initServices();
 
     TestBed.configureTestingModule({
-      declarations: [DsoEditMetadataValueComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), DsoEditMetadataValueComponent, VarDirective],
+    providers: [
         { provide: RelationshipDataService, useValue: relationshipService },
         { provide: DSONameService, useValue: dsoNameService },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

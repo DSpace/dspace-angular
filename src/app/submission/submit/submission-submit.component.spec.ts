@@ -33,14 +33,14 @@ describe('SubmissionSubmitComponent Component', () => {
       findByHref: createSuccessfulRemoteDataObject$(submissionObject.item),
     });
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([
-          { path: '', component: SubmissionSubmitComponent, pathMatch: 'full' },
-        ])
-      ],
-      declarations: [SubmissionSubmitComponent],
-      providers: [
+            { path: '', component: SubmissionSubmitComponent, pathMatch: 'full' },
+        ]),
+        SubmissionSubmitComponent
+    ],
+    providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: ItemDataService, useValue: itemDataService },
@@ -48,9 +48,9 @@ describe('SubmissionSubmitComponent Component', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         ViewContainerRef
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

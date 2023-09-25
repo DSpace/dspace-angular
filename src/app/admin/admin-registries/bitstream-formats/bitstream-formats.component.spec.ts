@@ -102,15 +102,14 @@ describe('BitstreamFormatsComponent', () => {
     paginationService = new PaginationServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
-      providers: [
+    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
+    providers: [
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: PaginationService, useValue: paginationService }
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
   };
 
   const initBeforeEach = () => {
@@ -230,15 +229,14 @@ describe('BitstreamFormatsComponent', () => {
       paginationService = new PaginationServiceStub();
 
       TestBed.configureTestingModule({
-          imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-          declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
-          providers: [
-            { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
-            { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
-            { provide: NotificationsService, useValue: notificationsServiceStub },
-            { provide: PaginationService, useValue: paginationService }
-          ]
-        }).compileComponents();
+    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
+    providers: [
+        { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+        { provide: NotificationsService, useValue: notificationsServiceStub },
+        { provide: PaginationService, useValue: paginationService }
+    ]
+}).compileComponents();
       }
     ));
 
@@ -279,15 +277,14 @@ describe('BitstreamFormatsComponent', () => {
       paginationService = new PaginationServiceStub();
 
       TestBed.configureTestingModule({
-          imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-          declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
-          providers: [
-            { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
-            { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
-            { provide: NotificationsService, useValue: notificationsServiceStub },
-            { provide: PaginationService, useValue: paginationService }
-          ]
-        }).compileComponents();
+    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
+    providers: [
+        { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+        { provide: NotificationsService, useValue: notificationsServiceStub },
+        { provide: PaginationService, useValue: paginationService }
+    ]
+}).compileComponents();
       }
     ));
 

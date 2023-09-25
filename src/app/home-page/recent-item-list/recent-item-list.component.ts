@@ -15,19 +15,26 @@ import { toDSpaceObjectListRD } from '../../core/shared/operators';
 import { Observable } from 'rxjs';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgIf, NgClass, NgFor, AsyncPipe } from '@angular/common';
 import { setPlaceHolderAttributes } from '../../shared/utils/object-list-utils';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { LoadingComponent } from '../../shared/loading/loading.component';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-recent-item-list',
-  templateUrl: './recent-item-list.component.html',
-  styleUrls: ['./recent-item-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    fadeIn,
-    fadeInOut
-  ]
+    selector: 'ds-recent-item-list',
+    templateUrl: './recent-item-list.component.html',
+    styleUrls: ['./recent-item-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [
+        fadeIn,
+        fadeInOut
+    ],
+    standalone: true,
+    imports: [VarDirective, NgIf, NgClass, NgFor, ListableObjectComponentLoaderComponent, ErrorComponent, LoadingComponent, AsyncPipe, TranslateModule]
 })
 export class RecentItemListComponent implements OnInit {
   itemRD$: Observable<RemoteData<PaginatedList<Item>>>;

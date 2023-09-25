@@ -19,23 +19,21 @@ import {
  * Module that contains all components related to the Edit Community page administrator functionality
  */
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    EditCommunityPageRoutingModule,
-    CommunityFormModule,
-    ComcolModule,
-    ResourcePoliciesModule,
-    AccessControlFormModule,
-  ],
-  declarations: [
-    EditCommunityPageComponent,
-    CommunityCurateComponent,
-    CommunityMetadataComponent,
-    CommunityRolesComponent,
-    CommunityAuthorizationsComponent,
-    CommunityAccessControlComponent
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        EditCommunityPageRoutingModule,
+        CommunityFormModule,
+        ComcolModule,
+        ResourcePoliciesModule,
+        AccessControlFormModule,
+        EditCommunityPageComponent,
+        CommunityCurateComponent,
+        CommunityMetadataComponent,
+        CommunityRolesComponent,
+        CommunityAuthorizationsComponent,
+        CommunityAccessControlComponent
+    ]
 })
 export class EditCommunityPageModule {
 

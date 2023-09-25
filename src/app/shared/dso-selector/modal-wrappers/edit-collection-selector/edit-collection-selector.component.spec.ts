@@ -29,28 +29,27 @@ describe('EditCollectionSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [EditCollectionSelectorComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), EditCollectionSelectorComponent],
+    providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
-          provide: ActivatedRoute,
-          useValue: {
-            root: {
-              snapshot: {
-                data: {
-                  dso: collectionRD,
-                },
-              },
-            }
-          },
+            provide: ActivatedRoute,
+            useValue: {
+                root: {
+                    snapshot: {
+                        data: {
+                            dso: collectionRD,
+                        },
+                    },
+                }
+            },
         },
         {
-          provide: Router, useValue: router
+            provide: Router, useValue: router
         }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
 
   }));
 

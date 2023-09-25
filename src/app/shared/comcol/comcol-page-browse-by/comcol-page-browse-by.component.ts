@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
@@ -9,6 +9,9 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { BrowseService } from '../../../core/browse/browse.service';
+import { FormsModule } from '@angular/forms';
+import { AsyncPipe, NgForOf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 export interface ComColPageNavOption {
   id: string;
@@ -24,7 +27,16 @@ export interface ComColPageNavOption {
 @Component({
   selector: 'ds-comcol-page-browse-by',
   styleUrls: ['./comcol-page-browse-by.component.scss'],
-  templateUrl: './comcol-page-browse-by.component.html'
+  templateUrl: './comcol-page-browse-by.component.html',
+  imports: [
+    FormsModule,
+    NgForOf,
+    RouterLink,
+    RouterLinkActive,
+    TranslateModule,
+    AsyncPipe
+  ],
+  standalone: true
 })
 export class ComcolPageBrowseByComponent implements OnInit {
   /**

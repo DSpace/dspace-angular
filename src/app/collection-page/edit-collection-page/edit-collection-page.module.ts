@@ -22,26 +22,24 @@ import { AccessControlFormModule } from '../../shared/access-control-form-contai
  * Module that contains all components related to the Edit Collection page administrator functionality
  */
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    EditCollectionPageRoutingModule,
-    CollectionFormModule,
-    ResourcePoliciesModule,
-    FormModule,
-    ComcolModule,
-    AccessControlFormModule,
-  ],
-  declarations: [
-    EditCollectionPageComponent,
-    CollectionMetadataComponent,
-    CollectionRolesComponent,
-    CollectionCurateComponent,
-    CollectionSourceComponent,
-    CollectionAccessControlComponent,
-    CollectionSourceControlsComponent,
-    CollectionAuthorizationsComponent
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        EditCollectionPageRoutingModule,
+        CollectionFormModule,
+        ResourcePoliciesModule,
+        FormModule,
+        ComcolModule,
+        AccessControlFormModule,
+        EditCollectionPageComponent,
+        CollectionMetadataComponent,
+        CollectionRolesComponent,
+        CollectionCurateComponent,
+        CollectionSourceComponent,
+        CollectionAccessControlComponent,
+        CollectionSourceControlsComponent,
+        CollectionAuthorizationsComponent
+    ]
 })
 export class EditCollectionPageModule {
 

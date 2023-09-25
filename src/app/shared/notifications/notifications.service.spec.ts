@@ -21,22 +21,22 @@ describe('NotificationsService test', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         StoreModule.forRoot({ notificationsReducer }, storeModuleConfig),
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      declarations: [NotificationComponent, NotificationsBoardComponent],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        NotificationComponent, NotificationsBoardComponent
+    ],
+    providers: [
         { provide: Store, useValue: store },
         NotificationsService,
         TranslateService
-      ]
-    });
+    ]
+});
 
     service = TestBed.inject(NotificationsService);
   }));

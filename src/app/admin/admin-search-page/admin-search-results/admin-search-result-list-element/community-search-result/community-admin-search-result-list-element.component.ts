@@ -6,12 +6,17 @@ import { SearchResultListElementComponent } from '../../../../../shared/object-l
 import { CommunitySearchResult } from '../../../../../shared/object-collection/shared/community-search-result.model';
 import { Community } from '../../../../../core/shared/community.model';
 import { getCommunityEditRoute } from '../../../../../community-page/community-page-routing-paths';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { CommunitySearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 
 @listableObjectComponent(CommunitySearchResult, ViewMode.ListElement, Context.AdminSearch)
 @Component({
-  selector: 'ds-community-admin-search-result-list-element',
-  styleUrls: ['./community-admin-search-result-list-element.component.scss'],
-  templateUrl: './community-admin-search-result-list-element.component.html'
+    selector: 'ds-community-admin-search-result-list-element',
+    styleUrls: ['./community-admin-search-result-list-element.component.scss'],
+    templateUrl: './community-admin-search-result-list-element.component.html',
+    standalone: true,
+    imports: [CommunitySearchResultListElementComponent, RouterLink, TranslateModule]
 })
 /**
  * The component for displaying a list element for a community search result on the admin search page

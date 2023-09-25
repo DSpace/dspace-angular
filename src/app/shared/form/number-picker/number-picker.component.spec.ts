@@ -20,21 +20,19 @@ describe('NumberPickerComponent test suite', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         FormsModule,
         ReactiveFormsModule,
-        NgbModule
-      ],
-      declarations: [
+        NgbModule,
         NumberPickerComponent,
-        TestComponent,
-      ], // declare the test component
-      providers: [
+        TestComponent
+    ],
+    providers: [
         ChangeDetectorRef,
         NumberPickerComponent,
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    });
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+});
 
   }));
 
@@ -146,8 +144,12 @@ describe('NumberPickerComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [FormsModule,
+        ReactiveFormsModule,
+        NgbModule]
 })
 class TestComponent {
 

@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { combineLatest, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { DynamicFormControlModel, DynamicFormGroupModel, DynamicFormLayout, DynamicFormService, DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import cloneDeep from 'lodash/cloneDeep';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
@@ -16,7 +16,7 @@ import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
 import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { Metadata } from '../../core/shared/metadata.utils';
-import { Location } from '@angular/common';
+import { AsyncPipe, Location, NgIf } from '@angular/common';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
@@ -26,12 +26,31 @@ import { Item } from '../../core/shared/item.model';
 import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
+import { FormComponent } from '../../shared/form/form.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
   styleUrls: ['./edit-bitstream-page.component.scss'],
   templateUrl: './edit-bitstream-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    FormComponent,
+    NgIf,
+    VarDirective,
+    ThemedThumbnailComponent,
+    AsyncPipe,
+    RouterLink,
+    ErrorComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    FileSizePipe
+  ],
+  standalone: true
 })
 /**
  * Page component for editing a bitstream

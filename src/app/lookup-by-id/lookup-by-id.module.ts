@@ -7,18 +7,16 @@ import { DsoRedirectService } from '../core/data/dso-redirect.service';
 import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnotfound.component';
 
 @NgModule({
-  imports: [
-    LookupRoutingModule,
-    CommonModule,
-    SharedModule,
-  ],
-  declarations: [
-    ObjectNotFoundComponent,
-    ThemedObjectNotFoundComponent
-  ],
-  providers: [
-    DsoRedirectService,
-  ]
+    imports: [
+        LookupRoutingModule,
+        CommonModule,
+        SharedModule,
+        ObjectNotFoundComponent,
+        ThemedObjectNotFoundComponent
+    ],
+    providers: [
+        DsoRedirectService,
+    ]
 })
 export class LookupIdModule {
 

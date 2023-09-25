@@ -66,22 +66,20 @@ describe('SubmissionSectionContainerComponent test suite', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NgbModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         SubmissionSectionContainerComponent,
         SectionsDirective,
-        TestComponent,
-      ], // declare the test component
-      providers: [
+        TestComponent
+    ],
+    providers: [
         { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useValue: submissionServiceStub },
         SubmissionSectionContainerComponent
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
 
   }));
 
@@ -224,9 +222,11 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
 // declare a test component
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: '',
-  template: ``
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: '',
+    template: ``,
+    standalone: true,
+    imports: [NgbModule]
 })
 class TestComponent {
 

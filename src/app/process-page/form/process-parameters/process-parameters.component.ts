@@ -5,19 +5,24 @@ import { hasValue } from '../../../shared/empty.util';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { ScriptParameter } from '../../scripts/script-parameter.model';
 import { controlContainerFactory } from '../process-form.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { ParameterSelectComponent } from './parameter-select/parameter-select.component';
+import { NgIf, NgFor } from '@angular/common';
 
 /**
  * Component that represents the selected list of parameters for a script
  */
 @Component({
-  selector: 'ds-process-parameters',
-  templateUrl: './process-parameters.component.html',
-  styleUrls: ['./process-parameters.component.scss'],
-  viewProviders: [{
-    provide: ControlContainer,
-    useFactory: controlContainerFactory,
-    deps: [[new Optional(), NgForm]]
-  }]
+    selector: 'ds-process-parameters',
+    templateUrl: './process-parameters.component.html',
+    styleUrls: ['./process-parameters.component.scss'],
+    viewProviders: [{
+            provide: ControlContainer,
+            useFactory: controlContainerFactory,
+            deps: [[new Optional(), NgForm]]
+        }],
+    standalone: true,
+    imports: [NgIf, NgFor, ParameterSelectComponent, TranslateModule]
 })
 export class ProcessParametersComponent implements OnChanges {
   /**

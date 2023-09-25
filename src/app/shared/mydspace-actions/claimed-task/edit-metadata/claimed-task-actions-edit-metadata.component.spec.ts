@@ -31,15 +31,16 @@ describe('ClaimedTaskActionsEditMetadataComponent', () => {
   mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null);
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      providers: [
+        ClaimedTaskActionsEditMetadataComponent
+    ],
+    providers: [
         { provide: ClaimedTaskDataService, useValue: {} },
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -47,10 +48,9 @@ describe('ClaimedTaskActionsEditMetadataComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
-      ],
-      declarations: [ClaimedTaskActionsEditMetadataComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ClaimedTaskActionsEditMetadataComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ClaimedTaskActionsEditMetadataComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

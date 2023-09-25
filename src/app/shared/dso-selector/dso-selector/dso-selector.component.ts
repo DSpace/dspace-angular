@@ -9,7 +9,7 @@ import {
   QueryList,
   ViewChildren
 } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
   BehaviorSubject,
@@ -34,7 +34,7 @@ import { SearchResult } from '../../search/models/search-result.model';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import {
   ListableNotificationObject
@@ -44,11 +44,18 @@ import { NotificationType } from '../../notifications/models/notification-type';
 import {
   LISTABLE_NOTIFICATION_OBJECT
 } from '../../object-list/listable-notification-object/listable-notification-object.resource-type';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
+import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { HoverClassDirective } from '../../hover-class.directive';
+import { NgIf, NgFor, NgClass, AsyncPipe } from '@angular/common';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
-  selector: 'ds-dso-selector',
-  styleUrls: ['./dso-selector.component.scss'],
-  templateUrl: './dso-selector.component.html'
+    selector: 'ds-dso-selector',
+    styleUrls: ['./dso-selector.component.scss'],
+    templateUrl: './dso-selector.component.html',
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, InfiniteScrollModule, NgIf, NgFor, HoverClassDirective, NgClass, ListableObjectComponentLoaderComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule]
 })
 
 /**

@@ -35,14 +35,13 @@ describe('ListableObjectComponentLoaderComponent', () => {
       getThemeName: 'dspace',
     });
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ListableObjectComponentLoaderComponent, ItemListElementComponent, ListableObjectDirective],
-      schemas: [NO_ERRORS_SCHEMA],
-      providers: [
+    imports: [TranslateModule.forRoot(), ListableObjectComponentLoaderComponent, ItemListElementComponent, ListableObjectDirective],
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: [
         provideMockStore({}),
         { provide: ThemeService, useValue: themeService },
-      ]
-    }).overrideComponent(ListableObjectComponentLoaderComponent, {
+    ]
+}).overrideComponent(ListableObjectComponentLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
         entryComponents: [ItemListElementComponent]

@@ -13,6 +13,10 @@ import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { Context } from '../../../../../../core/shared/context.model';
 import { createSuccessfulRemoteDataObject } from '../../../../../remote-data.utils';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-selection-tab',
@@ -23,7 +27,15 @@ import { PaginationService } from '../../../../../../core/pagination/pagination.
       provide: SEARCH_CONFIG_SERVICE,
       useClass: SearchConfigurationService
     }
-  ]
+  ],
+  imports: [
+    ObjectCollectionComponent,
+    NgIf,
+    AsyncPipe,
+    PageSizeSelectorComponent,
+    TranslateModule
+  ],
+  standalone: true
 })
 
 /**

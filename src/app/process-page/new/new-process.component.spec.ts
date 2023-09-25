@@ -50,25 +50,26 @@ describe('NewProcessComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         FormsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })],
-      declarations: [NewProcessComponent, VarDirective],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        NewProcessComponent, VarDirective
+    ],
+    providers: [
         { provide: ScriptDataService, useValue: scriptService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: RequestService, useValue: {} },
         { provide: ActivatedRoute, useValue: { snapshot: { queryParams: {} } } },
         { provide: LinkService, useValue: {} },
         { provide: ProcessDataService, useValue: {} },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

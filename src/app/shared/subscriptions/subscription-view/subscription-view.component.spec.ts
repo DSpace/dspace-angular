@@ -54,27 +54,27 @@ describe('SubscriptionViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CommonModule,
         NgbModule,
         ReactiveFormsModule,
         BrowserModule,
         RouterTestingModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-      ],
-      declarations: [ SubscriptionViewComponent ],
-      providers: [
+        SubscriptionViewComponent
+    ],
+    providers: [
         { provide: ComponentFixtureAutoDetect, useValue: true },
         { provide: NotificationsService, useValue: NotificationsServiceStub },
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
     .compileComponents();
   });
 

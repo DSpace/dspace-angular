@@ -67,17 +67,16 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ExternalSourceEntryImportModalComponent],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, ExternalSourceEntryImportModalComponent],
+    providers: [
         { provide: LookupRelationService, useValue: lookupRelationService },
         { provide: SelectableListService, useValue: selectService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: ItemDataService, useValue: itemService },
         { provide: NgbActiveModal, useValue: modalStub }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

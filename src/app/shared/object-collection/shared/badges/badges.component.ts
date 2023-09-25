@@ -1,6 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Context } from 'src/app/core/shared/context.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { ThemedAccessStatusBadgeComponent } from './access-status-badge/themed-access-status-badge.component';
+import { ThemedTypeBadgeComponent } from './type-badge/themed-type-badge.component';
+import { ThemedMyDSpaceStatusBadgeComponent } from './my-dspace-status-badge/themed-my-dspace-status-badge.component';
+import { NgIf } from '@angular/common';
+import { ThemedStatusBadgeComponent } from './status-badge/themed-status-badge.component';
 
 /**
  * List of MyDSpace Status Contexts
@@ -19,9 +24,11 @@ const MY_DSPACE_STATUS_CONTEXTS = [
  * Component that renders all the badges for a listable object
  */
 @Component({
-  selector: 'ds-badges',
-  templateUrl: './badges.component.html',
-  styleUrls: ['./badges.component.scss']
+    selector: 'ds-badges',
+    templateUrl: './badges.component.html',
+    styleUrls: ['./badges.component.scss'],
+    standalone: true,
+    imports: [ThemedStatusBadgeComponent, NgIf, ThemedMyDSpaceStatusBadgeComponent, ThemedTypeBadgeComponent, ThemedAccessStatusBadgeComponent]
 })
 export class BadgesComponent {
   /**

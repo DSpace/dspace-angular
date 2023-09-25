@@ -21,8 +21,9 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
  * Component representing the create page for communities and collections
  */
 @Component({
-  selector: 'ds-create-comcol',
-  template: ''
+    selector: 'ds-create-comcol',
+    template: '',
+    standalone: true
 })
 export class CreateComColPageComponent<TDomain extends Collection | Community> implements OnInit {
   /**

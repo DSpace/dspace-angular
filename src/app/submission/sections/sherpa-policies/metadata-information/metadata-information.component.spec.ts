@@ -15,16 +15,16 @@ describe('MetadataInformationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-      ],
-      declarations: [MetadataInformationComponent]
-    })
+        MetadataInformationComponent
+    ]
+})
       .compileComponents();
   });
 

@@ -92,25 +92,23 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicLookupRelationSearchTabComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), DsDynamicLookupRelationSearchTabComponent, VarDirective],
+    providers: [
         { provide: SearchService, useValue: { search: () => createSuccessfulRemoteDataObject$(results) } },
         {
-          provide: SelectableListService, useValue: selectableListService
+            provide: SelectableListService, useValue: selectableListService
         },
         {
-          provide: SearchConfigurationService, useValue: {
-            paginatedSearchOptions: observableOf(pSearchOptions)
-          }
+            provide: SearchConfigurationService, useValue: {
+                paginatedSearchOptions: observableOf(pSearchOptions)
+            }
         },
         { provide: LookupRelationService, useValue: lookupRelationService },
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: RelationshipDataService, useValue: relationshipService }
-
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

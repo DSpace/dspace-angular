@@ -6,6 +6,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 import { environment } from '../../../../../environments/environment';
+import { TranslateModule } from '@ngx-translate/core';
+import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { NgIf } from '@angular/common';
 
 /**
  * Component to wrap a list of existing collections inside a modal
@@ -13,10 +16,12 @@ import { environment } from '../../../../../environments/environment';
  */
 
 @Component({
-  selector: 'ds-create-item-parent-selector',
-  // styleUrls: ['./create-item-parent-selector.component.scss'],
-  // templateUrl: '../dso-selector-modal-wrapper.component.html',
-  templateUrl: './create-item-parent-selector.component.html'
+    selector: 'ds-create-item-parent-selector',
+    // styleUrls: ['./create-item-parent-selector.component.scss'],
+    // templateUrl: '../dso-selector-modal-wrapper.component.html',
+    templateUrl: './create-item-parent-selector.component.html',
+    standalone: true,
+    imports: [NgIf, AuthorizedCollectionSelectorComponent, TranslateModule]
 })
 export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;

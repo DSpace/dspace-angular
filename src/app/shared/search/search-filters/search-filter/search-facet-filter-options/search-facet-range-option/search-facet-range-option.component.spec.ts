@@ -63,33 +63,32 @@ describe('SearchFacetRangeOptionComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchFacetRangeOptionComponent, ShortNumberPipe],
-      providers: [
+    imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchFacetRangeOptionComponent, ShortNumberPipe],
+    providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
         { provide: PaginationService, useValue: paginationService },
         {
-          provide: SearchConfigurationService, useValue: {
-            searchOptions: observableOf({}),
-            paginationId: 'page-id'
-          }
+            provide: SearchConfigurationService, useValue: {
+                searchOptions: observableOf({}),
+                paginationId: 'page-id'
+            }
         },
         {
-          provide: SearchFilterService, useValue: {
-            isFilterActiveWithValue: (paramName: string, filterValue: string) => observableOf(true),
-            getPage: (paramName: string) => page,
-            /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-            incrementPage: (filterName: string) => {
-            },
-            resetPage: (filterName: string) => {
+            provide: SearchFilterService, useValue: {
+                isFilterActiveWithValue: (paramName: string, filterValue: string) => observableOf(true),
+                getPage: (paramName: string) => page,
+                /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
+                incrementPage: (filterName: string) => {
+                },
+                resetPage: (filterName: string) => {
+                }
+                /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
             }
-            /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-          }
         }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(SearchFacetRangeOptionComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(SearchFacetRangeOptionComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

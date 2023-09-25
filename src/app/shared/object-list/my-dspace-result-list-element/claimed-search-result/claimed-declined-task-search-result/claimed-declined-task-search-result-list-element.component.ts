@@ -14,14 +14,20 @@ import { ClaimedTask } from '../../../../../core/tasks/models/claimed-task-objec
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
 import { Context } from '../../../../../core/shared/context.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedItemListPreviewComponent } from '../../item-list-preview/themed-item-list-preview.component';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { VarDirective } from '../../../../utils/var.directive';
 
 /**
  * This component renders claimed task declined task object for the search result in the list view.
  */
 @Component({
-  selector: 'ds-claimed-declined-task-search-result-list-element',
-  styleUrls: ['../../../search-result-list-element/search-result-list-element.component.scss'],
-  templateUrl: './claimed-declined-task-search-result-list-element.component.html'
+    selector: 'ds-claimed-declined-task-search-result-list-element',
+    styleUrls: ['../../../search-result-list-element/search-result-list-element.component.scss'],
+    templateUrl: './claimed-declined-task-search-result-list-element.component.html',
+    standalone: true,
+    imports: [VarDirective, NgIf, ThemedItemListPreviewComponent, AsyncPipe, TranslateModule]
 })
 @listableObjectComponent(ClaimedDeclinedTaskTaskSearchResult, ViewMode.ListElement)
 export class ClaimedDeclinedTaskSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> implements OnInit {

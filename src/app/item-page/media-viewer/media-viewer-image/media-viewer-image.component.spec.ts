@@ -57,13 +57,12 @@ describe('MediaViewerImageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports:[],
-      declarations: [MediaViewerImageComponent],
-      schemas: [NO_ERRORS_SCHEMA],
-      providers: [
+    imports: [MediaViewerImageComponent],
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: [
         { provide: AuthService, useValue: authService },
-      ],
-    }).compileComponents();
+    ]
+}).compileComponents();
   }));
 
   beforeEach(() => {

@@ -9,13 +9,22 @@ import { UntypedFormGroup } from '@angular/forms';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { switchMap, take, tap } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable, combineLatest } from 'rxjs';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { FormComponent } from '../../../../shared/form/form.component';
 
 @Component({
   selector: 'ds-metadata-schema-form',
-  templateUrl: './metadata-schema-form.component.html'
+  templateUrl: './metadata-schema-form.component.html',
+  imports: [
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+    FormComponent
+  ],
+  standalone: true
 })
 /**
  * A form used for creating and editing metadata schemas

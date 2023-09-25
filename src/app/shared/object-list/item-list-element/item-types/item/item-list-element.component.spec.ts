@@ -55,13 +55,13 @@ describe('ItemListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ItemListElementComponent, TruncatePipe],
-      providers: [
+    imports: [ItemListElementComponent, TruncatePipe],
+    providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ItemListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ItemListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

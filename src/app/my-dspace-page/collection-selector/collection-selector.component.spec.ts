@@ -105,24 +105,24 @@ describe('CollectionSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      declarations: [ CollectionSelectorComponent, CollectionDropdownComponent ],
-      providers: [
-        {provide: CollectionDataService, useValue: collectionDataServiceMock},
-        {provide: ElementRef, useClass: MockElementRef},
-        {provide: NgbActiveModal, useValue: modal},
-        {provide: ActivatedRoute, useValue: {}},
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        CollectionSelectorComponent, CollectionDropdownComponent
+    ],
+    providers: [
+        { provide: CollectionDataService, useValue: collectionDataServiceMock },
+        { provide: ElementRef, useClass: MockElementRef },
+        { provide: NgbActiveModal, useValue: modal },
+        { provide: ActivatedRoute, useValue: {} },
         ChangeDetectorRef
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
     .compileComponents();
   }));
 

@@ -68,22 +68,19 @@ const enviromentNoThumbs = {
 describe('OrgUnitSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }
-      )],
-      declarations: [ OrgUnitSearchResultListElementComponent , TruncatePipe],
-      providers: [
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }), OrgUnitSearchResultListElementComponent, TruncatePipe],
+    providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
-      ],
-
-      schemas: [ NO_ERRORS_SCHEMA ]
-    }).overrideComponent(OrgUnitSearchResultListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(OrgUnitSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
@@ -138,22 +135,19 @@ describe('OrgUnitSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }
-      )],
-      declarations: [OrgUnitSearchResultListElementComponent, TruncatePipe],
-      providers: [
-        {provide: TruncatableService, useValue: {}},
-        {provide: DSONameService, useClass: DSONameServiceMock},
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }), OrgUnitSearchResultListElementComponent, TruncatePipe],
+    providers: [
+        { provide: TruncatableService, useValue: {} },
+        { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs }
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(OrgUnitSearchResultListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(OrgUnitSearchResultListElementComponent, {
       set: {changeDetection: ChangeDetectionStrategy.Default}
     }).compileComponents();
   }));

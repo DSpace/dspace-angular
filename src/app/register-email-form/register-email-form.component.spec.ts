@@ -61,19 +61,18 @@ describe('RegisterEmailFormComponent', () => {
     jasmine.getEnv().allowRespy(true);
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule],
-      declarations: [RegisterEmailFormComponent],
-      providers: [
-        {provide: Router, useValue: router},
-        {provide: EpersonRegistrationService, useValue: epersonRegistrationService},
-        {provide: ConfigurationDataService, useValue: configurationDataService},
-        {provide: UntypedFormBuilder, useValue: new UntypedFormBuilder()},
-        {provide: NotificationsService, useValue: notificationsService},
-        {provide: CookieService, useValue: new CookieServiceMock()},
-        {provide: GoogleRecaptchaService, useValue: googleRecaptchaService},
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule, RegisterEmailFormComponent],
+    providers: [
+        { provide: Router, useValue: router },
+        { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: CookieService, useValue: new CookieServiceMock() },
+        { provide: GoogleRecaptchaService, useValue: googleRecaptchaService },
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(RegisterEmailFormComponent);

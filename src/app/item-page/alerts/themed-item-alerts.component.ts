@@ -7,9 +7,10 @@ import { ThemedComponent } from '../../shared/theme-support/themed.component';
  * Themed wrapper for {@link ItemAlertsComponent}
  */
 @Component({
-  selector: 'ds-themed-item-alerts',
-  styleUrls: [],
-  templateUrl: '../../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-item-alerts',
+    styleUrls: [],
+    templateUrl: '../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedItemAlertsComponent extends ThemedComponent<ItemAlertsComponent> {
   protected inAndOutputNames: (keyof ItemAlertsComponent & keyof this)[] = ['item'];

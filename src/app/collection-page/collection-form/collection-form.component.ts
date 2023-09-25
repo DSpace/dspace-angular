@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   DynamicFormControlModel,
   DynamicFormOptionConfig,
@@ -23,6 +23,11 @@ import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators'
 import { collectionFormEntityTypeSelectionConfig, collectionFormModels, } from './collection-form.models';
 import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
 import { hasNoValue, isNotNull } from 'src/app/shared/empty.util';
+import { FormComponent } from '../../shared/form/form.component';
+import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 
 /**
@@ -31,7 +36,18 @@ import { hasNoValue, isNotNull } from 'src/app/shared/empty.util';
 @Component({
   selector: 'ds-collection-form',
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
-  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
+  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html',
+  standalone: true,
+  imports: [
+    FormComponent,
+    TranslateModule,
+    UploaderComponent,
+    AsyncPipe,
+    ComcolPageLogoComponent,
+    NgIf,
+    NgClass,
+    VarDirective
+  ],
 })
 export class CollectionFormComponent extends ComColFormComponent<Collection> implements OnInit, OnChanges {
   /**

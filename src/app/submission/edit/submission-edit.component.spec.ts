@@ -39,14 +39,14 @@ describe('SubmissionEditComponent Component', () => {
       findByHref: createSuccessfulRemoteDataObject$(submissionObject.item),
     });
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([
-          { path: ':id/edit', component: SubmissionEditComponent, pathMatch: 'full' },
-        ])
-      ],
-      declarations: [SubmissionEditComponent],
-      providers: [
+            { path: ':id/edit', component: SubmissionEditComponent, pathMatch: 'full' },
+        ]),
+        SubmissionEditComponent
+    ],
+    providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SubmissionJsonPatchOperationsService, useClass: SubmissionJsonPatchOperationsServiceStub },
@@ -54,10 +54,9 @@ describe('SubmissionEditComponent Component', () => {
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: route },
-
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

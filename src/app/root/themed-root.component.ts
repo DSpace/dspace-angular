@@ -3,9 +3,10 @@ import { RootComponent } from './root.component';
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'ds-themed-root',
-  styleUrls: [],
-  templateUrl: '../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-root',
+    styleUrls: [],
+    templateUrl: '../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedRootComponent extends ThemedComponent<RootComponent> {
   /**

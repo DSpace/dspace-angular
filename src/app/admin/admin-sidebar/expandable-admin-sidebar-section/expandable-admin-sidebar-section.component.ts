@@ -10,16 +10,20 @@ import { map } from 'rxjs/operators';
 import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
 import { MenuID } from '../../../shared/menu/menu-id.model';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgClass, NgComponentOutlet, NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 /**
  * Represents a expandable section in the sidebar
  */
 @Component({
-  /* eslint-disable @angular-eslint/component-selector */
-  selector: 'li[ds-expandable-admin-sidebar-section]',
-  templateUrl: './expandable-admin-sidebar-section.component.html',
-  styleUrls: ['./expandable-admin-sidebar-section.component.scss'],
-  animations: [rotate, slide, bgColor]
+    /* eslint-disable @angular-eslint/component-selector */
+    selector: 'li[ds-expandable-admin-sidebar-section]',
+    templateUrl: './expandable-admin-sidebar-section.component.html',
+    styleUrls: ['./expandable-admin-sidebar-section.component.scss'],
+    animations: [rotate, slide, bgColor],
+    standalone: true,
+    imports: [NgClass, NgComponentOutlet, NgIf, NgFor, AsyncPipe, TranslateModule]
 })
 
 @rendersSectionForMenu(MenuID.ADMIN, true)

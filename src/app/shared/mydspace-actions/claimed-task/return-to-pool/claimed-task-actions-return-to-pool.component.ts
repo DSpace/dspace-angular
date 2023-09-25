@@ -4,21 +4,25 @@ import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-deco
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { RequestService } from '../../../../core/data/request.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
 import { take } from 'rxjs/operators';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 export const WORKFLOW_TASK_OPTION_RETURN_TO_POOL = 'return_to_pool';
 
 @rendersWorkflowTaskOption(WORKFLOW_TASK_OPTION_RETURN_TO_POOL)
 @Component({
-  selector: 'ds-claimed-task-actions-return-to-pool',
-  styleUrls: ['./claimed-task-actions-return-to-pool.component.scss'],
-  templateUrl: './claimed-task-actions-return-to-pool.component.html',
+    selector: 'ds-claimed-task-actions-return-to-pool',
+    styleUrls: ['./claimed-task-actions-return-to-pool.component.scss'],
+    templateUrl: './claimed-task-actions-return-to-pool.component.html',
+    standalone: true,
+    imports: [NgbTooltipModule, NgIf, AsyncPipe, TranslateModule]
 })
 /**
  * Component for displaying and processing the return to pool action on a workflow task item

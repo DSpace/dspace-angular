@@ -5,11 +5,11 @@ import { SharedModule } from '../shared/shared.module';
 import { SubscriptionsModule } from '../shared/subscriptions/subscriptions.module';
 
 @NgModule({
-  declarations: [SubscriptionsPageComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    SubscriptionsModule,
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        SubscriptionsModule,
+        SubscriptionsPageComponent
+    ]
 })
 export class SubscriptionsPageModule { }

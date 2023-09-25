@@ -1,10 +1,23 @@
 import { Component } from '@angular/core';
-import { WorkspaceItemsDeletePageComponent as BaseComponent } from '../../../../../app/workspaceitems-edit-page/workspaceitems-delete-page/workspaceitems-delete-page.component';
+import {
+  WorkspaceItemsDeletePageComponent as BaseComponent
+} from '../../../../../app/workspaceitems-edit-page/workspaceitems-delete-page/workspaceitems-delete-page.component';
+import {
+  ModifyItemOverviewComponent
+} from '../../../../../app/item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'ds-workspaceitems-delete-page',
   templateUrl: '../../../../../app/workspaceitems-edit-page/workspaceitems-delete-page/workspaceitems-delete-page.component.html',
+  standalone: true,
+  imports: [
+    ModifyItemOverviewComponent,
+    TranslateModule,
+    CommonModule
+  ],
 })
 export class WorkspaceItemsDeletePageComponent extends BaseComponent {
 }

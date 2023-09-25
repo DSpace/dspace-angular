@@ -35,20 +35,20 @@ describe('DsoPageSubscriptionButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NgbModalModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      declarations: [ DsoPageSubscriptionButtonComponent ],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        DsoPageSubscriptionButtonComponent
+    ],
+    providers: [
         { provide: AuthorizationDataService, useValue: authorizationService },
-      ]
-    })
+    ]
+})
     .compileComponents();
   });
 

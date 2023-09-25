@@ -9,8 +9,9 @@ import { filter, map, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'ds-item',
-  template: ''
+    selector: 'ds-item',
+    template: '',
+    standalone: true
 })
 /**
  * A generic component for displaying metadata and relations of an item

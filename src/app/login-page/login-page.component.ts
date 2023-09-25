@@ -15,14 +15,18 @@ import {
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { isAuthenticated } from '../core/auth/selectors';
+import { TranslateModule } from '@ngx-translate/core';
+import { LogInComponent } from '../shared/log-in/log-in.component';
 
 /**
  * This component represents the login page
  */
 @Component({
-  selector: 'ds-login-page',
-  styleUrls: ['./login-page.component.scss'],
-  templateUrl: './login-page.component.html'
+    selector: 'ds-login-page',
+    styleUrls: ['./login-page.component.scss'],
+    templateUrl: './login-page.component.html',
+    standalone: true,
+    imports: [LogInComponent, TranslateModule]
 })
 export class LoginPageComponent implements OnDestroy, OnInit {
 

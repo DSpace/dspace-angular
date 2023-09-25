@@ -10,9 +10,10 @@ import { ReferrerService } from '../../../core/services/referrer.service';
  * This component triggers a page view statistic
  */
 @Component({
-  selector: 'ds-view-tracker',
-  styleUrls: ['./view-tracker.component.scss'],
-  templateUrl: './view-tracker.component.html',
+    selector: 'ds-view-tracker',
+    styleUrls: ['./view-tracker.component.scss'],
+    templateUrl: './view-tracker.component.html',
+    standalone: true
 })
 export class ViewTrackerComponent implements OnInit, OnDestroy {
   /**

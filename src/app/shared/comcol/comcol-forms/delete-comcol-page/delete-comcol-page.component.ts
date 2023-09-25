@@ -16,8 +16,9 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
  * Component representing the delete page for communities and collections
  */
 @Component({
-  selector: 'ds-delete-comcol',
-  template: ''
+    selector: 'ds-delete-comcol',
+    template: '',
+    standalone: true
 })
 export class DeleteComColPageComponent<TDomain extends Community | Collection> implements OnInit {
   /**

@@ -6,9 +6,10 @@ import { PageNotFoundComponent } from './pagenotfound.component';
  * Themed wrapper for PageNotFoundComponent
  */
 @Component({
-  selector: 'ds-themed-pagenotfound',
-  styleUrls: [],
-  templateUrl: '../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-pagenotfound',
+    styleUrls: [],
+    templateUrl: '../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedPageNotFoundComponent extends ThemedComponent<PageNotFoundComponent> {
 

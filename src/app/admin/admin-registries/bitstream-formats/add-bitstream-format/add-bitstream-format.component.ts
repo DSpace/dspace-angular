@@ -3,10 +3,11 @@ import { Component } from '@angular/core';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { FormatFormComponent } from '../format-form/format-form.component';
 
 /**
  * This component renders the page to create a new bitstream format.
@@ -14,6 +15,11 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 @Component({
   selector: 'ds-add-bitstream-format',
   templateUrl: './add-bitstream-format.component.html',
+  imports: [
+    FormatFormComponent,
+    TranslateModule
+  ],
+  standalone: true
 })
 export class AddBitstreamFormatComponent {
 

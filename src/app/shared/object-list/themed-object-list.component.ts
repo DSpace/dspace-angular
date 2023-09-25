@@ -13,9 +13,10 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
  * Themed wrapper for ObjectListComponent
  */
 @Component({
-  selector: 'ds-themed-object-list',
-  styleUrls: [],
-  templateUrl: '../theme-support/themed.component.html',
+    selector: 'ds-themed-object-list',
+    styleUrls: [],
+    templateUrl: '../theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedObjectListComponent extends ThemedComponent<ObjectListComponent> {
 

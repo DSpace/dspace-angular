@@ -27,8 +27,10 @@ import { getItemEditRoute } from '../../item-page-routing-paths';
  * AbstractSimpleItemActionComponent component
  */
 @Component({
-  selector: 'ds-simple-action',
-  templateUrl: './abstract-simple-item-action.component.html'
+    selector: 'ds-simple-action',
+    templateUrl: './abstract-simple-item-action.component.html',
+    standalone: true,
+    imports: [CommonModule, FormsModule, NgbModule]
 })
 export class MySimpleItemActionComponent extends AbstractSimpleItemActionComponent {
 
@@ -83,17 +85,16 @@ describe('AbstractSimpleItemActionComponent', () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [MySimpleItemActionComponent],
-      providers: [
+    imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, MySimpleItemActionComponent],
+    providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
         { provide: ItemDataService, useValue: mockItemDataService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
-      ], schemas: [
+    ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
   }));
 
   beforeEach(() => {

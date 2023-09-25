@@ -37,13 +37,13 @@ describe('OrgUnitListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [OrgUnitListElementComponent, TruncatePipe],
-      providers: [
+    imports: [OrgUnitListElementComponent, TruncatePipe],
+    providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(OrgUnitListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(OrgUnitListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

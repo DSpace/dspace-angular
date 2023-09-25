@@ -146,9 +146,8 @@ describe('ItemDeleteComponent', () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [ItemDeleteComponent, VarDirective],
-      providers: [
+    imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemDeleteComponent, VarDirective],
+    providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
         { provide: ItemDataService, useValue: mockItemDataService },
@@ -158,10 +157,10 @@ describe('ItemDeleteComponent', () => {
         { provide: EntityTypeDataService, useValue: entityTypeService },
         { provide: RelationshipTypeDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
-      ], schemas: [
+    ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
   }));
 
   beforeEach(() => {

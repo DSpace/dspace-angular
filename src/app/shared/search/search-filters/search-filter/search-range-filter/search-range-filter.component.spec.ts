@@ -94,9 +94,8 @@ describe('SearchRangeFilterComponent', () => {
   const mockValues = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), values));
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchRangeFilterComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchRangeFilterComponent],
+    providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
         { provide: FILTER_CONFIG, useValue: mockFilterConfig },
@@ -106,21 +105,21 @@ describe('SearchRangeFilterComponent', () => {
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
         {
-          provide: SearchFilterService, useValue: {
-            getSelectedValuesForFilter: () => selectedValues,
-            isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
-            getPage: (paramName: string) => page,
-            /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-            incrementPage: (filterName: string) => {
-            },
-            resetPage: (filterName: string) => {
+            provide: SearchFilterService, useValue: {
+                getSelectedValuesForFilter: () => selectedValues,
+                isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
+                getPage: (paramName: string) => page,
+                /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
+                incrementPage: (filterName: string) => {
+                },
+                resetPage: (filterName: string) => {
+                }
+                /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
             }
-            /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-          }
         }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(SearchRangeFilterComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(SearchRangeFilterComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

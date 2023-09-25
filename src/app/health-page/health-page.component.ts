@@ -5,11 +5,19 @@ import { take } from 'rxjs/operators';
 
 import { HealthService } from './health.service';
 import { HealthInfoResponse, HealthResponse } from './models/health-component.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { HealthInfoComponent } from './health-info/health-info.component';
+import { HealthPanelComponent } from './health-panel/health-panel.component';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-health-page',
-  templateUrl: './health-page.component.html',
-  styleUrls: ['./health-page.component.scss']
+    selector: 'ds-health-page',
+    templateUrl: './health-page.component.html',
+    styleUrls: ['./health-page.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgbNavModule, HealthPanelComponent, HealthInfoComponent, AlertComponent, AsyncPipe, TranslateModule]
 })
 export class HealthPageComponent implements OnInit {
 

@@ -1,6 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { fadeIn, fadeInOut } from '../../../../../../app/shared/animations/fade';
-import { ItemStatusComponent as BaseComponent } from '../../../../../../app/item-page/edit-item-page/item-status/item-status.component';
+import {
+  ItemStatusComponent as BaseComponent
+} from '../../../../../../app/item-page/edit-item-page/item-status/item-status.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import {
+  ItemOperationComponent
+} from '../../../../../../app/item-page/edit-item-page/item-operation/item-operation.component';
 
 @Component({
   selector: 'ds-item-status',
@@ -10,7 +18,17 @@ import { ItemStatusComponent as BaseComponent } from '../../../../../../app/item
   animations: [
     fadeIn,
     fadeInOut
-  ]
+  ],
+  standalone: true,
+  imports: [
+    TranslateModule,
+    NgForOf,
+    AsyncPipe,
+    NgIf,
+    RouterLink,
+    ItemOperationComponent,
+    NgClass
+  ],
 })
 export class ItemStatusComponent extends BaseComponent {
 }

@@ -59,18 +59,17 @@ describe('CollectionMetadataComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
-      declarations: [CollectionMetadataComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule, CollectionMetadataComponent],
+    providers: [
         { provide: CollectionDataService, useValue: {} },
         { provide: ItemTemplateDataService, useValue: itemTemplateServiceStub },
         { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: RequestService, useValue: requestService },
-        { provide: Router, useValue: routerMock}
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+        { provide: Router, useValue: routerMock }
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

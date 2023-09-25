@@ -10,6 +10,7 @@ import { SubmissionService } from '../../submission.service';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * This component display a preview of an external source item.
@@ -17,7 +18,11 @@ import { SubmissionImportExternalCollectionComponent } from '../import-external-
 @Component({
   selector: 'ds-submission-import-external-preview',
   styleUrls: ['./submission-import-external-preview.component.scss'],
-  templateUrl: './submission-import-external-preview.component.html'
+  templateUrl: './submission-import-external-preview.component.html',
+  imports: [
+    TranslateModule
+  ],
+  standalone: true
 })
 export class SubmissionImportExternalPreviewComponent implements OnInit {
   /**

@@ -2,11 +2,18 @@ import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyTreeviewComponent } from '../vocabulary-treeview/vocabulary-treeview.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-vocabulary-treeview-modal',
   templateUrl: './vocabulary-treeview-modal.component.html',
-  styleUrls: ['./vocabulary-treeview-modal.component.scss']
+  styleUrls: ['./vocabulary-treeview-modal.component.scss'],
+  imports: [
+    VocabularyTreeviewComponent,
+    TranslateModule
+  ],
+  standalone: true
 })
 /**
  * Component that contains a modal to display a VocabularyTreeviewComponent

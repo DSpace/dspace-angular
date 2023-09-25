@@ -142,12 +142,11 @@ describe('ProcessDetailComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ProcessDetailComponent, ProcessDetailFieldComponent, VarDirective, FileSizePipe],
-      imports: [TranslateModule.forRoot()],
-      providers: [
+    imports: [TranslateModule.forRoot(), ProcessDetailComponent, ProcessDetailFieldComponent, VarDirective, FileSizePipe],
+    providers: [
         {
-          provide: ActivatedRoute,
-          useValue: { data: observableOf({ process: createSuccessfulRemoteDataObject(process) }), snapshot: { params: { id: 1 } } },
+            provide: ActivatedRoute,
+            useValue: { data: observableOf({ process: createSuccessfulRemoteDataObject(process) }), snapshot: { params: { id: 1 } } },
         },
         { provide: ProcessDataService, useValue: processService },
         { provide: BitstreamDataService, useValue: bitstreamDataService },
@@ -157,9 +156,9 @@ describe('ProcessDetailComponent', () => {
         { provide: NgbModal, useValue: modalService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: Router, useValue: router },
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

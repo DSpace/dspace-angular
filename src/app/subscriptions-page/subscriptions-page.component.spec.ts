@@ -54,27 +54,27 @@ describe('SubscriptionsPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CommonModule,
         BrowserModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-        NoopAnimationsModule
-      ],
-      declarations: [SubscriptionsPageComponent, SubscriptionViewComponent, VarDirective],
-      providers: [
+        NoopAnimationsModule,
+        SubscriptionsPageComponent, SubscriptionViewComponent, VarDirective
+    ],
+    providers: [
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: AuthService, useValue: authServiceStub },
         { provide: PaginationService, useValue: paginationService }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

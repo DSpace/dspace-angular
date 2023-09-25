@@ -19,19 +19,17 @@ const DECLARATIONS = [
  * The page which houses a title and the community list, as described in community-list.component
  */
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    CommunityListPageRoutingModule,
-    CdkTreeModule,
-  ],
-  declarations: [
-    ...DECLARATIONS
-  ],
-  exports: [
-    ...DECLARATIONS,
-    CdkTreeModule,
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        CommunityListPageRoutingModule,
+        CdkTreeModule,
+        ...DECLARATIONS
+    ],
+    exports: [
+        ...DECLARATIONS,
+        CdkTreeModule,
+    ]
 })
 export class CommunityListPageModule {
 

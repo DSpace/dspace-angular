@@ -1,15 +1,27 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { EditComColPageComponent } from '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component';
 import { Collection } from '../../core/shared/collection.model';
 import { getCollectionPageRoute } from '../collection-page-routing-paths';
+import { TranslateModule } from '@ngx-translate/core';
+import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 
 /**
  * Component that represents the page where a user can edit an existing Collection
  */
 @Component({
   selector: 'ds-edit-collection',
-  templateUrl: '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component.html'
+  templateUrl: '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component.html',
+  imports: [
+    RouterLink,
+    TranslateModule,
+    NgClass,
+    NgForOf,
+    RouterOutlet,
+    NgIf,
+    AsyncPipe
+  ],
+  standalone: true
 })
 export class EditCollectionPageComponent extends EditComColPageComponent<Collection> {
   type = 'collection';

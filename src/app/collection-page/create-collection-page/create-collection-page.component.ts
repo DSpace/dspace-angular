@@ -6,9 +6,11 @@ import { CreateComColPageComponent } from '../../shared/comcol/comcol-forms/crea
 import { Collection } from '../../core/shared/collection.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RequestService } from '../../core/data/request.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { CollectionFormComponent } from '../collection-form/collection-form.component';
+import { AsyncPipe } from '@angular/common';
 
 /**
  * Component that represents the page where a user can create a new Collection
@@ -16,7 +18,13 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-create-collection',
   styleUrls: ['./create-collection-page.component.scss'],
-  templateUrl: './create-collection-page.component.html'
+  templateUrl: './create-collection-page.component.html',
+  imports: [
+    CollectionFormComponent,
+    TranslateModule,
+    AsyncPipe
+  ],
+  standalone: true
 })
 export class CreateCollectionPageComponent extends CreateComColPageComponent<Collection> {
   protected frontendURL = '/collections/';

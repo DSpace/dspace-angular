@@ -4,10 +4,15 @@ import { AppState } from '../../app.reducer';
 import { AuthService } from '../../core/auth/auth.service';
 import { Observable } from 'rxjs';
 import { isAuthenticated } from '../../core/auth/selectors';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-impersonate-navbar',
-  templateUrl: 'impersonate-navbar.component.html'
+    selector: 'ds-impersonate-navbar',
+    templateUrl: 'impersonate-navbar.component.html',
+    standalone: true,
+    imports: [NgIf, NgbTooltipModule, AsyncPipe, TranslateModule]
 })
 /**
  * Navbar component for actions to take concerning impersonating users

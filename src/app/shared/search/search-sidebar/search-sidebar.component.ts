@@ -7,6 +7,12 @@ import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedSearchSettingsComponent } from '../search-settings/themed-search-settings.component';
+import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';
+import { SearchSwitchConfigurationComponent } from '../search-switch-configuration/search-switch-configuration.component';
+import { ViewModeSwitchComponent } from '../../view-mode-switch/view-mode-switch.component';
+import { NgIf } from '@angular/common';
 
 /**
  * This component renders a simple item page.
@@ -15,9 +21,11 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
  */
 
 @Component({
-  selector: 'ds-search-sidebar',
-  styleUrls: ['./search-sidebar.component.scss'],
-  templateUrl: './search-sidebar.component.html',
+    selector: 'ds-search-sidebar',
+    styleUrls: ['./search-sidebar.component.scss'],
+    templateUrl: './search-sidebar.component.html',
+    standalone: true,
+    imports: [NgIf, ViewModeSwitchComponent, SearchSwitchConfigurationComponent, ThemedSearchFiltersComponent, ThemedSearchSettingsComponent, TranslateModule]
 })
 
 /**

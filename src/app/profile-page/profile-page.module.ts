@@ -15,28 +15,26 @@ import { ProfileClaimItemModalComponent } from './profile-claim-item-modal/profi
 
 
 @NgModule({
-  imports: [
-    ProfilePageRoutingModule,
-    CommonModule,
-    SharedModule,
-    FormModule,
-    UiSwitchModule
-  ],
-  exports: [
-    ProfilePageComponent,
-    ThemedProfilePageComponent,
-    ProfilePageMetadataFormComponent,
-    ProfilePageSecurityFormComponent,
-    ProfilePageResearcherFormComponent
-  ],
-  declarations: [
-    ProfilePageComponent,
-    ThemedProfilePageComponent,
-    ProfileClaimItemModalComponent,
-    ProfilePageMetadataFormComponent,
-    ProfilePageSecurityFormComponent,
-    ProfilePageResearcherFormComponent
-  ]
+    imports: [
+        ProfilePageRoutingModule,
+        CommonModule,
+        SharedModule,
+        FormModule,
+        UiSwitchModule,
+        ProfilePageComponent,
+        ThemedProfilePageComponent,
+        ProfileClaimItemModalComponent,
+        ProfilePageMetadataFormComponent,
+        ProfilePageSecurityFormComponent,
+        ProfilePageResearcherFormComponent
+    ],
+    exports: [
+        ProfilePageComponent,
+        ThemedProfilePageComponent,
+        ProfilePageMetadataFormComponent,
+        ProfilePageSecurityFormComponent,
+        ProfilePageResearcherFormComponent
+    ]
 })
 export class ProfilePageModule {
 

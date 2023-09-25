@@ -3,7 +3,7 @@ import { WorkflowAction } from '../../../core/tasks/models/workflow-action-objec
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { WorkflowItemActionPageComponent } from '../../workflow-item-action-page.component';
+import { WorkflowItemActionPageDirective } from '../../workflow-item-action-page.component';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { RouteService } from '../../../core/services/route.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -25,7 +25,7 @@ import { Location } from '@angular/common';
   selector: 'ds-advanced-workflow-action',
   template: '',
 })
-export abstract class AdvancedWorkflowActionComponent extends WorkflowItemActionPageComponent implements OnInit {
+export abstract class AdvancedWorkflowActionComponent extends WorkflowItemActionPageDirective implements OnInit {
 
   workflowAction$: Observable<WorkflowAction>;
 

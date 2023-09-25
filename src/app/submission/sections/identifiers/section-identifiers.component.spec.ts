@@ -137,7 +137,7 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserModule,
         CommonModule,
         FormsModule,
@@ -145,14 +145,12 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
         NgxPaginationModule,
         NoopAnimationsModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionSectionIdentifiersComponent,
         TestComponent,
         ObjNgFor,
-        VarDirective,
-      ],
-      providers: [
+        VarDirective
+    ],
+    providers: [
         { provide: CollectionDataService, useValue: getMockCollectionDataService() },
         { provide: SectionFormOperationsService, useValue: getMockFormOperationsService() },
         { provide: FormService, useValue: getMockFormService() },
@@ -168,9 +166,9 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
         ChangeDetectorRef,
         FormBuilderService,
         SubmissionSectionIdentifiersComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents().then();
   }));
 
   // First test to check the correct component creation
@@ -250,8 +248,14 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [BrowserModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxPaginationModule]
 })
 class TestComponent {
 

@@ -6,9 +6,10 @@ import { LogoutPageComponent } from './logout-page.component';
  * Themed wrapper for LogoutPageComponent
  */
 @Component({
-  selector: 'ds-themed-logout-page',
-  styleUrls: [],
-  templateUrl: './../shared/theme-support/themed.component.html'
+    selector: 'ds-themed-logout-page',
+    styleUrls: [],
+    templateUrl: './../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedLogoutPageComponent extends ThemedComponent<LogoutPageComponent> {
   protected getComponentName(): string {

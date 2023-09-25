@@ -11,11 +11,16 @@ import { SearchConfigurationOption } from './search-configuration-option.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { currentPath } from '../../utils/route.utils';
 import findIndex from 'lodash/findIndex';
+import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'ds-search-switch-configuration',
-  styleUrls: ['./search-switch-configuration.component.scss'],
-  templateUrl: './search-switch-configuration.component.html',
+    selector: 'ds-search-switch-configuration',
+    styleUrls: ['./search-switch-configuration.component.scss'],
+    templateUrl: './search-switch-configuration.component.html',
+    standalone: true,
+    imports: [NgIf, FormsModule, NgFor, TranslateModule]
 })
 /**
  * Represents a select that allow to switch over available search configurations

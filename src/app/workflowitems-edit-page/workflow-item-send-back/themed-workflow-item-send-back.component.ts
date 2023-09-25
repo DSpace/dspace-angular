@@ -7,9 +7,10 @@ import { WorkflowItemSendBackComponent } from './workflow-item-send-back.compone
  */
 
 @Component({
-  selector: 'ds-themed-workflow-item-send-back',
-  styleUrls: [],
-  templateUrl: './../../shared/theme-support/themed.component.html'
+    selector: 'ds-themed-workflow-item-send-back',
+    styleUrls: [],
+    templateUrl: './../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedWorkflowItemSendBackComponent extends ThemedComponent<WorkflowItemSendBackComponent> {
   protected getComponentName(): string {

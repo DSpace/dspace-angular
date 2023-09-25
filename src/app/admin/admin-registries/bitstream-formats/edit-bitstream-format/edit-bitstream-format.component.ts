@@ -6,9 +6,11 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { FormatFormComponent } from '../format-form/format-form.component';
+import { AsyncPipe } from '@angular/common';
 
 /**
  * This component renders the edit page of a bitstream format.
@@ -17,6 +19,12 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 @Component({
   selector: 'ds-edit-bitstream-format',
   templateUrl: './edit-bitstream-format.component.html',
+  imports: [
+    FormatFormComponent,
+    TranslateModule,
+    AsyncPipe
+  ],
+  standalone: true
 })
 export class EditBitstreamFormatComponent implements OnInit {
 

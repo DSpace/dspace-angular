@@ -75,26 +75,24 @@ describe('DsDynamicTagComponent test suite', () => {
     const vocabularyServiceStub = new VocabularyServiceStub();
     init();
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         DynamicFormsCoreModule,
         DynamicFormsNGBootstrapUIModule,
         FormsModule,
         NgbModule,
         ReactiveFormsModule,
-      ],
-      declarations: [
         DsDynamicTagComponent,
-        TestComponent,
-      ], // declare the test component
-      providers: [
+        TestComponent
+    ],
+    providers: [
         ChangeDetectorRef,
         DsDynamicTagComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    });
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+});
 
   }));
 
@@ -286,8 +284,14 @@ describe('DsDynamicTagComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [DynamicFormsCoreModule,
+        DynamicFormsNGBootstrapUIModule,
+        FormsModule,
+        NgbModule,
+        ReactiveFormsModule]
 })
 class TestComponent {
 

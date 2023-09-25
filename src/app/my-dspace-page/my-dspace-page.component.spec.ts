@@ -42,14 +42,13 @@ describe('MyDSpacePageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule],
-      declarations: [MyDSpacePageComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule, MyDSpacePageComponent],
+    providers: [
         { provide: SearchService, useValue: searchServiceStub },
         { provide: MyDSpaceConfigurationService, useValue: myDSpaceConfigurationServiceStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(MyDSpacePageComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(MyDSpacePageComponent, {
       set: {
         providers: [
           {

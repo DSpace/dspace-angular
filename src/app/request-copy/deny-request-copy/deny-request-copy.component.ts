@@ -8,7 +8,7 @@ import {
 } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { AuthService } from '../../core/auth/auth.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { combineLatest as observableCombineLatest } from 'rxjs';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -19,11 +19,17 @@ import { ItemRequestDataService } from '../../core/data/item-request-data.servic
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-email-request-copy.component';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-deny-request-copy',
-  styleUrls: ['./deny-request-copy.component.scss'],
-  templateUrl: './deny-request-copy.component.html'
+    selector: 'ds-deny-request-copy',
+    styleUrls: ['./deny-request-copy.component.scss'],
+    templateUrl: './deny-request-copy.component.html',
+    standalone: true,
+    imports: [VarDirective, NgIf, ThemedEmailRequestCopyComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule]
 })
 /**
  * Component for denying an item request

@@ -17,7 +17,7 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import { UntypedFormArray, UntypedFormGroup } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormArray, UntypedFormGroup } from '@angular/forms';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -55,8 +55,11 @@ import {
   DynamicNGBootstrapTextAreaComponent,
   DynamicNGBootstrapTimePickerComponent
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
-import { ReorderableRelationship } from './existing-metadata-list-element/existing-metadata-list-element.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  ExistingMetadataListElementComponent,
+  ReorderableRelationship
+} from './existing-metadata-list-element/existing-metadata-list-element.component';
 
 import { DYNAMIC_FORM_CONTROL_TYPE_ONEBOX } from './models/onebox/dynamic-onebox.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
@@ -84,7 +87,7 @@ import { combineLatest as observableCombineLatest, Observable, Subscription } fr
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import { SearchResult } from '../../../search/models/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
@@ -120,6 +123,10 @@ import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-cons
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { itemLinksToFollow } from '../../../utils/relation-query.utils';
+import { AsyncPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from "@angular/common";
+import {
+  ExistingRelationListElementComponent
+} from "./existing-relation-list-element/existing-relation-list-element.component";
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -191,7 +198,21 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
   selector: 'ds-dynamic-form-control-container',
   styleUrls: ['./ds-dynamic-form-control-container.component.scss'],
   templateUrl: './ds-dynamic-form-control-container.component.html',
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
+  imports: [
+    ExistingMetadataListElementComponent,
+    NgIf,
+    NgClass,
+    AsyncPipe,
+    TranslateModule,
+    ReactiveFormsModule,
+    NgForOf,
+    FormsModule,
+    NgbTooltipModule,
+    NgTemplateOutlet,
+    ExistingRelationListElementComponent
+  ],
+  standalone: true
 })
 export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;

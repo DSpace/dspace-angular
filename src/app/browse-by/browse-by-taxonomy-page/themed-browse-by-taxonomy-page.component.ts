@@ -4,9 +4,10 @@ import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { BrowseByTaxonomyPageComponent } from './browse-by-taxonomy-page.component';
 
 @Component({
-  selector: 'ds-themed-browse-by-taxonomy-page',
-  templateUrl: '../../shared/theme-support/themed.component.html',
-  styleUrls: []
+    selector: 'ds-themed-browse-by-taxonomy-page',
+    templateUrl: '../../shared/theme-support/themed.component.html',
+    styleUrls: [],
+    standalone: true
 })
 /**
  * Themed wrapper for BrowseByTaxonomyPageComponent

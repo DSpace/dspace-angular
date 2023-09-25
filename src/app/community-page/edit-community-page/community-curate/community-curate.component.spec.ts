@@ -34,14 +34,13 @@ describe('CommunityCurateComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [CommunityCurateComponent],
-      providers: [
-        {provide: ActivatedRoute, useValue: routeStub},
-        {provide: DSONameService, useValue: dsoNameService}
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    imports: [TranslateModule.forRoot(), CommunityCurateComponent],
+    providers: [
+        { provide: ActivatedRoute, useValue: routeStub },
+        { provide: DSONameService, useValue: dsoNameService }
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

@@ -115,20 +115,18 @@ const EXPORTS = [
 ];
 
 @NgModule({
-  imports: [
-    BrowserModule.withServerTransition({ appId: 'dspace-angular' }),
-    ...IMPORTS
-  ],
-  providers: [
-    ...PROVIDERS
-  ],
-  declarations: [
-    ...DECLARATIONS,
-  ],
-  exports: [
-    ...EXPORTS,
-    ...DECLARATIONS,
-  ]
+    imports: [
+        BrowserModule.withServerTransition({ appId: 'dspace-angular' }),
+        ...IMPORTS,
+        ...DECLARATIONS
+    ],
+    providers: [
+        ...PROVIDERS
+    ],
+    exports: [
+        ...EXPORTS,
+        ...DECLARATIONS,
+    ]
 })
 export class AppModule {
 

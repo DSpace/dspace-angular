@@ -17,10 +17,9 @@ describe('NameVariantModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [NameVariantModalComponent],
-      imports: [NgbModule, TranslateModule.forRoot()],
-      providers: [{ provide: NgbActiveModal, useValue: modal }]
-    })
+    imports: [NgbModule, TranslateModule.forRoot(), NameVariantModalComponent],
+    providers: [{ provide: NgbActiveModal, useValue: modal }]
+})
       .compileComponents();
   }));
 

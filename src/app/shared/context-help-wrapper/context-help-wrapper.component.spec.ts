@@ -11,7 +11,7 @@ import { PlacementDir } from './placement-dir.model';
 import { By } from '@angular/platform-browser';
 
 @Component({
-  template: `
+    template: `
     <ng-template #div>template</ng-template>
     <ds-context-help-wrapper
       #chwrapper
@@ -23,7 +23,9 @@ import { By } from '@angular/platform-browser';
       [dontParseLinks]="dontParseLinks"
     >
     </ds-context-help-wrapper>
-  `
+  `,
+    standalone: true,
+    imports: [NgbTooltipModule]
 })
 class TemplateComponent {
   @Input() content: string;
@@ -72,13 +74,12 @@ describe('ContextHelpWrapperComponent', () => {
     ]);
 
     TestBed.configureTestingModule({
-      imports: [ NgbTooltipModule ],
-      providers: [
+    imports: [NgbTooltipModule, TemplateComponent, ContextHelpWrapperComponent],
+    providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: ContextHelpService, useValue: contextHelpService },
-      ],
-      declarations: [ TemplateComponent, ContextHelpWrapperComponent ]
-    }).compileComponents();
+    ]
+}).compileComponents();
   }));
 
   beforeEach(() => {

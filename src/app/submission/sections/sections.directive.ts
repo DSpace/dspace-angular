@@ -15,8 +15,9 @@ import { SubmissionSectionError } from '../objects/submission-section-error.mode
  * Directive for handling generic section functionality
  */
 @Directive({
-  selector: '[dsSection]',
-  exportAs: 'sectionRef'
+    selector: '[dsSection]',
+    exportAs: 'sectionRef',
+    standalone: true
 })
 export class SectionsDirective implements OnDestroy, OnInit {
 

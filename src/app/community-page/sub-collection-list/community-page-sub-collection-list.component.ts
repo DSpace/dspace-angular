@@ -14,12 +14,28 @@ import { CollectionDataService } from '../../core/data/collection-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { switchMap } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
+import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
+import { ErrorComponent } from "../../shared/error/error.component";
+import { ThemedLoadingComponent } from "../../shared/loading/themed-loading.component";
+import { AsyncPipe, NgIf } from "@angular/common";
+import { TranslateModule } from "@ngx-translate/core";
+import { VarDirective } from "../../shared/utils/var.directive";
 
 @Component({
   selector: 'ds-community-page-sub-collection-list',
   styleUrls: ['./community-page-sub-collection-list.component.scss'],
   templateUrl: './community-page-sub-collection-list.component.html',
-  animations:[fadeIn]
+  animations: [fadeIn],
+  imports: [
+    ObjectCollectionComponent,
+    ErrorComponent,
+    ThemedLoadingComponent,
+    NgIf,
+    TranslateModule,
+    AsyncPipe,
+    VarDirective
+  ],
+  standalone: true
 })
 export class CommunityPageSubCollectionListComponent implements OnInit, OnDestroy {
   @Input() community: Community;

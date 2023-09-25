@@ -14,11 +14,20 @@ import { EPerson } from '../core/eperson/models/eperson.model';
 import { getAllCompletedRemoteData } from '../core/shared/operators';
 import { RemoteData } from '../core/data/remote-data';
 import { hasValue } from '../shared/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
+import { VarDirective } from '../shared/utils/var.directive';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-subscriptions-page',
-  templateUrl: './subscriptions-page.component.html',
-  styleUrls: ['./subscriptions-page.component.scss']
+    selector: 'ds-subscriptions-page',
+    templateUrl: './subscriptions-page.component.html',
+    styleUrls: ['./subscriptions-page.component.scss'],
+    standalone: true,
+    imports: [NgIf, ThemedLoadingComponent, VarDirective, PaginationComponent, NgFor, SubscriptionViewComponent, AlertComponent, AsyncPipe, TranslateModule]
 })
 /**
  * List and allow to manage all the active subscription for the current user

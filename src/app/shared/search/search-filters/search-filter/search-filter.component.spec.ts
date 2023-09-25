@@ -62,22 +62,19 @@ describe('SearchFilterComponent', () => {
     sequenceService = jasmine.createSpyObj('sequenceService', { next: 17 });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule],
-      declarations: [
-        SearchFilterComponent,
-        BrowserOnlyMockPipe,
-      ],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, SearchFilterComponent],
+    declarations: [BrowserOnlyMockPipe],
+    providers: [
         { provide: SearchService, useValue: searchServiceStub },
         {
-          provide: SearchFilterService,
-          useValue: mockFilterService
+            provide: SearchFilterService,
+            useValue: mockFilterService
         },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: SequenceService, useValue: sequenceService },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(SearchFilterComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(SearchFilterComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

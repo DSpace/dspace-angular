@@ -19,23 +19,23 @@ const components = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SearchModule,
-    SharedModule.withEntryComponents(),
-    CoreModule.forRoot(),
-    StatisticsModule.forRoot(),
-    JournalEntitiesModule.withEntryComponents(),
-    ResearchEntitiesModule.withEntryComponents()
-  ],
-  declarations: components,
-  providers: [
-    SidebarService,
-    SearchFilterService,
-    ConfigurationSearchPageGuard,
-    SearchConfigurationService
-  ],
-  exports: components
+    imports: [
+        CommonModule,
+        SearchModule,
+        SharedModule.withEntryComponents(),
+        CoreModule.forRoot(),
+        StatisticsModule.forRoot(),
+        JournalEntitiesModule.withEntryComponents(),
+        ResearchEntitiesModule.withEntryComponents(),
+        ...components
+    ],
+    providers: [
+        SidebarService,
+        SearchFilterService,
+        ConfigurationSearchPageGuard,
+        SearchConfigurationService
+    ],
+    exports: components
 })
 
 /**

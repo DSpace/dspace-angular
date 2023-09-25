@@ -14,13 +14,12 @@ describe('ConfirmationModalComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ConfirmationModalComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), ConfirmationModalComponent],
+    providers: [
         { provide: NgbActiveModal, useValue: modalStub }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
 
   }));
 

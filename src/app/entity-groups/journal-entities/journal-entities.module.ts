@@ -46,16 +46,14 @@ const ENTRY_COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    ItemSharedModule,
-    SharedModule,
-    ResultsBackButtonModule,
-    DsoPageModule
-  ],
-  declarations: [
-    ...ENTRY_COMPONENTS
-  ]
+    imports: [
+        CommonModule,
+        ItemSharedModule,
+        SharedModule,
+        ResultsBackButtonModule,
+        DsoPageModule,
+        ...ENTRY_COMPONENTS
+    ]
 })
 export class JournalEntitiesModule {
   /**

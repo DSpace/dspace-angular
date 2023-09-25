@@ -17,13 +17,12 @@ describe('EmailRequestCopyComponent', () => {
     location = jasmine.createSpyObj('location', ['back']);
 
     TestBed.configureTestingModule({
-      declarations: [EmailRequestCopyComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), EmailRequestCopyComponent, VarDirective],
+    providers: [
         { provide: Location, useValue: location },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

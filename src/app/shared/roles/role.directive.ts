@@ -17,7 +17,8 @@ import { RoleService } from '../../core/roles/role.service';
 import { RoleType } from '../../core/roles/role-types';
 
 @Directive({
-  selector: '[dsShowOnlyForRole],[dsShowExceptForRole]'
+    selector: '[dsShowOnlyForRole],[dsShowExceptForRole]',
+    standalone: true
 })
 /**
  * Structural Directive for showing or hiding a template based on current user role

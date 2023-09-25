@@ -11,7 +11,10 @@ import { SearchServiceStub } from '../testing/search-service.stub';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
 
-@Component({ template: '' })
+@Component({
+    template: '',
+    standalone: true
+})
 class DummyComponent {
 }
 
@@ -24,26 +27,24 @@ describe('ViewModeSwitchComponent', () => {
   let detailButton: HTMLElement;
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
         RouterTestingModule.withRoutes([
-          { path: 'search', component: DummyComponent, pathMatch: 'full' },
-        ])
-      ],
-      declarations: [
+            { path: 'search', component: DummyComponent, pathMatch: 'full' },
+        ]),
         ViewModeSwitchComponent,
-        DummyComponent,
-        BrowserOnlyMockPipe,
-      ],
-      providers: [
+        DummyComponent
+    ],
+    declarations: [BrowserOnlyMockPipe],
+    providers: [
         { provide: SearchService, useValue: searchService },
-      ],
-    }).overrideComponent(ViewModeSwitchComponent, {
+    ]
+}).overrideComponent(ViewModeSwitchComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

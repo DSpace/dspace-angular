@@ -141,15 +141,15 @@ describe('TopLevelCommunityList Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         SharedModule,
         RouterTestingModule.withRoutes([]),
         NgbModule,
-        NoopAnimationsModule
-      ],
-      declarations: [TopLevelCommunityListComponent],
-      providers: [
+        NoopAnimationsModule,
+        TopLevelCommunityListComponent
+    ],
+    providers: [
         { provide: APP_CONFIG, useValue: environment },
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
@@ -160,9 +160,9 @@ describe('TopLevelCommunityList Component', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

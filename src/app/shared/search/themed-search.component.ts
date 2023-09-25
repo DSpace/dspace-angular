@@ -14,9 +14,10 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
  * Themed wrapper for {@link SearchComponent}
  */
 @Component({
-  selector: 'ds-themed-search',
-  styleUrls: [],
-  templateUrl: '../theme-support/themed.component.html',
+    selector: 'ds-themed-search',
+    styleUrls: [],
+    templateUrl: '../theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
   protected inAndOutputNames: (keyof SearchComponent & keyof this)[] = ['configurationList', 'context', 'configuration', 'fixedFilterQuery', 'useCachedVersionIfAvailable', 'inPlaceSearch', 'linkType', 'paginationId', 'searchEnabled', 'sideBarWidth', 'searchFormPlaceholder', 'selectable', 'selectionConfig', 'showCsvExport', 'showSidebar', 'showThumbnails', 'showViewModes', 'useUniquePageId', 'viewModeList', 'showScopeSelector', 'resultFound', 'deselectObject', 'selectObject', 'trackStatistics', 'query'];

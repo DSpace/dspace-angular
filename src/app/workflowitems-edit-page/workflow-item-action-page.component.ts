@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Directive, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable, combineLatest } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
@@ -17,11 +17,12 @@ import { RequestService } from '../core/data/request.service';
 /**
  * Abstract component representing a page to perform an action on a workflow item
  */
-@Component({
+@Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'ds-workflowitem-action-page',
-  template: ''
+  standalone: true
 })
-export abstract class WorkflowItemActionPageComponent implements OnInit {
+export abstract class WorkflowItemActionPageDirective implements OnInit {
   public type;
   public wfi$: Observable<WorkflowItem>;
   public item$: Observable<Item>;

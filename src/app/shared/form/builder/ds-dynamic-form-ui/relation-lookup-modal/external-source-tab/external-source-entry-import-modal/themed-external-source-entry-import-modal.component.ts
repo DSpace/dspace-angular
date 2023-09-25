@@ -3,9 +3,10 @@ import { ThemedComponent } from '../../../../../../theme-support/themed.componen
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ds-themed-external-source-entry-import-modal',
-  styleUrls: [],
-  templateUrl: '../../../../../../../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-external-source-entry-import-modal',
+    styleUrls: [],
+    templateUrl: '../../../../../../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedExternalSourceEntryImportModalComponent extends ThemedComponent<ExternalSourceEntryImportModalComponent> {
   protected getComponentName(): string {

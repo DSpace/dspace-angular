@@ -73,15 +73,14 @@ const enviromentNoThumbs = {
 describe('JournalIssueSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [JournalIssueSearchResultListElementComponent, TruncatePipe],
-      providers: [
+    imports: [JournalIssueSearchResultListElementComponent, TruncatePipe],
+    providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(JournalIssueSearchResultListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(JournalIssueSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
@@ -161,15 +160,14 @@ describe('JournalIssueSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [JournalIssueSearchResultListElementComponent, TruncatePipe],
-      providers: [
-        {provide: TruncatableService, useValue: {}},
-        {provide: DSONameService, useClass: DSONameServiceMock},
+    imports: [JournalIssueSearchResultListElementComponent, TruncatePipe],
+    providers: [
+        { provide: TruncatableService, useValue: {} },
+        { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs }
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(JournalIssueSearchResultListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(JournalIssueSearchResultListElementComponent, {
       set: {changeDetection: ChangeDetectionStrategy.Default}
     }).compileComponents();
   }));

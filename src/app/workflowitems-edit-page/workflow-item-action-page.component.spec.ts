@@ -1,7 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { WorkflowItemActionPageComponent } from './workflow-item-action-page.component';
+import { WorkflowItemActionPageDirective } from './workflow-item-action-page.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { RouteService } from '../core/services/route.service';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -18,13 +18,16 @@ import { RouterStub } from '../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { RequestService } from '../core/data/request.service';
 import { RequestServiceStub } from '../shared/testing/request-service.stub';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { LocationStub } from '../shared/testing/location.stub';
+import {
+  ModifyItemOverviewComponent
+} from '../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 
 const type = 'testType';
 describe('WorkflowItemActionPageComponent', () => {
-  let component: WorkflowItemActionPageComponent;
-  let fixture: ComponentFixture<WorkflowItemActionPageComponent>;
+  let component: WorkflowItemActionPageDirective;
+  let fixture: ComponentFixture<WorkflowItemActionPageDirective>;
   let wfiService;
   let wfi;
   let itemRD$;
@@ -43,14 +46,13 @@ describe('WorkflowItemActionPageComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      })],
-      declarations: [TestComponent, VarDirective],
-      providers: [
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }), TestComponent, VarDirective],
+    providers: [
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub({}, { wfi: createSuccessfulRemoteDataObject(wfi) }) },
         { provide: Router, useClass: RouterStub },
         { provide: RouteService, useValue: {} },
@@ -58,9 +60,9 @@ describe('WorkflowItemActionPageComponent', () => {
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: WorkflowItemDataService, useValue: wfiService },
         { provide: RequestService, useClass: RequestServiceStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 
@@ -106,11 +108,12 @@ describe('WorkflowItemActionPageComponent', () => {
 });
 
 @Component({
-    selector: 'ds-workflow-item-test-action-page',
-    templateUrl: 'workflow-item-action-page.component.html'
-  }
-)
-class TestComponent extends WorkflowItemActionPageComponent {
+  selector: 'ds-workflow-item-test-action-page',
+  templateUrl: 'workflow-item-action-page.component.html',
+  imports: [VarDirective, TranslateModule, CommonModule, ModifyItemOverviewComponent],
+  standalone: true
+})
+class TestComponent extends WorkflowItemActionPageDirective {
   constructor(protected route: ActivatedRoute,
               protected workflowItemService: WorkflowItemDataService,
               protected router: Router,

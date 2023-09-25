@@ -20,15 +20,14 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
   const iconString = 'test';
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, TranslateModule.forRoot()],
-      declarations: [ExpandableAdminSidebarSectionComponent, TestComponent],
-      providers: [
+    imports: [NoopAnimationsModule, TranslateModule.forRoot(), ExpandableAdminSidebarSectionComponent, TestComponent],
+    providers: [
         { provide: 'sectionDataProvider', useValue: { icon: iconString, model: {} } },
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: Router, useValue: new RouterStub() },
-      ]
-    }).overrideComponent(ExpandableAdminSidebarSectionComponent, {
+    ]
+}).overrideComponent(ExpandableAdminSidebarSectionComponent, {
       set: {
         entryComponents: [TestComponent]
       }
@@ -71,8 +70,9 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true
 })
 class TestComponent {
 }

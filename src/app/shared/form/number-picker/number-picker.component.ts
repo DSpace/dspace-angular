@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, } from '@angular/core';
-import { ControlValueAccessor, UntypedFormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormBuilder, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { isEmpty } from '../../empty.util';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'ds-number-picker',
@@ -9,6 +10,11 @@ import { isEmpty } from '../../empty.util';
   providers: [
     {provide: NG_VALUE_ACCESSOR, useExisting: NumberPickerComponent, multi: true}
   ],
+  imports: [
+    NgClass,
+    FormsModule
+  ],
+  standalone: true
 })
 
 export class NumberPickerComponent implements OnInit, ControlValueAccessor {

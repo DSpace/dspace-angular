@@ -3,15 +3,18 @@ import { MenuSectionComponent } from '../../shared/menu/menu-section/menu-sectio
 import { MenuService } from '../../shared/menu/menu.service';
 import { rendersSectionForMenu } from '../../shared/menu/menu-section.decorator';
 import { MenuID } from '../../shared/menu/menu-id.model';
+import { NgComponentOutlet, AsyncPipe } from '@angular/common';
 
 /**
  * Represents a non-expandable section in the navbar
  */
 @Component({
-  /* eslint-disable @angular-eslint/component-selector */
-  selector: 'li[ds-navbar-section]',
-  templateUrl: './navbar-section.component.html',
-  styleUrls: ['./navbar-section.component.scss']
+    /* eslint-disable @angular-eslint/component-selector */
+    selector: 'li[ds-navbar-section]',
+    templateUrl: './navbar-section.component.html',
+    styleUrls: ['./navbar-section.component.scss'],
+    standalone: true,
+    imports: [NgComponentOutlet, AsyncPipe]
 })
 @rendersSectionForMenu(MenuID.PUBLIC, false)
 export class NavbarSectionComponent extends MenuSectionComponent implements OnInit {

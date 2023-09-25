@@ -17,15 +17,13 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: [
-    SharedModule,
-  ],
-  declarations: [
-    ...DECLARATIONS,
-  ],
-  exports: [
-    ...DECLARATIONS,
-  ],
+    imports: [
+        SharedModule,
+        ...DECLARATIONS
+    ],
+    exports: [
+        ...DECLARATIONS,
+    ]
 })
 export class ItemVersionsModule {
 

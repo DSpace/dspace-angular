@@ -12,9 +12,10 @@ import { SearchObjects } from '../../../../../search/models/search-objects.model
 import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
 
 @Component({
-  selector: 'ds-themed-dynamic-lookup-relation-search-tab',
-  styleUrls: [],
-  templateUrl: '../../../../../theme-support/themed.component.html',
+    selector: 'ds-themed-dynamic-lookup-relation-search-tab',
+    styleUrls: [],
+    templateUrl: '../../../../../theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedDynamicLookupRelationSearchTabComponent extends ThemedComponent<DsDynamicLookupRelationSearchTabComponent> {
   protected inAndOutputNames: (keyof DsDynamicLookupRelationSearchTabComponent & keyof this)[] = ['relationship', 'listId',

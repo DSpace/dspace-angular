@@ -6,18 +6,22 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { RequestService } from '../../../../core/data/request.service';
 import { ClaimedApprovedTaskSearchResult } from '../../../object-collection/shared/claimed-approved-task-search-result.model';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
 
 @rendersWorkflowTaskOption(WORKFLOW_TASK_OPTION_APPROVE)
 @Component({
-  selector: 'ds-claimed-task-actions-approve',
-  styleUrls: ['./claimed-task-actions-approve.component.scss'],
-  templateUrl: './claimed-task-actions-approve.component.html',
+    selector: 'ds-claimed-task-actions-approve',
+    styleUrls: ['./claimed-task-actions-approve.component.scss'],
+    templateUrl: './claimed-task-actions-approve.component.html',
+    standalone: true,
+    imports: [NgbTooltipModule, NgIf, AsyncPipe, TranslateModule]
 })
 /**
  * Component for displaying and processing the approve action on a workflow task item

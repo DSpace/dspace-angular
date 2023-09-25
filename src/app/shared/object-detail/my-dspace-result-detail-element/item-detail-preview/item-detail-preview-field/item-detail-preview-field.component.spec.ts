@@ -47,23 +47,21 @@ const mockItemWithAuthorAndDate: Item = Object.assign(new Item(), {
 describe('ItemDetailPreviewFieldComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NoopAnimationsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-      ],
-      declarations: [ItemDetailPreviewFieldComponent, TruncatePipe],
-      providers: [
+        ItemDetailPreviewFieldComponent, TruncatePipe
+    ],
+    providers: [
         { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } }
-
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ItemDetailPreviewFieldComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ItemDetailPreviewFieldComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

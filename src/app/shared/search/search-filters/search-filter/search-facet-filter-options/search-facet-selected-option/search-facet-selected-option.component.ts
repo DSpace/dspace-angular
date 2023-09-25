@@ -1,6 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
@@ -10,11 +10,14 @@ import { FacetValue } from '../../../../models/facet-value.model';
 import { currentPath } from '../../../../../utils/route.utils';
 import { getFacetValueForType } from '../../../../search.utils';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'ds-search-facet-selected-option',
-  styleUrls: ['./search-facet-selected-option.component.scss'],
-  templateUrl: './search-facet-selected-option.component.html',
+    selector: 'ds-search-facet-selected-option',
+    styleUrls: ['./search-facet-selected-option.component.scss'],
+    templateUrl: './search-facet-selected-option.component.html',
+    standalone: true,
+    imports: [RouterLink, TranslateModule]
 })
 
 /**

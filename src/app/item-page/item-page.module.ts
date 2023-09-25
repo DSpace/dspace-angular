@@ -106,29 +106,26 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule.withEntryComponents(),
-    ItemPageRoutingModule,
-    EditItemPageModule,
-    ItemVersionsModule,
-    ItemSharedModule,
-    StatisticsModule.forRoot(),
-    JournalEntitiesModule.withEntryComponents(),
-    ResearchEntitiesModule.withEntryComponents(),
-    NgxGalleryModule,
-    NgbAccordionModule,
-    ResultsBackButtonModule,
-    UploadModule,
-    DsoPageModule,
-  ],
-  declarations: [
-    ...DECLARATIONS,
-
-  ],
-  exports: [
-    ...DECLARATIONS,
-  ]
+    imports: [
+        CommonModule,
+        SharedModule.withEntryComponents(),
+        ItemPageRoutingModule,
+        EditItemPageModule,
+        ItemVersionsModule,
+        ItemSharedModule,
+        StatisticsModule.forRoot(),
+        JournalEntitiesModule.withEntryComponents(),
+        ResearchEntitiesModule.withEntryComponents(),
+        NgxGalleryModule,
+        NgbAccordionModule,
+        ResultsBackButtonModule,
+        UploadModule,
+        DsoPageModule,
+        ...DECLARATIONS
+    ],
+    exports: [
+        ...DECLARATIONS,
+    ]
 })
 export class ItemPageModule {
   /**

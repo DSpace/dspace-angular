@@ -10,11 +10,16 @@ import {
   ITEM_EDIT_REINSTATE_PATH,
   ITEM_EDIT_WITHDRAW_PATH
 } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'ds-item-admin-search-result-actions-element',
-  styleUrls: ['./item-admin-search-result-actions.component.scss'],
-  templateUrl: './item-admin-search-result-actions.component.html'
+    selector: 'ds-item-admin-search-result-actions-element',
+    styleUrls: ['./item-admin-search-result-actions.component.scss'],
+    templateUrl: './item-admin-search-result-actions.component.html',
+    standalone: true,
+    imports: [NgClass, RouterLink, NgIf, TranslateModule]
 })
 /**
  * The component for displaying the actions for a list element for an item search result on the admin search page

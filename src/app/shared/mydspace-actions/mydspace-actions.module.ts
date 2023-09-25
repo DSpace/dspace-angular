@@ -40,19 +40,17 @@ const DECLARATIONS = [
  * This module contains Item actions used in MyDSpace
  */
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-  ],
-  declarations: [
-    ...DECLARATIONS,
-  ],
-  providers: [
-    ...ENTRY_COMPONENTS,
-  ],
-  exports: [
-    ...DECLARATIONS,
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        ...DECLARATIONS
+    ],
+    providers: [
+        ...ENTRY_COMPONENTS,
+    ],
+    exports: [
+        ...DECLARATIONS,
+    ]
 })
 export class MyDSpaceActionsModule {
 

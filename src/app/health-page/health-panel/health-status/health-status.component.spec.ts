@@ -13,17 +13,17 @@ describe('HealthStatusComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NgbTooltipModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      declarations: [ HealthStatusComponent ]
-    })
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        HealthStatusComponent
+    ]
+})
     .compileComponents();
   });
 

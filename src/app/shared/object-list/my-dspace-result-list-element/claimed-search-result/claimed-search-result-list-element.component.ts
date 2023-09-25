@@ -21,11 +21,16 @@ import { Item } from '../../../../core/shared/item.model';
 import { mergeMap, tap } from 'rxjs/operators';
 import { isNotEmpty, hasValue } from '../../../empty.util';
 import { Context } from '../../../../core/shared/context.model';
+import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
+import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
+import { NgIf, NgClass, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-claimed-search-result-list-element',
-  styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
-  templateUrl: './claimed-search-result-list-element.component.html'
+    selector: 'ds-claimed-search-result-list-element',
+    styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
+    templateUrl: './claimed-search-result-list-element.component.html',
+    standalone: true,
+    imports: [NgIf, ThemedItemListPreviewComponent, NgClass, ClaimedTaskActionsComponent, AsyncPipe]
 })
 @listableObjectComponent(ClaimedTaskSearchResult, ViewMode.ListElement)
 export class ClaimedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> implements OnInit, OnDestroy {

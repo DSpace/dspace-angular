@@ -23,14 +23,14 @@ describe('ObjectNotFoundComponent', () => {
   describe('uuid request', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [
-          TranslateModule.forRoot()
-        ], providers: [
-          {provide: ActivatedRoute, useValue: activatedRouteStub}
-        ],
-        declarations: [ObjectNotFoundComponent],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).compileComponents();
+    imports: [
+        TranslateModule.forRoot(),
+        ObjectNotFoundComponent
+    ], providers: [
+        { provide: ActivatedRoute, useValue: activatedRouteStub }
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
     }));
 
     beforeEach(() => {
@@ -53,14 +53,14 @@ describe('ObjectNotFoundComponent', () => {
   describe( 'legacy handle request', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [
-          TranslateModule.forRoot()
-        ], providers: [
-          {provide: ActivatedRoute, useValue: activatedRouteStubHandle}
-        ],
-        declarations: [ObjectNotFoundComponent],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).compileComponents();
+    imports: [
+        TranslateModule.forRoot(),
+        ObjectNotFoundComponent
+    ], providers: [
+        { provide: ActivatedRoute, useValue: activatedRouteStubHandle }
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
     }));
 
     beforeEach(() => {

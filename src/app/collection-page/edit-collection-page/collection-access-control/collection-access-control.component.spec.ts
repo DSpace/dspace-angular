@@ -8,8 +8,8 @@ xdescribe('CollectionAccessControlComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CollectionAccessControlComponent ]
-    })
+    imports: [CollectionAccessControlComponent]
+})
     .compileComponents();
   });
 

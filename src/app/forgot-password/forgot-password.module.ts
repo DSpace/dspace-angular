@@ -10,20 +10,18 @@ import { ThemedForgotPasswordFormComponent } from './forgot-password-form/themed
 import { ThemedForgotEmailComponent } from './forgot-password-email/themed-forgot-email.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    ForgotPasswordRoutingModule,
-    RegisterEmailFormModule,
-    ProfilePageModule,
-  ],
-  declarations: [
-    ForgotEmailComponent,
-    ThemedForgotEmailComponent,
-    ForgotPasswordFormComponent,
-    ThemedForgotPasswordFormComponent,
-  ],
-  providers: []
+    imports: [
+        CommonModule,
+        SharedModule,
+        ForgotPasswordRoutingModule,
+        RegisterEmailFormModule,
+        ProfilePageModule,
+        ForgotEmailComponent,
+        ThemedForgotEmailComponent,
+        ForgotPasswordFormComponent,
+        ThemedForgotPasswordFormComponent
+    ],
+    providers: []
 })
 
 /**

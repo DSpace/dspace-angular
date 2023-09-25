@@ -29,17 +29,18 @@ describe('ScriptHelpComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         FormsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })],
-      declarations: [ ScriptHelpComponent ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        ScriptHelpComponent
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
     .compileComponents();
   }));
 

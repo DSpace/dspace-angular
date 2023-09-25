@@ -18,11 +18,17 @@ import { EntityTypeDataService } from '../../core/data/entity-type-data.service'
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { getFirstSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
-  selector: 'ds-entity-dropdown',
-  templateUrl: './entity-dropdown.component.html',
-  styleUrls: ['./entity-dropdown.component.scss']
+    selector: 'ds-entity-dropdown',
+    templateUrl: './entity-dropdown.component.html',
+    styleUrls: ['./entity-dropdown.component.scss'],
+    standalone: true,
+    imports: [InfiniteScrollModule, NgIf, NgFor, ThemedLoadingComponent, AsyncPipe, TranslateModule]
 })
 export class EntityDropdownComponent implements OnInit, OnDestroy {
   /**

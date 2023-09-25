@@ -6,9 +6,10 @@ import { ComcolPageHandleComponent } from './comcol-page-handle.component';
  * Themed wrapper for BreadcrumbsComponent
  */
 @Component({
-  selector: 'ds-themed-comcol-page-handle',
-  styleUrls: [],
-  templateUrl: '../../theme-support/themed.component.html',
+    selector: 'ds-themed-comcol-page-handle',
+    styleUrls: [],
+    templateUrl: '../../theme-support/themed.component.html',
+    standalone: true
 })
 
 

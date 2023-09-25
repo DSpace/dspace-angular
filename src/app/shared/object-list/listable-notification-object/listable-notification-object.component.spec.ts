@@ -11,13 +11,11 @@ describe('ListableNotificationObjectComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
-        ListableNotificationObjectComponent,
-      ],
-    }).compileComponents();
+        ListableNotificationObjectComponent
+    ]
+}).compileComponents();
   });
 
   beforeEach(() => {

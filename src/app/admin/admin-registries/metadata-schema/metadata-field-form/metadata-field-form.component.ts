@@ -9,14 +9,23 @@ import { UntypedFormGroup } from '@angular/forms';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { take } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { combineLatest } from 'rxjs';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { FormComponent } from '../../../../shared/form/form.component';
 
 @Component({
   selector: 'ds-metadata-field-form',
-  templateUrl: './metadata-field-form.component.html'
+  templateUrl: './metadata-field-form.component.html',
+  imports: [
+    NgIf,
+    FormComponent,
+    TranslateModule,
+    AsyncPipe
+  ],
+  standalone: true
 })
 /**
  * A form used for creating and editing metadata fields

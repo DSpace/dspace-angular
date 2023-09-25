@@ -4,10 +4,17 @@ import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ds-community-authorizations',
   templateUrl: './community-authorizations.component.html',
+  imports: [
+    ResourcePoliciesComponent,
+    AsyncPipe
+  ],
+  standalone: true
 })
 /**
  * Component that handles the community Authorizations

@@ -7,18 +7,32 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { Router, RouterLink } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { MetadataSchemaFormComponent } from './metadata-schema-form/metadata-schema-form.component';
+import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 @Component({
   selector: 'ds-metadata-registry',
   templateUrl: './metadata-registry.component.html',
-  styleUrls: ['./metadata-registry.component.scss']
+  styleUrls: ['./metadata-registry.component.scss'],
+  imports: [
+    MetadataSchemaFormComponent,
+    TranslateModule,
+    AsyncPipe,
+    PaginationComponent,
+    NgIf,
+    NgForOf,
+    NgClass,
+    RouterLink
+  ],
+  standalone: true
 })
 /**
  * A component used for managing all existing metadata schemas within the repository.

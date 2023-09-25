@@ -20,13 +20,57 @@ import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { getCommunityPageRoute } from './community-page-routing-paths';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
+import { ComcolPageContentComponent } from '../shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ErrorComponent } from '../shared/error/error.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  ThemedCommunityPageSubCommunityListComponent
+} from './sub-community-list/themed-community-page-sub-community-list.component';
+import {
+  ThemedCollectionPageSubCollectionListComponent
+} from './sub-collection-list/themed-community-page-sub-collection-list.component';
+import {
+  ThemedComcolPageBrowseByComponent
+} from '../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { DsoEditMenuComponent } from '../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import {
+  DsoPageSubscriptionButtonComponent
+} from '../shared/dso-page/dso-page-subscription-button/dso-page-subscription-button.component';
+import {
+  ThemedComcolPageHandleComponent
+} from '../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { ComcolPageLogoComponent } from '../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { ComcolPageHeaderComponent } from '../shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
+import { VarDirective } from '../shared/utils/var.directive';
 
 @Component({
   selector: 'ds-community-page',
   styleUrls: ['./community-page.component.scss'],
   templateUrl: './community-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeInOut]
+  animations: [fadeInOut],
+  imports: [
+    ComcolPageContentComponent,
+    ErrorComponent,
+    ThemedLoadingComponent,
+    NgIf,
+    TranslateModule,
+    ThemedCommunityPageSubCommunityListComponent,
+    ThemedCollectionPageSubCollectionListComponent,
+    ThemedComcolPageBrowseByComponent,
+    DsoEditMenuComponent,
+    DsoPageSubscriptionButtonComponent,
+    ThemedComcolPageHandleComponent,
+    ComcolPageLogoComponent,
+    ComcolPageHeaderComponent,
+    AsyncPipe,
+    ViewTrackerComponent,
+    VarDirective
+  ],
+  standalone: true
 })
 /**
  * This component represents a detail page for a single community

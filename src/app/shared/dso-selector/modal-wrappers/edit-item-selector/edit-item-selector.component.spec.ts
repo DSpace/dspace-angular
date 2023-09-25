@@ -24,28 +24,27 @@ describe('EditItemSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [EditItemSelectorComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), EditItemSelectorComponent],
+    providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
-          provide: ActivatedRoute,
-          useValue: {
-            root: {
-              snapshot: {
-                data: {
-                  dso: itemRD,
-                },
-              },
-            }
-          },
+            provide: ActivatedRoute,
+            useValue: {
+                root: {
+                    snapshot: {
+                        data: {
+                            dso: itemRD,
+                        },
+                    },
+                }
+            },
         },
         {
-          provide: Router, useValue: router
+            provide: Router, useValue: router
         }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
 
   }));
 

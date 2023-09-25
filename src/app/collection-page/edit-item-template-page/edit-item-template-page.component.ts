@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { first, map, switchMap } from 'rxjs/operators';
 import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
 import { getCollectionEditRoute } from '../collection-page-routing-paths';
@@ -10,10 +10,27 @@ import { Item } from '../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { AlertType } from '../../shared/alert/alert-type';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { AlertComponent } from '../../shared/alert/alert.component';
 
 @Component({
   selector: 'ds-edit-item-template-page',
   templateUrl: './edit-item-template-page.component.html',
+  imports: [
+    ThemedDsoEditMetadataComponent,
+    RouterLink,
+    AsyncPipe,
+    VarDirective,
+    NgIf,
+    TranslateModule,
+    ThemedLoadingComponent,
+    AlertComponent
+  ],
+  standalone: true
 })
 /**
  * Component for editing the item template of a collection

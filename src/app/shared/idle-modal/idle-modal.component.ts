@@ -6,10 +6,13 @@ import { hasValue } from '../empty.util';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { LogOutAction } from '../../core/auth/auth.actions';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'ds-idle-modal',
-  templateUrl: 'idle-modal.component.html',
+    selector: 'ds-idle-modal',
+    templateUrl: 'idle-modal.component.html',
+    standalone: true,
+    imports: [TranslateModule]
 })
 export class IdleModalComponent implements OnInit {
 

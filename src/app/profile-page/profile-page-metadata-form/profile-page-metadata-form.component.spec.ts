@@ -64,16 +64,15 @@ describe('ProfilePageMetadataFormComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ProfilePageMetadataFormComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ProfilePageMetadataFormComponent, VarDirective],
+    providers: [
         { provide: EPersonDataService, useValue: epersonService },
         { provide: TranslateService, useValue: translate },
         { provide: NotificationsService, useValue: notificationsService },
         FormBuilderService
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

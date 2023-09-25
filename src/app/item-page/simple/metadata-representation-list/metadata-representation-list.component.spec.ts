@@ -103,14 +103,13 @@ describe('MetadataRepresentationListComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [MetadataRepresentationListComponent, VarDirective],
-      providers: [
+    imports: [TranslateModule.forRoot(), MetadataRepresentationListComponent, VarDirective],
+    providers: [
         { provide: RelationshipDataService, useValue: relationshipService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(MetadataRepresentationListComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(MetadataRepresentationListComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

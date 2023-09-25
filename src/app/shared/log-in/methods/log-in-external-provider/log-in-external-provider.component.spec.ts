@@ -54,14 +54,12 @@ describe('LogInExternalProviderComponent', () => {
   beforeEach(waitForAsync(() => {
     // refine the test module by declaring the test component
     void TestBed.configureTestingModule({
-      imports: [
+    imports: [
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         LogInExternalProviderComponent
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: 'authMethodProvider', useValue: new AuthMethod(AuthMethodType.Orcid, 0, location) },
         { provide: 'isStandalonePage', useValue: true },
@@ -70,11 +68,11 @@ describe('LogInExternalProviderComponent', () => {
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: HardRedirectService, useValue: hardRedirectService },
         provideMockStore({ initialState }),
-      ],
-      schemas: [
+    ],
+    schemas: [
         CUSTOM_ELEMENTS_SCHEMA
-      ]
-    })
+    ]
+})
       .compileComponents();
 
   }));

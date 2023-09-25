@@ -134,25 +134,25 @@ describe('OrcidSyncSettingsComponent test suite', () => {
     });
 
     void TestBed.configureTestingModule({
-      imports: [
+    imports: [
         FormsModule,
         NgbAccordionModule,
         ReactiveFormsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-        RouterTestingModule.withRoutes([])
-      ],
-      declarations: [OrcidSyncSettingsComponent],
-      providers: [
+        RouterTestingModule.withRoutes([]),
+        OrcidSyncSettingsComponent
+    ],
+    providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: ResearcherProfileDataService, useValue: researcherProfileService }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(OrcidSyncSettingsComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(OrcidSyncSettingsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

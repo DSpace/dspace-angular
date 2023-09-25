@@ -25,14 +25,14 @@ describe('LinkMenuItemComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [LinkMenuItemComponent, RouterLinkDirectiveStub, QueryParamsDirectiveStub],
-      providers: [
+    imports: [TranslateModule.forRoot(), LinkMenuItemComponent],
+    declarations: [RouterLinkDirectiveStub, QueryParamsDirectiveStub],
+    providers: [
         { provide: 'itemModelProvider', useValue: { text: text, link: link, queryParams: queryParams } },
         { provide: Router, useValue: RouterStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

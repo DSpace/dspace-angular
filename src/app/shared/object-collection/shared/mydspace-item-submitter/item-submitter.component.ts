@@ -11,14 +11,18 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 /**
  * This component represents a badge with submitter information.
  */
 @Component({
-  selector: 'ds-item-submitter',
-  styleUrls: ['./item-submitter.component.scss'],
-  templateUrl: './item-submitter.component.html'
+    selector: 'ds-item-submitter',
+    styleUrls: ['./item-submitter.component.scss'],
+    templateUrl: './item-submitter.component.html',
+    standalone: true,
+    imports: [NgIf, AsyncPipe, TranslateModule]
 })
 export class ItemSubmitterComponent implements OnInit {
 

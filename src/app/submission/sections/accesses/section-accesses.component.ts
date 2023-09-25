@@ -58,6 +58,7 @@ import {
 import { dateToISOFormat } from '../../../shared/date.util';
 import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
 import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
+import { NgIf } from '@angular/common';
 
 /**
  * This component represents a section for managing item's access conditions.
@@ -65,7 +66,12 @@ import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynami
 @Component({
   selector: 'ds-section-accesses',
   templateUrl: './section-accesses.component.html',
-  styleUrls: ['./section-accesses.component.scss']
+  styleUrls: ['./section-accesses.component.scss'],
+  imports: [
+    FormComponent,
+    NgIf
+  ],
+  standalone: true
 })
 @renderSectionFor(SectionsType.AccessesCondition)
 export class SubmissionSectionAccessesComponent extends SectionModelComponent {

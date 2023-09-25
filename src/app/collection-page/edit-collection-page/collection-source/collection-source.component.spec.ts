@@ -119,9 +119,8 @@ describe('CollectionSourceComponent', () => {
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring', 'setStaleByHrefSubstring']);
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule],
-      declarations: [CollectionSourceComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule, CollectionSourceComponent],
+    providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: Location, useValue: location },
@@ -130,9 +129,9 @@ describe('CollectionSourceComponent', () => {
         { provide: Router, useValue: router },
         { provide: CollectionDataService, useValue: collectionService },
         { provide: RequestService, useValue: requestService }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

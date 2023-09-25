@@ -8,9 +8,10 @@ import { Bitstream } from '../../../core/shared/bitstream.model';
  * Themed wrapper for {@link MediaViewerVideoComponent}.
  */
 @Component({
-  selector: 'ds-themed-media-viewer-video',
-  styleUrls: [],
-  templateUrl: '../../../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-media-viewer-video',
+    styleUrls: [],
+    templateUrl: '../../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedMediaViewerVideoComponent extends ThemedComponent<MediaViewerVideoComponent> {
 

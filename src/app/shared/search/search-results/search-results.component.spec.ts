@@ -16,12 +16,10 @@ describe('SearchResultsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule],
-      declarations: [
-        SearchResultsComponent,
-        QueryParamsDirectiveStub],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    imports: [TranslateModule.forRoot(), NoopAnimationsModule, SearchResultsComponent],
+    declarations: [QueryParamsDirectiveStub],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

@@ -57,15 +57,13 @@ describe('SearchHierarchyFilterComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CommonModule,
         NgbModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
-        SearchHierarchyFilterComponent,
-      ],
-      providers: [
+        SearchHierarchyFilterComponent
+    ],
+    providers: [
         { provide: SearchService, useValue: searchService },
         { provide: SearchFilterService, useValue: searchFilterService },
         { provide: RemoteDataBuildService, useValue: {} },
@@ -75,10 +73,10 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: FILTER_CONFIG, useValue: Object.assign(new SearchFilterConfig(), { name: testSearchFilter }) },
-        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false)}
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) }
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   });
 
   function init() {

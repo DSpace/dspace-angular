@@ -14,16 +14,16 @@ describe('PublisherPolicyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-      ],
-      declarations: [PublisherPolicyComponent],
-    })
+        PublisherPolicyComponent
+    ]
+})
       .compileComponents();
   });
 

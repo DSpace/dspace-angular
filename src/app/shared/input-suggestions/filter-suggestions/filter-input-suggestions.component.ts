@@ -1,21 +1,27 @@
 import { Component, forwardRef, Input } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { InputSuggestionsComponent } from '../input-suggestions.component';
 import { InputSuggestion } from '../input-suggestions.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { DebounceDirective } from '../../utils/debounce.directive';
+import { NgIf, NgTemplateOutlet, NgClass, NgFor, AsyncPipe } from '@angular/common';
+import { ClickOutsideDirective } from '../../utils/click-outside.directive';
 
 @Component({
-  selector: 'ds-filter-input-suggestions',
-  styleUrls: ['./../input-suggestions.component.scss'],
-  templateUrl: './filter-input-suggestions.component.html',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      // Usage of forwardRef necessary https://github.com/angular/angular.io/issues/1151
-      // eslint-disable-next-line @angular-eslint/no-forward-ref
-      useExisting: forwardRef(() => FilterInputSuggestionsComponent),
-      multi: true
-    }
-  ]
+    selector: 'ds-filter-input-suggestions',
+    styleUrls: ['./../input-suggestions.component.scss'],
+    templateUrl: './filter-input-suggestions.component.html',
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            // Usage of forwardRef necessary https://github.com/angular/angular.io/issues/1151
+            // eslint-disable-next-line @angular-eslint/no-forward-ref
+            useExisting: forwardRef(() => FilterInputSuggestionsComponent),
+            multi: true
+        }
+    ],
+    standalone: true,
+    imports: [FormsModule, ClickOutsideDirective, NgIf, NgTemplateOutlet, DebounceDirective, NgClass, NgFor, AsyncPipe, TranslateModule]
 })
 
 /**

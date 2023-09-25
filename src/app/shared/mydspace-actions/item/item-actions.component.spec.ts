@@ -61,25 +61,25 @@ const requestServce = getMockRequestService();
 describe('ItemActionsComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      declarations: [ItemActionsComponent],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        ItemActionsComponent
+    ],
+    providers: [
         { provide: Injector, useValue: {} },
         { provide: Router, useValue: new RouterStub() },
         { provide: ItemDataService, useValue: mockDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ItemActionsComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ItemActionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

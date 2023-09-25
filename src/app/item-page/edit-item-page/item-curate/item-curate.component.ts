@@ -6,6 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { hasValue } from '../../../shared/empty.util';
 import { Item } from '../../../core/shared/item.model';
+import { CurationFormComponent } from '../../../curation-form/curation-form.component';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Component for managing a collection's curation tasks
@@ -13,6 +16,13 @@ import { Item } from '../../../core/shared/item.model';
 @Component({
   selector: 'ds-item-curate',
   templateUrl: './item-curate.component.html',
+  imports: [
+    CurationFormComponent,
+    NgIf,
+    TranslateModule,
+    AsyncPipe
+  ],
+  standalone: true
 })
 export class ItemCurateComponent implements OnInit {
   dsoRD$: Observable<RemoteData<Item>>;

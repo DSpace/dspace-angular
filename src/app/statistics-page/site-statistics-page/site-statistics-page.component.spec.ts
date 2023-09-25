@@ -62,16 +62,14 @@ describe('SiteStatisticsPageComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         CommonModule,
         SharedModule,
-      ],
-      declarations: [
         SiteStatisticsPageComponent,
-        StatisticsTableComponent,
-      ],
-      providers: [
+        StatisticsTableComponent
+    ],
+    providers: [
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: Router, useValue: router },
         { provide: UsageReportDataService, useValue: usageReportService },
@@ -79,8 +77,8 @@ describe('SiteStatisticsPageComponent', () => {
         { provide: DSONameService, useValue: nameService },
         { provide: SiteDataService, useValue: siteService },
         { provide: AuthService, useValue: authService },
-      ],
-    })
+    ]
+})
       .compileComponents();
   }));
 

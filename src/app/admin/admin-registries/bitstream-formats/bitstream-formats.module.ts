@@ -10,19 +10,17 @@ import { AddBitstreamFormatComponent } from './add-bitstream-format/add-bitstrea
 import { FormModule } from '../../../shared/form/form.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    RouterModule,
-    BitstreamFormatsRoutingModule,
-    FormModule
-  ],
-  declarations: [
-    BitstreamFormatsComponent,
-    EditBitstreamFormatComponent,
-    AddBitstreamFormatComponent,
-    FormatFormComponent
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        RouterModule,
+        BitstreamFormatsRoutingModule,
+        FormModule,
+        BitstreamFormatsComponent,
+        EditBitstreamFormatComponent,
+        AddBitstreamFormatComponent,
+        FormatFormComponent
+    ]
 })
 export class BitstreamFormatsModule {
 

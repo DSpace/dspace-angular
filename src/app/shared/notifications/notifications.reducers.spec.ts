@@ -24,15 +24,15 @@ describe('Notifications reducer', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      declarations: [NotificationComponent, NotificationsBoardComponent],
-      providers: [
+    providers: [
         NotificationsService,
         ChangeDetectorRef,
-      ],
-      imports: [
+    ],
+    imports: [
         StoreModule.forRoot({ notificationsReducer }, storeModuleConfig),
-      ]
-    });
+        NotificationComponent, NotificationsBoardComponent
+    ]
+});
 
     options = new NotificationOptions(
       0,

@@ -10,18 +10,16 @@ import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule.withEntryComponents(),
-    CoreModule.forRoot(),
-    ImportExternalRoutingModule,
-    SubmissionModule,
-    JournalEntitiesModule.withEntryComponents(),
-    ResearchEntitiesModule.withEntryComponents()
-  ],
-  declarations: [
-    ImportExternalPageComponent
-  ]
+    imports: [
+        CommonModule,
+        SharedModule.withEntryComponents(),
+        CoreModule.forRoot(),
+        ImportExternalRoutingModule,
+        SubmissionModule,
+        JournalEntitiesModule.withEntryComponents(),
+        ResearchEntitiesModule.withEntryComponents(),
+        ImportExternalPageComponent
+    ]
 })
 
 /**

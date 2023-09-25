@@ -42,15 +42,14 @@ describe('AddBitstreamFormatComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [AddBitstreamFormatComponent],
-      providers: [
+    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, AddBitstreamFormatComponent],
+    providers: [
         { provide: Router, useValue: router },
         { provide: NotificationsService, useValue: notificationService },
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
   };
 
   const initBeforeEach = () => {
@@ -82,15 +81,14 @@ describe('AddBitstreamFormatComponent', () => {
       });
 
       TestBed.configureTestingModule({
-        imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-        declarations: [AddBitstreamFormatComponent],
-        providers: [
-          { provide: Router, useValue: router },
-          { provide: NotificationsService, useValue: notificationService },
-          { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
-        ],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA]
-      }).compileComponents();
+    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, AddBitstreamFormatComponent],
+    providers: [
+        { provide: Router, useValue: router },
+        { provide: NotificationsService, useValue: notificationService },
+        { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
     }));
     beforeEach(initBeforeEach);
     it('should send the updated form to the service, show a notification and navigate to ', () => {

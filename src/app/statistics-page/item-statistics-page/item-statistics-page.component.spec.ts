@@ -62,24 +62,22 @@ describe('ItemStatisticsPageComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         CommonModule,
         SharedModule,
-      ],
-      declarations: [
         ItemStatisticsPageComponent,
-        StatisticsTableComponent,
-      ],
-      providers: [
+        StatisticsTableComponent
+    ],
+    providers: [
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: Router, useValue: router },
         { provide: UsageReportDataService, useValue: usageReportService },
         { provide: DSpaceObjectDataService, useValue: {} },
         { provide: DSONameService, useValue: nameService },
         { provide: AuthService, useValue: authService },
-      ],
-    })
+    ]
+})
       .compileComponents();
   }));
 

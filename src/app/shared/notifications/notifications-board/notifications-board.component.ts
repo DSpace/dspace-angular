@@ -18,13 +18,17 @@ import { notificationsStateSelector } from '../selectors';
 import { INotification } from '../models/notification.model';
 import { NotificationsState } from '../notifications.reducers';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
+import { NotificationComponent } from '../notification/notification.component';
+import { NgClass, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'ds-notifications-board',
-  encapsulation: ViewEncapsulation.None,
-  templateUrl: './notifications-board.component.html',
-  styleUrls: ['./notifications-board.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'ds-notifications-board',
+    encapsulation: ViewEncapsulation.None,
+    templateUrl: './notifications-board.component.html',
+    styleUrls: ['./notifications-board.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgClass, NgFor, NotificationComponent]
 })
 export class NotificationsBoardComponent implements OnInit, OnDestroy {
 

@@ -9,24 +9,22 @@ import { UiSwitchModule } from 'ngx-ui-switch';
 import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  imports: [
-    FormsModule,
-    SharedModule,
-    UiSwitchModule,
-    SystemWideAlertRoutingModule,
-    NgbTimepickerModule,
-    NgbDatepickerModule,
-  ],
-  exports: [
-    SystemWideAlertBannerComponent
-  ],
-  declarations: [
-    SystemWideAlertBannerComponent,
-    SystemWideAlertFormComponent
-  ],
-  providers: [
-    SystemWideAlertDataService
-  ]
+    imports: [
+        FormsModule,
+        SharedModule,
+        UiSwitchModule,
+        SystemWideAlertRoutingModule,
+        NgbTimepickerModule,
+        NgbDatepickerModule,
+        SystemWideAlertBannerComponent,
+        SystemWideAlertFormComponent
+    ],
+    exports: [
+        SystemWideAlertBannerComponent
+    ],
+    providers: [
+        SystemWideAlertDataService
+    ]
 })
 export class SystemWideAlertModule {
 

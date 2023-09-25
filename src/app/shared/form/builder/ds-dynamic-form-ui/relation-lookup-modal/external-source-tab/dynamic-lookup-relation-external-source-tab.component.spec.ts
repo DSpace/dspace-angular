@@ -103,20 +103,19 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicLookupRelationExternalSourceTabComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, BrowserAnimationsModule],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, BrowserAnimationsModule, DsDynamicLookupRelationExternalSourceTabComponent, VarDirective],
+    providers: [
         {
-          provide: SearchConfigurationService, useValue: {
-            paginatedSearchOptions: observableOf(pSearchOptions)
-          }
+            provide: SearchConfigurationService, useValue: {
+                paginatedSearchOptions: observableOf(pSearchOptions)
+            }
         },
         { provide: ExternalSourceDataService, useValue: externalSourceService },
         { provide: SelectableListService, useValue: selectableListService },
         { provide: PaginationService, useValue: new PaginationServiceStub() }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

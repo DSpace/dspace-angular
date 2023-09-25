@@ -9,10 +9,9 @@ describe('EndUserAgreementContentComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [EndUserAgreementContentComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    imports: [TranslateModule.forRoot(), EndUserAgreementContentComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

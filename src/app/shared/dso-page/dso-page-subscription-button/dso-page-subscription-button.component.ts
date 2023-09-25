@@ -1,17 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { SubscriptionModalComponent } from '../../subscriptions/subscription-modal/subscription-modal.component';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-dso-page-subscription-button',
-  templateUrl: './dso-page-subscription-button.component.html',
-  styleUrls: ['./dso-page-subscription-button.component.scss']
+    selector: 'ds-dso-page-subscription-button',
+    templateUrl: './dso-page-subscription-button.component.html',
+    styleUrls: ['./dso-page-subscription-button.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgbTooltipModule, AsyncPipe, TranslateModule]
 })
 /**
  * Display a button that opens the modal to manage subscriptions

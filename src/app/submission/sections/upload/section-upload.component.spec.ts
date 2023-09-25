@@ -163,16 +163,14 @@ describe('SubmissionSectionUploadComponent test suite', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserModule,
         CommonModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         SubmissionSectionUploadComponent,
         TestComponent
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: CollectionDataService, useValue: collectionDataService },
         { provide: GroupDataService, useValue: groupService },
         { provide: ResourcePolicyDataService, useValue: resourcePolicyService },
@@ -184,9 +182,9 @@ describe('SubmissionSectionUploadComponent test suite', () => {
         { provide: 'submissionIdProvider', useValue: submissionId },
         ChangeDetectorRef,
         SubmissionSectionUploadComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents().then();
   }));
 
   describe('', () => {
@@ -365,8 +363,11 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [BrowserModule,
+        CommonModule]
 })
 class TestComponent {
 

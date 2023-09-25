@@ -29,18 +29,17 @@ const mockLinkText = 'fake link text';
 describe('MetadataUriValuesComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      })],
-      providers: [
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }), MetadataUriValuesComponent],
+    providers: [
         { provide: APP_CONFIG, useValue: environment },
-      ],
-      declarations: [MetadataUriValuesComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(MetadataUriValuesComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(MetadataUriValuesComponent, {
       set: {changeDetection: ChangeDetectionStrategy.Default}
     }).compileComponents();
   }));

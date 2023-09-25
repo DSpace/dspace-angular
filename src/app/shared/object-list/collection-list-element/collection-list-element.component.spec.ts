@@ -57,14 +57,13 @@ const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection()
 describe('CollectionListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [CollectionListElementComponent],
-      providers: [
+    imports: [CollectionListElementComponent],
+    providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) }
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(CollectionListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(CollectionListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

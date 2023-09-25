@@ -82,19 +82,17 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         FormComponent,
         SubmissionSectionUploadFileEditComponent,
         TestComponent
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: FormService, useValue: getMockFormService() },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
@@ -106,9 +104,9 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         NgbModal,
         NgbActiveModal,
         FormComponent,
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents().then();
   }));
 
   describe('', () => {
@@ -316,8 +314,13 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [BrowserModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule]
 })
 class TestComponent {
 

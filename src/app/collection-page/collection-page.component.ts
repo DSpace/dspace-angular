@@ -31,6 +31,26 @@ import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { BROWSE_LINKS_TO_FOLLOW } from '../core/browse/browse.service';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../src/config/app-config.interface';
+import { ComcolPageContentComponent } from '../shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ErrorComponent } from '../shared/error/error.component';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
+import { VarDirective } from '../shared/utils/var.directive';
+import { ComcolPageHeaderComponent } from '../shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ComcolPageLogoComponent } from '../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import {
+  ThemedComcolPageHandleComponent
+} from '../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { DsoEditMenuComponent } from '../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import {
+  DsoPageSubscriptionButtonComponent
+} from '../shared/dso-page/dso-page-subscription-button/dso-page-subscription-button.component';
+import {
+  ThemedComcolPageBrowseByComponent
+} from '../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { ObjectCollectionComponent } from '../shared/object-collection/object-collection.component';
 
 @Component({
   selector: 'ds-collection-page',
@@ -40,7 +60,25 @@ import { APP_CONFIG, AppConfig } from '../../../src/config/app-config.interface'
   animations: [
     fadeIn,
     fadeInOut
-  ]
+  ],
+  imports: [
+    ComcolPageContentComponent,
+    ErrorComponent,
+    NgIf,
+    ThemedLoadingComponent,
+    TranslateModule,
+    ViewTrackerComponent,
+    VarDirective,
+    AsyncPipe,
+    ComcolPageHeaderComponent,
+    ComcolPageLogoComponent,
+    ThemedComcolPageHandleComponent,
+    DsoEditMenuComponent,
+    DsoPageSubscriptionButtonComponent,
+    ThemedComcolPageBrowseByComponent,
+    ObjectCollectionComponent
+  ],
+  standalone: true
 })
 export class CollectionPageComponent implements OnInit {
   collectionRD$: Observable<RemoteData<Collection>>;

@@ -9,7 +9,7 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BehaviorSubject, from as observableFrom, Observable, of as observableOf, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, mergeMap, reduce, startWith, switchMap, take } from 'rxjs/operators';
@@ -26,6 +26,10 @@ import {
 } from '../../core/shared/operators';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 /**
  * An interface to represent a collection entry
@@ -45,9 +49,11 @@ export interface CollectionListEntry {
 }
 
 @Component({
-  selector: 'ds-collection-dropdown',
-  templateUrl: './collection-dropdown.component.html',
-  styleUrls: ['./collection-dropdown.component.scss']
+    selector: 'ds-collection-dropdown',
+    templateUrl: './collection-dropdown.component.html',
+    styleUrls: ['./collection-dropdown.component.scss'],
+    standalone: true,
+    imports: [NgIf, FormsModule, ReactiveFormsModule, InfiniteScrollModule, NgFor, ThemedLoadingComponent, AsyncPipe, TranslateModule]
 })
 export class CollectionDropdownComponent implements OnInit, OnDestroy {
 

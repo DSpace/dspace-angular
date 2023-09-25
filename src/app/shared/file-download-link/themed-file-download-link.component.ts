@@ -5,9 +5,10 @@ import { Bitstream } from '../../core/shared/bitstream.model';
 import { Item } from '../../core/shared/item.model';
 
 @Component({
-  selector: 'ds-themed-file-download-link',
-  styleUrls: [],
-  templateUrl: '../theme-support/themed.component.html',
+    selector: 'ds-themed-file-download-link',
+    styleUrls: [],
+    templateUrl: '../theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedFileDownloadLinkComponent extends ThemedComponent<FileDownloadLinkComponent> {
 

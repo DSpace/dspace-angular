@@ -19,15 +19,13 @@ describe('ResultsBackButtonComponent', () => {
 
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [ResultsBackButtonComponent],
-        imports: [TranslateModule.forRoot(),
-          RouterTestingModule.withRoutes([])
-        ],
-        providers: [
-          { provide: TranslateService, useValue: translate }
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).compileComponents();
+    imports: [TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]), ResultsBackButtonComponent],
+    providers: [
+        { provide: TranslateService, useValue: translate }
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
     }));
 
     describe('from a metadata browse list', () => {

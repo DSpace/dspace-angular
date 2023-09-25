@@ -72,22 +72,22 @@ describe('ExistingMetadataListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      declarations: [ExistingMetadataListElementComponent],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        ExistingMetadataListElementComponent
+    ],
+    providers: [
         { provide: SelectableListService, useValue: selectionService },
         { provide: Store, useValue: store },
         { provide: SubmissionService, useValue: submissionServiceStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

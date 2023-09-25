@@ -31,15 +31,14 @@ describe('SupervisionOrderGroupSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [SupervisionOrderGroupSelectorComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), SupervisionOrderGroupSelectorComponent],
+    providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
         { provide: NotificationsService, useValue: {} },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
 
   }));
 

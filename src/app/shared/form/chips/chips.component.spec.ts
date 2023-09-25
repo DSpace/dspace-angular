@@ -27,22 +27,20 @@ describe('ChipsComponent test suite', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NgbModule,
         SortablejsModule.forRoot({ animation: 150 }),
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         ChipsComponent,
         TestComponent,
         AuthorityConfidenceStateDirective
-      ], // declare the test component
-      providers: [
+    ],
+    providers: [
         ChangeDetectorRef,
         ChipsComponent,
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    });
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+});
 
   }));
 
@@ -178,8 +176,10 @@ describe('ChipsComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [NgbModule]
 })
 class TestComponent {
 

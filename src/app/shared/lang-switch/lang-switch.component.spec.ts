@@ -67,18 +67,15 @@ describe('LangSwitchComponent', () => {
       };
 
       TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule, TranslateModule.forRoot(
-          {
+    imports: [HttpClientTestingModule, TranslateModule.forRoot({
             loader: { provide: TranslateLoader, useClass: CustomLoader }
-          }
-        )],
-        declarations: [LangSwitchComponent],
-        schemas: [NO_ERRORS_SCHEMA],
-        providers: [
-          TranslateService,
-          { provide: LocaleService, useValue: getMockLocaleService() },
-        ]
-      }).compileComponents()
+        }), LangSwitchComponent],
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: [
+        TranslateService,
+        { provide: LocaleService, useValue: getMockLocaleService() },
+    ]
+}).compileComponents()
         .then(() => {
           translate = TestBed.inject(TranslateService);
           translate.addLangs(mockConfig.languages.filter((langConfig: LangConfig) => langConfig.active === true).map((a) => a.code));
@@ -153,18 +150,15 @@ describe('LangSwitchComponent', () => {
       };
 
       TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule, TranslateModule.forRoot(
-          {
+    imports: [HttpClientTestingModule, TranslateModule.forRoot({
             loader: { provide: TranslateLoader, useClass: CustomLoader }
-          }
-        )],
-        declarations: [LangSwitchComponent],
-        schemas: [NO_ERRORS_SCHEMA],
-        providers: [
-          TranslateService,
-          { provide: LocaleService, useValue: getMockLocaleService() }
-        ]
-      }).compileComponents();
+        }), LangSwitchComponent],
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: [
+        TranslateService,
+        { provide: LocaleService, useValue: getMockLocaleService() }
+    ]
+}).compileComponents();
       translate = TestBed.inject(TranslateService);
       translate.addLangs(mockConfig.languages.filter((MyLangConfig) => MyLangConfig.active === true).map((a) => a.code));
       translate.setDefaultLang('en');

@@ -24,16 +24,14 @@ const ENTRY_COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [
-    SearchModule,
-    SharedModule.withEntryComponents(),
-    JournalEntitiesModule.withEntryComponents(),
-    ResearchEntitiesModule.withEntryComponents()
-  ],
-  declarations: [
-    AdminSearchPageComponent,
-    ...ENTRY_COMPONENTS
-  ]
+    imports: [
+        SearchModule,
+        SharedModule.withEntryComponents(),
+        JournalEntitiesModule.withEntryComponents(),
+        ResearchEntitiesModule.withEntryComponents(),
+        AdminSearchPageComponent,
+        ...ENTRY_COMPONENTS
+    ]
 })
 export class AdminSearchModule {
   /**

@@ -34,7 +34,7 @@
                                        [collectionPolicyType]="collectionPolicyType"
                                        [configMetadataForm]="(configMetadataForm$ | async)"
                                        [fileId]="fileIndexes[fileList.indexOf(fileEntry)]"
-                                       [fileIndex]="fileList.indexOf(fileEntry)"
+                                       [fileIndex]="$any(fileList.indexOf(fileEntry))"
                                        [fileName]="fileNames[fileList.indexOf(fileEntry)]"
                                        [sectionId]="sectionData.id"
                                        [submissionId]="submissionId"></ds-themed-submission-upload-section-file>

@@ -3,9 +3,10 @@ import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { HomeNewsComponent } from './home-news.component';
 
 @Component({
-  selector: 'ds-themed-home-news',
-  styleUrls: [],
-  templateUrl: '../../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-home-news',
+    styleUrls: [],
+    templateUrl: '../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 
 /**

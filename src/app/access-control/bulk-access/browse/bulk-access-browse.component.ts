@@ -14,6 +14,19 @@ import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.ut
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { hasValue } from '../../../shared/empty.util';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { NgbAccordionModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedSearchComponent } from '../../../shared/search/themed-search.component';
+import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
+import {
+  SelectableListItemControlComponent
+} from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 
 @Component({
   selector: 'ds-bulk-access-browse',
@@ -24,7 +37,22 @@ import { hasValue } from '../../../shared/empty.util';
       provide: SEARCH_CONFIG_SERVICE,
       useClass: SearchConfigurationService
     }
-  ]
+  ],
+  imports: [
+    PaginationComponent,
+    AsyncPipe,
+    NgbAccordionModule,
+    TranslateModule,
+    NgIf,
+    NgbNavModule,
+    ThemedSearchComponent,
+    BrowserOnlyPipe,
+    NgForOf,
+    NgxPaginationModule,
+    SelectableListItemControlComponent,
+    ListableObjectComponentLoaderComponent
+  ],
+  standalone: true
 })
 export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
 

@@ -12,16 +12,21 @@ import { hasValue } from '../empty.util';
 import { AuthService } from '../../core/auth/auth.service';
 import { CoreState } from '../../core/core-state.model';
 import { AuthMethodType } from '../../core/auth/models/auth.method-type';
+import { LogInContainerComponent } from './container/log-in-container.component';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 /**
  * /users/sign-in
  * @class LogInComponent
  */
 @Component({
-  selector: 'ds-log-in',
-  templateUrl: './log-in.component.html',
-  styleUrls: ['./log-in.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ds-log-in',
+    templateUrl: './log-in.component.html',
+    styleUrls: ['./log-in.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgIf, ThemedLoadingComponent, NgFor, LogInContainerComponent, AsyncPipe]
 })
 export class LogInComponent implements OnInit {
 

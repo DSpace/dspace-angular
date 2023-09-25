@@ -5,17 +5,20 @@ import { BrowseEntry } from '../../../core/shared/browse-entry.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Params } from '@angular/router';
+import { Params, RouterLink } from '@angular/router';
 import { BBM_PAGINATION_ID } from '../../../browse-by/browse-by-metadata-page/browse-by-metadata-page.component';
 import { RouteService } from 'src/app/core/services/route.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-browse-entry-list-element',
-  styleUrls: ['./browse-entry-list-element.component.scss'],
-  templateUrl: './browse-entry-list-element.component.html'
+    selector: 'ds-browse-entry-list-element',
+    styleUrls: ['./browse-entry-list-element.component.scss'],
+    templateUrl: './browse-entry-list-element.component.html',
+    standalone: true,
+    imports: [NgIf, RouterLink, AsyncPipe]
 })
 
 /**

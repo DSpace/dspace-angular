@@ -8,9 +8,10 @@ import { Context } from '../core/shared/context.model';
  * Themed wrapper for ConfigurationSearchPageComponent
  */
 @Component({
-  selector: 'ds-themed-configuration-search-page',
-  styleUrls: [],
-  templateUrl: '../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-configuration-search-page',
+    styleUrls: [],
+    templateUrl: '../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedConfigurationSearchPageComponent extends ThemedComponent<ConfigurationSearchPageComponent> {
   /**

@@ -39,10 +39,9 @@ const mockItemWithoutEntityType = Object.assign(new Item(), {
 describe('ItemTypeBadgeComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [TypeBadgeComponent, TruncatePipe],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(TypeBadgeComponent, {
+    imports: [TranslateModule.forRoot(), TypeBadgeComponent, TruncatePipe],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(TypeBadgeComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

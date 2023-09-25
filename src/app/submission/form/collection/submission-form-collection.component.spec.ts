@@ -127,17 +127,15 @@ describe('SubmissionFormCollectionComponent Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         SubmissionFormCollectionComponent,
         TestComponent
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: CollectionDataService, useValue: collectionDataService },
         { provide: SubmissionJsonPatchOperationsService, useClass: SubmissionJsonPatchOperationsServiceStub },
@@ -148,9 +146,9 @@ describe('SubmissionFormCollectionComponent Component', () => {
         { provide: SectionsService, useValue: sectionsService },
         ChangeDetectorRef,
         SubmissionFormCollectionComponent
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
   }));
 
   describe('', () => {
@@ -291,8 +289,12 @@ describe('SubmissionFormCollectionComponent Component', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [FormsModule,
+        ReactiveFormsModule,
+        NgbModule]
 })
 class TestComponent {
 

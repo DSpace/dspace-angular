@@ -46,23 +46,22 @@ describe('DsDynamicLookupRelationSelectionTabComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicLookupRelationSelectionTabComponent, VarDirective],
-      imports: [TranslateModule.forRoot()],
-      providers: [
+    imports: [TranslateModule.forRoot(), DsDynamicLookupRelationSelectionTabComponent, VarDirective],
+    providers: [
         {
-          provide: SearchConfigurationService, useValue: {
-            paginatedSearchOptions: observableOf(pSearchOptions)
-          },
+            provide: SearchConfigurationService, useValue: {
+                paginatedSearchOptions: observableOf(pSearchOptions)
+            },
         },
         {
-          provide: Router, useValue: router
+            provide: Router, useValue: router
         },
         {
-          provide: PaginationService, useValue: new PaginationServiceStub()
+            provide: PaginationService, useValue: new PaginationServiceStub()
         }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

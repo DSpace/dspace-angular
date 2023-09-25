@@ -67,15 +67,13 @@ describe('EpersonGroupListComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NoopAnimationsModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         EpersonGroupListComponent,
         TestComponent
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: EPersonDataService, useValue: mockEpersonService },
         { provide: GroupDataService, useValue: mockGroupService },
         { provide: RequestService, useValue: getMockRequestService() },
@@ -83,11 +81,11 @@ describe('EpersonGroupListComponent test suite', () => {
         EpersonGroupListComponent,
         ChangeDetectorRef,
         Injector
-      ],
-      schemas: [
+    ],
+    schemas: [
         NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
   }));
 
   describe('', () => {
@@ -270,8 +268,9 @@ describe('EpersonGroupListComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true
 })
 class TestComponent {
 

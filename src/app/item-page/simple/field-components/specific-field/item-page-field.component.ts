@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { getRemoteDataPayload } from '../../../../core/shared/operators';
+import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
+import { AsyncPipe } from '@angular/common';
 
 /**
  * This component can be used to represent metadata on a simple item page.
@@ -13,7 +15,12 @@ import { getRemoteDataPayload } from '../../../../core/shared/operators';
  */
 
 @Component({
-    templateUrl: './item-page-field.component.html'
+  templateUrl: './item-page-field.component.html',
+  imports: [
+    MetadataValuesComponent,
+    AsyncPipe
+  ],
+  standalone: true
 })
 export class ItemPageFieldComponent {
 

@@ -51,14 +51,12 @@ describe('AdvancedClaimedTaskActionSelectReviewerComponent', () => {
     searchService = new SearchServiceStub();
 
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
-        AdvancedClaimedTaskActionSelectReviewerComponent,
-        NgbTooltip,
-      ],
-      providers: [
+        AdvancedClaimedTaskActionSelectReviewerComponent
+    ],
+    declarations: [NgbTooltip],
+    providers: [
         { provide: ActivatedRoute, useValue: route },
         { provide: ClaimedTaskDataService, useValue: claimedTaskDataService },
         { provide: NotificationsService, useValue: notificationService },
@@ -66,9 +64,9 @@ describe('AdvancedClaimedTaskActionSelectReviewerComponent', () => {
         { provide: Router, useValue: router },
         { provide: SearchService, useValue: searchService },
         Location,
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   });
 
   beforeEach(() => {

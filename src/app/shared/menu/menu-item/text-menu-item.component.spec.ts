@@ -11,13 +11,12 @@ describe('TextMenuItemComponent', () => {
   const text = 'HELLO';
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [TextMenuItemComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), TextMenuItemComponent],
+    providers: [
         { provide: 'itemModelProvider', useValue: { text: text } },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

@@ -10,12 +10,12 @@ describe('LogoutPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot()
-      ],
-      declarations: [LogoutPageComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    imports: [
+        TranslateModule.forRoot(),
+        LogoutPageComponent
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

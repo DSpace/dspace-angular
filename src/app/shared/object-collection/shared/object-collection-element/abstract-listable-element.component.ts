@@ -7,8 +7,9 @@ import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 @Component({
-  selector: 'ds-abstract-object-element',
-  template: ``,
+    selector: 'ds-abstract-object-element',
+    template: ``,
+    standalone: true
 })
 export class AbstractListableElementComponent<T extends ListableObject> {
 

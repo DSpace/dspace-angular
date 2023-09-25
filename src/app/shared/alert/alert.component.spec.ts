@@ -18,22 +18,20 @@ describe('AlertComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserModule,
         CommonModule,
         NoopAnimationsModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         AlertComponent,
         TestComponent
-      ],
-      providers: [
+    ],
+    providers: [
         ChangeDetectorRef,
         AlertComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents().then();
   }));
 
   describe('', () => {
@@ -103,8 +101,11 @@ describe('AlertComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [BrowserModule,
+        CommonModule]
 })
 class TestComponent {
 

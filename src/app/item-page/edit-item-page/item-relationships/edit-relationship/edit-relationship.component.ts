@@ -13,12 +13,26 @@ import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'ds-edit-relationship',
   styleUrls: ['./edit-relationship.component.scss'],
   templateUrl: './edit-relationship.component.html',
+  imports: [
+    ListableObjectComponentLoaderComponent,
+    AsyncPipe,
+    NgIf,
+    TranslateModule,
+    VirtualMetadataComponent
+  ],
+  standalone: true
 })
 export class EditRelationshipComponent implements OnChanges {
   /**

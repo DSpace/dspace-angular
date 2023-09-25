@@ -13,12 +13,28 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { switchMap } from 'rxjs/operators';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { hasValue } from '../../shared/empty.util';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-community-page-sub-community-list',
   styleUrls: ['./community-page-sub-community-list.component.scss'],
   templateUrl: './community-page-sub-community-list.component.html',
-  animations: [fadeIn]
+  animations: [fadeIn],
+  imports: [
+    ErrorComponent,
+    ThemedLoadingComponent,
+    VarDirective,
+    NgIf,
+    ObjectCollectionComponent,
+    AsyncPipe,
+    TranslateModule
+  ],
+  standalone: true
 })
 /**
  * Component to render the sub-communities of a Community

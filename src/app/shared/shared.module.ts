@@ -494,27 +494,25 @@ const DIRECTIVES = [
 ];
 
 @NgModule({
-  imports: [
-    ...MODULES,
-    ...ROOT_MODULES
-  ],
-  declarations: [
-    ...PIPES,
-    ...COMPONENTS,
-    ...ENTRY_COMPONENTS,
-    ...DIRECTIVES,
-  ],
-  providers: [
-    ...PROVIDERS
-  ],
-  exports: [
-    ...MODULES,
-    ...PIPES,
-    ...COMPONENTS,
-    ...ENTRY_COMPONENTS,
-    ...DIRECTIVES,
-    TranslateModule,
-  ]
+    imports: [
+        ...MODULES,
+        ...ROOT_MODULES,
+        ...PIPES,
+        ...COMPONENTS,
+        ...ENTRY_COMPONENTS,
+        ...DIRECTIVES
+    ],
+    providers: [
+        ...PROVIDERS
+    ],
+    exports: [
+        ...MODULES,
+        ...PIPES,
+        ...COMPONENTS,
+        ...ENTRY_COMPONENTS,
+        ...DIRECTIVES,
+        TranslateModule,
+    ]
 })
 
 /**

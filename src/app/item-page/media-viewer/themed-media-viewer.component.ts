@@ -8,9 +8,10 @@ import { MediaViewerConfig } from '../../../config/media-viewer-config.interface
  * Themed wrapper for {@link MediaViewerComponent}.
  */
 @Component({
-  selector: 'ds-themed-media-viewer',
-  styleUrls: [],
-  templateUrl: '../../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-media-viewer',
+    styleUrls: [],
+    templateUrl: '../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedMediaViewerComponent extends ThemedComponent<MediaViewerComponent> {
 

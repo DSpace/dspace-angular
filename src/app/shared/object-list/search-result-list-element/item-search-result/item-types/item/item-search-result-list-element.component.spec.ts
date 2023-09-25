@@ -187,15 +187,14 @@ const enviromentNoThumbs = {
 describe('ItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ItemSearchResultListElementComponent, TruncatePipe],
-      providers: [
+    imports: [ItemSearchResultListElementComponent, TruncatePipe],
+    providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ItemSearchResultListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ItemSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
@@ -370,15 +369,14 @@ describe('ItemSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ItemSearchResultListElementComponent, TruncatePipe],
-      providers: [
-        {provide: TruncatableService, useValue: {}},
-        {provide: DSONameService, useClass: DSONameServiceMock},
+    imports: [ItemSearchResultListElementComponent, TruncatePipe],
+    providers: [
+        { provide: TruncatableService, useValue: {} },
+        { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs }
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ItemSearchResultListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ItemSearchResultListElementComponent, {
       set: {changeDetection: ChangeDetectionStrategy.Default}
     }).compileComponents();
   }));

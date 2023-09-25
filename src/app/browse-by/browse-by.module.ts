@@ -29,21 +29,19 @@ const ENTRY_COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [
-    SharedBrowseByModule,
-    CommonModule,
-    ComcolModule,
-    DsoPageModule,
-    FormModule,
-  ],
-  declarations: [
-    BrowseBySwitcherComponent,
-    ThemedBrowseBySwitcherComponent,
-    ...ENTRY_COMPONENTS
-  ],
-  exports: [
-    BrowseBySwitcherComponent
-  ]
+    imports: [
+        SharedBrowseByModule,
+        CommonModule,
+        ComcolModule,
+        DsoPageModule,
+        FormModule,
+        BrowseBySwitcherComponent,
+        ThemedBrowseBySwitcherComponent,
+        ...ENTRY_COMPONENTS
+    ],
+    exports: [
+        BrowseBySwitcherComponent
+    ]
 })
 export class BrowseByModule {
   /**

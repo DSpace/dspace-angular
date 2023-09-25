@@ -18,14 +18,20 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/oper
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { Context } from '../../../../core/shared/context.model';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
+import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
+import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { NgIf, NgClass, AsyncPipe } from '@angular/common';
 
 /**
  * This component renders workspaceitem object for the search result in the list view.
  */
 @Component({
-  selector: 'ds-workspace-item-search-result-list-element',
-  styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss', './workspace-item-search-result-list-element.component.scss'],
-  templateUrl: './workspace-item-search-result-list-element.component.html',
+    selector: 'ds-workspace-item-search-result-list-element',
+    styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss', './workspace-item-search-result-list-element.component.scss'],
+    templateUrl: './workspace-item-search-result-list-element.component.html',
+    standalone: true,
+    imports: [NgIf, ListableObjectComponentLoaderComponent, NgClass, WorkspaceitemActionsComponent, ThemedLoadingComponent, AsyncPipe]
 })
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.ListElement)

@@ -37,18 +37,18 @@ describe('ObjectDetailComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NoopAnimationsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      declarations: [ObjectDetailComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ObjectDetailComponent, {
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        ObjectDetailComponent
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ObjectDetailComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

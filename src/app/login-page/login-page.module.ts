@@ -6,15 +6,13 @@ import { LoginPageRoutingModule } from './login-page-routing.module';
 import { ThemedLoginPageComponent } from './themed-login-page.component';
 
 @NgModule({
-  imports: [
-    LoginPageRoutingModule,
-    CommonModule,
-    SharedModule,
-  ],
-  declarations: [
-    LoginPageComponent,
-    ThemedLoginPageComponent
-  ]
+    imports: [
+        LoginPageRoutingModule,
+        CommonModule,
+        SharedModule,
+        LoginPageComponent,
+        ThemedLoginPageComponent
+    ]
 })
 export class LoginPageModule {
 

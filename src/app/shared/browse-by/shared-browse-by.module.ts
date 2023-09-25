@@ -7,19 +7,17 @@ import { BrowseByRoutingModule } from '../../browse-by/browse-by-routing.module'
 import { AccessControlRoutingModule } from '../../access-control/access-control-routing.module';
 
 @NgModule({
-  declarations: [
-    BrowseByComponent,
-],
-  imports: [
-    ResultsBackButtonModule,
-    BrowseByRoutingModule,
-    AccessControlRoutingModule,
-    CommonModule,
-    SharedModule,
-  ],
-  exports: [
-    BrowseByComponent,
-    SharedModule,
-  ]
+    imports: [
+        ResultsBackButtonModule,
+        BrowseByRoutingModule,
+        AccessControlRoutingModule,
+        CommonModule,
+        SharedModule,
+        BrowseByComponent
+    ],
+    exports: [
+        BrowseByComponent,
+        SharedModule,
+    ]
 })
 export class SharedBrowseByModule { }

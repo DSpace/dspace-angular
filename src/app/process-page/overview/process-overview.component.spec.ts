@@ -111,17 +111,16 @@ describe('ProcessOverviewComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ProcessOverviewComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ProcessOverviewComponent, VarDirective],
+    providers: [
         { provide: ProcessDataService, useValue: processService },
         { provide: EPersonDataService, useValue: ePersonService },
         { provide: PaginationService, useValue: paginationService },
         { provide: ProcessBulkDeleteService, useValue: processBulkDeleteService },
         { provide: NgbModal, useValue: modalService },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

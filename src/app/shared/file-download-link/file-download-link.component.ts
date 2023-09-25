@@ -7,11 +7,15 @@ import { hasValue, isNotEmpty } from '../empty.util';
 import { map } from 'rxjs/operators';
 import { of as observableOf, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Item } from '../../core/shared/item.model';
+import { NgClass, NgIf, NgTemplateOutlet, AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'ds-file-download-link',
-  templateUrl: './file-download-link.component.html',
-  styleUrls: ['./file-download-link.component.scss']
+    selector: 'ds-file-download-link',
+    templateUrl: './file-download-link.component.html',
+    styleUrls: ['./file-download-link.component.scss'],
+    standalone: true,
+    imports: [RouterLink, NgClass, NgIf, NgTemplateOutlet, AsyncPipe]
 })
 /**
  * Component displaying a download link

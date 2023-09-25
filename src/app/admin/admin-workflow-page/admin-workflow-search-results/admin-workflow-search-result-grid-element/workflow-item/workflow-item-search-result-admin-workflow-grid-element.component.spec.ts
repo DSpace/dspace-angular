@@ -55,24 +55,24 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
     init();
     TestBed.configureTestingModule(
       {
-        declarations: [WorkflowItemSearchResultAdminWorkflowGridElementComponent, ItemGridElementComponent, ListableObjectDirective],
-        imports: [
-          NoopAnimationsModule,
-          TranslateModule.forRoot(),
-          RouterTestingModule.withRoutes([]),
-        ],
-        providers: [
-          { provide: LinkService, useValue: linkService },
-          { provide: ThemeService, useValue: themeService },
-          {
+    imports: [
+        NoopAnimationsModule,
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        WorkflowItemSearchResultAdminWorkflowGridElementComponent, ItemGridElementComponent, ListableObjectDirective
+    ],
+    providers: [
+        { provide: LinkService, useValue: linkService },
+        { provide: ThemeService, useValue: themeService },
+        {
             provide: TruncatableService, useValue: {
-              isCollapsed: () => observableOf(true),
+                isCollapsed: () => observableOf(true),
             }
-          },
-          { provide: BitstreamDataService, useValue: {} },
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      })
+        },
+        { provide: BitstreamDataService, useValue: {} },
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .overrideComponent(WorkflowItemSearchResultAdminWorkflowGridElementComponent, {
         set: {
           entryComponents: [ItemGridElementComponent]

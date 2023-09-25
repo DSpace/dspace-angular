@@ -11,24 +11,22 @@ import { GrantRequestCopyComponent } from './grant-request-copy/grant-request-co
 import { ThemedGrantRequestCopyComponent } from './grant-request-copy/themed-grant-request-copy.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    RequestCopyRoutingModule
-  ],
-  declarations: [
-    GrantDenyRequestCopyComponent,
-    DenyRequestCopyComponent,
-    ThemedDenyRequestCopyComponent,
-    EmailRequestCopyComponent,
-    ThemedEmailRequestCopyComponent,
-    GrantRequestCopyComponent,
-    ThemedGrantRequestCopyComponent,
-  ],
-  exports: [
-    ThemedEmailRequestCopyComponent,
-  ],
-  providers: []
+    imports: [
+        CommonModule,
+        SharedModule,
+        RequestCopyRoutingModule,
+        GrantDenyRequestCopyComponent,
+        DenyRequestCopyComponent,
+        ThemedDenyRequestCopyComponent,
+        EmailRequestCopyComponent,
+        ThemedEmailRequestCopyComponent,
+        GrantRequestCopyComponent,
+        ThemedGrantRequestCopyComponent
+    ],
+    exports: [
+        ThemedEmailRequestCopyComponent,
+    ],
+    providers: []
 })
 
 /**

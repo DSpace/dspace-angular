@@ -16,17 +16,17 @@ describe('ContentAccordionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-        NgbCollapseModule
-      ],
-      declarations: [ContentAccordionComponent]
-    })
+        NgbCollapseModule,
+        ContentAccordionComponent
+    ]
+})
       .compileComponents();
   });
 

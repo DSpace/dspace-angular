@@ -12,12 +12,11 @@ describe('VocabularyTreeviewModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ TranslateModule.forRoot() ],
-      declarations: [ VocabularyTreeviewModalComponent ],
-      providers: [
+    imports: [TranslateModule.forRoot(), VocabularyTreeviewModalComponent],
+    providers: [
         { provide: NgbActiveModal, useValue: modalStub },
-      ],
-    })
+    ]
+})
     .compileComponents();
   });
 

@@ -12,10 +12,9 @@ describe('RegisterEmailComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, TranslateModule.forRoot(), ReactiveFormsModule],
-      declarations: [RegisterEmailComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    imports: [CommonModule, TranslateModule.forRoot(), ReactiveFormsModule, RegisterEmailComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(RegisterEmailComponent);

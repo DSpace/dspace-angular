@@ -22,12 +22,12 @@ describe('GoogleRecaptchaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GoogleRecaptchaComponent ],
-      providers: [
-      { provide: ConfigurationDataService, useValue: configurationDataService },
-      { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
+    imports: [GoogleRecaptchaComponent],
+    providers: [
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
     ]
-    })
+})
     .compileComponents();
   });
 

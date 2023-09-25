@@ -21,13 +21,13 @@ describe('ObjectCollectionComponent', () => {
   };
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ObjectCollectionComponent],
-      providers: [
+    imports: [ObjectCollectionComponent],
+    providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useClass: RouterStub }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();  // compile template and css
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();  // compile template and css
   }));
 
   beforeEach(() => {

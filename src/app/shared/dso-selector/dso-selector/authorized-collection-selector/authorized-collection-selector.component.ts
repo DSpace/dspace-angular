@@ -13,15 +13,23 @@ import { followLink } from '../../../utils/follow-link-config.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { hasValue } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { FindListOptions } from '../../../../core/data/find-list-options.model';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
+import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { HoverClassDirective } from '../../../hover-class.directive';
+import { NgIf, NgFor, NgClass, AsyncPipe } from '@angular/common';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'ds-authorized-collection-selector',
-  styleUrls: ['../dso-selector.component.scss'],
-  templateUrl: '../dso-selector.component.html'
+    selector: 'ds-authorized-collection-selector',
+    styleUrls: ['../dso-selector.component.scss'],
+    templateUrl: '../dso-selector.component.html',
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, InfiniteScrollModule, NgIf, NgFor, HoverClassDirective, NgClass, ListableObjectComponentLoaderComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule]
 })
 /**
  * Component rendering a list of collections to select from

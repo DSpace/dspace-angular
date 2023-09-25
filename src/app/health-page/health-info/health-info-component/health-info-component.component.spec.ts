@@ -17,22 +17,20 @@ describe('HealthInfoComponentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CommonModule,
         NgbCollapseModule,
         NoopAnimationsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      declarations: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
         HealthInfoComponentComponent,
         ObjNgFor
-      ]
-    })
+    ]
+})
       .compileComponents();
   });
 

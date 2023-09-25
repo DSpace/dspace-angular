@@ -28,17 +28,17 @@ describe('BulkAccessBrowseComponent', () => {
   const selectableListService = jasmine.createSpyObj('SelectableListService', ['getSelectableList', 'deselectAll']);
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NgbAccordionModule,
         NgbNavModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [BulkAccessBrowseComponent],
-      providers: [ { provide: SelectableListService, useValue: selectableListService }, ],
-      schemas: [
+        TranslateModule.forRoot(),
+        BulkAccessBrowseComponent
+    ],
+    providers: [{ provide: SelectableListService, useValue: selectableListService },],
+    schemas: [
         NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
   }));
 
   beforeEach(() => {

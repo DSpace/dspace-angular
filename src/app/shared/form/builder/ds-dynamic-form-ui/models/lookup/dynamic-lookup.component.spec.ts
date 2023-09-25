@@ -140,30 +140,28 @@ describe('Dynamic Lookup component', () => {
   beforeEach(waitForAsync(() => {
     vocabularyServiceStub = new VocabularyServiceStub();
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         DynamicFormsCoreModule,
         DynamicFormsNGBootstrapUIModule,
         FormsModule,
         InfiniteScrollModule,
         ReactiveFormsModule,
         NgbModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         DsDynamicLookupComponent,
         TestComponent,
         AuthorityConfidenceStateDirective,
         ObjNgFor
-      ], // declare the test component
-      providers: [
+    ],
+    providers: [
         ChangeDetectorRef,
         DsDynamicLookupComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    });
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+});
   }));
 
   beforeEach(() => {
@@ -559,8 +557,15 @@ describe('Dynamic Lookup component', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [DynamicFormsCoreModule,
+        DynamicFormsNGBootstrapUIModule,
+        FormsModule,
+        InfiniteScrollModule,
+        ReactiveFormsModule,
+        NgbModule]
 })
 class TestComponent {
 

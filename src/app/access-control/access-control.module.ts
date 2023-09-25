@@ -28,36 +28,34 @@ export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
   };
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    RouterModule,
-    AccessControlRoutingModule,
-    FormModule,
-    NgbAccordionModule,
-    SearchModule,
-    AccessControlFormModule,
-  ],
-  exports: [
-    MembersListComponent,
-  ],
-  declarations: [
-    EPeopleRegistryComponent,
-    EPersonFormComponent,
-    GroupsRegistryComponent,
-    GroupFormComponent,
-    SubgroupsListComponent,
-    MembersListComponent,
-    BulkAccessComponent,
-    BulkAccessBrowseComponent,
-    BulkAccessSettingsComponent,
-  ],
-  providers: [
-    {
-      provide: DYNAMIC_ERROR_MESSAGES_MATCHER,
-      useValue: ValidateEmailErrorStateMatcher
-    },
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        RouterModule,
+        AccessControlRoutingModule,
+        FormModule,
+        NgbAccordionModule,
+        SearchModule,
+        AccessControlFormModule,
+        EPeopleRegistryComponent,
+        EPersonFormComponent,
+        GroupsRegistryComponent,
+        GroupFormComponent,
+        SubgroupsListComponent,
+        MembersListComponent,
+        BulkAccessComponent,
+        BulkAccessBrowseComponent,
+        BulkAccessSettingsComponent
+    ],
+    exports: [
+        MembersListComponent,
+    ],
+    providers: [
+        {
+            provide: DYNAMIC_ERROR_MESSAGES_MATCHER,
+            useValue: ValidateEmailErrorStateMatcher
+        },
+    ]
 })
 /**
  * This module handles all components related to the access control pages

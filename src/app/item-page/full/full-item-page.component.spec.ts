@@ -106,14 +106,13 @@ describe('FullItemPageComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }), RouterTestingModule.withRoutes([]), BrowserAnimationsModule],
-      declarations: [FullItemPageComponent, TruncatePipe, VarDirective],
-      providers: [
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }), RouterTestingModule.withRoutes([]), BrowserAnimationsModule, FullItemPageComponent, TruncatePipe, VarDirective],
+    providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: ItemDataService, useValue: {} },
         { provide: MetadataService, useValue: metadataServiceStub },
@@ -123,9 +122,9 @@ describe('FullItemPageComponent', () => {
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: PLATFORM_ID, useValue: 'server' }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(FullItemPageComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(FullItemPageComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

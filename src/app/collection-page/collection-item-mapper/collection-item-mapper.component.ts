@@ -20,7 +20,7 @@ import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { isNotEmpty } from '../../shared/empty.util';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
@@ -30,6 +30,10 @@ import { SearchService } from '../../core/shared/search/search.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { ThemedSearchFormComponent } from '../../shared/search-form/themed-search-form.component';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
 
 @Component({
   selector: 'ds-collection-item-mapper',
@@ -45,7 +49,16 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
       provide: SEARCH_CONFIG_SERVICE,
       useClass: SearchConfigurationService
     }
-  ]
+  ],
+  imports: [
+    ThemedSearchFormComponent,
+    NgbNavModule,
+    TranslateModule,
+    AsyncPipe,
+    ItemSelectComponent,
+    NgIf
+  ],
+  standalone: true
 })
 /**
  * Component used to map items to a collection

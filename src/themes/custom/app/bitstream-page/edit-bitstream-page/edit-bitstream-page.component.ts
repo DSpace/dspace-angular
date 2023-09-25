@@ -1,5 +1,16 @@
-import { EditBitstreamPageComponent as BaseComponent } from '../../../../../app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
+import {
+  EditBitstreamPageComponent as BaseComponent
+} from '../../../../../app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormComponent } from '../../../../../app/shared/form/form.component';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { VarDirective } from '../../../../../app/shared/utils/var.directive';
+import { ThemedThumbnailComponent } from '../../../../../app/thumbnail/themed-thumbnail.component';
+import { RouterLink } from '@angular/router';
+import { ErrorComponent } from '../../../../../app/shared/error/error.component';
+import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { FileSizePipe } from '../../../../../app/shared/utils/file-size-pipe';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -7,7 +18,20 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['../../../../../app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component.scss'],
   // templateUrl: './edit-bitstream-page.component.html',
   templateUrl: '../../../../../app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    FormComponent,
+    NgIf,
+    VarDirective,
+    ThemedThumbnailComponent,
+    AsyncPipe,
+    RouterLink,
+    ErrorComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    FileSizePipe
+  ],
 })
 export class EditBitstreamPageComponent extends BaseComponent {
 }

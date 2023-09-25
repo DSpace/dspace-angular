@@ -17,23 +17,21 @@ describe('GroupSearchBoxComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         FormsModule,
         ReactiveFormsModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         GroupSearchBoxComponent,
         TestComponent
-      ],
-      providers: [
+    ],
+    providers: [
         UntypedFormBuilder,
         GroupSearchBoxComponent
-      ],
-      schemas: [
+    ],
+    schemas: [
         NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
   }));
 
   describe('', () => {
@@ -106,8 +104,11 @@ describe('GroupSearchBoxComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [FormsModule,
+        ReactiveFormsModule]
 })
 class TestComponent {
 

@@ -161,29 +161,29 @@ describe('WorkspaceitemActionsComponent', () => {
       isAuthorized: observableOf(true)
     });
    await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NgbModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      declarations: [WorkspaceitemActionsComponent],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        WorkspaceitemActionsComponent
+    ],
+    providers: [
         Injector,
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
         { provide: WorkspaceitemDataService, useValue: mockDataService },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
-        { provide: AuthService, useValue:  authService },
-        { provide: AuthorizationDataService, useValue: authorizationService},
+        { provide: AuthService, useValue: authService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
         NgbModal
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(WorkspaceitemActionsComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(WorkspaceitemActionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

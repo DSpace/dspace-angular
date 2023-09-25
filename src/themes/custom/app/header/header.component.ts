@@ -1,5 +1,13 @@
 import { Component } from '@angular/core';
 import { HeaderComponent as BaseComponent } from '../../../../app/header/header.component';
+import { RouterLink } from '@angular/router';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { ThemedSearchNavbarComponent } from '../../../../app/search-navbar/themed-search-navbar.component';
+import { LangSwitchComponent } from '../../../../app/shared/lang-switch/lang-switch.component';
+import { ContextHelpToggleComponent } from '../../../../app/header/context-help-toggle/context-help-toggle.component';
+import { ThemedAuthNavMenuComponent } from '../../../../app/shared/auth-nav-menu/themed-auth-nav-menu.component';
+import { ImpersonateNavbarComponent } from '../../../../app/shared/impersonate-navbar/impersonate-navbar.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Represents the header with the logo and simple navigation
@@ -10,6 +18,8 @@ import { HeaderComponent as BaseComponent } from '../../../../app/header/header.
   styleUrls: ['../../../../app/header/header.component.scss'],
   // templateUrl: 'header.component.html',
   templateUrl: '../../../../app/header/header.component.html',
+  standalone: true,
+  imports: [RouterLink, NgbDropdownModule, ThemedSearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, TranslateModule]
 })
 export class HeaderComponent extends BaseComponent {
 }

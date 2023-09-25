@@ -186,21 +186,22 @@ describe('CommunityListComponent', () => {
       }
     };
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            },
         }),
         CdkTreeModule,
         RouterTestingModule,
-        RouterLinkWithHref],
-      declarations: [CommunityListComponent],
-      providers: [CommunityListComponent,
+        RouterLinkWithHref,
+        CommunityListComponent
+    ],
+    providers: [CommunityListComponent,
         { provide: CommunityListService, useValue: communityListServiceStub },],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
       .compileComponents();
   }));
 

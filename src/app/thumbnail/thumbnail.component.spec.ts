@@ -14,7 +14,10 @@ import { VarDirective } from '../shared/utils/var.directive';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 
 // eslint-disable-next-line @angular-eslint/pipe-prefix
-@Pipe({ name: 'translate' })
+@Pipe({
+    name: 'translate',
+    standalone: true
+})
 class MockTranslatePipe implements PipeTransform {
   transform(key: string): string {
     return 'TRANSLATED ' + key;
@@ -45,13 +48,13 @@ describe('ThumbnailComponent', () => {
     fileService.retrieveFileDownloadLink.and.callFake((url) => observableOf(`${url}?authentication-token=fake`));
 
     TestBed.configureTestingModule({
-      declarations: [ThumbnailComponent, SafeUrlPipe, MockTranslatePipe, VarDirective],
-      providers: [
+    imports: [ThumbnailComponent, SafeUrlPipe, MockTranslatePipe, VarDirective],
+    providers: [
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: FileService, useValue: fileService }
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
   }));
 
   beforeEach(() => {

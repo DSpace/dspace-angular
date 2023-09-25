@@ -42,18 +42,17 @@ describe('SearchLabelComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchLabelComponent, ObjectKeysPipe],
-      providers: [
+    imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchLabelComponent, ObjectKeysPipe],
+    providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: {} }
         // { provide: SearchConfigurationService, useValue: {getCurrentFrontendFilters : () =>  observableOf({})} }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(SearchLabelComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(SearchLabelComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

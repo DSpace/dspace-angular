@@ -28,14 +28,13 @@ describe('BrowseByTaxonomyPageComponent', () => {
     });
 
     await TestBed.configureTestingModule({
-      imports: [ TranslateModule.forRoot() ],
-      declarations: [ BrowseByTaxonomyPageComponent ],
-      providers: [
+    imports: [TranslateModule.forRoot(), BrowseByTaxonomyPageComponent],
+    providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: ThemeService, useValue: themeService },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
     .compileComponents();
   });
 

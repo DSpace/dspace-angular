@@ -12,8 +12,10 @@ import { hasValue, isNotEmpty, hasNoValue } from '../empty.util';
 import { ThemeService } from '../theme-support/theme.service';
 
 @Component({
-  selector: 'ds-metadata-representation-loader',
-  templateUrl: './metadata-representation-loader.component.html'
+    selector: 'ds-metadata-representation-loader',
+    templateUrl: './metadata-representation-loader.component.html',
+    standalone: true,
+    imports: [MetadataRepresentationDirective]
 })
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type), its metadata representation and, optionally, its context

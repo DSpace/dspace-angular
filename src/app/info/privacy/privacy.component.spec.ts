@@ -9,10 +9,9 @@ describe('PrivacyComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [PrivacyComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    imports: [TranslateModule.forRoot(), PrivacyComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

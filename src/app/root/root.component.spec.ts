@@ -34,19 +34,19 @@ describe('RootComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CommonModule,
         NoopAnimationsModule,
         StoreModule.forRoot(authReducer, storeModuleConfig),
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-      ],
-      declarations: [RootComponent], // declare the test component
-      providers: [
+        RootComponent
+    ],
+    providers: [
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: MetadataService, useValue: new MetadataServiceMock() },
         { provide: Angulartics2DSpace, useValue: new AngularticsProviderMock() },
@@ -60,9 +60,9 @@ describe('RootComponent', () => {
         provideMockStore({ core: { auth: { loading: false } } } as any),
         RootComponent,
         RouteService
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
   });
 
   beforeEach(() => {

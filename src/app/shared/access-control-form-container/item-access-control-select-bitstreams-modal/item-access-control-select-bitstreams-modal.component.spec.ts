@@ -8,8 +8,8 @@ xdescribe('ItemAccessControlSelectBitstreamsModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ItemAccessControlSelectBitstreamsModalComponent ]
-    })
+    imports: [ItemAccessControlSelectBitstreamsModalComponent]
+})
     .compileComponents();
   });
 

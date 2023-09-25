@@ -19,23 +19,21 @@ describe('MediaViewerVideoComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
         BrowserAnimationsModule,
-      ],
-      declarations: [
         MediaViewerVideoComponent,
         VarDirective,
         FileSizePipe,
-        MetadataFieldWrapperComponent,
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+        MetadataFieldWrapperComponent
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   const mockBitstream: Bitstream = Object.assign(new Bitstream(), {

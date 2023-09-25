@@ -8,15 +8,20 @@ import { MenuSection } from 'src/app/shared/menu/menu-section.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { hasValue } from '../../../empty.util';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgFor, NgIf, NgComponentOutlet, AsyncPipe } from '@angular/common';
+import { NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 /**
  * Represents an expandable section in the dso edit menus
  */
 @Component({
-  /* tslint:disable:component-selector */
-  selector: 'ds-dso-edit-menu-expandable-section',
-  templateUrl: './dso-edit-menu-expandable-section.component.html',
-  styleUrls: ['./dso-edit-menu-expandable-section.component.scss'],
+    /* tslint:disable:component-selector */
+    selector: 'ds-dso-edit-menu-expandable-section',
+    templateUrl: './dso-edit-menu-expandable-section.component.html',
+    styleUrls: ['./dso-edit-menu-expandable-section.component.scss'],
+    standalone: true,
+    imports: [NgbDropdownModule, NgbTooltipModule, NgFor, NgIf, NgComponentOutlet, TranslateModule, AsyncPipe]
 })
 @rendersSectionForMenu(MenuID.DSO_EDIT, true)
 export class DsoEditMenuExpandableSectionComponent extends MenuSectionComponent {

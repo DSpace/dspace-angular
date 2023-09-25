@@ -89,14 +89,12 @@ describe('ResourcePolicyCreateComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+    imports: [
+        TranslateModule.forRoot(),
         ResourcePolicyCreateComponent,
         TestComponent
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: LinkService, useValue: linkService },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -105,11 +103,11 @@ describe('ResourcePolicyCreateComponent test suite', () => {
         ResourcePolicyCreateComponent,
         ChangeDetectorRef,
         Injector
-      ],
-      schemas: [
+    ],
+    schemas: [
         NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
   }));
 
   describe('', () => {
@@ -261,8 +259,9 @@ describe('ResourcePolicyCreateComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true
 })
 class TestComponent {
 

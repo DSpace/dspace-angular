@@ -1,17 +1,20 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
+import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 
 import { SearchEvent } from '../eperson-group-list.component';
 import { isNotNull } from '../../empty.util';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * A component used to show a search box for epersons.
  */
 @Component({
-  selector: 'ds-eperson-search-box',
-  templateUrl: './eperson-search-box.component.html',
+    selector: 'ds-eperson-search-box',
+    templateUrl: './eperson-search-box.component.html',
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class EpersonSearchBoxComponent {
 

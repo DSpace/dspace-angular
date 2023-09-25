@@ -34,14 +34,13 @@ const mockCommunityWithoutAbstract: Community = Object.assign(new Community(), {
 describe('CommunityListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [CommunityListElementComponent],
-      providers: [
+    imports: [CommunityListElementComponent],
+    providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) }
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(CommunityListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(CommunityListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

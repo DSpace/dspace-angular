@@ -37,8 +37,9 @@ import { createPendingRemoteDataObject } from '../../../../remote-data.utils';
 import { FacetValues } from '../../../models/facet-values.model';
 
 @Component({
-  selector: 'ds-search-facet-filter',
-  template: ``,
+    selector: 'ds-search-facet-filter',
+    template: ``,
+    standalone: true
 })
 
 /**

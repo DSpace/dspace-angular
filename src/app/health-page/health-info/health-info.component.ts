@@ -3,6 +3,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { HealthInfoResponse } from '../models/health-component.model';
+import { ObjNgFor } from '../../shared/utils/object-ngfor.pipe';
+import { HealthInfoComponentComponent } from './health-info-component/health-info-component.component';
+import { HealthStatusComponent } from '../health-panel/health-status/health-status.component';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf, NgFor, TitleCasePipe } from '@angular/common';
 
 /**
  * A component to render a "health-info component" object.
@@ -12,9 +17,11 @@ import { HealthInfoResponse } from '../models/health-component.model';
  * API.
  */
 @Component({
-  selector: 'ds-health-info',
-  templateUrl: './health-info.component.html',
-  styleUrls: ['./health-info.component.scss']
+    selector: 'ds-health-info',
+    templateUrl: './health-info.component.html',
+    styleUrls: ['./health-info.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgbAccordionModule, NgFor, HealthStatusComponent, HealthInfoComponentComponent, TitleCasePipe, ObjNgFor]
 })
 export class HealthInfoComponent implements OnInit  {
 

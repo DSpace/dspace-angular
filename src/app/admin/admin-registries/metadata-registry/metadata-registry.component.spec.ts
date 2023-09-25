@@ -69,16 +69,15 @@ describe('MetadataRegistryComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [MetadataRegistryComponent, PaginationComponent, EnumKeysPipe],
-      providers: [
+    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, MetadataRegistryComponent, PaginationComponent, EnumKeysPipe],
+    providers: [
         { provide: RegistryService, useValue: registryServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: PaginationService, useValue: paginationService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(MetadataRegistryComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(MetadataRegistryComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

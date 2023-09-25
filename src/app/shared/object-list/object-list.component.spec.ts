@@ -11,11 +11,10 @@ describe('ObjectListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [ObjectListComponent],
-      providers: [{ provide: SelectableListService, useValue: {} }],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ObjectListComponent, {
+    imports: [ObjectListComponent],
+    providers: [{ provide: SelectableListService, useValue: {} }],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ObjectListComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

@@ -38,13 +38,23 @@ import { WorkspaceItem } from '../..//core/submission/models/workspaceitem.model
 import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
+import { TranslateModule } from '@ngx-translate/core';
+import { SearchLabelsComponent } from './search-labels/search-labels.component';
+import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
+import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
+import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
+import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
+import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
+import { NgIf, NgTemplateOutlet, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-search',
-  styleUrls: ['./search.component.scss'],
-  templateUrl: './search.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [pushInOut],
+    selector: 'ds-search',
+    styleUrls: ['./search.component.scss'],
+    templateUrl: './search.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [pushInOut],
+    standalone: true,
+    imports: [NgIf, NgTemplateOutlet, PageWithSidebarComponent, ViewModeSwitchComponent, ThemedSearchResultsComponent, ThemedSearchSidebarComponent, ThemedSearchFormComponent, SearchLabelsComponent, AsyncPipe, TranslateModule]
 })
 
 /**

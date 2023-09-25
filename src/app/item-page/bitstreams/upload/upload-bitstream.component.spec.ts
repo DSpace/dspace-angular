@@ -287,9 +287,8 @@ describe('UploadBitstreamComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [UploadBitstreamComponent, VarDirective],
-      providers: [
+    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, UploadBitstreamComponent, VarDirective],
+    providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
         { provide: ItemDataService, useValue: mockItemDataService },
@@ -297,10 +296,10 @@ describe('UploadBitstreamComponent', () => {
         { provide: AuthService, useValue: authServiceStub },
         { provide: BundleDataService, useValue: bundleService },
         { provide: RequestService, useValue: requestService }
-      ], schemas: [
+    ], schemas: [
         NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
   }
 
   /**

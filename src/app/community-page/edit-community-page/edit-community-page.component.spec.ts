@@ -38,14 +38,13 @@ describe('EditCommunityPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
-      declarations: [EditCommunityPageComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule, EditCommunityPageComponent],
+    providers: [
         { provide: CommunityDataService, useValue: {} },
         { provide: ActivatedRoute, useValue: routeStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

@@ -62,27 +62,24 @@ describe('MediaViewerComponent', () => {
 
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
         BrowserAnimationsModule,
-      ],
-      declarations: [
         MediaViewerComponent,
         VarDirective,
         FileSizePipe,
-        MetadataFieldWrapperComponent,
-      ],
-      providers: [
+        MetadataFieldWrapperComponent
+    ],
+    providers: [
         { provide: BitstreamDataService, useValue: bitstreamDataService },
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

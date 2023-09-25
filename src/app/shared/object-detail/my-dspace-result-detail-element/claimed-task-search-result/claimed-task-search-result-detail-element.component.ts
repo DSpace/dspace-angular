@@ -18,14 +18,19 @@ import { isNotEmpty, hasValue } from '../../../empty.util';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { Context } from 'src/app/core/shared/context.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
+import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 /**
  * This component renders claimed task object for the search result in the detail view.
  */
 @Component({
-  selector: 'ds-claimed-task-search-result-detail-element',
-  styleUrls: ['../search-result-detail-element.component.scss'],
-  templateUrl: './claimed-task-search-result-detail-element.component.html'
+    selector: 'ds-claimed-task-search-result-detail-element',
+    styleUrls: ['../search-result-detail-element.component.scss'],
+    templateUrl: './claimed-task-search-result-detail-element.component.html',
+    standalone: true,
+    imports: [NgIf, ItemDetailPreviewComponent, ClaimedTaskActionsComponent, AsyncPipe]
 })
 
 @listableObjectComponent(ClaimedTaskSearchResult, ViewMode.DetailedListElement)

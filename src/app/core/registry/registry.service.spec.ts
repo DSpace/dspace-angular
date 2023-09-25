@@ -31,7 +31,11 @@ import { RemoteData } from '../data/remote-data';
 import { NoContent } from '../shared/NoContent.model';
 import { FindListOptions } from '../data/find-list-options.model';
 
-@Component({ template: '' })
+@Component({
+    template: '',
+    standalone: true,
+    imports: [CommonModule]
+})
 class DummyComponent {
 }
 
@@ -144,18 +148,15 @@ describe('RegistryService', () => {
   beforeEach(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot()],
-      declarations: [
-        DummyComponent
-      ],
-      providers: [
+    imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot(), DummyComponent],
+    providers: [
         { provide: Store, useClass: StoreMock },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: MetadataSchemaDataService, useValue: metadataSchemaService },
         { provide: MetadataFieldDataService, useValue: metadataFieldService },
         RegistryService
-      ]
-    });
+    ]
+});
     registryService = TestBed.inject(RegistryService);
     mockStore = TestBed.inject(Store);
   });

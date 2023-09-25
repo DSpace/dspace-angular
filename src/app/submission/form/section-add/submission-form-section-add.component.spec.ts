@@ -57,24 +57,22 @@ describe('SubmissionFormSectionAddComponent Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NgbModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         SubmissionFormSectionAddComponent,
         TestComponent
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: HostWindowService, useValue: window },
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionsService, useClass: SectionsServiceStub },
         { provide: Store, useValue: store },
         ChangeDetectorRef,
         SubmissionFormSectionAddComponent
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
   }));
 
   describe('', () => {
@@ -207,8 +205,10 @@ describe('SubmissionFormSectionAddComponent Component', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [NgbModule]
 })
 class TestComponent {
 

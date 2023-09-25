@@ -38,17 +38,16 @@ const linkService = jasmine.createSpyObj('linkService', {
 describe('CollectionGridElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot()
-      ],
-      declarations: [CollectionGridElementComponent],
-      providers: [
+    imports: [
+        TranslateModule.forRoot(),
+        CollectionGridElementComponent
+    ],
+    providers: [
         { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },
         { provide: LinkService, useValue: linkService }
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(CollectionGridElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(CollectionGridElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

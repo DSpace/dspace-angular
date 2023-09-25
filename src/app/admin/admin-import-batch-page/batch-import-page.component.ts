@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Location } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
+import { Location, NgIf } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BATCH_IMPORT_SCRIPT_NAME, ScriptDataService } from '../../core/data/processes/script-data.service';
 import { Router } from '@angular/router';
@@ -17,10 +17,23 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { FormsModule } from "@angular/forms";
+import { UiSwitchModule } from "ngx-ui-switch";
+import {
+  FileDropzoneNoUploaderComponent
+} from "../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component";
 
 @Component({
   selector: 'ds-batch-import-page',
-  templateUrl: './batch-import-page.component.html'
+  templateUrl: './batch-import-page.component.html',
+  imports: [
+    NgIf,
+    TranslateModule,
+    FormsModule,
+    UiSwitchModule,
+    FileDropzoneNoUploaderComponent
+  ],
+  standalone: true
 })
 export class BatchImportPageComponent {
   /**

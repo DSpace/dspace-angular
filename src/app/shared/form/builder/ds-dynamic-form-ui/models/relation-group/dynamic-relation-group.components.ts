@@ -1,4 +1,14 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 
 import { combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
@@ -30,6 +40,11 @@ import { environment } from '../../../../../../../environments/environment';
 import { PLACEHOLDER_PARENT_METADATA } from '../../ds-dynamic-form-constants';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
+import { ChipsComponent } from '../../../../chips/chips.component';
 
 /**
  * Component representing a group input field
@@ -38,7 +53,18 @@ import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabul
   selector: 'ds-dynamic-relation-group',
   styleUrls: ['./dynamic-relation-group.component.scss'],
   templateUrl: './dynamic-relation-group.component.html',
-  animations: [shrinkInOut]
+  animations: [shrinkInOut],
+  imports: [
+    NgIf,
+    AsyncPipe,
+    NgbTooltipModule,
+    TranslateModule,
+    NgClass,
+    ThemedLoadingComponent,
+    ChipsComponent,
+    forwardRef(() => FormComponent),
+  ],
+  standalone: true
 })
 export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
 

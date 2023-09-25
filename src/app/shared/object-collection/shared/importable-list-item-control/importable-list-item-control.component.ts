@@ -1,9 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ListableObject } from '../listable-object.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'ds-importable-list-item-control',
-  templateUrl: './importable-list-item-control.component.html'
+    selector: 'ds-importable-list-item-control',
+    templateUrl: './importable-list-item-control.component.html',
+    standalone: true,
+    imports: [TranslateModule]
 })
 /**
  * Component adding an import button to a list item

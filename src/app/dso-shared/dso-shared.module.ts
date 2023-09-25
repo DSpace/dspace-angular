@@ -9,27 +9,25 @@ import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata/dso-ed
 import { ThemedDsoEditMetadataComponent } from './dso-edit-metadata/themed-dso-edit-metadata.component';
 
 @NgModule({
-  imports: [
-    SharedModule,
-  ],
-  declarations: [
-    DsoEditMetadataComponent,
-    ThemedDsoEditMetadataComponent,
-    MetadataFieldSelectorComponent,
-    DsoEditMetadataFieldValuesComponent,
-    DsoEditMetadataValueComponent,
-    DsoEditMetadataHeadersComponent,
-    DsoEditMetadataValueHeadersComponent,
-  ],
-  exports: [
-    DsoEditMetadataComponent,
-    ThemedDsoEditMetadataComponent,
-    MetadataFieldSelectorComponent,
-    DsoEditMetadataFieldValuesComponent,
-    DsoEditMetadataValueComponent,
-    DsoEditMetadataHeadersComponent,
-    DsoEditMetadataValueHeadersComponent,
-  ],
+    imports: [
+        SharedModule,
+        DsoEditMetadataComponent,
+        ThemedDsoEditMetadataComponent,
+        MetadataFieldSelectorComponent,
+        DsoEditMetadataFieldValuesComponent,
+        DsoEditMetadataValueComponent,
+        DsoEditMetadataHeadersComponent,
+        DsoEditMetadataValueHeadersComponent
+    ],
+    exports: [
+        DsoEditMetadataComponent,
+        ThemedDsoEditMetadataComponent,
+        MetadataFieldSelectorComponent,
+        DsoEditMetadataFieldValuesComponent,
+        DsoEditMetadataValueComponent,
+        DsoEditMetadataHeadersComponent,
+        DsoEditMetadataValueHeadersComponent,
+    ]
 })
 export class DsoSharedModule {
 

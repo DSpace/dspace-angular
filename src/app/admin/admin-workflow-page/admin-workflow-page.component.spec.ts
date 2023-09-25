@@ -9,9 +9,9 @@ describe('AdminSearchPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [AdminWorkflowPageComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    imports: [AdminWorkflowPageComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Params, Router } from '@angular/router';
+import { Params, Router, RouterLink } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../../empty.util';
 import { SearchService } from '../../../../core/shared/search/search.service';
@@ -8,10 +8,14 @@ import { currentPath } from '../../../utils/route.utils';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { stripOperatorFromFilterValue } from '../../search.utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-search-label',
-  templateUrl: './search-label.component.html',
+    selector: 'ds-search-label',
+    templateUrl: './search-label.component.html',
+    standalone: true,
+    imports: [RouterLink, AsyncPipe, TranslateModule]
 })
 
 /**

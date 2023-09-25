@@ -13,19 +13,17 @@ import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-e
  * This module handles all components that are necessary for Bitstream related pages
  */
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    BitstreamPageRoutingModule,
-    FormModule,
-    ResourcePoliciesModule
-  ],
-  declarations: [
-    BitstreamAuthorizationsComponent,
-    EditBitstreamPageComponent,
-    ThemedEditBitstreamPageComponent,
-    BitstreamDownloadPageComponent,
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        BitstreamPageRoutingModule,
+        FormModule,
+        ResourcePoliciesModule,
+        BitstreamAuthorizationsComponent,
+        EditBitstreamPageComponent,
+        ThemedEditBitstreamPageComponent,
+        BitstreamDownloadPageComponent
+    ]
 })
 export class BitstreamPageModule {
 }

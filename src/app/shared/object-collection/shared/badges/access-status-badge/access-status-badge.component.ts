@@ -8,10 +8,14 @@ import { AccessStatusDataService } from 'src/app/core/data/access-status-data.se
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ITEM } from '../../../../../core/shared/item.resource-type';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-access-status-badge',
-  templateUrl: './access-status-badge.component.html'
+    selector: 'ds-access-status-badge',
+    templateUrl: './access-status-badge.component.html',
+    standalone: true,
+    imports: [NgIf, AsyncPipe, TranslateModule]
 })
 /**
  * Component rendering the access status of an item as a badge

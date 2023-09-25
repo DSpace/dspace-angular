@@ -9,6 +9,10 @@ import { getFirstCompletedRemoteData } from '../../../../../../core/shared/opera
 import { isNotEmpty } from '../../../../../../shared/empty.util';
 import { RemoteData } from '../../../../../../core/data/remote-data';
 import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { VarDirective } from '../../../../../../shared/utils/var.directive';
 
 export interface SupervisionOrderListEntry {
   supervisionOrder: SupervisionOrder;
@@ -16,9 +20,11 @@ export interface SupervisionOrderListEntry {
 }
 
 @Component({
-  selector: 'ds-supervision-order-status',
-  templateUrl: './supervision-order-status.component.html',
-  styleUrls: ['./supervision-order-status.component.scss']
+    selector: 'ds-supervision-order-status',
+    templateUrl: './supervision-order-status.component.html',
+    styleUrls: ['./supervision-order-status.component.scss'],
+    standalone: true,
+    imports: [VarDirective, NgIf, NgFor, NgbTooltipModule, AsyncPipe, TranslateModule]
 })
 export class SupervisionOrderStatusComponent implements OnChanges {
 

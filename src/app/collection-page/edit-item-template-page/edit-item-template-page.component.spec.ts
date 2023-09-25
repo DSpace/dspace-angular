@@ -28,14 +28,13 @@ describe('EditItemTemplatePageComponent', () => {
       findByCollectionID: createSuccessfulRemoteDataObject$({})
     });
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
-      declarations: [EditItemTemplatePageComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule, EditItemTemplatePageComponent],
+    providers: [
         { provide: ItemTemplateDataService, useValue: itemTemplateService },
         { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

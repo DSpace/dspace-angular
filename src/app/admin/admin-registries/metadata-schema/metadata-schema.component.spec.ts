@@ -131,18 +131,17 @@ describe('MetadataSchemaComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [MetadataSchemaComponent, PaginationComponent, EnumKeysPipe, VarDirective],
-      providers: [
+    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, MetadataSchemaComponent, PaginationComponent, EnumKeysPipe, VarDirective],
+    providers: [
         { provide: RegistryService, useValue: registryServiceStub },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: Router, useValue: new RouterStub() },
         { provide: PaginationService, useValue: paginationService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

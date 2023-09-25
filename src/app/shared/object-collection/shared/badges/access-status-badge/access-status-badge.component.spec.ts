@@ -57,13 +57,12 @@ describe('ItemAccessStatusBadgeComponent', () => {
 
   function initTestBed() {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [AccessStatusBadgeComponent, TruncatePipe],
-      schemas: [NO_ERRORS_SCHEMA],
-      providers: [
-        {provide: AccessStatusDataService, useValue: accessStatusDataService}
-      ]
-    }).compileComponents();
+    imports: [TranslateModule.forRoot(), AccessStatusBadgeComponent, TruncatePipe],
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: [
+        { provide: AccessStatusDataService, useValue: accessStatusDataService }
+    ]
+}).compileComponents();
   }
 
   function initFixtureAndComponent() {

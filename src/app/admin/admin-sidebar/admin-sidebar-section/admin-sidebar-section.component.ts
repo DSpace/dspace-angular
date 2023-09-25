@@ -6,17 +6,20 @@ import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.mo
 import { MenuSection } from '../../../shared/menu/menu-section.model';
 import { MenuID } from '../../../shared/menu/menu-id.model';
 import { isEmpty } from '../../../shared/empty.util';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgClass } from '@angular/common';
 
 /**
  * Represents a non-expandable section in the admin sidebar
  */
 @Component({
-  /* eslint-disable @angular-eslint/component-selector */
-  selector: 'li[ds-admin-sidebar-section]',
-  templateUrl: './admin-sidebar-section.component.html',
-  styleUrls: ['./admin-sidebar-section.component.scss'],
-
+    /* eslint-disable @angular-eslint/component-selector */
+    selector: 'li[ds-admin-sidebar-section]',
+    templateUrl: './admin-sidebar-section.component.html',
+    styleUrls: ['./admin-sidebar-section.component.scss'],
+    standalone: true,
+    imports: [NgClass, RouterLink, TranslateModule]
 })
 @rendersSectionForMenu(MenuID.ADMIN, false)
 export class AdminSidebarSectionComponent extends MenuSectionComponent implements OnInit {

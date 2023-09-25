@@ -12,7 +12,7 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -30,11 +30,25 @@ import { FieldChangeType } from '../../../core/data/object-updates/field-change-
 import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { EditRelationshipListComponent } from './edit-relationship-list/edit-relationship-list.component';
+import { VarDirective } from '../../../shared/utils/var.directive';
 
 @Component({
   selector: 'ds-item-relationships',
   styleUrls: ['./item-relationships.component.scss'],
   templateUrl: './item-relationships.component.html',
+  imports: [
+    ThemedLoadingComponent,
+    AsyncPipe,
+    TranslateModule,
+    NgIf,
+    EditRelationshipListComponent,
+    NgForOf,
+    VarDirective
+  ],
+  standalone: true
 })
 /**
  * Component for displaying an item's relationships edit page

@@ -54,12 +54,10 @@ describe('DsoEditMetadataFieldValuesComponent', () => {
     draggingMdField$ = new BehaviorSubject<string>(null);
 
     TestBed.configureTestingModule({
-      declarations: [DsoEditMetadataFieldValuesComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      providers: [
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), DsoEditMetadataFieldValuesComponent, VarDirective],
+    providers: [],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

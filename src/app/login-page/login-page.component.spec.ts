@@ -25,16 +25,16 @@ describe('LoginPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot()
-      ],
-      declarations: [LoginPageComponent],
-      providers: [
+    imports: [
+        TranslateModule.forRoot(),
+        LoginPageComponent
+    ],
+    providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Store, useValue: store }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

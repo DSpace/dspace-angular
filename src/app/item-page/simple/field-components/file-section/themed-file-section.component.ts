@@ -6,6 +6,7 @@ import {Item} from '../../../../core/shared/item.model';
 @Component({
     selector: 'ds-themed-item-page-file-section',
     templateUrl: '../../../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedFileSectionComponent extends ThemedComponent<FileSectionComponent> {
 

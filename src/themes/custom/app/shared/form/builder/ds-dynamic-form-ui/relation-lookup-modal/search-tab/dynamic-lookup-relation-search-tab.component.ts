@@ -1,7 +1,16 @@
-import { DsDynamicLookupRelationSearchTabComponent as BaseComponent } from '../../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
+import {
+  DsDynamicLookupRelationSearchTabComponent as BaseComponent
+} from '../../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
 import { Component } from '@angular/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../../../../app/my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../../../../../../../app/core/shared/search/search-configuration.service';
+import {
+  SearchConfigurationService
+} from '../../../../../../../../../app/core/shared/search/search-configuration.service';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { VarDirective } from '../../../../../../../../../app/shared/utils/var.directive';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { ThemedSearchComponent } from '../../../../../../../../../app/shared/search/themed-search.component';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-search-tab',
@@ -14,7 +23,16 @@ import { SearchConfigurationService } from '../../../../../../../../../app/core/
       provide: SEARCH_CONFIG_SERVICE,
       useClass: SearchConfigurationService
     }
-  ]
+  ],
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    VarDirective,
+    TranslateModule,
+    NgbDropdownModule,
+    NgIf,
+    ThemedSearchComponent
+  ],
 })
 export class DsDynamicLookupRelationSearchTabComponent extends BaseComponent {
 

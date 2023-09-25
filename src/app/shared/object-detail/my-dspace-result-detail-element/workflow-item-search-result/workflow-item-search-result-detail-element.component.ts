@@ -14,14 +14,18 @@ import { LinkService } from '../../../../core/cache/builders/link.service';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { Context } from 'src/app/core/shared/context.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
+import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 
 /**
  * This component renders workflowitem object for the search result in the detail view.
  */
 @Component({
-  selector: 'ds-workflow-item-search-result-detail-element',
-  styleUrls: ['../search-result-detail-element.component.scss'],
-  templateUrl: './workflow-item-search-result-detail-element.component.html',
+    selector: 'ds-workflow-item-search-result-detail-element',
+    styleUrls: ['../search-result-detail-element.component.scss'],
+    templateUrl: './workflow-item-search-result-detail-element.component.html',
+    standalone: true,
+    imports: [ItemDetailPreviewComponent, WorkflowitemActionsComponent]
 })
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.DetailedListElement)

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -14,10 +14,21 @@ import { Observable } from 'rxjs';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 import { IdentifierDataService } from '../../../core/data/identifier-data.service';
 import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 
 @Component({
   selector: 'ds-item-register-doi',
-  templateUrl: './item-register-doi-component.html'
+  templateUrl: './item-register-doi-component.html',
+  imports: [
+    ModifyItemOverviewComponent,
+    RouterLink,
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+    NgForOf
+  ],
+  standalone: true
 })
 /**
  * Component responsible for rendering the Item Register DOI page

@@ -23,15 +23,15 @@ describe('ProjectItemMetadataListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports:[
-        NgbModule
-      ],
-      declarations: [ProjectItemMetadataListElementComponent],
-      providers: [
+    imports: [
+        NgbModule,
+        ProjectItemMetadataListElementComponent
+    ],
+    providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ProjectItemMetadataListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ProjectItemMetadataListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

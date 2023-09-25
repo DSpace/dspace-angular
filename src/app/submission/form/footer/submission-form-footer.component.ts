@@ -8,14 +8,19 @@ import { SubmissionRestService } from '../../../core/submission/submission-rest.
 import { SubmissionService } from '../../submission.service';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { CommonModule } from '@angular/common';
+import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * This component represents submission form footer bar.
  */
 @Component({
-  selector: 'ds-submission-form-footer',
-  styleUrls: ['./submission-form-footer.component.scss'],
-  templateUrl: './submission-form-footer.component.html'
+    selector: 'ds-submission-form-footer',
+    styleUrls: ['./submission-form-footer.component.scss'],
+    templateUrl: './submission-form-footer.component.html',
+    standalone: true,
+    imports: [CommonModule, BrowserOnlyPipe, TranslateModule]
 })
 export class SubmissionFormFooterComponent implements OnChanges {
 

@@ -26,7 +26,8 @@ export interface ContextHelpDirectiveInput {
  * and so is the position of the tooltip itself (PlacementArray).
  */
 @Directive({
-  selector: '[dsContextHelp]',
+    selector: '[dsContextHelp]',
+    standalone: true
 })
 export class ContextHelpDirective implements OnChanges, OnDestroy {
   /**

@@ -10,8 +10,9 @@ import { Context } from '../../../core/shared/context.model';
 
 @listableObjectComponent(Bitstream, ViewMode.ListElement, Context.Bitstream)
 @Component({
-  selector: 'ds-bitstream-list-item',
-  template: ` {{object.name}} `,
-  styleUrls: ['./bitstream-list-item.component.scss']
+    selector: 'ds-bitstream-list-item',
+    template: ` {{object.name}} `,
+    styleUrls: ['./bitstream-list-item.component.scss'],
+    standalone: true
 })
 export class BitstreamListItemComponent extends AbstractListableElementComponent<Bitstream>{}

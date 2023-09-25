@@ -10,10 +10,13 @@ import {
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { BehaviorSubject } from 'rxjs';
+import { NgComponentOutlet } from '@angular/common';
 
 @Component({
-  selector: 'ds-search-facet-filter-wrapper',
-  templateUrl: './search-facet-filter-wrapper.component.html'
+    selector: 'ds-search-facet-filter-wrapper',
+    templateUrl: './search-facet-filter-wrapper.component.html',
+    standalone: true,
+    imports: [NgComponentOutlet]
 })
 
 /**

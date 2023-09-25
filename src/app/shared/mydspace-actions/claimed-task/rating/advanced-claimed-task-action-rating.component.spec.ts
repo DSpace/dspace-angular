@@ -48,13 +48,11 @@ describe('AdvancedClaimedTaskActionRatingComponent', () => {
     searchService = new SearchServiceStub();
 
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
-        AdvancedClaimedTaskActionRatingComponent,
-      ],
-      providers: [
+        AdvancedClaimedTaskActionRatingComponent
+    ],
+    providers: [
         { provide: ActivatedRoute, useValue: route },
         { provide: ClaimedTaskDataService, useValue: claimedTaskDataService },
         { provide: NotificationsService, useValue: notificationService },
@@ -62,9 +60,9 @@ describe('AdvancedClaimedTaskActionRatingComponent', () => {
         { provide: Router, useValue: router },
         { provide: SearchService, useValue: searchService },
         Location,
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   });
 
   beforeEach(() => {

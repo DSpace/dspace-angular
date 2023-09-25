@@ -7,16 +7,14 @@ import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/
 import { ThemedWorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/themed-workspaceitems-delete-page.component';
 
 @NgModule({
-  imports: [
-    WorkspaceitemsEditPageRoutingModule,
-    CommonModule,
-    SharedModule,
-    SubmissionModule,
-  ],
-  declarations: [
-    WorkspaceItemsDeletePageComponent,
-    ThemedWorkspaceItemsDeletePageComponent,
-  ]
+    imports: [
+        WorkspaceitemsEditPageRoutingModule,
+        CommonModule,
+        SharedModule,
+        SubmissionModule,
+        WorkspaceItemsDeletePageComponent,
+        ThemedWorkspaceItemsDeletePageComponent
+    ]
 })
 /**
  * This module handles all modules that need to access the workspaceitems edit page.

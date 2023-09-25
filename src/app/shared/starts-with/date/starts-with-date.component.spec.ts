@@ -32,17 +32,16 @@ describe('StartsWithDateComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [StartsWithDateComponent, EnumKeysPipe],
-      providers: [
+    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, StartsWithDateComponent, EnumKeysPipe],
+    providers: [
         { provide: 'startsWithOptions', useValue: options },
         { provide: 'paginationId', useValue: 'page-id' },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterStub() }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

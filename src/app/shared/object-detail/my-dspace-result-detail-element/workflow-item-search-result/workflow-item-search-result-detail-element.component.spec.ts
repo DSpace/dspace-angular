@@ -59,16 +59,15 @@ mockResultObject.indexableObject = Object.assign(new WorkflowItem(), { item: obs
 describe('WorkflowItemSearchResultDetailElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [WorkflowItemSearchResultDetailElementComponent],
-      providers: [
+    imports: [NoopAnimationsModule, WorkflowItemSearchResultDetailElementComponent],
+    providers: [
         { provide: 'objectElementProvider', useValue: (mockResultObject) },
         { provide: 'indexElementProvider', useValue: (compIndex) },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(WorkflowItemSearchResultDetailElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(WorkflowItemSearchResultDetailElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

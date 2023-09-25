@@ -67,14 +67,13 @@ describe('DSOSelectorComponent', () => {
     notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [DSOSelectorComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), DSOSelectorComponent],
+    providers: [
         { provide: SearchService, useValue: searchService },
         { provide: NotificationsService, useValue: notificationsService },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
 
   }));
 

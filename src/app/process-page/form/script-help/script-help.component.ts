@@ -1,14 +1,18 @@
 import { Component, Input } from '@angular/core';
 import { Script } from '../../scripts/script.model';
 import { ScriptParameterType } from '../../scripts/script-parameter-type.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgFor, NgTemplateOutlet, NgSwitch, NgSwitchCase } from '@angular/common';
 
 /**
  * Components that represents a help section for the script use and parameters
  */
 @Component({
-  selector: 'ds-script-help',
-  templateUrl: './script-help.component.html',
-  styleUrls: ['./script-help.component.scss']
+    selector: 'ds-script-help',
+    templateUrl: './script-help.component.html',
+    styleUrls: ['./script-help.component.scss'],
+    standalone: true,
+    imports: [NgFor, NgTemplateOutlet, NgSwitch, NgSwitchCase, TranslateModule]
 })
 export class ScriptHelpComponent {
   /**

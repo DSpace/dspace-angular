@@ -17,6 +17,12 @@ import { LinkService } from '../../../core/cache/builders/link.service';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { Bitstream } from '../../../core/shared/bitstream.model';
+import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { NgForTrackByIdDirective } from '../../../shared/ng-for-track-by-id.directive';
 
 /**
  * Interface for a bundle's bitstream map entry
@@ -29,7 +35,18 @@ interface BundleBitstreamsMapEntry {
 @Component({
   selector: 'ds-item-authorizations',
   templateUrl: './item-authorizations.component.html',
-  styleUrls:['./item-authorizations.component.scss']
+  styleUrls: ['./item-authorizations.component.scss'],
+  imports: [
+    ResourcePoliciesComponent,
+    NgbCollapseModule,
+    TranslateModule,
+    NgForOf,
+    NgForTrackByIdDirective,
+    AsyncPipe,
+    NgIf,
+    AlertComponent
+  ],
+  standalone: true
 })
 /**
  * Component that handles the item Authorizations

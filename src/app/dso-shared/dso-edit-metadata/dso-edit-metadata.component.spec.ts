@@ -71,16 +71,15 @@ describe('DsoEditMetadataComponent', () => {
     notificationsService = jasmine.createSpyObj('notificationsService', ['error', 'success']);
 
     TestBed.configureTestingModule({
-      declarations: [DsoEditMetadataComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), DsoEditMetadataComponent, VarDirective],
+    providers: [
         TestDataService,
         { provide: DATA_SERVICE_FACTORY, useValue: jasmine.createSpy('getDataServiceFor').and.returnValue(TestDataService) },
         { provide: NotificationsService, useValue: notificationsService },
         ArrayMoveChangeAnalyzer,
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

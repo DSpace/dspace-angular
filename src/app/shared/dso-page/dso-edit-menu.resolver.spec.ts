@@ -116,25 +116,24 @@ describe('DSOEditMenuResolver', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
-      declarations: [AdminSidebarComponent],
-      providers: [
-        {provide: DSpaceObjectDataService, useValue: dSpaceObjectDataService},
-        {provide: MenuService, useValue: menuService},
-        {provide: AuthorizationDataService, useValue: authorizationService},
-        {provide: DsoVersioningModalService, useValue: dsoVersioningModalService},
-        {provide: ResearcherProfileDataService, useValue: researcherProfileService},
-        {provide: TranslateService, useValue: translate},
-        {provide: NotificationsService, useValue: notificationsService},
+    imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],
+    providers: [
+        { provide: DSpaceObjectDataService, useValue: dSpaceObjectDataService },
+        { provide: MenuService, useValue: menuService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: DsoVersioningModalService, useValue: dsoVersioningModalService },
+        { provide: ResearcherProfileDataService, useValue: researcherProfileService },
+        { provide: TranslateService, useValue: translate },
+        { provide: NotificationsService, useValue: notificationsService },
         {
-          provide: NgbModal, useValue: {
-            open: () => {/*comment*/
+            provide: NgbModal, useValue: {
+                open: () => {
+                }
             }
-          }
         }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    });
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+});
     resolver = TestBed.inject(DSOEditMenuResolver);
 
     spyOn(menuService, 'addSection');

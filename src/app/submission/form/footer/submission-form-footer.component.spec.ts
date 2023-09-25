@@ -31,24 +31,22 @@ describe('SubmissionFormFooterComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NgbModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         SubmissionFormFooterComponent,
-        TestComponent,
-        BrowserOnlyMockPipe,
-      ],
-      providers: [
+        TestComponent
+    ],
+    declarations: [BrowserOnlyMockPipe],
+    providers: [
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SubmissionRestService, useClass: SubmissionRestServiceStub },
         ChangeDetectorRef,
         NgbModal,
         SubmissionFormFooterComponent
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
   }));
 
   describe('', () => {
@@ -248,8 +246,10 @@ describe('SubmissionFormFooterComponent', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [NgbModule]
 })
 class TestComponent {
 

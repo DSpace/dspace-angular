@@ -31,15 +31,14 @@ describe('ProfilePageSecurityFormComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ProfilePageSecurityFormComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      providers: [
-        {provide: EPersonDataService, useValue: epersonService},
-        {provide: NotificationsService, useValue: notificationsService},
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ProfilePageSecurityFormComponent, VarDirective],
+    providers: [
+        { provide: EPersonDataService, useValue: epersonService },
+        { provide: NotificationsService, useValue: notificationsService },
         FormBuilderService
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

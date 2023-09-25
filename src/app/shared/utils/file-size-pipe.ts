@@ -12,7 +12,10 @@ import * as fileSize from 'filesize';
  *   formats to: 1 KB
  */
 
-@Pipe({ name: 'dsFileSize' })
+@Pipe({
+    name: 'dsFileSize',
+    standalone: true
+})
 export class FileSizePipe implements PipeTransform {
   transform(bytes: number = 0, precision: number = 2): string {
     return fileSize(bytes, { standard: 'jedec', round: precision });

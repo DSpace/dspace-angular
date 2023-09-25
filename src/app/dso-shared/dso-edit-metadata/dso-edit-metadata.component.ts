@@ -15,18 +15,27 @@ import {
 import { UpdateDataService } from '../../core/data/update-data.service';
 import { ResourceType } from '../../core/shared/resource-type';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
 import { Observable } from 'rxjs/internal/Observable';
 import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
 import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorator';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALDataService } from '../../core/data/base/hal-data-service.interface';
+import { LoadingComponent } from '../../shared/loading/loading.component';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';
+import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value/dso-edit-metadata-value.component';
+import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
+import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata-headers/dso-edit-metadata-headers.component';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-dso-edit-metadata',
-  styleUrls: ['./dso-edit-metadata.component.scss'],
-  templateUrl: './dso-edit-metadata.component.html',
+    selector: 'ds-dso-edit-metadata',
+    styleUrls: ['./dso-edit-metadata.component.scss'],
+    templateUrl: './dso-edit-metadata.component.html',
+    standalone: true,
+    imports: [NgIf, DsoEditMetadataHeadersComponent, MetadataFieldSelectorComponent, DsoEditMetadataValueHeadersComponent, DsoEditMetadataValueComponent, NgFor, DsoEditMetadataFieldValuesComponent, AlertComponent, LoadingComponent, AsyncPipe, TranslateModule]
 })
 /**
  * Component showing a table of all metadata on a DSpaceObject and options to modify them

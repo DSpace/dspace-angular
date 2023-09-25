@@ -53,14 +53,14 @@ const environmentUseThumbs = {
 describe('CollectionSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [CollectionSearchResultListElementComponent, TruncatePipe],
-      providers: [
+    imports: [CollectionSearchResultListElementComponent, TruncatePipe],
+    providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(CollectionSearchResultListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(CollectionSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

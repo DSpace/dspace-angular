@@ -8,10 +8,20 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { hasValue } from '../../../../shared/empty.util';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+import { APP_CONFIG, AppConfig } from 'src/config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import {
+  ThemedFileDownloadLinkComponent
+} from '../../../../shared/file-download-link/themed-file-download-link.component';
+import {
+  MetadataFieldWrapperComponent
+} from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
+import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
+import { VarDirective } from '../../../../shared/utils/var.directive';
+import { CommonModule } from '@angular/common';
 
 /**
  * This component renders the file section of the item
@@ -19,7 +29,17 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
  */
 @Component({
   selector: 'ds-item-page-file-section',
-  templateUrl: './file-section.component.html'
+  templateUrl: './file-section.component.html',
+  imports: [
+    CommonModule,
+    ThemedFileDownloadLinkComponent,
+    MetadataFieldWrapperComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    FileSizePipe,
+    VarDirective,
+  ],
+  standalone: true
 })
 export class FileSectionComponent implements OnInit {
 

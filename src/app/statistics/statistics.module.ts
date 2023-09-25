@@ -13,17 +13,15 @@ export const models = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    CoreModule.forRoot(),
-    SharedModule,
-  ],
-  declarations: [
-    ViewTrackerComponent,
-  ],
-  exports: [
-    ViewTrackerComponent,
-  ]
+    imports: [
+        CommonModule,
+        CoreModule.forRoot(),
+        SharedModule,
+        ViewTrackerComponent
+    ],
+    exports: [
+        ViewTrackerComponent,
+    ]
 })
 /**
  * This module handles the statistics

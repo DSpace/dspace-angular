@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * This component renders any content inside of this component.
@@ -9,7 +10,11 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'ds-comcol-page-content',
   styleUrls: ['./comcol-page-content.component.scss'],
-  templateUrl: './comcol-page-content.component.html'
+  templateUrl: './comcol-page-content.component.html',
+  imports: [
+    TranslateModule
+  ],
+  standalone: true
 })
 export class ComcolPageContentComponent {
 

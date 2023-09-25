@@ -8,6 +8,11 @@ import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { AuthService } from '../core/auth/auth.service';
 import { FileService } from '../core/shared/file.service';
+import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { VarDirective } from '../shared/utils/var.directive';
+import { CommonModule } from '@angular/common';
 
 /**
  * This component renders a given Bitstream as a thumbnail.
@@ -18,6 +23,8 @@ import { FileService } from '../core/shared/file.service';
   selector: 'ds-thumbnail',
   styleUrls: ['./thumbnail.component.scss'],
   templateUrl: './thumbnail.component.html',
+  standalone: true,
+  imports: [VarDirective, CommonModule, ThemedLoadingComponent, TranslateModule, SafeUrlPipe]
 })
 export class ThumbnailComponent implements OnChanges {
   /**

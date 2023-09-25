@@ -16,9 +16,8 @@ describe('AccessControlArrayFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ CommonModule, FormsModule, SharedBrowseByModule, TranslateModule.forRoot(), NgbDatepickerModule ],
-      declarations: [ AccessControlArrayFormComponent, ToDatePipe  ]
-    })
+    imports: [CommonModule, FormsModule, SharedBrowseByModule, TranslateModule.forRoot(), NgbDatepickerModule, AccessControlArrayFormComponent, ToDatePipe]
+})
     .compileComponents();
   });
 

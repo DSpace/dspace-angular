@@ -57,6 +57,8 @@ import { SectionUploadService } from '../../section-upload.service';
 import { Subscription } from 'rxjs';
 import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
 import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
+import { NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * This component represents the edit form for bitstream
@@ -65,6 +67,12 @@ import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynami
   selector: 'ds-submission-section-upload-file-edit',
   styleUrls: ['./section-upload-file-edit.component.scss'],
   templateUrl: './section-upload-file-edit.component.html',
+  imports: [
+    FormComponent,
+    NgIf,
+    TranslateModule
+  ],
+  standalone: true
 })
 export class SubmissionSectionUploadFileEditComponent
     implements OnInit, OnDestroy {

@@ -16,13 +16,25 @@ import { CollectionElementLinkType } from '../../shared/object-collection/collec
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { AsyncPipe, NgForOf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Component representing a modal that show a list of suggested profile item to claim
  */
 @Component({
   selector: 'ds-profile-claim-item-modal',
-  templateUrl: './profile-claim-item-modal.component.html'
+  templateUrl: './profile-claim-item-modal.component.html',
+  imports: [
+    ListableObjectComponentLoaderComponent,
+    AsyncPipe,
+    TranslateModule,
+    NgForOf
+  ],
+  standalone: true
 })
 export class ProfileClaimItemModalComponent extends DSOSelectorModalWrapperComponent implements OnInit {
 

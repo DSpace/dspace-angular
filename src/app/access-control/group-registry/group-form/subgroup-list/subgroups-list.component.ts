@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
 import { map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
@@ -19,6 +19,9 @@ import { NoContent } from '../../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { AsyncPipe, NgForOf, NgIf } from "@angular/common";
+import { ContextHelpDirective } from "../../../../shared/context-help.directive";
+import { PaginationComponent } from "../../../../shared/pagination/pagination.component";
 
 /**
  * Keys to keep track of specific subscriptions
@@ -31,7 +34,18 @@ enum SubKey {
 
 @Component({
   selector: 'ds-subgroups-list',
-  templateUrl: './subgroups-list.component.html'
+  templateUrl: './subgroups-list.component.html',
+  imports: [
+    RouterLink,
+    AsyncPipe,
+    NgForOf,
+    ContextHelpDirective,
+    TranslateModule,
+    ReactiveFormsModule,
+    PaginationComponent,
+    NgIf
+  ],
+  standalone: true
 })
 /**
  * The list of subgroups in the edit group page

@@ -2,7 +2,7 @@ import {
   ChangeDetectorRef,
   Component,
   ContentChildren,
-  EventEmitter,
+  EventEmitter, forwardRef,
   Input,
   Output,
   QueryList,
@@ -19,10 +19,16 @@ import {
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
 import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
+import { NgForOf } from '@angular/common';
 
 @Component({
   selector: 'ds-dynamic-form',
-  templateUrl: './ds-dynamic-form.component.html'
+  templateUrl: './ds-dynamic-form.component.html',
+  imports: [
+    forwardRef(() => DsDynamicFormControlContainerComponent),
+    NgForOf
+  ],
+  standalone: true
 })
 export class DsDynamicFormComponent extends DynamicFormComponent {
 

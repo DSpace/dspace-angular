@@ -115,18 +115,17 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
     paginationService = new PaginationServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [PaginatedDragAndDropBitstreamListComponent, VarDirective],
-      providers: [
+    imports: [TranslateModule.forRoot(), PaginatedDragAndDropBitstreamListComponent, VarDirective],
+    providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: BundleDataService, useValue: bundleService },
         { provide: ObjectValuesPipe, useValue: objectValuesPipe },
         { provide: RequestService, useValue: requestService },
         { provide: PaginationService, useValue: paginationService }
-      ], schemas: [
+    ], schemas: [
         NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
   }));
 
   beforeEach(() => {

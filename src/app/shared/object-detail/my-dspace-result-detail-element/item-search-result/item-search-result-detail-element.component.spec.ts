@@ -52,13 +52,12 @@ mockResultObject.indexableObject = Object.assign(new Item(), {
 describe('ItemSearchResultDetailElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [ItemSearchResultDetailElementComponent],
-      providers: [
+    imports: [NoopAnimationsModule, ItemSearchResultDetailElementComponent],
+    providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ItemSearchResultDetailElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ItemSearchResultDetailElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

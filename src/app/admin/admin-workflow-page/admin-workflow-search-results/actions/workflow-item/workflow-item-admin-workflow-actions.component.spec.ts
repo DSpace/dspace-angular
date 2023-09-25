@@ -35,13 +35,13 @@ describe('WorkflowItemAdminWorkflowActionsComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
-      ],
-      declarations: [WorkflowItemAdminWorkflowActionsComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+        RouterTestingModule.withRoutes([]),
+        WorkflowItemAdminWorkflowActionsComponent
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

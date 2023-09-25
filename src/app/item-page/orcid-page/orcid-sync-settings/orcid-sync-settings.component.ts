@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { FormsModule, UntypedFormGroup } from '@angular/forms';
 
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -12,13 +12,24 @@ import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { AlertType } from '../../../shared/alert/alert-type';
+import { NgForOf } from '@angular/common';
 
 @Component({
   selector: 'ds-orcid-sync-setting',
   templateUrl: './orcid-sync-settings.component.html',
-  styleUrls: ['./orcid-sync-settings.component.scss']
+  styleUrls: ['./orcid-sync-settings.component.scss'],
+  imports: [
+    AlertComponent,
+    FormsModule,
+    TranslateModule,
+    NgForOf
+  ],
+  standalone: true
 })
 export class OrcidSyncSettingsComponent implements OnInit {
+  protected readonly AlertType = AlertType;
 
   /**
    * The item for which showing the orcid settings

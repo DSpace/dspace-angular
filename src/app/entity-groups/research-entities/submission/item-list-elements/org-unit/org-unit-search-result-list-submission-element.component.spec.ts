@@ -100,8 +100,8 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
       }
     };
     TestBed.configureTestingModule({
-      declarations: [OrgUnitSearchResultListSubmissionElementComponent, TruncatePipe],
-      providers: [
+    imports: [OrgUnitSearchResultListSubmissionElementComponent, TruncatePipe],
+    providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: RelationshipDataService, useValue: mockRelationshipService },
         { provide: NotificationsService, useValue: {} },
@@ -121,10 +121,9 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environment }
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(OrgUnitSearchResultListSubmissionElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(OrgUnitSearchResultListSubmissionElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

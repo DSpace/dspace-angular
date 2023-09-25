@@ -17,18 +17,22 @@ import { Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { RemoteData } from '../../core/data/remote-data';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 
 /**
  * The Rss feed button componenet.
  */
 @Component({
-  exportAs: 'rssComponent',
-  selector: 'ds-rss',
-  styleUrls: ['rss.component.scss'],
-  templateUrl: 'rss.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.Emulated
+    exportAs: 'rssComponent',
+    selector: 'ds-rss',
+    styleUrls: ['rss.component.scss'],
+    templateUrl: 'rss.component.html',
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.Emulated,
+    standalone: true,
+    imports: [NgIf, AsyncPipe, TranslateModule]
 })
 export class RSSComponent implements OnInit, OnDestroy  {
 

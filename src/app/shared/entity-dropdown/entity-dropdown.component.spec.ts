@@ -10,7 +10,10 @@ import { By } from '@angular/platform-browser';
 import { createPaginatedList } from '../testing/utils.test';
 
 // eslint-disable-next-line @angular-eslint/pipe-prefix
-@Pipe({ name: 'translate' })
+@Pipe({
+    name: 'translate',
+    standalone: true
+})
 class MockTranslatePipe implements PipeTransform {
   transform(value: string): string {
     return value;
@@ -72,14 +75,13 @@ describe('EntityDropdownComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [EntityDropdownComponent, MockTranslatePipe],
-      providers: [
+    imports: [EntityDropdownComponent, MockTranslatePipe],
+    providers: [
         { provide: EntityTypeDataService, useValue: entityTypeServiceMock },
         ChangeDetectorRef
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

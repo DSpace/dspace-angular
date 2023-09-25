@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { Observable } from 'rxjs';
 import { Registration } from '../../core/shared/registration.model';
@@ -12,11 +12,22 @@ import { RemoteData } from '../../core/data/remote-data';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../../core/shared/operators';
 import { CoreState } from '../../core/core-state.model';
+import {
+  ProfilePageSecurityFormComponent
+} from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'ds-forgot-password-form',
   styleUrls: ['./forgot-password-form.component.scss'],
-  templateUrl: './forgot-password-form.component.html'
+  templateUrl: './forgot-password-form.component.html',
+  imports: [
+    TranslateModule,
+    ProfilePageSecurityFormComponent,
+    AsyncPipe,
+    NgIf
+  ],
+  standalone: true
 })
 /**
  * Component for a user to enter a new password for a forgot token.

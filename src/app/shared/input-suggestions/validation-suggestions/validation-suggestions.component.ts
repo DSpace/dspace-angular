@@ -1,24 +1,29 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, NG_VALUE_ACCESSOR, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { MetadataFieldValidator } from '../../utils/metadatafield-validator.directive';
 import { InputSuggestionsComponent } from '../input-suggestions.component';
 import { InputSuggestion } from '../input-suggestions.model';
+import { NgClass, NgFor, AsyncPipe } from '@angular/common';
+import { DebounceDirective } from '../../utils/debounce.directive';
+import { ClickOutsideDirective } from '../../utils/click-outside.directive';
 
 @Component({
-  selector: 'ds-validation-suggestions',
-  styleUrls: ['./../input-suggestions.component.scss'],
-  templateUrl: './validation-suggestions.component.html',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      // Usage of forwardRef necessary https://github.com/angular/angular.io/issues/1151
-      // eslint-disable-next-line @angular-eslint/no-forward-ref
-      useExisting: forwardRef(() => ValidationSuggestionsComponent),
-      multi: true
-    }
-  ]
+    selector: 'ds-validation-suggestions',
+    styleUrls: ['./../input-suggestions.component.scss'],
+    templateUrl: './validation-suggestions.component.html',
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            // Usage of forwardRef necessary https://github.com/angular/angular.io/issues/1151
+            // eslint-disable-next-line @angular-eslint/no-forward-ref
+            useExisting: forwardRef(() => ValidationSuggestionsComponent),
+            multi: true
+        }
+    ],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, ClickOutsideDirective, DebounceDirective, NgClass, NgFor, AsyncPipe]
 })
 
 /**

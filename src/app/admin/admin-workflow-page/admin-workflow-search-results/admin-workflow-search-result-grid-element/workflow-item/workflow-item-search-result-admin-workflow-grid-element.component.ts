@@ -24,12 +24,17 @@ import { take } from 'rxjs/operators';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { WorkflowItemAdminWorkflowActionsComponent } from '../../actions/workflow-item/workflow-item-admin-workflow-actions.component';
+import { NgIf } from '@angular/common';
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
 @Component({
-  selector: 'ds-workflow-item-search-result-admin-workflow-grid-element',
-  styleUrls: ['./workflow-item-search-result-admin-workflow-grid-element.component.scss'],
-  templateUrl: './workflow-item-search-result-admin-workflow-grid-element.component.html'
+    selector: 'ds-workflow-item-search-result-admin-workflow-grid-element',
+    styleUrls: ['./workflow-item-search-result-admin-workflow-grid-element.component.scss'],
+    templateUrl: './workflow-item-search-result-admin-workflow-grid-element.component.html',
+    standalone: true,
+    imports: [ListableObjectDirective, NgIf, WorkflowItemAdminWorkflowActionsComponent, TranslateModule]
 })
 /**
  * The component for displaying a grid element for an workflow item on the admin workflow search page

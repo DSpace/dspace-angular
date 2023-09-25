@@ -5,12 +5,17 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { Context } from '../../../../core/shared/context.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { SidebarSearchListElementComponent } from '../sidebar-search-list-element.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgClass, NgIf, AsyncPipe } from '@angular/common';
+import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
 
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.SideBarSearchModalCurrent)
 @Component({
-  selector: 'ds-collection-sidebar-search-list-element',
-  templateUrl: '../sidebar-search-list-element.component.html'
+    selector: 'ds-collection-sidebar-search-list-element',
+    templateUrl: '../sidebar-search-list-element.component.html',
+    standalone: true,
+    imports: [TruncatablePartComponent, NgClass, NgIf, AsyncPipe, TranslateModule]
 })
 /**
  * Component displaying a list element for a {@link CollectionSearchResult} within the context of a sidebar search modal

@@ -11,10 +11,9 @@ describe('SearchSidebarComponent', () => {
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NgbCollapseModule],
-      declarations: [SearchSidebarComponent],
-      schemas: [NO_ERRORS_SCHEMA],
-    })
+    imports: [TranslateModule.forRoot(), NgbCollapseModule, SearchSidebarComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();  // compile template and css
   }));
 

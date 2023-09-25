@@ -1,8 +1,8 @@
 import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { FilterType } from '../../../models/filter-type.model';
 import { renderFacetFor } from '../search-filter-type-decorator';
@@ -21,6 +21,10 @@ import { SearchConfigurationService } from '../../../../../core/shared/search/se
 import { RouteService } from '../../../../../core/services/route.service';
 import { hasValue } from '../../../../empty.util';
 import { yearFromString } from 'src/app/shared/date.util';
+import { SearchFacetRangeOptionComponent } from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
+import { DebounceDirective } from '../../../../utils/debounce.directive';
+import { NouisliderComponent } from 'ng2-nouislider';
+import { FormsModule } from '@angular/forms';
 
 /**
  * The suffix for a range filters' minimum in the frontend URL
@@ -38,10 +42,12 @@ export const RANGE_FILTER_MAX_SUFFIX = '.max';
  * All fields of the item that should be displayed, are defined in its template.
  */
 @Component({
-  selector: 'ds-search-range-filter',
-  styleUrls: ['./search-range-filter.component.scss'],
-  templateUrl: './search-range-filter.component.html',
-  animations: [facetLoad]
+    selector: 'ds-search-range-filter',
+    styleUrls: ['./search-range-filter.component.scss'],
+    templateUrl: './search-range-filter.component.html',
+    animations: [facetLoad],
+    standalone: true,
+    imports: [FormsModule, NgIf, NouisliderComponent, DebounceDirective, NgFor, SearchFacetRangeOptionComponent, AsyncPipe, TranslateModule]
 })
 
 /**

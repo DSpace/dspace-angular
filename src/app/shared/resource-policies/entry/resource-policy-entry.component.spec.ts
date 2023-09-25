@@ -115,23 +115,18 @@ describe('ResourcePolicyEntryComponent', () => {
 
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CommonModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
-        ResourcePolicyEntryComponent,
-      ],
-      providers: [
+        TranslateModule.forRoot(),
+        ResourcePolicyEntryComponent
+    ],
+    providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
         { provide: GroupDataService, useValue: groupService },
         { provide: DSONameService, useValue: dsoNameService }
-      ],
-      // schemas: [
-      //   NO_ERRORS_SCHEMA
-      // ]
-    }).compileComponents();
+    ]
+}).compileComponents();
   });
 
   beforeEach(() => {

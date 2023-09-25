@@ -20,6 +20,11 @@ import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { getDataServiceFor } from '../../core/data/base/data-service.decorator';
+import { TranslateModule } from '@ngx-translate/core';
+import { PaginationComponent } from '../pagination/pagination.component';
+import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';
+import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-box.component';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 export interface SearchEvent {
   scope: string;
@@ -27,12 +32,14 @@ export interface SearchEvent {
 }
 
 @Component({
-  selector: 'ds-eperson-group-list',
-  styleUrls: ['./eperson-group-list.component.scss'],
-  templateUrl: './eperson-group-list.component.html',
-  animations: [
-    fadeInOut
-  ]
+    selector: 'ds-eperson-group-list',
+    styleUrls: ['./eperson-group-list.component.scss'],
+    templateUrl: './eperson-group-list.component.html',
+    animations: [
+        fadeInOut
+    ],
+    standalone: true,
+    imports: [NgIf, EpersonSearchBoxComponent, GroupSearchBoxComponent, PaginationComponent, NgFor, AsyncPipe, TranslateModule]
 })
 /**
  * Component that shows a list of eperson or group

@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
@@ -14,10 +14,13 @@ import { Observable, of as observableOf } from 'rxjs';
 import { hasValue } from '../../../../shared/empty.util';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import {
-  MembersListComponent,
   EPersonListActionConfig,
+  MembersListComponent,
 } from '../../../../access-control/group-registry/group-form/members-list/members-list.component';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { ContextHelpDirective } from '../../../../shared/context-help.directive';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -35,6 +38,18 @@ enum SubKey {
   selector: 'ds-reviewers-list',
   // templateUrl: './reviewers-list.component.html',
   templateUrl: '../../../../access-control/group-registry/group-form/members-list/members-list.component.html',
+  standalone: true,
+  imports: [
+    TranslateModule,
+    ContextHelpDirective,
+    ReactiveFormsModule,
+    PaginationComponent,
+    NgIf,
+    AsyncPipe,
+    RouterLink,
+    NgClass,
+    NgForOf
+  ],
 })
 export class ReviewersListComponent extends MembersListComponent implements OnInit, OnChanges, OnDestroy {
 

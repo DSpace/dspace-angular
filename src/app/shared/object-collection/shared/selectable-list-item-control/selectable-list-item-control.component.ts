@@ -3,11 +3,16 @@ import { ListableObject } from '../listable-object.model';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { map, skip, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { FormsModule } from '@angular/forms';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { VarDirective } from '../../../utils/var.directive';
 
 @Component({
-  selector: 'ds-selectable-list-item-control',
-  // styleUrls: ['./selectable-list-item-control.component.scss'],
-  templateUrl: './selectable-list-item-control.component.html'
+    selector: 'ds-selectable-list-item-control',
+    // styleUrls: ['./selectable-list-item-control.component.scss'],
+    templateUrl: './selectable-list-item-control.component.html',
+    standalone: true,
+    imports: [VarDirective, NgIf, FormsModule, AsyncPipe]
 })
 /**
  * Component for rendering list item that has a control (checkbox or radio button) because it's selectable

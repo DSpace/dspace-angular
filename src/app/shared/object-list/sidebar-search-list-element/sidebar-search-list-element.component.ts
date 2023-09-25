@@ -12,10 +12,15 @@ import { followLink } from '../../utils/follow-link-config.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Context } from '../../../core/shared/context.model';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgClass, NgIf, AsyncPipe } from '@angular/common';
+import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
 
 @Component({
-  selector: 'ds-sidebar-search-list-element',
-  templateUrl: './sidebar-search-list-element.component.html'
+    selector: 'ds-sidebar-search-list-element',
+    templateUrl: './sidebar-search-list-element.component.html',
+    standalone: true,
+    imports: [TruncatablePartComponent, NgClass, NgIf, AsyncPipe, TranslateModule]
 })
 /**
  * Component displaying a list element for a {@link SearchResult} in the sidebar search modal

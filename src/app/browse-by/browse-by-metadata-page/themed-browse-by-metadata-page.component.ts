@@ -7,9 +7,10 @@ import {BrowseByDataType, rendersBrowseBy} from '../browse-by-switcher/browse-by
  * Themed wrapper for BrowseByMetadataPageComponent
  **/
 @Component({
-  selector: 'ds-themed-browse-by-metadata-page',
-  styleUrls: [],
-  templateUrl: '../../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-browse-by-metadata-page',
+    styleUrls: [],
+    templateUrl: '../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 
 @rendersBrowseBy(BrowseByDataType.Metadata)

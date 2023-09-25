@@ -2,7 +2,21 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { pushInOut } from '../../../../app/shared/animations/push';
 import { SEARCH_CONFIG_SERVICE } from '../../../../app/my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../app/core/shared/search/search-configuration.service';
-import { ConfigurationSearchPageComponent as BaseComponent } from '../../../../app/search-page/configuration-search-page.component';
+import {
+  ConfigurationSearchPageComponent as BaseComponent
+} from '../../../../app/search-page/configuration-search-page.component';
+import { AsyncPipe, NgIf, NgTemplateOutlet } from '@angular/common';
+import { PageWithSidebarComponent } from '../../../../app/shared/sidebar/page-with-sidebar.component';
+import { ViewModeSwitchComponent } from '../../../../app/shared/view-mode-switch/view-mode-switch.component';
+import {
+  ThemedSearchResultsComponent
+} from '../../../../app/shared/search/search-results/themed-search-results.component';
+import {
+  ThemedSearchSidebarComponent
+} from '../../../../app/shared/search/search-sidebar/themed-search-sidebar.component';
+import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/themed-search-form.component';
+import { SearchLabelsComponent } from '../../../../app/shared/search/search-labels/search-labels.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-configuration-search-page',
@@ -17,7 +31,9 @@ import { ConfigurationSearchPageComponent as BaseComponent } from '../../../../a
       provide: SEARCH_CONFIG_SERVICE,
       useClass: SearchConfigurationService
     }
-  ]
+  ],
+  standalone: true,
+  imports: [NgIf, NgTemplateOutlet, PageWithSidebarComponent, ViewModeSwitchComponent, ThemedSearchResultsComponent, ThemedSearchSidebarComponent, ThemedSearchFormComponent, SearchLabelsComponent, AsyncPipe, TranslateModule]
 })
 
 /**

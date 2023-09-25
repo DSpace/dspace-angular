@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { ComcolPageHandleComponent as BaseComponent} from '../../../../../app/shared/comcol/comcol-page-handle/comcol-page-handle.component';
+import {
+  ComcolPageHandleComponent as BaseComponent
+} from '../../../../../app/shared/comcol/comcol-page-handle/comcol-page-handle.component';
+import { NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 /**
@@ -12,7 +16,7 @@ import { ComcolPageHandleComponent as BaseComponent} from '../../../../../app/sh
   templateUrl: '../../../../../app/shared/comcol/comcol-page-handle/comcol-page-handle.component.html',
   // styleUrls: ['./comcol-page-handle.component.scss'],
   styleUrls: ['../../../../../app/shared/comcol/comcol-page-handle/comcol-page-handle.component.scss'],
+  standalone: true,
+  imports: [NgIf, TranslateModule],
 })
-
-
 export class ComcolPageHandleComponent extends BaseComponent {}

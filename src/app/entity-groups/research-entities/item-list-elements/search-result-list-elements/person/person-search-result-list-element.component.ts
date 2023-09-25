@@ -9,12 +9,21 @@ import {
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
+import { TranslateModule } from '@ngx-translate/core';
+import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
+import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
+import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component';
+import { RouterLink } from '@angular/router';
+import { NgIf, NgClass, NgFor, AsyncPipe } from '@angular/common';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement)
 @Component({
-  selector: 'ds-person-search-result-list-element',
-  styleUrls: ['./person-search-result-list-element.component.scss'],
-  templateUrl: './person-search-result-list-element.component.html'
+    selector: 'ds-person-search-result-list-element',
+    styleUrls: ['./person-search-result-list-element.component.scss'],
+    templateUrl: './person-search-result-list-element.component.html',
+    standalone: true,
+    imports: [NgIf, RouterLink, ThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, AsyncPipe, TranslateModule]
 })
 /**
  * The component for displaying a list element for an item search result of the type Person

@@ -6,9 +6,10 @@ import { ItemStatisticsPageComponent } from './item-statistics-page.component';
  * Themed wrapper for ItemStatisticsPageComponent
  */
 @Component({
-  selector: 'ds-themed-item-statistics-page',
-  styleUrls: [],
-  templateUrl: '../../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-item-statistics-page',
+    styleUrls: [],
+    templateUrl: '../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedItemStatisticsPageComponent extends ThemedComponent<ItemStatisticsPageComponent> {
   protected getComponentName(): string {

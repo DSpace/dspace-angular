@@ -14,8 +14,9 @@ import { MenuItemType } from '../menu-item-type.model';
  * A basic implementation of a menu section's component
  */
 @Component({
-  selector: 'ds-menu-section',
-  template: ''
+    selector: 'ds-menu-section',
+    template: '',
+    standalone: true
 })
 export class MenuSectionComponent implements OnInit, OnDestroy {
 

@@ -41,7 +41,11 @@ import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
-import { NgbModal, NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbNavChangeEvent, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormComponent } from '../../form/form.component';
+import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 export interface ResourcePolicyEvent {
   object: ResourcePolicy;
@@ -55,6 +59,15 @@ export interface ResourcePolicyEvent {
 @Component({
   selector: 'ds-resource-policy-form',
   templateUrl: './resource-policy-form.component.html',
+  imports: [
+    FormComponent,
+    NgbNavModule,
+    EpersonGroupListComponent,
+    TranslateModule,
+    AsyncPipe,
+    NgIf
+  ],
+  standalone: true
 })
 /**
  * Component that show form for adding/editing a resource policy

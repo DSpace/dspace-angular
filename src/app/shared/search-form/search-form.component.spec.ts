@@ -35,19 +35,16 @@ describe('SearchFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
-      imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot()],
-      providers: [
+    imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot(), SearchFormComponent],
+    providers: [
         { provide: Router, useValue: router },
         { provide: SearchService, useValue: searchService },
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigService },
         { provide: DSpaceObjectDataService, useValue: dspaceObjectService },
-      ],
-      declarations: [
-        SearchFormComponent,
-        BrowserOnlyMockPipe,
-      ]
-    }).compileComponents();
+    ],
+    declarations: [BrowserOnlyMockPipe]
+}).compileComponents();
   }));
 
   beforeEach(() => {

@@ -6,18 +6,24 @@ import { SearchService } from '../../core/shared/search/search.service';
 import { currentPath } from '../utils/route.utils';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';
 import { take } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'ds-search-form',
-  styleUrls: ['./search-form.component.scss'],
-  templateUrl: './search-form.component.html'
+    selector: 'ds-search-form',
+    styleUrls: ['./search-form.component.scss'],
+    templateUrl: './search-form.component.html',
+    standalone: true,
+    imports: [FormsModule, NgIf, NgbTooltipModule, AsyncPipe, TranslateModule, BrowserOnlyPipe]
 })
 /**
  * Component that represents the search form

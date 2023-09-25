@@ -176,22 +176,20 @@ describe('ResourcePolicyFormComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserModule,
         CommonModule,
         FormsModule,
         NgbModule,
         NoopAnimationsModule,
         ReactiveFormsModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         FormComponent,
         EpersonGroupListComponent,
         ResourcePolicyFormComponent,
         TestComponent
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useValue: new RouterMock() },
         { provide: Store, useValue: StoreMock },
@@ -203,11 +201,11 @@ describe('ResourcePolicyFormComponent test suite', () => {
         FormBuilderService,
         ChangeDetectorRef,
         ResourcePolicyFormComponent
-      ],
-      schemas: [
+    ],
+    schemas: [
         NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
   }));
 
   describe('', () => {
@@ -451,8 +449,14 @@ describe('ResourcePolicyFormComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [BrowserModule,
+        CommonModule,
+        FormsModule,
+        NgbModule,
+        ReactiveFormsModule]
 })
 class TestComponent {
 

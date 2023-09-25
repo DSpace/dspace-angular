@@ -4,15 +4,22 @@ import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
 import { hasValue } from '../../../shared/empty.util';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-browse-definition.resource-type';
+import { TranslateModule } from '@ngx-translate/core';
+import { MarkdownPipe as MarkdownPipe_1 } from '../../../shared/utils/markdown.pipe';
+import { RouterLink } from '@angular/router';
+import { NgFor, NgTemplateOutlet, NgIf, AsyncPipe } from '@angular/common';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component.
  * It puts the given 'separator' between each two values.
  */
 @Component({
-  selector: 'ds-metadata-values',
-  styleUrls: ['./metadata-values.component.scss'],
-  templateUrl: './metadata-values.component.html'
+    selector: 'ds-metadata-values',
+    styleUrls: ['./metadata-values.component.scss'],
+    templateUrl: './metadata-values.component.html',
+    standalone: true,
+    imports: [MetadataFieldWrapperComponent, NgFor, NgTemplateOutlet, NgIf, RouterLink, AsyncPipe, MarkdownPipe_1, TranslateModule]
 })
 export class MetadataValuesComponent implements OnChanges {
 

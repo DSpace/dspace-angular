@@ -31,21 +31,19 @@ const DECLARATIONS = [CommunityPageComponent,
   DeleteCommunityPageComponent];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    CommunityPageRoutingModule,
-    StatisticsModule.forRoot(),
-    CommunityFormModule,
-    ComcolModule,
-    DsoPageModule,
-  ],
-  declarations: [
-    ...DECLARATIONS
-  ],
-  exports: [
-    ...DECLARATIONS
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        CommunityPageRoutingModule,
+        StatisticsModule.forRoot(),
+        CommunityFormModule,
+        ComcolModule,
+        DsoPageModule,
+        ...DECLARATIONS
+    ],
+    exports: [
+        ...DECLARATIONS
+    ]
 })
 
 export class CommunityPageModule {

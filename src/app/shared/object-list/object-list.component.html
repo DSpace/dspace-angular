@@ -1,6 +1,6 @@
 <ds-pagination
         [paginationOptions]="config"
-        [pageInfoState]="objects?.payload"
+        [pageInfoState]="$any(objects?.payload)"
         [collectionSize]="objects?.payload?.totalElements"
         [objects]="objects"
         [sortOptions]="sortConfig"

@@ -54,22 +54,21 @@ describe('MenuResolver', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
-      declarations: [AdminSidebarComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],
+    providers: [
         { provide: MenuService, useValue: menuService },
         { provide: BrowseService, useValue: browseService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ScriptDataService, useValue: scriptService },
         {
-          provide: NgbModal, useValue: {
-            open: () => {/*comment*/
+            provide: NgbModal, useValue: {
+                open: () => {
+                }
             }
-          }
         }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    });
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+});
     resolver = TestBed.inject(MenuResolver);
   }));
 

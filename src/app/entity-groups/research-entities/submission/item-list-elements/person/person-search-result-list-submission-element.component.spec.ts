@@ -103,8 +103,8 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [PersonSearchResultListSubmissionElementComponent, TruncatePipe],
-      providers: [
+    imports: [PersonSearchResultListSubmissionElementComponent, TruncatePipe],
+    providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: RelationshipDataService, useValue: mockRelationshipService },
         { provide: NotificationsService, useValue: {} },
@@ -112,7 +112,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
         { provide: NgbModal, useValue: {} },
         { provide: ItemDataService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
-        { provide: Store, useValue: {}},
+        { provide: Store, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
@@ -123,10 +123,9 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(PersonSearchResultListSubmissionElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(PersonSearchResultListSubmissionElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
@@ -183,8 +182,8 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [PersonSearchResultListSubmissionElementComponent, TruncatePipe],
-      providers: [
+    imports: [PersonSearchResultListSubmissionElementComponent, TruncatePipe],
+    providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: RelationshipDataService, useValue: mockRelationshipService },
         { provide: NotificationsService, useValue: {} },
@@ -192,7 +191,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
         { provide: NgbModal, useValue: {} },
         { provide: ItemDataService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
-        { provide: Store, useValue: {}},
+        { provide: Store, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
@@ -203,10 +202,9 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs }
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(PersonSearchResultListSubmissionElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(PersonSearchResultListSubmissionElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

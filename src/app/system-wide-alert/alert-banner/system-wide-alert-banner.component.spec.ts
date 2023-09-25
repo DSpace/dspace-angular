@@ -41,13 +41,12 @@ describe('SystemWideAlertBannerComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [SystemWideAlertBannerComponent],
-      providers: [
-        {provide: SystemWideAlertDataService, useValue: systemWideAlertDataService},
-        {provide: NotificationsService, useValue: new NotificationsServiceStub()},
-      ]
-    }).compileComponents();
+    imports: [TranslateModule.forRoot(), SystemWideAlertBannerComponent],
+    providers: [
+        { provide: SystemWideAlertDataService, useValue: systemWideAlertDataService },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+    ]
+}).compileComponents();
   }));
 
   beforeEach(() => {

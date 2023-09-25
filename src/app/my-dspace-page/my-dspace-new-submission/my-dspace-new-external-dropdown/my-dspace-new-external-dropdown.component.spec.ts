@@ -78,22 +78,20 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
   describe('With only one Entity', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [
-          CommonModule,
-          TranslateModule.forRoot(),
-        ],
-        declarations: [
-          MyDSpaceNewExternalDropdownComponent,
-          TestComponent,
-          BrowserOnlyMockPipe
-        ],
-        providers: [
-          { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
-          { provide: Router, useValue: new RouterStub() },
-          MyDSpaceNewExternalDropdownComponent
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).compileComponents();
+    imports: [
+        CommonModule,
+        TranslateModule.forRoot(),
+        MyDSpaceNewExternalDropdownComponent,
+        TestComponent
+    ],
+    declarations: [BrowserOnlyMockPipe],
+    providers: [
+        { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
+        { provide: Router, useValue: new RouterStub() },
+        MyDSpaceNewExternalDropdownComponent
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
 
       const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
 
@@ -130,22 +128,20 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
   describe('With more than one Entity', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [
-          CommonModule,
-          TranslateModule.forRoot(),
-        ],
-        declarations: [
-          MyDSpaceNewExternalDropdownComponent,
-          TestComponent,
-          BrowserOnlyMockPipe,
-        ],
-        providers: [
-          { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
-          { provide: Router, useValue: new RouterStub() },
-          MyDSpaceNewExternalDropdownComponent
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).compileComponents();
+    imports: [
+        CommonModule,
+        TranslateModule.forRoot(),
+        MyDSpaceNewExternalDropdownComponent,
+        TestComponent
+    ],
+    declarations: [BrowserOnlyMockPipe],
+    providers: [
+        { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
+        { provide: Router, useValue: new RouterStub() },
+        MyDSpaceNewExternalDropdownComponent
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
 
       const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
 
@@ -182,8 +178,10 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [CommonModule]
 })
 class TestComponent {
   reload = (event) => {

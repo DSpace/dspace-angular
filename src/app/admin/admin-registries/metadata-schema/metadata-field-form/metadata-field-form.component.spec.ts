@@ -49,14 +49,13 @@ describe('MetadataFieldFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [MetadataFieldFormComponent, EnumKeysPipe],
-      providers: [
+    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, MetadataFieldFormComponent, EnumKeysPipe],
+    providers: [
         { provide: RegistryService, useValue: registryServiceStub },
         { provide: FormBuilderService, useValue: formBuilderServiceStub }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

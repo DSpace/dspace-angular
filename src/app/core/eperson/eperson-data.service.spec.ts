@@ -64,20 +64,19 @@ describe('EPersonDataService', () => {
     halService = new HALEndpointServiceStub(restEndpointURL);
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CommonModule,
         StoreModule.forRoot({}),
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-      ],
-      declarations: [],
-      providers: [],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    });
+    ],
+    providers: [],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+});
   }
 
   beforeEach(() => {

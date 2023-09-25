@@ -18,14 +18,13 @@ describe('OrgUnitInputSuggestionsComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [OrgUnitInputSuggestionsComponent],
-      imports: [
+    imports: [
         FormsModule,
-      ],
-      providers: [
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(OrgUnitInputSuggestionsComponent, {
+        OrgUnitInputSuggestionsComponent
+    ],
+    providers: [],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(OrgUnitInputSuggestionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

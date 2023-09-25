@@ -5,7 +5,8 @@ import { NgControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 
 @Directive({
-  selector: '[ngModel][dsDebounce]',
+    selector: '[ngModel][dsDebounce]',
+    standalone: true
 })
 /**
  * Directive for setting a debounce time on an input field

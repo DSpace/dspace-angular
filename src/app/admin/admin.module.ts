@@ -21,21 +21,19 @@ const ENTRY_COMPONENTS = [
 
 
 @NgModule({
-  imports: [
-    AdminRoutingModule,
-    AdminRegistriesModule,
-    AccessControlModule,
-    AdminSearchModule.withEntryComponents(),
-    AdminWorkflowModuleModule.withEntryComponents(),
-    SharedModule,
-    UiSwitchModule,
-    UploadModule,
-  ],
-  declarations: [
-    AdminCurationTasksComponent,
-    MetadataImportPageComponent,
-    BatchImportPageComponent
-  ]
+    imports: [
+        AdminRoutingModule,
+        AdminRegistriesModule,
+        AccessControlModule,
+        AdminSearchModule.withEntryComponents(),
+        AdminWorkflowModuleModule.withEntryComponents(),
+        SharedModule,
+        UiSwitchModule,
+        UploadModule,
+        AdminCurationTasksComponent,
+        MetadataImportPageComponent,
+        BatchImportPageComponent
+    ]
 })
 export class AdminModule {
   /**

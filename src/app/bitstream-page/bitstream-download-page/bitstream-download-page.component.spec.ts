@@ -90,9 +90,8 @@ describe('BitstreamDownloadPageComponent', () => {
 
   function initTestbed() {
     TestBed.configureTestingModule({
-      imports: [CommonModule, TranslateModule.forRoot()],
-      declarations: [BitstreamDownloadPageComponent],
-      providers: [
+    imports: [CommonModule, TranslateModule.forRoot(), BitstreamDownloadPageComponent],
+    providers: [
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: Router, useValue: router },
         { provide: AuthorizationDataService, useValue: authorizationService },
@@ -102,8 +101,8 @@ describe('BitstreamDownloadPageComponent', () => {
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: PLATFORM_ID, useValue: 'server' }
-      ]
-    })
+    ]
+})
       .compileComponents();
   }
 

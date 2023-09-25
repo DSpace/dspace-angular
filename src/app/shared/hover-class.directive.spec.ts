@@ -4,7 +4,8 @@ import { HoverClassDirective } from './hover-class.directive';
 import { By } from '@angular/platform-browser';
 
 @Component({
-  template: `<div dsHoverClass="ds-hover"></div>`
+    template: `<div dsHoverClass="ds-hover"></div>`,
+    standalone: true
 })
 class TestComponent {
 }
@@ -16,8 +17,8 @@ describe('HoverClassDirective', () => {
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      declarations: [TestComponent, HoverClassDirective]
-    }).createComponent(TestComponent);
+    imports: [TestComponent, HoverClassDirective]
+}).createComponent(TestComponent);
 
     fixture.detectChanges();
     component = fixture.componentInstance;

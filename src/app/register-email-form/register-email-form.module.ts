@@ -4,17 +4,15 @@ import { SharedModule } from '../shared/shared.module';
 import { RegisterEmailFormComponent } from './register-email-form.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule
-  ],
-  declarations: [
-    RegisterEmailFormComponent,
-  ],
-  providers: [],
-  exports: [
-    RegisterEmailFormComponent,
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        RegisterEmailFormComponent
+    ],
+    providers: [],
+    exports: [
+        RegisterEmailFormComponent,
+    ]
 })
 
 /**

@@ -95,14 +95,13 @@ describe('ItemPageComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }), BrowserAnimationsModule],
-      declarations: [ItemPageComponent, VarDirective],
-      providers: [
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }), BrowserAnimationsModule, ItemPageComponent, VarDirective],
+    providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
         { provide: ItemDataService, useValue: {} },
         { provide: MetadataService, useValue: mockMetadataService },
@@ -113,10 +112,9 @@ describe('ItemPageComponent', () => {
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: PLATFORM_ID, useValue: 'server' },
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ItemPageComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ItemPageComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

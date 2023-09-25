@@ -3,24 +3,30 @@ import { Script } from '../scripts/script.model';
 import { Process } from '../processes/process.model';
 import { ProcessParameter } from '../processes/process-parameter.model';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { ControlContainer, NgForm } from '@angular/forms';
+import { ControlContainer, NgForm, FormsModule } from '@angular/forms';
 import { ScriptParameter } from '../scripts/script-parameter.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { RequestService } from '../../core/data/request.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { isEmpty } from '../../shared/empty.util';
+import { NgIf, NgFor } from '@angular/common';
+import { ScriptHelpComponent } from './script-help/script-help.component';
+import { ProcessParametersComponent } from './process-parameters/process-parameters.component';
+import { ScriptsSelectComponent } from './scripts-select/scripts-select.component';
 
 /**
  * Component to create a new script
  */
 @Component({
-  selector: 'ds-process-form',
-  templateUrl: './process-form.component.html',
-  styleUrls: ['./process-form.component.scss'],
+    selector: 'ds-process-form',
+    templateUrl: './process-form.component.html',
+    styleUrls: ['./process-form.component.scss'],
+    standalone: true,
+    imports: [FormsModule, ScriptsSelectComponent, ProcessParametersComponent, RouterLink, ScriptHelpComponent, NgIf, NgFor, TranslateModule]
 })
 export class ProcessFormComponent implements OnInit {
   /**

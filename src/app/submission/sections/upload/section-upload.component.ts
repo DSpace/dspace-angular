@@ -31,6 +31,13 @@ import { AccessConditionOption } from '../../../core/config/models/config-access
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { ThemedSubmissionSectionUploadFileComponent } from './file/themed-section-upload-file.component';
+import {
+  SubmissionSectionUploadAccessConditionsComponent
+} from './accessConditions/submission-section-upload-access-conditions.component';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
 export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
@@ -47,6 +54,16 @@ export interface AccessConditionGroupsMapEntry {
   selector: 'ds-submission-section-upload',
   styleUrls: ['./section-upload.component.scss'],
   templateUrl: './section-upload.component.html',
+  imports: [
+    ThemedSubmissionSectionUploadFileComponent,
+    SubmissionSectionUploadAccessConditionsComponent,
+    NgIf,
+    AlertComponent,
+    TranslateModule,
+    NgForOf,
+    AsyncPipe
+  ],
+  standalone: true
 })
 @renderSectionFor(SectionsType.Upload)
 export class SubmissionSectionUploadComponent extends SectionModelComponent {

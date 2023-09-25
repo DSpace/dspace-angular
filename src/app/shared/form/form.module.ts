@@ -80,39 +80,37 @@ const DIRECTIVES = [
 ];
 
 @NgModule({
-  declarations: [
-    ...COMPONENTS,
-    ...DIRECTIVES,
-  ],
-  imports: [
-    CommonModule,
-    DynamicFormsCoreModule,
-    DynamicFormsNGBootstrapUIModule,
-    SearchModule,
-    SharedModule,
-    TranslateModule,
-    SortablejsModule,
-    NgxMaskModule.forRoot(),
-    NgbDatepickerModule,
-    NgbTimepickerModule,
-    CdkTreeModule,
-  ],
-  exports: [
-    ...COMPONENTS,
-    ...DIRECTIVES,
-  ],
-  providers: [
-    {
-      provide: DYNAMIC_FORM_CONTROL_MAP_FN,
-      useValue: dsDynamicFormControlMapFn
-    },
-    DynamicFormLayoutService,
-    DynamicFormService,
-    DynamicFormValidationService,
-    FormBuilderService,
-    DsDynamicTypeBindRelationService,
-    FormService,
-  ]
+    imports: [
+        CommonModule,
+        DynamicFormsCoreModule,
+        DynamicFormsNGBootstrapUIModule,
+        SearchModule,
+        SharedModule,
+        TranslateModule,
+        SortablejsModule,
+        NgxMaskModule.forRoot(),
+        NgbDatepickerModule,
+        NgbTimepickerModule,
+        CdkTreeModule,
+        ...COMPONENTS,
+        ...DIRECTIVES
+    ],
+    exports: [
+        ...COMPONENTS,
+        ...DIRECTIVES,
+    ],
+    providers: [
+        {
+            provide: DYNAMIC_FORM_CONTROL_MAP_FN,
+            useValue: dsDynamicFormControlMapFn
+        },
+        DynamicFormLayoutService,
+        DynamicFormService,
+        DynamicFormValidationService,
+        FormBuilderService,
+        DsDynamicTypeBindRelationService,
+        FormService,
+    ]
 })
 export class FormModule {
 }

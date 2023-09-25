@@ -53,19 +53,19 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NgbModalModule,
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
-      ],
-      declarations: [WorkspaceItemAdminWorkflowActionsComponent],
-      providers: [
+        RouterTestingModule.withRoutes([]),
+        WorkspaceItemAdminWorkflowActionsComponent
+    ],
+    providers: [
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: NotificationsService, useValue: notificationService },
         { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

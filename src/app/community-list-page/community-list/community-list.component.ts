@@ -1,13 +1,19 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { CommunityListService} from '../community-list-service';
+import { CommunityListService } from '../community-list-service';
 import { CommunityListDatasource } from '../community-list-datasource';
-import { FlatTreeControl } from '@angular/cdk/tree';
+import { CdkTreeModule, FlatTreeControl } from '@angular/cdk/tree';
 import { isEmpty } from '../../shared/empty.util';
 import { FlatNode } from '../flat-node.model';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
+import { RouterLink } from '@angular/router';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 
 /**
  * A tree-structured list of nodes representing the communities, their subCommunities and collections.
@@ -19,6 +25,8 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-community-list',
   templateUrl: './community-list.component.html',
+  standalone: true,
+  imports: [NgIf, ThemedLoadingComponent, CdkTreeModule, NgClass, RouterLink, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule]
 })
 export class CommunityListComponent implements OnInit, OnDestroy {
 

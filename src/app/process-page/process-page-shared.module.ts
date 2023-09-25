@@ -18,29 +18,27 @@ import { ProcessBreadcrumbResolver } from './process-breadcrumb.resolver';
 import { ProcessFormComponent } from './form/process-form.component';
 
 @NgModule({
-  imports: [
-    SharedModule,
-  ],
-  declarations: [
-    NewProcessComponent,
-    ScriptsSelectComponent,
-    ScriptHelpComponent,
-    ParameterSelectComponent,
-    ProcessParametersComponent,
-    StringValueInputComponent,
-    ParameterValueInputComponent,
-    FileValueInputComponent,
-    BooleanValueInputComponent,
-    DateValueInputComponent,
-    ProcessOverviewComponent,
-    ProcessDetailComponent,
-    ProcessDetailFieldComponent,
-    ProcessFormComponent
-  ],
-  providers: [
-    ProcessBreadcrumbResolver,
-    ProcessBreadcrumbsService
-  ]
+    imports: [
+        SharedModule,
+        NewProcessComponent,
+        ScriptsSelectComponent,
+        ScriptHelpComponent,
+        ParameterSelectComponent,
+        ProcessParametersComponent,
+        StringValueInputComponent,
+        ParameterValueInputComponent,
+        FileValueInputComponent,
+        BooleanValueInputComponent,
+        DateValueInputComponent,
+        ProcessOverviewComponent,
+        ProcessDetailComponent,
+        ProcessDetailFieldComponent,
+        ProcessFormComponent
+    ],
+    providers: [
+        ProcessBreadcrumbResolver,
+        ProcessBreadcrumbsService
+    ]
 })
 
 export class ProcessPageSharedModule {

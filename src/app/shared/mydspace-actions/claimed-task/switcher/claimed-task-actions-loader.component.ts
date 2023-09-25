@@ -20,8 +20,10 @@ import { WorkflowItem } from '../../../../core/submission/models/workflowitem.mo
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 @Component({
-  selector: 'ds-claimed-task-actions-loader',
-  templateUrl: './claimed-task-actions-loader.component.html'
+    selector: 'ds-claimed-task-actions-loader',
+    templateUrl: './claimed-task-actions-loader.component.html',
+    standalone: true,
+    imports: [ClaimedTaskActionsDirective]
 })
 /**
  * Component for loading a ClaimedTaskAction component depending on the "option" input

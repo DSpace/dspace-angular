@@ -40,6 +40,8 @@ import { SubmissionObject } from '../../../core/submission/models/submission-obj
 import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { NgIf } from '@angular/common';
 
 /**
  * This component represents a section that contains a Form.
@@ -48,6 +50,12 @@ import { FormRowModel } from '../../../core/config/models/config-submission-form
   selector: 'ds-submission-section-form',
   styleUrls: ['./section-form.component.scss'],
   templateUrl: './section-form.component.html',
+  imports: [
+    FormComponent,
+    ThemedLoadingComponent,
+    NgIf
+  ],
+  standalone: true
 })
 @renderSectionFor(SectionsType.SubmissionForm)
 export class SubmissionSectionFormComponent extends SectionModelComponent {

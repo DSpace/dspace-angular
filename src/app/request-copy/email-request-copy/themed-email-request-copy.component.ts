@@ -8,9 +8,10 @@ import { RequestCopyEmail } from './request-copy-email.model';
  * Themed wrapper for email-request-copy.component
  */
 @Component({
-  selector: 'ds-themed-email-request-copy',
-  styleUrls: [],
-  templateUrl: './../../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-email-request-copy',
+    styleUrls: [],
+    templateUrl: './../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedEmailRequestCopyComponent extends ThemedComponent<EmailRequestCopyComponent> {
   /**

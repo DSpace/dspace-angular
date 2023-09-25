@@ -13,8 +13,9 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
  * This component represents a badge that describe an access condition
  */
 @Component({
-  selector: 'ds-submission-section-upload-access-conditions',
-  templateUrl: './submission-section-upload-access-conditions.component.html',
+    selector: 'ds-submission-section-upload-access-conditions',
+    templateUrl: './submission-section-upload-access-conditions.component.html',
+    standalone: true
 })
 export class SubmissionSectionUploadAccessConditionsComponent implements OnInit {
 

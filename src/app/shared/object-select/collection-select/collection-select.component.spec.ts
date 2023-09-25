@@ -72,9 +72,8 @@ describe('CollectionSelectComponent', () => {
   const paginationService = new PaginationServiceStub();
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, RouterTestingModule.withRoutes([])],
-      declarations: [],
-      providers: [
+    imports: [TranslateModule.forRoot(), SharedModule, RouterTestingModule.withRoutes([])],
+    providers: [
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockCollectionList[1].id]) },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: PaginationService, useValue: paginationService },
@@ -83,9 +82,9 @@ describe('CollectionSelectComponent', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

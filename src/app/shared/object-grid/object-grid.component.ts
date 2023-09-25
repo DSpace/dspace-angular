@@ -24,14 +24,23 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { Context } from '../../core/shared/context.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { ErrorComponent } from '../error/error.component';
+import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { PaginationComponent } from '../pagination/pagination.component';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.Emulated,
-  selector: 'ds-object-grid',
-  styleUrls: ['./object-grid.component.scss'],
-  templateUrl: './object-grid.component.html',
-  animations: [fadeIn]
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.Emulated,
+    selector: 'ds-object-grid',
+    styleUrls: ['./object-grid.component.scss'],
+    templateUrl: './object-grid.component.html',
+    animations: [fadeIn],
+    standalone: true,
+    imports: [PaginationComponent, NgIf, NgFor, ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe]
 })
 
 export class ObjectGridComponent implements OnInit {

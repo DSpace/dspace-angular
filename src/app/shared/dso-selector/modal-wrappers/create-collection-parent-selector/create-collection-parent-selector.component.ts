@@ -10,14 +10,19 @@ import {
 } from '../../../../collection-page/collection-page-routing-paths';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 import { environment } from '../../../../../environments/environment';
+import { TranslateModule } from '@ngx-translate/core';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { NgIf } from '@angular/common';
 /**
  * Component to wrap a list of existing communities inside a modal
  * Used to choose a community from to create a new collection in
  */
 
 @Component({
-  selector: 'ds-create-collection-parent-selector',
-  templateUrl: '../dso-selector-modal-wrapper.component.html',
+    selector: 'ds-create-collection-parent-selector',
+    templateUrl: '../dso-selector-modal-wrapper.component.html',
+    standalone: true,
+    imports: [NgIf, DSOSelectorComponent, TranslateModule]
 })
 export class CreateCollectionParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COLLECTION;

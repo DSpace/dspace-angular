@@ -9,12 +9,19 @@ import { AbstractIncrementalListComponent } from '../abstract-incremental-list/a
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { setPlaceHolderAttributes } from '../../../shared/utils/object-list-utils';
 import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgFor, NgIf, AsyncPipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 
 @Component({
-  selector: 'ds-related-items',
-  styleUrls: ['./related-items.component.scss'],
-  templateUrl: './related-items.component.html'
+    selector: 'ds-related-items',
+    styleUrls: ['./related-items.component.scss'],
+    templateUrl: './related-items.component.html',
+    standalone: true,
+    imports: [MetadataFieldWrapperComponent, NgClass, NgFor, VarDirective, ListableObjectComponentLoaderComponent, NgIf, ThemedLoadingComponent, AsyncPipe, TranslateModule]
 })
 /**
  * This component is used for displaying relations between items

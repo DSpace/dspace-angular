@@ -35,24 +35,22 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  declarations: [
-    ...COMPONENTS
-  ],
-  imports: [
-    CommonModule,
-    SearchModule,
-    SharedModule,
-    TranslateModule
-  ],
-  exports: [
-    ...COMPONENTS
-  ],
-  providers: [
-    {
-      provide: DYNAMIC_FORM_CONTROL_MAP_FN,
-      useValue: dsDynamicFormControlMapFn
-    },
-    ...ENTRY_COMPONENTS,
-  ]
+    imports: [
+        CommonModule,
+        SearchModule,
+        SharedModule,
+        TranslateModule,
+        ...COMPONENTS
+    ],
+    exports: [
+        ...COMPONENTS
+    ],
+    providers: [
+        {
+            provide: DYNAMIC_FORM_CONTROL_MAP_FN,
+            useValue: dsDynamicFormControlMapFn
+        },
+        ...ENTRY_COMPONENTS,
+    ]
 })
 export class ItemSharedModule { }

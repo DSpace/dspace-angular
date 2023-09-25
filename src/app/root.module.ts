@@ -89,19 +89,17 @@ const EXPORTS = [
 ];
 
 @NgModule({
-  imports: [
-    ...IMPORTS
-  ],
-  providers: [
-    ...PROVIDERS
-  ],
-  declarations: [
-    ...DECLARATIONS,
-  ],
-  exports: [
-    ...EXPORTS,
-    ...DECLARATIONS,
-  ]
+    imports: [
+        ...IMPORTS,
+        ...DECLARATIONS
+    ],
+    providers: [
+        ...PROVIDERS
+    ],
+    exports: [
+        ...EXPORTS,
+        ...DECLARATIONS,
+    ]
 })
 export class RootModule {
 

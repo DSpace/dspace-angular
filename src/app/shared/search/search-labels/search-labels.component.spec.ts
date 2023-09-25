@@ -31,14 +31,13 @@ describe('SearchLabelsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, RouterTestingModule],
-      declarations: [SearchLabelsComponent, ObjectKeysPipe],
-      providers: [
+    imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, RouterTestingModule, SearchLabelsComponent, ObjectKeysPipe],
+    providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: SEARCH_CONFIG_SERVICE, useValue: { getCurrentFrontendFilters: () => observableOf(mockFilters) } }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(SearchLabelsComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(SearchLabelsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

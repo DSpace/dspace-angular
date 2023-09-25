@@ -1,6 +1,6 @@
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { ChangeDetectionStrategy, Component, Injector, OnInit } from '@angular/core';
-import { ActivatedRoute, CanActivate, Route, Router } from '@angular/router';
+import { ActivatedRoute, CanActivate, Route, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
@@ -8,6 +8,9 @@ import { map } from 'rxjs/operators';
 import { isNotEmpty } from '../../shared/empty.util';
 import { getItemPageRoute } from '../item-page-routing-paths';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { TranslateModule } from '@ngx-translate/core';
+import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-edit-item-page',
@@ -16,7 +19,18 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
   animations: [
     fadeIn,
     fadeInOut
-  ]
+  ],
+  imports: [
+    TranslateModule,
+    NgClass,
+    NgIf,
+    NgForOf,
+    AsyncPipe,
+    NgbTooltipModule,
+    RouterLink,
+    RouterOutlet
+  ],
+  standalone: true
 })
 /**
  * Page component for editing an item

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { isPlatformServer } from '@angular/common';
+import { AsyncPipe, isPlatformServer, NgIf } from '@angular/common';
 
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
@@ -21,6 +21,17 @@ import { SignpostingDataService } from '../../core/data/signposting-data.service
 import { SignpostingLink } from '../../core/data/signposting-links.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import { LinkDefinition, LinkHeadService } from '../../core/services/link-head.service';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
+import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
+import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { ItemVersionsComponent } from '../versions/item-versions.component';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * This component renders a simple item page.
@@ -32,7 +43,21 @@ import { LinkDefinition, LinkHeadService } from '../../core/services/link-head.s
   styleUrls: ['./item-page.component.scss'],
   templateUrl: './item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeInOut]
+  animations: [fadeInOut],
+  standalone: true,
+  imports: [
+    VarDirective,
+    ThemedItemAlertsComponent,
+    ItemVersionsNoticeComponent,
+    ViewTrackerComponent,
+    ListableObjectComponentLoaderComponent,
+    ItemVersionsComponent,
+    ErrorComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    AsyncPipe,
+    NgIf
+  ]
 })
 export class ItemPageComponent implements OnInit, OnDestroy {
 

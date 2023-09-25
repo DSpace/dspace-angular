@@ -10,15 +10,20 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { MenuID } from '../../shared/menu/menu-id.model';
 import { ActivatedRoute } from '@angular/router';
 import { ThemeService } from '../../shared/theme-support/theme.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf, NgClass, NgFor, NgComponentOutlet, AsyncPipe } from '@angular/common';
 
 /**
  * Component representing the admin sidebar
  */
 @Component({
-  selector: 'ds-admin-sidebar',
-  templateUrl: './admin-sidebar.component.html',
-  styleUrls: ['./admin-sidebar.component.scss'],
-  animations: [slideSidebar]
+    selector: 'ds-admin-sidebar',
+    templateUrl: './admin-sidebar.component.html',
+    styleUrls: ['./admin-sidebar.component.scss'],
+    animations: [slideSidebar],
+    standalone: true,
+    imports: [NgIf, NgbDropdownModule, NgClass, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule]
 })
 export class AdminSidebarComponent extends MenuComponent implements OnInit {
   /**

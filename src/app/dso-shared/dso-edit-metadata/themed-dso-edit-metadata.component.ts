@@ -5,9 +5,10 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { UpdateDataService } from '../../core/data/update-data.service';
 
 @Component({
-  selector: 'ds-themed-dso-edit-metadata',
-  styleUrls: [],
-  templateUrl: './../../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-dso-edit-metadata',
+    styleUrls: [],
+    templateUrl: './../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedDsoEditMetadataComponent extends ThemedComponent<DsoEditMetadataComponent> {
 

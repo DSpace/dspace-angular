@@ -19,14 +19,13 @@ describe('ExpandableNavbarSectionComponent', () => {
   describe('on larger screens', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
-        declarations: [ExpandableNavbarSectionComponent, TestComponent, VarDirective],
-        providers: [
-          { provide: 'sectionDataProvider', useValue: {} },
-          { provide: MenuService, useValue: menuService },
-          { provide: HostWindowService, useValue: new HostWindowServiceStub(800) }
-        ]
-      }).overrideComponent(ExpandableNavbarSectionComponent, {
+    imports: [NoopAnimationsModule, ExpandableNavbarSectionComponent, TestComponent, VarDirective],
+    providers: [
+        { provide: 'sectionDataProvider', useValue: {} },
+        { provide: MenuService, useValue: menuService },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(800) }
+    ]
+}).overrideComponent(ExpandableNavbarSectionComponent, {
         set: {
           entryComponents: [TestComponent]
         }
@@ -168,14 +167,13 @@ describe('ExpandableNavbarSectionComponent', () => {
   describe('on smaller, mobile screens', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
-        declarations: [ExpandableNavbarSectionComponent, TestComponent, VarDirective],
-        providers: [
-          { provide: 'sectionDataProvider', useValue: {} },
-          { provide: MenuService, useValue: menuService },
-          { provide: HostWindowService, useValue: new HostWindowServiceStub(300) }
-        ]
-      }).overrideComponent(ExpandableNavbarSectionComponent, {
+    imports: [NoopAnimationsModule, ExpandableNavbarSectionComponent, TestComponent, VarDirective],
+    providers: [
+        { provide: 'sectionDataProvider', useValue: {} },
+        { provide: MenuService, useValue: menuService },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(300) }
+    ]
+}).overrideComponent(ExpandableNavbarSectionComponent, {
         set: {
           entryComponents: [TestComponent]
         }
@@ -242,8 +240,9 @@ describe('ExpandableNavbarSectionComponent', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true
 })
 class TestComponent {
 }

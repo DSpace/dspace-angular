@@ -95,16 +95,16 @@ describe('ClaimedTaskActionsComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      declarations: [ClaimedTaskActionsComponent, VarDirective],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        ClaimedTaskActionsComponent, VarDirective
+    ],
+    providers: [
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
@@ -112,9 +112,9 @@ describe('ClaimedTaskActionsComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
         { provide: WorkflowActionDataService, useValue: workflowActionService }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ClaimedTaskActionsComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ClaimedTaskActionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

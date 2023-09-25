@@ -6,6 +6,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
 import { getItemEditRoute } from '../../../../item-page/item-page-routing-paths';
 import { Item } from '../../../../core/shared/item.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { NgIf } from '@angular/common';
 
 /**
  * Component to wrap a list of existing items inside a modal
@@ -13,8 +16,10 @@ import { Item } from '../../../../core/shared/item.model';
  */
 
 @Component({
-  selector: 'ds-edit-item-selector',
-  templateUrl: 'edit-item-selector.component.html',
+    selector: 'ds-edit-item-selector',
+    templateUrl: 'edit-item-selector.component.html',
+    standalone: true,
+    imports: [NgIf, DSOSelectorComponent, TranslateModule]
 })
 export class EditItemSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;

@@ -2,12 +2,22 @@ import { Component, ViewChild } from '@angular/core';
 import {
   AccessControlFormContainerComponent
 } from '../../../shared/access-control-form-container/access-control-form-container.component';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'ds-bulk-access-settings',
   templateUrl: 'bulk-access-settings.component.html',
   styleUrls: ['./bulk-access-settings.component.scss'],
-  exportAs: 'dsBulkSettings'
+  exportAs: 'dsBulkSettings',
+  imports: [
+    NgbAccordionModule,
+    TranslateModule,
+    NgIf,
+    AccessControlFormContainerComponent
+  ],
+  standalone: true
 })
 export class BulkAccessSettingsComponent {
 

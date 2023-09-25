@@ -28,21 +28,19 @@ const PROVIDERS = [
 ];
 
 @NgModule({
-  declarations: [
-    ...COMPONENTS
-  ],
-  imports: [
-    NgbModule,
-    CommonModule,
-    FormModule,
-    TranslateModule,
-    SharedModule
-  ],
-  providers: [
-    ...PROVIDERS
-  ],
-  exports: [
-    ...COMPONENTS
-  ]
+    imports: [
+        NgbModule,
+        CommonModule,
+        FormModule,
+        TranslateModule,
+        SharedModule,
+        ...COMPONENTS
+    ],
+    providers: [
+        ...PROVIDERS
+    ],
+    exports: [
+        ...COMPONENTS
+    ]
 })
 export class ResourcePoliciesModule { }

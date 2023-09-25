@@ -11,14 +11,19 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 /**
  * This component represents a badge with collection information.
  */
 @Component({
-  selector: 'ds-item-collection',
-  styleUrls: ['./item-collection.component.scss'],
-  templateUrl: './item-collection.component.html'
+    selector: 'ds-item-collection',
+    styleUrls: ['./item-collection.component.scss'],
+    templateUrl: './item-collection.component.html',
+    standalone: true,
+    imports: [NgIf, RouterLink, AsyncPipe, TranslateModule]
 })
 export class ItemCollectionComponent implements OnInit {
 

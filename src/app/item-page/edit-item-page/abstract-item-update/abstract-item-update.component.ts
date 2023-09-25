@@ -18,8 +18,9 @@ import { FieldUpdate } from '../../../core/data/object-updates/field-update.mode
 import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
 
 @Component({
-  selector: 'ds-abstract-item-update',
-  template: ''
+    selector: 'ds-abstract-item-update',
+    template: '',
+    standalone: true
 })
 /**
  * Abstract component for managing object updates of an item

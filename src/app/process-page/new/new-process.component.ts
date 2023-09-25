@@ -8,14 +8,19 @@ import { map, switchMap } from 'rxjs/operators';
 import { LinkService } from '../../core/cache/builders/link.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { Script } from '../scripts/script.model';
+import { ProcessFormComponent } from '../form/process-form.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 /**
  * Component to create a new script
  */
 @Component({
-  selector: 'ds-new-process',
-  templateUrl: './new-process.component.html',
-  styleUrls: ['./new-process.component.scss'],
+    selector: 'ds-new-process',
+    templateUrl: './new-process.component.html',
+    styleUrls: ['./new-process.component.scss'],
+    standalone: true,
+    imports: [NgIf, VarDirective, ProcessFormComponent, AsyncPipe]
 })
 export class NewProcessComponent implements OnInit {
   /**

@@ -18,14 +18,20 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/oper
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
 import { Context } from '../../../../core/shared/context.model';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
+import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
+import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { NgIf, NgClass, AsyncPipe } from '@angular/common';
 
 /**
  * This component renders workflowitem object for the search result in the list view.
  */
 @Component({
-  selector: 'ds-workflow-item-my-dspace-result-list-element',
-  styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
-  templateUrl: './workflow-item-search-result-list-element.component.html',
+    selector: 'ds-workflow-item-my-dspace-result-list-element',
+    styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
+    templateUrl: './workflow-item-search-result-list-element.component.html',
+    standalone: true,
+    imports: [NgIf, ListableObjectComponentLoaderComponent, NgClass, WorkflowitemActionsComponent, ThemedLoadingComponent, AsyncPipe]
 })
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.ListElement)

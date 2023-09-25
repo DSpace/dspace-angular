@@ -30,6 +30,7 @@ import { SectionsType } from '../sections-type';
 import { SectionsService } from '../sections.service';
 import { SECTION_LICENSE_FORM_LAYOUT, SECTION_LICENSE_FORM_MODEL } from './section-license.model';
 import { TranslateService } from '@ngx-translate/core';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -38,6 +39,12 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'ds-submission-section-license',
   styleUrls: ['./section-license.component.scss'],
   templateUrl: './section-license.component.html',
+  imports: [
+    FormComponent,
+    NgIf,
+    AsyncPipe
+  ],
+  standalone: true
 })
 @renderSectionFor(SectionsType.License)
 export class SubmissionSectionLicenseComponent extends SectionModelComponent {

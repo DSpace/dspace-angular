@@ -15,18 +15,18 @@ describe('FileValueInputComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         FormsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })],
-      declarations: [FileValueInputComponent, FileValueAccessorDirective, FileValidator],
-      schemas: [NO_ERRORS_SCHEMA]
-
-    })
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        FileValueInputComponent, FileValueAccessorDirective, FileValidator
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

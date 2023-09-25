@@ -99,9 +99,8 @@ describe('GrantRequestCopyComponent', () => {
     notificationsService = jasmine.createSpyObj('notificationsService', ['success', 'error']);
 
     return TestBed.configureTestingModule({
-      declarations: [GrantRequestCopyComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), GrantRequestCopyComponent, VarDirective],
+    providers: [
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: route },
         { provide: AuthService, useValue: authService },
@@ -109,9 +108,9 @@ describe('GrantRequestCopyComponent', () => {
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: ItemRequestDataService, useValue: itemRequestService },
         { provide: NotificationsService, useValue: notificationsService },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

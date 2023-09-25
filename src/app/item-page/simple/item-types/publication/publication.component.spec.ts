@@ -62,17 +62,17 @@ describe('PublicationComponent', () => {
       }
     };
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
         RouterTestingModule,
-      ],
-      declarations: [PublicationComponent, GenericItemPageFieldComponent, TruncatePipe],
-      providers: [
+        PublicationComponent, GenericItemPageFieldComponent, TruncatePipe
+    ],
+    providers: [
         { provide: ItemDataService, useValue: {} },
         { provide: TruncatableService, useValue: {} },
         { provide: RelationshipDataService, useValue: {} },
@@ -93,10 +93,9 @@ describe('PublicationComponent', () => {
         { provide: SearchService, useValue: {} },
         { provide: RouteService, useValue: mockRouteService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(PublicationComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(PublicationComponent, {
       set: {changeDetection: ChangeDetectionStrategy.Default}
     });
   }));

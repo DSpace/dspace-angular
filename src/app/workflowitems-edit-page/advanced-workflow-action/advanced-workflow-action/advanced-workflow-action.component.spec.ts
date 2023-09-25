@@ -43,27 +43,25 @@ describe('AdvancedWorkflowActionComponent', () => {
     workflowItemDataService = new WorkflowItemDataServiceStub();
 
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         RouterTestingModule,
-      ],
-      declarations: [
         TestComponent,
-        MockComponent(DSOSelectorComponent),
-      ],
-      providers: [
+        MockComponent(DSOSelectorComponent)
+    ],
+    providers: [
         {
-          provide: ActivatedRoute,
-          useValue: {
-            data: observableOf({
-              id: workflowId,
-            }),
-            snapshot: {
-              queryParams: {
-                workflow: 'testaction',
-              },
+            provide: ActivatedRoute,
+            useValue: {
+                data: observableOf({
+                    id: workflowId,
+                }),
+                snapshot: {
+                    queryParams: {
+                        workflow: 'testaction',
+                    },
+                },
             },
-          },
         },
         { provide: ClaimedTaskDataService, useValue: claimedTaskDataService },
         { provide: Location, useValue: location },
@@ -72,8 +70,8 @@ describe('AdvancedWorkflowActionComponent', () => {
         { provide: WorkflowActionDataService, useValue: workflowActionDataService },
         { provide: WorkflowItemDataService, useValue: workflowItemDataService },
         { provide: RequestService, useClass: RequestServiceStub },
-      ],
-    }).compileComponents();
+    ]
+}).compileComponents();
   });
 
   beforeEach(() => {
@@ -115,9 +113,11 @@ describe('AdvancedWorkflowActionComponent', () => {
 });
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: '',
-  template: ''
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: '',
+    template: '',
+    standalone: true,
+    imports: [RouterTestingModule]
 })
 class TestComponent extends AdvancedWorkflowActionComponent {
 

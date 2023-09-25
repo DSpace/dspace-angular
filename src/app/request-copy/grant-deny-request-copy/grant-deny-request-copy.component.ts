@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { ItemRequest } from '../../core/shared/item-request.model';
 import { Observable } from 'rxjs';
@@ -15,11 +15,17 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-grant-deny-request-copy',
-  styleUrls: ['./grant-deny-request-copy.component.scss'],
-  templateUrl: './grant-deny-request-copy.component.html'
+    selector: 'ds-grant-deny-request-copy',
+    styleUrls: ['./grant-deny-request-copy.component.scss'],
+    templateUrl: './grant-deny-request-copy.component.html',
+    standalone: true,
+    imports: [VarDirective, NgIf, RouterLink, ThemedLoadingComponent, AsyncPipe, TranslateModule]
 })
 /**
  * Component for an author to decide to grant or deny an item request

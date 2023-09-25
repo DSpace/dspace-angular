@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { METADATA_EXPORT_SCRIPT_NAME, ScriptDataService } from '../../../../core/data/processes/script-data.service';
@@ -21,14 +21,18 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { NgIf } from '@angular/common';
 
 /**
  * Component to wrap a list of existing dso's inside a modal
  * Used to choose a dso from to export metadata of
  */
 @Component({
-  selector: 'ds-export-metadata-selector',
-  templateUrl: '../dso-selector-modal-wrapper.component.html',
+    selector: 'ds-export-metadata-selector',
+    templateUrl: '../dso-selector-modal-wrapper.component.html',
+    standalone: true,
+    imports: [NgIf, DSOSelectorComponent, TranslateModule]
 })
 export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.DSPACEOBJECT;

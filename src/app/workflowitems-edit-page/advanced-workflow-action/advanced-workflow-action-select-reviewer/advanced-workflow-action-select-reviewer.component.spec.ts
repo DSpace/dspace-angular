@@ -53,28 +53,26 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
     workflowItemDataService = new WorkflowItemDataServiceStub();
 
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
-        AdvancedWorkflowActionSelectReviewerComponent,
-      ],
-      providers: [
+        AdvancedWorkflowActionSelectReviewerComponent
+    ],
+    providers: [
         {
-          provide: ActivatedRoute,
-          useValue: {
-            data: observableOf({
-              id: workflowId,
-              wfi: createSuccessfulRemoteDataObject(workflowItem),
-            }),
-            snapshot: {
-              queryParams: {
-                claimedTask: claimedTaskId,
-                workflow: 'testaction',
-                previousSearchQuery: 'Thor%20Love%20and%20Thunder',
-              },
+            provide: ActivatedRoute,
+            useValue: {
+                data: observableOf({
+                    id: workflowId,
+                    wfi: createSuccessfulRemoteDataObject(workflowItem),
+                }),
+                snapshot: {
+                    queryParams: {
+                        claimedTask: claimedTaskId,
+                        workflow: 'testaction',
+                        previousSearchQuery: 'Thor%20Love%20and%20Thunder',
+                    },
+                },
             },
-          },
         },
         { provide: ClaimedTaskDataService, useValue: claimedTaskDataService },
         { provide: Location, useValue: location },
@@ -84,9 +82,9 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
         { provide: WorkflowActionDataService, useValue: workflowActionDataService },
         { provide: WorkflowItemDataService, useValue: workflowItemDataService },
         { provide: RequestService, useClass: RequestServiceStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   });
 
   beforeEach(() => {

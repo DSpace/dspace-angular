@@ -11,10 +11,9 @@ describe('ForgotEmailComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, TranslateModule.forRoot(), ReactiveFormsModule],
-      declarations: [ForgotEmailComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    imports: [CommonModule, TranslateModule.forRoot(), ReactiveFormsModule, ForgotEmailComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(ForgotEmailComponent);

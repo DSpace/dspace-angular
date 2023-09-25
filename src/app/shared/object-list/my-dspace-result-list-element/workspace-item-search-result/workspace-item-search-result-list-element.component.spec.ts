@@ -70,17 +70,16 @@ describe('WorkspaceItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     linkService = getMockLinkService();
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [WorkspaceItemSearchResultListElementComponent],
-      providers: [
+    imports: [NoopAnimationsModule, WorkspaceItemSearchResultListElementComponent],
+    providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: ItemDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(WorkspaceItemSearchResultListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(WorkspaceItemSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

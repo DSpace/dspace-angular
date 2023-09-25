@@ -48,18 +48,17 @@ describe('EndUserAgreementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [EndUserAgreementComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), EndUserAgreementComponent],
+    providers: [
         { provide: EndUserAgreementService, useValue: endUserAgreementService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: AuthService, useValue: authService },
         { provide: Store, useValue: store },
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: route }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

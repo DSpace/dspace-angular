@@ -15,11 +15,14 @@ import { URLCombiner } from '../../../../core/url-combiner/url-combiner';
 import { CoreState } from '../../../../core/core-state.model';
 import { renderAuthMethodFor } from '../log-in.methods-decorator';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'ds-log-in-external-provider',
-  templateUrl: './log-in-external-provider.component.html',
-  styleUrls: ['./log-in-external-provider.component.scss']
+    selector: 'ds-log-in-external-provider',
+    templateUrl: './log-in-external-provider.component.html',
+    styleUrls: ['./log-in-external-provider.component.scss'],
+    standalone: true,
+    imports: [TranslateModule]
 })
 @renderAuthMethodFor(AuthMethodType.Oidc)
 @renderAuthMethodFor(AuthMethodType.Shibboleth)

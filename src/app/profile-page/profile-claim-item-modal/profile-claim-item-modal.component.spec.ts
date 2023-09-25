@@ -105,16 +105,15 @@ describe('ProfileClaimItemModalComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ProfileClaimItemModalComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), ProfileClaimItemModalComponent],
+    providers: [
         { provide: NgbActiveModal, useValue: {} },
         { provide: ActivatedRoute, useValue: {} },
         { provide: Router, useValue: new RouterStub() },
         { provide: ProfileClaimService, useValue: profileClaimService }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

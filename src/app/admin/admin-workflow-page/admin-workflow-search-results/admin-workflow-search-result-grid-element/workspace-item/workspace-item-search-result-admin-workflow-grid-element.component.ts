@@ -37,12 +37,17 @@ import { SupervisionOrder } from '../../../../../core/supervision-order/models/s
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { AsyncPipe } from '@angular/common';
+import { WorkspaceItemAdminWorkflowActionsComponent } from '../../actions/workspace-item/workspace-item-admin-workflow-actions.component';
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
 @Component({
-  selector: 'ds-workflow-item-search-result-admin-workflow-grid-element',
-  styleUrls: ['./workspace-item-search-result-admin-workflow-grid-element.component.scss'],
-  templateUrl: './workspace-item-search-result-admin-workflow-grid-element.component.html'
+    selector: 'ds-workflow-item-search-result-admin-workflow-grid-element',
+    styleUrls: ['./workspace-item-search-result-admin-workflow-grid-element.component.scss'],
+    templateUrl: './workspace-item-search-result-admin-workflow-grid-element.component.html',
+    standalone: true,
+    imports: [ListableObjectDirective, WorkspaceItemAdminWorkflowActionsComponent, AsyncPipe, TranslateModule]
 })
 /**
  * The component for displaying a grid element for an workflow item on the admin workflow search page

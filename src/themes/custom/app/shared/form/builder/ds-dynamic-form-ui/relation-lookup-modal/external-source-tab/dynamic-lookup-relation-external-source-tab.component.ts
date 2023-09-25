@@ -1,8 +1,26 @@
-import { DsDynamicLookupRelationExternalSourceTabComponent as BaseComponent } from '../../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
+import {
+  DsDynamicLookupRelationExternalSourceTabComponent as BaseComponent
+} from '../../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
 import { Component } from '@angular/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../../../../app/my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../../../../../../../app/core/shared/search/search-configuration.service';
+import {
+  SearchConfigurationService
+} from '../../../../../../../../../app/core/shared/search/search-configuration.service';
 import { fadeIn, fadeInOut } from '../../../../../../../../../app/shared/animations/fade';
+import {
+  ThemedSearchFormComponent
+} from '../../../../../../../../../app/shared/search-form/themed-search-form.component';
+import {
+  PageSizeSelectorComponent
+} from '../../../../../../../../../app/shared/page-size-selector/page-size-selector.component';
+import {
+  ObjectCollectionComponent
+} from '../../../../../../../../../app/shared/object-collection/object-collection.component';
+import { VarDirective } from '../../../../../../../../../app/shared/utils/var.directive';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { ErrorComponent } from '../../../../../../../../../app/shared/error/error.component';
+import { ThemedLoadingComponent } from '../../../../../../../../../app/shared/loading/themed-loading.component';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-external-source-tab',
@@ -19,7 +37,19 @@ import { fadeIn, fadeInOut } from '../../../../../../../../../app/shared/animati
   animations: [
     fadeIn,
     fadeInOut
-  ]
+  ],
+  standalone: true,
+  imports: [
+    ThemedSearchFormComponent,
+    PageSizeSelectorComponent,
+    ObjectCollectionComponent,
+    VarDirective,
+    AsyncPipe,
+    TranslateModule,
+    ErrorComponent,
+    NgIf,
+    ThemedLoadingComponent
+  ],
 })
 export class DsDynamicLookupRelationExternalSourceTabComponent extends BaseComponent {
 

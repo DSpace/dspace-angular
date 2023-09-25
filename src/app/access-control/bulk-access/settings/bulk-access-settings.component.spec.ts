@@ -41,10 +41,9 @@ describe('BulkAccessSettingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NgbAccordionModule, TranslateModule.forRoot()],
-      declarations: [BulkAccessSettingsComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    imports: [NgbAccordionModule, TranslateModule.forRoot(), BulkAccessSettingsComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   });
 
   beforeEach(() => {

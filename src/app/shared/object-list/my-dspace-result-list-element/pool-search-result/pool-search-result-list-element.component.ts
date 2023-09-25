@@ -22,14 +22,19 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { Item } from '../../../../core/shared/item.model';
 import { isNotEmpty, hasValue } from '../../../empty.util';
 import { Context } from '../../../../core/shared/context.model';
+import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
+import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
+import { NgIf, NgClass, AsyncPipe } from '@angular/common';
 
 /**
  * This component renders pool task object for the search result in the list view.
  */
 @Component({
-  selector: 'ds-pool-search-result-list-element',
-  styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
-  templateUrl: './pool-search-result-list-element.component.html',
+    selector: 'ds-pool-search-result-list-element',
+    styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
+    templateUrl: './pool-search-result-list-element.component.html',
+    standalone: true,
+    imports: [NgIf, ThemedItemListPreviewComponent, NgClass, PoolTaskActionsComponent, AsyncPipe]
 })
 
 @listableObjectComponent(PoolTaskSearchResult, ViewMode.ListElement)

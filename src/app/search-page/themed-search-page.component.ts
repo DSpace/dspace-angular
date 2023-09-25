@@ -6,9 +6,10 @@ import { SearchPageComponent } from './search-page.component';
  * Themed wrapper for SearchPageComponent
  */
 @Component({
-  selector: 'ds-themed-search-page',
-  styleUrls: [],
-  templateUrl: '../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-search-page',
+    styleUrls: [],
+    templateUrl: '../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedSearchPageComponent extends ThemedComponent<SearchPageComponent> {
 

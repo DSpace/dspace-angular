@@ -34,22 +34,23 @@ describe('ScriptsSelectComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         FormsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })],
-      declarations: [ScriptsSelectComponent],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        ScriptsSelectComponent
+    ],
+    providers: [
         { provide: ScriptDataService, useValue: scriptService },
         { provide: Router, useClass: RouterStub },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

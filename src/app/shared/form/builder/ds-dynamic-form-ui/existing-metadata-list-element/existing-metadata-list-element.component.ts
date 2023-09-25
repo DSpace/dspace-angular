@@ -21,6 +21,12 @@ import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
+import {
+  MetadataRepresentationLoaderComponent
+} from '../../../../metadata-representation/metadata-representation-loader.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Abstract class that defines objects that can be reordered
@@ -136,7 +142,15 @@ export class ReorderableRelationship extends Reorderable {
 @Component({
   selector: 'ds-existing-metadata-list-element',
   templateUrl: './existing-metadata-list-element.component.html',
-  styleUrls: ['./existing-metadata-list-element.component.scss']
+  styleUrls: ['./existing-metadata-list-element.component.scss'],
+  imports: [
+    NgIf,
+    ThemedLoadingComponent,
+    AsyncPipe,
+    MetadataRepresentationLoaderComponent,
+    TranslateModule
+  ],
+  standalone: true
 })
 export class ExistingMetadataListElementComponent implements OnInit, OnChanges, OnDestroy   {
   @Input() listId: string;

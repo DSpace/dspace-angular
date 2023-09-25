@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
@@ -22,10 +22,26 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
+import { EPersonFormComponent } from './eperson-form/eperson-form.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 
 @Component({
   selector: 'ds-epeople-registry',
   templateUrl: './epeople-registry.component.html',
+  imports: [
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+    EPersonFormComponent,
+    ReactiveFormsModule,
+    ThemedLoadingComponent,
+    PaginationComponent,
+    NgClass,
+    NgForOf
+  ],
+  standalone: true
 })
 /**
  * A component used for managing all existing epeople within the repository.

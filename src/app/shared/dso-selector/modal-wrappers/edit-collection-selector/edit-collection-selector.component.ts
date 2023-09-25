@@ -10,6 +10,9 @@ import {
 import { getCollectionEditRoute } from '../../../../collection-page/collection-page-routing-paths';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 import { environment } from '../../../../../environments/environment';
+import { TranslateModule } from '@ngx-translate/core';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { NgIf } from '@angular/common';
 
 /**
  * Component to wrap a list of existing collections inside a modal
@@ -17,8 +20,10 @@ import { environment } from '../../../../../environments/environment';
  */
 
 @Component({
-  selector: 'ds-edit-collection-selector',
-  templateUrl: '../dso-selector-modal-wrapper.component.html',
+    selector: 'ds-edit-collection-selector',
+    templateUrl: '../dso-selector-modal-wrapper.component.html',
+    standalone: true,
+    imports: [NgIf, DSOSelectorComponent, TranslateModule]
 })
 export class EditCollectionSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COLLECTION;

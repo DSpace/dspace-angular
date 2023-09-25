@@ -72,18 +72,15 @@ describe('ItemEditBitstreamComponent', () => {
     );
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [
-        ItemEditBitstreamComponent,
-        VarDirective,
-        BrowserOnlyMockPipe,
-      ],
-      providers: [
+    imports: [TranslateModule.forRoot(), ItemEditBitstreamComponent,
+        VarDirective],
+    declarations: [BrowserOnlyMockPipe],
+    providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService }
-      ], schemas: [
+    ], schemas: [
         NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
   }));
 
   beforeEach(() => {

@@ -26,12 +26,20 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { environment } from '../../../../../../environments/environment';
 import { addOperatorToFilterValue } from '../../../search.utils';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
+import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
+import { SearchFacetOptionComponent } from '../search-facet-filter-options/search-facet-option/search-facet-option.component';
+import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
+import { NgFor, NgIf, AsyncPipe, LowerCasePipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-search-hierarchy-filter',
-  styleUrls: ['./search-hierarchy-filter.component.scss'],
-  templateUrl: './search-hierarchy-filter.component.html',
-  animations: [facetLoad]
+    selector: 'ds-search-hierarchy-filter',
+    styleUrls: ['./search-hierarchy-filter.component.scss'],
+    templateUrl: './search-hierarchy-filter.component.html',
+    animations: [facetLoad],
+    standalone: true,
+    imports: [NgFor, SearchFacetSelectedOptionComponent, SearchFacetOptionComponent, NgIf, FilterInputSuggestionsComponent, FormsModule, AsyncPipe, LowerCasePipe, TranslateModule]
 })
 
 /**

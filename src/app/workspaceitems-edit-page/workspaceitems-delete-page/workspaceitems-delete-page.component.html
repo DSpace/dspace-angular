@@ -1,6 +1,6 @@
 <div class="container">
   <h2>{{ 'workspace-item.delete.header' | translate }}</h2>
-  <ds-modify-item-overview *ngIf="(dso$ | async)" [item]="(dso$ | async)"></ds-modify-item-overview>
+  <ds-modify-item-overview *ngIf="(dso$ | async)" [item]="$any(dso$ | async)"></ds-modify-item-overview>
   <button class="btn btn-default" (click)="previousPage()">{{ 'workspace-item.delete.button.cancel' | translate }}</button>
   <button class="btn btn-danger" (click)="$event.preventDefault();confirmDelete(content)">{{ 'workspace-item.delete.button.confirm' | translate }}</button>
 </div>

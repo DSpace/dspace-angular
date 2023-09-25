@@ -37,21 +37,19 @@ const ENTRY_COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [
-    SearchModule,
-    SharedModule.withEntryComponents()
-  ],
-  declarations: [
-    AdminWorkflowPageComponent,
-    SupervisionOrderGroupSelectorComponent,
-    SupervisionOrderStatusComponent,
-    WorkflowItemAdminWorkflowActionsComponent,
-    WorkspaceItemAdminWorkflowActionsComponent,
-    ...ENTRY_COMPONENTS
-  ],
-  exports: [
-    AdminWorkflowPageComponent
-  ]
+    imports: [
+        SearchModule,
+        SharedModule.withEntryComponents(),
+        AdminWorkflowPageComponent,
+        SupervisionOrderGroupSelectorComponent,
+        SupervisionOrderStatusComponent,
+        WorkflowItemAdminWorkflowActionsComponent,
+        WorkspaceItemAdminWorkflowActionsComponent,
+        ...ENTRY_COMPONENTS
+    ],
+    exports: [
+        AdminWorkflowPageComponent
+    ]
 })
 export class AdminWorkflowModuleModule {
   /**

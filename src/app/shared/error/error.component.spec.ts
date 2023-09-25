@@ -17,17 +17,17 @@ describe('ErrorComponent (inline template)', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-      ],
-      declarations: [ErrorComponent], // declare the test component
-      providers: [TranslateService]
-    }).compileComponents();  // compile template and css
+        ErrorComponent
+    ],
+    providers: [TranslateService]
+}).compileComponents();  // compile template and css
   }));
 
   beforeEach(() => {

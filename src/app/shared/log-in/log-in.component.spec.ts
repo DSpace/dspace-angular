@@ -51,23 +51,21 @@ describe('LogInComponent', () => {
 
     // refine the test module by declaring the test component
     void TestBed.configureTestingModule({
-      imports: [
+    imports: [
         FormsModule,
         ReactiveFormsModule,
         StoreModule.forRoot(authReducer, {
-          runtimeChecks: {
-            strictStateImmutability: false,
-            strictActionImmutability: false
-          }
+            runtimeChecks: {
+                strictStateImmutability: false,
+                strictActionImmutability: false
+            }
         }),
         RouterTestingModule,
         SharedModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         TestComponent
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         // { provide: Router, useValue: new RouterStub() },
@@ -76,11 +74,11 @@ describe('LogInComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         provideMockStore({ initialState }),
         LogInComponent
-      ],
-      schemas: [
+    ],
+    schemas: [
         CUSTOM_ELEMENTS_SCHEMA
-      ]
-    })
+    ]
+})
       .compileComponents();
 
   }));
@@ -132,8 +130,13 @@ describe('LogInComponent', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [FormsModule,
+        ReactiveFormsModule,
+        RouterTestingModule,
+        SharedModule]
 })
 class TestComponent {
 

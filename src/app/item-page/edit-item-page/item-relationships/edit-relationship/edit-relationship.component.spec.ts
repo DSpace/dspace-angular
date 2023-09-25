@@ -117,20 +117,19 @@ describe('EditRelationshipComponent', () => {
     spyOn(objectUpdatesService, 'isSelectedVirtualMetadata').and.callFake((a, b, uuid) => observableOf(itemSelection[uuid]));
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [EditRelationshipComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), EditRelationshipComponent],
+    providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         {
-          provide: NgbModal, useValue: {
-            open: () => {/*comment*/
-            }
-          },
+            provide: NgbModal, useValue: {
+                open: () => {
+                }
+            },
         },
-      ], schemas: [
+    ], schemas: [
         NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
   }));
 
   beforeEach(() => {

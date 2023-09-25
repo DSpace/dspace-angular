@@ -9,9 +9,9 @@ describe('AdminSearchPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [AdminSearchPageComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    imports: [AdminSearchPageComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

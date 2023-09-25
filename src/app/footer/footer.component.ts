@@ -5,11 +5,16 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { NgIf, AsyncPipe, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-footer',
-  styleUrls: ['footer.component.scss'],
-  templateUrl: 'footer.component.html'
+    selector: 'ds-footer',
+    styleUrls: ['footer.component.scss'],
+    templateUrl: 'footer.component.html',
+    standalone: true,
+    imports: [NgIf, RouterLink, AsyncPipe, DatePipe, TranslateModule]
 })
 export class FooterComponent {
   dateObj: number = Date.now();

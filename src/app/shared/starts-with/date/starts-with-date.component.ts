@@ -5,15 +5,20 @@ import { renderStartsWithFor, StartsWithType } from '../starts-with-decorator';
 import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
 import { hasValue } from '../../empty.util';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgFor } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 /**
  * A switchable component rendering StartsWith options for the type "Date".
  * The options are rendered in a dropdown with an input field (of type number) next to it.
  */
 @Component({
-  selector: 'ds-starts-with-date',
-  styleUrls: ['./starts-with-date.component.scss'],
-  templateUrl: './starts-with-date.component.html'
+    selector: 'ds-starts-with-date',
+    styleUrls: ['./starts-with-date.component.scss'],
+    templateUrl: './starts-with-date.component.html',
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, NgFor, TranslateModule]
 })
 @renderStartsWithFor(StartsWithType.date)
 export class StartsWithDateComponent extends StartsWithAbstractComponent {

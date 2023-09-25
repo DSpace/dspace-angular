@@ -72,16 +72,16 @@ describe('RssComponent', () => {
             paginatedSearchOptions: mockSearchOptions
           };
         TestBed.configureTestingModule({
-          providers: [
-            { provide: GroupDataService, useValue: groupDataService },
-            { provide: LinkHeadService, useValue: linkHeadService },
-            { provide: ConfigurationDataService, useValue: configurationDataService },
-            { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
-            { provide: PaginationService, useValue: paginationService },
-            { provide: Router, useValue: new RouterMock() }
-          ],
-          declarations: [RSSComponent]
-        }).compileComponents();
+    imports: [RSSComponent],
+    providers: [
+        { provide: GroupDataService, useValue: groupDataService },
+        { provide: LinkHeadService, useValue: linkHeadService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
+        { provide: PaginationService, useValue: paginationService },
+        { provide: Router, useValue: new RouterMock() }
+    ]
+}).compileComponents();
       }));
 
     beforeEach(() => {

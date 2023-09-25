@@ -51,20 +51,19 @@ describe('GroupDataService', () => {
     halService = new HALEndpointServiceStub(restEndpointURL);
     objectCache = getMockObjectCacheService();
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CommonModule,
         StoreModule.forRoot({}),
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-      ],
-      declarations: [],
-      providers: [],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    });
+    ],
+    providers: [],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+});
   }
 
   function initTestService() {

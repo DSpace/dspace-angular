@@ -11,12 +11,18 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { SequenceService } from '../../../../core/shared/sequence.service';
+import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
+import { TranslateModule } from '@ngx-translate/core';
+import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
+import { NgIf, NgClass, AsyncPipe, LowerCasePipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-search-filter',
-  styleUrls: ['./search-filter.component.scss'],
-  templateUrl: './search-filter.component.html',
-  animations: [slide],
+    selector: 'ds-search-filter',
+    styleUrls: ['./search-filter.component.scss'],
+    templateUrl: './search-filter.component.html',
+    animations: [slide],
+    standalone: true,
+    imports: [NgIf, NgClass, SearchFacetFilterWrapperComponent, AsyncPipe, LowerCasePipe, TranslateModule, BrowserOnlyPipe]
 })
 
 /**

@@ -37,17 +37,17 @@ describe('CommunityAuthorizationsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        CommonModule
-      ],
-      declarations: [CommunityAuthorizationsComponent],
-      providers: [
+    imports: [
+        CommonModule,
+        CommunityAuthorizationsComponent
+    ],
+    providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         ChangeDetectorRef,
         CommunityAuthorizationsComponent,
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

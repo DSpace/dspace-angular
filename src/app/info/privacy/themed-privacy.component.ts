@@ -6,9 +6,10 @@ import { PrivacyComponent } from './privacy.component';
  * Themed wrapper for PrivacyComponent
  */
 @Component({
-  selector: 'ds-themed-privacy',
-  styleUrls: [],
-  templateUrl: '../../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-privacy',
+    styleUrls: [],
+    templateUrl: '../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedPrivacyComponent extends ThemedComponent<PrivacyComponent> {
   protected getComponentName(): string {

@@ -209,9 +209,8 @@ describe('EditRelationshipListComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [SharedModule, TranslateModule.forRoot()],
-      declarations: [EditRelationshipListComponent],
-      providers: [
+    imports: [SharedModule, TranslateModule.forRoot(), EditRelationshipListComponent],
+    providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: RelationshipDataService, useValue: relationshipService },
         { provide: SelectableListService, useValue: selectableListService },
@@ -225,10 +224,10 @@ describe('EditRelationshipListComponent', () => {
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
-      ], schemas: [
+    ], schemas: [
         NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
 
     resetComponent();
   }));

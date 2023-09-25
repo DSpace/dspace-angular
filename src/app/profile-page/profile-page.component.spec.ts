@@ -89,22 +89,22 @@ describe('ProfilePageComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ProfilePageComponent, VarDirective],
-      imports: [
+    imports: [
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
-      ],
-      providers: [
+        RouterTestingModule.withRoutes([]),
+        ProfilePageComponent, VarDirective
+    ],
+    providers: [
         { provide: EPersonDataService, useValue: epersonService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: AuthService, useValue: authService },
         { provide: ConfigurationDataService, useValue: configurationService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         provideMockStore({ initialState }),
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

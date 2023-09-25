@@ -6,9 +6,10 @@ import { CommunityStatisticsPageComponent } from './community-statistics-page.co
  * Themed wrapper for CommunityStatisticsPageComponent
  */
 @Component({
-  selector: 'ds-themed-collection-statistics-page',
-  styleUrls: [],
-  templateUrl: '../../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-collection-statistics-page',
+    styleUrls: [],
+    templateUrl: '../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedCommunityStatisticsPageComponent extends ThemedComponent<CommunityStatisticsPageComponent> {
   protected getComponentName(): string {

@@ -12,11 +12,12 @@ import { getFirstSucceededRemoteData } from '../../core/shared/operators';
  * Directive for validating if a ngModel value is a valid metadata field
  */
 @Directive({
-  selector: '[ngModel][dsMetadataFieldValidator]',
-  // We add our directive to the list of existing validators
-  providers: [
-    { provide: NG_VALIDATORS, useExisting: MetadataFieldValidator, multi: true }
-  ]
+    selector: '[ngModel][dsMetadataFieldValidator]',
+    // We add our directive to the list of existing validators
+    providers: [
+        { provide: NG_VALIDATORS, useExisting: MetadataFieldValidator, multi: true }
+    ],
+    standalone: true
 })
 @Injectable({ providedIn: 'root' })
 export class MetadataFieldValidator implements AsyncValidator {

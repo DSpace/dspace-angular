@@ -6,9 +6,10 @@ import { ItemPageComponent } from './item-page.component';
  * Themed wrapper for ItemPageComponent
  */
 @Component({
-  selector: 'ds-themed-item-page',
-  styleUrls: [],
-  templateUrl: './../../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-item-page',
+    styleUrls: [],
+    templateUrl: './../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 
 export class ThemedItemPageComponent extends ThemedComponent<ItemPageComponent> {

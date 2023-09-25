@@ -4,6 +4,9 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { languageHelper } from './language-helper';
 import { CaptionInfo } from './caption-info';
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
+import { NgForOf, NgIf } from '@angular/common';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * This component renders a video viewer and playlist for the media viewer
@@ -12,6 +15,13 @@ import { Bitstream } from 'src/app/core/shared/bitstream.model';
   selector: 'ds-media-viewer-video',
   templateUrl: './media-viewer-video.component.html',
   styleUrls: ['./media-viewer-video.component.scss'],
+  imports: [
+    NgForOf,
+    NgbDropdownModule,
+    TranslateModule,
+    NgIf
+  ],
+  standalone: true
 })
 export class MediaViewerVideoComponent {
   @Input() medias: MediaViewerItem[];

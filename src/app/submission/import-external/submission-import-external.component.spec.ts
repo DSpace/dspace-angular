@@ -49,25 +49,23 @@ describe('SubmissionImportExternalComponent test suite', () => {
 
   beforeEach(waitForAsync (() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
-        BrowserAnimationsModule
-      ],
-      declarations: [
+        BrowserAnimationsModule,
         SubmissionImportExternalComponent,
         TestComponent,
         VarDirective
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: ExternalSourceDataService, useValue: mockExternalSourceService },
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterStub() },
         { provide: NgbModal, useValue: ngbModal },
         SubmissionImportExternalComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents().then();
   }));
 
   // First test to check the correct component creation
@@ -508,8 +506,9 @@ describe('SubmissionImportExternalComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true
 })
 class TestComponent {
 

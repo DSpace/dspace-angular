@@ -11,20 +11,20 @@ describe('CommunityListPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            },
         }),
-      ],
-      declarations: [CommunityListPageComponent],
-      providers: [
+        CommunityListPageComponent
+    ],
+    providers: [
         CommunityListPageComponent,
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
       .compileComponents();
   }));
 

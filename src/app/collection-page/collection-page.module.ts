@@ -20,29 +20,27 @@ import { DsoSharedModule } from '../dso-shared/dso-shared.module';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    CollectionPageRoutingModule,
-    StatisticsModule.forRoot(),
-    EditItemPageModule,
-    CollectionFormModule,
-    ComcolModule,
-    DsoSharedModule,
-    DsoPageModule,
-  ],
-  declarations: [
-    CollectionPageComponent,
-    ThemedCollectionPageComponent,
-    CreateCollectionPageComponent,
-    DeleteCollectionPageComponent,
-    EditItemTemplatePageComponent,
-    ThemedEditItemTemplatePageComponent,
-    CollectionItemMapperComponent
-  ],
-  providers: [
-    SearchService,
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        CollectionPageRoutingModule,
+        StatisticsModule.forRoot(),
+        EditItemPageModule,
+        CollectionFormModule,
+        ComcolModule,
+        DsoSharedModule,
+        DsoPageModule,
+        CollectionPageComponent,
+        ThemedCollectionPageComponent,
+        CreateCollectionPageComponent,
+        DeleteCollectionPageComponent,
+        EditItemTemplatePageComponent,
+        ThemedEditItemTemplatePageComponent,
+        CollectionItemMapperComponent
+    ],
+    providers: [
+        SearchService,
+    ]
 })
 export class CollectionPageModule {
 

@@ -54,30 +54,28 @@ describe('UserMenuComponent', () => {
   beforeEach(waitForAsync(() => {
     serviceInit();
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         StoreModule.forRoot(authReducer, {
-          runtimeChecks: {
-            strictStateImmutability: false,
-            strictActionImmutability: false
-          }
+            runtimeChecks: {
+                strictStateImmutability: false,
+                strictActionImmutability: false
+            }
         }),
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      providers: [
-        { provide: AuthService, useValue: authService }
-      ],
-      declarations: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
         UserMenuComponent
-      ],
-      schemas: [
+    ],
+    providers: [
+        { provide: AuthService, useValue: authService }
+    ],
+    schemas: [
         NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
 
   }));
 

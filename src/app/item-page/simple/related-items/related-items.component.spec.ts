@@ -55,14 +55,13 @@ describe('RelatedItemsComponent', () => {
     );
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [RelatedItemsComponent, VarDirective],
-      providers: [
+    imports: [TranslateModule.forRoot(), RelatedItemsComponent, VarDirective],
+    providers: [
         { provide: RelationshipDataService, useValue: relationshipService },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(RelatedItemsComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(RelatedItemsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
@@ -128,14 +127,13 @@ describe('RelatedItemsComponent', () => {
     );
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [RelatedItemsComponent, VarDirective],
-      providers: [
-        {provide: RelationshipDataService, useValue: relationshipService},
-        {provide: APP_CONFIG, useValue: enviromentNoThumbs}
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(RelatedItemsComponent, {
+    imports: [TranslateModule.forRoot(), RelatedItemsComponent, VarDirective],
+    providers: [
+        { provide: RelationshipDataService, useValue: relationshipService },
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(RelatedItemsComponent, {
       set: {changeDetection: ChangeDetectionStrategy.Default}
     }).compileComponents();
   }));

@@ -112,32 +112,31 @@ describe('AuthService test', () => {
     beforeEach(() => {
       init();
       TestBed.configureTestingModule({
-        imports: [
-          CommonModule,
-          StoreModule.forRoot({ authReducer }, {
+    imports: [
+        CommonModule,
+        StoreModule.forRoot({ authReducer }, {
             runtimeChecks: {
-              strictStateImmutability: false,
-              strictActionImmutability: false
+                strictStateImmutability: false,
+                strictActionImmutability: false
             }
-          }),
-        ],
-        declarations: [],
-        providers: [
-          { provide: AuthRequestService, useValue: authRequest },
-          { provide: NativeWindowService, useValue: window },
-          { provide: REQUEST, useValue: {} },
-          { provide: Router, useValue: routerStub },
-          { provide: RouteService, useValue: routeServiceStub },
-          { provide: ActivatedRoute, useValue: routeStub },
-          { provide: Store, useValue: mockStore },
-          { provide: EPersonDataService, useValue: mockEpersonDataService },
-          { provide: HardRedirectService, useValue: hardRedirectService },
-          { provide: NotificationsService, useValue: NotificationsServiceStub },
-          { provide: TranslateService, useValue: getMockTranslateService() },
-          CookieService,
-          AuthService
-        ],
-      });
+        }),
+    ],
+    providers: [
+        { provide: AuthRequestService, useValue: authRequest },
+        { provide: NativeWindowService, useValue: window },
+        { provide: REQUEST, useValue: {} },
+        { provide: Router, useValue: routerStub },
+        { provide: RouteService, useValue: routeServiceStub },
+        { provide: ActivatedRoute, useValue: routeStub },
+        { provide: Store, useValue: mockStore },
+        { provide: EPersonDataService, useValue: mockEpersonDataService },
+        { provide: HardRedirectService, useValue: hardRedirectService },
+        { provide: NotificationsService, useValue: NotificationsServiceStub },
+        { provide: TranslateService, useValue: getMockTranslateService() },
+        CookieService,
+        AuthService
+    ]
+});
       authService = TestBed.inject(AuthService);
     });
 

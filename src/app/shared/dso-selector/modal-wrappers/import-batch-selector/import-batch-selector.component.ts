@@ -6,14 +6,19 @@ import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
 import { Observable, of } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { NgIf } from '@angular/common';
 
 /**
  * Component to wrap a list of existing dso's inside a modal
  * Used to choose a dso from to import metadata of
  */
 @Component({
-  selector: 'ds-import-batch-selector',
-  templateUrl: '../dso-selector-modal-wrapper.component.html',
+    selector: 'ds-import-batch-selector',
+    templateUrl: '../dso-selector-modal-wrapper.component.html',
+    standalone: true,
+    imports: [NgIf, DSOSelectorComponent, TranslateModule]
 })
 export class ImportBatchSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.DSPACEOBJECT;

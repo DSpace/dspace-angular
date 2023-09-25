@@ -59,13 +59,12 @@ describe('ItemVersionsNoticeComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      declarations: [ItemVersionsNoticeComponent],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ItemVersionsNoticeComponent],
+    providers: [
         { provide: VersionHistoryDataService, useValue: versionHistoryServiceSpy }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
 
     versionHistoryService = TestBed.inject(VersionHistoryDataService);
 

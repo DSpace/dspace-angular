@@ -14,6 +14,8 @@ import parseSectionErrors from '../../utils/parseSectionErrors';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { SectionsType } from '../../sections/sections-type';
+import { UploaderComponent } from "../../../shared/upload/uploader/uploader.component";
+import { NgIf } from "@angular/common";
 
 /**
  * This component represents the drop zone that provides to add files to the submission.
@@ -21,6 +23,11 @@ import { SectionsType } from '../../sections/sections-type';
 @Component({
   selector: 'ds-submission-upload-files',
   templateUrl: './submission-upload-files.component.html',
+  imports: [
+    UploaderComponent,
+    NgIf
+  ],
+  standalone: true
 })
 export class SubmissionUploadFilesComponent implements OnChanges {
 

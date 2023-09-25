@@ -17,10 +17,9 @@ let notPrivateItem = Object.assign(new Item(), { isDiscoverable: true });
 describe('ItemStatusBadgeComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [StatusBadgeComponent, TruncatePipe],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(StatusBadgeComponent, {
+    imports: [TranslateModule.forRoot(), StatusBadgeComponent, TruncatePipe],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(StatusBadgeComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
     init();

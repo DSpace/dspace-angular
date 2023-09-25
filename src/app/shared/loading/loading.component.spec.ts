@@ -17,17 +17,17 @@ describe('LoadingComponent (inline template)', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-      ],
-      declarations: [LoadingComponent], // declare the test component
-      providers: [TranslateService]
-    }).compileComponents();  // compile template and css
+        LoadingComponent
+    ],
+    providers: [TranslateService]
+}).compileComponents();  // compile template and css
   }));
 
   beforeEach(() => {

@@ -66,25 +66,25 @@ mockObject = Object.assign(new WorkflowItem(), { item: observableOf(rd), id: '12
 describe('WorkflowitemActionsComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      declarations: [WorkflowitemActionsComponent],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        WorkflowitemActionsComponent
+    ],
+    providers: [
         { provide: Injector, useValue: {} },
         { provide: Router, useValue: new RouterStub() },
         { provide: WorkflowItemDataService, useValue: mockDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(WorkflowitemActionsComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(WorkflowitemActionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

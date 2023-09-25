@@ -1,6 +1,6 @@
 import { map } from 'rxjs/operators';
 import { Component, Inject, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -18,16 +18,22 @@ import { CoreState } from '../../../../core/core-state.model';
 import { getForgotPasswordRoute, getRegisterRoute } from '../../../../app-routing-paths';
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 /**
  * /users/sign-in
  * @class LogInPasswordComponent
  */
 @Component({
-  selector: 'ds-log-in-password',
-  templateUrl: './log-in-password.component.html',
-  styleUrls: ['./log-in-password.component.scss'],
-  animations: [fadeOut]
+    selector: 'ds-log-in-password',
+    templateUrl: './log-in-password.component.html',
+    styleUrls: ['./log-in-password.component.scss'],
+    animations: [fadeOut],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, NgIf, RouterLink, AsyncPipe, TranslateModule, BrowserOnlyPipe]
 })
 @renderAuthMethodFor(AuthMethodType.Password)
 export class LogInPasswordComponent implements OnInit {

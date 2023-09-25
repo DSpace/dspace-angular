@@ -26,20 +26,20 @@ mockResultObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rd
 describe('ItemSubmitterComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      declarations: [ItemSubmitterComponent],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        ItemSubmitterComponent
+    ],
+    providers: [
         { provide: LinkService, useValue: getMockLinkService() },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ItemSubmitterComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ItemSubmitterComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

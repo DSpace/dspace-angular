@@ -15,20 +15,18 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  declarations: [
-    ...COMPONENTS
-  ],
-  imports: [
-    CommonModule,
-    NgbModalModule,
-    ReactiveFormsModule,
-    TranslateModule,
-    RouterModule,
-    SharedModule
-  ],
-  exports: [
-    ...COMPONENTS
-  ]
+    imports: [
+        CommonModule,
+        NgbModalModule,
+        ReactiveFormsModule,
+        TranslateModule,
+        RouterModule,
+        SharedModule,
+        ...COMPONENTS
+    ],
+    exports: [
+        ...COMPONENTS
+    ]
 })
 export class SubscriptionsModule {
 }

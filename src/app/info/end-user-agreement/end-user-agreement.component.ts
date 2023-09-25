@@ -7,14 +7,18 @@ import { AppState } from '../../app.reducer';
 import { LogOutAction } from '../../core/auth/auth.actions';
 import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { isNotEmpty } from '../../shared/empty.util';
+import { FormsModule } from '@angular/forms';
+import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
 
 @Component({
-  selector: 'ds-end-user-agreement',
-  templateUrl: './end-user-agreement.component.html',
-  styleUrls: ['./end-user-agreement.component.scss']
+    selector: 'ds-end-user-agreement',
+    templateUrl: './end-user-agreement.component.html',
+    styleUrls: ['./end-user-agreement.component.scss'],
+    standalone: true,
+    imports: [EndUserAgreementContentComponent, FormsModule, TranslateModule]
 })
 /**
  * Component displaying the End User Agreement and an option to accept it

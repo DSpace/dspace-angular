@@ -62,10 +62,9 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ClaimedTaskActionsLoaderComponent, ClaimedTaskActionsEditMetadataComponent, ClaimedTaskActionsDirective],
-      schemas: [NO_ERRORS_SCHEMA],
-      providers: [
+    imports: [TranslateModule.forRoot(), ClaimedTaskActionsLoaderComponent, ClaimedTaskActionsEditMetadataComponent, ClaimedTaskActionsDirective],
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: [
         { provide: ClaimedTaskDataService, useValue: {} },
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -73,8 +72,8 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: {} }
-      ]
-    }).overrideComponent(ClaimedTaskActionsLoaderComponent, {
+    ]
+}).overrideComponent(ClaimedTaskActionsLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
         entryComponents: [ClaimedTaskActionsEditMetadataComponent]

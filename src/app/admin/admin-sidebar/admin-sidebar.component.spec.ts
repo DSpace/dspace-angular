@@ -57,9 +57,8 @@ describe('AdminSidebarComponent', () => {
     });
     scriptService = jasmine.createSpyObj('scriptService', { scriptWithNameExistsAndCanExecute: observableOf(true) });
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
-      declarations: [AdminSidebarComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],
+    providers: [
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: MenuService, useValue: menuService },
@@ -70,14 +69,14 @@ describe('AdminSidebarComponent', () => {
         { provide: ScriptDataService, useValue: scriptService },
         { provide: ActivatedRoute, useValue: routeStub },
         {
-          provide: NgbModal, useValue: {
-            open: () => {/*comment*/
+            provide: NgbModal, useValue: {
+                open: () => {
+                }
             }
-          }
         }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(AdminSidebarComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(AdminSidebarComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
       }

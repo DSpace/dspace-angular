@@ -59,16 +59,15 @@ mockResultObject.indexableObject = Object.assign(new WorkspaceItem(), { item: ob
 describe('WorkspaceItemSearchResultDetailElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [WorkspaceItemSearchResultDetailElementComponent],
-      providers: [
+    imports: [NoopAnimationsModule, WorkspaceItemSearchResultDetailElementComponent],
+    providers: [
         { provide: 'objectElementProvider', useValue: (mockResultObject) },
         { provide: 'indexElementProvider', useValue: (compIndex) },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(WorkspaceItemSearchResultDetailElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(WorkspaceItemSearchResultDetailElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

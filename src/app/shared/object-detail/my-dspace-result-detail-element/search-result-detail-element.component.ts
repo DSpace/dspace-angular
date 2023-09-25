@@ -10,8 +10,9 @@ import { SearchResult } from '../../search/models/search-result.model';
  * Component representing Search Results with ViewMode.DetailedElement
  */
 @Component({
-  selector: 'ds-search-result-detail-element',
-  template: ``
+    selector: 'ds-search-result-detail-element',
+    template: ``,
+    standalone: true
 })
 export class SearchResultDetailElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
 

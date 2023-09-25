@@ -25,24 +25,22 @@ describe('Chips component', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         FileUploadModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         UploaderComponent,
-        TestComponent,
-      ], // declare the test component
-      providers: [
+        TestComponent
+    ],
+    providers: [
         ChangeDetectorRef,
         ScrollToService,
         UploaderComponent,
         DragService,
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock('mock-token') },
         { provide: CookieService, useValue: new CookieServiceMock() },
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    });
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+});
 
   }));
 
@@ -66,8 +64,10 @@ describe('Chips component', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [FileUploadModule]
 })
 class TestComponent {
   public uploadFilesOptions: UploaderOptions = Object.assign(new UploaderOptions(), {

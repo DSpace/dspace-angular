@@ -34,25 +34,24 @@ describe('SearchNavbarComponent', () => {
     paginationService = new PaginationServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         FormsModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
         RouterTestingModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })],
-      declarations: [
-        SearchNavbarComponent,
-        BrowserOnlyMockPipe,
-      ],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        SearchNavbarComponent
+    ],
+    declarations: [BrowserOnlyMockPipe],
+    providers: [
         { provide: SearchService, useValue: mockSearchService }
-      ]
-    })
+    ]
+})
       .compileComponents();
   }));
 

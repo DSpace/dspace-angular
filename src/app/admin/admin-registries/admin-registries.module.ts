@@ -11,20 +11,18 @@ import { BitstreamFormatsModule } from './bitstream-formats/bitstream-formats.mo
 import { FormModule } from '../../shared/form/form.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    RouterModule,
-    BitstreamFormatsModule,
-    AdminRegistriesRoutingModule,
-    FormModule
-  ],
-  declarations: [
-    MetadataRegistryComponent,
-    MetadataSchemaComponent,
-    MetadataSchemaFormComponent,
-    MetadataFieldFormComponent
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        RouterModule,
+        BitstreamFormatsModule,
+        AdminRegistriesRoutingModule,
+        FormModule,
+        MetadataRegistryComponent,
+        MetadataSchemaComponent,
+        MetadataSchemaFormComponent,
+        MetadataFieldFormComponent
+    ]
 })
 export class AdminRegistriesModule {
 

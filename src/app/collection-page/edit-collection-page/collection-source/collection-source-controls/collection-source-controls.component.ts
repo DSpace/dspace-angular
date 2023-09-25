@@ -17,10 +17,12 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { Collection } from '../../../../core/shared/collection.model';
 import { CollectionDataService } from '../../../../core/data/collection-data.service';
 import { Process } from '../../../../process-page/processes/process.model';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { VarDirective } from '../../../../shared/utils/var.directive';
 
 /**
  * Component that contains the controls to run, reset and test the harvest
@@ -29,6 +31,13 @@ import { ContentSourceSetSerializer } from '../../../../core/shared/content-sour
   selector: 'ds-collection-source-controls',
   styleUrls: ['./collection-source-controls.component.scss'],
   templateUrl: './collection-source-controls.component.html',
+  imports: [
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+    VarDirective
+  ],
+  standalone: true
 })
 export class CollectionSourceControlsComponent implements OnDestroy {
 

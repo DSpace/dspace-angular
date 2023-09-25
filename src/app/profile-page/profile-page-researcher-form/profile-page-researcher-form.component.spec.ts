@@ -71,17 +71,16 @@ describe('ProfilePageResearcherFormComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ProfilePageResearcherFormComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ProfilePageResearcherFormComponent, VarDirective],
+    providers: [
         NgbModal,
         { provide: ResearcherProfileDataService, useValue: researcherProfileService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: ProfileClaimService, useValue: profileClaimService },
         { provide: AuthService, useValue: authService }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

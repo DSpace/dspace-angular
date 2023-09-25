@@ -4,11 +4,16 @@ import { Observable } from 'rxjs';
 import { Params, Router } from '@angular/router';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { map } from 'rxjs/operators';
+import { ObjectKeysPipe } from '../../utils/object-keys-pipe';
+import { SearchLabelComponent } from './search-label/search-label.component';
+import { NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-search-labels',
-  styleUrls: ['./search-labels.component.scss'],
-  templateUrl: './search-labels.component.html',
+    selector: 'ds-search-labels',
+    styleUrls: ['./search-labels.component.scss'],
+    templateUrl: './search-labels.component.html',
+    standalone: true,
+    imports: [NgFor, SearchLabelComponent, AsyncPipe, ObjectKeysPipe]
 })
 
 /**

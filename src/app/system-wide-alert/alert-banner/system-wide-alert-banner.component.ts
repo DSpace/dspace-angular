@@ -9,16 +9,19 @@ import { SystemWideAlert } from '../system-wide-alert.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { BehaviorSubject, EMPTY, interval, Subscription } from 'rxjs';
 import { zonedTimeToUtc } from 'date-fns-tz';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgIf, AsyncPipe } from '@angular/common';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Component responsible for rendering a banner and the countdown for an active system-wide alert
  */
 @Component({
-  selector: 'ds-system-wide-alert-banner',
-  styleUrls: ['./system-wide-alert-banner.component.scss'],
-  templateUrl: './system-wide-alert-banner.component.html'
+    selector: 'ds-system-wide-alert-banner',
+    styleUrls: ['./system-wide-alert-banner.component.scss'],
+    templateUrl: './system-wide-alert-banner.component.html',
+    standalone: true,
+    imports: [NgIf, AsyncPipe, TranslateModule]
 })
 export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
 

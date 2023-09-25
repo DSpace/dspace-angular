@@ -12,10 +12,9 @@ describe('ItemMetadataListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [ItemMetadataListElementComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ItemMetadataListElementComponent, {
+    imports: [ItemMetadataListElementComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ItemMetadataListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

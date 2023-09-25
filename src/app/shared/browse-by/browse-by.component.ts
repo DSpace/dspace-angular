@@ -12,16 +12,24 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { RouteService } from '../../core/services/route.service';
 import { map } from 'rxjs/operators';
 import { hasValue } from '../empty.util';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { ErrorComponent } from '../error/error.component';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../object-collection/object-collection.component';
+import { ThemedResultsBackButtonComponent } from '../results-back-button/themed-results-back-button.component';
+import { NgClass, NgComponentOutlet, NgIf, AsyncPipe } from '@angular/common';
+import { VarDirective } from '../utils/var.directive';
 
 @Component({
-  selector: 'ds-browse-by',
-  styleUrls: ['./browse-by.component.scss'],
-  templateUrl: './browse-by.component.html',
-  animations: [
-    fadeIn,
-    fadeInOut
-  ]
+    selector: 'ds-browse-by',
+    styleUrls: ['./browse-by.component.scss'],
+    templateUrl: './browse-by.component.html',
+    animations: [
+        fadeIn,
+        fadeInOut
+    ],
+    standalone: true,
+    imports: [VarDirective, NgClass, NgComponentOutlet, NgIf, ThemedResultsBackButtonComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, AsyncPipe, TranslateModule]
 })
 /**
  * Component to display a browse-by page for any ListableObject

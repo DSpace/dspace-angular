@@ -123,24 +123,24 @@ describe('OrcidAuthComponent test suite', () => {
     });
 
     void TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NgbAccordionModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-        RouterTestingModule.withRoutes([])
-      ],
-      declarations: [OrcidAuthComponent],
-      providers: [
+        RouterTestingModule.withRoutes([]),
+        OrcidAuthComponent
+    ],
+    providers: [
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: OrcidAuthService, useValue: orcidAuthService }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(OrcidAuthComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(OrcidAuthComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

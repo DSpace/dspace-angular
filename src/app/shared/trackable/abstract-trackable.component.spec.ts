@@ -46,15 +46,14 @@ describe('AbstractTrackableComponent', () => {
     scheduler = getTestScheduler();
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [AbstractTrackableComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), AbstractTrackableComponent],
+    providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: NotificationsService, useValue: notificationsService },
-      ], schemas: [
+    ], schemas: [
         NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
   }));
 
   beforeEach(() => {

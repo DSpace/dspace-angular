@@ -6,12 +6,17 @@ import { Component } from '@angular/core';
 import { SidebarSearchListElementComponent } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component';
 import { Item } from '../../../../../core/shared/item.model';
 import { isNotEmpty } from '../../../../../shared/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgClass, NgIf, AsyncPipe } from '@angular/common';
+import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 
 @listableObjectComponent('JournalIssueSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent('JournalIssueSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)
 @Component({
-  selector: 'ds-journal-issue-sidebar-search-list-element',
-  templateUrl: '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html'
+    selector: 'ds-journal-issue-sidebar-search-list-element',
+    templateUrl: '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html',
+    standalone: true,
+    imports: [TruncatablePartComponent, NgClass, NgIf, AsyncPipe, TranslateModule]
 })
 /**
  * Component displaying a list element for a {@link ItemSearchResult} of type "JournalIssue" within the context of

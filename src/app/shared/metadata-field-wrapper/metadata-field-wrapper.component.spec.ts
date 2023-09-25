@@ -7,7 +7,8 @@ import { MetadataFieldWrapperComponent } from './metadata-field-wrapper.componen
 @Component({
     selector: 'ds-component-without-content',
     template: '<ds-metadata-field-wrapper [hideIfNoTextContent]="hideIfNoTextContent" [label]="\'test label\'">\n' +
-      '</ds-metadata-field-wrapper>'
+        '</ds-metadata-field-wrapper>',
+    standalone: true
 })
 class NoContentComponent {
   public hideIfNoTextContent = true;
@@ -16,9 +17,10 @@ class NoContentComponent {
 @Component({
     selector: 'ds-component-with-empty-spans',
     template: '<ds-metadata-field-wrapper [hideIfNoTextContent]="hideIfNoTextContent" [label]="\'test label\'">\n' +
-      '    <span></span>\n' +
-      '    <span></span>\n' +
-      '</ds-metadata-field-wrapper>'
+        '    <span></span>\n' +
+        '    <span></span>\n' +
+        '</ds-metadata-field-wrapper>',
+    standalone: true
 })
 class SpanContentComponent {
   @Input() hideIfNoTextContent = true;
@@ -27,8 +29,9 @@ class SpanContentComponent {
 @Component({
     selector: 'ds-component-with-text',
     template: '<ds-metadata-field-wrapper [hideIfNoTextContent]="hideIfNoTextContent" [label]="\'test label\'">\n' +
-      '    <span>The quick brown fox jumps over the lazy dog</span>\n' +
-      '</ds-metadata-field-wrapper>'
+        '    <span>The quick brown fox jumps over the lazy dog</span>\n' +
+        '</ds-metadata-field-wrapper>',
+    standalone: true
 })
 class TextContentComponent {
   @Input() hideIfNoTextContent = true;
@@ -41,8 +44,8 @@ describe('MetadataFieldWrapperComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [MetadataFieldWrapperComponent, NoContentComponent, SpanContentComponent, TextContentComponent]
-    }).compileComponents();
+    imports: [MetadataFieldWrapperComponent, NoContentComponent, SpanContentComponent, TextContentComponent]
+}).compileComponents();
   }));
 
   beforeEach(() => {

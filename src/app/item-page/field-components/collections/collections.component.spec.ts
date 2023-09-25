@@ -45,16 +45,14 @@ describe('CollectionsComponent', () => {
     mockCollection4 = createMockCollection('c4');
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ CollectionsComponent ],
-      providers: [
+    imports: [TranslateModule.forRoot(), CollectionsComponent],
+    providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
-        { provide: RemoteDataBuildService, useValue: getMockRemoteDataBuildService()},
+        { provide: RemoteDataBuildService, useValue: getMockRemoteDataBuildService() },
         { provide: CollectionDataService, useValue: collectionDataService },
-      ],
-
-      schemas: [ NO_ERRORS_SCHEMA ]
-    }).overrideComponent(CollectionsComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(CollectionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

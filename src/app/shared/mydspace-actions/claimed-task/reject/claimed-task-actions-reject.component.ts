@@ -1,26 +1,29 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 import { Router } from '@angular/router';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { RequestService } from '../../../../core/data/request.service';
 import { Observable, of } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { ClaimedDeclinedTaskSearchResult } from '../../../object-collection/shared/claimed-declined-task-search-result.model';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';
 
 @rendersWorkflowTaskOption(WORKFLOW_TASK_OPTION_REJECT)
 @Component({
-  selector: 'ds-claimed-task-actions-reject',
-  styleUrls: ['./claimed-task-actions-reject.component.scss'],
-  templateUrl: './claimed-task-actions-reject.component.html',
+    selector: 'ds-claimed-task-actions-reject',
+    styleUrls: ['./claimed-task-actions-reject.component.scss'],
+    templateUrl: './claimed-task-actions-reject.component.html',
+    standalone: true,
+    imports: [NgbTooltipModule, NgIf, FormsModule, ReactiveFormsModule, AsyncPipe, TranslateModule]
 })
 /**
  * Component for displaying and processing the reject action on a workflow task item

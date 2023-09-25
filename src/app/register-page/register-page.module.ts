@@ -10,20 +10,18 @@ import { ThemedCreateProfileComponent } from './create-profile/themed-create-pro
 import { ThemedRegisterEmailComponent } from './register-email/themed-register-email.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    RegisterPageRoutingModule,
-    RegisterEmailFormModule,
-    ProfilePageModule,
-  ],
-  declarations: [
-    RegisterEmailComponent,
-    ThemedRegisterEmailComponent,
-    CreateProfileComponent,
-    ThemedCreateProfileComponent
-  ],
-  providers: []
+    imports: [
+        CommonModule,
+        SharedModule,
+        RegisterPageRoutingModule,
+        RegisterEmailFormModule,
+        ProfilePageModule,
+        RegisterEmailComponent,
+        ThemedRegisterEmailComponent,
+        CreateProfileComponent,
+        ThemedCreateProfileComponent
+    ],
+    providers: []
 })
 
 /**

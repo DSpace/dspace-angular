@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Directive, inject, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 import { map, switchMap } from 'rxjs/operators';
@@ -14,14 +14,11 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
 
+@Directive()
 /**
  * Class representing an abstract statistics page component.
  */
-@Component({
-  selector: 'ds-statistics-page',
-  template: ''
-})
-export abstract class StatisticsPageComponent<T extends DSpaceObject> implements OnInit {
+export abstract class StatisticsPageDirective<T extends DSpaceObject> implements OnInit {
 
   /**
    * The scope dso for this statistics page, as an Observable.
@@ -40,14 +37,11 @@ export abstract class StatisticsPageComponent<T extends DSpaceObject> implements
 
   hasData$: Observable<boolean>;
 
-  constructor(
-    protected route: ActivatedRoute,
-    protected router: Router,
-    protected usageReportService: UsageReportDataService,
-    protected nameService: DSONameService,
-    protected authService: AuthService,
-  ) {
-  }
+  protected route = inject(ActivatedRoute);
+  protected router = inject(Router);
+  protected usageReportService = inject(UsageReportDataService);
+  protected nameService = inject(DSONameService);
+  protected authService = inject(AuthService);
 
   ngOnInit(): void {
     this.scope$ = this.getScope$();

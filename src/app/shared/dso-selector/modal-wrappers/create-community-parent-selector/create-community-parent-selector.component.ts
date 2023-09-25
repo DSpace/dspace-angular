@@ -14,6 +14,8 @@ import {
 } from '../../../../community-page/community-page-routing-paths';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 import { environment } from '../../../../../environments/environment';
+import { TranslateModule } from '@ngx-translate/core';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 
 /**
  * Component to wrap a button - for top communities -
@@ -23,9 +25,11 @@ import { environment } from '../../../../../environments/environment';
  */
 
 @Component({
-  selector: 'ds-create-community-parent-selector',
-  styleUrls: ['./create-community-parent-selector.component.scss'],
-  templateUrl: './create-community-parent-selector.component.html',
+    selector: 'ds-create-community-parent-selector',
+    styleUrls: ['./create-community-parent-selector.component.scss'],
+    templateUrl: './create-community-parent-selector.component.html',
+    standalone: true,
+    imports: [DSOSelectorComponent, TranslateModule]
 })
 export class CreateCommunityParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COMMUNITY;

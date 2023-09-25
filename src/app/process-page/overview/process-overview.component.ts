@@ -15,10 +15,17 @@ import { ProcessBulkDeleteService } from './process-bulk-delete.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../shared/empty.util';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { RouterLink } from '@angular/router';
+import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-process-overview',
-  templateUrl: './process-overview.component.html',
+    selector: 'ds-process-overview',
+    templateUrl: './process-overview.component.html',
+    standalone: true,
+    imports: [NgIf, RouterLink, PaginationComponent, NgFor, VarDirective, AsyncPipe, DatePipe, TranslateModule]
 })
 /**
  * Component displaying a list of all processes in a paginated table

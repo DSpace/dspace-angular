@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { map, mergeMap, take } from 'rxjs/operators';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
@@ -11,6 +11,10 @@ import { CreateItemParentSelectorComponent } from '../../../shared/dso-selector/
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 
 /**
  * This component represents the new submission dropdown
@@ -18,7 +22,16 @@ import { FindListOptions } from '../../../core/data/find-list-options.model';
 @Component({
   selector: 'ds-my-dspace-new-submission-dropdown',
   styleUrls: ['./my-dspace-new-submission-dropdown.component.scss'],
-  templateUrl: './my-dspace-new-submission-dropdown.component.html'
+  templateUrl: './my-dspace-new-submission-dropdown.component.html',
+  imports: [
+    EntityDropdownComponent,
+    NgbDropdownModule,
+    AsyncPipe,
+    TranslateModule,
+    BrowserOnlyPipe,
+    NgIf
+  ],
+  standalone: true
 })
 export class MyDSpaceNewSubmissionDropdownComponent implements OnInit, OnDestroy {
 

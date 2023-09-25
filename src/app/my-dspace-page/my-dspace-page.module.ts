@@ -26,20 +26,20 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    SearchModule,
-    MyDspacePageRoutingModule,
-    MyDspaceSearchModule.withEntryComponents(),
-    UploadModule,
-  ],
-  declarations: DECLARATIONS,
-  providers: [
-    MyDSpaceGuard,
-    MyDSpaceConfigurationService
-  ],
-  exports: DECLARATIONS,
+    imports: [
+        CommonModule,
+        SharedModule,
+        SearchModule,
+        MyDspacePageRoutingModule,
+        MyDspaceSearchModule.withEntryComponents(),
+        UploadModule,
+        ...DECLARATIONS
+    ],
+    providers: [
+        MyDSpaceGuard,
+        MyDSpaceConfigurationService
+    ],
+    exports: DECLARATIONS
 })
 
 /**

@@ -13,12 +13,18 @@ import { getCollectionModuleRoute } from '../../../collection-page/collection-pa
 import { getItemModuleRoute } from '../../../item-page/item-page-routing-paths';
 import { SubscriptionModalComponent } from '../subscription-modal/subscription-modal.component';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: '[ds-subscription-view]',
-  templateUrl: './subscription-view.component.html',
-  styleUrls: ['./subscription-view.component.scss']
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: '[ds-subscription-view]',
+    templateUrl: './subscription-view.component.html',
+    styleUrls: ['./subscription-view.component.scss'],
+    standalone: true,
+    imports: [NgIf, ThemedTypeBadgeComponent, RouterLink, NgFor, TranslateModule]
 })
 /**
  * Table row representing a subscription that displays all information and action buttons to manage it

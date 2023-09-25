@@ -5,11 +5,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { PageSizeSelectorComponent } from '../../page-size-selector/page-size-selector.component';
+import { FormsModule } from '@angular/forms';
+import { SidebarDropdownComponent } from '../../sidebar/sidebar-dropdown.component';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'ds-search-settings',
-  styleUrls: ['./search-settings.component.scss'],
-  templateUrl: './search-settings.component.html'
+    selector: 'ds-search-settings',
+    styleUrls: ['./search-settings.component.scss'],
+    templateUrl: './search-settings.component.html',
+    standalone: true,
+    imports: [NgIf, SidebarDropdownComponent, NgFor, FormsModule, PageSizeSelectorComponent, TranslateModule]
 })
 
 /**

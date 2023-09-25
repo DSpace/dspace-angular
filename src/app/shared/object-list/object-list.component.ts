@@ -9,14 +9,22 @@ import { SelectableListService } from './selectable-list/selectable-list.service
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { Context } from '../../core/shared/context.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
+import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { ImportableListItemControlComponent } from '../object-collection/shared/importable-list-item-control/importable-list-item-control.component';
+import { SelectableListItemControlComponent } from '../object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
+import { NgIf, NgClass, NgFor } from '@angular/common';
+import { PaginationComponent } from '../pagination/pagination.component';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.Emulated,
-  selector: 'ds-object-list',
-  styleUrls: ['./object-list.component.scss'],
-  templateUrl: './object-list.component.html',
-  animations: [fadeIn]
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.Emulated,
+    selector: 'ds-object-list',
+    styleUrls: ['./object-list.component.scss'],
+    templateUrl: './object-list.component.html',
+    animations: [fadeIn],
+    standalone: true,
+    imports: [PaginationComponent, NgIf, NgClass, NgFor, SelectableListItemControlComponent, ImportableListItemControlComponent, ListableObjectComponentLoaderComponent, BrowserOnlyPipe]
 })
 export class ObjectListComponent {
   /**

@@ -22,15 +22,14 @@ describe('IdleModalComponent', () => {
     authServiceStub = jasmine.createSpyObj('authService', ['setIdle']);
     storeStub = jasmine.createSpyObj('store', ['dispatch']);
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [IdleModalComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), IdleModalComponent],
+    providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: AuthService, useValue: authServiceStub },
         { provide: Store, useValue: storeStub }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

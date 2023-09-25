@@ -4,6 +4,10 @@ import { SectionsDirective } from '../sections.directive';
 import { SectionDataObject } from '../models/section-data.model';
 import { rendersSectionType } from '../sections-decorator';
 import { AlertType } from '../../../shared/alert/alert-type';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { AsyncPipe, NgClass, NgComponentOutlet, NgForOf, NgIf } from '@angular/common';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -11,7 +15,19 @@ import { AlertType } from '../../../shared/alert/alert-type';
 @Component({
   selector: 'ds-submission-section-container',
   templateUrl: './section-container.component.html',
-  styleUrls: ['./section-container.component.scss']
+  styleUrls: ['./section-container.component.scss'],
+  imports: [
+    AlertComponent,
+    NgForOf,
+    NgbAccordionModule,
+    NgComponentOutlet,
+    TranslateModule,
+    NgClass,
+    NgIf,
+    AsyncPipe,
+    SectionsDirective
+  ],
+  standalone: true
 })
 export class SubmissionSectionContainerComponent implements OnInit {
 

@@ -157,19 +157,17 @@ describe('SubmissionSectionFormComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         FormComponent,
         SubmissionSectionFormComponent,
         TestComponent
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         { provide: SectionFormOperationsService, useValue: getMockFormOperationsService() },
         { provide: FormService, useValue: formService },
@@ -178,17 +176,17 @@ describe('SubmissionSectionFormComponent test suite', () => {
         { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: TranslateService, useValue: getMockTranslateService() },
-        { provide: ObjectCacheService, useValue: { remove: () => {/*do nothing*/}, hasBySelfLinkObservable: () => observableOf(false), hasByHref$: () => observableOf(false) } },
-        { provide: RequestService, useValue: { removeByHrefSubstring: () => {/*do nothing*/}, hasByHref$: () => observableOf(false) } },
+        { provide: ObjectCacheService, useValue: { remove: () => { }, hasBySelfLinkObservable: () => observableOf(false), hasByHref$: () => observableOf(false) } },
+        { provide: RequestService, useValue: { removeByHrefSubstring: () => { }, hasByHref$: () => observableOf(false) } },
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: submissionId },
         { provide: SubmissionObjectDataService, useValue: { getHrefByID: () => observableOf('testUrl'), findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem()) } },
         ChangeDetectorRef,
         SubmissionSectionFormComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents().then();
   }));
 
   describe('', () => {
@@ -630,8 +628,13 @@ describe('SubmissionSectionFormComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [BrowserModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule]
 })
 class TestComponent {
 

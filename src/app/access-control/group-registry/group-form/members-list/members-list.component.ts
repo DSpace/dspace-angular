@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -28,6 +28,9 @@ import { PaginationComponentOptions } from '../../../../shared/pagination/pagina
 import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { ContextHelpDirective } from '../../../../shared/context-help.directive';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -69,7 +72,19 @@ export interface EPersonListActionConfig {
 
 @Component({
   selector: 'ds-members-list',
-  templateUrl: './members-list.component.html'
+  templateUrl: './members-list.component.html',
+  imports: [
+    TranslateModule,
+    ContextHelpDirective,
+    ReactiveFormsModule,
+    PaginationComponent,
+    NgIf,
+    AsyncPipe,
+    RouterLink,
+    NgClass,
+    NgForOf
+  ],
+  standalone: true
 })
 /**
  * The list of members in the edit group page

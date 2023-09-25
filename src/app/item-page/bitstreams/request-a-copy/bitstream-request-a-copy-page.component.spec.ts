@@ -100,20 +100,19 @@ describe('BitstreamRequestACopyPageComponent', () => {
 
   function initTestbed() {
     TestBed.configureTestingModule({
-      imports: [CommonModule, TranslateModule.forRoot(), FormsModule, ReactiveFormsModule],
-      declarations: [BitstreamRequestACopyPageComponent],
-      providers: [
-        {provide: Location, useValue: location},
-        {provide: ActivatedRoute, useValue: activatedRoute},
-        {provide: Router, useValue: router},
-        {provide: AuthorizationDataService, useValue: authorizationService},
-        {provide: AuthService, useValue: authService},
-        {provide: ItemRequestDataService, useValue: itemRequestDataService},
-        {provide: NotificationsService, useValue: notificationsService},
-        {provide: DSONameService, useValue: new DSONameServiceMock()},
-        {provide: BitstreamDataService, useValue: bitstreamDataService},
-      ]
-    })
+    imports: [CommonModule, TranslateModule.forRoot(), FormsModule, ReactiveFormsModule, BitstreamRequestACopyPageComponent],
+    providers: [
+        { provide: Location, useValue: location },
+        { provide: ActivatedRoute, useValue: activatedRoute },
+        { provide: Router, useValue: router },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: AuthService, useValue: authService },
+        { provide: ItemRequestDataService, useValue: itemRequestDataService },
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
+        { provide: BitstreamDataService, useValue: bitstreamDataService },
+    ]
+})
       .compileComponents();
   }
 

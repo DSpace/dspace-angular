@@ -3,14 +3,18 @@ import { LinkMenuItemModel } from './models/link.model';
 import { rendersMenuItemForType } from '../menu-item.decorator';
 import { isNotEmpty } from '../../empty.util';
 import { MenuItemType } from '../menu-item-type.model';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgClass } from '@angular/common';
 
 /**
  * Component that renders a menu section of type LINK
  */
 @Component({
-  selector: 'ds-link-menu-item',
-  templateUrl: './link-menu-item.component.html'
+    selector: 'ds-link-menu-item',
+    templateUrl: './link-menu-item.component.html',
+    standalone: true,
+    imports: [NgClass, RouterLink, TranslateModule]
 })
 @rendersMenuItemForType(MenuItemType.LINK)
 export class LinkMenuItemComponent implements OnInit {

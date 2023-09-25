@@ -22,15 +22,14 @@ describe('MenuSectionComponent', () => {
       active: false
     } as any;
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule],
-      declarations: [MenuSectionComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), NoopAnimationsModule, MenuSectionComponent],
+    providers: [
         { provide: Injector, useValue: {} },
         { provide: MenuService, useClass: MenuServiceStub },
         { provide: MenuSection, useValue: dummySection },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(MenuSectionComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(MenuSectionComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

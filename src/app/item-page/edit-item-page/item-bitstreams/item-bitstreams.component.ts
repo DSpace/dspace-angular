@@ -4,9 +4,9 @@ import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Observable, Subscription, zip as observableZip } from 'rxjs';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -25,11 +25,28 @@ import { Operation } from 'fast-json-patch';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
 import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
+import {
+  ItemEditBitstreamDragHandleComponent
+} from './item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 
 @Component({
   selector: 'ds-item-bitstreams',
   styleUrls: ['./item-bitstreams.component.scss'],
   templateUrl: './item-bitstreams.component.html',
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+    ItemEditBitstreamBundleComponent,
+    RouterLink,
+    NgIf,
+    ItemEditBitstreamDragHandleComponent,
+    NgForOf,
+    ThemedLoadingComponent
+  ],
+  standalone: true
 })
 /**
  * Component for displaying an item's bitstreams edit page

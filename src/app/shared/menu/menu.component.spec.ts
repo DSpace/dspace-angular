@@ -55,17 +55,16 @@ describe('MenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
-      declarations: [MenuComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, MenuComponent],
+    providers: [
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: MenuService, useClass: MenuServiceStub },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ActivatedRoute, useValue: routeStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(MenuComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(MenuComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

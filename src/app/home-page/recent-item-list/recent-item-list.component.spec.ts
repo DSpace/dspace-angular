@@ -40,15 +40,15 @@ describe('RecentItemListComponent', () => {
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RecentItemListComponent],
-      providers: [
+    imports: [RecentItemListComponent],
+    providers: [
         { provide: SearchService, useValue: searchServiceStub },
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: APP_CONFIG, useValue: environment },
         { provide: PLATFORM_ID, useValue: 'browser' },
-      ],
-    })
+    ]
+})
     .compileComponents();
   });
 

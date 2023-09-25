@@ -11,10 +11,7 @@ import {
 } from '@angular/core';
 
 import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
-import {
-  find,
-  map, mergeMap
-} from 'rxjs/operators';
+import { find, map, mergeMap } from 'rxjs/operators';
 
 import { Collection } from '../../../core/shared/collection.model';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
@@ -23,13 +20,21 @@ import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
+import {
+  SubmissionJsonPatchOperationsService
+} from '../../../core/submission/submission-json-patch-operations.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { CollectionDropdownComponent } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { SectionsService } from '../../sections/sections.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { SectionsType } from '../../sections/sections-type';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ThemedCollectionDropdownComponent
+} from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 
 /**
  * This component allows to show the current collection the submission belonging to and to change it.
@@ -37,7 +42,14 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-submission-form-collection',
   styleUrls: ['./submission-form-collection.component.scss'],
-  templateUrl: './submission-form-collection.component.html'
+  templateUrl: './submission-form-collection.component.html',
+  standalone: true,
+  imports: [
+    CommonModule,
+    TranslateModule,
+    NgbDropdownModule,
+    ThemedCollectionDropdownComponent
+  ]
 })
 export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
 

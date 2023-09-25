@@ -7,11 +7,16 @@ import { SearchConfigurationService } from '../../core/shared/search/search-conf
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { map, take } from 'rxjs/operators';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { FormsModule } from '@angular/forms';
+import { NgFor, AsyncPipe } from '@angular/common';
+import { SidebarDropdownComponent } from '../sidebar/sidebar-dropdown.component';
 
 @Component({
-  selector: 'ds-page-size-selector',
-  styleUrls: ['./page-size-selector.component.scss'],
-  templateUrl: './page-size-selector.component.html'
+    selector: 'ds-page-size-selector',
+    styleUrls: ['./page-size-selector.component.scss'],
+    templateUrl: './page-size-selector.component.html',
+    standalone: true,
+    imports: [SidebarDropdownComponent, NgFor, FormsModule, AsyncPipe]
 })
 
 /**

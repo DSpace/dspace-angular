@@ -20,9 +20,10 @@ import { ItemDataService } from '../../core/data/item-data.service';
  * This component allows to submit a new workspaceitem.
  */
 @Component({
-  selector: 'ds-submission-submit',
-  styleUrls: ['./submission-submit.component.scss'],
-  templateUrl: './submission-submit.component.html'
+    selector: 'ds-submission-submit',
+    styleUrls: ['./submission-submit.component.scss'],
+    templateUrl: './submission-submit.component.html',
+    standalone: true
 })
 export class SubmissionSubmitComponent implements OnDestroy, OnInit {
 

@@ -47,21 +47,18 @@ describe('SubmissionFormComponent Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [
-        SubmissionFormComponent,
-        TestComponent
-      ],
-      providers: [
+    imports: [SubmissionFormComponent,
+        TestComponent],
+    providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionsService, useValue: { isSectionTypeAvailable: () => observableOf(true) } },
         ChangeDetectorRef,
         SubmissionFormComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   describe('', () => {
@@ -245,8 +242,9 @@ describe('SubmissionFormComponent Component', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true
 })
 class TestComponent {
 

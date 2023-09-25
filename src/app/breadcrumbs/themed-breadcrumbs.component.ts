@@ -6,9 +6,10 @@ import { BreadcrumbsComponent } from './breadcrumbs.component';
  * Themed wrapper for BreadcrumbsComponent
  */
 @Component({
-  selector: 'ds-themed-breadcrumbs',
-  styleUrls: [],
-  templateUrl: '../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-breadcrumbs',
+    styleUrls: [],
+    templateUrl: '../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedBreadcrumbsComponent extends ThemedComponent<BreadcrumbsComponent> {
   protected getComponentName(): string {

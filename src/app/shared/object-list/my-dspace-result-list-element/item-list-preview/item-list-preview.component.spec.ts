@@ -82,23 +82,22 @@ const enviromentNoThumbs = {
 describe('ItemListPreviewComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-        NoopAnimationsModule
-      ],
-      declarations: [ItemListPreviewComponent, TruncatePipe],
-      providers: [
-        { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate }},
+        NoopAnimationsModule,
+        ItemListPreviewComponent, TruncatePipe
+    ],
+    providers: [
+        { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ItemListPreviewComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ItemListPreviewComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
@@ -188,23 +187,22 @@ describe('ItemListPreviewComponent', () => {
 describe('ItemListPreviewComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-        NoopAnimationsModule
-      ],
-      declarations: [ItemListPreviewComponent, TruncatePipe],
-      providers: [
-        {provide: 'objectElementProvider', useValue: {mockItemWithAuthorAndDate}},
-        {provide: APP_CONFIG, useValue: enviromentNoThumbs}
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ItemListPreviewComponent, {
+        NoopAnimationsModule,
+        ItemListPreviewComponent, TruncatePipe
+    ],
+    providers: [
+        { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } },
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ItemListPreviewComponent, {
       set: {changeDetection: ChangeDetectionStrategy.Default}
     }).compileComponents();
   }));

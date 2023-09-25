@@ -113,22 +113,22 @@ describe('CollectionDropdownComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      declarations: [CollectionDropdownComponent],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        CollectionDropdownComponent
+    ],
+    providers: [
         { provide: CollectionDataService, useValue: collectionDataServiceMock },
         { provide: ElementRef, useClass: MockElementRef },
         ChangeDetectorRef
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

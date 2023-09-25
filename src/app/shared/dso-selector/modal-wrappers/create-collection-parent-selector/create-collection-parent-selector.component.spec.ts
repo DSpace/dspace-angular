@@ -30,28 +30,27 @@ describe('CreateCollectionParentSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [CreateCollectionParentSelectorComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), CreateCollectionParentSelectorComponent],
+    providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
-          provide: ActivatedRoute,
-          useValue: {
-            root: {
-              snapshot: {
-                data: {
-                  dso: communityRD,
-                },
-              },
-            }
-          },
+            provide: ActivatedRoute,
+            useValue: {
+                root: {
+                    snapshot: {
+                        data: {
+                            dso: communityRD,
+                        },
+                    },
+                }
+            },
         },
         {
-          provide: Router, useValue: router
+            provide: Router, useValue: router
         }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
 
   }));
 

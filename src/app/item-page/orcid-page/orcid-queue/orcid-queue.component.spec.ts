@@ -108,25 +108,25 @@ describe('OrcidQueueComponent test suite', () => {
     });
 
     void TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-        RouterTestingModule.withRoutes([])
-      ],
-      declarations: [OrcidQueueComponent],
-      providers: [
+        RouterTestingModule.withRoutes([]),
+        OrcidQueueComponent
+    ],
+    providers: [
         { provide: OrcidAuthService, useValue: orcidAuthService },
         { provide: OrcidQueueDataService, useValue: orcidQueueServiceSpy },
         { provide: OrcidHistoryDataService, useValue: {} },
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
 
     orcidQueueService = TestBed.inject(OrcidQueueDataService);
   }));

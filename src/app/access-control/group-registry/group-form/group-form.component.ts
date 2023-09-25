@@ -8,7 +8,7 @@ import {
   DynamicInputModel,
   DynamicTextAreaModel
 } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   ObservedValueOf,
   combineLatest as observableCombineLatest,
@@ -48,10 +48,27 @@ import { Operation } from 'fast-json-patch';
 import { ValidateGroupExists } from './validators/group-exists.validator';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { environment } from '../../../../environments/environment';
+import { FormComponent } from '../../../shared/form/form.component';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { ContextHelpDirective } from '../../../shared/context-help.directive';
+import { MembersListComponent } from './members-list/members-list.component';
+import { SubgroupsListComponent } from './subgroup-list/subgroups-list.component';
 
 @Component({
   selector: 'ds-group-form',
-  templateUrl: './group-form.component.html'
+  templateUrl: './group-form.component.html',
+  imports: [
+    FormComponent,
+    AlertComponent,
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+    ContextHelpDirective,
+    MembersListComponent,
+    SubgroupsListComponent
+  ],
+  standalone: true
 })
 /**
  * A form used for creating and editing groups

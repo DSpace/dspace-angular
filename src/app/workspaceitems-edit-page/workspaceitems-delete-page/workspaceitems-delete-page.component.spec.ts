@@ -42,37 +42,34 @@ describe('WorkspaceitemsDeletePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NgbModalModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [WorkspaceItemsDeletePageComponent],
-      providers: [
+        TranslateModule.forRoot(),
+        WorkspaceItemsDeletePageComponent
+    ],
+    providers: [
         {
-          provide: ActivatedRoute,
-          useValue: new ActivatedRouteStub(
-            {},
-            {
-              wsi: createSuccessfulRemoteDataObject(wsi),
-              dso: createSuccessfulRemoteDataObject(dso),
-            }
-          ),
+            provide: ActivatedRoute,
+            useValue: new ActivatedRouteStub({}, {
+                wsi: createSuccessfulRemoteDataObject(wsi),
+                dso: createSuccessfulRemoteDataObject(dso),
+            }),
         },
         { provide: Router, useValue: new RouterMock() },
         {
-          provide: WorkspaceitemDataService,
-          useValue: workspaceitemDataServiceSpy,
+            provide: WorkspaceitemDataService,
+            useValue: workspaceitemDataServiceSpy,
         },
         { provide: Location, useValue: new LocationStub() },
         {
-          provide: NotificationsService,
-          useValue: new NotificationsServiceStub(),
+            provide: NotificationsService,
+            useValue: new NotificationsServiceStub(),
         },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   });
 
   beforeEach(() => {

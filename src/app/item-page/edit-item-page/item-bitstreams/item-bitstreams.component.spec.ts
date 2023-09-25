@@ -149,9 +149,8 @@ describe('ItemBitstreamsComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ItemBitstreamsComponent, ObjectValuesPipe, VarDirective],
-      providers: [
+    imports: [TranslateModule.forRoot(), ItemBitstreamsComponent, ObjectValuesPipe, VarDirective],
+    providers: [
         { provide: ItemDataService, useValue: itemService },
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: Router, useValue: router },
@@ -163,10 +162,10 @@ describe('ItemBitstreamsComponent', () => {
         { provide: SearchConfigurationService, useValue: searchConfig },
         { provide: BundleDataService, useValue: bundleService },
         ChangeDetectorRef
-      ], schemas: [
+    ], schemas: [
         NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
   }));
 
   beforeEach(() => {

@@ -20,20 +20,18 @@ describe('SubmissionSectionUploadFileViewComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+    imports: [
+        TranslateModule.forRoot(),
         TruncatePipe,
         FormComponent,
         SubmissionSectionUploadFileViewComponent,
         TestComponent
-      ],
-      providers: [
+    ],
+    providers: [
         SubmissionSectionUploadFileViewComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents().then();
   }));
 
   describe('', () => {
@@ -91,8 +89,9 @@ describe('SubmissionSectionUploadFileViewComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true
 })
 class TestComponent {
 

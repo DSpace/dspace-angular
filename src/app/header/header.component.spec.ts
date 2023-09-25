@@ -20,16 +20,17 @@ describe('HeaderComponent', () => {
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         NoopAnimationsModule,
-        ReactiveFormsModule],
-      declarations: [HeaderComponent],
-      providers: [
+        ReactiveFormsModule,
+        HeaderComponent
+    ],
+    providers: [
         { provide: MenuService, useValue: menuService }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();  // compile template and css
   }));
 

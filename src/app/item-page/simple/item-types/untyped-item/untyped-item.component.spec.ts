@@ -63,17 +63,17 @@ describe('UntypedItemComponent', () => {
       }
     };
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
         RouterTestingModule,
-      ],
-      declarations: [UntypedItemComponent, GenericItemPageFieldComponent, TruncatePipe ],
-      providers: [
+        UntypedItemComponent, GenericItemPageFieldComponent, TruncatePipe
+    ],
+    providers: [
         { provide: ItemDataService, useValue: {} },
         { provide: TruncatableService, useValue: {} },
         { provide: RelationshipDataService, useValue: {} },
@@ -96,9 +96,9 @@ describe('UntypedItemComponent', () => {
         { provide: ItemVersionsSharedService, useValue: {} },
         { provide: RouteService, useValue: mockRouteService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(UntypedItemComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(UntypedItemComponent, {
       set: {changeDetection: ChangeDetectionStrategy.Default}
     });
   }));

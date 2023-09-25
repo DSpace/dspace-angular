@@ -8,8 +8,9 @@ import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 
 @Component({
-  selector: 'ds-browse-by-switcher',
-  templateUrl: './browse-by-switcher.component.html'
+    selector: 'ds-browse-by-switcher',
+    templateUrl: './browse-by-switcher.component.html',
+    standalone: true
 })
 /**
  * Component for determining what Browse-By component to use depending on the metadata (browse ID) provided

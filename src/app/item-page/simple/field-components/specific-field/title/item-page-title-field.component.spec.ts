@@ -15,15 +15,14 @@ const mockValue = 'test value';
 describe('ItemPageTitleFieldComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      })],
-      declarations: [ItemPageTitleFieldComponent, MetadataValuesComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ItemPageTitleFieldComponent, {
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }), ItemPageTitleFieldComponent, MetadataValuesComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ItemPageTitleFieldComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { FormsModule, UntypedFormGroup } from '@angular/forms';
 
 import { of as observableOf, Subscription } from 'rxjs';
 import { catchError, distinctUntilChanged } from 'rxjs/operators';
-import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdown, NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
@@ -19,6 +19,11 @@ import {
 } from '../../../../../../core/data/paginated-list.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
+import { NgClass, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 
 /**
  * Component representing a lookup or lookup-name input field
@@ -26,7 +31,21 @@ import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 @Component({
   selector: 'ds-dynamic-lookup',
   styleUrls: ['./dynamic-lookup.component.scss'],
-  templateUrl: './dynamic-lookup.component.html'
+  templateUrl: './dynamic-lookup.component.html',
+  imports: [
+    TranslateModule,
+    NgbTooltipModule,
+    NgbDropdownModule,
+    AuthorityConfidenceStateDirective,
+    FormsModule,
+    NgIf,
+    NgClass,
+    InfiniteScrollModule,
+    NgForOf,
+    NgTemplateOutlet,
+    ObjNgFor
+  ],
+  standalone: true
 })
 export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
 

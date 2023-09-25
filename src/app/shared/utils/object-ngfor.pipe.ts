@@ -9,7 +9,8 @@ import { Pipe, PipeTransform } from '@angular/core';
  *
  */
 @Pipe({
-  name: 'dsObjNgFor'
+    name: 'dsObjNgFor',
+    standalone: true
 })
 export class ObjNgFor implements PipeTransform {
   transform(value: any, args: any[] = null): any {

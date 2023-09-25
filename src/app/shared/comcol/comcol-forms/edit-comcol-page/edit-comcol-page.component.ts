@@ -12,8 +12,9 @@ import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
  * Component representing the edit page for communities and collections
  */
 @Component({
-  selector: 'ds-edit-comcol',
-  template: ''
+    selector: 'ds-edit-comcol',
+    template: '',
+    standalone: true
 })
 export class EditComColPageComponent<TDomain extends DSpaceObject> implements OnInit {
   /**

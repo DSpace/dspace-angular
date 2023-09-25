@@ -27,9 +27,11 @@ import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { ThemeService } from '../../../theme-support/theme.service';
 
 @Component({
-  selector: 'ds-listable-object-component-loader',
-  styleUrls: ['./listable-object-component-loader.component.scss'],
-  templateUrl: './listable-object-component-loader.component.html'
+    selector: 'ds-listable-object-component-loader',
+    styleUrls: ['./listable-object-component-loader.component.scss'],
+    templateUrl: './listable-object-component-loader.component.html',
+    standalone: true,
+    imports: [ListableObjectDirective]
 })
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type)

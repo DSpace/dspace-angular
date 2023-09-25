@@ -3,6 +3,13 @@ import {
   AuthNavMenuComponent as BaseComponent,
 } from '../../../../../app/shared/auth-nav-menu/auth-nav-menu.component';
 import { fadeInOut, fadeOut } from '../../../../../app/shared/animations/fade';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { LogInComponent } from '../../../../../app/shared/log-in/log-in.component';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { UserMenuComponent } from '../../../../../app/shared/auth-nav-menu/user-menu/user-menu.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pipe';
 
 /**
  * Component representing the {@link AuthNavMenuComponent} of a page
@@ -13,7 +20,9 @@ import { fadeInOut, fadeOut } from '../../../../../app/shared/animations/fade';
   templateUrl: '../../../../../app/shared/auth-nav-menu/auth-nav-menu.component.html',
   // styleUrls: ['./auth-nav-menu.component.scss'],
   styleUrls: ['../../../../../app/shared/auth-nav-menu/auth-nav-menu.component.scss'],
-  animations: [fadeInOut, fadeOut]
+  animations: [fadeInOut, fadeOut],
+  standalone: true,
+  imports: [NgClass, NgIf, NgbDropdownModule, LogInComponent, RouterLink, RouterLinkActive, UserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe]
 })
 export class AuthNavMenuComponent extends BaseComponent {
 }

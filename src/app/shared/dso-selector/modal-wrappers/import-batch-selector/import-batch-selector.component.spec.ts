@@ -32,13 +32,12 @@ describe('ImportBatchSelectorComponent', () => {
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      declarations: [ImportBatchSelectorComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ImportBatchSelectorComponent],
+    providers: [
         { provide: NgbActiveModal, useValue: modalStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

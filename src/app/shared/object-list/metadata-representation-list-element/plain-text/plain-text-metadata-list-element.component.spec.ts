@@ -18,10 +18,9 @@ describe('PlainTextMetadataListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [PlainTextMetadataListElementComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(PlainTextMetadataListElementComponent, {
+    imports: [PlainTextMetadataListElementComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(PlainTextMetadataListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

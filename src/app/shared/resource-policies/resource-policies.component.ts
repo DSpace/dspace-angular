@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { BehaviorSubject, from as observableFrom, Observable, Subscription } from 'rxjs';
 import { concatMap, distinctUntilChanged, filter, map, reduce, scan, take } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { getAllSucceededRemoteData } from '../../core/shared/operators';
 import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
@@ -15,12 +15,21 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { RequestService } from '../../core/data/request.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { followLink } from '../utils/follow-link-config.model';
-import { ResourcePolicyCheckboxEntry } from './entry/resource-policy-entry.component';
+import { ResourcePolicyCheckboxEntry, ResourcePolicyEntryComponent } from './entry/resource-policy-entry.component';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 
 @Component({
   selector: 'ds-resource-policies',
   styleUrls: ['./resource-policies.component.scss'],
   templateUrl: './resource-policies.component.html',
+  imports: [
+    ResourcePolicyEntryComponent,
+    TranslateModule,
+    NgIf,
+    AsyncPipe,
+    NgForOf
+  ],
+  standalone: true
 })
 /**
  * Component that shows the policies for given resource

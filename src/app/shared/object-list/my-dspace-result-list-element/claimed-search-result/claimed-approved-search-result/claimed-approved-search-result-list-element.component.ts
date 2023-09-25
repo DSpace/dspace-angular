@@ -14,14 +14,20 @@ import { ClaimedTask } from '../../../../../core/tasks/models/claimed-task-objec
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
 import { Context } from 'src/app/core/shared/context.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedItemListPreviewComponent } from '../../item-list-preview/themed-item-list-preview.component';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { VarDirective } from '../../../../utils/var.directive';
 
 /**
  * This component renders claimed task approved object for the search result in the list view.
  */
 @Component({
-  selector: 'ds-claimed-approved-search-result-list-element',
-  styleUrls: ['../../../search-result-list-element/search-result-list-element.component.scss'],
-  templateUrl: './claimed-approved-search-result-list-element.component.html'
+    selector: 'ds-claimed-approved-search-result-list-element',
+    styleUrls: ['../../../search-result-list-element/search-result-list-element.component.scss'],
+    templateUrl: './claimed-approved-search-result-list-element.component.html',
+    standalone: true,
+    imports: [VarDirective, NgIf, ThemedItemListPreviewComponent, AsyncPipe, TranslateModule]
 })
 @listableObjectComponent(ClaimedApprovedTaskSearchResult, ViewMode.ListElement)
 export class ClaimedApprovedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> {

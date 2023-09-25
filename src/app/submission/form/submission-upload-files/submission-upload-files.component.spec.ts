@@ -52,15 +52,13 @@ describe('SubmissionUploadFilesComponent Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         SharedModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         SubmissionUploadFilesComponent,
         TestComponent
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SectionsService, useClass: SectionsServiceStub },
@@ -69,9 +67,9 @@ describe('SubmissionUploadFilesComponent Component', () => {
         { provide: Store, useValue: store },
         ChangeDetectorRef,
         SubmissionUploadFilesComponent
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
   }));
 
   describe('', () => {
@@ -203,8 +201,10 @@ describe('SubmissionUploadFilesComponent Component', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [SharedModule]
 })
 class TestComponent {
 

@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BehaviorSubject, combineLatest, from, shareReplay } from 'rxjs';
 import { map, mergeMap, take, tap } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import findIndex from 'lodash/findIndex';
 
@@ -18,11 +18,16 @@ import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from 
 import { AuthService } from '../../../core/auth/auth.service';
 import { isNotEmpty } from '../../empty.util';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { AlertComponent } from '../../alert/alert.component';
+import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
+import { NgIf, NgFor, AsyncPipe, KeyValuePipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-subscription-modal',
-  templateUrl: './subscription-modal.component.html',
-  styleUrls: ['./subscription-modal.component.scss']
+    selector: 'ds-subscription-modal',
+    templateUrl: './subscription-modal.component.html',
+    styleUrls: ['./subscription-modal.component.scss'],
+    standalone: true,
+    imports: [NgIf, FormsModule, ReactiveFormsModule, ThemedTypeBadgeComponent, NgFor, AlertComponent, AsyncPipe, KeyValuePipe, TranslateModule]
 })
 /**
  * Modal that allows to manage the subscriptions for the selected item

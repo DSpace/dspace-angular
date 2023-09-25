@@ -10,8 +10,8 @@ import {
   DynamicRadioGroupModel,
   DynamicSelectModel
 } from '@ng-dynamic-forms/core';
-import { Location } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
+import { AsyncPipe, Location, NgIf } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { UntypedFormGroup } from '@angular/forms';
@@ -31,6 +31,9 @@ import { RequestService } from '../../../core/data/request.service';
 import { environment } from '../../../../environments/environment';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
+import { ThemedLoadingComponent } from "../../../shared/loading/themed-loading.component";
+import { FormComponent } from "../../../shared/form/form.component";
+import { CollectionSourceControlsComponent } from "./collection-source-controls/collection-source-controls.component";
 
 /**
  * Component for managing the content source of the collection
@@ -38,6 +41,15 @@ import { FieldUpdates } from '../../../core/data/object-updates/field-updates.mo
 @Component({
   selector: 'ds-collection-source',
   templateUrl: './collection-source.component.html',
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+    NgIf,
+    ThemedLoadingComponent,
+    FormComponent,
+    CollectionSourceControlsComponent
+  ],
+  standalone: true
 })
 export class CollectionSourceComponent extends AbstractTrackableComponent implements OnInit, OnDestroy {
   /**

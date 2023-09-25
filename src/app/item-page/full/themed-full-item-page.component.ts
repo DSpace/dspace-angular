@@ -6,9 +6,10 @@ import { FullItemPageComponent } from './full-item-page.component';
  * Themed wrapper for FullItemPageComponent
  */
 @Component({
-  selector: 'ds-themed-full-item-page',
-  styleUrls: [],
-  templateUrl: './../../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-full-item-page',
+    styleUrls: [],
+    templateUrl: './../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedFullItemPageComponent extends ThemedComponent<FullItemPageComponent> {
   protected getComponentName(): string {

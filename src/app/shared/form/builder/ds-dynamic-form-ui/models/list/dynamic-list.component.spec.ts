@@ -78,18 +78,16 @@ describe('DsDynamicListComponent test suite', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         DynamicFormsCoreModule,
         DynamicFormsNGBootstrapUIModule,
         FormsModule,
         ReactiveFormsModule,
-        NgbModule
-      ],
-      declarations: [
+        NgbModule,
         DsDynamicListComponent,
-        TestComponent,
-      ], // declare the test component
-      providers: [
+        TestComponent
+    ],
+    providers: [
         ChangeDetectorRef,
         DsDynamicListComponent,
         DynamicFormValidationService,
@@ -97,9 +95,9 @@ describe('DsDynamicListComponent test suite', () => {
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    });
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+});
 
   }));
 
@@ -286,8 +284,14 @@ describe('DsDynamicListComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [DynamicFormsCoreModule,
+        DynamicFormsNGBootstrapUIModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgbModule]
 })
 class TestComponent {
 

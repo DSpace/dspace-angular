@@ -6,6 +6,8 @@ import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../../dso-
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { environment } from '../../../../environments/environment';
+import { TranslateModule } from '@ngx-translate/core';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector/dso-selector.component';
 
 /**
  * Component to wrap a button - to select the entire repository -
@@ -14,9 +16,11 @@ import { environment } from '../../../../environments/environment';
  * Used to select a scope
  */
 @Component({
-  selector: 'ds-scope-selector-modal',
-  styleUrls: ['./scope-selector-modal.component.scss'],
-  templateUrl: './scope-selector-modal.component.html',
+    selector: 'ds-scope-selector-modal',
+    styleUrls: ['./scope-selector-modal.component.scss'],
+    templateUrl: './scope-selector-modal.component.html',
+    standalone: true,
+    imports: [DSOSelectorComponent, TranslateModule]
 })
 export class ScopeSelectorModalComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COMMUNITY;

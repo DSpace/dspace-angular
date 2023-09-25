@@ -28,17 +28,17 @@ const components = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    CoreModule.forRoot(),
-    StatisticsModule.forRoot()
-  ],
-  declarations: components,
-  providers: [
-    UsageReportDataService,
-  ],
-  exports: components
+    imports: [
+        CommonModule,
+        SharedModule,
+        CoreModule.forRoot(),
+        StatisticsModule.forRoot(),
+        ...components
+    ],
+    providers: [
+        UsageReportDataService,
+    ],
+    exports: components
 })
 
 /**

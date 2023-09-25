@@ -193,42 +193,40 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
   searchConfigurationServiceStub.paginatedSearchOptions = new BehaviorSubject(new PaginatedSearchOptions({pagination: {id: 'default'} as any}));
 
   TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule],
-    declarations: [compType, ...additionalDeclarations],
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule, compType, ...additionalDeclarations],
     providers: [
-      { provide: SearchService, useValue: searchServiceStub },
-      {
-        provide: CommunityDataService,
-        useValue: jasmine.createSpyObj('communityService', ['findById', 'findAll'])
-      },
-      { provide: ActivatedRoute, useValue: activatedRouteStub },
-      { provide: RouteService, useValue: routeServiceStub },
-      {
-        provide: Store, useValue: store
-      },
-      {
-        provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
-          {
-            isXs: observableOf(true),
-            isSm: observableOf(false),
-            isXsOrSm: observableOf(true)
-          })
-      },
-      {
-        provide: SidebarService,
-        useValue: SidebarServiceStub
-      },
-      {
-        provide: SearchFilterService,
-        useValue: {}
-      },
-      {
-        provide: SEARCH_CONFIG_SERVICE,
-        useValue: searchConfigurationServiceStub
-      }
+        { provide: SearchService, useValue: searchServiceStub },
+        {
+            provide: CommunityDataService,
+            useValue: jasmine.createSpyObj('communityService', ['findById', 'findAll'])
+        },
+        { provide: ActivatedRoute, useValue: activatedRouteStub },
+        { provide: RouteService, useValue: routeServiceStub },
+        {
+            provide: Store, useValue: store
+        },
+        {
+            provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
+                isXs: observableOf(true),
+                isSm: observableOf(false),
+                isXsOrSm: observableOf(true)
+            })
+        },
+        {
+            provide: SidebarService,
+            useValue: SidebarServiceStub
+        },
+        {
+            provide: SearchFilterService,
+            useValue: {}
+        },
+        {
+            provide: SEARCH_CONFIG_SERVICE,
+            useValue: searchConfigurationServiceStub
+        }
     ],
     schemas: [NO_ERRORS_SCHEMA]
-  }).overrideComponent(compType, {
+}).overrideComponent(compType, {
     set: {
       changeDetection: ChangeDetectionStrategy.Default,
       providers: [{

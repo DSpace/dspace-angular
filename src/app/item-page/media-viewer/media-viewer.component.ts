@@ -14,6 +14,13 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
 import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
 import { environment } from '../../../environments/environment';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { ThemedMediaViewerImageComponent } from './media-viewer-image/themed-media-viewer-image.component';
+import { ThumbnailComponent } from '../../thumbnail/thumbnail.component';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-media-viewer-video.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 /**
  * This component renders the media viewers
@@ -22,6 +29,17 @@ import { Subscription } from 'rxjs/internal/Subscription';
   selector: 'ds-media-viewer',
   templateUrl: './media-viewer.component.html',
   styleUrls: ['./media-viewer.component.scss'],
+  imports: [
+    ThemedMediaViewerImageComponent,
+    ThumbnailComponent,
+    AsyncPipe,
+    NgIf,
+    ThemedMediaViewerVideoComponent,
+    TranslateModule,
+    ThemedLoadingComponent,
+    VarDirective
+  ],
+  standalone: true
 })
 export class MediaViewerComponent implements OnDestroy, OnInit {
   @Input() item: Item;

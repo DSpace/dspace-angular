@@ -11,8 +11,9 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 
 @Component({
-  selector: 'ds-search-result-list-element',
-  template: ``
+    selector: 'ds-search-result-list-element',
+    template: ``,
+    standalone: true
 })
 export class SearchResultListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
   /**

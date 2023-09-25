@@ -35,11 +35,10 @@ describe('DsoInputSuggestionsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule],
-      declarations: [DsoInputSuggestionsComponent],
-      providers: [],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(DsoInputSuggestionsComponent, {
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule, DsoInputSuggestionsComponent],
+    providers: [],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(DsoInputSuggestionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

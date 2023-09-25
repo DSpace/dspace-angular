@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,12 +12,16 @@ import { SearchFilterService } from '../../../core/shared/search/search-filter.s
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../utils/route.utils';
 import { hasValue } from '../../empty.util';
+import { TranslateModule } from '@ngx-translate/core';
+import { SearchFilterComponent } from './search-filter/search-filter.component';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-search-filters',
-  styleUrls: ['./search-filters.component.scss'],
-  templateUrl: './search-filters.component.html',
-
+    selector: 'ds-search-filters',
+    styleUrls: ['./search-filters.component.scss'],
+    templateUrl: './search-filters.component.html',
+    standalone: true,
+    imports: [NgIf, NgFor, SearchFilterComponent, RouterLink, AsyncPipe, TranslateModule]
 })
 
 /**

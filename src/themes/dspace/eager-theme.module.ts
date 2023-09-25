@@ -25,18 +25,18 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    SharedBrowseByModule,
-    ResultsBackButtonModule,
-    RootModule,
-    NavbarModule,
-  ],
-  declarations: DECLARATIONS,
-  providers: [
-    ...ENTRY_COMPONENTS.map((component) => ({provide: component}))
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        SharedBrowseByModule,
+        ResultsBackButtonModule,
+        RootModule,
+        NavbarModule,
+        ...DECLARATIONS
+    ],
+    providers: [
+        ...ENTRY_COMPONENTS.map((component) => ({ provide: component }))
+    ]
 })
 /**
  * This module is included in the main bundle that gets downloaded at first page load. So it should

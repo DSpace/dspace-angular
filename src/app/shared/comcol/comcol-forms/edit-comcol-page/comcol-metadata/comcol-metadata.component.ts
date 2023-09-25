@@ -14,8 +14,9 @@ import { Community } from '../../../../../core/shared/community.model';
 import { Collection } from '../../../../../core/shared/collection.model';
 
 @Component({
-  selector: 'ds-comcol-metadata',
-  template: ''
+    selector: 'ds-comcol-metadata',
+    template: '',
+    standalone: true
 })
 export class ComcolMetadataComponent<TDomain extends Community | Collection> implements OnInit {
   /**

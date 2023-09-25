@@ -44,15 +44,14 @@ describe('VirtualMetadataComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [VirtualMetadataComponent, VarDirective],
-      providers: [
+    imports: [TranslateModule.forRoot(), VirtualMetadataComponent, VarDirective],
+    providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: APP_CONFIG, useValue: environment }
-      ], schemas: [
+    ], schemas: [
         NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
 
     fixture = TestBed.createComponent(VirtualMetadataComponent);
     comp = fixture.componentInstance;

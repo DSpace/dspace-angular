@@ -30,10 +30,8 @@ import { AuthorizationDataService } from '../../../../core/data/feature-authoriz
                 provide: TranslateLoader,
                 useClass: TranslateLoaderMock
             }
-        }),
-    ],
+        }), ConfirmationModalComponent],
     exports: [],
-    declarations: [ConfirmationModalComponent],
     providers: []
 })
 class ModelTestModule {
@@ -101,31 +99,30 @@ describe('ExportMetadataSelectorComponent', () => {
       isAuthorized: observableOf(true)
     });
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule],
-      declarations: [ExportMetadataSelectorComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule, ExportMetadataSelectorComponent],
+    providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: NotificationsService, useValue: notificationService },
         { provide: ScriptDataService, useValue: scriptService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         {
-          provide: ActivatedRoute,
-          useValue: {
-            root: {
-              snapshot: {
-                data: {
-                  dso: itemRD,
-                },
-              },
-            }
-          },
+            provide: ActivatedRoute,
+            useValue: {
+                root: {
+                    snapshot: {
+                        data: {
+                            dso: itemRD,
+                        },
+                    },
+                }
+            },
         },
         {
-          provide: Router, useValue: router
+            provide: Router, useValue: router
         }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
 
   }));
 

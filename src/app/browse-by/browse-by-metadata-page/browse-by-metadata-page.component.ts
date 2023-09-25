@@ -22,13 +22,43 @@ import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import {
+  ThemedComcolPageHandleComponent
+} from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
+import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import {
+  ThemedComcolPageBrowseByComponent
+} from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
 @Component({
   selector: 'ds-browse-by-metadata-page',
   styleUrls: ['./browse-by-metadata-page.component.scss'],
-  templateUrl: './browse-by-metadata-page.component.html'
+  templateUrl: './browse-by-metadata-page.component.html',
+  imports: [
+    VarDirective,
+    AsyncPipe,
+    ComcolPageHeaderComponent,
+    ComcolPageLogoComponent,
+    NgIf,
+    ThemedComcolPageHandleComponent,
+    ComcolPageContentComponent,
+    DsoEditMenuComponent,
+    ThemedComcolPageBrowseByComponent,
+    BrowseByComponent,
+    TranslateModule,
+    ThemedLoadingComponent
+  ],
+  standalone: true
 })
 /**
  * Component for browsing (items) by metadata definition.

@@ -45,14 +45,14 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        SharedModule
-      ],
-      declarations: [CommunityAdminSearchResultGridElementComponent],
-      providers: [
+        SharedModule,
+        CommunityAdminSearchResultGridElementComponent
+    ],
+    providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: BitstreamDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
@@ -60,9 +60,9 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
         { provide: FileService, useClass: FileServiceStub },
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: ThemeService, useValue: getMockThemeService() },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

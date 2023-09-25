@@ -46,20 +46,19 @@ describe('PageSizeSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      declarations: [PageSizeSelectorComponent, EnumKeysPipe, VarDirective],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), PageSizeSelectorComponent, EnumKeysPipe, VarDirective],
+    providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: PaginationService, useValue: paginationService },
         {
-          provide: SEARCH_CONFIG_SERVICE,
-          useValue: {
-            paginatedSearchOptions: observableOf(paginatedSearchOptions),
-          }
+            provide: SEARCH_CONFIG_SERVICE,
+            useValue: {
+                paginatedSearchOptions: observableOf(paginatedSearchOptions),
+            }
         },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

@@ -168,14 +168,12 @@ describe('SubmissionSectionCcLicensesComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         SharedModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
-        SubmissionSectionCcLicensesComponent,
-      ],
-      providers: [
+        SubmissionSectionCcLicensesComponent
+    ],
+    providers: [
         { provide: SubmissionCcLicenseDataService, useValue: submissionCcLicensesDataService },
         { provide: SubmissionCcLicenseUrlDataService, useValue: submissionCcLicenseUrlDataService },
         { provide: SectionsService, useValue: sectionService },
@@ -184,8 +182,8 @@ describe('SubmissionSectionCcLicensesComponent', () => {
         { provide: 'collectionIdProvider', useValue: 'test collection id' },
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: 'test submission id' },
-      ],
-    })
+    ]
+})
       .compileComponents();
   }));
 

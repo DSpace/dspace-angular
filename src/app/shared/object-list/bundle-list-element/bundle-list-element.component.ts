@@ -5,8 +5,9 @@ import { listableObjectComponent } from '../../object-collection/shared/listable
 import { ViewMode } from '../../../core/shared/view-mode.model';
 
 @Component({
-  selector: 'ds-bundle-list-element',
-  templateUrl: './bundle-list-element.component.html'
+    selector: 'ds-bundle-list-element',
+    templateUrl: './bundle-list-element.component.html',
+    standalone: true
 })
 /**
  * This component is automatically used to create a list view for Bundle objects

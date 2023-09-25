@@ -69,25 +69,23 @@ describe('CollectionRolesComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         ComcolModule,
         SharedModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
-        NoopAnimationsModule
-      ],
-      declarations: [
-        CollectionRolesComponent,
-      ],
-      providers: [
+        NoopAnimationsModule,
+        CollectionRolesComponent
+    ],
+    providers: [
         { provide: ActivatedRoute, useValue: route },
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: RequestService, useValue: requestService },
         { provide: GroupDataService, useValue: groupDataService },
         { provide: NotificationsService, useClass: NotificationsServiceStub }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
 
     fixture = TestBed.createComponent(CollectionRolesComponent);
     comp = fixture.componentInstance;

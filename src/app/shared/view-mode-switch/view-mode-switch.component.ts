@@ -6,16 +6,21 @@ import { SearchService } from '../../core/shared/search/search.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { isEmpty, isNotEmpty } from '../empty.util';
 import { currentPath } from '../utils/route.utils';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgIf } from '@angular/common';
 
 /**
  * Component to switch between list and grid views.
  */
 @Component({
-  selector: 'ds-view-mode-switch',
-  styleUrls: ['./view-mode-switch.component.scss'],
-  templateUrl: './view-mode-switch.component.html'
+    selector: 'ds-view-mode-switch',
+    styleUrls: ['./view-mode-switch.component.scss'],
+    templateUrl: './view-mode-switch.component.html',
+    standalone: true,
+    imports: [NgIf, RouterLink, RouterLinkActive, TranslateModule, BrowserOnlyPipe]
 })
 export class ViewModeSwitchComponent implements OnInit, OnDestroy {
 

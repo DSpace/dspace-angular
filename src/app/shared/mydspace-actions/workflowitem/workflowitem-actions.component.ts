@@ -1,7 +1,7 @@
 import { Component, Injector, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
@@ -10,14 +10,17 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { RequestService } from '../../../core/data/request.service';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 /**
  * This component represents actions related to WorkflowItem object.
  */
 @Component({
-  selector: 'ds-workflowitem-actions',
-  styleUrls: ['./workflowitem-actions.component.scss'],
-  templateUrl: './workflowitem-actions.component.html',
+    selector: 'ds-workflowitem-actions',
+    styleUrls: ['./workflowitem-actions.component.scss'],
+    templateUrl: './workflowitem-actions.component.html',
+    standalone: true,
+    imports: [NgbTooltipModule, RouterLink, TranslateModule]
 })
 export class WorkflowitemActionsComponent extends MyDSpaceActionsComponent<WorkflowItem, WorkflowItemDataService> {
 

@@ -36,15 +36,16 @@ describe('ClaimedTaskActionsDeclineTaskComponent', () => {
 
     mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null);
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        ClaimedTaskActionsDeclineTaskComponent
+    ],
+    providers: [
         { provide: ClaimedTaskDataService, useValue: claimedTaskService },
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -52,10 +53,9 @@ describe('ClaimedTaskActionsDeclineTaskComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
-      ],
-      declarations: [ClaimedTaskActionsDeclineTaskComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ClaimedTaskActionsDeclineTaskComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ClaimedTaskActionsDeclineTaskComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

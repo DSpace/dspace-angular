@@ -14,6 +14,11 @@ import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from 
 import { HostWindowService } from '../../../shared/host-window.service';
 import { hasValue } from '../../../shared/empty.util';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 /**
  * Interface for the selected external source element.
@@ -38,7 +43,15 @@ export interface ExternalSourceData {
 @Component({
   selector: 'ds-submission-import-external-searchbar',
   styleUrls: ['./submission-import-external-searchbar.component.scss'],
-  templateUrl: './submission-import-external-searchbar.component.html'
+  templateUrl: './submission-import-external-searchbar.component.html',
+  imports: [
+    CommonModule,
+    TranslateModule,
+    InfiniteScrollModule,
+    NgbDropdownModule,
+    FormsModule
+  ],
+  standalone: true
 })
 export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDestroy {
   /**

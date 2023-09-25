@@ -128,19 +128,18 @@ describe('CreateProfileComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule],
-      declarations: [CreateProfileComponent],
-      providers: [
-        {provide: Router, useValue: router},
-        {provide: ActivatedRoute, useValue: route},
-        {provide: Store, useValue: store},
-        {provide: EPersonDataService, useValue: ePersonDataService},
-        {provide: UntypedFormBuilder, useValue: new UntypedFormBuilder()},
-        {provide: NotificationsService, useValue: notificationsService},
-        {provide: EndUserAgreementService, useValue: endUserAgreementService},
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule, CreateProfileComponent],
+    providers: [
+        { provide: Router, useValue: router },
+        { provide: ActivatedRoute, useValue: route },
+        { provide: Store, useValue: store },
+        { provide: EPersonDataService, useValue: ePersonDataService },
+        { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: EndUserAgreementService, useValue: endUserAgreementService },
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateProfileComponent);

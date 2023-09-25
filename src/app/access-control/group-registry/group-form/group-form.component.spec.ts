@@ -191,16 +191,14 @@ describe('GroupFormComponent', () => {
     router = new RouterMock();
     notificationService = new NotificationsServiceStub();
     return TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
+    imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
-      ],
-      declarations: [GroupFormComponent],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }), GroupFormComponent],
+    providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
@@ -215,14 +213,14 @@ describe('GroupFormComponent', () => {
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
         {
-          provide: ActivatedRoute,
-          useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) }
+            provide: ActivatedRoute,
+            useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) }
         },
         { provide: Router, useValue: router },
         { provide: AuthorizationDataService, useValue: authorizationService },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

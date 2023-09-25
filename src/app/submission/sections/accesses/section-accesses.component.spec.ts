@@ -82,26 +82,26 @@ describe('SubmissionSectionAccessesComponent', () => {
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        imports: [
-          BrowserModule,
-          TranslateModule.forRoot()
-        ],
-        declarations: [SubmissionSectionAccessesComponent, FormComponent],
-        providers: [
-          { provide: SectionsService, useValue: sectionsServiceStub },
-          { provide: SubmissionAccessesConfigDataService, useValue: submissionAccessesConfigService },
-          { provide: SectionAccessesService, useValue: sectionAccessesService },
-          { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
-          { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
-          { provide: TranslateService, useValue: getMockTranslateService() },
-          { provide: FormService, useValue: getMockFormService() },
-          { provide: Store, useValue: storeStub },
-          { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
-          { provide: 'sectionDataProvider', useValue: sectionData },
-          { provide: 'submissionIdProvider', useValue: '1508' },
-          FormBuilderService
-        ]
-      })
+    imports: [
+        BrowserModule,
+        TranslateModule.forRoot(),
+        SubmissionSectionAccessesComponent, FormComponent
+    ],
+    providers: [
+        { provide: SectionsService, useValue: sectionsServiceStub },
+        { provide: SubmissionAccessesConfigDataService, useValue: submissionAccessesConfigService },
+        { provide: SectionAccessesService, useValue: sectionAccessesService },
+        { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
+        { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
+        { provide: TranslateService, useValue: getMockTranslateService() },
+        { provide: FormService, useValue: getMockFormService() },
+        { provide: Store, useValue: storeStub },
+        { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
+        { provide: 'sectionDataProvider', useValue: sectionData },
+        { provide: 'submissionIdProvider', useValue: '1508' },
+        FormBuilderService
+    ]
+})
         .compileComponents();
     });
 
@@ -173,26 +173,26 @@ describe('SubmissionSectionAccessesComponent', () => {
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        imports: [
-          BrowserModule,
-          TranslateModule.forRoot()
-        ],
-        declarations: [SubmissionSectionAccessesComponent, FormComponent],
-        providers: [
-          { provide: SectionsService, useValue: sectionsServiceStub },
-          { provide: FormBuilderService, useValue: builderService },
-          { provide: SubmissionAccessesConfigDataService, useValue: getSubmissionAccessesConfigNotChangeDiscoverableService() },
-          { provide: SectionAccessesService, useValue: sectionAccessesService },
-          { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
-          { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
-          { provide: TranslateService, useValue: getMockTranslateService() },
-          { provide: FormService, useValue: getMockFormService() },
-          { provide: Store, useValue: storeStub },
-          { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
-          { provide: 'sectionDataProvider', useValue: sectionData },
-          { provide: 'submissionIdProvider', useValue: '1508' },
-        ]
-      })
+    imports: [
+        BrowserModule,
+        TranslateModule.forRoot(),
+        SubmissionSectionAccessesComponent, FormComponent
+    ],
+    providers: [
+        { provide: SectionsService, useValue: sectionsServiceStub },
+        { provide: FormBuilderService, useValue: builderService },
+        { provide: SubmissionAccessesConfigDataService, useValue: getSubmissionAccessesConfigNotChangeDiscoverableService() },
+        { provide: SectionAccessesService, useValue: sectionAccessesService },
+        { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
+        { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
+        { provide: TranslateService, useValue: getMockTranslateService() },
+        { provide: FormService, useValue: getMockFormService() },
+        { provide: Store, useValue: storeStub },
+        { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
+        { provide: 'sectionDataProvider', useValue: sectionData },
+        { provide: 'submissionIdProvider', useValue: '1508' },
+    ]
+})
         .compileComponents();
     });
 

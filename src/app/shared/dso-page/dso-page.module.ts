@@ -32,20 +32,18 @@ const PROVIDERS = [
 ];
 
 @NgModule({
-  imports: [
-    ...MODULES
-  ],
-  declarations: [
-    ...COMPONENTS,
-    ...ENTRY_COMPONENTS,
-  ],
-  providers: [
-    ...PROVIDERS,
-    ...ENTRY_COMPONENTS,
-  ],
-  exports: [
-    ...COMPONENTS
-  ]
+    imports: [
+        ...MODULES,
+        ...COMPONENTS,
+        ...ENTRY_COMPONENTS
+    ],
+    providers: [
+        ...PROVIDERS,
+        ...ENTRY_COMPONENTS,
+    ],
+    exports: [
+        ...COMPONENTS
+    ]
 })
 
 /**

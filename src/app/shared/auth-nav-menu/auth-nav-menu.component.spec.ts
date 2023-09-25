@@ -67,28 +67,26 @@ describe('AuthNavMenuComponent', () => {
 
       // refine the test module by declaring the test component
       TestBed.configureTestingModule({
-        imports: [
-          NoopAnimationsModule,
-          StoreModule.forRoot(authReducer, {
+    imports: [
+        NoopAnimationsModule,
+        StoreModule.forRoot(authReducer, {
             runtimeChecks: {
-              strictStateImmutability: false,
-              strictActionImmutability: false
+                strictStateImmutability: false,
+                strictActionImmutability: false
             }
-          }),
-          TranslateModule.forRoot()
-        ],
-        declarations: [
-          AuthNavMenuComponent,
-          BrowserOnlyMockPipe
-        ],
-        providers: [
-          { provide: HostWindowService, useValue: window },
-          { provide: AuthService, useValue: authService }
-        ],
-        schemas: [
-          CUSTOM_ELEMENTS_SCHEMA
-        ]
-      })
+        }),
+        TranslateModule.forRoot(),
+        AuthNavMenuComponent
+    ],
+    declarations: [BrowserOnlyMockPipe],
+    providers: [
+        { provide: HostWindowService, useValue: window },
+        { provide: AuthService, useValue: authService }
+    ],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+    ]
+})
         .compileComponents();
 
     }));
@@ -262,27 +260,25 @@ describe('AuthNavMenuComponent', () => {
 
       // refine the test module by declaring the test component
       TestBed.configureTestingModule({
-        imports: [
-          NoopAnimationsModule,
-          StoreModule.forRoot(authReducer, {
+    imports: [
+        NoopAnimationsModule,
+        StoreModule.forRoot(authReducer, {
             runtimeChecks: {
-              strictStateImmutability: false,
-              strictActionImmutability: false
+                strictStateImmutability: false,
+                strictActionImmutability: false
             }
-          }),
-          TranslateModule.forRoot()
-        ],
-        declarations: [
-          AuthNavMenuComponent
-        ],
-        providers: [
-          { provide: HostWindowService, useValue: window },
-          { provide: AuthService, useValue: authService }
-        ],
-        schemas: [
-          CUSTOM_ELEMENTS_SCHEMA
-        ]
-      })
+        }),
+        TranslateModule.forRoot(),
+        AuthNavMenuComponent
+    ],
+    providers: [
+        { provide: HostWindowService, useValue: window },
+        { provide: AuthService, useValue: authService }
+    ],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+    ]
+})
         .compileComponents();
 
     }));

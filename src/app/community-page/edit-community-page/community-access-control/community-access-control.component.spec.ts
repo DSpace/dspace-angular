@@ -8,8 +8,8 @@ xdescribe('CommunityAccessControlComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CommunityAccessControlComponent ]
-    })
+    imports: [CommunityAccessControlComponent]
+})
     .compileComponents();
   });
 

@@ -25,7 +25,16 @@ describe('AccessControlFormContainerComponent', () => {
 
 
 // Mock NgbModal
-  @Component({selector: 'ds-ngb-modal', template: ''})
+  @Component({
+    selector: 'ds-ngb-modal', template: '',
+    standalone: true,
+    imports: [CommonModule,
+        FormsModule,
+        SharedBrowseByModule,
+        AccessControlFormModule,
+        NgbDatepickerModule,
+        UiSwitchModule]
+})
   class MockNgbModalComponent {
   }
 
@@ -52,23 +61,23 @@ describe('AccessControlFormContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AccessControlFormContainerComponent, MockNgbModalComponent],
-      imports: [
+    imports: [
         CommonModule,
         FormsModule,
         SharedBrowseByModule,
         AccessControlFormModule,
         TranslateModule.forRoot(),
         NgbDatepickerModule,
-        UiSwitchModule
-      ],
-      providers: [
-        {provide: BulkAccessControlService, useValue: mockBulkAccessControlService},
-        {provide: BulkAccessConfigDataService, useValue: mockBulkAccessConfigDataService},
-        {provide: SelectableListService, useValue: mockSelectableListService},
-        {provide: NgbModal, useValue: mockNgbModal},
-      ],
-    }).compileComponents();
+        UiSwitchModule,
+        AccessControlFormContainerComponent, MockNgbModalComponent
+    ],
+    providers: [
+        { provide: BulkAccessControlService, useValue: mockBulkAccessControlService },
+        { provide: BulkAccessConfigDataService, useValue: mockBulkAccessConfigDataService },
+        { provide: SelectableListService, useValue: mockSelectableListService },
+        { provide: NgbModal, useValue: mockNgbModal },
+    ]
+}).compileComponents();
   });
 
   beforeEach(() => {

@@ -31,21 +31,19 @@ describe('TruncatablePartComponent', () => {
   beforeEach(waitForAsync(() => {
     translateService = getMockTranslateService();
     void TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule,
+    imports: [NoopAnimationsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
-      ],
-      declarations: [TruncatablePartComponent],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }), TruncatablePartComponent],
+    providers: [
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(TruncatablePartComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(TruncatablePartComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
@@ -113,22 +111,22 @@ describe('TruncatablePartComponent', () => {
   beforeEach(waitForAsync(() => {
     translateService = getMockTranslateService();
     void TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NoopAnimationsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-      ],
-      declarations: [TruncatablePartComponent],
-      providers: [
+        TruncatablePartComponent
+    ],
+    providers: [
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: TruncatableService, useValue: mockTruncatableService },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(TruncatablePartComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(TruncatablePartComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

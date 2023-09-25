@@ -61,11 +61,11 @@ const linkService = jasmine.createSpyObj('linkService', {
 describe('CollectionSearchResultGridElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot()
-      ],
-      declarations: [CollectionSearchResultGridElementComponent, TruncatePipe],
-      providers: [
+    imports: [
+        TranslateModule.forRoot(),
+        CollectionSearchResultGridElementComponent, TruncatePipe
+    ],
+    providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },
         { provide: ObjectCacheService, useValue: {} },
@@ -81,10 +81,9 @@ describe('CollectionSearchResultGridElementComponent', () => {
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamFormatDataService, useValue: {} },
         { provide: LinkService, useValue: linkService }
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(CollectionSearchResultGridElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(CollectionSearchResultGridElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

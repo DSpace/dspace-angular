@@ -13,16 +13,24 @@ import { hasValue } from '../../shared/empty.util';
 import { switchMap } from 'rxjs/operators';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 /**
  * this component renders the Top-Level Community list
  */
 @Component({
-  selector: 'ds-top-level-community-list',
-  styleUrls: ['./top-level-community-list.component.scss'],
-  templateUrl: './top-level-community-list.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeInOut]
+    selector: 'ds-top-level-community-list',
+    styleUrls: ['./top-level-community-list.component.scss'],
+    templateUrl: './top-level-community-list.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [fadeInOut],
+    standalone: true,
+    imports: [VarDirective, NgIf, ObjectCollectionComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule]
 })
 
 export class TopLevelCommunityListComponent implements OnInit, OnDestroy {

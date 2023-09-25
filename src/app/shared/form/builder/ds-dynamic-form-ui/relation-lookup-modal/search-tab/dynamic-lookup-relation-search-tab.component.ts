@@ -23,6 +23,11 @@ import { RelationshipType } from '../../../../../../core/shared/item-relationshi
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
 import { SearchObjects } from '../../../../../search/models/search-objects.model';
 import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { VarDirective } from '../../../../../utils/var.directive';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 
 
 @Component({
@@ -34,7 +39,16 @@ import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model'
       provide: SEARCH_CONFIG_SERVICE,
       useClass: SearchConfigurationService
     }
-  ]
+  ],
+  imports: [
+    AsyncPipe,
+    VarDirective,
+    TranslateModule,
+    NgbDropdownModule,
+    NgIf,
+    ThemedSearchComponent
+  ],
+  standalone: true
 })
 
 /**

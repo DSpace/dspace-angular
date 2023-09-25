@@ -7,16 +7,25 @@ import { Component, OnInit } from '@angular/core';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { map, Observable, switchMap, take } from 'rxjs';
 import { ActivatedRoute, Data, Params, Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import {
+  ModifyItemOverviewComponent
+} from "../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component";
 
 @Component({
   selector: 'ds-workspaceitems-delete-page',
   templateUrl: './workspaceitems-delete-page.component.html',
-  styleUrls: ['./workspaceitems-delete-page.component.scss']
+  styleUrls: ['./workspaceitems-delete-page.component.scss'],
+  imports: [
+    ModifyItemOverviewComponent,
+    TranslateModule,
+    CommonModule
+  ],
+  standalone: true
 })
 export class WorkspaceItemsDeletePageComponent implements OnInit {
 

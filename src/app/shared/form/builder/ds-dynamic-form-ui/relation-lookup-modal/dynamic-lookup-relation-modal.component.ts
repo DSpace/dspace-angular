@@ -1,6 +1,6 @@
 import { Component, EventEmitter, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 import { combineLatest as observableCombineLatest, Observable, Subscription, BehaviorSubject } from 'rxjs';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue, isNotEmpty } from '../../../../empty.util';
 import { map, skip, switchMap, take } from 'rxjs/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
@@ -29,6 +29,18 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { followLink } from '../../../../utils/follow-link-config.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
+import {
+  ThemedDynamicLookupRelationExternalSourceTabComponent
+} from "./external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component";
+import { TranslateModule } from "@ngx-translate/core";
+import { ThemedLoadingComponent } from "../../../../loading/themed-loading.component";
+import { AsyncPipe, NgForOf, NgIf } from "@angular/common";
+import {
+  ThemedDynamicLookupRelationSearchTabComponent
+} from "./search-tab/themed-dynamic-lookup-relation-search-tab.component";
+import {
+  DsDynamicLookupRelationSelectionTabComponent
+} from "./selection-tab/dynamic-lookup-relation-selection-tab.component";
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -39,7 +51,19 @@ import { RelationshipType } from '../../../../../core/shared/item-relationships/
       provide: SEARCH_CONFIG_SERVICE,
       useClass: SearchConfigurationService
     }
-  ]
+  ],
+  imports: [
+    ThemedDynamicLookupRelationExternalSourceTabComponent,
+    TranslateModule,
+    ThemedLoadingComponent,
+    NgIf,
+    NgbNavModule,
+    ThemedDynamicLookupRelationSearchTabComponent,
+    AsyncPipe,
+    NgForOf,
+    DsDynamicLookupRelationSelectionTabComponent
+  ],
+  standalone: true
 })
 
 /**

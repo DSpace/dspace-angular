@@ -32,16 +32,16 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
-      ],
-      declarations: [CollectionAdminSearchResultListElementComponent],
-      providers: [{ provide: TruncatableService, useValue: {} },
+        RouterTestingModule.withRoutes([]),
+        CollectionAdminSearchResultListElementComponent
+    ],
+    providers: [{ provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environment }],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

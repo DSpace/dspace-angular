@@ -40,13 +40,12 @@ describe('FormatFormComponent', () => {
 
   const initAsync = () => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), ReactiveFormsModule, FormsModule, TranslateModule.forRoot(), NgbModule],
-      declarations: [FormatFormComponent],
-      providers: [
+    imports: [CommonModule, RouterTestingModule.withRoutes([]), ReactiveFormsModule, FormsModule, TranslateModule.forRoot(), NgbModule, FormatFormComponent],
+    providers: [
         { provide: Router, useValue: router },
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
   };
 
   const initBeforeEach = () => {

@@ -41,11 +41,30 @@ import { FieldUpdates } from '../../../../core/data/object-updates/field-updates
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
+import { EditRelationshipComponent } from '../edit-relationship/edit-relationship.component';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { ObjectValuesPipe } from '../../../../shared/utils/object-values-pipe';
+import { VarDirective } from '../../../../shared/utils/var.directive';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
 
 @Component({
   selector: 'ds-edit-relationship-list',
   styleUrls: ['./edit-relationship-list.component.scss'],
   templateUrl: './edit-relationship-list.component.html',
+  imports: [
+    EditRelationshipComponent,
+    PaginationComponent,
+    AsyncPipe,
+    ObjectValuesPipe,
+    VarDirective,
+    NgIf,
+    TranslateModule,
+    NgClass,
+    ThemedLoadingComponent
+  ],
+  standalone: true
 })
 /**
  * A component creating a list of editable relationships of a certain type

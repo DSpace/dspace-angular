@@ -33,7 +33,8 @@ import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/mod
  * Directive to add to the element a bootstrap utility class based on metadata confidence value
  */
 @Directive({
-  selector: '[dsAuthorityConfidenceState]'
+    selector: '[dsAuthorityConfidenceState]',
+    standalone: true
 })
 export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewInit {
 

@@ -54,15 +54,14 @@ mockResultObject.indexableObject = Object.assign(new Item(), {
 describe('ItemMyDSpaceResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [ItemSearchResultListElementSubmissionComponent],
-      providers: [
+    imports: [NoopAnimationsModule, ItemSearchResultListElementSubmissionComponent],
+    providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environment }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ItemSearchResultListElementSubmissionComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ItemSearchResultListElementSubmissionComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

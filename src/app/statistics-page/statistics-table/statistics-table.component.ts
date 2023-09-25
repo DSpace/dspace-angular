@@ -5,16 +5,19 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { map } from 'rxjs/operators';
 import { getRemoteDataPayload, getFinishedRemoteData } from '../../core/shared/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { isEmpty } from '../../shared/empty.util';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 /**
  * Component representing a statistics table for a given usage report.
  */
 @Component({
-  selector: 'ds-statistics-table',
-  templateUrl: './statistics-table.component.html',
-  styleUrls: ['./statistics-table.component.scss']
+    selector: 'ds-statistics-table',
+    templateUrl: './statistics-table.component.html',
+    styleUrls: ['./statistics-table.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgFor, AsyncPipe, TranslateModule]
 })
 export class StatisticsTableComponent implements OnInit {
 

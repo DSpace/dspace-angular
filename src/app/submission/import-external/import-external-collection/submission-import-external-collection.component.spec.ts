@@ -14,19 +14,17 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
 
   beforeEach(waitForAsync (() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionImportExternalCollectionComponent,
-        TestComponent,
-      ],
-      providers: [
+        TestComponent
+    ],
+    providers: [
         NgbActiveModal,
         SubmissionImportExternalCollectionComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents().then();
   }));
 
   // First test to check the correct component creation
@@ -133,8 +131,9 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true
 })
 class TestComponent {
 

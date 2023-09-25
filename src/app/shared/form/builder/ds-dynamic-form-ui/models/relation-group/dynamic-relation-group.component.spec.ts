@@ -107,20 +107,18 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
 
     /* TODO make sure these files use mocks instead of real services/components https://github.com/DSpace/dspace-angular/issues/281 */
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
         StoreModule.forRoot({}, storeModuleConfig),
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         FormComponent,
         DsDynamicRelationGroupComponent,
-        TestComponent,
-      ], // declare the test component
-      providers: [
+        TestComponent
+    ],
+    providers: [
         ChangeDetectorRef,
         DsDynamicRelationGroupComponent,
         DynamicFormValidationService,
@@ -130,9 +128,9 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormService,
         { provide: VocabularyService, useValue: new VocabularyServiceStub() },
         { provide: Store, useClass: StoreMock }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    });
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+});
 
   }));
 
@@ -314,8 +312,12 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [FormsModule,
+        ReactiveFormsModule,
+        NgbModule]
 })
 class TestComponent {
 

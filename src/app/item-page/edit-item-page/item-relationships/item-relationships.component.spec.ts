@@ -210,9 +210,8 @@ describe('ItemRelationshipsComponent', () => {
 
     scheduler = getTestScheduler();
     TestBed.configureTestingModule({
-      imports: [SharedModule, TranslateModule.forRoot()],
-      declarations: [ItemRelationshipsComponent],
-      providers: [
+    imports: [SharedModule, TranslateModule.forRoot(), ItemRelationshipsComponent],
+    providers: [
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ItemDataService, useValue: itemService },
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
@@ -225,10 +224,10 @@ describe('ItemRelationshipsComponent', () => {
         { provide: RequestService, useValue: requestService },
         { provide: RelationshipTypeDataService, useValue: relationshipTypeService },
         ChangeDetectorRef
-      ], schemas: [
+    ], schemas: [
         NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
   }));
 
   beforeEach(() => {

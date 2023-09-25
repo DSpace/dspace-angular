@@ -1,6 +1,20 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ItemPageComponent as BaseComponent } from '../../../../../app/item-page/simple/item-page.component';
 import { fadeInOut } from '../../../../../app/shared/animations/fade';
+import { VarDirective } from '../../../../../app/shared/utils/var.directive';
+import { ThemedItemAlertsComponent } from '../../../../../app/item-page/alerts/themed-item-alerts.component';
+import {
+  ItemVersionsNoticeComponent
+} from '../../../../../app/item-page/versions/notice/item-versions-notice.component';
+import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/dspace/view-tracker.component';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../../../../app/shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { ItemVersionsComponent } from '../../../../../app/item-page/versions/item-versions.component';
+import { ErrorComponent } from '../../../../../app/shared/error/error.component';
+import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 /**
  * This component renders a simple item page.
@@ -14,7 +28,21 @@ import { fadeInOut } from '../../../../../app/shared/animations/fade';
   // templateUrl: './item-page.component.html',
   templateUrl: '../../../../../app/item-page/simple/item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeInOut]
+  animations: [fadeInOut],
+  standalone: true,
+  imports: [
+    VarDirective,
+    ThemedItemAlertsComponent,
+    ItemVersionsNoticeComponent,
+    ViewTrackerComponent,
+    ListableObjectComponentLoaderComponent,
+    ItemVersionsComponent,
+    ErrorComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    AsyncPipe,
+    NgIf
+  ]
 })
 export class ItemPageComponent extends BaseComponent {
 

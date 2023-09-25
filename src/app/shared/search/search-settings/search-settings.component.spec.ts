@@ -68,34 +68,32 @@ describe('SearchSettingsComponent', () => {
     paginationService = new PaginationServiceStub(pagination, sort);
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      declarations: [SearchSettingsComponent, EnumKeysPipe, VarDirective],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), SearchSettingsComponent, EnumKeysPipe, VarDirective],
+    providers: [
         { provide: SearchService, useValue: searchServiceStub },
-
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         {
-          provide: SidebarService,
-          useValue: SidebarServiceStub,
+            provide: SidebarService,
+            useValue: SidebarServiceStub,
         },
         {
-          provide: SearchFilterService,
-          useValue: {},
+            provide: SearchFilterService,
+            useValue: {},
         },
         {
-          provide: PaginationService,
-          useValue: paginationService,
+            provide: PaginationService,
+            useValue: paginationService,
         },
         {
-          provide: SEARCH_CONFIG_SERVICE,
-          useValue: {
-            paginatedSearchOptions: observableOf(paginatedSearchOptions),
-            getCurrentScope: observableOf('test-id'),
-          }
+            provide: SEARCH_CONFIG_SERVICE,
+            useValue: {
+                paginatedSearchOptions: observableOf(paginatedSearchOptions),
+                getCurrentScope: observableOf('test-id'),
+            }
         },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

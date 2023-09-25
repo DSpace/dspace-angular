@@ -14,19 +14,17 @@ import {NgbDatepickerModule} from '@ng-bootstrap/ng-bootstrap';
 import {ToDatePipe} from './access-control-array-form/to-date.pipe';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    TranslateModule,
-    UiSwitchModule,
-    NgbDatepickerModule
-  ],
-  declarations: [
-    AccessControlFormContainerComponent,
-    AccessControlArrayFormComponent,
-    ItemAccessControlSelectBitstreamsModalComponent,
-    ToDatePipe
-  ],
-  exports: [ AccessControlFormContainerComponent, AccessControlArrayFormComponent ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        TranslateModule,
+        UiSwitchModule,
+        NgbDatepickerModule,
+        AccessControlFormContainerComponent,
+        AccessControlArrayFormComponent,
+        ItemAccessControlSelectBitstreamsModalComponent,
+        ToDatePipe
+    ],
+    exports: [AccessControlFormContainerComponent, AccessControlArrayFormComponent]
 })
 export class AccessControlFormModule {}

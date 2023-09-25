@@ -7,9 +7,10 @@ import {BrowseByDataType, rendersBrowseBy} from '../browse-by-switcher/browse-by
  * Themed wrapper for BrowseByTitlePageComponent
  */
 @Component({
-  selector: 'ds-themed-browse-by-title-page',
-  styleUrls: [],
-  templateUrl: '../../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-browse-by-title-page',
+    styleUrls: [],
+    templateUrl: '../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 
 @rendersBrowseBy(BrowseByDataType.Title)

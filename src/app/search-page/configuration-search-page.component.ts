@@ -8,22 +8,32 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
 import { RouteService } from '../core/services/route.service';
 import { SearchService } from '../core/shared/search/search.service';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { SearchLabelsComponent } from '../shared/search/search-labels/search-labels.component';
+import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-form.component';
+import { ThemedSearchSidebarComponent } from '../shared/search/search-sidebar/themed-search-sidebar.component';
+import { ThemedSearchResultsComponent } from '../shared/search/search-results/themed-search-results.component';
+import { ViewModeSwitchComponent } from '../shared/view-mode-switch/view-mode-switch.component';
+import { PageWithSidebarComponent } from '../shared/sidebar/page-with-sidebar.component';
+import { NgIf, NgTemplateOutlet, AsyncPipe } from '@angular/common';
 
 /**
  * This component renders a search page using a configuration as input.
  */
 @Component({
-  selector: 'ds-configuration-search-page',
-  styleUrls: ['../shared/search/search.component.scss'],
-  templateUrl: '../shared/search/search.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [pushInOut],
-  providers: [
-    {
-      provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+    selector: 'ds-configuration-search-page',
+    styleUrls: ['../shared/search/search.component.scss'],
+    templateUrl: '../shared/search/search.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [pushInOut],
+    providers: [
+        {
+            provide: SEARCH_CONFIG_SERVICE,
+            useClass: SearchConfigurationService
+        }
+    ],
+    standalone: true,
+    imports: [NgIf, NgTemplateOutlet, PageWithSidebarComponent, ViewModeSwitchComponent, ThemedSearchResultsComponent, ThemedSearchSidebarComponent, ThemedSearchFormComponent, SearchLabelsComponent, AsyncPipe, TranslateModule]
 })
 
 export class ConfigurationSearchPageComponent extends SearchComponent {

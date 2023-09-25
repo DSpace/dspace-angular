@@ -6,9 +6,10 @@ import { ObjectNotFoundComponent } from './objectnotfound.component';
  * Themed wrapper for ObjectNotFoundComponent
  */
 @Component({
-  selector: 'ds-themed-objnotfound',
-  styleUrls: [],
-  templateUrl: '../../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-objnotfound',
+    styleUrls: [],
+    templateUrl: '../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedObjectNotFoundComponent extends ThemedComponent<ObjectNotFoundComponent> {
   protected getComponentName(): string {

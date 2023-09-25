@@ -14,6 +14,11 @@ import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
 import { SubmissionService } from '../../../../../submission/submission.service';
+import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
+import { AsyncPipe, NgIf } from '@angular/common';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 
 /**
  * Abstract class that defines objects that can be reordered
@@ -53,7 +58,14 @@ export abstract class Reorderable {
 @Component({
   selector: 'ds-existing-relation-list-element',
   templateUrl: './existing-relation-list-element.component.html',
-  styleUrls: ['./existing-relation-list-element.component.scss']
+  styleUrls: ['./existing-relation-list-element.component.scss'],
+  imports: [
+    ThemedLoadingComponent,
+    AsyncPipe,
+    ListableObjectComponentLoaderComponent,
+    NgIf
+  ],
+  standalone: true
 })
 export class ExistingRelationListElementComponent implements OnInit, OnChanges, OnDestroy {
   @Input() listId: string;

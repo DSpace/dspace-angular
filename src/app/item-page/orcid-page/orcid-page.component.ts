@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { isPlatformBrowser } from '@angular/common';
+import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map, take } from 'rxjs/operators';
@@ -15,6 +15,13 @@ import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { isNotEmpty } from '../../shared/empty.util';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
+import { LoadingComponent } from '../../shared/loading/loading.component';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { OrcidAuthComponent } from './orcid-auth/orcid-auth.component';
+import { OrcidSyncSettingsComponent } from './orcid-sync-settings/orcid-sync-settings.component';
+import { OrcidQueueComponent } from './orcid-queue/orcid-queue.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { AlertType } from '../../shared/alert/alert-type';
 
 /**
  * A component that represents the orcid settings page
@@ -22,9 +29,21 @@ import { ResearcherProfile } from '../../core/profile/model/researcher-profile.m
 @Component({
   selector: 'ds-orcid-page',
   templateUrl: './orcid-page.component.html',
-  styleUrls: ['./orcid-page.component.scss']
+  styleUrls: ['./orcid-page.component.scss'],
+  imports: [
+    CommonModule,
+    LoadingComponent,
+    AlertComponent,
+    OrcidAuthComponent,
+    OrcidSyncSettingsComponent,
+    OrcidQueueComponent,
+    TranslateModule,
+    RouterLink
+  ],
+  standalone: true
 })
 export class OrcidPageComponent implements OnInit {
+  protected readonly AlertType = AlertType;
 
   /**
    * A boolean representing if the connection operation with orcid profile is in progress
@@ -150,4 +169,5 @@ export class OrcidPageComponent implements OnInit {
     const redirectUrl = this.router.url.split('?')[0];
     this.router.navigate([redirectUrl]);
   }
+
 }

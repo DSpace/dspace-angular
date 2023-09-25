@@ -11,11 +11,22 @@ import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { switchMap, tap } from 'rxjs/operators';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { hasValue, isEmpty } from '../../../../shared/empty.util';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { VarDirective } from '../../../../shared/utils/var.directive';
+import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
+import {
+  ThemedFileDownloadLinkComponent
+} from '../../../../shared/file-download-link/themed-file-download-link.component';
+import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
+import {
+  MetadataFieldWrapperComponent
+} from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 
 /**
  * This component renders the file section of the item
@@ -25,7 +36,20 @@ import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 @Component({
   selector: 'ds-item-page-full-file-section',
   styleUrls: ['./full-file-section.component.scss'],
-  templateUrl: './full-file-section.component.html'
+  templateUrl: './full-file-section.component.html',
+  imports: [
+    PaginationComponent,
+    NgIf,
+    TranslateModule,
+    AsyncPipe,
+    VarDirective,
+    ThemedThumbnailComponent,
+    NgForOf,
+    ThemedFileDownloadLinkComponent,
+    FileSizePipe,
+    MetadataFieldWrapperComponent
+  ],
+  standalone: true
 })
 export class FullFileSectionComponent extends FileSectionComponent implements OnDestroy, OnInit {
 

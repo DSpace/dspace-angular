@@ -12,12 +12,10 @@ describe('DsoEditMetadataHeadersComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [DsoEditMetadataHeadersComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      providers: [
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), DsoEditMetadataHeadersComponent, VarDirective],
+    providers: [],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

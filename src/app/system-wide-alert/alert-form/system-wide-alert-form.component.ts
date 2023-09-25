@@ -6,23 +6,27 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { SystemWideAlert } from '../system-wide-alert.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbDateStruct, NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
 import { RemoteData } from '../../core/data/remote-data';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { Router } from '@angular/router';
 import { RequestService } from '../../core/data/request.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 
 /**
  * Component responsible for rendering the form to update a system-wide alert
  */
 @Component({
-  selector: 'ds-system-wide-alert-form',
-  styleUrls: ['./system-wide-alert-form.component.scss'],
-  templateUrl: './system-wide-alert-form.component.html'
+    selector: 'ds-system-wide-alert-form',
+    styleUrls: ['./system-wide-alert-form.component.scss'],
+    templateUrl: './system-wide-alert-form.component.html',
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgIf, NgbDatepickerModule, NgbTimepickerModule, AsyncPipe, TranslateModule]
 })
 export class SystemWideAlertFormComponent implements OnInit {
 

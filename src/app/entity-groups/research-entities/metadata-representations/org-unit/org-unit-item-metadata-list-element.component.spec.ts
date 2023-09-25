@@ -21,12 +21,12 @@ describe('OrgUnitItemMetadataListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports:[
-        NgbModule
-      ],
-      declarations: [OrgUnitItemMetadataListElementComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(OrgUnitItemMetadataListElementComponent, {
+    imports: [
+        NgbModule,
+        OrgUnitItemMetadataListElementComponent
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(OrgUnitItemMetadataListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

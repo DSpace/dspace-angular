@@ -5,15 +5,21 @@ import { MenuService } from '../../../menu/menu.service';
 import { isNotEmpty } from '../../../empty.util';
 import { MenuID } from '../../../menu/menu-id.model';
 import { MenuSection } from '../../../menu/menu-section.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf } from '@angular/common';
 
 /**
  * Represents a non-expandable section in the dso edit menus
  */
 @Component({
-  /* tslint:disable:component-selector */
-  selector: 'ds-dso-edit-menu-section',
-  templateUrl: './dso-edit-menu-section.component.html',
-  styleUrls: ['./dso-edit-menu-section.component.scss']
+    /* tslint:disable:component-selector */
+    selector: 'ds-dso-edit-menu-section',
+    templateUrl: './dso-edit-menu-section.component.html',
+    styleUrls: ['./dso-edit-menu-section.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgbTooltipModule, RouterLink, TranslateModule]
 })
 @rendersSectionForMenu(MenuID.DSO_EDIT, false)
 export class DsoEditMenuSectionComponent extends MenuSectionComponent implements OnInit {

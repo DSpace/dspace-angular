@@ -4,11 +4,14 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { Subscription } from 'rxjs';
 import { hasValue } from '../empty.util';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'ds-loading',
-  styleUrls: ['./loading.component.scss'],
-  templateUrl: './loading.component.html'
+    selector: 'ds-loading',
+    styleUrls: ['./loading.component.scss'],
+    templateUrl: './loading.component.html',
+    standalone: true,
+    imports: [NgIf]
 })
 export class LoadingComponent implements OnDestroy, OnInit {
 

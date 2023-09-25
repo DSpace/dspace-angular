@@ -22,15 +22,20 @@ import { CollectionElementLinkType } from './collection-element-link.type';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Context } from '../../core/shared/context.model';
 import { setPlaceHolderAttributes } from '../utils/object-list-utils';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgIf, NgClass, AsyncPipe } from '@angular/common';
+import { ObjectDetailComponent } from '../object-detail/object-detail.component';
+import { ObjectGridComponent } from '../object-grid/object-grid.component';
+import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';
 
 /**
  * Component that can render a list of listable objects in different view modes
  */
 @Component({
-  selector: 'ds-viewable-collection',
-  styleUrls: ['./object-collection.component.scss'],
-  templateUrl: './object-collection.component.html',
+    selector: 'ds-viewable-collection',
+    styleUrls: ['./object-collection.component.scss'],
+    templateUrl: './object-collection.component.html',
+    standalone: true,
+    imports: [NgIf, ThemedObjectListComponent, NgClass, ObjectGridComponent, ObjectDetailComponent, AsyncPipe]
 })
 export class ObjectCollectionComponent implements OnInit {
   /**

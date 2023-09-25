@@ -38,14 +38,13 @@ describe('EditCollectionPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
-      declarations: [EditCollectionPageComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule, EditCollectionPageComponent],
+    providers: [
         { provide: CollectionDataService, useValue: {} },
         { provide: ActivatedRoute, useValue: routeStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

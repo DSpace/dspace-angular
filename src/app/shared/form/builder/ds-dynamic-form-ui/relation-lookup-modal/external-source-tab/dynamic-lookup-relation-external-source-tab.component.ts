@@ -25,6 +25,14 @@ import { PaginationService } from '../../../../../../core/pagination/pagination.
 import { Observable, Subscription } from 'rxjs';
 import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
 import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
+import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
+import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
+import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
+import { VarDirective } from '../../../../../utils/var.directive';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { ErrorComponent } from '../../../../../error/error.component';
+import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-external-source-tab',
@@ -39,7 +47,19 @@ import { getFirstCompletedRemoteData } from '../../../../../../core/shared/opera
   animations: [
     fadeIn,
     fadeInOut
-  ]
+  ],
+  imports: [
+    ThemedSearchFormComponent,
+    PageSizeSelectorComponent,
+    ObjectCollectionComponent,
+    VarDirective,
+    AsyncPipe,
+    TranslateModule,
+    ErrorComponent,
+    NgIf,
+    ThemedLoadingComponent
+  ],
+  standalone: true
 })
 /**
  * Component rendering the tab content of an external source during submission lookup

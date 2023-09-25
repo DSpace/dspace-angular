@@ -13,10 +13,9 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [ CommonModule ],
-  providers: [...PROVIDERS],
-  declarations: [...COMPONENTS],
-  exports: [...COMPONENTS]
+    imports: [CommonModule, ...COMPONENTS],
+    providers: [...PROVIDERS],
+    exports: [...COMPONENTS]
 })
 
 /**

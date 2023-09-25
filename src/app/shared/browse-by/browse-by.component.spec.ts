@@ -115,23 +115,23 @@ describe('BrowseByComponent', () => {
   beforeEach(waitForAsync(() => {
     themeService = getMockThemeService('dspace');
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowseByRoutingModule,
         AccessControlRoutingModule,
         CommonModule,
         SharedModule,
         NgbModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
         RouterTestingModule,
-        NoopAnimationsModule
-      ],
-      declarations: [BrowseByComponent],
-      providers: [
+        NoopAnimationsModule,
+        BrowseByComponent
+    ],
+    providers: [
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
@@ -139,12 +139,12 @@ describe('BrowseByComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: MockThemedBrowseEntryListElementComponent },
         { provide: ThemeService, useValue: themeService },
-        { provide: RouteService, useValue: routeServiceStub},
+        { provide: RouteService, useValue: routeServiceStub },
         { provide: SelectableListService, useValue: {} },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
     fixture = TestBed.createComponent(BrowseByComponent);
     comp = fixture.componentInstance;
     comp.paginationConfig = paginationConfig;

@@ -20,10 +20,9 @@ describe('MetadataRepresentationListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [MetadataRepresentationListElementComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(MetadataRepresentationListElementComponent, {
+    imports: [MetadataRepresentationListElementComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(MetadataRepresentationListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

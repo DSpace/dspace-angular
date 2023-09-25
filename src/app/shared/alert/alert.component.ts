@@ -3,20 +3,24 @@ import { trigger } from '@angular/animations';
 
 import { AlertType } from './alert-type';
 import { fadeOutLeave, fadeOutState } from '../animations/fade';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgIf } from '@angular/common';
 
 /**
  * This component allow to create div that uses the Bootstrap's Alerts component.
  */
 @Component({
-  selector: 'ds-alert',
-  encapsulation: ViewEncapsulation.None,
-  animations: [
-    trigger('enterLeave', [
-      fadeOutLeave, fadeOutState,
-    ])
-  ],
-  templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.scss']
+    selector: 'ds-alert',
+    encapsulation: ViewEncapsulation.None,
+    animations: [
+        trigger('enterLeave', [
+            fadeOutLeave, fadeOutState,
+        ])
+    ],
+    templateUrl: './alert.component.html',
+    styleUrls: ['./alert.component.scss'],
+    standalone: true,
+    imports: [NgIf, TranslateModule]
 })
 export class AlertComponent {
 
@@ -33,7 +37,7 @@ export class AlertComponent {
   /**
    * The alert type
    */
-  @Input() type: AlertType;
+  @Input() type: AlertType | string;
 
   /**
    * An event fired when alert is dismissed.

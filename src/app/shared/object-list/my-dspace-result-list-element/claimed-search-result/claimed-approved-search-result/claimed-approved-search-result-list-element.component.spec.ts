@@ -65,19 +65,19 @@ const linkService = getMockLinkService();
 describe('ClaimedApprovedSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         NoopAnimationsModule,
-      ],
-      declarations: [ClaimedApprovedSearchResultListElementComponent, VarDirective],
-      providers: [
+        ClaimedApprovedSearchResultListElementComponent, VarDirective
+    ],
+    providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environment }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ClaimedApprovedSearchResultListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ClaimedApprovedSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

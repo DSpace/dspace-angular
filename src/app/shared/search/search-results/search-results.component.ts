@@ -11,6 +11,13 @@ import { CollectionElementLinkType } from '../../object-collection/collection-el
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { Context } from '../../../core/shared/context.model';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { ErrorComponent } from '../../error/error.component';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
+import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
+import { NgIf } from '@angular/common';
 
 export interface SelectionConfig {
   repeatable: boolean;
@@ -18,12 +25,14 @@ export interface SelectionConfig {
 }
 
 @Component({
-  selector: 'ds-search-results',
-  templateUrl: './search-results.component.html',
-  animations: [
-    fadeIn,
-    fadeInOut
-  ]
+    selector: 'ds-search-results',
+    templateUrl: './search-results.component.html',
+    animations: [
+        fadeIn,
+        fadeInOut
+    ],
+    standalone: true,
+    imports: [NgIf, SearchExportCsvComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, RouterLink, TranslateModule]
 })
 
 /**

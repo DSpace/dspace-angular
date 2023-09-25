@@ -32,15 +32,15 @@ import {
   getItemPageRoute,
   getItemVersionRoute
 } from '../item-page-routing-paths';
-import { UntypedFormBuilder } from '@angular/forms';
+import { UntypedFormBuilder, FormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { ItemVersionsDeleteModalComponent } from './item-versions-delete-modal/item-versions-delete-modal.component';
 import { VersionDataService } from '../../core/data/version-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { ItemVersionsSharedService } from './item-versions-shared.service';
@@ -48,11 +48,17 @@ import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model'
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { NgIf, NgFor, NgClass, AsyncPipe, DatePipe } from '@angular/common';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-item-versions',
-  templateUrl: './item-versions.component.html',
-  styleUrls: ['./item-versions.component.scss']
+    selector: 'ds-item-versions',
+    templateUrl: './item-versions.component.html',
+    styleUrls: ['./item-versions.component.scss'],
+    standalone: true,
+    imports: [VarDirective, NgIf, AlertComponent, PaginationComponent, NgFor, RouterLink, NgClass, FormsModule, AsyncPipe, DatePipe, TranslateModule]
 })
 
 /**

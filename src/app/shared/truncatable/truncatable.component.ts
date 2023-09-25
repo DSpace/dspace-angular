@@ -2,10 +2,10 @@ import { AfterViewChecked, Component, ElementRef, Input, OnInit } from '@angular
 import { TruncatableService } from './truncatable.service';
 
 @Component({
-  selector: 'ds-truncatable',
-  templateUrl: './truncatable.component.html',
-  styleUrls: ['./truncatable.component.scss'],
-
+    selector: 'ds-truncatable',
+    templateUrl: './truncatable.component.html',
+    styleUrls: ['./truncatable.component.scss'],
+    standalone: true
 })
 
 /**

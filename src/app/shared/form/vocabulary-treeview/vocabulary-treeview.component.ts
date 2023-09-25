@@ -1,10 +1,10 @@
-import { FlatTreeControl } from '@angular/cdk/tree';
+import { CdkTreeModule, FlatTreeControl } from '@angular/cdk/tree';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 
 import { map } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { hasValue, isEmpty, isNotEmpty } from '../../empty.util';
@@ -19,6 +19,11 @@ import { CoreState } from '../../../core/core-state.model';
 import { lowerCase } from 'lodash/string';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { FormsModule } from '@angular/forms';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
+import { AlertComponent } from '../../alert/alert.component';
 
 /**
  * Component that shows a hierarchical vocabulary in a tree view
@@ -26,7 +31,18 @@ import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operato
 @Component({
   selector: 'ds-vocabulary-treeview',
   templateUrl: './vocabulary-treeview.component.html',
-  styleUrls: ['./vocabulary-treeview.component.scss']
+  styleUrls: ['./vocabulary-treeview.component.scss'],
+  imports: [
+    FormsModule,
+    NgbTooltipModule,
+    NgIf,
+    CdkTreeModule,
+    TranslateModule,
+    AsyncPipe,
+    ThemedLoadingComponent,
+    AlertComponent
+  ],
+  standalone: true
 })
 export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges {
 

@@ -10,14 +10,21 @@ import { BitstreamDataService } from '../../../../core/data/bitstream-data.servi
 import { hasNoValue, hasValue } from '../../../empty.util';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
+import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
+import { RouterLink } from '@angular/router';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-community-search-result-grid-element',
-  styleUrls: [
-    '../search-result-grid-element.component.scss',
-    'community-search-result-grid-element.component.scss',
-  ],
-  templateUrl: 'community-search-result-grid-element.component.html',
+    selector: 'ds-community-search-result-grid-element',
+    styleUrls: [
+        '../search-result-grid-element.component.scss',
+        'community-search-result-grid-element.component.scss',
+    ],
+    templateUrl: 'community-search-result-grid-element.component.html',
+    standalone: true,
+    imports: [NgIf, RouterLink, ThemedThumbnailComponent, ThemedBadgesComponent, AsyncPipe, TranslateModule]
 })
 /**
  * Component representing a grid element for a community search result

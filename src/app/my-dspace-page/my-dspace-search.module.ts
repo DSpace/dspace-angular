@@ -54,17 +54,15 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    MyDspacePageRoutingModule,
-    MyDSpaceActionsModule,
-    ResearchEntitiesModule.withEntryComponents(),
-    JournalEntitiesModule.withEntryComponents(),
-  ],
-  declarations: [
-    ...DECLARATIONS,
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        MyDspacePageRoutingModule,
+        MyDSpaceActionsModule,
+        ResearchEntitiesModule.withEntryComponents(),
+        JournalEntitiesModule.withEntryComponents(),
+        ...DECLARATIONS
+    ]
 })
 
 /**

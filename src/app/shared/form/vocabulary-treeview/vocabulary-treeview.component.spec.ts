@@ -75,25 +75,23 @@ describe('VocabularyTreeviewComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CdkTreeModule,
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         VocabularyTreeviewComponent,
         TestComponent
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: VocabularyTreeviewService, useValue: vocabularyTreeviewServiceStub },
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: NgbActiveModal, useValue: modalStub },
         provideMockStore({ initialState }),
         ChangeDetectorRef,
         VocabularyTreeviewComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then(() => {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents().then(() => {
       vocabularyTreeviewServiceStub.getData.and.returnValue(observableOf([]));
       vocabularyTreeviewServiceStub.isLoading.and.returnValue(observableOf(false));
     });
@@ -283,8 +281,10 @@ describe('VocabularyTreeviewComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [CdkTreeModule]
 })
 class TestComponent {
 

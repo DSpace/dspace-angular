@@ -3,8 +3,9 @@ import { Subscription } from 'rxjs';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 
 @Component({
-  selector: 'ds-abstract-incremental-list',
-  template: ``,
+    selector: 'ds-abstract-incremental-list',
+    template: ``,
+    standalone: true
 })
 /**
  * An abstract component for displaying an incremental list of objects

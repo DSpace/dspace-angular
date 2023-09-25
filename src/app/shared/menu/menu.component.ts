@@ -18,8 +18,9 @@ import { ThemeService } from '../theme-support/theme.service';
  * A basic implementation of a MenuComponent
  */
 @Component({
-  selector: 'ds-menu',
-  template: ''
+    selector: 'ds-menu',
+    template: '',
+    standalone: true
 })
 export class MenuComponent implements OnInit, OnDestroy {
   /**

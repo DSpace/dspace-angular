@@ -22,14 +22,12 @@ describe('AdvancedWorkflowActionsLoaderComponent', () => {
     router = new RouterStub();
 
     await TestBed.configureTestingModule({
-      declarations: [
-        AdvancedWorkflowActionsDirective,
-        AdvancedWorkflowActionsLoaderComponent,
-      ],
-      providers: [
+    imports: [AdvancedWorkflowActionsDirective,
+        AdvancedWorkflowActionsLoaderComponent],
+    providers: [
         { provide: Router, useValue: router },
-      ],
-    }).overrideComponent(AdvancedWorkflowActionsLoaderComponent, {
+    ]
+}).overrideComponent(AdvancedWorkflowActionsLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
         entryComponents: [AdvancedWorkflowActionTestComponent],

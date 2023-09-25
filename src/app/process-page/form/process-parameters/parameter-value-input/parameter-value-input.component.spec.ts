@@ -35,15 +35,14 @@ describe('ParameterValueInputComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         FormsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })],
-      declarations: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
         ParameterValueInputComponent,
         BooleanValueInputComponent,
         StringValueInputComponent,
@@ -51,9 +50,9 @@ describe('ParameterValueInputComponent', () => {
         DateValueInputComponent,
         FileValueAccessorDirective,
         FileValidator
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

@@ -113,14 +113,15 @@ describe('NavbarComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         NoopAnimationsModule,
         ReactiveFormsModule,
-        RouterTestingModule],
-      declarations: [NavbarComponent],
-      providers: [
+        RouterTestingModule,
+        NavbarComponent
+    ],
+    providers: [
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: MenuService, useValue: menuService },
@@ -129,9 +130,9 @@ describe('NavbarComponent', () => {
         { provide: BrowseService, useValue: { getBrowseDefinitions: createSuccessfulRemoteDataObject$(buildPaginatedList(undefined, browseDefinitions)) } },
         { provide: AuthorizationDataService, useValue: authorizationService },
         provideMockStore({ initialState }),
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();  // compile template and css
   }));
 

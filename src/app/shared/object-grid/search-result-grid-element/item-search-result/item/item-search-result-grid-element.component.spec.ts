@@ -214,27 +214,27 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
 
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [
-          NoopAnimationsModule,
-          TranslateModule.forRoot()
-        ],
-        declarations: [component, TruncatePipe],
-        providers: [
-          { provide: TruncatableService, useValue: truncatableServiceStub },
-          { provide: ObjectCacheService, useValue: {} },
-          { provide: UUIDService, useValue: {} },
-          { provide: Store, useValue: {} },
-          { provide: RemoteDataBuildService, useValue: {} },
-          { provide: CommunityDataService, useValue: {} },
-          { provide: HALEndpointService, useValue: {} },
-          { provide: HttpClient, useValue: {} },
-          { provide: DSOChangeAnalyzer, useValue: {} },
-          { provide: NotificationsService, useValue: {} },
-          { provide: DefaultChangeAnalyzer, useValue: {} },
-          { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(component, {
+    imports: [
+        NoopAnimationsModule,
+        TranslateModule.forRoot(),
+        component, TruncatePipe
+    ],
+    providers: [
+        { provide: TruncatableService, useValue: truncatableServiceStub },
+        { provide: ObjectCacheService, useValue: {} },
+        { provide: UUIDService, useValue: {} },
+        { provide: Store, useValue: {} },
+        { provide: RemoteDataBuildService, useValue: {} },
+        { provide: CommunityDataService, useValue: {} },
+        { provide: HALEndpointService, useValue: {} },
+        { provide: HttpClient, useValue: {} },
+        { provide: DSOChangeAnalyzer, useValue: {} },
+        { provide: NotificationsService, useValue: {} },
+        { provide: DefaultChangeAnalyzer, useValue: {} },
+        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(component, {
         set: { changeDetection: ChangeDetectionStrategy.Default }
       }).compileComponents();
     }));

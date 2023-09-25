@@ -136,24 +136,23 @@ describe('ItemVersionsComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      declarations: [ItemVersionsComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemSharedModule],
-      providers: [
-        {provide: PaginationService, useValue: new PaginationServiceStub()},
-        {provide: UntypedFormBuilder, useValue: new UntypedFormBuilder()},
-        {provide: NotificationsService, useValue: new NotificationsServiceStub()},
-        {provide: AuthService, useValue: authenticationServiceSpy},
-        {provide: AuthorizationDataService, useValue: authorizationServiceSpy},
-        {provide: VersionHistoryDataService, useValue: versionHistoryServiceSpy},
-        {provide: ItemDataService, useValue: itemDataServiceSpy},
-        {provide: VersionDataService, useValue: versionServiceSpy},
-        {provide: WorkspaceitemDataService, useValue: workspaceItemDataServiceSpy},
-        {provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy},
-        {provide: ConfigurationDataService, useValue: configurationServiceSpy},
+    imports: [TranslateModule.forRoot(), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemSharedModule, ItemVersionsComponent, VarDirective],
+    providers: [
+        { provide: PaginationService, useValue: new PaginationServiceStub() },
+        { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: AuthService, useValue: authenticationServiceSpy },
+        { provide: AuthorizationDataService, useValue: authorizationServiceSpy },
+        { provide: VersionHistoryDataService, useValue: versionHistoryServiceSpy },
+        { provide: ItemDataService, useValue: itemDataServiceSpy },
+        { provide: VersionDataService, useValue: versionServiceSpy },
+        { provide: WorkspaceitemDataService, useValue: workspaceItemDataServiceSpy },
+        { provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy },
+        { provide: ConfigurationDataService, useValue: configurationServiceSpy },
         { provide: Router, useValue: routerSpy },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
 
     versionHistoryService = TestBed.inject(VersionHistoryDataService);
     authenticationService = TestBed.inject(AuthService);

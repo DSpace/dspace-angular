@@ -65,14 +65,14 @@ describe('ExistingRelationListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ExistingRelationListElementComponent],
-      providers: [
+    imports: [ExistingRelationListElementComponent],
+    providers: [
         { provide: SelectableListService, useValue: selectionService },
         { provide: Store, useValue: store },
         { provide: SubmissionService, useClass: SubmissionServiceStub }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

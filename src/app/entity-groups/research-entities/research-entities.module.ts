@@ -69,17 +69,15 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    ItemSharedModule,
-    SharedModule,
-    NgbTooltipModule,
-    ResultsBackButtonModule,
-    DsoPageModule,
-  ],
-  declarations: [
-    ...COMPONENTS,
-  ]
+    imports: [
+        CommonModule,
+        ItemSharedModule,
+        SharedModule,
+        NgbTooltipModule,
+        ResultsBackButtonModule,
+        DsoPageModule,
+        ...COMPONENTS
+    ]
 })
 export class ResearchEntitiesModule {
   /**

@@ -34,16 +34,15 @@ export function createSidebarSearchListElementTests(
         })
       });
       TestBed.configureTestingModule({
-        declarations: [componentClass, VarDirective],
-        imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-        providers: [
-          { provide: TruncatableService, useValue: {} },
-          { provide: LinkService, useValue: linkService },
-          DSONameService,
-          ...extraProviders
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).compileComponents();
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), componentClass, VarDirective],
+    providers: [
+        { provide: TruncatableService, useValue: {} },
+        { provide: LinkService, useValue: linkService },
+        DSONameService,
+        ...extraProviders
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
     }));
 
     beforeEach(() => {

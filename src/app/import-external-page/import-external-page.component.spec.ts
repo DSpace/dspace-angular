@@ -10,12 +10,12 @@ describe('ImportExternalPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ImportExternalPageComponent ],
-      providers:[
+    imports: [ImportExternalPageComponent],
+    providers: [
         { provide: ThemeService, useValue: getMockThemeService() },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
     .compileComponents();
   }));
 

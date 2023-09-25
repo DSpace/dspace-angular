@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistryService } from '../../../core/registry/registry.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -15,18 +15,34 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field-form.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 @Component({
   selector: 'ds-metadata-schema',
   templateUrl: './metadata-schema.component.html',
-  styleUrls: ['./metadata-schema.component.scss']
+  styleUrls: ['./metadata-schema.component.scss'],
+  imports: [
+    AsyncPipe,
+    VarDirective,
+    MetadataFieldFormComponent,
+    TranslateModule,
+    PaginationComponent,
+    NgIf,
+    NgForOf,
+    NgClass,
+    RouterLink
+  ],
+  standalone: true
 })
 /**
  * A component used for managing all existing metadata fields within the current metadata schema.

@@ -10,14 +10,18 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { Process } from '../../../process-page/processes/process.model';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-search-export-csv',
-  styleUrls: ['./search-export-csv.component.scss'],
-  templateUrl: './search-export-csv.component.html',
+    selector: 'ds-search-export-csv',
+    styleUrls: ['./search-export-csv.component.scss'],
+    templateUrl: './search-export-csv.component.html',
+    standalone: true,
+    imports: [NgIf, NgbTooltipModule, AsyncPipe, TranslateModule]
 })
 /**
  * Display a button to export the current search results as csv

@@ -76,28 +76,28 @@ describe('SubscriptionModalComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CommonModule,
         NgbModalModule,
         ReactiveFormsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
-      ],
-      declarations: [SubscriptionModalComponent],
-      providers: [
+        SubscriptionModalComponent
+    ],
+    providers: [
         NgbActiveModal,
         { provide: AuthService, useValue: authService },
         { provide: NotificationsService, useValue: notificationServiceStub },
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
-      ],
-      schemas: [
+    ],
+    schemas: [
         NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
 
   }));
 

@@ -19,14 +19,13 @@ describe('CustomSwitchComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         ReactiveFormsModule,
         NoopAnimationsModule,
-        DynamicFormsCoreModule.forRoot()
-      ],
-      declarations: [CustomSwitchComponent]
-
-    }).compileComponents().then(() => {
+        DynamicFormsCoreModule.forRoot(),
+        CustomSwitchComponent
+    ]
+}).compileComponents().then(() => {
       fixture = TestBed.createComponent(CustomSwitchComponent);
 
       component = fixture.componentInstance;

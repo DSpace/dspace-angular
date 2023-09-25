@@ -71,17 +71,16 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     linkService = getMockLinkService();
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [WorkflowItemSearchResultListElementComponent],
-      providers: [
+    imports: [NoopAnimationsModule, WorkflowItemSearchResultListElementComponent],
+    providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: ItemDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(WorkflowItemSearchResultListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(WorkflowItemSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

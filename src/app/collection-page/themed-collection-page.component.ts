@@ -6,9 +6,10 @@ import { CollectionPageComponent } from './collection-page.component';
  * Themed wrapper for CollectionPageComponent
  */
 @Component({
-  selector: 'ds-themed-collection-page',
-  styleUrls: [],
-  templateUrl: '../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-collection-page',
+    styleUrls: [],
+    templateUrl: '../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedCollectionPageComponent extends ThemedComponent<CollectionPageComponent> {
   protected getComponentName(): string {

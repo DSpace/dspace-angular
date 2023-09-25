@@ -13,9 +13,10 @@ import { getPageNotFoundRoute } from '../../../app-routing-paths';
 import { redirectOn4xx } from '../../../core/shared/authorized.operators';
 
 @Component({
-  selector: 'ds-version-page',
-  templateUrl: './version-page.component.html',
-  styleUrls: ['./version-page.component.scss']
+    selector: 'ds-version-page',
+    templateUrl: './version-page.component.html',
+    styleUrls: ['./version-page.component.scss'],
+    standalone: true
 })
 export class VersionPageComponent implements OnInit {
 

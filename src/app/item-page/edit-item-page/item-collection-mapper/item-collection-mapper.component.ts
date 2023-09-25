@@ -19,7 +19,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
@@ -28,6 +28,10 @@ import { SearchConfigurationService } from '../../../core/shared/search/search-c
 import { SearchService } from '../../../core/shared/search/search.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getItemPageRoute } from '../../item-page-routing-paths';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
+import { ThemedSearchFormComponent } from '../../../shared/search-form/themed-search-form.component';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'ds-item-collection-mapper',
@@ -37,7 +41,16 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
   animations: [
     fadeIn,
     fadeInOut
-  ]
+  ],
+  imports: [
+    NgbNavModule,
+    CollectionSelectComponent,
+    ThemedSearchFormComponent,
+    AsyncPipe,
+    TranslateModule,
+    NgIf
+  ],
+  standalone: true
 })
 /**
  * Component for mapping collections to an item

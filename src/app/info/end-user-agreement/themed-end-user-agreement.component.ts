@@ -6,9 +6,10 @@ import { EndUserAgreementComponent } from './end-user-agreement.component';
  * Themed wrapper for EndUserAgreementComponent
  */
 @Component({
-  selector: 'ds-themed-end-user-agreement',
-  styleUrls: [],
-  templateUrl: '../../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-end-user-agreement',
+    styleUrls: [],
+    templateUrl: '../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedEndUserAgreementComponent extends ThemedComponent<EndUserAgreementComponent> {
 

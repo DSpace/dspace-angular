@@ -10,14 +10,21 @@ import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component
 import { AuthService } from '../../../core/auth/auth.service';
 import { getProfileModuleRoute, getSubscriptionsModuleRoute } from '../../../app-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { LogOutComponent } from '../../log-out/log-out.component';
+import { RouterLinkActive, RouterLink } from '@angular/router';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
+import { NgIf, NgClass, AsyncPipe } from '@angular/common';
 
 /**
  * This component represents the user nav menu.
  */
 @Component({
-  selector: 'ds-user-menu',
-  templateUrl: './user-menu.component.html',
-  styleUrls: ['./user-menu.component.scss']
+    selector: 'ds-user-menu',
+    templateUrl: './user-menu.component.html',
+    styleUrls: ['./user-menu.component.scss'],
+    standalone: true,
+    imports: [NgIf, ThemedLoadingComponent, RouterLinkActive, NgClass, RouterLink, LogOutComponent, AsyncPipe, TranslateModule]
 })
 export class UserMenuComponent implements OnInit {
 

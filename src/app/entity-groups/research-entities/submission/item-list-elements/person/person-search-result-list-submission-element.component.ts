@@ -18,12 +18,18 @@ import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
+import { FormsModule } from '@angular/forms';
+import { PersonInputSuggestionsComponent } from './person-suggestions/person-input-suggestions.component';
+import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component';
+import { NgIf, NgClass, NgFor, AsyncPipe } from '@angular/common';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
 @Component({
-  selector: 'ds-person-search-result-list-submission-element',
-  styleUrls: ['./person-search-result-list-submission-element.component.scss'],
-  templateUrl: './person-search-result-list-submission-element.component.html'
+    selector: 'ds-person-search-result-list-submission-element',
+    styleUrls: ['./person-search-result-list-submission-element.component.scss'],
+    templateUrl: './person-search-result-list-submission-element.component.html',
+    standalone: true,
+    imports: [NgIf, ThumbnailComponent, NgClass, PersonInputSuggestionsComponent, FormsModule, NgFor, AsyncPipe]
 })
 
 /**

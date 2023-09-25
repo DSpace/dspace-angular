@@ -78,18 +78,17 @@ describe('ComColFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule],
-      declarations: [ComColFormComponent, VarDirective],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule, ComColFormComponent, VarDirective],
+    providers: [
         { provide: Location, useValue: locationStub },
         { provide: DynamicFormService, useValue: formServiceStub },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: RequestService, useValue: requestServiceStub },
         { provide: ObjectCacheService, useValue: objectCacheStub }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   describe('when the dso doesn\'t contain an ID (newly created)', () => {

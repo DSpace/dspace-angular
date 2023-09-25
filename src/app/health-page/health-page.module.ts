@@ -15,21 +15,19 @@ import { HealthInfoComponentComponent } from './health-info/health-info-componen
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    HealthPageRoutingModule,
-    NgbModule,
-    SharedModule,
-    TranslateModule
-  ],
-  declarations: [
-    HealthPageComponent,
-    HealthPanelComponent,
-    HealthStatusComponent,
-    HealthComponentComponent,
-    HealthInfoComponent,
-    HealthInfoComponentComponent,
-  ]
+    imports: [
+        CommonModule,
+        HealthPageRoutingModule,
+        NgbModule,
+        SharedModule,
+        TranslateModule,
+        HealthPageComponent,
+        HealthPanelComponent,
+        HealthStatusComponent,
+        HealthComponentComponent,
+        HealthInfoComponent,
+        HealthInfoComponentComponent
+    ]
 })
 export class HealthPageModule {
 }

@@ -10,7 +10,7 @@
 
 <ds-loading *ngIf="(processingConnection | async)" [message]="'person.page.orcid.link.processing' | translate"></ds-loading>
 <div class="container" *ngIf="!(processingConnection | async) && !(connectionStatus | async)" data-test="error-box">
-  <ds-alert [type]="'alert-danger'">{{'person.page.orcid.link.error.message' | translate}}</ds-alert>
+  <ds-alert [type]="AlertType.Error">{{'person.page.orcid.link.error.message' | translate}}</ds-alert>
 </div>
 <ng-container *ngIf="!(processingConnection | async) && (item | async) && (connectionStatus | async)" >
   <ds-orcid-auth [item]="(item | async)" (unlink)="updateItem()" data-test="orcid-auth"></ds-orcid-auth>

@@ -69,18 +69,18 @@ describe('BulkAccessComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         RouterTestingModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [ BulkAccessComponent ],
-      providers: [
+        TranslateModule.forRoot(),
+        BulkAccessComponent
+    ],
+    providers: [
         { provide: BulkAccessControlService, useValue: bulkAccessControlServiceMock },
         { provide: NotificationsService, useValue: NotificationsServiceStub },
         { provide: SelectableListService, useValue: selectableListServiceMock }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   });
 

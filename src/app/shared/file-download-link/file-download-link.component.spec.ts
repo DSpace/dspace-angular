@@ -41,11 +41,12 @@ describe('FileDownloadLinkComponent', () => {
 
   function initTestbed() {
     TestBed.configureTestingModule({
-      declarations: [FileDownloadLinkComponent, RouterLinkDirectiveStub],
-      providers: [
-        {provide: AuthorizationDataService, useValue: authorizationService},
-      ]
-    })
+    imports: [FileDownloadLinkComponent],
+    declarations: [RouterLinkDirectiveStub],
+    providers: [
+        { provide: AuthorizationDataService, useValue: authorizationService },
+    ]
+})
       .compileComponents();
   }
 

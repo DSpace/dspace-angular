@@ -144,35 +144,34 @@ describe('Pagination component', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CommonModule,
         StoreModule.forRoot({}, storeModuleConfig),
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
         NgxPaginationModule,
         NgbModule,
         RouterTestingModule.withRoutes([
-          { path: 'home', component: TestComponent }
-        ])],
-      declarations: [
+            { path: 'home', component: TestComponent }
+        ]),
         PaginationComponent,
         TestComponent,
         EnumKeysPipe
-      ], // declare the test component
-      providers: [
+    ],
+    providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useValue: routerStub },
         { provide: HostWindowService, useValue: hostWindowServiceStub },
         { provide: PaginationService, useValue: paginationService },
         ChangeDetectorRef,
         PaginationComponent
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    });
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+});
 
   }));
 
@@ -379,7 +378,13 @@ describe('Pagination component', () => {
 });
 
 // declare a test component
-@Component({ selector: 'ds-test-cmp', template: '' })
+@Component({
+    selector: 'ds-test-cmp', template: '',
+    standalone: true,
+    imports: [CommonModule,
+        NgxPaginationModule,
+        NgbModule]
+})
 class TestComponent {
 
   collection: string[] = [];

@@ -40,20 +40,19 @@ describe('MetadataRepresentationLoaderComponent', () => {
       getThemeName: themeName,
     });
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [MetadataRepresentationLoaderComponent, PlainTextMetadataListElementComponent, MetadataRepresentationDirective],
-      schemas: [NO_ERRORS_SCHEMA],
-      providers: [
+    imports: [MetadataRepresentationLoaderComponent, PlainTextMetadataListElementComponent, MetadataRepresentationDirective],
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: [
         {
-          provide: METADATA_REPRESENTATION_COMPONENT_FACTORY,
-          useValue: jasmine.createSpy('getMetadataRepresentationComponent').and.returnValue(PlainTextMetadataListElementComponent)
+            provide: METADATA_REPRESENTATION_COMPONENT_FACTORY,
+            useValue: jasmine.createSpy('getMetadataRepresentationComponent').and.returnValue(PlainTextMetadataListElementComponent)
         },
         {
-          provide: ThemeService,
-          useValue: themeService,
+            provide: ThemeService,
+            useValue: themeService,
         }
-      ]
-    }).overrideComponent(MetadataRepresentationLoaderComponent, {
+    ]
+}).overrideComponent(MetadataRepresentationLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
         entryComponents: [PlainTextMetadataListElementComponent]

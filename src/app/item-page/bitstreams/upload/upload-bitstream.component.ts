@@ -9,7 +9,7 @@ import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
@@ -20,10 +20,26 @@ import { getBitstreamModuleRoute } from '../../../app-routing-paths';
 import { getEntityEditRoute } from '../../item-page-routing-paths';
 import { environment } from '../../../../environments/environment';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import {
+  DsoInputSuggestionsComponent
+} from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'ds-upload-bitstream',
-  templateUrl: './upload-bitstream.component.html'
+  templateUrl: './upload-bitstream.component.html',
+  imports: [
+    TranslateModule,
+    AsyncPipe,
+    VarDirective,
+    NgIf,
+    DsoInputSuggestionsComponent,
+    FormsModule,
+    UploaderComponent
+  ],
+  standalone: true
 })
 /**
  * Page component for uploading a bitstream to an item

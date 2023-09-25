@@ -3,12 +3,17 @@ import { DsoEditMetadataChangeType, DsoEditMetadataForm, DsoEditMetadataValue } 
 import { Observable } from 'rxjs/internal/Observable';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, CdkDropList } from '@angular/cdk/drag-drop';
+import { DsoEditMetadataValueComponent } from '../dso-edit-metadata-value/dso-edit-metadata-value.component';
+import { NgFor, AsyncPipe } from '@angular/common';
+import { DsoEditMetadataValueHeadersComponent } from '../dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
 
 @Component({
-  selector: 'ds-dso-edit-metadata-field-values',
-  styleUrls: ['./dso-edit-metadata-field-values.component.scss'],
-  templateUrl: './dso-edit-metadata-field-values.component.html',
+    selector: 'ds-dso-edit-metadata-field-values',
+    styleUrls: ['./dso-edit-metadata-field-values.component.scss'],
+    templateUrl: './dso-edit-metadata-field-values.component.html',
+    standalone: true,
+    imports: [CdkDropList, DsoEditMetadataValueHeadersComponent, NgFor, DsoEditMetadataValueComponent, AsyncPipe]
 })
 /**
  * Component displaying table rows for each value for a certain metadata field within a form

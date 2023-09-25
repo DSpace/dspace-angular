@@ -9,25 +9,23 @@ describe('AdvancedWorkflowActionPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
-        AdvancedWorkflowActionPageComponent,
-      ],
-      providers: [
+        AdvancedWorkflowActionPageComponent
+    ],
+    providers: [
         {
-          provide: ActivatedRoute,
-          useValue: {
-            snapshot: {
-              queryParams: {
-                workflow: 'testaction',
-              },
+            provide: ActivatedRoute,
+            useValue: {
+                snapshot: {
+                    queryParams: {
+                        workflow: 'testaction',
+                    },
+                },
             },
-          },
         },
-      ],
-    }).compileComponents();
+    ]
+}).compileComponents();
   });
 
   beforeEach(() => {

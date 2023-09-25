@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -38,10 +38,27 @@ import { NoContent } from '../../core/shared/NoContent.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { AsyncPipe, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-groups-registry',
   templateUrl: './groups-registry.component.html',
+  imports: [
+    ThemedLoadingComponent,
+    TranslateModule,
+    RouterLink,
+    ReactiveFormsModule,
+    AsyncPipe,
+    NgIf,
+    PaginationComponent,
+    NgSwitch,
+    NgSwitchCase,
+    NgbTooltipModule
+  ],
+  standalone: true
 })
 /**
  * A component used for managing all existing groups within the repository.

@@ -92,19 +92,18 @@ describe('ItemMoveComponent', () => {
     itemDataService = mockItemDataService;
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [ItemMoveComponent],
-      providers: [
+    imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemMoveComponent],
+    providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
         { provide: ItemDataService, useValue: mockItemDataService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: SearchService, useValue: mockSearchService },
         { provide: RequestService, useValue: getMockRequestService() },
-      ], schemas: [
+    ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
     fixture = TestBed.createComponent(ItemMoveComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();

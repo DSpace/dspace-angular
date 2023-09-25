@@ -7,9 +7,10 @@ import { DenyRequestCopyComponent } from './deny-request-copy.component';
  * Themed wrapper for deny-request-copy.component
  */
 @Component({
-  selector: 'ds-themed-deny-request-copy',
-  styleUrls: [],
-  templateUrl: './../../shared/theme-support/themed.component.html',
+    selector: 'ds-themed-deny-request-copy',
+    styleUrls: [],
+    templateUrl: './../../shared/theme-support/themed.component.html',
+    standalone: true
 })
 export class ThemedDenyRequestCopyComponent extends ThemedComponent<DenyRequestCopyComponent> {
     protected getComponentName(): string {

@@ -15,10 +15,18 @@ import {
 } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { BrowseService } from '../../../core/browse/browse.service';
 import { BrowseDefinitionDataService } from '../../../core/browse/browse-definition-data.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { MetadataRepresentationLoaderComponent } from '../../../shared/metadata-representation/metadata-representation-loader.component';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { NgFor, NgIf, AsyncPipe } from '@angular/common';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 
 @Component({
-  selector: 'ds-metadata-representation-list',
-  templateUrl: './metadata-representation-list.component.html'
+    selector: 'ds-metadata-representation-list',
+    templateUrl: './metadata-representation-list.component.html',
+    standalone: true,
+    imports: [MetadataFieldWrapperComponent, NgFor, VarDirective, MetadataRepresentationLoaderComponent, NgIf, ThemedLoadingComponent, AsyncPipe, TranslateModule]
 })
 /**
  * This component is used for displaying metadata

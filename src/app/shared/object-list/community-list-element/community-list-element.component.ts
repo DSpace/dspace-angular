@@ -5,11 +5,15 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { RouterLink } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'ds-community-list-element',
-  styleUrls: ['./community-list-element.component.scss'],
-  templateUrl: './community-list-element.component.html'
+    selector: 'ds-community-list-element',
+    styleUrls: ['./community-list-element.component.scss'],
+    templateUrl: './community-list-element.component.html',
+    standalone: true,
+    imports: [NgIf, RouterLink]
 })
 /**
  * Component representing a list element for a community

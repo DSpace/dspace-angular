@@ -7,6 +7,10 @@ import { Collection } from '../../../core/shared/collection.model';
 import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { HALLink } from '../../../core/shared/hal-link.model';
 import { hasValue } from '../../../shared/empty.util';
+import {
+  ComcolRoleComponent
+} from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
+import { AsyncPipe, NgForOf } from '@angular/common';
 
 /**
  * Component for managing a collection's roles
@@ -14,6 +18,12 @@ import { hasValue } from '../../../shared/empty.util';
 @Component({
   selector: 'ds-collection-roles',
   templateUrl: './collection-roles.component.html',
+  imports: [
+    ComcolRoleComponent,
+    NgForOf,
+    AsyncPipe
+  ],
+  standalone: true
 })
 export class CollectionRolesComponent implements OnInit {
 

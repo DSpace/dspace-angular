@@ -4,8 +4,9 @@ import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-rep
 import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
 
 @Component({
-  selector: 'ds-item-metadata-representation-list-element',
-  template: ''
+    selector: 'ds-item-metadata-representation-list-element',
+    template: '',
+    standalone: true
 })
 /**
  * An abstract class for displaying a single ItemMetadataRepresentation

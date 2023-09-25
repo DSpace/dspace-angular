@@ -7,13 +7,18 @@ import {
 } from '@ng-dynamic-forms/core';
 import { Community } from '../../core/shared/community.model';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { RequestService } from '../../core/data/request.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
 import { environment } from '../../../environments/environment';
+import { FormComponent } from '../../shared/form/form.component';
+import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 /**
  * Form used for creating and editing communities
@@ -21,7 +26,18 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'ds-community-form',
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
-  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
+  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html',
+  standalone: true,
+  imports: [
+    FormComponent,
+    TranslateModule,
+    UploaderComponent,
+    AsyncPipe,
+    ComcolPageLogoComponent,
+    NgIf,
+    NgClass,
+    VarDirective
+  ],
 })
 export class CommunityFormComponent extends ComColFormComponent<Community> implements OnChanges {
   /**

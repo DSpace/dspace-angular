@@ -53,18 +53,17 @@ describe('ForgotPasswordFormComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule],
-      declarations: [ForgotPasswordFormComponent],
-      providers: [
-        {provide: Router, useValue: router},
-        {provide: ActivatedRoute, useValue: route},
-        {provide: Store, useValue: store},
-        {provide: EPersonDataService, useValue: ePersonDataService},
-        {provide: UntypedFormBuilder, useValue: new UntypedFormBuilder()},
-        {provide: NotificationsService, useValue: notificationsService},
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule, ForgotPasswordFormComponent],
+    providers: [
+        { provide: Router, useValue: router },
+        { provide: ActivatedRoute, useValue: route },
+        { provide: Store, useValue: store },
+        { provide: EPersonDataService, useValue: ePersonDataService },
+        { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
+        { provide: NotificationsService, useValue: notificationsService },
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(ForgotPasswordFormComponent);

@@ -60,21 +60,21 @@ describe('WorkspaceItemSearchResultAdminWorkflowListElementComponent', () => {
     init();
     TestBed.configureTestingModule(
       {
-        declarations: [WorkspaceItemSearchResultAdminWorkflowListElementComponent],
-        imports: [
-          NoopAnimationsModule,
-          TranslateModule.forRoot(),
-          RouterTestingModule.withRoutes([]),
-        ],
-        providers: [
-          { provide: TruncatableService, useValue: mockTruncatableService },
-          { provide: LinkService, useValue: linkService },
-          { provide: DSONameService, useClass: DSONameServiceMock },
-          { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
-          { provide: APP_CONFIG, useValue: environment }
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      })
+    imports: [
+        NoopAnimationsModule,
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        WorkspaceItemSearchResultAdminWorkflowListElementComponent
+    ],
+    providers: [
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: LinkService, useValue: linkService },
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
+        { provide: APP_CONFIG, useValue: environment }
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

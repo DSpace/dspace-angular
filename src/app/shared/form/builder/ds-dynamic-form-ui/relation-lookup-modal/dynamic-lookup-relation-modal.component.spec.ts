@@ -103,36 +103,35 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicLookupRelationModalComponent],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, DsDynamicLookupRelationModalComponent],
+    providers: [
         {
-          provide: SearchConfigurationService, useValue: {
-            paginatedSearchOptions: observableOf(pSearchOptions)
-          }
+            provide: SearchConfigurationService, useValue: {
+                paginatedSearchOptions: observableOf(pSearchOptions)
+            }
         },
         { provide: ExternalSourceDataService, useValue: externalSourceService },
         { provide: LookupRelationService, useValue: lookupRelationService },
         {
-          provide: SelectableListService, useValue: selectableListService
+            provide: SelectableListService, useValue: selectableListService
         },
         {
-          provide: RelationshipDataService, useValue: { getNameVariant: () => observableOf(nameVariant) }
+            provide: RelationshipDataService, useValue: { getNameVariant: () => observableOf(nameVariant) }
         },
         { provide: RelationshipTypeDataService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: rdbService },
         {
-          provide: Store, useValue: {
-            // eslint-disable-next-line no-empty, @typescript-eslint/no-empty-function
-            dispatch: () => {
+            provide: Store, useValue: {
+                // eslint-disable-next-line no-empty, @typescript-eslint/no-empty-function
+                dispatch: () => {
+                }
             }
-          }
         },
         { provide: NgZone, useValue: new NgZone({}) },
         NgbActiveModal
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

@@ -57,14 +57,14 @@ describe('BrowseBySwitcherComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [BrowseBySwitcherComponent],
-      providers: [
+    imports: [BrowseBySwitcherComponent],
+    providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: ThemeService, useValue: themeService },
         { provide: BROWSE_BY_COMPONENT_FACTORY, useValue: jasmine.createSpy('getComponentByBrowseByType').and.returnValue(null) }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {

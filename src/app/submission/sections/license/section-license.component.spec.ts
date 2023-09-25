@@ -113,19 +113,17 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         FormComponent,
         SubmissionSectionLicenseComponent,
         TestComponent
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: CollectionDataService, useValue: mockCollectionDataService },
         { provide: SectionFormOperationsService, useValue: getMockFormOperationsService() },
         { provide: FormService, useValue: getMockFormService() },
@@ -140,9 +138,9 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         ChangeDetectorRef,
         FormBuilderService,
         SubmissionSectionLicenseComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents().then();
   }));
 
   describe('', () => {
@@ -324,8 +322,13 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [BrowserModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule]
 })
 class TestComponent {
 

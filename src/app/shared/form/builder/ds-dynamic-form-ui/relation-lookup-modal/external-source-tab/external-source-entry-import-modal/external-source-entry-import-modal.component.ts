@@ -21,10 +21,12 @@ import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../../.
 import { switchMap, take } from 'rxjs/operators';
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
 import { NotificationsService } from '../../../../../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ItemType } from '../../../../../../../core/shared/item-relationships/item-type.model';
 import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
+import { SearchResultsComponent } from '../../../../../../search/search-results/search-results.component';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 /**
  * The possible types of import for the external entry
@@ -40,7 +42,14 @@ export enum ImportType {
 @Component({
   selector: 'ds-external-source-entry-import-modal',
   styleUrls: ['./external-source-entry-import-modal.component.scss'],
-  templateUrl: './external-source-entry-import-modal.component.html'
+  templateUrl: './external-source-entry-import-modal.component.html',
+  imports: [
+    TranslateModule,
+    SearchResultsComponent,
+    NgIf,
+    AsyncPipe
+  ],
+  standalone: true
 })
 /**
  * Component to display a modal window for importing an external source entry

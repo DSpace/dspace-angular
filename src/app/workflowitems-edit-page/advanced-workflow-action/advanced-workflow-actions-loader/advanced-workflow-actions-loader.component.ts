@@ -11,9 +11,10 @@ import { PAGE_NOT_FOUND_PATH } from '../../../app-routing-paths';
  * Component for loading a {@link AdvancedWorkflowActionComponent} depending on the "{@link type}" input
  */
 @Component({
-  selector: 'ds-advanced-workflow-actions-loader',
-  templateUrl: './advanced-workflow-actions-loader.component.html',
-  styleUrls: ['./advanced-workflow-actions-loader.component.scss'],
+    selector: 'ds-advanced-workflow-actions-loader',
+    templateUrl: './advanced-workflow-actions-loader.component.html',
+    styleUrls: ['./advanced-workflow-actions-loader.component.scss'],
+    standalone: true
 })
 export class AdvancedWorkflowActionsLoaderComponent implements OnInit {
 

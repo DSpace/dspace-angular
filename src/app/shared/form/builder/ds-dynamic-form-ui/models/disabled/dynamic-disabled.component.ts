@@ -4,13 +4,18 @@ import { UntypedFormGroup } from '@angular/forms';
 import { DynamicFormControlComponent, DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
 import { DynamicDisabledModel } from './dynamic-disabled.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Component representing a simple disabled input field
  */
 @Component({
   selector: 'ds-dynamic-disabled',
-  templateUrl: './dynamic-disabled.component.html'
+  templateUrl: './dynamic-disabled.component.html',
+  imports: [
+    TranslateModule
+  ],
+  standalone: true
 })
 /**
  * Component for displaying a form input with a disabled property

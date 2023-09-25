@@ -23,15 +23,14 @@ describe('StartsWithTextComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [StartsWithTextComponent, EnumKeysPipe],
-      providers: [
+    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, StartsWithTextComponent, EnumKeysPipe],
+    providers: [
         { provide: 'startsWithOptions', useValue: options },
         { provide: 'paginationId', useValue: 'page-id' },
         { provide: PaginationService, useValue: paginationService }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

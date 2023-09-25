@@ -27,6 +27,13 @@ import { SubmissionJsonPatchOperationsService } from '../../../../core/submissio
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
+import { TranslateModule } from '@ngx-translate/core';
+import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-file-view.component';
+import { AsyncPipe, NgIf } from '@angular/common';
+import {
+  ThemedFileDownloadLinkComponent
+} from '../../../../shared/file-download-link/themed-file-download-link.component';
+import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 
 /**
  * This component represents a single bitstream contained in the submission
@@ -35,6 +42,15 @@ import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
   selector: 'ds-submission-upload-section-file',
   styleUrls: ['./section-upload-file.component.scss'],
   templateUrl: './section-upload-file.component.html',
+  imports: [
+    TranslateModule,
+    SubmissionSectionUploadFileViewComponent,
+    NgIf,
+    AsyncPipe,
+    ThemedFileDownloadLinkComponent,
+    FileSizePipe
+  ],
+  standalone: true
 })
 export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, OnDestroy {
 

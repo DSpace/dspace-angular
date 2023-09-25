@@ -18,19 +18,19 @@ describe('PageErrorComponent', () => {
   });
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PageErrorComponent ],
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+        PageErrorComponent
+    ],
+    providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
 
     fixture = TestBed.createComponent(PageErrorComponent);
     component = fixture.componentInstance;

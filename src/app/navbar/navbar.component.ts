@@ -12,15 +12,21 @@ import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import { isAuthenticated } from '../core/auth/selectors';
+import { TranslateModule } from '@ngx-translate/core';
+import { UserMenuComponent } from '../shared/auth-nav-menu/user-menu/user-menu.component';
+import { NgClass, NgIf, NgFor, NgComponentOutlet, AsyncPipe } from '@angular/common';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 /**
  * Component representing the public navbar
  */
 @Component({
-  selector: 'ds-navbar',
-  styleUrls: ['./navbar.component.scss'],
-  templateUrl: './navbar.component.html',
-  animations: [slideMobileNav]
+    selector: 'ds-navbar',
+    styleUrls: ['./navbar.component.scss'],
+    templateUrl: './navbar.component.html',
+    animations: [slideMobileNav],
+    standalone: true,
+    imports: [NgbDropdownModule, NgClass, NgIf, UserMenuComponent, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule]
 })
 export class NavbarComponent extends MenuComponent {
   /**

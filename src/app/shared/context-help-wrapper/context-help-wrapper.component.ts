@@ -5,9 +5,10 @@ import { Observable, Subscription, BehaviorSubject, combineLatest } from 'rxjs';
 import { map, distinctUntilChanged, mergeMap } from 'rxjs/operators';
 import { PlacementDir } from './placement-dir.model';
 import { ContextHelpService } from '../context-help.service';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { hasValueOperator } from '../empty.util';
 import { ContextHelp } from '../context-help.model';
+import { NgFor, NgIf, NgClass, NgTemplateOutlet, AsyncPipe } from '@angular/common';
 
 type ParsedContent = (string | {href: string, text: string})[];
 
@@ -16,9 +17,11 @@ type ParsedContent = (string | {href: string, text: string})[];
  * produces a tooltip when clicked.
  */
 @Component({
-  selector: 'ds-context-help-wrapper',
-  templateUrl: './context-help-wrapper.component.html',
-  styleUrls: ['./context-help-wrapper.component.scss'],
+    selector: 'ds-context-help-wrapper',
+    templateUrl: './context-help-wrapper.component.html',
+    styleUrls: ['./context-help-wrapper.component.scss'],
+    standalone: true,
+    imports: [NgFor, NgIf, NgClass, NgbTooltipModule, NgTemplateOutlet, AsyncPipe]
 })
 export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
   /**

@@ -75,17 +75,17 @@ describe('JournalComponent', () => {
   };
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
         }),
         RouterTestingModule,
-      ],
-      declarations: [JournalComponent, GenericItemPageFieldComponent, TruncatePipe],
-      providers: [
+        JournalComponent, GenericItemPageFieldComponent, TruncatePipe
+    ],
+    providers: [
         { provide: ItemDataService, useValue: {} },
         { provide: TruncatableService, useValue: {} },
         { provide: RelationshipDataService, useValue: {} },
@@ -106,10 +106,9 @@ describe('JournalComponent', () => {
         { provide: SearchService, useValue: {} },
         { provide: RouteService, useValue: mockRouteService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(JournalComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(JournalComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

@@ -1,9 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 
 import { HealthComponent } from '../../models/health-component.model';
 import { AlertType } from '../../../shared/alert/alert-type';
+import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf, NgFor, TitleCasePipe } from '@angular/common';
 
 /**
  * A component to render a "health component" object.
@@ -13,9 +17,11 @@ import { AlertType } from '../../../shared/alert/alert-type';
  * API.
  */
 @Component({
-  selector: 'ds-health-component',
-  templateUrl: './health-component.component.html',
-  styleUrls: ['./health-component.component.scss']
+    selector: 'ds-health-component',
+    templateUrl: './health-component.component.html',
+    styleUrls: ['./health-component.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgFor, NgbCollapseModule, forwardRef(() => HealthComponentComponent), AlertComponent, TitleCasePipe, ObjNgFor]
 })
 export class HealthComponentComponent {
 

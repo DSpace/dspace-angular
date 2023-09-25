@@ -29,19 +29,18 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, NgbModule],
-      declarations: [TabbedRelatedEntitiesSearchComponent, VarDirective],
-      providers: [
+    imports: [TranslateModule.forRoot(), NoopAnimationsModule, NgbModule, TabbedRelatedEntitiesSearchComponent, VarDirective],
+    providers: [
         {
-          provide: ActivatedRoute,
-          useValue: {
-            queryParams: observableOf({ tab: mockRelationType })
-          },
+            provide: ActivatedRoute,
+            useValue: {
+                queryParams: observableOf({ tab: mockRelationType })
+            },
         },
         { provide: Router, useValue: router }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(() => {

@@ -24,17 +24,24 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { EnumKeysPipe } from '../utils/enum-keys-pipe';
+import { TranslateModule } from '@ngx-translate/core';
+import { RSSComponent } from '../rss-feed/rss.component';
+import { NgbDropdownModule, NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf, NgFor, NgClass, AsyncPipe } from '@angular/common';
 
 /**
  * The default pagination controls component.
  */
 @Component({
-  exportAs: 'paginationComponent',
-  selector: 'ds-pagination',
-  styleUrls: ['pagination.component.scss'],
-  templateUrl: 'pagination.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.Emulated
+    exportAs: 'paginationComponent',
+    selector: 'ds-pagination',
+    styleUrls: ['pagination.component.scss'],
+    templateUrl: 'pagination.component.html',
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.Emulated,
+    standalone: true,
+    imports: [NgIf, NgbDropdownModule, NgFor, NgClass, RSSComponent, NgbPaginationModule, NgbTooltipModule, AsyncPipe, TranslateModule, EnumKeysPipe]
 })
 export class PaginationComponent implements OnDestroy, OnInit {
   /**

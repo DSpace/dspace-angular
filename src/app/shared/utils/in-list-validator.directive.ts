@@ -6,11 +6,12 @@ import { inListValidator } from './validator.functions';
  * Directive for validating if a ngModel value is in a given list
  */
 @Directive({
-  selector: '[ngModel][dsInListValidator]',
-  // We add our directive to the list of existing validators
-  providers: [
-    { provide: NG_VALIDATORS, useExisting: InListValidator, multi: true }
-  ]
+    selector: '[ngModel][dsInListValidator]',
+    // We add our directive to the list of existing validators
+    providers: [
+        { provide: NG_VALIDATORS, useExisting: InListValidator, multi: true }
+    ],
+    standalone: true
 })
 export class InListValidator implements Validator {
   /**

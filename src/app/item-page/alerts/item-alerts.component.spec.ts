@@ -12,10 +12,9 @@ describe('ItemAlertsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ItemAlertsComponent],
-      imports: [TranslateModule.forRoot()],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    imports: [TranslateModule.forRoot(), ItemAlertsComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

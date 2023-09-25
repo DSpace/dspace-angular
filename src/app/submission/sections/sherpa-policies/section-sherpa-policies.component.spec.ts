@@ -52,28 +52,28 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        imports: [
-          BrowserModule,
-          NoopAnimationsModule,
-          TranslateModule.forRoot({
+    imports: [
+        BrowserModule,
+        NoopAnimationsModule,
+        TranslateModule.forRoot({
             loader: {
-              provide: TranslateLoader,
-              useClass: TranslateLoaderMock
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
             }
-          }),
-          NgbCollapseModule,
-          SharedModule
-        ],
-        declarations: [SubmissionSectionSherpaPoliciesComponent],
-        providers: [
-          { provide: SectionsService, useValue: sectionsServiceStub },
-          { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
-          { provide: SubmissionService, useValue: SubmissionServiceStub },
-          { provide: Store, useValue: storeStub },
-          { provide: 'sectionDataProvider', useValue: sectionData },
-          { provide: 'submissionIdProvider', useValue: '1508' },
-        ]
-      })
+        }),
+        NgbCollapseModule,
+        SharedModule,
+        SubmissionSectionSherpaPoliciesComponent
+    ],
+    providers: [
+        { provide: SectionsService, useValue: sectionsServiceStub },
+        { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
+        { provide: SubmissionService, useValue: SubmissionServiceStub },
+        { provide: Store, useValue: storeStub },
+        { provide: 'sectionDataProvider', useValue: sectionData },
+        { provide: 'submissionIdProvider', useValue: '1508' },
+    ]
+})
         .compileComponents();
     });
 

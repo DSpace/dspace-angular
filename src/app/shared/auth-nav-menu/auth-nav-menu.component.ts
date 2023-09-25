@@ -12,12 +12,21 @@ import { isNotUndefined } from '../empty.util';
 import { isAuthenticated, isAuthenticationLoading } from '../../core/auth/selectors';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { AuthService, LOGIN_ROUTE, LOGOUT_ROUTE } from '../../core/auth/auth.service';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
+import { TranslateModule } from '@ngx-translate/core';
+import { UserMenuComponent } from './user-menu/user-menu.component';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { LogInComponent } from '../log-in/log-in.component';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgClass, NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-auth-nav-menu',
-  templateUrl: './auth-nav-menu.component.html',
-  styleUrls: ['./auth-nav-menu.component.scss'],
-  animations: [fadeInOut, fadeOut]
+    selector: 'ds-auth-nav-menu',
+    templateUrl: './auth-nav-menu.component.html',
+    styleUrls: ['./auth-nav-menu.component.scss'],
+    animations: [fadeInOut, fadeOut],
+    standalone: true,
+    imports: [NgClass, NgIf, NgbDropdownModule, LogInComponent, RouterLink, RouterLinkActive, UserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe]
 })
 export class AuthNavMenuComponent implements OnInit {
   /**

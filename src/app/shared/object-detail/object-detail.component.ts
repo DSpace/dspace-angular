@@ -11,17 +11,25 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { Context } from '../../core/shared/context.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { ErrorComponent } from '../error/error.component';
+import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { NgIf, NgFor } from '@angular/common';
+import { PaginationComponent } from '../pagination/pagination.component';
 
 /**
  * This component renders a paginated set of results in the detail view.
  */
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.Emulated,
-  selector: 'ds-object-detail',
-  styleUrls: [ './object-detail.component.scss' ],
-  templateUrl: './object-detail.component.html',
-  animations: [fadeIn]
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.Emulated,
+    selector: 'ds-object-detail',
+    styleUrls: ['./object-detail.component.scss'],
+    templateUrl: './object-detail.component.html',
+    animations: [fadeIn],
+    standalone: true,
+    imports: [PaginationComponent, NgIf, NgFor, ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent, TranslateModule]
 })
 export class ObjectDetailComponent {
   /**

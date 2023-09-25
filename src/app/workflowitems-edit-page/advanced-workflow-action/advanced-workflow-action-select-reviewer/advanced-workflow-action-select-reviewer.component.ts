@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
 import {
   rendersAdvancedWorkflowTaskOption
 } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
@@ -17,11 +17,15 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { RouteService } from '../../../core/services/route.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { RequestService } from '../../../core/data/request.service';
 import { hasValue } from '../../../shared/empty.util';
+import {
+  ModifyItemOverviewComponent
+} from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
+import { ReviewersListComponent } from './reviewers-list/reviewers-list.component';
 
 export const ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER = 'submit_select_reviewer';
 export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweraction';
@@ -34,6 +38,13 @@ export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweraction';
   selector: 'ds-advanced-workflow-action-select-reviewer',
   templateUrl: './advanced-workflow-action-select-reviewer.component.html',
   styleUrls: ['./advanced-workflow-action-select-reviewer.component.scss'],
+  imports: [
+    CommonModule,
+    ModifyItemOverviewComponent,
+    TranslateModule,
+    ReviewersListComponent,
+  ],
+  standalone: true
 })
 export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkflowActionComponent implements OnInit, OnDestroy {
 

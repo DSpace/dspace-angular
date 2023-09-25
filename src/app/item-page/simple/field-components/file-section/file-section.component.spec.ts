@@ -58,21 +58,19 @@ describe('FileSectionComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }), BrowserAnimationsModule],
-      declarations: [FileSectionComponent, VarDirective, FileSizePipe, MetadataFieldWrapperComponent],
-      providers: [
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }), BrowserAnimationsModule, FileSectionComponent, VarDirective, FileSizePipe, MetadataFieldWrapperComponent],
+    providers: [
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: APP_CONFIG, useValue: environment }
-      ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {
