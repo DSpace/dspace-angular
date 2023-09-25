@@ -9,7 +9,6 @@ import { RemoteData } from '../data/remote-data';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SUPERVISION_ORDER } from './models/supervision-order.resource-type';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -29,13 +28,11 @@ import { CreateDataImpl } from '../data/base/create-data';
 import { SearchDataImpl } from '../data/base/search-data';
 import { PatchDataImpl } from '../data/base/patch-data';
 import { DeleteDataImpl } from '../data/base/delete-data';
-import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the supervisionorders endpoint
  */
-@Injectable()
-@dataService(SUPERVISION_ORDER)
+@Injectable({ providedIn: 'root' })
 export class SupervisionOrderDataService extends IdentifiableDataService<SupervisionOrder> {
   protected searchByGroupMethod = 'group';
   protected searchByItemMethod = 'byItem';

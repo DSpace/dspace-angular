@@ -6,19 +6,16 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { PoolTask } from './models/pool-task-object.model';
-import { POOL_TASK } from './models/pool-task-object.resource-type';
 import { TasksService } from './tasks.service';
 import { RemoteData } from '../data/remote-data';
 import { RequestParam } from '../cache/models/request-param.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { FindListOptions } from '../data/find-list-options.model';
-import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * The service handling all REST requests for PoolTask
  */
-@Injectable()
-@dataService(POOL_TASK)
+@Injectable({ providedIn: 'root' })
 export class PoolTaskDataService extends TasksService<PoolTask> {
   /**
    * Initialize instance variables

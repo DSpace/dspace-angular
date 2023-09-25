@@ -20,8 +20,6 @@ import { RestRequest } from '../../core/data/rest-request.model';
 import { RequestService } from '../../core/data/request.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { Subscription } from './models/subscription.model';
-import { dataService } from '../../core/data/base/data-service.decorator';
-import { SUBSCRIPTION } from './models/subscription.resource-type';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { isNotEmpty, isNotEmptyOperator } from '../empty.util';
@@ -40,7 +38,6 @@ import { followLink } from '../utils/follow-link-config.model';
 @Injectable({
   providedIn: 'root'
 })
-@dataService(SUBSCRIPTION)
 export class SubscriptionsDataService extends IdentifiableDataService<Subscription> {
   protected findByEpersonLinkPath = 'findByEPerson';
 

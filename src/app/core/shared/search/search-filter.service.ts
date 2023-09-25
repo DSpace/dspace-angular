@@ -31,7 +31,7 @@ export const REFRESH_FILTER: InjectionToken<BehaviorSubject<any>> = new Injectio
 /**
  * Service that performs all actions that have to do with search filters and facets
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SearchFilterService {
 
   constructor(private store: Store<SearchFiltersState>,

@@ -7,7 +7,7 @@ import { FacetValues } from '../../shared/search/models/facet-values.model';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { RestRequest } from './rest-request.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class FacetValueResponseParsingService extends DspaceRestResponseParsingService {
   parse(request: RestRequest, data: RawRestResponse): ParsedResponse {
     const payload = data.payload;

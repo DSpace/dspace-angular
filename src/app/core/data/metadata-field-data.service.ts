@@ -5,7 +5,6 @@ import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { METADATA_FIELD } from '../metadata/metadata-field.resource-type';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -21,13 +20,11 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DeleteData, DeleteDataImpl } from './base/delete-data';
 import { IdentifiableDataService } from './base/identifiable-data.service';
-import { dataService } from './base/data-service.decorator';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the metadatafields endpoint
  */
-@Injectable()
-@dataService(METADATA_FIELD)
+@Injectable({ providedIn: 'root' })
 export class MetadataFieldDataService extends IdentifiableDataService<MetadataField> implements CreateData<MetadataField>, PutData<MetadataField>, DeleteData<MetadataField>, SearchData<MetadataField> {
   private createData: CreateData<MetadataField>;
   private searchData: SearchData<MetadataField>;

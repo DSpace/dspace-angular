@@ -12,7 +12,7 @@ import { MyDSpaceConfigurationService } from './my-dspace-configuration.service'
  * Prevent unauthorized activating and loading of mydspace configuration
  * @class MyDSpaceGuard
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MyDSpaceGuard implements CanActivate {
 
   /**

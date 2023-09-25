@@ -16,7 +16,6 @@ import { AppComponent } from './app.component';
 import { appEffects } from './app.effects';
 import { appMetaReducers, debugMetaReducers } from './app.metareducers';
 import { appReducers, AppState, storeModuleConfig } from './app.reducer';
-import { CoreModule } from './core/core.module';
 import { ClientCookieService } from './core/services/client-cookie.service';
 import { NavbarModule } from './navbar/navbar.module';
 import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
@@ -30,6 +29,8 @@ import { EagerThemesModule } from '../themes/eager-themes.module';
 import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
 import { StoreDevModules } from '../config/store/devtools';
 import { RootModule } from './root.module';
+import { models, provideCore } from './core/provide-core';
+import { ThemedRootComponent } from './root/themed-root.component';
 
 export function getConfig() {
   return environment;
@@ -51,7 +52,6 @@ const IMPORTS = [
   NavbarModule,
   HttpClientModule,
   AppRoutingModule,
-  CoreModule.forRoot(),
   ScrollToModule.forRoot(),
   NgbModule,
   TranslateModule.forRoot(),
@@ -107,27 +107,24 @@ const PROVIDERS = [
   ...DYNAMIC_MATCHER_PROVIDERS,
 ];
 
-const DECLARATIONS = [
-  AppComponent,
-];
-
-const EXPORTS = [
-];
 
 @NgModule({
-    imports: [
-        BrowserModule.withServerTransition({ appId: 'dspace-angular' }),
-        ...IMPORTS,
-        ...DECLARATIONS
-    ],
-    providers: [
-        ...PROVIDERS
-    ],
-    exports: [
-        ...EXPORTS,
-        ...DECLARATIONS,
-    ]
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    BrowserModule.withServerTransition({appId: 'dspace-angular'}),
+    ...IMPORTS,
+    ThemedRootComponent
+  ],
+  providers: [
+    ...PROVIDERS,
+    provideCore(),
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 
+  /* Use models object so all decorators are actually called */
+  modelList = models;
 }

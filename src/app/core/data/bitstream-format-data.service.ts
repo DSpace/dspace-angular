@@ -2,14 +2,17 @@ import { Injectable } from '@angular/core';
 import { createSelector, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, tap } from 'rxjs/operators';
-import { BitstreamFormatsRegistryDeselectAction, BitstreamFormatsRegistryDeselectAllAction, BitstreamFormatsRegistrySelectAction } from '../../admin/admin-registries/bitstream-formats/bitstream-format.actions';
+import {
+  BitstreamFormatsRegistryDeselectAction,
+  BitstreamFormatsRegistryDeselectAllAction,
+  BitstreamFormatsRegistrySelectAction
+} from '../../admin/admin-registries/bitstream-formats/bitstream-format.actions';
 import { BitstreamFormatRegistryState } from '../../admin/admin-registries/bitstream-formats/bitstream-format.reducers';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { coreSelector } from '../core.selectors';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
-import { BITSTREAM_FORMAT } from '../shared/bitstream-format.resource-type';
 import { Bitstream } from '../shared/bitstream.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteData } from './remote-data';
@@ -24,7 +27,6 @@ import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model'
 import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { NoContent } from '../shared/NoContent.model';
-import { dataService } from './base/data-service.decorator';
 
 const bitstreamFormatsStateSelector = createSelector(
   coreSelector,
@@ -38,8 +40,7 @@ const selectedBitstreamFormatSelector = createSelector(
 /**
  * A service responsible for fetching/sending data from/to the REST API on the bitstreamformats endpoint
  */
-@Injectable()
-@dataService(BITSTREAM_FORMAT)
+@Injectable({ providedIn: 'root' })
 export class BitstreamFormatDataService extends IdentifiableDataService<BitstreamFormat> implements FindAllData<BitstreamFormat>, DeleteData<BitstreamFormat> {
 
   protected linkPath = 'bitstreamformats';

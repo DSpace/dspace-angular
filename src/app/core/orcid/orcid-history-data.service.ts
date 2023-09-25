@@ -9,19 +9,16 @@ import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { OrcidHistory } from './model/orcid-history.model';
-import { ORCID_HISTORY } from './model/orcid-history.resource-type';
 import { OrcidQueue } from './model/orcid-queue.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { RestRequest } from '../data/rest-request.model';
 import { sendRequest } from '../shared/request.operators';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * A service that provides methods to make REST requests with Orcid History endpoint.
  */
-@Injectable()
-@dataService(ORCID_HISTORY)
+@Injectable({ providedIn: 'root' })
 export class OrcidHistoryDataService extends IdentifiableDataService<OrcidHistory> {
 
   constructor(

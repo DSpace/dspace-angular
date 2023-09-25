@@ -13,7 +13,7 @@ import { NotificationOptions } from './models/notification-options.model';
 import { NewNotificationAction, RemoveAllNotificationsAction, RemoveNotificationAction } from './notifications.actions';
 import { environment } from '../../../environments/environment';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class NotificationsService {
 
   constructor(private store: Store<Notification>,

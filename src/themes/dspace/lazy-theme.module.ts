@@ -13,7 +13,6 @@ import {
   CollectionFormModule
 } from '../../app/collection-page/collection-form/collection-form.module';
 import { CommunityFormModule } from '../../app/community-page/community-form/community-form.module';
-import { CoreModule } from '../../app/core/core.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { EditItemPageModule } from '../../app/item-page/edit-item-page/edit-item-page.module';
 import { FormsModule } from '@angular/forms';
@@ -81,7 +80,6 @@ const DECLARATIONS = [
     CommunityFormModule,
     CommunityListPageModule,
     CommunityPageModule,
-    CoreModule,
     DragDropModule,
     ItemSharedModule,
     ItemPageModule,

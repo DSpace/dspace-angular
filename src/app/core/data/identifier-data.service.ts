@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { dataService } from './base/data-service.decorator';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -13,12 +12,11 @@ import { CoreState } from '../core-state.model';
 import { Observable } from 'rxjs';
 import { RemoteData } from './remote-data';
 import { Item } from '../shared/item.model';
-import { IDENTIFIERS } from '../../shared/object-list/identifier-data/identifier-data.resource-type';
 import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { map, switchMap } from 'rxjs/operators';
-import {ConfigurationProperty} from '../shared/configuration-property.model';
-import {ConfigurationDataService} from './configuration-data.service';
+import { ConfigurationProperty } from '../shared/configuration-property.model';
+import { ConfigurationDataService } from './configuration-data.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { PostRequest } from './request.models';
 import { sendRequest } from '../shared/request.operators';
@@ -29,8 +27,7 @@ import { RestRequest } from './rest-request.model';
  * from the /identifiers endpoint, as well as the backend configuration that controls whether a 'Register DOI'
  * button appears for admins in the item status page
  */
-@Injectable()
-@dataService(IDENTIFIERS)
+@Injectable({ providedIn: 'root' })
 export class IdentifierDataService extends BaseDataService<IdentifierData> {
 
   constructor(

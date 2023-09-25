@@ -1,6 +1,5 @@
 import { Observable, of as observableOf } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { AUTHORIZATION } from '../../shared/authorization.resource-type';
 import { Authorization } from '../../shared/authorization.model';
 import { RequestService } from '../request.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
@@ -20,13 +19,11 @@ import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { FindListOptions } from '../find-list-options.model';
 import { BaseDataService } from '../base/base-data.service';
 import { SearchData, SearchDataImpl } from '../base/search-data';
-import { dataService } from '../base/data-service.decorator';
 
 /**
  * A service to retrieve {@link Authorization}s from the REST API
  */
-@Injectable()
-@dataService(AUTHORIZATION)
+@Injectable({ providedIn: 'root' })
 export class AuthorizationDataService extends BaseDataService<Authorization> implements SearchData<Authorization> {
   protected linkPath = 'authorizations';
   protected searchByObjectPath = 'object';

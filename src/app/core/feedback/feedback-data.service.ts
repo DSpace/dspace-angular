@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Feedback } from './models/feedback.model';
-import { FEEDBACK } from './models/feedback.resource-type';
 import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
@@ -13,13 +12,11 @@ import { IdentifiableDataService } from '../data/base/identifiable-data.service'
 import { RemoteData } from '../data/remote-data';
 import { RequestParam } from '../cache/models/request-param.model';
 import { CreateData, CreateDataImpl } from '../data/base/create-data';
-import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * Service for checking and managing the feedback
  */
-@Injectable()
-@dataService(FEEDBACK)
+@Injectable({ providedIn: 'root' })
 export class FeedbackDataService extends IdentifiableDataService<Feedback> implements CreateData<Feedback> {
   private createData: CreateDataImpl<Feedback>;
 

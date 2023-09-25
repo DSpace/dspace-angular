@@ -3,7 +3,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { METADATA_SCHEMA } from '../metadata/metadata-schema.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from './request.service';
 import { Observable } from 'rxjs';
@@ -19,13 +18,11 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { PaginatedList } from './paginated-list.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { DeleteData, DeleteDataImpl } from './base/delete-data';
-import { dataService } from './base/data-service.decorator';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the metadataschemas endpoint
  */
-@Injectable()
-@dataService(METADATA_SCHEMA)
+@Injectable({ providedIn: 'root' })
 export class MetadataSchemaDataService extends IdentifiableDataService<MetadataSchema> implements FindAllData<MetadataSchema>, DeleteData<MetadataSchema> {
   private createData: CreateData<MetadataSchema>;
   private findAllData: FindAllData<MetadataSchema>;

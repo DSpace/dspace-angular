@@ -4,7 +4,6 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
 import { SubmissionCcLicenceUrl } from './models/submission-cc-license-url.model';
-import { SUBMISSION_CC_LICENSE_URL } from './models/submission-cc-licence-link.resource-type';
 import { Field, Option, SubmissionCcLicence } from './models/submission-cc-license.model';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -15,10 +14,8 @@ import { FindListOptions } from '../data/find-list-options.model';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list.model';
-import { dataService } from '../data/base/data-service.decorator';
 
-@Injectable()
-@dataService(SUBMISSION_CC_LICENSE_URL)
+@Injectable({ providedIn: 'root' })
 export class SubmissionCcLicenseUrlDataService extends BaseDataService<SubmissionCcLicenceUrl> implements SearchData<SubmissionCcLicenceUrl> {
   private searchData: SearchDataImpl<SubmissionCcLicenceUrl>;
 

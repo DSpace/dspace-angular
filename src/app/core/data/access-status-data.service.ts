@@ -4,18 +4,15 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from './request.service';
 import { AccessStatusObject } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
-import { ACCESS_STATUS } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
 import { Observable } from 'rxjs';
 import { RemoteData } from './remote-data';
 import { Item } from '../shared/item.model';
 import { BaseDataService } from './base/base-data.service';
-import { dataService } from './base/data-service.decorator';
 
 /**
  * Data service responsible for retrieving the access status of Items
  */
-@Injectable()
-@dataService(ACCESS_STATUS)
+@Injectable({ providedIn: 'root' })
 export class AccessStatusDataService extends BaseDataService<AccessStatusObject> {
 
   constructor(

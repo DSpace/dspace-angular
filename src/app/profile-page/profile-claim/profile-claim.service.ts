@@ -16,7 +16,7 @@ import { createNoContentRemoteDataObject } from '../../shared/remote-data.utils'
 /**
  * Service that handle profiles claim.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ProfileClaimService {
 
   constructor(private searchService: SearchService) {

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { EffectsModule } from '@ngrx/effects';
 
-import { CoreModule } from '../core/core.module';
 import { NavbarEffects } from './navbar.effects';
 import { NavbarSectionComponent } from './navbar-section/navbar-section.component';
 import { ExpandableNavbarSectionComponent } from './expandable-navbar-section/expandable-navbar-section.component';
@@ -32,7 +31,6 @@ const ENTRY_COMPONENTS = [
         MenuModule,
         FormsModule,
         EffectsModule.forFeature(effects),
-        CoreModule.forRoot(),
         ...ENTRY_COMPONENTS,
         NavbarComponent,
         ThemedNavbarComponent

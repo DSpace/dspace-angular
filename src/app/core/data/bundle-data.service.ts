@@ -27,10 +27,7 @@ import { dataService } from './base/data-service.decorator';
 /**
  * A service to retrieve {@link Bundle}s from the REST API
  */
-@Injectable(
-  { providedIn: 'root' },
-)
-@dataService(BUNDLE)
+@Injectable({ providedIn: 'root' })
 export class BundleDataService extends IdentifiableDataService<Bundle> implements PatchData<Bundle> {
   private bitstreamsEndpoint = 'bitstreams';
 

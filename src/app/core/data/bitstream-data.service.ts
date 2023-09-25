@@ -7,7 +7,6 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Bitstream } from '../shared/bitstream.model';
-import { BITSTREAM } from '../shared/bitstream.resource-type';
 import { Bundle } from '../shared/bundle.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
@@ -32,16 +31,12 @@ import { DeleteData, DeleteDataImpl } from './base/delete-data';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NoContent } from '../shared/NoContent.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
-import { dataService } from './base/data-service.decorator';
 import { Operation, RemoveOperation } from 'fast-json-patch';
 
 /**
  * A service to retrieve {@link Bitstream}s from the REST API
  */
-@Injectable({
-  providedIn: 'root',
-})
-@dataService(BITSTREAM)
+@Injectable({ providedIn: 'root' })
 export class BitstreamDataService extends IdentifiableDataService<Bitstream> implements SearchData<Bitstream>, PatchData<Bitstream>, DeleteData<Bitstream> {
   private searchData: SearchDataImpl<Bitstream>;
   private patchData: PatchDataImpl<Bitstream>;

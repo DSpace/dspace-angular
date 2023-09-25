@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgIf } from '@angular/common';
 
 /**
  * This component renders any content inside of this component.
@@ -12,7 +13,8 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./comcol-page-content.component.scss'],
   templateUrl: './comcol-page-content.component.html',
   imports: [
-    TranslateModule
+    TranslateModule,
+    NgIf
   ],
   standalone: true
 })

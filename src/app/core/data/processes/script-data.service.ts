@@ -10,7 +10,6 @@ import { RemoteData } from '../remote-data';
 import { MultipartPostRequest } from '../request.models';
 import { RequestService } from '../request.service';
 import { Observable } from 'rxjs';
-import { SCRIPT } from '../../../process-page/scripts/script.resource-type';
 import { Process } from '../../../process-page/processes/process.model';
 import { hasValue } from '../../../shared/empty.util';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
@@ -20,15 +19,13 @@ import { FindAllData, FindAllDataImpl } from '../base/find-all-data';
 import { FindListOptions } from '../find-list-options.model';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../paginated-list.model';
-import { dataService } from '../base/data-service.decorator';
 
 export const METADATA_IMPORT_SCRIPT_NAME = 'metadata-import';
 export const METADATA_EXPORT_SCRIPT_NAME = 'metadata-export';
 export const BATCH_IMPORT_SCRIPT_NAME = 'import';
 export const BATCH_EXPORT_SCRIPT_NAME = 'export';
 
-@Injectable()
-@dataService(SCRIPT)
+@Injectable({ providedIn: 'root' })
 export class ScriptDataService extends IdentifiableDataService<Script> implements FindAllData<Script> {
   private findAllData: FindAllDataImpl<Script>;
 

@@ -11,7 +11,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { RemoteData } from '../data/remote-data';
 import { UnCacheableObject } from './uncacheable-object.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HALEndpointService {
 
   constructor(

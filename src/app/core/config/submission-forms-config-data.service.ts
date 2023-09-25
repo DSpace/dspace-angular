@@ -15,7 +15,7 @@ import { dataService } from '../data/base/data-service.decorator';
 /**
  * Data service to retrieve submission form configuration objects from the REST server.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 @dataService(SUBMISSION_FORMS_TYPE)
 export class SubmissionFormsConfigDataService extends ConfigDataService {
   constructor(

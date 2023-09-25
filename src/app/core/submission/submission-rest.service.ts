@@ -26,7 +26,7 @@ import { RestRequest } from '../data/rest-request.model';
 /**
  * The service handling all submission REST requests
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SubmissionRestService {
   protected linkPath = 'workspaceitems';
 

@@ -9,7 +9,7 @@ import cloneDeep from 'lodash/cloneDeep';
  * A class to determine what differs between two
  * DSpaceObjects
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DSOChangeAnalyzer<T extends DSpaceObject> implements ChangeAnalyzer<T> {
 
   /**

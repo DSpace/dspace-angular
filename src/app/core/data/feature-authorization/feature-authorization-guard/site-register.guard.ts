@@ -10,9 +10,7 @@ import { AuthService } from '../../../auth/auth.service';
  * Prevent unauthorized activating and loading of routes when the current authenticated user doesn't have registration
  * rights to the {@link Site}
  */
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class SiteRegisterGuard extends SingleFeatureAuthorizationGuard {
   constructor(protected authorizationService: AuthorizationDataService, protected router: Router, protected authService: AuthService) {
     super(authorizationService, router, authService);

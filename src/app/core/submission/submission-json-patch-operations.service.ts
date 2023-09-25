@@ -13,7 +13,7 @@ import { CoreState } from '../core-state.model';
 /**
  * A service that provides methods to make JSON Patch requests.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SubmissionJsonPatchOperationsService extends JsonPatchOperationsService<SubmitDataResponseDefinitionObject, SubmissionPatchRequest> {
   protected linkPath = '';
   protected patchRequestConstructor = SubmissionPatchRequest;

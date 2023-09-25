@@ -4,7 +4,6 @@ import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.s
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { Process } from '../../../process-page/processes/process.model';
-import { PROCESS } from '../../../process-page/processes/process.resource-type';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { PaginatedList } from '../paginated-list.model';
@@ -15,13 +14,11 @@ import { IdentifiableDataService } from '../base/identifiable-data.service';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { FindAllData, FindAllDataImpl } from '../base/find-all-data';
 import { FindListOptions } from '../find-list-options.model';
-import { dataService } from '../base/data-service.decorator';
 import { DeleteData, DeleteDataImpl } from '../base/delete-data';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NoContent } from '../../shared/NoContent.model';
 
-@Injectable()
-@dataService(PROCESS)
+@Injectable({ providedIn: 'root' })
 export class ProcessDataService extends IdentifiableDataService<Process> implements FindAllData<Process>, DeleteData<Process> {
   private findAllData: FindAllData<Process>;
   private deleteData: DeleteData<Process>;

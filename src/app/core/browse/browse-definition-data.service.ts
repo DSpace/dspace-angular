@@ -1,6 +1,5 @@
 // eslint-disable-next-line max-classes-per-file
 import { Injectable } from '@angular/core';
-import { BROWSE_DEFINITION } from '../shared/browse-definition.resource-type';
 import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -12,7 +11,6 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { FindListOptions } from '../data/find-list-options.model';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { FindAllData, FindAllDataImpl } from '../data/base/find-all-data';
-import { dataService } from '../data/base/data-service.decorator';
 import { isNotEmpty, isNotEmptyOperator, hasValue } from '../../shared/empty.util';
 import { take } from 'rxjs/operators';
 import { BrowseDefinitionRestRequest } from '../data/request.models';
@@ -62,7 +60,6 @@ class BrowseDefinitionFindAllDataImpl extends FindAllDataImpl<BrowseDefinition> 
 @Injectable({
   providedIn: 'root',
 })
-@dataService(BROWSE_DEFINITION)
 export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseDefinition> implements FindAllData<BrowseDefinition>, SearchData<BrowseDefinition> {
   private findAllData: BrowseDefinitionFindAllDataImpl;
   private searchData: SearchDataImpl<BrowseDefinition>;

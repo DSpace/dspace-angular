@@ -10,10 +10,8 @@ import { IdentifiableDataService } from './base/identifiable-data.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { FindAllData, FindAllDataImpl } from './base/find-all-data';
 import { FindListOptions } from './find-list-options.model';
-import { dataService } from './base/data-service.decorator';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CreateData, CreateDataImpl } from './base/create-data';
-import { SYSTEMWIDEALERT } from '../../system-wide-alert/system-wide-alert.resource-type';
 import { SystemWideAlert } from '../../system-wide-alert/system-wide-alert.model';
 import { PutData, PutDataImpl } from './base/put-data';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -23,7 +21,6 @@ import { SearchData, SearchDataImpl } from './base/search-data';
  * Dataservice representing a system-wide alert
  */
 @Injectable()
-@dataService(SYSTEMWIDEALERT)
 export class SystemWideAlertDataService extends IdentifiableDataService<SystemWideAlert> implements FindAllData<SystemWideAlert>, CreateData<SystemWideAlert>, PutData<SystemWideAlert>, SearchData<SystemWideAlert> {
   private findAllData: FindAllDataImpl<SystemWideAlert>;
   private createData: CreateDataImpl<SystemWideAlert>;

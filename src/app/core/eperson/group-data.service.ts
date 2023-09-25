@@ -26,7 +26,6 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { Group } from './models/group.model';
-import { GROUP } from './models/group.resource-type';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { Community } from '../shared/community.model';
 import { Collection } from '../shared/collection.model';
@@ -39,7 +38,6 @@ import { PatchData, PatchDataImpl } from '../data/base/patch-data';
 import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
 import { Operation } from 'fast-json-patch';
 import { RestRequestMethod } from '../data/rest-request-method';
-import { dataService } from '../data/base/data-service.decorator';
 
 const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
 const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);
@@ -47,8 +45,7 @@ const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegis
 /**
  * Provides methods to retrieve eperson group resources from the REST API & Group related CRUD actions.
  */
-@Injectable()
-@dataService(GROUP)
+@Injectable({ providedIn: 'root' })
 export class GroupDataService extends IdentifiableDataService<Group> implements CreateData<Group>, SearchData<Group>, PatchData<Group>, DeleteData<Group> {
   protected browseEndpoint = '';
   public ePersonsEndpoint = 'epersons';

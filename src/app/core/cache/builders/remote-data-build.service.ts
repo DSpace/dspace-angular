@@ -27,7 +27,7 @@ import { RequestEntry } from '../../data/request-entry.model';
 import { ResponseState } from '../../data/response-state.model';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class RemoteDataBuildService {
   constructor(protected objectCache: ObjectCacheService,
               protected linkService: LinkService,

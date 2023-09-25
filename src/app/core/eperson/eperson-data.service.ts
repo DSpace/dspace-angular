@@ -23,7 +23,6 @@ import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
-import { EPERSON } from './models/eperson.resource-type';
 import { NoContent } from '../shared/NoContent.model';
 import { PageInfo } from '../shared/page-info.model';
 import { FindListOptions } from '../data/find-list-options.model';
@@ -33,7 +32,6 @@ import { SearchData, SearchDataImpl } from '../data/base/search-data';
 import { PatchData, PatchDataImpl } from '../data/base/patch-data';
 import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
 import { RestRequestMethod } from '../data/rest-request-method';
-import { dataService } from '../data/base/data-service.decorator';
 
 const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
 const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
@@ -41,8 +39,7 @@ const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopl
 /**
  * A service to retrieve {@link EPerson}s from the REST API & EPerson related CRUD actions
  */
-@Injectable()
-@dataService(EPERSON)
+@Injectable({ providedIn: 'root' })
 export class EPersonDataService extends IdentifiableDataService<EPerson> implements CreateData<EPerson>, SearchData<EPerson>, PatchData<EPerson>, DeleteData<EPerson> {
   protected searchByEmailPath = 'byEmail';
   protected searchByMetadataPath = 'byMetadata';

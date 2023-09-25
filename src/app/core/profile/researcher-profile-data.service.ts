@@ -16,7 +16,6 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { ResearcherProfile } from './model/researcher-profile.model';
-import { RESEARCHER_PROFILE } from './model/researcher-profile.resource-type';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { PostRequest } from '../data/request.models';
 import { hasValue, isEmpty } from '../../shared/empty.util';
@@ -32,13 +31,11 @@ import { RestRequestMethod } from '../data/rest-request-method';
 import { RequestParam } from '../cache/models/request-param.model';
 import { FindListOptions } from '../data/find-list-options.model';
 import { PaginatedList } from '../data/paginated-list.model';
-import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * A service that provides methods to make REST requests with researcher profile endpoint.
  */
-@Injectable()
-@dataService(RESEARCHER_PROFILE)
+@Injectable({ providedIn: 'root' })
 export class ResearcherProfileDataService extends IdentifiableDataService<ResearcherProfile> implements CreateData<ResearcherProfile>, SearchData<ResearcherProfile>, PatchData<ResearcherProfile>, DeleteData<ResearcherProfile> {
   private createData: CreateDataImpl<ResearcherProfile>;
   private searchData: SearchDataImpl<ResearcherProfile>;

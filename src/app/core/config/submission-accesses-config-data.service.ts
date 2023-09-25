@@ -3,20 +3,17 @@ import { ConfigDataService } from './config-data.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { SUBMISSION_ACCESSES_TYPE } from './models/config-type';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ConfigObject } from './models/config.model';
 import { SubmissionAccessesModel } from './models/config-submission-accesses.model';
 import { RemoteData } from '../data/remote-data';
 import { Observable } from 'rxjs';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * Provides methods to retrieve, from REST server, bitstream access conditions configurations applicable during the submission process.
  */
 @Injectable()
-@dataService(SUBMISSION_ACCESSES_TYPE)
 export class SubmissionAccessesConfigDataService extends ConfigDataService {
   constructor(
     protected requestService: RequestService,

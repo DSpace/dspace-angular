@@ -6,7 +6,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Community } from '../shared/community.model';
-import { COMMUNITY } from '../shared/community.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ComColDataService } from './comcol-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
@@ -17,10 +16,8 @@ import { BitstreamDataService } from './bitstream-data.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import { FindListOptions } from './find-list-options.model';
-import { dataService } from './base/data-service.decorator';
 
-@Injectable()
-@dataService(COMMUNITY)
+@Injectable({ providedIn: 'root' })
 export class CommunityDataService extends ComColDataService<Community> {
   protected topLinkPath = 'search/top';
 

@@ -10,7 +10,6 @@ import { RemoteData } from '../data/remote-data';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { RESOURCE_POLICY } from './models/resource-policy.resource-type';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { PaginatedList } from '../data/paginated-list.model';
 import { ActionType } from './models/action-type.model';
@@ -32,13 +31,11 @@ import { CreateDataImpl } from '../data/base/create-data';
 import { SearchDataImpl } from '../data/base/search-data';
 import { PatchDataImpl } from '../data/base/patch-data';
 import { DeleteDataImpl } from '../data/base/delete-data';
-import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the resourcepolicies endpoint
  */
-@Injectable()
-@dataService(RESOURCE_POLICY)
+@Injectable({ providedIn: 'root' })
 export class ResourcePolicyDataService extends IdentifiableDataService<ResourcePolicy> {
   protected searchByEPersonMethod = 'eperson';
   protected searchByGroupMethod = 'group';

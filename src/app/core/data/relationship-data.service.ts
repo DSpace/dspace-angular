@@ -4,17 +4,22 @@ import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
 import {
-  compareArraysUsingIds, PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
+  compareArraysUsingIds,
+  PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
   relationsToItems
 } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import { AppState, keySelector } from '../../app.reducer';
 import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
-import { ReorderableRelationship } from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
+import {
+  ReorderableRelationship
+} from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 import {
   RemoveNameVariantAction,
   SetNameVariantAction
 } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
-import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
+import {
+  NameVariantListState
+} from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -23,7 +28,6 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
-import { RELATIONSHIP } from '../shared/item-relationships/relationship.resource-type';
 import { Item } from '../shared/item.model';
 import {
   getFirstCompletedRemoteData,
@@ -44,7 +48,6 @@ import { FindListOptions } from './find-list-options.model';
 import { SearchData, SearchDataImpl } from './base/search-data';
 import { PutData, PutDataImpl } from './base/put-data';
 import { IdentifiableDataService } from './base/identifiable-data.service';
-import { dataService } from './base/data-service.decorator';
 import { itemLinksToFollow } from '../../shared/utils/relation-query.utils';
 import { MetadataValue } from '../shared/metadata.models';
 import { MetadataRepresentation } from '../shared/metadata-representation/metadata-representation.model';
@@ -78,8 +81,7 @@ const compareItemsByUUID = (itemCheck: Item) =>
 /**
  * The service handling all relationship requests
  */
-@Injectable()
-@dataService(RELATIONSHIP)
+@Injectable({ providedIn: 'root' })
 export class RelationshipDataService extends IdentifiableDataService<Relationship> implements SearchData<Relationship> {
   private searchData: SearchData<Relationship>;
   private putData: PutData<Relationship>;

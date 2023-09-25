@@ -5,7 +5,7 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { Injectable } from '@angular/core';
 import { RestRequest } from '../data/rest-request.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 /**
  * A ResponseParsingService used to parse RawRestResponse coming from the REST API to a token string
  * wrapped in a TokenResponse

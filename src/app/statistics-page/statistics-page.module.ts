@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { StatisticsModule } from '../statistics/statistics.module';
 import { UsageReportDataService } from '../core/statistics/usage-report-data.service';
@@ -31,7 +30,6 @@ const components = [
     imports: [
         CommonModule,
         SharedModule,
-        CoreModule.forRoot(),
         StatisticsModule.forRoot(),
         ...components
     ],

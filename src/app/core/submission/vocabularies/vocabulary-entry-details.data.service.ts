@@ -19,14 +19,11 @@ import { RemoteData } from '../../data/remote-data';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { SearchData, SearchDataImpl } from '../../data/base/search-data';
 import { Injectable } from '@angular/core';
-import { VOCABULARY_ENTRY_DETAIL } from './models/vocabularies.resource-type';
-import { dataService } from '../../data/base/data-service.decorator';
 
 /**
  * Data service to retrieve vocabulary entry details from the REST server.
  */
-@Injectable()
-@dataService(VOCABULARY_ENTRY_DETAIL)
+@Injectable({ providedIn: 'root' })
 export class VocabularyEntryDetailsDataService extends IdentifiableDataService<VocabularyEntryDetail> implements FindAllData<VocabularyEntryDetail>, SearchData<VocabularyEntryDetail> {
   private findAllData: FindAllData<VocabularyEntryDetail>;
   private searchData: SearchData<VocabularyEntryDetail>;

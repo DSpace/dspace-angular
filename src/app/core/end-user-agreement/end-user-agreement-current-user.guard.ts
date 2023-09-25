@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 /**
  * A guard redirecting logged in users to the end agreement page when they haven't accepted the latest user agreement
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class EndUserAgreementCurrentUserGuard extends AbstractEndUserAgreementGuard {
 
   constructor(protected endUserAgreementService: EndUserAgreementService,

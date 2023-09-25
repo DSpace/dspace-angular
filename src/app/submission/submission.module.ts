@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 
 import { SubmissionSectionFormComponent } from './sections/form/section-form.component';
@@ -111,7 +110,6 @@ const DECLARATIONS = [
 @NgModule({
     imports: [
         CommonModule,
-        CoreModule.forRoot(),
         SharedModule,
         StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
         EffectsModule.forFeature(submissionEffects),

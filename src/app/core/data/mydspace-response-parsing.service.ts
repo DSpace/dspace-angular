@@ -8,7 +8,7 @@ import { MetadataMap, MetadataValue } from '../shared/metadata.models';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { RestRequest } from './rest-request.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MyDSpaceResponseParsingService extends DspaceRestResponseParsingService {
   parse(request: RestRequest, data: RawRestResponse): ParsedResponse {
     // fallback for unexpected empty response

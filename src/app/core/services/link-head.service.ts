@@ -4,7 +4,7 @@ import { DOCUMENT } from '@angular/common';
 /**
  * LinkHead Service injects <link> tag into the head element during runtime.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LinkHeadService {
   constructor(
     private rendererFactory: RendererFactory2,

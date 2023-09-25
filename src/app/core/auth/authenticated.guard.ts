@@ -19,7 +19,7 @@ import { CoreState } from '../core-state.model';
  * Prevent unauthorized activating and loading of routes
  * @class AuthenticatedGuard
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthenticatedGuard implements CanActivate {
 
   /**

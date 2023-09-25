@@ -5,7 +5,6 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { EMPTY, Observable } from 'rxjs';
-import { VERSION } from '../shared/version.resource-type';
 import { VersionHistory } from '../shared/version-history.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
@@ -16,14 +15,12 @@ import { PatchData, PatchDataImpl } from './base/patch-data';
 import { RestRequestMethod } from './rest-request-method';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { IdentifiableDataService } from './base/identifiable-data.service';
-import { dataService } from './base/data-service.decorator';
 import { Operation } from 'fast-json-patch';
 
 /**
  * Service responsible for handling requests related to the Version object
  */
-@Injectable()
-@dataService(VERSION)
+@Injectable({ providedIn: 'root' })
 export class VersionDataService extends IdentifiableDataService<Version> implements PatchData<Version> {
   private patchData: PatchData<Version>;
 

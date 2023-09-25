@@ -20,7 +20,6 @@ import { Collection } from '../shared/collection.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import { ITEM } from '../shared/item.resource-type';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { PaginatedList } from './paginated-list.model';
@@ -45,7 +44,6 @@ import { DeleteData, DeleteDataImpl } from './base/delete-data';
 import { RestRequestMethod } from './rest-request-method';
 import { CreateData, CreateDataImpl } from './base/create-data';
 import { RequestParam } from '../cache/models/request-param.model';
-import { dataService } from './base/data-service.decorator';
 
 /**
  * An abstract service for CRUD operations on Items
@@ -403,8 +401,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
 /**
  * A service for CRUD operations on Items
  */
-@Injectable()
-@dataService(ITEM)
+@Injectable({ providedIn: 'root' })
 export class ItemDataService extends BaseItemDataService {
   constructor(
     protected requestService: RequestService,

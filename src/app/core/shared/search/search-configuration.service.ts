@@ -32,7 +32,7 @@ import { FacetConfigResponse } from '../../../shared/search/models/facet-config-
 /**
  * Service that performs all actions that have to do with the current search configuration
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SearchConfigurationService implements OnDestroy {
 
   /**

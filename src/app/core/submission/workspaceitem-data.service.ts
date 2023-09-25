@@ -15,13 +15,11 @@ import { SearchData, SearchDataImpl } from '../data/base/search-data';
 import { PaginatedList } from '../data/paginated-list.model';
 import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
 import { NoContent } from '../shared/NoContent.model';
-import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * A service that provides methods to make REST requests with workspaceitems endpoint.
  */
-@Injectable()
-@dataService(WorkspaceItem.type)
+@Injectable({ providedIn: 'root' })
 export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceItem> implements SearchData<WorkspaceItem>, DeleteData<WorkspaceItem> {
   protected searchByItemLinkPath = 'item';
 
