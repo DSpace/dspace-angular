@@ -21,6 +21,7 @@ import { RequestService } from '../../core/data/request.service';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { UUIDService } from '../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-epeople-registry',
@@ -58,7 +59,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of epeople
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'elp',
+    id: this.uuidService.generate(),
     pageSize: 5,
     currentPage: 1
   });
@@ -93,6 +94,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
               private router: Router,
               private modalService: NgbModal,
               private paginationService: PaginationService,
+              private uuidService: UUIDService,
               public requestService: RequestService) {
     this.currentSearchQuery = '';
     this.currentSearchScope = 'metadata';

@@ -18,6 +18,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { UUIDService } from '../../core/shared/uuid.service';
 
 /**
  * Component displaying a list of all audit about a object in a paginated table
@@ -53,7 +54,7 @@ export class ObjectAuditOverviewComponent implements OnInit {
    * The current pagination configuration for the page
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'oop',
+    id: this.uuidService.generate(),
     pageSize: 10
   });
 
@@ -68,7 +69,8 @@ export class ObjectAuditOverviewComponent implements OnInit {
               protected auditService: AuditDataService,
               protected itemService: ItemDataService,
               protected authorizationService: AuthorizationDataService,
-              protected paginationService: PaginationService) {
+              protected paginationService: PaginationService,
+              protected uuidService: UUIDService) {
   }
 
   ngOnInit(): void {

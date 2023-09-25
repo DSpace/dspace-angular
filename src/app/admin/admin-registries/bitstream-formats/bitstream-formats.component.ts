@@ -13,6 +13,7 @@ import { NoContent } from '../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { UUIDService } from '../../../core/shared/uuid.service';
 
 /**
  * This component renders a list of bitstream formats
@@ -33,7 +34,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
    * Currently simply renders all bitstream formats
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'rbp',
+    id: this.uuidService.generate(),
     pageSize: 20,
     pageSizeOptions: [20, 40, 60, 80, 100]
   });
@@ -43,6 +44,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
               private translateService: TranslateService,
               private bitstreamFormatService: BitstreamFormatDataService,
               private paginationService: PaginationService,
+              private uuidService: UUIDService
   ) {
   }
 
