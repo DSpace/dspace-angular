@@ -1,30 +1,34 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionImportExternalCollectionComponent } from './submission-import-external-collection.component';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { By } from '@angular/platform-browser';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 
 describe('SubmissionImportExternalCollectionComponent test suite', () => {
   let comp: SubmissionImportExternalCollectionComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionImportExternalCollectionComponent>;
+  let themeService = getMockThemeService();
 
-  beforeEach(waitForAsync (() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         SubmissionImportExternalCollectionComponent,
         TestComponent
-    ],
-    providers: [
+      ],
+      providers: [
         NgbActiveModal,
-        SubmissionImportExternalCollectionComponent
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents().then();
+        SubmissionImportExternalCollectionComponent,
+        {provide: ThemeService, useValue: themeService},
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents().then();
   }));
 
   // First test to check the correct component creation
@@ -115,7 +119,7 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       expect(comp.selectedEvent.emit).toHaveBeenCalledWith(selected);
     });
 
-    it('dropdown should be invisible when the component is loading', fakeAsync(() => {
+    it('dropdown should be invisible when the component is loading', () => {
 
       spyOn(comp, 'isLoading').and.returnValue(true);
       fixture.detectChanges();
@@ -124,7 +128,7 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
         const dropdownMenu = fixture.debugElement.query(By.css('ds-themed-collection-dropdown')).nativeElement;
         expect(dropdownMenu.classList).toContain('d-none');
       });
-    }));
+    });
 
   });
 });
