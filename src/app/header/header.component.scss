@@ -22,5 +22,6 @@
 
 .navbar {
   display: flex;
-  gap: 0.25rem;
+  gap: calc(var(--bs-spacer) / 3);
+  align-items: center;
 }
