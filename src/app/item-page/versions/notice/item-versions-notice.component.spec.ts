@@ -12,6 +12,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.u
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ItemVersionsNoticeComponent', () => {
   let component: ItemVersionsNoticeComponent;
@@ -59,7 +60,12 @@ describe('ItemVersionsNoticeComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ItemVersionsNoticeComponent],
+    imports: [
+      TranslateModule.forRoot(),
+      RouterTestingModule.withRoutes([]),
+      ItemVersionsNoticeComponent,
+      NoopAnimationsModule
+    ],
     providers: [
         { provide: VersionHistoryDataService, useValue: versionHistoryServiceSpy }
     ],
