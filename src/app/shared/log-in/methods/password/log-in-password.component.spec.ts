@@ -18,6 +18,8 @@ import { HardRedirectService } from '../../../../core/services/hard-redirect.ser
 import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { AuthorizationDataServiceStub } from '../../../testing/authorization-service.stub';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { ActivatedRoute } from '@angular/router';
 
 describe('LogInPasswordComponent', () => {
 
@@ -62,6 +64,7 @@ describe('LogInPasswordComponent', () => {
         { provide: 'authMethodProvider', useValue: new AuthMethod(AuthMethodType.Password, 0) },
         { provide: 'isStandalonePage', useValue: true },
         { provide: HardRedirectService, useValue: hardRedirectService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         provideMockStore({ initialState }),
     ],
     schemas: [
