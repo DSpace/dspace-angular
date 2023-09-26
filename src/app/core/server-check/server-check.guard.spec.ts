@@ -20,7 +20,8 @@ describe('ServerCheckGuard', () => {
     });
     rootDataServiceStub = jasmine.createSpyObj('RootDataService', {
       checkServerAvailability: jasmine.createSpy('checkServerAvailability'),
-      invalidateRootCache: jasmine.createSpy('invalidateRootCache')
+      invalidateRootCache: jasmine.createSpy('invalidateRootCache'),
+      findRoot: jasmine.createSpy('findRoot')
     });
     redirectUrlTree = new UrlTree();
     router = {
@@ -63,18 +64,23 @@ describe('ServerCheckGuard', () => {
   });
 
   describe(`listenForRouteChanges`, () => {
-    it(`should invalidate the root cache when the method is first called, and then on every NavigationStart event`, () => {
+    it(`should retrieve the root endpoint, without using the cache, when the method is first called`, () => {
         testScheduler.run(() => {
           guard.listenForRouteChanges();
-          expect(rootDataServiceStub.invalidateRootCache).toHaveBeenCalledTimes(1);
+          expect(rootDataServiceStub.findRoot).toHaveBeenCalledWith(false);
+        });
+    });
 
+    it(`should invalidate the root cache on every NavigationStart event`, () => {
+        testScheduler.run(() => {
+          guard.listenForRouteChanges();
           eventSubject.next(new NavigationStart(1,''));
           eventSubject.next(new NavigationEnd(1,'', ''));
           eventSubject.next(new NavigationStart(2,''));
           eventSubject.next(new NavigationEnd(2,'', ''));
           eventSubject.next(new NavigationStart(3,''));
         });
-        expect(rootDataServiceStub.invalidateRootCache).toHaveBeenCalledTimes(4);
+        expect(rootDataServiceStub.invalidateRootCache).toHaveBeenCalledTimes(3);
     });
   });
 });
