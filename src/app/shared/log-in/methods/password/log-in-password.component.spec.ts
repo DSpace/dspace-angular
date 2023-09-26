@@ -23,7 +23,7 @@ import { ActivatedRoute } from '@angular/router';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 
-fdescribe('LogInPasswordComponent', () => {
+describe('LogInPasswordComponent', () => {
 
   let component: LogInPasswordComponent;
   let fixture: ComponentFixture<LogInPasswordComponent>;
