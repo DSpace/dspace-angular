@@ -7,7 +7,9 @@ import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.m
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
-import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import {
+  MetadataFieldWrapperComponent
+} from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
@@ -20,6 +22,13 @@ import { PaginationService } from '../../../../core/pagination/pagination.servic
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
+import { provideMockStore } from '@ngrx/store/testing';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import {
+  ThemedFileDownloadLinkComponent
+} from '../../../../shared/file-download-link/themed-file-download-link.component';
+import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 
 describe('FullFileSectionComponent', () => {
   let comp: FullFileSectionComponent;
@@ -61,20 +70,33 @@ describe('FullFileSectionComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
-        }), BrowserAnimationsModule, FullFileSectionComponent, VarDirective, FileSizePipe, MetadataFieldWrapperComponent],
-    providers: [
-        { provide: BitstreamDataService, useValue: bitstreamDataService },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: PaginationService, useValue: paginationService },
-        { provide: APP_CONFIG, useValue: environment },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        }),
+        BrowserAnimationsModule,
+        FullFileSectionComponent,
+        VarDirective,
+        FileSizePipe,
+        MetadataFieldWrapperComponent
+      ],
+      providers: [
+        provideMockStore(),
+        {provide: BitstreamDataService, useValue: bitstreamDataService},
+        {provide: NotificationsService, useValue: new NotificationsServiceStub()},
+        {provide: SearchConfigurationService, useValue: jasmine.createSpyObj(['getCurrentConfiguration'])},
+        {provide: PaginationService, useValue: paginationService},
+        {provide: APP_CONFIG, useValue: environment},
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(FullFileSectionComponent, {
+        remove: {imports: [PaginationComponent, MetadataFieldWrapperComponent, ThemedFileDownloadLinkComponent, ThemedThumbnailComponent]}
+      })
+      .compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {
