@@ -1,4 +1,4 @@
-<div [ngClass]="searchFilterCount === 0 ? 'd-none' : ''">
+<div [class.d-none]="!availableFilters">
     <h3>{{"search.filters.head" | translate}}</h3>
     <div *ngIf="(filters | async)?.hasSucceeded">
         <div #searchFilter *ngFor="let filter of (filters | async)?.payload; trackBy: trackUpdate">
