@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { BrowserModule, By } from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,7 +19,6 @@ describe('AlertComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
     imports: [
-        BrowserModule,
         CommonModule,
         NoopAnimationsModule,
         TranslateModule.forRoot(),
@@ -104,8 +103,7 @@ describe('AlertComponent test suite', () => {
     selector: 'ds-test-cmp',
     template: ``,
     standalone: true,
-    imports: [BrowserModule,
-        CommonModule]
+    imports: [CommonModule]
 })
 class TestComponent {
 
