@@ -3,7 +3,7 @@ import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/t
 
 import { getTestScheduler } from 'jasmine-marbles';
 import { TranslateModule } from '@ngx-translate/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
@@ -28,6 +28,14 @@ import { ExternalSourceEntry } from '../../core/shared/external-source-entry.mod
 import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HostWindowService } from '../../shared/host-window.service';
+import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import {
+  SubmissionImportExternalSearchbarComponent
+} from './import-external-searchbar/submission-import-external-searchbar.component';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 
 describe('SubmissionImportExternalComponent test suite', () => {
   let comp: SubmissionImportExternalComponent;
@@ -61,11 +69,18 @@ describe('SubmissionImportExternalComponent test suite', () => {
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: NgbModal, useValue: ngbModal },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+        { provide: ThemeService, useValue: getMockThemeService() },
         SubmissionImportExternalComponent
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents().then();
+})
+      .overrideComponent(SubmissionImportExternalComponent, {
+        remove: { imports: [SubmissionImportExternalSearchbarComponent] }
+      })
+      .compileComponents().then();
   }));
 
   // First test to check the correct component creation
