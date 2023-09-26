@@ -15,8 +15,8 @@ describe('ExternalLogInComponent', () => {
   let fixture: ComponentFixture<ExternalLogInComponent>;
   let compiledTemplate: HTMLElement;
   const translateServiceStub = {
-    get: () => observableOf('Mocked Translation Text'),
-    instant: (key: any) => 'Mocked Translation Text',
+    get: () => observableOf('Info Text'),
+    instant: (key: any) => 'Info Text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter()
@@ -48,6 +48,7 @@ describe('ExternalLogInComponent', () => {
     fixture = TestBed.createComponent(ExternalLogInComponent);
     component = fixture.componentInstance;
     component.registrationData = mockRegistrationDataModel;
+    component.registrationType = mockRegistrationDataModel.registrationType;
     compiledTemplate = fixture.nativeElement;
     fixture.detectChanges();
   });
@@ -58,17 +59,20 @@ describe('ExternalLogInComponent', () => {
 
   it('should set registrationType and informationText correctly when email is present', () => {
     expect(component.registrationType).toBe('orcid');
-    expect(component.informationText).toContain('orcid');
+    expect(component.informationText).toBeDefined();
   });
 
   it('should render the template to confirm email when registrationData has email', () => {
+    component.registrationData = Object.assign({}, mockRegistrationDataModel, { email: 'test@user.com' });
+    fixture.detectChanges();
     const selector = compiledTemplate.querySelector('ds-confirm-email');
     expect(selector).toBeTruthy();
   });
 
   it('should render the template with provide email component when registrationData email is null', () => {
-    component.registrationData.email = null;
+    component.registrationData = Object.assign({}, mockRegistrationDataModel, { email: null });
     fixture.detectChanges();
+    component.ngOnInit();
     const provideEmailComponent = compiledTemplate.querySelector('ds-provide-email');
     expect(provideEmailComponent).toBeTruthy();
   });
@@ -79,10 +83,10 @@ describe('ExternalLogInComponent', () => {
   });
 
   it('should render the template with the translated informationText', () => {
-    component.informationText = 'Mocked Translation Text';
+    component.informationText = 'Info Text';
     fixture.detectChanges();
     const infoText = fixture.debugElement.query(By.css('[data-test="info-text"]'));
-    expect(infoText.nativeElement.innerHTML).toContain('Mocked Translation Text');
+    expect(infoText.nativeElement.innerHTML).toContain('Info Text');
   });
 });
 

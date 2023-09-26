@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
-import { Observable, Subscription, take } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import uniqBy from 'lodash/uniqBy';
 
@@ -18,7 +18,6 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { CoreState } from '../../core/core-state.model';
 import { AuthMethodType } from '../../core/auth/models/auth.method-type';
-import de from 'date-fns/esm/locale/de/index.js';
 
 /**
  * /users/sign-in
@@ -40,6 +39,8 @@ export class LogInComponent implements OnInit, OnDestroy {
   @Input() excludedAuthMethod: AuthMethodType;
 
   @Input() showRegisterLink = true;
+
+  @Input() hideAllLinks = false;
 
   /**
    * The list of authentication methods available

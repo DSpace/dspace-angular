@@ -68,6 +68,7 @@ describe('OrcidConfirmationComponent', () => {
   it('should not render email input when email is null', () => {
     component.registratioData.email = null;
     fixture.detectChanges();
+    component.ngOnInit();
     const emailInput = fixture.nativeElement.querySelector('input[type="email"]');
     expect(emailInput).toBeFalsy();
   });

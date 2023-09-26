@@ -1,6 +1,6 @@
 import { AuthMethodType } from 'src/app/core/auth/models/auth.method-type';
 import { RegistrationData } from './registration-data.model';
-import { MetadataValue } from 'src/app/core/shared/metadata.models';
+import { MetadataValue } from '../../../core/shared/metadata.models';
 
 export const mockRegistrationDataModel: RegistrationData = Object.assign( new RegistrationData(), {
   id: '3',
@@ -11,7 +11,7 @@ export const mockRegistrationDataModel: RegistrationData = Object.assign( new Re
   registrationMetadata: {
     'eperson.firstname': [
       Object.assign(new MetadataValue(), {
-        value: 'Power',
+        value: 'User',
         language: null,
         authority: '',
         confidence: -1,
@@ -20,7 +20,7 @@ export const mockRegistrationDataModel: RegistrationData = Object.assign( new Re
     ],
     'eperson.lastname': [
       Object.assign(new MetadataValue(), {
-        value: 'User',
+        value: 'Power',
         language: null,
         authority: '',
         confidence: -1,

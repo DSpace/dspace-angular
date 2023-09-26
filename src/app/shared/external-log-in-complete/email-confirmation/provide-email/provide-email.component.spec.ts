@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { EpersonRegistrationService } from '../../../../core/data/eperson-registration.service';
 
 describe('ProvideEmailComponent', () => {
   let component: ProvideEmailComponent;
@@ -16,6 +17,7 @@ describe('ProvideEmailComponent', () => {
       declarations: [ ProvideEmailComponent ],
       providers: [
         FormBuilder,
+        { provide: EpersonRegistrationService, useValue: {} },
       ],
       imports: [
         CommonModule,

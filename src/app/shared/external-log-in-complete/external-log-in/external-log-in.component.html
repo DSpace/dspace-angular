@@ -8,22 +8,42 @@
 <div class="row mb-3" [attr.data-test]="'info-text'">
   {{ informationText }}
 </div>
-<div class="row">
-  <div class="col">
-    <ng-container *ngIf="registrationData?.email;else provideEmail">
+<div class="row justify-content-center">
+  <div class="col-4 d-flex justify-content-end align-items-center">
+    <ng-container *ngIf="registrationData.email; else provideEmail">
       <ds-confirm-email [registrationId]="registrationData.id" [token]="token"></ds-confirm-email>
     </ng-container>
     <ng-template #provideEmail>
       <ds-provide-email [registrationId]="registrationData.id" [token]="token"></ds-provide-email>
     </ng-template>
   </div>
-  <div class="col-2 align-items-center col-2 d-flex justify-content-center">
-    <h4>or</h4>
+  <div class="col-1 align-items-center d-flex justify-content-center">
+    <h4 class="mt-2">or</h4>
   </div>
-  <div class="col">
-    <ds-log-in
-      [excludedAuthMethod]="registrationType"
-      [showRegisterLink]="false"
-    ></ds-log-in>
+  <div class="col-4 align-items-center d-flex justify-content-start">
+    <button class="btn btn block btn-lg btn-primary" (click)="openLoginModal(loginModal)">
+      Connect to an existing user
+    </button>
   </div>
 </div>
+
+<ng-template #loginModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title text-info">{{'Connect to an existing user' | translate}}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row justify-content-center">
+      <ds-log-in
+        [excludedAuthMethod]="registrationType"
+        [showRegisterLink]="false"
+        [isStandalonePage]="false"
+      ></ds-log-in>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary btn-sm" (click)="c('Close click')">
+      <i class="fa fa-times" aria-hidden="true"></i>
+      Close
+    </button>
+  </div>
+</ng-template>

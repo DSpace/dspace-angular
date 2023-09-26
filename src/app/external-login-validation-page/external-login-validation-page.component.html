@@ -1,0 +1,8 @@
+<div class="container">
+  <ng-container *ngIf="newEmail">
+    <ds-email-validated></ds-email-validated>
+  </ng-container>
+  <ng-container *ngIf="existingEmail">
+    <ds-review-account-info></ds-review-account-info>
+  </ng-container>
+</div>

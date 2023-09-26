@@ -177,6 +177,16 @@ import { RedirectService } from './redirect/redirect.service';
               .then((m) => m.ExternalLoginPageModule)
           },
           {
+            path: 'validate-email',
+            loadChildren: () => import('./external-login-validation-page/external-login-validation-page.module')
+              .then((m) => m.ExternalLoginValidationPageModule)
+          },
+          {
+            path: 'email-confirmation',
+            loadChildren: () => import('./external-login-email-confirmation-page/external-login-email-confirmation-page.module')
+              .then((m) => m.ExternalLoginEmailConfirmationPageModule)
+          },
+          {
             path: 'logout',
             loadChildren: () => import('./logout-page/logout-page.module')
               .then((m) => m.LogoutPageModule)

@@ -1,21 +1,30 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Injector } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input,
+  Injector,
+} from '@angular/core';
 import { getExternalLoginConfirmationType } from '../external-log-in.methods-decorator';
 import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
 import { RegistrationData } from '../models/registration-data.model';
 import { hasValue } from '../../empty.util';
 import { TranslateService } from '@ngx-translate/core';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../../../core/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-external-log-in',
   templateUrl: './external-log-in.component.html',
   styleUrls: ['./external-log-in.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExternalLogInComponent implements OnInit {
   /**
    * The type of registration type to be confirmed
    */
-  registrationType: AuthMethodType = AuthMethodType.Orcid;
+  registrationType: AuthMethodType;
   /**
    * The registration data object
    */
@@ -37,10 +46,25 @@ export class ExternalLogInComponent implements OnInit {
    */
   public objectInjector: Injector;
 
+  /**
+   * Reference to NgbModal
+   */
+  public modalRef: NgbModalRef;
+
   constructor(
     private injector: Injector,
     private translate: TranslateService,
+    private modalService: NgbModal,
+    private authService: AuthService,
+    private router: Router
   ) {
+    // if user is logged in, redirect to home page
+    // in case user logs in with an existing account
+    this.authService.isAuthenticated().subscribe((isAuthenticated: boolean) => {
+      if (isAuthenticated) {
+        this.router.navigate(['/']);
+      }
+    });
   }
 
   /**
@@ -50,9 +74,13 @@ export class ExternalLogInComponent implements OnInit {
   ngOnInit(): void {
     this.objectInjector = Injector.create({
       providers: [
-        { provide: 'registrationDataProvider', useFactory: () => (this.registrationData), deps: [] },
+        {
+          provide: 'registrationDataProvider',
+          useFactory: () => this.registrationData,
+          deps: [],
+        },
       ],
-      parent: this.injector
+      parent: this.injector,
     });
     this.registrationType = this.registrationData?.registrationType ?? null;
     this.informationText = hasValue(this.registrationData?.email)
@@ -67,7 +95,9 @@ export class ExternalLogInComponent implements OnInit {
   private generateInformationTextWhenNOEmail(authMethod: string): string {
     if (authMethod) {
       const authMethodUppercase = authMethod.toUpperCase();
-      return this.translate.instant('external-login.noEmail.informationText', { authMethod: authMethodUppercase });
+      return this.translate.instant('external-login.noEmail.informationText', {
+        authMethod: authMethodUppercase,
+      });
     }
   }
 
@@ -78,7 +108,10 @@ export class ExternalLogInComponent implements OnInit {
   private generateInformationTextWhenEmail(authMethod: string): string {
     if (authMethod) {
       const authMethodUppercase = authMethod.toUpperCase();
-      return this.translate.instant('external-login.haveEmail.informationText', { authMethod: authMethodUppercase });
+      return this.translate.instant(
+        'external-login.haveEmail.informationText',
+        { authMethod: authMethodUppercase }
+      );
     }
   }
 
@@ -87,5 +120,13 @@ export class ExternalLogInComponent implements OnInit {
    */
   getExternalLoginConfirmationType() {
     return getExternalLoginConfirmationType(this.registrationType);
+  }
+
+  openLoginModal(content: any) {
+    this.modalRef = this.modalService.open(content);
+  }
+
+  ngOnDestroy(): void {
+    this.modalRef?.close();
   }
 }

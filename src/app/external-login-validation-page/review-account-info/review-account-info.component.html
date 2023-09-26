@@ -1,0 +1,45 @@
+<h2>Review your account information</h2>
+
+<p>
+  The information received from ORCID differs from the one recorded in your
+  profile. <br />
+  Please review them and decide if you want to update any of them.After saving
+  you will be redirected to your profile page.
+</p>
+<div class="row justify-content-center table-responsive">
+  <table class="table table-lg">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">
+          <span class="h5 font-weight-bold">Information</span>
+        </th>
+        <th scope="col">
+          <span class="h5 font-weight-bold">Received value</span>
+        </th>
+        <th scope="col">
+          <span class="h5 font-weight-bold">Current value</span>
+        </th>
+        <th scope="col"><span class="h5 font-weight-bold">Override</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of dataToCompare">
+        <th scope="row">{{ data.label }}</th>
+        <td>{{ data.receivedValue }}</td>
+        <td>
+          <span [innerHTML]="data.receivedValue | dsCompareValues: data.currentValue">
+          </span>
+        </td>
+        <td>
+          <ui-switch
+            *ngIf="data.receivedValue !== data.currentValue && data.label !== registeredData.registrationType"
+            [checkedLabel]="'ON' | translate"
+            [uncheckedLabel]="'OFF' | translate"
+            [checked]="data.overrideValue"
+            (change)="test($event, data.identifier)"
+          ></ui-switch>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

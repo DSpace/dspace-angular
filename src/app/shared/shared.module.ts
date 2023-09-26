@@ -337,7 +337,6 @@ import { OrcidConfirmationComponent } from './external-log-in-complete/registrat
 import { ProvideEmailComponent } from './external-log-in-complete/email-confirmation/provide-email/provide-email.component';
 import { ConfirmEmailComponent } from './external-log-in-complete/email-confirmation/confirm-email/confirm-email.component';
 import { ConfirmationSentComponent } from './external-log-in-complete/email-confirmation/confirmation-sent/confirmation-sent.component';
-import { EmailValidatedComponent } from './external-log-in-complete/email-confirmation/email-validated/email-validated.component';
 
 const MODULES = [
   CommonModule,
@@ -477,6 +476,9 @@ const COMPONENTS = [
   ThemedBrowseMostElementsComponent,
   SearchChartBarHorizontalComponent,
   ExternalLogInComponent,
+  ProvideEmailComponent,
+  ConfirmEmailComponent,
+  ConfirmationSentComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -591,10 +593,6 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...ENTRY_COMPONENTS,
     ...DIRECTIVES,
-    ProvideEmailComponent,
-    ConfirmEmailComponent,
-    ConfirmationSentComponent,
-    EmailValidatedComponent,
   ],
   providers: [
     ...PROVIDERS
