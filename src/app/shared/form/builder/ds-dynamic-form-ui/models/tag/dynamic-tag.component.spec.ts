@@ -21,6 +21,7 @@ import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService
 } from '../../../../../testing/dynamic-form-mock-services';
+import { TranslateModule } from '@ngx-translate/core';
 
 function createKeyUpEvent(key: number) {
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
@@ -76,6 +77,7 @@ describe('DsDynamicTagComponent test suite', () => {
     init();
     TestBed.configureTestingModule({
     imports: [
+        TranslateModule.forRoot(),
         DynamicFormsCoreModule,
         DynamicFormsNGBootstrapUIModule,
         FormsModule,
