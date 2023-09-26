@@ -10,6 +10,17 @@ import { ItemSearchResult } from '../../../../../object-collection/shared/item-s
 import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock, UNDEFINED_NAME } from '../../../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../../../config/app-config.interface';
+import { getMockThemeService } from '../../../../../mocks/theme-service.mock';
+import { ThemeService } from '../../../../../theme-support/theme.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedBadgesComponent } from '../../../../../object-collection/shared/badges/themed-badges.component';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../../../../testing/active-router.stub';
+import { AuthService } from '../../../../../../core/auth/auth.service';
+import { AuthServiceStub } from '../../../../../testing/auth-service.stub';
+import { AuthorizationDataService } from '../../../../../../core/data/feature-authorization/authorization-data.service';
+import { TruncatableComponent } from '../../../../../truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../../truncatable/truncatable-part/truncatable-part.component';
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
@@ -187,15 +198,29 @@ const enviromentNoThumbs = {
 describe('ItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [ItemSearchResultListElementComponent, TruncatePipe],
+    imports: [
+      TranslateModule.forRoot(),
+      ItemSearchResultListElementComponent,
+      TruncatePipe
+    ],
     providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: AuthService, useValue: new AuthServiceStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        {
+          provide: AuthorizationDataService,
+          useValue: jasmine.createSpyObj('AuthorizationDataService', [
+            'invalidateAuthorizationsRequestCache'
+          ])
+        }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(ItemSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      add: {changeDetection: ChangeDetectionStrategy.Default},
+      remove: { imports: [ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent]}
     }).compileComponents();
   }));
 
