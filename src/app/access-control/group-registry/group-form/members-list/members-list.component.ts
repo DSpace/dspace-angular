@@ -29,8 +29,8 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
  */
 enum SubKey {
   ActiveGroup,
-  MembersDTO,
-  SearchResultsDTO,
+  Members,
+  SearchResults,
 }
 
 /**
@@ -166,8 +166,8 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * @private
    */
   retrieveMembers(page: number): void {
-    this.unsubFrom(SubKey.MembersDTO);
-    this.subs.set(SubKey.MembersDTO,
+    this.unsubFrom(SubKey.Members);
+    this.subs.set(SubKey.Members,
       this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
         switchMap((currentPagination) => {
           return this.ePersonDataService.findListByHref(this.groupBeingEdited._links.epersons.href, {
@@ -239,8 +239,8 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * @param data  Contains scope and query param
    */
   search(data: any) {
-    this.unsubFrom(SubKey.SearchResultsDTO);
-    this.subs.set(SubKey.SearchResultsDTO,
+    this.unsubFrom(SubKey.SearchResults);
+    this.subs.set(SubKey.SearchResults,
       this.paginationService.getCurrentPagination(this.configSearch.id, this.configSearch).pipe(
         switchMap((paginationOptions) => {
 
