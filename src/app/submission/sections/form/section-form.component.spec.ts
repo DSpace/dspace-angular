@@ -25,7 +25,6 @@ import { SectionsType } from '../sections-type';
 import {
   mockSubmissionCollectionId, mockSubmissionId, mockUploadResponse1ParsedErrors,
 } from '../../../shared/mocks/submission.mock';
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -44,6 +43,8 @@ import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.u
 import { cold } from 'jasmine-marbles';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('FormOperationsService', {
@@ -144,6 +145,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
   let submissionServiceStub: SubmissionServiceStub;
   let notificationsServiceStub: NotificationsServiceStub;
   let formService: any = getMockFormService();
+  let themeService = getMockThemeService();
 
   let formOperationsService: any;
   let formBuilderService: any;
@@ -158,7 +160,6 @@ describe('SubmissionSectionFormComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
     imports: [
-        BrowserModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -174,6 +175,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
         { provide: SubmissionFormsConfigDataService, useValue: formConfigService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SectionsService, useValue: sectionsServiceStub },
+        { provide: ThemeService, useValue: themeService },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: ObjectCacheService, useValue: { remove: () => { }, hasBySelfLinkObservable: () => observableOf(false), hasByHref$: () => observableOf(false) } },
@@ -631,11 +633,6 @@ describe('SubmissionSectionFormComponent test suite', () => {
     selector: 'ds-test-cmp',
     template: ``,
     standalone: true,
-    imports: [BrowserModule,
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule]
+    imports: [CommonModule, FormsModule, ReactiveFormsModule]
 })
-class TestComponent {
-
-}
+class TestComponent {}
