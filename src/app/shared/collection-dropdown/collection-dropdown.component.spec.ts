@@ -15,6 +15,8 @@ import { CollectionDataService } from '../../core/data/collection-data.service';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { Community } from '../../core/shared/community.model';
 import { MockElementRef } from '../testing/element-ref.mock';
+import { getMockThemeService } from '../mocks/theme-service.mock';
+import { ThemeService } from '../theme-support/theme.service';
 
 const community: Community = Object.assign(new Community(), {
   id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
@@ -100,6 +102,8 @@ describe('CollectionDropdownComponent', () => {
   let fixture: ComponentFixture<CollectionDropdownComponent>;
   let scheduler: TestScheduler;
 
+  let themeService = getMockThemeService();
+
   const collectionDataServiceMock: any = jasmine.createSpyObj('CollectionDataService', {
     getAuthorizedCollection: jasmine.createSpy('getAuthorizedCollection'),
     getAuthorizedCollectionByEntityType: jasmine.createSpy('getAuthorizedCollectionByEntityType')
@@ -123,9 +127,10 @@ describe('CollectionDropdownComponent', () => {
         CollectionDropdownComponent
     ],
     providers: [
-        { provide: CollectionDataService, useValue: collectionDataServiceMock },
-        { provide: ElementRef, useClass: MockElementRef },
-        ChangeDetectorRef
+      {provide: CollectionDataService, useValue: collectionDataServiceMock},
+      {provide: ElementRef, useClass: MockElementRef},
+      ChangeDetectorRef,
+      {provide: ThemeService, useValue: themeService},
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })
