@@ -39,7 +39,7 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { AsyncPipe, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -56,7 +56,8 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
     PaginationComponent,
     NgSwitch,
     NgSwitchCase,
-    NgbTooltipModule
+    NgbTooltipModule,
+    NgForOf
   ],
   standalone: true
 })
