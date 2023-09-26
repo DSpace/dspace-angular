@@ -33,7 +33,7 @@ export class LangSwitchComponent implements OnInit {
     this.activeLangs = environment.languages.filter((MyLangConfig) => MyLangConfig.active === true);
     this.moreThanOneLanguage = (this.activeLangs.length > 1);
     if (!this.moreThanOneLanguage) {
-      this.el.nativeElement.style.display = 'none';
+      this.el.nativeElement.parentElement.classList.add('d-none');
     }
   }
 
