@@ -4,7 +4,7 @@ import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/cor
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 
-import { of as observableOf } from 'rxjs';
+import { of, of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TestScheduler } from 'rxjs/testing';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -23,6 +23,14 @@ import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
 import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
+import { OrcidQueueDataService } from '../../core/orcid/orcid-queue-data.service';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { OrcidHistoryDataService } from '../../core/orcid/orcid-history-data.service';
 
 describe('OrcidPageComponent test suite', () => {
   let comp: OrcidPageComponent;
@@ -32,7 +40,10 @@ describe('OrcidPageComponent test suite', () => {
   let routeStub: jasmine.SpyObj<ActivatedRouteStub>;
   let routeData: any;
   let itemDataService: jasmine.SpyObj<ItemDataService>;
+  let researcherProfileDataService: jasmine.SpyObj<ResearcherProfileDataService>;
   let orcidAuthService: jasmine.SpyObj<OrcidAuthService>;
+  let orcidQueueDataService: jasmine.SpyObj<OrcidQueueDataService>;
+  let orcidHistoryDataService: jasmine.SpyObj<OrcidHistoryDataService>;
 
   const mockResearcherProfile: ResearcherProfile = Object.assign(new ResearcherProfile(), {
     id: 'test-id',
@@ -91,6 +102,23 @@ describe('OrcidPageComponent test suite', () => {
     orcidAuthService = jasmine.createSpyObj('OrcidAuthService', {
       isLinkedToOrcid: jasmine.createSpy('isLinkedToOrcid'),
       linkOrcidByItem: jasmine.createSpy('linkOrcidByItem'),
+      getOrcidAuthorizationScopes: of([]),
+      getOrcidAuthorizationScopesByItem: of([]),
+      onlyAdminCanDisconnectProfileFromOrcid: of(false),
+      ownerCanDisconnectProfileFromOrcid: of(false),
+    });
+
+    researcherProfileDataService = jasmine.createSpyObj('ResearcherProfileDataService', {
+      findById: createSuccessfulRemoteDataObject$(mockResearcherProfile),
+    });
+
+    orcidQueueDataService = jasmine.createSpyObj('OrcidQueueDataService', {
+      searchByProfileItemId: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+      clearFindByProfileItemRequests: jasmine.createSpy('clearFindByProfileItemRequests'),
+    });
+
+    orcidHistoryDataService = jasmine.createSpyObj('OrcidHistoryDataService', {
+      sendToORCID: createSuccessfulRemoteDataObject$(mockItem),
     });
 
     itemDataService = jasmine.createSpyObj('ItemDataService', {
@@ -106,12 +134,18 @@ describe('OrcidPageComponent test suite', () => {
             }
         }),
         RouterTestingModule.withRoutes([]),
-        OrcidPageComponent
+        OrcidPageComponent,
+        NoopAnimationsModule,
     ],
     providers: [
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: OrcidAuthService, useValue: orcidAuthService },
+        { provide: ResearcherProfileDataService, useValue: researcherProfileDataService },
+        { provide: OrcidQueueDataService, useValue: orcidQueueDataService },
+        { provide: OrcidHistoryDataService, useValue: orcidHistoryDataService },
         { provide: AuthService, useValue: authService },
+        { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: ItemDataService, useValue: itemDataService },
         { provide: PLATFORM_ID, useValue: 'browser' },
     ],
