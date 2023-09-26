@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
@@ -21,6 +20,11 @@ import { CollectionSearchResultGridElementComponent } from './collection-search-
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { provideMockStore } from '@ngrx/store/testing';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { AuthServiceStub } from '../../../testing/auth-service.stub';
 
 let collectionSearchResultGridElementComponent: CollectionSearchResultGridElementComponent;
 let fixture: ComponentFixture<CollectionSearchResultGridElementComponent>;
@@ -70,7 +74,8 @@ describe('CollectionSearchResultGridElementComponent', () => {
         { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
-        { provide: Store, useValue: {} },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: AuthService, useValue: new AuthServiceStub() },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: BitstreamDataService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
@@ -80,7 +85,8 @@ describe('CollectionSearchResultGridElementComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamFormatDataService, useValue: {} },
-        { provide: LinkService, useValue: linkService }
+        { provide: LinkService, useValue: linkService },
+        provideMockStore({})
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(CollectionSearchResultGridElementComponent, {
