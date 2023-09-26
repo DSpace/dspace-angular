@@ -25,7 +25,7 @@ export class RootDataService extends BaseDataService<Root> {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super('', requestService, rdbService, objectCache, halService, 60 * 1000);
+    super('', requestService, rdbService, objectCache, halService, 6 * 60 * 60 * 1000);
   }
 
   /**
