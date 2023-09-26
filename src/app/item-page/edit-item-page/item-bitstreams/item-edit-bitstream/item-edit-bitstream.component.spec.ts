@@ -13,6 +13,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-dat
 import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
 import { By } from '@angular/platform-browser';
 import { BrowserOnlyMockPipe } from '../../../../shared/testing/browser-only-mock.pipe';
+import { RouterTestingModule } from '@angular/router/testing';
 
 let comp: ItemEditBitstreamComponent;
 let fixture: ComponentFixture<ItemEditBitstreamComponent>;
@@ -72,7 +73,10 @@ describe('ItemEditBitstreamComponent', () => {
     );
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
+      imports: [
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
+      ],
       declarations: [
         ItemEditBitstreamComponent,
         VarDirective,
