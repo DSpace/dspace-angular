@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
@@ -17,14 +17,17 @@ import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
 export class LdnServiceFormComponent implements OnInit {
     formModel: FormGroup;
 
-    showItemFilterDropdown = false;
+
+
+    //showItemFilterDropdown = false;
 
     public inboundPatterns: object[] = notifyPatterns;
     public outboundPatterns: object[] = notifyPatterns;
     public itemFilterList: LdnServiceConstraint[];
-    additionalOutboundPatterns: FormGroup[] = [];
-    additionalInboundPatterns: FormGroup[] = [];
+    //additionalOutboundPatterns: FormGroup[] = [];
+    //additionalInboundPatterns: FormGroup[] = [];
 
+    //@Input() public status: boolean;
     @Input() public name: string;
     @Input() public description: string;
     @Input() public url: string;
@@ -36,6 +39,12 @@ export class LdnServiceFormComponent implements OnInit {
 
     @Input() public headerKey: string;
 
+    /*
+    get notifyServiceInboundPatternsFormArray(): FormArray {
+        return  this.formModel.get('notifyServiceInboundPatterns') as FormArray;
+    }
+    */
+
     constructor(
         private ldnServicesService: LdnServicesService,
         private ldnDirectoryService: LdnDirectoryService,
@@ -45,9 +54,10 @@ export class LdnServiceFormComponent implements OnInit {
     ) {
 
         this.formModel = this.formBuilder.group({
+            //enabled: true,
             id: [''],
             name: ['', Validators.required],
-            description: ['', Validators.required],
+            description: [''],
             url: ['', Validators.required],
             ldnUrl: ['', Validators.required],
             inboundPattern: [''],
@@ -65,12 +75,23 @@ export class LdnServiceFormComponent implements OnInit {
             this.itemFilterList = itemFilters._embedded.itemfilters.map((filter: { id: string; }) => ({
                 name: filter.id
             }));
-            console.log(this.itemFilterList);
         });
 
     }
 
     submitForm() {
+        this.formModel.get('name').markAsTouched();
+        this.formModel.get('url').markAsTouched();
+        this.formModel.get('ldnUrl').markAsTouched();
+
+        const name = this.formModel.get('name').value;
+        const url = this.formModel.get('url').value;
+        const ldnUrl = this.formModel.get('ldnUrl').value;
+
+        if (!name || !url || !ldnUrl) {
+            return;
+        }
+
         this.formModel.removeControl('inboundPattern');
         this.formModel.removeControl('outboundPattern');
         this.formModel.removeControl('constraintPattern');
@@ -78,7 +99,7 @@ export class LdnServiceFormComponent implements OnInit {
 
         const apiUrl = 'http://localhost:8080/server/api/ldn/ldnservices';
 
-        this.http.post(apiUrl, this.formModel.value ).subscribe(
+        this.http.post(apiUrl, this.formModel.value).subscribe(
             (response) => {
                 console.log('Service created successfully:', response);
                 this.formModel.reset();
@@ -90,16 +111,6 @@ export class LdnServiceFormComponent implements OnInit {
         );
     }
 
-    private validateForm(form: FormGroup): boolean {
-        let valid = true;
-        Object.keys(form.controls).forEach((key) => {
-            if (form.controls[key].invalid) {
-                form.controls[key].markAsDirty();
-                valid = false;
-            }
-        });
-        return valid;
-    }
 
     private sendBack() {
         this.router.navigateByUrl('admin/ldn/services');
@@ -136,7 +147,8 @@ export class LdnServiceFormComponent implements OnInit {
         return this.formBuilder.group({
             pattern: [''],
             constraint: [''],
-            automatic: [true]
+            automatic: false
         });
     }
+
 }

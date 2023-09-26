@@ -4,6 +4,7 @@ import { I18nBreadcrumbResolver } from 'src/app/core/breadcrumbs/i18n-breadcrumb
 import { LdnServicesOverviewComponent } from './ldn-services-directory/ldn-services-directory.component';
 import { LdnServicesGuard } from './ldn-services-guard/ldn-services-guard.service';
 import { LdnServiceNewComponent } from './ldn-service-new/ldn-service-new.component';
+import { LdnServiceFormEditComponent } from './ldn-service-form-edit/ldn-service-form-edit.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,12 @@ import { LdnServiceNewComponent } from './ldn-service-new/ldn-service-new.compon
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: LdnServiceNewComponent,
         data: { title: 'ldn-register-new-service.title', breadcrumbKey: 'ldn-register-new-service' }
+      },
+      {
+        path: 'edit/:serviceId',
+        resolve: { breadcrumb: I18nBreadcrumbResolver },
+        component: LdnServiceFormEditComponent,
+        data: { title: 'ldn-edit-service.title', breadcrumbKey: 'ldn-edit-service' }
       },
     ]),
   ]

@@ -5,6 +5,7 @@ import { LdnServicesOverviewComponent } from './ldn-services-directory/ldn-servi
 import { SharedModule } from '../../shared/shared.module';
 import { LdnServiceNewComponent } from './ldn-service-new/ldn-service-new.component';
 import { LdnServiceFormComponent } from './ldn-service-form/ldn-service-form.component';
+import { LdnServiceFormEditComponent } from './ldn-service-form-edit/ldn-service-form-edit.component';
 
 
 
@@ -18,6 +19,7 @@ import { LdnServiceFormComponent } from './ldn-service-form/ldn-service-form.com
     LdnServicesOverviewComponent,
     LdnServiceNewComponent,
     LdnServiceFormComponent,
+    LdnServiceFormEditComponent,
   ]
 })
 export class AdminLdnServicesModule { }

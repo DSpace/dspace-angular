@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { LdnService } from '../ldn-services-model/ldn-services.model';
 
 @Injectable({
@@ -16,7 +16,11 @@ export class LdnDirectoryService {
 
   public listLdnServices(): Observable<LdnService[]> {
     const endpoint = `${this.baseUrl}`;
-    return this.http.get<LdnService[]>(endpoint);
+    return this.http.get<LdnService[]>(endpoint).pipe(
+        tap(data => {
+          console.log('listLdnServices() Data:', data);
+        })
+    );
   }
 
   public getLdnServiceById(id: string): Observable<LdnService> {
@@ -44,8 +48,8 @@ export class LdnDirectoryService {
   }
 
   public getItemFilters(): Observable<any> {
-    const endpoint = `${this.itemFilterEndpoint}`;
-    return this.http.get(endpoint);
+    const itemFiltersEndpoint = `${this.itemFilterEndpoint}`;
+    return this.http.get(itemFiltersEndpoint);
   }
 
 }

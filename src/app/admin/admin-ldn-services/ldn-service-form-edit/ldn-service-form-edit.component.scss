@@ -1,0 +1,51 @@
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 auto;
+  max-width: 600px;
+  font-size: 14px;
+}
+
+
+.form-group input[type="text"],
+.form-group select {
+  max-width: 100%;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 5px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+
+.description {
+  height: 9em;
+  width: 100%;
+}
+
+
+.form-group select {
+  position: relative;
+  z-index: 1;
+}
+
+
+.form-group select option {
+  font-weight: bold;
+}
+
+.add-pattern-link{
+  color: #0048ff;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.remove-pattern-link{
+  color: #e34949;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+
+

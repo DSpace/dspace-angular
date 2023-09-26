@@ -222,6 +222,18 @@ export class MenuResolver implements Resolve<boolean> {
             text: 'menu.section.new_process',
             link: '/processes/new'
           } as LinkMenuItemModel,
+        },/*  ldn_services */
+        {
+          id: 'ldn_services_new',
+          parentID: 'new',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.services_new',
+            link: '/admin/ldn/services/new'
+          } as LinkMenuItemModel,
+          icon: '',
         },
       ];
       const editSubMenuList = [
@@ -349,6 +361,19 @@ export class MenuResolver implements Resolve<boolean> {
           } as LinkMenuItemModel,
           icon: 'terminal',
           index: 10
+        },
+        /* LDN Services */
+        {
+          id: 'ldn_services',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.services',
+            link: '/admin/ldn/services'
+          } as LinkMenuItemModel,
+          icon: 'inbox',
+          index: 14
         },
         {
           id: 'health',
