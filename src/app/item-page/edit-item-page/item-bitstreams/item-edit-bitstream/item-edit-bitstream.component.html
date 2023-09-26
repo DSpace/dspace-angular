@@ -25,7 +25,7 @@
   <div class="{{columnSizes.columns[3].buildClasses()}} row-element d-flex align-items-center">
     <div class="text-center w-100">
       <div class="btn-group relationship-action-buttons">
-        <a *ngIf="bitstreamDownloadUrl != null" [href]="bitstreamDownloadUrl"
+        <a *ngIf="bitstreamDownloadUrl != null" [routerLink]="bitstreamDownloadUrl"
                 class="btn btn-outline-primary btn-sm"
                 title="{{'item.edit.bitstreams.edit.buttons.download' | translate}}"
                 [attr.data-test]="'download-button' | dsBrowserOnly">
