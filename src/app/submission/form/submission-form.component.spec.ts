@@ -26,6 +26,14 @@ import { Item } from '../../core/shared/item.model';
 import { TestScheduler } from 'rxjs/testing';
 import { SectionsService } from '../sections/sections.service';
 import { VisibilityType } from '../sections/visibility-type';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { SubmissionSectionContainerComponent } from '../sections/container/section-container.component';
+import { SubmissionFormFooterComponent } from './footer/submission-form-footer.component';
+import { SubmissionUploadFilesComponent } from './submission-upload-files/submission-upload-files.component';
+import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
+import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';
 
 describe('SubmissionFormComponent Component', () => {
 
@@ -47,18 +55,30 @@ describe('SubmissionFormComponent Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [SubmissionFormComponent,
-        TestComponent],
+    imports: [SubmissionFormComponent, TestComponent],
     providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionsService, useValue: { isSectionTypeAvailable: () => observableOf(true) } },
+        { provide: ThemeService, useValue: getMockThemeService() },
         ChangeDetectorRef,
         SubmissionFormComponent
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(SubmissionFormComponent, {
+        remove: {
+          imports: [
+            ThemedLoadingComponent,
+            SubmissionSectionContainerComponent,
+            SubmissionFormFooterComponent,
+            SubmissionUploadFilesComponent,
+            SubmissionFormCollectionComponent,
+            SubmissionFormSectionAddComponent
+        ]}
+      })
+      .compileComponents();
   }));
 
   describe('', () => {
