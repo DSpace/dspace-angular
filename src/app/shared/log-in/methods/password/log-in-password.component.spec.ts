@@ -20,14 +20,17 @@ import { AuthorizationDataService } from '../../../../core/data/feature-authoriz
 import { AuthorizationDataServiceStub } from '../../../testing/authorization-service.stub';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { ActivatedRoute } from '@angular/router';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
+import { ThemeService } from '../../../theme-support/theme.service';
 
-describe('LogInPasswordComponent', () => {
+fdescribe('LogInPasswordComponent', () => {
 
   let component: LogInPasswordComponent;
   let fixture: ComponentFixture<LogInPasswordComponent>;
   let page: Page;
   let initialState: any;
   let hardRedirectService: HardRedirectService;
+  let themeService = getMockThemeService();
 
   beforeEach(() => {
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
@@ -65,6 +68,7 @@ describe('LogInPasswordComponent', () => {
         { provide: 'isStandalonePage', useValue: true },
         { provide: HardRedirectService, useValue: hardRedirectService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: ThemeService, useValue: themeService },
         provideMockStore({ initialState }),
     ],
     schemas: [
