@@ -21,6 +21,7 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
 import { CoreState } from '../../core/core-state.model';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ForgotPasswordFormComponent', () => {
   let comp: ForgotPasswordFormComponent;
@@ -53,7 +54,11 @@ describe('ForgotPasswordFormComponent', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule, ForgotPasswordFormComponent],
+    imports: [
+      CommonModule, RouterTestingModule.withRoutes([]),
+      TranslateModule.forRoot(), ReactiveFormsModule, ForgotPasswordFormComponent,
+      NoopAnimationsModule
+    ],
     providers: [
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: route },
