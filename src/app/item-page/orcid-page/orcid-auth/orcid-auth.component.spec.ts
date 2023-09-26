@@ -20,6 +20,7 @@ import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-windo
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('OrcidAuthComponent test suite', () => {
   let comp: OrcidAuthComponent;
@@ -132,7 +133,8 @@ describe('OrcidAuthComponent test suite', () => {
             }
         }),
         RouterTestingModule.withRoutes([]),
-        OrcidAuthComponent
+        OrcidAuthComponent,
+        NoopAnimationsModule
     ],
     providers: [
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
