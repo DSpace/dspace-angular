@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserModule, By } from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
 import { of, of as observableOf } from 'rxjs';
@@ -77,7 +77,6 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
     imports: [
-        BrowserModule,
         CommonModule,
         NgbModule,
         TranslateModule.forRoot(),
@@ -237,7 +236,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     selector: 'ds-test-cmp',
     template: ``,
     standalone: true,
-    imports: [BrowserModule,
+    imports: [
         CommonModule,
         NgbModule]
 })

@@ -383,6 +383,7 @@ describe('Pagination component', () => {
     standalone: true,
     imports: [CommonModule,
         NgxPaginationModule,
+      PaginationComponent,
         NgbModule]
 })
 class TestComponent {

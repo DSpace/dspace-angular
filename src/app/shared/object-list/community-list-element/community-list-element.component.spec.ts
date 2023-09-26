@@ -5,6 +5,8 @@ import { By } from '@angular/platform-browser';
 import { Community } from '../../../core/shared/community.model';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 
 let communityListElementComponent: CommunityListElementComponent;
 let fixture: ComponentFixture<CommunityListElementComponent>;
@@ -37,7 +39,8 @@ describe('CommunityListElementComponent', () => {
     imports: [CommunityListElementComponent],
     providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
-        { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) }
+        { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(CommunityListElementComponent, {

@@ -19,6 +19,8 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { Context } from '../../../../core/shared/context.model';
+import { ThemeService } from '../../../theme-support/theme.service';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
 
 let component: WorkspaceItemSearchResultListElementComponent;
 let fixture: ComponentFixture<WorkspaceItemSearchResultListElementComponent>;
@@ -76,7 +78,8 @@ describe('WorkspaceItemSearchResultListElementComponent', () => {
         { provide: ItemDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(WorkspaceItemSearchResultListElementComponent, {

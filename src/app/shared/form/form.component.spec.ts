@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   DynamicFormArrayModel,
@@ -138,7 +137,6 @@ describe('FormComponent test suite', () => {
     /* TODO make sure these files use mocks instead of real services/components https://github.com/DSpace/dspace-angular/issues/281 */
     TestBed.configureTestingModule({
     imports: [
-        BrowserModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -439,7 +437,7 @@ describe('FormComponent test suite', () => {
     selector: 'ds-test-cmp',
     template: ``,
     standalone: true,
-    imports: [BrowserModule,
+    imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,

@@ -3,6 +3,8 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ImportExternalPageComponent } from './import-external-page.component';
 import { ThemeService } from '../shared/theme-support/theme.service';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 
 describe('ImportExternalPageComponent', () => {
   let component: ImportExternalPageComponent;
@@ -13,6 +15,7 @@ describe('ImportExternalPageComponent', () => {
     imports: [ImportExternalPageComponent],
     providers: [
         { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

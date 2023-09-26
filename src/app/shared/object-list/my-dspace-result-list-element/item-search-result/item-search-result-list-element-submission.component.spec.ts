@@ -14,6 +14,8 @@ import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
 import { Context } from '../../../../core/shared/context.model';
+import { ThemeService } from '../../../theme-support/theme.service';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
 
 let component: ItemSearchResultListElementSubmissionComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementSubmissionComponent>;
@@ -58,7 +60,8 @@ describe('ItemMyDSpaceResultListElementComponent', () => {
     providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: ThemeService, useValue: getMockThemeService() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(ItemSearchResultListElementSubmissionComponent, {

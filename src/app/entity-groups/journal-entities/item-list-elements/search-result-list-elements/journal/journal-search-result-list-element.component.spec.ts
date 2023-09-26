@@ -10,6 +10,8 @@ import { ItemSearchResult } from '../../../../../shared/object-collection/shared
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 
 let journalListElementComponent: JournalSearchResultListElementComponent;
 let fixture: ComponentFixture<JournalSearchResultListElementComponent>;
@@ -72,7 +74,8 @@ describe('JournalSearchResultListElementComponent', () => {
     providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(JournalSearchResultListElementComponent, {
@@ -134,7 +137,8 @@ describe('JournalSearchResultListElementComponent', () => {
     providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(JournalSearchResultListElementComponent, {

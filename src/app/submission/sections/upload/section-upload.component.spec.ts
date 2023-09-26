@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
 import { TranslateModule } from '@ngx-translate/core';
@@ -164,7 +163,6 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
     TestBed.configureTestingModule({
     imports: [
-        BrowserModule,
         CommonModule,
         TranslateModule.forRoot(),
         SubmissionSectionUploadComponent,
@@ -366,7 +364,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
     selector: 'ds-test-cmp',
     template: ``,
     standalone: true,
-    imports: [BrowserModule,
+    imports: [
         CommonModule]
 })
 class TestComponent {

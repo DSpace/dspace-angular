@@ -27,6 +27,8 @@ import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { Context } from '../../../../core/shared/context.model';
+import { ThemeService } from '../../../theme-support/theme.service';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
 
 let component: PoolSearchResultListElementComponent;
 let fixture: ComponentFixture<PoolSearchResultListElementComponent>;
@@ -88,7 +90,8 @@ describe('PoolSearchResultListElementComponent', () => {
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
-        { provide: ObjectCacheService, useValue: objectCacheServiceMock }
+        { provide: ObjectCacheService, useValue: objectCacheServiceMock },
+        { provide: ThemeService, useValue: getMockThemeService() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(PoolSearchResultListElementComponent, {

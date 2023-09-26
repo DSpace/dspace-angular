@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
@@ -114,7 +113,6 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
     imports: [
-        BrowserModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -325,7 +323,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
     selector: 'ds-test-cmp',
     template: ``,
     standalone: true,
-    imports: [BrowserModule,
+    imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule]

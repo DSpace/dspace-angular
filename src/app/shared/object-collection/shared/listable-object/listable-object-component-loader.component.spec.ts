@@ -13,6 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
 import { ThemeService } from '../../../theme-support/theme.service';
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
 
 const testType = 'TestType';
 const testContext = Context.Search;
@@ -35,16 +36,21 @@ describe('ListableObjectComponentLoaderComponent', () => {
       getThemeName: 'dspace',
     });
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), ListableObjectComponentLoaderComponent, ItemListElementComponent, ListableObjectDirective],
-    schemas: [NO_ERRORS_SCHEMA],
-    providers: [
-        provideMockStore({}),
-        { provide: ThemeService, useValue: themeService },
-    ]
-}).overrideComponent(ListableObjectComponentLoaderComponent, {
-      set: {
+      imports: [
+        TranslateModule.forRoot(),
+        ListableObjectComponentLoaderComponent,
+        ItemListElementComponent,
+        ListableObjectDirective
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+          provideMockStore({}),
+          { provide: ThemeService, useValue: themeService },
+          { provide: APP_CONFIG, useValue: { browseBy: { showThumbnails: true } } }
+      ]
+    }).overrideComponent(ListableObjectComponentLoaderComponent, {
+      add: {
         changeDetection: ChangeDetectionStrategy.Default,
-        entryComponents: [ItemListElementComponent]
       }
     }).compileComponents();
   }));

@@ -23,12 +23,12 @@ import { UUIDService } from '../../../../core/shared/uuid.service';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject$
-} from '../../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
+import {
+  GenericItemPageFieldComponent
+} from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import { compareArraysUsing, compareArraysUsingIds } from './item-relationships-utils';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { RouteService } from '../../../../core/services/route.service';
@@ -41,14 +41,16 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { ResearcherProfileDataService } from '../../../../core/profile/researcher-profile-data.service';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
-import {
-  BrowseDefinitionDataServiceStub
-} from '../../../../shared/testing/browse-definition-data-service.stub';
+import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
 
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { Router } from '@angular/router';
 import { ItemComponent } from './item.component';
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { provideMockStore } from '@ngrx/store/testing';
+import { routeServiceStub } from '../../../../shared/testing/route-service.stub';
+
 
 export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
   return Object.assign(new MetadataValue(), {
@@ -73,6 +75,12 @@ export function getIIIFEnabled(enabled: boolean): MetadataValue {
 export const mockRouteService = {
   getPreviousUrl(): Observable<string> {
     return observableOf('');
+  },
+  getQueryParameterValue(): Observable<string> {
+    return observableOf('');
+  },
+  getRouteParameterValue(): Observable<string> {
+    return observableOf('');
   }
 };
 
@@ -87,6 +95,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
   return () => {
     let comp: any;
     let fixture: ComponentFixture<any>;
+    let relationshipService: jasmine.SpyObj<RelationshipDataService>;
 
     beforeEach(waitForAsync(() => {
       const mockBitstreamDataService = {
@@ -97,6 +106,10 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
 
       const authorizationService = jasmine.createSpyObj('authorizationService', {
         isAuthorized: observableOf(true)
+      });
+
+      relationshipService = jasmine.createSpyObj('relationshipService', {
+        getRelatedItemsByLabel: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
       });
 
       TestBed.configureTestingModule({
@@ -111,12 +124,19 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
         component, GenericItemPageFieldComponent, TruncatePipe
     ],
     providers: [
+        {
+          provide: APP_CONFIG,
+          useValue: {
+            browseBy: { showThumbnails: true },
+            markdown: { enabled: true }
+          }
+        },
+        provideMockStore(),
         { provide: ItemDataService, useValue: {} },
         { provide: TruncatableService, useValue: {} },
-        { provide: RelationshipDataService, useValue: {} },
+        { provide: RelationshipDataService, useValue: relationshipService },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
-        { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
@@ -129,7 +149,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
         { provide: WorkspaceitemDataService, useValue: {} },
         { provide: SearchService, useValue: {} },
-        { provide: RouteService, useValue: mockRouteService },
+        { provide: RouteService, useValue: routeServiceStub },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ResearcherProfileDataService, useValue: {} },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },

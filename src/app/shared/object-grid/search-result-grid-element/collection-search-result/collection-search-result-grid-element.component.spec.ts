@@ -70,6 +70,7 @@ describe('CollectionSearchResultGridElementComponent', () => {
         CollectionSearchResultGridElementComponent, TruncatePipe
     ],
     providers: [
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },
         { provide: ObjectCacheService, useValue: {} },

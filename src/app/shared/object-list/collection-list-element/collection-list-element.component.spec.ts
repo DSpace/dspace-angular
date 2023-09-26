@@ -5,6 +5,8 @@ import { By } from '@angular/platform-browser';
 import { Collection } from '../../../core/shared/collection.model';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 
 let collectionListElementComponent: CollectionListElementComponent;
 let fixture: ComponentFixture<CollectionListElementComponent>;
@@ -60,7 +62,8 @@ describe('CollectionListElementComponent', () => {
     imports: [CollectionListElementComponent],
     providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
-        { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) }
+        { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(CollectionListElementComponent, {

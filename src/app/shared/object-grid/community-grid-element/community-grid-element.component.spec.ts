@@ -5,6 +5,8 @@ import { By } from '@angular/platform-browser';
 import { Community } from '../../../core/shared/community.model';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 
 let communityGridElementComponent: CommunityGridElementComponent;
 let fixture: ComponentFixture<CommunityGridElementComponent>;
@@ -44,7 +46,8 @@ describe('CommunityGridElementComponent', () => {
     ],
     providers: [
         { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) },
-        { provide: LinkService, useValue: linkService }
+        { provide: LinkService, useValue: linkService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(CommunityGridElementComponent, {

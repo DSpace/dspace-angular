@@ -5,6 +5,8 @@ import { By } from '@angular/platform-browser';
 import { Collection } from '../../../core/shared/collection.model';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 
 let collectionGridElementComponent: CollectionGridElementComponent;
 let fixture: ComponentFixture<CollectionGridElementComponent>;
@@ -44,7 +46,8 @@ describe('CollectionGridElementComponent', () => {
     ],
     providers: [
         { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },
-        { provide: LinkService, useValue: linkService }
+        { provide: LinkService, useValue: linkService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(CollectionGridElementComponent, {

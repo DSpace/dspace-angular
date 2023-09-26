@@ -21,6 +21,8 @@ import { CommunitySearchResultGridElementComponent } from './community-search-re
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 
 let communitySearchResultGridElementComponent: CommunitySearchResultGridElementComponent;
 let fixture: ComponentFixture<CommunitySearchResultGridElementComponent>;
@@ -80,7 +82,8 @@ describe('CommunitySearchResultGridElementComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamFormatDataService, useValue: {} },
-        { provide: LinkService, useValue: linkService }
+        { provide: LinkService, useValue: linkService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(CommunitySearchResultGridElementComponent, {

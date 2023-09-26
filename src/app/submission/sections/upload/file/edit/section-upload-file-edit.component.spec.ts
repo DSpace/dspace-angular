@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -47,6 +46,7 @@ import {
 } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { dateToISOFormat } from '../../../../../shared/date.util';
 import { of } from 'rxjs';
+import { provideMockStore } from '@ngrx/store/testing';
 
 const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
   add: jasmine.createSpy('add'),
@@ -83,7 +83,6 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
     imports: [
-        BrowserModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -98,6 +97,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
+        provideMockStore(),
         FormBuilderService,
         ChangeDetectorRef,
         SubmissionSectionUploadFileEditComponent,
@@ -135,11 +135,10 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('should create SubmissionSectionUploadFileEditComponent', inject([SubmissionSectionUploadFileEditComponent], (app: SubmissionSectionUploadFileEditComponent) => {
-
+    it('should create SubmissionSectionUploadFileEditComponent', () => {
+      let app = TestBed.inject(SubmissionSectionUploadFileEditComponent);
       expect(app).toBeDefined();
-
-    }));
+    });
   });
 
   describe('', () => {
@@ -317,10 +316,11 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
     selector: 'ds-test-cmp',
     template: ``,
     standalone: true,
-    imports: [BrowserModule,
+    imports: [
         CommonModule,
         FormsModule,
-        ReactiveFormsModule]
+        ReactiveFormsModule
+    ]
 })
 class TestComponent {
 

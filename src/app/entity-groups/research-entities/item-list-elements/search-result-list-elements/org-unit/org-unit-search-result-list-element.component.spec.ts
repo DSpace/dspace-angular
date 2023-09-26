@@ -12,6 +12,8 @@ import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 
 let orgUnitListElementComponent: OrgUnitSearchResultListElementComponent;
 let fixture: ComponentFixture<OrgUnitSearchResultListElementComponent>;
@@ -77,7 +79,8 @@ describe('OrgUnitSearchResultListElementComponent', () => {
     providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(OrgUnitSearchResultListElementComponent, {
@@ -144,7 +147,8 @@ describe('OrgUnitSearchResultListElementComponent', () => {
     providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(OrgUnitSearchResultListElementComponent, {

@@ -18,6 +18,13 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../testing/translate-loader.mock';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { SubmissionServiceStub } from '../../../../testing/submission-service.stub';
+import { getMockThemeService } from '../../../../mocks/theme-service.mock';
+import { ThemeService } from '../../../../theme-support/theme.service';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
+import {
+  ItemSearchResultListElementComponent
+} from '../../../../object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 
 describe('ExistingMetadataListElementComponent', () => {
   let component: ExistingMetadataListElementComponent;
@@ -85,9 +92,14 @@ describe('ExistingMetadataListElementComponent', () => {
         { provide: SelectableListService, useValue: selectionService },
         { provide: Store, useValue: store },
         { provide: SubmissionService, useValue: submissionServiceStub },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })
+      .overrideComponent(ExistingMetadataListElementComponent, {
+        remove: { imports: [ItemSearchResultListElementComponent]}
+      })
       .compileComponents();
   }));
 
