@@ -1,5 +1,5 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
@@ -11,6 +11,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+
 
 let objectUpdatesService;
 const url = 'http://test-url.com/test-url';
@@ -126,10 +133,16 @@ describe('EditRelationshipComponent', () => {
                 }
             },
         },
+        { provide: ThemeService, useValue: getMockThemeService() }
     ], schemas: [
         NO_ERRORS_SCHEMA
     ]
-}).compileComponents();
+})
+      .overrideComponent(EditRelationshipComponent, {
+        remove: { imports: [ VirtualMetadataComponent, ListableObjectComponentLoaderComponent ] },
+        add: { imports: [ MockVirtualMetadataComponent, MockListableObjectComponentLoaderComponent ] }
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -213,3 +226,17 @@ describe('EditRelationshipComponent', () => {
     });
   });
 });
+
+@Component({
+  selector: 'ds-virtual-metadata',
+  template: ``,
+  standalone: true
+})
+class MockVirtualMetadataComponent {}
+
+@Component({
+  selector: 'ds-listable-object-component-loader',
+  template: ``,
+  standalone: true,
+})
+export class MockListableObjectComponentLoaderComponent {}
