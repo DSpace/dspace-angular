@@ -11,8 +11,8 @@ import { ResourceType } from '../../shared/resource-type';
 import { HALDataService } from '../../data/base/hal-data-service.interface';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { lazyService } from '../../lazy-service';
-import { LAZY_DATA_SERVICES } from '../../../data-services';
 import { catchError, switchMap } from 'rxjs/operators';
+import { LAZY_DATA_SERVICES } from '../../data-services-map';
 
 /**
  * A Service to handle the resolving and removing
