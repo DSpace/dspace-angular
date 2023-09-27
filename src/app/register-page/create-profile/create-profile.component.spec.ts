@@ -26,6 +26,9 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
 import { CoreState } from '../../core/core-state.model';
+import {
+  ProfilePageSecurityFormComponent
+} from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 
 describe('CreateProfileComponent', () => {
   let comp: CreateProfileComponent;
@@ -139,7 +142,11 @@ describe('CreateProfileComponent', () => {
         { provide: EndUserAgreementService, useValue: endUserAgreementService },
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(CreateProfileComponent, {
+        remove: { imports: [ProfilePageSecurityFormComponent]}
+      })
+      .compileComponents();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateProfileComponent);
