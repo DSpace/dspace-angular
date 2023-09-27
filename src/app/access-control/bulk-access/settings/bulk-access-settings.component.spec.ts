@@ -3,6 +3,9 @@ import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BulkAccessSettingsComponent } from './bulk-access-settings.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  AccessControlFormContainerComponent
+} from '../../../shared/access-control-form-container/access-control-form-container.component';
 
 describe('BulkAccessSettingsComponent', () => {
   let component: BulkAccessSettingsComponent;
@@ -43,7 +46,11 @@ describe('BulkAccessSettingsComponent', () => {
     await TestBed.configureTestingModule({
     imports: [NgbAccordionModule, TranslateModule.forRoot(), BulkAccessSettingsComponent],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(BulkAccessSettingsComponent, {
+        remove: { imports: [AccessControlFormContainerComponent]}
+      })
+      .compileComponents();
   });
 
   beforeEach(() => {
