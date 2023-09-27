@@ -8,6 +8,9 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { CreateItemParentSelectorComponent } from './create-item-parent-selector.component';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import {
+  AuthorizedCollectionSelectorComponent
+} from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 
 describe('CreateItemParentSelectorComponent', () => {
   let component: CreateItemParentSelectorComponent;
@@ -48,7 +51,11 @@ describe('CreateItemParentSelectorComponent', () => {
         }
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(CreateItemParentSelectorComponent, {
+        remove: { imports: [AuthorizedCollectionSelectorComponent]}
+      })
+      .compileComponents();
 
   }));
 
