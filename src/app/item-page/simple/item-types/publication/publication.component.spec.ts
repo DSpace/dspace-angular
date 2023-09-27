@@ -40,6 +40,31 @@ import { BrowseDefinitionDataService } from '../../../../core/browse/browse-defi
 import {
   BrowseDefinitionDataServiceStub
 } from '../../../../shared/testing/browse-definition-data-service.stub';
+import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
+import {
+  ThemedResultsBackButtonComponent
+} from '../../../../shared/results-back-button/themed-results-back-button.component';
+import { MiradorViewerComponent } from '../../../mirador-viewer/mirador-viewer.component';
+import {
+  ThemedItemPageTitleFieldComponent
+} from '../../field-components/specific-field/title/themed-item-page-field.component';
+import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import {
+  MetadataFieldWrapperComponent
+} from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
+import { ThemedMediaViewerComponent } from '../../../media-viewer/themed-media-viewer.component';
+import { ThemedFileSectionComponent } from '../../field-components/file-section/themed-file-section.component';
+import { ItemPageDateFieldComponent } from '../../field-components/specific-field/date/item-page-date-field.component';
+import {
+  ThemedMetadataRepresentationListComponent
+} from '../../metadata-representation-list/themed-metadata-representation-list.component';
+import { RelatedItemsComponent } from '../../related-items/related-items-component';
+import {
+  ItemPageAbstractFieldComponent
+} from '../../field-components/specific-field/abstract/item-page-abstract-field.component';
+import { ItemPageUriFieldComponent } from '../../field-components/specific-field/uri/item-page-uri-field.component';
+import { CollectionsComponent } from '../../../field-components/collections/collections.component';
 
 const noMetadata = new MetadataMap();
 
@@ -74,7 +99,7 @@ describe('PublicationComponent', () => {
     ],
     providers: [
         { provide: ItemDataService, useValue: {} },
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: RelationshipDataService, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
@@ -96,7 +121,24 @@ describe('PublicationComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(PublicationComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      add: {changeDetection: ChangeDetectionStrategy.Default},
+      remove: {imports: [
+          ThemedResultsBackButtonComponent,
+          MiradorViewerComponent,
+          ThemedItemPageTitleFieldComponent,
+          DsoEditMenuComponent,
+          MetadataFieldWrapperComponent,
+          ThemedThumbnailComponent,
+          ThemedMediaViewerComponent,
+          ThemedFileSectionComponent,
+          ItemPageDateFieldComponent,
+          ThemedMetadataRepresentationListComponent,
+          GenericItemPageFieldComponent,
+          RelatedItemsComponent,
+          ItemPageAbstractFieldComponent,
+          ItemPageUriFieldComponent,
+          CollectionsComponent,
+        ]}
     });
   }));
 
