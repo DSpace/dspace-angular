@@ -15,6 +15,8 @@ import { ItemDataService } from '../../../../../../../core/data/item-data.servic
 import { NotificationsService } from '../../../../../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../remote-data.utils';
 import { createPaginatedList } from '../../../../../../testing/utils.test';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SearchResultsComponent } from '../../../../../../search/search-results/search-results.component';
 
 describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   let component: ExternalSourceEntryImportModalComponent;
@@ -67,7 +69,13 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, ExternalSourceEntryImportModalComponent],
+    imports: [
+      TranslateModule.forRoot(),
+      RouterTestingModule.withRoutes([]),
+      NgbModule,
+      ExternalSourceEntryImportModalComponent,
+      NoopAnimationsModule
+    ],
     providers: [
         { provide: LookupRelationService, useValue: lookupRelationService },
         { provide: SelectableListService, useValue: selectService },
@@ -76,7 +84,11 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
         { provide: NgbActiveModal, useValue: modalStub }
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(ExternalSourceEntryImportModalComponent, {
+        remove: { imports: [SearchResultsComponent]}
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
