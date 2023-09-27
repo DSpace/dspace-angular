@@ -9,6 +9,7 @@ import { FormBuilderService } from '../../shared/form/builder/form-builder.servi
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form.component';
 import { of as observableOf } from 'rxjs';
 import { RestResponse } from '../../core/cache/response.models';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ProfilePageSecurityFormComponent', () => {
   let component: ProfilePageSecurityFormComponent;
@@ -31,7 +32,13 @@ describe('ProfilePageSecurityFormComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ProfilePageSecurityFormComponent, VarDirective],
+    imports: [
+      TranslateModule.forRoot(),
+      RouterTestingModule.withRoutes([]),
+      ProfilePageSecurityFormComponent,
+      VarDirective,
+      NoopAnimationsModule,
+    ],
     providers: [
         { provide: EPersonDataService, useValue: epersonService },
         { provide: NotificationsService, useValue: notificationsService },
