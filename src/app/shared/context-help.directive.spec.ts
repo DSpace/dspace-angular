@@ -11,7 +11,7 @@ import { ContextHelp } from './context-help.model';
 @Component({
     template: `<div *dsContextHelp="contextHelpParams()">some text</div>`,
     standalone: true,
-    imports: [NgbTooltipModule]
+  imports: [NgbTooltipModule, ContextHelpDirective]
 })
 class TestComponent {
   @Input() content = '';
