@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { hasValue } from '../shared/empty.util';
 import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
 import { RemoteData } from '../core/data/remote-data';
@@ -19,15 +19,12 @@ export class ExternalLoginPageComponent implements OnInit {
 
   constructor(
     private epersonRegistrationService: EpersonRegistrationService,
-    private router: Router,
+    private arouter: ActivatedRoute,
   ) {
-    this.token = this.router.parseUrl(this.router.url).queryParams.token;
+    this.token = this.arouter.snapshot.queryParams.token;
   }
 
   ngOnInit(): void {
-    // TODO: call the method getTokenSearchEndpoint (eperson-registration.service.ts )  protected searchByTokenPath = '/search/findByToken?token=';
-    // token will be provided by the url (returned by REST API)
-    console.log('ExternalLoginPageComponent ngOnInit');
     if (hasValue(this.token)) {
       this.epersonRegistrationService.searchByToken(this.token).subscribe((registration: RemoteData<Registration>
         ) => {

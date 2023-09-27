@@ -7,7 +7,7 @@ export const mockRegistrationDataModel: RegistrationData = Object.assign( new Re
   email: 'user@institution.edu',
   user: '028dcbb8-0da2-4122-a0ea-254be49ca107',
   registrationType: AuthMethodType.Orcid,
-  netId: '<:orcid>',
+  netId: '0000-1111-2222-3333',
   registrationMetadata: {
     'eperson.firstname': [
       Object.assign(new MetadataValue(), {

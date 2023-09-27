@@ -150,7 +150,7 @@ export class EpersonRegistrationService{
    * @param updateValue Flag to indicate if the email should be updated or added
    * @returns Remote Data state of the patch request
    */
-  patchUpdateRegistration(value: string, field: string, registrationId: string, token: string, updateValue: boolean) {
+  patchUpdateRegistration(values: string[], field: string, registrationId: string, token: string, operator: 'add' | 'replace') {
     const requestId = this.requestService.generateRequestId();
 
     const href$ = this.getRegistrationEndpoint().pipe(
@@ -159,7 +159,7 @@ export class EpersonRegistrationService{
     );
 
     href$.subscribe((href: string) => {
-      const operations = this.generateOperations(value, field, updateValue);
+      const operations = this.generateOperations(values, field, operator);
       const patchRequest = new PatchRequest(requestId, href, operations);
       this.requestService.send(patchRequest);
     });
@@ -173,17 +173,11 @@ export class EpersonRegistrationService{
    * @param updateValue Flag to indicate if the email should be updated or added
    * @returns Operations to be performed on the registration object
    */
-  private generateOperations(value: string, field: string, updateValue: boolean): Operation[] {
+  private generateOperations(values: string[], field: string, operator: 'add' | 'replace'): Operation[] {
     let operations = [];
-    if (hasValue(value) && updateValue) {
-      operations = [...operations, {
-        op: 'replace', path: `/${field}`, value: value
-      }];
-    }
-
-    if (hasValue(value) && !updateValue) {
-      operations = [...operations, {
-        op: 'add', path: `/${field}`, value: value
+    if (values.length > 0 && hasValue(field) ) {
+      operations = [{
+        op: operator, path: `/${field}`, value: values
       }];
     }
 

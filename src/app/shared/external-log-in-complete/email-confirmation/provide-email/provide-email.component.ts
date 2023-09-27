@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EpersonRegistrationService } from '../../../../core/data/eperson-registration.service';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { getRemoteDataPayload } from '../../../../core/shared/operators';
+import { ExternalLoginService } from '../../services/external-login.service';
 
 @Component({
   selector: 'ds-provide-email',
@@ -18,7 +18,7 @@ export class ProvideEmailComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private epersonRegistrationService: EpersonRegistrationService
+    private externalLoginService: ExternalLoginService,
   ) {
     this.emailForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -29,16 +29,8 @@ export class ProvideEmailComponent {
     this.emailForm.markAllAsTouched();
     if (this.emailForm.valid) {
       const email = this.emailForm.get('email').value;
-      console.log('Email submitted:', email);
-      this.epersonRegistrationService
-        .patchUpdateRegistration(
-          email,
-          'email',
-          this.registrationId,
-          this.token,
-          true
-        )
-        .pipe(getFirstCompletedRemoteData())
+      this.externalLoginService.patchUpdateRegistration([email], 'email', this.registrationId, this.token, 'add')
+        .pipe(getRemoteDataPayload())
         .subscribe((update) => {
           console.log('Email update:', update);
         });

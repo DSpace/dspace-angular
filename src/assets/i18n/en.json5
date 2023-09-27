@@ -1998,6 +1998,13 @@
 
   "confirmation-modal.pending-changes.confirm": "Leave",
 
+  "confirmation-modal.review-account-info.header": "Save the changes",
+
+  "confirmation-modal.review-account-info.info": "Continue to update your profile",
+
+  "confirmation-modal.review-account-info.cancel": "Cancel",
+
+  "confirmation-modal.review-account-info.confirm": "Save",
 
   "dataset.listelement.badge" : "Dataset",
 
@@ -7194,4 +7201,16 @@
   "external-login.provide-email.header": "Provide email",
 
   "external-login.provide-email.button.label": "Send Verification link",
+
+  "external-login-validation.review-account-info.header": "Review your account information",
+
+  "external-login-validation.review-account-info.info": "The information received from ORCID differs from the one recorded in your profile. <br /> Please review them and decide if you want to update any of them.After saving you will be redirected to your profile page.",
+
+  "external-login-validation.review-account-info.table.header.information": "Information",
+
+  "external-login-validation.review-account-info.table.header.received-value": "Received value",
+
+  "external-login-validation.review-account-info.table.header.current-value": "Current value",
+
+  "external-login-validation.review-account-info.table.header.action": "Override",
 }

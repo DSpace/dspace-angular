@@ -1,7 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/auth/auth.service';
-
 @Component({
   selector: 'ds-email-validated',
   templateUrl: './email-validated.component.html',
@@ -9,6 +8,9 @@ import { AuthService } from '../../core/auth/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmailValidatedComponent {
+
+  @Input() registrationToken: string;
+
   constructor(private authService: AuthService, private router: Router) {
     // if user is logged in, redirect to home page
     // in case user logs in with an existing account
