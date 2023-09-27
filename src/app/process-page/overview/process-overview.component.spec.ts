@@ -18,6 +18,7 @@ import { DatePipe } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import { ProcessBulkDeleteService } from './process-bulk-delete.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 
 describe('ProcessOverviewComponent', () => {
   let component: ProcessOverviewComponent;
@@ -120,7 +121,11 @@ describe('ProcessOverviewComponent', () => {
         { provide: NgbModal, useValue: modalService },
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(ProcessOverviewComponent, {
+        remove: {imports: [PaginationComponent]}
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
