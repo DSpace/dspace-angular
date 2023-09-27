@@ -14,6 +14,10 @@ import { ReorderableRelationship } from '../existing-metadata-list-element/exist
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { SubmissionServiceStub } from '../../../../testing/submission-service.stub';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 
 describe('ExistingRelationListElementComponent', () => {
   let component: ExistingRelationListElementComponent;
@@ -65,7 +69,10 @@ describe('ExistingRelationListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [ExistingRelationListElementComponent],
+    imports: [
+      TranslateModule.forRoot(),
+      ExistingRelationListElementComponent
+    ],
     providers: [
         { provide: SelectableListService, useValue: selectionService },
         { provide: Store, useValue: store },
@@ -73,6 +80,9 @@ describe('ExistingRelationListElementComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })
+      .overrideComponent(ExistingRelationListElementComponent, {
+        remove: { imports: [ListableObjectComponentLoaderComponent]}
+      })
       .compileComponents();
   }));
 
