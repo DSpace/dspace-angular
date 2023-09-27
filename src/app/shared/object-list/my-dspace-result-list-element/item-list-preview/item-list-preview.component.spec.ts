@@ -11,6 +11,16 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { ThumbnailComponent } from '../../../../thumbnail/thumbnail.component';
+import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
+import { TruncatableComponent } from '../../../truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
+import {
+  ItemSubmitterComponent
+} from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
+import {
+  ItemCollectionComponent
+} from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
 
 let component: ItemListPreviewComponent;
 let fixture: ComponentFixture<ItemListPreviewComponent>;
@@ -98,7 +108,14 @@ describe('ItemListPreviewComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(ItemListPreviewComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      add: {changeDetection: ChangeDetectionStrategy.Default},
+      remove: {
+        imports: [
+          ThumbnailComponent, ThemedBadgesComponent,
+          TruncatableComponent, TruncatablePartComponent,
+          ItemSubmitterComponent, ItemCollectionComponent,
+        ]
+      }
     }).compileComponents();
   }));
 
@@ -203,7 +220,14 @@ describe('ItemListPreviewComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(ItemListPreviewComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      add: {changeDetection: ChangeDetectionStrategy.Default},
+      remove: {
+        imports: [
+          ThumbnailComponent, ThemedBadgesComponent,
+          TruncatableComponent, TruncatablePartComponent,
+          ItemSubmitterComponent, ItemCollectionComponent,
+        ]
+      }
     }).compileComponents();
   }));
   beforeEach(waitForAsync(() => {
