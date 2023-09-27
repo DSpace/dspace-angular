@@ -21,6 +21,8 @@ import { AuthServiceStub } from '../../../../../testing/auth-service.stub';
 import { AuthorizationDataService } from '../../../../../../core/data/feature-authorization/authorization-data.service';
 import { TruncatableComponent } from '../../../../../truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../truncatable/truncatable-part/truncatable-part.component';
+import { mockTruncatableService } from '../../../../../mocks/mock-trucatable.service';
+import { ThumbnailComponent } from '../../../../../../thumbnail/thumbnail.component';
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
@@ -204,7 +206,7 @@ describe('ItemSearchResultListElementComponent', () => {
       TruncatePipe
     ],
     providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
         { provide: ThemeService, useValue: getMockThemeService() },
@@ -220,7 +222,7 @@ describe('ItemSearchResultListElementComponent', () => {
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(ItemSearchResultListElementComponent, {
       add: {changeDetection: ChangeDetectionStrategy.Default},
-      remove: { imports: [ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent]}
+      remove: { imports: [ThumbnailComponent,ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent]}
     }).compileComponents();
   }));
 
