@@ -26,6 +26,9 @@ import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService
 } from '../../../../../testing/dynamic-form-mock-services';
+import { ConfigurationDataService } from '../../../../../../core/data/configuration-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
+import { ConfigurationProperty } from '../../../../../../core/shared/configuration-property.model';
 
 export const LAYOUT_TEST = {
   element: {
@@ -74,6 +77,15 @@ describe('DsDynamicListComponent test suite', () => {
 
   const vocabularyServiceStub = new VocabularyServiceStub();
 
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'test',
+      values: [
+        'org.dspace.ctask.general.ProfileFormats = test'
+      ]
+    }))
+  });
+
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
 
@@ -94,7 +106,8 @@ describe('DsDynamicListComponent test suite', () => {
         FormBuilderService,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
-        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService }
+        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
+        { provide: ConfigurationDataService, useValue: configurationDataService }
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 });
@@ -287,11 +300,7 @@ describe('DsDynamicListComponent test suite', () => {
     selector: 'ds-test-cmp',
     template: ``,
     standalone: true,
-    imports: [DynamicFormsCoreModule,
-        DynamicFormsNGBootstrapUIModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgbModule]
+    imports: [DsDynamicListComponent]
 })
 class TestComponent {
 
