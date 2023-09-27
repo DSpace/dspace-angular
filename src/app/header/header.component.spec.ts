@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { of as observableOf } from 'rxjs';
+import { of, of as observableOf } from 'rxjs';
 
 import { HeaderComponent } from './header.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -10,12 +10,27 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuServiceStub } from '../shared/testing/menu-service.stub';
+import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
+import { ActivatedRoute } from '@angular/router';
+import { LocaleService } from '../core/locale/locale.service';
+import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
+import { LangSwitchComponent } from '../shared/lang-switch/lang-switch.component';
+import { ContextHelpToggleComponent } from './context-help-toggle/context-help-toggle.component';
+import { ThemedAuthNavMenuComponent } from '../shared/auth-nav-menu/themed-auth-nav-menu.component';
+import { ImpersonateNavbarComponent } from '../shared/impersonate-navbar/impersonate-navbar.component';
 
 let comp: HeaderComponent;
 let fixture: ComponentFixture<HeaderComponent>;
 
 describe('HeaderComponent', () => {
   const menuService = new MenuServiceStub();
+
+  const languageList = ['en;q=1', 'it;q=0.9', 'de;q=0.8', 'fr;q=0.7'];
+  const mockLocaleService = jasmine.createSpyObj('LocaleService', {
+    getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
+    getLanguageCodeList: of(languageList)
+  });
+
 
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
@@ -27,10 +42,15 @@ describe('HeaderComponent', () => {
         HeaderComponent
     ],
     providers: [
-        { provide: MenuService, useValue: menuService }
+        { provide: MenuService, useValue: menuService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub()},
+        { provide: LocaleService, useValue: mockLocaleService }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })
+      .overrideComponent(HeaderComponent, {
+        remove: {imports: [ ThemedSearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent,]}
+      })
       .compileComponents();  // compile template and css
   }));
 
