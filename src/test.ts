@@ -8,6 +8,8 @@ import {
   platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ThemeService } from './app/shared/theme-support/theme.service';
+import { getMockThemeService } from './app/shared/mocks/theme-service.mock';
 
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
@@ -15,6 +17,10 @@ getTestBed().initTestEnvironment(
   platformBrowserDynamicTesting(),
   { teardown: { destroyAfterEach: false } }
 );
+
+jasmine.getEnv().beforeEach(() => {
+  getTestBed().overrideProvider(ThemeService, { useValue: getMockThemeService() });
+});
 
 jasmine.getEnv().afterEach(() => {
   // If store is mocked, reset state after each test (see https://ngrx.io/guide/migration/v13)

@@ -12,6 +12,7 @@ import { AuthService } from '../core/auth/auth.service';
 import { FileService } from '../core/shared/file.service';
 import { VarDirective } from '../shared/utils/var.directive';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 // eslint-disable-next-line @angular-eslint/pipe-prefix
 @Pipe({
@@ -48,13 +49,24 @@ describe('ThumbnailComponent', () => {
     fileService.retrieveFileDownloadLink.and.callFake((url) => observableOf(`${url}?authentication-token=fake`));
 
     TestBed.configureTestingModule({
-    imports: [ThumbnailComponent, SafeUrlPipe, MockTranslatePipe, VarDirective],
+    imports: [
+      TranslateModule.forRoot(),
+      ThumbnailComponent,
+      SafeUrlPipe,
+      MockTranslatePipe,
+      VarDirective
+    ],
     providers: [
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: FileService, useValue: fileService }
     ]
-}).compileComponents();
+}).overrideComponent(ThumbnailComponent, {
+  add: {
+    imports: [MockTranslatePipe]
+  }
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {
