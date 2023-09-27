@@ -20,6 +20,9 @@ import { VarDirective } from '../../../utils/var.directive';
 import { ComColFormComponent } from './comcol-form.component';
 import { Operation } from 'fast-json-patch';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { FormComponent } from '../../../form/form.component';
+import { UploaderComponent } from '../../../upload/uploader/uploader.component';
+import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo.component';
 
 describe('ComColFormComponent', () => {
   let comp: ComColFormComponent<any>;
@@ -78,17 +81,27 @@ describe('ComColFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule, ComColFormComponent, VarDirective],
-    providers: [
-        { provide: Location, useValue: locationStub },
-        { provide: DynamicFormService, useValue: formServiceStub },
-        { provide: NotificationsService, useValue: notificationsService },
-        { provide: AuthService, useValue: new AuthServiceMock() },
-        { provide: RequestService, useValue: requestServiceStub },
-        { provide: ObjectCacheService, useValue: objectCacheStub }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      imports: [TranslateModule.forRoot(), RouterTestingModule, ComColFormComponent, VarDirective],
+      providers: [
+        {provide: Location, useValue: locationStub},
+        {provide: DynamicFormService, useValue: formServiceStub},
+        {provide: NotificationsService, useValue: notificationsService},
+        {provide: AuthService, useValue: new AuthServiceMock()},
+        {provide: RequestService, useValue: requestServiceStub},
+        {provide: ObjectCacheService, useValue: objectCacheStub}
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(ComColFormComponent, {
+        remove: {
+          imports: [
+            FormComponent,
+            UploaderComponent,
+            ComcolPageLogoComponent,
+          ]
+        }
+      })
+      .compileComponents();
   }));
 
   describe('when the dso doesn\'t contain an ID (newly created)', () => {
