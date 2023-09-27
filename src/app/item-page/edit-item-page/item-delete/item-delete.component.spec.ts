@@ -3,7 +3,7 @@ import { ItemType } from '../../../core/shared/item-relationships/item-type.mode
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../core/shared/item.model';
 import { RouterStub } from '../../../shared/testing/router.stub';
-import { of as observableOf, EMPTY } from 'rxjs';
+import { EMPTY, of as observableOf } from 'rxjs';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -26,6 +26,12 @@ import { getItemEditRoute } from '../../item-page-routing-paths';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 
 let comp: ItemDeleteComponent;
 let fixture: ComponentFixture<ItemDeleteComponent>;
@@ -151,16 +157,21 @@ describe('ItemDeleteComponent', () => {
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
         { provide: ItemDataService, useValue: mockItemDataService },
-        { provide: NotificationsService, useValue: notificationsServiceStub },
-        { provide: ObjectUpdatesService, useValue: objectUpdatesServiceStub },
-        { provide: RelationshipDataService, useValue: relationshipService },
-        { provide: EntityTypeDataService, useValue: entityTypeService },
-        { provide: RelationshipTypeDataService, useValue: {} },
-        { provide: LinkService, useValue: linkService },
+      {provide: NotificationsService, useValue: notificationsServiceStub},
+      {provide: ObjectUpdatesService, useValue: objectUpdatesServiceStub},
+      {provide: RelationshipDataService, useValue: relationshipService},
+      {provide: EntityTypeDataService, useValue: entityTypeService},
+      {provide: RelationshipTypeDataService, useValue: {}},
+      {provide: LinkService, useValue: linkService},
+      {provide: ThemeService, useValue: getMockThemeService()}
     ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA
-    ]
-}).compileComponents();
+      ]
+    })
+      .overrideComponent(ItemDeleteComponent, {
+        remove: {imports: [ListableObjectComponentLoaderComponent, ModifyItemOverviewComponent,]}
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
