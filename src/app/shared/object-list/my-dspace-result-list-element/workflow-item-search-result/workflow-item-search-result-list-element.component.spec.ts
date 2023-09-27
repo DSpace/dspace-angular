@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of as observableOf } from 'rxjs';
@@ -19,6 +19,12 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { Context } from '../../../../core/shared/context.model';
+import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 
 let component: WorkflowItemSearchResultListElementComponent;
 let fixture: ComponentFixture<WorkflowItemSearchResultListElementComponent>;
@@ -73,15 +79,22 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
     TestBed.configureTestingModule({
     imports: [NoopAnimationsModule, WorkflowItemSearchResultListElementComponent],
     providers: [
-        { provide: TruncatableService, useValue: {} },
-        { provide: ItemDataService, useValue: {} },
-        { provide: LinkService, useValue: linkService },
-        { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+      {provide: TruncatableService, useValue: mockTruncatableService},
+      {provide: ItemDataService, useValue: {}},
+      {provide: LinkService, useValue: linkService},
+      {provide: DSONameService, useClass: DSONameServiceMock},
+      {provide: APP_CONFIG, useValue: environmentUseThumbs}
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(WorkflowItemSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      add: {changeDetection: ChangeDetectionStrategy.Default},
+      remove: {
+        imports: [
+          ListableObjectComponentLoaderComponent,
+          WorkflowitemActionsComponent,
+          ThemedLoadingComponent
+        ]
+      }
     }).compileComponents();
   }));
 
