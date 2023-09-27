@@ -8,6 +8,7 @@ import { Community } from '../../../../core/shared/community.model';
 import { CreateCollectionParentSelectorComponent } from './create-collection-parent-selector.component';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 
 describe('CreateCollectionParentSelectorComponent', () => {
   let component: CreateCollectionParentSelectorComponent;
@@ -50,7 +51,11 @@ describe('CreateCollectionParentSelectorComponent', () => {
         }
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(CreateCollectionParentSelectorComponent, {
+        remove: { imports: [DSOSelectorComponent]}
+      })
+      .compileComponents();
 
   }));
 
