@@ -11,6 +11,10 @@ import { createPaginatedList } from '../../../testing/utils.test';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { NotificationsService } from '../../../notifications/notifications.service';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 
 describe('AuthorizedCollectionSelectorComponent', () => {
   let component: AuthorizedCollectionSelectorComponent;
@@ -38,7 +42,11 @@ describe('AuthorizedCollectionSelectorComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(AuthorizedCollectionSelectorComponent, {
+        remove: { imports: [ListableObjectComponentLoaderComponent, ThemedLoadingComponent,]}
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
