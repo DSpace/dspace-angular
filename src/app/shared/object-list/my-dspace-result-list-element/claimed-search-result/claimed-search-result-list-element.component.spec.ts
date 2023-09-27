@@ -28,6 +28,15 @@ import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { Context } from '../../../../core/shared/context.model';
+import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
+import { ThemeService } from '../../../theme-support/theme.service';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { TranslateModule } from '@ngx-translate/core';
+import { SearchServiceStub } from '../../../testing/search-service.stub';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
 
 let component: ClaimedSearchResultListElementComponent;
 let fixture: ComponentFixture<ClaimedSearchResultListElementComponent>;
@@ -76,9 +85,17 @@ const objectCacheServiceMock = jasmine.createSpyObj('ObjectCacheService', {
 describe('ClaimedSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, ClaimedSearchResultListElementComponent, VarDirective],
+    imports: [
+      TranslateModule.forRoot(),
+      NoopAnimationsModule,
+      ClaimedSearchResultListElementComponent,
+      VarDirective
+    ],
     providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: SearchService, useValue: new SearchServiceStub() },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environment },
@@ -86,7 +103,8 @@ describe('ClaimedSearchResultListElementComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(ClaimedSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      remove: { imports: [ClaimedTaskActionsComponent] },
+      add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
