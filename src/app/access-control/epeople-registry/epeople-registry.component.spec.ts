@@ -27,6 +27,9 @@ import { RequestService } from '../../core/data/request.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { EPersonFormComponent } from './eperson-form/eperson-form.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
@@ -130,17 +133,27 @@ describe('EPeopleRegistryComponent', () => {
                 useClass: TranslateLoaderMock
             }
         }), EPeopleRegistryComponent],
-    providers: [
-        { provide: EPersonDataService, useValue: ePersonDataServiceStub },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: FormBuilderService, useValue: builderService },
-        { provide: Router, useValue: new RouterStub() },
-        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) },
-        { provide: PaginationService, useValue: paginationService }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      providers: [
+        {provide: EPersonDataService, useValue: ePersonDataServiceStub},
+        {provide: NotificationsService, useValue: new NotificationsServiceStub()},
+        {provide: AuthorizationDataService, useValue: authorizationService},
+        {provide: FormBuilderService, useValue: builderService},
+        {provide: Router, useValue: new RouterStub()},
+        {provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring'])},
+        {provide: PaginationService, useValue: paginationService}
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(EPeopleRegistryComponent, {
+        remove: {
+          imports: [
+            EPersonFormComponent,
+            ThemedLoadingComponent,
+            PaginationComponent,
+          ]
+        }
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
