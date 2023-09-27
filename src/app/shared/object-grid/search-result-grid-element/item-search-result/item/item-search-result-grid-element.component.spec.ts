@@ -25,6 +25,12 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
+import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
+import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
+import { TruncatableComponent } from '../../../../truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../truncatable/truncatable-part/truncatable-part.component';
+import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
+import { ActivatedRoute } from '@angular/router';
 
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
 mockItemWithMetadata.hitHighlights = {};
@@ -232,10 +238,12 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
         { provide: NotificationsService, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(component, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
+        add: { changeDetection: ChangeDetectionStrategy.Default },
+        remove: { imports: [ThemedThumbnailComponent, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent]}
       }).compileComponents();
     }));
 
