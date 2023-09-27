@@ -20,6 +20,9 @@ import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { Context } from '../../../../../core/shared/context.model';
 import { TranslateModule } from '@ngx-translate/core';
+import { mockTruncatableService } from '../../../../mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../mocks/theme-service.mock';
+import { ThemeService } from '../../../../theme-support/theme.service';
 
 let component: ClaimedApprovedSearchResultListElementComponent;
 let fixture: ComponentFixture<ClaimedApprovedSearchResultListElementComponent>;
@@ -71,7 +74,8 @@ describe('ClaimedApprovedSearchResultListElementComponent', () => {
         ClaimedApprovedSearchResultListElementComponent, VarDirective
     ],
     providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: ThemeService, useValue: getMockThemeService() },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environment }
