@@ -21,6 +21,12 @@ import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { Context } from '../../../../core/shared/context.model';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
+import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 
 let component: WorkspaceItemSearchResultListElementComponent;
 let fixture: ComponentFixture<WorkspaceItemSearchResultListElementComponent>;
@@ -74,7 +80,7 @@ describe('WorkspaceItemSearchResultListElementComponent', () => {
     TestBed.configureTestingModule({
     imports: [NoopAnimationsModule, WorkspaceItemSearchResultListElementComponent],
     providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: ItemDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
@@ -83,7 +89,8 @@ describe('WorkspaceItemSearchResultListElementComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(WorkspaceItemSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [ListableObjectComponentLoaderComponent, WorkspaceitemActionsComponent, ThemedLoadingComponent,]}
     }).compileComponents();
   }));
 
