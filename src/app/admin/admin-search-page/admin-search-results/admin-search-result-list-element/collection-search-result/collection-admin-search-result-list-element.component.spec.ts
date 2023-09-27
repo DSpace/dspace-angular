@@ -15,6 +15,12 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import {
+  CollectionSearchResultListElementComponent
+} from '../../../../../shared/object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
 
 describe('CollectionAdminSearchResultListElementComponent', () => {
   let component: CollectionAdminSearchResultListElementComponent;
@@ -37,11 +43,17 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
         RouterTestingModule.withRoutes([]),
         CollectionAdminSearchResultListElementComponent
     ],
-    providers: [{ provide: TruncatableService, useValue: {} },
+    providers: [
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }],
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: ThemeService, useValue: getMockThemeService() }
+    ],
     schemas: [NO_ERRORS_SCHEMA]
 })
+      .overrideComponent(CollectionAdminSearchResultListElementComponent, {
+        remove: { imports: [CollectionSearchResultListElementComponent]}
+      })
       .compileComponents();
   }));
 
@@ -52,7 +64,7 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
     component.linkTypes = CollectionElementLinkType;
     component.index = 0;
     component.viewModes = ViewMode;
-    fixture.detectChanges();
+
   });
 
   it('should create', () => {
@@ -60,6 +72,10 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
   });
 
   it('should render an edit button with the correct link', () => {
+    component.ngOnInit();
+    fixture.detectChanges();
+    console.log(component.editPath);
+
     const a = fixture.debugElement.query(By.css('a'));
     const link = a.nativeElement.href;
     expect(link).toContain(getCollectionEditRoute(id));
