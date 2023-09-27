@@ -31,6 +31,9 @@ import { PaginationServiceStub } from '../../../shared/testing/pagination-servic
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { FormComponent } from '../../../shared/form/form.component';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -203,7 +206,11 @@ describe('EPersonFormComponent', () => {
         EPeopleRegistryComponent
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(EPersonFormComponent, {
+        remove: { imports: [    ThemedLoadingComponent, PaginationComponent,FormComponent]}
+      })
+      .compileComponents();
   }));
 
   epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
