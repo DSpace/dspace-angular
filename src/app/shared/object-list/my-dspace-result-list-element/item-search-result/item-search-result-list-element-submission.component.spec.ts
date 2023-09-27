@@ -16,6 +16,9 @@ import { environment } from '../../../../../environments/environment';
 import { Context } from '../../../../core/shared/context.model';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
+import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
+import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
+import { ItemActionsComponent } from '../../../mydspace-actions/item/item-actions.component';
 
 let component: ItemSearchResultListElementSubmissionComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementSubmissionComponent>;
@@ -58,14 +61,15 @@ describe('ItemMyDSpaceResultListElementComponent', () => {
     TestBed.configureTestingModule({
     imports: [NoopAnimationsModule, ItemSearchResultListElementSubmissionComponent],
     providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environment },
         { provide: ThemeService, useValue: getMockThemeService() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(ItemSearchResultListElementSubmissionComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [ThemedItemListPreviewComponent, ItemActionsComponent] }
     }).compileComponents();
   }));
 
