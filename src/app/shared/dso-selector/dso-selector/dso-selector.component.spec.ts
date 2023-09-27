@@ -12,6 +12,9 @@ import { hasValue } from '../../empty.util';
 import { createPaginatedList } from '../../testing/utils.test';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 
 describe('DSOSelectorComponent', () => {
   let component: DSOSelectorComponent;
@@ -73,7 +76,11 @@ describe('DSOSelectorComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(DSOSelectorComponent, {
+        remove: { imports: [ListableObjectComponentLoaderComponent]}
+      })
+      .compileComponents();
 
   }));
 
