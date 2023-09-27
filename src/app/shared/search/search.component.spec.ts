@@ -33,6 +33,12 @@ import { SearchFilterConfig } from './models/search-filter-config.model';
 import { FilterType } from './models/filter-type.model';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
+import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
+import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
+import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
+import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
+import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
+import { SearchLabelsComponent } from './search-labels/search-labels.component';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
@@ -227,13 +233,23 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(compType, {
-    set: {
+    add: {
       changeDetection: ChangeDetectionStrategy.Default,
       providers: [{
         provide: SearchConfigurationService,
         useValue: searchConfigurationServiceStub
       }]
     },
+    remove: {
+      imports: [
+        PageWithSidebarComponent,
+        ViewModeSwitchComponent,
+        ThemedSearchResultsComponent,
+        ThemedSearchSidebarComponent,
+        ThemedSearchFormComponent,
+        SearchLabelsComponent,
+      ]
+    }
 
   }).compileComponents();
 }
