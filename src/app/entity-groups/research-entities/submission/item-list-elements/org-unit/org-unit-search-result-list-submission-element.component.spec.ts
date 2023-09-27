@@ -31,6 +31,8 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { OrgUnitInputSuggestionsComponent } from './org-unit-suggestions/org-unit-input-suggestions.component';
 
 let personListElementComponent: OrgUnitSearchResultListSubmissionElementComponent;
 let fixture: ComponentFixture<OrgUnitSearchResultListSubmissionElementComponent>;
@@ -102,7 +104,7 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
     TestBed.configureTestingModule({
     imports: [OrgUnitSearchResultListSubmissionElementComponent, TruncatePipe],
     providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: RelationshipDataService, useValue: mockRelationshipService },
         { provide: NotificationsService, useValue: {} },
         { provide: TranslateService, useValue: {} },
@@ -124,7 +126,8 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(OrgUnitSearchResultListSubmissionElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [OrgUnitInputSuggestionsComponent]}
     }).compileComponents();
   }));
 
