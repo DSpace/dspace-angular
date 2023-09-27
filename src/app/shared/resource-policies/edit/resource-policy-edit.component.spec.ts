@@ -16,7 +16,7 @@ import { ResourcePolicyDataService } from '../../../core/resource-policy/resourc
 import { getMockResourcePolicyService } from '../../mocks/mock-resource-policy-service';
 import { getMockLinkService } from '../../mocks/link-service.mock';
 import { RouterStub } from '../../testing/router.stub';
-import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
+import { ResourcePolicyEvent, ResourcePolicyFormComponent } from '../form/resource-policy-form.component';
 import { GroupMock } from '../../testing/group-mock';
 import { submittedResourcePolicy } from '../form/resource-policy-form.component.spec';
 import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
@@ -89,7 +89,11 @@ describe('ResourcePolicyEditComponent test suite', () => {
     schemas: [
         NO_ERRORS_SCHEMA
     ]
-}).compileComponents();
+})
+      .overrideComponent(ResourcePolicyEditComponent, {
+        remove: { imports: [ResourcePolicyFormComponent]}
+      })
+      .compileComponents();
   }));
 
   describe('', () => {
