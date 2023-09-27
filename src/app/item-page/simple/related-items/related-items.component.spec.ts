@@ -11,6 +11,13 @@ import { VarDirective } from '../../../shared/utils/var.directive';
 import { of as observableOf } from 'rxjs';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 
 const parentItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -57,12 +64,20 @@ describe('RelatedItemsComponent', () => {
     TestBed.configureTestingModule({
     imports: [TranslateModule.forRoot(), RelatedItemsComponent, VarDirective],
     providers: [
-        { provide: RelationshipDataService, useValue: relationshipService },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+      {provide: RelationshipDataService, useValue: relationshipService},
+      {provide: APP_CONFIG, useValue: environmentUseThumbs},
+      {provide: ThemeService, useValue: getMockThemeService()}
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(RelatedItemsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      add: {changeDetection: ChangeDetectionStrategy.Default},
+      remove: {
+        imports: [
+          MetadataFieldWrapperComponent,
+          ListableObjectComponentLoaderComponent,
+          ThemedLoadingComponent
+        ]
+      }
     }).compileComponents();
   }));
 
@@ -129,12 +144,20 @@ describe('RelatedItemsComponent', () => {
     TestBed.configureTestingModule({
     imports: [TranslateModule.forRoot(), RelatedItemsComponent, VarDirective],
     providers: [
-        { provide: RelationshipDataService, useValue: relationshipService },
-        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
+      {provide: RelationshipDataService, useValue: relationshipService},
+      {provide: APP_CONFIG, useValue: enviromentNoThumbs},
+      {provide: ThemeService, useValue: getMockThemeService()}
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(RelatedItemsComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      add: {changeDetection: ChangeDetectionStrategy.Default},
+      remove: {
+        imports: [
+          MetadataFieldWrapperComponent,
+          ListableObjectComponentLoaderComponent,
+          ThemedLoadingComponent
+        ]
+      }
     }).compileComponents();
   }));
 
