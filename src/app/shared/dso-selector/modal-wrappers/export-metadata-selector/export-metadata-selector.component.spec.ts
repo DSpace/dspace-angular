@@ -21,6 +21,7 @@ import {
 } from '../../../remote-data.utils';
 import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
 @NgModule({
@@ -122,7 +123,11 @@ describe('ExportMetadataSelectorComponent', () => {
         }
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(ExportMetadataSelectorComponent, {
+        remove: { imports: [DSOSelectorComponent] }
+      })
+      .compileComponents();
 
   }));
 
