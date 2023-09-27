@@ -22,6 +22,18 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
+import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import {
+  ThemedComcolPageHandleComponent
+} from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
+import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import {
+  ThemedComcolPageBrowseByComponent
+} from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 
 
 describe('BrowseByTitlePageComponent', () => {
@@ -80,7 +92,20 @@ describe('BrowseByTitlePageComponent', () => {
         { provide: APP_CONFIG, useValue: environment }
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(BrowseByTitlePageComponent, {
+        remove: {imports: [
+            ComcolPageHeaderComponent,
+            ComcolPageLogoComponent,
+            ThemedComcolPageHandleComponent,
+            ComcolPageContentComponent,
+            DsoEditMenuComponent,
+            ThemedComcolPageBrowseByComponent,
+            BrowseByComponent,
+            ThemedLoadingComponent
+          ]}
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
