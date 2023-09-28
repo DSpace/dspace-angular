@@ -13,6 +13,8 @@ import { LinkService } from '../../../core/cache/builders/link.service';
 import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList, createTestComponent } from '../../../shared/testing/utils.test';
+import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 
 describe('ItemAuthorizationsComponent test suite', () => {
   let comp: ItemAuthorizationsComponent;
@@ -87,7 +89,14 @@ describe('ItemAuthorizationsComponent test suite', () => {
     schemas: [
         NO_ERRORS_SCHEMA
     ]
-}).compileComponents();
+})
+      .overrideComponent(ItemAuthorizationsComponent, {
+        remove: { imports: [
+            ResourcePoliciesComponent,
+            AlertComponent
+          ]}
+      })
+      .compileComponents();
   }));
 
   describe('', () => {
