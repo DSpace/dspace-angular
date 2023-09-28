@@ -9,6 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 import { createDataWithBrowseDefinition } from '../browse-by-switcher/browse-by-switcher.component.spec';
 import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
 import { ThemeService } from '../../shared/theme-support/theme.service';
+import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
 
 describe('BrowseByTaxonomyPageComponent', () => {
   let component: BrowseByTaxonomyPageComponent;
@@ -35,6 +36,9 @@ describe('BrowseByTaxonomyPageComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })
+      .overrideComponent(BrowseByTaxonomyPageComponent, {
+        remove: { imports: [VocabularyTreeviewComponent]}
+      })
     .compileComponents();
   });
 
