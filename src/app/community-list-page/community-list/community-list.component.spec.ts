@@ -17,6 +17,9 @@ import { By } from '@angular/platform-browser';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { FlatNode } from '../flat-node.model';
 import { RouterLinkWithHref } from '@angular/router';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';
 
 describe('CommunityListComponent', () => {
   let component: CommunityListComponent;
@@ -202,6 +205,14 @@ describe('CommunityListComponent', () => {
         { provide: CommunityListService, useValue: communityListServiceStub },],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
+      .overrideComponent(CommunityListComponent, {
+        remove: {
+          imports: [
+            ThemedLoadingComponent,
+            TruncatableComponent,
+            TruncatablePartComponent,
+          ]}
+      })
       .compileComponents();
   }));
 
