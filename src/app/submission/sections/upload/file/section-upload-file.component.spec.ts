@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 
 import { of, of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
@@ -32,6 +32,9 @@ import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/buil
 import { getMockSectionUploadService } from '../../../../shared/mocks/section-upload.service.mock';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-file-view.component';
+
+
 
 const configMetadataFormMock = {
   rows: [{
@@ -98,7 +101,13 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         FormBuilderService
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents().then();
+})
+      .overrideComponent(SubmissionSectionUploadFileComponent, {
+        remove: { imports: [
+            SubmissionSectionUploadFileViewComponent,
+          ]}
+      })
+      .compileComponents().then();
   }));
 
   describe('', () => {
@@ -128,9 +137,10 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('should create SubmissionSectionUploadFileComponent', inject([SubmissionSectionUploadFileComponent], (app: SubmissionSectionUploadFileComponent) => {
+    it('should create SubmissionSectionUploadFileComponent', () => {
+      let app = TestBed.inject(SubmissionSectionUploadFileComponent);
       expect(app).toBeDefined();
-    }));
+    });
   });
 
   describe('', () => {
@@ -237,7 +247,9 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     template: ``,
     standalone: true,
     imports: [
+      SubmissionSectionUploadFileComponent,
         CommonModule,
+      AsyncPipe,
         NgbModule]
 })
 class TestComponent {
