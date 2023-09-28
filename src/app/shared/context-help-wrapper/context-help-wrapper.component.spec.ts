@@ -25,7 +25,7 @@ import { By } from '@angular/platform-browser';
     </ds-context-help-wrapper>
   `,
     standalone: true,
-    imports: [NgbTooltipModule]
+  imports: [NgbTooltipModule, ContextHelpWrapperComponent]
 })
 class TemplateComponent {
   @Input() content: string;
