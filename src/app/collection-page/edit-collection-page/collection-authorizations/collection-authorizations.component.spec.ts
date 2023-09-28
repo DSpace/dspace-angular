@@ -10,6 +10,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { CollectionAuthorizationsComponent } from './collection-authorizations.component';
 import { Collection } from '../../../core/shared/collection.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 
 describe('CollectionAuthorizationsComponent', () => {
   let comp: CollectionAuthorizationsComponent<DSpaceObject>;
@@ -47,7 +48,11 @@ describe('CollectionAuthorizationsComponent', () => {
         CollectionAuthorizationsComponent,
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(CollectionAuthorizationsComponent, {
+        remove: { imports: [ResourcePoliciesComponent] }
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
