@@ -18,6 +18,10 @@ import { DebugElement } from '@angular/core';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { of as observableOf } from 'rxjs';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MetadataInformationComponent } from './metadata-information/metadata-information.component';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.component';
+import { PublicationInformationComponent } from './publication-information/publication-information.component';
 
 describe('SubmissionSectionSherpaPoliciesComponent', () => {
   let component: SubmissionSectionSherpaPoliciesComponent;
@@ -74,6 +78,14 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
         { provide: 'submissionIdProvider', useValue: '1508' },
     ]
 })
+        .overrideComponent(SubmissionSectionSherpaPoliciesComponent, {
+          remove: { imports: [
+              MetadataInformationComponent,
+              AlertComponent,
+              PublisherPolicyComponent,
+              PublicationInformationComponent,
+            ]}
+        })
         .compileComponents();
     });
 
