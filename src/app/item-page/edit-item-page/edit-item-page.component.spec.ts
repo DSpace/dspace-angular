@@ -3,7 +3,14 @@ import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/cor
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  CanActivate,
+  RouterModule,
+  RouterStateSnapshot,
+  UrlTree
+} from '@angular/router';
 import { EditItemPageComponent } from './edit-item-page.component';
 import { Observable, of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
@@ -65,15 +72,18 @@ describe('ItemPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
+    imports: [
+      RouterModule.forRoot([]),
+      TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
                 useClass: TranslateLoaderMock
             }
-        }), EditItemPageComponent],
+        }),
+      EditItemPageComponent
+    ],
     providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
-        { provide: Router, useValue: mockRouter },
         AcceptAllGuard,
         AcceptNoneGuard,
     ],
