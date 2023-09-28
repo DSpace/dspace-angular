@@ -12,6 +12,7 @@ import { FormBuilderService } from '../../../../shared/form/builder/form-builder
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
+import { FormComponent } from '../../../../shared/form/form.component';
 
 describe('MetadataFieldFormComponent', () => {
   let component: MetadataFieldFormComponent;
@@ -55,7 +56,11 @@ describe('MetadataFieldFormComponent', () => {
         { provide: FormBuilderService, useValue: formBuilderServiceStub }
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(MetadataFieldFormComponent, {
+        remove: { imports: [FormComponent]}
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
