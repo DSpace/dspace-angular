@@ -9,10 +9,19 @@ import { VarDirective } from '../../../shared/utils/var.directive';
 import { of as observableOf } from 'rxjs';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import { MetadatumRepresentation } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import {
+  ItemMetadataRepresentation
+} from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import {
+  MetadatumRepresentation
+} from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { BrowseDefinitionDataService } from '../../../core/browse/browse-definition-data.service';
 import { BrowseDefinitionDataServiceStub } from '../../../shared/testing/browse-definition-data-service.stub';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import {
+  MetadataRepresentationLoaderComponent
+} from '../../../shared/metadata-representation/metadata-representation-loader.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 
 const itemType = 'Person';
 const metadataFields = ['dc.contributor.author', 'dc.creator'];
@@ -110,7 +119,8 @@ describe('MetadataRepresentationListComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(MetadataRepresentationListComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      add: {changeDetection: ChangeDetectionStrategy.Default},
+      remove: {imports: [MetadataFieldWrapperComponent, MetadataRepresentationLoaderComponent, ThemedLoadingComponent]}
     }).compileComponents();
   }));
 
