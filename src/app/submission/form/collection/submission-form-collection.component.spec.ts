@@ -25,6 +25,9 @@ import { Collection } from '../../../core/shared/collection.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
+import {
+  ThemedCollectionDropdownComponent
+} from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 
 describe('SubmissionFormCollectionComponent Component', () => {
 
@@ -148,7 +151,11 @@ describe('SubmissionFormCollectionComponent Component', () => {
         SubmissionFormCollectionComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(SubmissionFormCollectionComponent, {
+        remove: { imports: [ThemedCollectionDropdownComponent]}
+      })
+      .compileComponents();
   }));
 
   describe('', () => {
