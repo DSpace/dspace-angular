@@ -50,6 +50,9 @@ import { ItemComponent } from './item.component';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { provideMockStore } from '@ngrx/store/testing';
 import { routeServiceStub } from '../../../../shared/testing/route-service.stub';
+import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { AuthServiceStub } from '../../../../shared/testing/auth-service.stub';
 
 
 export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
@@ -133,7 +136,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
         },
         provideMockStore(),
         { provide: ItemDataService, useValue: {} },
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: RelationshipDataService, useValue: relationshipService },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
@@ -150,13 +153,14 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
         { provide: WorkspaceitemDataService, useValue: {} },
         { provide: SearchService, useValue: {} },
         { provide: RouteService, useValue: routeServiceStub },
+        { provide: AuthService, useValue: new AuthServiceStub() },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ResearcherProfileDataService, useValue: {} },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(component, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
+        add: { changeDetection: ChangeDetectionStrategy.Default }
       }).compileComponents();
     }));
 
@@ -451,7 +455,7 @@ describe('ItemComponent', () => {
     ],
     providers: [
         { provide: ItemDataService, useValue: {} },
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: RelationshipDataService, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
