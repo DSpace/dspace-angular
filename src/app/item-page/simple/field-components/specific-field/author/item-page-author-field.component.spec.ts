@@ -9,6 +9,8 @@ import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
 import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
+import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
+import { ActivatedRoute } from '@angular/router';
 
 let comp: ItemPageAuthorFieldComponent;
 let fixture: ComponentFixture<ItemPageAuthorFieldComponent>;
@@ -27,7 +29,8 @@ describe('ItemPageAuthorFieldComponent', () => {
         }), ItemPageAuthorFieldComponent, MetadataValuesComponent],
     providers: [
         { provide: APP_CONFIG, useValue: environment },
-        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(ItemPageAuthorFieldComponent, {
