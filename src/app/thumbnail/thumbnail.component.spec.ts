@@ -13,6 +13,8 @@ import { FileService } from '../core/shared/file.service';
 import { VarDirective } from '../shared/utils/var.directive';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { getMockThemeService } from '../shared/mocks/theme-service.mock';
+import { ThemeService } from '../shared/theme-support/theme.service';
 
 // eslint-disable-next-line @angular-eslint/pipe-prefix
 @Pipe({
@@ -59,7 +61,8 @@ describe('ThumbnailComponent', () => {
     providers: [
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: FileService, useValue: fileService }
+        { provide: FileService, useValue: fileService },
+        { provide: ThemeService, useValue: getMockThemeService() }
     ]
 }).overrideComponent(ThumbnailComponent, {
   add: {
