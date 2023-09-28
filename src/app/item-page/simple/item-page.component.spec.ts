@@ -26,6 +26,15 @@ import { ServerResponseService } from '../../core/services/server-response.servi
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { LinkDefinition, LinkHeadService } from '../../core/services/link-head.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
+import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
+import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
+import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { ItemVersionsComponent } from '../versions/item-versions.component';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -115,7 +124,16 @@ describe('ItemPageComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(ItemPageComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [
+          ThemedItemAlertsComponent,
+          ItemVersionsNoticeComponent,
+          ViewTrackerComponent,
+          ListableObjectComponentLoaderComponent,
+          ItemVersionsComponent,
+          ErrorComponent,
+          ThemedLoadingComponent,
+        ]}
     }).compileComponents();
   }));
 
