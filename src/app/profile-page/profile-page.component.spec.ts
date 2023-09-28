@@ -23,6 +23,11 @@ import { By } from '@angular/platform-browser';
 import { EmptySpecialGroupDataMock$, SpecialGroupDataMock$ } from '../shared/testing/special-group.mock';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
+import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
+import {
+  ProfilePageResearcherFormComponent
+} from './profile-page-researcher-form/profile-page-researcher-form.component';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
@@ -104,7 +109,15 @@ describe('ProfilePageComponent', () => {
         provideMockStore({ initialState }),
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(ProfilePageComponent, {
+        remove: { imports: [
+            ProfilePageMetadataFormComponent,
+            ProfilePageSecurityFormComponent,
+            ProfilePageResearcherFormComponent,
+          ]}
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
