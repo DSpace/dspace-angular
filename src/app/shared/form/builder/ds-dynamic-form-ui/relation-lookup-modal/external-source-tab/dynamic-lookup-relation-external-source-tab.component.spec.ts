@@ -8,7 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { of as observableOf, EMPTY } from 'rxjs';
+import { EMPTY, of as observableOf } from 'rxjs';
 import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
@@ -31,6 +31,11 @@ import { ItemType } from '../../../../../../core/shared/item-relationships/item-
 import {
   ThemedExternalSourceEntryImportModalComponent
 } from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
+import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
+import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
+import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
+import { ErrorComponent } from '../../../../../error/error.component';
+import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 
 describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   let component: DsDynamicLookupRelationExternalSourceTabComponent;
@@ -40,7 +45,7 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   let selectableListService;
   let modalService;
 
-  const itemType = Object.assign(new ItemType(), { label: 'Person' });
+  const itemType = Object.assign(new ItemType(), {label: 'Person'});
   const externalSource = {
     id: 'orcidV2',
     name: 'orcidV2',
@@ -103,19 +108,32 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, BrowserAnimationsModule, DsDynamicLookupRelationExternalSourceTabComponent, VarDirective],
-    providers: [
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule,
+        BrowserAnimationsModule, DsDynamicLookupRelationExternalSourceTabComponent, VarDirective],
+      providers: [
         {
-            provide: SearchConfigurationService, useValue: {
-                paginatedSearchOptions: observableOf(pSearchOptions)
-            }
+          provide: SearchConfigurationService, useValue: {
+            paginatedSearchOptions: observableOf(pSearchOptions)
+          }
         },
-        { provide: ExternalSourceDataService, useValue: externalSourceService },
-        { provide: SelectableListService, useValue: selectableListService },
-        { provide: PaginationService, useValue: new PaginationServiceStub() }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+        {provide: ExternalSourceDataService, useValue: externalSourceService},
+        {provide: SelectableListService, useValue: selectableListService},
+        {provide: PaginationService, useValue: new PaginationServiceStub()}
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(DsDynamicLookupRelationExternalSourceTabComponent, {
+        remove: {
+          imports: [
+            ThemedSearchFormComponent,
+            PageSizeSelectorComponent,
+            ObjectCollectionComponent,
+            ErrorComponent,
+            ThemedLoadingComponent
+          ]
+        }
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
