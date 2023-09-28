@@ -1,7 +1,5 @@
 import { ItemVersionsComponent } from './item-versions.component';
-import {
-  ComponentFixture, TestBed, waitForAsync
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -18,7 +16,7 @@ import { PaginationServiceStub } from '../../shared/testing/pagination-service.s
 import { AuthService } from '../../core/auth/auth.service';
 import { VersionDataService } from '../../core/data/version-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -26,9 +24,12 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ItemSharedModule } from '../item-shared.module';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 
 describe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;
@@ -136,23 +137,27 @@ describe('ItemVersionsComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemSharedModule, ItemVersionsComponent, VarDirective],
+    imports: [TranslateModule.forRoot(), RouterModule.forRoot([]), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemSharedModule, ItemVersionsComponent, VarDirective],
     providers: [
-        { provide: PaginationService, useValue: new PaginationServiceStub() },
-        { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: AuthService, useValue: authenticationServiceSpy },
-        { provide: AuthorizationDataService, useValue: authorizationServiceSpy },
-        { provide: VersionHistoryDataService, useValue: versionHistoryServiceSpy },
-        { provide: ItemDataService, useValue: itemDataServiceSpy },
-        { provide: VersionDataService, useValue: versionServiceSpy },
-        { provide: WorkspaceitemDataService, useValue: workspaceItemDataServiceSpy },
-        { provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy },
-        { provide: ConfigurationDataService, useValue: configurationServiceSpy },
-        { provide: Router, useValue: routerSpy },
+      {provide: PaginationService, useValue: new PaginationServiceStub() },
+      {provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
+      {provide: NotificationsService, useValue: new NotificationsServiceStub()},
+      {provide: AuthService, useValue: authenticationServiceSpy},
+      {provide: AuthorizationDataService, useValue: authorizationServiceSpy},
+      {provide: VersionHistoryDataService, useValue: versionHistoryServiceSpy},
+      {provide: ItemDataService, useValue: itemDataServiceSpy},
+      {provide: VersionDataService, useValue: versionServiceSpy},
+      {provide: WorkspaceitemDataService, useValue: workspaceItemDataServiceSpy},
+      {provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy},
+      {provide: ConfigurationDataService, useValue: configurationServiceSpy},
+      {provide: ActivatedRoute, useValue: new ActivatedRouteStub()},
     ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(ItemVersionsComponent, {
+        remove: {imports: [AlertComponent, PaginationComponent]}
+      })
+      .compileComponents();
 
     versionHistoryService = TestBed.inject(VersionHistoryDataService);
     authenticationService = TestBed.inject(AuthService);
