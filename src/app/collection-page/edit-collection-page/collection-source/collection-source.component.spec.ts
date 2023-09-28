@@ -20,6 +20,9 @@ import { CollectionDataService } from '../../../core/data/collection-data.servic
 import { RequestService } from '../../../core/data/request.service';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { FormComponent } from '../../../shared/form/form.component';
+import { CollectionSourceControlsComponent } from './collection-source-controls/collection-source-controls.component';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -131,7 +134,15 @@ describe('CollectionSourceComponent', () => {
         { provide: RequestService, useValue: requestService }
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(CollectionSourceComponent, {
+        remove: { imports: [
+            ThemedLoadingComponent,
+            FormComponent,
+            CollectionSourceControlsComponent
+          ]}
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
