@@ -38,6 +38,11 @@ import { ValidateGroupExists } from './validators/group-exists.validator';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
+import { FormComponent } from '../../../shared/form/form.component';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { ContextHelpDirective } from '../../../shared/context-help.directive';
+import { MembersListComponent } from './members-list/members-list.component';
+import { SubgroupsListComponent } from './subgroup-list/subgroups-list.component';
 
 describe('GroupFormComponent', () => {
   let component: GroupFormComponent;
@@ -220,7 +225,17 @@ describe('GroupFormComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(GroupFormComponent, {
+        remove: { imports: [
+            FormComponent,
+            AlertComponent,
+            ContextHelpDirective,
+            MembersListComponent,
+            SubgroupsListComponent
+          ]}
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
