@@ -9,6 +9,8 @@ import { AuthService } from '../../core/auth/auth.service';
 })
 export class EmailValidatedComponent {
 
+  // TODO: (temporary)
+  // evaluate if this is needed
   @Input() registrationToken: string;
 
   constructor(private authService: AuthService, private router: Router) {

@@ -41,9 +41,9 @@
         </td>
         <td>
           <ui-switch
-            *ngIf="data.receivedValue !== data.currentValue && data.label"
-            [checkedLabel]="'ON' | translate"
-            [uncheckedLabel]="'OFF' | translate"
+            *ngIf="data.receivedValue !== data.currentValue"
+            [checkedLabel]="'on-label' | translate"
+            [uncheckedLabel]="'off-label' | translate"
             [checked]="data.overrideValue"
             (change)="onOverrideChange($event, data.identifier)"
           ></ui-switch>
@@ -52,7 +52,7 @@
     </tbody>
   </table>
   <div class="d-flex justify-content-end">
-    <button class="btn btn-primary" (click)="mergeEPersonRegistrationData()">
+    <button class="btn btn-primary" (click)="onSave()">
       {{'confirmation-modal.review-account-info.confirm' | translate}}
     </button>
   </div>

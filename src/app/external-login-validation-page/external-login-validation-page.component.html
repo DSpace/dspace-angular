@@ -1,11 +1,16 @@
 <div class="container">
-  <ng-container *ngIf="!emailExists">
-    <ds-email-validated [registrationToken]="token"></ds-email-validated>
-  </ng-container>
-  <ng-container *ngIf="emailExists">
+  <ng-container *ngIf="(registrationData$ | async).email; else newEmail">
     <ds-review-account-info
       [registrationToken]="token"
       [registrationData]="registrationData$ | async"
     ></ds-review-account-info>
   </ng-container>
+  <ng-template #newEmail>
+    <ds-email-validated [registrationToken]="token"></ds-email-validated>
+  </ng-template>
+  <ds-alert
+    *ngIf="!token"
+    [type]="AlertTypeEnum.Error"
+    [content]="'external-login.validate-email.no-token'"
+  ></ds-alert>
 </div>

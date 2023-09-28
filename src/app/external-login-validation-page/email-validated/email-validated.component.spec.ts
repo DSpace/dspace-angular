@@ -2,10 +2,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EmailValidatedComponent } from './email-validated.component';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { CUSTOM_ELEMENTS_SCHEMA, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { of } from 'rxjs';
 import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+import { AuthService } from 'src/app/core/auth/auth.service';
+import { Router } from '@angular/router';
+import { RouterStub } from 'src/app/shared/testing/router.stub';
+import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import { of } from 'rxjs';
 
 describe('EmailValidatedComponent', () => {
   let component: EmailValidatedComponent;
@@ -24,6 +27,8 @@ describe('EmailValidatedComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ EmailValidatedComponent ],
       providers: [
+        { provide: AuthService, useValue: {}},
+        { provide: Router, useValue: new RouterStub() },
         { provide: TranslateService, useValue: translateServiceStub },
        ],
        imports: [
@@ -35,7 +40,7 @@ describe('EmailValidatedComponent', () => {
           }
         }),
       ],
-       schemas: [CUSTOM_ELEMENTS_SCHEMA]
+       schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   });

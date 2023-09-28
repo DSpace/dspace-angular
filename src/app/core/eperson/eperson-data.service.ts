@@ -361,10 +361,15 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
    * @param token registration-token
    * @param metadataKey metadata key of the metadata field that should be overriden
    */
-  mergeEPersonDataWithToken(uuid: string, token: string, metadataKey: string): Observable<RemoteData<EPerson>> {
+  mergeEPersonDataWithToken(uuid: string, token: string, metadataKey?: string): Observable<RemoteData<EPerson>> {
     const requestId = this.requestService.generateRequestId();
     const hrefObs = this.getBrowseEndpoint().pipe(
-      map((href: string) => `${href}/${uuid}?token=${token}&override=${metadataKey}`));
+      map((href: string) =>
+        hasValue(metadataKey)
+          ? `${href}/${uuid}?token=${token}&override=${metadataKey}`
+          : `${href}/${uuid}?token=${token}`
+      )
+    );
 
     hrefObs.pipe(
       find((href: string) => hasValue(href)),

@@ -5,6 +5,7 @@ import { EpersonRegistrationService } from '../../../core/data/eperson-registrat
 import { RemoteData } from '../../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +15,18 @@ export class ExternalLoginService {
   constructor(
     private epersonRegistrationService: EpersonRegistrationService,
     private router: Router,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
+    private translate: TranslateService
   ) { }
 
-
+    /**
+     * Update the registration data
+     * @param values the values to update or add
+     * @param field the filed to be updated
+     * @param registrationId the registration id
+     * @param token the registration token
+     * @param operation operation to be performed
+     */
   patchUpdateRegistration(values: string[], field: string, registrationId: string, token: string, operation: 'add' | 'replace'): Observable<RemoteData<unknown>> {
     const updatedValues = values.map((value) => value);
     return this.epersonRegistrationService.patchUpdateRegistration(updatedValues, field, registrationId, token, operation).pipe(
@@ -27,8 +36,7 @@ export class ExternalLoginService {
           this.router.navigate(['/email-confirmation']);
         }
         if (rd.hasFailed) {
-          console.log('Email update failed: email address was omitted or the operation is not valid', rd.errorMessage);
-          this.notificationService.error('Something went wrong.Email address was omitted or the operation is not valid');
+          this.notificationService.error(this.translate.get('external-login-page.provide-email.notifications.error'));
         }
         return rd;
       })

@@ -1,4 +1,11 @@
 <div class="container">
-  <ds-external-log-in [registrationData]="registrationData" [token]="token"></ds-external-log-in>
+  <ng-container *ngIf="token">
+    <ds-external-log-in [registrationData]="registrationData$ | async" [token]="token"></ds-external-log-in>
+  </ng-container>
+
+  <ds-alert
+  *ngIf="!token"
+  [type]="AlertTypeEnum.Error"
+  [content]="'external-login.validate-email.no-token'"
+></ds-alert>
 </div>
-<!-- TODO: handle when no token -->
