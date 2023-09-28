@@ -15,6 +15,9 @@ import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { RouterStub } from '../../shared/testing/router.stub';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 
 describe('ProfileClaimItemModalComponent', () => {
   let component: ProfileClaimItemModalComponent;
@@ -114,6 +117,9 @@ describe('ProfileClaimItemModalComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })
+      .overrideComponent(ProfileClaimItemModalComponent, {
+        remove: { imports: [ListableObjectComponentLoaderComponent]}
+      })
       .compileComponents();
   }));
 
