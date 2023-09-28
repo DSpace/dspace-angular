@@ -12,6 +12,15 @@ import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component';
+import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
+import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
+import {
+  TruncatablePartComponent
+} from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
 
 let journalListElementComponent: JournalSearchResultListElementComponent;
 let fixture: ComponentFixture<JournalSearchResultListElementComponent>;
@@ -72,14 +81,21 @@ describe('JournalSearchResultListElementComponent', () => {
     TestBed.configureTestingModule({
     imports: [JournalSearchResultListElementComponent, TruncatePipe],
     providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
-        { provide: ThemeService, useValue: getMockThemeService() }
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(JournalSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [
+          ThumbnailComponent,
+          ThemedBadgesComponent,
+          TruncatableComponent,
+          TruncatablePartComponent
+        ]}
     }).compileComponents();
   }));
 
@@ -135,7 +151,7 @@ describe('JournalSearchResultListElementComponent', () => {
     TestBed.configureTestingModule({
     imports: [JournalSearchResultListElementComponent, TruncatePipe],
     providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
         { provide: ThemeService, useValue: getMockThemeService() }
