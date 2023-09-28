@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, MetadataOverride, TestBed } from '@angular/core/testing';
 import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { Observable } from 'rxjs/internal/Observable';
@@ -6,6 +6,7 @@ import { of as observableOf } from 'rxjs/internal/observable/of';
 import { UnCacheableObject } from '../../core/shared/uncacheable-object.model';
 import { RequestEntryState } from '../../core/data/request-entry-state.model';
 import { RequestEntry } from '../../core/data/request-entry.model';
+import { Component } from '@angular/core';
 
 /**
  * Returns true if a Native Element has a specified css class.
@@ -27,10 +28,12 @@ export const hasClass = (element: any, className: string): boolean => {
  *    the component's template as html
  * @param type
  *    the type of the component to instantiate
+ * @param override
  */
-export const createTestComponent = <T>(html: string, type: new (...args: any[]) => T ): ComponentFixture<T> => {
+export const createTestComponent = <T>(html: string, type: new (...args: any[]) => T, override: MetadataOverride<Component> = {}): ComponentFixture<T> => {
   TestBed.overrideComponent(type, {
-    set: { template: html }
+    set: { template: html },
+    ...override
   });
   const fixture = TestBed.createComponent(type);
 
