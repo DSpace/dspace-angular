@@ -10,6 +10,10 @@ import { MetadataValue } from '../../../core/shared/metadata.models';
 import { of } from 'rxjs/internal/observable/of';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { By } from '@angular/platform-browser';
+import {
+  DsoEditMetadataValueHeadersComponent
+} from '../dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
+import { DsoEditMetadataValueComponent } from '../dso-edit-metadata-value/dso-edit-metadata-value.component';
 
 describe('DsoEditMetadataFieldValuesComponent', () => {
   let component: DsoEditMetadataFieldValuesComponent;
@@ -57,7 +61,11 @@ describe('DsoEditMetadataFieldValuesComponent', () => {
     imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), DsoEditMetadataFieldValuesComponent, VarDirective],
     providers: [],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(DsoEditMetadataFieldValuesComponent, {
+        remove: { imports: [DsoEditMetadataValueHeadersComponent, DsoEditMetadataValueComponent]}
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
