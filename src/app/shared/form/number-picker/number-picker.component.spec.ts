@@ -149,7 +149,8 @@ describe('NumberPickerComponent test suite', () => {
     standalone: true,
     imports: [FormsModule,
         ReactiveFormsModule,
-        NgbModule]
+        NgbModule,
+        NumberPickerComponent,]
 })
 class TestComponent {
 
