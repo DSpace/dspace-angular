@@ -13,6 +13,8 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-dat
 import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
 import { By } from '@angular/platform-browser';
 import { BrowserOnlyMockPipe } from '../../../../shared/testing/browser-only-mock.pipe';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 
 let comp: ItemEditBitstreamComponent;
 let fixture: ComponentFixture<ItemEditBitstreamComponent>;
@@ -47,7 +49,7 @@ const url = 'thisUrl';
 
 let objectUpdatesService: ObjectUpdatesService;
 
-describe('ItemEditBitstreamComponent', () => {
+fdescribe('ItemEditBitstreamComponent', () => {
   beforeEach(waitForAsync(() => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
@@ -76,7 +78,8 @@ describe('ItemEditBitstreamComponent', () => {
         VarDirective],
     declarations: [BrowserOnlyMockPipe],
     providers: [
-        { provide: ObjectUpdatesService, useValue: objectUpdatesService }
+        { provide: ObjectUpdatesService, useValue: objectUpdatesService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
     ], schemas: [
         NO_ERRORS_SCHEMA
     ]

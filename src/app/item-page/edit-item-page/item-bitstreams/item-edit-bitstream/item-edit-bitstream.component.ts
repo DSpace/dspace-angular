@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BrowserOnlyPipe } from '../../../../shared/utils/browser-only.pipe';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'ds-item-edit-bitstream',
@@ -25,7 +25,8 @@ import { AsyncPipe } from '@angular/common';
     TranslateModule,
     BrowserOnlyPipe,
     NgbTooltipModule,
-    AsyncPipe
+    AsyncPipe,
+    NgIf
   ],
   standalone: true
 })
