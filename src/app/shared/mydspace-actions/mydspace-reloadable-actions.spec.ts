@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { PoolTaskDataService } from '../../core/tasks/pool-task-data.service';
@@ -19,6 +19,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { SearchService } from '../../core/shared/search/search.service';
 import { RequestService } from '../../core/data/request.service';
 import { ProcessTaskResponse } from '../../core/tasks/models/process-task-response';
+import { ActivatedRouteStub } from '../testing/active-router.stub';
 
 let mockDataService: PoolTaskDataService;
 let mockClaimedTaskDataService: ClaimedTaskDataService;
@@ -89,7 +90,8 @@ describe('MyDSpaceReloadableActionsComponent', () => {
         { provide: PoolTaskDataService, useValue: mockDataService },
         { provide: ClaimedTaskDataService, useValue: mockClaimedTaskDataService },
         { provide: SearchService, useValue: searchService },
-        { provide: RequestService, useValue: requestService }
+        { provide: RequestService, useValue: requestService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(PoolTaskActionsComponent, {
