@@ -10,6 +10,9 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import cloneDeep from 'lodash/cloneDeep';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { FormComponent } from '../../shared/form/form.component';
+import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
+import { of } from 'rxjs';
 
 describe('ProfilePageMetadataFormComponent', () => {
   let component: ProfilePageMetadataFormComponent;
@@ -20,6 +23,7 @@ describe('ProfilePageMetadataFormComponent', () => {
   let epersonService;
   let notificationsService;
   let translate;
+  let configurationDataService;
 
   function init() {
     user = Object.assign(new EPerson(), {
@@ -59,6 +63,10 @@ describe('ProfilePageMetadataFormComponent', () => {
       onLangChange: new EventEmitter()
     };
 
+    configurationDataService = jasmine.createSpyObj('ConfigurationDataService', {
+      findByPropertyName: of({payload: {value: 'test'}}),
+    });
+
   }
 
   beforeEach(waitForAsync(() => {
@@ -69,10 +77,15 @@ describe('ProfilePageMetadataFormComponent', () => {
         { provide: EPersonDataService, useValue: epersonService },
         { provide: TranslateService, useValue: translate },
         { provide: NotificationsService, useValue: notificationsService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
         FormBuilderService
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(ProfilePageMetadataFormComponent, {
+        remove: { imports: [FormComponent]}
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
