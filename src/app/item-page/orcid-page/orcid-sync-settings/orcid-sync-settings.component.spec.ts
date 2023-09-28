@@ -19,6 +19,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { OrcidSyncSettingsComponent } from './orcid-sync-settings.component';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('OrcidSyncSettingsComponent test suite', () => {
   let comp: OrcidSyncSettingsComponent;
@@ -138,6 +139,7 @@ describe('OrcidSyncSettingsComponent test suite', () => {
         FormsModule,
         NgbAccordionModule,
         ReactiveFormsModule,
+        NoopAnimationsModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,

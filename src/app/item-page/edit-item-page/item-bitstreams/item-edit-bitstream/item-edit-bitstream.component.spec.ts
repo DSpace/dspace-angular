@@ -49,7 +49,7 @@ const url = 'thisUrl';
 
 let objectUpdatesService: ObjectUpdatesService;
 
-fdescribe('ItemEditBitstreamComponent', () => {
+describe('ItemEditBitstreamComponent', () => {
   beforeEach(waitForAsync(() => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
