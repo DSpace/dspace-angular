@@ -14,6 +14,7 @@ import { SearchConfigurationServiceStub } from '../../../testing/search-configur
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { SequenceService } from '../../../../core/shared/sequence.service';
 import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
+import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 
 describe('SearchFilterComponent', () => {
   let comp: SearchFilterComponent;
@@ -75,7 +76,8 @@ describe('SearchFilterComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(SearchFilterComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [SearchFacetFilterWrapperComponent]}
     }).compileComponents();
   }));
 
