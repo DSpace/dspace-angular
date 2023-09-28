@@ -8,6 +8,9 @@ import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
+import {
+  JournalVolumeSearchResultListElementComponent
+} from '../search-result-list-elements/journal-volume/journal-volume-search-result-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: observableOf({}),
@@ -50,7 +53,8 @@ describe('JournalVolumeListElementComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(JournalVolumeListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [JournalVolumeSearchResultListElementComponent]}
     }).compileComponents();
   }));
 
