@@ -12,6 +12,7 @@ import { BitstreamAuthorizationsComponent } from './bitstream-authorizations.com
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { ResourcePoliciesComponent } from '../../shared/resource-policies/resource-policies.component';
 
 describe('BitstreamAuthorizationsComponent', () => {
   let comp: BitstreamAuthorizationsComponent<DSpaceObject>;
@@ -58,7 +59,11 @@ describe('BitstreamAuthorizationsComponent', () => {
         BitstreamAuthorizationsComponent,
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(BitstreamAuthorizationsComponent, {
+        remove: { imports: [ResourcePoliciesComponent]}
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
