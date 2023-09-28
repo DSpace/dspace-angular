@@ -18,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ProcessDetailFieldComponent } from './process-detail-field/process-detail-field.component';
 import { Process } from '../processes/process.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
@@ -36,6 +36,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import {ProcessStatus} from '../processes/process-status.model';
+import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 
 describe('ProcessDetailComponent', () => {
   let component: ProcessDetailComponent;
@@ -142,7 +144,11 @@ describe('ProcessDetailComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), ProcessDetailComponent, ProcessDetailFieldComponent, VarDirective, FileSizePipe],
+    imports: [
+      TranslateModule.forRoot(),
+      RouterModule.forRoot([]),
+      ProcessDetailComponent, ProcessDetailFieldComponent,
+      VarDirective, FileSizePipe],
     providers: [
         {
             provide: ActivatedRoute,
@@ -158,7 +164,16 @@ describe('ProcessDetailComponent', () => {
         { provide: Router, useValue: router },
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
-}).compileComponents();
+})
+      .overrideComponent(ProcessDetailComponent, {
+        remove: { imports: [
+            ProcessDetailFieldComponent,
+            ThemedFileDownloadLinkComponent,
+            ThemedLoadingComponent,
+            RouterLink
+          ]}
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
