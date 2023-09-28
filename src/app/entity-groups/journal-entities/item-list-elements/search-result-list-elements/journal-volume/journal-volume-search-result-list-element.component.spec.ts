@@ -1,4 +1,4 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { of as observableOf } from 'rxjs';
@@ -83,14 +83,14 @@ const enviromentNoThumbs = {
 describe('JournalVolumeSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [JournalVolumeSearchResultListElementComponent, TruncatePipe],
-    providers: [
-        { provide: TruncatableService, useValue: mockTruncatableService },
-        { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs },
-        { provide: ThemeService, useValue: getMockThemeService() },
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
-    ],
+      imports: [JournalVolumeSearchResultListElementComponent, TruncatePipe],
+      providers: [
+        {provide: TruncatableService, useValue: mockTruncatableService},
+        {provide: DSONameService, useClass: DSONameServiceMock},
+        {provide: APP_CONFIG, useValue: environmentUseThumbs},
+        {provide: ThemeService, useValue: getMockThemeService()},
+        {provide: ActivatedRoute, useValue: new ActivatedRouteStub()}
+      ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(JournalVolumeSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
@@ -177,16 +177,25 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [JournalVolumeSearchResultListElementComponent, TruncatePipe],
-    providers: [
-        { provide: TruncatableService, useValue: mockTruncatableService },
-        { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
-        { provide: ThemeService, useValue: getMockThemeService() }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(JournalVolumeSearchResultListElementComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      imports: [JournalVolumeSearchResultListElementComponent, TruncatePipe],
+      providers: [
+        {provide: TruncatableService, useValue: mockTruncatableService},
+        {provide: DSONameService, useClass: DSONameServiceMock},
+        {provide: APP_CONFIG, useValue: enviromentNoThumbs},
+        {provide: ThemeService, useValue: getMockThemeService()},
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(JournalVolumeSearchResultListElementComponent, {
+      add: {changeDetection: ChangeDetectionStrategy.Default},
+      remove: {
+        imports: [
+          ThumbnailComponent,
+          ThemedBadgesComponent,
+          TruncatableComponent,
+          TruncatablePartComponent,
+        ]
+      }
     }).compileComponents();
   }));
 
