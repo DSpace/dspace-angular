@@ -18,6 +18,7 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { UUIDService } from '../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-process-overview',
@@ -44,7 +45,7 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
    * The current pagination configuration for the page
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'po',
+    id: this.uuidService.generate(),
     pageSize: 20
   });
 
@@ -65,7 +66,8 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
               protected authorizationService: AuthorizationDataService,
               protected notificationService: NotificationsService,
               protected translateService: TranslateService,
-              public processBulkDeleteService: ProcessBulkDeleteService,
+              protected uuidService: UUIDService,
+              public processBulkDeleteService: ProcessBulkDeleteService
   ) {
   }
 

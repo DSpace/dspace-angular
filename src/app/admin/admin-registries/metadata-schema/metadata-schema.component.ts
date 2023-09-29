@@ -22,6 +22,7 @@ import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from 
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { UUIDService } from '../../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-metadata-schema',
@@ -47,7 +48,7 @@ export class MetadataSchemaComponent implements OnInit {
    * Pagination config used to display the list of metadata fields
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'rm',
+    id: this.uuidService.generate(),
     pageSize: 25,
     pageSizeOptions: [25, 50, 100, 200]
   });
@@ -62,6 +63,7 @@ export class MetadataSchemaComponent implements OnInit {
               private notificationsService: NotificationsService,
               private router: Router,
               private paginationService: PaginationService,
+              private uuidService: UUIDService,
               private translateService: TranslateService) {
 
   }
