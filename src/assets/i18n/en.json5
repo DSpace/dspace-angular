@@ -7222,7 +7222,7 @@
 
   "review-account-info.merge-data.notification.error": "Something went wrong while updating your account information",
 
-  "external-login.validate-email.no-token": "The validation link is no longer valid. Please try again.",
+  "external-login.validate-email.no-token": "Something went wrong. Your email address is not validated succesfully.",
 
   "external-login-page.provide-email.notifications.error": "Something went wrong.Email address was omitted or the operation is not valid.",
 }

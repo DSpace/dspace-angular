@@ -14,12 +14,6 @@ export class EmailValidatedComponent {
   @Input() registrationToken: string;
 
   constructor(private authService: AuthService, private router: Router) {
-    // if user is logged in, redirect to home page
-    // in case user logs in with an existing account
-    this.authService.isAuthenticated().subscribe((isAuthenticated: boolean) => {
-      if (isAuthenticated) {
-        this.router.navigate(['/']);
-      }
-    });
+    this.authService.setRedirectUrl('/review-account');
   }
 }

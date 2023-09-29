@@ -41,7 +41,7 @@ export class ExternalLoginPageComponent implements OnInit {
   ngOnInit(): void {
     this.getRegistrationData();
     // TODO: remove this line (temporary)
-    // this.token = '1234567890';
+    this.token = '1234567890';
   }
 
   /**

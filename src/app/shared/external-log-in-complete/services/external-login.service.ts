@@ -29,6 +29,7 @@ export class ExternalLoginService {
      */
   patchUpdateRegistration(values: string[], field: string, registrationId: string, token: string, operation: 'add' | 'replace'): Observable<RemoteData<unknown>> {
     const updatedValues = values.map((value) => value);
+    this.router.navigate(['/email-confirmation']); // TODO: remove this line (temporary)
     return this.epersonRegistrationService.patchUpdateRegistration(updatedValues, field, registrationId, token, operation).pipe(
       getFirstCompletedRemoteData(),
       map((rd) => {

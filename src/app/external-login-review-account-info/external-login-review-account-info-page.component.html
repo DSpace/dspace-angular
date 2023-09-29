@@ -1,0 +1,13 @@
+<div class="container">
+  <ng-container *ngIf="token">
+    <ds-review-account-info
+      [registrationToken]="token"
+      [registrationData]="registrationData$ | async"
+    ></ds-review-account-info>
+  </ng-container>
+  <ds-alert
+    *ngIf="!token"
+    [type]="AlertTypeEnum.Error"
+    [content]="'external-login.validate-email.no-token'"
+  ></ds-alert>
+</div>

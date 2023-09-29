@@ -5,26 +5,20 @@ import { ExternalLoginValidationPageRoutingModule } from './external-login-valid
 import { ExternalLoginValidationPageComponent } from './external-login-validation-page.component';
 import { ThemedExternalLoginValidationPageComponent } from './themed-external-login-validation-page.component';
 
-import { UiSwitchModule } from 'ngx-ui-switch';
-import { ReviewAccountInfoComponent } from './review-account-info/review-account-info.component';
 import { EmailValidatedComponent } from './email-validated/email-validated.component';
 import { SharedModule } from '../shared/shared.module';
-import { CompareValuesPipe } from './helpers/compare-values.pipe';
 
 
 @NgModule({
   declarations: [
     ExternalLoginValidationPageComponent,
     ThemedExternalLoginValidationPageComponent,
-    ReviewAccountInfoComponent,
     EmailValidatedComponent,
-    CompareValuesPipe
   ],
   imports: [
     CommonModule,
     ExternalLoginValidationPageRoutingModule,
-    SharedModule,
-    UiSwitchModule,
+    SharedModule
   ]
 })
 export class ExternalLoginValidationPageModule { }

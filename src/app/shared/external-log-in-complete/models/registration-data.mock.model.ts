@@ -6,7 +6,7 @@ export const mockRegistrationDataModel: RegistrationData = Object.assign(
   new RegistrationData(),
   {
     id: '3',
-    email: 'user@institution.edu',
+    email: null,//'user@institution.edu',
     user: '028dcbb8-0da2-4122-a0ea-254be49ca107',
     registrationType: AuthMethodType.Orcid,
     netId: '0000-1111-2222-3333',

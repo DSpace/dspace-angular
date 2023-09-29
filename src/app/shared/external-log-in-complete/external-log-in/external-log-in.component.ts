@@ -57,15 +57,7 @@ export class ExternalLogInComponent implements OnInit {
     private modalService: NgbModal,
     private authService: AuthService,
     private router: Router
-  ) {
-    // if user is logged in, redirect to home page
-    // in case user logs in with an existing account
-    this.authService.isAuthenticated().subscribe((isAuthenticated: boolean) => {
-      if (isAuthenticated) {
-        this.router.navigate(['/']);
-      }
-    });
-  }
+  ) {}
 
   /**
    * Provide the registration data object to the objectInjector.
@@ -124,6 +116,15 @@ export class ExternalLogInComponent implements OnInit {
 
   openLoginModal(content: any) {
     this.modalRef = this.modalService.open(content);
+    this.authService.setRedirectUrl('/review-account');
+
+    this.modalRef.dismissed.subscribe(() => {
+     this.clearRedirectUrl();
+    });
+  }
+
+  clearRedirectUrl() {
+    this.authService.clearRedirectUrl();
   }
 
   ngOnDestroy(): void {

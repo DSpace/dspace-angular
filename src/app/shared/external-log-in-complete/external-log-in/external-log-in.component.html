@@ -36,14 +36,16 @@
       <ds-log-in
         [excludedAuthMethod]="registrationType"
         [showRegisterLink]="false"
-        [isStandalonePage]="false"
+        [isStandalonePage]="true"
       ></ds-log-in>
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-primary btn-sm" (click)="c('Close click')">
+    <button type="button" class="btn btn-outline-primary btn-sm" (click)="c('Close click');clearRedirectUrl()">
       <i class="fa fa-times" aria-hidden="true"></i>
       Close
+      <!-- TODO:    // Redirect to review account page
+              // use SetRedirectUrlaction -->
     </button>
   </div>
 </ng-template>

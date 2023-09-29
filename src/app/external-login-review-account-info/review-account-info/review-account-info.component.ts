@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPersonMock } from '../../shared/testing/eperson.mock';
 import { RegistrationData } from '../../shared/external-log-in-complete/models/registration-data.model';
 import { Observable, Subscription, filter, from, switchMap, take } from 'rxjs';
 import { RemoteData } from 'src/app/core/data/remote-data';
