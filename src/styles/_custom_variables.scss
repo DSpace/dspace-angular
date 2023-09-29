@@ -29,6 +29,9 @@
   --ds-header-navbar-border-bottom-color: #{$gray-400};
   --ds-navbar-link-color: #{$cyan};
   --ds-navbar-link-color-hover: #{darken($cyan, 15%)};
+  --ds-expandable-navbar-bg: var(--ds-navbar-bg);
+  --ds-expandable-navbar-link-color: var(--ds-navbar-link-color);
+  --ds-expandable-navbar-link-color-hover: var(--ds-navbar-link-color-hover);
 
   $admin-sidebar-bg: darken(#2B4E72, 17%);
   $admin-sidebar-active-bg: darken($admin-sidebar-bg, 3%);
