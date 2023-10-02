@@ -109,6 +109,9 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
               if (hasValue(match)) {
                 embedAltUrl = new URLCombiner(embedAltUrl, `?size=${match.size}`).toString();
               }
+              if (data._embedded[property] == null) {
+                this.addToObjectCache(null, request, data, embedAltUrl);
+              }
               this.process<ObjectDomain>(data._embedded[property], request, embedAltUrl);
             });
         }
@@ -226,7 +229,7 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
    * @param alternativeURL  an alternative url that can be used to retrieve the object
    */
   addToObjectCache(co: CacheableObject, request: RestRequest, data: any, alternativeURL?: string): void {
-    if (!isCacheableObject(co)) {
+    if (hasValue(co) && !isCacheableObject(co)) {
       const type = hasValue(data) && hasValue(data.type) ? data.type : 'object';
       let dataJSON: string;
       if (hasValue(data._embedded)) {
@@ -240,7 +243,7 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
       return;
     }
 
-    if (alternativeURL === co._links.self.href) {
+    if (hasValue(co) && alternativeURL === co._links.self.href) {
       alternativeURL = undefined;
     }
 
