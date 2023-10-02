@@ -26,6 +26,7 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { SearchObjects } from '../../models/search-objects.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { UUIDService } from '../../../../core/shared/uuid.service';
 
 export enum ExportSelectionMode {
   All = 'all',
@@ -105,7 +106,8 @@ export class ItemExportComponent implements OnInit, OnDestroy {
     protected translate: TranslateService,
     public activeModal: NgbActiveModal,
     private selectableListService: SelectableListService,
-    private searchManager: SearchManager,) {
+    private searchManager: SearchManager,
+    private uuidService: UUIDService) {
   }
 
   ngOnInit() {
@@ -260,7 +262,7 @@ export class ItemExportComponent implements OnInit, OnDestroy {
       Object.assign(new PaginatedSearchOptions({}), this.searchOptions, {
         fixedFilter: `f.entityType=${this.itemType.label},equals`,
         pagination: Object.assign(new PaginationComponentOptions(), {
-          id: 'ex',
+          id: this.uuidService.generate(),
           pageSize: 1
         })
       })

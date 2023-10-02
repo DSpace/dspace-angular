@@ -15,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { hasValue, isEmpty } from '../../../../shared/empty.util';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+import { UUIDService } from '../../../../core/shared/uuid.service';
 
 /**
  * This component renders the file section of the item
@@ -36,13 +37,13 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
   licenses$: Observable<RemoteData<PaginatedList<Bitstream>>>;
 
   originalOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'obo',
+    id: this.uuidService.generate(),
     currentPage: 1,
     pageSize: this.appConfig.item.bitstream.pageSize
   });
 
   licenseOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'lbo',
+    id: this.uuidService.generate(),
     currentPage: 1,
     pageSize: this.appConfig.item.bitstream.pageSize
   });
@@ -52,6 +53,7 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
     protected paginationService: PaginationService,
+    protected uuidService: UUIDService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
     super(bitstreamDataService, notificationsService, translateService, appConfig);
