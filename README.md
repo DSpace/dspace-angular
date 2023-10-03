@@ -529,7 +529,7 @@ Frequently asked questions
 -	Why is the size of my app larger in development?
 	-	The production build uses a whole host of techniques (ahead-of-time compilation, rollup to remove unreachable code, minification, etc.) to reduce the size, that aren't used during development in the intrest of build speed.
 -	node-pre-gyp ERR in yarn install (Windows)
-	-	install Python x86 version between 2.5 and 3.0 on windows. See [this issue](https://github.com/AngularClass/angular2-webpack-starter/issues/626)
+	-	install a current version of Python x86 on Windows.
 -	How do I handle merge conflicts in yarn.lock?
 	-	first check out the yarn.lock file from the branch you're merging in to yours: e.g. `git checkout --theirs yarn.lock`
 	-	now run `yarn install` again. Yarn will create a new lockfile that contains both sets of changes.
