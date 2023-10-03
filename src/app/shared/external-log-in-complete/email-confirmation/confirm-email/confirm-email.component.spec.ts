@@ -6,7 +6,8 @@ import { EpersonRegistrationService } from '../../../../core/data/eperson-regist
 import { CommonModule } from '@angular/common';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ExternalLoginService } from '../../services/external-login.service';
 
 describe('ConfirmEmailComponent', () => {
   let component: ConfirmEmailComponent;
@@ -18,6 +19,7 @@ describe('ConfirmEmailComponent', () => {
       providers: [
         FormBuilder,
         { provide: EpersonRegistrationService, useValue: {} },
+        { provide: ExternalLoginService, useValue: {} },
       ],
       imports: [
         CommonModule,
@@ -28,7 +30,7 @@ describe('ConfirmEmailComponent', () => {
           }
         }),
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   });

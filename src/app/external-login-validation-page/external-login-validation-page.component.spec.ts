@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExternalLoginValidationPageComponent } from './external-login-validation-page.component';
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { Observable, of } from 'rxjs';
 import { RemoteData } from '../core/data/remote-data';
@@ -10,11 +9,12 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { ActivatedRoute } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { RegistrationData } from '../shared/external-log-in-complete/models/registration-data.model';
 import { AlertType } from '../shared/alert/aletr-type';
+import { tr } from 'date-fns/locale';
 
 describe('ExternalLoginValidationPageComponent', () => {
   let component: ExternalLoginValidationPageComponent;
+  let componentAsAny: any;
   let fixture: ComponentFixture<ExternalLoginValidationPageComponent>;
   let epersonRegistrationService: any;
 
@@ -37,19 +37,21 @@ describe('ExternalLoginValidationPageComponent', () => {
       queryParams: {
         token: tokenMock
       }
-    }
+    },
+    data: of({
+      createUser: true,
+    }),
   };
 
   beforeEach(async () => {
     epersonRegistrationService = {
-      searchByToken: (token: string): Observable<RemoteData<any>> => { return createSuccessfulRemoteDataObject$(registrationDataMock); }
+      searchByTokenAndUpdateData: (token: string): Observable<RemoteData<any>> => { return createSuccessfulRemoteDataObject$(registrationDataMock); }
     };
 
     await TestBed.configureTestingModule({
       declarations: [ExternalLoginValidationPageComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
-        { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
       ],
       imports: [
         CommonModule,
@@ -68,6 +70,7 @@ describe('ExternalLoginValidationPageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ExternalLoginValidationPageComponent);
     component = fixture.componentInstance;
+    componentAsAny = component;
     fixture.detectChanges();
   });
 
@@ -75,49 +78,32 @@ describe('ExternalLoginValidationPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set the token from the query parameters', () => {
-    expect(component.token).toEqual(tokenMock);
-  });
-
-  it('should initialize the registration data', () => {
-    spyOn(epersonRegistrationService, 'searchByToken').and.callThrough();
+  it('should set validationFailed to true if createUser is falsy', () => {
+    const activatedRoute = TestBed.inject(ActivatedRoute);
+    activatedRoute.data = of({ createUser: false });
     component.ngOnInit();
-    expect(epersonRegistrationService.searchByToken).toHaveBeenCalledWith(tokenMock);
-    expect(component.registrationData$).toBeTruthy();
+    expect(componentAsAny.validationFailed.value).toBeTrue();
   });
 
-  it('should render ds-email-validated component when registrationData$ does not have an email', () => {
-    component.registrationData$ = of(Object.assign(new RegistrationData(), { registrationDataMock, email: null }));
+  it('should set validationFailed to false if createUser is truthy', () => {
+    const activatedRoute = TestBed.inject(ActivatedRoute);
+    activatedRoute.data = of({ createUser: true });
     component.ngOnInit();
-    fixture.detectChanges();
-
-    const emailValidatedComponent = fixture.nativeElement.querySelector('ds-email-validated');
-    const reviewAccountInfoComponent = fixture.nativeElement.querySelector('ds-review-account-info');
-
-    expect(emailValidatedComponent).toBeTruthy();
-    expect(reviewAccountInfoComponent).toBeNull();
+    expect(componentAsAny.validationFailed.value).toBeFalse();
   });
 
-  it('should render ds-review-account-info component when registrationData$ has an email', () => {
-    component.registrationData$ = of(Object.assign(new RegistrationData(), { registrationDataMock, email: 'hey@hello.com' }));
-    // component.ngOnInit();
+  it('should show DsEmailValidatedComponent when hasFailed() returns false', () => {
+    spyOn(component, 'hasFailed').and.returnValue(of(false));
     fixture.detectChanges();
-    const emailValidatedComponent = fixture.nativeElement.querySelector('ds-email-validated');
-    const reviewAccountInfoComponent = fixture.nativeElement.querySelector('ds-review-account-info');
-
-    expect(emailValidatedComponent).toBeNull();
-    expect(reviewAccountInfoComponent).toBeTruthy();
+    const dsEmailValidated = fixture.nativeElement.querySelector('ds-email-validated');
+    expect(dsEmailValidated).toBeTruthy();
   });
 
-  it('should render ds-alert component when token is missing', () => {
-    component.token = null;
-    component.ngOnInit();
+  it('should show DsAlertComponent when hasFailed() returns true', () => {
+    spyOn(component, 'hasFailed').and.returnValue(of(true));
     fixture.detectChanges();
-
-    const alertComponent = fixture.nativeElement.querySelector('ds-alert');
-
-    expect(alertComponent).toBeTruthy();
-    expect(component.AlertTypeEnum).toEqual(AlertType);
+    const dsAlert = fixture.nativeElement.querySelector('ds-alert');
+    expect(dsAlert).toBeTruthy();
   });
 
   afterEach(() => {

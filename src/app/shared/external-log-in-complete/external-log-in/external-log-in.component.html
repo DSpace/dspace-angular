@@ -11,7 +11,7 @@
 <div class="row justify-content-center">
   <div class="col-4 d-flex justify-content-end align-items-center">
     <ng-container *ngIf="registrationData.email; else provideEmail">
-      <ds-confirm-email [registrationId]="registrationData.id" [token]="token"></ds-confirm-email>
+      <ds-confirm-email [registrationData]="registrationData" [token]="token"></ds-confirm-email>
     </ng-container>
     <ng-template #provideEmail>
       <ds-provide-email [registrationId]="registrationData.id" [token]="token"></ds-provide-email>
@@ -22,14 +22,14 @@
   </div>
   <div class="col-4 align-items-center d-flex justify-content-start">
     <button class="btn btn block btn-lg btn-primary" (click)="openLoginModal(loginModal)">
-      Connect to an existing user
+      {{'external-login.connect-to-existing-account.label' | translate}}
     </button>
   </div>
 </div>
 
 <ng-template #loginModal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title text-info">{{'Connect to an existing user' | translate}}</h4>
+    <h4 class="modal-title text-info"> {{'external-login.connect-to-existing-account.label' | translate}}</h4>
   </div>
   <div class="modal-body">
     <div class="row justify-content-center">
@@ -43,9 +43,7 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-primary btn-sm" (click)="c('Close click');clearRedirectUrl()">
       <i class="fa fa-times" aria-hidden="true"></i>
-      Close
-      <!-- TODO:    // Redirect to review account page
-              // use SetRedirectUrlaction -->
+      {{'external-login.modal.label.close' | translate}}
     </button>
   </div>
 </ng-template>

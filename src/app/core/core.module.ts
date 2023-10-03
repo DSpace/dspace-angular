@@ -472,7 +472,7 @@ export const models =
     LoginStatistics,
     Metric,
     ItemRequest,
-    RegistrationData
+    RegistrationData,
   ];
 
 @NgModule({

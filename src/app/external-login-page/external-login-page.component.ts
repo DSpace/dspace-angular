@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { hasValue } from '../shared/empty.util';
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
-import { Registration } from '../core/shared/registration.model';
+import { hasNoValue } from '../shared/empty.util';
 import { RegistrationData } from '../shared/external-log-in-complete/models/registration-data.model';
 import { mockRegistrationDataModel } from '../shared/external-log-in-complete/models/registration-data.mock.model';
 import { AlertType } from '../shared/alert/aletr-type';
-import { Observable, map, of } from 'rxjs';
-import { getRemoteDataPayload } from '../core/shared/operators';
+import { Observable, first, map, of, tap } from 'rxjs';
 
 @Component({
   templateUrl: './external-login-page.component.html',
@@ -23,41 +20,35 @@ export class ExternalLoginPageComponent implements OnInit {
   /**
    * The registration data of the user.
    */
-  public registrationData$: Observable<RegistrationData> = of(
-    mockRegistrationDataModel
-  );
+  public registrationData$: Observable<RegistrationData>;
   /**
    * The type of alert to show.
    */
   public AlertTypeEnum = AlertType;
+  /**
+   * Whether the component has errors.
+   */
+  public hasErrors = false;
 
   constructor(
-    private epersonRegistrationService: EpersonRegistrationService,
     private arouter: ActivatedRoute
   ) {
     this.token = this.arouter.snapshot.queryParams.token;
+    this.hasErrors = hasNoValue(this.arouter.snapshot.queryParams.token);
   }
 
   ngOnInit(): void {
-    this.getRegistrationData();
-    // TODO: remove this line (temporary)
-    this.token = '1234567890';
-  }
+    this.registrationData$ = this.arouter.data.pipe(
+    first(),
+    tap((data) => this.hasErrors = hasNoValue(data.registrationData)),
+    map((data) => data.registrationData));
 
-  /**
-   * Get the registration data of the user,
-   * based on the token.
-   */
-  getRegistrationData() {
-    if (hasValue(this.token)) {
-      this.registrationData$ = this.epersonRegistrationService
-        .searchByToken(this.token)
-        .pipe(
-          getRemoteDataPayload(),
-          map((registration: Registration) =>
-            Object.assign(new RegistrationData(), registration)
-          )
-        );
-    }
+
+    // TODO: remove this line (temporary)
+    this.registrationData$ = of(
+      mockRegistrationDataModel
+    );
+    this.hasErrors = false;
+    this.token = '1234567890';
   }
 }

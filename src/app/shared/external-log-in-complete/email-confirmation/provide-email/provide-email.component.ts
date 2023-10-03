@@ -1,7 +1,10 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { getRemoteDataPayload } from '../../../../core/shared/operators';
 import { ExternalLoginService } from '../../services/external-login.service';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { Registration } from '../../../../core/shared/registration.model';
+import { Subscription } from 'rxjs';
+import { hasValue } from '../../../../shared/empty.util';
 
 @Component({
   selector: 'ds-provide-email',
@@ -9,12 +12,21 @@ import { ExternalLoginService } from '../../services/external-login.service';
   styleUrls: ['./provide-email.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProvideEmailComponent {
+export class ProvideEmailComponent implements OnDestroy {
+  /**
+   * The form group for the email input
+   */
   emailForm: FormGroup;
-
+  /**
+   * The registration id
+   */
   @Input() registrationId: string;
-
+  /**
+   * The token from the URL
+   */
   @Input() token: string;
+
+  subs: Subscription[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,11 +41,15 @@ export class ProvideEmailComponent {
     this.emailForm.markAllAsTouched();
     if (this.emailForm.valid) {
       const email = this.emailForm.get('email').value;
-      this.externalLoginService.patchUpdateRegistration([email], 'email', this.registrationId, this.token, 'add')
-        .pipe(getRemoteDataPayload())
-        .subscribe((update) => {
-          console.log('Email update:', update);
-        });
+      this.subs.push(this.externalLoginService.patchUpdateRegistration([email], 'email', this.registrationId, this.token, 'add')
+        .subscribe((rd: RemoteData<Registration>) => {
+          // TODO: remove this line (temporary)
+          console.log('Email update:', rd);
+        }));
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subs.filter(sub => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 }

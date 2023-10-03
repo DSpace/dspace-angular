@@ -9,16 +9,12 @@ import { EPerson } from '../../core/eperson/models/eperson.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { RegistrationData } from '../../shared/external-log-in-complete/models/registration-data.model';
 import { Observable, Subscription, filter, from, switchMap, take } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
+import { RemoteData } from '../..//core/data/remote-data';
+import { ConfirmationModalComponent } from '../..//shared/confirmation-modal/confirmation-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { hasValue } from 'src/app/shared/empty.util';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from 'src/app/core/shared/operators';
+import { hasValue } from '../..//shared/empty.util';
 import { TranslateService } from '@ngx-translate/core';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsService } from '../..//shared/notifications/notifications.service';
 import { Router } from '@angular/router';
 
 export interface ReviewAccountInfoData {
@@ -57,11 +53,6 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
    * List of subscriptions
    */
   subs: Subscription[] = [];
-  /**
-   * Current eperson data from the database,
-   * so we can compare it with the data from the registration token
-   */
-  epersonCurrentData: EPerson;// = EPersonMock;
 
   constructor(
     private ePersonService: EPersonDataService,
@@ -69,41 +60,10 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
     private notificationService: NotificationsService,
     private translateService: TranslateService,
     private router: Router
-  ) {
-    // GET data from url validation link
-    // Based on the URL data we get
-    // 1. token
-    // User should be automatically logged in
-    // TODO: https://4science.atlassian.net/browse/CST-11609?focusedCommentId=206748
-    // How to handle the case when the email is not part of metadata
-    // and we have `eperson.orcid` in metadata list
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.getEPersonData();
-    // TODO: remove after having data
-    // this.dataToCompare = this.prepareDataToCompare();
-  }
-
-  /**
-   * Get the current eperson data from the database.
-   * If the eperson is found, prepare the data to compare.
-   */
-  getEPersonData() {
-    if (
-      hasValue(this.registrationData) &&
-      hasValue(this.registrationData.user)
-    ) {
-      this.ePersonService
-        .findById(this.registrationData.user)
-        .pipe(getFirstCompletedRemoteData(), getRemoteDataPayload())
-        .subscribe((eperson: EPerson) => {
-          if (eperson) {
-            this.epersonCurrentData = eperson;
-            this.dataToCompare = this.prepareDataToCompare();
-          }
-        });
-    }
+    this.dataToCompare = this.prepareDataToCompare();
   }
 
   /**
@@ -157,7 +117,7 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
         filter((data: ReviewAccountInfoData) => data.overrideValue),
         switchMap((data: ReviewAccountInfoData) => {
           return this.ePersonService.mergeEPersonDataWithToken(
-            this.epersonCurrentData.id,
+            this.registrationData.user,
             this.registrationToken,
             data.identifier
           );
@@ -165,15 +125,14 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
       );
     } else {
       override$ = this.ePersonService.mergeEPersonDataWithToken(
-        this.epersonCurrentData.id,
+        this.registrationData.user,
         this.registrationToken
       );
     }
     this.subs.push(
       override$.subscribe((response: RemoteData<EPerson>) => {
-        // TODO: https://4science.atlassian.net/browse/CST-11609?focusedCommentId=206748
-        //  redirect to profile page
         if (response.hasSucceeded) {
+          // TODO: remove this line (temporary)
           console.log('mergeEPersonDataWithToken', response.payload);
           this.notificationService.success(
             this.translateService.get(
@@ -197,7 +156,7 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
   /**
    * Prepare the data to compare and display:
    * -> For each metadata from the registration token, get the current value from the eperson.
-   * -> Label is the metadata key without the prefix e.g `eperson.`
+   * -> Label is the metadata key without the prefix e.g `eperson.` but only `email`
    * -> Identifier is the metadata key with the prefix e.g `eperson.lastname`
    * -> Override value is false by default
    * @returns List of data to compare
@@ -209,7 +168,7 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
         console.log(key, value);
         dataToCompare.push({
           label: key.split('.')?.[1] ?? key.split('.')?.[0],
-          currentValue: this.getCurrentValue(key),
+          currentValue: value[0]?.overrides ?? '',
           receivedValue: value[0].value,
           overrideValue: false,
           identifier: key,
@@ -218,18 +177,6 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
     );
 
     return dataToCompare;
-  }
-
-  /**
-   * Return the current value of the metadata key from the eperson
-   * @param metadata metadata key
-   * @returns the current value of the metadata key from the eperson
-   */
-  private getCurrentValue(metadata: string): string {
-    if (metadata === 'email') {
-      return this.epersonCurrentData.email;
-    }
-    return this.epersonCurrentData.firstMetadataValue(metadata) ?? '';
   }
 
   ngOnDestroy(): void {

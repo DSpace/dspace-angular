@@ -89,10 +89,11 @@ export class EpersonRegistrationService{
   }
 
   /**
-   * Search a registration based on the provided token
-   * @param token
+   * Searches for a registration based on the provided token.
+   * @param token The token to search for.
+   * @returns An observable of remote data containing the registration.
    */
-  searchByToken(token: string): Observable<RemoteData<Registration>> {
+  searchByTokenAndUpdateData(token: string): Observable<RemoteData<Registration>> {
     const requestId = this.requestService.generateRequestId();
 
     const href$ = this.getTokenSearchEndpoint(token).pipe(
@@ -123,7 +124,13 @@ export class EpersonRegistrationService{
       })
     );
   }
-  searchByTokenAndHandleError(token: string): Observable<RemoteData<Registration>> {
+
+  /**
+   * Searches for a registration by token and handles any errors that may occur.
+   * @param token The token to search for.
+   * @returns An observable of remote data containing the registration.
+   */
+    searchRegistrationByToken(token: string): Observable<RemoteData<Registration>> {
     const requestId = this.requestService.generateRequestId();
 
     const href$ = this.getTokenSearchEndpoint(token).pipe(
@@ -150,7 +157,7 @@ export class EpersonRegistrationService{
    * @param updateValue Flag to indicate if the email should be updated or added
    * @returns Remote Data state of the patch request
    */
-  patchUpdateRegistration(values: string[], field: string, registrationId: string, token: string, operator: 'add' | 'replace') {
+  patchUpdateRegistration(values: string[], field: string, registrationId: string, token: string, operator: 'add' | 'replace'): Observable<RemoteData<Registration>> {
     const requestId = this.requestService.generateRequestId();
 
     const href$ = this.getRegistrationEndpoint().pipe(

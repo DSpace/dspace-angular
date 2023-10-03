@@ -6,6 +6,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Registration } from 'src/app/core/shared/registration.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,16 +21,16 @@ export class ExternalLoginService {
   ) { }
 
     /**
-     * Update the registration data
+     * Update the registration data.
+     * Send a patch request to the server to update the registration data.
      * @param values the values to update or add
      * @param field the filed to be updated
      * @param registrationId the registration id
      * @param token the registration token
      * @param operation operation to be performed
      */
-  patchUpdateRegistration(values: string[], field: string, registrationId: string, token: string, operation: 'add' | 'replace'): Observable<RemoteData<unknown>> {
+  patchUpdateRegistration(values: string[], field: string, registrationId: string, token: string, operation: 'add' | 'replace'): Observable<RemoteData<Registration>>{
     const updatedValues = values.map((value) => value);
-    this.router.navigate(['/email-confirmation']); // TODO: remove this line (temporary)
     return this.epersonRegistrationService.patchUpdateRegistration(updatedValues, field, registrationId, token, operation).pipe(
       getFirstCompletedRemoteData(),
       map((rd) => {

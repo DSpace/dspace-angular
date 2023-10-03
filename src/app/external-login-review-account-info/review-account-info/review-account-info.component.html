@@ -41,7 +41,7 @@
         </td>
         <td>
           <ui-switch
-            *ngIf="data.receivedValue !== data.currentValue"
+            *ngIf="(data.receivedValue !== data.currentValue) && data.currentValue"
             [checkedLabel]="'on-label' | translate"
             [uncheckedLabel]="'off-label' | translate"
             [checked]="data.overrideValue"

@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExternalLoginEmailConfirmationPageComponent } from './external-login-email-confirmation-page.component';
+import { ConfirmationSentComponent } from '../shared/external-log-in-complete/email-confirmation/confirmation-sent/confirmation-sent.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 
 describe('ExternalLoginEmailConfirmationPageComponent', () => {
   let component: ExternalLoginEmailConfirmationPageComponent;
@@ -8,7 +11,17 @@ describe('ExternalLoginEmailConfirmationPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ExternalLoginEmailConfirmationPageComponent ]
+      declarations: [
+        ExternalLoginEmailConfirmationPageComponent,
+        ConfirmationSentComponent ],
+        imports: [
+          TranslateModule.forRoot({
+            loader: {
+              provide: TranslateLoader,
+              useClass: TranslateLoaderMock,
+            },
+          }),
+        ]
     })
     .compileComponents();
   });
@@ -21,5 +34,10 @@ describe('ExternalLoginEmailConfirmationPageComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render ConfirmationSentComponent', () => {
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('ds-confirmation-sent')).toBeTruthy();
   });
 });

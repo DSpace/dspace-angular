@@ -1,5 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { AuthService } from '../../core/auth/auth.service';
 @Component({
   selector: 'ds-email-validated',
@@ -9,11 +8,9 @@ import { AuthService } from '../../core/auth/auth.service';
 })
 export class EmailValidatedComponent {
 
-  // TODO: (temporary)
-  // evaluate if this is needed
-  @Input() registrationToken: string;
-
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService) {
+    // After the user has validated his email, we need to redirect him to the review account page,
+    // in order to review his account information
     this.authService.setRedirectUrl('/review-account');
   }
 }

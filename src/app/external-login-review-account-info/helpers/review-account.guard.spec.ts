@@ -1,23 +1,21 @@
 import { TestBed } from '@angular/core/testing';
-import { ValidTokenGuard } from './valid-token.guard';
+import { ReviewAccountGuard } from './review-account.guard';
 import { ActivatedRoute, convertToParamMap, Params, Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
-import { AuthService } from '../core/auth/auth.service';
-import { RouterMock } from '../shared/mocks/router.mock';
-import { Registration } from '../core/shared/registration.model';
-import { EPerson } from '../core/eperson/models/eperson.model';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { AuthService } from 'src/app/core/auth/auth.service';
+import { EpersonRegistrationService } from 'src/app/core/data/eperson-registration.service';
+import { EPerson } from 'src/app/core/eperson/models/eperson.model';
+import { Registration } from 'src/app/core/shared/registration.model';
+import { RouterMock } from 'src/app/shared/mocks/router.mock';
+import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
 
-describe('DirectAccessGuard', () => {
-  let guard: ValidTokenGuard;
+describe('ReviewAccountGuard', () => {
+  let guard: ReviewAccountGuard;
   const route = new RouterMock();
   const registrationWithGroups = Object.assign(new Registration(),
     {
       email: 'test@email.org',
       token: 'test-token',
-      groups: ['group1UUID', 'group2UUID'],
-      groupNames: ['group1', 'group2']
     });
   const epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
     searchRegistrationByToken: createSuccessfulRemoteDataObject$(registrationWithGroups)
@@ -47,7 +45,7 @@ describe('DirectAccessGuard', () => {
         {provide: AuthService, useValue: authService}
       ]
     });
-    guard = TestBed.get(ValidTokenGuard);
+    guard = TestBed.get(ReviewAccountGuard);
   });
 
   it('should be created', () => {
@@ -55,7 +53,7 @@ describe('DirectAccessGuard', () => {
   });
   describe('based on the response of "searchByToken have', () => {
     it('can activate must return true when registration data includes groups', () => {
-      (guard.canActivate({ params: { registrationToken: '123456789' } } as any, {} as any) as any)
+      (guard.canActivate({ params: { token: '123456789' } } as any, {} as any) as any)
         .subscribe(
           (canActivate) => {
             expect(canActivate).toEqual(true);
@@ -65,13 +63,11 @@ describe('DirectAccessGuard', () => {
     it('can activate must return false when registration data includes groups', () => {
       const registrationWithDifferentUsedFromLoggedInt = Object.assign(new Registration(),
         {
-          email: 'alba@email.org',
+          email: 't1@email.org',
           token: 'test-token',
-          groups: [],
-          groupNames: []
         });
       epersonRegistrationService.searchRegistrationByToken.and.returnValue(observableOf(registrationWithDifferentUsedFromLoggedInt));
-      (guard.canActivate({ params: { registrationToken: '123456789' } } as any, {} as any) as any)
+      (guard.canActivate({ params: { token: '123456789' } } as any, {} as any) as any)
         .subscribe(
           (canActivate) => {
             expect(canActivate).toEqual(false);

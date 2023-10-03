@@ -1,9 +1,9 @@
 <div class="container">
-  <ng-container *ngIf="token && !(hasFailed() | async)">
-    <ds-email-validated [registrationToken]="token"></ds-email-validated>
+  <ng-container *ngIf="!(hasFailed() | async)">
+    <ds-email-validated></ds-email-validated>
   </ng-container>
   <ds-alert
-    *ngIf="!token || (hasFailed() | async)"
+    *ngIf="(hasFailed() | async)"
     [type]="AlertTypeEnum.Error"
     [content]="'external-login.validate-email.no-token'"
   ></ds-alert>

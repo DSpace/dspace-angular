@@ -4,16 +4,40 @@ import { ExternalLogInComponent } from './external-log-in.component';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Injector } from '@angular/core';
-import { mockRegistrationDataModel } from '../models/registration-data.mock.model';
+import { EventEmitter, Injector } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { of as observableOf } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
+import { AuthService } from '../../../core/auth/auth.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthServiceMock } from '../../mocks/auth.service.mock';
+import { MetadataValue } from '../../../core/shared/metadata.models';
+import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
+import { RegistrationData } from '../models/registration-data.model';
 
 describe('ExternalLogInComponent', () => {
   let component: ExternalLogInComponent;
   let fixture: ComponentFixture<ExternalLogInComponent>;
   let compiledTemplate: HTMLElement;
+
+  const registrationDataMock = {
+    id: '3',
+    email: 'user@institution.edu',
+    user: '028dcbb8-0da2-4122-a0ea-254be49ca107',
+    registrationType: AuthMethodType.Orcid,
+    netId: '0000-1111-2222-3333',
+    registrationMetadata: {
+      'eperson.firstname': [
+        Object.assign(new MetadataValue(), {
+          value: 'User 1',
+          language: null,
+          authority: '',
+          confidence: -1,
+          place: -1,
+        }),
+      ],
+    }
+  };
   const translateServiceStub = {
     get: () => observableOf('Info Text'),
     instant: (key: any) => 'Info Text',
@@ -28,6 +52,14 @@ describe('ExternalLogInComponent', () => {
       providers: [
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: Injector, useValue: {} },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        {
+          provide: NgbModal, useValue: {
+            open: () => {
+              /*comment*/
+            }
+          }
+        },
         FormBuilder
       ],
       imports: [
@@ -38,8 +70,7 @@ describe('ExternalLogInComponent', () => {
             useClass: TranslateLoaderMock
           }
         }),
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      ]
     })
       .compileComponents();
   });
@@ -47,8 +78,8 @@ describe('ExternalLogInComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ExternalLogInComponent);
     component = fixture.componentInstance;
-    component.registrationData = mockRegistrationDataModel;
-    component.registrationType = mockRegistrationDataModel.registrationType;
+    component.registrationData = Object.assign(new RegistrationData, registrationDataMock);
+    component.registrationType = registrationDataMock.registrationType;
     compiledTemplate = fixture.nativeElement;
     fixture.detectChanges();
   });
@@ -58,28 +89,30 @@ describe('ExternalLogInComponent', () => {
   });
 
   it('should set registrationType and informationText correctly when email is present', () => {
-    expect(component.registrationType).toBe('orcid');
+    expect(component.registrationType).toBe(registrationDataMock.registrationType);
     expect(component.informationText).toBeDefined();
   });
 
   it('should render the template to confirm email when registrationData has email', () => {
-    component.registrationData = Object.assign({}, mockRegistrationDataModel, { email: 'test@user.com' });
+    component.registrationData = Object.assign(new RegistrationData(), registrationDataMock, { email: 'email@domain.com' });
     fixture.detectChanges();
     const selector = compiledTemplate.querySelector('ds-confirm-email');
     expect(selector).toBeTruthy();
   });
 
-  it('should render the template with provide email component when registrationData email is null', () => {
-    component.registrationData = Object.assign({}, mockRegistrationDataModel, { email: null });
+  it('should display provide email component if email is not provided', () => {
+    component.registrationData.email = null;
     fixture.detectChanges();
-    component.ngOnInit();
-    const provideEmailComponent = compiledTemplate.querySelector('ds-provide-email');
-    expect(provideEmailComponent).toBeTruthy();
+    const provideEmail = fixture.nativeElement.querySelector('ds-provide-email');
+    expect(provideEmail).toBeTruthy();
   });
 
-  it('should render the template with log-in component', () => {
-    const logInComponent = compiledTemplate.querySelector('ds-log-in');
-    expect(logInComponent).toBeTruthy();
+  it('should display login modal when connect to existing account button is clicked', () => {
+    const button = fixture.nativeElement.querySelector('button');
+    button.click();
+    fixture.detectChanges();
+    const modal = fixture.nativeElement.querySelector('.modal');
+    expect(modal).toBeTruthy();
   });
 
   it('should render the template with the translated informationText', () => {

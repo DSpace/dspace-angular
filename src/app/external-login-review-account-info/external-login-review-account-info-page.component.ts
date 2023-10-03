@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertType } from '../shared/alert/aletr-type';
-import { Observable, map } from 'rxjs';
+import { Observable, first, map, of, tap } from 'rxjs';
 import { RegistrationData } from '../shared/external-log-in-complete/models/registration-data.model';
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
 import { ActivatedRoute } from '@angular/router';
-import { hasValue } from '../shared/empty.util';
-import { getRemoteDataPayload } from '../core/shared/operators';
-import { Registration } from '../core/shared/registration.model';
+import { hasNoValue } from '../shared/empty.util';
+import { mockRegistrationDataModel } from '../shared/external-log-in-complete/models/registration-data.mock.model';
 
 @Component({
   templateUrl: './external-login-review-account-info-page.component.html',
@@ -27,12 +25,12 @@ export class ExternalLoginReviewAccountInfoPageComponent implements OnInit {
    * The registration data of the user
    */
   public registrationData$: Observable<RegistrationData>;
-  //  = of(
-  //   mockRegistrationDataModel
-  // );
+  /**
+   * Whether the component has errors
+   */
+  public hasErrors = false;
 
   constructor(
-    private epersonRegistrationService: EpersonRegistrationService,
     private arouter: ActivatedRoute
   ) {
     this.token = this.arouter.snapshot.queryParams.token;
@@ -40,26 +38,15 @@ export class ExternalLoginReviewAccountInfoPageComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // -> if email address is not used by other user => Email Validated component
-    // -> if email address is used by other user => Review account information component
-    this.getRegistrationData();
-    // TODO: remove this line (temporary)
-    // this.token = '1234567890';
-  }
-  /**
-   * Get the registration data from the token
-   */
-  getRegistrationData() {
-    if (hasValue(this.token)) {
-      this.registrationData$ = this.epersonRegistrationService
-        .searchByToken(this.token)
-        .pipe(
-          getRemoteDataPayload(),
-          map((registration: Registration) =>
-            Object.assign(new RegistrationData(), registration)
-          )
-        );
-    }
-  }
+    this.registrationData$ = this.arouter.data.pipe(first(),
+      tap((data) => this.hasErrors = hasNoValue(data?.registrationData)),
+      map((data) => data.registrationData));
 
+    // TODO: remove this line (temporary)
+    this.registrationData$ = of(
+      mockRegistrationDataModel
+    );
+    this.hasErrors = false;
+    this.token = '1234567890';
+  }
 }

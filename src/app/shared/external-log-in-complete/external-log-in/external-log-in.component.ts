@@ -12,7 +12,6 @@ import { hasValue } from '../../empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../../core/auth/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-external-log-in',
@@ -56,7 +55,6 @@ export class ExternalLogInComponent implements OnInit {
     private translate: TranslateService,
     private modalService: NgbModal,
     private authService: AuthService,
-    private router: Router
   ) {}
 
   /**
@@ -114,6 +112,11 @@ export class ExternalLogInComponent implements OnInit {
     return getExternalLoginConfirmationType(this.registrationType);
   }
 
+  /**
+   * Opens the login modal and sets the redirect URL to '/review-account'.
+   * On modal dismissed/closed, the redirect URL is cleared.
+   * @param content - The content to be displayed in the modal.
+   */
   openLoginModal(content: any) {
     this.modalRef = this.modalService.open(content);
     this.authService.setRedirectUrl('/review-account');
@@ -123,6 +126,9 @@ export class ExternalLogInComponent implements OnInit {
     });
   }
 
+  /**
+   * Clears the redirect URL stored in the authentication service.
+   */
   clearRedirectUrl() {
     this.authService.clearRedirectUrl();
   }

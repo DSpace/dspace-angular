@@ -1,20 +1,53 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExternalLoginPageComponent } from './external-login-page.component';
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
-import { Router } from '@angular/router';
-import { RouterMock } from '../shared/mocks/router.mock';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
+import { RegistrationData } from '../shared/external-log-in-complete/models/registration-data.model';
+import { CommonModule } from '@angular/common';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 
 describe('ExternalLoginPageComponent', () => {
   let component: ExternalLoginPageComponent;
   let fixture: ComponentFixture<ExternalLoginPageComponent>;
 
+  const registrationDataMock = {
+    registrationType: 'orcid',
+    email: 'test@test.com',
+    netId: '0000-0000-0000-0000',
+    user: 'a44d8c9e-9b1f-4e7f-9b1a-5c9d8a0b1f1a',
+    registrationMetadata: {
+      'email': [{ value: 'test@test.com' }],
+      'eperson.lastname': [{ value: 'Doe' }],
+      'eperson.firstname': [{ value: 'John' }],
+    },
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ExternalLoginPageComponent ],
       providers: [
-        { provide: EpersonRegistrationService, useValue: {} },
-        { provide: Router, useValue: new RouterMock() },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              queryParams: {
+                token: '1234567890',
+              },
+            },
+            data: of(registrationDataMock),
+          },
+        },
+      ],
+      imports: [
+        CommonModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
     })
     .compileComponents();
@@ -28,5 +61,26 @@ describe('ExternalLoginPageComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should set the token from the query params', () => {
+    expect(component.token).toEqual('1234567890');
+  });
+
+  it('should set the hasErrors flag if the token is not present', () => {
+    const activatedRoute = TestBed.inject(ActivatedRoute);
+    activatedRoute.snapshot.queryParams.token = undefined;
+    fixture.detectChanges();
+    expect(component.hasErrors).toBeTrue();
+  });
+
+  it('should display the DsExternalLogIn component when there are no errors', () => {
+    const registrationData = Object.assign(new RegistrationData(), registrationDataMock);
+    component.registrationData$ = of(registrationData);
+    component.token = '1234567890';
+    component.hasErrors = false;
+    fixture.detectChanges();
+    const dsExternalLogInComponent = fixture.nativeElement.querySelector('ds-external-log-in');
+    expect(dsExternalLogInComponent).toBeTruthy();
   });
 });

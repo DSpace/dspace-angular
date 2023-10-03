@@ -36,11 +36,20 @@ export class LogInComponent implements OnInit, OnDestroy {
    */
   @Input() isStandalonePage: boolean;
 
+  /**
+   * Method to exclude from the list of authentication methods
+   */
   @Input() excludedAuthMethod: AuthMethodType;
-
+  /**
+   *  Weather or not to show the register link
+   */
   @Input() showRegisterLink = true;
 
-  @Input() hideAllLinks = false;
+  /**
+   * The external login method to force
+   * the user to use to login while completing the external login process
+   */
+  @Input() externalLoginMethod: AuthMethodType;
 
   /**
    * The list of authentication methods available
@@ -77,7 +86,6 @@ export class LogInComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     this.store.pipe(
       select(getAuthenticationMethods),
     ).subscribe(methods => {
@@ -86,6 +94,10 @@ export class LogInComponent implements OnInit, OnDestroy {
       // exclude the given auth method in case there is one
       if (hasValue(this.excludedAuthMethod)) {
         this.authMethods = this.authMethods.filter((authMethod: AuthMethod) => authMethod.authMethodType !== this.excludedAuthMethod);
+      }
+      // if there is an external login method the user should follow, filter the auth methods to only show that one
+      if (hasValue(this.externalLoginMethod)) {
+        this.authMethods = this.authMethods.filter((authMethod: AuthMethod) => authMethod.authMethodType === this.externalLoginMethod);
       }
     });
 

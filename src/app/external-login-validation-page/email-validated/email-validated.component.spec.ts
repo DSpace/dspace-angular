@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { RouterStub } from 'src/app/shared/testing/router.stub';
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
+import { AuthServiceMock } from 'src/app/shared/mocks/auth.service.mock';
 
 describe('EmailValidatedComponent', () => {
   let component: EmailValidatedComponent;
@@ -27,7 +28,7 @@ describe('EmailValidatedComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ EmailValidatedComponent ],
       providers: [
-        { provide: AuthService, useValue: {}},
+        { provide: AuthService, useValue: new AuthServiceMock()},
         { provide: Router, useValue: new RouterStub() },
         { provide: TranslateService, useValue: translateServiceStub },
        ],

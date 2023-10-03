@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import { CacheableObject } from '../../../core/cache/cacheable-object.model';
 import { typedObject } from '../../../core/cache/builders/build-decorators';
 import { REGISTRATION_DATA } from './registration-data.resource-type';
@@ -5,8 +6,17 @@ import { autoserialize, deserialize } from 'cerialize';
 import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
-import { MetadataMap } from '../../../core/shared/metadata.models';
 import { HALLink } from '../../../core/shared/hal-link.model';
+import { MetadataValue } from '../../../core/shared/metadata.models';
+
+export class RegistrationDataMetadataMap {
+  [key: string]: RegistrationDataMetadataValue[];
+}
+
+export class RegistrationDataMetadataValue extends MetadataValue {
+  @autoserialize
+  overrides?: string;
+}
 
 /**
  * Object that represents the authenticated status of a user
@@ -58,7 +68,7 @@ export class RegistrationData implements CacheableObject {
    * The metadata involved during the registration process
    */
   @autoserialize
-  registrationMetadata?: MetadataMap;
+  registrationMetadata?: RegistrationDataMetadataMap;
 
   /**
    * The {@link HALLink}s for this RegistrationData
