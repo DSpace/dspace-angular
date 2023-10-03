@@ -4,6 +4,10 @@ import { SharedModule } from '../shared/shared.module';
 import { EditBitstreamPageComponent } from './edit-bitstream-page/edit-bitstream-page.component';
 import { BitstreamPageRoutingModule } from './bitstream-page-routing.module';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
+import { FormModule } from '../shared/form/form.module';
+import { ResourcePoliciesModule } from '../shared/resource-policies/resource-policies.module';
+import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
+import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-edit-bitstream-page.component';
 
 /**
  * This module handles all components that are necessary for Bitstream related pages
@@ -12,11 +16,15 @@ import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bit
   imports: [
     CommonModule,
     SharedModule,
-    BitstreamPageRoutingModule
+    BitstreamPageRoutingModule,
+    FormModule,
+    ResourcePoliciesModule
   ],
   declarations: [
     BitstreamAuthorizationsComponent,
-    EditBitstreamPageComponent
+    EditBitstreamPageComponent,
+    ThemedEditBitstreamPageComponent,
+    BitstreamDownloadPageComponent,
   ]
 })
 export class BitstreamPageModule {

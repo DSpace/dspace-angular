@@ -1,6 +1,6 @@
 import { delay, exhaustMap, map, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { coreSelector } from '../core.selectors';
 import {
   AddToSSBAction,
@@ -8,7 +8,6 @@ import {
   EmptySSBAction,
   ServerSyncBufferActionTypes
 } from './server-sync-buffer.actions';
-import { CoreState } from '../core.reducers';
 import { Action, createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { ServerSyncBufferEntry, ServerSyncBufferState } from './server-sync-buffer.reducer';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
@@ -22,6 +21,7 @@ import { environment } from '../../../environments/environment';
 import { ObjectCacheEntry } from './object-cache.reducer';
 import { Operation } from 'fast-json-patch';
 import { NoOpAction } from '../../shared/ngrx/no-op.action';
+import { CoreState } from '../core-state.model';
 
 @Injectable()
 export class ServerSyncBufferEffects {
@@ -32,7 +32,7 @@ export class ServerSyncBufferEffects {
    * Then dispatch a CommitSSBAction
    * When the delay is running, no new AddToSSBActions are processed in this effect
    */
-  @Effect() setTimeoutForServerSync = this.actions$
+   setTimeoutForServerSync = createEffect(() => this.actions$
     .pipe(
       ofType(ServerSyncBufferActionTypes.ADD),
       exhaustMap((action: AddToSSBAction) => {
@@ -42,7 +42,7 @@ export class ServerSyncBufferEffects {
           delay(timeoutInSeconds * 1000),
         );
       })
-    );
+    ));
 
   /**
    * When a CommitSSBAction is dispatched
@@ -50,7 +50,7 @@ export class ServerSyncBufferEffects {
    * When the list of actions is not empty, also dispatch an EmptySSBAction
    * When the list is empty dispatch a NO_ACTION placeholder action
    */
-  @Effect() commitServerSyncBuffer = this.actions$
+   commitServerSyncBuffer = createEffect(() => this.actions$
     .pipe(
       ofType(ServerSyncBufferActionTypes.COMMIT),
       switchMap((action: CommitSSBAction) => {
@@ -86,7 +86,7 @@ export class ServerSyncBufferEffects {
           })
         );
       })
-    );
+    ));
 
   /**
    * private method to create an ApplyPatchObjectCacheAction based on a cache entry

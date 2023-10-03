@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { provideMockStore } from '@ngrx/store/testing';
@@ -17,6 +17,7 @@ import { storeModuleConfig } from '../../../../app.reducer';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
 
 describe('LogInPasswordComponent', () => {
 
@@ -57,7 +58,8 @@ describe('LogInPasswordComponent', () => {
         TranslateModule.forRoot()
       ],
       declarations: [
-        LogInPasswordComponent
+        LogInPasswordComponent,
+        BrowserOnlyMockPipe,
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
@@ -93,7 +95,7 @@ describe('LogInPasswordComponent', () => {
 
   it('should create a FormGroup comprised of FormControls', () => {
     fixture.detectChanges();
-    expect(component.form instanceof FormGroup).toBe(true);
+    expect(component.form instanceof UntypedFormGroup).toBe(true);
   });
 
   it('should authenticate', () => {

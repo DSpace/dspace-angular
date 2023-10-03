@@ -1,6 +1,6 @@
 import { Operation } from 'fast-json-patch';
 
-import { TypedObject } from '../cache/object-cache.reducer';
+import { TypedObject } from '../cache/typed-object.model';
 
 /**
  * An interface to determine what differs between two

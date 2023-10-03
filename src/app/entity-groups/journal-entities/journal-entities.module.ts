@@ -19,6 +19,9 @@ import { JournalVolumeSearchResultGridElementComponent } from './item-grid-eleme
 import { JournalVolumeSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/journal-volume/journal-volume-sidebar-search-list-element.component';
 import { JournalIssueSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/journal-issue/journal-issue-sidebar-search-list-element.component';
 import { JournalSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/journal/journal-sidebar-search-list-element.component';
+import { ItemSharedModule } from '../../item-page/item-shared.module';
+import { ResultsBackButtonModule } from '../../shared/results-back-button/results-back-button.module';
+import { DsoPageModule } from '../../shared/dso-page/dso-page.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -45,7 +48,10 @@ const ENTRY_COMPONENTS = [
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule
+    ItemSharedModule,
+    SharedModule,
+    ResultsBackButtonModule,
+    DsoPageModule
   ],
   declarations: [
     ...ENTRY_COMPONENTS
@@ -54,7 +60,7 @@ const ENTRY_COMPONENTS = [
 export class JournalEntitiesModule {
   /**
    * NOTE: this method allows to resolve issue with components that using a custom decorator
-   * which are not loaded during CSR otherwise
+   * which are not loaded during SSR otherwise
    */
   static withEntryComponents() {
     return {

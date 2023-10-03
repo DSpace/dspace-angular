@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
@@ -9,10 +9,9 @@ import { NotificationsService } from '../../../notifications/notifications.servi
 import { TranslateService } from '@ngx-translate/core';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { RequestService } from '../../../../core/data/request.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { of } from 'rxjs/internal/observable/of';
 import { ClaimedDeclinedTaskSearchResult } from '../../../object-collection/shared/claimed-declined-task-search-result.model';
 
 export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';
@@ -35,7 +34,7 @@ export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstrac
   /**
    * The reject form group
    */
-  public rejectForm: FormGroup;
+  public rejectForm: UntypedFormGroup;
 
   /**
    * Reference to NgbModal
@@ -48,7 +47,7 @@ export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstrac
               protected translate: TranslateService,
               protected searchService: SearchService,
               protected requestService: RequestService,
-              private formBuilder: FormBuilder,
+              private formBuilder: UntypedFormBuilder,
               private modalService: NgbModal) {
     super(injector, router, notificationsService, translate, searchService, requestService);
   }

@@ -16,6 +16,7 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { RequestService } from '../../../core/data/request.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-item-move',
@@ -57,6 +58,7 @@ export class ItemMoveComponent implements OnInit {
               private searchService: SearchService,
               private translateService: TranslateService,
               private requestService: RequestService,
+              protected dsoNameService: DSONameService,
   ) {}
 
   ngOnInit(): void {
@@ -88,7 +90,7 @@ export class ItemMoveComponent implements OnInit {
    */
   selectDso(data: any): void {
     this.selectedCollection = data;
-    this.selectedCollectionName = data.name;
+    this.selectedCollectionName = this.dsoNameService.getName(data);
     this.canSubmit = true;
   }
 
@@ -104,7 +106,7 @@ export class ItemMoveComponent implements OnInit {
    */
   moveToCollection() {
     this.processing = true;
-    const move$ = this.itemDataService.moveToCollection(this.item.id, this.selectedCollection)
+    const move$ = this.itemDataService.moveToCollection(this.item.id, this.selectedCollection, this.inheritPolicies)
       .pipe(getFirstCompletedRemoteData());
 
     move$.subscribe((response: RemoteData<any>) => {

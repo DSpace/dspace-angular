@@ -1,11 +1,12 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, Output, QueryList } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormArrayComponent,
   DynamicFormControlCustomEvent,
   DynamicFormControlEvent,
   DynamicFormControlLayout,
+  DynamicFormControlModel,
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
@@ -22,19 +23,21 @@ import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 })
 export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
 
+  @Input() bindId = true;
+  @Input() formModel: DynamicFormControlModel[];
   @Input() formLayout: DynamicFormLayout;
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() layout: DynamicFormControlLayout;
   @Input() model: DynamicRowArrayModel;// DynamicRow?
   @Input() templates: QueryList<DynamicTemplateDirective> | undefined;
 
-  /* tslint:disable:no-output-rename */
+  /* eslint-disable @angular-eslint/no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfChange') change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfFocus') focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('ngbEvent') customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
 
-  /* tslint:enable:no-output-rename */
+  /* eslint-enable @angular-eslint/no-output-rename */
 
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,

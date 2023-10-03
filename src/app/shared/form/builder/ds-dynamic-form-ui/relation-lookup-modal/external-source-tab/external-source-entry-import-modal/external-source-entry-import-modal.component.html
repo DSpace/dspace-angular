@@ -17,13 +17,6 @@
   <div id="external-source-entry-entities" class="mb-3">
     <h5 class="font-weight-bold">{{ (labelPrefix + 'entities' | translate) }}</h5>
 
-    <div id="external-source-entry-collection" class="mb-3">
-      <div class="form-group">
-        <label for="collection">{{ (labelPrefix + 'collection' | translate) }}</label>
-        <input type="text" class="form-control" id="collection" placeholder="Enter collection ID" [(ngModel)]="collectionId">
-      </div>
-    </div>
-
     <ds-search-results *ngIf="(localEntitiesRD$ | async)?.payload?.page?.length > 0"
                        [searchResults]="(localEntitiesRD$ | async)"
                        [sortConfig]="this.lookupRelationService.searchConfig?.sort"

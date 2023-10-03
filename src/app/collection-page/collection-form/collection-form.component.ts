@@ -1,28 +1,39 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
+
+import { Observable } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 import {
   DynamicFormControlModel,
+  DynamicFormOptionConfig,
   DynamicFormService,
-  DynamicInputModel,
-  DynamicTextAreaModel
+  DynamicSelectModel
 } from '@ng-dynamic-forms/core';
+
 import { Collection } from '../../core/shared/collection.model';
-import { ComColFormComponent } from '../../shared/comcol-forms/comcol-form/comcol-form.component';
-import { TranslateService } from '@ngx-translate/core';
+import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { RequestService } from '../../core/data/request.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
+import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
+import { ItemType } from '../../core/shared/item-relationships/item-type.model';
+import { MetadataValue } from '../../core/shared/metadata.models';
+import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
+import { collectionFormEntityTypeSelectionConfig, collectionFormModels, } from './collection-form.models';
+import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
+import { hasNoValue, isNotNull } from 'src/app/shared/empty.util';
+
 
 /**
  * Form used for creating and editing collections
  */
 @Component({
   selector: 'ds-collection-form',
-  styleUrls: ['../../shared/comcol-forms/comcol-form/comcol-form.component.scss'],
-  templateUrl: '../../shared/comcol-forms/comcol-form/comcol-form.component.html'
+  styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
+  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
 })
-export class CollectionFormComponent extends ComColFormComponent<Collection> {
+export class CollectionFormComponent extends ComColFormComponent<Collection> implements OnInit, OnChanges {
   /**
    * @type {Collection} A new collection when a collection is being created, an existing Input collection when a collection is being edited
    */
@@ -34,46 +45,16 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> {
   type = Collection.type;
 
   /**
-   * The dynamic form fields used for creating/editing a collection
-   * @type {(DynamicInputModel | DynamicTextAreaModel)[]}
+   * The dynamic form field used for entity type selection
+   * @type {DynamicSelectModel<string>}
    */
-  formModel: DynamicFormControlModel[] = [
-    new DynamicInputModel({
-      id: 'title',
-      name: 'dc.title',
-      required: true,
-      validators: {
-        required: null
-      },
-      errorMessages: {
-        required: 'Please enter a name for this title'
-      },
-    }),
-    new DynamicTextAreaModel({
-      id: 'description',
-      name: 'dc.description',
-    }),
-    new DynamicTextAreaModel({
-      id: 'abstract',
-      name: 'dc.description.abstract',
-    }),
-    new DynamicTextAreaModel({
-      id: 'rights',
-      name: 'dc.rights',
-    }),
-    new DynamicTextAreaModel({
-      id: 'tableofcontents',
-      name: 'dc.description.tableofcontents',
-    }),
-    new DynamicTextAreaModel({
-      id: 'license',
-      name: 'dc.rights.license',
-    }),
-    new DynamicTextAreaModel({
-      id: 'provenance',
-      name: 'dc.description.provenance',
-    }),
-  ];
+  entityTypeSelection: DynamicSelectModel<string> = new DynamicSelectModel(collectionFormEntityTypeSelectionConfig);
+
+  /**
+   * The dynamic form fields used for creating/editing a collection
+   * @type {DynamicFormControlModel[]}
+   */
+  formModel: DynamicFormControlModel[];
 
   public constructor(protected formService: DynamicFormService,
                      protected translate: TranslateService,
@@ -81,7 +62,61 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> {
                      protected authService: AuthService,
                      protected dsoService: CommunityDataService,
                      protected requestService: RequestService,
-                     protected objectCache: ObjectCacheService) {
+                     protected objectCache: ObjectCacheService,
+                     protected entityTypeService: EntityTypeDataService,
+                     protected chd: ChangeDetectorRef) {
     super(formService, translate, notificationsService, authService, requestService, objectCache);
+  }
+
+  ngOnInit(): void {
+    if (hasNoValue(this.formModel) && isNotNull(this.dso)) {
+      this.initializeForm();
+    }
+  }
+
+  /**
+   * Detect changes to the dso and initialize the form,
+   * if the dso changes, exists and it is not the first change
+   */
+  ngOnChanges(changes: SimpleChanges) {
+    const dsoChange: SimpleChange = changes.dso;
+    if (this.dso && dsoChange && !dsoChange.isFirstChange()) {
+      this.initializeForm();
+    }
+  }
+
+  initializeForm() {
+    let currentRelationshipValue: MetadataValue[];
+    if (this.dso && this.dso.metadata) {
+      currentRelationshipValue = this.dso.metadata['dspace.entity.type'];
+    }
+
+    const entities$: Observable<ItemType[]> = this.entityTypeService.findAll({ elementsPerPage: 100, currentPage: 1 }).pipe(
+      getFirstSucceededRemoteListPayload()
+    );
+
+    // retrieve all entity types to populate the dropdowns selection
+    entities$.subscribe((entityTypes: ItemType[]) => {
+
+        entityTypes
+          .filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE)
+          .forEach((type: ItemType, index: number) => {
+          this.entityTypeSelection.add({
+            disabled: false,
+            label: type.label,
+            value: type.label
+          } as DynamicFormOptionConfig<string>);
+          if (currentRelationshipValue && currentRelationshipValue.length > 0 && currentRelationshipValue[0].value === type.label) {
+            this.entityTypeSelection.select(index);
+            this.entityTypeSelection.disabled = true;
+          }
+        });
+
+        this.formModel = [...collectionFormModels, this.entityTypeSelection];
+
+        super.ngOnInit();
+        this.chd.detectChanges();
+    });
+
   }
 }

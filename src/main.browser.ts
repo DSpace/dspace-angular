@@ -1,37 +1,50 @@
-import 'zone.js/dist/zone';
+import 'zone.js';
 import 'reflect-metadata';
 import 'core-js/es/reflect';
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { bootloader } from '@angularclass/bootloader';
 
-import { load as loadWebFont } from 'webfontloader';
-import { hasValue } from './app/shared/empty.util';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { BrowserAppModule } from './modules/app/browser-app.module';
 
 import { environment } from './environments/environment';
+import { AppConfig } from './config/app-config.interface';
+import { extendEnvironmentWithAppConfig } from './config/config.util';
+import { enableProdMode } from '@angular/core';
 
-if (environment.production) {
-  enableProdMode();
-}
+const bootstrap = () => platformBrowserDynamic()
+  .bootstrapModule(BrowserAppModule, {});
 
-export function main() {
-  // Load fonts async
-  // https://github.com/typekit/webfontloader#configuration
-  loadWebFont({
-    google: {
-      families: ['Droid Sans']
-    }
-  });
+/**
+ * We use this to determine have been serven SSR HTML or not.
+ *
+ * At this point, {@link environment} may not be in sync with the configuration.
+ * Therefore, we cannot depend on it to determine how to bootstrap the app.
+ */
+const hasTransferState = document.querySelector('script#dspace-angular-state') !== null;
 
-  return platformBrowserDynamic().bootstrapModule(BrowserAppModule, {preserveWhitespaces:true});
-}
+const main = () => {
+  if (environment.production) {
+    enableProdMode();
+  }
+
+  if (hasTransferState) {
+    // Configuration will be taken from transfer state during initialization
+    return bootstrap();
+  } else {
+    // Configuration must be fetched explicitly
+    return fetch('assets/config.json')
+      .then((response) => response.json())
+      .then((appConfig: AppConfig) => {
+        // extend environment with app config for browser when not prerendered
+        extendEnvironmentWithAppConfig(environment, appConfig);
+        return bootstrap();
+      });
+  }
+};
 
 // support async tag or hmr
-if (hasValue(environment.universal) && environment.universal.preboot === false) {
-  bootloader(main);
+if (document.readyState === 'complete' && !hasTransferState) {
+  main();
 } else {
-  document.addEventListener('DOMContentLoaded', () => bootloader(main));
+  document.addEventListener('DOMContentLoaded', main);
 }
-

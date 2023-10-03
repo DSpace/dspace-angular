@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
@@ -13,7 +13,7 @@ import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { MetadataFieldWrapperComponent } from '../field-components/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataFieldWrapperComponent } from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 
 describe('MediaViewerComponent', () => {
@@ -60,8 +60,8 @@ describe('MediaViewerComponent', () => {
     { bitstream: mockBitstream, format: 'image', thumbnail: null }
   );
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(waitForAsync(() => {
+    return TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
           loader: {
@@ -94,7 +94,10 @@ describe('MediaViewerComponent', () => {
   describe('when the bitstreams are loading', () => {
     beforeEach(() => {
       comp.mediaList$.next([mockMediaViewerItem]);
-      comp.videoOptions = true;
+      comp.mediaOptions = {
+        image: true,
+        video: true,
+      };
       comp.isLoading = true;
       fixture.detectChanges();
     });
@@ -110,7 +113,7 @@ describe('MediaViewerComponent', () => {
     });
 
     it('should display a loading component', () => {
-      const loading = fixture.debugElement.query(By.css('ds-loading'));
+      const loading = fixture.debugElement.query(By.css('ds-themed-loading'));
       expect(loading.nativeElement).toBeDefined();
     });
   });
@@ -118,7 +121,10 @@ describe('MediaViewerComponent', () => {
   describe('when the bitstreams loading is failed', () => {
     beforeEach(() => {
       comp.mediaList$.next([]);
-      comp.videoOptions = true;
+      comp.mediaOptions = {
+        image: true,
+        video: true,
+      };
       comp.isLoading = false;
       fixture.detectChanges();
     });
@@ -135,7 +141,7 @@ describe('MediaViewerComponent', () => {
 
     it('should display a default, thumbnail', () => {
       const defaultThumbnail = fixture.debugElement.query(
-        By.css('ds-media-viewer-image')
+        By.css('ds-themed-media-viewer-image')
       );
       expect(defaultThumbnail.nativeElement).toBeDefined();
     });

@@ -7,10 +7,11 @@ import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model'
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
 import { Item } from '../../../core/shared/item.model';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { PaginatedSearchOptions } from '../../search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
 import { hasValue } from '../../empty.util';
 import { createPaginatedList } from '../../testing/utils.test';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 
 describe('DSOSelectorComponent', () => {
   let component: DSOSelectorComponent;
@@ -34,7 +35,7 @@ describe('DSOSelectorComponent', () => {
   ];
 
   const searchService = {
-    search: (options: PaginatedSearchOptions) => {
+    search: (options: PaginatedSearchOptions, responseMsToLive?: number, useCachedVersionIfAvailable = true) => {
       if (hasValue(options.query) && options.query.startsWith('search.resourceid')) {
         return createSuccessfulRemoteDataObject$(createPaginatedList([searchResult]));
       } else if (options.pagination.currentPage === 1) {
@@ -117,6 +118,43 @@ describe('DSOSelectorComponent', () => {
           done();
         });
       });
+    });
+  });
+
+  describe('search', () => {
+    beforeEach(() => {
+      spyOn(searchService, 'search').and.callThrough();
+    });
+
+    it('should specify how to sort if no query is given', () => {
+      component.sort = new SortOptions('dc.title', SortDirection.ASC);
+      component.search(undefined, 0);
+
+      expect(searchService.search).toHaveBeenCalledWith(
+        jasmine.objectContaining({
+          query: undefined,
+          sort: jasmine.objectContaining({
+            field: 'dc.title',
+            direction: SortDirection.ASC,
+          }),
+        }),
+        null,
+        true
+      );
+    });
+
+    it('should not specify how to sort if a query is given', () => {
+      component.sort = new SortOptions('dc.title', SortDirection.ASC);
+      component.search('testQuery', 0);
+
+      expect(searchService.search).toHaveBeenCalledWith(
+        jasmine.objectContaining({
+          query: 'testQuery',
+          sort: null,
+        }),
+        null,
+        true
+      );
     });
   });
 

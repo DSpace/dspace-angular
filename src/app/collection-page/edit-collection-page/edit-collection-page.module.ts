@@ -9,6 +9,14 @@ import { CollectionCurateComponent } from './collection-curate/collection-curate
 import { CollectionSourceComponent } from './collection-source/collection-source.component';
 import { CollectionAuthorizationsComponent } from './collection-authorizations/collection-authorizations.component';
 import { CollectionFormModule } from '../collection-form/collection-form.module';
+import {
+  CollectionSourceControlsComponent
+} from './collection-source/collection-source-controls/collection-source-controls.component';
+import { ResourcePoliciesModule } from '../../shared/resource-policies/resource-policies.module';
+import { FormModule } from '../../shared/form/form.module';
+import { ComcolModule } from '../../shared/comcol/comcol.module';
+import { CollectionAccessControlComponent } from './collection-access-control/collection-access-control.component';
+import { AccessControlFormModule } from '../../shared/access-control-form-container/access-control-form.module';
 
 /**
  * Module that contains all components related to the Edit Collection page administrator functionality
@@ -18,7 +26,11 @@ import { CollectionFormModule } from '../collection-form/collection-form.module'
     CommonModule,
     SharedModule,
     EditCollectionPageRoutingModule,
-    CollectionFormModule
+    CollectionFormModule,
+    ResourcePoliciesModule,
+    FormModule,
+    ComcolModule,
+    AccessControlFormModule,
   ],
   declarations: [
     EditCollectionPageComponent,
@@ -26,6 +38,8 @@ import { CollectionFormModule } from '../collection-form/collection-form.module'
     CollectionRolesComponent,
     CollectionCurateComponent,
     CollectionSourceComponent,
+    CollectionAccessControlComponent,
+    CollectionSourceControlsComponent,
     CollectionAuthorizationsComponent
   ]
 })

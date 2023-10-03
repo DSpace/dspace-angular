@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
@@ -23,13 +24,21 @@ import { ResourcePolicyEvent, ResourcePolicyFormComponent } from './resource-pol
 import { FormService } from '../../form/form.service';
 import { getMockFormService } from '../../mocks/form-service.mock';
 import { FormBuilderService } from '../../form/builder/form-builder.service';
-import { EpersonGroupListComponent } from './eperson-group-list/eperson-group-list.component';
+import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { FormComponent } from '../../form/form.component';
-import { stringToNgbDateStruct, dateToISOFormat } from '../../date.util';
+import { dateToISOFormat, stringToNgbDateStruct } from '../../date.util';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 import { EPersonMock } from '../../testing/eperson.mock';
 import { isNotEmptyOperator } from '../../empty.util';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RouterMock } from '../../mocks/router.mock';
+import { Store } from '@ngrx/store';
+import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreMock } from '../../testing/store.mock';
 
 export const mockResourcePolicyFormData = {
   name: [
@@ -156,12 +165,23 @@ describe('ResourcePolicyFormComponent test suite', () => {
     findAll: jasmine.createSpy('findAll')
   });
 
+  const mockPolicyRD: RemoteData<ResourcePolicy> = createSuccessfulRemoteDataObject(resourcePolicy);
+  const activatedRouteStub = {
+    parent: {
+      data: observableOf({
+        dso: mockPolicyRD
+      })
+    }
+  };
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
         CommonModule,
         FormsModule,
+        NgbModule,
+        NoopAnimationsModule,
         ReactiveFormsModule,
         TranslateModule.forRoot()
       ],
@@ -172,9 +192,13 @@ describe('ResourcePolicyFormComponent test suite', () => {
         TestComponent
       ],
       providers: [
+        { provide: ActivatedRoute, useValue: activatedRouteStub },
+        { provide: Router, useValue: new RouterMock() },
+        { provide: Store, useValue: StoreMock },
         { provide: EPersonDataService, useValue: epersonService },
         { provide: FormService, useValue: formService },
         { provide: GroupDataService, useValue: groupService },
+        { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: RequestService, useValue: getMockRequestService() },
         FormBuilderService,
         ChangeDetectorRef,
@@ -218,6 +242,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       fixture = TestBed.createComponent(ResourcePolicyFormComponent);
       comp = fixture.componentInstance;
       compAsAny = fixture.componentInstance;
+      compAsAny.resourcePolicy = resourcePolicy;
       comp.isProcessing = observableOf(false);
     });
 
@@ -229,6 +254,8 @@ describe('ResourcePolicyFormComponent test suite', () => {
     });
 
     it('should init form model properly', () => {
+      epersonService.findByHref.and.returnValue(observableOf(undefined));
+      groupService.findByHref.and.returnValue(observableOf(undefined));
       spyOn(compAsAny, 'isFormValid').and.returnValue(observableOf(false));
       spyOn(compAsAny, 'initModelsValue').and.callThrough();
       spyOn(compAsAny, 'buildResourcePolicyForm').and.callThrough();
@@ -237,12 +264,12 @@ describe('ResourcePolicyFormComponent test suite', () => {
       expect(compAsAny.buildResourcePolicyForm).toHaveBeenCalled();
       expect(compAsAny.initModelsValue).toHaveBeenCalled();
       expect(compAsAny.formModel.length).toBe(5);
-      expect(compAsAny.subs.length).toBe(0);
+      expect(compAsAny.subs.length).toBe(1);
 
     });
 
     it('should can set grant', () => {
-      expect(comp.canSetGrant()).toBeTruthy();
+      expect(comp.isBeingEdited()).toBeTruthy();
     });
 
     it('should not have a target name', () => {
@@ -255,7 +282,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       expect(compAsAny.reset.emit).toHaveBeenCalled();
     });
 
-    it('should  update resource policy grant object properly', () => {
+    it('should update resource policy grant object properly', () => {
       comp.updateObjectSelected(EPersonMock, true);
 
       expect(comp.resourcePolicyGrant).toEqual(EPersonMock);
@@ -277,6 +304,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = fixture.componentInstance;
       comp.resourcePolicy = resourcePolicy;
+      compAsAny.resourcePolicy = resourcePolicy;
       comp.isProcessing = observableOf(false);
       compAsAny.ePersonService.findByHref.and.returnValue(
         observableOf(createSuccessfulRemoteDataObject({})).pipe(delay(100))
@@ -319,8 +347,8 @@ describe('ResourcePolicyFormComponent test suite', () => {
       });
     });
 
-    it('should not can set grant', () => {
-      expect(comp.canSetGrant()).toBeFalsy();
+    it('should be being edited', () => {
+      expect(comp.isBeingEdited()).toBeTrue();
     });
 
     it('should have a target name', () => {
@@ -374,6 +402,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
         type: 'group',
         uuid: GroupMock.id
       };
+      eventPayload.updateTarget = false;
 
       scheduler = getTestScheduler();
       scheduler.schedule(() => comp.onSubmit());

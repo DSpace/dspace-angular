@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { ScriptDataService } from '../core/data/processes/script-data.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { find, map } from 'rxjs/operators';
 import { NotificationsService } from '../shared/notifications/notifications.service';
@@ -14,9 +14,9 @@ import { ConfigurationDataService } from '../core/data/configuration-data.servic
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { Observable } from 'rxjs';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
+import { HandleService } from '../shared/handle.service';
 
 export const CURATION_CFG = 'plugin.named.org.dspace.curate.CurationTask';
-
 /**
  * Component responsible for rendering the Curation Task form
  */
@@ -28,7 +28,7 @@ export class CurationFormComponent implements OnInit {
 
   config: Observable<RemoteData<ConfigurationProperty>>;
   tasks: string[];
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   @Input()
   dsoHandle: string;
@@ -39,14 +39,16 @@ export class CurationFormComponent implements OnInit {
     private processDataService: ProcessDataService,
     private notificationsService: NotificationsService,
     private translateService: TranslateService,
-    private router: Router
+    private handleService: HandleService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
   }
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      task: new FormControl(''),
-      handle: new FormControl('')
+    this.form = new UntypedFormGroup({
+      task: new UntypedFormControl(''),
+      handle: new UntypedFormControl('')
     });
 
     this.config = this.configurationDataService.findByPropertyName(CURATION_CFG);
@@ -58,6 +60,7 @@ export class CurationFormComponent implements OnInit {
         .filter((value) => isNotEmpty(value) && value.includes('='))
         .map((value) => value.split('=')[1].trim());
       this.form.get('task').patchValue(this.tasks[0]);
+      this.cdr.detectChanges();
     });
   }
 
@@ -76,13 +79,19 @@ export class CurationFormComponent implements OnInit {
     const taskName = this.form.get('task').value;
     let handle;
     if (this.hasHandleValue()) {
-      handle = this.dsoHandle;
+      handle = this.handleService.normalizeHandle(this.dsoHandle);
+      if (isEmpty(handle)) {
+        this.notificationsService.error(this.translateService.get('curation.form.submit.error.head'),
+          this.translateService.get('curation.form.submit.error.invalid-handle'));
+        return;
+      }
     } else {
-      handle = this.form.get('handle').value;
+      handle = this.handleService.normalizeHandle(this.form.get('handle').value);
       if (isEmpty(handle)) {
         handle = 'all';
       }
     }
+
     this.scriptDataService.invoke('curate', [
       { name: '-t', value: taskName },
       { name: '-i', value: handle },

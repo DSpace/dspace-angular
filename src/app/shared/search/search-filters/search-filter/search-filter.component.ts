@@ -1,9 +1,9 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 
-import { Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 
-import { SearchFilterConfig } from '../../search-filter-config.model';
+import { SearchFilterConfig } from '../../models/search-filter-config.model';
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { slide } from '../../../animations/slide';
 import { isNotEmpty } from '../../../empty.util';
@@ -32,6 +32,11 @@ export class SearchFilterComponent implements OnInit {
    * True when the search component should show results on the current page
    */
   @Input() inPlaceSearch;
+
+  /**
+   * Emits when the search filters values may be stale, and so they must be refreshed.
+   */
+  @Input() refreshFilters: BehaviorSubject<boolean>;
 
   /**
    * True when the filter is 100% collapsed in the UI
@@ -169,7 +174,7 @@ export class SearchFilterComponent implements OnInit {
                 return this.searchService.getFacetValuesFor(this.filter, 1, options).pipe(
                   filter((RD) => !RD.isLoading),
                   map((valuesRD) => {
-                    return valuesRD.payload.totalElements > 0;
+                    return valuesRD.payload?.totalElements > 0;
                   }),);
               }
             ));

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
-import { ItemComponent } from '../shared/item.component';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { ItemComponent } from '../shared/item.component';
 
 /**
  * Component that represents a publication Item page

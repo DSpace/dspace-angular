@@ -1,7 +1,7 @@
 import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 
 import { CommunityListComponent } from './community-list.component';
-import { CommunityListService, FlatNode, showMoreFlatNode, toFlatNode } from '../community-list-service';
+import { CommunityListService, showMoreFlatNode, toFlatNode } from '../community-list-service';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
@@ -15,6 +15,8 @@ import { Collection } from '../../core/shared/collection.model';
 import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { FlatNode } from '../flat-node.model';
+import { RouterLinkWithHref } from '@angular/router';
 
 describe('CommunityListComponent', () => {
   let component: CommunityListComponent;
@@ -192,7 +194,8 @@ describe('CommunityListComponent', () => {
           },
         }),
         CdkTreeModule,
-        RouterTestingModule],
+        RouterTestingModule,
+        RouterLinkWithHref],
       declarations: [CommunityListComponent],
       providers: [CommunityListComponent,
         { provide: CommunityListService, useValue: communityListServiceStub },],
@@ -229,9 +232,14 @@ describe('CommunityListComponent', () => {
     expect(showMoreEl).toBeTruthy();
   });
 
+  it('should not render the show more button as an empty link', () => {
+    const debugElements = fixture.debugElement.queryAll(By.directive(RouterLinkWithHref));
+    expect(debugElements).toBeTruthy();
+  });
+
   describe('when show more of top communities is clicked', () => {
     beforeEach(fakeAsync(() => {
-      const showMoreLink = fixture.debugElement.query(By.css('.show-more-node a'));
+      const showMoreLink = fixture.debugElement.query(By.css('.show-more-node .btn-outline-primary'));
       showMoreLink.triggerEventHandler('click', {
         preventDefault: () => {/**/
         }
@@ -239,6 +247,7 @@ describe('CommunityListComponent', () => {
       tick();
       fixture.detectChanges();
     }));
+
     it('tree contains maximum of currentPage (2) * (2) elementsPerPage of first top communities, or less if there are less communities (3)', () => {
       const expandableNodesFound = fixture.debugElement.queryAll(By.css('.expandable-node a'));
       const childlessNodesFound = fixture.debugElement.queryAll(By.css('.childless-node a'));

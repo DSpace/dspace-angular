@@ -1,5 +1,5 @@
 <ds-comcol-role
-  *ngFor="let comcolRole of getComcolRoles$() | async"
+  *ngFor="let comcolRole of comcolRoles$ | async"
   [dso]="community$ | async"
   [comcolRole]="comcolRole"
 >

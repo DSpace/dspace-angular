@@ -1,14 +1,18 @@
 import { ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
 import { MenuService } from './menu.service';
-import { MenuID } from './initial-menus-state';
-import { MenuSection } from './menu.reducer';
-import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, map, mergeMap, switchMap } from 'rxjs/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { hasValue } from '../empty.util';
+import { hasValue, isNotEmptyOperator } from '../empty.util';
 import { MenuSectionComponent } from './menu-section/menu-section.component';
 import { getComponentForMenu } from './menu-section.decorator';
 import { compareArraysUsingIds } from '../../item-page/simple/item-types/shared/item-relationships-utils';
+import { MenuSection } from './menu-section.model';
+import { MenuID } from './menu-id.model';
+import { ActivatedRoute } from '@angular/router';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { ThemeService } from '../theme-support/theme.service';
 
 /**
  * A basic implementation of a MenuComponent
@@ -67,27 +71,40 @@ export class MenuComponent implements OnInit, OnDestroy {
    */
   subs: Subscription[] = [];
 
-  constructor(protected menuService: MenuService, protected injector: Injector) {
+  private activatedRouteLastChild: ActivatedRoute;
+
+  constructor(protected menuService: MenuService, protected injector: Injector, public authorizationService: AuthorizationDataService,
+              public route: ActivatedRoute, protected themeService: ThemeService
+  ) {
   }
 
   /**
    * Sets all instance variables to their initial values
    */
   ngOnInit(): void {
+    this.activatedRouteLastChild = this.getActivatedRoute(this.route);
     this.menuCollapsed = this.menuService.isMenuCollapsed(this.menuID);
     this.menuPreviewCollapsed = this.menuService.isMenuPreviewCollapsed(this.menuID);
     this.menuVisible = this.menuService.isMenuVisible(this.menuID);
     this.sections = this.menuService.getMenuTopSections(this.menuID).pipe(distinctUntilChanged(compareArraysUsingIds()));
+
     this.subs.push(
       this.sections.pipe(
         // if you return an array from a switchMap it will emit each element as a separate event.
         // So this switchMap is equivalent to a subscribe with a forEach inside
         switchMap((sections: MenuSection[]) => sections),
+        mergeMap((section: MenuSection) => {
+          if (section.id.includes('statistics')) {
+            return this.getAuthorizedStatistics(section);
+          }
+          return observableOf(section);
+        }),
+        isNotEmptyOperator(),
         switchMap((section: MenuSection) => this.getSectionComponent(section).pipe(
-          map((component: GenericConstructor<MenuSectionComponent>) =>  ({ section, component }))
+          map((component: GenericConstructor<MenuSectionComponent>) => ({ section, component }))
         )),
-        distinctUntilChanged((x,y) => x.section.id === y.section.id)
-      ).subscribe(({ section, component}) => {
+        distinctUntilChanged((x, y) => x.section.id === y.section.id)
+      ).subscribe(({ section, component }) => {
         const nextMap = this.sectionMap$.getValue();
         nextMap.set(section.id, {
           injector: this.getSectionDataInjector(section),
@@ -96,6 +113,43 @@ export class MenuComponent implements OnInit, OnDestroy {
         this.sectionMap$.next(nextMap);
       })
     );
+  }
+
+  /**
+   *  Get activated route of the deepest activated route
+   */
+  getActivatedRoute(route) {
+    if (route.children.length > 0) {
+      return this.getActivatedRoute(route.firstChild);
+    } else {
+      return route;
+    }
+  }
+
+  /**
+   *  Get section of statistics after checking authorization
+   */
+  getAuthorizedStatistics(section) {
+    return this.activatedRouteLastChild.data.pipe(
+      switchMap((data) => {
+        return this.authorizationService.isAuthorized(FeatureID.CanViewUsageStatistics, this.getObjectUrl(data)).pipe(
+          map((canViewUsageStatistics: boolean) => {
+            if (!canViewUsageStatistics) {
+              return {};
+            } else {
+              return section;
+            }
+          }));
+      })
+    );
+  }
+
+  /**
+   *  Get statistics route dso data
+   */
+  getObjectUrl(data) {
+    const object = data.site ? data.site : data.dso?.payload;
+    return object?._links?.self?.href;
   }
 
   /**
@@ -164,8 +218,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   private getSectionComponent(section: MenuSection): Observable<GenericConstructor<MenuSectionComponent>> {
     return this.menuService.hasSubSections(this.menuID, section.id).pipe(
       map((expandable: boolean) => {
-          return getComponentForMenu(this.menuID, expandable);
-        }
+        return getComponentForMenu(this.menuID, expandable, this.themeService.getThemeName());
+      }
       ),
     );
   }

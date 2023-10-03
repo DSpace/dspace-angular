@@ -9,7 +9,7 @@
         list-style: disc;
         color: var(--bs-navbar-dark-color);
         overflow: hidden;
-
+        margin-bottom: calc(-1 * var(--bs-spacer)); // the bottom-most nav-item is padded, no need for double spacing
     }
 
     .sidebar-collapsible {

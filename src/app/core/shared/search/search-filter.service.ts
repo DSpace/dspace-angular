@@ -1,4 +1,4 @@
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { Injectable, InjectionToken } from '@angular/core';
 import {
@@ -16,7 +16,7 @@ import {
   SearchFilterToggleAction
 } from '../../../shared/search/search-filters/search-filter/search-filter.actions';
 import { hasValue, isNotEmpty, } from '../../../shared/empty.util';
-import { SearchFilterConfig } from '../../../shared/search/search-filter-config.model';
+import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
 import { RouteService } from '../../services/route.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
@@ -26,6 +26,7 @@ const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
 export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionToken<SearchFilterConfig>('filterConfig');
 export const IN_PLACE_SEARCH: InjectionToken<boolean> = new InjectionToken<boolean>('inPlaceSearch');
+export const REFRESH_FILTER: InjectionToken<BehaviorSubject<any>> = new InjectionToken<boolean>('refreshFilters');
 
 /**
  * Service that performs all actions that have to do with search filters and facets

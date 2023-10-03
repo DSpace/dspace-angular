@@ -6,10 +6,15 @@ import { MenuService } from './menu.service';
 import { MenuComponent } from './menu.component';
 import { MenuServiceStub } from '../testing/menu-service.stub';
 import { of as observableOf } from 'rxjs';
-import { MenuSection } from './menu.reducer';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuID } from './initial-menus-state';
+import { MenuSection } from './menu-section.model';
+import { MenuID } from './menu-id.model';
+import { Item } from '../../core/shared/item.model';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import { ThemeService } from '../theme-support/theme.service';
+import { getMockThemeService } from '../mocks/theme-service.mock';
 
 describe('MenuComponent', () => {
   let comp: MenuComponent;
@@ -19,13 +24,45 @@ describe('MenuComponent', () => {
 
   const mockMenuID = 'mock-menuID' as MenuID;
 
+  const mockStatisticSection = { 'id': 'statistics_site', 'active': true, 'visible': true, 'index': 2, 'type': 'statistics', 'model': { 'type': 1, 'text': 'menu.section.statistics', 'link': 'statistics' } };
+
+  let authorizationService: AuthorizationDataService;
+
+  const mockItem = Object.assign(new Item(), {
+    id: 'fake-id',
+    uuid: 'fake-id',
+    handle: 'fake/handle',
+    lastModified: '2018',
+    _links: {
+      self: {
+        href: 'https://localhost:8000/items/fake-id'
+      }
+    }
+  });
+
+
+  const routeStub = {
+    data: observableOf({
+      dso: createSuccessfulRemoteDataObject(mockItem)
+    }),
+    children: []
+  };
+
   beforeEach(waitForAsync(() => {
+
+    authorizationService = jasmine.createSpyObj('authorizationService', {
+      isAuthorized: observableOf(false)
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
       declarations: [MenuComponent],
       providers: [
         Injector,
-        { provide: MenuService, useClass: MenuServiceStub }
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: MenuService, useClass: MenuServiceStub },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: ActivatedRoute, useValue: routeStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MenuComponent, {
@@ -95,4 +132,35 @@ describe('MenuComponent', () => {
       expect(menuService.collapseMenuPreview).toHaveBeenCalledWith(comp.menuID);
     }));
   });
+
+  describe('when unauthorized statistics', () => {
+
+    beforeEach(() => {
+      (authorizationService as any).isAuthorized.and.returnValue(observableOf(false));
+      fixture.detectChanges();
+    });
+
+    it('should return observable of empty object', done => {
+      comp.getAuthorizedStatistics(mockStatisticSection).subscribe((res) => {
+        expect(res).toEqual({});
+        done();
+      });
+    });
+  });
+
+  describe('get authorized statistics', () => {
+
+    beforeEach(() => {
+      (authorizationService as any).isAuthorized.and.returnValue(observableOf(true));
+      fixture.detectChanges();
+    });
+
+    it('should return observable of statistics section menu', done => {
+      comp.getAuthorizedStatistics(mockStatisticSection).subscribe((res) => {
+        expect(res).toEqual(mockStatisticSection);
+        done();
+      });
+    });
+  });
+
 });

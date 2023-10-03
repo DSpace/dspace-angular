@@ -4,27 +4,28 @@ import {
   ElementRef,
   EventEmitter,
   HostListener,
+  Input,
   OnDestroy,
   OnInit,
   Output
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, mergeMap, reduce, startWith, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, from as observableFrom, Observable, of as observableOf, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, mergeMap, reduce, startWith, switchMap, take } from 'rxjs/operators';
 
 import { hasValue } from '../empty.util';
 import { RemoteData } from '../../core/data/remote-data';
-import { FindListOptions } from '../../core/data/request.models';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Community } from '../../core/shared/community.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { followLink } from '../utils/follow-link-config.model';
 import {
-  getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteWithNotEmptyData
+  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload
 } from '../../core/shared/operators';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 /**
  * An interface to represent a collection entry
@@ -54,7 +55,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    * The search form control
    * @type {FormControl}
    */
-  public searchField: FormControl = new FormControl();
+  public searchField: UntypedFormControl = new UntypedFormControl();
 
   /**
    * The collection list obtained from a search
@@ -89,10 +90,10 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
   /**
    * A boolean representing if the loader is visible or not
    */
-  isLoadingList: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  isLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   /**
-   * A numeric representig current page
+   * A numeric representing current page
    */
   currentPage: number;
 
@@ -102,14 +103,30 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
   hasNextPage: boolean;
 
   /**
-   * Current seach query used to filter collection list
+   * Current search query used to filter collection list
    */
   currentQuery: string;
+
+  /**
+   * If present this value is used to filter collection list by entity type
+   */
+  @Input() entityType: string;
+
+  /**
+   * Emit to notify whether search is complete
+   */
+  @Output() searchComplete = new EventEmitter<any>();
+
+  /**
+   * Emit to notify the only selectable collection.
+   */
+  @Output() theOnlySelectable = new EventEmitter<CollectionListEntry>();
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private collectionDataService: CollectionDataService,
-    private el: ElementRef
+    private el: ElementRef,
+    public dsoNameService: DSONameService,
   ) { }
 
   /**
@@ -132,6 +149,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    * Initialize collection list
    */
   ngOnInit() {
+    this.isLoading.next(false);
     this.subs.push(this.searchField.valueChanges.pipe(
         debounceTime(500),
         distinctUntilChanged(),
@@ -160,7 +178,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Method used from infitity scroll for retrive more data on scroll down
+   * Method used from infinity scroll for retrieve more data on scroll down
    */
   onScrollDown() {
     if ( this.hasNextPage ) {
@@ -175,6 +193,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    *    the selected [CollectionListEntry]
    */
   onSelect(event: CollectionListEntry) {
+    this.isLoading.next(true);
     this.selectionChange.emit(event);
   }
 
@@ -184,36 +203,57 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    * @param page page number
    */
   populateCollectionList(query: string, page: number) {
-    this.isLoadingList.next(true);
+    this.isLoading.next(true);
     // Set the pagination info
     const findOptions: FindListOptions = {
       elementsPerPage: 10,
       currentPage: page
     };
-    this.searchListCollection$ = this.collectionDataService
-      .getAuthorizedCollection(query, findOptions, true, false, followLink('parentCommunity'))
-      .pipe(
-        getFirstSucceededRemoteWithNotEmptyData(),
-        switchMap((collections: RemoteData<PaginatedList<Collection>>) => {
-          if ( (this.searchListCollection.length + findOptions.elementsPerPage) >= collections.payload.totalElements ) {
+    let searchListService$: Observable<RemoteData<PaginatedList<Collection>>>;
+    if (this.entityType) {
+      searchListService$ = this.collectionDataService
+      .getAuthorizedCollectionByEntityType(
+        query,
+        this.entityType,
+        findOptions,
+        true,
+        followLink('parentCommunity'));
+    } else {
+      searchListService$ = this.collectionDataService
+      .getAuthorizedCollection(query, findOptions, true, true, followLink('parentCommunity'));
+    }
+    this.searchListCollection$ = searchListService$.pipe(
+        getFirstCompletedRemoteData(),
+        switchMap((collectionsRD: RemoteData<PaginatedList<Collection>>) => {
+          this.searchComplete.emit();
+          if (collectionsRD.hasSucceeded && collectionsRD.payload.totalElements > 0) {
+            if (this.searchListCollection.length >= collectionsRD.payload.totalElements) {
+              this.hasNextPage = false;
+            }
+            this.emitSelectionEvents(collectionsRD);
+            return observableFrom(collectionsRD.payload.page).pipe(
+              mergeMap((collection: Collection) => collection.parentCommunity.pipe(
+                getFirstSucceededRemoteDataPayload(),
+                map((community: Community) => ({
+                    communities: [{ id: community.id, name: this.dsoNameService.getName(community) }],
+                    collection: { id: collection.id, uuid: collection.id, name: this.dsoNameService.getName(collection) }
+                  })
+                ))),
+              reduce((acc: any, value: any) => [...acc, value], []),
+            );
+          } else {
             this.hasNextPage = false;
+            return observableOf([]);
           }
-          return collections.payload.page;
-        }),
-        mergeMap((collection: Collection) => collection.parentCommunity.pipe(
-          getFirstSucceededRemoteDataPayload(),
-          map((community: Community) => ({
-            communities: [{ id: community.id, name: community.name }],
-            collection: { id: collection.id, uuid: collection.id, name: collection.name }
-          })
-        ))),
-        reduce((acc: any, value: any) => [...acc, value], []),
-        startWith([])
+        })
         );
-    this.subs.push(this.searchListCollection$.subscribe(
-      (next) => { this.searchListCollection.push(...next); }, undefined,
-      () => { this.hideShowLoader(false); this.changeDetectorRef.detectChanges(); }
-    ));
+    this.subs.push(
+      this.searchListCollection$.subscribe((list: CollectionListEntry[]) => {
+        this.searchListCollection.push(...list);
+        this.hideShowLoader(false);
+        this.changeDetectorRef.detectChanges();
+      })
+    );
   }
 
   /**
@@ -245,6 +285,29 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    * @param hideShow true for show, false otherwise
    */
   hideShowLoader(hideShow: boolean) {
-    this.isLoadingList.next(hideShow);
+    this.isLoading.next(hideShow);
   }
+
+  /**
+   * Emit events related to the number of selectable collections.
+   * hasChoice containing whether there are more then one selectable collections.
+   * theOnlySelectable containing the only collection available.
+   * @param collections
+   * @private
+   */
+  private emitSelectionEvents(collections: RemoteData<PaginatedList<Collection>>) {
+    if (collections.payload.totalElements === 1) {
+      const collection = collections.payload.page[0];
+      collections.payload.page[0].parentCommunity.pipe(
+        getFirstSucceededRemoteDataPayload(),
+        take(1)
+      ).subscribe((community: Community) => {
+        this.theOnlySelectable.emit({
+          communities: [{ id: community.id, name: this.dsoNameService.getName(community), uuid: community.id }],
+          collection: { id: collection.id, uuid: collection.id, name: this.dsoNameService.getName(collection) }
+        });
+      });
+    }
+  }
+
 }

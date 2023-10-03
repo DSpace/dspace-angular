@@ -1,26 +1,30 @@
 # Configuration
 
-Default configuration file is located in `src/environments/` folder. All configuration options should be listed in the default configuration file `src/environments/environment.common.ts`. Please do not change this file directly! To change the default configuration values, create local files that override the parameters you need to change. You can use `environment.template.ts` as a starting point.
+Default configuration file is located at `config/config.yml`. All configuration options should be listed in the default typescript file `src/config/default-app-config.ts`. Please do not change this file directly! To override the default configuration values, create local files that override the parameters you need to change. You can use `config.example.yml` as a starting point.
 
--	Create a new `environment.dev.ts` file in `src/environments/` for `development` environment;
--	Create a new `environment.prod.ts` file in `src/environments/` for `production` environment;
+-	Create a new `config.(dev or development).yml` file in `config/` for `development` environment;
+-	Create a new `config.(prod or production).yml` file in `config/` for `production` environment;
 
-Some few configuration options can be overridden by setting environment variables. These and the variable names are listed below.
+Alternatively, create a desired app config file at an external location and set the path as environment variable `DSPACE_APP_CONFIG_PATH`.
+
+e.g.
+```
+DSPACE_APP_CONFIG_PATH=/usr/local/dspace/config/config.yml
+```
+
+Configuration options can be overridden by setting environment variables.
 
 ## Nodejs server
 When you start dspace-angular on node, it spins up an http server on which it listens for incoming connections. You can define the ip address and port the server should bind itsself to, and if ssl should be enabled not. By default it listens on `localhost:4000`. If you want it to listen on all your network connections, configure it to bind itself to `0.0.0.0`.
 
 To change this configuration, change the options `ui.host`, `ui.port` and `ui.ssl` in the appropriate configuration file (see above):
-```
-export const environment = {
-  // Angular UI settings.
-  ui: {
-    ssl: false,
-    host: 'localhost',
-    port: 4000,
-    nameSpace: '/'
-  }
-};
+
+```yaml
+ui:
+  ssl: false
+  host: localhost
+  port: 4000
+  nameSpace: /
 ```
 
 Alternately you can set the following environment variables. If any of these are set, it will override all configuration files:
@@ -30,21 +34,24 @@ Alternately you can set the following environment variables. If any of these are
   DSPACE_PORT=4000
   DSPACE_NAMESPACE=/
 ```
+or
+```
+  DSPACE_UI_SSL=true
+  DSPACE_UI_HOST=localhost
+  DSPACE_UI_PORT=4000
+  DSPACE_UI_NAMESPACE=/
+```
 
 ## DSpace's REST endpoint
 dspace-angular connects to your DSpace installation by using its REST endpoint. To do so, you have to define the ip address, port and if ssl should be enabled. You can do this in a configuration file (see above) by adding the following options:
 
-```
-export const environment = {
-  // The REST API server settings.
-  rest: {
-    ssl: true,
-    host: 'api7.dspace.org',
-    port: 443,
-    // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
-    nameSpace: '/server'
-  }
-};
+```yaml
+rest:
+  ssl: true
+  host: api7.dspace.org
+  port: 443
+  nameSpace: /server
+}
 ```
 
 Alternately you can set the following environment variables. If any of these are set, it will override all configuration files:
@@ -53,6 +60,21 @@ Alternately you can set the following environment variables. If any of these are
   DSPACE_REST_HOST=api7.dspace.org
   DSPACE_REST_PORT=443
   DSPACE_REST_NAMESPACE=/server
+```
+
+## Environment variable naming convention
+
+Settings can be set using the following convention for naming the environment variables:
+
+1. replace all `.` with `_`
+2. convert all characters to upper case
+3. prefix with `DSPACE_`
+
+e.g.
+
+```
+cache.msToLive.default => DSPACE_CACHE_MSTOLIVE_DEFAULT
+auth.ui.timeUntilIdle => DSPACE_AUTH_UI_TIMEUNTILIDLE
 ```
 
 ## Supporting analytics services other than Google Analytics

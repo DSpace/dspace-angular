@@ -1,17 +1,17 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h2 id="header" class="pb-2">{{'submission.import-external.title' | translate}}</h2>
+      <h2 id="header" class="pb-2">{{'submission.import-external.title' + ((label) ? '.' + label : '') | translate}}</h2>
       <ds-submission-import-external-searchbar
-        [initExternalSourceData]="routeData"
+        [initExternalSourceData]="reload$.value"
         (externalSourceData) = "getExternalSourceData($event)">
       </ds-submission-import-external-searchbar>
     </div>
   </div>
-  <div class="row">
-    <div *ngIf="routeData.sourceId !== ''" class="col-md-12">
+  <div class="row" *ngIf="reload$.value.entity">
+    <div *ngIf="reload$.value.sourceId !== ''" class="col-md-12">
       <ng-container *ngVar="(entriesRD$ | async) as entriesRD">
-        <h3 *ngIf="entriesRD && entriesRD?.payload?.page?.length !== 0">{{ 'submission.sections.describe.relationship-lookup.selection-tab.title.' + routeData.sourceId | translate}}</h3>
+        <h3 *ngIf="entriesRD && entriesRD?.payload?.page?.length !== 0">{{ 'submission.sections.describe.relationship-lookup.selection-tab.title' | translate}}</h3>
         <ds-viewable-collection *ngIf="entriesRD?.hasSucceeded && !(isLoading$ | async) && entriesRD?.payload?.page?.length > 0" @fadeIn
                                 [objects]="entriesRD"
                                 [selectionConfig]="{ repeatable: repeatable, listId: listId }"
@@ -22,19 +22,23 @@
                                 [importConfig]="importConfig"
                                 (importObject)="import($event)">
         </ds-viewable-collection>
-        <ds-loading *ngIf="(isLoading$ | async)"
-                    message="{{'loading.search-results' | translate}}"></ds-loading>
-        <div *ngIf="!(isLoading$ | async) && entriesRD?.payload?.page?.length === 0" id="empty-external-entry-list">
-          {{ 'search.results.empty' | translate }}
+        <ds-themed-loading *ngIf="(isLoading$ | async)"
+                    message="{{'loading.search-results' | translate}}"></ds-themed-loading>
+        <div *ngIf="!(isLoading$ | async) && entriesRD?.payload?.page?.length === 0" data-test="empty-external-entry-list">
+          <ds-alert [type]="'alert-info'">{{ 'search.results.empty' | translate }}</ds-alert>
+        </div>
+        <div *ngIf="!(isLoading$ | async) && entriesRD.statusCode === 500" data-test="empty-external-error-500">
+          <ds-alert [type]="'alert-info'">{{ 'search.results.response.500' | translate }}</ds-alert>
         </div>
       </ng-container>
     </div>
-    <div *ngIf="routeData.sourceId === ''" class="col-md-12">
+    <div *ngIf="reload$.value.sourceId === ''" class="col-md-12">
       <ds-alert [type]="'alert-info'">
         <p class="lead mb-0">{{'submission.import-external.page.hint' | translate}}</p>
       </ds-alert>
     </div>
   </div>
+
   <div class="row">
     <div class="col-md-12">
       <hr>

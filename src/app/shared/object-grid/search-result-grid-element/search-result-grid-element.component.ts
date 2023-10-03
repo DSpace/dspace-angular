@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { SearchResult } from '../../search/search-result.model';
+import { SearchResult } from '../../search/models/search-result.model';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { hasValue } from '../../empty.util';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { TruncatableService } from '../../truncatable/truncatable.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-search-result-grid-element',
@@ -25,10 +26,11 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
   isCollapsed$: Observable<boolean>;
 
   public constructor(
+    public dsoNameService: DSONameService,
     protected truncatableService: TruncatableService,
     protected bitstreamDataService: BitstreamDataService
   ) {
-    super();
+    super(dsoNameService);
   }
 
   /**

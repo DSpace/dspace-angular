@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
+import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
+import { environment } from '../../../../../environments/environment';
 
 /**
  * Component to wrap a list of existing collections inside a modal
@@ -21,6 +23,12 @@ export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperCo
   selectorTypes = [DSpaceObjectType.COLLECTION];
   action = SelectorActionType.CREATE;
   header = 'dso-selector.create.item.sub-level';
+  defaultSort = new SortOptions(environment.comcolSelectionSort.sortField, environment.comcolSelectionSort.sortDirection as SortDirection);
+
+  /**
+   * If present this value is used to filter collection list by entity type
+   */
+  @Input() entityType: string;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
     super(activeModal, route);
@@ -35,6 +43,9 @@ export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperCo
         ['collection']: dso.uuid,
       }
     };
+    if (this.entityType) {
+      navigationExtras.queryParams.entityType = this.entityType;
+    }
     this.router.navigate(['/submit'], navigationExtras);
   }
 }

@@ -1,14 +1,14 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ComponentRef } from '@angular/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { Router } from '@angular/router';
-import { ExternalSourceService } from '../../../../../../core/data/external-source.service';
+import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
 import { RemoteData } from '../../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
 import { ExternalSource } from '../../../../../../core/shared/external-source.model';
-import { startWith, switchMap } from 'rxjs/operators';
-import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
+import { map, startWith, switchMap } from 'rxjs/operators';
+import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { Context } from '../../../../../../core/shared/context.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { fadeIn, fadeInOut } from '../../../../../animations/fade';
@@ -16,12 +16,15 @@ import { PaginationComponentOptions } from '../../../../../pagination/pagination
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/external-source-entry-import-modal.component';
-import { hasValue } from '../../../../../empty.util';
+import { ThemedExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
+import { hasValue, hasValueOperator } from '../../../../../empty.util';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { Item } from '../../../../../../core/shared/item.model';
 import { Collection } from '../../../../../../core/shared/collection.model';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { Observable, Subscription } from 'rxjs';
+import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
+import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-external-source-tab',
@@ -112,16 +115,22 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
   modalRef: NgbModalRef;
 
   /**
-   * Subscription to the modal's importedObject event-emitter
+   * Array to track all subscriptions and unsubscribe them onDestroy
    */
-  importObjectSub: Subscription;
+  protected subs: Subscription[] = [];
 
-  constructor(private router: Router,
-              public searchConfigService: SearchConfigurationService,
-              private externalSourceService: ExternalSourceService,
-              private modalService: NgbModal,
-              private selectableListService: SelectableListService,
-              private paginationService: PaginationService
+  /**
+   * The entity types compatible with the given external source
+   */
+  relatedEntityType: ItemType;
+
+  constructor(
+    protected router: Router,
+    public searchConfigService: SearchConfigurationService,
+    protected externalSourceService: ExternalSourceDataService,
+    protected modalService: NgbModal,
+    protected selectableListService: SelectableListService,
+    protected paginationService: PaginationService,
   ) {
   }
 
@@ -129,6 +138,15 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
    * Get the entries for the selected external source
    */
   ngOnInit(): void {
+    this.externalSource.entityTypes.pipe(
+      getFirstCompletedRemoteData(),
+      map((entityTypesRD: RemoteData<PaginatedList<ItemType>>) => {
+        return (entityTypesRD.hasSucceeded && entityTypesRD.payload.totalElements > 0) ? entityTypesRD.payload.page[0] : null;
+      })
+    ).subscribe((entityType: ItemType) => {
+      this.relatedEntityType = entityType;
+    });
+
     this.resetRoute();
     this.entriesRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
       switchMap((searchOptions: PaginatedSearchOptions) =>
@@ -145,29 +163,40 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
    * @param entry The entry to import
    */
   import(entry) {
-    this.modalRef = this.modalService.open(ExternalSourceEntryImportModalComponent, {
+    this.modalRef = this.modalService.open(ThemedExternalSourceEntryImportModalComponent, {
       size: 'lg',
       container: 'ds-dynamic-lookup-relation-modal'
     });
-    const modalComp = this.modalRef.componentInstance;
-    modalComp.externalSourceEntry = entry;
-    modalComp.item = this.item;
-    modalComp.collection = this.collection;
-    modalComp.relationship = this.relationship;
-    modalComp.label = this.label;
-    this.importObjectSub = modalComp.importedObject.subscribe((object) => {
+
+    const modalComp$ = this.modalRef.componentInstance.compRef$.pipe(
+      hasValueOperator(),
+      map((compRef: ComponentRef<ExternalSourceEntryImportModalComponent>) => compRef.instance)
+    );
+
+    this.subs.push(modalComp$.subscribe((modalComp: ExternalSourceEntryImportModalComponent) => {
+      modalComp.externalSourceEntry = entry;
+      modalComp.item = this.item;
+      // modalComp.collection = this.collection;
+      modalComp.relationship = this.relationship;
+      modalComp.label = this.label;
+      modalComp.relatedEntityType = this.relatedEntityType;
+    }));
+
+    this.subs.push(modalComp$.pipe(
+      switchMap((modalComp: ExternalSourceEntryImportModalComponent) => modalComp.importedObject)
+    ).subscribe((object) => {
       this.selectableListService.selectSingle(this.listId, object);
       this.importedObject.emit(object);
-    });
+    }));
   }
 
   /**
    * Unsubscribe from open subscriptions
    */
   ngOnDestroy(): void {
-    if (hasValue(this.importObjectSub)) {
-      this.importObjectSub.unsubscribe();
-    }
+    this.subs
+      .filter((sub) => hasValue(sub))
+      .forEach((sub) => sub.unsubscribe());
   }
 
   /**

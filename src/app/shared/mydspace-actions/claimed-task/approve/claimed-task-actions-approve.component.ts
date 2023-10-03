@@ -1,7 +1,7 @@
 import { Component, Injector } from '@angular/core';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
@@ -10,7 +10,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { RequestService } from '../../../../core/data/request.service';
 import { ClaimedApprovedTaskSearchResult } from '../../../object-collection/shared/claimed-approved-task-search-result.model';
-import { of } from 'rxjs/internal/observable/of';
 
 export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
 

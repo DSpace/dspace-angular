@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -8,7 +8,7 @@ import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { FileSizePipe } from '../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { MetadataFieldWrapperComponent } from '../../field-components/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MockBitstreamFormat1 } from '../../../shared/mocks/item.mock';
 import { MediaViewerVideoComponent } from './media-viewer-video.component';
 import { By } from '@angular/platform-browser';
@@ -17,7 +17,7 @@ describe('MediaViewerVideoComponent', () => {
   let component: MediaViewerVideoComponent;
   let fixture: ComponentFixture<MediaViewerVideoComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -83,7 +83,6 @@ describe('MediaViewerVideoComponent', () => {
     fixture = TestBed.createComponent(MediaViewerVideoComponent);
     component = fixture.componentInstance;
     component.medias = mockMediaViewerItem;
-    component.filteredMedias = mockMediaViewerItem;
     fixture.detectChanges();
   });
 
@@ -94,7 +93,6 @@ describe('MediaViewerVideoComponent', () => {
   describe('should show controller buttons when the having mode then one video', () => {
     beforeEach(() => {
       component.medias = mockMediaViewerItems;
-      component.filteredMedias = mockMediaViewerItems;
       fixture.detectChanges();
     });
 

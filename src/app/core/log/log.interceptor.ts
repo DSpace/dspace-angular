@@ -3,9 +3,8 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-
-import { CookieService } from '../services/cookie.service';
 import { hasValue } from '../../shared/empty.util';
+import { CorrelationIdService } from '../../correlation-id/correlation-id.service';
 
 /**
  * Log Interceptor intercepting Http Requests & Responses to
@@ -15,12 +14,12 @@ import { hasValue } from '../../shared/empty.util';
 @Injectable()
 export class LogInterceptor implements HttpInterceptor {
 
-  constructor(private cookieService: CookieService, private router: Router) {}
+  constructor(private cidService: CorrelationIdService, private router: Router) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    // Get Unique id of the user from the cookies
-    const correlationId = this.cookieService.get('CORRELATION-ID');
+    // Get the correlation id for the user from the store
+    const correlationId = this.cidService.getCorrelationId();
 
     // Add headers from the intercepted request
     let headers = request.headers;

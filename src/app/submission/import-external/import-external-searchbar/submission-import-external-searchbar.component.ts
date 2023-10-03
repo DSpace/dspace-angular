@@ -1,26 +1,19 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output
-} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { ExternalSourceService } from '../../../core/data/external-source.service';
+import { RequestParam } from '../../../core/cache/models/request-param.model';
+import { ExternalSourceDataService } from '../../../core/data/external-source-data.service';
 import { ExternalSource } from '../../../core/shared/external-source.model';
-import { PaginatedList, buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { FindListOptions } from '../../../core/data/request.models';
 import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { hasValue } from '../../../shared/empty.util';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 /**
  * Interface for the selected external source element.
@@ -34,6 +27,7 @@ export interface SourceElement {
  * Interface for the external source data to export.
  */
 export interface ExternalSourceData {
+  entity: string;
   query: string;
   sourceId: string;
 }
@@ -92,12 +86,12 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
 
   /**
    * Initialize the component variables.
-   * @param {ExternalSourceService} externalService
+   * @param {ExternalSourceDataService} externalService
    * @param {ChangeDetectorRef} cdr
    * @param {HostWindowService} windowService
    */
   constructor(
-    private externalService: ExternalSourceService,
+    private externalService: ExternalSourceDataService,
     private cdr: ChangeDetectorRef,
     protected windowService: HostWindowService
   ) {
@@ -116,8 +110,11 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
     this.findListOptions = Object.assign({}, new FindListOptions(), {
       elementsPerPage: 5,
       currentPage: 1,
+      searchParams: [
+        new RequestParam('entityType', this.initExternalSourceData.entity)
+      ]
     });
-    this.externalService.findAll(this.findListOptions).pipe(
+    this.externalService.searchBy('findByEntityType', this.findListOptions).pipe(
       catchError(() => {
         const pageInfo = new PageInfo();
         const paginatedList = buildPaginatedList(pageInfo, []);
@@ -158,8 +155,11 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
       this.findListOptions = Object.assign({}, new FindListOptions(), {
         elementsPerPage: 5,
         currentPage: this.findListOptions.currentPage + 1,
+        searchParams: [
+          new RequestParam('entityType', this.initExternalSourceData.entity)
+        ]
       });
-      this.sub = this.externalService.findAll(this.findListOptions).pipe(
+      this.externalService.searchBy('findByEntityType', this.findListOptions).pipe(
         catchError(() => {
           const pageInfo = new PageInfo();
           const paginatedList = buildPaginatedList(pageInfo, []);
@@ -182,7 +182,13 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
    * Passes the search parameters to the parent component.
    */
   public search(): void {
-    this.externalSourceData.emit({ sourceId: this.selectedElement.id, query: this.searchString });
+    this.externalSourceData.emit(
+      {
+        entity: this.initExternalSourceData.entity,
+        sourceId: this.selectedElement.id,
+        query: this.searchString
+      }
+    );
   }
 
   /**
@@ -193,4 +199,5 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
       this.sub.unsubscribe();
     }
   }
+
 }

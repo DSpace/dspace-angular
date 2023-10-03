@@ -1,18 +1,19 @@
+/* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { FindListOptions } from '../../data/request.models';
 import { HALLink } from '../../shared/hal-link.model';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
 import { LinkService } from './link.service';
-import { DATA_SERVICE_FACTORY, LINK_DEFINITION_FACTORY, LINK_DEFINITION_MAP_FACTORY } from './build-decorators';
+import { LINK_DEFINITION_FACTORY, LINK_DEFINITION_MAP_FACTORY } from './build-decorators';
 import { isEmpty } from 'rxjs/operators';
+import { FindListOptions } from '../../data/find-list-options.model';
+import { DATA_SERVICE_FACTORY } from '../../data/base/data-service.decorator';
 
 const TEST_MODEL = new ResourceType('testmodel');
 let result: any;
 
-/* tslint:disable:max-classes-per-file */
 class TestModel implements HALResource {
   static type = TEST_MODEL;
 
@@ -32,8 +33,8 @@ class TestModel implements HALResource {
 
 @Injectable()
 class TestDataService {
-  findAllByHref(href: string, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]) {
-    return 'findAllByHref';
+  findListByHref(href: string, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]) {
+    return 'findListByHref';
   }
 
   findByHref(href: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]) {
@@ -64,7 +65,7 @@ describe('LinkService', () => {
       }
     });
     testDataService = new TestDataService();
-    spyOn(testDataService, 'findAllByHref').and.callThrough();
+    spyOn(testDataService, 'findListByHref').and.callThrough();
     spyOn(testDataService, 'findByHref').and.callThrough();
     TestBed.configureTestingModule({
       providers: [LinkService, {
@@ -118,8 +119,8 @@ describe('LinkService', () => {
         });
         service.resolveLink(testModel, followLink('predecessor', { findListOptions: { some: 'options ' } as any }, followLink('successor')));
       });
-      it('should call dataservice.findAllByHref with the correct href, findListOptions,  and nested links', () => {
-        expect(testDataService.findAllByHref).toHaveBeenCalledWith(testModel._links.predecessor.href, { some: 'options ' } as any, true, true, followLink('successor'));
+      it('should call dataservice.findListByHref with the correct href, findListOptions,  and nested links', () => {
+        expect(testDataService.findListByHref).toHaveBeenCalledWith(testModel._links.predecessor.href, { some: 'options ' } as any, true, true, followLink('successor'));
       });
     });
     describe('either way', () => {
@@ -251,4 +252,3 @@ describe('LinkService', () => {
   });
 
 });
-/* tslint:enable:max-classes-per-file */

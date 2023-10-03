@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 
 import { select, Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
-import { difference } from 'lodash';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import difference from 'lodash/difference';
 
 import { NotificationsService } from '../notifications.service';
 import { AppState } from '../../../app.reducer';
@@ -43,6 +43,11 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
   // Sent values
   public rtl = false;
   public animate: 'fade' | 'fromTop' | 'fromRight' | 'fromBottom' | 'fromLeft' | 'rotate' | 'scale' = 'fromRight';
+
+  /**
+   * Whether to pause the dismiss countdown of all notifications on the board
+   */
+  public isPaused$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private service: NotificationsService,
               private store: Store<AppState>,
@@ -129,7 +134,6 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
       }
     });
   }
-
   ngOnDestroy(): void {
     if (this.sub) {
       this.sub.unsubscribe();

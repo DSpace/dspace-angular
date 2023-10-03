@@ -3,8 +3,8 @@
  */
 
 export enum ViewMode {
-  ListElement = 'listElement',
-  GridElement = 'gridElement',
-  DetailedListElement = 'detailedListElement',
-  StandalonePage = 'standalonePage',
+  ListElement = 'list',
+  GridElement = 'grid',
+  DetailedListElement = 'detailed',
+  StandalonePage = 'standalone',
 }

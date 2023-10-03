@@ -89,7 +89,7 @@ describe('HALEndpointService', () => {
   describe('getRootEndpointMap', () => {
     it('should send a new EndpointMapRequest', () => {
       (service as any).getRootEndpointMap();
-      const expected = new EndpointMapRequest(requestService.generateRequestId(), environment.rest.baseUrl + 'api');
+      const expected = new EndpointMapRequest(requestService.generateRequestId(), `${environment.rest.baseUrl}/api`);
       expect(requestService.send).toHaveBeenCalledWith(expected, true);
     });
 
@@ -162,9 +162,9 @@ describe('HALEndpointService', () => {
         return observableOf(endpointMaps[param]);
       });
 
-      observableCombineLatest([
+      observableCombineLatest<string[]>([
         (service as any).getEndpointAt(start, 'one'),
-        (service as any).getEndpointAt(start, 'one', 'two')
+        (service as any).getEndpointAt(start, 'one', 'two'),
       ]).subscribe(([endpoint1, endpoint2]) => {
         expect(endpoint1).toEqual(one);
         expect(endpoint2).toEqual(two);

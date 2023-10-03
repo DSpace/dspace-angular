@@ -11,15 +11,14 @@ import { SearchFilterService } from '../../../../../../core/shared/search/search
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { RouterStub } from '../../../../../testing/router.stub';
 import { SearchServiceStub } from '../../../../../testing/search-service.stub';
-import { FacetValue } from '../../../../facet-value.model';
-import { FilterType } from '../../../../filter-type.model';
-import { SearchFilterConfig } from '../../../../search-filter-config.model';
+import { FacetValue } from '../../../../models/facet-value.model';
+import { FilterType } from '../../../../models/filter-type.model';
+import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { SearchFacetOptionComponent } from './search-facet-option.component';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../../../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../../../../core/data/request.models';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
+import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 
 describe('SearchFacetOptionComponent', () => {
   let comp: SearchFacetOptionComponent;
@@ -91,7 +90,7 @@ describe('SearchFacetOptionComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchFacetOptionComponent],
+      declarations: [SearchFacetOptionComponent, ShortNumberPipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
@@ -107,12 +106,12 @@ describe('SearchFacetOptionComponent', () => {
             getSelectedValuesForFilter: () => selectedValues,
             isFilterActiveWithValue: (paramName: string, filterValue: string) => observableOf(true),
             getPage: (paramName: string) => page,
-            /* tslint:disable:no-empty */
+            /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
             incrementPage: (filterName: string) => {
             },
             resetPage: (filterName: string) => {
             }
-            /* tslint:enable:no-empty */
+            /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
           }
         }
       ],

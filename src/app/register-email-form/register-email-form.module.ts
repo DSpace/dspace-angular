@@ -12,7 +12,7 @@ const DECLARATIONS = [
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
+    SharedModule
   ],
   declarations: [
     ...DECLARATIONS,

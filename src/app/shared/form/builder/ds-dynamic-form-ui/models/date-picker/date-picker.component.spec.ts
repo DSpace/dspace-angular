@@ -1,7 +1,7 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
@@ -15,8 +15,8 @@ import {
 } from '../../../../../testing/dynamic-form-mock-services';
 
 
-export const DATE_TEST_GROUP = new FormGroup({
-  date: new FormControl()
+export const DATE_TEST_GROUP = new UntypedFormGroup({
+  date: new UntypedFormControl()
 });
 
 export const DATE_TEST_MODEL_CONFIG = {
@@ -69,6 +69,7 @@ describe('DsDatePickerComponent test suite', () => {
             [bindId]='bindId'
             [group]='group'
             [model]='model'
+            [legend]='legend'
             (blur)='onBlur($event)'
             (change)='onValueChange($event)'
             (focus)='onFocus($event)'></ds-date-picker>`;

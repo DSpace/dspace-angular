@@ -13,11 +13,33 @@
 version: '3.7'
 networks:
   dspacenet:
+    ipam:
+      config:
+        # Define a custom subnet for our DSpace network, so that we can easily trust requests from host to container.
+        # If you customize this value, be sure to customize the 'proxies.trusted.ipranges' env variable below.
+        - subnet: 172.23.0.0/16
 services:
   # DSpace (backend) webapp container
   dspace:
     container_name: dspace
-    image: dspace/dspace:dspace-7_x-test
+    environment:
+      # Below syntax may look odd, but it is how to override dspace.cfg settings via env variables.
+      # See https://github.com/DSpace/DSpace/blob/main/dspace/config/config-definition.xml
+      # __P__ => "." (e.g. dspace__P__dir => dspace.dir)
+      # __D__ => "-" (e.g. google__D__metadata => google-metadata)
+      # dspace.dir, dspace.server.url, dspace.ui.url and dspace.name
+      dspace__P__dir: /dspace
+      dspace__P__server__P__url: http://localhost:8080/server
+      dspace__P__ui__P__url: http://localhost:4000
+      dspace__P__name: 'DSpace Started with Docker Compose'
+      # db.url: Ensure we are using the 'dspacedb' image for our database
+      db__P__url: 'jdbc:postgresql://dspacedb:5432/dspace'
+      # solr.server: Ensure we are using the 'dspacesolr' image for Solr
+      solr__P__server: http://dspacesolr:8983/solr
+      # proxies.trusted.ipranges: This setting is required for a REST API running in Docker to trust requests 
+      # from the host machine. This IP range MUST correspond to the 'dspacenet' subnet defined above.
+      proxies__P__trusted__P__ipranges: '172.23.0'
+    image: "${DOCKER_OWNER:-dspace}/dspace:${DSPACE_VER:-dspace-7_x-test}"
     depends_on:
     - dspacedb
     networks:
@@ -29,7 +51,6 @@ services:
     tty: true
     volumes:
     - assetstore:/dspace/assetstore
-    - "./local.cfg:/dspace/config/local.cfg"
     # Mount DSpace's solr configs to a volume, so that we can share to 'dspacesolr' container (see below)
     - solr_configs:/dspace/solr
     # Ensure that the database is ready BEFORE starting tomcat
@@ -61,8 +82,7 @@ services:
   # DSpace Solr container  
   dspacesolr:
     container_name: dspacesolr
-    # Uses official Solr image at https://hub.docker.com/_/solr/
-    image: solr:8.8
+    image: "${DOCKER_OWNER:-dspace}/dspace-solr:${DSPACE_VER:-dspace-7_x}"
     # Needs main 'dspace' container to start first to guarantee access to solr_configs
     depends_on:
     - dspace
@@ -75,21 +95,26 @@ services:
     tty: true
     working_dir: /var/solr/data
     volumes:
-    # Mount our "solr_configs" volume available under the Solr's configsets folder (in a 'dspace' subfolder)
-    # This copies the Solr configs from main 'dspace' container into 'dspacesolr' via that volume
-    - solr_configs:/opt/solr/server/solr/configsets/dspace
     # Keep Solr data directory between reboots
     - solr_data:/var/solr/data
     # Initialize all DSpace Solr cores using the mounted local configsets (see above), then start Solr
+    # * First, run precreate-core to create the core (if it doesn't yet exist). If exists already, this is a no-op
+    # * Second, copy configsets to this core:
+    #   Updates to Solr configs require the container to be rebuilt/restarted:
+    #   `docker-compose -p d7 -f docker/docker-compose.yml -f docker/docker-compose-rest.yml up -d --build dspacesolr`
     entrypoint:
     - /bin/bash
     - '-c'
     - |
       init-var-solr
-      precreate-core authority /opt/solr/server/solr/configsets/dspace/authority
-      precreate-core oai /opt/solr/server/solr/configsets/dspace/oai
-      precreate-core search /opt/solr/server/solr/configsets/dspace/search
-      precreate-core statistics /opt/solr/server/solr/configsets/dspace/statistics
+      precreate-core authority /opt/solr/server/solr/configsets/authority
+      cp -r /opt/solr/server/solr/configsets/authority/* authority
+      precreate-core oai /opt/solr/server/solr/configsets/oai
+      cp -r /opt/solr/server/solr/configsets/oai/* oai
+      precreate-core search /opt/solr/server/solr/configsets/search
+      cp -r /opt/solr/server/solr/configsets/search/* search
+      precreate-core statistics /opt/solr/server/solr/configsets/statistics
+      cp -r /opt/solr/server/solr/configsets/statistics/* statistics
       exec solr -f
 volumes:
   assetstore:

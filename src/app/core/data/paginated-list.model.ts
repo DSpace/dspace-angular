@@ -3,11 +3,11 @@ import { hasValue, isEmpty, hasNoValue, isUndefined } from '../../shared/empty.u
 import { HALResource } from '../shared/hal-resource.model';
 import { HALLink } from '../shared/hal-link.model';
 import { typedObject } from '../cache/builders/build-decorators';
-import { CacheableObject } from '../cache/object-cache.reducer';
 import { PAGINATED_LIST } from './paginated-list.resource-type';
 import { ResourceType } from '../shared/resource-type';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { autoserialize, deserialize } from 'cerialize';
+import { CacheableObject } from '../cache/cacheable-object.model';
 
 /**
  * Factory function for a paginated list

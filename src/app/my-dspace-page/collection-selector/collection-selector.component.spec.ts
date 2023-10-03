@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectorRef, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -15,13 +16,13 @@ import { CollectionDropdownComponent } from '../../shared/collection-dropdown/co
 import { Collection } from '../../core/shared/collection.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { Community } from '../../core/shared/community.model';
-import { FindListOptions } from '../../core/data/request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { MockElementRef } from '../../shared/testing/element-ref.mock';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 
 
 describe('CollectionSelectorComponent', () => {
@@ -94,7 +95,6 @@ describe('CollectionSelectorComponent', () => {
     })
   ];
 
-  // tslint:disable-next-line: max-classes-per-file
   const collectionDataServiceMock = {
     getAuthorizedCollection(query: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
       return hot( 'a|', {
@@ -128,10 +128,13 @@ describe('CollectionSelectorComponent', () => {
 
   beforeEach(() => {
     scheduler = getTestScheduler();
-    fixture = TestBed.createComponent(CollectionSelectorComponent);
+    fixture = TestBed.overrideComponent(CollectionSelectorComponent, {
+      set: {
+        template: '<ds-collection-dropdown (selectionChange)="selectObject($event)"></ds-collection-dropdown>'
+      }
+    }).createComponent(CollectionSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
   });
 
   it('should create', () => {

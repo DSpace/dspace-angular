@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
@@ -17,6 +17,8 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { NoContent } from '../../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { followLink } from '../../../../shared/utils/follow-link-config.model';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -85,9 +87,11 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
   constructor(public groupDataService: GroupDataService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
-              private formBuilder: FormBuilder,
+              private formBuilder: UntypedFormBuilder,
               private paginationService: PaginationService,
-              private router: Router) {
+              private router: Router,
+              public dsoNameService: DSONameService,
+  ) {
     this.currentSearchQuery = '';
   }
 
@@ -114,10 +118,13 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
     this.subs.set(
       SubKey.Members,
       this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
-        switchMap((config) => this.groupDataService.findAllByHref(this.groupBeingEdited._links.subgroups.href, {
+        switchMap((config) => this.groupDataService.findListByHref(this.groupBeingEdited._links.subgroups.href, {
             currentPage: config.currentPage,
             elementsPerPage: config.pageSize
-          }
+          },
+          true,
+          true,
+          followLink('object')
         ))
       ).subscribe((rd: RemoteData<PaginatedList<Group>>) => {
         this.subGroups$.next(rd);
@@ -135,7 +142,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
           if (activeGroup.uuid === possibleSubgroup.uuid) {
             return observableOf(false);
           } else {
-            return this.groupDataService.findAllByHref(activeGroup._links.subgroups.href, {
+            return this.groupDataService.findListByHref(activeGroup._links.subgroups.href, {
               currentPage: 1,
               elementsPerPage: 9999
             })
@@ -173,7 +180,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         const response = this.groupDataService.deleteSubGroupFromGroup(activeGroup, subgroup);
-        this.showNotifications('deleteSubgroup', response, subgroup.name, activeGroup);
+        this.showNotifications('deleteSubgroup', response, this.dsoNameService.getName(subgroup), activeGroup);
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
       }
@@ -189,7 +196,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
       if (activeGroup != null) {
         if (activeGroup.uuid !== subgroup.uuid) {
           const response = this.groupDataService.addSubGroupToGroup(activeGroup, subgroup);
-          this.showNotifications('addSubgroup', response, subgroup.name, activeGroup);
+          this.showNotifications('addSubgroup', response, this.dsoNameService.getName(subgroup), activeGroup);
         } else {
           this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.subgroupToAddIsActiveGroup'));
         }
@@ -217,7 +224,8 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
       switchMap((config) => this.groupDataService.searchGroups(this.currentSearchQuery, {
         currentPage: config.currentPage,
         elementsPerPage: config.pageSize
-      }))
+      }, true, true, followLink('object')
+      ))
     ).subscribe((rd: RemoteData<PaginatedList<Group>>) => {
       this.searchResults$.next(rd);
     }));

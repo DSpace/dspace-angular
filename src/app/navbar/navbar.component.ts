@@ -2,11 +2,16 @@ import { Component, Injector } from '@angular/core';
 import { slideMobileNav } from '../shared/animations/slide';
 import { MenuComponent } from '../shared/menu/menu.component';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID, MenuItemType } from '../shared/menu/initial-menus-state';
-import { TextMenuItemModel } from '../shared/menu/menu-item/models/text.model';
-import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { HostWindowService } from '../shared/host-window.service';
-import { environment } from '../../environments/environment';
+import { BrowseService } from '../core/browse/browse.service';
+import { ActivatedRoute } from '@angular/router';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { MenuID } from '../shared/menu/menu-id.model';
+import { ThemeService } from '../shared/theme-support/theme.service';
+import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../app.reducer';
+import { isAuthenticated } from '../core/auth/selectors';
 
 /**
  * Component representing the public navbar
@@ -24,65 +29,29 @@ export class NavbarComponent extends MenuComponent {
    */
   menuID = MenuID.PUBLIC;
 
+  /**
+   * Whether user is authenticated.
+   * @type {Observable<string>}
+   */
+  public isAuthenticated$: Observable<boolean>;
+
+  public isXsOrSm$: Observable<boolean>;
+
   constructor(protected menuService: MenuService,
-              protected injector: Injector,
-              public windowService: HostWindowService
+    protected injector: Injector,
+              public windowService: HostWindowService,
+              public browseService: BrowseService,
+              public authorizationService: AuthorizationDataService,
+              public route: ActivatedRoute,
+              protected themeService: ThemeService,
+              private store: Store<AppState>,
   ) {
-    super(menuService, injector);
+    super(menuService, injector, authorizationService, route, themeService);
   }
 
   ngOnInit(): void {
-    this.createMenu();
     super.ngOnInit();
-  }
-
-  /**
-   * Initialize all menu sections and items for this menu
-   */
-  createMenu() {
-    const menuList: any[] = [
-      /* Communities & Collections tree */
-      {
-        id: `browse_global_communities_and_collections`,
-        active: false,
-        visible: true,
-        index: 0,
-        model: {
-          type: MenuItemType.LINK,
-          text: `menu.section.browse_global_communities_and_collections`,
-          link: `/community-list`
-        } as LinkMenuItemModel
-      },
-      /* News */
-      {
-        id: 'browse_global',
-        active: false,
-        visible: true,
-        index: 1,
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.browse_global'
-        } as TextMenuItemModel,
-      },
-    ];
-    // Read the different Browse-By types from config and add them to the browse menu
-    const types = environment.browseBy.types;
-    types.forEach((typeConfig) => {
-      menuList.push({
-        id: `browse_global_by_${typeConfig.id}`,
-        parentID: 'browse_global',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: `menu.section.browse_global_by_${typeConfig.id}`,
-          link: `/browse/${typeConfig.id}`
-        } as LinkMenuItemModel
-      });
-    });
-    menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
-      shouldPersistOnRouteChange: true
-    })));
-
+    this.isXsOrSm$ = this.windowService.isXsOrSm();
+    this.isAuthenticated$ = this.store.pipe(select(isAuthenticated));
   }
 }

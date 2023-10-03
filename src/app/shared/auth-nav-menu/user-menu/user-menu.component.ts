@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
@@ -8,7 +8,8 @@ import { AppState } from '../../../app.reducer';
 import { isAuthenticationLoading } from '../../../core/auth/selectors';
 import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
 import { AuthService } from '../../../core/auth/auth.service';
-import { getProfileModuleRoute } from '../../../app-routing-paths';
+import { getProfileModuleRoute, getSubscriptionsModuleRoute } from '../../../app-routing-paths';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component represents the user nav menu.
@@ -19,6 +20,11 @@ import { getProfileModuleRoute } from '../../../app-routing-paths';
   styleUrls: ['./user-menu.component.scss']
 })
 export class UserMenuComponent implements OnInit {
+
+  /**
+   * The input flag to show user details in navbar expandable menu
+   */
+  @Input() inExpandableNavbar = false;
 
   /**
    * True if the authentication is loading.
@@ -43,8 +49,16 @@ export class UserMenuComponent implements OnInit {
    */
   public profileRoute = getProfileModuleRoute();
 
-  constructor(private store: Store<AppState>,
-              private authService: AuthService) {
+  /**
+   * The profile page route
+   */
+  public subscriptionsRoute = getSubscriptionsModuleRoute();
+
+  constructor(
+    protected store: Store<AppState>,
+    protected authService: AuthService,
+    public dsoNameService: DSONameService,
+  ) {
   }
 
   /**
