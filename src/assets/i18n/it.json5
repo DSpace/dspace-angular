@@ -422,7 +422,7 @@
   "admin.registries.schema.form.element": "Elemento",
 
   // "admin.registries.schema.form.qualifier": "Qualifier",
-  "admin.registries.schema.form.qualifier": "Qualificatore",
+  "admin.registries.schema.form.qualifier": "Qualifier",
 
   // "admin.registries.schema.form.scopenote": "Scope Note",
   "admin.registries.schema.form.scopenote": "Nota di ambito",
@@ -1051,7 +1051,7 @@
   "admin.batch-import.page.header": "Batch Import",
 
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
-  "admin.metadata-import.page.help": "È possibile rilasciare o sfogliare i file CSV che contengono operazioni di metadati batch sui file qui",
+  "admin.metadata-import.page.help": "È possibile trascinare o ricercare qui i file CSV che contengono le informazioni di import metadata",
 
   // "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
   "admin.batch-import.page.help": "Selezionare la Collection in cui effettuare l'import. Quindi, rilasciare o sfogliare un file zip Simple Archive Format (SAF) che include gli elementi da importare",
@@ -1442,7 +1442,7 @@
   "browse.metadata.rpname": "Nome",
 
   // "browse.metadata.subject": "Subject",
-  "browse.metadata.subject": "Subject",
+  "browse.metadata.subject": "Oggetto",
 
   // "browse.metadata.type": "Type",
   "browse.metadata.type": "Digitare",
@@ -3258,7 +3258,7 @@
   "explore.index.rpname" : "Nome",
 
   // "explore.index.subject" : "Subject",
-  "explore.index.subject" : "Subject",
+  "explore.index.subject" : "Oggetto",
 
   // "explore.index.title" : "Title",
   "explore.index.title" : "Titolo",
@@ -3291,7 +3291,7 @@
   "explore.search-section.search-button": "Ricerca",
 
   // "explore.search-section.reset-button": "Reset",
-  "explore.search-section.reset-button": "Reset",
+  "explore.search-section.reset-button": "Annulla",
 
   // "explore.infrastructure.breadcrumbs": "Infrastructure",
   "explore.infrastructure.breadcrumbs": "Infrastrutture",
@@ -3585,7 +3585,7 @@
   "grant-deny-request-copy.email.send": "Invia",
 
   // "grant-deny-request-copy.email.subject": "Subject",
-  "grant-deny-request-copy.email.subject": "Subject",
+  "grant-deny-request-copy.email.subject": "Oggetto",
 
   // "grant-deny-request-copy.email.subject.empty": "Please enter a subject",
   "grant-deny-request-copy.email.subject.empty": "Inserisci un subject",
@@ -4213,7 +4213,7 @@
   "item.edit.move.inheritpolicies.checkbox": "Ereditare i criteri",
 
   // "item.edit.move.inheritpolicies.description": "Inherit the default policies of the destination collection",
-  "item.edit.move.inheritpolicies.description": "Ereditare i criteri predefiniti dell'insieme di destinazione",
+  "item.edit.move.inheritpolicies.description": "Eredita le policy di default della collezione di destinazione",
 
   // "item.edit.move.move": "Move",
   "item.edit.move.move": "Sposta",
@@ -5567,16 +5567,16 @@
 
 
   // "menu.section.edit": "Edit",
-  "menu.section.edit": "Modificare",
+  "menu.section.edit": "Modifica",
 
   // "menu.section.edit_collection": "Collection",
-  "menu.section.edit_collection": "Collezione",
+  "menu.section.edit_collection": "Collezioni",
 
   // "menu.section.edit_community": "Community",
   "menu.section.edit_community": "Community",
 
   // "menu.section.edit_item": "Item",
-  "menu.section.edit_item": "Articolo",
+  "menu.section.edit_item": "Item",
 
 
 
@@ -5596,7 +5596,7 @@
   "menu.section.export_metadata": "Metadati",
 
   // "menu.section.export_batch": "Batch Export (ZIP)",
-  "menu.section.export_batch": "Batch Export (ZIP)",
+  "menu.section.export_batch": "Export batch (ZIP)",
 
   // "menu.section.import_from_excel": "Import from excel",
   "menu.section.import_from_excel": "Importa da Excel",
@@ -5656,7 +5656,7 @@
   "menu.section.icon.user_agreement_edit": "Modifica accordo con l'utente finale",
 
   // "menu.section.icon.workflow": "Administer workflow menu section",
-  "menu.section.icon.workflow": "Amministrare la sezione del menu del flusso di lavoro",
+  "menu.section.icon.workflow": "Amministra la sezione del menu del workflow",
 
   // "menu.section.icon.unpin": "Unpin sidebar",
   "menu.section.icon.unpin": "Rimuovi la barra laterale",
@@ -5664,10 +5664,10 @@
 
 
   // "menu.section.import": "Import",
-  "menu.section.import": "Importazione",
+  "menu.section.import": "Importa",
 
   // "menu.section.import_batch": "Batch Import (ZIP)",
-  "menu.section.import_batch": "Importazione batch (ZIP)",
+  "menu.section.import_batch": "Import batch (ZIP)",
 
   // "menu.section.import_metadata": "Metadata",
   "menu.section.import_metadata": "Metadata",
@@ -5695,10 +5695,10 @@
 
 
   // "menu.section.pin": "Pin sidebar",
-  "menu.section.pin": "Pin barra laterale",
+  "menu.section.pin": "Fissa la barra laterale",
 
   // "menu.section.unpin": "Unpin sidebar",
-  "menu.section.unpin": "Rimuovere la barra laterale",
+  "menu.section.unpin": "Rimuovi la barra laterale",
 
 
 
@@ -5706,7 +5706,7 @@
   "menu.section.processes": "Processi",
 
   // "menu.section.health": "Health",
-  "menu.section.health": "Salute",
+  "menu.section.health": "Stato del sistema",
 
 
 
@@ -5768,7 +5768,7 @@
   "statistics.workflow.page.step-table.header": "Passaggi del Workflow eseguiti",
 
   // "statistics.workflow.page.step-table.step": "Step",
-  "statistics.workflow.page.step-table.step": "Passo",
+  "statistics.workflow.page.step-table.step": "Step",
 
   // "statistics.workflow.page.step-table.count": "Performed",
   "statistics.workflow.page.step-table.count": "Eseguito",
@@ -5933,7 +5933,7 @@
   "menu.section.edit_user_agreement": "Modifica accordo con l'utente finale",
 
   // "menu.section.workflow": "Administer Workflow",
-  "menu.section.workflow": "Amministrare il flusso di lavoro",
+  "menu.section.workflow": "Amministra il workflow",
 
 
   // "metadata-export-search.tooltip": "Export search results as CSV",
@@ -6152,7 +6152,7 @@
   "nav.search": "Ricerca",
 
   // "nav.statistics.header": "Statistics",
-  "nav.statistics.header": "Statistica",
+  "nav.statistics.header": "Statistiche",
 
   // "nav.stop-impersonating": "Stop impersonating EPerson",
   "nav.stop-impersonating": "Smetti di impersonare EPerson",
@@ -7478,7 +7478,7 @@
   "search.filters.applied.f.projectorgunits": "Organizzazione",
 
   // "search.filters.applied.f.subject": "Subject",
-  "search.filters.applied.f.subject": "Soggetto",
+  "search.filters.applied.f.subject": "Oggetto",
 
   // "search.filters.applied.f.submitter": "Submitter",
   "search.filters.applied.f.submitter": "Submitter",
@@ -8038,22 +8038,22 @@
   "sorting.score.DESC": "Maggior rilevanza",
 
   // "sorting.dc.date.issued.ASC": "Date Issued Ascending",
-  "sorting.dc.date.issued.ASC": "Data di pubblicazione Ascendente",
+  "sorting.dc.date.issued.ASC": "Data di pubblicazione crescente",
 
   // "sorting.dc.date.issued.DESC": "Date Issued Descending",
-  "sorting.dc.date.issued.DESC": "Data di pubblicazione Discendente",
+  "sorting.dc.date.issued.DESC": "Data di pubblicazione decrescente",
 
   // "sorting.dc.date.accessioned.ASC": "Accessioned Date Ascending",
-  "sorting.dc.date.accessioned.ASC": "Data di accesso Ascendente",
+  "sorting.dc.date.accessioned.ASC": "Data di accesso crescente",
 
   // "sorting.dc.date.accessioned.DESC": "Accessioned Date Descending",
-  "sorting.dc.date.accessioned.DESC": "Data di accesso Discendente",
+  "sorting.dc.date.accessioned.DESC": "Data di accesso decrescente",
 
   // "sorting.lastModified.ASC": "Last modified Ascending",
-  "sorting.lastModified.ASC": "Ultima modifica Ascendente",
+  "sorting.lastModified.ASC": "Ultima modifica crescente",
 
   // "sorting.lastModified.DESC": "Last modified Descending",
-  "sorting.lastModified.DESC": "Ultima modifica Discendente",
+  "sorting.lastModified.DESC": "Ultima modifica decrescente",
 
   // "sorting.ownerselection.ASC": "Owner Relevance Ascending",
   "sorting.ownerselection.ASC": "Rilevanza del proprietario crescente",
@@ -8132,13 +8132,13 @@
   "statistics.table.mainReports.title.TopCountries": "Paesi con più visite",
 
   // "statistics.table.mainReports.title.TopContinents": "Top region views",
-  "statistics.table.mainReports.title.TopContinents": "Regioni con più visite",
+  "statistics.table.mainReports.title.TopContinents": "Più visualizzati per regione",
 
   // "statistics.table.mainReports.title.TopCategories": "Categories",
   "statistics.table.mainReports.title.TopCategories": "Categorie",
 
   // "statistics.table.mainReports.title.TopCities": "Top city views",
-  "statistics.table.mainReports.title.TopCities": "Città con più visite",
+  "statistics.table.mainReports.title.TopCities": "Più visualizzati per città",
 
   // "statistics.table.downloadReports.title.TotalVisits": "Most downloaded",
   "statistics.table.downloadReports.title.TotalVisits": "I più scaricati",
@@ -8156,16 +8156,16 @@
   "statistics.table.downloadReports.title.TotalDownloadsPerMonth": "Download totali al mese",
 
   // "statistics.table.downloadReports.title.TopCountries": "Top country downloads",
-  "statistics.table.downloadReports.title.TopCountries": "Top country downloads",
+  "statistics.table.downloadReports.title.TopCountries": "Più scaricati per nazione",
 
   // "statistics.table.downloadReports.title.TopContinents": "Top region downloads",
-  "statistics.table.downloadReports.title.TopContinents": "Top region downloads",
+  "statistics.table.downloadReports.title.TopContinents": "Più scaricati per regione",
 
   // "statistics.table.downloadReports.title.TopCategories": "Categories",
   "statistics.table.downloadReports.title.TopCategories": "Categorie",
 
   // "statistics.table.downloadReports.title.TopCities": "Top city downloads",
-  "statistics.table.downloadReports.title.TopCities": "Top city downloads",
+  "statistics.table.downloadReports.title.TopCities": "Più scaricati per città",
 
   // "statistics.table.mainReports.header.views": "Views",
   "statistics.table.mainReports.header.views": "Visualizzazioni",
@@ -8326,24 +8326,19 @@
   "statistics.table.itemReports.header.item" : "Item",
 
   // "statistics.table.mainReports.header.community" : "Community",
-  // TODO New key - Add a translation
   "statistics.table.mainReports.header.community" : "Community",
 
   // "statistics.table.mainReports.header.collection" : "Collection",
-  // TODO New key - Add a translation
-  "statistics.table.mainReports.header.collection" : "Collection",
+  "statistics.table.mainReports.header.collection" : "Collezione",
 
   // "statistics.table.itemReports.title.TopContinents" : "Top region views",
-  // TODO New key - Add a translation
-  "statistics.table.itemReports.title.TopContinents" : "Top region views",
+  "statistics.table.itemReports.title.TopContinents" : "Più visualizzati per regione",
 
   // "statistics.table.itemReports.title.TopCities" : "Top cities views",
-  // TODO New key - Add a translation
-  "statistics.table.itemReports.title.TopCities" : "Top cities views",
+  "statistics.table.itemReports.title.TopCities" : "Più visualizzati per città",
 
   // "statistics.table.itemReports.title.TopItems" : "Most viewed",
-  // TODO New key - Add a translation
-  "statistics.table.itemReports.title.TopItems" : "Most viewed",
+  "statistics.table.itemReports.title.TopItems" : "Più visualizzati",
 
   // "statistics.table.itemReports.title.TopCategories" : "Top categories",
   // TODO New key - Add a translation
