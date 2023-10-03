@@ -1442,7 +1442,7 @@
   "browse.metadata.rpname": "Nome",
 
   // "browse.metadata.subject": "Subject",
-  "browse.metadata.subject": "Oggetto",
+  "browse.metadata.subject": "Soggetto",
 
   // "browse.metadata.type": "Type",
   "browse.metadata.type": "Digitare",
@@ -3258,7 +3258,7 @@
   "explore.index.rpname" : "Nome",
 
   // "explore.index.subject" : "Subject",
-  "explore.index.subject" : "Oggetto",
+  "explore.index.subject" : "Soggetto",
 
   // "explore.index.title" : "Title",
   "explore.index.title" : "Titolo",
@@ -7478,7 +7478,7 @@
   "search.filters.applied.f.projectorgunits": "Organizzazione",
 
   // "search.filters.applied.f.subject": "Subject",
-  "search.filters.applied.f.subject": "Oggetto",
+  "search.filters.applied.f.subject": "Soggetto",
 
   // "search.filters.applied.f.submitter": "Submitter",
   "search.filters.applied.f.submitter": "Submitter",
@@ -7604,10 +7604,10 @@
   "search.filters.filter.creativeWorkEditor.label": "Editor di ricerca",
 
   // "search.filters.filter.creativeWorkKeywords.head": "Subject",
-  "search.filters.filter.creativeWorkKeywords.head": "Oggetto",
+  "search.filters.filter.creativeWorkKeywords.head": "Soggetto",
 
   // "search.filters.filter.creativeWorkKeywords.placeholder": "Subject",
-  "search.filters.filter.creativeWorkKeywords.placeholder": "Oggetto",
+  "search.filters.filter.creativeWorkKeywords.placeholder": "Soggetto",
 
   // "search.filters.filter.creativeWorkKeywords.label": "Search subject",
   "search.filters.filter.creativeWorkKeywords.label": "Oggetto della ricerca",
@@ -7829,10 +7829,10 @@
   "search.filters.filter.show-more": "Mostra altro",
 
   // "search.filters.filter.subject.head": "Subject",
-  "search.filters.filter.subject.head": "Oggetto",
+  "search.filters.filter.subject.head": "Soggetto",
 
   // "search.filters.filter.subject.placeholder": "Subject",
-  "search.filters.filter.subject.placeholder": "Oggetto",
+  "search.filters.filter.subject.placeholder": "Soggetto",
 
   // "search.filters.filter.subject.label": "Search subject",
   "search.filters.filter.subject.label": "Oggetto della ricerca",
