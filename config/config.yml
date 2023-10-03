@@ -1,81 +1,67 @@
+debug: false
+
 rest:
   ssl: false
   host: localhost
   port: 8080
   nameSpace: /server
 
-
-info:
-  # Whether the end user agreement is required before users may use the repository.
-  # If enabled, the user will be required to accept the agreement before they can use the repository.
-  # If disabled, the page will not exist and no agreement is required to use the repository
-  enableEndUserAgreement: false
-  # Whether the privacy statement should exist or not.
-  enablePrivacyStatement: false
-
-# Keep only English language
-languages:
-  - code: en
-    label: English
-    active: true
-  - code: ca
-    label: Català
-    active: false
-  - code: cs
-    label: Čeština
-    active: true
-  - code: de
-    label: Deutsch
-    active: false
-  - code: es
-    label: Español
-    active: false
-  - code: fr
-    label: Français
-    active: false
-  - code: gd
-    label: Gàidhlig
-    active: false
-  - code: lv
-    label: Latviešu
-    active: false
-  - code: hu
-    label: Magyar
-    active: false
-  - code: nl
-    label: Nederlands
-    active: false
-  - code: pl
-    label: Polski
-    active: false
-  - code: pt-PT
-    label: Português
-    active: false
-  - code: pt-BR
-    label: Português do Brasil
-    active: false
-  - code: fi
-    label: Suomi
-    active: false
-  - code: sv
-    label: Svenska
-    active: false
-  - code: tr
-    label: Türkçe
-    active: false
-  - code: kk
-    label: Қазақ
-    active: false
-  - code: bn
-    label: বাংলা
-    active: false
-  - code: hi
-    label: हिंदी
-    active: false
-  - code: el
-    label: Ελληνικά
-    active: false
-  - code: uk
-    label: Yкраї́нська
-    active: false
-
+# Caching settings
+cache:
+  # NOTE: how long should objects be cached for by default
+  msToLive:
+    default: 900000 # 15 minutes
+  # Default 'Cache-Control' HTTP Header to set for all static content (including compiled *.js files)
+  # Defaults to max-age=604,800 seconds (one week). This lets a user's browser know that it can cache these
+  # files for one week, after which they will be "stale" and need to be redownloaded.
+  # NOTE: When updates are made to compiled *.js files, it will automatically bypass this browser cache, because
+  # all compiled *.js files include a unique hash in their name which updates when content is modified.
+  control: max-age=604800 # revalidate browser
+  autoSync:
+    defaultTime: 0
+    maxBufferSize: 100
+    timePerMethod:
+      PATCH: 3 # time in seconds
+  # In-memory cache(s) of server-side rendered pages. These caches will store the most recently accessed public pages.
+  # Pages are automatically added/dropped from these caches based on how recently they have been used.
+  # Restarting the app clears all page caches.
+  # NOTE: To control the cache size, use the "max" setting. Keep in mind, individual cached pages are usually small (<100KB).
+  # Enabling *both* caches will mean that a page may be cached twice, once in each cache (but may expire at different times via timeToLive).
+  serverSide:
+    # Set to true to see all cache hits/misses/refreshes in your console logs. Useful for debugging SSR caching issues.
+    debug: false
+    # When enabled (i.e. max > 0), known bots will be sent pages from a server side cache specific for bots.
+    # (Keep in mind, bot detection cannot be guarranteed. It is possible some bots will bypass this cache.)
+    botCache:
+      # Maximum number of pages to cache for known bots. Set to zero (0) to disable server side caching for bots.
+      # Default is 1000, which means the 1000 most recently accessed public pages will be cached.
+      # As all pages are cached in server memory, increasing this value will increase memory needs.
+      # Individual cached pages are usually small (<100KB), so max=1000 should only require ~100MB of memory.
+      max: 2000
+      # Amount of time after which cached pages are considered stale (in ms). After becoming stale, the cached
+      # copy is automatically refreshed on the next request.
+      # NOTE: For the bot cache, this setting may impact how quickly search engine bots will index new content on your site.
+      # For example, setting this to one week may mean that search engine bots may not find all new content for one week.
+      timeToLive: 86400000 # 1 day
+      # When set to true, after timeToLive expires, the next request will receive the *cached* page & then re-render the page
+      # behind the scenes to update the cache. This ensures users primarily interact with the cache, but may receive stale pages (older than timeToLive).
+      # When set to false, after timeToLive expires, the next request will wait on SSR to complete & receive a fresh page (which is then saved to cache).
+      # This ensures stale pages (older than timeToLive) are never returned from the cache, but some users will wait on SSR.
+      allowStale: true
+    # When enabled (i.e. max > 0), all anonymous users will be sent pages from a server side cache.
+    # This allows anonymous users to interact more quickly with the site, but also means they may see slightly
+    # outdated content (based on timeToLive)
+    anonymousCache:
+      # Maximum number of pages to cache. Default is zero (0) which means anonymous user cache is disabled.
+      # As all pages are cached in server memory, increasing this value will increase memory needs.
+      # Individual cached pages are usually small (<100KB), so a value of max=1000 would only require ~100MB of memory.
+      max: 200
+      # Amount of time after which cached pages are considered stale (in ms). After becoming stale, the cached
+      # copy is automatically refreshed on the next request.
+      # NOTE: For the anonymous cache, it is recommended to keep this value low to avoid anonymous users seeing outdated content.
+      timeToLive: 10000 # 10 seconds
+      # When set to true, after timeToLive expires, the next request will receive the *cached* page & then re-render the page
+      # behind the scenes to update the cache. This ensures users primarily interact with the cache, but may receive stale pages (older than timeToLive).
+      # When set to false, after timeToLive expires, the next request will wait on SSR to complete & receive a fresh page (which is then saved to cache).
+      # This ensures stale pages (older than timeToLive) are never returned from the cache, but some users will wait on SSR.
+      allowStale: true
