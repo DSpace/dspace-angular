@@ -7194,10 +7194,6 @@
 
   "external-login.confirm-email-sent.info": " We have sent an emait to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
 
-  "external-login.validated-email.header": "Email validated",
-
-  "external-login.validated-email.info": "Your email has been validated.<br>You can now login in the system with your prefered authentication method.",
-
   "external-login.provide-email.header": "Provide email",
 
   "external-login.provide-email.button.label": "Send Verification link",
@@ -7222,7 +7218,7 @@
 
   "review-account-info.merge-data.notification.error": "Something went wrong while updating your account information",
 
-  "external-login.validate-email.no-token": "Something went wrong. Your email address is not validated succesfully.",
+  "review-account-info.alert.error.content": "Something went wrong. Please try again later.",
 
   "external-login-page.provide-email.notifications.error": "Something went wrong.Email address was omitted or the operation is not valid.",
 

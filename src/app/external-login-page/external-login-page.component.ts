@@ -43,12 +43,11 @@ export class ExternalLoginPageComponent implements OnInit {
     tap((data) => this.hasErrors = hasNoValue(data.registrationData)),
     map((data) => data.registrationData));
 
-
     // TODO: remove this line (temporary)
-    this.registrationData$ = of(
-      mockRegistrationDataModel
-    );
-    this.hasErrors = false;
-    this.token = '1234567890';
+    // this.registrationData$ = of(
+    //   mockRegistrationDataModel
+    // );
+    // this.hasErrors = false;
+    // this.token = '1234567890';
   }
 }

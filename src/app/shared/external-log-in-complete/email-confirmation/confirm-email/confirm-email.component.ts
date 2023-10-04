@@ -21,13 +21,22 @@ import { Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConfirmEmailComponent implements OnDestroy {
-
+  /**
+   * The form containing the email input
+   */
   emailForm: FormGroup;
-
+  /**
+   * The registration data object
+   */
   @Input() registrationData: RegistrationData;
 
+  /**
+   * The token to be used to confirm the registration
+   */
   @Input() token: string;
-
+  /**
+   * The subscriptions to unsubscribe from
+   */
   subs: Subscription[] = [];
 
   constructor(
@@ -46,8 +55,6 @@ export class ConfirmEmailComponent implements OnDestroy {
 
   submitForm() {
     this.emailForm.markAllAsTouched();
-    this.router.navigate(['/login'], { queryParams: { authMethod: this.registrationData.registrationType } });
-
     if (this.emailForm.valid) {
       const confirmedEmail = this.emailForm.get('email').value;
       if (confirmedEmail && isEqual(this.registrationData.email, confirmedEmail.trim())) {
@@ -104,7 +111,7 @@ export class ConfirmEmailComponent implements OnDestroy {
             this.translate.get('external-login-page.provide-email.create-account.notifications.error.content')
           );
         } else if (rd.hasSucceeded) {
-          // TODO: redirect to ORCID login page
+          // redirect to ORCID login page
           // set Redirect URL to User profile
           this.router.navigate(['/login'], { queryParams: { authMethod: registrationData.registrationType } });
           this.authService.setRedirectUrl('/review-account');

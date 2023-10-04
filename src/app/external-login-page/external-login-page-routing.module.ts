@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     component: ThemedExternalLoginPageComponent,
-    // canActivate: [RegistrationTokenGuard], // TODO: uncomment this line to enable the guard later
+    canActivate: [RegistrationTokenGuard],
     resolve: { registrationData: RegistrationDataResolver },
   },
 ];
