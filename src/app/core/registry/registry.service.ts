@@ -26,10 +26,12 @@ import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
 import { MetadataFieldDataService } from '../data/metadata-field-data.service';
+import { MetadataBitstreamDataService } from '../data/metadata-bitstream-data.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { NoContent } from '../shared/NoContent.model';
 import { FindListOptions } from '../data/find-list-options.model';
+import { MetadataBitstream } from '../metadata/metadata-bitstream.model';
 
 const metadataRegistryStateSelector = (state: AppState) => state.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);
@@ -42,12 +44,12 @@ const selectedMetadataFieldsSelector = createSelector(metadataRegistryStateSelec
  */
 @Injectable()
 export class RegistryService {
-
   constructor(private store: Store<AppState>,
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
               private metadataSchemaService: MetadataSchemaDataService,
-              private metadataFieldService: MetadataFieldDataService) {
+              private metadataFieldService: MetadataFieldDataService,
+              private metadataBitstreamDataService: MetadataBitstreamDataService) {
 
   }
 
@@ -102,6 +104,22 @@ export class RegistryService {
    */
   public getMetadataFieldsBySchema(schema: MetadataSchema, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataField>[]): Observable<RemoteData<PaginatedList<MetadataField>>> {
     return this.metadataFieldService.findBySchema(schema, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * retrieves all metadatabistream that belong to a certain metadata
+   * @param schema                      The schema to filter by
+   * @param options                     The options info used to retrieve the fields
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  public getMetadataBitstream(handle: string, fileGrpType: string, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataBitstream>[]): Observable<RemoteData<any>> {
+    return this.metadataBitstreamDataService.searchByHandleParams(handle, fileGrpType, options,
+      useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   public editMetadataSchema(schema: MetadataSchema) {

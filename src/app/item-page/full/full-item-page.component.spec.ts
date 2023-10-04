@@ -1,6 +1,6 @@
 import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { TruncatePipe } from '../../shared/utils/truncate.pipe';
@@ -11,7 +11,7 @@ import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Item } from '../../core/shared/item.model';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { BehaviorSubject, of, of as observableOf } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -20,6 +20,16 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
 import { RemoteData } from '../../core/data/remote-data';
+import { RegistryService } from 'src/app/core/registry/registry.service';
+import { Store } from '@ngrx/store';
+import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { MetadataFieldDataService } from 'src/app/core/data/metadata-field-data.service';
+import { MetadataSchemaDataService } from 'src/app/core/data/metadata-schema-data.service';
+import { MetadataBitstreamDataService } from 'src/app/core/data/metadata-bitstream-data.service';
+import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { cold } from 'jasmine-marbles';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -50,13 +60,12 @@ const metadataServiceStub = {
 describe('FullItemPageComponent', () => {
   let comp: FullItemPageComponent;
   let fixture: ComponentFixture<FullItemPageComponent>;
-
+  let registryService: RegistryService;
+  let translateService: TranslateService;
   let authService: AuthService;
   let routeStub: ActivatedRouteStub;
   let routeData;
   let authorizationDataService: AuthorizationDataService;
-
-
 
   beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
@@ -76,6 +85,26 @@ describe('FullItemPageComponent', () => {
       isAuthorized: observableOf(false),
     });
 
+    const mockMetadataBitstreamDataService = {
+      searchByHandleParams: () => of({}) // Returns a mock Observable
+    };
+
+    const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'test',
+        values: [
+          'org.dspace.ctask.general.ProfileFormats = test'
+        ]
+      }))
+    });
+
+    let halService: HALEndpointService;
+    halService = jasmine.createSpyObj('halService', {
+      'getEndpoint': cold('a', { a: 'endpointURL' })
+    });
+
+
+    translateService = getMockTranslateService();
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -90,6 +119,13 @@ describe('FullItemPageComponent', () => {
         { provide: MetadataService, useValue: metadataServiceStub },
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
+        { provide: MetadataBitstreamDataService, useValue: mockMetadataBitstreamDataService },
+        { provide: Store, useValue: {} },
+        { provide: NotificationsService, useValue: {} },
+        { provide: MetadataSchemaDataService, useValue: {} },
+        { provide: MetadataFieldDataService, useValue: {} },
+        { provide: HALEndpointService, useValue: halService },
+        RegistryService
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -99,6 +135,7 @@ describe('FullItemPageComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
+    registryService = TestBed.inject(RegistryService);
     fixture = TestBed.createComponent(FullItemPageComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
@@ -112,19 +149,23 @@ describe('FullItemPageComponent', () => {
   });
 
   it('should show simple view button when not originated from workflow item', () => {
-    expect(comp.fromSubmissionObject).toBe(false);
-    const simpleViewBtn = fixture.debugElement.query(By.css('.simple-view-link'));
-    expect(simpleViewBtn).toBeTruthy();
+    waitForAsync(() => {
+      expect(comp.fromSubmissionObject).toBe(false);
+      const simpleViewBtn = fixture.debugElement.query(By.css('.simple-view-link'));
+      expect(simpleViewBtn).toBeTruthy();
+    });
   });
 
   it('should not show simple view button when originated from workflow', fakeAsync(() => {
     routeData.wfi = createSuccessfulRemoteDataObject$({ id: 'wfiId'});
     comp.ngOnInit();
-    fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect(comp.fromSubmissionObject).toBe(true);
-      const simpleViewBtn = fixture.debugElement.query(By.css('.simple-view-link'));
-      expect(simpleViewBtn).toBeFalsy();
+    waitForAsync(() => {
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        expect(comp.fromSubmissionObject).toBe(true);
+        const simpleViewBtn = fixture.debugElement.query(By.css('.simple-view-link'));
+        expect(simpleViewBtn).toBeFalsy();
+      });
     });
   }));
 

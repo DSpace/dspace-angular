@@ -5126,6 +5126,43 @@
   "item.view.box.no-files.message": "Tento záznam neobsahuje soubory.",
 
 
+//  "item.file.description.not.supported.video": "Your browser does not support the video tag.",
+  "item.file.description.not.supported.video": "Váš prohlížeč nepodporuje videa.",
+
+//  "item.file.description.name": "Name",
+  "item.file.description.name": "Název",
+
+//  "item.file.description.size": "Size",
+  "item.file.description.size": "Velikost",
+
+//  "item.file.description.format": "Format",
+  "item.file.description.format": "Formát",
+
+//  "item.file.description.description": "Description",
+  "item.file.description.description": "Popis",
+
+//  "item.file.description.checksum": "MD5",
+  "item.file.description.checksum": "MD5",
+
+//  "item.file.description.download.file": "Download file",
+  "item.file.description.download.file": "Stáhnout soubor",
+
+//  "item.file.description.preview": "Preview",
+  "item.file.description.preview": "Náhled",
+
+//  "item.file.description.file.preview": "File Preview",
+  "item.file.description.file.preview": "Náhled souboru",
+
+  //  "item.page.files.head": "Files in this item",
+  "item.page.files.head": "Soubory tohoto záznamu",
+
+  // "item.page.download.button.command.line": "Download instructions for command line",
+  "item.page.download.button.command.line": "Instrukce pro stažení z příkazové řádky",
+
+  // "item.page.download.button.all.files.zip": "Download all files in item",
+  "item.page.download.button.all.files.zip": "Stáhnout všechny soubory záznamu",
+
+
   // "item.select.confirm" : "Confirm selected"
   "item.select.confirm" : "Potvrdit vybrané",
 

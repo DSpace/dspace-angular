@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -22,6 +22,15 @@ import {
 import { AuthService } from '../../core/auth/auth.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { RegistryService } from 'src/app/core/registry/registry.service';
+import { Store } from '@ngrx/store';
+import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { MetadataSchemaDataService } from 'src/app/core/data/metadata-schema-data.service';
+import { MetadataFieldDataService } from 'src/app/core/data/metadata-field-data.service';
+import { MetadataBitstreamDataService } from 'src/app/core/data/metadata-bitstream-data.service';
+import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -40,6 +49,12 @@ describe('ItemPageComponent', () => {
   let comp: ItemPageComponent;
   let fixture: ComponentFixture<ItemPageComponent>;
   let authService: AuthService;
+  let translateService: TranslateService;
+  let registryService: RegistryService;
+  let halService: HALEndpointService;
+  const authorizationService = jasmine.createSpyObj('authorizationService', [
+    'isAuthorized',
+  ]);
   let authorizationDataService: AuthorizationDataService;
 
   const mockMetadataService = {
@@ -52,13 +67,32 @@ describe('ItemPageComponent', () => {
     data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
   });
 
+  const mockMetadataBitstreamDataService = {
+    searchByHandleParams: () => observableOf({}) // Returns a mock Observable
+  };
+
   beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
       setRedirectUrl: {}
     });
+
+    translateService = getMockTranslateService();
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
       isAuthorized: observableOf(false),
+    });
+
+    const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'test',
+        values: [
+          'org.dspace.ctask.general.ProfileFormats = test'
+        ]
+      }))
+    });
+
+    halService = jasmine.createSpyObj('authService', {
+      getRootHref: 'root url',
     });
 
     TestBed.configureTestingModule({
@@ -75,7 +109,15 @@ describe('ItemPageComponent', () => {
         { provide: MetadataService, useValue: mockMetadataService },
         { provide: Router, useValue: {} },
         { provide: AuthService, useValue: authService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: Store, useValue: {} },
+        { provide: NotificationsService, useValue: {} },
+        { provide: MetadataSchemaDataService, useValue: {} },
+        { provide: MetadataFieldDataService, useValue: {} },
+        { provide: MetadataBitstreamDataService, useValue: mockMetadataBitstreamDataService },
+        RegistryService,
         { provide: AuthorizationDataService, useValue: authorizationDataService },
+        { provide: HALEndpointService, useValue: halService }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -85,6 +127,7 @@ describe('ItemPageComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
+    registryService = TestBed.inject(RegistryService);
     fixture = TestBed.createComponent(ItemPageComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
