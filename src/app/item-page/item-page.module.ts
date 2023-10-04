@@ -73,7 +73,14 @@ import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/
 import { FileSectionComponent } from './simple/field-components/file-section/file-section.component';
 import { ItemSharedModule } from './item-shared.module';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {PreviewSectionComponent} from './simple/field-components/preview-section/preview-section.component';
+import {
+  FileDescriptionComponent
+} from './simple/field-components/preview-section/file-description/file-description.component';
+import {
+  FileTreeViewComponent
+} from './simple/field-components/preview-section/file-description/file-tree-view/file-tree-view.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -129,7 +136,10 @@ const DECLARATIONS = [
   ClarinStatisticsButtonComponent,
   ClarinGenericItemFieldComponent,
   ClarinCollectionsItemFieldComponent,
-  ClarinFilesItemFieldComponent
+  ClarinFilesItemFieldComponent,
+  PreviewSectionComponent,
+  FileDescriptionComponent,
+  FileTreeViewComponent,
 ];
 
 @NgModule({
@@ -148,7 +158,8 @@ const DECLARATIONS = [
     ResultsBackButtonModule,
     UploadModule,
     DsoPageModule,
-    ChartsModule
+    ChartsModule,
+    NgbModule
   ],
   declarations: [
     ...DECLARATIONS,

@@ -28,3 +28,58 @@
   margin-top: -16px;
   padding-top: 16px;
 }
+
+.btn-download{
+  color: #fff !important;
+  background-color: #428bca;
+  border-color: #357ebd;
+  cursor: pointer;
+}
+
+.btn-download:hover {
+  color: #fff;
+  background-color: #3276b1;
+  border-color: #285e8e;
+}
+
+pre {
+  display: block;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.428571429;
+  color: #333;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  white-space: pre-wrap;
+}
+
+#command-div .repo-copy-btn {
+  opacity: 0;
+  -webkit-transition: opacity .3s ease-in-out;
+  -o-transition: opacity .3s ease-in-out;
+  transition: opacity .3s ease-in-out;
+}
+
+.repo-copy-btn {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  display: inline-block;
+  padding: 0 !important;
+}
+
+.repo-copy-btn:before {
+  content: " ";
+  background-image: url('https://lindat.mff.cuni.cz/repository/xmlui/themes/UFAL/images/clippy.svg');
+  background-size: 13px 15px;
+  background-repeat: no-repeat;
+  background-color: red;
+  display: inline-block;
+  width: 13px;
+  height: 15px;
+  padding: 0 !important;
+}

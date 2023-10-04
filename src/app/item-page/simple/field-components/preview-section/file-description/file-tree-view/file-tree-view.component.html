@@ -1,0 +1,25 @@
+<li>
+  <span *ngIf="node.isDirectory; else fileTemplate">
+    <i class="fas fa-folder fa-sm" style="color: #a0a0a0"></i>
+    <a role="button"
+       (click)="isCollapsed = !isCollapsed"
+       [attr.aria-expanded]="!isCollapsed"
+       attr.aria-controls="folder_{{ node.name }}">
+      {{ node.name }}
+    </a>
+  </span>
+
+  <ng-template #fileTemplate>
+    <i class="far fa-file fa-sm pr-1" style="color: #a0a0a0"></i>
+    <span id="folderName">{{ node.name }}</span>
+    <span class="size pull-right">{{ node.size }}</span>
+  </ng-template>
+
+  <ul id="folder_{{ node.name }}" [ngbCollapse]="isCollapsed" class="in" style="height: auto"
+      *ngIf="node.isDirectory && node.sub">
+    <ds-file-tree-view
+      *ngFor="let subNodeKey of getKeys(node.sub)"
+      [node]="node.sub[subNodeKey]">
+    </ds-file-tree-view>
+  </ul>
+</li>

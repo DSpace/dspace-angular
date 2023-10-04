@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable, of as observableOf, of } from 'rxjs';
 import {
   MetadataRegistryCancelFieldAction,
   MetadataRegistryCancelSchemaAction,
@@ -30,6 +30,7 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { RemoteData } from '../data/remote-data';
 import { NoContent } from '../shared/NoContent.model';
 import { FindListOptions } from '../data/find-list-options.model';
+import { MetadataBitstreamDataService } from '../data/metadata-bitstream-data.service';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -40,6 +41,7 @@ describe('RegistryService', () => {
   let mockStore;
   let metadataSchemaService: MetadataSchemaDataService;
   let metadataFieldService: MetadataFieldDataService;
+  let metadataBitstreamDataService: MetadataBitstreamDataService;
 
   let options: FindListOptions;
   let mockSchemasList: MetadataSchema[];
@@ -139,6 +141,14 @@ describe('RegistryService', () => {
       delete: createNoContentRemoteDataObject$(),
       clearRequests: observableOf('href')
     });
+    metadataBitstreamDataService = jasmine.createSpyObj(
+      'metadataBitstreamDataService',
+      {
+        searchByHandleParams: of({
+          /* Your Mock Data */
+        }),
+      }
+    );
   }
 
   beforeEach(() => {
@@ -153,6 +163,8 @@ describe('RegistryService', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: MetadataSchemaDataService, useValue: metadataSchemaService },
         { provide: MetadataFieldDataService, useValue: metadataFieldService },
+        { provide: MetadataFieldDataService, useValue: metadataFieldService },
+        { provide: MetadataBitstreamDataService, useValue: metadataBitstreamDataService },
         RegistryService
       ]
     });

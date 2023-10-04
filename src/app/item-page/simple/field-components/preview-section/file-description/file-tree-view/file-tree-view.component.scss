@@ -1,0 +1,31 @@
+.foldername:before {
+    font-family: FontAwesome;
+    content: '\f07b';
+    margin-right: 5px;
+    color: #a0a0a0;
+}
+
+.filename:before {
+    font-family: FontAwesome;
+    content: '\f016';
+    margin-right: 5px;
+    color: #a0a0a0;
+}
+
+ li {
+    padding: 0 0 0 8px;
+    margin: 0;
+    list-style: none;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.foldername a {
+    cursor: pointer;
+}
+
+.foldername a:hover {
+    text-decoration: underline;
+}
