@@ -1247,7 +1247,7 @@
   "bitstream.edit.form.embargo.label": "Embargo fino a data specifica",
 
   // "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
-  "bitstream.edit.form.fileName.hint": "Modificare il nome del file per il bitstream. Si noti che questo cambierà il display bitstream URL , i vecchi collegamenti verranno comunque risolti finché il sequence ID non cambierà  .",
+  "bitstream.edit.form.fileName.hint": "Modificare il nome del file per il bitstream. Si noti che questo cambierà il display bitstream URL, i vecchi collegamenti verranno comunque risolti finché il sequence ID non cambierà.",
 
   // "bitstream.edit.form.fileName.label": "Filename",
   "bitstream.edit.form.fileName.label": "Filename",
@@ -1314,7 +1314,7 @@
   "bitstream.edit.title": "Modifica bitstream",
 
   // "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
-  "bitstream-request-a-copy.alert.canDownload1": "Hai già accesso a questo file. Se si desidera scaricare il file, fare clic su",
+  "bitstream-request-a-copy.alert.canDownload1": "Hai già accesso a questo file. Se si desidera scaricare il file, fare clic su",
 
   // "bitstream-request-a-copy.alert.canDownload2": "here",
   "bitstream-request-a-copy.alert.canDownload2": "qui",
@@ -2366,7 +2366,7 @@
   "context-menu.actions.request-correction.confirm.submit": "Sì, sono sicuro.",
 
   // "context-menu.actions.request-correction.error.403": "A request for correction has already been sent, impossible to proceed with the operation.",
-  "context-menu.actions.request-correction.error.403": "È già stata inviata una richiesta di correzione, impossibile procedere con l'operazione.",
+  "context-menu.actions.request-correction.error.403": "È già stata inviata una richiesta di correzione, impossibile procedere con l'operazione.",
 
   // "context-menu.actions.request-correction.error.generic": "There was an issue when requesting a correction for the item, please try again later.",
   "context-menu.actions.request-correction.error.generic": "Si è verificato un problema durante la richiesta di correzione per l'item, riprova più tardi.",
