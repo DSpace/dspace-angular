@@ -130,10 +130,8 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
       );
     }
     this.subs.push(
-      override$.subscribe((response: RemoteData<EPerson>) => {
+      override$.subscribe((response) => {
         if (response.hasSucceeded) {
-          // TODO: remove this line (temporary)
-          console.log('mergeEPersonDataWithToken', response.payload);
           this.notificationService.success(
             this.translateService.get(
               'review-account-info.merge-data.notification.success'
