@@ -98,7 +98,8 @@ export class ConfirmEmailComponent implements OnDestroy {
     token: string,
     registrationData: Registration
   ) {
-
+    // check if the netId is present
+    // in order to create an account, the netId is required (since the user is created without a password)
     if (hasNoValue(this.registrationData.netId)) {
       this.notificationService.error(this.translate.get('external-login-page.confirm-email.create-account.notifications.error.no-netId'));
       return;

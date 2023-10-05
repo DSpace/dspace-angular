@@ -165,7 +165,6 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
     const dataToCompare: ReviewAccountInfoData[] = [];
     Object.entries(this.registrationData.registrationMetadata).forEach(
       ([key, value]) => {
-        console.log(key, value);
         dataToCompare.push({
           label: key.split('.')?.[1] ?? key.split('.')?.[0],
           currentValue: value[0]?.overrides ?? '',
