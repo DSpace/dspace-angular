@@ -35,9 +35,9 @@ export class ReviewAccountGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Promise<boolean> | boolean | Observable<boolean> {
-    if (route.queryParams.token) {
+    if (route.params.token) {
       return this.epersonRegistrationService
-        .searchRegistrationByToken(route.queryParams.token)
+        .searchRegistrationByToken(route.params.token)
         .pipe(
           getFirstCompletedRemoteData(),
           mergeMap(

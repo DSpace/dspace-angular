@@ -1,8 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExternalLoginService } from '../../services/external-login.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Registration } from '../../../../core/shared/registration.model';
 import { Subscription } from 'rxjs';
 import { hasValue } from '../../../../shared/empty.util';
 

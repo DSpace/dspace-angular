@@ -31,15 +31,13 @@ export class RegistrationTokenGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    if (route.queryParams.token) {
+    if (route.params.token) {
       return this.epersonRegistrationService
-        .searchRegistrationByToken(route.queryParams.token)
+        .searchRegistrationByToken(route.params.token)
         .pipe(
           getFirstCompletedRemoteData(),
           map(
             (data: RemoteData<Registration>) => {
-              // TODO: remove console.log
-              console.log(data, 'RegistrationTokenGuard');
               if (data.hasSucceeded && hasValue(data)) {
                 return true;
               } else {

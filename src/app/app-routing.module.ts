@@ -172,12 +172,12 @@ import { RedirectService } from './redirect/redirect.service';
               .then((m) => m.LoginPageModule)
           },
           {
-            path: 'external-login',
+            path: 'external-login/:token',
             loadChildren: () => import('./external-login-page/external-login-page.module')
               .then((m) => m.ExternalLoginPageModule)
           },
           {
-            path: 'review-account',
+            path: 'review-account/:token',
             loadChildren: () => import('./external-login-review-account-info/external-login-review-account-info-page.module')
               .then((m) => m.ExternalLoginReviewAccountInfoModule)
           },

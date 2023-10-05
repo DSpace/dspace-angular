@@ -33,7 +33,8 @@ export class ExternalLoginReviewAccountInfoPageComponent implements OnInit {
   constructor(
     private arouter: ActivatedRoute
   ) {
-    this.token = this.arouter.snapshot.queryParams.token;
+    this.token = this.arouter.snapshot.params.token;
+    this.hasErrors = hasNoValue(this.arouter.snapshot.params.token);
   }
 
   ngOnInit(): void {

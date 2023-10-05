@@ -32,7 +32,7 @@ export class RegistrationDataResolver implements Resolve<RemoteData<Registration
    * @returns An Observable of Registration.
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Registration>> {
-    const token = route.queryParams.token;
+    const token = route.params.token;
     if (hasValue(token)) {
      return this.epersonRegistrationService.searchRegistrationByToken(token).pipe(
         getFirstCompletedRemoteData(),
