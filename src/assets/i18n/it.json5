@@ -971,16 +971,16 @@
   "admin.search.breadcrumbs": "Ricerca amministrativa",
 
   // "admin.search.collection.edit": "Edit",
-  "admin.search.collection.edit": "Editare",
+  "admin.search.collection.edit": "Modifica",
 
   // "admin.search.community.edit": "Edit",
-  "admin.search.community.edit": "Editare",
+  "admin.search.community.edit": "Modifica",
 
   // "admin.search.item.delete": "Delete",
-  "admin.search.item.delete": "Cancellare",
+  "admin.search.item.delete": "Cancella",
 
   // "admin.search.item.edit": "Edit",
-  "admin.search.item.edit": "Editare",
+  "admin.search.item.edit": "Modifica",
 
   // "admin.search.item.make-private": "Make non-discoverable",
   "admin.search.item.make-private": "Rendi privato",
@@ -992,10 +992,10 @@
   "admin.search.item.move": "Sposta",
 
   // "admin.search.item.reinstate": "Reinstate",
-  "admin.search.item.reinstate": "Reintegrare",
+  "admin.search.item.reinstate": "Reintegra",
 
   // "admin.search.item.withdraw": "Withdraw",
-  "admin.search.item.withdraw": "Ritirare",
+  "admin.search.item.withdraw": "Ritira",
 
   // "admin.search.title": "Administrative Search",
   "admin.search.title": "Ricerca amministrativa",
@@ -1007,22 +1007,22 @@
 
 
   // "admin.workflow.breadcrumbs": "Administer Workflow",
-  "admin.workflow.breadcrumbs": "Amministrare il flusso di lavoro",
+  "admin.workflow.breadcrumbs": "Amministrazione Workflow",
 
   // "admin.workflow.title": "Administer Workflow",
-  "admin.workflow.title": "Amministrare il flusso di lavoro",
+  "admin.workflow.title": "Amministrazione Workflow",
 
   // "admin.workflow.item.workflow": "Workflow",
-  "admin.workflow.item.workflow": "Flusso di lavoro",
+  "admin.workflow.item.workflow": "Workflow",
 
   // "admin.workflow.item.workspace": "Workspace",
   "admin.workflow.item.workspace": "Workspace",
 
   // "admin.workflow.item.delete": "Delete",
-  "admin.workflow.item.delete": "Cancellare",
+  "admin.workflow.item.delete": "Cancella",
 
   // "admin.workflow.item.send-back": "Send back",
-  "admin.workflow.item.send-back": "Rinviare",
+  "admin.workflow.item.send-back": "Rinvia",
 
   // "admin.workflow.item.policies": "Policies",
   "admin.workflow.item.policies": "Policy",
@@ -1033,19 +1033,19 @@
 
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
-  "admin.metadata-import.breadcrumbs": "Importare metadati",
+  "admin.metadata-import.breadcrumbs": "Importa metadati",
 
   // "admin.batch-import.breadcrumbs": "Import Batch",
   "admin.batch-import.breadcrumbs": "Batch Import",
 
   // "admin.metadata-import.title": "Import Metadata",
-  "admin.metadata-import.title": "Importare metadati",
+  "admin.metadata-import.title": "Importa metadati",
 
   // "admin.batch-import.title": "Import Batch",
   "admin.batch-import.title": "Batch Import",
 
   // "admin.metadata-import.page.header": "Import Metadata",
-  "admin.metadata-import.page.header": "Importare metadati",
+  "admin.metadata-import.page.header": "Importa metadati",
 
   // "admin.batch-import.page.header": "Import Batch",
   "admin.batch-import.page.header": "Batch Import",
@@ -1054,34 +1054,34 @@
   "admin.metadata-import.page.help": "È possibile trascinare o ricercare qui i file CSV che contengono le informazioni di import metadata",
 
   // "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
-  "admin.batch-import.page.help": "Selezionare la Collection in cui effettuare l'import. Quindi, rilasciare o sfogliare un file zip Simple Archive Format (SAF) che include gli elementi da importare",
+  "admin.batch-import.page.help": "Seleziona la Collezione in cui importare la risorsa. Trascina o seleziona il file zip Simple Archive Format (SAF) che include gli elementi da importare",
 
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
-  "admin.metadata-import.page.dropMsg": "Rilasciare un CSV di metadati da importare",
+  "admin.metadata-import.page.dropMsg": "Rilascia un CSV di metadati da importare",
 
   // "admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
   "admin.batch-import.page.dropMsg": "Rilasciare un batch ZIP da importare",
 
   // "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
-  "admin.metadata-import.page.dropMsgReplace": "Rilasciare per sostituire i metadati CSV da importare",
+  "admin.metadata-import.page.dropMsgReplace": "Rilascia un nuovo file CSV per sostituire il file corrente da importare",
 
   // "admin.batch-import.page.dropMsgReplace": "Drop to replace the batch ZIP to import",
-  "admin.batch-import.page.dropMsgReplace": "Rilasciare per sostituire il batch ZIP da importare",
+  "admin.batch-import.page.dropMsgReplace": "Rilascia un nuovo file ZIP per sostituire il file corrente da importare",
 
   // "admin.metadata-import.page.button.return": "Back",
   "admin.metadata-import.page.button.return": "Indietro",
 
   // "admin.metadata-import.page.button.proceed": "Proceed",
-  "admin.metadata-import.page.button.proceed": "Procedere",
+  "admin.metadata-import.page.button.proceed": "Procedi",
 
   // "admin.metadata-import.page.button.select-collection": "Select Collection",
-  "admin.metadata-import.page.button.select-collection": "Selezionare una Collection",
+  "admin.metadata-import.page.button.select-collection": "Selezionare una Collezione",
 
   // "admin.metadata-import.page.error.addFile": "Select file first!",
   "admin.metadata-import.page.error.addFile": "Seleziona prima il file!",
 
   // "admin.batch-import.page.error.addFile": "Select Zip file first!",
-  "admin.batch-import.page.error.addFile": "Seleziona prima il file ZIP!",
+  "admin.batch-import.page.error.addFile": "Seleziona prima il file ZIP",
 
   // "admin.metadata-import.page.validateOnly": "Validate Only",
   "admin.metadata-import.page.validateOnly": "Solo Validazione",
@@ -1188,11 +1188,11 @@
   "admin.batch-import.page.validateOnly.hint": "Una volta selezionato, il file ZIP caricato verrà convalidato. Si riceverà un rapporto sulle modifiche rilevate, ma non verrà salvata alcuna modifica.",
 
   // "admin.batch-import.page.remove": "remove",
-  "admin.batch-import.page.remove": "rimuovere",
+  "admin.batch-import.page.remove": "Elimina",
 
 
   // "alert.close.aria": "Close",
-  "alert.close.aria": "Chiudere",
+  "alert.close.aria": "Chiudi",
 
   // "alert.toggle.hide": "Show less",
   "alert.toggle.hide": "Mostra meno",
@@ -1205,10 +1205,10 @@
   "auth.errors.invalid-user": "Indirizzo e-mail o password non validi.",
 
   // "auth.messages.expired": "Your session has expired. Please log in again.",
-  "auth.messages.expired": "La sessione è scaduta. Effettua nuovamente l'accesso.",
+  "auth.messages.expired": "La sessione è scaduta. Effettua nuovamente il log in.",
 
   // "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
-  "auth.messages.token-refresh-failed": "Aggiornamento del token di sessione non riuscito. Effettua nuovamente l'accesso.",
+  "auth.messages.token-refresh-failed": "Aggiornamento del token di sessione non riuscita. Effettua nuovamente il log in.",
 
 
 
@@ -1219,14 +1219,14 @@
   "bitstream.download.page.back": "Indietro",
 
   // "bitstream.download.page.close": "Close",
-  "bitstream.download.page.close": "Chiudere",
+  "bitstream.download.page.close": "Chiudi",
 
 
   // "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
-  "bitstream.edit.authorizations.link": "Modificare i criteri di bitstream",
+  "bitstream.edit.authorizations.link": "Modifica le policies di bitstream",
 
   // "bitstream.edit.authorizations.title": "Edit bitstream's Policies",
-  "bitstream.edit.authorizations.title": "Modificare i criteri di bitstream",
+  "bitstream.edit.authorizations.title": "Modifica le policies di bitstream",
 
   // "bitstream.edit.return": "Back",
   "bitstream.edit.return": "Indietro",
@@ -1262,10 +1262,10 @@
   "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
 
   // "bitstream.edit.form.fileType.label": "File type",
-  "bitstream.edit.form.fileType.label": "Tipologi File",
+  "bitstream.edit.form.fileType.label": "Tipologia del File",
 
   // "bitstream.edit.form.fileType.hint": "Personal picture, logo, main article, etc.",
-  "bitstream.edit.form.fileType.hint": "Immagine personale, logo, articolo principale, ecc.",
+  "bitstream.edit.form.fileType.hint": "ersonal picture, logo, main article, ecc.",
 
   // "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
   "bitstream.edit.form.selectedFormat.hint": "Se il formato non è presente nell'elenco precedente, <b>selezionare \"formato  non presente in elenco\"  sopra</b> e descriverlo in \"Descrivi nuovo formato.",
@@ -1283,13 +1283,13 @@
   "bitstream.edit.form.iiifLabel.label": "Etichetta IIIF",
 
   // "bitstream.edit.form.iiifLabel.hint": "Canvas label for this image. If not provided default label will be used.",
-  "bitstream.edit.form.iiifLabel.hint": "Etichetta canvas per questa immagine. Se non viene fornita, verrà utilizzata l'etichetta predefinita.",
+  "bitstream.edit.form.iiifLabel.hint": "Etichetta di cornice per questa immagine. Se non viene fornita, verrà utilizzata l'etichetta predefinita.",
 
   // "bitstream.edit.form.iiifToc.label": "IIIF Table of Contents",
-  "bitstream.edit.form.iiifToc.label": "Sommario IIIF",
+  "bitstream.edit.form.iiifToc.label": "Indice IIIF",
 
   // "bitstream.edit.form.iiifToc.hint": "Adding text here makes this the start of a new table of contents range.",
-  "bitstream.edit.form.iiifToc.hint": "L'aggiunta di testo qui rende questo l'inizio di un nuovo intervallo di sommario.",
+  "bitstream.edit.form.iiifToc.hint": "L'aggiunta di testo qui rende questo l'inizio di un nuovo intervallo dell'indice.",
 
   // "bitstream.edit.form.iiifWidth.label": "IIIF Canvas Width",
   "bitstream.edit.form.iiifWidth.label": "Larghezza area di lavoro IIIF",
@@ -1396,7 +1396,7 @@
   "browse.comcol.by.rpname": "Per nome",
 
   // "browse.comcol.by.subject": "By Subject",
-  "browse.comcol.by.subject": "Per argomento",
+  "browse.comcol.by.subject": "Per soggetto",
 
   // "browse.comcol.by.title": "By Title",
   "browse.comcol.by.title": "Per titolo",
@@ -1406,7 +1406,7 @@
 
 
   // "browse.comcol.head": "Browse",
-  "browse.comcol.head": "Sfogliare",
+  "browse.comcol.head": "Sfoglia",
 
   // "browse.empty": "No items to show.",
   "browse.empty": "Nessun item da mostrare.",
@@ -1445,7 +1445,7 @@
   "browse.metadata.subject": "Soggetto",
 
   // "browse.metadata.type": "Type",
-  "browse.metadata.type": "Digitare",
+  "browse.metadata.type": "Tipo",
 
   // "browse.metadata.title": "Title",
   "browse.metadata.title": "Titolo",
