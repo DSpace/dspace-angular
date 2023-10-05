@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExternalLoginService } from '../../services/external-login.service';
 import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../../core/shared/operators';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
-import { hasValue } from '../../../../shared/empty.util';
+import { hasNoValue, hasValue } from '../../../../shared/empty.util';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
@@ -98,6 +98,12 @@ export class ConfirmEmailComponent implements OnDestroy {
     token: string,
     registrationData: Registration
   ) {
+
+    if (hasNoValue(this.registrationData.netId)) {
+      this.notificationService.error(this.translate.get('external-login-page.confirm-email.create-account.notifications.error.no-netId'));
+      return;
+    }
+
     const metadataValues = {};
     for (const [key, value] of Object.entries(registrationData.registrationMetadata)) {
       if (hasValue(value[0]?.value) && key !== 'email') {
@@ -124,7 +130,7 @@ export class ConfirmEmailComponent implements OnDestroy {
           // redirect to login page with authMethod query param, so that the login page knows which authentication method to use
           // set Redirect URL to User profile, so the user is redirected to the profile page after logging in
           this.router.navigate(['/login'], { queryParams: { authMethod: registrationData.registrationType } });
-          this.authService.setRedirectUrl('/review-account');
+          this.authService.setRedirectUrl('/profile');
         }
       }));
   }

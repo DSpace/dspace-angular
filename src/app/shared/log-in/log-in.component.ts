@@ -97,7 +97,7 @@ export class LogInComponent implements OnInit, OnDestroy {
       }
       // if there is an external login method the user should follow, filter the auth methods to only show that one
       if (hasValue(this.externalLoginMethod)) {
-        this.authMethods = this.authMethods.filter((authMethod: AuthMethod) => authMethod.authMethodType === this.externalLoginMethod);
+        this.authMethods = this.authMethods.filter((authMethod: AuthMethod) => authMethod.authMethodType === this.externalLoginMethod.toLocaleLowerCase());
       }
     });
 
