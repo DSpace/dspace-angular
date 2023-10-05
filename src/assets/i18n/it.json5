@@ -2011,39 +2011,39 @@
   // "collection.source.controls.head": "Harvest Controls",
   "collection.source.controls.head": "Controlli del Harvester",
   // "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
-  "collection.source.controls.test.submit.error": "Qualcosa è andato storto con l'avvio del test delle impostazioni",
+  "collection.source.controls.test.submit.error": "Qualcosa è andato storto durante l'avvio del test delle impostazioni",
   // "collection.source.controls.test.failed": "The script to test the settings has failed",
   "collection.source.controls.test.failed": "Lo script per testare le impostazioni non è riuscito",
   // "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
-  "collection.source.controls.test.completed": "Lo script per testare le impostazioni è stato completato correttamente",
+  "collection.source.controls.test.completed": "La procedura per testare le impostazioni è stato completato correttamente",
   // "collection.source.controls.test.submit": "Test configuration",
   "collection.source.controls.test.submit": "Configurazione di prova",
   // "collection.source.controls.test.running": "Testing configuration...",
-  "collection.source.controls.test.running": "Configurazione di test...",
+  "collection.source.controls.test.running": "Configurazione di prova...",
   // "collection.source.controls.import.submit.success": "The import has been successfully initiated",
-  "collection.source.controls.import.submit.success": "L'importazione è stata avviata correttamente",
+  "collection.source.controls.import.submit.success": "L'import è stato avviato correttamente",
   // "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
-  "collection.source.controls.import.submit.error": "Qualcosa è andato storto con l'avvio dell'importazione",
+  "collection.source.controls.import.submit.error": "Qualcosa è andato storto nell'import",
   // "collection.source.controls.import.submit": "Import now",
   "collection.source.controls.import.submit": "Importa ora",
   // "collection.source.controls.import.running": "Importing...",
-  "collection.source.controls.import.running": "Importazione...",
+  "collection.source.controls.import.running": "Import in corso...",
   // "collection.source.controls.import.failed": "An error occurred during the import",
-  "collection.source.controls.import.failed": "Si è verificato un errore durante l'importazione",
+  "collection.source.controls.import.failed": "Si è verificato un errore durante l'import ",
   // "collection.source.controls.import.completed": "The import completed",
-  "collection.source.controls.import.completed": "L'importazione completata",
+  "collection.source.controls.import.completed": "L'import è completato",
   // "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
-  "collection.source.controls.reset.submit.success": "Il ripristino e la reimportazione sono stati avviati correttamente",
+  "collection.source.controls.reset.submit.success": "Il reset e il reimport sono stati avviati correttamente",
   // "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
-  "collection.source.controls.reset.submit.error": "Qualcosa è andato storto con l'avvio del ripristino e della reimportazione",
+  "collection.source.controls.reset.submit.error": "Qualcosa è andato storto durante l'avvio del reset e reimport",
   // "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
-  "collection.source.controls.reset.failed": "Si è verificato un errore durante il ripristino e la reimportazione",
+  "collection.source.controls.reset.failed": "Si è verificato un errore durante il reimport",
   // "collection.source.controls.reset.completed": "The reset and reimport completed",
-  "collection.source.controls.reset.completed": "Il ripristino e la reimportazione completati",
+  "collection.source.controls.reset.completed": "Reset e reimport completati",
   // "collection.source.controls.reset.submit": "Reset and reimport",
-  "collection.source.controls.reset.submit": "Reimpostazione e reimportazione",
+  "collection.source.controls.reset.submit": "Reset e reimport",
   // "collection.source.controls.reset.running": "Resetting and reimporting...",
-  "collection.source.controls.reset.running": "Reimpostazione e reimportazione...",
+  "collection.source.controls.reset.running": "Reset e reimport...",
   // "collection.source.controls.harvest.status": "Harvest status:",
   "collection.source.controls.harvest.status": "Stato dell'harvest:",
   // "collection.source.controls.harvest.start": "Harvest start time:",
@@ -2065,10 +2065,10 @@
 
 
   // "communityList.breadcrumbs": "Community List",
-  "communityList.breadcrumbs": "Elenco della Community",
+  "communityList.breadcrumbs": "Elenco Community",
 
   // "communityList.tabTitle": "Community List",
-  "communityList.tabTitle": "Elenco della Community",
+  "communityList.tabTitle": "Elenco Community",
 
   // "communityList.title": "List of Communities",
   "communityList.title": "Elenco delle Community",
@@ -2097,7 +2097,7 @@
   "community.delete.confirm": "Conferma",
 
   // "community.delete.processing": "Deleting...",
-  "community.delete.processing": "Eliminazione...",
+  "community.delete.processing": "Eliminazione in corso...",
 
   // "community.delete.head": "Delete Community",
   "community.delete.head": "Elimina la community",
@@ -2146,7 +2146,7 @@
   "community.edit.logo.notifications.delete.error.title": "Errore durante l'eliminazione del logo",
 
   // "community.edit.logo.upload": "Drop a Community Logo to upload",
-  "community.edit.logo.upload": "Rilascia un logo della community da caricare",
+  "community.edit.logo.upload": "Trascina qui il logo da caricare per la community",
 
 
 
@@ -2205,7 +2205,7 @@
   "comcol-role.edit.create.error.title": "Non è stato possibile creare un gruppo per il ruolo '{{ role }}'",
 
   // "comcol-role.edit.restrict": "Restrict",
-  "comcol-role.edit.restrict": "Restringi",
+  "comcol-role.edit.restrict": "Limita",
 
   // "comcol-role.edit.delete": "Delete",
   "comcol-role.edit.delete": "Cancella",
@@ -2222,58 +2222,58 @@
 
 
   // "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
-  "comcol-role.edit.community-admin.description": "Gli amministratori della community possono creare sotto-community o collections e gestire o assegnare la loro gestione. Inoltre, decidono chi può depositare item in qualsiasi sotto-collections, modificare i metadati degli item (dopo l'invio) e aggiungere (mappare) item esistenti da altre collections (previa autorizzazione).",
+  "comcol-role.edit.community-admin.description": "Gli amministratori della community possono creare sotto-community o collections e gestirne o assegnarne l'amministrazione ad altri gruppi. Inoltre, decidono chi può inserire gli item in qualsiasi sotto-collezione, modificare i metadati degli item e aggiungere (mappare) item esistenti da altre collezioni (previa autorizzazione).",
 
   // "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
-  "comcol-role.edit.collection-admin.description": "Gli amministratori della collection decidono chi può depositare item nella collection, modificare i metadati dell'item (dopo l'invio) e aggiungere (mappare) item da altre collections a questa collection (soggetto all'autorizzazione per tale collection).",
+  "comcol-role.edit.collection-admin.description": "Gli amministratori della collezione decidono chi può inserire item nella collection, modificare i metadati dell'item   e aggiungere (mappare) item da altre collezioni.",
 
 
   // "comcol-role.edit.submitters.name": "Submitters",
-  "comcol-role.edit.submitters.name": "Submitters",
+  "comcol-role.edit.submitters.name": "Catalogatori",
 
   // "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
-  "comcol-role.edit.submitters.description": "E-People e Gruppi che dispongono dell'autorizzazione per depositare nuovi item in questa collection.",
+  "comcol-role.edit.submitters.description": "Operatori e Gruppi che dispongono dell'autorizzazione per inserire nuovi item in questa collezione.",
 
 
   // "comcol-role.edit.item_read.name": "Default item read access",
-  "comcol-role.edit.item_read.name": "Accesso di sola lettura per gli item",
+  "comcol-role.edit.item_read.name": "Accesso di sola lettura per l'item",
 
   // "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
-  "comcol-role.edit.item_read.description": "E-People e gruppi in grado di leggere i nuovi item depositati in questa collection. Le modifiche a questo ruolo non sono retroattive. Gli item esistenti nel sistema saranno ancora visualizzabili da coloro che avevano accesso in sola lettura al momento della loro archiviazione.",
+  "comcol-role.edit.item_read.description": "Operatori e gruppi abilitati a leggere i nuovi item inseriti. Le modifiche a questo ruolo non sono retroattive. Gli item esistenti nel sistema saranno ancora visualizzabili da coloro che avevano accesso in sola lettura al momento della loro archiviazione.",
 
   // "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
-  "comcol-role.edit.item_read.anonymous-group": "L'accesso di sola lettura per gli item depositati è attualmente impostata su Anonimo.",
+  "comcol-role.edit.item_read.anonymous-group": "L'accesso di sola lettura per gli item inseriti è attualmente impostata su Anonymous.",
 
 
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
   "comcol-role.edit.bitstream_read.name": "Accesso di sola lettura per il bitstream",
 
   // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
-  "comcol-role.edit.bitstream_read.description": "Gli amministratori della community possono creare sotto-community o collections e gestire o assegnare la loro gestione. Inoltre, decidono chi può depositare item in qualsiasi sotto-collections, modificare i metadati degli item (dopo l'invio) e aggiungere (mappare) item esistenti da altre collections (previa autorizzazione).",
+  "comcol-role.edit.bitstream_read.description": "Gli amministratori della community possono creare sotto-community o collezioni e gestirne o assegnarne l'amministrazione. Inoltre, decidono chi può depositare item in qualsiasi sotto-collezione, modificare i metadati degli item e aggiungere (mappare) item esistenti da altre collezioni(previa autorizzazione).",
 
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
-  "comcol-role.edit.bitstream_read.anonymous-group": "L'accesso di sola lettura per i bitstreams depositati è attualmente impostata su Anonimo.",
+  "comcol-role.edit.bitstream_read.anonymous-group": "L'accesso di sola lettura per i bitstreams inseriti è attualmente impostata su Anonymous.",
 
 
   // "comcol-role.edit.editor.name": "Editors",
-  "comcol-role.edit.editor.name": "Editor",
+  "comcol-role.edit.editor.name": "Validatori",
 
   // "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
-  "comcol-role.edit.editor.description": "Gli editor possono modificare i metadati delle submissions depositate e quindi accettarli o rifiutarli.",
+  "comcol-role.edit.editor.description": "I validatori possono modificare i metadati delle submissions depositate e quindi accettarli o rifiutarli.",
 
 
   // "comcol-role.edit.finaleditor.name": "Final editors",
-  "comcol-role.edit.finaleditor.name": "Editor finali",
+  "comcol-role.edit.finaleditor.name": "Validatori di secondo livello",
 
   // "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
-  "comcol-role.edit.finaleditor.description": "Gli editor finali sono in grado di modificare i metadati delle submissions depositate, ma non saranno in grado di rifiutarli.",
+  "comcol-role.edit.finaleditor.description": " I validatori di secondo livello sono in grado di modificare i metadati delle catalogazioni inserite, ma non potranno rifiutarle.",
 
 
   // "comcol-role.edit.reviewer.name": "Reviewers",
   "comcol-role.edit.reviewer.name": "Revisori",
 
   // "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
-  "comcol-role.edit.reviewer.description": "I revisori sono in grado di accettare o rifiutare le submissions depositate. Tuttavia, non sono in grado di modificare i metadati della submission.",
+  "comcol-role.edit.reviewer.description": "I revisori sono in grado di accettare o rifiutare le catalogazioni inserite. Tuttavia, non sono in grado di modificarne i metadati.",
 
 
   // "comcol-role.edit.scorereviewers.name": "Score Reviewers",
@@ -2917,7 +2917,7 @@
   "confirmation-modal.export-metadata.confirm": "Export",
 
   // "confirmation-modal.export-batch.header": "Export batch (ZIP) for {{ dsoName }}",
-  "confirmation-modal.export-batch.header": "Esporta batch (ZIP) per {{ dsoName }}",
+  "confirmation-modal.export-batch.header": "Export Batch (ZIP) da {{ dsoName }}",
 
   // "confirmation-modal.export-batch.info": "Are you sure you want to export batch (ZIP) for {{ dsoName }}",
   "confirmation-modal.export-batch.info": "Sei sicuro di voler esportare batch (ZIP) per {{ dsoName }}?",
@@ -2926,7 +2926,7 @@
   "confirmation-modal.export-batch.cancel": "Annulla",
 
   // "confirmation-modal.export-batch.confirm": "Export",
-  "confirmation-modal.export-batch.confirm": "Esporta",
+  "confirmation-modal.export-batch.confirm": "Export",
 
   // "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
   "confirmation-modal.delete-eperson.header": "Elimina EPerson \"{{ dsoName }}\"",
@@ -3065,7 +3065,7 @@
   "error.validation.groupExists": "Gruppo già esistente",
 
   // "error.validation.fundingInvestigatorOrLeadOrganizationRequired" : "At least one investigator or one lead organization is required",
-  "error.validation.fundingInvestigatorOrLeadOrganizationRequired" : "È richiesto almeno un ricercatore o una unità principale",
+  "error.validation.fundingInvestigatorOrLeadOrganizationRequired" : "È necessario inserire almeno un revisore o un'organizzazione dirigente",
 
   // "error.validation.notRepeatable": "This field is not repeatable, please choose only one value and discard the others.",
   "error.validation.notRepeatable": "Questo campo non è ripetibile, scegliere un solo valore e scartare gli altri.",
@@ -3089,7 +3089,7 @@
   "explore.facet-section.title" : "Scopri",
 
   // "explore.index.all" : "All",
-  "explore.index.all" : "Tutti",
+  "explore.index.all" : "Tutto",
 
   // "explore.index.author" : "Author",
   "explore.index.author" : "Autore",
@@ -3113,17 +3113,17 @@
   "explore.index.metric.scopus.citation" : "Più citati",
 
   // "explore.index.chart.pie.itemtype_filter" : "Item Type",
-  "explore.index.chart.pie.itemtype_filter" : "Tipo di item",
+  "explore.index.chart.pie.itemtype_filter" : "Tipologia di Item",
 
   // "explore.index.chart.bar.dateIssued.year": "Year",
   "explore.index.chart.bar.dateIssued.year": "Anno",
 
 
   // "explore.index.dateIssued" : "Date issued",
-  "explore.index.dateIssued" : "Data di inserimento",
+  "explore.index.dateIssued" : "Data puntuale",
 
   // "explore.index.dateissued" : "Date issued",
-  "explore.index.dateissued" : "Data di inserimento",
+  "explore.index.dateissued" : "Data puntuale",
 
   // "explore.index.dc.date.accessioned" : "Recent Additions",
   "explore.index.dc.date.accessioned" : "Aggiunte recenti",
@@ -3153,7 +3153,7 @@
   "explore.index.funding" : "Finanziamento",
 
   // "explore.index.givenName" : "Given name",
-  "explore.index.givenName" : "Nome",
+  "explore.index.givenName" : "Nome puntuale",
 
   // "explore.index.has_content_in_original_bundle" : "Has content in original bundle",
   "explore.index.has_content_in_original_bundle" : "Sono presenti dei contenuti nel bundle original",
@@ -3207,7 +3207,7 @@
   "explore.index.itemidentifier" : "Identificativo dell'item",
 
   // "explore.index.jobTitle" : "Job title",
-  "explore.index.jobTitle" : "Ruolo",
+  "explore.index.jobTitle" : "Titolo",
 
   // "explore.index.knowsLanguage" : "Knows languages",
   "explore.index.knowsLanguage" : "Lingue conosciute",
