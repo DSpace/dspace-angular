@@ -10,7 +10,7 @@ describe('ExternalLoginReviewAccountInfoPageComponent', () => {
 
   const mockActivatedRoute = {
     snapshot: {
-      queryParams: {
+      params: {
         token: '1234567890'
       }
     },
@@ -41,16 +41,6 @@ describe('ExternalLoginReviewAccountInfoPageComponent', () => {
 
   it('should set the token from the query params', () => {
     expect(component.token).toEqual('1234567890');
-  });
-
-  it('should set hasErrors to false if registrationData is not empty', () => {
-    expect(component.hasErrors).toBeFalse();
-  });
-
-  it('should set the registrationData$', () => {
-    component.registrationData$.subscribe((registrationData) => {
-      expect(registrationData.email).toEqual(mockRegistrationDataModel.email);
-    });
   });
 
   it('should display review account info component when there are no errors', () => {

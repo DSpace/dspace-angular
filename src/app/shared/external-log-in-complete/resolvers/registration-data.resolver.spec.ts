@@ -4,7 +4,7 @@ import { RegistrationDataResolver } from './registration-data.resolver';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
 import { Registration } from '../../../core/shared/registration.model';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 
 describe('RegistrationDataResolver', () => {
   let resolver: RegistrationDataResolver;
@@ -14,7 +14,7 @@ describe('RegistrationDataResolver', () => {
   });
 
   beforeEach(() => {
-    const spy = jasmine.createSpyObj('EpersonRegistrationService', ['searchByTokenAndUpdateData']);
+    const spy = jasmine.createSpyObj('EpersonRegistrationService', ['searchRegistrationByToken']);
 
     TestBed.configureTestingModule({
       providers: [
@@ -33,14 +33,14 @@ describe('RegistrationDataResolver', () => {
   it('should resolve registration data based on a token', () => {
     const token = 'abc123';
     const registrationRD$ = createSuccessfulRemoteDataObject$(registrationMock);
-    epersonRegistrationServiceSpy.searchByTokenAndUpdateData.and.returnValue(registrationRD$);
-
+    epersonRegistrationServiceSpy.searchRegistrationByToken.and.returnValue(registrationRD$);
     const route = new ActivatedRouteSnapshot();
     route.params = { token: token };
     const state = {} as RouterStateSnapshot;
 
-    resolver.resolve(route, state).subscribe((result: Registration) => {
-      expect(result).toBeDefined();
+    resolver.resolve(route, state).subscribe((data) => {
+      expect(data).toEqual(createSuccessfulRemoteDataObject(registrationMock));
     });
+    expect(epersonRegistrationServiceSpy.searchRegistrationByToken).toHaveBeenCalledWith(token);
   });
 });

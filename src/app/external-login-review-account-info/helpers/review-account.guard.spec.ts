@@ -68,7 +68,7 @@ describe('ReviewAccountGuard', () => {
   });
 
   it('should navigate to 404 if the registration type is not validation and the user is not authenticated', () => {
-    registrationMock.registrationType = AuthRegistrationType.Password;
+    registrationMock.registrationType = AuthRegistrationType.Orcid;
     epersonRegistrationService.searchRegistrationByToken.and.returnValue(createSuccessfulRemoteDataObject$(registrationMock));
     spyOn(authService, 'isAuthenticated').and.returnValue(of(false));
     (guard.canActivate({ params: { token: 'invalid-token' } } as any, {} as any) as any).subscribe((result) => {

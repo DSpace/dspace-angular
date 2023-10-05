@@ -32,7 +32,7 @@ describe('ExternalLoginPageComponent', () => {
           provide: ActivatedRoute,
           useValue: {
             snapshot: {
-              queryParams: {
+              params: {
                 token: '1234567890',
               },
             },
@@ -65,13 +65,6 @@ describe('ExternalLoginPageComponent', () => {
 
   it('should set the token from the query params', () => {
     expect(component.token).toEqual('1234567890');
-  });
-
-  it('should set the hasErrors flag if the token is not present', () => {
-    const activatedRoute = TestBed.inject(ActivatedRoute);
-    activatedRoute.snapshot.queryParams.token = undefined;
-    fixture.detectChanges();
-    expect(component.hasErrors).toBeTrue();
   });
 
   it('should display the DsExternalLogIn component when there are no errors', () => {

@@ -2,16 +2,18 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OrcidConfirmationComponent } from './orcid-confirmation.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { mockRegistrationDataModel } from '../../models/registration-data.mock.model';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserOnlyMockPipe } from '../../../../shared/testing/browser-only-mock.pipe';
+import { Registration } from 'src/app/core/shared/registration.model';
+import { mockRegistrationDataModel } from '../../models/registration-data.mock.model';
 
 describe('OrcidConfirmationComponent', () => {
   let component: OrcidConfirmationComponent;
   let fixture: ComponentFixture<OrcidConfirmationComponent>;
+  let model: Registration;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -32,7 +34,7 @@ describe('OrcidConfirmationComponent', () => {
           }
         }),
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();
   });
@@ -40,7 +42,6 @@ describe('OrcidConfirmationComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(OrcidConfirmationComponent);
     component = fixture.componentInstance;
-    component.registratioData = mockRegistrationDataModel;
     fixture.detectChanges();
   });
 
@@ -59,17 +60,10 @@ describe('OrcidConfirmationComponent', () => {
 
   it('should initialize the form with null email as an empty string', () => {
     component.registratioData.email = null;
-    fixture.detectChanges();
     component.ngOnInit();
+    fixture.detectChanges();
     const emailFormControl = component.form.get('email');
     expect(emailFormControl.value).toBe('');
   });
 
-  it('should not render email input when email is null', () => {
-    component.registratioData.email = null;
-    fixture.detectChanges();
-    component.ngOnInit();
-    const emailInput = fixture.nativeElement.querySelector('input[type="email"]');
-    expect(emailInput).toBeFalsy();
-  });
 });

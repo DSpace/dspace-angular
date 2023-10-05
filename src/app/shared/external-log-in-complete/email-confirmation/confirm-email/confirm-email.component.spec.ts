@@ -75,6 +75,7 @@ describe('ConfirmEmailComponent', () => {
     component.registrationData = Object.assign(new Registration(), {
       id: '123',
       email: 'test@example.com',
+      netId: 'test-netid',
       registrationMetadata: {},
       registrationType: AuthMethodType.Orcid,
     });
