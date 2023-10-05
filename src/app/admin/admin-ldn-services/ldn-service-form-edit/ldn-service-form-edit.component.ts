@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
 import { Router } from '@angular/router';
@@ -7,18 +7,28 @@ import { LdnDirectoryService } from '../ldn-services-services/ldn-directory.serv
 import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
 import { LdnServiceConstraint } from '../ldn-services-model/ldn-service-constraint.model';
 import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patterns';
-import { ActivatedRoute } from '@angular/router'; // Import ActivatedRoute and Params
+import { ActivatedRoute } from '@angular/router';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
     selector: 'ds-ldn-service-form-edit',
     templateUrl: './ldn-service-form-edit.component.html',
-    styleUrls: ['./ldn-service-form-edit.component.scss']
+    styleUrls: ['./ldn-service-form-edit.component.scss'],
+    animations: [
+        trigger('toggleAnimation', [
+            state('true', style({})),
+            state('false', style({})),
+            transition('true <=> false', animate('300ms ease-in')),
+        ]),
+    ],
 })
 export class LdnServiceFormEditComponent {
     formModel: FormGroup;
 
     showItemFilterDropdown = false;
 
+    private originalInboundPatterns: any[] = [];
+    private originalOutboundPatterns: any[] = [];
     public inboundPatterns: object[] = notifyPatterns;
     public outboundPatterns: object[] = notifyPatterns;
     public itemFilterList: LdnServiceConstraint[];
@@ -41,7 +51,8 @@ export class LdnServiceFormEditComponent {
         private formBuilder: FormBuilder,
         private http: HttpClient,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private cdRef: ChangeDetectorRef
     ) {
 
         this.formModel = this.formBuilder.group({
@@ -67,12 +78,32 @@ export class LdnServiceFormEditComponent {
             }
         });
         this.ldnDirectoryService.getItemFilters().subscribe((itemFilters) => {
-            console.log(itemFilters);
             this.itemFilterList = itemFilters._embedded.itemfilters.map((filter: { id: string; }) => ({
                 name: filter.id
             }));
-            console.log(this.itemFilterList);
+            this.cdRef.detectChanges();
+
         });
+    }
+
+    private getOriginalPattern(formArrayName: string, patternId: number): any {
+        let originalPatterns: any[] = [];
+
+        if (formArrayName === 'notifyServiceInboundPatterns') {
+            originalPatterns = this.originalInboundPatterns;
+        } else if (formArrayName === 'notifyServiceOutboundPatterns') {
+            originalPatterns = this.originalOutboundPatterns;
+        }
+
+        return originalPatterns.find((pattern) => pattern.id === patternId);
+    }
+
+    private patternsAreEqual(patternA: any, patternB: any): boolean {
+        return (
+            patternA.pattern === patternB.pattern &&
+            patternA.constraint === patternB.constraint &&
+            patternA.automatic === patternB.automatic
+        );
     }
 
     fetchServiceData(serviceId: string): void {
@@ -88,9 +119,35 @@ export class LdnServiceFormEditComponent {
                     description: data.description,
                     url: data.url,
                     ldnUrl: data.ldnUrl,
-                    notifyServiceInboundPatterns: data.notifyServiceInboundPatterns,
-                    notifyServiceOutboundPatterns: data.notifyServiceOutboundPatterns
+                    type: data.type
                 });
+
+                const inboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
+                inboundPatternsArray.clear(); // Clear existing rows
+
+                data.notifyServiceInboundPatterns.forEach((pattern: any) => {
+                    console.log(pattern);
+                    const patternFormGroup = this.initializeInboundPatternFormGroup();
+                    console.log();
+                    patternFormGroup.patchValue(pattern);
+                    inboundPatternsArray.push(patternFormGroup);
+                    this.cdRef.detectChanges();
+                });
+
+                // Initialize rows for notifyServiceOutboundPatterns
+                const outboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
+                outboundPatternsArray.clear();
+
+                data.notifyServiceOutboundPatterns.forEach((pattern: any) => {
+                    const patternFormGroup = this.initializeOutboundPatternFormGroup();
+                    patternFormGroup.patchValue(pattern);
+                    outboundPatternsArray.push(patternFormGroup);
+
+                    this.cdRef.detectChanges();
+                });
+                this.originalInboundPatterns = [...data.notifyServiceInboundPatterns];
+
+                this.originalOutboundPatterns = [...data.notifyServiceOutboundPatterns];
             },
             (error) => {
                 console.error('Error fetching service data:', error);
@@ -98,101 +155,74 @@ export class LdnServiceFormEditComponent {
         );
     }
 
+
     generatePatchOperations(): any[] {
         const patchOperations: any[] = [];
 
-        if (this.formModel.get('name').dirty) {
-            patchOperations.push({
-                op: 'replace',
-                path: '/name',
-                value: this.formModel.get('name').value,
-            });
-        }
+        this.addReplaceOperation(patchOperations, 'name', '/name');
+        this.addReplaceOperation(patchOperations, 'description', '/description');
+        this.addReplaceOperation(patchOperations, 'ldnUrl', '/ldnurl');
+        this.addReplaceOperation(patchOperations, 'url', '/url');
 
-        if (this.formModel.get('description').dirty) {
-            patchOperations.push({
-                op: 'replace',
-                path: '/description',
-                value: this.formModel.get('description').value,
-            });
-        }
+        // Handle notifyServiceInboundPatterns
+        this.handlePatterns(patchOperations, 'notifyServiceInboundPatterns');
 
-        if (this.formModel.get('ldnUrl').dirty) {
-            patchOperations.push({
-                op: 'replace',
-                path: '/ldnUrl',
-                value: this.formModel.get('ldnUrl').value,
-            });
-        }
-
-        if (this.formModel.get('url').dirty) {
-            patchOperations.push({
-                op: 'replace',
-                path: '/url',
-                value: this.formModel.get('url').value,
-            });
-        }
-
-        const inboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
-        const inboundPatternsControls = inboundPatternsArray.controls;
-
-        if (inboundPatternsArray.dirty) {
-            const inboundPatternsValue = [];
-
-            for (let i = 0; i < inboundPatternsControls.length; i++) {
-                const patternGroup = inboundPatternsControls[i] as FormGroup;
-                const patternValue = patternGroup.value;
-
-                if (patternGroup.dirty) {
-                    inboundPatternsValue.push(patternValue);
-                }
-            }
-
-            if (inboundPatternsValue.length > 0) {
-                patchOperations.push({
-                    op: 'replace',
-                    path: '/notifyServiceInboundPatterns',
-                    value: inboundPatternsValue,
-                });
-            } else {
-                patchOperations.push({
-                    op: 'remove',
-                    path: '/notifyServiceInboundPatterns',
-                });
-            }
-        }
-
-
-        const outboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
-        const outboundPatternsControls = outboundPatternsArray.controls;
-
-        if (outboundPatternsArray.dirty) {
-            const outboundPatternsValue = [];
-
-            for (let i = 0; i < outboundPatternsControls.length; i++) {
-                const patternGroup = outboundPatternsControls[i] as FormGroup;
-                const patternValue = patternGroup.value;
-
-                if (patternGroup.dirty) {
-                    outboundPatternsValue.push(patternValue);
-                }
-            }
-
-            if (outboundPatternsValue.length > 0) {
-                patchOperations.push({
-                    op: 'replace',
-                    path: '/notifyServiceOutboundPatterns',
-                    value: outboundPatternsValue,
-                });
-            } else {
-                patchOperations.push({
-                    op: 'remove',
-                    path: '/notifyServiceOutboundPatterns',
-                });
-            }
-        }
+        // Handle notifyServiceOutboundPatterns
+        this.handlePatterns(patchOperations, 'notifyServiceOutboundPatterns');
 
         return patchOperations;
+    }
+
+    private addReplaceOperation(patchOperations: any[], formControlName: string, path: string): void {
+        if (this.formModel.get(formControlName).dirty) {
+            patchOperations.push({
+                op: 'replace',
+                path,
+                value: this.formModel.get(formControlName).value,
+            });
+        }
+    }
+
+    private handlePatterns(patchOperations: any[], formArrayName: string): void {
+        const patternsArray = this.formModel.get(formArrayName) as FormArray;
+
+        if (patternsArray.dirty) {
+            for (let i = 0; i < patternsArray.length; i++) {
+                const patternGroup = patternsArray.at(i) as FormGroup;
+                const patternValue = patternGroup.value;
+
+               // patternValue.automatic = patternValue.automatic ? 'true' : 'false';
+
+                if (patternValue.isNew) {
+                  console.log(this.getOriginalPatternsForFormArray(formArrayName));
+                  console.log(patternGroup);
+                  delete patternValue.isNew;
+                    const addOperation = {
+                        op: 'add',
+                        path: `${formArrayName}/-`,
+                        value: patternValue,
+                    };
+                    patchOperations.push(addOperation);
+                } else if (patternGroup.dirty) {
+                    const replaceOperation = {
+                        op: 'replace',
+                        path: `${formArrayName}[${i}]`,
+                        value: patternValue,
+                    };
+                    patchOperations.push(replaceOperation);
+                    console.log(patternValue.id);
+                }
+            }
+        }
+    }
+
+    private getOriginalPatternsForFormArray(formArrayName: string): any[] {
+        if (formArrayName === 'notifyServiceInboundPatterns') {
+            return this.originalInboundPatterns;
+        } else if (formArrayName === 'notifyServiceOutboundPatterns') {
+            return this.originalOutboundPatterns;
+        }
+        return [];
     }
 
     submitForm() {
@@ -202,21 +232,50 @@ export class LdnServiceFormEditComponent {
         this.http.patch(apiUrl, patchOperations).subscribe(
             (response) => {
                 console.log('Service updated successfully:', response);
+                this.sendBack();
             },
             (error) => {
                 console.error('Error updating service:', error);
             }
         );
+
     }
+
 
     addInboundPattern() {
         const notifyServiceInboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
         notifyServiceInboundPatternsArray.push(this.createInboundPatternFormGroup());
     }
 
-    removeInboundPattern(patternGroup: FormGroup) {
+    removeInboundPattern(index: number) {
         const notifyServiceInboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
-        notifyServiceInboundPatternsArray.removeAt(notifyServiceInboundPatternsArray.controls.indexOf(patternGroup));
+        if (index >= 0 && index < notifyServiceInboundPatternsArray.length) {
+            // Get the service ID
+            const serviceId = this.formModel.get('id').value;
+
+            // Construct the patch operation
+            const patchOperation = [
+                {
+                    op: 'remove',
+                    path: `notifyServiceInboundPatterns[${index}]`
+                }
+            ];
+
+            // Make an HTTP PATCH request to apply the patch operation
+            const apiUrl = `http://localhost:8080/server/api/ldn/ldnservices/${serviceId}`;
+
+            this.http.patch(apiUrl, patchOperation).subscribe(
+                (response) => {
+                    console.log('Pattern removed successfully:', response);
+
+                    // After successful removal from the server, also remove it from the form array
+                    notifyServiceInboundPatternsArray.removeAt(index);
+                },
+                (error) => {
+                    console.error('Error removing pattern:', error);
+                }
+            );
+        }
     }
 
     addOutboundPattern() {
@@ -224,9 +283,34 @@ export class LdnServiceFormEditComponent {
         notifyServiceOutboundPatternsArray.push(this.createOutboundPatternFormGroup());
     }
 
-    removeOutboundPattern(patternGroup: FormGroup) {
+    removeOutboundPattern(index: number) {
         const notifyServiceOutboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
-        notifyServiceOutboundPatternsArray.removeAt(notifyServiceOutboundPatternsArray.controls.indexOf(patternGroup));
+        if (index >= 0 && index < notifyServiceOutboundPatternsArray.length) {
+            // Get the service ID
+            const serviceId = this.formModel.get('id').value;
+
+            // Construct the patch operation
+            const patchOperation = [
+                {
+                    op: 'remove',
+                    path: `notifyServiceOutboundPatterns[${index}]`
+                }
+            ];
+
+            // Make an HTTP PATCH request to apply the patch operation
+            const apiUrl = `http://localhost:8080/server/api/ldn/ldnservices/${serviceId}`;
+
+            this.http.patch(apiUrl, patchOperation).subscribe(
+                (response) => {
+                    console.log('Pattern removed successfully:', response);
+
+                    notifyServiceOutboundPatternsArray.removeAt(index);
+                },
+                (error) => {
+                    console.error('Error removing pattern:', error);
+                }
+            );
+        }
     }
 
     private sendBack() {
@@ -236,7 +320,8 @@ export class LdnServiceFormEditComponent {
     private createOutboundPatternFormGroup(): FormGroup {
         return this.formBuilder.group({
             pattern: '',
-            constraint: ''
+            constraint: '',
+            isNew: true,
         });
     }
 
@@ -244,7 +329,30 @@ export class LdnServiceFormEditComponent {
         return this.formBuilder.group({
             pattern: '',
             constraint: '',
-            automatic: ''
+            automatic: '',
+            isNew: true
         });
+    }
+
+    private initializeOutboundPatternFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            pattern: '',
+            constraint: '',
+        });
+    }
+
+    private initializeInboundPatternFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            pattern: '',
+            constraint: '',
+            automatic: '',
+        });
+    }
+
+    toggleAutomatic(i: number) {
+        const automaticControl = this.formModel.get(`notifyServiceInboundPatterns.${i}.automatic`);
+        if (automaticControl) {
+            automaticControl.setValue(!automaticControl.value);
+        }
     }
 }

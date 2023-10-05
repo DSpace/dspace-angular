@@ -8,11 +8,19 @@ import { LdnServiceConstraint } from '../ldn-services-model/ldn-service-constrai
 import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patterns';
 import { LdnDirectoryService } from '../ldn-services-services/ldn-directory.service';
 import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
     selector: 'ds-ldn-service-form',
     templateUrl: './ldn-service-form.component.html',
     styleUrls: ['./ldn-service-form.component.scss'],
+    animations: [
+        trigger('toggleAnimation', [
+            state('true', style({})), // Define animation states (empty style)
+            state('false', style({})),
+            transition('true <=> false', animate('300ms ease-in')), // Define animation transition with duration
+        ]),
+    ],
 })
 export class LdnServiceFormComponent implements OnInit {
     formModel: FormGroup;
@@ -26,6 +34,7 @@ export class LdnServiceFormComponent implements OnInit {
     public itemFilterList: LdnServiceConstraint[];
     //additionalOutboundPatterns: FormGroup[] = [];
     //additionalInboundPatterns: FormGroup[] = [];
+
 
     //@Input() public status: boolean;
     @Input() public name: string;
@@ -54,7 +63,7 @@ export class LdnServiceFormComponent implements OnInit {
     ) {
 
         this.formModel = this.formBuilder.group({
-            //enabled: true,
+            enabled: true,
             id: [''],
             name: ['', Validators.required],
             description: [''],
@@ -150,5 +159,13 @@ export class LdnServiceFormComponent implements OnInit {
             automatic: false
         });
     }
+
+    toggleAutomatic(i: number) {
+        const automaticControl = this.formModel.get(`notifyServiceInboundPatterns.${i}.automatic`);
+        if (automaticControl) {
+            automaticControl.setValue(!automaticControl.value);
+        }
+    }
+
 
 }

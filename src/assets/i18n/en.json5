@@ -918,6 +918,7 @@
   "ldn-service.overview.table.clickToDisable": "Click to disable",
 
   "ldn-register-new-service.title": "Register a new service",
+  "ldn-new-service.form.label.submit": "Submit",
   "ldn-new-service.form.label.name": "Name",
   "ldn-new-service.form.label.description": "Description",
   "ldn-new-service.form.label.url": "Service URL",
@@ -927,12 +928,12 @@
   "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
   "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
   "ldn-new-service.form.label.inboundPattern": "Inbound Pattern",
-  "ldn-new-service.form.label.placeholder.inboundPattern": "No Inbound Pattern",
+  "ldn-new-service.form.label.placeholder.inboundPattern": "Select an Inbound Pattern",
   "ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
   "ldn-new-service.form.label.ItemFilter": "Item Filter",
   "ldn-new-service.form.label.automatic": "Automatic",
   "ldn-new-service.form.label.outboundPattern": "Outbound Pattern",
-  "ldn-new-service.form.label.placeholder.outboundPattern": "No Outbound Pattern",
+  "ldn-new-service.form.label.placeholder.outboundPattern": "Select an Outbound Pattern",
   "ldn-new-service.form.label.addPattern": "+ Add more",
   "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-register-new-service.breadcrumbs": "New Service",
@@ -954,6 +955,7 @@
   "ldn-edit-service.form.label.addOutboundPattern": "+ Add more",
   "ldn-edit-service.form.label.submit": "Submit",
   "ldn-edit-service.breadcrumbs": "Edit Service",
+
 
 
   "ldn-register-new-service.notification.error.title": "Error",

@@ -67,14 +67,19 @@
                 <div class="ml-2 d-flex flex-column align-content-center">
                     <label for="automatic{{i}}">{{ 'ldn-new-service.form.label.automatic' | translate }}</label>
                     <div class="d-flex flex-grow-1 align-content-center justify-content-center">
-                        <input formControlName="automatic" id="automatic{{i}}" name="automatic{{i}}" type="checkbox">
+                        <input formControlName="automatic" id="automatic{{i}}" name="automatic{{i}}" type="checkbox" hidden>
+                        <div class="toggle-switch" [class.checked]="formModel.get('notifyServiceInboundPatterns.' + i + '.automatic').value" (click)="toggleAutomatic(i)">
+                            <div class="slider"></div>
+                        </div>
                     </div>
                 </div>
+
+
 
             </ng-container>
 
             <div class="d-flex align-items-end justify-content-center">
-                <button (click)="removeInboundPattern(patternGroup)" *ngIf="i > 0" class="btn btn-outline-dark trash-button ml-2">
+                <button (click)="removeInboundPattern(patternGroup)"  class="btn btn-outline-dark trash-button ml-2">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
@@ -119,7 +124,7 @@
             </div>
 
             <div class="d-flex align-items-end justify-content-center">
-                <button (click)="removeOutboundPattern(patternGroup)" *ngIf="i > 0" class="btn btn-outline-dark trash-button ml-2">
+                <button (click)="removeOutboundPattern(patternGroup)"  class="btn btn-outline-dark trash-button ml-2">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>

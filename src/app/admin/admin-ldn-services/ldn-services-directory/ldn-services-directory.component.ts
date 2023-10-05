@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { LdnDirectoryService } from '../ldn-services-services/ldn-directory.service';
 import { Observable, Subscription } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -12,7 +12,6 @@ import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../../shared/empty.util';
 import { HttpClient } from '@angular/common/http';
-
 @Component({
     selector: 'ds-ldn-services-directory',
     templateUrl: './ldn-services-directory.component.html',
@@ -39,7 +38,8 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
         protected paginationService: PaginationService,
         protected modalService: NgbModal,
         public ldnDirectoryService: LdnDirectoryService,
-        private http: HttpClient
+        private http: HttpClient,
+        private cdRef: ChangeDetectorRef
     ) {
     }
 
@@ -81,6 +81,7 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
 
     closeModal() {
         this.modalRef.close();
+        this.cdRef.detectChanges();
     }
 
 
@@ -89,6 +90,7 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
             (response) => {
                 this.servicesData = response._embedded.ldnservices;
                 console.log('ServicesData =', this.servicesData);
+                this.cdRef.detectChanges();
             },
             (error) => {
                 console.error('Error:', error);
@@ -125,7 +127,7 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
     }
 
     toggleStatus(ldnService: any): void {
-        const newStatus = !ldnService.status;
+        const newStatus = !ldnService.enabled;
 
         const apiUrl = `http://localhost:8080/server/api/ldn/ldnservices/${ldnService.id}`;
         const patchOperation = {
@@ -137,8 +139,8 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
         this.http.patch(apiUrl, [patchOperation]).subscribe(
             () => {
                 console.log('Status updated successfully.');
-                // After a successful update, fetch the data to refresh the view
-                this.fetchServiceData(ldnService.id);
+                ldnService.enabled = newStatus;
+                this.cdRef.detectChanges();
             },
             (error) => {
                 console.error('Error updating status:', error);

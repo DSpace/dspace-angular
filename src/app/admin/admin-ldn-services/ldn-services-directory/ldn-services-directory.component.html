@@ -28,10 +28,10 @@
                     <td>{{ ldnService.name }}</td>
                     <td>{{ ldnService.description }}</td>
                     <td>
-                        <span [ngClass]="{ 'status-enabled': ldnService.status, 'status-disabled': !ldnService.status }"
+                        <span [ngClass]="{ 'status-enabled': ldnService.enabled, 'status-disabled': !ldnService.enabled }"
                               class="status-indicator" (click)="toggleStatus(ldnService)"
-                              [title]="ldnService.status ? ('ldn-service.overview.table.clickToDisable' | translate) : ('ldn-service.overview.table.clickToEnable' | translate)">
-                            {{ ldnService.status ? ('ldn-service.overview.table.enabled' | translate) : ('ldn-service.overview.table.disabled' | translate) }}
+                              [title]="ldnService.enabled ? ('ldn-service.overview.table.clickToDisable' | translate) : ('ldn-service.overview.table.clickToEnable' | translate)">
+                            {{ ldnService.enabled ? ('ldn-service.overview.table.enabled' | translate) : ('ldn-service.overview.table.disabled' | translate) }}
                         </span>
                     </td>
                     <td>
