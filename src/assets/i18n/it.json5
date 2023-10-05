@@ -3630,10 +3630,10 @@
 
 
   // "health.breadcrumbs": "Health",
-  "health.breadcrumbs": "Health",
+  "health.breadcrumbs": "Stato del sistema",
 
   // "health-page.heading" : "Health",
-  "health-page.heading" : "Health",
+  "health-page.heading" : "Stato del sistema",
 
   // "health-page.info-tab" : "Info",
   "health-page.info-tab" : "Informazioni",
@@ -3645,7 +3645,7 @@
   "health-page.error.msg": "Il servizio di health check è temporaneamente non disponibile.",
 
   // "health-page.property.status": "Status code",
-  "health-page.property.status": "Codice di stato",
+  "health-page.property.status": "Status code",
 
   // "health-page.section.db.title": "Database",
   "health-page.section.db.title": "Database",
@@ -3684,7 +3684,7 @@
   "health-page.status.warning.info": "Sono stati rilevati dei potenziali problemi",
 
   // "health-page.title": "Health",
-  "health-page.title": "Health",
+  "health-page.title": "Stato del sistema",
 
   // "health-page.section.no-issues": "No issues detected",
   "health-page.section.no-issues": "Nessun problema rilevato",
@@ -4785,7 +4785,7 @@
   "item.preview.dc.contributor.applicant": "Richiedente",
 
   // "item.preview.dc.contributor.editor": "Editors:",
-  "item.preview.dc.contributor.editor": "Editori:",
+  "item.preview.dc.contributor.editor": "Editore:",
 
   // "item.preview.dc.date.embargoEnd" : "Embargo End",
   "item.preview.dc.date.embargoEnd" : "Fine embargo",
@@ -4797,7 +4797,7 @@
   "item.preview.dc.description.abstract": "Abstract:",
 
   // "item.preview.dc.description.sponsorship" : "Sponsorship",
-  "item.preview.dc.description.sponsorship" : "Sponsorship",
+  "item.preview.dc.description.sponsorship" : "Sponsorizzazione",
 
   // "item.preview.dc.identifier.other": "Other identifier:",
   "item.preview.dc.identifier.other": "Altri identificativi:",
@@ -4818,7 +4818,7 @@
   "item.preview.dc.rights.uri" : "URI Diritti",
 
   // "item.preview.dc.subject": "Subjects:",
-  "item.preview.dc.subject": "Soggetti:",
+  "item.preview.dc.subject": "Contenuto:",
 
   // "item.preview.dc.title": "Title:",
   "item.preview.dc.title": "Titolo:",
@@ -4878,7 +4878,7 @@
   "item.preview.oairecerif.funder" : "Finanziatore",
 
   // "item.preview.oairecerif.funding.identifier" : "Grant Number / Funding identifier",
-  "item.preview.oairecerif.funding.identifier" : "Numero di finanziamento / Identificativo di finanziamento",
+  "item.preview.oairecerif.funding.identifier" : "Numero di gestione/ Identificativo del fondo",
 
   // "item.preview.oairecerif.funding.endDate" : "End Date",
   "item.preview.oairecerif.funding.endDate" : "Data finale",
@@ -6155,13 +6155,13 @@
   "nav.statistics.header": "Statistiche",
 
   // "nav.stop-impersonating": "Stop impersonating EPerson",
-  "nav.stop-impersonating": "Smetti di impersonare EPerson",
+  "nav.stop-impersonating": "Smetti di controllare l'operatore",
 
   // "nav.subscriptions" : "Subscriptions",
-  "nav.subscriptions" : "Subscription",
+  "nav.subscriptions" : "Sottoscrizioni",
 
   // "nav.toggle" : "Toggle navigation",
-  "nav.toggle" : "Attivare la navigazione",
+  "nav.toggle" : "Toggle di navigazione",
 
   // "nav.user.description" : "User profile bar",
   "nav.user.description" : "Barra del profilo utente",
@@ -6239,10 +6239,10 @@
   "openaire.broker.event.action.import": "Importa progetto e accetta suggerimenti",
 
   // "openaire.broker.event.table.pidtype": "PID Type:",
-  "openaire.broker.event.table.pidtype": "Tipo di PID",
+  "openaire.broker.event.table.pidtype": "Tipologia PID:",
 
   // "openaire.broker.event.table.pidvalue": "PID Value:",
-  "openaire.broker.event.table.pidvalue": "Valore di PID:",
+  "openaire.broker.event.table.pidvalue": "Valore PID:",
 
   // "openaire.broker.event.table.subjectValue": "Subject Value:",
   "openaire.broker.event.table.subjectValue": "Valore del soggetto:",
@@ -6281,7 +6281,7 @@
   "openaire.broker.event.table.more": "Mostra di più",
 
   // "openaire.broker.event.project.found": "Bound to the local record:",
-  "openaire.broker.event.project.found": "Legato al record locale:",
+  "openaire.broker.event.project.found": "Aggancia al record:",
 
   // "openaire.broker.event.project.notFound": "No local record found",
   "openaire.broker.event.project.notFound": "Nessun record locale trovato",
@@ -6314,7 +6314,7 @@
   "openaire.broker.event.modal.project.publication": "Pubblicazione:",
 
   // "openaire.broker.event.modal.project.bountToLocal": "Bound to the local record:",
-  "openaire.broker.event.modal.project.bountToLocal": "Legato al record locale:",
+  "openaire.broker.event.modal.project.bountToLocal": "Aggancia al record:",
 
   // "openaire.broker.event.modal.project.select": "Project search",
   "openaire.broker.event.modal.project.select": "Ricerca del progetto",
@@ -6474,7 +6474,7 @@
   "orgunit.page.id": "ID",
 
   // "orgunit.page.titleprefix": "Organizational Unit: ",
-  "orgunit.page.titleprefix": "Unità organizzativa: ",
+  "orgunit.page.titleprefix": "Unità Organizzativa: ",
 
 
 
@@ -6538,7 +6538,7 @@
   "person.search.results.head": "Risultati della ricerca per persona",
 
   // "person-relationships.search.results.head": "Person Search Results",
-  "person-relationships.search.results.head": "Risultati della ricerca per persona",
+  "person-relationships.search.results.head": "Risultati della ricerca",
 
   // "person.search.title": "Person Search",
   "person.search.title": "Cerca i Ricercatori",
@@ -6579,7 +6579,7 @@
   "process.new.parameter.type.file": "file",
 
   // "process.new.parameter.required.missing": "The following parameters are required but still missing:",
-  "process.new.parameter.required.missing": "I seguenti parametri mancanti sono obbligatori:",
+  "process.new.parameter.required.missing": "I seguenti parametri sono obbligatori:",
 
   // "process.new.notification.success.title": "Success",
   "process.new.notification.success.title": "Successo",
@@ -6597,7 +6597,7 @@
   "process.new.notification.process.processing": "Elaborazione...",
 
   // "process.new.notification.process.files": "Output Files: ",
-  "process.new.notification.process.files": "File di output: ",
+  "process.new.notification.process.files": "File di Output: ",
 
   // "process.new.header": "Create a new process",
   "process.new.header": "Creare un nuovo processo",
@@ -6653,7 +6653,7 @@
   "process.detail.status" : "Stato",
 
   // "process.detail.create" : "Create similar process",
-  "process.detail.create" : "Crea un processo analogo",
+  "process.detail.create" : "Crea un processo simile",
 
   // "process.detail.actions": "Actions",
   "process.detail.actions": "Azioni",
@@ -6677,7 +6677,7 @@
   "process.detail.delete.success": "Il processo è stato eliminato con successo",
 
   // "process.detail.delete.error": "Something went wrong when deleting the process",
-  "process.detail.delete.error": "Qualcosa è andato storto durante l'elininazione del processo",
+  "process.detail.delete.error": "Errore durante l'eliminazione del processo",
 
   // "process.overview.delete.failed" : "An error occurs deleting the process.",
   "process.overview.delete.failed" : "Si è verificato un errore durante l'eliminazine del processo.",
@@ -6820,10 +6820,10 @@
   "profile.card.access-token.copy": "Copia token",
 
   // "profile.card.access-token.copy-info": "Make sure to copy your personal access token now. You won’t be able to see it again!",
-  "profile.card.access-token.copy-info": "Assicurati di copiare il tuo token di accesso personale. Non potrai più farlo in seguito!",
+  "profile.card.access-token.copy-info": "Assicurati di aver copiato il tuo token di accesso personale. Non potrai più farlo in seguito!",
 
   // "profile.card.access-token.info": "Tokens you have generated that can be used to access the DSpace-CRIS API.",
-  "profile.card.access-token.info": "I token che hai generato che possono essere utilizzati per accedere all'API di DSpace-CRIS",
+  "profile.card.access-token.info": "Token generati che possono essere usati per accedere alle API di DSpace-CRIS",
 
   // "profile.card.access-token.create.error": "An error occurred while generating the token, please try again later.",
   "profile.card.access-token.create.error": "Si è verificato un errore durante la generazione del token, si prega di riprovare più tardi.",
@@ -6853,10 +6853,10 @@
   "profile.card.access-token.delete": "Revoca il token",
 
   // "profile.card.access-token.no-token-generated": "You don't have personal access token. Generate a personal access token for quick access to the DSpace-CRIS API.",
-  "profile.card.access-token.no-token-generated": "Non sei in possesso di un token di accesso personale. Genera un token per accedere velocemente all'API di DSpace-CRIS.",
+  "profile.card.access-token.no-token-generated": "Non si dispone di un token di accesso personale. Generare un token di accesso personale per accedere rapidamente all'API DSpace-CRIS.",
 
   // "profile.card.access-token.token-generated": "You have already generated a personal access token.",
-  "profile.card.access-token.token-generated": "Hai già generato un token di accesso personale.",
+  "profile.card.access-token.token-generated": "Avete già generato un token di accesso personale.",
 
   // "profile.card.identify": "Identify",
   "profile.card.identify": "Identificare",
@@ -6977,7 +6977,7 @@
   "project.page.status": "Parole chiave",
 
   // "project.page.titleprefix": "Research Project: ",
-  "project.page.titleprefix": "Progetto di ricerca: ",
+  "project.page.titleprefix": "Progetti di ricerca: ",
 
   // "project.search.results.head": "Project Search Results",
   "project.search.results.head": "Risultati della ricerca per progetti",
@@ -7295,10 +7295,10 @@
   "resource-policies.edit.page.failure.content": "Si è verificato un errore durante la modifica della policy di risorsa.",
 
   // "resource-policies.edit.page.target-failure.content": "An error occurred while editing the target (ePerson or group) of the resource policy.",
-  "resource-policies.edit.page.target-failure.content": "Si è verificato un errore durante la modifica dell'obiettivo (ePerson o gruppo) della policy di risorsa.",
+  "resource-policies.edit.page.target-failure.content": "Si è verificato un errore durante la modifica del target (EPerson o gruppo) del criterio della risorsa.",
 
   // "resource-policies.edit.page.other-failure.content": "An error occurred while editing the resource policy. The target (ePerson or group) has been successfully updated.",
-  "resource-policies.edit.page.other-failure.content": "Si è verificato un errore durante la modifica della policy di risorsa. L'obiettio (ePerson o gruppo) è stato aggiornato con successo.",
+  "resource-policies.edit.page.other-failure.content": "Si è verificato un errore durante la modifica del criterio della risorsa. Il target (EPerson o gruppo) è stato aggiornato con successo.",
 
   // "resource-policies.edit.page.success.content": "Operation successful",
   "resource-policies.edit.page.success.content": "Operazione riuscita",
@@ -7334,16 +7334,16 @@
   "resource-policies.form.eperson-group-list.table.headers.name": "Nome",
 
   // "resource-policies.form.eperson-group-list.modal.header": "Cannot change type",
-  "resource-policies.form.eperson-group-list.modal.header": "Impossibile modificare il tipo",
+  "resource-policies.form.eperson-group-list.modal.header": "Impossibile modificare il tipo.",
 
   // "resource-policies.form.eperson-group-list.modal.text1.toGroup": "It is not possible to replace an ePerson with a group.",
-  "resource-policies.form.eperson-group-list.modal.text1.toGroup": "Impossibile sostituire una ePerson con un gruppo.",
+  "resource-policies.form.eperson-group-list.modal.text1.toGroup": "Non è possibile sostituire una EPerson con un gruppo.",
 
   // "resource-policies.form.eperson-group-list.modal.text1.toEPerson": "It is not possible to replace a group with an ePerson.",
-  "resource-policies.form.eperson-group-list.modal.text1.toEPerson": "Impossibile sostituire un gruppo con una ePerson.",
+  "resource-policies.form.eperson-group-list.modal.text1.toEPerson": "Non è possibile sostituire un gruppo con una EPerson.",
 
   // "resource-policies.form.eperson-group-list.modal.text2": "Delete the current resource policy and create a new one with the desired type.",
-  "resource-policies.form.eperson-group-list.modal.text2": "Elimina la policy di risorsa corrente e creane una nuova con il tipo desiderato.",
+  "resource-policies.form.eperson-group-list.modal.text2": "Eliminare la policy della risorsa corrente e crearne una nuova con il tipo desiderato.",
 
   // "resource-policies.form.eperson-group-list.modal.close": "Ok",
   "resource-policies.form.eperson-group-list.modal.close": "Ok",
@@ -7517,16 +7517,16 @@
   "search.filters.applied.charts.defaultConfiguration.title": "Output di ricerca",
 
   // "search.filters.applied.charts.chart.bar.dateIssued.year.tab" : "Date Issued",
-  "search.filters.applied.charts.chart.bar.dateIssued.year.tab" : "Data di inserimento",
+  "search.filters.applied.charts.chart.bar.dateIssued.year.tab" : "Data puntuale",
 
   // "search.filters.applied.charts.chart.pie.more-value" : "More",
-  "search.filters.applied.charts.chart.pie.more-value" : "Più",
+  "search.filters.applied.charts.chart.pie.more-value" : "Visualizza altri",
 
   // "search.filters.applied.charts.chart.pie.itemtype_filter.tab" : "Item Type",
-  "search.filters.applied.charts.chart.pie.itemtype_filter.tab" : "Tipo di item",
+  "search.filters.applied.charts.chart.pie.itemtype_filter.tab" : "Tipologia dell'item",
 
   // "search.filters.applied.charts.graphitemtype.tab" : "Visualization by Type",
-  "search.filters.applied.charts.graphitemtype.tab" : "Visualizzazione per tipo",
+  "search.filters.applied.charts.graphitemtype.tab" : "Visualizzazione per tipologia",
 
   // "search.filters.applied.charts.graphpubldate.tab" : "Visualization by Date",
   "search.filters.applied.charts.graphpubldate.tab" : "Visualizzazione per data",
@@ -7655,7 +7655,7 @@
   "search.filters.filter.editor.placeholder": "Editore",
 
   // "search.filters.filter.editor.label": "Search editor",
-  "search.filters.filter.editor.label": "Cerca editore",
+  "search.filters.filter.editor.label": "Ricerca Editore",
 
   // "search.filters.filter.withdrawn.head": "Withdrawn",
   "search.filters.filter.withdrawn.head": "Ritirato",
@@ -7691,7 +7691,7 @@
   "search.filters.filter.funding.placeholder": "Finanziamento",
 
   // "search.filters.filter.funding.label": "Search funding",
-  "search.filters.filter.funding.label": "Cerca finanziamento",
+  "search.filters.filter.funding.label": "Ricerca fondi",
 
   // "search.filters.filter.has_content_in_original_bundle.head": "Has files",
   "search.filters.filter.has_content_in_original_bundle.head": "Ha file",
@@ -7742,22 +7742,22 @@
   "search.filters.filter.language.placeholder": "Lingue",
 
   // "search.filters.filter.projectOrgUnits.head" : "Organizations",
-  "search.filters.filter.projectOrgUnits.head" : "Strutture",
+  "search.filters.filter.projectOrgUnits.head" : "Organizzazioni",
 
   // "search.filters.filter.projectOrgUnits.label" : "Organizations",
   "search.filters.filter.projectOrgUnits.label" : "Strutture",
 
   // "search.filters.filter.projectOrgUnits.placeholder" : "Organizations",
-  "search.filters.filter.projectOrgUnits.placeholder" : "Strutture",
+  "search.filters.filter.projectOrgUnits.placeholder" : "Organizzazioni",
 
   // "search.filters.filter.personOrgUnits.head" : "Organizations",
-  "search.filters.filter.personOrgUnits.head" : "Strutture",
+  "search.filters.filter.personOrgUnits.head" : "Organizzazioni",
 
   // "search.filters.filter.personOrgUnits.label" : "Search organizations",
-  "search.filters.filter.personOrgUnits.label" : "Cerca strutture",
+  "search.filters.filter.personOrgUnits.label" : "Ricerca Organizzazioni",
 
   // "search.filters.filter.personOrgUnits.placeholder" : "Organizations",
-  "search.filters.filter.personOrgUnits.placeholder" : "Strutture",
+  "search.filters.filter.personOrgUnits.placeholder" : "Organizzazioni",
 
   // "search.filters.filter.namedresourcetype.head": "Status",
   "search.filters.filter.namedresourcetype.head": "Stato",
@@ -7784,7 +7784,7 @@
   "search.filters.filter.organization.placeholder": "Struttura",
 
   // "search.filters.filter.organization.label": "Search organization",
-  "search.filters.filter.organization.label": "Cerca struttura",
+  "search.filters.filter.organization.label": "Ricerca Organizzazioni",
 
   // "search.filters.filter.organizationAddressCountry.head": "Country",
   "search.filters.filter.organizationAddressCountry.head": "Paese",
@@ -8014,10 +8014,10 @@
   "sorting.dc.title.DESC": "Titolo decrescente",
 
   // "sorting.metric.view.ASC" : "Views Ascending",
-  "sorting.metric.view.ASC" : "Vista in ordine crescente",
+  "sorting.metric.view.ASC" : "Visualizzazioni in ordine crescente",
 
   // "sorting.metric.view.DESC" : "Views Descending",
-  "sorting.metric.view.DESC" : "Vista in ordine decrescente",
+  "sorting.metric.view.DESC" : "Visualizzazioni in ordine decrescente",
 
   // "sorting.metric.download.ASC" : "Downloads Ascending",
   "sorting.metric.download.ASC" : "Download in ordine crescente",
@@ -8168,16 +8168,16 @@
   "statistics.table.downloadReports.title.TopCities": "Più scaricati per città",
 
   // "statistics.table.mainReports.header.views": "Views",
-  "statistics.table.mainReports.header.views": "Visualizzazioni",
+  "statistics.table.mainReports.header.views": "Visite",
 
   // "statistics.table.mainReports.header.bitstream": "File Visits",
-  "statistics.table.mainReports.header.bitstream": "Visite al file",
+  "statistics.table.mainReports.header.bitstream": "Visualizzazioni del file",
 
   // "statistics.table.mainReports.header.continent": "Continent",
   "statistics.table.mainReports.header.continent": "Continente",
 
   // "statistics.table.mainReports.header.country": "Country",
-  "statistics.table.mainReports.header.country": "Paese",
+  "statistics.table.mainReports.header.country": "Nazione",
 
   // "statistics.table.mainReports.header.city": "City",
   "statistics.table.mainReports.header.city": "Città",
@@ -8192,7 +8192,7 @@
   "statistics.table.downloadReports.header.continent": "Continente",
 
   // "statistics.table.downloadReports.header.country": "Country",
-  "statistics.table.downloadReports.header.country": "Paese",
+  "statistics.table.downloadReports.header.country": "Nazione",
 
   // "statistics.table.downloadReports.header.city": "City",
   "statistics.table.downloadReports.header.city": "Città",
@@ -8594,13 +8594,13 @@
   "submission.sections.correction.column.file": "File",
 
   // "submission.sections.correction.column.file.info": "Here are the changes related the item's bitstream",
-  "submission.sections.correction.column.file.info": "Ecco le modifiche relative al bistream dell'item",
+  "submission.sections.correction.column.file.info": "Elenco delle modifiche relative al bitstream dell'Item",
 
   // "submission.sections.correction.column.metadata": "Metadata",
   "submission.sections.correction.column.metadata": "Metadati",
 
   // "submission.sections.correction.column.metadata.info": "Here are the changes related the item's metadata",
-  "submission.sections.correction.column.metadata.info": "Ecco le  modifiche relative ai metadati dell'item",
+  "submission.sections.correction.column.metadata.info": "Ecco le modifiche relative ai metadati dell'item",
 
   // "submission.sections.correction.column.previous-value": "Previous value",
   "submission.sections.correction.column.previous-value": "Valore precedente",
@@ -8609,7 +8609,7 @@
   "submission.sections.correction.column.policy": "Policy",
 
   // "submission.sections.submit.progressbar.correction": "Correction details",
-  "submission.sections.submit.progressbar.correction": "Correzione dei dettagli",
+  "submission.sections.submit.progressbar.correction": "Dettagli della correzione",
 
 
 
@@ -8665,10 +8665,10 @@
   "submission.sections.detect-duplicate.not-duplicate-help": "Clicca qui se questo non è un duplicato del tuo articolo",
 
   // "submission.sections.detect-duplicate.submitter-decision": "Submitter decision:",
-  "submission.sections.detect-duplicate.submitter-decision": "Decisione del submitter:",
+  "submission.sections.detect-duplicate.submitter-decision": "Decisione del compilatore:",
 
   // "submission.sections.detect-duplicate.submitter-note": "Submitter note:",
-  "submission.sections.detect-duplicate.submitter-note": "Nota del submitter:",
+  "submission.sections.detect-duplicate.submitter-note": "Note del compilatore:",
 
 
 
@@ -8814,7 +8814,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.new-entity": "Importato e aggiunto con successo volume di journal esterno alla selezione",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Select a local match:",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Seleziona una corrispondenza locale:",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Selezionare una corrispondenza locale:",
 
   // "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deselect all",
   "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deseleziona tutto",
@@ -9111,7 +9111,7 @@
   "submission.sections.ccLicense.option.select": "Seleziona un'opzione...",
 
   // "submission.sections.ccLicense.link": "You’ve selected the following license:",
-  "submission.sections.ccLicense.link": "Hai selezionato la seguente licenza:",
+  "submission.sections.ccLicense.link": "Avete selezionato la seguente licenza:",
 
   // "submission.sections.ccLicense.confirmation": "I grant the license above",
   "submission.sections.ccLicense.confirmation": "Concedo la licenza di cui sopra",
@@ -9120,7 +9120,7 @@
   "submission.sections.general.add-more": "Aggiungi altro",
 
   // "submission.sections.general.cannot_deposit": "Deposit cannot be completed due to errors in the form.<br>Please fill out all required fields to complete the deposit.",
-  "submission.sections.general.cannot_deposit": "L'immissione non può essere competata a causa di errori nel modulo.<br> Si prega di compilare tutti i campi obbligatori.",
+  "submission.sections.general.cannot_deposit": "Il deposito non può essere completato a causa di errori nel modulo.<br>Si prega di compilare tutti i campi richiesti per completare il deposito.",
 
   // "submission.sections.general.collection": "Collection",
   "submission.sections.general.collection": "Collezione",
@@ -9273,13 +9273,13 @@
   "submission.sections.submit.progressbar.license": "Licenza di deposito",
 
   // "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
-  "submission.sections.submit.progressbar.sherpapolicy": "Policy di Sherpa",
+  "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Carica file",
 
   // "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.sherpaPolicies": "Informazioni sulla policy di open access dell'editore",
+  "submission.sections.submit.progressbar.sherpaPolicies": "Informazioni sulle policy open access dell'editore",
 
   // "submission.sections.submit.progressbar.correction-step": "Corrections",
   "submission.sections.submit.progressbar.correction-step": "Correzioni",
@@ -9287,7 +9287,7 @@
 
 
   // "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
-  "submission.sections.sherpa-policy.title-empty": "Non sono disponibili informazioni sulle policy dell'editore. Se il lavoro ha un ISSN associato, si prega di inserirlo qui sopra per vedere le policy di open access dell'editore.",
+  "submission.sections.sherpa-policy.title-empty": "Non sono disponibili informazioni sulle policy dell'editore. Se il vostro lavoro ha un ISSN associato, inseritelo qui sopra per vedere le open access policies dell'editore.",
 
   // "submission.sections.status.errors.title": "Errors",
   "submission.sections.status.errors.title": "Errori",
@@ -9392,10 +9392,10 @@
   "submission.sections.upload.form.until-placeholder": "Fino a quando",
 
   // "submission.sections.upload.header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
-  "submission.sections.upload.header.policy.default.nolist": "I file caricati nella collection {{collectionName}} saranno accessibili in base ai seguenti gruppi:",
+  "submission.sections.upload.header.policy.default.nolist": "I file caricati nella raccolta {{collectionName}} saranno accessibili ai seguenti gruppi:",
 
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
-  "submission.sections.upload.header.policy.default.withlist": "Si prega di notare che i file caricati nella collection {{collectionName}} saranno accessibili, in aggiunta a quanto esplicitamente deciso per il singolo file, con i seguenti gruppi:",
+  "submission.sections.upload.header.policy.default.withlist": "Si noti che i file caricati nella raccolta {{collectionName}} saranno accessibili, oltre a quanto esplicitamente deciso per il singolo file, con i seguenti gruppi:",
 
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "Qui troverai tutti i file attualmente presenti nell'item. È possibile aggiornare i metadati dei file e le condizioni di accesso o <strong>caricare file aggiuntivi semplicemente trascinandoli e rilasciandoli ovunque nella pagina</strong>",
@@ -9507,10 +9507,10 @@
   "submission.sections.sherpa.publisher.policy.description": "Le informazioni riportate di seguito sono state reperite tramite Sherpa Romeo. In base alle policy del vostro editore, fornisce consigli sull'eventuale necessità di un embargo e/o su quali file è possibile caricare. In caso di domande, contattare l'amministratore del sito tramite il modulo di feedback nel piè di pagina.",
 
   // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
-  "submission.sections.sherpa.publisher.policy.openaccess": "I percorsi open access consentiti dalle policy di questa rivista sono elencati di seguito per versione dell'articolo. Clicca su un percorso per vederlo nel dettaglio",
+  "submission.sections.sherpa.publisher.policy.openaccess": "I percorsi Open Access consentiti dalle policy di questa rivista sono elencati di seguito per versione dell'articolo. Clicca su un percorso per vederlo nel dettaglio",
 
   // "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
-  "submission.sections.sherpa.publisher.policy.more.information": "Per maggiori informazioni si prega di consultare il seguente link:",
+  "submission.sections.sherpa.publisher.policy.more.information": "Per ulteriori informazioni, consultare i seguenti link:",
 
   // "submission.sections.sherpa.publisher.policy.version": "Version",
   "submission.sections.sherpa.publisher.policy.version": "Versione",
@@ -9531,7 +9531,7 @@
   "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisiti",
 
   // "submission.sections.sherpa.publisher.policy.location": "Location",
-  "submission.sections.sherpa.publisher.policy.location": "Località",
+  "submission.sections.sherpa.publisher.policy.location": "Posizione",
 
   // "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
   "submission.sections.sherpa.publisher.policy.conditions": "Condizioni",
@@ -9540,7 +9540,7 @@
   "submission.sections.sherpa.publisher.policy.refresh": "Ricarica",
 
   // "submission.sections.sherpa.record.information": "Record Information",
-  "submission.sections.sherpa.record.information": "Informazioni sulla registrazione",
+  "submission.sections.sherpa.record.information": "Informazioni del record",
 
   // "submission.sections.sherpa.record.information.id": "ID",
   "submission.sections.sherpa.record.information.id": "ID",
@@ -9555,7 +9555,7 @@
   "submission.sections.sherpa.record.information.uri": "URI",
 
   // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
-  "submission.sections.sherpa.error.message": "Si è verificato un errore nel recuperare le informazioni da Sherpa",
+  "submission.sections.sherpa.error.message": "Si è verificato un errore nel recupero delle informazioni da Sherpa",
 
 
 
@@ -10562,7 +10562,7 @@
   "curation-task.task.iiifpdfmultipages.label": "Creare un PDF multipagina dalle immagini IIIF",
 
   // "curation-task.task.iiifclean.label": "Remove all metadata bundles created by a previous upload to the image server",
-  "curation-task.task.iiifclean.label": "Rimuovere tutti i bundle di metadati generati da precedenti caricamenti sull'Image Server",
+  "curation-task.task.iiifclean.label": "Rimuovi tutti i bitstream e bundle creati durante il processamento della risorsa IIIF",
 
   // "curation-task.task.pdftoimagecmyk.label": "Extract images from PDF (CMYK)",
   "curation-task.task.pdftoimagecmyk.label": "Estrarre le immagini da PDF (CMYK)",
@@ -10652,7 +10652,7 @@
   // "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
   "admin.system-wide-alert.breadcrumbs": "Allarmi di sistema",
 
-  // "admin.system-wide-alert.title": "System-wide Alerts"
+  // "admin.system-wide-alert.title": "System-wide Alerts",
   "admin.system-wide-alert.title": "Allarmi di sistema",
 
 
