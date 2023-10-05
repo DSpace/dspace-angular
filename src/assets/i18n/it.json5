@@ -1481,7 +1481,7 @@
   "browse.metadata.rpname.breadcrumbs": "Sfoglia per Nome",
 
   // "browse.metadata.subject.breadcrumbs": "Browse by Subject",
-  "browse.metadata.subject.breadcrumbs": "Sfoglia per Argomento",
+  "browse.metadata.subject.breadcrumbs": "Sfoglia per Soggetto",
 
   // "browse.metadata.type.breadcrumbs": "Browse by Type",
   "browse.metadata.type.breadcrumbs": "Sfoglia per Tipo",
@@ -1493,13 +1493,13 @@
   "pagination.next.button": "Avanti",
 
   // "pagination.previous.button": "Previous",
-  "pagination.previous.button": "Precedente",
+  "pagination.previous.button": "Indietro",
 
   // "pagination.next.button.disabled.tooltip": "No more pages of results",
-  "pagination.next.button.disabled.tooltip": "Non ci sono ulteriori pagine di risultati",
+  "pagination.next.button.disabled.tooltip": "Non ci sono ulteriori pagine",
 
   // "browse.startsWith": ", starting with {{ startsWith }}",
-  "browse.startsWith": ", inizia per {{ startsWith }}",
+  "browse.startsWith": ", a partire da {{ startsWith }}",
 
   // "browse.startsWith.choose_start": "(Choose start)",
   "browse.startsWith.choose_start": "(Scegli start)",
@@ -1508,7 +1508,7 @@
   "browse.startsWith.choose_year": "(Scegli l'anno)",
 
   // "browse.startsWith.choose_year.label": "Choose the issue year",
-  "browse.startsWith.choose_year.label": "Scegli l'anno di pubblicazione",
+  "browse.startsWith.choose_year.label": "Scegli l'anno",
 
   // "browse.startsWith.jump": "Filter results by year or month",
   "browse.startsWith.jump": "Filtra i risultati per anno o mese",
@@ -1544,7 +1544,7 @@
   "browse.startsWith.months.none": "(Scegli il mese)",
 
   // "browse.startsWith.months.none.label": "Choose the issue month",
-  "browse.startsWith.months.none.label": "Scegli il mese di pubblicazione",
+  "browse.startsWith.months.none.label": "Scegli il mese",
 
   // "browse.startsWith.months.november": "November",
   "browse.startsWith.months.november": "Novembre",
@@ -1556,7 +1556,7 @@
   "browse.startsWith.months.september": "Settembre",
 
   // "browse.startsWith.submit": "Browse",
-  "browse.startsWith.submit": "Sfogliare",
+  "browse.startsWith.submit": "Sfoglia",
 
   // "browse.startsWith.type_date": "Filter results by date",
   "browse.startsWith.type_date": "Filtra per data",
@@ -1586,31 +1586,31 @@
   "bulk-import.back": "Indietro",
 
   // "bulk-import.breadcrumbs" : "Bulk import",
-  "bulk-import.breadcrumbs" : "Bulk import",
+  "bulk-import.breadcrumbs" : "Import massivo",
 
   // "bulk-import.collection-name" : "Collection",
   "bulk-import.collection-name" : "Collezione",
 
   // "bulk-import.error": "An error occurred while creating the import process",
-  "bulk-import.error": "Si è verificato un errore durante la creazione del processo di importazione",
+  "bulk-import.error": "Si è verificato un errore durante la creazione del processo di import",
 
   // "bulk-import.file" : "Source file",
-  "bulk-import.file" : "Source file",
+  "bulk-import.file" : "File sorgente",
 
   // "bulk-import.header" : "Bulk import",
-  "bulk-import.header" : "Bulk import",
+  "bulk-import.header" : "Import massivo",
 
   // "bulk-import.processing": "Processing...",
-  "bulk-import.processing": "Elaborazione...",
+  "bulk-import.processing": "Elaborazione in corso...",
 
   // "bulk-import.success": "The import process was successfully created",
-  "bulk-import.success": "Il processo di importazione è stato creato correttamente",
+  "bulk-import.success": "Il processo di import è stato creato correttamente",
 
   // "bulk-import.submit": "Start import",
-  "bulk-import.submit": "Avvia importazione",
+  "bulk-import.submit": "Avvia import",
 
   // "bulk-import.title" : "Bulk import",
-  "bulk-import.title" : "Bulk import",
+  "bulk-import.title" : "Import massivo",
 
 
 
@@ -1631,13 +1631,13 @@
 
 
   // "collection.create.head": "Create a Collection",
-  "collection.create.head": "Creare una collection",
+  "collection.create.head": "Crea una collection",
 
   // "collection.create.notifications.success": "Successfully created the Collection",
   "collection.create.notifications.success": "Collection creata con successo",
 
   // "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
-  "collection.create.sub-head": "Creare una collection per la Community {{ parent }}",
+  "collection.create.sub-head": "Crea una collection per la Community {{ parent }}",
 
   // "collection.curate.header": "Curate Collection: {{collection}}",
   "collection.curate.header": "Curate della collezione: {{collection}}",
@@ -1646,10 +1646,10 @@
   "collection.delete.cancel": "Annulla",
 
   // "collection.delete.confirm": "Confirm",
-  "collection.delete.confirm": "Confermare",
+  "collection.delete.confirm": "Conferma",
 
   // "collection.delete.processing": "Deleting",
-  "collection.delete.processing": "Eliminazione",
+  "collection.delete.processing": "Eliminazione in corso",
 
   // "collection.delete.head": "Delete Collection",
   "collection.delete.head": "Elimina collection",
@@ -1692,7 +1692,7 @@
   "collection.edit.item-mapper.confirm": "Mappare gli item selezionati",
 
   // "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
-  "collection.edit.item-mapper.description": "Si tratta dello strumento di mapping degli item che consente agli amministratori della collection di mappare gli item di altre collections in questa collection. È possibile cercare item di altre collections e mapparli o sfogliare l'elenco degli item attualmente mappati.",
+  "collection.edit.item-mapper.description": "Questo è lo strumento di mapping degli item che consente agli amministratori della collection di mappare gli item di altre collections su questa collection. È possibile cercare item di altre collectioni e mapparli oppure sfogliare l'elenco degli item attualmente mappati.",
 
   // "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
   "collection.edit.item-mapper.head": "Item Mapper - Mappa item di altre collections",
@@ -1716,7 +1716,7 @@
   "collection.edit.item-mapper.notifications.unmap.error.content": "Si sono verificati errori per la rimozione dei mapping degli item {{amount}}.",
 
   // "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
-  "collection.edit.item-mapper.notifications.unmap.error.head": "Rimuovere gli errori di mappatura",
+  "collection.edit.item-mapper.notifications.unmap.error.head": "Rimuovi gli errori di mappatura",
 
   // "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
   "collection.edit.item-mapper.notifications.unmap.success.content": "Rimosse con successo le mappature degli item {{amount}}.",
@@ -1738,10 +1738,10 @@
 
 
   // "collection.edit.logo.delete.title": "Delete logo",
-  "collection.edit.logo.delete.title": "Annulla eliminazione",
+  "collection.edit.logo.delete.title": "Cancella Logo",
 
   // "collection.edit.logo.delete-undo.title": "Undo delete",
-  "collection.edit.logo.delete-undo.title": "Elimina logo",
+  "collection.edit.logo.delete-undo.title": "Annula la cancellazione",
 
   // "collection.edit.logo.label": "Collection logo",
   "collection.edit.logo.label": "Logo della collection",
@@ -1756,16 +1756,16 @@
   "collection.edit.logo.notifications.delete.success.title": "Logo cancellato",
 
   // "collection.edit.logo.notifications.delete.success.content": "Successfully deleted the collection's logo",
-  "collection.edit.logo.notifications.delete.success.content": "Eliminato con successo il logo della collection",
+  "collection.edit.logo.notifications.delete.success.content": "Il logo della collezione è stato eliminato",
 
   // "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
   "collection.edit.logo.notifications.delete.error.title": "Errore durante l'eliminazione del logo",
 
   // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
-  "collection.edit.logo.upload": "Rilascia un logo della collection da caricare",
+  "collection.edit.logo.upload": "Trascina qui il logo da caricare per la collezione",
 
   // "collection.edit.notifications.success": "Successfully edited the Collection",
-  "collection.edit.notifications.success": "Modificata correttamente la collection",
+  "collection.edit.notifications.success": "Modificata correttamente la collezione",
 
   // "collection.edit.return": "Back",
   "collection.edit.return": "Indietro",
@@ -1776,13 +1776,13 @@
   "collection.edit.tabs.curate.head": "Curate",
 
   // "collection.edit.tabs.curate.title": "Collection Edit - Curate",
-  "collection.edit.tabs.curate.title": "Modifica collection - Curate",
+  "collection.edit.tabs.curate.title": "Modifica la collection - Curate",
 
   // "collection.edit.tabs.authorizations.head": "Authorizations",
   "collection.edit.tabs.authorizations.head": "Autorizzazioni",
 
   // "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
-  "collection.edit.tabs.authorizations.title": "Collection Edit - Autorizzazioni",
+  "collection.edit.tabs.authorizations.title": "Modifica la collezione - Autorizzazioni",
 
   // "collection.edit.item.authorizations.load-bundle-button": "Load more bundles",
   "collection.edit.item.authorizations.load-bundle-button": "Carica più bundles",
@@ -1791,19 +1791,19 @@
   "collection.edit.item.authorizations.load-more-button": "Carica più risorse",
 
   // "collection.edit.item.authorizations.show-bitstreams-button": "Show bitstream policies for bundle",
-  "collection.edit.item.authorizations.show-bitstreams-button": "Mostra le policy del bitstream per il bundle",
+  "collection.edit.item.authorizations.show-bitstreams-button": "Mostra le policiy dei bitstream per i bundle",
 
   // "collection.edit.tabs.metadata.head": "Edit Metadata",
-  "collection.edit.tabs.metadata.head": "Modifica metadati",
+  "collection.edit.tabs.metadata.head": "Modifica i metadati",
 
   // "collection.edit.tabs.metadata.title": "Collection Edit - Metadata",
-  "collection.edit.tabs.metadata.title": "Modifica collection - Metadati",
+  "collection.edit.tabs.metadata.title": "Modifica la collezione - Metadati",
 
   // "collection.edit.tabs.roles.head": "Assign Roles",
   "collection.edit.tabs.roles.head": "Assegna ruoli",
 
   // "collection.edit.tabs.roles.title": "Collection Edit - Roles",
-  "collection.edit.tabs.roles.title": "Modifica collection - Ruoli",
+  "collection.edit.tabs.roles.title": "Modifica la collezione - Ruoli",
 
   // "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
   "collection.edit.tabs.source.external": "Questa collection raccoglie il suo contenuto da una fonte esterna",
@@ -1812,13 +1812,13 @@
   "collection.edit.tabs.source.form.adminEmail": "Indirizzo dell'amministratore",
 
   // "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
-  "collection.edit.tabs.source.form.errors.oaiSource.required": "È necessario fornire un ID impostato della collection di destinazione.",
+  "collection.edit.tabs.source.form.errors.oaiSource.required": "È necessario fornire un ID della collezione di destinazione.",
 
   // "collection.edit.tabs.source.form.harvestType": "Content being harvested",
-  "collection.edit.tabs.source.form.harvestType": "Contenuto che è stato harvestato",
+  "collection.edit.tabs.source.form.harvestType": "Dati esterni harvestati",
 
   // "collection.edit.tabs.source.form.head": "Configure an external source",
-  "collection.edit.tabs.source.form.head": "Configurare un'origine esterna",
+  "collection.edit.tabs.source.form.head": "Configura un'origine esterna",
 
   // "collection.edit.tabs.source.form.metadataConfigId": "Metadata Format",
   "collection.edit.tabs.source.form.metadataConfigId": "Formato dei metadati",
@@ -1830,10 +1830,10 @@
   "collection.edit.tabs.source.form.oaiSource": "OAI Provider",
 
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Harvest metadata and bitstreams (requires ORE support)",
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Harvest metadati e flussi di bit (richiede il supporto ORE)",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Harvest dei metadata e bitstream (richiede il supporto OAI-ORE)",
 
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Harvest metadata and references to bitstreams (requires ORE support)",
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Harvest di metadati e riferimenti a bitstream (richiede il supporto ORE)",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Harvest di metadati e bitstream (richiede il supporto OAI-ORE)",
 
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Harvest metadata only",
   "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Harvesta solo metadati",
@@ -1845,7 +1845,7 @@
   "collection.edit.tabs.source.form.postTransform": "Nome post trasformazione",
 
   // "collection.edit.tabs.source.form.forceSynchronization": "Force Synchronization",
-  "collection.edit.tabs.source.form.forceSynchronization": "Forza sincronizzazione",
+  "collection.edit.tabs.source.form.forceSynchronization": "Forza la sincronizzazione",
 
   // "collection.edit.tabs.source.form.recordValidationEnabled": "Record validation",
   "collection.edit.tabs.source.form.recordValidationEnabled": "Convalida dei record",
@@ -1883,7 +1883,7 @@
 
 
   // "collection.edit.template.add-button": "Add",
-  "collection.edit.template.add-button": "Aggiungere",
+  "collection.edit.template.add-button": "Aggiungi",
 
   // "collection.edit.template.breadcrumbs": "Item template",
   "collection.edit.template.breadcrumbs": "Modello di Item",
@@ -1892,38 +1892,38 @@
   "collection.edit.template.cancel": "Annulla",
 
   // "collection.edit.template.delete-button": "Delete",
-  "collection.edit.template.delete-button": "Cancellare",
+  "collection.edit.template.delete-button": "Cancella",
 
   // "collection.edit.template.edit-button": "Edit",
-  "collection.edit.template.edit-button": "Editare",
+  "collection.edit.template.edit-button": "Modifica",
 
   // "collection.edit.template.error": "An error occurred retrieving the template item",
-  "collection.edit.template.error": "Si è verificato un errore durante il recupero del modello dell' Item",
+  "collection.edit.template.error": "Si è verificato un errore durante il recupero del template dell'Item",
 
   // "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
-  "collection.edit.template.head": "Modifica item modello per la collection \"{{ collection }}\"",
+  "collection.edit.template.head": "Modifica il template dell'item  per la collezione \"{{ collection }}\"",
 
   // "collection.edit.template.label": "Template item",
-  "collection.edit.template.label": "Template per Item",
+  "collection.edit.template.label": "Template dell'Item",
 
   // "collection.edit.template.loading": "Loading template item...",
-  "collection.edit.template.loading": "Caricamento del Template per Item...",
+  "collection.edit.template.loading": "Caricamento del Template per Item in corso...",
 
   // "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
-  "collection.edit.template.notifications.delete.error": "Impossibile eliminare il Template dell' Item",
+  "collection.edit.template.notifications.delete.error": "Impossibile eliminare il template dell'Item",
 
   // "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
-  "collection.edit.template.notifications.delete.success": "Eliminato correttamente il Template dell' Item",
+  "collection.edit.template.notifications.delete.success": "Eliminato correttamente il template dell'Item",
 
   // "collection.edit.template.title": "Edit Template Item",
-  "collection.edit.template.title": "Modifica Template dell' Item",
+  "collection.edit.template.title": "Modifica il template dell'Item",
 
 
   // "collection-export.success": "Export of the collection's items started successfully",
   "collection-export.success": "L'esportazione degli item della collection è iniziata correttamente",
 
   // "collection-export.error": "An error occurs starting the collection's items export",
-  "collection-export.error": "Si verifica un errore durante l'avvio dell'esportazione degli item della collection",
+  "collection-export.error": "Si verifica un errore nell'export degli item della collezione",
 
 
   // "collection.form.abstract": "Short Description",
@@ -1936,7 +1936,7 @@
   "collection.form.errors.title.required": "Inserisci il nome di una collection",
 
   // "collection.form.license": "License",
-  "collection.form.license": "Licenza",
+  "collection.form.license": "Licenza di deposito",
 
   // "collection.form.provenance": "Provenance",
   "collection.form.provenance": "Provenienza",
@@ -1954,10 +1954,10 @@
   "collection.form.title": "Nome",
 
   // "collection.form.entityType": "Entity Type",
-  "collection.form.entityType": "Tipo di entità",
+  "collection.form.entityType": "Entità",
 
   // "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-  "collection.form.errors.entityType.required": "Scegli un tipo di entità per questa collection",
+  "collection.form.errors.entityType.required": "Scegli un'entità per questa collection",
 
   // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
   "collection.form.errors.submissionDefinition.required": "Scegli una definizione di submission per questa collection",
@@ -1971,12 +1971,12 @@
 
 
   // "collection.listelement.badge": "Collection",
-  "collection.listelement.badge": "collection",
+  "collection.listelement.badge": "Collezione",
 
 
 
   // "collection.page.browse.recent.head": "Recent Submissions",
-  "collection.page.browse.recent.head": "submissions recenti",
+  "collection.page.browse.recent.head": "Inserimenti recenti",
 
   // "collection.page.browse.recent.empty": "No items to show",
   "collection.page.browse.recent.empty": "Nessun item da mostrare",
@@ -1985,13 +1985,13 @@
   "collection.page.edit": "Modifica questa collection",
 
   // "collection.page.export": "Export items from this collection",
-  "collection.page.export": "Esportare item da questa collection",
+  "collection.page.export": "Esporta gli item da questa collezione",
 
   // "collection.page.handle": "Permanent URI for this collection",
   "collection.page.handle": "URI permanente per questa collection",
 
   // "collection.page.license": "License",
-  "collection.page.license": "Licenza",
+  "collection.page.license": "Licenza di deposito",
 
   // "collection.page.news": "News",
   "collection.page.news": "News",
@@ -1999,7 +1999,7 @@
 
 
   // "collection.select.confirm": "Confirm selected",
-  "collection.select.confirm": "Conferma selezionato",
+  "collection.select.confirm": "Conferma",
 
   // "collection.select.empty": "No collections to show",
   "collection.select.empty": "Nessuna collection da mostrare",
