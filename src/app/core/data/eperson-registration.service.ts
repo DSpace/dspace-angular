@@ -16,6 +16,7 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
 import { Operation } from 'fast-json-patch';
+import { NoContent } from '../shared/NoContent.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -157,7 +158,7 @@ export class EpersonRegistrationService{
    * @param updateValue Flag to indicate if the email should be updated or added
    * @returns Remote Data state of the patch request
    */
-  patchUpdateRegistration(values: string[], field: string, registrationId: string, token: string, operator: 'add' | 'replace'): Observable<RemoteData<Registration>> {
+  patchUpdateRegistration(values: string[], field: string, registrationId: string, token: string, operator: 'add' | 'replace'): Observable<RemoteData<NoContent>> {
     const requestId = this.requestService.generateRequestId();
 
     const href$ = this.getRegistrationEndpoint().pipe(

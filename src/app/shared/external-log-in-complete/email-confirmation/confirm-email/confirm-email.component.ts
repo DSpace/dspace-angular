@@ -80,10 +80,7 @@ export class ConfirmEmailComponent implements OnDestroy {
     this.subs.push(
       this.externalLoginService.patchUpdateRegistration(values, 'email', this.registrationData.id, this.token, 'replace')
         .pipe(getRemoteDataPayload())
-        .subscribe((update) => {
-          // TODO: remove this line (temporary)
-          console.log('Email update:', update);
-        }));
+        .subscribe());
   }
 
   /**
@@ -104,14 +101,16 @@ export class ConfirmEmailComponent implements OnDestroy {
     const metadataValues = {};
     for (const [key, value] of Object.entries(registrationData.registrationMetadata)) {
       if (hasValue(value[0]?.value) && key !== 'email') {
-        metadataValues[key] = value[0];
+        metadataValues[key] = value;
       }
     }
     const eperson = new EPerson();
     eperson.email = registrationData.email;
+    eperson.netid = registrationData.netId;
     eperson.metadata = metadataValues;
     eperson.canLogIn = true;
     eperson.requireCertificate = false;
+    eperson.selfRegistered = true;
     this.subs.push(
       this.epersonDataService.createEPersonForToken(eperson, token).pipe(
         getFirstCompletedRemoteData(),

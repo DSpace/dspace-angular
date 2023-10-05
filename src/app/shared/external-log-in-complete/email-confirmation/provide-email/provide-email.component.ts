@@ -48,10 +48,7 @@ export class ProvideEmailComponent implements OnDestroy {
     if (this.emailForm.valid) {
       const email = this.emailForm.get('email').value;
       this.subs.push(this.externalLoginService.patchUpdateRegistration([email], 'email', this.registrationId, this.token, 'add')
-        .subscribe((rd: RemoteData<Registration>) => {
-          // TODO: remove this line (temporary)
-          console.log('Email update:', rd);
-        }));
+        .subscribe());
     }
   }
 

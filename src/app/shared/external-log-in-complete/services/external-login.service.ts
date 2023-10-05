@@ -6,7 +6,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Registration } from 'src/app/core/shared/registration.model';
+import { NoContent } from '../../../core/shared/NoContent.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,7 @@ export class ExternalLoginService {
      * @param token the registration token
      * @param operation operation to be performed
      */
-  patchUpdateRegistration(values: string[], field: string, registrationId: string, token: string, operation: 'add' | 'replace'): Observable<RemoteData<Registration>>{
+  patchUpdateRegistration(values: string[], field: string, registrationId: string, token: string, operation: 'add' | 'replace'): Observable<RemoteData<NoContent>>{
     const updatedValues = values.map((value) => value);
     return this.epersonRegistrationService.patchUpdateRegistration(updatedValues, field, registrationId, token, operation).pipe(
       getFirstCompletedRemoteData(),
