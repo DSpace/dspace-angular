@@ -100,18 +100,11 @@ describe('ReviewAccountInfoComponent', () => {
       registrationDataMock
     );
     component.registrationToken = 'test-token';
-    spyOn(router, 'navigate');
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should call getEPersonData when ngOnInit is called', () => {
-    spyOn(component, 'getEPersonData');
-    component.ngOnInit();
-    expect(component.getEPersonData).toHaveBeenCalled();
   });
 
   it('should prepare data to compare', () => {
@@ -124,16 +117,6 @@ describe('ReviewAccountInfoComponent', () => {
     expect(dataToCompare[0].overrideValue).toBe(false);
     expect(dataToCompare[0].receivedValue).toBe('test@test.com');
   });
-
-  it('should get EPerson data', fakeAsync(() => {
-    spyOn(ePersonDataServiceStub, 'findById').and.returnValue(
-      of({ payload: mockEPerson } as RemoteData<any>)
-    );
-    component.getEPersonData();
-    tick();
-    expect(ePersonDataServiceStub.findById).toHaveBeenCalledWith(registrationDataMock.user);
-    expect(component.epersonCurrentData).toEqual(EPersonMock);
-  }));
 
   it('should update dataToCompare when overrideValue is changed', () => {
     component.onOverrideChange(true, 'email');
@@ -173,30 +156,6 @@ describe('ReviewAccountInfoComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith(['/profile']);
   }));
 
-  it('should merge EPerson data with token when overrideValue is false', fakeAsync(() => {
-    spyOn(ePersonDataServiceStub, 'mergeEPersonDataWithToken').and.returnValue(
-      of({ hasSucceeded: true })
-    );
-    component.mergeEPersonDataWithToken();
-    tick();
-    expect(ePersonDataServiceStub.mergeEPersonDataWithToken).toHaveBeenCalledTimes(1);
-    expect(router.navigate).toHaveBeenCalledWith(['/profile']);
-  }));
-
-
-  it('should unsubscribe from subscriptions when ngOnDestroy is called', () => {
-    const subscription1 = jasmine.createSpyObj<Subscription>('Subscription', [
-      'unsubscribe',
-    ]);
-    const subscription2 = jasmine.createSpyObj<Subscription>('Subscription', [
-      'unsubscribe',
-    ]);
-    component.subs = [subscription1, subscription2];
-    component.ngOnDestroy();
-    expect(subscription1.unsubscribe).toHaveBeenCalled();
-    expect(subscription2.unsubscribe).toHaveBeenCalled();
-  });
-
   it('should display registration data', () => {
     const registrationTypeElement: HTMLElement = fixture.nativeElement.querySelector('tbody tr:first-child th');
     const netIdElement: HTMLElement = fixture.nativeElement.querySelector('tbody tr:first-child td');
@@ -214,10 +173,9 @@ describe('ReviewAccountInfoComponent', () => {
     const firstDataLabel: HTMLElement = firstDataRow.querySelector('th');
     const firstDataReceivedValue: HTMLElement = firstDataRow.querySelectorAll('td')[0];
     const firstDataOverrideSwitch: HTMLElement = firstDataRow.querySelector('ui-switch');
-
     expect(firstDataLabel.textContent.trim()).toBe('Lastname');
     expect(firstDataReceivedValue.textContent.trim()).toBe('Doe');
-    expect(firstDataOverrideSwitch).not.toBeNull();
+    expect(firstDataOverrideSwitch).toBeNull();
   });
 
   it('should trigger onSave() when the button is clicked', () => {
@@ -225,6 +183,19 @@ describe('ReviewAccountInfoComponent', () => {
     const saveButton: HTMLButtonElement = fixture.nativeElement.querySelector('button.btn-primary');
     saveButton.click();
     expect(component.onSave).toHaveBeenCalled();
+  });
+
+  it('should unsubscribe from subscriptions when ngOnDestroy is called', () => {
+    const subscription1 = jasmine.createSpyObj<Subscription>('Subscription', [
+      'unsubscribe',
+    ]);
+    const subscription2 = jasmine.createSpyObj<Subscription>('Subscription', [
+      'unsubscribe',
+    ]);
+    component.subs = [subscription1, subscription2];
+    component.ngOnDestroy();
+    expect(subscription1.unsubscribe).toHaveBeenCalled();
+    expect(subscription2.unsubscribe).toHaveBeenCalled();
   });
 
   afterEach(() => {

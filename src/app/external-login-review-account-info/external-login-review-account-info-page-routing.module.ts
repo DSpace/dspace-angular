@@ -4,18 +4,18 @@ import { ExternalLoginReviewAccountInfoPageComponent } from './external-login-re
 import { RegistrationDataResolver } from '../shared/external-log-in-complete/resolvers/registration-data.resolver';
 import { ReviewAccountGuard } from './helpers/review-account.guard';
 
-
 const routes: Routes = [
   {
-  path: '',
-  pathMatch: 'full',
-  component: ExternalLoginReviewAccountInfoPageComponent,
-  canActivate: [ReviewAccountGuard],
-  resolve: { registrationData: RegistrationDataResolver }
-},];
+    path: '',
+    pathMatch: 'full',
+    component: ExternalLoginReviewAccountInfoPageComponent,
+    canActivate: [ReviewAccountGuard],
+    resolve: { registrationData: RegistrationDataResolver },
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ExternalLoginReviewAccountInfoRoutingModule { }
+export class ExternalLoginReviewAccountInfoRoutingModule {}

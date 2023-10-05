@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { EpersonRegistrationService } from '../../../../core/data/eperson-registration.service';
 import { ExternalLoginService } from '../../services/external-login.service';
 
 describe('ProvideEmailComponent', () => {

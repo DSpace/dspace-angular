@@ -18,7 +18,7 @@ import { RegistrationData } from '../models/registration-data.model';
 describe('ExternalLogInComponent', () => {
   let component: ExternalLogInComponent;
   let fixture: ComponentFixture<ExternalLogInComponent>;
-  let compiledTemplate: HTMLElement;
+  let modalService: NgbModal = jasmine.createSpyObj('modalService', ['open']);
 
   const registrationDataMock = {
     id: '3',
@@ -53,13 +53,7 @@ describe('ExternalLogInComponent', () => {
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: Injector, useValue: {} },
         { provide: AuthService, useValue: new AuthServiceMock() },
-        {
-          provide: NgbModal, useValue: {
-            open: () => {
-              /*comment*/
-            }
-          }
-        },
+        { provide: NgbModal, useValue: modalService },
         FormBuilder
       ],
       imports: [
@@ -80,12 +74,16 @@ describe('ExternalLogInComponent', () => {
     component = fixture.componentInstance;
     component.registrationData = Object.assign(new RegistrationData, registrationDataMock);
     component.registrationType = registrationDataMock.registrationType;
-    compiledTemplate = fixture.nativeElement;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  beforeEach(() => {
+    component.registrationData = Object.assign(new RegistrationData(), registrationDataMock, { email: 'user@institution.edu' });
+    fixture.detectChanges();
   });
 
   it('should set registrationType and informationText correctly when email is present', () => {
@@ -94,25 +92,16 @@ describe('ExternalLogInComponent', () => {
   });
 
   it('should render the template to confirm email when registrationData has email', () => {
-    component.registrationData = Object.assign(new RegistrationData(), registrationDataMock, { email: 'email@domain.com' });
-    fixture.detectChanges();
-    const selector = compiledTemplate.querySelector('ds-confirm-email');
-    expect(selector).toBeTruthy();
-  });
-
-  it('should display provide email component if email is not provided', () => {
-    component.registrationData.email = null;
-    fixture.detectChanges();
+    const selector = fixture.nativeElement.querySelector('ds-confirm-email');
     const provideEmail = fixture.nativeElement.querySelector('ds-provide-email');
-    expect(provideEmail).toBeTruthy();
+    expect(selector).toBeTruthy();
+    expect(provideEmail).toBeNull();
   });
 
   it('should display login modal when connect to existing account button is clicked', () => {
-    const button = fixture.nativeElement.querySelector('button');
+    const button = fixture.nativeElement.querySelector('button.btn-primary');
     button.click();
-    fixture.detectChanges();
-    const modal = fixture.nativeElement.querySelector('.modal');
-    expect(modal).toBeTruthy();
+    expect(modalService.open).toHaveBeenCalled();
   });
 
   it('should render the template with the translated informationText', () => {

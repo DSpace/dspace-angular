@@ -1,79 +1,78 @@
 import { TestBed } from '@angular/core/testing';
 import { ReviewAccountGuard } from './review-account.guard';
 import { ActivatedRoute, convertToParamMap, Params, Router } from '@angular/router';
-import { of as observableOf } from 'rxjs';
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { EpersonRegistrationService } from 'src/app/core/data/eperson-registration.service';
-import { EPerson } from 'src/app/core/eperson/models/eperson.model';
-import { Registration } from 'src/app/core/shared/registration.model';
-import { RouterMock } from 'src/app/shared/mocks/router.mock';
-import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
+import { of as observableOf, of } from 'rxjs';
+import { AuthService } from '../../core/auth/auth.service';
+import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
+import { RouterMock } from '../../shared/mocks/router.mock';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { RegistrationData } from '../../shared/external-log-in-complete/models/registration-data.model';
+import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 
 describe('ReviewAccountGuard', () => {
   let guard: ReviewAccountGuard;
+  let epersonRegistrationService: any;
+  let authService: any;
+
   const route = new RouterMock();
-  const registrationWithGroups = Object.assign(new Registration(),
+  const registrationMock = Object.assign(new RegistrationData(),
     {
       email: 'test@email.org',
-      token: 'test-token',
+      registrationType: AuthMethodType.Validation
+
     });
-  const epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
-    searchRegistrationByToken: createSuccessfulRemoteDataObject$(registrationWithGroups)
-  });
-  const authService = {
-    getAuthenticatedUserFromStore: () => observableOf(ePerson),
-    setRedirectUrl: () => {
-      return true;
-    }
-  } as any;
-  const ePerson = Object.assign(new EPerson(), {
-    id: 'test-eperson',
-    uuid: 'test-eperson'
-  });
+
   beforeEach(() => {
     const paramObject: Params = {};
     paramObject.token = '1234';
+    epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
+      searchRegistrationByToken: createSuccessfulRemoteDataObject$(registrationMock)
+    });
+    authService = {
+      isAuthenticated: () => observableOf(true)
+    } as any;
     TestBed.configureTestingModule({
-      providers: [{provide: Router, useValue: route},
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            queryParamMap: observableOf(convertToParamMap(paramObject))
-          },
+      providers: [{ provide: Router, useValue: route },
+      {
+        provide: ActivatedRoute,
+        useValue: {
+          queryParamMap: observableOf(convertToParamMap(paramObject))
         },
-        {provide: EpersonRegistrationService, useValue: epersonRegistrationService},
-        {provide: AuthService, useValue: authService}
+      },
+      { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
+      { provide: AuthService, useValue: authService }
       ]
     });
-    guard = TestBed.get(ReviewAccountGuard);
+    guard = TestBed.inject(ReviewAccountGuard);
   });
 
   it('should be created', () => {
     expect(guard).toBeTruthy();
   });
-  describe('based on the response of "searchByToken have', () => {
-    it('can activate must return true when registration data includes groups', () => {
-      (guard.canActivate({ params: { token: '123456789' } } as any, {} as any) as any)
-        .subscribe(
-          (canActivate) => {
-            expect(canActivate).toEqual(true);
-          }
-        );
-    });
-    it('can activate must return false when registration data includes groups', () => {
-      const registrationWithDifferentUsedFromLoggedInt = Object.assign(new Registration(),
-        {
-          email: 't1@email.org',
-          token: 'test-token',
-        });
-      epersonRegistrationService.searchRegistrationByToken.and.returnValue(observableOf(registrationWithDifferentUsedFromLoggedInt));
-      (guard.canActivate({ params: { token: '123456789' } } as any, {} as any) as any)
-        .subscribe(
-          (canActivate) => {
-            expect(canActivate).toEqual(false);
-          }
-        );
-    });
 
+  it('can activate must return true when registration type is validation', () => {
+    (guard.canActivate({ params: { token: 'valid token' } } as any, {} as any) as any)
+      .subscribe(
+        (canActivate) => {
+          expect(canActivate).toEqual(true);
+        }
+      );
+  });
+
+  it('should navigate to 404 if the registration search fails', () => {
+    epersonRegistrationService.searchRegistrationByToken.and.returnValue(createFailedRemoteDataObject$());
+    (guard.canActivate({ params: { token: 'invalid-token' } } as any, {} as any) as any).subscribe((result) => {
+      expect(result).toBeFalse();
+      expect(route.navigate).toHaveBeenCalledWith(['/404']);
+    });
+  });
+
+  it('should navigate to 404 if the registration type is not validation and the user is not authenticated', () => {
+    registrationMock.registrationType = AuthMethodType.Password;
+    epersonRegistrationService.searchRegistrationByToken.and.returnValue(createSuccessfulRemoteDataObject$(registrationMock));
+    spyOn(authService, 'isAuthenticated').and.returnValue(of(false));
+    (guard.canActivate({ params: { token: 'invalid-token' } } as any, {} as any) as any).subscribe((result) => {
+      expect(route.navigate).toHaveBeenCalledWith(['/404']);
+    });
   });
 });

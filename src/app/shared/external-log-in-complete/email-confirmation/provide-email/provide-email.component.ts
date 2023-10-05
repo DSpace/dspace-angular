@@ -25,7 +25,9 @@ export class ProvideEmailComponent implements OnDestroy {
    * The token from the URL
    */
   @Input() token: string;
-
+  /**
+   * The subscriptions to unsubscribe from
+   */
   subs: Subscription[] = [];
 
   constructor(
@@ -37,6 +39,10 @@ export class ProvideEmailComponent implements OnDestroy {
     });
   }
 
+  /**
+   * Updates the user's email in the registration data.
+   * @returns void
+   */
   submitForm() {
     this.emailForm.markAllAsTouched();
     if (this.emailForm.valid) {

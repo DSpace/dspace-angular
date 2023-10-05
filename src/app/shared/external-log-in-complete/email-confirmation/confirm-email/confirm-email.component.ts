@@ -53,6 +53,12 @@ export class ConfirmEmailComponent implements OnDestroy {
     });
   }
 
+
+  /**
+   * Submits the email form and performs appropriate actions based on the form's validity and user input.
+   * If the form is valid and the confirmed email matches the registration email, calls the postCreateAccountFromToken method with the token and registration data.
+   * If the form is valid but the confirmed email does not match the registration email, calls the patchUpdateRegistration method with the confirmed email.
+   */
   submitForm() {
     this.emailForm.markAllAsTouched();
     if (this.emailForm.valid) {
@@ -65,6 +71,11 @@ export class ConfirmEmailComponent implements OnDestroy {
     }
   }
 
+  /**
+   * Sends a PATCH request to update the user's registration with the given values.
+   * @param values - The values to update the user's registration with.
+   * @returns An Observable that emits the updated registration data.
+   */
   private patchUpdateRegistration(values: string[]) {
     this.subs.push(
       this.externalLoginService.patchUpdateRegistration(values, 'email', this.registrationData.id, this.token, 'replace')
@@ -111,8 +122,8 @@ export class ConfirmEmailComponent implements OnDestroy {
             this.translate.get('external-login-page.provide-email.create-account.notifications.error.content')
           );
         } else if (rd.hasSucceeded) {
-          // redirect to ORCID login page
-          // set Redirect URL to User profile
+          // redirect to login page with authMethod query param, so that the login page knows which authentication method to use
+          // set Redirect URL to User profile, so the user is redirected to the profile page after logging in
           this.router.navigate(['/login'], { queryParams: { authMethod: registrationData.registrationType } });
           this.authService.setRedirectUrl('/review-account');
         }
