@@ -3,10 +3,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ExternalLoginPageComponent } from './external-login-page.component';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { RegistrationData } from '../shared/external-log-in-complete/models/registration-data.model';
 import { CommonModule } from '@angular/common';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { Registration } from '../core/shared/registration.model';
 
 describe('ExternalLoginPageComponent', () => {
   let component: ExternalLoginPageComponent;
@@ -75,7 +75,7 @@ describe('ExternalLoginPageComponent', () => {
   });
 
   it('should display the DsExternalLogIn component when there are no errors', () => {
-    const registrationData = Object.assign(new RegistrationData(), registrationDataMock);
+    const registrationData = Object.assign(new Registration(), registrationDataMock);
     component.registrationData$ = of(registrationData);
     component.token = '1234567890';
     component.hasErrors = false;

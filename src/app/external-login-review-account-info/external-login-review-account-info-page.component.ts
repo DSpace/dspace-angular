@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertType } from '../shared/alert/aletr-type';
 import { Observable, first, map, tap } from 'rxjs';
-import { RegistrationData } from '../shared/external-log-in-complete/models/registration-data.model';
 import { ActivatedRoute } from '@angular/router';
 import { hasNoValue } from '../shared/empty.util';
+import { Registration } from '../core/shared/registration.model';
+import { RemoteData } from '../core/data/remote-data';
 
 @Component({
   templateUrl: './external-login-review-account-info-page.component.html',
@@ -23,7 +24,7 @@ export class ExternalLoginReviewAccountInfoPageComponent implements OnInit {
   /**
    * The registration data of the user
    */
-  public registrationData$: Observable<RegistrationData>;
+  public registrationData$: Observable<Registration>;
   /**
    * Whether the component has errors
    */
@@ -36,8 +37,10 @@ export class ExternalLoginReviewAccountInfoPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.registrationData$ = this.arouter.data.pipe(first(),
-      tap((data) => this.hasErrors = hasNoValue(data?.registrationData)),
-      map((data) => data.registrationData));
+    this.registrationData$ = this.arouter.data.pipe(
+      first(),
+      tap((data) => this.hasErrors = (data.registrationData as RemoteData<Registration>).hasFailed),
+      map((data) => (data.registrationData as RemoteData<Registration>).payload));
   }
 }
+

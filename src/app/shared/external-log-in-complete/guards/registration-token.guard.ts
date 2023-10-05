@@ -5,7 +5,7 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { Observable, map, of, tap } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
@@ -30,7 +30,7 @@ export class RegistrationTokenGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Promise<boolean> | boolean | Observable<boolean> {
+  ): Observable<boolean> {
     if (route.queryParams.token) {
       return this.epersonRegistrationService
         .searchRegistrationByToken(route.queryParams.token)

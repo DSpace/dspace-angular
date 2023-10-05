@@ -7,15 +7,15 @@ import {
 } from '@angular/core';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { RegistrationData } from '../../shared/external-log-in-complete/models/registration-data.model';
 import { Observable, Subscription, filter, from, switchMap, take } from 'rxjs';
-import { RemoteData } from '../..//core/data/remote-data';
-import { ConfirmationModalComponent } from '../..//shared/confirmation-modal/confirmation-modal.component';
+import { RemoteData } from '../../core/data/remote-data';
+import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { hasValue } from '../..//shared/empty.util';
+import { hasValue } from '../../shared/empty.util';
 import { TranslateService } from '@ngx-translate/core';
-import { NotificationsService } from '../..//shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { Router } from '@angular/router';
+import { Registration } from '../../core/shared/registration.model';
 
 export interface ReviewAccountInfoData {
   label: string;
@@ -39,7 +39,7 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
   /**
    * User data from the registration token
    */
-  @Input() registrationData: RegistrationData;
+  @Input() registrationData: Registration;
 
   /**
    * Text to display when the value is not applicable
@@ -143,7 +143,7 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
         }
 
         if (response.hasFailed) {
-          this.notificationService.success(
+          this.notificationService.error(
             this.translateService.get(
               'review-account-info.merge-data.notification.error'
             )

@@ -1,9 +1,9 @@
-import { AuthMethodType } from 'src/app/core/auth/models/auth.method-type';
-import { RegistrationData } from './registration-data.model';
+import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
 import { MetadataValue } from '../../../core/shared/metadata.models';
+import { Registration } from '../../../core/shared/registration.model';
 
-export const mockRegistrationDataModel: RegistrationData = Object.assign(
-  new RegistrationData(),
+export const mockRegistrationDataModel: Registration = Object.assign(
+  new Registration(),
   {
     id: '3',
     email: 'user@institution.edu',

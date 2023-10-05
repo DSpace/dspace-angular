@@ -7,16 +7,16 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ExternalLoginService } from '../../services/external-login.service';
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { EPersonDataService } from 'src/app/core/eperson/eperson-data.service';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
-import { AuthMethodType } from 'src/app/core/auth/models/auth.method-type';
-import { RegistrationData } from '../../models/registration-data.model';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
-import { EPerson } from 'src/app/core/eperson/models/eperson.model';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { Router } from '@angular/router';
-import { RouterMock } from 'src/app/shared/mocks/router.mock';
+import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { of } from 'rxjs';
+import { Registration } from '../../../../core/shared/registration.model';
 
 describe('ConfirmEmailComponent', () => {
   let component: ConfirmEmailComponent;
@@ -72,7 +72,7 @@ describe('ConfirmEmailComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ConfirmEmailComponent);
     component = fixture.componentInstance;
-    component.registrationData = Object.assign(new RegistrationData(), {
+    component.registrationData = Object.assign(new Registration(), {
       id: '123',
       email: 'test@example.com',
       registrationMetadata: {},

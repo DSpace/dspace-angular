@@ -6,12 +6,12 @@ import {
   Injector,
 } from '@angular/core';
 import { getExternalLoginConfirmationType } from '../external-log-in.methods-decorator';
-import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
-import { RegistrationData } from '../models/registration-data.model';
 import { hasValue } from '../../empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../../core/auth/auth.service';
+import { Registration } from '../../../core/shared/registration.model';
+import { AuthRegistrationType } from '../../../core/auth/models/auth.registration-type';
 
 @Component({
   selector: 'ds-external-log-in',
@@ -23,11 +23,11 @@ export class ExternalLogInComponent implements OnInit {
   /**
    * The type of registration type to be confirmed
    */
-  registrationType: AuthMethodType;
+  registrationType: AuthRegistrationType;
   /**
    * The registration data object
    */
-  @Input() registrationData: RegistrationData;
+  @Input() registrationData: Registration;
   /**
    * The token to be used to confirm the registration
    * @memberof ExternalLogInComponent

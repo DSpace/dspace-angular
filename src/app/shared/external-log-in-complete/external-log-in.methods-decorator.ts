@@ -1,4 +1,4 @@
-import { AuthMethodType } from '../../core/auth/models/auth.method-type';
+import { AuthRegistrationType } from 'src/app/core/auth/models/auth.registration-type';
 
 /**
  * Map to store the external login confirmation component for the given auth method type
@@ -9,7 +9,7 @@ const authMethodsMap = new Map();
  * @param authMethodType the type of the external login method
  */
 export function renderExternalLoginConfirmationFor(
-  authMethodType: AuthMethodType
+  authMethodType: AuthRegistrationType
 ) {
   return function decorator(objectElement: any) {
     if (!objectElement) {
@@ -23,7 +23,7 @@ export function renderExternalLoginConfirmationFor(
  * @param authMethodType the type of the external login method
  */
 export function getExternalLoginConfirmationType(
-  authMethodType: AuthMethodType
+  authMethodType: AuthRegistrationType
 ) {
   return authMethodsMap.get(authMethodType);
 }

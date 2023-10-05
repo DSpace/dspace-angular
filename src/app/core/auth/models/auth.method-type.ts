@@ -6,5 +6,4 @@ export enum AuthMethodType {
   X509 = 'x509',
   Oidc = 'oidc',
   Orcid = 'orcid',
-  Validation = 'validation',
 }

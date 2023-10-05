@@ -4,13 +4,12 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot,
 } from '@angular/router';
-import { Observable, map } from 'rxjs';
-import { EpersonRegistrationService } from 'src/app/core/data/eperson-registration.service';
+import { Observable } from 'rxjs';
+import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
 import { hasValue } from '../../empty.util';
-import { Registration } from 'src/app/core/shared/registration.model';
-import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { RegistrationData } from '../models/registration-data.model';
+import { Registration } from '../../../core/shared/registration.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { RemoteData } from '../../../core/data/remote-data';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +17,7 @@ import { RegistrationData } from '../models/registration-data.model';
 /**
  * Resolver for retrieving registration data based on a token.
  */
-export class RegistrationDataResolver implements Resolve<RegistrationData> {
+export class RegistrationDataResolver implements Resolve<RemoteData<Registration>> {
 
   /**
    * Constructor for RegistrationDataResolver.
@@ -30,20 +29,13 @@ export class RegistrationDataResolver implements Resolve<RegistrationData> {
    * Resolves registration data based on a token.
    * @param route The ActivatedRouteSnapshot containing the token parameter.
    * @param state The RouterStateSnapshot.
-   * @returns An Observable of RegistrationData.
+   * @returns An Observable of Registration.
    */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RegistrationData> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Registration>> {
     const token = route.queryParams.token;
     if (hasValue(token)) {
-     return this.epersonRegistrationService.searchByTokenAndUpdateData(token).pipe(
+     return this.epersonRegistrationService.searchRegistrationByToken(token).pipe(
         getFirstCompletedRemoteData(),
-        map((registrationRD: RemoteData<Registration>) => {
-          if (registrationRD.hasSucceeded && hasValue(registrationRD.payload)) {
-            return Object.assign(new RegistrationData(), registrationRD.payload);
-          } else {
-            return null;
-          }
-        })
       );
     }
   }

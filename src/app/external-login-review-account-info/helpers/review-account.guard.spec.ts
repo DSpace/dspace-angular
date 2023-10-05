@@ -6,8 +6,8 @@ import { AuthService } from '../../core/auth/auth.service';
 import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { RegistrationData } from '../../shared/external-log-in-complete/models/registration-data.model';
-import { AuthMethodType } from '../../core/auth/models/auth.method-type';
+import { Registration } from '../../core/shared/registration.model';
+import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
 
 describe('ReviewAccountGuard', () => {
   let guard: ReviewAccountGuard;
@@ -15,10 +15,10 @@ describe('ReviewAccountGuard', () => {
   let authService: any;
 
   const route = new RouterMock();
-  const registrationMock = Object.assign(new RegistrationData(),
+  const registrationMock = Object.assign(new Registration(),
     {
       email: 'test@email.org',
-      registrationType: AuthMethodType.Validation
+      registrationType: AuthRegistrationType.Validation
 
     });
 
@@ -68,7 +68,7 @@ describe('ReviewAccountGuard', () => {
   });
 
   it('should navigate to 404 if the registration type is not validation and the user is not authenticated', () => {
-    registrationMock.registrationType = AuthMethodType.Password;
+    registrationMock.registrationType = AuthRegistrationType.Password;
     epersonRegistrationService.searchRegistrationByToken.and.returnValue(createSuccessfulRemoteDataObject$(registrationMock));
     spyOn(authService, 'isAuthenticated').and.returnValue(of(false));
     (guard.canActivate({ params: { token: 'invalid-token' } } as any, {} as any) as any).subscribe((result) => {

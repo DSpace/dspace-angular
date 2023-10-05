@@ -12,8 +12,8 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthServiceMock } from '../../mocks/auth.service.mock';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
-import { RegistrationData } from '../models/registration-data.model';
+import { Registration } from '../../../core/shared/registration.model';
+import { AuthRegistrationType } from '../../../core/auth/models/auth.registration-type';
 
 describe('ExternalLogInComponent', () => {
   let component: ExternalLogInComponent;
@@ -24,7 +24,7 @@ describe('ExternalLogInComponent', () => {
     id: '3',
     email: 'user@institution.edu',
     user: '028dcbb8-0da2-4122-a0ea-254be49ca107',
-    registrationType: AuthMethodType.Orcid,
+    registrationType: AuthRegistrationType.Orcid,
     netId: '0000-1111-2222-3333',
     registrationMetadata: {
       'eperson.firstname': [
@@ -72,7 +72,7 @@ describe('ExternalLogInComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ExternalLogInComponent);
     component = fixture.componentInstance;
-    component.registrationData = Object.assign(new RegistrationData, registrationDataMock);
+    component.registrationData = Object.assign(new Registration, registrationDataMock);
     component.registrationType = registrationDataMock.registrationType;
     fixture.detectChanges();
   });
@@ -82,7 +82,7 @@ describe('ExternalLogInComponent', () => {
   });
 
   beforeEach(() => {
-    component.registrationData = Object.assign(new RegistrationData(), registrationDataMock, { email: 'user@institution.edu' });
+    component.registrationData = Object.assign(new Registration(), registrationDataMock, { email: 'user@institution.edu' });
     fixture.detectChanges();
   });
 

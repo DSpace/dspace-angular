@@ -1,10 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 
 import { RegistrationDataResolver } from './registration-data.resolver';
-import { EpersonRegistrationService } from 'src/app/core/data/eperson-registration.service';
-import { Registration } from 'src/app/core/shared/registration.model';
+import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
+import { Registration } from '../../../core/shared/registration.model';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { RegistrationData } from '../models/registration-data.model';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 
 describe('RegistrationDataResolver', () => {
@@ -40,7 +39,7 @@ describe('RegistrationDataResolver', () => {
     route.params = { token: token };
     const state = {} as RouterStateSnapshot;
 
-    resolver.resolve(route, state).subscribe((result: RegistrationData) => {
+    resolver.resolve(route, state).subscribe((result: Registration) => {
       expect(result).toBeDefined();
     });
   });

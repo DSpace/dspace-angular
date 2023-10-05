@@ -2,7 +2,6 @@ import { Component, ChangeDetectionStrategy, Input, OnDestroy } from '@angular/c
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExternalLoginService } from '../../services/external-login.service';
 import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../../core/shared/operators';
-import { RegistrationData } from '../../models/registration-data.model';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { hasValue } from '../../../../shared/empty.util';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
@@ -13,6 +12,7 @@ import isEqual from 'lodash/isEqual';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Registration } from '../../../../core/shared/registration.model';
 
 @Component({
   selector: 'ds-confirm-email',
@@ -28,7 +28,7 @@ export class ConfirmEmailComponent implements OnDestroy {
   /**
    * The registration data object
    */
-  @Input() registrationData: RegistrationData;
+  @Input() registrationData: Registration;
 
   /**
    * The token to be used to confirm the registration
@@ -99,7 +99,7 @@ export class ConfirmEmailComponent implements OnDestroy {
     */
   private postCreateAccountFromToken(
     token: string,
-    registrationData: RegistrationData
+    registrationData: Registration
   ) {
     const metadataValues = {};
     for (const [key, value] of Object.entries(registrationData.registrationMetadata)) {

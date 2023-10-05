@@ -19,9 +19,9 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { Router } from '@angular/router';
 import { RouterMock } from '../../shared/mocks/router.mock';
-import { RegistrationData } from '../../shared/external-log-in-complete/models/registration-data.model';
 import { EventEmitter } from '@angular/core';
 import { CompareValuesPipe } from '../helpers/compare-values.pipe';
+import { Registration } from '../../core/shared/registration.model';
 
 describe('ReviewAccountInfoComponent', () => {
   let component: ReviewAccountInfoComponent;
@@ -96,7 +96,7 @@ describe('ReviewAccountInfoComponent', () => {
     fixture = TestBed.createComponent(ReviewAccountInfoComponent);
     component = fixture.componentInstance;
     component.registrationData = Object.assign(
-      new RegistrationData(),
+      new Registration(),
       registrationDataMock
     );
     component.registrationToken = 'test-token';

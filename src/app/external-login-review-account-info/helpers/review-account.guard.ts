@@ -7,14 +7,13 @@ import {
 } from '@angular/router';
 import isEqual from 'lodash/isEqual';
 import { Observable, catchError, mergeMap, of, tap } from 'rxjs';
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { AuthMethodType } from 'src/app/core/auth/models/auth.method-type';
-import { EpersonRegistrationService } from 'src/app/core/data/eperson-registration.service';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
-import { Registration } from 'src/app/core/shared/registration.model';
-import { hasValue } from 'src/app/shared/empty.util';
-import { RegistrationData } from 'src/app/shared/external-log-in-complete/models/registration-data.model';
+import { AuthService } from '../../core/auth/auth.service';
+import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
+import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { Registration } from '../../core/shared/registration.model';
+import { hasValue } from '../../shared/empty.util';
 
 @Injectable({
   providedIn: 'root',
@@ -43,10 +42,9 @@ export class ReviewAccountGuard implements CanActivate {
           getFirstCompletedRemoteData(),
           mergeMap(
             (data: RemoteData<Registration>) => {
-              if (data.hasSucceeded && hasValue(data)) {
-                const registrationData = Object.assign(new RegistrationData(), data.payload);
+              if (data.hasSucceeded && hasValue(data.payload)) {
                 // is the registration type validation (account valid)
-                if (isEqual(registrationData.registrationType, AuthMethodType.Validation)) {
+                if (hasValue(data.payload.registrationType) && isEqual(data.payload.registrationType, AuthRegistrationType.Validation)) {
                   return of(true);
                 } else {
                   return this.authService.isAuthenticated();
