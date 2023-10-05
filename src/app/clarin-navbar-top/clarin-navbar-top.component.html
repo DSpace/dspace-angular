@@ -19,12 +19,12 @@
       <a class="hidden" id="repository_path" [href]="repositoryPath"></a>
       <div *ngIf="authenticatedUser != null" class="badge clarin-logout-badge px-2 py-1">
         <span>
-          <a style="color: #FFF;" href="/profile">
+          <a routerLink="/profile" style="color: #FFF;">
             <i class="fa fa-user pr-1 fa-lg"></i>{{authenticatedUser.name}}
           </a>
         </span>
         <span class="text-white px-1">|</span>
-        <a style="color: #FFF;" href="/logout">
+        <a routerLink="/logout" style="color: #FFF;">
           <i class="fas fa-sign-out-alt pr-1 fa-lg" aria-hidden="true"></i>{{'logout.title' | translate}}
         </a>
       </div>

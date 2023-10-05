@@ -3,6 +3,7 @@
   function AAI() {
     var host = 'https://' + window.location.hostname,
         ourEntityID = host.match("lindat.mff.cuni.cz") ? "https://ufal-point.mff.cuni.cz" : host;
+    var namespace = ''
     this.defaults = {
       //host : 'https://ufal-point.mff.cuni.cz',
       host : host, //better default (useful when testing on ufal-point-dev)
@@ -33,7 +34,7 @@
           opts.responseUrl,
           [ ],
           opts.host + '/Shibboleth.sso/Login?SAMLDS=1&target='+opts.target+'&entityID=');
-        djc.discoPath = window.location.origin + "/assets/";
+        djc.discoPath = window.location.origin + (namespace === '' ? namespace : '/' + namespace) + "/assets/";
         djc.metadata = [opts.metadataFeed];
         djc.subtitle = "Login via Your home institution (e.g. university)";
         djc.textHelp = opts.textHelp;
@@ -71,7 +72,7 @@
               case 'local':
                 // DiscoJuice.UI.setScreen(opts.localauth);
                 // jQuery('input#login').focus();
-                window.location = "/login?redirectUrl=" + window.location.href;
+                window.location = window.location.origin + (namespace === '' ? namespace : '/' + namespace) + "/login?redirectUrl=" + window.location.href;
                 break;
               //case 'saml':
               default:

@@ -7,6 +7,10 @@ body {
   overflow-x: hidden;
 }
 
+a {
+  cursor: pointer;
+}
+
 // Sticky Footer
 .outer-wrapper {
   display: flex;

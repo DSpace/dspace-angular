@@ -1,5 +1,5 @@
 import { ItemEditBitstreamComponent } from './item-edit-bitstream.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { of as observableOf } from 'rxjs';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
@@ -13,6 +13,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-dat
 import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
 import { By } from '@angular/platform-browser';
 import { BrowserOnlyMockPipe } from '../../../../shared/testing/browser-only-mock.pipe';
+import { RouterLinkDirectiveStub } from '../../../../shared/testing/router-link-directive.stub';
 
 let comp: ItemEditBitstreamComponent;
 let fixture: ComponentFixture<ItemEditBitstreamComponent>;
@@ -77,6 +78,7 @@ describe('ItemEditBitstreamComponent', () => {
         ItemEditBitstreamComponent,
         VarDirective,
         BrowserOnlyMockPipe,
+        RouterLinkDirectiveStub
       ],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService }
@@ -131,8 +133,11 @@ describe('ItemEditBitstreamComponent', () => {
   describe('when the component loads', () => {
     it('should contain download button with a valid link to the bitstreams download page', () => {
       fixture.detectChanges();
-      const downloadBtnHref = fixture.debugElement.query(By.css('[data-test="download-button"]')).nativeElement.getAttribute('href');
-      expect(downloadBtnHref).toEqual(comp.bitstreamDownloadUrl);
+      const linkDes = fixture.debugElement.queryAll(By.directive(RouterLinkDirectiveStub));
+      const routerLinkQuery = linkDes.map((de) => de.injector.get(RouterLinkDirectiveStub));
+
+      expect(routerLinkQuery.length).toBe(2);
+      expect(routerLinkQuery[0].routerLink).toBe(comp.bitstreamDownloadUrl);
     });
   });
 
