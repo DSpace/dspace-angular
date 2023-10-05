@@ -469,31 +469,31 @@
 
 
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
-  "admin.access-control.epeople.actions.delete": "Eliminare EPerson",
+  "admin.access-control.epeople.actions.delete": "Eliminare l'operatore",
 
   // "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
-  "admin.access-control.epeople.actions.impersonate": "Impersonare EPerson",
+  "admin.access-control.epeople.actions.impersonate": "Loggati come ",
 
   // "admin.access-control.epeople.actions.reset": "Reset password",
   "admin.access-control.epeople.actions.reset": "Reimposta password",
 
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
-  "admin.access-control.epeople.actions.stop-impersonating": "Smetti di impersonare EPerson",
+  "admin.access-control.epeople.actions.stop-impersonating": "Smetti di loggarti come",
 
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
-  "admin.access-control.epeople.breadcrumbs": "EPeople",
+  "admin.access-control.epeople.breadcrumbs": "Operatori",
 
   // "admin.access-control.epeople.title": "EPeople",
-  "admin.access-control.epeople.title": "EPeople",
+  "admin.access-control.epeople.title": "Operatori",
 
   // "admin.access-control.epeople.head": "EPeople",
-  "admin.access-control.epeople.head": "EPeople",
+  "admin.access-control.epeople.head": "Operatori",
 
   // "admin.access-control.epeople.search.head": "Search",
   "admin.access-control.epeople.search.head": "Ricerca",
 
   // "admin.access-control.epeople.button.see-all": "Browse All",
-  "admin.access-control.epeople.button.see-all": "Sfoglia tutto",
+  "admin.access-control.epeople.button.see-all": "Sfoglia",
 
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
   "admin.access-control.epeople.search.scope.metadata": "Metadati",
@@ -505,10 +505,10 @@
   "admin.access-control.epeople.search.button": "Ricerca",
 
   // "admin.access-control.epeople.search.placeholder": "Search people...",
-  "admin.access-control.epeople.search.placeholder": "Cerca persone...",
+  "admin.access-control.epeople.search.placeholder": "Cerca operatori...",
 
   // "admin.access-control.epeople.button.add": "Add EPerson",
-  "admin.access-control.epeople.button.add": "Aggiungi EPerson",
+  "admin.access-control.epeople.button.add": "Aggiungi operatori",
 
   // "admin.access-control.epeople.table.id": "ID",
   "admin.access-control.epeople.table.id": "ID",
@@ -520,7 +520,7 @@
   "admin.access-control.epeople.table.email": "E-mail (esatta)",
 
   // "admin.access-control.epeople.table.edit": "Edit",
-  "admin.access-control.epeople.table.edit": "Editare",
+  "admin.access-control.epeople.table.edit": "Modifica",
 
   // "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
   "admin.access-control.epeople.table.edit.buttons.edit": "Modifica \"{{name}}\"",
@@ -529,25 +529,25 @@
   "admin.access-control.epeople.table.edit.buttons.edit-disabled": "Non sei autorizzato a modificare questo gruppo",
 
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
-  "admin.access-control.epeople.table.edit.buttons.remove": "Eliminare \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.remove": "Elimina \"{{name}}\"",
 
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
-  "admin.access-control.epeople.no-items": "Nessuna EPersona da mostrare.",
+  "admin.access-control.epeople.no-items": "Nessun Operatore da mostrare.",
 
   // "admin.access-control.epeople.form.create": "Create EPerson",
-  "admin.access-control.epeople.form.create": "Crea EPersona",
+  "admin.access-control.epeople.form.create": "Crea Operatore",
 
   // "admin.access-control.epeople.form.edit": "Edit EPerson",
-  "admin.access-control.epeople.form.edit": "Modifica EPersona",
+  "admin.access-control.epeople.form.edit": "Modifica Operatore",
 
   // "admin.access-control.epeople.form.firstName": "First name",
-  "admin.access-control.epeople.form.firstName": "Nome di battesimo",
+  "admin.access-control.epeople.form.firstName": "Nome",
 
   // "admin.access-control.epeople.form.lastName": "Last name",
   "admin.access-control.epeople.form.lastName": "Cognome",
 
   // "admin.access-control.epeople.form.email": "E-mail",
-  "admin.access-control.epeople.form.email": "Posta elettronica",
+  "admin.access-control.epeople.form.email": "E-mail",
 
   // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
   "admin.access-control.epeople.form.emailHint": "Deve essere un indirizzo e-mail valido",
@@ -562,28 +562,28 @@
   "admin.access-control.epeople.form.return": "Indietro",
 
   // "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.created.success": "EPerson creato con successo \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.success": "Operatore creato con successo \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.created.failure": "Impossibile creare EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.failure": "Impossibile creare l'operatore \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Impossibile creare EPerson \"{{name}}\",  email \"{{email}}\" già in uso.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Impossibile creare l'operatore \"{{name}}\",  email \"{{email}}\" già presente.",
 
   // "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Impossibile modificare EPerson \"{{name}}\", email \"{{email}}\" già in uso.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Impossibile modificare l'operatore \"{{name}}\", email \"{{email}}\" già presenteo.",
 
   // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.edited.success": "EPerson modificato con successo \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.success": "Operatore modificato con successo \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.edited.failure": "Impossibile modificare EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.failure": "Impossibile modificare Operatore \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.deleted.success": "EPerson eliminato con successo \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.success": "operatore eliminato con successo \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.deleted.failure": "Impossibile eliminare EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.failure": "Impossibile eliminare l'operatore\"{{name}}\"",
 
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Membro dei seguenti gruppi:",
@@ -604,20 +604,20 @@
   "admin.access-control.epeople.form.table.collectionOrCommunity": "collection/Community",
 
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
-  "admin.access-control.epeople.form.memberOfNoGroups": "Questo EPerson non è membro di alcun gruppo",
+  "admin.access-control.epeople.form.memberOfNoGroups": "Questo operatore non è membro di alcun gruppo",
 
   // "admin.access-control.epeople.form.goToGroups": "Add to groups",
   "admin.access-control.epeople.form.goToGroups": "Aggiungi ai gruppi",
 
   // "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
-  "admin.access-control.epeople.notification.deleted.failure": "Impossibile eliminare l'EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": "Impossibile eliminare l'operatore: \"{{name}}\"",
 
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
-  "admin.access-control.epeople.notification.deleted.success": "EPerson eliminata con successo: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.success": "Operatore eliminato con successo: \"{{name}}\"",
 
 
   // "admin.access-control.groups.badge.disabled": "Disabled",
-  "admin.access-control.groups.badge.disabled": "Disabile",
+  "admin.access-control.groups.badge.disabled": "Disabilitato",
 
   // "admin.access-control.groups.badge.enabled": "Enabled",
   "admin.access-control.groups.badge.enabled": "Abilitato",
@@ -662,10 +662,10 @@
   "admin.access-control.groups.button.add": "Aggiungi gruppo",
 
   // "admin.access-control.groups.search.head": "Search groups",
-  "admin.access-control.groups.search.head": "Gruppi di ricerca",
+  "admin.access-control.groups.search.head": "Ricerca gruppi",
 
   // "admin.access-control.groups.button.see-all": "Browse all",
-  "admin.access-control.groups.button.see-all": "Sfoglia tutti",
+  "admin.access-control.groups.button.see-all": "Sfoglia",
 
   // "admin.access-control.groups.search.button": "Search",
   "admin.access-control.groups.search.button": "Ricerca",
@@ -686,7 +686,7 @@
   "admin.access-control.groups.table.members": "Membri",
 
   // "admin.access-control.groups.table.edit": "Edit",
-  "admin.access-control.groups.table.edit": "Editare",
+  "admin.access-control.groups.table.edit": "Modifica",
 
   // "admin.access-control.groups.table.edit.buttons.disable": "Disable \"{{name}}\"",
   "admin.access-control.groups.table.edit.buttons.disable": "Disabilita \"{{name}}\"",
@@ -695,7 +695,7 @@
   "admin.access-control.groups.table.edit.buttons.edit": "Modifica \"{{name}}\"",
 
   // "admin.access-control.groups.table.type": "Type",
-  "admin.access-control.groups.table.type": "Digitare",
+  "admin.access-control.groups.table.type": "type",
 
   // "admin.access-control.groups.table.status": "Status",
   "admin.access-control.groups.table.status": "Stato",
@@ -713,7 +713,7 @@
   "admin.access-control.groups.notification.deleted.failure.content": "Causa: \"{{cause}}\"",
 
   // "admin.access-control.groups.notification.edit.success": "Successfully edited group \"{{name}}\"",
-  "admin.access-control.groups.notification.edit.success": "Gruppo modificato correttamente \"{{name}}\"",
+  "admin.access-control.groups.notification.edit.success": "Gruppo \"{{name}}\" modificato correttamente",
 
   // "admin.access-control.groups.notification.edit.failure": "Failed to edit group \"{{name}}\"",
   "admin.access-control.groups.notification.edit.failure": "Impossibile modificare il gruppo \"{{name}}\"",
@@ -748,10 +748,10 @@
   "admin.access-control.groups.form.groupStatus.enabled": "Abilitato",
 
   // "admin.access-control.groups.form.groupStatus.disabled": "Disabled",
-  "admin.access-control.groups.form.groupStatus.disabled": "Disabile",
+  "admin.access-control.groups.form.groupStatus.disabled": "Disabilitato",
 
   // "admin.access-control.groups.form.groupType": "Type",
-  "admin.access-control.groups.form.groupType": "Digitare",
+  "admin.access-control.groups.form.groupType": "Type",
 
   // "admin.access-control.groups.form.groupType.institutional": "Institutional Role type",
   "admin.access-control.groups.form.groupType.institutional": "Tipo di ruolo istituzionale",
@@ -772,13 +772,13 @@
   "admin.access-control.groups.form.notification.created.failure": "Impossibile creare il gruppo \"{{name}}\"",
 
   // "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
-  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Impossibile creare il Gruppo con nome: \"{{name}}\", assicurarsi che il nome non sia già in uso.",
+  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Impossibile creare il Gruppo con nome: \"{{name}}\", assicurarsi che il nome non sia già presente.",
 
   // "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
   "admin.access-control.groups.form.notification.edited.failure": "Impossibile modificare il gruppo \"{{name}}\"",
 
   // "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
-  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Nome \"{{name}}\" già in uso!",
+  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Nome \"{{name}}\" già presente!",
 
   // "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
   "admin.access-control.groups.form.notification.edited.success": "Gruppo modificato correttamente \"{{name}}\"",
@@ -796,7 +796,7 @@
   "admin.access-control.groups.form.delete-group.modal.cancel": "Annulla",
 
   // "admin.access-control.groups.form.delete-group.modal.confirm": "Delete",
-  "admin.access-control.groups.form.delete-group.modal.confirm": "Cancellare",
+  "admin.access-control.groups.form.delete-group.modal.confirm": "Cancella",
 
   // "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
   "admin.access-control.groups.form.notification.deleted.success": "Gruppo eliminato con successo \"{{ name }}\"",
@@ -808,10 +808,10 @@
   "admin.access-control.groups.form.notification.deleted.failure.content": "Causa: \"{{ cause }}\"",
 
   // "admin.access-control.groups.form.members-list.head": "EPeople",
-  "admin.access-control.groups.form.members-list.head": "EPeople",
+  "admin.access-control.groups.form.members-list.head": "Operatore",
 
   // "admin.access-control.groups.form.members-list.search.head": "Add EPeople",
-  "admin.access-control.groups.form.members-list.search.head": "Aggiungi EPeople",
+  "admin.access-control.groups.form.members-list.search.head": "Aggiungi Operatore",
 
   // "admin.access-control.groups.form.members-list.button.see-all": "Browse All",
   "admin.access-control.groups.form.members-list.button.see-all": "Sfoglia tutto",
@@ -847,31 +847,31 @@
   "admin.access-control.groups.form.members-list.table.edit": "Rimuovi / Aggiungi",
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Rimuovi membro con nome \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Rimuovi utente con nome \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
   "admin.access-control.groups.form.members-list.notification.success.addMember": "Membro aggiunto con successo: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Impossibile aggiungere il membro: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Impossibile aggiungere l'utente: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Membro eliminato con successo: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Utente eliminato con successo: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Impossibile eliminare il membro: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Impossibile eliminare l'utente: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Aggiungi membro con nome \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Aggiungi l'utente con nome \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
   "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "Nessun gruppo corrente attivo, invia prima un nome.",
 
   // "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
-  "admin.access-control.groups.form.members-list.no-members-yet": "Ancora nessun membro del gruppo, cercali e aggiungili.",
+  "admin.access-control.groups.form.members-list.no-members-yet": "Ancora nessun utente del gruppo, cercali e aggiungili.",
 
   // "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
-  "admin.access-control.groups.form.members-list.no-items": "Nessun EPeople trovato in quella ricerca",
+  "admin.access-control.groups.form.members-list.no-items": "Nessun  operatore trovato nella ricerca",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
   "admin.access-control.groups.form.subgroups-list.notification.failure": "Qualcosa è andato storto: \"{{cause}}\"",
@@ -910,7 +910,7 @@
   "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Aggiungi sottogruppo con nome \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
-  "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Gruppo attuale",
+  "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Gruppo corrente",
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
   "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Sottogruppo aggiunto con successo: \"{{name}}\"",
@@ -925,16 +925,16 @@
   "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Impossibile eliminare il sottogruppo: \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-  "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "Al momento nessun gruppo attivo, invia prima un nome.",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "Al momento nessun gruppo attivo, invia prima un operatore.",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "This is the current group, can't be added.",
   "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "Questo è il gruppo corrente, non può essere aggiunto.",
 
   // "admin.access-control.groups.form.subgroups-list.no-items": "No groups found with this in their name or this as UUID",
-  "admin.access-control.groups.form.subgroups-list.no-items": "Nessun gruppo trovato con questo nel loro nome o questo come UUID",
+  "admin.access-control.groups.form.subgroups-list.no-items": "Nessun gruppo trovato con questo nome o questo come UUID",
 
   // "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
-  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "Nessun sottogruppo ancora nel gruppo.",
+  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "Nessun sottogruppo nel gruppo.",
 
   // "admin.access-control.groups.form.return": "Back",
   "admin.access-control.groups.form.return": "Indietro",
