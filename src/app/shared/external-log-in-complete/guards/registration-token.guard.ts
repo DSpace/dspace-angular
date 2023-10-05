@@ -33,7 +33,7 @@ export class RegistrationTokenGuard implements CanActivate {
   ): Promise<boolean> | boolean | Observable<boolean> {
     if (route.queryParams.token) {
       return this.epersonRegistrationService
-        .searchRegistrationByToken(route.params.token)
+        .searchRegistrationByToken(route.queryParams.token)
         .pipe(
           getFirstCompletedRemoteData(),
           map(
