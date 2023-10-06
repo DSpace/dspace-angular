@@ -20,7 +20,7 @@ definitions:
 
 pipelines:
   branches:
-    'coar-notify7-demo':
+    'dspace-cris-7':
       - step: *unittest-code-checks
   pull-requests:
     '**':
