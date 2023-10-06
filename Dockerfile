@@ -12,7 +12,7 @@ RUN apk add --update python3 make g++ && rm -rf /var/cache/apk/*
 
 # We run yarn install with an increased network timeout (5min) to avoid "ESOCKETTIMEDOUT" errors from hub.docker.com
 # See, for example https://github.com/yarnpkg/yarn/issues/5540
-RUN yarn install --network-timeout 300000
+RUN yarn install --network-timeout 1000000
 
 # On startup, run in DEVELOPMENT mode (this defaults to live reloading enabled, etc).
 # Listen / accept connections from all IP addresses.
