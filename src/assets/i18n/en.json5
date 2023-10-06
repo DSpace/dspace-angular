@@ -902,7 +902,67 @@
 
   "coar-notify-support.message-moderation.content": "To ensure a secure and productive environment, all incoming LDN messages are moderated. If you are planning to exchange information with us, kindly reach out via our dedicated Feedback form. You can access the Feedback form by clicking <a href=\"info/feedback\">here</a>.",
 
+  "service.overview.delete.header": "Delete Service",
 
+  "ldn-registered-services.title": "Registered Services",
+  "ldn-registered-services.table.name":"Name",
+  "ldn-registered-services.table.description": "Description",
+  "ldn-registered-services.table.status": "Status",
+  "ldn-registered-services.table.action": "Action",
+  "ldn-registered-services.new": "NEW",
+  "ldn-registered-services.new.breadcrumbs": "Registered Services",
+
+  "ldn-service.overview.table.enabled": "Enabled",
+  "ldn-service.overview.table.disabled": "Disabled",
+  "ldn-service.overview.table.clickToEnable": "Click to enable",
+  "ldn-service.overview.table.clickToDisable": "Click to disable",
+
+  "ldn-service-status": "Status",
+  "ldn-register-new-service.title": "Register a new service",
+  "ldn-new-service.form.label.submit": "Submit",
+  "ldn-new-service.form.label.name": "Name",
+  "ldn-new-service.form.label.description": "Description",
+  "ldn-new-service.form.label.url": "Service URL",
+  "ldn-new-service.form.label.ldnUrl": "LDN Inbox URL",
+  "ldn-new-service.form.placeholder.name": "Please provide service name",
+  "ldn-new-service.form.placeholder.description": "Please provide a description regarding your service",
+  "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
+  "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
+  "ldn-new-service.form.label.inboundPattern": "Inbound Patterns",
+  "ldn-new-service.form.label.placeholder.inboundPattern": "Select an Inbound Pattern",
+  "ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
+  "ldn-new-service.form.label.ItemFilter": "Item Filter",
+  "ldn-new-service.form.label.automatic": "Automatic",
+  "ldn-new-service.form.label.outboundPattern": "Outbound Patterns",
+  "ldn-new-service.form.label.placeholder.outboundPattern": "Select an Outbound Pattern",
+  "ldn-new-service.form.label.addPattern": "+ Add more",
+  "ldn-new-service.form.label.removeItemFilter": "Remove",
+  "ldn-register-new-service.breadcrumbs": "New Service",
+  "service.overview.delete.body": "Are you sure you want to delete this service?",
+  "service.overview.delete": "Delete service",
+  "ldn-edit-service.title": "Edit service",
+  "ldn-edit-service.form.label.name": "Name",
+  "ldn-edit-service.form.label.description": "Description",
+  "ldn-edit-service.form.label.url": "Service URL",
+  "ldn-edit-service.form.label.ldnUrl": "LDN Inbox URL",
+  "ldn-edit-service.form.label.inboundPattern": "Inbound Pattern",
+  "ldn-edit-service.form.label.noInboundPatternSelected": "No Inbound Pattern",
+  "ldn-edit-service.form.label.selectedItemFilter": "Selected Item Filter",
+  "ldn-edit-service.form.label.selectItemFilter": "No Item Filter",
+  "ldn-edit-service.form.label.automatic": "Automatic",
+  "ldn-edit-service.form.label.addInboundPattern": "+ Add more",
+  "ldn-edit-service.form.label.outboundPattern": "Outbound Pattern",
+  "ldn-edit-service.form.label.noOutboundPatternSelected": "No Outbound Pattern",
+  "ldn-edit-service.form.label.addOutboundPattern": "+ Add more",
+  "ldn-edit-service.form.label.submit": "Submit",
+  "ldn-edit-service.breadcrumbs": "Edit Service",
+
+
+
+  "ldn-register-new-service.notification.error.title": "Error",
+  "ldn-register-new-service.notification.error.content": "An error occurred while creating this process",
+  "ldn-register-new-service.notification.success.title": "Success",
+  "ldn-register-new-service.notification.success.content": "The process was successfully created",
 
   "collection.create.head": "Create a Collection",
 
@@ -2920,6 +2980,8 @@
 
   "menu.section.icon.notifications": "Notifications menu section",
 
+  "menu.section.icon.ldn_services": "LDN Services overview",
+
   "menu.section.import": "Import",
 
   "menu.section.import_batch": "Batch Import (ZIP)",
@@ -2957,6 +3019,10 @@
   "menu.section.registries_format": "Format",
 
   "menu.section.registries_metadata": "Metadata",
+
+  "menu.section.services": "LDN Services",
+
+  "menu.section.services_new": "LDN Service",
 
   "menu.section.statistics": "Statistics",
 
@@ -3346,6 +3412,10 @@
 
   "process.new.breadcrumbs": "Create a new process",
 
+
+
+
+
   "process.detail.arguments": "Arguments",
 
   "process.detail.arguments.empty": "This process doesn't contain any arguments",
@@ -3427,6 +3497,39 @@
   "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
 
   "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+
+  "service.detail.delete.cancel": "Cancel",
+
+  "service.detail.delete.button": "Delete service",
+
+  "service.detail.delete.header": "Delete service",
+
+  "service.detail.delete.body": "Are you sure you want to delete the current service?",
+
+  "service.detail.delete.confirm": "Delete service",
+
+  "service.detail.delete.success": "The service was successfully deleted.",
+
+  "service.detail.delete.error": "Something went wrong when deleting the service",
+
+  "service.overview.table.id": "Services ID",
+
+  "service.overview.table.name": "Name",
+
+  "service.overview.table.start": "Start time (UTC)",
+
+  "service.overview.table.status": "Status",
+
+  "service.overview.table.user": "User",
+
+  "service.overview.title": "Services Overview",
+
+  "service.overview.breadcrumbs": "Services Overview",
+
+  "service.overview.table.actions": "Actions",
+
+  "service.overview.table.description": "Description",
+
 
   "profile.breadcrumbs": "Update Profile",
 

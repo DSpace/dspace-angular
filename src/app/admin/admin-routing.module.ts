@@ -6,7 +6,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
 import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
-import { REGISTRIES_MODULE_PATH, NOTIFICATIONS_MODULE_PATH } from './admin-routing-paths';
+import { LDN_PATH, REGISTRIES_MODULE_PATH, NOTIFICATIONS_MODULE_PATH } from './admin-routing-paths';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
 
 @NgModule({
@@ -53,12 +53,23 @@ import { BatchImportPageComponent } from './admin-import-batch-page/batch-import
         data: { title: 'admin.batch-import.title', breadcrumbKey: 'admin.batch-import' }
       },
       {
+        path: LDN_PATH,
+        children: [
+          { path: '', pathMatch: 'full', redirectTo: 'services' },
+          {
+            path: 'services',
+            loadChildren: () => import('./admin-ldn-services/admin-ldn-services.module')
+                .then((m) => m.AdminLdnServicesModule),
+          }
+        ]
+      },
+      {
         path: 'system-wide-alert',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         loadChildren: () => import('../system-wide-alert/system-wide-alert.module').then((m) => m.SystemWideAlertModule),
         data: {title: 'admin.system-wide-alert.title', breadcrumbKey: 'admin.system-wide-alert'}
       },
-    ])
+    ]),
   ],
   providers: [
     I18nBreadcrumbResolver,

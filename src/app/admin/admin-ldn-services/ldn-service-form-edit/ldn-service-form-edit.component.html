@@ -1,0 +1,155 @@
+
+<form (ngSubmit)="submitForm()" [formGroup]="formModel">
+
+  <div class="toggle-switch-container">
+    <label for="enabled" class="status-label">{{ 'ldn-service-status' | translate }}</label>
+    <div>
+      <input formControlName="enabled" id="enabled" name="enabled" type="checkbox" hidden>
+      <div class="toggle-switch" [class.checked]="formModel.get('enabled').value" (click)="toggleEnabled()">
+        <div class="slider"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-2">
+    <label for="name">{{ 'ldn-new-service.form.label.name' | translate }}</label>
+    <input [placeholder]="'ldn-new-service.form.placeholder.name' | translate"
+           formControlName="name" id="name" name="name"
+           [class.invalid-field]="formModel.get('name').invalid && formModel.get('name').touched"
+           type="text">
+  </div>
+
+  <div class="mb-4">
+    &nbsp;
+  </div>
+
+  <div class="mb-2 d-flex flex-column">
+    <label for="description">{{ 'ldn-new-service.form.label.description' | translate }}</label>
+    <textarea [placeholder]="'ldn-new-service.form.placeholder.description' | translate"
+              formControlName="description" id="description" name="description"></textarea>
+  </div>
+
+  <div class="mb-4">
+    &nbsp;
+  </div>
+
+  <div class="mb-2">
+    <label for="url">{{ 'ldn-new-service.form.label.url' | translate }}</label>
+    <input [placeholder]="'ldn-new-service.form.placeholder.url' | translate"
+           formControlName="url" id="url" name="url"
+           [class.invalid-field]="formModel.get('url').invalid && formModel.get('url').touched"
+           type="text">
+  </div>
+
+  <div class="mb-4">
+    &nbsp;
+  </div>
+
+  <div class="mb-2">
+    <label for="ldnUrl">{{ 'ldn-new-service.form.label.ldnUrl' | translate }}</label>
+    <input [placeholder]="'ldn-new-service.form.placeholder.ldnUrl' | translate"
+           formControlName="ldnUrl" id="ldnUrl" name="ldnUrl"
+           [class.invalid-field]="formModel.get('ldnUrl').invalid && formModel.get('ldnUrl').touched"
+           type="text">
+  </div>
+
+  <div class="mb-4">
+    &nbsp;
+  </div>
+
+  <div *ngFor="let patternGroup of formModel.get('notifyServiceInboundPatterns')['controls']; let i = index"
+       class="mb-2 d-flex align-content-center" formGroupName="notifyServiceInboundPatterns">
+
+    <ng-container [formGroupName]="i">
+
+      <div class="flex-grow-1">
+        <label *ngIf="i === 0" for="additionalInboundPattern{{i}}">{{ 'ldn-new-service.form.label.inboundPattern' | translate }} </label>
+        <select #inboundPattern formControlName="pattern" id="additionalInboundPattern{{i}}"
+                name="additionalInboundPattern{{i}}" required>
+          <option value="">{{ 'ldn-new-service.form.label.placeholder.inboundPattern' | translate }}</option>
+          <option *ngFor="let pattern of inboundPatterns" [ngValue]="pattern.name">{{ pattern.name }}</option>
+        </select>
+      </div>
+
+      <ng-container *ngIf="inboundPattern.value">
+
+        <div class="ml-2 flex-grow-1">
+          <label *ngIf="i === 0" for="constraint{{i}}">{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
+          <select formControlName="constraint" id="constraint{{i}}" name="constraint{{i}}">
+            <option value="">{{ 'ldn-new-service.form.label.placeholder.selectedItemFilter' | translate }}</option>
+            <option *ngFor="let itemFilter of itemFilterList" [value]="itemFilter.name">{{ itemFilter.name }}</option>
+          </select>
+        </div>
+
+        <div class="ml-2 d-flex flex-column align-content-center">
+          <label *ngIf="i === 0" for="automatic{{i}}">{{ 'ldn-new-service.form.label.automatic' | translate }}</label>
+          <div class="d-flex flex-grow-1 align-content-center justify-content-center">
+            <input formControlName="automatic" id="automatic{{i}}" name="automatic{{i}}" type="checkbox" hidden>
+            <div class="toggle-switch" [class.checked]="formModel.get('notifyServiceInboundPatterns.' + i + '.automatic').value" (click)="toggleAutomatic(i)">
+              <div class="slider"></div>
+            </div>
+          </div>
+        </div>
+
+      </ng-container>
+
+      <div class="d-flex align-items-end justify-content-center">
+        <button (click)="removeInboundPattern(i)" class="btn btn-outline-dark trash-button ml-2">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+
+    </ng-container>
+
+  </div>
+
+  <span (click)="addInboundPattern()" class="add-pattern-link mb-2">{{ 'ldn-new-service.form.label.addPattern' | translate }}</span>
+
+  <div class="mb-4">
+    &nbsp;
+  </div>
+
+  <div *ngFor="let patternGroup of formModel.get('notifyServiceOutboundPatterns')['controls']; let i = index"
+       class="mb-2 d-flex align-content-center" formGroupName="notifyServiceOutboundPatterns">
+
+    <ng-container [formGroupName]="i">
+
+      <div class="flex-grow-1">
+        <label *ngIf="i === 0" for="additionalOutboundPattern{{i}}">{{ 'ldn-new-service.form.label.outboundPattern' | translate }}</label>
+        <select #outboundPattern formControlName="pattern" id="additionalOutboundPattern{{i}}"
+                name="additionalOutboundPattern{{i}}"
+                required>
+          <option value="">{{ 'ldn-new-service.form.label.placeholder.outboundPattern' | translate }}</option>
+          <option *ngFor="let pattern of outboundPatterns" [ngValue]="pattern.name">{{ pattern.name }}</option>
+        </select>
+      </div>
+
+      <div *ngIf="outboundPattern.value" class="ml-2 flex-grow-1">
+        <label *ngIf="i === 0" for="constraint{{i}}">{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
+        <select formControlName="constraint" id="constraint{{i}}" name="constraint{{i}}">
+          <option value="">{{ 'ldn-new-service.form.label.placeholder.selectedItemFilter' | translate }}</option>
+          <option *ngFor="let itemFilter of itemFilterList" [value]="itemFilter.name">{{ itemFilter.name }}</option>
+        </select>
+      </div>
+
+      <div class="d-flex align-items-end justify-content-center">
+        <button (click)="removeOutboundPattern(i)" class="btn btn-outline-dark trash-button ml-2">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+
+    </ng-container>
+
+  </div>
+
+
+  <span
+    (click)="addOutboundPattern()" class="add-pattern-link mb-2">{{ 'ldn-new-service.form.label.addPattern' | translate }}
+  </span>
+
+  <div class="mb-2">
+    &nbsp;
+  </div>
+
+  <button class="btn btn-primary" type="submit">{{ 'ldn-new-service.form.label.submit' | translate }}</button>
+</form>
