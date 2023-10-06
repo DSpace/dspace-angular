@@ -1,19 +1,19 @@
 <ng-container *ngIf="attachment">
-  <div class="d-flex flex-row flex-wrap flex-lg-nowrap card-container mt-1 mb-3" data-test="attachment-info">
+  <div class="d-flex flex-row flex-wrap flex-lg-nowrap card-container mt-1 mb-3 gap-3" data-test="attachment-info">
 
-    <div class="order-lg-1 mr-lg-3 mb-3 thumbnail-wrapper">
+    <div class="order-lg-1 thumbnail-wrapper">
       <ds-thumbnail [thumbnail]="attachment.thumbnail | async"></ds-thumbnail>
     </div>
 
-    <div class="order-lg-3 pl-3 ml-auto mb-3">
-      <div class="d-flex flex-column align-items-end">
+    <div class="order-lg-3 ml-auto">
+      <div class="d-flex flex-column align-items-end gap-3">
         <ng-container *ngFor="let renderingType of allAttachmentProviders">
-          <div class="mb-3 text-nowrap">
+          <div class="text-nowrap">
             <ds-attachment-render [renderingType]="renderingType" [bitstream]="attachment" [item]="item"></ds-attachment-render>
           </div>
         </ng-container>
         <!-- Default download button -->
-        <div class="mb-3 text-nowrap">
+        <div class="text-nowrap">
           <ds-attachment-render [renderingType]="AttachmentRenderingType.DOWNLOAD" [bitstream]="attachment" [item]="item"></ds-attachment-render>
         </div>
       </div>
