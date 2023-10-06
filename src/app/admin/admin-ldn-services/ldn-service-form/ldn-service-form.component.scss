@@ -7,7 +7,7 @@ form {
   margin-left: 300px;
 
   & > * {
-   width: 100%;
+    width: 100%;
   }
 }
 
@@ -21,10 +21,6 @@ select {
 
 option:not(:first-child) {
   font-weight: bold;
-}
-
-select {
-  width: 90%;
 }
 
 .trash-button {
@@ -57,7 +53,6 @@ textarea {
   border: 1px solid red;
   color: #000000;
 }
-
 
 .toggle-switch {
   display: flex;
@@ -97,4 +92,23 @@ textarea {
 .toggle-switch.checked .slider {
   transform: translateX(30px);
 }
+
+.toggle-switch-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin-top: 10px;
+}
+
+.toggle-switch {
+  cursor: pointer;
+}
+
+
+
+
+
+
+
 

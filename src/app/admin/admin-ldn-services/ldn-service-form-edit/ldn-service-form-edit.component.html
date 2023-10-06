@@ -143,7 +143,13 @@
   </div>
 
 
-  <span (click)="addOutboundPattern()" class="add-pattern-link mb-2">{{ 'ldn-new-service.form.label.addPattern' | translate }}</span>
+  <span
+    (click)="addOutboundPattern()" class="add-pattern-link mb-2">{{ 'ldn-new-service.form.label.addPattern' | translate }}
+  </span>
+
+  <div class="mb-2">
+    &nbsp;
+  </div>
 
   <button class="btn btn-primary" type="submit">{{ 'ldn-new-service.form.label.submit' | translate }}</button>
 </form>
