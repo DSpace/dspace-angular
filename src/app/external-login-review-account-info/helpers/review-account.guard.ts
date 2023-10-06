@@ -5,7 +5,6 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import isEqual from 'lodash/isEqual';
 import { Observable, catchError, mergeMap, of, tap } from 'rxjs';
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
@@ -44,7 +43,7 @@ export class ReviewAccountGuard implements CanActivate {
             (data: RemoteData<Registration>) => {
               if (data.hasSucceeded && hasValue(data.payload)) {
                 // is the registration type validation (account valid)
-                if (hasValue(data.payload.registrationType) && isEqual(data.payload.registrationType, AuthRegistrationType.Validation)) {
+                if (hasValue(data.payload.registrationType) && data.payload.registrationType.includes(AuthRegistrationType.Validation)) {
                   return of(true);
                 } else {
                   return this.authService.isAuthenticated();

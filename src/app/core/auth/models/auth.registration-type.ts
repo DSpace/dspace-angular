@@ -1,4 +1,4 @@
 export enum AuthRegistrationType {
   Orcid = 'ORCID',
-  Validation = 'VALIDATION',
+  Validation = 'VALIDATION_',
 }

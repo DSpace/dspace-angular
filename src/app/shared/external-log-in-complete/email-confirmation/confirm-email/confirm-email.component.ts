@@ -5,14 +5,14 @@ import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../../c
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { hasNoValue, hasValue } from '../../../../shared/empty.util';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, combineLatest, take } from 'rxjs';
 import { Registration } from '../../../../core/shared/registration.model';
+import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 
 @Component({
   selector: 'ds-confirm-email',
@@ -39,6 +39,8 @@ export class ConfirmEmailComponent implements OnDestroy {
    */
   subs: Subscription[] = [];
 
+  externalLocation: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private externalLoginService: ExternalLoginService,
@@ -46,7 +48,8 @@ export class ConfirmEmailComponent implements OnDestroy {
     private notificationService: NotificationsService,
     private translate: TranslateService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private hardRedirectService: HardRedirectService,
   ) {
     this.emailForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
@@ -119,21 +122,28 @@ export class ConfirmEmailComponent implements OnDestroy {
     eperson.requireCertificate = false;
     eperson.selfRegistered = true;
     this.subs.push(
-      this.epersonDataService.createEPersonForToken(eperson, token).pipe(
-        getFirstCompletedRemoteData(),
-      ).subscribe((rd: RemoteData<EPerson>) => {
-        if (rd.hasFailed) {
-          this.notificationService.error(
-            this.translate.get('external-login-page.provide-email.create-account.notifications.error.header'),
-            this.translate.get('external-login-page.provide-email.create-account.notifications.error.content')
-          );
-        } else if (rd.hasSucceeded) {
-          // redirect to login page with authMethod query param, so that the login page knows which authentication method to use
-          // set Redirect URL to User profile, so the user is redirected to the profile page after logging in
-          this.router.navigate(['/login'], { queryParams: { authMethod: registrationData.registrationType } });
-          this.authService.setRedirectUrl('/profile');
-        }
-      }));
+      combineLatest([
+        this.epersonDataService.createEPersonForToken(eperson, token).pipe(
+          getFirstCompletedRemoteData(),
+        ),
+        this.externalLoginService.getExternalAuthLocation(this.registrationData.registrationType),
+        this.authService.getRedirectUrl().pipe(take(1))
+      ])
+        .subscribe(([rd, location, redirectRoute]) => {
+          if (rd.hasFailed) {
+            this.notificationService.error(
+              this.translate.get('external-login-page.provide-email.create-account.notifications.error.header'),
+              this.translate.get('external-login-page.provide-email.create-account.notifications.error.content')
+            );
+          } else if (rd.hasSucceeded) {
+            // set Redirect URL to User profile, so the user is redirected to the profile page after logging in
+            this.authService.setRedirectUrl('/profile');
+            const externalServerUrl = this.authService.getExternalServerRedirectUrl(redirectRoute, location);
+            // redirect to external registration type authentication url
+            this.hardRedirectService.redirect(externalServerUrl);
+          }
+        })
+    );
   }
 
   ngOnDestroy(): void {

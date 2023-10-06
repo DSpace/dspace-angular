@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { Observable, Subscription, filter, from, map, switchMap, take, tap } from 'rxjs';
+import { Observable, Subscription, combineLatest, filter, from, map, switchMap, take, tap } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -17,6 +17,9 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { Router } from '@angular/router';
 import { Registration } from '../../core/shared/registration.model';
 import { AuthService } from '../../core/auth/auth.service';
+import { ExternalLoginService } from '../../shared/external-log-in-complete/services/external-login.service';
+import { HardRedirectService } from '../../core/services/hard-redirect.service';
+import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
 
 export interface ReviewAccountInfoData {
   label: string;
@@ -61,7 +64,9 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
     private notificationService: NotificationsService,
     private translateService: TranslateService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private externalLoginService: ExternalLoginService,
+    private hardRedirectService: HardRedirectService,
   ) { }
 
   ngOnInit(): void {
@@ -108,7 +113,7 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
               modalRef.componentInstance.response.pipe(
                 tap((confirm: boolean) => {
                   if (confirm) {
-                    this.mergeEPersonDataWithToken(userId);
+                    this.mergeEPersonDataWithToken(userId, this.registrationData.registrationType);
                   }
                 })
               )
@@ -122,7 +127,8 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
           .pipe(take(1))
           .subscribe((confirm: boolean) => {
             if (confirm && this.registrationData.user) {
-              this.mergeEPersonDataWithToken(this.registrationData.user);
+              const registrationType = this.registrationData.registrationType.split(AuthRegistrationType.Validation)[1];
+              this.mergeEPersonDataWithToken(this.registrationData.user, registrationType);
             }
           })
       );
@@ -134,7 +140,7 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
    * If any of the metadata is overridden, sent a merge request for each metadata to override.
    * If none of the metadata is overridden, sent a merge request with the registration token only.
    */
-  mergeEPersonDataWithToken(userId: string) {
+  mergeEPersonDataWithToken(userId: string, registrationType: string) {
     let override$: Observable<RemoteData<EPerson>>;
     if (this.dataToCompare.some((d) => d.overrideValue)) {
       override$ = from(this.dataToCompare).pipe(
@@ -153,8 +159,16 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
         this.registrationToken
       );
     }
+    if (this.registrationData.user && this.registrationData.registrationType.includes(AuthRegistrationType.Validation)) {
+      this.handleUnauthenticatedUser(override$, registrationType);
+    } else {
+      this.handleAuthenticatedUser(override$);
+    }
+  }
+
+  handleAuthenticatedUser(override$: Observable<RemoteData<EPerson>>) {
     this.subs.push(
-      override$.subscribe((response) => {
+      override$.subscribe((response: RemoteData<EPerson>) => {
         if (response.hasSucceeded) {
           this.notificationService.success(
             this.translateService.get(
@@ -162,7 +176,7 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
             )
           );
           this.router.navigate(['/profile']);
-        } else  {
+        } else if (response.hasFailed) {
           this.notificationService.error(
             this.translateService.get(
               'review-account-info.merge-data.notification.error'
@@ -170,6 +184,35 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
           );
         }
       })
+    );
+  }
+
+  handleUnauthenticatedUser(override$: Observable<RemoteData<EPerson>>, registrationType: string) {
+    this.subs.push(
+      combineLatest([
+        override$,
+        this.externalLoginService.getExternalAuthLocation(registrationType),
+        this.authService.getRedirectUrl()])
+        .subscribe(([response, location, redirectRoute]) => {
+          if (response.hasSucceeded) {
+            this.notificationService.success(
+              this.translateService.get(
+                'review-account-info.merge-data.notification.success'
+              )
+            );
+            // set Redirect URL to User profile, so the user is redirected to the profile page after logging in
+            this.authService.setRedirectUrl('/profile');
+            const externalServerUrl = this.authService.getExternalServerRedirectUrl(redirectRoute, location);
+            // redirect to external registration type authentication url
+            this.hardRedirectService.redirect(externalServerUrl);
+          } else if (response.hasFailed) {
+            this.notificationService.error(
+              this.translateService.get(
+                'review-account-info.merge-data.notification.error'
+              )
+            );
+          }
+        })
     );
   }
 
