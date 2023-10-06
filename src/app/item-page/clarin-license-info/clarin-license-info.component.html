@@ -10,7 +10,7 @@
     <div>
       <a [href]="licenseURI">{{license}}</a>
     </div>
-    <div class="d-inline" *ngFor="let icon of licenseLabelIcons">
+    <div class="d-inline" *ngFor="let icon of (licenseLabelIcons | async)">
       <img class="mr-1" [src]="secureImageData(icon)" alt="" width="24px">
     </div>
   </div>

@@ -8,6 +8,7 @@ import { ClarinLicenseDataService } from '../../core/data/clarin/clarin-license-
 import { ClarinLicense } from '../../core/shared/clarin/clarin-license.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { secureImageData } from '../../shared/clarin-shared-util';
+import { BehaviorSubject } from 'rxjs';
 
 /**
  * This component show clarin license info in the item page and item full page.
@@ -50,7 +51,7 @@ export class ClarinLicenseInfoComponent implements OnInit {
   /**
    * Current License Label icon as byte array.
    */
-  licenseLabelIcons: any[] = [];
+  licenseLabelIcons: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
   ngOnInit(): void {
     // load license info from item attributes
@@ -83,9 +84,11 @@ export class ClarinLicenseInfoComponent implements OnInit {
         getFirstCompletedRemoteData(),
         switchMap((clList: RemoteData<PaginatedList<ClarinLicense>>) => clList?.payload?.page))
       .subscribe(clarinLicense => {
+          let iconsList = [];
           clarinLicense.extendedClarinLicenseLabels.forEach(extendedCll => {
-            this.licenseLabelIcons.push(extendedCll?.icon);
+            iconsList.push(extendedCll?.icon);
           });
+          this.licenseLabelIcons.next(iconsList);
         });
   }
 
