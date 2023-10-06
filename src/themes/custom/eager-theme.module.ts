@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../app/shared/shared.module';
 import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { SearchNavbarComponent } from './app/search-navbar/search-navbar.component';
 import { HeaderComponent } from './app/header/header.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
-import { SearchModule } from '../../app/shared/search/search.module';
 import { RootModule } from '../../app/root.module';
 import { NavbarModule } from '../../app/navbar/navbar.module';
 import { PublicationComponent } from './app/item-page/simple/item-types/publication/publication.component';
@@ -43,11 +41,19 @@ import {
 
 import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
 import { CollectionListElementComponent} from './app/shared/object-list/collection-list-element/collection-list-element.component';
+import { CollectionDropdownComponent } from './app/shared/collection-dropdown/collection-dropdown.component';
+import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
+import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
+import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
+import { FileDownloadLinkComponent } from './app/shared/file-download-link/file-download-link.component';
 
 import { FooterModule } from '../../app/footer/footer.module';
 import { ExploreModule } from '../../app/shared/explore/explore.module';
 import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
 import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
+import {
+  AttachmentRenderingModule
+} from '../../app/cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/bitstream-attachment/attachment-render/attachment-rendering.module';
 
 /**
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.
@@ -62,6 +68,8 @@ const ENTRY_COMPONENTS = [
 
   CommunityListElementComponent,
   CollectionListElementComponent,
+  CollectionDropdownComponent,
+  FileDownloadLinkComponent,
 ];
 
 const DECLARATIONS = [
@@ -84,12 +92,14 @@ const DECLARATIONS = [
   imports: [
     CommonModule,
     SharedModule,
-    SearchModule,
-    FormsModule,
     RootModule,
     NavbarModule,
+    SharedBrowseByModule,
+    ResultsBackButtonModule,
     ItemPageModule,
     ItemSharedModule,
+    DsoPageModule,
+    AttachmentRenderingModule,
     ContextMenuModule,
     FooterModule,
     ExploreModule,
@@ -97,7 +107,7 @@ const DECLARATIONS = [
   ],
   declarations: DECLARATIONS,
   providers: [
-    ...ENTRY_COMPONENTS.map((component) => ({ provide: component }))
+    ...ENTRY_COMPONENTS.map((component) => ({provide: component}))
   ],
 })
 /**

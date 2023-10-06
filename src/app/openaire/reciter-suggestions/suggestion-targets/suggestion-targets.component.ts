@@ -11,6 +11,7 @@ import { SuggestionTargetsStateService } from './suggestion-targets.state.servic
 import { getSuggestionPageRoute } from '../../../suggestions-page/suggestions-page-routing-paths';
 import { SuggestionsService } from '../suggestions.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { UUIDService } from '../../../core/shared/uuid.service';
 
 /**
  * Component to display the Suggestion Target list.
@@ -32,7 +33,7 @@ export class SuggestionTargetsComponent implements OnInit {
    * @type {PaginationComponentOptions}
    */
   public paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'stp',
+    id: this.uuidService.generate(),
     pageSizeOptions: [5, 10, 20, 40, 60]
   });
 
@@ -56,12 +57,14 @@ export class SuggestionTargetsComponent implements OnInit {
    * @param {SuggestionTargetsStateService} suggestionTargetsStateService
    * @param {SuggestionsService} suggestionService
    * @param {Router} router
+   * @param {uuidService} uuidService
    */
   constructor(
     private paginationService: PaginationService,
     private suggestionTargetsStateService: SuggestionTargetsStateService,
     private suggestionService: SuggestionsService,
-    private router: Router
+    private router: Router,
+    private uuidService: UUIDService
   ) {
   }
 

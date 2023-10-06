@@ -26,9 +26,40 @@ const MENU_STATE = {
 };
 const EXPLORE_SECTIONS_DEFINITIONS = [
   { id: 'definition1' },
+  {
+    id: 'definition2',
+    nestedSections: [
+      { id: 'definition1' },
+      { id: 'definition2' }
+    ]
+  },
+  { id: 'definition3' },
+];
+
+const ALL_FLAT_MENUS = [
+  { id: 'definition1' },
   { id: 'definition2' },
   { id: 'definition3' },
 ];
+const ALL_NESTED_MENUS = [
+  {
+    id: 'definition1',
+    nestedSections: [
+      { id: 'definition1' },
+    ]
+  },{
+    id: 'definition2',
+    nestedSections: [
+      { id: 'definition2' },
+    ]
+  },{
+    id: 'definition3',
+    nestedSections: [
+      { id: 'definition3' },
+    ]
+  }
+];
+const NO_MENUS = [];
 
 describe('MenuResolver', () => {
   let resolver: MenuResolver;
@@ -131,36 +162,83 @@ describe('MenuResolver', () => {
           id: 'explore_definition2', visible: true,
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, jasmine.objectContaining({
+          id: 'explore_nested_definition2',
+          parentID: 'explore_definition2',
+          active: false,
+          visible: true
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, jasmine.objectContaining({
           id: 'explore_definition3', visible: true,
         }));
+      });
+    });
+
+    describe('handle menus', () => {
+      it('should show all flat menus', () => {
+        sectionsService.findVisibleSections.and.returnValue(
+          createSuccessfulRemoteDataObject$(createPaginatedList(ALL_FLAT_MENUS))
+        );
+        resolver.createPublicMenu$().subscribe();
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, jasmine.objectContaining({
+          id: 'explore_definition1', visible: true,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, jasmine.objectContaining({
+          id: 'explore_definition2', visible: true,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, jasmine.objectContaining({
+          id: 'explore_definition3', visible: true,
+        }));
+      });
+
+      it('should show all nested menus', () => {
+        sectionsService.findVisibleSections.and.returnValue(
+          createSuccessfulRemoteDataObject$(createPaginatedList(ALL_NESTED_MENUS))
+        );
+        resolver.createPublicMenu$().subscribe();
+        expect(menuService.addSection).toHaveBeenCalledWith(
+          MenuID.PUBLIC,
+          jasmine.objectContaining({
+            id: 'explore_nested_definition1',
+            parentID: 'explore_definition1',
+            active: false,
+            visible: true
+          })
+        );
+        expect(menuService.addSection).toHaveBeenCalledWith(
+          MenuID.PUBLIC,
+          jasmine.objectContaining({
+            id: 'explore_nested_definition2',
+            parentID: 'explore_definition2',
+            active: false,
+            visible: true
+          })
+        );
+        expect(menuService.addSection).toHaveBeenCalledWith(
+          MenuID.PUBLIC,
+          jasmine.objectContaining({
+            id: 'explore_nested_definition3',
+            parentID: 'explore_definition3',
+            active: false,
+            visible: true
+          })
+        );
+      });
+
+      it('should show no menus', () => {
+        sectionsService.findVisibleSections.and.returnValue(
+          createSuccessfulRemoteDataObject$(createPaginatedList(NO_MENUS))
+        );
+        resolver.createPublicMenu$().subscribe();
+        expect(menuService.addSection).toHaveBeenCalledWith(
+          MenuID.PUBLIC,
+          jasmine.objectContaining({})
+        );
       });
     });
   });
 
   describe('createAdminMenu$', () => {
-    it('should retrieve the menu by ID return an Observable that emits true as soon as it is created', () => {
-      (menuService as any).getMenu.and.returnValue(cold('--u--m', {
-        u: undefined,
-        m: MENU_STATE,
-      }));
-
-      expect(resolver.createAdminMenu$()).toBeObservable(cold('-----(t|)', BOOLEAN));
-      expect(menuService.getMenu).toHaveBeenCalledOnceWith(MenuID.ADMIN);
-    });
-
-    describe('for regular user', () => {
-      beforeEach(() => {
-        authorizationService.isAuthorized = createSpy('isAuthorized').and.callFake(() => {
-          return observableOf(false);
-        });
-      });
-
-      beforeEach((done) => {
-        resolver.createAdminMenu$().subscribe((_) => {
-          done();
-        });
-      });
-
+    const dontShowAdminSections = () => {
       it('should not show site admin section', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
           id: 'admin_search', visible: false,
@@ -176,19 +254,6 @@ describe('MenuResolver', () => {
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
           id: 'workflow', visible: false,
-        }));
-      });
-
-      it('should not show edit_community', () => {
-        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
-          id: 'edit_community', visible: false,
-        }));
-
-      });
-
-      it('should not show edit_collection', () => {
-        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
-          id: 'edit_collection', visible: false,
         }));
       });
 
@@ -218,6 +283,122 @@ describe('MenuResolver', () => {
           id: 'export', visible: true,
         }));
       });
+    };
+
+    const dontShowNewSection = () => {
+      it('should not show the "New" section', () => {
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'new_community', visible: false,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'new_collection', visible: false,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'new_item', visible: false,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'new', visible: false,
+        }));
+      });
+    };
+
+    const dontShowEditSection = () => {
+      it('should not show the "Edit" section', () => {
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'edit_community', visible: false,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'edit_collection', visible: false,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'edit_item', visible: false,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'edit', visible: false,
+        }));
+      });
+    };
+
+    it('should retrieve the menu by ID return an Observable that emits true as soon as it is created', () => {
+      (menuService as any).getMenu.and.returnValue(cold('--u--m', {
+        u: undefined,
+        m: MENU_STATE,
+      }));
+
+      expect(resolver.createAdminMenu$()).toBeObservable(cold('-----(t|)', BOOLEAN));
+      expect(menuService.getMenu).toHaveBeenCalledOnceWith(MenuID.ADMIN);
+    });
+
+    describe('for regular user', () => {
+      beforeEach(() => {
+        authorizationService.isAuthorized = createSpy('isAuthorized').and.callFake((featureID) => {
+          return observableOf(false);
+        });
+      });
+
+      beforeEach((done) => {
+        resolver.createAdminMenu$().subscribe((_) => {
+          done();
+        });
+      });
+
+      dontShowAdminSections();
+      dontShowNewSection();
+      dontShowEditSection();
+    });
+
+    describe('regular user who can submit', () => {
+      beforeEach(() => {
+        authorizationService.isAuthorized = createSpy('isAuthorized')
+          .and.callFake((featureID: FeatureID) => {
+            return observableOf(featureID === FeatureID.CanSubmit);
+          });
+      });
+
+      beforeEach((done) => {
+        resolver.createAdminMenu$().subscribe((_) => {
+          done();
+        });
+      });
+
+      it('should not show "New Item" section', () => {
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'new_item', visible: false,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'new', visible: false,
+        }));
+      });
+
+      dontShowAdminSections();
+      dontShowEditSection();
+    });
+
+    describe('regular user who can edit items', () => {
+      beforeEach(() => {
+        authorizationService.isAuthorized = createSpy('isAuthorized')
+          .and.callFake((featureID: FeatureID) => {
+            return observableOf(featureID === FeatureID.CanEditItem);
+          });
+      });
+
+      beforeEach((done) => {
+        resolver.createAdminMenu$().subscribe((_) => {
+          done();
+        });
+      });
+
+      it('should show "Edit Item" section', () => {
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'edit_item', visible: true,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'edit', visible: true,
+        }));
+      });
+
+      dontShowAdminSections();
+      dontShowNewSection();
     });
 
     describe('for site admin', () => {
@@ -231,6 +412,12 @@ describe('MenuResolver', () => {
         resolver.createAdminMenu$().subscribe((_) => {
           done();
         });
+      });
+
+      it('should show new_process', () => {
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'new_process', visible: true,
+        }));
       });
 
       it('should contain site admin section', () => {

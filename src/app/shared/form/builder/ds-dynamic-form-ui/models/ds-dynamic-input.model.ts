@@ -6,7 +6,7 @@ import {
   DynamicInputModelConfig,
   serializable
 } from '@ng-dynamic-forms/core';
-import {Subject} from 'rxjs';
+import { Subject } from 'rxjs';
 
 import { LanguageCode } from '../../models/form-field-language-value.model';
 import { VocabularyOptions } from '../../../../../core/submission/vocabularies/models/vocabulary-options.model';
@@ -32,6 +32,7 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   securityLevel?: number;
   securityConfigLevel?: number[];
   toggleSecurityVisibility?: boolean;
+  isModelOfNotRepeatableGroup?: boolean;
 }
 
 export class DsDynamicInputModel extends DynamicInputModel {
@@ -54,6 +55,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() securityLevel?: number;
   @serializable() securityConfigLevel?: number[];
   @serializable() toggleSecurityVisibility = true;
+  @serializable() isModelOfNotRepeatableGroup = false;
 
 
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
@@ -73,6 +75,9 @@ export class DsDynamicInputModel extends DynamicInputModel {
     this.securityConfigLevel = config.securityConfigLevel;
     if (isNotUndefined(config.toggleSecurityVisibility)) {
       this.toggleSecurityVisibility = config.toggleSecurityVisibility;
+    }
+    if (isNotUndefined(config.isModelOfNotRepeatableGroup)) {
+      this.isModelOfNotRepeatableGroup = config.isModelOfNotRepeatableGroup;
     }
     this.isModelOfInnerForm = (hasValue(config.isModelOfInnerForm) ? config.isModelOfInnerForm : false);
     this.hideErrorMessages = config.hideErrorMessages;

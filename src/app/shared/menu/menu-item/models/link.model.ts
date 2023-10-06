@@ -7,6 +7,7 @@ import { Params } from '@angular/router';
  */
 export class LinkMenuItemModel implements MenuItemModel {
   type = MenuItemType.LINK;
+  disabled: boolean;
   text: string;
   link: string;
   queryParams?: Params | null;

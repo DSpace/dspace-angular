@@ -11,7 +11,9 @@ import {
   REQUIRED_MATCHER_PROVIDER,
 } from '@ng-dynamic-forms/core';
 
-import { mockInputWithTypeBindModel, MockRelationModel } from '../../../mocks/form-models.mock';
+import {
+  mockInputWithTypeBindModel, MockRelationModel
+} from '../../../mocks/form-models.mock';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';

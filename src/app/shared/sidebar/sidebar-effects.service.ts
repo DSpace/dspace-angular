@@ -1,7 +1,7 @@
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import * as fromRouter from '@ngrx/router-store';
+import { ROUTER_NAVIGATION } from '@ngrx/router-store';
 
 import { SidebarCollapseAction } from './sidebar.actions';
 import { URLBaser } from '../../core/url-baser/url-baser';
@@ -16,7 +16,7 @@ export class SidebarEffects {
   private previousPath: string;
    routeChange$ = createEffect(() => this.actions$
     .pipe(
-      ofType(fromRouter.ROUTER_NAVIGATION),
+      ofType(ROUTER_NAVIGATION),
       filter((action) => this.previousPath !== this.getBaseUrl(action)),
       tap((action) => {
         this.previousPath = this.getBaseUrl(action);

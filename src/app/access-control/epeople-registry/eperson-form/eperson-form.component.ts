@@ -36,6 +36,8 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 import { Registration } from '../../../core/shared/registration.model';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
+import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
+import { UUIDService } from '../../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-eperson-form',
@@ -149,7 +151,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of groups
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'gem',
+    id: this.uuidService.generate(),
     pageSize: 5,
     currentPage: 1
   });
@@ -182,6 +184,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     private paginationService: PaginationService,
     public requestService: RequestService,
     private epersonRegistrationService: EpersonRegistrationService,
+    private uuidService: UUIDService
   ) {
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
       this.epersonInitial = eperson;
@@ -491,7 +494,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   resetPassword() {
     if (hasValue(this.epersonInitial.email)) {
-      this.epersonRegistrationService.registerEmail(this.epersonInitial.email).pipe(getFirstCompletedRemoteData())
+      this.epersonRegistrationService.registerEmail(this.epersonInitial.email, null, TYPE_REQUEST_FORGOT).pipe(getFirstCompletedRemoteData())
         .subscribe((response: RemoteData<Registration>) => {
         if (response.hasSucceeded) {
           this.notificationsService.success(this.translateService.get('admin.access-control.epeople.actions.reset'),

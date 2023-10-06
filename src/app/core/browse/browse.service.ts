@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { PaginatedList } from '../data/paginated-list.model';
@@ -19,9 +19,9 @@ import {
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
-import { BrowseDefinitionDataService } from './browse-definition-data.service';
 import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { BrowseDefinitionDataService } from './browse-definition-data.service';
 
 
 export const BROWSE_LINKS_TO_FOLLOW: FollowLinkConfig<BrowseEntry | Item>[] = [
@@ -35,7 +35,7 @@ export const BROWSE_LINKS_TO_FOLLOW: FollowLinkConfig<BrowseEntry | Item>[] = [
 export class BrowseService {
   protected linkPath = 'browses';
 
-  private static toSearchKeyArray(metadataKey: string): string[] {
+  public static toSearchKeyArray(metadataKey: string): string[] {
     const keyParts = metadataKey.split('.');
     const searchFor = [];
     searchFor.push('*');

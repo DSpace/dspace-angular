@@ -1,6 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+
 import { Observable, Subscription } from 'rxjs';
 import { select, Store } from '@ngrx/store';
+import uniqBy from 'lodash/uniqBy';
+
 import { AuthMethod } from '../../core/auth/models/auth.method';
 import {
   getAuthenticationError,
@@ -14,6 +17,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { CoreState } from '../../core/core-state.model';
+import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 
 /**
  * /users/sign-in
@@ -36,7 +40,7 @@ export class LogInComponent implements OnInit, OnDestroy {
    * The list of authentication methods available
    * @type {AuthMethod[]}
    */
-  public authMethods: Observable<AuthMethod[]>;
+  public authMethods: AuthMethod[];
 
   /**
    * Whether user is authenticated.
@@ -68,9 +72,12 @@ export class LogInComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.authMethods = this.store.pipe(
+    this.store.pipe(
       select(getAuthenticationMethods),
-    );
+    ).subscribe(methods => {
+      // ignore the ip authentication method when it's returned by the backend
+      this.authMethods = uniqBy(methods.filter(a => a.authMethodType !== AuthMethodType.Ip), 'authMethodType');
+    });
 
     // set loading
     this.loading = this.store.pipe(select(isAuthenticationLoading));

@@ -1,54 +1,64 @@
 <div class="modal-header">
-  <h4 class="modal-title">Item Export Process Launcher</h4>
+  <h4 class="modal-title">{{'item-export.modal.title' | translate}}</h4>
 </div>
 <div class="modal-body">
+  <ds-themed-loading *ngIf="!(initialized$ | async)"></ds-themed-loading>
+  <ng-container *ngIf="(initialized$ | async)">
+    <ng-container *ngIf="(canExport$ | async); else cannotExport">
+      <ng-container *ngIf="!selectCollection; else selectCollectionForm">
 
-  <ng-container *ngIf="!selectCollection; else selectCollectionForm">
+        <ds-item-export-alert [item]="item"
+                              [entityType]="itemType?.label"
+                              [bulkExportLimit]="bulkExportLimit"></ds-item-export-alert>
 
-    <ds-item-export-alert *ngIf="showListSelection" [item]="item" [bulkExportLimit]="bulkExportLimit"></ds-item-export-alert>
+        <form *ngIf="exportForm; else loader" [formGroup]="exportForm">
 
-    <form *ngIf="exportForm; else loader" [formGroup]="exportForm">
-
-      <div class="form-group" *ngIf="molteplicity === 'MULTIPLE'">
-        <label for="entityType">{{ 'item-export.form.entityType' | translate }}</label>
-        <select id="entityType" class="custom-select" formControlName="entityType">
-          <option [ngValue]="null" disabled>{{ 'item-export.form.entityType.tip' | translate }}</option>
-          <option *ngFor="let entityType of configuration.entityTypes" [ngValue]="entityType">
-            {{ entityType }}
-          </option>
-        </select>
-      </div>
-
-      <div *ngIf="configurationLoaded; else loader">
-        <div class="form-group" data-test="format-select">
-          <label for="format">{{ 'item-export.form.format' | translate }}</label>
-          <select id="format" class="custom-select" formControlName="format">
-            <option [ngValue]="null" disabled>{{ 'item-export.form.format.tip' | translate }}</option>
-            <option *ngFor="let format of configuration.formats" [ngValue]="format">
-              {{ format.id }}
-            </option>
-          </select>
-        </div>
-        <div *ngIf="showListSelection" class="form-group" data-test="selection-radio">
-          <label>Export mode</label>
-          <div class="custom-control custom-radio">
-            <input type="radio" id="selectionMode-all" formControlName="selectionMode" value="all" class="custom-control-input">
-            <label class="custom-control-label" for="selectionMode-all">Export all</label>
+          <div class="form-group" *ngIf="molteplicity === 'MULTIPLE'">
+            <label for="entityType">{{ 'item-export.form.entityType' | translate }}</label>
+            <select id="entityType" class="custom-select" formControlName="entityType">
+              <option [ngValue]="null" disabled>{{ 'item-export.form.entityType.tip' | translate }}</option>
+              <option *ngFor="let entityType of configuration.entityTypes" [ngValue]="entityType">
+                {{ entityType }}
+              </option>
+            </select>
           </div>
-          <div class="custom-control custom-radio">
-            <input type="radio" id="selectionMode-sel" formControlName="selectionMode" value="onlySelection" class="custom-control-input">
-            <label class="custom-control-label" for="selectionMode-sel">Export only selected</label>
+
+          <div *ngIf="configurationLoaded$; else loader">
+            <div class="form-group" data-test="format-select">
+              <label for="format">{{ 'item-export.form.format' | translate }}</label>
+              <select id="format" class="custom-select" formControlName="format">
+                <option [ngValue]="null" disabled>{{ 'item-export.form.format.tip' | translate }}</option>
+                <option *ngFor="let format of configuration.formats" [ngValue]="format">
+                  {{ format.id }}
+                </option>
+              </select>
+            </div>
+            <div *ngIf="showListSelection" class="form-group" data-test="selection-radio">
+              <label>{{'item-export.form.selection' | translate}}</label>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="selectionMode-all" formControlName="selectionMode" value="all"
+                       class="custom-control-input">
+                <label class="custom-control-label"
+                       for="selectionMode-all">{{'item-export.form.selection.all' | translate}}</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="selectionMode-sel" formControlName="selectionMode" value="onlySelection"
+                       class="custom-control-input">
+                <label class="custom-control-label"
+                       for="selectionMode-sel">{{'item-export.form.selection.only-selected' | translate}}</label>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-    </form>
+        </form>
 
-    <ds-item-export-list *ngIf="exportSelectionMode.value === 'onlySelection'"
-                         [itemEntityType]="itemType.label"
-                         [listId]="listId"
-                         [searchOptions]="searchOptions" ></ds-item-export-list>
+        <ds-item-export-list *ngIf="exportSelectionMode.value === 'onlySelection'"
+                             [itemEntityType]="itemType.label"
+                             [listId]="listId"
+                             [searchOptions]="searchOptions"></ds-item-export-list>
 
+      </ng-container>
+    </ng-container>
   </ng-container>
 
   <ng-template #loader>
@@ -56,6 +66,12 @@
       <div class="spinner-border text-secondary m-3" role="status">
         <span class="sr-only">Loading...</span>
       </div>
+    </div>
+  </ng-template>
+
+  <ng-template #cannotExport>
+    <div class="text-center">
+      <ds-alert [type]="'alert-warning'" data-test="cannotExport">{{'item-export.cannot-msg' | translate}}</ds-alert>
     </div>
   </ng-template>
 
@@ -68,11 +84,12 @@
 
 </div>
 <div class="modal-footer">
-  <div *ngIf="exportForm" class="text-right">
+  <div class="text-right">
     <button type="button" class="btn btn-outline-secondary mr-2" (click)="activeModal.close('Close click')">
       <i class="fa fa-times"></i> {{ 'item-export.form.btn.cancel' | translate }}
     </button>
-    <button type="submit" class="btn btn-primary" [disabled]='!(isFormValid() | async)' (click)="onSubmit()">
+    <button *ngIf="exportForm" type="submit" class="btn btn-primary" [disabled]='!(isFormValid() | async)'
+            (click)="onSubmit()">
       <i class="fas fa-file-export"></i>{{ 'item-export.form.btn.submit' | translate }}
     </button>
   </div>

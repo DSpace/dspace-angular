@@ -32,6 +32,8 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { NoContent } from '../../core/shared/NoContent.model';
+import { UUIDService } from '../../core/shared/uuid.service';
+import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 
 describe('GroupRegistryComponent', () => {
   let component: GroupsRegistryComponent;
@@ -179,7 +181,8 @@ describe('GroupRegistryComponent', () => {
         { provide: Router, useValue: new RouterMock() },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: PaginationService, useValue: paginationService },
-        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) }
+        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) },
+        { provide: UUIDService, useValue: getMockUUIDService() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

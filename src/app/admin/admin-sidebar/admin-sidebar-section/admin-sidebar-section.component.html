@@ -1,7 +1,7 @@
 <div class="sidebar-section">
     <a class="nav-item nav-link d-flex flex-row flex-nowrap"
-       [ngClass]="{ disabled: !hasLink }"
-       [attr.aria-disabled]="!hasLink"
+       [ngClass]="{ disabled: isDisabled }"
+       [attr.aria-disabled]="isDisabled"
        [attr.aria-labelledby]="'sidebarName-' + section.id"
        [title]="('menu.section.icon.' + section.id) | translate"
        [routerLink]="itemModel.link"

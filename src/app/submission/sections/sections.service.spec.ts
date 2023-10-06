@@ -358,6 +358,20 @@ describe('SectionsService test suite', () => {
 
       expect(service.isSectionReadOnlyByType(submissionId, sectionType, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
     });
+
+    it('should return an observable of true when there is no section', () => {
+      submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
+      const mockState = {
+        sections: {}
+      };
+      store.select.and.returnValue(observableOf(mockState));
+
+      const expected = cold('(b|)', {
+        b: true
+      });
+
+      expect(service.isSectionReadOnlyByType(submissionId, sectionType, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
+    });
   });
 
   describe('isSectionAvailable', () => {

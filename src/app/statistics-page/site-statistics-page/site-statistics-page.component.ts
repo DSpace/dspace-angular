@@ -5,7 +5,6 @@ import { UsageReportDataService } from '../../core/statistics/usage-report-data.
 import { ActivatedRoute, Router } from '@angular/router';
 import { Site } from '../../core/shared/site.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { switchMap } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 
 /**

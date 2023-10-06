@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -139,11 +139,13 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
         this.categorieList = categories;
         this.getCategoryId().subscribe((categoryId) => {
           if (categoryId) {
-            this.selectedCategory =  this.categorieList.find((cat) => { return cat.id === categoryId; });
-            this.categoryType = this.selectedCategory.categoryType;
+            this.selectedCategory = this.categorieList.find((cat) => {
+              return cat.id === categoryId;
+            });
+            this.categoryType = this.selectedCategory?.categoryType;
           } else {
-            this.selectedCategory = categories[0];
-            this.categoryType = this.selectedCategory.categoryType;
+            this.selectedCategory = categories.length > 0 && categories[0] || null;
+            this.categoryType = this.selectedCategory?.categoryType;
           }
           this.getUserReports(this.selectedCategory);
         });
@@ -178,16 +180,22 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
    * @param category the that is being selected
    */
   getUserReports(category) {
-    this.reports$ = this.getReports$(category.id);
-    combineLatest(this.reports$, this.getReportId(), this.getCategoryId()).subscribe(([report, reportId, categoryId]) => {
+    this.reports$ =
+      of(category)
+        .pipe(
+          switchMap(c => c == null ? [] : this.getReports$(c.id))
+        );
+    combineLatest([
+      this.reports$, this.getReportId(), this.getCategoryId()
+    ]).subscribe(([report, reportId, categoryId]) => {
       if (!reportId && !categoryId) {
-          this.setStatisticsState(report[0].id, category.id);
-          this.selectedReportId = report[0].id;
-        } else {
-          this.setStatisticsState(reportId, categoryId);
-        }
-     });
-    }
+        this.setStatisticsState(report[0].id, category.id);
+        this.selectedReportId = report[0].id;
+      } else {
+        this.setStatisticsState(reportId, categoryId);
+      }
+    });
+  }
 
   /**
    * Get the user reports for the specific category.
@@ -205,7 +213,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
    * Refresh categories when the date from is changed.
    */
   startDateChanged() {
-    if (typeof this.dateFrom === 'object' || this.dateFrom === null && this.dateFrom === undefined) {
+    if (typeof this.dateFrom === 'object' || this.dateFrom === null || this.dateFrom === undefined) {
       this.categories$ = this.getCategories$();
     }
   }

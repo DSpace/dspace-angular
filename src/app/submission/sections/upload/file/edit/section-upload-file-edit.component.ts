@@ -5,7 +5,6 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
   DynamicDatePickerModel,
   DynamicDatePickerModelConfig,
-  DynamicFormArrayGroupModel,
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,

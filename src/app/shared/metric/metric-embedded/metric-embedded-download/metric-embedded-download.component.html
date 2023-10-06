@@ -1,0 +1,21 @@
+<div class="row d-flex align-items-center m-2">
+  <a [dsRedirect]="href">
+    <div class="row">
+      <div class="col-1 text-left" *ngIf="metric && metric.icon">
+        <span class="icon-size">
+          <i [class]="metric.icon"></i>
+        </span>
+      </div>
+      <div class="col">
+        <div class="d-flex justify-content-center">
+          <div class="font-weight-bold">
+            {{ "item.page.metric.label.download" | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-overlap-container">
+      {{ "item.page.metric.label.view-detail-btn" | translate }}
+    </button>
+  </a>
+</div>
