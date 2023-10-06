@@ -180,6 +180,6 @@ export class SearchFilterComponent implements OnInit {
             ));
         }
       }),
-      startWith(true));
+      startWith(false));
   }
 }

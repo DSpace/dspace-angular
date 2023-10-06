@@ -32,6 +32,8 @@ import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
+import { UUIDService } from '../../../../core/shared/uuid.service';
+import { getMockUUIDService } from '../../../../shared/mocks/uuid.service.mock';
 
 describe('ReviewersListComponent', () => {
   let component: ReviewersListComponent;
@@ -152,6 +154,7 @@ describe('ReviewersListComponent', () => {
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
+        { provide: UUIDService, useValue: getMockUUIDService() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

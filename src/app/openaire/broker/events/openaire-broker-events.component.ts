@@ -29,6 +29,7 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 import { Item } from '../../../core/shared/item.model';
+import { UUIDService } from '../../../core/shared/uuid.service';
 
 /**
  * Component to display the OpenAIRE Broker event list.
@@ -44,7 +45,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
    * @type {PaginationComponentOptions}
    */
   public paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'bep',
+    id: this.uuidService.generate(),
     currentPage: 1,
     pageSize: 10,
     pageSizeOptions: [5, 10, 20, 40, 60]
@@ -124,7 +125,8 @@ export class OpenaireBrokerEventsComponent implements OnInit {
     private notificationsService: NotificationsService,
     private openaireBrokerEventRestService: OpenaireBrokerEventRestService,
     private paginationService: PaginationService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private uuidService: UUIDService
   ) {
   }
 
