@@ -94,6 +94,22 @@ textarea {
   transform: translateX(30px);
 }
 
+.toggle-switch-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin-top: 10px;
+}
+
+.toggle-switch {
+  cursor: pointer;
+}
+
+
+
+
+
 
 
 

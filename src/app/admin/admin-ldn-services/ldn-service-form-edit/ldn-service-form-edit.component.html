@@ -1,5 +1,15 @@
+
 <form (ngSubmit)="submitForm()" [formGroup]="formModel">
 
+  <div class="toggle-switch-container">
+    <label for="enabled" class="status-label">{{ 'ldn-service-status' | translate }}</label>
+    <div>
+      <input formControlName="enabled" id="enabled" name="enabled" type="checkbox" hidden>
+      <div class="toggle-switch" [class.checked]="formModel.get('enabled').value" (click)="toggleEnabled()">
+        <div class="slider"></div>
+      </div>
+    </div>
+  </div>
 
   <div class="mb-2">
     <label for="name">{{ 'ldn-new-service.form.label.name' | translate }}</label>

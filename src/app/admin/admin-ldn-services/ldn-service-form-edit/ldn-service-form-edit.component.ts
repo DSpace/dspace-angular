@@ -64,6 +64,7 @@ export class LdnServiceFormEditComponent {
             inboundPattern: [''],
             outboundPattern: [''],
             constraintPattern: [''],
+            enabled: [''],
             notifyServiceInboundPatterns: this.formBuilder.array([this.createInboundPatternFormGroup()]),
             notifyServiceOutboundPatterns: this.formBuilder.array([this.createOutboundPatternFormGroup()]),
             type: LDN_SERVICE.value,
@@ -119,7 +120,8 @@ export class LdnServiceFormEditComponent {
                     description: data.description,
                     url: data.url,
                     ldnUrl: data.ldnUrl,
-                    type: data.type
+                    type: data.type,
+                    enabled: data.enabled
                 });
 
                 const inboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
@@ -134,7 +136,6 @@ export class LdnServiceFormEditComponent {
                     this.cdRef.detectChanges();
                 });
 
-                // Initialize rows for notifyServiceOutboundPatterns
                 const outboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
                 outboundPatternsArray.clear();
 
@@ -164,10 +165,8 @@ export class LdnServiceFormEditComponent {
         this.addReplaceOperation(patchOperations, 'ldnUrl', '/ldnurl');
         this.addReplaceOperation(patchOperations, 'url', '/url');
 
-        // Handle notifyServiceInboundPatterns
         this.handlePatterns(patchOperations, 'notifyServiceInboundPatterns');
 
-        // Handle notifyServiceOutboundPatterns
         this.handlePatterns(patchOperations, 'notifyServiceOutboundPatterns');
 
         return patchOperations;
@@ -190,8 +189,6 @@ export class LdnServiceFormEditComponent {
             for (let i = 0; i < patternsArray.length; i++) {
                 const patternGroup = patternsArray.at(i) as FormGroup;
                 const patternValue = patternGroup.value;
-
-               // patternValue.automatic = patternValue.automatic ? 'true' : 'false';
 
                 if (patternValue.isNew) {
                   console.log(this.getOriginalPatternsForFormArray(formArrayName));
@@ -250,10 +247,8 @@ export class LdnServiceFormEditComponent {
     removeInboundPattern(index: number) {
         const notifyServiceInboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
         if (index >= 0 && index < notifyServiceInboundPatternsArray.length) {
-            // Get the service ID
             const serviceId = this.formModel.get('id').value;
 
-            // Construct the patch operation
             const patchOperation = [
                 {
                     op: 'remove',
@@ -261,14 +256,12 @@ export class LdnServiceFormEditComponent {
                 }
             ];
 
-            // Make an HTTP PATCH request to apply the patch operation
             const apiUrl = `http://localhost:8080/server/api/ldn/ldnservices/${serviceId}`;
 
             this.http.patch(apiUrl, patchOperation).subscribe(
                 (response) => {
                     console.log('Pattern removed successfully:', response);
 
-                    // After successful removal from the server, also remove it from the form array
                     notifyServiceInboundPatternsArray.removeAt(index);
                 },
                 (error) => {
@@ -286,10 +279,9 @@ export class LdnServiceFormEditComponent {
     removeOutboundPattern(index: number) {
         const notifyServiceOutboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
         if (index >= 0 && index < notifyServiceOutboundPatternsArray.length) {
-            // Get the service ID
             const serviceId = this.formModel.get('id').value;
 
-            // Construct the patch operation
+
             const patchOperation = [
                 {
                     op: 'remove',
@@ -297,7 +289,6 @@ export class LdnServiceFormEditComponent {
                 }
             ];
 
-            // Make an HTTP PATCH request to apply the patch operation
             const apiUrl = `http://localhost:8080/server/api/ldn/ldnservices/${serviceId}`;
 
             this.http.patch(apiUrl, patchOperation).subscribe(
@@ -355,4 +346,29 @@ export class LdnServiceFormEditComponent {
             automaticControl.setValue(!automaticControl.value);
         }
     }
+
+  toggleEnabled() {
+    const newStatus = !this.formModel.get('enabled').value;
+    const serviceId = this.formModel.get('id').value;
+    const status = this.formModel.get('enabled').value;
+
+    const apiUrl = `http://localhost:8080/server/api/ldn/ldnservices/${serviceId}`;
+    const patchOperation = {
+      op: 'replace',
+      path: '/enabled',
+      value: newStatus,
+    };
+
+    this.http.patch(apiUrl, [patchOperation]).subscribe(
+      () => {
+        console.log('Status updated successfully.');
+        this.formModel.get('enabled').setValue(newStatus);
+        console.log(this.formModel.get('enabled'));
+        this.cdRef.detectChanges();
+      },
+      (error) => {
+        console.error('Error updating status:', error);
+      }
+    );
+  }
 }

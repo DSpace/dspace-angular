@@ -917,6 +917,7 @@
   "ldn-service.overview.table.clickToEnable": "Click to enable",
   "ldn-service.overview.table.clickToDisable": "Click to disable",
 
+  "ldn-service-status": "Status",
   "ldn-register-new-service.title": "Register a new service",
   "ldn-new-service.form.label.submit": "Submit",
   "ldn-new-service.form.label.name": "Name",
