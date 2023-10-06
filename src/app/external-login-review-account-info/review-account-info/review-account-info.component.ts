@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { Observable, Subscription, filter, from, switchMap, take } from 'rxjs';
+import { Observable, Subscription, filter, from, map, switchMap, take, tap } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -16,6 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { Router } from '@angular/router';
 import { Registration } from '../../core/shared/registration.model';
+import { AuthService } from '../../core/auth/auth.service';
 
 export interface ReviewAccountInfoData {
   label: string;
@@ -59,8 +60,9 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private notificationService: NotificationsService,
     private translateService: TranslateService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.dataToCompare = this.prepareDataToCompare();
@@ -94,15 +96,37 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.brandColor = 'primary';
     modalRef.componentInstance.confirmIcon = 'fa fa-check';
 
-    this.subs.push(
-      modalRef.componentInstance.response
-        .pipe(take(1))
-        .subscribe((confirm: boolean) => {
-          if (confirm) {
-            this.mergeEPersonDataWithToken();
-          }
-        })
-    );
+    if (!this.registrationData.user) {
+      this.subs.push(
+        this.isAuthenticated()
+          .pipe(
+            filter((isAuthenticated) => isAuthenticated),
+            switchMap(() => this.authService.getAuthenticatedUserFromStore()),
+            filter((user) => hasValue(user)),
+            map((user) => user.uuid),
+            switchMap((userId) =>
+              modalRef.componentInstance.response.pipe(
+                tap((confirm: boolean) => {
+                  if (confirm) {
+                    this.mergeEPersonDataWithToken(userId);
+                  }
+                })
+              )
+            )
+          )
+          .subscribe()
+      );
+    } else if (this.registrationData.user) {
+      this.subs.push(
+        modalRef.componentInstance.response
+          .pipe(take(1))
+          .subscribe((confirm: boolean) => {
+            if (confirm && this.registrationData.user) {
+              this.mergeEPersonDataWithToken(this.registrationData.user);
+            }
+          })
+      );
+    }
   }
 
   /**
@@ -110,14 +134,14 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
    * If any of the metadata is overridden, sent a merge request for each metadata to override.
    * If none of the metadata is overridden, sent a merge request with the registration token only.
    */
-  mergeEPersonDataWithToken() {
+  mergeEPersonDataWithToken(userId: string) {
     let override$: Observable<RemoteData<EPerson>>;
     if (this.dataToCompare.some((d) => d.overrideValue)) {
       override$ = from(this.dataToCompare).pipe(
         filter((data: ReviewAccountInfoData) => data.overrideValue),
         switchMap((data: ReviewAccountInfoData) => {
           return this.ePersonService.mergeEPersonDataWithToken(
-            this.registrationData.user,
+            userId,
             this.registrationToken,
             data.identifier
           );
@@ -125,7 +149,7 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
       );
     } else {
       override$ = this.ePersonService.mergeEPersonDataWithToken(
-        this.registrationData.user,
+        userId,
         this.registrationToken
       );
     }
@@ -138,9 +162,7 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
             )
           );
           this.router.navigate(['/profile']);
-        }
-
-        if (response.hasFailed) {
+        } else  {
           this.notificationService.error(
             this.translateService.get(
               'review-account-info.merge-data.notification.error'
@@ -149,6 +171,10 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
         }
       })
     );
+  }
+
+  private isAuthenticated(): Observable<boolean> {
+    return this.authService.isAuthenticated();
   }
 
   /**

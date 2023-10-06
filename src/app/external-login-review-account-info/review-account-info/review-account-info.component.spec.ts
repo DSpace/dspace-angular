@@ -22,6 +22,8 @@ import { RouterMock } from '../../shared/mocks/router.mock';
 import { EventEmitter } from '@angular/core';
 import { CompareValuesPipe } from '../helpers/compare-values.pipe';
 import { Registration } from '../../core/shared/registration.model';
+import { AuthService } from '../../core/auth/auth.service';
+import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 
 describe('ReviewAccountInfoComponent', () => {
   let component: ReviewAccountInfoComponent;
@@ -79,6 +81,7 @@ describe('ReviewAccountInfoComponent', () => {
         },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: Router, useValue: router },
+        { provide: AuthService, useValue: new AuthServiceMock() }
       ],
       imports: [
         CommonModule,
@@ -150,7 +153,7 @@ describe('ReviewAccountInfoComponent', () => {
     spyOn(ePersonDataServiceStub, 'mergeEPersonDataWithToken').and.returnValue(
       of({ hasSucceeded: true })
     );
-    component.mergeEPersonDataWithToken();
+    component.mergeEPersonDataWithToken(registrationDataMock.user);
     tick();
     expect(ePersonDataServiceStub.mergeEPersonDataWithToken).toHaveBeenCalledTimes(1);
     expect(router.navigate).toHaveBeenCalledWith(['/profile']);

@@ -55,7 +55,7 @@ export class ExternalLogInComponent implements OnInit {
     private translate: TranslateService,
     private modalService: NgbModal,
     private authService: AuthService,
-  ) {}
+  ) { }
 
   /**
    * Provide the registration data object to the objectInjector.
@@ -118,11 +118,13 @@ export class ExternalLogInComponent implements OnInit {
    * @param content - The content to be displayed in the modal.
    */
   openLoginModal(content: any) {
+    setTimeout(() => {
+      this.authService.setRedirectUrl(`/review-account/${this.token}`);
+    }, 100);
     this.modalRef = this.modalService.open(content);
-    this.authService.setRedirectUrl('/review-account');
 
     this.modalRef.dismissed.subscribe(() => {
-     this.clearRedirectUrl();
+      this.clearRedirectUrl();
     });
   }
 
