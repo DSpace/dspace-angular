@@ -5,9 +5,9 @@
   <ng-container *ngComponentOutlet="getExternalLoginConfirmationType(); injector: objectInjector;">
   </ng-container>
 </div>
-<div class="row mb-3" [attr.data-test]="'info-text'">
+<ds-alert class="row mt-2" [type]="'alert-info'" [attr.data-test]="'info-text'">
   {{ informationText }}
-</div>
+</ds-alert>
 <div class="row justify-content-center">
   <div class="col-4 d-flex justify-content-end align-items-center">
     <ng-container *ngIf="registrationData.email; else provideEmail">
