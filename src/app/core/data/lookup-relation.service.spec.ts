@@ -13,12 +13,15 @@ import { skip, take } from 'rxjs/operators';
 import { ExternalSource } from '../shared/external-source.model';
 import { RequestService } from './request.service';
 import { of as observableOf } from 'rxjs';
+import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
+import { UUIDService } from '../shared/uuid.service';
 
 describe('LookupRelationService', () => {
   let service: LookupRelationService;
   let externalSourceService: ExternalSourceDataService;
   let searchService: SearchService;
   let requestService: RequestService;
+  let uuidService: UUIDService;
 
   const totalExternal = 8;
   const optionsWithQuery = new PaginatedSearchOptions({ query: 'test-query' });
@@ -55,7 +58,8 @@ describe('LookupRelationService', () => {
       getEndpoint: observableOf(searchServiceEndpoint)
     });
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring']);
-    service = new LookupRelationService(externalSourceService, searchService, requestService);
+    uuidService = getMockUUIDService();
+    service = new LookupRelationService(externalSourceService, searchService, requestService, uuidService);
   }
 
   beforeEach(() => {

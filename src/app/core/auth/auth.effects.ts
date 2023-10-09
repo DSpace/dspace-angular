@@ -35,6 +35,9 @@ import {
   LogOutErrorAction,
   LogOutSuccessAction,
   RedirectAfterLoginSuccessAction,
+  RefreshEpersonAndTokenRedirectAction,
+  RefreshEpersonAndTokenRedirectErrorAction,
+  RefreshEpersonAndTokenRedirectSuccessAction,
   RefreshTokenAction,
   RefreshTokenAndRedirectAction,
   RefreshTokenAndRedirectErrorAction,
@@ -268,6 +271,24 @@ export class AuthEffects {
             catchError((error) => observableOf(new RefreshTokenAndRedirectErrorAction()))
           );
       }))
+  );
+
+  public refreshStateTokenRedirect$: Observable<Action> = createEffect(() => this.actions$
+    .pipe(ofType(AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT),
+      switchMap((action: RefreshEpersonAndTokenRedirectAction) =>
+        this.authService.getAuthenticatedUserFromStore()
+          .pipe(
+            switchMap(user => this.authService.retrieveAuthenticatedUserById(user.id)),
+            map(user => new RefreshEpersonAndTokenRedirectSuccessAction(user, action.payload.token, action.payload.redirectUrl)),
+            catchError((error) => observableOf(new RefreshEpersonAndTokenRedirectErrorAction()))
+          )
+      )
+    )
+  );
+
+  public refreshStateTokenRedirectSuccess$: Observable<Action> = createEffect(() => this.actions$
+    .pipe(ofType(AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT_SUCCESS),
+      map((action: RefreshEpersonAndTokenRedirectAction) => new RefreshTokenAndRedirectAction(action.payload.token, action.payload.redirectUrl)))
   );
 
   public refreshTokenAndRedirectSuccess$: Observable<Action> = createEffect(() => this.actions$

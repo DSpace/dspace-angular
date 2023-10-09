@@ -1804,6 +1804,14 @@
 
   "cris-layout.attachment.viewMore": "View More",
 
+  "cris-layout.rendering.collections.owning-collection.label": "Owning collection",
+
+  "cris-layout.rendering.collections.mapped-collection.label": "Mapped collections",
+
+  "cris-layout.rendering.collections.loading": "Loading...",
+
+  "cris-layout.rendering.collections.load-more": "Load more",
+
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
 
   "curation-task.task.noop.label": "NOOP",
@@ -3783,8 +3791,6 @@
 
   "menu.section.import_from_excel": "Import from excel",
 
-  "menu.section.export_batch": "Batch Export (ZIP)",
-
   "menu.section.export_to_excel": "Export to excel",
 
   "menu.section.icon.access_control": "Access Control menu section",
@@ -4166,8 +4172,6 @@
   "nav.toggle" : "Toggle navigation",
 
   "nav.user.description" : "User profile bar",
-
-  "nav.subscriptions" : "Subscriptions",
 
   "none.listelement.badge": "Item",
 
@@ -5622,15 +5626,15 @@
 
   "statistics.table.mainReports.header.collection" : "Collection",
 
-  "statistics.table.itemReports.title.TopContinents" : "Top region Item views",
+  "statistics.table.itemReports.title.TopContinents" : "Top region views",
 
-  "statistics.table.itemReports.title.TopCities" : "Top cities Item views",
+  "statistics.table.itemReports.title.TopCities" : "Top cities views",
 
-  "statistics.table.itemReports.title.TopItems" : "Most viewed Items",
+  "statistics.table.itemReports.title.TopItems" : "Most viewed",
 
-  "statistics.table.itemReports.title.TopCategories" : "Top Item category",
+  "statistics.table.itemReports.title.TopCategories" : "Top categories",
 
-  "statistics.table.itemReports.title.TotalVisitsPerMonth" : "Top Item views per month",
+  "statistics.table.itemReports.title.TotalVisitsPerMonth" : "Top views per month",
 
   "statistics.reports.title": "Reports",
 
@@ -6379,6 +6383,14 @@
   "submission.sections.accesses.form.until-hint": "Select the date until which the related access condition is applied",
 
   "submission.sections.accesses.form.until-placeholder": "Until",
+
+  "access.condition.value.openaccess": "Open Access",
+
+  "access.condition.value.embargo": "Embargo",
+
+  "access.condition.value.administrator": "Administrator Only",
+
+  "access.condition.value.lease": "Lease",
 
   "submission.sections.license.granted-label": "I confirm the license above",
 

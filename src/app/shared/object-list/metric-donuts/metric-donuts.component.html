@@ -1,4 +1,4 @@
-<div class="d-flex flex-column ml-4">
+<div *ngIf="(metrics$ | async).length" class="d-flex flex-column ml-3 gapy-1">
   <ng-container *ngFor="let metric of (metrics$ | async); trackBy: identify">
     <ds-metric-loader
       class="d-inline-block mr-1"

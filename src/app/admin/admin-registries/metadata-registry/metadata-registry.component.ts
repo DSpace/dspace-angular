@@ -16,6 +16,7 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 import {
   MetadataSchemaExportService
 } from '../../../shared/metadata-export/metadata-schema-export/metadata-schema-export.service';
+import { UUIDService } from '../../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-metadata-registry',
@@ -37,7 +38,7 @@ export class MetadataRegistryComponent {
    * Pagination config used to display the list of metadata schemas
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'rm',
+    id: this.uuidService.generate(),
     pageSize: 25
   });
 
@@ -50,6 +51,7 @@ export class MetadataRegistryComponent {
               private notificationsService: NotificationsService,
               private paginationService: PaginationService,
               private translateService: TranslateService,
+              private uuidService: UUIDService,
               private readonly metadataSchemaExportService: MetadataSchemaExportService) {
     this.updateSchemas();
   }

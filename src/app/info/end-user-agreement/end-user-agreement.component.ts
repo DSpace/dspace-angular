@@ -1,4 +1,4 @@
-import { LogOutAction, RefreshTokenAndRedirectAction } from '../../core/auth/auth.actions';
+import { LogOutAction, RefreshEpersonAndTokenRedirectAction } from '../../core/auth/auth.actions';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../../core/auth/auth.service';
 import { map, switchMap, take } from 'rxjs/operators';
@@ -62,7 +62,7 @@ export class EndUserAgreementComponent implements OnInit, OnDestroy {
           if (authorized) {
 
             if (!accepted) {
-              this.notificationsService.warning(this.translate.instant('info.end-user-agreement.accept.warning'));
+              this.notificationsService.warning(this.translate.instant('info.end-user-agreement.accept.warning'), {});
             }
             this.accepted = accepted;
             this.alreadyAccepted = accepted;
@@ -92,7 +92,7 @@ export class EndUserAgreementComponent implements OnInit, OnDestroy {
       take(1)
     ).subscribe((redirectUrl) => {
       if (isNotEmpty(redirectUrl)) {
-        this.store.dispatch(new RefreshTokenAndRedirectAction(this.authService.getToken(), redirectUrl));
+        this.store.dispatch(new RefreshEpersonAndTokenRedirectAction(this.authService.getToken(), redirectUrl));
       }
     });
   }
