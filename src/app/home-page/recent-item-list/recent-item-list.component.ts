@@ -18,6 +18,7 @@ import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { isPlatformBrowser } from '@angular/common';
 import { setPlaceHolderAttributes } from '../../shared/utils/object-list-utils';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
+import { UUIDService } from '../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-recent-item-list',
@@ -47,12 +48,13 @@ export class RecentItemListComponent implements OnInit {
     private paginationService: PaginationService,
     public searchConfigurationService: SearchConfigurationService,
     protected elementRef: ElementRef,
+    protected uuidService: UUIDService,
     @Inject(APP_CONFIG) private appConfig: AppConfig,
     @Inject(PLATFORM_ID) private platformId: Object,
   ) {
 
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
-      id: 'hp',
+      id: this.uuidService.generate(),
       pageSize: environment.homePage.recentSubmissions.pageSize,
       currentPage: 1,
       maxSize: 1

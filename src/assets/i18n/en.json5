@@ -256,6 +256,7 @@
   "admin.registries.metadata.schemas.table.name": "Name",
 
   "admin.registries.metadata.schemas.table.namespace": "Namespace",
+  "admin.registries.metadata.schemas.table.download": "Download",
 
   "admin.registries.metadata.title": "Metadata Registry",
 
@@ -1803,6 +1804,14 @@
 
   "cris-layout.attachment.viewMore": "View More",
 
+  "cris-layout.rendering.collections.owning-collection.label": "Owning collection",
+
+  "cris-layout.rendering.collections.mapped-collection.label": "Mapped collections",
+
+  "cris-layout.rendering.collections.loading": "Loading...",
+
+  "cris-layout.rendering.collections.load-more": "Load more",
+
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
 
   "curation-task.task.noop.label": "NOOP",
@@ -2226,7 +2235,7 @@
   "explore.researcherprofiles.breadcrumbs": "People",
 
   "explore.title": "Explore section",
-
+  "export-schema.process.title": "Metadata Schema Export",
 
   "feed.description": "Syndication feed",
 
@@ -3775,8 +3784,6 @@
 
   "menu.section.import_from_excel": "Import from excel",
 
-  "menu.section.export_batch": "Batch Export (ZIP)",
-
   "menu.section.export_to_excel": "Export to excel",
 
   "menu.section.icon.access_control": "Access Control menu section",
@@ -4158,8 +4165,6 @@
   "nav.toggle" : "Toggle navigation",
 
   "nav.user.description" : "User profile bar",
-
-  "nav.subscriptions" : "Subscriptions",
 
   "none.listelement.badge": "Item",
 
@@ -5198,6 +5203,8 @@
 
   "search.filters.filter.investigators.head": "Researcher",
 
+  "search.filters.filter.investigators.label": "Researcher",
+
   "search.filters.filter.investigators.placeholder": "Researcher",
 
   "search.filters.filter.jobTitle.head": "Job Title",
@@ -5219,6 +5226,8 @@
   "search.filters.filter.language.placeholder": "Language",
 
   "search.filters.filter.projectOrgUnits.head" : "Organizations",
+
+  "search.filters.filter.projectOrgUnits.label" : "Organizations",
 
   "search.filters.filter.projectOrgUnits.placeholder" : "Organizations",
 
@@ -5610,15 +5619,15 @@
 
   "statistics.table.mainReports.header.collection" : "Collection",
 
-  "statistics.table.itemReports.title.TopContinents" : "Top region Item views",
+  "statistics.table.itemReports.title.TopContinents" : "Top region views",
 
-  "statistics.table.itemReports.title.TopCities" : "Top cities Item views",
+  "statistics.table.itemReports.title.TopCities" : "Top cities views",
 
-  "statistics.table.itemReports.title.TopItems" : "Most viewed Items",
+  "statistics.table.itemReports.title.TopItems" : "Most viewed",
 
-  "statistics.table.itemReports.title.TopCategories" : "Top Item category",
+  "statistics.table.itemReports.title.TopCategories" : "Top categories",
 
-  "statistics.table.itemReports.title.TotalVisitsPerMonth" : "Top Item views per month",
+  "statistics.table.itemReports.title.TotalVisitsPerMonth" : "Top views per month",
 
   "statistics.reports.title": "Reports",
 

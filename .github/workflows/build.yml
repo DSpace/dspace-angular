@@ -23,7 +23,7 @@ jobs:
       DSPACE_UI_HOST: 127.0.0.1
       # When Chrome version is specified, we pin to a specific version of Chrome
       # Comment this out to use the latest release
-      #CHROME_VERSION: "90.0.4430.212-1"
+      CHROME_VERSION: "116.0.5845.187-1"
     strategy:
       # Create a matrix of Node versions to test against (in parallel)
       matrix:

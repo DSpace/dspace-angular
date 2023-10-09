@@ -28,6 +28,8 @@ import { NotificationsServiceStub } from '../../../../shared/testing/notificatio
 import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { UUIDService } from '../../../../core/shared/uuid.service';
+import { getMockUUIDService } from '../../../../shared/mocks/uuid.service.mock';
 
 describe('MembersListComponent', () => {
   let component: MembersListComponent;
@@ -135,6 +137,7 @@ describe('MembersListComponent', () => {
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
+        { provide: UUIDService, useValue: getMockUUIDService() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

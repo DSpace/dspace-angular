@@ -12,6 +12,7 @@ import { SectionComponent } from '../../../../core/layout/models/section.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
 import { hasValue } from '../../../empty.util';
+import { UUIDService } from '../../../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-counters-section',
@@ -30,13 +31,15 @@ export class CountersSectionComponent implements OnInit {
   isLoading$ = new BehaviorSubject(true);
 
   pagination: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'counters-pagination',
+    id: this.uuidService.generate(),
     pageSize: 1,
     currentPage: 1
   });
 
 
-  constructor(private searchService: SearchService, @Inject(NativeWindowService) protected _window: NativeWindowRef,) {
+  constructor(private searchService: SearchService,
+              private uuidService: UUIDService,
+              @Inject(NativeWindowService) protected _window: NativeWindowRef) {
 
   }
 
