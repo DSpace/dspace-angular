@@ -6377,6 +6377,14 @@
 
   "submission.sections.accesses.form.until-placeholder": "Until",
 
+  "access.condition.value.openaccess": "Open Access",
+
+  "access.condition.value.embargo": "Embargo",
+
+  "access.condition.value.administrator": "Administrator Only",
+
+  "access.condition.value.lease": "Lease",
+
   "submission.sections.license.granted-label": "I confirm the license above",
 
   "submission.sections.license.required": "You must accept the license",
