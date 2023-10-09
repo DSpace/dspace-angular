@@ -1472,7 +1472,7 @@
 
   "dso-selector.set-scope.community.head": "Select a search scope",
 
-  "dso-selector.set-scope.community.button": "Search all of DSpace",
+  "dso-selector.set-scope.community.button": "Search all of OAKTrust",
 
   "dso-selector.set-scope.community.or-divider": "or",
 
@@ -1840,7 +1840,7 @@
 
   "home.title": "Home",
 
-  "home.top-level-communities.head": "Communities in DSpace",
+  "home.top-level-communities.head": "Communities in OAKTrust",
 
   "home.top-level-communities.help": "Select a community to browse its collections.",
 
@@ -2768,7 +2768,7 @@
 
   "login.form.forgot-password": "Have you forgotten your password?",
 
-  "login.form.header": "Please log in to DSpace",
+  "login.form.header": "Please log in to OAKTrust",
 
   "login.form.new-user": "New user? Click here to register.",
 
@@ -2818,7 +2818,7 @@
 
   "menu.section.browse_community_by_title": "By Title",
 
-  "menu.section.browse_global": "All of DSpace",
+  "menu.section.browse_global": "Browse OAKTrust",
 
   "menu.section.browse_global_by_author": "By Author",
 
@@ -3496,9 +3496,9 @@
 
   "repository.image.logo": "Repository logo",
 
-  "repository.title": "DSpace Repository",
+  "repository.title": "OAKTrust",
 
-  "repository.title.prefix": "DSpace Repository :: ",
+  "repository.title.prefix": "OAKTrust :: ",
 
   "resource-policies.add.button": "Add",
 
@@ -3840,7 +3840,7 @@
 
   "search.form.search_dspace": "All repository",
 
-  "search.form.scope.all": "All of DSpace",
+  "search.form.scope.all": "All of OAKTrust",
 
   "search.results.head": "Search Results",
 
@@ -4740,7 +4740,7 @@
 
   "thumbnail.person.placeholder": "No Profile Picture Available",
 
-  "title": "DSpace",
+  "title": "OAKTrust",
 
   "vocabulary-treeview.header": "Hierarchical tree view",
 
@@ -5229,5 +5229,4 @@
   "access-control-option-end-date": "Grant access until",
 
   "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
-
 }

@@ -59,6 +59,11 @@
                 "input": "src/themes/dspace/styles/theme.scss",
                 "inject": false,
                 "bundleName": "dspace-theme"
+              },
+              {
+                "input": "src/themes/tamu/styles/theme.scss",
+                "inject": false,
+                "bundleName": "tamu-theme"
               }
             ],
             "scripts": [],
