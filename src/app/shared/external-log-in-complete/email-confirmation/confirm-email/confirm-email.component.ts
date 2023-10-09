@@ -9,7 +9,6 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { TranslateService } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import { AuthService } from '../../../../core/auth/auth.service';
-import { Router } from '@angular/router';
 import { Subscription, combineLatest, take } from 'rxjs';
 import { Registration } from '../../../../core/shared/registration.model';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
@@ -48,7 +47,6 @@ export class ConfirmEmailComponent implements OnDestroy {
     private notificationService: NotificationsService,
     private translate: TranslateService,
     private authService: AuthService,
-    private router: Router,
     private hardRedirectService: HardRedirectService,
   ) {
     this.emailForm = this.formBuilder.group({

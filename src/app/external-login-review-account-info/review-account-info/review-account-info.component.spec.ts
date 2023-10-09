@@ -24,6 +24,8 @@ import { CompareValuesPipe } from '../helpers/compare-values.pipe';
 import { Registration } from '../../core/shared/registration.model';
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
+import { ExternalLoginService } from '../../shared/external-log-in-complete/services/external-login.service';
+import { HardRedirectService } from '../../core/services/hard-redirect.service';
 
 describe('ReviewAccountInfoComponent', () => {
   let component: ReviewAccountInfoComponent;
@@ -31,6 +33,8 @@ describe('ReviewAccountInfoComponent', () => {
   let ePersonDataServiceStub: any;
   let router: any;
   let notificationsService: any;
+  let externalLoginServiceStub: any;
+  let hardRedirectService: HardRedirectService;
 
   const translateServiceStub = {
     get: () => of('test-message'),
@@ -70,6 +74,12 @@ describe('ReviewAccountInfoComponent', () => {
     };
     router = new RouterMock();
     notificationsService = new NotificationsServiceStub();
+    externalLoginServiceStub = {
+      getExternalAuthLocation: () => 'location',
+    };
+    hardRedirectService = jasmine.createSpyObj('HardRedirectService', {
+      redirect: {}
+    });
     await TestBed.configureTestingModule({
       declarations: [ReviewAccountInfoComponent, CompareValuesPipe],
       providers: [
@@ -81,7 +91,9 @@ describe('ReviewAccountInfoComponent', () => {
         },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: Router, useValue: router },
-        { provide: AuthService, useValue: new AuthServiceMock() }
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: ExternalLoginService, useValue: externalLoginServiceStub },
+        { provide: HardRedirectService, useValue: hardRedirectService },
       ],
       imports: [
         CommonModule,
@@ -153,7 +165,7 @@ describe('ReviewAccountInfoComponent', () => {
     spyOn(ePersonDataServiceStub, 'mergeEPersonDataWithToken').and.returnValue(
       of({ hasSucceeded: true })
     );
-    component.mergeEPersonDataWithToken(registrationDataMock.user);
+    component.mergeEPersonDataWithToken(registrationDataMock.user, registrationDataMock.registrationType);
     tick();
     expect(ePersonDataServiceStub.mergeEPersonDataWithToken).toHaveBeenCalledTimes(1);
     expect(router.navigate).toHaveBeenCalledWith(['/profile']);

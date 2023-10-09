@@ -3,7 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ConfirmEmailComponent } from './confirm-email.component';
 import { FormBuilder } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ExternalLoginService } from '../../services/external-login.service';
@@ -11,12 +15,13 @@ import { AuthService } from '../../../../core/auth/auth.service';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject$,
+} from '../../../../shared/remote-data.utils';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { Router } from '@angular/router';
-import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { of } from 'rxjs';
 import { Registration } from '../../../../core/shared/registration.model';
+import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 
 describe('ConfirmEmailComponent', () => {
   let component: ConfirmEmailComponent;
@@ -25,17 +30,19 @@ describe('ConfirmEmailComponent', () => {
   let epersonDataServiceSpy: jasmine.SpyObj<EPersonDataService>;
   let notificationServiceSpy: jasmine.SpyObj<NotificationsService>;
   let authServiceSpy: jasmine.SpyObj<AuthService>;
-  let router;
+  let hardRedirectService: HardRedirectService;
+
   const translateServiceStub = {
     get: () => of(''),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter()
+    onDefaultLangChange: new EventEmitter(),
   };
 
   beforeEach(async () => {
     externalLoginServiceSpy = jasmine.createSpyObj('ExternalLoginService', [
       'patchUpdateRegistration',
+      'getExternalAuthLocation',
     ]);
     epersonDataServiceSpy = jasmine.createSpyObj('EPersonDataService', [
       'createEPersonForToken',
@@ -43,8 +50,10 @@ describe('ConfirmEmailComponent', () => {
     notificationServiceSpy = jasmine.createSpyObj('NotificationsService', [
       'error',
     ]);
-    authServiceSpy = jasmine.createSpyObj('AuthService', ['setRedirectUrl']);
-    router = new RouterMock();
+    authServiceSpy = jasmine.createSpyObj('AuthService', ['getRedirectUrl', 'setRedirectUrl', 'getExternalServerRedirectUrl']);
+    hardRedirectService = jasmine.createSpyObj('HardRedirectService', {
+      redirect: {},
+    });
     await TestBed.configureTestingModule({
       declarations: [ConfirmEmailComponent],
       providers: [
@@ -53,8 +62,8 @@ describe('ConfirmEmailComponent', () => {
         { provide: EPersonDataService, useValue: epersonDataServiceSpy },
         { provide: NotificationsService, useValue: notificationServiceSpy },
         { provide: AuthService, useValue: authServiceSpy },
-        { provide: Router, useValue: router },
-        { provide: TranslateService, useValue: translateServiceStub }
+        { provide: TranslateService, useValue: translateServiceStub },
+        { provide: HardRedirectService, useValue: hardRedirectService },
       ],
       imports: [
         CommonModule,
@@ -92,10 +101,9 @@ describe('ConfirmEmailComponent', () => {
       component.emailForm.setValue({ email: 'test@example.com' });
       spyOn(component as any, 'postCreateAccountFromToken');
       component.submitForm();
-      expect((component as any).postCreateAccountFromToken).toHaveBeenCalledWith(
-        'test-token',
-        component.registrationData
-      );
+      expect(
+        (component as any).postCreateAccountFromToken
+      ).toHaveBeenCalledWith('test-token', component.registrationData);
     });
 
     it('should call patchUpdateRegistration if email is not confirmed', () => {
@@ -112,48 +120,55 @@ describe('ConfirmEmailComponent', () => {
       spyOn(component as any, 'postCreateAccountFromToken');
       spyOn(component as any, 'patchUpdateRegistration');
       component.submitForm();
-      expect((component as any).postCreateAccountFromToken).not.toHaveBeenCalled();
+      expect(
+        (component as any).postCreateAccountFromToken
+      ).not.toHaveBeenCalled();
       expect((component as any).patchUpdateRegistration).not.toHaveBeenCalled();
     });
   });
 
-  describe('postCreateAccountFromToken', () => {
-    it('should call epersonDataService.createEPersonForToken with correct arguments', () => {
-      epersonDataServiceSpy.createEPersonForToken.and.returnValue(createSuccessfulRemoteDataObject$(new EPerson()));
-      (component as any).postCreateAccountFromToken(
-        'test-token',
-        component.registrationData
-      );
-      expect(epersonDataServiceSpy.createEPersonForToken).toHaveBeenCalledWith(
-        jasmine.any(Object),
-        'test-token'
-      );
-    });
+  // describe('postCreateAccountFromToken', () => {
+  //   beforeEach(() => {
+  //     authServiceSpy.getRedirectUrl.and.returnValue(of('test-redirect'));
+  //     authServiceSpy.getExternalServerRedirectUrl.and.returnValue('test-external-url');
+  //   });
+  //   it('should call epersonDataService.createEPersonForToken with correct arguments', () => {
+  //     epersonDataServiceSpy.createEPersonForToken.and.returnValue(
+  //       createSuccessfulRemoteDataObject$(new EPerson())
+  //     );
+  //     (component as any).postCreateAccountFromToken(
+  //       'test-token',
+  //       component.registrationData
+  //     );
+  //     expect(epersonDataServiceSpy.createEPersonForToken).toHaveBeenCalledWith(
+  //       jasmine.any(Object),
+  //       'test-token'
+  //     );
+  //   });
+  // });
 
-    it('should show error notification if user creation fails', () => {
-      epersonDataServiceSpy.createEPersonForToken.and.returnValue(
-        createFailedRemoteDataObject$()
-      );
-      (component as any).postCreateAccountFromToken(
-        'test-token',
-        component.registrationData
-      );
+  describe('postCreateAccountFromToken', () => {
+    it('should call NotificationsService.error if the registration data does not have a netId', () => {
+      component.registrationData.netId = undefined;
+      (component as any).postCreateAccountFromToken('test-token', component.registrationData);
       expect(notificationServiceSpy.error).toHaveBeenCalled();
     });
 
-    it('should redirect to login page if user creation succeeds', () => {
-      epersonDataServiceSpy.createEPersonForToken.and.returnValue(
-        createSuccessfulRemoteDataObject$(new EPerson())
-      );
-      (component as any).postCreateAccountFromToken(
-        'test-token',
-        component.registrationData
-      );
-      expect((component as any).router.navigate).toHaveBeenCalledWith(['/login'], {
-        queryParams: { authMethod: 'orcid' },
-      });
+    it('should call EPersonDataService.createEPersonForToken and ExternalLoginService.getExternalAuthLocation if the registration data has a netId', () => {
+      externalLoginServiceSpy.getExternalAuthLocation.and.returnValue(of('test-location'));
+      authServiceSpy.getRedirectUrl.and.returnValue(of('/test-redirect'));
+      authServiceSpy.getExternalServerRedirectUrl.and.returnValue('test-external-url');
+      epersonDataServiceSpy.createEPersonForToken.and.returnValue(createSuccessfulRemoteDataObject$(new EPerson()));
+      (component as any).postCreateAccountFromToken('test-token', component.registrationData);
+      expect(epersonDataServiceSpy.createEPersonForToken).toHaveBeenCalled();
+      expect(externalLoginServiceSpy.getExternalAuthLocation).toHaveBeenCalledWith(AuthMethodType.Orcid);
+      expect(authServiceSpy.getRedirectUrl).toHaveBeenCalled();
+      expect(authServiceSpy.setRedirectUrl).toHaveBeenCalledWith('/profile');
+      expect(authServiceSpy.getExternalServerRedirectUrl).toHaveBeenCalledWith('/test-redirect', 'test-location');
+      expect(hardRedirectService.redirect).toHaveBeenCalledWith('test-external-url');
     });
   });
+
 
   afterEach(() => {
     fixture.destroy();

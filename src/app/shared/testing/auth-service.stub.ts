@@ -175,4 +175,8 @@ export class AuthServiceStub {
   getRetrieveAuthMethodsAction(authStatus: AuthStatus): RetrieveAuthMethodsAction {
     return;
   }
+
+  public getExternalServerRedirectUrl(redirectRoute: string, location: string) {
+    return;
+  }
 }

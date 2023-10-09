@@ -59,7 +59,6 @@ export class ExternalLoginService {
     return this.store.pipe(
       select(getAuthenticationMethods),
       filter((methods: AuthMethod[]) => methods.length > 0),
-      tap((methods: AuthMethod[]) => console.log(methods.find(m => m.authMethodType === registrationType.toLocaleLowerCase()), methods.find(m => m.authMethodType === registrationType.toLocaleLowerCase()).location)),
       map((methods: AuthMethod[]) => methods.find(m => m.authMethodType === registrationType.toLocaleLowerCase()).location),
     );
   }

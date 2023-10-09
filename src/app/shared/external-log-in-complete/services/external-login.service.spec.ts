@@ -12,6 +12,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 describe('ExternalLoginService', () => {
   let service: ExternalLoginService;
@@ -41,6 +42,7 @@ describe('ExternalLoginService', () => {
         { provide: Router, useValue: router },
         { provide: NotificationsService, useValue: notificationService },
         { provide: TranslateService, useValue: translate },
+        { provide: Store, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     });
