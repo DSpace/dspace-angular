@@ -175,4 +175,8 @@ export class AuthServiceStub {
   getRetrieveAuthMethodsAction(authStatus: AuthStatus): RetrieveAuthMethodsAction {
     return;
   }
+
+  public getAuthenticatedUserFromStore(): Observable<EPerson> {
+    return observableOf(EPersonMock);
+  }
 }
