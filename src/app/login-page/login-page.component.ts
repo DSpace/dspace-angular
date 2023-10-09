@@ -15,7 +15,6 @@ import {
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { isAuthenticated } from '../core/auth/selectors';
-import { AuthMethodType } from '../core/auth/models/auth.method-type';
 
 /**
  * This component represents the login page
@@ -34,8 +33,6 @@ export class LoginPageComponent implements OnDestroy, OnInit {
    */
   sub: Subscription;
 
-  externalLoginMethod: AuthMethodType;
-
   /**
    * Initialize instance variables
    *
@@ -51,7 +48,6 @@ export class LoginPageComponent implements OnDestroy, OnInit {
   ngOnInit() {
     const queryParamsObs = this.route.queryParams;
     const authenticated = this.store.select(isAuthenticated);
-    this.externalLoginMethod = this.route.snapshot.queryParams.authMethod;
     this.sub = observableCombineLatest(queryParamsObs, authenticated).pipe(
       filter(([params, auth]) => isNotEmpty(params.token) || isNotEmpty(params.expired)),
       take(1)

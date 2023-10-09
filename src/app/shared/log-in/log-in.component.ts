@@ -46,12 +46,6 @@ export class LogInComponent implements OnInit, OnDestroy {
   @Input() showRegisterLink = true;
 
   /**
-   * The external login method to force
-   * the user to use to login while completing the external login process
-   */
-  @Input() externalLoginMethod: AuthMethodType;
-
-  /**
    * The list of authentication methods available
    * @type {AuthMethod[]}
    */
@@ -93,11 +87,7 @@ export class LogInComponent implements OnInit, OnDestroy {
       this.authMethods = uniqBy(methods.filter(a => a.authMethodType !== AuthMethodType.Ip), 'authMethodType');
       // exclude the given auth method in case there is one
       if (hasValue(this.excludedAuthMethod)) {
-        this.authMethods = this.authMethods.filter((authMethod: AuthMethod) => authMethod.authMethodType !== this.excludedAuthMethod);
-      }
-      // if there is an external login method the user should follow, filter the auth methods to only show that one
-      if (hasValue(this.externalLoginMethod)) {
-        this.authMethods = this.authMethods.filter((authMethod: AuthMethod) => authMethod.authMethodType === this.externalLoginMethod.toLocaleLowerCase());
+        this.authMethods = this.authMethods.filter((authMethod: AuthMethod) => authMethod.authMethodType !== this.excludedAuthMethod.toLocaleLowerCase());
       }
     });
 
