@@ -8,7 +8,7 @@ import {
   LogOutErrorAction,
   RedirectWhenAuthenticationIsRequiredAction,
   RedirectWhenTokenExpiredAction,
-  RefreshStateTokenRedirectSuccessAction,
+  RefreshEpersonAndTokenRedirectSuccessAction,
   RefreshTokenAndRedirectSuccessAction,
   RefreshTokenSuccessAction,
   RetrieveAuthenticatedEpersonSuccessAction,
@@ -191,20 +191,20 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         user: undefined
       });
 
-    case AuthActionTypes.REFRESH_STATE_TOKEN_REDIRECT:
+    case AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT:
       return Object.assign({}, state, {
         loading: true,
         loaded: false,
       });
 
-    case AuthActionTypes.REFRESH_STATE_TOKEN_REDIRECT_SUCCESS:
+    case AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT_SUCCESS:
       return Object.assign({}, state, {
         loading: false,
         loaded: false,
-        user: (action as RefreshStateTokenRedirectSuccessAction).payload.ePerson,
+        user: (action as RefreshEpersonAndTokenRedirectSuccessAction).payload.ePerson,
       });
 
-    case AuthActionTypes.REFRESH_STATE_TOKEN_REDIRECT_ERROR:
+    case AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT_ERROR:
       return Object.assign({}, state, {
         loading: false,
         loaded: false,

@@ -20,8 +20,8 @@ import {
   CheckAuthenticationTokenCookieAction,
   LogOutErrorAction,
   LogOutSuccessAction,
-  RefreshStateTokenRedirectErrorAction,
-  RefreshStateTokenRedirectSuccessAction,
+  RefreshEpersonAndTokenRedirectErrorAction,
+  RefreshEpersonAndTokenRedirectSuccessAction,
   RefreshTokenAndRedirectAction,
   RefreshTokenAndRedirectErrorAction,
   RefreshTokenAndRedirectSuccessAction,
@@ -468,12 +468,12 @@ describe('AuthEffects', () => {
 
         actions = hot('--a-', {
           a: {
-            type: AuthActionTypes.REFRESH_STATE_TOKEN_REDIRECT,
+            type: AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT,
             payload: { token, redirectUrl }
           }
         });
 
-        const expected = cold('--b-', { b: new RefreshStateTokenRedirectSuccessAction(EPersonMock, token, redirectUrl) });
+        const expected = cold('--b-', { b: new RefreshEpersonAndTokenRedirectSuccessAction(EPersonMock, token, redirectUrl) });
 
         expect(authEffects.refreshStateTokenRedirect$).toBeObservable(expected);
         done();
@@ -486,12 +486,12 @@ describe('AuthEffects', () => {
 
         actions = hot('--a-', {
           a: {
-            type: AuthActionTypes.REFRESH_STATE_TOKEN_REDIRECT,
+            type: AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT,
             payload: { token, redirectUrl }
           }
         });
 
-        const expected = cold('--b-', { b: new RefreshStateTokenRedirectErrorAction() });
+        const expected = cold('--b-', { b: new RefreshEpersonAndTokenRedirectErrorAction() });
 
         expect(authEffects.refreshStateTokenRedirect$).toBeObservable(expected);
         done();
@@ -510,7 +510,7 @@ describe('AuthEffects', () => {
 
       actions = hot('--a-', {
         a: {
-          type: AuthActionTypes.REFRESH_STATE_TOKEN_REDIRECT_SUCCESS,
+          type: AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT_SUCCESS,
           payload: { ePerson: EPersonMock, token, redirectUrl }
         }
       });

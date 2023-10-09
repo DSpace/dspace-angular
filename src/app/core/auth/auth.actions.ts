@@ -37,9 +37,9 @@ export const AuthActionTypes = {
   RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS'),
   RETRIEVE_AUTHENTICATED_EPERSON_ERROR: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON_ERROR'),
   REDIRECT_AFTER_LOGIN_SUCCESS: type('dspace/auth/REDIRECT_AFTER_LOGIN_SUCCESS'),
-  REFRESH_STATE_TOKEN_REDIRECT: type('dspace/auth/REFRESH_STATE_TOKEN_REDIRECT'),
-  REFRESH_STATE_TOKEN_REDIRECT_ERROR: type('dspace/auth/REFRESH_STATE_TOKEN_REDIRECT_ERROR'),
-  REFRESH_STATE_TOKEN_REDIRECT_SUCCESS: type('dspace/auth/REFRESH_STATE_TOKEN_REDIRECT_SUCCESS'),
+  REFRESH_EPERSON_AND_TOKEN_REDIRECT: type('dspace/auth/REFRESH_EPERSON_AND_TOKEN_REDIRECT'),
+  REFRESH_EPERSON_AND_TOKEN_REDIRECT_ERROR: type('dspace/auth/REFRESH_EPERSON_AND_TOKEN_REDIRECT_ERROR'),
+  REFRESH_EPERSON_AND_TOKEN_REDIRECT_SUCCESS: type('dspace/auth/REFRESH_EPERSON_AND_TOKEN_REDIRECT_SUCCESS'),
   REFRESH_TOKEN_AND_REDIRECT: type('dspace/auth/REFRESH_TOKEN_AND_REDIRECT'),
   REFRESH_TOKEN_AND_REDIRECT_SUCCESS: type('dspace/auth/REFRESH_TOKEN_AND_REDIRECT_SUCCESS'),
   REFRESH_TOKEN_AND_REDIRECT_ERROR: type('dspace/auth/REFRESH_TOKEN_AND_REDIRECT_ERROR'),
@@ -422,11 +422,11 @@ export class UnsetUserAsIdleAction implements Action {
 
 /**
  * Refresh user state, the token and execute a redirect.
- * @class RefreshTokenAndRedirectAction
+ * @class RefreshEpersonAndTokenRedirectAction
  * @implements {Action}
  */
-export class RefreshStateTokenRedirectAction implements Action {
-  public type: string = AuthActionTypes.REFRESH_STATE_TOKEN_REDIRECT;
+export class RefreshEpersonAndTokenRedirectAction implements Action {
+  public type: string = AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT;
   payload: {
     token: AuthTokenInfo,
     redirectUrl: string
@@ -439,11 +439,11 @@ export class RefreshStateTokenRedirectAction implements Action {
 
 /**
  * Refresh user state, the token and execute a redirect.
- * @class RefreshStateTokenRedirectSuccessAction
+ * @class RefreshEpersonAndTokenRedirectSuccessAction
  * @implements {Action}
  */
-export class RefreshStateTokenRedirectSuccessAction implements Action {
-  public type: string = AuthActionTypes.REFRESH_STATE_TOKEN_REDIRECT_SUCCESS;
+export class RefreshEpersonAndTokenRedirectSuccessAction implements Action {
+  public type: string = AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT_SUCCESS;
   payload: {
     ePerson: EPerson,
     token: AuthTokenInfo,
@@ -457,11 +457,11 @@ export class RefreshStateTokenRedirectSuccessAction implements Action {
 
 /**
  * Refresh user state, the token and execute a redirect.
- * @class RefreshStateTokenRedirectErrorAction
+ * @class RefreshEpersonAndTokenRedirectErrorAction
  * @implements {Action}
  */
-export class RefreshStateTokenRedirectErrorAction implements Action {
-  public type: string = AuthActionTypes.REFRESH_STATE_TOKEN_REDIRECT_ERROR;
+export class RefreshEpersonAndTokenRedirectErrorAction implements Action {
+  public type: string = AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT_ERROR;
 }
 
 /**
