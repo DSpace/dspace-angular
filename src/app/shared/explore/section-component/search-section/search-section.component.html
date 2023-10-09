@@ -29,7 +29,7 @@
         <div class="col-md-8">
             <ds-search-form *ngIf="searchSection.searchType === 'basic'"
                             [inPlaceSearch]="false"
-                            [configuration]="'site'"
+                            [configuration]="searchSection.discoveryConfigurationName"
                             [searchPlaceholder]="'search.search-form.placeholder' | translate"> ></ds-search-form>
         </div>
     </div>
