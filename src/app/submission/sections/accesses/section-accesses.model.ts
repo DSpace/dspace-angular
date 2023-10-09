@@ -121,3 +121,5 @@ export const FORM_ACCESS_CONDITION_END_DATE_LAYOUT: DynamicFormControlLayout = {
     host: 'col-6'
   }
 };
+
+export const ACCESS_CONDITIONS_FORM_TRANSLATION_CONFIG = 'access.condition.value.';
