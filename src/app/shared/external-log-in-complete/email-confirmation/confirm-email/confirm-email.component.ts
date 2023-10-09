@@ -108,6 +108,7 @@ export class ConfirmEmailComponent implements OnDestroy {
 
     const metadataValues = {};
     for (const [key, value] of Object.entries(registrationData.registrationMetadata)) {
+      // exclude the email metadata key, since the ePerson object does not have an email metadata field
       if (hasValue(value[0]?.value) && key !== 'email') {
         metadataValues[key] = value;
       }

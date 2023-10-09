@@ -251,6 +251,11 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
     const dataToCompare: ReviewAccountInfoData[] = [];
     Object.entries(this.registrationData.registrationMetadata).forEach(
       ([key, value]) => {
+        // eperson.orcid is not always present in the registration metadata,
+        // so display netId instead and skip it in the metadata in order not to have duplicate data.
+        if (value[0].value === this.registrationData.netId) {
+          return;
+        }
         dataToCompare.push({
           label: key.split('.')?.[1] ?? key.split('.')?.[0],
           currentValue: value[0]?.overrides ?? '',
