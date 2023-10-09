@@ -1,3 +1,4 @@
+<ds-themed-results-back-button *ngIf="showBackButton | async" [back]="back"></ds-themed-results-back-button>
 <div class="row" *ngIf="iiifEnabled">
   <div class="col-12">
     <ds-mirador-viewer  id="iiif-viewer"
@@ -10,9 +11,7 @@
 <div class="d-flex flex-row">
   <ds-item-page-title-field [item]="object" class="mr-auto">
   </ds-item-page-title-field>
-  <div class="pl-2">
-    <ds-context-menu [contextMenuObject]="object" [contextMenuObjectType]="'ITEM'"></ds-context-menu>
-  </div>
+  <ds-context-menu [contextMenuObject]="object" [contextMenuObjectType]="'ITEM'"></ds-context-menu>
 </div>
 <div class="row">
   <div class="col-xs-12 col-md-4">
@@ -73,7 +72,7 @@
 
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.subject']"
-      [separator]="','"
+      [separator]="', '"
       [label]="'item.page.subject'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="object"

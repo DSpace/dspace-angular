@@ -26,7 +26,7 @@
             [ngClass]="{'no-caret': !hasChoice}"
             (blur)="onClose()"
             (click)="onClose()"
-            [disabled]="(processingChange$ | async) || !hasChoice"
+            [disabled]="(processingChange$ | async) || !hasChoice || isReadonly"
             ngbDropdownToggle>
       <span *ngIf="(processingChange$ | async)"><i class='fas fa-circle-notch fa-spin'></i></span>
       <span *ngIf="!(processingChange$ | async)">{{ selectedCollectionName$ | async }}</span>
@@ -37,11 +37,11 @@
          [ngClass]="{'d-none': !hasChoice}"
          id="collectionControlsDropdownMenu"
          aria-labelledby="collectionControlsMenuButton">
-      <ds-collection-dropdown
+      <ds-themed-collection-dropdown
         [entityType]="entityType"
         (selectionChange)="onSelect($event)"
         (hasChoice)="onHasChoice($event)">
-      </ds-collection-dropdown>
+      </ds-themed-collection-dropdown>
     </div>
   </div>
 </div>

@@ -4,7 +4,8 @@ import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-fo
 import { combineLatest as observableCombineLatest, interval, Observable, race, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, find, map, mapTo, mergeMap, take, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
-import { findIndex, isEqual } from 'lodash';
+import findIndex from 'lodash/findIndex';
+import isEqual from 'lodash/isEqual';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -403,7 +404,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
     const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
 
-    const eventAutoSave = !event.$event.hasOwnProperty('autoSave') || event.$event.autoSave;
+    const eventAutoSave = !event.$event?.hasOwnProperty('autoSave') || event.$event?.autoSave;
     if (eventAutoSave && (environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) || this.hasRelatedCustomError(metadata)) {
       this.submissionService.dispatchSave(this.submissionId);
     }
@@ -428,6 +429,10 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    *    the [[DynamicFormControlEvent]] emitted
    */
   onFocus(event: DynamicFormControlEvent): void {
+    this.updatePreviousValue(event);
+  }
+
+  private updatePreviousValue(event: DynamicFormControlEvent): void {
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
     const path = this.formBuilderService.getPath(event.model);
     if (this.formBuilderService.hasMappedGroupValue(event.model)) {
@@ -439,6 +444,11 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
     }
   }
 
+  private clearPreviousValue(): void {
+    this.previousValue.path = null;
+    this.previousValue.value = null;
+  }
+
   /**
    * Method called when a form remove event is fired.
    * Dispatch form operations based on changes.
@@ -447,6 +457,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    *    the [[DynamicFormControlEvent]] emitted
    */
   onRemove(event: DynamicFormControlEvent): void {
+    this.updatePreviousValue(event);
     const fieldId = this.formBuilderService.getId(event.model);
     const fieldIndex = this.formOperationsService.getArrayIndexFromEvent(event);
 
@@ -464,7 +475,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
       event,
       this.previousValue,
       this.hasStoredValue(fieldId, fieldIndex));
-
+    this.clearPreviousValue();
   }
 
   /**

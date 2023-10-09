@@ -21,10 +21,11 @@ import { InfoConfig } from './info-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
+import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-config.interfaces';
 import { MetadataSecurityConfig } from './metadata-security-config';
 import { CmsMetadata } from './cms-metadata';
-import { AddThisPluginConfig } from './addThisPlugin-config';
+import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { AdvancedAttachmentRenderingConfig } from './advanced-attachment-rendering.config';
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
@@ -53,12 +54,13 @@ interface AppConfig extends Config {
   actuators: ActuatorsConfig
   info: InfoConfig;
   markdown: MarkdownConfig;
+  vocabularies: FilterVocabularyConfig[];
   crisLayout: CrisLayoutConfig;
   layout: LayoutConfig;
   security: MetadataSecurityConfig;
   cms: CmsMetadata;
   suggestion: SuggestionConfig[];
-  addThisPlugin: AddThisPluginConfig;
+  addToAnyPlugin: AddToAnyPluginConfig;
   followAuthorityMetadata: FollowAuthorityMetadata[];
   metricVisualizationConfig: MetricVisualizationConfig[];
   attachmentRendering: AttachmentRenderingConfig;

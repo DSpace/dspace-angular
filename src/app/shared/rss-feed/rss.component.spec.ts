@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { GroupDataService } from '../../core/eperson/group-data.service';
@@ -23,7 +22,6 @@ import { RouterMock } from '../mocks/router.mock';
 
 describe('RssComponent', () => {
     let comp: RSSComponent;
-    let options: SortOptions;
     let fixture: ComponentFixture<RSSComponent>;
     let uuid: string;
     let query: string;
@@ -63,7 +61,6 @@ describe('RssComponent', () => {
               pageSize: 10,
               currentPage: 1
             }),
-            sort: new SortOptions('dc.title', SortDirection.ASC),
           }));
         groupDataService = jasmine.createSpyObj('groupsDataService', {
             findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -88,7 +85,6 @@ describe('RssComponent', () => {
       }));
 
     beforeEach(() => {
-        options = new SortOptions('dc.title', SortDirection.DESC);
         uuid = '2cfcf65e-0a51-4bcb-8592-b8db7b064790';
         query = 'test';
         fixture = TestBed.createComponent(RSSComponent);
@@ -96,18 +92,18 @@ describe('RssComponent', () => {
     });
 
     it('should formulate the correct url given params in url', () => {
-        const route = comp.formulateRoute(uuid, 'opensearch', options, query);
-        expect(route).toBe('/opensearch/search?format=atom&scope=2cfcf65e-0a51-4bcb-8592-b8db7b064790&sort=dc.title&sort_direction=DESC&query=test');
+        const route = comp.formulateRoute(uuid, 'opensearch/search', query);
+        expect(route).toBe('/opensearch/search?format=atom&scope=2cfcf65e-0a51-4bcb-8592-b8db7b064790&query=test');
     });
 
     it('should skip uuid if its null', () => {
-        const route = comp.formulateRoute(null, 'opensearch', options, query);
-        expect(route).toBe('/opensearch/search?format=atom&sort=dc.title&sort_direction=DESC&query=test');
+        const route = comp.formulateRoute(null, 'opensearch/search', query);
+        expect(route).toBe('/opensearch/search?format=atom&query=test');
     });
 
     it('should default to query * if none provided', () => {
-        const route = comp.formulateRoute(null, 'opensearch', options, null);
-        expect(route).toBe('/opensearch/search?format=atom&sort=dc.title&sort_direction=DESC&query=*');
+        const route = comp.formulateRoute(null, 'opensearch/search', null);
+        expect(route).toBe('/opensearch/search?format=atom&query=*');
     });
 });
 

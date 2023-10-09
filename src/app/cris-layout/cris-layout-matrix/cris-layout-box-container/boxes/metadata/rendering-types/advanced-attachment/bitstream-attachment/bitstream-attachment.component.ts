@@ -8,6 +8,7 @@ import { Item } from '../../../../../../../../core/shared/item.model';
 import { BitstreamDataService } from '../../../../../../../../core/data/bitstream-data.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AttachmentRenderingType } from './attachment-type.decorator';
 
 @Component({
   selector: 'ds-bitstream-attachment',
@@ -25,6 +26,8 @@ export class BitstreamAttachmentComponent extends BitstreamRenderingModelCompone
    * Configuration type enum
    */
   AdvancedAttachmentElementType = AdvancedAttachmentElementType;
+
+  AttachmentRenderingType = AttachmentRenderingType;
 
   /**
    * All item providers to show buttons of

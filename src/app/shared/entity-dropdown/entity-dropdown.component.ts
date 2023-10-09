@@ -23,7 +23,6 @@ import {
 } from '../../core/itemexportformat/item-export-format.service';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { FindListOptions } from '../../core/data/find-list-options.model';
-import { ItemExportFormatMap } from '../../core/itemexportformat/model/item-export-format.model';
 
 @Component({
   selector: 'ds-entity-dropdown',

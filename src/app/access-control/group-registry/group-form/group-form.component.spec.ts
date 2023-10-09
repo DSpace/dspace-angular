@@ -266,6 +266,43 @@ describe('GroupFormComponent', () => {
         fixture.detectChanges();
       });
 
+      it('should edit with name and description operations', () => {
+        const operations = [{
+          op: 'add',
+          path: '/metadata/dc.description',
+          value: 'testDescription'
+        }, {
+          op: 'replace',
+          path: '/name',
+          value: 'newGroupName'
+        }];
+        expect(groupsDataServiceStub.patch).toHaveBeenCalledWith(expected, operations);
+      });
+
+      it('should edit with description operations', () => {
+        component.groupName.value = null;
+        component.onSubmit();
+        fixture.detectChanges();
+        const operations = [{
+          op: 'add',
+          path: '/metadata/dc.description',
+          value: 'testDescription'
+        }];
+        expect(groupsDataServiceStub.patch).toHaveBeenCalledWith(expected, operations);
+      });
+
+      it('should edit with name operations', () => {
+        component.groupDescription.value = null;
+        component.onSubmit();
+        fixture.detectChanges();
+        const operations = [{
+          op: 'replace',
+          path: '/name',
+          value: 'newGroupName'
+        }];
+        expect(groupsDataServiceStub.patch).toHaveBeenCalledWith(expected, operations);
+      });
+
       it('should emit the existing group using the correct new values', waitForAsync(() => {
         fixture.whenStable().then(() => {
           expect(component.submitForm.emit).toHaveBeenCalledWith(expected2);

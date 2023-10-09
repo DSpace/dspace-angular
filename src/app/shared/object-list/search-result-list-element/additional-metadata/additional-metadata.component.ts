@@ -9,8 +9,8 @@ import { ResolverStrategyService } from '../../../../cris-layout/services/resolv
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { AdditionalMetadataConfig } from '../../../../../config/additional-metadata.config';
 import { getFirstSucceededRemoteDataPayload, getPaginatedListPayload } from '../../../../core/shared/operators';
-import {map, mapTo, take, tap} from 'rxjs/operators';
-import {interval, Observable, of, race} from 'rxjs';
+import {map, mapTo, take} from 'rxjs/operators';
+import {interval, Observable, race} from 'rxjs';
 import { VocabularyService } from '../../../../core/submission/vocabularies/vocabulary.service';
 
 interface LinkData {
@@ -60,8 +60,9 @@ export class AdditionalMetadataComponent implements OnInit {
     }
 
     this.additionalMetadataFields = unfilteredAdditionalMetadataFields.map(field => {
-      return field.filter(item =>
-        this.object.hasMetadata(item.name)
+      const fields = field?.length ? field : [field];
+      return (fields as AdditionalMetadataConfig[]).filter(item =>
+        this.object.hasMetadata(item?.name)
       );
     }).filter(field => !!field.length);
 

@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, Inject, Input, OnDestroy, OnInit, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -23,7 +23,7 @@ import { hasValue } from '../../empty.util';
 /**
  * This component represents the part of the search sidebar that contains filters.
  */
-export class SearchFiltersComponent implements OnInit, OnDestroy {
+export class SearchFiltersComponent implements OnInit, AfterViewChecked, OnDestroy {
   /**
    * An observable containing configuration about which filters are shown and how they are shown
    */
@@ -54,6 +54,16 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    * Emits when the search filters values may be stale, and so they must be refreshed.
    */
   @Input() refreshFilters: BehaviorSubject<boolean>;
+
+  /**
+   * List of element references to all filters
+   */
+  @ViewChildren('searchFilter') searchFilter;
+
+  /**
+   * counts for the active filters
+   */
+  availableFilters = false;
 
   /**
    * Link to the search page
@@ -99,6 +109,13 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    */
   trackUpdate(index, config: SearchFilterConfig) {
     return config ? config.name : undefined;
+  }
+
+  ngAfterViewChecked() {
+    this.availableFilters = false;
+    this.searchFilter._results.forEach(element => {
+      this.availableFilters = element.nativeElement?.children[0]?.children.length > 0;
+    });
   }
 
   ngOnDestroy() {
