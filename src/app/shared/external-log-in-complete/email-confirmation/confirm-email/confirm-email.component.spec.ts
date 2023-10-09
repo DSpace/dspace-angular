@@ -127,26 +127,6 @@ describe('ConfirmEmailComponent', () => {
     });
   });
 
-  // describe('postCreateAccountFromToken', () => {
-  //   beforeEach(() => {
-  //     authServiceSpy.getRedirectUrl.and.returnValue(of('test-redirect'));
-  //     authServiceSpy.getExternalServerRedirectUrl.and.returnValue('test-external-url');
-  //   });
-  //   it('should call epersonDataService.createEPersonForToken with correct arguments', () => {
-  //     epersonDataServiceSpy.createEPersonForToken.and.returnValue(
-  //       createSuccessfulRemoteDataObject$(new EPerson())
-  //     );
-  //     (component as any).postCreateAccountFromToken(
-  //       'test-token',
-  //       component.registrationData
-  //     );
-  //     expect(epersonDataServiceSpy.createEPersonForToken).toHaveBeenCalledWith(
-  //       jasmine.any(Object),
-  //       'test-token'
-  //     );
-  //   });
-  // });
-
   describe('postCreateAccountFromToken', () => {
     it('should call NotificationsService.error if the registration data does not have a netId', () => {
       component.registrationData.netId = undefined;
@@ -168,7 +148,6 @@ describe('ConfirmEmailComponent', () => {
       expect(hardRedirectService.redirect).toHaveBeenCalledWith('test-external-url');
     });
   });
-
 
   afterEach(() => {
     fixture.destroy();
