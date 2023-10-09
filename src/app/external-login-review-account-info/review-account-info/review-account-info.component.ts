@@ -86,7 +86,10 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
 
   /**
    * Open a confirmation modal to confirm the override of the data
-   * If confirmed, merge the data from the registration token with the data from the eperson
+   * If confirmed, merge the data from the registration token with the data from the eperson.
+   * There are 2 cases:
+   * -> If the user is authenticated, merge the data and redirect to profile page.
+   * -> If the user is not authenticated, combine the override$, external auth location and redirect URL observables.
    */
   public onSave() {
     const modalRef = this.modalService.open(ConfirmationModalComponent);
@@ -166,6 +169,11 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Handles the authenticated user by subscribing to the override$ observable and displaying a success or error notification based on the response.
+   * If the response has succeeded, the user is redirected to the profile page.
+   * @param override$ - The observable that emits the response containing the RemoteData<EPerson> object.
+   */
   handleAuthenticatedUser(override$: Observable<RemoteData<EPerson>>) {
     this.subs.push(
       override$.subscribe((response: RemoteData<EPerson>) => {
@@ -187,6 +195,13 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   * Handles unauthenticated user by combining the override$, external auth location and redirect URL observables.
+   * If the response has succeeded, sets the redirect URL to user profile and redirects to external registration type authentication URL.
+   * If the response has failed, shows an error notification.
+   * @param override$ - The override$ observable.
+   * @param registrationType - The registration type.
+   */
   handleUnauthenticatedUser(override$: Observable<RemoteData<EPerson>>, registrationType: string) {
     this.subs.push(
       combineLatest([
@@ -216,6 +231,10 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   * Checks if the user is authenticated.
+   * @returns An observable that emits a boolean value indicating whether the user is authenticated or not.
+   */
   private isAuthenticated(): Observable<boolean> {
     return this.authService.isAuthenticated();
   }

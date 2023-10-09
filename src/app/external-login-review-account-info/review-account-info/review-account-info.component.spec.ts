@@ -29,12 +29,14 @@ import { HardRedirectService } from '../../core/services/hard-redirect.service';
 
 describe('ReviewAccountInfoComponent', () => {
   let component: ReviewAccountInfoComponent;
+  let componentAsAny: any;
   let fixture: ComponentFixture<ReviewAccountInfoComponent>;
   let ePersonDataServiceStub: any;
   let router: any;
   let notificationsService: any;
   let externalLoginServiceStub: any;
   let hardRedirectService: HardRedirectService;
+  let authService: any;
 
   const translateServiceStub = {
     get: () => of('test-message'),
@@ -75,11 +77,12 @@ describe('ReviewAccountInfoComponent', () => {
     router = new RouterMock();
     notificationsService = new NotificationsServiceStub();
     externalLoginServiceStub = {
-      getExternalAuthLocation: () => 'location',
+      getExternalAuthLocation: () => of('https://orcid.org/oauth/authorize'),
     };
     hardRedirectService = jasmine.createSpyObj('HardRedirectService', {
-      redirect: {}
+      redirect: (url: string) => null,
     });
+    authService = new AuthServiceMock();
     await TestBed.configureTestingModule({
       declarations: [ReviewAccountInfoComponent, CompareValuesPipe],
       providers: [
@@ -91,7 +94,7 @@ describe('ReviewAccountInfoComponent', () => {
         },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: Router, useValue: router },
-        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: AuthService, useValue: authService },
         { provide: ExternalLoginService, useValue: externalLoginServiceStub },
         { provide: HardRedirectService, useValue: hardRedirectService },
       ],
@@ -110,6 +113,7 @@ describe('ReviewAccountInfoComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ReviewAccountInfoComponent);
     component = fixture.componentInstance;
+    componentAsAny = component;
     component.registrationData = Object.assign(
       new Registration(),
       registrationDataMock
@@ -211,6 +215,13 @@ describe('ReviewAccountInfoComponent', () => {
     component.ngOnDestroy();
     expect(subscription1.unsubscribe).toHaveBeenCalled();
     expect(subscription2.unsubscribe).toHaveBeenCalled();
+  });
+
+  it('should handle authenticated user', () => {
+    const override$ = createSuccessfulRemoteDataObject$(new EPerson());
+    component.handleAuthenticatedUser(override$);
+    expect(componentAsAny.notificationService.success).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['/profile']);
   });
 
   afterEach(() => {
