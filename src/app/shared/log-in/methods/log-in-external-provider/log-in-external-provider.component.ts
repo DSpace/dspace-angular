@@ -91,7 +91,11 @@ export class LogInExternalProviderComponent implements OnInit {
       } else if (isEmpty(redirectRoute)) {
         redirectRoute = '/';
       }
-      const externalServerUrl = this.authService.getExternalServerRedirectUrl(redirectRoute, this.location);
+      const externalServerUrl = this.authService.getExternalServerRedirectUrl(
+        this._window.nativeWindow.origin,
+        redirectRoute,
+        this.location
+      );
       // redirect to shibboleth/orcid/(external) authentication url
       this.hardRedirectService.redirect(externalServerUrl);
     });

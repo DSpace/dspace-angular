@@ -22,6 +22,8 @@ import { AuthService } from '../../core/auth/auth.service';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
+import { NativeWindowService } from '../../core/services/window.service';
+import { NativeWindowMockFactory } from '../../shared/mocks/mock-native-window-ref';
 
 describe('ReviewAccountInfoComponent', () => {
   let component: ReviewAccountInfoComponent;
@@ -82,6 +84,7 @@ describe('ReviewAccountInfoComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ReviewAccountInfoComponent, CompareValuesPipe],
       providers: [
+        { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: NgbModal, useValue: modalStub },
         {

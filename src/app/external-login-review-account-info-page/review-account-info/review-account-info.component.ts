@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Input, OnDestroy, OnInit, } from '@angular/core';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { combineLatest, filter, from, map, Observable, Subscription, switchMap, take, tap } from 'rxjs';
@@ -14,6 +14,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
 import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
+import { NativeWindowRef, NativeWindowService } from '../../core/services/window.service';
 
 export interface ReviewAccountInfoData {
   label: string;
@@ -53,6 +54,7 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
   constructor(
+    @Inject(NativeWindowService) protected _window: NativeWindowRef,
     private ePersonService: EPersonDataService,
     private modalService: NgbModal,
     private notificationService: NotificationsService,
@@ -211,7 +213,11 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
             );
             // set Redirect URL to User profile, so the user is redirected to the profile page after logging in
             this.authService.setRedirectUrl('/profile');
-            const externalServerUrl = this.authService.getExternalServerRedirectUrl(redirectRoute, location);
+            const externalServerUrl = this.authService.getExternalServerRedirectUrl(
+              this._window.nativeWindow.origin,
+              redirectRoute,
+              location
+            );
             // redirect to external registration type authentication url
             this.hardRedirectService.redirect(externalServerUrl);
           } else if (response.hasFailed) {

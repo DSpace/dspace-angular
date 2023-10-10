@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Input, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExternalLoginService } from '../../services/external-login.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,6 +12,7 @@ import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core
 import { Registration } from '../../../core/shared/registration.model';
 import { hasNoValue, hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
 
 @Component({
   selector: 'ds-confirm-email',
@@ -41,6 +42,7 @@ export class ConfirmEmailComponent implements OnDestroy {
   externalLocation: string;
 
   constructor(
+    @Inject(NativeWindowService) protected _window: NativeWindowRef,
     private formBuilder: FormBuilder,
     private externalLoginService: ExternalLoginService,
     private epersonDataService: EPersonDataService,
@@ -137,7 +139,11 @@ export class ConfirmEmailComponent implements OnDestroy {
           } else if (rd.hasSucceeded) {
             // set Redirect URL to User profile, so the user is redirected to the profile page after logging in
             this.authService.setRedirectUrl('/profile');
-            const externalServerUrl = this.authService.getExternalServerRedirectUrl(redirectRoute, location);
+            const externalServerUrl = this.authService.getExternalServerRedirectUrl(
+              this._window.nativeWindow.origin,
+              redirectRoute,
+              location
+            );
             // redirect to external registration type authentication url
             this.hardRedirectService.redirect(externalServerUrl);
           }

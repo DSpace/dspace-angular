@@ -16,6 +16,8 @@ import { Registration } from '../../../core/shared/registration.model';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { NativeWindowService } from '../../../core/services/window.service';
+import { MockWindow, NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
 
 describe('ConfirmEmailComponent', () => {
   let component: ConfirmEmailComponent;
@@ -52,6 +54,7 @@ describe('ConfirmEmailComponent', () => {
       declarations: [ConfirmEmailComponent],
       providers: [
         FormBuilder,
+        { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: ExternalLoginService, useValue: externalLoginServiceSpy },
         { provide: EPersonDataService, useValue: epersonDataServiceSpy },
         { provide: NotificationsService, useValue: notificationServiceSpy },
@@ -138,7 +141,7 @@ describe('ConfirmEmailComponent', () => {
       expect(externalLoginServiceSpy.getExternalAuthLocation).toHaveBeenCalledWith(AuthMethodType.Orcid);
       expect(authServiceSpy.getRedirectUrl).toHaveBeenCalled();
       expect(authServiceSpy.setRedirectUrl).toHaveBeenCalledWith('/profile');
-      expect(authServiceSpy.getExternalServerRedirectUrl).toHaveBeenCalledWith('/test-redirect', 'test-location');
+      expect(authServiceSpy.getExternalServerRedirectUrl).toHaveBeenCalledWith(MockWindow.origin,'/test-redirect', 'test-location');
       expect(hardRedirectService.redirect).toHaveBeenCalledWith('test-external-url');
     });
   });

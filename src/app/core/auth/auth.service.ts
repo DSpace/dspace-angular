@@ -526,12 +526,13 @@ export class AuthService {
 
   /**
    * Returns the external server redirect URL.
+   * @param origin - The origin route.
    * @param redirectRoute - The redirect route.
    * @param location - The location.
    * @returns The external server redirect URL.
    */
-  getExternalServerRedirectUrl(redirectRoute: string, location: string): string  {
-    const correctRedirectUrl = new URLCombiner(this._window.nativeWindow.origin, redirectRoute).toString();
+  getExternalServerRedirectUrl(origin: string, redirectRoute: string, location: string): string  {
+    const correctRedirectUrl = new URLCombiner(origin, redirectRoute).toString();
 
     let externalServerUrl = location;
     const myRegexp = /\?redirectUrl=(.*)/g;
