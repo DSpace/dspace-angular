@@ -1,10 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
-import { renderExternalLoginConfirmationFor } from '../../external-log-in.methods-decorator';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ExternalLoginMethodEntryComponent } from '../../external-login-method-entry.component';
-import { Registration } from '../../../../core/shared/registration.model';
-import { AuthRegistrationType } from '../../../../core/auth/models/auth.registration-type';
-
+import { AuthRegistrationType } from '../../../core/auth/models/auth.registration-type';
+import { Registration } from '../../../core/shared/registration.model';
+import { renderExternalLoginConfirmationFor } from '../../decorators/external-log-in.methods-decorator';
+import { ExternalLoginMethodEntryComponent } from '../../decorators/external-login-method-entry.component';
 @Component({
   selector: 'ds-orcid-confirmation',
   templateUrl: './orcid-confirmation.component.html',

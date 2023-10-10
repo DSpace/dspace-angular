@@ -3,16 +3,16 @@ import { TestBed } from '@angular/core/testing';
 import { ExternalLoginService } from './external-login.service';
 import { TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Registration } from '../../../core/shared/registration.model';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { RouterMock } from '../../mocks/router.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { Registration } from '../../core/shared/registration.model';
+import { RouterMock } from '../../shared/mocks/router.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 
 describe('ExternalLoginService', () => {
   let service: ExternalLoginService;

@@ -5,11 +5,11 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
-import { hasValue } from '../../empty.util';
-import { Registration } from '../../../core/shared/registration.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { RemoteData } from '../../../core/data/remote-data';
+import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { Registration } from '../../core/shared/registration.model';
+import { hasValue } from '../../shared/empty.util';
 
 @Injectable({
   providedIn: 'root',

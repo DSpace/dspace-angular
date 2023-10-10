@@ -3,17 +3,19 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ExternalLogInComponent } from './external-log-in.component';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { EventEmitter, Injector } from '@angular/core';
+import { EventEmitter, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { of as observableOf } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
-import { AuthService } from '../../../core/auth/auth.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AuthServiceMock } from '../../mocks/auth.service.mock';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { Registration } from '../../../core/shared/registration.model';
-import { AuthRegistrationType } from '../../../core/auth/models/auth.registration-type';
+import { AuthService } from '../../core/auth/auth.service';
+import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
+import { MetadataValue } from '../../core/shared/metadata.models';
+import { Registration } from '../../core/shared/registration.model';
+import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { BrowserOnlyMockPipe } from '../../shared/testing/browser-only-mock.pipe';
+import { OrcidConfirmationComponent } from '../registration-types/orcid-confirmation/orcid-confirmation.component';
 
 describe('ExternalLogInComponent', () => {
   let component: ExternalLogInComponent;
@@ -40,7 +42,9 @@ describe('ExternalLogInComponent', () => {
   };
   const translateServiceStub = {
     get: () => observableOf('Info Text'),
-    instant: (key: any) => 'Info Text',
+    instant(key) {
+      return 'Info Text';
+    },
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter()
@@ -48,7 +52,7 @@ describe('ExternalLogInComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ExternalLogInComponent],
+      declarations: [ExternalLogInComponent, BrowserOnlyMockPipe, ],
       providers: [
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: Injector, useValue: {} },
@@ -64,12 +68,18 @@ describe('ExternalLogInComponent', () => {
             useClass: TranslateLoaderMock
           }
         }),
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();
   });
 
   beforeEach(() => {
+    TestBed.overrideComponent(OrcidConfirmationComponent, {
+      set: {
+        template: '<div>Mocked OrcidConfirmationComponent</div>',
+      },
+    });
     fixture = TestBed.createComponent(ExternalLogInComponent);
     component = fixture.componentInstance;
     component.registrationData = Object.assign(new Registration, registrationDataMock);
@@ -111,5 +121,3 @@ describe('ExternalLogInComponent', () => {
     expect(infoText.nativeElement.innerHTML).toContain('Info Text');
   });
 });
-
-

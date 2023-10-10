@@ -24,8 +24,8 @@ import { CompareValuesPipe } from '../helpers/compare-values.pipe';
 import { Registration } from '../../core/shared/registration.model';
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
-import { ExternalLoginService } from '../../shared/external-log-in-complete/services/external-login.service';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
+import { ExternalLoginService } from '../../external-log-in-complete/services/external-login.service';
 
 describe('ReviewAccountInfoComponent', () => {
   let component: ReviewAccountInfoComponent;
@@ -179,7 +179,7 @@ describe('ReviewAccountInfoComponent', () => {
     const registrationTypeElement: HTMLElement = fixture.nativeElement.querySelector('tbody tr:first-child th');
     const netIdElement: HTMLElement = fixture.nativeElement.querySelector('tbody tr:first-child td');
 
-    expect(registrationTypeElement.textContent.trim()).toBe(registrationDataMock.registrationType.toUpperCase());
+    expect(registrationTypeElement.textContent.trim()).toBe(registrationDataMock.registrationType);
     expect(netIdElement.textContent.trim()).toBe(registrationDataMock.netId);
   });
 

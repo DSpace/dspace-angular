@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { ExternalLoginReviewAccountInfoPageComponent } from './external-login-review-account-info-page.component';
-import { mockRegistrationDataModel } from '../shared/external-log-in-complete/models/registration-data.mock.model';
+import { mockRegistrationDataModel } from '../external-log-in-complete/models/registration-data.mock.model';
 
 describe('ExternalLoginReviewAccountInfoPageComponent', () => {
   let component: ExternalLoginReviewAccountInfoPageComponent;

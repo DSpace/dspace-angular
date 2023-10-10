@@ -1,17 +1,17 @@
 import { Component, ChangeDetectionStrategy, Input, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExternalLoginService } from '../../services/external-login.service';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../../core/shared/operators';
-import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
-import { hasNoValue, hasValue } from '../../../../shared/empty.util';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
-import { AuthService } from '../../../../core/auth/auth.service';
 import { Subscription, combineLatest, take } from 'rxjs';
-import { Registration } from '../../../../core/shared/registration.model';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { AuthService } from '../../../core/auth/auth.service';
+import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { HardRedirectService } from '../../../core/services/hard-redirect.service';
+import { getRemoteDataPayload, getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { Registration } from '../../../core/shared/registration.model';
+import { hasNoValue, hasValue } from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-confirm-email',

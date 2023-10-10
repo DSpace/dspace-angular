@@ -2,12 +2,13 @@ import { TestBed } from '@angular/core/testing';
 import { RegistrationTokenGuard } from './registration-token.guard';
 import { ActivatedRoute, convertToParamMap, Params, Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
-import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
-import { AuthService } from '../../../core/auth/auth.service';
-import { RouterMock } from '../../../shared/mocks/router.mock';
-import { Registration } from '../../../core/shared/registration.model';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { AuthService } from '../../core/auth/auth.service';
+import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { Registration } from '../../core/shared/registration.model';
+import { RouterMock } from '../../shared/mocks/router.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { AuthRegistrationType } from 'src/app/core/auth/models/auth.registration-type';
 
 describe('RegistrationTokenGuard', () => {
   let guard: RegistrationTokenGuard;
@@ -16,6 +17,7 @@ describe('RegistrationTokenGuard', () => {
     {
       email: 'test@email.org',
       token: 'test-token',
+      registrationType: AuthRegistrationType.Orcid,
     });
   const epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
     searchRegistrationByToken: createSuccessfulRemoteDataObject$(registrationWithGroups)

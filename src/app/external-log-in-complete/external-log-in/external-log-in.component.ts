@@ -5,13 +5,13 @@ import {
   Input,
   Injector,
 } from '@angular/core';
-import { getExternalLoginConfirmationType } from '../external-log-in.methods-decorator';
-import { hasValue } from '../../empty.util';
+import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from '../../../core/auth/auth.service';
-import { Registration } from '../../../core/shared/registration.model';
-import { AuthRegistrationType } from '../../../core/auth/models/auth.registration-type';
+import { AuthService } from '../../core/auth/auth.service';
+import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
+import { Registration } from '../../core/shared/registration.model';
+import { hasValue } from '../../shared/empty.util';
+import { getExternalLoginConfirmationType } from '../decorators/external-log-in.methods-decorator';
 
 @Component({
   selector: 'ds-external-log-in',

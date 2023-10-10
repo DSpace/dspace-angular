@@ -17,9 +17,9 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { Router } from '@angular/router';
 import { Registration } from '../../core/shared/registration.model';
 import { AuthService } from '../../core/auth/auth.service';
-import { ExternalLoginService } from '../../shared/external-log-in-complete/services/external-login.service';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
+import { ExternalLoginService } from '../../external-log-in-complete/services/external-login.service';
 
 export interface ReviewAccountInfoData {
   label: string;

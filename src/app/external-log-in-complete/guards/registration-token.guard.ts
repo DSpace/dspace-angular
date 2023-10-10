@@ -6,11 +6,12 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable, map, of } from 'rxjs';
-import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { Registration } from '../../../core/shared/registration.model';
-import { hasValue } from '../../empty.util';
+import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { Registration } from '../../core/shared/registration.model';
+import { hasValue } from '../../shared/empty.util';
+import { AuthRegistrationType } from 'src/app/core/auth/models/auth.registration-type';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +39,7 @@ export class RegistrationTokenGuard implements CanActivate {
           getFirstCompletedRemoteData(),
           map(
             (data: RemoteData<Registration>) => {
-              if (data.hasSucceeded && hasValue(data)) {
+              if (data.hasSucceeded && hasValue(data.payload) && !data.payload.registrationType.includes(AuthRegistrationType.Validation)) {
                 return true;
               } else {
                 this.router.navigate(['/404']);

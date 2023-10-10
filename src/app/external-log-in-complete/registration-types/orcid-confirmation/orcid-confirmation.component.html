@@ -1,7 +1,7 @@
 <form class="form-login"
       [formGroup]="form" novalidate>
-  <label class="font-weight-bold mb-0">{{ registratioData.registrationType | uppercase }}</label>
-  <input [attr.aria-label]="'netId' |translate"
+  <label class="font-weight-bold mb-0 text-uppercase">{{ registratioData.registrationType }}</label>
+  <input [attr.aria-label]="'netId' | translate"
          autocomplete="off"
          autofocus
          class="form-control form-control-lg position-relative mb-2"
@@ -10,14 +10,14 @@
          type="text"
          [attr.data-test]="'netId' | dsBrowserOnly">
   <label class="font-weight-bold mb-0">{{"Last name" | translate}}</label>
-  <input [attr.aria-label]="'Last name' |translate"
+  <input [attr.aria-label]="'Last name' | translate"
          autocomplete="off"
          class="form-control form-control-lg position-relative mb-2"
          formControlName="lastname"
          type="text"
          [attr.data-test]="'lastname' | dsBrowserOnly">
   <label class="font-weight-bold mb-0">{{"First name" | translate}}</label>
-  <input [attr.aria-label]="'First name' |translate"
+  <input [attr.aria-label]="'First name' | translate"
         autocomplete="off"
         class="form-control form-control-lg position-relative mb-2"
         formControlName="firstname"

@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 
 import { RegistrationDataResolver } from './registration-data.resolver';
-import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
-import { Registration } from '../../../core/shared/registration.model';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
+import { Registration } from '../../core/shared/registration.model';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('RegistrationDataResolver', () => {
   let resolver: RegistrationDataResolver;

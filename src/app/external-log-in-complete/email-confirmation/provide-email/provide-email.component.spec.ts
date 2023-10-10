@@ -4,9 +4,9 @@ import { ProvideEmailComponent } from './provide-email.component';
 import { FormBuilder } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ExternalLoginService } from '../../services/external-login.service';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 
 describe('ProvideEmailComponent', () => {
   let component: ProvideEmailComponent;

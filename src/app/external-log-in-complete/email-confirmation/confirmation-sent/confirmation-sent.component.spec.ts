@@ -4,8 +4,8 @@ import { ConfirmationSentComponent } from './confirmation-sent.component';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, EventEmitter } from '@angular/core';
 import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { of } from 'rxjs';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 
 describe('ConfirmationSentComponent', () => {
   let component: ConfirmationSentComponent;

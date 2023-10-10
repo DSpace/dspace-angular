@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ThemedExternalLoginPageComponent } from './themed-external-login-page.component';
-import { RegistrationTokenGuard } from '../shared/external-log-in-complete/guards/registration-token.guard';
-import { RegistrationDataResolver } from '../shared/external-log-in-complete/resolvers/registration-data.resolver';
+import { RegistrationDataResolver } from '../external-log-in-complete/resolvers/registration-data.resolver';
+import { RegistrationTokenGuard } from '../external-log-in-complete/guards/registration-token.guard';
 
 const routes: Routes = [
   {

@@ -1,4 +1,4 @@
-import { AuthRegistrationType } from 'src/app/core/auth/models/auth.registration-type';
+import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
 
 /**
  * Map to store the external login confirmation component for the given auth method type

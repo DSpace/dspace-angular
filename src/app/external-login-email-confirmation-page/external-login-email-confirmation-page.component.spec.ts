@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExternalLoginEmailConfirmationPageComponent } from './external-login-email-confirmation-page.component';
-import { ConfirmationSentComponent } from '../shared/external-log-in-complete/email-confirmation/confirmation-sent/confirmation-sent.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { ConfirmationSentComponent } from '../external-log-in-complete/email-confirmation/confirmation-sent/confirmation-sent.component';
 
 describe('ExternalLoginEmailConfirmationPageComponent', () => {
   let component: ExternalLoginEmailConfirmationPageComponent;

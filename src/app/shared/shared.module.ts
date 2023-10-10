@@ -332,11 +332,6 @@ import { EntityIconDirective } from './entity-icon/entity-icon.directive';
 import {
   AdditionalMetadataComponent
 } from './object-list/search-result-list-element/additional-metadata/additional-metadata.component';
-import { ExternalLogInComponent } from './external-log-in-complete/external-log-in/external-log-in.component';
-import { OrcidConfirmationComponent } from './external-log-in-complete/registration-types/orcid-confirmation/orcid-confirmation.component';
-import { ProvideEmailComponent } from './external-log-in-complete/email-confirmation/provide-email/provide-email.component';
-import { ConfirmEmailComponent } from './external-log-in-complete/email-confirmation/confirm-email/confirm-email.component';
-import { ConfirmationSentComponent } from './external-log-in-complete/email-confirmation/confirmation-sent/confirmation-sent.component';
 
 const MODULES = [
   CommonModule,
@@ -475,10 +470,6 @@ const COMPONENTS = [
   ExportExcelSelectorComponent,
   ThemedBrowseMostElementsComponent,
   SearchChartBarHorizontalComponent,
-  ExternalLogInComponent,
-  ProvideEmailComponent,
-  ConfirmEmailComponent,
-  ConfirmationSentComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -553,7 +544,6 @@ const ENTRY_COMPONENTS = [
   SearchChartBarHorizontalComponent,
   RelationshipsListComponent,
   AdditionalMetadataComponent,
-  OrcidConfirmationComponent,
 ];
 
 const PROVIDERS = [

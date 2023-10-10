@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ExternalLoginEmailConfirmationPageRoutingModule } from './external-login-email-confirmation-page-routing.module';
 import { ExternalLoginEmailConfirmationPageComponent } from './external-login-email-confirmation-page.component';
-import { SharedModule } from '../shared/shared.module';
+import { ExternalLoginCompleteModule } from '../external-log-in-complete/external-login-complete.module';
 
 
 @NgModule({
@@ -13,7 +13,7 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     ExternalLoginEmailConfirmationPageRoutingModule,
-    SharedModule
+    ExternalLoginCompleteModule,
   ]
 })
 export class ExternalLoginEmailConfirmationPageModule { }

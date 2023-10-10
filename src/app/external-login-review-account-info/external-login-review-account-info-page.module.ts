@@ -8,7 +8,7 @@ import { ThemedExternalLoginReviewAccountInfoPageComponent } from './themed-exte
 import { ReviewAccountInfoComponent } from './review-account-info/review-account-info.component';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { SharedModule } from '../shared/shared.module';
-
+import { ExternalLoginCompleteModule } from '../external-log-in-complete/external-login-complete.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +22,7 @@ import { SharedModule } from '../shared/shared.module';
     ExternalLoginReviewAccountInfoRoutingModule,
     SharedModule,
     UiSwitchModule,
+    ExternalLoginCompleteModule
   ]
 })
 export class ExternalLoginReviewAccountInfoModule { }

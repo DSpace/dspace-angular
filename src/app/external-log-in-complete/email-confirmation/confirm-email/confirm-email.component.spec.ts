@@ -8,20 +8,18 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ExternalLoginService } from '../../services/external-login.service';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
-import {
-  createSuccessfulRemoteDataObject$,
-} from '../../../../shared/remote-data.utils';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { of } from 'rxjs';
-import { Registration } from '../../../../core/shared/registration.model';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { AuthService } from '../../../core/auth/auth.service';
+import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
+import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { HardRedirectService } from '../../../core/services/hard-redirect.service';
+import { Registration } from '../../../core/shared/registration.model';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 describe('ConfirmEmailComponent', () => {
   let component: ConfirmEmailComponent;
