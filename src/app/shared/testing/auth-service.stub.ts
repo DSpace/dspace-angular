@@ -179,4 +179,8 @@ export class AuthServiceStub {
   public getAuthenticatedUserFromStore(): Observable<EPerson> {
     return observableOf(EPersonMock);
   }
+
+  public getExternalServerRedirectUrl(redirectRoute: string, location: string) {
+    return;
+  }
 }
