@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, filter, map, tap } from 'rxjs';
+import { Observable, filter, map } from 'rxjs';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';

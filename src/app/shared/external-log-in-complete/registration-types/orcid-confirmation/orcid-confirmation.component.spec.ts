@@ -3,10 +3,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { OrcidConfirmationComponent } from './orcid-confirmation.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserOnlyMockPipe } from '../../../../shared/testing/browser-only-mock.pipe';
+import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
 import { Registration } from 'src/app/core/shared/registration.model';
 import { mockRegistrationDataModel } from '../../models/registration-data.mock.model';
 
