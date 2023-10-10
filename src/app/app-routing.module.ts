@@ -178,7 +178,7 @@ import { RedirectService } from './redirect/redirect.service';
           },
           {
             path: 'review-account/:token',
-            loadChildren: () => import('./external-login-review-account-info/external-login-review-account-info-page.module')
+            loadChildren: () => import('./external-login-review-account-info-page/external-login-review-account-info-page.module')
               .then((m) => m.ExternalLoginReviewAccountInfoModule)
           },
           {

@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ThemedExternalLoginPageComponent } from './themed-external-login-page.component';
+import { ExternalLoginReviewAccountInfoPageComponent } from './external-login-review-account-info-page.component';
+import { ReviewAccountGuard } from './helpers/review-account.guard';
 import { RegistrationDataResolver } from '../external-log-in/resolvers/registration-data.resolver';
-import { RegistrationTokenGuard } from '../external-log-in/guards/registration-token.guard';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: ThemedExternalLoginPageComponent,
-    canActivate: [RegistrationTokenGuard],
+    component: ExternalLoginReviewAccountInfoPageComponent,
+    canActivate: [ReviewAccountGuard],
     resolve: { registrationData: RegistrationDataResolver },
   },
 ];
@@ -17,6 +17,5 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [],
 })
-export class ExternalLoginPageRoutingModule {}
+export class ExternalLoginReviewAccountInfoRoutingModule {}

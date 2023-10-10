@@ -5,7 +5,7 @@ import { ExternalLoginPageRoutingModule } from './external-login-page-routing.mo
 import { ExternalLoginPageComponent } from './external-login-page.component';
 import { ThemedExternalLoginPageComponent } from './themed-external-login-page.component';
 import { SharedModule } from '../shared/shared.module';
-import { ExternalLoginCompleteModule } from '../external-log-in-complete/external-login-complete.module';
+import { ExternalLoginModule } from '../external-log-in/external-login.module';
 
 const COMPONENTS = [
   ExternalLoginPageComponent,
@@ -20,7 +20,7 @@ const COMPONENTS = [
     CommonModule,
     ExternalLoginPageRoutingModule,
     SharedModule,
-    ExternalLoginCompleteModule
+    ExternalLoginModule
   ]
 })
 export class ExternalLoginPageModule { }
