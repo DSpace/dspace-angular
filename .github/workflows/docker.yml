@@ -17,7 +17,7 @@ jobs:
   docker:
     # Ensure this job never runs on forked repos. It's only executed for our repo
     if: github.repository == 'dataquest-dev/dspace-angular'
-    runs-on: dspace-dep-1
+    runs-on: ubuntu-latest
     env:
       # Define tags to use for Docker images based on Git tags/branches (for docker/metadata-action)
       # For a new commit on default branch (main), use the literal tag 'dspace-7_x' on Docker image.
