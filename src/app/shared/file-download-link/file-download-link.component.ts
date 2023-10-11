@@ -4,8 +4,8 @@ import { getBitstreamDownloadRoute, getBitstreamRequestACopyRoute } from '../../
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { hasValue, isNotEmpty } from '../empty.util';
-import { map } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, shareReplay } from 'rxjs';
 import { Item } from '../../core/shared/item.model';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { getFirstCompletedRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
@@ -79,6 +79,8 @@ export class FileDownloadLinkComponent implements OnInit {
         // in case requestItemType empty/commented out(undefined) - request-copy not allowed
             hasValue(requestItemType) && requestItemType.values.length > 0
         ),
+        catchError(() => observableOf(false)),
+        shareReplay(1)
       );
     } else {
       this.bitstreamPath$ = observableOf(this.getBitstreamDownloadPath());
