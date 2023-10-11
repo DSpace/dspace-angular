@@ -16,7 +16,7 @@
   "browse.comcol.by.title": "Titres",
   "browse.comcol.by.dateissued": "Dates de publication",
   "browse.comcol.by.author": "Auteurs",
-  "browse.comcol.by.contributor": "Contributeur",
+  "browse.comcol.by.contributor": "Contributeurs",
   "browse.comcol.by.subject": "Sujets",
   "browse.comcol.by.titleindex": "Index des titres",
 
@@ -24,16 +24,15 @@
   "browse.metadata.title": "titre",
   "browse.metadata.dateissued": "date de publication",
   "browse.metadata.author": "auteur",
-  "browse.metadata.contributor": "Contributeur",
+  "browse.metadata.contributor": "contributeurs",
   "browse.metadata.subject": "sujet",
-  "browse.metadata.discipline": "programme",
   "browse.metadata.titleindex": "l'index des titres",
 
   // Le nom des fils d'ariane lorsqu'on parcourt
   "browse.metadata.title.breadcrumbs": "Parcourir par titre",
   "browse.metadata.dateissued.breadcrumbs": "Parcourir par date de publication",
   "browse.metadata.author.breadcrumbs": "Parcourir par auteur",
-  "browse.metadata.contributor.breadcrumbs": "Parcourir par Contributeur",
+  "browse.metadata.contributor.breadcrumbs": "Parcourir par contributeurs",
   "browse.metadata.subject.breadcrumbs": "Parcourir par sujet",
   "browse.metadata.titleindex.breadcrumbs": "Parcourir l'index des titres",
 
