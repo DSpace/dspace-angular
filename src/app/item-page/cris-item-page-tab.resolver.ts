@@ -37,6 +37,7 @@ export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList
         if (itemRD.hasSucceeded && itemRD.statusCode === 200) {
           return this.tabService.findByItem(
             itemRD.payload.uuid,
+            true,
             true
           ).pipe(
             getFirstCompletedRemoteData(),
