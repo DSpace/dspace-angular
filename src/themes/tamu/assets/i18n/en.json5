@@ -1,0 +1,18 @@
+{
+  "title": "OAKTrust",
+
+  "repository.title": "OAKTrust",
+
+  "repository.title.prefix": "OAKTrust :: ",
+
+  "menu.section.browse_global": "Browse OAKTrust",
+
+  "search.form.scope.all": "All of OAKTrust",
+
+  "dso-selector.set-scope.community.button": "Search all of OAKTrust",
+
+  "home.top-level-communities.head": "Communities in OAKTrust",
+
+  "login.form.header": "Please log in to OAKTrust",
+
+}
