@@ -12,6 +12,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { FeedbackFormComponent } from './feedback/feedback-form/feedback-form.component';
 import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
 import { FeedbackGuard } from '../core/feedback/feedback.guard';
+import { MarkdownViewerModule } from '../shared/markdown-viewer/markdown-viewer.module';
 
 
 const DECLARATIONS = [
@@ -31,6 +32,7 @@ const DECLARATIONS = [
     CommonModule,
     SharedModule,
     InfoRoutingModule,
+    MarkdownViewerModule
   ],
   declarations: [
     ...DECLARATIONS

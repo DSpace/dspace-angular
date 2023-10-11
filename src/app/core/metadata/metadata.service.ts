@@ -1,14 +1,21 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { BehaviorSubject, combineLatest, EMPTY, Observable, of as observableOf } from 'rxjs';
-import { expand, filter, map, switchMap, take } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  of as observableOf,
+  concat as observableConcat,
+  EMPTY
+} from 'rxjs';
+import { filter, map, switchMap, take, mergeMap } from 'rxjs/operators';
 
-import { hasNoValue, hasValue } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../data/bitstream-data.service';
 import { BitstreamFormatDataService } from '../data/bitstream-format-data.service';
@@ -18,7 +25,10 @@ import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload
+} from '../shared/operators';
 import { RootDataService } from '../data/root-data.service';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 import { BundleDataService } from '../data/bundle-data.service';
@@ -31,7 +41,14 @@ import { MetaTagState } from './meta-tag.reducer';
 import { createSelector, select, Store } from '@ngrx/store';
 import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
 import { coreSelector } from '../core.selectors';
-import { CoreState } from '../core.reducers';
+import { CoreState } from '../core-state.model';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { getDownloadableBitstream } from '../shared/bitstream.operators';
+import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
+import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
+import { ITEM } from '../shared/item.resource-type';
+import { isPlatformServer } from '@angular/common';
+import { Root } from '../data/root.model';
 
 /**
  * The base selector function to select the metaTag section in the store
@@ -82,6 +99,10 @@ export class MetadataService {
     private rootService: RootDataService,
     private store: Store<CoreState>,
     private hardRedirectService: HardRedirectService,
+    @Inject(APP_CONFIG) private appConfig: AppConfig,
+    private authorizationService: AuthorizationDataService,
+    private schemaJsonLDService: SchemaJsonLDService,
+    @Inject(PLATFORM_ID) private platformId: any,
   ) {
   }
 
@@ -103,13 +124,25 @@ export class MetadataService {
   private processRouteChange(routeInfo: any): void {
     this.clearMetaTags();
 
+    if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
+      this.currentObject.next(routeInfo.data.value.dso.payload);
+      this.setDSOMetaTags();
+    }
+
     if (routeInfo.data.value.title) {
-      const titlePrefix = this.translate.get('repository.title.prefix');
+      const pageName$ = this.rootService.findRoot(true).pipe(
+        getFirstCompletedRemoteData(),
+        map((rootRD: RemoteData<Root>) => rootRD.payload.dspaceName),
+      );
+
       const title = this.translate.get(routeInfo.data.value.title, routeInfo.data.value);
-      combineLatest([titlePrefix, title]).pipe(take(1)).subscribe(([translatedTitlePrefix, translatedTitle]: [string, string]) => {
-        this.addMetaTag('title', translatedTitlePrefix + translatedTitle);
-        this.title.setTitle(translatedTitlePrefix + translatedTitle);
-      });
+      combineLatest([ pageName$, title ])
+        .pipe(take(1))
+        .subscribe(([ translatedTitlePrefix, translatedTitle ]: [ string, string ]) => {
+          let finalTitle = translatedTitlePrefix + ' :: ' + translatedTitle;
+          this.addMetaTag('title', finalTitle);
+          this.title.setTitle(finalTitle);
+        });
     }
     if (routeInfo.data.value.description) {
       this.translate.get(routeInfo.data.value.description).pipe(take(1)).subscribe((translatedDescription: string) => {
@@ -120,7 +153,12 @@ export class MetadataService {
     if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
       this.currentObject.next(routeInfo.data.value.dso.payload);
       this.setDSOMetaTags();
+      if (routeInfo.data.value.dso.payload.type === ITEM.value && isPlatformServer(this.platformId)) {
+        this.schemaJsonLDService.insertSchema(routeInfo.data.value.dso.payload);
+      }
     }
+
+
   }
 
   private getCurrentRoute(route: ActivatedRoute): ActivatedRoute {
@@ -135,6 +173,9 @@ export class MetadataService {
     this.setTitleTag();
     this.setDescriptionTag();
 
+    if (!this.isResearchOutput()) {
+      return;
+    }
     this.setCitationTitleTag();
     this.setCitationAuthorTags();
     this.setCitationPublicationDateTag();
@@ -152,20 +193,19 @@ export class MetadataService {
       this.setCitationDissertationNameTag();
     }
 
-    // this.setCitationJournalTitleTag();
-    // this.setCitationVolumeTag();
-    // this.setCitationIssueTag();
-    // this.setCitationFirstPageTag();
-    // this.setCitationLastPageTag();
-    // this.setCitationDOITag();
-    // this.setCitationPMIDTag();
+    this.setCitationJournalTitleTag();
+    this.setCitationVolumeTag();
+    this.setCitationIssueTag();
+    this.setCitationFirstPageTag();
+    this.setCitationLastPageTag();
+    this.setCitationDOITag();
+    this.setCitationPMIDTag();
+    this.setCitationArxivIdTag();
+    this.setCitationConferenceTag();
 
-    // this.setCitationFullTextTag();
-
-    // this.setCitationConferenceTag();
-
-    // this.setCitationPatentCountryTag();
-    // this.setCitationPatentNumberTag();
+    if (this.isTechReport()) {
+      this.setCitationTechnicalReportNumberTag();
+    }
 
   }
 
@@ -215,7 +255,7 @@ export class MetadataService {
    * Add <meta name="citation_issn" ... >  to the <head>
    */
   private setCitationISSNTag(): void {
-    const value = this.getMetaTagValue('dc.identifier.issn');
+    const value = this.getMetaTagValue('dc.relation.issn');
     this.addMetaTag('citation_issn', value);
   }
 
@@ -266,6 +306,86 @@ export class MetadataService {
   }
 
   /**
+   * Add <meta name="citation_journal_title" ... >  to the <head>
+   */
+  private setCitationJournalTitleTag(): void {
+    const value = this.getMetaTagValue('dc.relation.ispartof');
+    this.addMetaTag('citation_journal_title', value);
+  }
+
+  /**
+   * Add <meta name="citation_volume" ... >  to the <head>
+   */
+  private setCitationVolumeTag(): void {
+    const value = this.getMetaTagValue('oaire.citation.volume');
+    this.addMetaTag('citation_volume', value);
+  }
+
+  /**
+   * Add <meta name="citation_issue" ... >  to the <head>
+   */
+  private setCitationIssueTag(): void {
+    const value = this.getMetaTagValue('oaire.citation.issue');
+    this.addMetaTag('citation_issue', value);
+  }
+
+  /**
+   * Add <meta name="citation_firstpage" ... >  to the <head>
+   */
+  private setCitationFirstPageTag(): void {
+    const value = this.getMetaTagValue('oaire.citation.startPage');
+    this.addMetaTag('citation_firstpage', value);
+  }
+
+  /**
+   * Add <meta name="citation_firstpage" ... >  to the <head>
+   */
+  private setCitationLastPageTag(): void {
+    const value = this.getMetaTagValue('oaire.citation.endPage');
+    this.addMetaTag('citation_lastpage', value);
+  }
+
+  /**
+   * Add <meta name="citation_doi" ... >  to the <head>
+   */
+  private setCitationDOITag(): void {
+    const value = this.getMetaTagValue('dc.identifier.doi');
+    this.addMetaTag('citation_doi', value);
+  }
+
+  /**
+   * Add <meta name="citation_pmid" ... >  to the <head>
+   */
+  private setCitationPMIDTag(): void {
+    const value = this.getMetaTagValue('dc.identifier.pmid');
+    this.addMetaTag('citation_pmid', value);
+  }
+
+  /**
+   * Add <meta name="citation_arxiv_id" ... >  to the <head>
+   */
+  private setCitationArxivIdTag(): void {
+    const value = this.getMetaTagValue('dc.identifier.arxiv');
+    this.addMetaTag('citation_arxiv_id', value);
+  }
+
+  /**
+   * Add <meta name="citation_conference_title" ... >  to the <head>
+   */
+   private setCitationConferenceTag(): void {
+    const value = this.getMetaTagValue('dc.relation.conference');
+    this.addMetaTag('citation_conference_title', value);
+  }
+
+  /**
+   * Add <meta name="citation_technical_report_number" ... >  to the <head>
+   */
+   private setCitationTechnicalReportNumberTag(): void {
+    const value = this.getMetaTagValue('dc.relation.ispartofseries');
+    this.addMetaTag('citation_technical_report_number', value);
+  }
+
+  /**
    * Add <meta name="citation_abstract_html_url" ... >  to the <head>
    */
   private setCitationAbstractUrlTag(): void {
@@ -292,11 +412,16 @@ export class MetadataService {
         true,
         true,
         followLink('primaryBitstream'),
-        followLink('bitstreams', {}, followLink('format')),
+        followLink('bitstreams', {
+            findListOptions: {
+              // limit the number of bitstreams used to find the citation pdf url to the number
+              // shown by default on an item page
+              elementsPerPage: this.appConfig.item.bitstream.pageSize
+            }
+        }, followLink('format')),
       ).pipe(
         getFirstSucceededRemoteDataPayload(),
         switchMap((bundle: Bundle) =>
-
           // First try the primary bitstream
           bundle.primaryBitstream.pipe(
             getFirstCompletedRemoteData(),
@@ -307,13 +432,14 @@ export class MetadataService {
                 return null;
               }
             }),
+            getDownloadableBitstream(this.authorizationService),
             // return the bundle as well so we can use it again if there's no primary bitstream
             map((bitstream: Bitstream) => [bundle, bitstream])
           )
         ),
         switchMap(([bundle, primaryBitstream]: [Bundle, Bitstream]) => {
           if (hasValue(primaryBitstream)) {
-            // If there was a primary bitstream, emit its link
+            // If there was a downloadable primary bitstream, emit its link
             return [getBitstreamDownloadRoute(primaryBitstream)];
           } else {
             // Otherwise consider the regular bitstreams in the bundle
@@ -321,8 +447,8 @@ export class MetadataService {
               getFirstCompletedRemoteData(),
               switchMap((bitstreamRd: RemoteData<PaginatedList<Bitstream>>) => {
                 if (hasValue(bitstreamRd.payload) && bitstreamRd.payload.totalElements === 1) {
-                  // If there's only one bitstream in the bundle, emit its link
-                  return [getBitstreamDownloadRoute(bitstreamRd.payload.page[0])];
+                  // If there's only one bitstream in the bundle, emit its link if its downloadable
+                  return this.getBitLinkIfDownloadable(bitstreamRd.payload.page[0], bitstreamRd);
                 } else {
                   // Otherwise check all bitstreams to see if one matches the format whitelist
                   return this.getFirstAllowedFormatBitstreamLink(bitstreamRd);
@@ -342,60 +468,60 @@ export class MetadataService {
     }
   }
 
+  getBitLinkIfDownloadable(bitstream: Bitstream, bitstreamRd: RemoteData<PaginatedList<Bitstream>>): Observable<string> {
+    return observableOf(bitstream).pipe(
+      getDownloadableBitstream(this.authorizationService),
+      switchMap((bit: Bitstream) => {
+        if (hasValue(bit)) {
+          return [getBitstreamDownloadRoute(bit)];
+        } else {
+          // Otherwise check all bitstreams to see if one matches the format whitelist
+          return this.getFirstAllowedFormatBitstreamLink(bitstreamRd);
+        }
+      })
+    );
+  }
+
   /**
-   * For Items with more than one Bitstream (and no primary Bitstream), link to the first Bitstream with a MIME type
+   * For Items with more than one Bitstream (and no primary Bitstream), link to the first Bitstream
+   * with a MIME type.
+   *
+   * Note this will only check the current page (page size determined item.bitstream.pageSize in the
+   * config) of bitstreams for performance reasons.
+   * See https://github.com/DSpace/DSpace/issues/8648 for more info
+   *
    * included in {@linkcode CITATION_PDF_URL_MIMETYPES}
    * @param bitstreamRd
    * @private
    */
   private getFirstAllowedFormatBitstreamLink(bitstreamRd: RemoteData<PaginatedList<Bitstream>>): Observable<string> {
-    return observableOf(bitstreamRd.payload).pipe(
-      // Because there can be more than one page of bitstreams, this expand operator
-      // will retrieve them in turn. Due to the take(1) at the bottom, it will only
-      // retrieve pages until a match is found
-      expand((paginatedList: PaginatedList<Bitstream>) => {
-        if (hasNoValue(paginatedList.next)) {
-          // If there's no next page, stop.
-          return EMPTY;
-        } else {
-          // Otherwise retrieve the next page
-          return this.bitstreamDataService.findAllByHref(
-            paginatedList.next,
-            undefined,
-            true,
-            true,
-            followLink('format')
-          ).pipe(
-            getFirstCompletedRemoteData(),
-            map((next: RemoteData<PaginatedList<Bitstream>>) => {
-              if (hasValue(next.payload)) {
-                return next.payload;
-              } else {
-                return EMPTY;
-              }
-            })
-          );
-        }
-      }),
-      // Return the array of bitstreams inside each paginated list
-      map((paginatedList: PaginatedList<Bitstream>) => paginatedList.page),
-      // Emit the bitstreams in the list one at a time
-      switchMap((bitstreams: Bitstream[]) => bitstreams),
-      // Retrieve the format for each bitstream
-      switchMap((bitstream: Bitstream) => bitstream.format.pipe(
-        getFirstSucceededRemoteDataPayload(),
-        // Keep the original bitstream, because it, not the format, is what we'll need
-        // for the link at the end
-        map((format: BitstreamFormat) => [bitstream, format])
-      )),
-      // Filter out only pairs with whitelisted formats
-      filter(([, format]: [Bitstream, BitstreamFormat]) =>
-        hasValue(format) && this.CITATION_PDF_URL_MIMETYPES.includes(format.mimetype)),
-      // We only need 1
-      take(1),
-      // Emit the link of the match
-      map(([bitstream, ]: [Bitstream, BitstreamFormat]) => getBitstreamDownloadRoute(bitstream))
-    );
+    if (hasValue(bitstreamRd.payload) && isNotEmpty(bitstreamRd.payload.page)) {
+      // Retrieve the formats of all bitstreams in the page sequentially
+      return observableConcat(
+        ...bitstreamRd.payload.page.map((bitstream: Bitstream) => bitstream.format.pipe(
+          getFirstSucceededRemoteDataPayload(),
+          // Keep the original bitstream, because it, not the format, is what we'll need
+          // for the link at the end
+          map((format: BitstreamFormat) => [bitstream, format])
+        ))
+      ).pipe(
+        // Verify that the bitstream is downloadable
+        mergeMap(([bitstream, format]: [Bitstream, BitstreamFormat]) => observableOf(bitstream).pipe(
+          getDownloadableBitstream(this.authorizationService),
+          map((bit: Bitstream) => [bit, format])
+        )),
+        // Filter out only pairs with whitelisted formats and non-null bitstreams, null from download check
+        filter(([bitstream, format]: [Bitstream, BitstreamFormat]) =>
+          hasValue(format) && hasValue(bitstream) && this.CITATION_PDF_URL_MIMETYPES.includes(format.mimetype)),
+        // We only need 1
+        take(1),
+        // Emit the link of the match
+        // tap((v) => console.log('result', v)),
+        map(([bitstream, ]: [Bitstream, BitstreamFormat]) => getBitstreamDownloadRoute(bitstream))
+      );
+    } else {
+      return EMPTY;
+    }
   }
 
   /**
@@ -408,7 +534,11 @@ export class MetadataService {
   }
 
   private hasType(value: string): boolean {
-    return this.currentObject.value.hasMetadata('dc.type', { value: value, ignoreCase: true });
+    return this.currentObject.value.hasMetadata('dc.type', { value: value, ignoreCase: true, substring: true });
+  }
+
+  private hasEntityType(value: string): boolean {
+    return this.currentObject.value.hasMetadata('dspace.entity.type', { value: value, ignoreCase: true });
   }
 
   /**
@@ -420,6 +550,26 @@ export class MetadataService {
   private isDissertation(): boolean {
     return this.hasType('thesis');
   }
+
+  /**
+   * Returns true if this._item is a research output (publication, patent or product)
+   *
+   * @returns {boolean}
+   *      true if this._item has a dc.type equal to 'Thesis'
+   */
+   private isResearchOutput(): boolean {
+    return this.hasEntityType('publication') || this.hasEntityType('product') || this.hasEntityType('patent');
+  }
+
+    /**
+   * Returns true if this._item is a research output (publication, patent or product)
+   *
+   * @returns {boolean}
+   *      true if this._item has a dc.type equal to 'Thesis'
+   */
+     private isPatent(): boolean {
+      return this.hasEntityType('patent');
+    }
 
   /**
    * Returns true if this._item is a technical report
@@ -466,6 +616,7 @@ export class MetadataService {
   }
 
   public clearMetaTags() {
+    this.schemaJsonLDService.removeStructuredData();
     this.store.pipe(
       select(tagsInUseSelector),
       take(1)

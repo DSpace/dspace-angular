@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ExpandableAdminSidebarSectionComponent } from './expandable-admin-sidebar-section.component';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuServiceStub } from '../../../shared/testing/menu-service.stub';
-import { CSSVariableService } from '../../../shared/sass-helper/sass-helper.service';
+import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
 import { CSSVariableServiceStub } from '../../../shared/testing/css-variable-service.stub';
 import { of as observableOf } from 'rxjs';
 import { Component } from '@angular/core';
@@ -23,7 +23,7 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
       imports: [NoopAnimationsModule, TranslateModule.forRoot()],
       declarations: [ExpandableAdminSidebarSectionComponent, TestComponent],
       providers: [
-        { provide: 'sectionDataProvider', useValue: { icon: iconString } },
+        { provide: 'sectionDataProvider', useValue: { icon: iconString, model: {} } },
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: Router, useValue: new RouterStub() },

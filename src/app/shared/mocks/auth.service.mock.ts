@@ -1,4 +1,4 @@
-/* tslint:disable:no-empty */
+/* eslint-disable no-empty, @typescript-eslint/no-empty-function */
 import { Observable, of as observableOf } from 'rxjs';
 
 export class AuthServiceMock {
@@ -25,5 +25,17 @@ export class AuthServiceMock {
 
   public isUserIdle(): Observable<boolean> {
     return observableOf(false);
+  }
+
+  public getImpersonateID(): string {
+    return null;
+  }
+
+  public getRedirectUrl(): Observable<string> {
+    return;
+  }
+
+  public getExternalServerRedirectUrl(): string {
+    return;
   }
 }

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 import { CrisLayoutBoxContainerComponent } from './cris-layout-box-container.component';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';

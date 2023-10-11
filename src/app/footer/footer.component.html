@@ -32,7 +32,7 @@
           <h5 class="text-uppercase">Make it your own</h5>
           <p>
             DSpace-CRIS can be extensively configured to meet your needs. Decide which information need to be collected and available
-            with fine-grained security. Start updating the theme to match your nstitution's web identity.
+            with fine-grained security. Start updating the theme to match your Institution's web identity.
           </p>
         </div>
         <!--Grid column-->
@@ -65,13 +65,14 @@
       </p>
       <ul class="footer-info list-unstyled small d-flex justify-content-center mb-0">
         <li>
-          <a class="text-white" href="javascript:void(0);"
+            <a class="text-white" href="javascript:void(0);"
              (click)="showCookieSettings()">{{ 'footer.link.cookies' | translate}}</a>
         </li>
-        <li>
-          <a class="text-white" routerLink="info/privacy">{{ 'footer.link.privacy-policy' | translate}}</a>
+        <li *ngIf="showPrivacyPolicy">
+          <a class="text-white"
+             routerLink="info/privacy">{{ 'footer.link.privacy-policy' | translate}}</a>
         </li>
-        <li>
+        <li *ngIf="showEndUserAgreement">
           <a class="text-white"
              routerLink="info/end-user-agreement">{{ 'footer.link.end-user-agreement' | translate}}</a>
         </li>

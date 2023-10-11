@@ -21,7 +21,9 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { FormBuilderService } from '../../form-builder.service';
 import { Vocabulary } from '../../../../../core/submission/vocabularies/models/vocabulary.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
-import { VocabularyExternalSourceComponent } from '../../../../vocabulary-external-source/vocabulary-external-source.component';
+import {
+  VocabularyExternalSourceComponent
+} from '../../../../vocabulary-external-source/vocabulary-external-source.component';
 import { SubmissionScopeType } from '../../../../../core/submission/submission-scope-type';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
@@ -38,10 +40,10 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
   @Input() abstract group: FormGroup;
   @Input() abstract model: DsDynamicInputModel;
 
-  @Output() abstract blur: EventEmitter<any> = new EventEmitter<any>();
-  @Output() abstract change: EventEmitter<any> = new EventEmitter<any>();
-  @Output() abstract focus: EventEmitter<any> = new EventEmitter<any>();
-  @Output() abstract customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
+  @Output() abstract blur: EventEmitter<any>;
+  @Output() abstract change: EventEmitter<any>;
+  @Output() abstract focus: EventEmitter<any>;
+  @Output() abstract customEvent: EventEmitter<DynamicFormControlCustomEvent>;
 
   /**
    * The vocabulary entry
@@ -92,7 +94,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
             initEntry.authority,
             initEntry.display,
             (this.model.value as any).place,
-            null,
+            (this.model.value as any).confidence || null,
             initEntry.otherInformation || null
           );
         } else {
@@ -108,7 +110,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
           this.model.value.authority,
           this.model.value.display,
           0,
-          null,
+          (this.model.value as any).confidence || null,
           this.model.value.otherInformation || null
         )
       );
@@ -246,7 +248,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       if (hasValue(otherInformation)) {
         const updatedModels = [];
         for (const key in otherInformation) {
-          if (otherInformation.hasOwnProperty(key)) {
+          if (otherInformation.hasOwnProperty(key) && key.startsWith('data-')) {
             const fieldId = key.replace('data-', '');
             const newValue: FormFieldMetadataValueObject = this.getOtherInformationValue(otherInformation[key]);
             if (isNotEmpty(newValue)) {

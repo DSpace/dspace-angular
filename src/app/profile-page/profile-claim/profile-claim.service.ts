@@ -1,76 +1,80 @@
 import { Injectable } from '@angular/core';
+
 import { Observable, of } from 'rxjs';
-import { mergeMap, switchMap, take } from 'rxjs/operators';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
+import { map } from 'rxjs/operators';
+
 import { RemoteData } from '../../core/data/remote-data';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SearchService } from '../../core/shared/search/search.service';
-import { hasValue } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { SearchResult } from '../../shared/search/models/search-result.model';
-import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from './../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { SearchObjects } from '../../shared/search/models/search-objects.model';
+import { createNoContentRemoteDataObject } from '../../shared/remote-data.utils';
 
+/**
+ * Service that handle profiles claim.
+ */
 @Injectable()
 export class ProfileClaimService {
 
-  constructor(private searchService: SearchService,
-    private configurationService: ConfigurationDataService) {
+  constructor(private searchService: SearchService) {
   }
 
-  canClaimProfiles(eperson: EPerson): Observable<boolean> {
-
-    const query = this.personQueryData(eperson);
-
-    if (!hasValue(query) || query.length === 0) {
-      return of(false);
-    }
-
-    return this.configurationService.findByPropertyName('claimable.entityType').pipe(
-      getFirstSucceededRemoteDataPayload(),
-      switchMap((claimableTypes) => {
-        if (!claimableTypes.values || claimableTypes.values.length === 0) {
-          return of(false);
-        } else {
-          return this.lookup(query).pipe(
-            mergeMap((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => of(rd.payload.totalElements > 0))
-          );
-        }
+  /**
+   * Returns true if it is possible to suggest profiles to be claimed to the given eperson.
+   *
+   * @param eperson the eperson
+   */
+  hasProfilesToSuggest(eperson: EPerson): Observable<boolean> {
+    return this.searchForSuggestions(eperson).pipe(
+      getFirstCompletedRemoteData(),
+      map((rd: RemoteData<SearchObjects<DSpaceObject>>) => {
+        return isNotEmpty(rd) && rd.hasSucceeded && rd.payload?.page?.length > 0;
       })
     );
   }
 
-  search(eperson: EPerson): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+  /**
+   * Returns profiles that could be associated with the given user.
+   *
+   * @param eperson the user
+   */
+  searchForSuggestions(eperson: EPerson): Observable<RemoteData<SearchObjects<DSpaceObject>>> {
     const query = this.personQueryData(eperson);
-    if (!hasValue(query) || query.length === 0) {
-      return of(null);
+    if (isEmpty(query)) {
+      return of(createNoContentRemoteDataObject() as RemoteData<SearchObjects<DSpaceObject>>);
     }
     return this.lookup(query);
   }
 
-  private lookup(query: string): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
-    if (!hasValue(query)) {
-      return of(null);
+  /**
+   * Search object by the given query.
+   *
+   * @param query the query for the search
+   */
+  private lookup(query: string): Observable<RemoteData<SearchObjects<DSpaceObject>>> {
+    if (isEmpty(query)) {
+      return of(createNoContentRemoteDataObject() as RemoteData<SearchObjects<DSpaceObject>>);
     }
     return this.searchService.search(new PaginatedSearchOptions({
       configuration: 'eperson_claims',
       query: query
-    }))
-    .pipe(
-      getFirstSucceededRemoteData(),
-      take(1));
+    }), null, false, true);
   }
 
+  /**
+   * Return the search query for person lookup, from the given eperson
+   *
+   * @param eperson The eperson to use for the lookup
+   */
   private personQueryData(eperson: EPerson): string {
-    const querySections = [];
-    this.queryParam(querySections, 'dc.title', eperson.name);
-    this.queryParam(querySections, 'crisrp.name', eperson.name);
-    return querySections.join(' OR ');
+    if (eperson && eperson.email) {
+      return 'person.email:' + eperson.email;
+    } else {
+      return null;
+    }
   }
 
-  private queryParam(query: string[], metadata: string, value: string) {
-    if (!hasValue(value)) {return;}
-    query.push(metadata + ':' + value);
-  }
 }

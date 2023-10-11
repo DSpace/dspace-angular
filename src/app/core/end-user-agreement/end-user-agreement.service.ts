@@ -7,7 +7,6 @@ import { hasValue } from '../../shared/empty.util';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { ConfigurationDataService } from '../data/configuration-data.service';
-import { calcPossibleSecurityContexts } from '@angular/compiler/src/template_parser/binding_parser';
 
 export const END_USER_AGREEMENT_COOKIE = 'hasAgreedEndUser';
 export const END_USER_AGREEMENT_METADATA_FIELD = 'dspace.agreements.end-user';
@@ -79,7 +78,7 @@ export class EndUserAgreementService {
 
   /**
    * Set the current user's accepted agreement status
-   * When a user is authenticated, set his/her metadata to the provided value
+   * When a user is authenticated, set their metadata to the provided value
    * When no user is authenticated, set the cookie to the provided value
    * @param accepted
    */

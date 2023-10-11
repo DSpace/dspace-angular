@@ -1,4 +1,4 @@
-import { Inject } from '@angular/core';
+import {Inject} from '@angular/core';
 import { FormFieldModel } from '../models/form-field.model';
 import {
   CONFIG_DATA,

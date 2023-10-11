@@ -5,11 +5,15 @@ import { ProfilePageRoutingModule } from './profile-page-routing.module';
 import { ProfilePageComponent } from './profile-page.component';
 import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
-import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
+import {
+  ProfilePageResearcherFormComponent
+} from './profile-page-researcher-form/profile-page-researcher-form.component';
 import { ThemedProfilePageComponent } from './themed-profile-page.component';
 import { FormModule } from '../shared/form/form.module';
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { ProfileClaimItemModalComponent } from './profile-claim-item-modal/profile-claim-item-modal.component';
 import { OpenaireModule } from '../openaire/openaire.module';
+import { ProfilePageAccessTokenComponent } from './profile-page-access-token/profile-page-access-token.component';
 
 @NgModule({
   imports: [
@@ -25,14 +29,17 @@ import { OpenaireModule } from '../openaire/openaire.module';
     ThemedProfilePageComponent,
     ProfilePageMetadataFormComponent,
     ProfilePageSecurityFormComponent,
-    ProfilePageResearcherFormComponent
+    ProfilePageResearcherFormComponent,
+    ProfilePageAccessTokenComponent
   ],
   declarations: [
     ProfilePageComponent,
     ThemedProfilePageComponent,
+    ProfileClaimItemModalComponent,
     ProfilePageMetadataFormComponent,
     ProfilePageSecurityFormComponent,
-    ProfilePageResearcherFormComponent
+    ProfilePageResearcherFormComponent,
+    ProfilePageAccessTokenComponent
   ]
 })
 export class ProfilePageModule {

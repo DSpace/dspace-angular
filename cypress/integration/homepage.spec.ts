@@ -7,8 +7,8 @@ describe('Homepage', () => {
     cy.visit('/');
   });
 
-  it('should display translated title "DSpace Cris Angular :: Home"', () => {
-    cy.title().should('eq', 'DSpace Cris Angular :: Home');
+  it('should display translated title "DSpace at My University :: Home"', () => {
+    cy.title().should('eq', 'DSpace at My University :: Home');
   });
 
   it('should contain a news section', () => {
@@ -17,8 +17,8 @@ describe('Homepage', () => {
 
   xit('should have a working search box', () => {
     const queryString = 'test';
-    cy.get('ds-search-form input[name="query"]').type(queryString);
-    cy.get('ds-search-form button.search-button').click();
+    cy.get('[data-test="search-box"]').type(queryString);
+    cy.get('[data-test="search-button"]').click();
     cy.url().should('include', '/search');
     cy.url().should('include', 'query=' + encodeURI(queryString));
   });

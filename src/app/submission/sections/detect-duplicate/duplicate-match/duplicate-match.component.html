@@ -19,7 +19,7 @@
   </form>
 </div>
 
-<div class="mt-3 mb-2" *ngIf="!hasDecision && !readOnly">
+<div class="mt-3 mb-2 space-children-mr" *ngIf="!hasDecision && !readOnly">
   <button type="button"
           class="btn btn-warning"
           ngbTooltip="{{'submission.sections.detect-duplicate.duplicate-help' | translate}}"
@@ -37,6 +37,13 @@
     <span *ngIf="(processingReject | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
     <span *ngIf="!(processingReject | async)">{{notDuplicateBtnLabel$ | async}}</span>
   </button>
+
+  <a class="btn btn-primary"
+          ngbTooltip="{{'submission.workflow.generic.view-help' | translate}}"
+          [routerLink]="itemPageRoute"
+            target="_blank">
+    <i class="fa fa-info-circle"></i> {{"submission.workflow.generic.view" | translate}}
+  </a>
 
 </div>
 

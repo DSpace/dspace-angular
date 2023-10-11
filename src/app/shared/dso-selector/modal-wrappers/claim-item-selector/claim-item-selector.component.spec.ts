@@ -1,6 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router';
-/* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -14,10 +13,10 @@ describe('ClaimItemSelectorComponent', () => {
   let fixture: ComponentFixture<ClaimItemSelectorComponent>;
 
   const profileClaimService = jasmine.createSpyObj('profileClaimService', {
-    search: of({ payload: {page: []}})
+    searchForSuggestions: of({ payload: {page: []}})
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [ ClaimItemSelectorComponent ],

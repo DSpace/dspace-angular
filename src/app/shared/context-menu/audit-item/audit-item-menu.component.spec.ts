@@ -12,7 +12,7 @@ import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model'
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { Item } from '../../../core/shared/item.model';
 import { AuditItemMenuComponent } from './audit-item-menu.component';
-import { AuthService } from '../../../core/auth/auth.service';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 
 describe('AuditItemMenuComponent', () => {
   let component: AuditItemMenuComponent;
@@ -21,9 +21,8 @@ describe('AuditItemMenuComponent', () => {
   let scheduler: TestScheduler;
   let dso: DSpaceObject;
 
-  const authServiceStub = jasmine.createSpyObj('authorizationService', {
-    getAuthenticatedUserFromStore: jasmine.createSpy('getAuthenticatedUserFromStore'),
-    isAuthenticated: jasmine.createSpy('isAuthenticated')
+  const authorizationDataServiceStub = jasmine.createSpyObj('authorizationDataService', {
+    isAuthorized: jasmine.createSpy('isAuthorized')
   });
 
   beforeEach(waitForAsync(() => {
@@ -48,7 +47,7 @@ describe('AuditItemMenuComponent', () => {
       providers: [
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
-        { provide: AuthService, useValue: authServiceStub },
+        { provide: AuthorizationDataService, useValue: authorizationDataServiceStub },
       ]
     }).compileComponents();
   }));
@@ -65,9 +64,9 @@ describe('AuditItemMenuComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('when the user is authenticated', () => {
+  describe('when the user is authorized', () => {
     beforeEach(() => {
-      (authServiceStub.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(true));
+      (authorizationDataServiceStub.isAuthorized as jasmine.Spy).and.returnValue(observableOf(true));
       fixture.detectChanges();
     });
     it('should render a button', () => {
@@ -77,12 +76,12 @@ describe('AuditItemMenuComponent', () => {
 
   });
 
-  describe('when the user is not authenticated', () => {
+  describe('when the user is not authorized', () => {
     beforeEach(() => {
-      (authServiceStub.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
+      (authorizationDataServiceStub.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
       fixture.detectChanges();
     });
-    it('should render a button', () => {
+    it('should not render a button', () => {
       const link = fixture.debugElement.query(By.css('button'));
       expect(link).toBeNull();
     });

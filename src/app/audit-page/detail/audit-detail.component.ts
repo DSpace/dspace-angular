@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { RemoteData } from '../../core/data/remote-data';
-import { redirectOn4xx } from '../../core/shared/operators';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { Audit } from '../../core/audit/model/audit.model';
 import { AuditDataService } from '../../core/audit/audit-data.service';

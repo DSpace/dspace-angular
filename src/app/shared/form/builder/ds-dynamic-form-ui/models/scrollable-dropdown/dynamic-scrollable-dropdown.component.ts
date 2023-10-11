@@ -77,12 +77,16 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
    * Initialize the component, setting up the init form value
    */
   ngOnInit() {
+    if (this.model.metadataValue) {
+      this.setCurrentValue(this.model.metadataValue, true);
+    }
+
     this.updatePageInfo(this.model.maxOptions, 1);
     this.retrieveEntries(null, true);
 
     this.group.get(this.model.id).valueChanges.pipe(distinctUntilChanged())
       .subscribe((value) => {
-        this.setCurrentValue(value);
+        this.setCurrentValue(value, true);
       });
     this.initFilterSubscriber();
   }

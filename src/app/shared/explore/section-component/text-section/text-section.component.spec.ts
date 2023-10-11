@@ -65,7 +65,7 @@ describe('TextSectionComponent', () => {
   it('should render text-metadata with innerHtml', () => {
     component.sectionId = 'site';
     fixture.detectChanges();
-    const name = fixture.debugElement.queryAll(By.css('div'))[2].nativeElement;
+    const name = fixture.debugElement.queryAll(By.css('div'))[0].nativeElement;
     expect(name.innerHTML).toContain(component.site.metadata['cms.homepage.footer'][0].value);
   });
 });

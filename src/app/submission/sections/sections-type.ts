@@ -7,5 +7,9 @@ export enum SectionsType {
   collection = 'collection',
   CustomUrl = 'custom-url',
   AccessesCondition = 'accessCondition',
-  DetectDuplicate = 'detect-duplicate'
+  SherpaPolicies = 'sherpaPolicy',
+  Identifiers = 'identifiers',
+  Collection = 'collection',
+  DetectDuplicate = 'detect-duplicate',
+  Correction = 'correction'
 }

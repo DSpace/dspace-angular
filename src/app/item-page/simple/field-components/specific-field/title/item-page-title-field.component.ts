@@ -1,34 +1,25 @@
 import { Component, Input } from '@angular/core';
 
 import { Item } from '../../../../../core/shared/item.model';
-import { ItemPageFieldComponent } from '../item-page-field.component';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 
 @Component({
-    selector: 'ds-item-page-title-field',
-    templateUrl: './item-page-title-field.component.html'
+  selector: 'ds-item-page-title-field',
+  templateUrl: './item-page-title-field.component.html'
 })
 /**
- * This component is used for displaying the title (dc.title) of an item
+ * This component is used for displaying the title (defined by the {@link DSONameService}) of an item
  */
-export class ItemPageTitleFieldComponent extends ItemPageFieldComponent {
+export class ItemPageTitleFieldComponent {
 
-    /**
-     * The item to display metadata for
-     */
-    @Input() item: Item;
+  /**
+   * The item to display metadata for
+   */
+  @Input() item: Item;
 
-    /**
-     * Separator string between multiple values of the metadata fields defined
-     * @type {string}
-     */
-    separator: string;
-
-    /**
-     * Fields (schema.element.qualifier) used to render their values.
-     * In this component, we want to display values for metadata 'dc.title'
-     */
-    fields: string[] = [
-        'dc.title'
-    ];
+  constructor(
+    public dsoNameService: DSONameService,
+  ) {
+  }
 
 }

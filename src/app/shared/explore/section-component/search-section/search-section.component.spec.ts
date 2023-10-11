@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -14,12 +14,14 @@ import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { SearchSectionComponent } from './search-section.component';
 import { Router } from '@angular/router';
 import { SearchConfig } from '../../../search/search-filters/search-config.model';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 
 describe('SearchSectionComponent', () => {
   let component: SearchSectionComponent;
   let fixture: ComponentFixture<SearchSectionComponent>;
 
   let searchServiceStub: any;
+  let searchConfigurationStub: any;
   let router: any;
 
   const firstFilterConfig: any = {
@@ -40,16 +42,18 @@ describe('SearchSectionComponent', () => {
     type: 'text'
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     searchServiceStub = {
+      getSearchLink(): string {
+        return '/search';
+      }
+    };
+    searchConfigurationStub = {
       getSearchConfigurationFor( scope?: string, configurationName?: string ): Observable<RemoteData<SearchConfig>> {
         const config = new SearchConfig();
         config.filters = [firstFilterConfig, secondFilterConfig];
         return createSuccessfulRemoteDataObject$(config);
-      },
-      getSearchLink(): string {
-        return '/search';
       }
     };
 
@@ -69,6 +73,7 @@ describe('SearchSectionComponent', () => {
       declarations: [SearchSectionComponent],
       providers: [SearchSectionComponent,
         { provide: SearchService, useValue: searchServiceStub },
+        { provide: SearchConfigurationService, useValue: searchConfigurationStub },
         { provide: Router, useValue: router }],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -97,7 +102,7 @@ describe('SearchSectionComponent', () => {
   }));
 
   it('should create an empty form with three rows',  () => {
-    const formRows = fixture.debugElement.queryAll(By.css('.row.mb-2'));
+    const formRows = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'));
     expect(formRows.length).toEqual(3);
 
     for (const formRow of formRows) {
@@ -137,7 +142,7 @@ describe('SearchSectionComponent', () => {
     }));
 
     it('should add a row in the form', () => {
-      const formRows = fixture.debugElement.queryAll(By.css('.row.mb-2'));
+      const formRows = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'));
       expect(formRows.length).toEqual(4);
     });
   });
@@ -145,7 +150,7 @@ describe('SearchSectionComponent', () => {
   describe('when you click on the reset button', () => {
 
     beforeEach(() => {
-      const firstFormRow = fixture.debugElement.queryAll(By.css('.row.mb-2'))[0];
+      const firstFormRow = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'))[0];
       const filterSelect = firstFormRow.query(By.css('#filter'));
       filterSelect.nativeElement.value = 'author';
       const queryInput = firstFormRow.query(By.css('#query'));
@@ -160,9 +165,9 @@ describe('SearchSectionComponent', () => {
     }));
 
     it('should reset the form', () => {
-      const formRows = fixture.debugElement.queryAll(By.css('.row.mb-2'));
+      const formRows = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'));
       expect(formRows.length).toEqual(3);
-      const firstFormRow = fixture.debugElement.queryAll(By.css('.row.mb-2'))[0];
+      const firstFormRow = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'))[0];
       const filterSelect = firstFormRow.query(By.css('#filter'));
       expect(filterSelect.nativeElement.value).toEqual('all');
       const queryInput = firstFormRow.query(By.css('#query'));
@@ -173,7 +178,7 @@ describe('SearchSectionComponent', () => {
   describe('when you click on the search button', () => {
 
     beforeEach(() => {
-      const firstFormRow = fixture.debugElement.queryAll(By.css('.row.mb-2'))[0];
+      const firstFormRow = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'))[0];
       const filterSelect = firstFormRow.query(By.css('#filter')).nativeElement;
       filterSelect.value = 'author';
       filterSelect.dispatchEvent(new Event('change'));
@@ -183,7 +188,7 @@ describe('SearchSectionComponent', () => {
       const operationInput = firstFormRow.query(By.css('#operation')).nativeElement;
       operationInput.value = 'OR';
       operationInput.dispatchEvent(new Event('change'));
-      const secondFormRow = fixture.debugElement.queryAll(By.css('.row.mb-2'))[1];
+      const secondFormRow = fixture.debugElement.queryAll(By.css('[data-test="form-row"]'))[1];
 
       const secondQueryInput = secondFormRow.query(By.css('#query')).nativeElement;
       secondQueryInput.value = 'test';

@@ -3,16 +3,18 @@
 
   --ds-button-height: #{$input-btn-padding-y * 2 + $input-btn-line-height + calculateRem($input-btn-border-width*2)};
 
-  --ds-card-height-percentage:98%;
-  --ds-card-thumbnail-height:240px;
+  --ds-card-height-percentage: 98%;
+  --ds-card-thumbnail-height: 240px;
   --ds-dropdown-menu-max-height: 200px;
   --ds-drop-zone-area-height: 44px;
   --ds-drop-zone-area-z-index: 1025;
   --ds-drop-zone-area-inner-z-index: 1021;
-  --ds-login-logo-height:72px;
-  --ds-login-logo-width:72px;
+  --ds-login-logo-height: 72px;
+  --ds-login-logo-width: 72px;
   --ds-submission-header-z-index: 1001;
   --ds-submission-footer-z-index: 999;
+  // z-index of group form delete button in submission form to not overlay on the footer
+  --ds-submission-inline-group-form-delete-z-index: 998;
 
   --ds-main-z-index: 1;
   --ds-nav-z-index: 10;
@@ -22,8 +24,8 @@
   --ds-header-bg: #{$white};
   --ds-header-logo-height: 50px;
   --ds-header-logo-height-xs: 50px;
-  --ds-header-icon-color: #{$cyan};
-  --ds-header-icon-color-hover: #{darken($white, 15%)};
+  --ds-header-icon-color: #{$link-color};
+  --ds-header-icon-color-hover: #{$link-hover-color};
   --ds-header-navbar-border-top-color: #{$white};
   --ds-header-navbar-border-bottom-color: #{$gray-400};
   --ds-navbar-link-color: #{$cyan};
@@ -45,7 +47,7 @@
   --ds-edit-item-metadata-field-width: 190px;
   --ds-edit-item-language-field-width: 43px;
 
-  --ds-thumbnail-max-width: 175px;
+  --ds-thumbnail-max-width: 125px;
   --ds-thumbnail-placeholder-background: #{$gray-100};
   --ds-thumbnail-placeholder-border: 1px solid #{$gray-300};
   --ds-thumbnail-placeholder-color: #{lighten($gray-800, 7%)};
@@ -86,11 +88,18 @@
 
   --ds-search-form-scope-max-width: 150px;
 
+  --ds-context-x-offset: -16px;
+  --ds-context-help-icon-size: 16px;
+  --ds-context-help-tooltip-width: 300px;
+  --ds-context-help-tooltip-link-color: $white;
+
+  --ds-gap: 0.25rem;
+
   --ds-date-picker-input-max-width: 300px;
 
   --ds-cris-layout-sidebar-width: 350px;
   --ds-cris-layout-sidebar-background-color: #{$gray-200};
-  --ds-cris-layout-sidebar-link-color: rgba(0,0,0,.8);
+  --ds-cris-layout-sidebar-link-color: rgba(0, 0, 0, .8);
   --ds-cris-layout-sidebar-link-color-active: #000000;
   --ds-cris-layout-sidebar-menu-background: #207698;
   --ds-cris-layout-sidebar-menu-color: #fff;
@@ -106,7 +115,7 @@
 
   --ds-cris-layout-navbar-background-color: #{$gray-200};
   --ds-cris-layout-navbar-border: 1px solid #d9dadb;
-  --ds-cris-layout-navbar-link-color: rgba(0,0,0,.8);
+  --ds-cris-layout-navbar-link-color: rgba(0, 0, 0, .8);
   --ds-cris-layout-navbar-link-color-active: #000000;
   --ds-cris-layout-navbar-menu-background: #207698;
   --ds-cris-layout-navbar-menu-color: #fff;
@@ -116,4 +125,14 @@
   --ds-cris-layout-navbar-tab-color-active: #006666;
   --ds-cris-layout-navbar-tab-color-hover : #{theme-color('light')};
 
+  --ds-advanced-attachment-image-max-height: 160px;
+  --ds-advanced-attachment-image-object-fit: cover;
+  --ds-advanced-attachment-image-object-position: 0% 0%;
+  --ds-advanced-attachment-thumbnail-placeholder-font-weight: bold;
+
+
+  --ds-dso-edit-field-width: 210px;
+  --ds-dso-edit-lang-width: 90px;
+  --ds-dso-edit-actions-width: 173px;
+  --ds-dso-edit-virtual-tooltip-min-width: 300px;
 }

@@ -37,6 +37,8 @@ import { NotificationsServiceStub } from '../../../../shared/testing/notificatio
 import { map } from 'rxjs/operators';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { UUIDService } from '../../../../core/shared/uuid.service';
+import { getMockUUIDService } from '../../../../shared/mocks/uuid.service.mock';
 
 describe('SubgroupsListComponent', () => {
   let component: SubgroupsListComponent;
@@ -65,7 +67,7 @@ describe('SubgroupsListComponent', () => {
       getSubgroups(): Group {
         return this.activeGroup;
       },
-      findAllByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
+      findListByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
         return this.subgroups$.pipe(
           map((currentGroups: Group[]) => {
             return createSuccessfulRemoteDataObject(buildPaginatedList<Group>(new PageInfo(), currentGroups));
@@ -121,6 +123,7 @@ describe('SubgroupsListComponent', () => {
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: routerStub },
         { provide: PaginationService, useValue: paginationService },
+        { provide: UUIDService, useValue: getMockUUIDService() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

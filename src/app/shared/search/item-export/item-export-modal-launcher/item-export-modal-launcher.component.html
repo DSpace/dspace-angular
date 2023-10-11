@@ -1,0 +1,24 @@
+<ng-template #template>
+  <ng-container *ngIf="bulkExportLimit !== '0'">
+
+    <div class="add" display="dynamic" placement="bottom-right"
+         ngbDropdown >
+      <button class="btn btn-md btn-outline-primary" id="dropdownSubmission" ngbDropdownToggle
+              type="button"
+              attr.aria-label="{{ 'item-export.modal-launcher.single.btn' | translate }}"
+              title="{{ 'item-export.modal-launcher.single.btn' | translate }}">
+        <i class="fas fa-file-export" aria-hidden="true"></i>
+        <span *ngIf="item">{{ 'item-export.modal-launcher.single.btn' | translate }}</span>
+        <span *ngIf="!item">{{ 'item-export.modal-launcher.multiple.btn' | translate }}</span>
+        <span class="caret"></span>
+      </button>
+      <div ngbDropdownMenu
+           class="dropdown-menu"
+           id="entityControlsDropdownMenu"
+           aria-labelledby="dropdownSubmission">
+        <ds-entity-dropdown [isSubmission]="false" (selectionChange)="open($event)"></ds-entity-dropdown>
+      </div>
+    </div>
+
+  </ng-container>
+</ng-template>

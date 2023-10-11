@@ -6,14 +6,23 @@
     </div>
 </div>
 
-<ds-search-charts *ngIf="showCharts" [configuration]="currentConfiguration$" [inPlaceSearch]="inPlaceSearch"></ds-search-charts>
+<ds-search-charts *ngIf="showCharts"
+                  [configuration]="currentConfiguration$"
+                  [collapseChart]="collapseCharts"
+                  [filters]="chartFiltersRD$.asObservable()"
+                  [inPlaceSearch]="inPlaceSearch"
+                  [refreshFilters]="refreshFilters"
+                  [showChartsToggle]="showChartsToggle"></ds-search-charts>
 
 <div *ngIf="!showSidebar && (initialized$ | async)">
-  <ng-template *ngTemplateOutlet="searchContent"></ng-template>
+    <ng-template *ngTemplateOutlet="searchContent"></ng-template>
 </div>
 
-<ds-page-with-sidebar *ngIf="showSidebar && (initialized$ | async)" [id]="'search-page'" [sidebarContent]="sidebarContent">
-  <ng-template *ngTemplateOutlet="searchContent"></ng-template>
+<ds-page-with-sidebar *ngIf="showSidebar && (initialized$ | async)"
+                      [collapseSidebar]="collapseFilters"
+                      [id]="'search-page'"
+                      [sidebarContent]="sidebarContent">
+    <ng-template *ngTemplateOutlet="searchContent"></ng-template>
 </ds-page-with-sidebar>
 
 <ng-template #searchContent>
@@ -26,21 +35,27 @@
             <div class="d-block d-md-none search-controls clearfix">
                 <ds-view-mode-switch [viewModeList]="viewModeList" [inPlaceSearch]="inPlaceSearch"></ds-view-mode-switch>
                 <button (click)="openSidebar()" aria-controls="#search-body"
-                        class="btn btn-outline-primary float-right open-sidebar"><i
-                        class="fas fa-sliders"></i> {{"search.sidebar.open"
-                        | translate}}
+                        class="btn btn-outline-primary float-right open-sidebar">
+                  <i class="fas fa-sliders"></i> {{"search.sidebar.open" | translate}}
                 </button>
             </div>
-            <ds-search-results [searchResults]="resultsRD$ | async"
-                               [searchConfig]="searchOptions$ | async"
-                               [configuration]="(currentConfiguration$ | async)"
-                               [disableHeader]="!searchEnabled"
-                               [linkType]="linkType"
-                               [context]="(currentContext$ | async)"
-                               [selectable]="selectable"
-                               [selectionConfig]="selectionConfig"
-                               (deselectObject)="deselectObject.emit($event)"
-                               (selectObject)="selectObject.emit($event)"></ds-search-results>
+            <ds-themed-search-results [searchResults]="resultsRD$ | async"
+                                      [searchConfig]="searchOptions$ | async"
+                                      [configuration]="(currentConfiguration$ | async)"
+                                      [disableHeader]="!searchEnabled"
+                                      [linkType]="linkType"
+                                      [context]="(currentContext$ | async)"
+                                      [customData]="customData"
+                                      [searchResultNotice]="searchResultNotice"
+                                      [searchResultNoticeType]="searchResultNoticeType"
+                                      [selectable]="selectable"
+                                      [selectionConfig]="selectionConfig"
+                                      [showCsvExport]="showCsvExport"
+                                      [showSearchResultNotice]="showSearchResultNotice"
+                                      (contentChange)="onContentChange($event)"
+                                      (customEvent)="customEvent.emit($event)"
+                                      (deselectObject)="deselectObject.emit($event)"
+                                      (selectObject)="selectObject.emit($event)"></ds-themed-search-results>
         </div>
     </div>
 </ng-template>
@@ -50,6 +65,8 @@
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
+                       [filters]="filtersRD$.asObservable()"
+                       [refreshFilters]="refreshFilters"
                        [resultCount]="(resultsRD$ | async)?.payload?.totalElements"
                        [searchOptions]="(searchOptions$ | async)"
                        [sortOptionsList]="(sortOptionsList$ | async)"
@@ -63,6 +80,8 @@
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
+                       [filters]="filtersRD$.asObservable()"
+                       [refreshFilters]="refreshFilters"
                        [resultCount]="(resultsRD$ | async)?.payload.totalElements"
                        [searchOptions]="(searchOptions$ | async)"
                        [sortOptionsList]="(sortOptionsList$ | async)"
@@ -76,17 +95,26 @@
 </ng-template>
 
 <ng-template #searchForm>
-    <div class="d-flex justify-content-end">
+    <div class="d-flex flex-wrap flex-xl-nowrap search-form-flex-wrapper">
+        <div *ngIf="!(isXsOrSm$ | async) && showFilterToggle && showSidebar">
+            <button class="btn btn-outline-secondary"
+                    ngbTooltip="{{'search.sidebar.show.hide.filters.tooltip' | translate}}"
+                    (click)="toggleSidebar()">
+                <span class="d-flex align-items-center">
+                    <i class="fa fa-filter mr-2"></i>
+                    {{"search.sidebar.show.hide" | translate}}</span>
+            </button>
+        </div>
         <ds-search-form *ngIf="searchEnabled" id="search-form" class="flex-grow-1"
                         [query]="(searchOptions$ | async)?.query"
                         [scope]="(searchOptions$ | async)?.scope"
                         [currentUrl]="searchLink"
-                    [showScopeSelector]="showScopeSelector"
+                        [showScopeSelector]="showScopeSelector"
                         [inPlaceSearch]="inPlaceSearch"
                         [searchPlaceholder]="searchFormPlaceholder | translate">
         </ds-search-form>
         <ng-content select="[additionalSearchFormOptions]"></ng-content>
-        <ds-item-export-modal-launcher *ngIf="showExport" [searchOptions$]="searchOptions$"></ds-item-export-modal-launcher>
+        <ds-item-export-modal-launcher [searchOptions$]="searchOptions$" *ngIf="showExport"></ds-item-export-modal-launcher>
     </div>
     <div class="row mb-3 mb-md-1">
         <div class="labels col-sm-9">

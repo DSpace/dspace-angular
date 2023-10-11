@@ -66,7 +66,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
    */
   inputFormatter = (x: { display: string }, y: number) => {
     return y === 1 ? this.firstInputValue : this.secondInputValue;
-  }
+  };
 
   /**
    * Initialize the component, setting up the init form value
@@ -75,7 +75,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
     this.initVocabulary();
 
     if (isNotEmpty(this.model.value)) {
-      this.setCurrentValue(this.model.value, true);
+      this.setCurrentValue(this.model.value, false);
     }
 
     this.subs.push(this.model.valueChanges

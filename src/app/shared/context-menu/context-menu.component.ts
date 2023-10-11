@@ -1,14 +1,15 @@
-import { Component, Injector, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Injector, Input, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 import { select, Store } from '@ngrx/store';
 import { from, Observable } from 'rxjs';
+import { concatMap, filter, map, reduce, take } from 'rxjs/operators';
 
-import { CoreState } from '../../core/core.reducers';
+import { CoreState } from '../../core/core-state.model';
 import { isAuthenticated } from '../../core/auth/selectors';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { ContextMenuEntryRenderOptions, getContextMenuEntriesForDSOType } from './context-menu.decorator';
-import { concatMap, filter, map, mapTo, reduce, take } from 'rxjs/operators';
 import { ContextMenuEntryComponent } from './context-menu-entry.component';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
@@ -51,13 +52,22 @@ export class ContextMenuComponent implements OnInit {
   public objectInjector: Injector;
 
   /**
+   * context menu options count.
+   * @type {number}
+   */
+  public optionCount = 0;
+
+  /**
    * Initialize instance variables
    *
+   * @param {Document} _document
    * @param {ConfigurationDataService} configurationService
    * @param {Injector} injector
    * @param {Store<CoreState>} store
    */
   constructor(
+    @Inject(DOCUMENT) private _document: Document,
+    private cdr: ChangeDetectorRef,
     private configurationService: ConfigurationDataService,
     private injector: Injector,
     private store: Store<CoreState>
@@ -99,7 +109,7 @@ export class ContextMenuComponent implements OnInit {
         const entryComp: ContextMenuEntryComponent = new constructor();
         return this.isDisabled(entryComp.menuEntryType).pipe(
           filter((disabled) => !disabled),
-          mapTo(constructor)
+          map(() => constructor)
         );
       }),
       reduce((acc: any, value: any) => [...acc, value], []),
@@ -123,5 +133,17 @@ export class ContextMenuComponent implements OnInit {
 
   isItem(): boolean {
     return this.contextMenuObjectType === DSpaceObjectType.ITEM;
+  }
+
+  ngAfterViewChecked() {
+    // To check that Context-menu contains options or not
+    if (this._document.getElementById('itemOptionsDropdownMenu')) {
+      const el = Array.from(this._document.getElementById('itemOptionsDropdownMenu')?.getElementsByClassName('dropdown-item'));
+      this.optionCount = 0;
+      if (el.length > 0) {
+        this.optionCount += el.length;
+        this.cdr.detectChanges();
+      }
+    }
   }
 }

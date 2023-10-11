@@ -1,6 +1,6 @@
 import { MetadataRegistryComponent } from './metadata-registry.component';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
+import { of, of as observableOf } from 'rxjs';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
@@ -19,10 +19,12 @@ import { RestResponse } from '../../../core/cache/response.models';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../core/data/request.models';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import {
+  MetadataSchemaExportService
+} from '../../../shared/metadata-export/metadata-schema-export/metadata-schema-export.service';
+import { UUIDService } from '../../../core/shared/uuid.service';
+import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 
 describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
@@ -52,7 +54,7 @@ describe('MetadataRegistryComponent', () => {
     }
   ];
   const mockSchemas = createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockSchemasList));
-  /* tslint:disable:no-empty */
+  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   const registryServiceStub = {
     getMetadataSchemas: () => mockSchemas,
     getActiveMetadataSchema: () => observableOf(undefined),
@@ -66,7 +68,7 @@ describe('MetadataRegistryComponent', () => {
     },
     clearMetadataSchemaRequests: () => observableOf(undefined)
   };
-  /* tslint:enable:no-empty */
+  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   paginationService = new PaginationServiceStub();
 
@@ -78,7 +80,14 @@ describe('MetadataRegistryComponent', () => {
         { provide: RegistryService, useValue: registryServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: PaginationService, useValue: paginationService },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: UUIDService, useValue: getMockUUIDService() },
+        {
+          provide: MetadataSchemaExportService,
+          useValue: jasmine.createSpyObj('metadataSchemaExportService', {
+            exportSchema: of(1),
+          })
+        }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MetadataRegistryComponent, {

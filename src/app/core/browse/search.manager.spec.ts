@@ -6,11 +6,12 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { SearchManager } from './search-manager';
 import { toRemoteData } from '../../browse-by/browse-by-metadata-page/browse-by-metadata-page.component.spec';
 import { Item } from '../shared/item.model';
-import { FindListOptions } from '../data/request.models';
+import { FindListOptions } from '../data/find-list-options.model';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { of } from 'rxjs';
 import { MetadataValue } from '../shared/metadata.models';
 import { v4 as uuidv4 } from 'uuid';
+import { AUTHORITY_REFERENCE } from '../shared/metadata.utils';
 
 describe('SearchManager', () => {
   let scheduler: TestScheduler;
@@ -78,7 +79,7 @@ describe('SearchManager', () => {
     metadata: {
       'dc.contributor.author': [
         Object.assign(new MetadataValue(),{
-          authority: 'invalid',
+          authority: AUTHORITY_REFERENCE + 'invalid',
           value: 'author4'
         })
 

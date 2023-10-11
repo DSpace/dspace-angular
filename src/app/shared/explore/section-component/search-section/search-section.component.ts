@@ -1,12 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { SearchSection } from '../../../../core/layout/models/section.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfig } from '../../../search/search-filters/search-config.model';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 
 /**
  * Component representing the Search component section.
@@ -34,7 +37,9 @@ export class SearchSectionComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
-              private searchService: SearchService) {
+              private searchService: SearchService,
+              private searchConfigurationService: SearchConfigurationService,
+  ) {
 
   }
 
@@ -44,7 +49,7 @@ export class SearchSectionComponent implements OnInit {
 
   ngOnInit() {
 
-    this.filters = this.searchService.getSearchConfigurationFor(null, this.searchSection.discoveryConfigurationName).pipe(
+    this.filters = this.searchConfigurationService.getSearchConfigurationFor(null, this.searchSection.discoveryConfigurationName).pipe(
       getFirstSucceededRemoteDataPayload(),
       map((searchFilterConfig: SearchConfig) => {
         return [this.allFilter].concat(searchFilterConfig.filters

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { isEqual, isObject } from 'lodash';
+import isEqual from 'lodash/isEqual';
+import isObject from 'lodash/isObject';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
@@ -321,7 +322,7 @@ export class SectionFormOperationsService {
     } else if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
       // Model is a DynamicRowArrayModel
       this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);
-    } else if ((isNotEmpty(value) && typeof value === 'string') || (isNotEmpty(value) && value instanceof FormFieldMetadataValueObject && value.hasValue())) {
+    } else if ((isNotEmpty(value) && typeof value === 'string') || (isNotEmpty(value) && (value instanceof FormFieldMetadataValueObject || value instanceof VocabularyEntry) && value.hasValue())) {
       this.operationsBuilder.remove(pathCombiner.getPath(path));
     }
   }

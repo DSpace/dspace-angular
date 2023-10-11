@@ -8,6 +8,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ChartType } from '../../models/chart-type';
 import { BarChartComponent } from './bar-chart.component';
 import { AbstractChartComponent } from '../abstract-chart/abstract-chart.component';
+import { By } from '@angular/platform-browser';
 
 xdescribe('BarChartComponent', () => {
   let component: BarChartComponent;
@@ -38,7 +39,7 @@ xdescribe('BarChartComponent', () => {
   const enableScrollToRight = false;
   const isLastPage = observableOf(false);
   const currentPage = observableOf(1);
-  const type = ChartType.BAR;
+  const type: ChartType.BAR | ChartType.BAR_HORIZONTAL = ChartType.BAR;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -78,6 +79,13 @@ xdescribe('BarChartComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render ngx-charts-bar-horizontal', (done) => {
+    component.type = ChartType.BAR_HORIZONTAL;
+    const chartTag = fixture.debugElement.query(By.css('ngx-charts-bar-horizontal'));
+    expect(chartTag.nativeElement).toBeDefined();
+    done();
   });
 
 /*  describe('when the setViewSize method is called', () => {

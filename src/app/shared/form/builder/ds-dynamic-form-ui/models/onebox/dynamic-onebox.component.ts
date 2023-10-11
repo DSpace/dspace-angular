@@ -31,7 +31,7 @@ import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyTreeviewComponent } from '../../../../../vocabulary-treeview/vocabulary-treeview.component';
+import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';
 import { FormBuilderService } from '../../../form-builder.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 
@@ -85,7 +85,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    */
   formatter = (x: { display: string }) => {
     return (typeof x === 'object') ? x.display : x;
-  }
+  };
 
   /**
    * Converts a stream of text values from the `<input>` element to the stream of the array of items
@@ -121,19 +121,21 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       tap(() => this.changeSearchingStatus(false)),
       merge(this.hideSearchingWhenUnsubscribed$)
     );
-  }
+  };
 
   /**
    * Initialize the component, setting up the init form value
    */
   ngOnInit() {
-     if (this.model.value) {
-      this.setCurrentValue(this.model.value, true);
-    }
     this.initVocabulary();
     this.isHierarchicalVocabulary$ = this.vocabulary$.pipe(
       filter((vocabulary: Vocabulary) => isNotEmpty(vocabulary)),
-      map((result: Vocabulary) => result.hierarchical)
+      map((vocabulary: Vocabulary) => vocabulary.hierarchical),
+      tap((isHierarchical: boolean) => {
+        if (this.model.value) {
+          this.setCurrentValue(this.model.value, isHierarchical);
+        }
+      })
     );
     this.subs.push(this.group.get(this.model.id).valueChanges.pipe(
       filter((value) => this.currentValue !== value))
@@ -226,6 +228,9 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    * @param event The click event fired
    */
   openTree(event) {
+    if (this.model.readOnly) {
+      return;
+    }
     event.preventDefault();
     event.stopImmediatePropagation();
     this.subs.push(this.vocabulary$.pipe(

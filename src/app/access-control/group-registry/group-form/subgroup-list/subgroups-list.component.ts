@@ -18,6 +18,7 @@ import { PaginationComponentOptions } from '../../../../shared/pagination/pagina
 import { NoContent } from '../../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
+import { UUIDService } from '../../../../core/shared/uuid.service';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -58,7 +59,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of groups that are result of groups search
    */
   configSearch: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'ssgl',
+    id: this.uuidService.generate(),
     pageSize: 5,
     currentPage: 1
   });
@@ -66,7 +67,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of subgroups of currently active group being edited
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'sgl',
+    id: this.uuidService.generate(),
     pageSize: 5,
     currentPage: 1
   });
@@ -88,7 +89,8 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
               private notificationsService: NotificationsService,
               private formBuilder: FormBuilder,
               private paginationService: PaginationService,
-              private router: Router) {
+              private router: Router,
+              private uuidService: UUIDService) {
     this.currentSearchQuery = '';
   }
 
@@ -115,7 +117,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
     this.subs.set(
       SubKey.Members,
       this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
-        switchMap((config) => this.groupDataService.findAllByHref(this.groupBeingEdited._links.subgroups.href, {
+        switchMap((config) => this.groupDataService.findListByHref(this.groupBeingEdited._links.subgroups.href, {
             currentPage: config.currentPage,
             elementsPerPage: config.pageSize
           },
@@ -139,7 +141,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
           if (activeGroup.uuid === possibleSubgroup.uuid) {
             return observableOf(false);
           } else {
-            return this.groupDataService.findAllByHref(activeGroup._links.subgroups.href, {
+            return this.groupDataService.findListByHref(activeGroup._links.subgroups.href, {
               currentPage: 1,
               elementsPerPage: 9999
             })

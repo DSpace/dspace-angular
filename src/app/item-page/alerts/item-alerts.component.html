@@ -1,0 +1,15 @@
+<div>
+    <div *ngIf="item && !item.isDiscoverable" class="private-warning">
+        <ds-alert [type]="AlertTypeEnum.Warning" [content]="'item.alerts.private' | translate"></ds-alert>
+    </div>
+    <div *ngIf="item && item.isWithdrawn" class="withdrawn-warning">
+        <ds-alert [type]="AlertTypeEnum.Warning">
+            <div class="d-flex justify-content-between flex-wrap flex-column">
+                <span class="align-self-center">{{'item.alerts.withdrawn' | translate}}</span>
+            </div>
+        </ds-alert>
+        <p class="text-center">
+          <a routerLink="/home" class="btn btn-primary">{{"410.link.home-page" | translate}}</a>
+        </p>
+    </div>
+</div>

@@ -6,7 +6,7 @@ import {
   serializable
 } from '@ng-dynamic-forms/core';
 import { RelationshipOptions } from '../../models/relationship-options.model';
-import { isNotUndefined } from '../../../../empty.util';
+import { hasValue } from '../../../../empty.util';
 
 export interface DynamicRowArrayModelConfig extends DynamicFormArrayModelConfig {
   notRepeatable: boolean;
@@ -39,13 +39,13 @@ export class DynamicRowArrayModel extends DynamicFormArrayModel {
 
   constructor(config: DynamicRowArrayModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
-    if (isNotUndefined(config.notRepeatable)) {
+    if (hasValue(config.notRepeatable)) {
       this.notRepeatable = config.notRepeatable;
     }
-    if (isNotUndefined(config.required)) {
+    if (hasValue(config.required)) {
       this.required = config.required;
     }
-    if (isNotUndefined(config.showButtons)) {
+    if (hasValue(config.showButtons)) {
       this.showButtons = config.showButtons;
     }
     this.submissionId = config.submissionId;

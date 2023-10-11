@@ -1,10 +1,13 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { Router } from '@angular/router';
 
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { cold, hot } from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { Observable, of as observableOf, throwError as observableThrow } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { TestScheduler } from 'rxjs/testing';
 
 import { AuthEffects } from './auth.effects';
 import {
@@ -17,6 +20,9 @@ import {
   CheckAuthenticationTokenCookieAction,
   LogOutErrorAction,
   LogOutSuccessAction,
+  RefreshEpersonAndTokenRedirectErrorAction,
+  RefreshEpersonAndTokenRedirectSuccessAction,
+  RefreshTokenAndRedirectAction,
   RefreshTokenAndRedirectErrorAction,
   RefreshTokenAndRedirectSuccessAction,
   RefreshTokenErrorAction,
@@ -38,9 +44,8 @@ import { AppState, storeModuleConfig } from '../../app.reducer';
 import { StoreActionTypes } from '../../store.actions';
 import { isAuthenticated, isAuthenticatedLoaded } from './selectors';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
-import { Router } from '@angular/router';
 import { RouterStub } from '../../shared/testing/router.stub';
-import { take } from 'rxjs/operators';
+
 
 describe('AuthEffects', () => {
   let authEffects: AuthEffects;
@@ -52,6 +57,7 @@ describe('AuthEffects', () => {
   let routerStub;
   let redirectUrl;
   let authStatus;
+  let scheduler: TestScheduler;
 
   const authorizationService = jasmine.createSpyObj(['invalidateAuthorizationsRequestCache']);
 
@@ -420,50 +426,99 @@ describe('AuthEffects', () => {
 
   describe('clearInvalidTokenOnRehydrate$', () => {
 
-    describe('when auth authenticated is false', () => {
-      it('should not call removeToken method', (done) => {
-        initialState = {
-          core: {
-            auth: {
-              authenticated: true,
-              loaded: true,
-              loading: false,
-              authMethods: []
-            }
-          }
-        };
-        store.setState(initialState);
-        actions = hot('--a-', { a: { type: StoreActionTypes.REHYDRATE } });
+    beforeEach(() => {
+      store.overrideSelector(isAuthenticated, false);
+    });
+
+    describe('when auth loaded is false', () => {
+      it('should not call removeToken method', fakeAsync(() => {
+        store.overrideSelector(isAuthenticatedLoaded, false);
+        actions = observableOf({ type: StoreActionTypes.REHYDRATE });
         spyOn(authServiceStub, 'removeToken');
 
         authEffects.clearInvalidTokenOnRehydrate$.subscribe(() => {
-          expect(authServiceStub.removeToken).not.toHaveBeenCalled();
+          expect(false).toBeTrue();  // subscribe to trigger taps, fail if the effect emits (we don't expect it to)
         });
+        tick(1000);
+        expect(authServiceStub.removeToken).not.toHaveBeenCalled();
+      }));
+    });
+
+    describe('when auth loaded is true', () => {
+      it('should call removeToken method', (done) => {
+        spyOn(console, 'log').and.callThrough();
+
+        store.overrideSelector(isAuthenticatedLoaded, true);
+        actions = observableOf({ type: StoreActionTypes.REHYDRATE });
+        spyOn(authServiceStub, 'removeToken');
+
+        authEffects.clearInvalidTokenOnRehydrate$.subscribe(() => {
+          expect(authServiceStub.removeToken).toHaveBeenCalled();
+          done();
+        });
+      });
+    });
+  });
+
+  describe('refreshStateTokenRedirect$', () => {
+
+    describe('when refresh state, token and redirect action', () => {
+      it('should return a REFRESH_STATE_TOKEN_AND_REDIRECT_SUCCESS action in response to a REFRESH_STATE_TOKEN_AND_REDIRECT action', (done) => {
+        spyOn((authEffects as any).authService, 'retrieveAuthenticatedUserById').and.returnValue(observableOf(EPersonMock));
+
+        actions = hot('--a-', {
+          a: {
+            type: AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT,
+            payload: { token, redirectUrl }
+          }
+        });
+
+        const expected = cold('--b-', { b: new RefreshEpersonAndTokenRedirectSuccessAction(EPersonMock, token, redirectUrl) });
+
+        expect(authEffects.refreshStateTokenRedirect$).toBeObservable(expected);
         done();
       });
     });
 
-    describe('when auth authenticated is true', () => {
-      it('should call removeToken method', (done) => {
-        initialState = {
-          core: {
-            auth: {
-              authenticated: false,
-              loaded: true,
-              loading: false,
-              authMethods: []
-            }
-          }
-        };
-        store.setState(initialState);
-        actions = hot('--a-', { a: { type: StoreActionTypes.REHYDRATE } });
-        spyOn(authServiceStub, 'removeToken');
+    describe('when refresh state token failed', () => {
+      it('should return a REFRESH_STATE_TOKEN_AND_REDIRECT_SUCCESS action in response to a REFRESH_STATE_TOKEN_AND_REDIRECT action', (done) => {
+        spyOn((authEffects as any).authService, 'retrieveAuthenticatedUserById').and.returnValue(observableThrow(''));
 
-        authEffects.clearInvalidTokenOnRehydrate$.pipe(take(1)).subscribe(() => {
-          expect(authServiceStub.removeToken).toHaveBeenCalled();
+        actions = hot('--a-', {
+          a: {
+            type: AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT,
+            payload: { token, redirectUrl }
+          }
         });
+
+        const expected = cold('--b-', { b: new RefreshEpersonAndTokenRedirectErrorAction() });
+
+        expect(authEffects.refreshStateTokenRedirect$).toBeObservable(expected);
         done();
       });
+    });
+
+  });
+
+  describe('refreshStateTokenRedirectSuccess$', () => {
+
+    beforeEach(() => {
+      scheduler = getTestScheduler();
+    });
+
+    it('should return a REFRESH_TOKEN_AND_REDIRECT action', (done) => {
+
+      actions = hot('--a-', {
+        a: {
+          type: AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT_SUCCESS,
+          payload: { ePerson: EPersonMock, token, redirectUrl }
+        }
+      });
+
+      const expected = cold('--b-', { b: new RefreshTokenAndRedirectAction(token, redirectUrl) });
+
+      expect(authEffects.refreshStateTokenRedirectSuccess$).toBeObservable(expected);
+      done();
     });
   });
 
@@ -497,30 +552,33 @@ describe('AuthEffects', () => {
   });
 
   describe('refreshTokenAndRedirectSuccess$', () => {
-    it('should replace token and redirect in response to a REFRESH_TOKEN_AND_REDIRECT_SUCCESS action', (done) => {
+
+    beforeEach(() => {
+      scheduler = getTestScheduler();
+    });
+
+    it('should replace token and redirect in response to a REFRESH_TOKEN_AND_REDIRECT_SUCCESS action', () => {
 
       actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS, payload: {token, redirectUrl} } });
 
       spyOn(authServiceStub, 'replaceToken');
-      spyOn(routerStub, 'navigateByUrl');
 
-      authEffects.refreshTokenAndRedirectSuccess$.pipe(take(1)).subscribe(() => {
-        expect(authServiceStub.replaceToken).toHaveBeenCalledWith(token);
-        expect(routerStub.navigateByUrl).toHaveBeenCalledWith(redirectUrl);
-      });
-      done();
+      scheduler.run(() => authEffects.refreshTokenAndRedirectSuccess$.pipe(take(1)).subscribe());
+      scheduler.flush();
+
+      expect(authServiceStub.replaceToken).toHaveBeenCalledWith(token);
+      expect(routerStub.navigate).toHaveBeenCalledWith([redirectUrl]);
     });
   });
 
   describe('invalidateAuthorizationsRequestCache$', () => {
     it('should call invalidateAuthorizationsRequestCache method in response to a REHYDRATE action', (done) => {
-      actions = hot('--a-|', { a: { type: StoreActionTypes.REHYDRATE } });
+      actions = observableOf({ type: StoreActionTypes.REHYDRATE });
 
       authEffects.invalidateAuthorizationsRequestCache$.subscribe(() => {
         expect((authEffects as  any).authorizationsService.invalidateAuthorizationsRequestCache).toHaveBeenCalled();
+        done();
       });
-
-      done();
     });
   });
 });

@@ -5,7 +5,9 @@ import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/t
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { of as observableOf } from 'rxjs';
-import { OpenaireBrokerEventRestService } from '../../../core/openaire/broker/events/openaire-broker-event-rest.service';
+import {
+  OpenaireBrokerEventRestService
+} from '../../../core/openaire/broker/events/openaire-broker-event-rest.service';
 import { OpenaireBrokerEventsComponent } from './openaire-broker-events.component';
 import {
   getMockOpenaireBrokerEventRestService,
@@ -34,10 +36,12 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../../shared/remote-data.utils';
-import { FindListOptions } from '../../../core/data/request.models';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { UUIDService } from '../../../core/shared/uuid.service';
+import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 
 describe('OpenaireBrokerEventsComponent test suite', () => {
   let fixture: ComponentFixture<OpenaireBrokerEventsComponent>;
@@ -114,6 +118,7 @@ describe('OpenaireBrokerEventsComponent test suite', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: PaginationService, useValue: paginationService },
+        { provide: UUIDService, useValue: getMockUUIDService() },
         OpenaireBrokerEventsComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]

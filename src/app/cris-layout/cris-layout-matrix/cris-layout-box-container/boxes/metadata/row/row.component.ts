@@ -11,7 +11,7 @@ import {
  * This component renders the rows of metadata boxes
  */
 @Component({
-  // tslint:disable-next-line: component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[ds-row]',
   templateUrl: './row.component.html',
   styleUrls: ['./row.component.scss']

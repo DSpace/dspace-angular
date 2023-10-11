@@ -19,6 +19,7 @@ export class RelationGroupFieldParser extends FieldParser {
     modelConfiguration.submissionId = this.submissionId;
     modelConfiguration.scopeUUID = this.parserOptions.collectionUUID;
     modelConfiguration.submissionScope = this.parserOptions.submissionScope;
+    this.setVocabularyOptions(modelConfiguration, this.parserOptions.collectionUUID);
     if (this.configData && this.configData.rows && this.configData.rows.length > 0) {
       modelConfiguration.formConfiguration = this.configData.rows;
       modelConfiguration.relationFields = [];

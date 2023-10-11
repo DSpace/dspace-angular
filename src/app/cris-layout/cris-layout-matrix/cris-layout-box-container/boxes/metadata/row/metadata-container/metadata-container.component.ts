@@ -14,6 +14,7 @@ import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { getFirstCompletedRemoteData } from '../../../../../../../core/shared/operators';
 import { map, take } from 'rxjs/operators';
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
+import { MetadataFilter } from '../../../../../../../core/data/bitstream-data.service';
 import { RemoteData } from '../../../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 import { Observable } from 'rxjs';
@@ -52,13 +53,6 @@ export class MetadataContainerComponent implements OnInit {
    * The configuration of the rendering component to render
    */
   metadataFieldRenderOptions: MetadataBoxFieldRenderOptions;
-
-  /**
-   * The rendering sub-type, if exists
-   * e.g. for type identifier.doi this property
-   * contains the sub-type doi
-   */
-  renderingSubType: string;
 
   constructor(
     protected bitstreamDataService: BitstreamDataService,
@@ -113,7 +107,9 @@ export class MetadataContainerComponent implements OnInit {
 
   ngOnInit() {
     const rendering = this.computeRendering(this.field);
-    if (this.field.fieldType === LayoutFieldType.BITSTREAM && rendering.toLocaleLowerCase() === FieldRenderingType.ATTACHMENT.toLocaleLowerCase()) {
+    if (this.field.fieldType === LayoutFieldType.BITSTREAM
+      && (rendering.toLocaleLowerCase() === FieldRenderingType.ATTACHMENT.toLocaleLowerCase()
+        || rendering.toLocaleLowerCase() === FieldRenderingType.ADVANCEDATTACHMENT.toLocaleLowerCase())) {
       this.hasBitstream().pipe(take(1)).subscribe((hasBitstream: boolean) => {
         if (hasBitstream) {
           this.initRenderOptions(rendering);
@@ -124,15 +120,21 @@ export class MetadataContainerComponent implements OnInit {
     }
   }
 
-  initRenderOptions(renderingType: string|FieldRenderingType): void {
-    this.renderingSubType = this.computeSubType(this.field);
+  initRenderOptions(renderingType: string | FieldRenderingType): void {
     this.metadataFieldRenderOptions = this.getMetadataBoxFieldRenderOptions(renderingType);
     this.isStructured = this.metadataFieldRenderOptions.structured;
     this.cd.detectChanges();
   }
 
   hasBitstream(): Observable<boolean> {
-    return this.bitstreamDataService.findAllByItemAndBundleName(this.item, this.field.bitstream.bundle)
+    let filters: MetadataFilter[] = [];
+    if (isNotEmpty(this.field.bitstream.metadataValue)) {
+      filters.push({
+        metadataName: this.field.bitstream.metadataField,
+        metadataValue: this.field.bitstream.metadataValue
+      });
+    }
+    return this.bitstreamDataService.findShowableBitstreamsByItem(this.item.uuid, this.field.bitstream.bundle, filters)
       .pipe(
         getFirstCompletedRemoteData(),
         map((response: RemoteData<PaginatedList<Bitstream>>) => {
@@ -154,17 +156,6 @@ export class MetadataContainerComponent implements OnInit {
     return (this.field.fieldType === LayoutFieldType.BITSTREAM) ||
       (field.fieldType === LayoutFieldType.METADATAGROUP && existOneMetadataWithValue) ||
       (field.fieldType === LayoutFieldType.METADATA && this.item.firstMetadataValue(field.metadata));
-  }
-
-  computeSubType(field: LayoutField): string | FieldRenderingType {
-    const rendering = field.rendering;
-    let subtype: string;
-
-    if (rendering?.indexOf('.') > -1) {
-      const values = rendering.split('.');
-      subtype = values[1];
-    }
-    return subtype;
   }
 
   computeRendering(field: LayoutField): string | FieldRenderingType {

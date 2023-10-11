@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 
-import { Chips } from '../../../../../../../shared/chips/models/chips.model';
+import { Chips } from '../../../../../../../shared/form/chips/models/chips.model';
 import { TranslateService } from '@ngx-translate/core';
 import { RenderingTypeStructuredModelComponent } from '../rendering-type-structured.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
@@ -12,7 +12,7 @@ import { Item } from '../../../../../../../core/shared/item.model';
  * This component renders the tag metadata fields
  */
 @Component({
-  // tslint:disable-next-line: component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'span[ds-tag]',
   templateUrl: './tag.component.html',
   styleUrls: ['./tag.component.scss']

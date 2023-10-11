@@ -1,0 +1,10 @@
+<div class="{{valueStyle}}">
+  <ng-container *ngFor="let attachment of (bitstreams$ | async); let last = last;">
+    <ds-bitstream-attachment data-test="attachment-info" [attachment]="attachment"></ds-bitstream-attachment>
+  </ng-container>
+  <div *ngIf="canViewMore" class="w-100 text-center my-3">
+    <button class="btn btn-outline-primary" data-test="view-more" (click)="viewMore()">
+      {{'cris-layout.advanced-attachment.viewMore' | translate}}
+    </button>
+  </div>
+</div>

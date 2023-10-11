@@ -8,6 +8,7 @@ import { map, take } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 import { MiradorViewerService } from './mirador-viewer.service';
 import { HostWindowService, WidthCategory } from '../../shared/host-window.service';
+import { BundleDataService } from '../../core/data/bundle-data.service';
 
 @Component({
   selector: 'ds-mirador-viewer',
@@ -55,6 +56,7 @@ export class MiradorViewerComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer,
               private viewerService: MiradorViewerService,
               private bitstreamDataService: BitstreamDataService,
+              private bundleDataService: BundleDataService,
               private hostWindowService: HostWindowService,
               @Inject(PLATFORM_ID) private platformId: any) {
   }
@@ -107,10 +109,10 @@ export class MiradorViewerComponent implements OnInit {
             this.notMobile = !(category === WidthCategory.XS || category === WidthCategory.SM);
           });
 
-      // We need to set the multi property to true if the
-      // item is searchable or when the ORIGINAL bundle contains more
-      // than 1 image. (The multi property determines whether the
-      // Mirador side thumbnail navigation panel is shown.)
+      // Set the multi property. The default mirador configuration adds a right
+      // thumbnail navigation panel to the viewer when multi is 'true'.
+
+      // Set the multi property to 'true' if the item is searchable.
       if (this.searchable) {
         this.multi = true;
         const observable = of('');
@@ -120,8 +122,12 @@ export class MiradorViewerComponent implements OnInit {
           })
         );
       } else {
-        // Sets the multi value based on the image count.
-        this.iframeViewerUrl = this.viewerService.getImageCount(this.object, this.bitstreamDataService).pipe(
+        // Set the multi property based on the image count in IIIF-eligible bundles.
+        // Any count greater than 1 sets the value to 'true'.
+        this.iframeViewerUrl = this.viewerService.getImageCount(
+          this.object,
+          this.bitstreamDataService,
+          this.bundleDataService).pipe(
           map(c => {
             if (c > 1) {
               this.multi = true;

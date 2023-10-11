@@ -1,4 +1,4 @@
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { createFailedRemoteDataObject, createPendingRemoteDataObject, createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { buildPaginatedList, PaginatedList } from '../../data/paginated-list.model';
 import { Item } from '../../shared/item.model';
 import { PageInfo } from '../../shared/page-info.model';
@@ -13,10 +13,14 @@ import { RequestService } from '../../data/request.service';
 import { UnCacheableObject } from '../../shared/uncacheable-object.model';
 import { RemoteData } from '../../data/remote-data';
 import { Observable, of as observableOf } from 'rxjs';
-import { RequestEntry, RequestEntryState } from '../../data/request.reducer';
 import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { take } from 'rxjs/operators';
 import { HALLink } from '../../shared/hal-link.model';
+import { RequestEntryState } from '../../data/request-entry-state.model';
+import { RequestEntry } from '../../data/request-entry.model';
+import { cold } from 'jasmine-marbles';
+import { TestScheduler } from 'rxjs/testing';
+import { fakeAsync, tick } from '@angular/core/testing';
 
 describe('RemoteDataBuildService', () => {
   let service: RemoteDataBuildService;
@@ -642,6 +646,213 @@ describe('RemoteDataBuildService', () => {
             expect(result).toEqual(paginatedList);
             done();
           });
+      });
+    });
+  });
+
+  describe('buildFromHref', () => {
+    beforeEach(() => {
+      (objectCache.getRequestUUIDBySelfLink as jasmine.Spy).and.returnValue(cold('a', { a: 'request/uuid' }));
+    });
+
+    describe('when both getRequestFromRequestHref and getRequestFromRequestUUID emit nothing', () => {
+      beforeEach(() => {
+        (requestService.getByHref as jasmine.Spy).and.returnValue(cold('a', { a: undefined }));
+        (requestService.getByUUID as jasmine.Spy).and.returnValue(cold('a', { a: undefined }));
+      });
+
+      it('should not emit anything', () => {
+        expect(service.buildFromHref(cold('a', { a: 'rest/api/endpoint' }))).toBeObservable(cold(''));
+      });
+    });
+
+    describe('when one of getRequestFromRequestHref or getRequestFromRequestUUID emits nothing', () => {
+      let requestEntry: RequestEntry;
+
+      beforeEach(() => {
+        requestEntry = Object.assign(new RequestEntry(), {
+          state: RequestEntryState.Success,
+          request: {},
+        });
+        (requestService.getByHref as jasmine.Spy).and.returnValue(cold('a', { a: undefined }));
+        (requestService.getByUUID as jasmine.Spy).and.returnValue(cold('a', { a: requestEntry }));
+        spyOn((service as any), 'buildPayload').and.returnValue(cold('a', { a: {} }));
+      });
+
+      it('should create remote-data with the existing request-entry', () => {
+        expect(service.buildFromHref(cold('a', { a: 'rest/api/endpoint' }))).toBeObservable(cold('a', {
+          a: new RemoteData(undefined, undefined, undefined, RequestEntryState.Success, undefined, {}, undefined),
+        }));
+      });
+    });
+
+    describe('when one of getRequestFromRequestHref or getRequestFromRequestUUID is stale', () => {
+      let requestEntry1: RequestEntry;
+      let requestEntry2: RequestEntry;
+
+      beforeEach(() => {
+        requestEntry1 = Object.assign(new RequestEntry(), {
+          state: RequestEntryState.Success,
+          request: {},
+        });
+        requestEntry2 = Object.assign(new RequestEntry(), {
+          state: RequestEntryState.SuccessStale,
+          request: {},
+        });
+        (requestService.getByHref as jasmine.Spy).and.returnValue(cold('a', { a: requestEntry1 }));
+        (requestService.getByUUID as jasmine.Spy).and.returnValue(cold('a', { a: requestEntry2 }));
+        spyOn((service as any), 'buildPayload').and.returnValue(cold('a', { a: {} }));
+      });
+
+      it('should create remote-data with the non-stale request-entry', () => {
+        expect(service.buildFromHref(cold('a', { a: 'rest/api/endpoint' }))).toBeObservable(cold('a', {
+          a: new RemoteData(undefined, undefined, undefined, RequestEntryState.Success, undefined, {}, undefined),
+        }));
+      });
+    });
+
+    describe('when both getRequestFromRequestHref and getRequestFromRequestUUID are stale', () => {
+      let requestEntry1: RequestEntry;
+      let requestEntry2: RequestEntry;
+
+      beforeEach(() => {
+        requestEntry1 = Object.assign(new RequestEntry(), {
+          state: RequestEntryState.SuccessStale,
+          request: {},
+          lastUpdated: 20,
+        });
+        requestEntry2 = Object.assign(new RequestEntry(), {
+          state: RequestEntryState.SuccessStale,
+          request: {},
+          lastUpdated: 10,
+        });
+        (requestService.getByHref as jasmine.Spy).and.returnValue(cold('a', { a: requestEntry1 }));
+        (requestService.getByUUID as jasmine.Spy).and.returnValue(cold('a', { a: requestEntry2 }));
+        spyOn((service as any), 'buildPayload').and.returnValue(cold('a', { a: {} }));
+      });
+
+      it('should create remote-data with the most up-to-date request-entry', () => {
+        expect(service.buildFromHref(cold('a', { a: 'rest/api/endpoint' }))).toBeObservable(cold('a', {
+          a: new RemoteData(undefined, undefined, 20, RequestEntryState.SuccessStale, undefined, {}, undefined),
+        }));
+      });
+    });
+
+    describe('when both getRequestFromRequestHref and getRequestFromRequestUUID are not stale', () => {
+      let requestEntry1: RequestEntry;
+      let requestEntry2: RequestEntry;
+
+      beforeEach(() => {
+        requestEntry1 = Object.assign(new RequestEntry(), {
+          state: RequestEntryState.Success,
+          request: {},
+          lastUpdated: 25,
+        });
+        requestEntry2 = Object.assign(new RequestEntry(), {
+          state: RequestEntryState.Success,
+          request: {},
+          lastUpdated: 5,
+        });
+        (requestService.getByHref as jasmine.Spy).and.returnValue(cold('a', { a: requestEntry1 }));
+        (requestService.getByUUID as jasmine.Spy).and.returnValue(cold('a', { a: requestEntry2 }));
+        spyOn((service as any), 'buildPayload').and.returnValue(cold('a', { a: {} }));
+      });
+
+      it('should create remote-data with the most up-to-date request-entry', () => {
+        expect(service.buildFromHref(cold('a', { a: 'rest/api/endpoint' }))).toBeObservable(cold('a', {
+          a: new RemoteData(undefined, undefined, 25, RequestEntryState.Success, undefined, {}, undefined),
+        }));
+      });
+    });
+  });
+
+  describe('buildFromRequestUUIDAndAwait', () => {
+    let testScheduler;
+
+    let callback: jasmine.Spy;
+    let buildFromRequestUUIDSpy;
+
+    const BOOLEAN = { t: true, f: false };
+
+    const MOCK_PENDING_RD = createPendingRemoteDataObject();
+    const MOCK_SUCCEEDED_RD = createSuccessfulRemoteDataObject({});
+    const MOCK_FAILED_RD = createFailedRemoteDataObject('failed');
+
+    const RDs = {
+      p: MOCK_PENDING_RD,
+      s: MOCK_SUCCEEDED_RD,
+      f: MOCK_FAILED_RD,
+    };
+
+
+    beforeEach(() => {
+      testScheduler = new TestScheduler((actual, expected) => {
+        expect(actual).toEqual(expected);
+      });
+
+      callback = jasmine.createSpy('callback');
+      callback.and.returnValue(observableOf(undefined));
+      buildFromRequestUUIDSpy = spyOn(service, 'buildFromRequestUUID').and.callThrough();
+    });
+
+    it('should patch through href & followLinks to buildFromRequestUUID', () => {
+      buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+      service.buildFromRequestUUIDAndAwait('some-href', callback, ...linksToFollow);
+      expect(buildFromRequestUUIDSpy).toHaveBeenCalledWith('some-href', ...linksToFollow);
+    });
+
+    it('should trigger the callback on successful RD', (done) => {
+      buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+
+      service.buildFromRequestUUIDAndAwait('some-href', callback).subscribe(rd => {
+        expect(rd).toBe(MOCK_SUCCEEDED_RD);
+        expect(callback).toHaveBeenCalled();
+        done();
+      });
+    });
+
+    it('should trigger the callback on successful RD even if nothing subscribes to the returned Observable', fakeAsync(() => {
+      buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+
+      service.buildFromRequestUUIDAndAwait('some-href', callback);
+      tick();
+
+      expect(callback).toHaveBeenCalled();
+    }));
+
+    it('should not trigger the callback on pending RD', (done) => {
+      buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_PENDING_RD));
+
+      service.buildFromRequestUUIDAndAwait('some-href', callback).subscribe(rd => {
+        expect(rd).toBe(MOCK_PENDING_RD);
+        expect(callback).not.toHaveBeenCalled();
+        done();
+      });
+    });
+
+    it('should not trigger the callback on failed RD', (done) => {
+      buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_FAILED_RD));
+
+      service.buildFromRequestUUIDAndAwait('some-href', callback).subscribe(rd => {
+        expect(rd).toBe(MOCK_FAILED_RD);
+        expect(callback).not.toHaveBeenCalled();
+        done();
+      });
+    });
+
+    it('should only emit after the callback is done', () => {
+      testScheduler.run(({ cold: tsCold, expectObservable }) => {
+        buildFromRequestUUIDSpy.and.returnValue(
+          tsCold('-p----s', RDs)
+        );
+        callback.and.returnValue(
+          tsCold('      --t', BOOLEAN)
+        );
+
+        const done$ = service.buildFromRequestUUIDAndAwait('some-href', callback);
+        expectObservable(done$).toBe(
+          '       -p------s', RDs       // resulting duration between pending & successful includes the callback
+        );
       });
     });
   });

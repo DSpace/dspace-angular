@@ -7,9 +7,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { SearchFiltersComponent } from './search-filters.component';
 import { SearchService } from '../../../core/shared/search/search.service';
-import { of as observableOf, Subject } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { By } from '@angular/platform-browser';
 
 describe('SearchFiltersComponent', () => {
   let comp: SearchFiltersComponent;
@@ -17,14 +18,14 @@ describe('SearchFiltersComponent', () => {
   let searchService: SearchService;
 
   const searchServiceStub = {
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     getConfig: () =>
       observableOf({ hasSucceeded: true, payload: [] }),
     getClearFiltersQueryParams: () => {
     },
     getSearchLink: () => {
     }
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   };
 
   const searchFiltersStub = {
@@ -66,26 +67,18 @@ describe('SearchFiltersComponent', () => {
     });
   });
 
-  describe('when refreshSearch observable is present and emit events', () => {
-
-    let refreshFiltersEmitter: Subject<any>;
-
+  describe('when there are no filters', () => {
     beforeEach(() => {
-      spyOn(comp, 'initFilters').and.callFake(() => { /****/});
-
-      refreshFiltersEmitter = new Subject();
-      comp.refreshFilters = refreshFiltersEmitter.asObservable();
-      comp.ngOnInit();
+      (comp as any).ngOnInit();
+      fixture.detectChanges();
     });
 
-    it('should reinitialize search filters', () => {
-
-      expect(comp.initFilters).toHaveBeenCalledTimes(1);
-
-      refreshFiltersEmitter.next();
-
-      expect(comp.initFilters).toHaveBeenCalledTimes(2);
+    it('should not render component', () => {
+      const menu = fixture.debugElement.query(By.css('div.d-none'));
+      expect(menu).not.toBeNull();
+      expect(comp.availableFilters).toBeFalse();
     });
+
   });
 
 });

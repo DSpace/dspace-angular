@@ -8,16 +8,17 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
-import { isEqual, isObject } from 'lodash';
+import isEqual from 'lodash/isEqual';
+import isObject from 'lodash/isObject';
 
 import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { FormService } from '../../../../form.service';
-import { Chips } from '../../../../../chips/models/chips.model';
-import { hasValue, isEmpty, isNotEmpty } from '../../../../../empty.util';
+import { Chips } from '../../../../chips/models/chips.model';
+import { hasValue, isEmpty } from '../../../../../empty.util';
 import { shrinkInOut } from '../../../../../animations/shrink';
-import { ChipsItem } from '../../../../../chips/models/chips-item.model';
+import { ChipsItem } from '../../../../chips/models/chips-item.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { environment } from '../../../../../../../environments/environment';
@@ -217,18 +218,22 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
       true);
     const fieldId = fieldName.replace(/\./g, '_');
     const model = this.formBuilderService.findById(fieldId, formModel);
-    return this.vocabularyService.findEntryDetailById(
-      valueObj[fieldName].authority,
-      (model as any).vocabularyOptions.name
-    ).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((entryDetail: VocabularyEntryDetail) => Object.assign(
-        new FormFieldMetadataValueObject(),
-        valueObj[fieldName],
-        {
-          otherInformation: entryDetail.otherInformation
-        })
-      ));
+    if ((model as any)?.vocabularyOptions?.name) {
+      return this.vocabularyService.findEntryDetailById(
+        valueObj[fieldName].authority,
+        (model as any).vocabularyOptions.name
+      ).pipe(
+        getFirstSucceededRemoteDataPayload(),
+        map((entryDetail: VocabularyEntryDetail) => Object.assign(
+          new FormFieldMetadataValueObject(),
+          valueObj[fieldName],
+          {
+            otherInformation: entryDetail.otherInformation
+          })
+        ));
+    } else {
+      return observableOf(valueObj[fieldName]);
+    }
   }
 
   private hasValidAuthority(formMetadataValue: FormFieldMetadataValueObject) {

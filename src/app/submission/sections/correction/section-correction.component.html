@@ -1,0 +1,108 @@
+<ng-container *ngIf="showTable()">
+  <ng-container *ngIf="(correctionMetadataData$ | async)?.length > 0">
+      <ds-alert [type]="'alert-info'" [content]="'submission.sections.correction.column.metadata.info'"></ds-alert>
+      <table  class="table table-striped correction-item-table">
+        <thead>
+          <tr>
+            <th>{{'submission.sections.correction.column.metadata' | translate}}</th>
+            <th>{{'submission.sections.correction.column.previous-value' | translate}}</th>
+            <th>{{'submission.sections.correction.column.current-value'|translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let correction of (correctionMetadataData$ | async)" class="correction-row">
+            <td>{{correction.label}} ({{correction.metadata}})</td>
+            <td>
+              <ng-container *ngIf="correction.oldValues.length==0">-</ng-container>
+              <ng-container *ngIf="correction.oldValues.length==1">{{correction.oldValues[0]}}</ng-container>
+              <ul *ngIf="correction.oldValues.length>1">
+                <li *ngFor='let value of correction.oldValues'>
+                  {{value}}
+                </li>
+              </ul>
+            </td>
+            <td>
+              <ng-container *ngIf="correction.newValues.length==0">-</ng-container>
+              <ng-container *ngIf="correction.newValues.length==1">{{correction.newValues[0]}}</ng-container>
+              <ul *ngIf="correction.newValues.length>1">
+                <li *ngFor='let value of correction.newValues'>
+                  {{value}}
+                </li>
+              </ul>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </ng-container>
+    <br/>
+  <ng-container *ngIf="(correctionBitstreamData$ | async)?.length > 0">
+      <ds-alert [type]="'alert-info'" [content]="'submission.sections.correction.column.file.info'"></ds-alert>
+    <ng-container *ngFor="let bitstream of (correctionBitstreamData$ | async)">
+        <table class="table table-striped m-0 correction-bitstream-table">
+          <thead>
+          <tr>
+            <th colspan="3">{{bitstream.filename}} - {{getFileOperationLabel(bitstream.operationType) | translate}}</th>
+          </tr>
+          </thead>
+        </table>
+        <table *ngIf="bitstream.metadata.length > 0 && bitstream.operationType === operationType.MODIFY"
+               class="table table-striped m-0 correction-bitstream-metadata-table">
+          <thead>
+            <tr>
+              <th>{{'submission.sections.correction.column.metadata' | translate}}</th>
+              <th>{{'submission.sections.correction.column.previous-value' | translate}}</th>
+              <th>{{'submission.sections.correction.column.current-value'|translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let metadata of bitstream.metadata" class="correction-row">
+              <td>{{metadata.label}} ({{metadata.metadata}})</td>
+              <td>
+                <ng-container *ngIf="metadata.oldValues.length==0">-</ng-container>
+                <ng-container *ngIf="metadata.oldValues.length==1">{{metadata.oldValues[0]}}</ng-container>
+                <ul *ngIf="metadata.oldValues.length>1">
+                  <li *ngFor='let value of metadata.oldValues'>
+                    {{value}}
+                  </li>
+                </ul>
+              </td>
+              <td>
+                <ng-container *ngIf="metadata.newValues.length==0">-</ng-container>
+                <ng-container *ngIf="metadata.newValues.length==1">{{metadata.newValues[0]}}</ng-container>
+                <ul *ngIf="metadata.newValues.length>1">
+                  <li *ngFor='let value of metadata.newValues'>
+                    {{value}}
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table *ngIf="bitstream.policies.length > 0 && bitstream.operationType === operationType.MODIFY"
+               class="table table-striped m-0 correction-bitstream-policies-table">
+          <thead>
+            <tr>
+              <th>{{'submission.sections.correction.column.policy' | translate}}</th>
+              <th>{{'submission.sections.correction.column.previous-value' | translate}}</th>
+              <th>{{'submission.sections.correction.column.current-value'|translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let policy of bitstream.policies" class="correction-row">
+              <td>{{policy.label}}</td>
+              <td>
+                <ng-container *ngIf="!policy.oldValue">-</ng-container>
+                <ng-container *ngIf="policy.oldValue">{{policy.oldValue}}</ng-container>
+              </td>
+              <td>
+                <ng-container *ngIf="!policy.newValue">-</ng-container>
+                <ng-container *ngIf="policy.newValue">{{policy.newValue}}</ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br/>
+      </ng-container>
+    </ng-container>
+</ng-container>

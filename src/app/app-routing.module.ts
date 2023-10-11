@@ -1,23 +1,28 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { NoPreloading, RouterModule } from '@angular/router';
 import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
-import { SiteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import {
+  SiteAdministratorGuard
+} from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import {
   ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
   BITSTREAM_MODULE_PATH,
   BULK_IMPORT_PATH,
   EDIT_ITEM_PATH,
+  ERROR_PAGE,
   FORBIDDEN_PATH,
   FORGOT_PASSWORD_PATH,
+  HEALTH_PAGE_PATH,
   INFO_MODULE_PATH,
   INTERNAL_SERVER_ERROR,
   LEGACY_BITSTREAM_MODULE_PATH,
   PROFILE_MODULE_PATH,
   REGISTER_PATH,
   REQUEST_COPY_MODULE_PATH,
+  STATISTICS_PAGE_PATH,
   WORKFLOW_ITEM_MODULE_PATH,
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
@@ -29,19 +34,28 @@ import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-
 import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
-import { GroupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
-import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
+import {
+  GroupAdministratorGuard
+} from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
+import {
+  ThemedPageInternalServerErrorComponent
+} from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
+import { MenuResolver } from './menu.resolver';
+import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
+import { RedirectService } from './redirect/redirect.service';
 
 @NgModule({
   imports: [
     RouterModule.forRoot([
       { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent },
+      { path: ERROR_PAGE , component: ThemedPageErrorComponent },
       {
         path: '',
         canActivate: [AuthBlockingGuard],
         canActivateChild: [ServerCheckGuard],
+        resolve: [MenuResolver],
         children: [
           { path: '', redirectTo: '/home', pathMatch: 'full' },
           {
@@ -143,8 +157,8 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
           },
           {
             path: 'explore',
-            loadChildren: () => import('./+explore/explore.module')
-              .then((m) => m.ExploreModule),
+            loadChildren: () => import('./explore-page/explore-page.module')
+              .then((m) => m.ExplorePageModule),
           },
           {
             path: ADMIN_MODULE_PATH,
@@ -156,6 +170,21 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
             path: 'login',
             loadChildren: () => import('./login-page/login-page.module')
               .then((m) => m.LoginPageModule)
+          },
+          {
+            path: 'external-login/:token',
+            loadChildren: () => import('./external-login-page/external-login-page.module')
+              .then((m) => m.ExternalLoginPageModule)
+          },
+          {
+            path: 'review-account/:token',
+            loadChildren: () => import('./external-login-review-account-info-page/external-login-review-account-info-page.module')
+              .then((m) => m.ExternalLoginReviewAccountInfoModule)
+          },
+          {
+            path: 'email-confirmation',
+            loadChildren: () => import('./external-login-email-confirmation-page/external-login-email-confirmation-page.module')
+              .then((m) => m.ExternalLoginEmailConfirmationPageModule)
           },
           {
             path: 'logout',
@@ -234,10 +263,14 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
             component: ThemedForbiddenComponent
           },
           {
-            path: 'statistics',
+            path: STATISTICS_PAGE_PATH,
             loadChildren: () => import('./statistics-page/statistics-page-routing.module')
               .then((m) => m.StatisticsPageRoutingModule),
-            canActivate: [SiteAdministratorGuard]
+          },
+          {
+            path: HEALTH_PAGE_PATH,
+            loadChildren: () => import('./health-page/health-page.module')
+              .then((m) => m.HealthPageModule)
           },
           {
             path: ACCESS_CONTROL_MODULE_PATH,
@@ -265,10 +298,16 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
             loadChildren: () => import('./invitation/invitation.module')
               .then((m) => m.InvitationModule)
           },
-          { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
+          { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent, canActivate: [RedirectService] },
         ]
       }
     ], {
+      // enableTracing: true,
+      useHash: false,
+      scrollPositionRestoration: 'enabled',
+      anchorScrolling: 'enabled',
+      initialNavigation: 'enabledBlocking',
+      preloadingStrategy: NoPreloading,
       onSameUrlNavigation: 'reload',
 })
   ],

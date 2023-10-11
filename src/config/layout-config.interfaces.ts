@@ -5,14 +5,29 @@ export interface UrnConfig extends Config {
   baseUrl: string;
 }
 
+export interface CrisRefEntityStyleConfig extends Config {
+  icon: string;
+  style: string;
+}
+
 export interface CrisRefConfig extends Config {
   entityType: string;
-  icon: string;
+  entityStyle: {
+    default: CrisRefEntityStyleConfig;
+    [entity: string]: CrisRefEntityStyleConfig;
+  };
 }
 
 export interface CrisLayoutMetadataBoxConfig extends Config {
   defaultMetadataLabelColStyle: string;
   defaultMetadataValueColStyle: string;
+}
+
+export interface CrisLayoutCollectionsBoxConfig extends Config {
+  defaultCollectionsLabelColStyle: string;
+  defaultCollectionsValueColStyle: string;
+  isInline: boolean;
+  defaultCollectionsRowStyle?: string;
 }
 
 export interface CrisLayoutTypeConfig {
@@ -28,12 +43,18 @@ export interface CrisItemPageConfig extends Config {
   default: CrisLayoutTypeConfig;
 }
 
+export interface CrisRefStyleMetadata extends Config {
+  [metadata: string]: string;
+  default: string;
+}
 
 export interface CrisLayoutConfig extends Config {
   urn: UrnConfig[];
   crisRef: CrisRefConfig[];
+  crisRefStyleMetadata: CrisRefStyleMetadata;
   itemPage: CrisItemPageConfig;
   metadataBox: CrisLayoutMetadataBoxConfig;
+  collectionsBox: CrisLayoutCollectionsBoxConfig;
 }
 
 export interface LayoutConfig extends Config {

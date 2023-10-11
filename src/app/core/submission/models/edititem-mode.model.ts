@@ -1,9 +1,8 @@
-import { CacheableObject } from '../../cache/object-cache.reducer';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { typedObject } from '../../cache/builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
-import { autoserialize, deserializeAs, deserialize } from 'cerialize';
+import { autoserialize, deserialize, deserializeAs } from 'cerialize';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
-import { DSpaceObject } from '../../shared/dspace-object.model';
 import { HALLink } from '../../shared/hal-link.model';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 
@@ -41,17 +40,6 @@ export class EditItemMode extends CacheableObject {
    */
   @autoserialize
   label: string;
-
-  /**
-   * Security level of this EditItem Mode
-   * Allowed value are:
-   *  1 = Admin
-   *  2 = Owner
-   *  3 = Admin+Owner
-   *  4 = Custom
-   */
-  @autoserialize
-  security: number;
 
   /**
    * Name of the Submission Definition used

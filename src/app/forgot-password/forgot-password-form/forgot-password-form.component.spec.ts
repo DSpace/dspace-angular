@@ -1,4 +1,4 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
@@ -11,13 +11,17 @@ import { Store } from '@ngrx/store';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CoreState } from '../../core/core.reducers';
 import { Registration } from '../../core/shared/registration.model';
 import { ForgotPasswordFormComponent } from './forgot-password-form.component';
 import { By } from '@angular/platform-browser';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import {AuthService} from '../../core/auth/auth.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../shared/remote-data.utils';
+import { CoreState } from '../../core/core-state.model';
+import { AuthService } from '../../core/auth/auth.service';
 
 describe('ForgotPasswordFormComponent', () => {
   let comp: ForgotPasswordFormComponent;
@@ -38,7 +42,7 @@ describe('ForgotPasswordFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
 
-    route = {data: observableOf({registration: registration})};
+    route = {data: observableOf({registration: createSuccessfulRemoteDataObject(registration)})};
     router = new RouterStub();
     notificationsService = new NotificationsServiceStub();
 
@@ -108,6 +112,7 @@ describe('ForgotPasswordFormComponent', () => {
       expect(router.navigate).not.toHaveBeenCalled();
       expect(notificationsService.error).toHaveBeenCalled();
     });
+
     it('should submit a patch request for the user uuid when the form is invalid', () => {
 
       comp.password = 'password';

@@ -1,7 +1,7 @@
 import { autoserialize, deserialize } from 'cerialize';
 import { METRIC } from './metric.resource-type';
 import { typedObject } from '../cache/builders/build-decorators';
-import { CacheableObject } from '../cache/object-cache.reducer';
+import { CacheableObject } from '../cache/cacheable-object.model';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { ResourceType } from './resource-type';
 import { HALLink } from './hal-link.model';
@@ -56,11 +56,14 @@ export class Metric implements CacheableObject {
   @autoserialize
   rank: number;
 
+  @autoserialize
+  icon?: string;
+
   /**
    * The {@link HALLink}s for this Metric
    */
   @deserialize
   _links: {
-    self: HALLink,
+    self: HALLink;
   };
 }

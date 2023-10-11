@@ -1,10 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -15,18 +13,18 @@ import { FacetValue } from '../../../search/models/facet-value.model';
 import { FilterType } from '../../../search/models/filter-type.model';
 import { SearchFilterConfig } from '../../../search/models/search-filter-config.model';
 import { FacetSectionComponent } from './facet-section.component';
-import {SEARCH_CONFIG_SERVICE} from '../../../../my-dspace-page/my-dspace-page.component';
-import {SearchConfigurationServiceStub} from '../../../testing/search-configuration-service.stub';
-import {StoreModule} from '@ngrx/store';
-import {authReducer} from '../../../../core/auth/auth.reducer';
-import {storeModuleConfig} from '../../../../app.reducer';
-import {isNotNull} from '../../../empty.util';
+import { StoreModule } from '@ngrx/store';
+import { authReducer } from '../../../../core/auth/auth.reducer';
+import { storeModuleConfig } from '../../../../app.reducer';
+import { isNotNull } from '../../../empty.util';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 
 describe('FacetSectionComponent', () => {
   let component: FacetSectionComponent;
   let fixture: ComponentFixture<FacetSectionComponent>;
 
   let searchServiceStub: any;
+  let searchConfigurationStub: any;
 
   const dateIssuedValue: FacetValue = {
     label: '1996 - 1999',
@@ -113,19 +111,29 @@ describe('FacetSectionComponent', () => {
       values: [pieChartFacetValue]
     }
   });
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     searchServiceStub = {
+      getSearchLink(): string {
+        return '/search';
+      }
+    };
+    searchConfigurationStub = {
       searchFacets(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
         return createSuccessfulRemoteDataObject$([mockAuthorFilterConfig, mockSubjectFilterConfig, mockDateIssuedFilterConfig, mockGraphBarChartFilterConfig, mockGraphPieChartFilterConfig]);
       },
+    };
+
+    searchServiceStub = {
       getSearchLink(): string {
         return '/search';
       }
     };
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
+      imports: [CommonModule,
+        BrowserModule,
+        RouterTestingModule,
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot({
           loader: {
@@ -135,9 +143,10 @@ describe('FacetSectionComponent', () => {
         }),
       ],
       declarations: [FacetSectionComponent],
-      providers: [FacetSectionComponent,
+      providers: [
         { provide: SearchService, useValue: searchServiceStub },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() }],
+        { provide: SearchConfigurationService, useValue: searchConfigurationStub }
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
@@ -158,13 +167,13 @@ describe('FacetSectionComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create FacetSectionComponent', inject([FacetSectionComponent], (comp: FacetSectionComponent) => {
-    expect(comp).toBeDefined();
-  }));
+  it('should create FacetSectionComponent',  () => {
+    expect(component).toBeDefined();
+  });
 
   it('should create a facet section foreach not empty filter configs',  () => {
     // graph facets control
-    const graphFacets = fixture.debugElement.queryAll(By.css('.col-6.mb-4'));
+    const graphFacets = fixture.debugElement.queryAll(By.css('.col-lg-6.mb-4'));
     expect(graphFacets.length).toEqual(2);
     const barChartFacet = graphFacets[0];
     expect(barChartFacet.name).toEqual('div');
@@ -177,14 +186,14 @@ describe('FacetSectionComponent', () => {
     const pieChartComponent = pieChartFacet.query(By.css('ds-search-chart'));
     expect(isNotNull(pieChartComponent)).toBe(true);
 
-    const facets = fixture.debugElement.queryAll(By.css('.col-3.mb-4'));
+    const facets = fixture.debugElement.queryAll(By.css('.col-lg-3.mb-4'));
     expect(facets.length).toEqual(2);
 
     const authorFacet = facets[0];
     expect(authorFacet.children.length).toEqual(3);
 
     const authorSpan = authorFacet.children[0];
-    expect(authorSpan.name).toEqual('span');
+    expect(authorSpan.name).toEqual('h5');
     expect(authorSpan.nativeElement.textContent).toEqual('explore.index.author');
 
     const firstAuthor = authorFacet.children[1];
@@ -201,7 +210,7 @@ describe('FacetSectionComponent', () => {
     expect(dateIssuedFacet.children.length).toEqual(2);
 
     const dateIssuedSpan = dateIssuedFacet.children[0];
-    expect(dateIssuedSpan.name).toEqual('span');
+    expect(dateIssuedSpan.name).toEqual('h5');
     expect(dateIssuedSpan.nativeElement.textContent).toEqual('explore.index.dateIssued');
 
     const dateIssued = dateIssuedFacet.children[1];

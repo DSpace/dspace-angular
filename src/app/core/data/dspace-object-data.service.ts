@@ -1,66 +1,46 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { dataService } from '../cache/builders/build-decorators';
+import { filter, map } from 'rxjs/operators';
+import { validate as uuidValidate } from 'uuid';
+
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { DSPACE_OBJECT } from '../shared/dspace-object.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DataService } from './data.service';
-import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
-import { FindListOptions } from './request.models';
-import { PaginatedList } from './paginated-list.model';
-
-/* tslint:disable:max-classes-per-file */
-class DataServiceImpl extends DataService<DSpaceObject> {
-  protected linkPath = 'dso';
-
-  constructor(
-    protected requestService: RequestService,
-    protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
-    protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer<DSpaceObject>) {
-    super();
-  }
-
-  getIDHref(endpoint, resourceID,  ...linksToFollow: FollowLinkConfig<DSpaceObject>[]): string {
-    return this.buildHrefFromFindOptions( endpoint.replace(/\{\?uuid\}/, `?uuid=${resourceID}`),
-      {}, [], ...linksToFollow);
-  }
-}
+import { IdentifiableDataService } from './base/identifiable-data.service';
+import { dataService } from './base/data-service.decorator';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { RemoteData } from './remote-data';
+import { RequestParam } from '../cache/models/request-param.model';
+import { isNotEmpty } from '../../shared/empty.util';
 
 @Injectable()
 @dataService(DSPACE_OBJECT)
-export class DSpaceObjectDataService {
-  protected linkPath = 'dso';
-  private dataService: DataServiceImpl;
+export class DSpaceObjectDataService extends IdentifiableDataService<DSpaceObject> {
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer<DSpaceObject>) {
-    this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
+  ) {
+    super(
+      'dso', requestService, rdbService, objectCache, halService, undefined,
+      // interpolate uuid as query parameter
+      (endpoint: string, resourceID: string): string => {
+        return endpoint.replace(/{\?uuid}/, `?uuid=${resourceID}`);
+      },
+    );
   }
 
   /**
-   * Returns an observable of {@link RemoteData} of an object, based on its ID, with a list of {@link FollowLinkConfig},
-   * to automatically resolve {@link HALLink}s of the object
-   * @param id                ID of object we want to retrieve
+   * Returns an observable of {@link RemoteData} of an object, based on its ID, with a list of
+   * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
+   *
+   * @param id                          ID of object we want to retrieve
    * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
    *                                    no valid cached version. Defaults to true
    * @param reRequestOnStale            Whether or not the request should automatically be re-
@@ -69,39 +49,47 @@ export class DSpaceObjectDataService {
    *                                    {@link HALLink}s should be automatically resolved
    */
   findById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<DSpaceObject>[]): Observable<RemoteData<DSpaceObject>> {
-    return this.dataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
 
+    if (uuidValidate(id)) {
+      const href$ = this.getIDHrefObs(encodeURIComponent(id), ...linksToFollow);
+      return super.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    } else {
+      return this.findByCustomUrl(id, useCachedVersionIfAvailable, reRequestOnStale, linksToFollow);
+    }
   }
+
   /**
-   * Returns an observable of {@link RemoteData} of an object, based on an href, with a list of {@link FollowLinkConfig},
-   * to automatically resolve {@link HALLink}s of the object
-   * @param href                        The url of object we want to retrieve
+   * Returns an observable of {@link RemoteData} of an object, based on its CustomURL or ID, with a list of
+   * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
+   *
+   * @param id                          CustomUrl or UUID of object we want to retrieve
    * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
    *                                    no valid cached version. Defaults to true
    * @param reRequestOnStale            Whether or not the request should automatically be re-
    *                                    requested after the response becomes stale
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
    *                                    {@link HALLink}s should be automatically resolved
+   * @param projections                 List of {@link projections} used to pass as parameters
    */
-  findByHref(href: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<DSpaceObject>[]): Observable<RemoteData<DSpaceObject>> {
-    return this.dataService.findByHref(href, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
-  }
+  private findByCustomUrl(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, linksToFollow: FollowLinkConfig<DSpaceObject>[] = [], projections: string[] = []): Observable<RemoteData<DSpaceObject>> {
+    const searchMethod = 'findByCustomURL';
 
-  /**
-   * Returns a list of observables of {@link RemoteData} of objects, based on an href, with a list of {@link FollowLinkConfig},
-   * to automatically resolve {@link HALLink}s of the object
-   * @param href                        The url of object we want to retrieve
-   * @param findListOptions             Find list options object
-   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
-   *                                    no valid cached version. Defaults to true
-   * @param reRequestOnStale            Whether or not the request should automatically be re-
-   *                                    requested after the response becomes stale
-   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
-   *                                    {@link HALLink}s should be automatically resolved
-   */
-  findAllByHref(href: string, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<DSpaceObject>[]): Observable<RemoteData<PaginatedList<DSpaceObject>>> {
-    return this.dataService.findAllByHref(href, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
-  }
+    const options = Object.assign({}, {
+      searchParams: [
+        new RequestParam('q', id),
+      ]
+    });
 
+    projections.forEach((projection) => {
+      options.searchParams.push(new RequestParam('projection', projection));
+    });
+
+    const hrefObs = this.halService.getEndpoint('items').pipe(
+      filter((href: string) => isNotEmpty(href)),
+      map((href: string) => `${href}/search/${searchMethod}`),
+      map((href: string) => this.buildHrefFromFindOptions(href, options, [], ...linksToFollow))
+    );
+
+    return this.findByHref(hrefObs, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
 }
-/* tslint:enable:max-classes-per-file */

@@ -2,7 +2,7 @@ import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { SidebarState } from './sidebar.reducer';
 import { createSelector, select, Store } from '@ngrx/store';
-import { SidebarCollapseAction, SidebarExpandAction } from './sidebar.actions';
+import { SidebarCollapseAction, SidebarExpandAction, SidebarToggleAction } from './sidebar.actions';
 import { AppState } from '../../app.reducer';
 import { HostWindowService } from '../host-window.service';
 import { map } from 'rxjs/operators';
@@ -35,12 +35,21 @@ export class SidebarService {
    * @returns {Observable<boolean>} Emits true if the user's screen size is mobile or when the state in the store is currently collapsed
    */
   get isCollapsed(): Observable<boolean> {
-    return observableCombineLatest(
+    return observableCombineLatest([
       this.isXsOrSm$,
       this.isCollapsedInStore
-    ).pipe(
-      map(([mobile, store]) => mobile ? store : true)
+    ]).pipe(
+      map(([mobile, store]) => mobile && store)
     );
+  }
+
+  /**
+   * Checks if the sidebar should currently be collapsed on large screens
+   * @returns {Observable<boolean>} Emits true when the state in the store is currently collapsed,
+   * regardless of the screen size
+   */
+  get isCollapsedInXL(): Observable<boolean> {
+    return this.isCollapsedInStore;
   }
 
   /**
@@ -55,5 +64,12 @@ export class SidebarService {
    */
   public expand(): void {
     this.store.dispatch(new SidebarExpandAction());
+  }
+
+  /**
+   * Dispatches an toggle action to the store
+   */
+  public toggle(): void {
+    this.store.dispatch(new SidebarToggleAction());
   }
 }

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, UrlSegment } from '@angular/router';
 import { isNotEmpty } from '../shared/empty.util';
 import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnotfound.component';
+import { ThemedObjectGoneComponent } from './objectgone/themed-objectgone.component';
 
 @NgModule({
   imports: [
@@ -10,7 +11,12 @@ import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnot
       {
         matcher: urlMatcher,
         canActivate: [LookupGuard],
-        component: ThemedObjectNotFoundComponent  }
+        component: ThemedObjectNotFoundComponent
+      },
+      {
+        path: 'object-gone',
+        component: ThemedObjectGoneComponent
+      }
     ])
   ],
   providers: [

@@ -5,7 +5,7 @@ import { mergeMap } from 'rxjs/operators';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { FindListOptions } from '../../core/data/request.models';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { Audit } from '../../core/audit/model/audit.model';
@@ -13,10 +13,12 @@ import { AuditDataService } from '../../core/audit/audit-data.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { getFirstCompletedRemoteData, redirectOn4xx } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { UUIDService } from '../../core/shared/uuid.service';
 
 /**
  * Component displaying a list of all audit about a object in a paginated table
@@ -52,7 +54,7 @@ export class ObjectAuditOverviewComponent implements OnInit {
    * The current pagination configuration for the page
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'oop',
+    id: this.uuidService.generate(),
     pageSize: 10
   });
 
@@ -67,7 +69,8 @@ export class ObjectAuditOverviewComponent implements OnInit {
               protected auditService: AuditDataService,
               protected itemService: ItemDataService,
               protected authorizationService: AuthorizationDataService,
-              protected paginationService: PaginationService) {
+              protected paginationService: PaginationService,
+              protected uuidService: UUIDService) {
   }
 
   ngOnInit(): void {

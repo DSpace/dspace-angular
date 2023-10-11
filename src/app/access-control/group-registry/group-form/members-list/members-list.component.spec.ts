@@ -28,6 +28,8 @@ import { NotificationsServiceStub } from '../../../../shared/testing/notificatio
 import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { UUIDService } from '../../../../core/shared/uuid.service';
+import { getMockUUIDService } from '../../../../shared/mocks/uuid.service.mock';
 
 describe('MembersListComponent', () => {
   let component: MembersListComponent;
@@ -53,7 +55,7 @@ describe('MembersListComponent', () => {
       activeGroup: activeGroup,
       epersonMembers: epersonMembers,
       subgroupMembers: subgroupMembers,
-      findAllByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
+      findListByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
         return createSuccessfulRemoteDataObject$(buildPaginatedList<EPerson>(new PageInfo(), groupsDataServiceStub.getEPersonMembers()));
       },
       searchByScope(scope: string, query: string): Observable<RemoteData<PaginatedList<EPerson>>> {
@@ -135,6 +137,7 @@ describe('MembersListComponent', () => {
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
+        { provide: UUIDService, useValue: getMockUUIDService() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -149,6 +152,7 @@ describe('MembersListComponent', () => {
     fixture.destroy();
     flush();
     component = null;
+    fixture.debugElement.nativeElement.remove();
   }));
 
   it('should create MembersListComponent', inject([MembersListComponent], (comp: MembersListComponent) => {

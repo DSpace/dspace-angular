@@ -1,25 +1,11 @@
-import { Injectable } from '@angular/core';
-
-import { ExportAsConfig, ExportAsService } from 'ngx-export-as';
-import * as htmlToImage from 'html-to-image';
-import { saveAs } from 'file-saver';
 import { BehaviorSubject } from 'rxjs';
-import { Options } from 'html-to-image/es/options';
 
 export enum ExportImageType {
   png = 'png',
   jpeg = 'jpeg',
 }
 
-@Injectable()
-export class ExportService {
-
-  /**
-   * Configuration for CSV export process
-   */
-  exportAsConfig: ExportAsConfig;
-
-  constructor(private exportAsService: ExportAsService) { }
+export interface ExportService {
 
   /**
    * Creates excel from the table element reference.
@@ -27,19 +13,9 @@ export class ExportService {
    * @param type of export.
    * @param fileName is the file name to save as.
    * @param elementIdOrContent is the content that is being exported.
-   * @param download option if its going to be downloaded.
+   * @param download option if it's going to be downloaded.
    */
-  exportAsFile(type: any, elementIdOrContent: string, fileName: string, download: boolean = true) {
-
-    this.exportAsConfig = {
-      type:type,
-      elementIdOrContent: elementIdOrContent,
-      fileName:fileName,
-      download:download
-    };
-
-    return this.exportAsService.save(this.exportAsConfig, fileName);
-  }
+  exportAsFile(type: any, elementIdOrContent: string, fileName: string, download?: boolean);
 
   /**
    * Creates an image from the given element reference.
@@ -49,24 +25,5 @@ export class ExportService {
    * @param fileName  The file name to save as.
    * @param isLoading A boolean representing the exporting process status.
    */
-  exportAsImage(domNode: HTMLElement, type: ExportImageType, fileName: string, isLoading: BehaviorSubject<boolean>): void {
-
-    const options: Options = { backgroundColor: '#ffffff' };
-
-    if (type === ExportImageType.png) {
-      htmlToImage.toPng(domNode, options)
-      .then((dataUrl) => {
-        saveAs(dataUrl, fileName + '.' + type);
-        isLoading.next(false);
-      });
-    } else {
-      htmlToImage.toJpeg(domNode, options)
-      .then((dataUrl) => {
-        saveAs(dataUrl, fileName + '.' + type);
-        isLoading.next(false);
-      });
-    }
-
-  }
-
+  exportAsImage(domNode: HTMLElement, type: ExportImageType, fileName: string, isLoading: BehaviorSubject<boolean>);
 }

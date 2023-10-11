@@ -1,0 +1,25 @@
+<div class="container">
+  <div *ngFor="let sectionComponents of ( sectionComponentRows | async )" class="row">
+    <div *ngFor="let sectionComponent of sectionComponents" [ngSwitch]="sectionComponent.componentType"
+         [ngClass]="sectionComponent.style" [class.col]="!hasColClass(sectionComponent.style)" class="pb-4">
+      <ds-themed-top-section *ngSwitchCase="'top'"
+                             [sectionId]="sectionId"
+                             [topSection]="sectionComponent"></ds-themed-top-section>
+      <ds-themed-browse-section *ngSwitchCase="'browse'"
+                                [sectionId]="sectionId"
+                                [browseSection]="sectionComponent"></ds-themed-browse-section>
+      <ds-themed-search-section *ngSwitchCase="'search'"
+                                [sectionId]="sectionId"
+                                [searchSection]="sectionComponent"></ds-themed-search-section>
+      <ds-themed-facet-section *ngSwitchCase="'facet'"
+                               [sectionId]="sectionId"
+                               [facetSection]="sectionComponent"></ds-themed-facet-section>
+      <ds-themed-text-section *ngSwitchCase="'text-row'"
+                              [sectionId]="sectionId"
+                              [textRowSection]="sectionComponent"></ds-themed-text-section>
+      <ds-themed-counters-section *ngSwitchCase="'counters'"
+                                  [sectionId]="sectionId"
+                                  [countersSection]="sectionComponent"></ds-themed-counters-section>
+    </div>
+  </div>
+</div>

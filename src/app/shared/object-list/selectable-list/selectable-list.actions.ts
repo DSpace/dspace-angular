@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 import { type } from '../../ngrx/type';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
@@ -16,15 +17,15 @@ export const SelectableListActionTypes = {
   DESELECT: type('dspace/selectable-lists/DESELECT'),
   DESELECT_SINGLE: type('dspace/selectable-lists/DESELECT_SINGLE'),
   SET_SELECTION: type('dspace/selectable-lists/SET_SELECTION'),
-  DESELECT_ALL: type('dspace/selectable-lists/DESELECT_ALL')
+  DESELECT_ALL: type('dspace/selectable-lists/DESELECT_ALL'),
+  REMOVE_SELECTION: type('dspace/selectable-lists/REMOVE_SELECTION')
 };
 
 /**
  * Abstract action class for actions on selectable lists
  */
-/* tslint:disable:max-classes-per-file */
 export abstract class SelectableListAction implements Action {
-  // tslint:disable-next-line:no-shadowed-variable
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   constructor(public type, public id: string) {
   }
 }
@@ -98,4 +99,12 @@ export class SelectableListDeselectAllAction extends SelectableListAction {
     super(SelectableListActionTypes.DESELECT_ALL, id);
   }
 }
-/* tslint:enable:max-classes-per-file */
+
+/**
+ * Action to remove a selection list from state
+ */
+export class SelectableListRemoveSelectionAction extends SelectableListAction {
+  constructor(id: string) {
+    super(SelectableListActionTypes.REMOVE_SELECTION, id);
+  }
+}

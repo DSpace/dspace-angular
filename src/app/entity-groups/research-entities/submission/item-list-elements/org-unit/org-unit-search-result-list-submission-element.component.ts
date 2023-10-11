@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
@@ -6,7 +6,7 @@ import { listableObjectComponent } from '../../../../../shared/object-collection
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { Context } from '../../../../../core/shared/context.model';
-import { RelationshipService } from '../../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { take } from 'rxjs/operators';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
@@ -17,6 +17,7 @@ import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
 
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.EntitySearchModal)
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
@@ -35,17 +36,23 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
   alternativeField = 'dc.title.alternative';
   useNameVariants = false;
 
+  /**
+   * Display thumbnail if required by configuration
+   */
+  showThumbnails: boolean;
+
   constructor(protected truncatableService: TruncatableService,
-              private relationshipService: RelationshipService,
+              private relationshipService: RelationshipDataService,
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
               private modalService: NgbModal,
               private itemDataService: ItemDataService,
               private bitstreamDataService: BitstreamDataService,
               private selectableListService: SelectableListService,
-              protected dsoNameService: DSONameService
+              protected dsoNameService: DSONameService,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
-    super(truncatableService, dsoNameService);
+    super(truncatableService, dsoNameService, appConfig);
   }
 
   ngOnInit() {
@@ -54,7 +61,7 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
     this.useNameVariants = this.context === Context.EntitySearchModalWithNameVariants;
 
     if (this.useNameVariants) {
-      const defaultValue = this.firstMetadataValue('organization.legalName');
+      const defaultValue = this.dso ? this.dsoNameService.getName(this.dso) : undefined;
       const alternatives = this.allMetadataValues(this.alternativeField);
       this.allSuggestions = [defaultValue, ...alternatives];
 
@@ -65,6 +72,7 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
           }
         );
     }
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 
   select(value) {

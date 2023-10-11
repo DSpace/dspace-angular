@@ -4,7 +4,9 @@ import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { SuggestionsService } from '../suggestions.service';
 import { takeUntil } from 'rxjs/operators';
-import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+import {
+  OpenaireSuggestionTarget
+} from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { combineLatest, Subject } from 'rxjs';
 
@@ -40,7 +42,7 @@ export class SuggestionsPopupComponent implements OnInit, OnDestroy {
         if (!visited) {
           suggestions.forEach((suggestionTarget: OpenaireSuggestionTarget) => this.showNotificationForNewSuggestions(suggestionTarget));
           this.reciterSuggestionStateService.dispatchMarkUserSuggestionsAsVisitedAction();
-          notifier.next();
+          notifier.next(null);
           notifier.complete();
         }
       }

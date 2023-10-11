@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { isNotEmpty } from '../../shared/empty.util';
 
 import { EditItemDataService } from '../../core/submission/edititem-data.service';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
-import { EditItem } from '../../core/submission/models/edititem.model';
+import { getAllSucceededRemoteDataPayload, getPaginatedListPayload } from '../../core/shared/operators';
 import { AuthService, LOGIN_ROUTE } from '../../core/auth/auth.service';
+import { EditItemMode } from '../../core/submission/models/edititem-mode.model';
 
 /**
  * Prevent unauthorized activating and loading of routes
@@ -22,8 +21,8 @@ export class EditItemRelationsGuard implements CanActivate {
    * @constructor
    */
   constructor(private router: Router,
-              private editItemService: EditItemDataService,
-              private authService: AuthService
+    private editItemService: EditItemDataService,
+    private authService: AuthService
   ) {
   }
 
@@ -48,12 +47,10 @@ export class EditItemRelationsGuard implements CanActivate {
 
   private handleEditable(itemId: string, url: string): Observable<boolean | UrlTree> {
     // redirect to sign in page if user is not authenticated
-    return this.editItemService.findById(itemId + ':none', true, true, followLink('modes')).pipe(
+    return this.editItemService.searchEditModesById(itemId).pipe(
       getAllSucceededRemoteDataPayload(),
-      mergeMap((editItem: EditItem) => editItem.modes.pipe(
-        getFirstSucceededRemoteListPayload())
-      ),
-      map((editModes) => {
+      getPaginatedListPayload(),
+      map((editModes: EditItemMode[]) => {
         if (isNotEmpty(editModes) && editModes.length > 0) {
           return true;
         } else {

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { DateComponent } from './date.component';
 import { Item } from '../../../../../../../core/shared/item.model';
@@ -10,13 +10,13 @@ import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate
 import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
-import { of } from 'rxjs';
 import { FieldRenderingType } from '../metadata-box.decorator';
+import { LocaleService } from '../../../../../../../core/locale/locale.service';
 
 describe('DateComponent', () => {
   let component: DateComponent;
   let fixture: ComponentFixture<DateComponent>;
-  let translateService;
+  let localeService: LocaleService;
 
   const metadataValue = Object.assign(new MetadataValue(), {
     'value': '2020-08-24',
@@ -36,6 +36,9 @@ describe('DateComponent', () => {
     }
   );
 
+  const localeServiceMock = Object.assign({
+    getCurrentLanguageCode: () => 'en',
+  });
 
   const mockField: LayoutField = {
     'metadata': 'dc.date',
@@ -62,6 +65,7 @@ describe('DateComponent', () => {
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'metadataValueProvider', useValue: metadataValue },
         { provide: 'renderingSubTypeProvider', useValue: '' },
+        { provide: LocaleService, useValue: localeServiceMock },
       ],
       declarations: [DateComponent, DsDatePipe]
     })
@@ -71,8 +75,7 @@ describe('DateComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DateComponent);
     component = fixture.componentInstance;
-    translateService = TestBed.inject(TranslateService);
-    spyOn(translateService, 'get').and.returnValue(of('August'));
+    localeService = TestBed.inject(LocaleService);
     fixture.detectChanges();
   });
 
@@ -83,7 +86,7 @@ describe('DateComponent', () => {
   it('check metadata rendering', (done) => {
     const spanValueFound = fixture.debugElement.queryAll(By.css('span.text-value'));
     expect(spanValueFound.length).toBe(1);
-    expect(spanValueFound[0].nativeElement.textContent).toContain('August 2020');
+    expect(spanValueFound[0].nativeElement.textContent).toContain('August 24, 2020');
     done();
   });
 

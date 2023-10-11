@@ -1,39 +1,37 @@
 import { Component, Input } from '@angular/core';
-import { MetricRow } from '../cris-layout-metrics-box.component';
-import { Metric } from '../../../../../../core/shared/metric.model';
+
+import { BehaviorSubject, Observable, of } from 'rxjs';
+
+import { CrisLayoutMetricRow } from '../../../../../../core/layout/models/tab.model';
 
 /**
  * This component renders the rows of metadata boxes
  */
 @Component({
-  // tslint:disable-next-line: component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[ds-metric-row]',
   templateUrl: './metric-row.component.html',
-  styleUrls: ['./metric-row.component.scss']
+  styleUrls: ['./metric-row.component.scss'],
 })
 export class MetricRowComponent {
-
   /**
    * Current row configuration
    */
-  @Input() metricRow: MetricRow;
+  @Input() metricRow: CrisLayoutMetricRow;
 
-  /**
-   * CSS classes applied to the metric container.
-   * @param metric
-   */
-  getMetricClasses(metric: Metric): any {
-    if (metric) {
-      const classes: any = {};
-      classes[metric.metricType] = true;
-      return {
-        ...classes,
-        'alert': true,
-        'alert-info': true,
-        'metric-container': true,
-      };
+  private isVisible$: BehaviorSubject<Map<string, boolean>> = new BehaviorSubject(new Map());
+
+  toggleVisibility(metricId, event) {
+    const newMap: Map<string, boolean> = this.isVisible$.value;
+    newMap.set(metricId, event);
+    this.isVisible$.next(newMap);
+  }
+
+  isHidden(metricId): Observable<boolean> {
+    if (this.isVisible$.value.has(metricId)) {
+      return of(this.isVisible$.value.get(metricId));
     } else {
-      return {};
+      return of(false);
     }
   }
 }

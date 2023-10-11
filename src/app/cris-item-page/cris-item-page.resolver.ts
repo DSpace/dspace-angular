@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
 import { ItemDataService } from '../core/data/item-data.service';
 import { followLink } from '../shared/utils/follow-link-config.model';
@@ -25,13 +25,16 @@ export class CrisItemPageResolver implements Resolve<RemoteData<Item>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Item>> {
+    // TODO temporary disable cache to have always an update item, check if after update with 7.3, it's only necessary to invalidate a cache on edit item saving
     return this.itemService.findById(route.params.id,
-      true, true,
+      false, true,
       followLink('owningCollection'),
       followLink('bundles'),
       followLink('relationships'),
       followLink('version', {}, followLink('versionhistory')),
-    ).pipe(getFirstCompletedRemoteData());
+    ).pipe(
+      getFirstCompletedRemoteData()
+    );
   }
 
 }

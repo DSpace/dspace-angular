@@ -1,7 +1,7 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
-import { SubmissionError, SubmissionSectionError } from './submission-objects.reducer';
 import { WorkspaceitemSectionUploadFileObject } from '../../core/submission/models/workspaceitem-section-upload-file.model';
 import {
   WorkspaceitemSectionDataType,
@@ -11,6 +11,8 @@ import { SubmissionObject } from '../../core/submission/models/submission-object
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
 import { SectionsType } from '../sections/sections-type';
 import { Item } from '../../core/shared/item.model';
+import { SubmissionError } from './submission-error.model';
+import { SubmissionSectionError } from './submission-section-error.model';
 import { SubmissionVisibilityType } from '../../core/config/models/config-submission-section.model';
 import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
 
@@ -75,7 +77,6 @@ export const SubmissionObjectActionTypes = {
   CLEAN_DETECT_DUPLICATE: type('dspace/submission/CLEAN_DETECT_DUPLICATE')
 };
 
-/* tslint:disable:max-classes-per-file */
 
 /**
  * Insert a new error of type SubmissionSectionError into the given section
@@ -538,7 +539,8 @@ export class SaveSubmissionFormSuccessAction implements Action {
   payload: {
     submissionId: string;
     submissionObject: SubmissionObject[];
-    notify?: boolean
+    showNotifications?: boolean;
+    showErrors?: boolean;
   };
 
   /**
@@ -548,9 +550,13 @@ export class SaveSubmissionFormSuccessAction implements Action {
    *    the submission's ID
    * @param submissionObject
    *    the submission's Object
+   * @param showNotifications
+   *    a boolean representing if to show notifications on save
+   * @param showErrors
+   *    a boolean representing if to show errors on save
    */
-  constructor(submissionId: string, submissionObject: SubmissionObject[], notify?: boolean) {
-    this.payload = { submissionId, submissionObject, notify };
+  constructor(submissionId: string, submissionObject: SubmissionObject[], showNotifications?: boolean, showErrors?: boolean) {
+    this.payload = { submissionId, submissionObject, showNotifications, showErrors };
   }
 }
 
@@ -1004,7 +1010,6 @@ export class SetDuplicateDecisionErrorAction implements Action {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
 
 /**
  * Export a type alias of all actions in this action group

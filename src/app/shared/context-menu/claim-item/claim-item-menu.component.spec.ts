@@ -1,8 +1,8 @@
 import { of as observableOf } from 'rxjs';
 import { getTestScheduler } from 'jasmine-marbles';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ClaimItemMenuComponent } from './claim-item-menu.component';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -30,9 +30,8 @@ describe('ClaimItemMenuComponent', () => {
   let authService: AuthServiceStub;
   let researcherProfileService: any;
   let translateService: any;
-  // tslint:disable-next-line:prefer-const
   let notificationService = new NotificationsServiceStub();
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     dso = Object.assign(new Item(), {
       id: 'test-collection',
@@ -43,7 +42,7 @@ describe('ClaimItemMenuComponent', () => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: jasmine.createSpy('isAuthorized')
     });
-    researcherProfileService = jasmine.createSpyObj('researcherProfileService', {
+    researcherProfileService = jasmine.createSpyObj('ResearcherProfileDataService', {
       createFromExternalSource: jasmine.createSpy('createFromExternalSource')
     });
     authService = new AuthServiceStub();
@@ -68,7 +67,7 @@ describe('ClaimItemMenuComponent', () => {
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
         { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: ResearcherProfileService, useValue: researcherProfileService },
+        { provide: ResearcherProfileDataService, useValue: researcherProfileService },
         { provide: NotificationsService, useValue: notificationService },
         { provide: AuthService, useValue: authService },
         { provide: TranslateService, useValue: translateService },
@@ -82,7 +81,8 @@ describe('ClaimItemMenuComponent', () => {
     fixture = TestBed.createComponent(ClaimItemMenuComponent);
     component = fixture.componentInstance;
     componentAsAny = fixture.componentInstance;
-    component.contextMenuObject = dso;  });
+    component.contextMenuObject = dso;
+});
 
   it('should create', () => {
     expect(component).toBeTruthy();
