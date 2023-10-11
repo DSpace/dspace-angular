@@ -5,6 +5,9 @@ rest:
   nameSpace: /server
 
 themes:
+  - name: capstone
+    extends: tamu
+    uuid: '45934f9c-2a5a-49be-8a90-d1fe2498498f'
   - name: tamu
     headTags:
     - tagName: link
