@@ -48,6 +48,7 @@ import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model'
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { UUIDService } from '../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-item-versions',
@@ -135,7 +136,7 @@ export class ItemVersionsComponent implements OnInit {
    * Start at page 1 and always use the set page size
    */
   options = Object.assign(new PaginationComponentOptions(), {
-    id: 'ivo',
+    id: this.uuidService.generate(),
     currentPage: 1,
     pageSize: this.pageSize
   });
@@ -181,6 +182,7 @@ export class ItemVersionsComponent implements OnInit {
               private workspaceItemDataService: WorkspaceitemDataService,
               private workflowItemDataService: WorkflowItemDataService,
               private configurationService: ConfigurationDataService,
+              private uuidService: UUIDService
   ) {
   }
 

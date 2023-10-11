@@ -423,6 +423,9 @@
 
   // "admin.registries.metadata.schemas.table.namespace": "Namespace",
   "admin.registries.metadata.schemas.table.namespace":"Nazwa schematu",
+  // "admin.registries.metadata.schemas.table.download": "Download",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.table.download": "Download",
 
   // "admin.registries.metadata.title": "Metadata Registry",
   "admin.registries.metadata.title":"Rejestr metadanych",
@@ -2943,6 +2946,22 @@
   // TODO New key - Add a translation
   "cris-layout.attachment.viewMore": "View More",
 
+  // "cris-layout.rendering.collections.owning-collection.label": "Owning collection",
+  // TODO New key - Add a translation
+  "cris-layout.rendering.collections.owning-collection.label": "Owning collection",
+
+  // "cris-layout.rendering.collections.mapped-collection.label": "Mapped collections",
+  // TODO New key - Add a translation
+  "cris-layout.rendering.collections.mapped-collection.label": "Mapped collections",
+
+  // "cris-layout.rendering.collections.loading": "Loading...",
+  // TODO New key - Add a translation
+  "cris-layout.rendering.collections.loading": "Loading...",
+
+  // "cris-layout.rendering.collections.load-more": "Load more",
+  // TODO New key - Add a translation
+  "cris-layout.rendering.collections.load-more": "Load more",
+
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
   "curation-task.task.checklinks.label":"Sprawdź odnośniki w metadanych",
 
@@ -3700,7 +3719,9 @@
   // "explore.title": "Explore section",
   // TODO New key - Add a translation
   "explore.title": "Explore section",
-
+  // "export-schema.process.title": "Metadata Schema Export",
+  // TODO New key - Add a translation
+  "export-schema.process.title": "Metadata Schema Export",
 
   // "feed.description": "Syndication feed",
   "feed.description":"Aktualności",
@@ -6251,9 +6272,6 @@
   // TODO New key - Add a translation
   "menu.section.import_from_excel": "Import from excel",
 
-  // "menu.section.export_batch": "Batch Export (ZIP)",
-  "menu.section.export_batch":"Eksport masowy (ZIP)",
-
   // "menu.section.export_to_excel": "Export to excel",
   // TODO New key - Add a translation
   "menu.section.export_to_excel": "Export to excel",
@@ -6900,10 +6918,6 @@
   // "nav.user.description" : "User profile bar",
   // TODO New key - Add a translation
   "nav.user.description" : "User profile bar",
-
-  // "nav.subscriptions" : "Subscriptions",
-  // TODO New key - Add a translation
-  "nav.subscriptions" : "Subscriptions",
 
   // "none.listelement.badge": "Item",
   "none.listelement.badge":"Pozycja",
@@ -8655,6 +8669,10 @@
   // TODO New key - Add a translation
   "search.filters.filter.investigators.head": "Researcher",
 
+  // "search.filters.filter.investigators.label": "Researcher",
+  // TODO New key - Add a translation
+  "search.filters.filter.investigators.label": "Researcher",
+
   // "search.filters.filter.investigators.placeholder": "Researcher",
   // TODO New key - Add a translation
   "search.filters.filter.investigators.placeholder": "Researcher",
@@ -8692,6 +8710,10 @@
   // "search.filters.filter.projectOrgUnits.head" : "Organizations",
   // TODO New key - Add a translation
   "search.filters.filter.projectOrgUnits.head" : "Organizations",
+
+  // "search.filters.filter.projectOrgUnits.label" : "Organizations",
+  // TODO New key - Add a translation
+  "search.filters.filter.projectOrgUnits.label" : "Organizations",
 
   // "search.filters.filter.projectOrgUnits.placeholder" : "Organizations",
   // TODO New key - Add a translation
@@ -9356,6 +9378,54 @@
   // "statistics.categories.downloadReports.tab": "Downloads reports",
   // TODO New key - Add a translation
   "statistics.categories.downloadReports.tab": "Downloads reports",
+
+  // "statistics.categories.itemReports.tab": "Item views reports",
+  // TODO New key - Add a translation
+  "statistics.categories.itemReports.tab": "Item views reports",
+
+  // "statistics.table.itemReports.header.continent" : "Continent",
+  // TODO New key - Add a translation
+  "statistics.table.itemReports.header.continent" : "Continent",
+
+  // "statistics.table.itemReports.header.views" : "Views",
+  // TODO New key - Add a translation
+  "statistics.table.itemReports.header.views" : "Views",
+
+  // "statistics.table.itemReports.header.city" : "City",
+  // TODO New key - Add a translation
+  "statistics.table.itemReports.header.city" : "City",
+
+  // "statistics.table.itemReports.header.item" : "Item",
+  // TODO New key - Add a translation
+  "statistics.table.itemReports.header.item" : "Item",
+
+  // "statistics.table.mainReports.header.community" : "Community",
+  // TODO New key - Add a translation
+  "statistics.table.mainReports.header.community" : "Community",
+
+  // "statistics.table.mainReports.header.collection" : "Collection",
+  // TODO New key - Add a translation
+  "statistics.table.mainReports.header.collection" : "Collection",
+
+  // "statistics.table.itemReports.title.TopContinents" : "Top region views",
+  // TODO New key - Add a translation
+  "statistics.table.itemReports.title.TopContinents" : "Top region views",
+
+  // "statistics.table.itemReports.title.TopCities" : "Top cities views",
+  // TODO New key - Add a translation
+  "statistics.table.itemReports.title.TopCities" : "Top cities views",
+
+  // "statistics.table.itemReports.title.TopItems" : "Most viewed",
+  // TODO New key - Add a translation
+  "statistics.table.itemReports.title.TopItems" : "Most viewed",
+
+  // "statistics.table.itemReports.title.TopCategories" : "Top categories",
+  // TODO New key - Add a translation
+  "statistics.table.itemReports.title.TopCategories" : "Top categories",
+
+  // "statistics.table.itemReports.title.TotalVisitsPerMonth" : "Top views per month",
+  // TODO New key - Add a translation
+  "statistics.table.itemReports.title.TotalVisitsPerMonth" : "Top views per month",
 
   // "statistics.reports.title": "Reports",
   // TODO New key - Add a translation
@@ -11200,11 +11270,41 @@
   // "workspace-item.view.title": "Workspace View",
   "workspace-item.view.title":"Widok wersji roboczej",
 
+  // "workspace-item.delete.breadcrumbs": "Workspace Delete",
+  // TODO New key - Add a translation
+  "workspace-item.delete.breadcrumbs": "Workspace Delete",
+
+  // "workspace-item.delete.header": "Delete workspace item",
+  // TODO New key - Add a translation
+  "workspace-item.delete.header": "Delete workspace item",
+
+  // "workspace-item.delete.button.confirm": "Delete",
+  // TODO New key - Add a translation
+  "workspace-item.delete.button.confirm": "Delete",
+
+  // "workspace-item.delete.button.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "workspace-item.delete.button.cancel": "Cancel",
+
+  // "workspace-item.delete.notification.success.title": "Deleted",
+  // TODO New key - Add a translation
+  "workspace-item.delete.notification.success.title": "Deleted",
+
+  // "workspace-item.delete.title": "This workspace item was successfully deleted",
+  // TODO New key - Add a translation
+  "workspace-item.delete.title": "This workspace item was successfully deleted",
+
+  // "workspace-item.delete.notification.error.title": "Something went wrong",
+  // TODO New key - Add a translation
+  "workspace-item.delete.notification.error.title": "Something went wrong",
+
+  // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
+  // TODO New key - Add a translation
+  "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
 
   // "workflow-item.advanced.title": "Advanced workflow",
   // TODO New key - Add a translation
   "workflow-item.advanced.title": "Advanced workflow",
-
 
   // "workflow-item.selectrevieweraction.notification.success.title": "Selected reviewer",
   // TODO New key - Add a translation
@@ -11888,9 +11988,9 @@
   // TODO New key - Add a translation
   "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
 
-  // "admin.system-wide-alert.title": "System-wide Alerts",
+  // "admin.system-wide-alert.title": "System-wide Alerts"
   // TODO New key - Add a translation
-  "admin.system-wide-alert.title": "System-wide Alerts",
+  "admin.system-wide-alert.title": "System-wide Alerts"
 
 
 }

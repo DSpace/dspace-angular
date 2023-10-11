@@ -20,7 +20,7 @@ describe('DirectAccessGuard', () => {
       groupNames: ['group1', 'group2']
     });
   const epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
-    searchByTokenAndHandleError: createSuccessfulRemoteDataObject$(registrationWithGroups)
+    searchRegistrationByToken: createSuccessfulRemoteDataObject$(registrationWithGroups)
   });
   const authService = {
     getAuthenticatedUserFromStore: () => observableOf(ePerson),
@@ -70,7 +70,7 @@ describe('DirectAccessGuard', () => {
           groups: [],
           groupNames: []
         });
-      epersonRegistrationService.searchByTokenAndHandleError.and.returnValue(observableOf(registrationWithDifferentUsedFromLoggedInt));
+      epersonRegistrationService.searchRegistrationByToken.and.returnValue(observableOf(registrationWithDifferentUsedFromLoggedInt));
       (guard.canActivate({ params: { registrationToken: '123456789' } } as any, {} as any) as any)
         .subscribe(
           (canActivate) => {

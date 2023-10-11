@@ -14,6 +14,7 @@ import { EPerson } from '../core/eperson/models/eperson.model';
 import { getAllCompletedRemoteData } from '../core/shared/operators';
 import { RemoteData } from '../core/data/remote-data';
 import { hasValue } from '../shared/empty.util';
+import { UUIDService } from '../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-subscriptions-page',
@@ -34,7 +35,7 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
    * The current pagination configuration for the page
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'elp',
+    id: this.uuidService.generate(),
     pageSize: 10,
     currentPage: 1
   });
@@ -57,7 +58,8 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
   constructor(
     private paginationService: PaginationService,
     private authService: AuthService,
-    private subscriptionService: SubscriptionsDataService
+    private subscriptionService: SubscriptionsDataService,
+    private uuidService: UUIDService
   ) {
 
   }
