@@ -42,8 +42,12 @@ export class SearchFormComponent implements OnInit {
   /**
    * The currently selected scope object's UUID
    */
-  @Input()
-  scope = '';
+  @Input() scope = '';
+
+  /**
+   * Discovery configuration to be used in search
+   */
+  @Input() configuration: string;
 
   selectedScope: BehaviorSubject<DSpaceObject> = new BehaviorSubject<DSpaceObject>(undefined);
 
@@ -99,8 +103,13 @@ export class SearchFormComponent implements OnInit {
    */
   onSubmit(data: any) {
     if (isNotEmpty(this.scope)) {
-      data = Object.assign(data, { scope: this.scope });
+      data = { ...data, scope: this.scope };
     }
+
+    if (isNotEmpty(this.configuration)) {
+      data = { ...data, configuration: this.configuration };
+    }
+
     this.updateSearch(data);
     this.submitSearch.emit(data);
   }
