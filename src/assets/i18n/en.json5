@@ -7188,6 +7188,10 @@
 
   "admin.system-wide-alert.title": "System-wide Alerts",
 
+  "external-login.form.email": "Enter the email",
+
+  "external-login.form.or-divider": "or",
+
   "external-login.confirmation.header": "Information needed to complete the login process",
 
   "external-login.noEmail.informationText": "The information received from {{authMethod}} are not sufficient to complete the login process. Please provide the missing information below, or login via a different method to associate your {{authMethod}} to an existing account.",
