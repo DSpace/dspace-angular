@@ -64,6 +64,11 @@
                 "input": "src/themes/tamu/styles/theme.scss",
                 "inject": false,
                 "bundleName": "tamu-theme"
+              },
+              {
+                "input": "src/themes/esl/styles/theme.scss",
+                "inject": false,
+                "bundleName": "esl-theme"
               }
             ],
             "scripts": [],

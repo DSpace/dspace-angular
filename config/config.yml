@@ -5,6 +5,9 @@ rest:
   nameSpace: /server
 
 themes:
+  - name: esl
+    extends: 'tamu'
+    uuid: 'e646326e-f75a-47f3-b713-946754877b32'
   - name: tamu
     headTags:
     - tagName: link
