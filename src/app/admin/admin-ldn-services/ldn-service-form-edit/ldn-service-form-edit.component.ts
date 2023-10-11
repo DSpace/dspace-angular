@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, TemplateRef, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
 import { Router } from '@angular/router';
@@ -9,6 +9,9 @@ import { LdnServiceConstraint } from '../ldn-services-model/ldn-service-constrai
 import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patterns';
 import { ActivatedRoute } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'ds-ldn-service-form-edit',
@@ -24,6 +27,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class LdnServiceFormEditComponent {
     formModel: FormGroup;
+    @ViewChild('confirmModal', {static: true}) confirmModal: TemplateRef<any>;
 
     showItemFilterDropdown = false;
 
@@ -32,6 +36,7 @@ export class LdnServiceFormEditComponent {
     public inboundPatterns: object[] = notifyPatterns;
     public outboundPatterns: object[] = notifyPatterns;
     public itemFilterList: LdnServiceConstraint[];
+    private modalRef: any;
 
     @Input() public name: string;
     @Input() public description: string;
@@ -52,7 +57,11 @@ export class LdnServiceFormEditComponent {
         private http: HttpClient,
         private router: Router,
         private route: ActivatedRoute,
-        private cdRef: ChangeDetectorRef
+        private cdRef: ChangeDetectorRef,
+        protected modalService: NgbModal,
+        private notificationService: NotificationsService,
+        private translateService: TranslateService,
+
     ) {
 
         this.formModel = this.formBuilder.group({
@@ -223,19 +232,7 @@ export class LdnServiceFormEditComponent {
     }
 
     submitForm() {
-        const apiUrl = `http://localhost:8080/server/api/ldn/ldnservices/${this.serviceId}`;
-        const patchOperations = this.generatePatchOperations();
-
-        this.http.patch(apiUrl, patchOperations).subscribe(
-            (response) => {
-                console.log('Service updated successfully:', response);
-                this.sendBack();
-            },
-            (error) => {
-                console.error('Error updating service:', error);
-            }
-        );
-
+        this.openConfirmModal(this.confirmModal);
     }
 
 
@@ -370,5 +367,30 @@ export class LdnServiceFormEditComponent {
         console.error('Error updating status:', error);
       }
     );
+  }
+  closeModal() {
+        this.modalRef.close();
+        this.cdRef.detectChanges();
+  }
+  openConfirmModal(content) {
+        this.modalRef = this.modalService.open(content);
+  }
+  createService(){
+     const apiUrl = `http://localhost:8080/server/api/ldn/ldnservices/${this.serviceId}`;
+     const patchOperations = this.generatePatchOperations();
+     this.http.patch(apiUrl, patchOperations).subscribe(
+         (response) => {
+             console.log('Service updated successfully:', response);
+             this.sendBack();
+             this.closeModal();
+             this.notificationService.success(this.translateService.get('admin.registries.services-formats.modify.success.head'),
+             this.translateService.get('admin.registries.services-formats.modify.success.content'));
+            },
+            (error) => {
+              this.notificationService.error(this.translateService.get('admin.registries.services-formats.modify.failure.head'),
+              this.translateService.get('admin.registries.services-formats.modify.failure.content'));
+              console.error('Error updating service:', error);
+            }
+        );
   }
 }

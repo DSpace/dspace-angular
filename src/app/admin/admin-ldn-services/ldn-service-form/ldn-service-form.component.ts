@@ -130,19 +130,20 @@ export class LdnServiceFormComponent implements OnInit {
         notifyServiceInboundPatternsArray.push(this.createInboundPatternFormGroup());
     }
 
-    removeInboundPattern(patternGroup: FormGroup) {
+    removeInboundPattern(index: number) {
         const notifyServiceInboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
-        notifyServiceInboundPatternsArray.removeAt(notifyServiceInboundPatternsArray.controls.indexOf(patternGroup));
+        notifyServiceInboundPatternsArray.removeAt(index);
     }
+
 
     addOutboundPattern() {
         const notifyServiceOutboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
         notifyServiceOutboundPatternsArray.push(this.createOutboundPatternFormGroup());
     }
 
-    removeOutboundPattern(patternGroup: FormGroup) {
+    removeOutboundPattern(index: number) {
         const notifyServiceOutboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
-        notifyServiceOutboundPatternsArray.removeAt(notifyServiceOutboundPatternsArray.controls.indexOf(patternGroup));
+        notifyServiceOutboundPatternsArray.removeAt(index);
     }
 
     private createOutboundPatternFormGroup(): FormGroup {

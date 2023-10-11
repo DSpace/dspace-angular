@@ -1,14 +1,9 @@
 form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   max-width: 800px;
   font-size: 14px;
-  margin-left: 300px;
+  margin-left: 100px;
+  position: relative;
 
-  & > * {
-    width: 100%;
-  }
 }
 
 input[type="text"],
@@ -105,6 +100,23 @@ textarea {
   cursor: pointer;
 }
 
+.label-box{
+     margin-left:11px;
+}
+
+.label-box-2{
+  margin-left:14px;
+}
+
+.label-box-3{
+  margin-left:5px;
+}
+
+form button.btn.btn-primary[type="submit"] {
+  position: absolute;
+  bottom: 0px;
+  right: -10px;
+}
 
 
 
