@@ -27,6 +27,9 @@ export class LdnService extends CacheableObject {
     url: string;
 
     @autoserialize
+    enabled: boolean;
+
+    @autoserialize
     ldnUrl: string;
 
     @autoserialize

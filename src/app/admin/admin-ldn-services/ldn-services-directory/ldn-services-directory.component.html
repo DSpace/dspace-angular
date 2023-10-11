@@ -23,7 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let ldnService of servicesData">
+                <tr *ngFor="let ldnService of (ldnServicesRD$| async)?.payload?.page">
                     <td>{{ ldnService.name }}</td>
                     <td>{{ ldnService.description }}</td>
                     <td>

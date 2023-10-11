@@ -188,6 +188,7 @@ import { BulkAccessConditionOptions } from './config/models/bulk-access-conditio
 import { SuggestionTarget } from './suggestion-notifications/reciter-suggestions/models/suggestion-target.model';
 import { SuggestionSource } from './suggestion-notifications/reciter-suggestions/models/suggestion-source.model';
 import { LdnServicesService } from '../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
+import { LdnService } from '../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -392,7 +393,9 @@ export const models =
     ItemRequest,
     BulkAccessConditionOptions,
     SuggestionTarget,
-    SuggestionSource
+    SuggestionSource,
+      LdnService
+
   ];
 
 @NgModule({

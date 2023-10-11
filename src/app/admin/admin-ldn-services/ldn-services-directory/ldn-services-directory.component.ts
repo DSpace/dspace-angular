@@ -12,6 +12,7 @@ import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../../shared/empty.util';
 import { HttpClient } from '@angular/common/http';
+import { getFirstCompletedRemoteData } from "../../../core/shared/operators";
 @Component({
     selector: 'ds-ldn-services-directory',
     templateUrl: './ldn-services-directory.component.html',
@@ -33,8 +34,12 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
     isProcessingSub: Subscription;
     private modalRef: any;
 
+
+
+
     constructor(
         protected processLdnService: LdnServicesService,
+        private ldnServicesService: LdnServicesService,
         protected paginationService: PaginationService,
         protected modalService: NgbModal,
         public ldnDirectoryService: LdnDirectoryService,
@@ -44,9 +49,9 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        /*this.ldnDirectoryService.listLdnServices();*/
-        this.findAllServices();
+        this.setLdnServices2();
         this.setLdnServices();
+        /*this.ldnDirectoryService.listLdnServices();*/
         /*this.ldnServicesRD$.subscribe(data => {
             console.log('searchByLdnUrl()', data);
         });*/
@@ -62,10 +67,22 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
     }
 
     setLdnServices() {
+        this.ldnServicesService.findAll().pipe(getFirstCompletedRemoteData()).subscribe((remoteData) => {
+
+            if (remoteData.hasSucceeded) {
+                const ldnservices = remoteData.payload.page;
+                console.log(ldnservices);
+            } else {
+                console.error('Error fetching LDN services:', remoteData.errorMessage);
+            }
+        });
+    }
+
+    setLdnServices2() {
         this.ldnServicesRD$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.config).pipe(
-            switchMap((config) => this.processLdnService.findAll(config, true, false))
+            switchMap((config) => this.ldnServicesService.findAll(config, true, false))
+
         );
-        console.log();
     }
 
     ngOnDestroy(): void {
