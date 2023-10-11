@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, Input, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExternalLoginService } from '../../services/external-login.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,7 +20,7 @@ import { NativeWindowRef, NativeWindowService } from '../../../core/services/win
   styleUrls: ['./confirm-email.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ConfirmEmailComponent implements OnDestroy {
+export class ConfirmEmailComponent implements OnInit, OnDestroy {
   /**
    * The form containing the email input
    */
@@ -51,11 +51,13 @@ export class ConfirmEmailComponent implements OnDestroy {
     private authService: AuthService,
     private hardRedirectService: HardRedirectService,
   ) {
-    this.emailForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]]
-    });
   }
 
+  ngOnInit() {
+    this.emailForm = this.formBuilder.group({
+      email: [this.registrationData.email, [Validators.required, Validators.email]]
+    });
+  }
 
   /**
    * Submits the email form and performs appropriate actions based on the form's validity and user input.

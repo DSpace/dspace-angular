@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ConfirmEmailComponent } from './confirm-email.component';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TranslateLoader, TranslateModule, TranslateService, } from '@ngx-translate/core';
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -18,6 +18,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { NativeWindowService } from '../../../core/services/window.service';
 import { MockWindow, NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
+import { By } from '@angular/platform-browser';
 
 describe('ConfirmEmailComponent', () => {
   let component: ConfirmEmailComponent;
@@ -70,6 +71,7 @@ describe('ConfirmEmailComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ReactiveFormsModule
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
@@ -91,6 +93,13 @@ describe('ConfirmEmailComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should show email from registration data', () => {
+    fixture.detectChanges();
+    const emailInput = fixture.debugElement.query(By.css('[data-test="emailInput"]'));
+    expect(emailInput).toBeTruthy();
+    expect(emailInput.nativeElement.value).toBe('test@example.com');
   });
 
   describe('submitForm', () => {
