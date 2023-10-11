@@ -10,6 +10,9 @@ import { TranslateLoaderMock } from '../../../../../../../../../../../shared/moc
 import { SharedModule } from '../../../../../../../../../../../shared/shared.module';
 
 import { FileDownloadButtonComponent } from './file-download-button.component';
+import { ConfigurationDataService } from '../../../../../../../../../../../core/data/configuration-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../../../../../shared/remote-data.utils';
+import { ConfigurationProperty } from '../../../../../../../../../../../core/shared/configuration-property.model';
 
 describe('FileDownloadButtonComponent', () => {
   let component: FileDownloadButtonComponent;
@@ -19,6 +22,7 @@ describe('FileDownloadButtonComponent', () => {
 
   let bitstream: Bitstream;
   let item: Item;
+  let configurationDataService: ConfigurationDataService;
 
   function init() {
     authorizationService = jasmine.createSpyObj('authorizationService', {
@@ -35,6 +39,12 @@ describe('FileDownloadButtonComponent', () => {
       _links: {
         self: { href: 'obj-selflink' }
       }
+    });
+    configurationDataService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'request.item.type',
+        values: []
+      }))
     });
   }
 
@@ -56,6 +66,7 @@ describe('FileDownloadButtonComponent', () => {
       declarations: [FileDownloadButtonComponent],
       providers: [
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: ConfigurationDataService, useValue: configurationDataService }
       ]
     })
       .compileComponents();
@@ -91,4 +102,10 @@ describe('FileDownloadButtonComponent', () => {
     expect(fixture.debugElement.query(By.css('[data-test="requestACopy"]'))).toBeTruthy();
   });
 
+  it('should show a disabled can request a copy button when request.item.type has no value', () => {
+    (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('[data-test="requestACopy"]')).nativeElement.disabled).toBeTruthy();
+  });
 });

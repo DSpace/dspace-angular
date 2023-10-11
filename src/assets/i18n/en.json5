@@ -5097,6 +5097,8 @@
 
   "search.filters.applied.charts.default.title": "Search Output",
 
+  "search.filters.applied.charts.site.title": "Search Output",
+
   "search.filters.applied.charts.RELATION.Person.researchoutputs.title": "Research Output",
 
   "search.filters.applied.charts.RELATION.Project.fundings.title": "Fundings",
@@ -5355,6 +5357,8 @@
   "search.results.head": "Search Results",
 
   "default.search.results.head": "Search Results",
+
+  "site.search.results.head": "Search Results",
 
   "default-relationships.search.results.head": "Search Results",
 
