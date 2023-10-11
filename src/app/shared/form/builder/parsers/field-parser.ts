@@ -344,7 +344,7 @@ export abstract class FieldParser {
       (controlModel as DsDynamicInputModel).typeBindRelations = this.getTypeBindRelations(this.configData.typeBind,
         this.parserOptions.typeField);
     }
-    controlModel.securityConfigLevel = this.mapBetweenMetadataRowAndSecurityMetadataLevels(this.fieldId);
+    controlModel.securityConfigLevel = this.mapBetweenMetadataRowAndSecurityMetadataLevels(this.getFieldId());
 
     return controlModel;
   }
