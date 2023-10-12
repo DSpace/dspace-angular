@@ -28,7 +28,7 @@ export class InvitationAcceptanceComponent implements OnInit {
     this.route.paramMap.pipe(
       switchMap((paramMap: ParamMap) => {
         const token = paramMap.get('registrationToken');
-        return this.epersonRegistrationService.searchByToken(token);
+        return this.epersonRegistrationService.searchByTokenAndUpdateData(token);
       }),
       getFirstCompletedRemoteData(),
       getRemoteDataPayload()

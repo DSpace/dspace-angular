@@ -401,6 +401,11 @@ export const environment: BuildConfig = {
     metadataBox: {
       defaultMetadataLabelColStyle: 'col-3',
       defaultMetadataValueColStyle: 'col-9'
+    },
+    collectionsBox: {
+      defaultCollectionsLabelColStyle: 'col-3 font-weight-bold',
+      defaultCollectionsValueColStyle: 'col-9',
+      isInline: true
     }
   },
   layout: {
@@ -537,6 +542,7 @@ export const environment: BuildConfig = {
         metadataConfiguration: []
       }
     ]
-  }
+  },
 
+  breadcrumbCharLimit: 10,
 };

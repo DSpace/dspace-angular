@@ -17,6 +17,7 @@ import {
   MembersListComponent,
   EPersonListActionConfig,
 } from '../../../../access-control/group-registry/group-form/members-list/members-list.component';
+import { UUIDService } from '../../../../core/shared/uuid.service';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -57,8 +58,9 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
               notificationsService: NotificationsService,
               formBuilder: FormBuilder,
               paginationService: PaginationService,
-              router: Router) {
-    super(groupService, ePersonDataService, translateService, notificationsService, formBuilder, paginationService, router);
+              router: Router,
+              protected uuidService: UUIDService) {
+    super(groupService, ePersonDataService, translateService, notificationsService, formBuilder, paginationService, router, uuidService);
   }
 
   ngOnInit() {

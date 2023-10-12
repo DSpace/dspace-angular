@@ -469,7 +469,7 @@ const COMPONENTS = [
   MetadataLinkViewComponent,
   ExportExcelSelectorComponent,
   ThemedBrowseMostElementsComponent,
-  SearchChartBarHorizontalComponent
+  SearchChartBarHorizontalComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -543,7 +543,7 @@ const ENTRY_COMPONENTS = [
   ThemedBrowseMostElementsComponent,
   SearchChartBarHorizontalComponent,
   RelationshipsListComponent,
-  AdditionalMetadataComponent
+  AdditionalMetadataComponent,
 ];
 
 const PROVIDERS = [

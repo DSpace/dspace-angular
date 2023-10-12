@@ -10,6 +10,7 @@ import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { SubscriptionModalComponent } from '../../subscriptions/subscription-modal/subscription-modal.component';
 
 @Component({
   selector: 'ds-subscription-menu',
@@ -35,17 +36,6 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
    */
   public modalRef: NgbModalRef;
 
-  types = [
-    { name: 'Content', value: 'content' },
-    { name: 'Statistics', value: 'statistics' },
-    { name: 'Content & Statistics', value: 'content+statistics' },
-  ];
-
-  /**
-   * DSpaceObject that is being viewed
-   */
-  dso: DSpaceObject;
-
   /**
    * Initialize instance variables
    *
@@ -68,12 +58,11 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
   }
 
   /**
-   * Open modal
-   *
-   * @param content
+   * Open the modal to subscribe to the related DSpaceObject
    */
-  public openSubscription(content: any) {
-    this.modalRef = this.modalService.open(content);
+  public openSubscription() {
+    this.modalRef = this.modalService.open(SubscriptionModalComponent);
+    this.modalRef.componentInstance.dso = this.contextMenuObject;
   }
 
 }

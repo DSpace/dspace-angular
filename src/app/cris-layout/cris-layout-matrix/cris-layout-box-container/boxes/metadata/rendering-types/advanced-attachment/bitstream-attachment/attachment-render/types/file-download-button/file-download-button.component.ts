@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FileDownloadLinkComponent } from '../file-download-link/file-download-link.component';
 import {
-  AttachmentRenderingType,
-  AttachmentTypeRendering
-} from '../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/bitstream-attachment/attachment-type.decorator';
+  FileDownloadLinkComponent
+} from '../../../../../../../../../../../shared/file-download-link/file-download-link.component';
+import { AttachmentRenderingType, AttachmentTypeRendering } from '../../../attachment-type.decorator';
 
 @Component({
   selector: 'ds-file-download-button',

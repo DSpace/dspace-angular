@@ -28,6 +28,8 @@ import { RequestEntry } from '../../data/request-entry.model';
 import { Angulartics2 } from 'angulartics2';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import anything = jasmine.anything;
+import { UUIDService } from '../uuid.service';
+import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -61,6 +63,7 @@ describe('SearchService', () => {
           { provide: PaginationService, useValue: {} },
           { provide: SearchConfigurationService, useValue: searchConfigService },
           { provide: Angulartics2, useValue: {} },
+          { provide: UUIDService, useValue: getMockUUIDService() },
           SearchService
         ],
       });
