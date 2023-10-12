@@ -33,6 +33,7 @@
       [metadataFields]="['dc.contributor.advisor']"
       [label]="'relationships.isAdvisorOf' | translate">
     </ds-themed-metadata-representation-list>
+    <!--End TAMU Customization - Display Advisors-->
     <ds-themed-metadata-representation-list class="ds-item-page-mixed-author-field"
       [parentItem]="object"
       [itemType]="'Person'"
@@ -57,11 +58,13 @@
     </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-6">
+    <!--TAMU Customization - Display Sponsors-->
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.contributor.sponsor']"
       [separator]="', '"
       [label]="'relationships.isSponsorOf' | translate">
     </ds-generic-item-page-field>
+    <!--End TAMU Customization - Display Sponsors-->
     <ds-item-page-abstract-field [item]="object"></ds-item-page-abstract-field>
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.description']"
