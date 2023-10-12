@@ -189,13 +189,6 @@ export const klaroConfiguration: any = {
       onAccept: `window.refreshCaptchaScript?.call()`,
       onDecline: `window.refreshCaptchaScript?.call()`,
       onlyOnce: true,
-    },
-    {
-      name: 'add-this',
-      purposes: ['sharing'],
-      required: false,
-      cookies: ['addthis.com'],
-      onlyOnce: true
     }
   ],
 };

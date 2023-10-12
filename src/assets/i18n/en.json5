@@ -256,6 +256,7 @@
   "admin.registries.metadata.schemas.table.name": "Name",
 
   "admin.registries.metadata.schemas.table.namespace": "Namespace",
+  "admin.registries.metadata.schemas.table.download": "Download",
 
   "admin.registries.metadata.title": "Metadata Registry",
 
@@ -1701,10 +1702,6 @@
 
   "cookies.consent.app.disable-all.title": "Enable or disable all services",
 
-  "cookies.consent.app.title.add-this": "AddThis",
-
-  "cookies.consent.app.description.add-this" : "Allows us to enable sharing via AddThis",
-
   "cookies.consent.update": "There were changes since your last visit, please update your consent.",
 
   "cookies.consent.close": "Close",
@@ -1806,6 +1803,14 @@
   "cris-layout.advanced-attachment.viewMore": "View More",
 
   "cris-layout.attachment.viewMore": "View More",
+
+  "cris-layout.rendering.collections.owning-collection.label": "Owning collection",
+
+  "cris-layout.rendering.collections.mapped-collection.label": "Mapped collections",
+
+  "cris-layout.rendering.collections.loading": "Loading...",
+
+  "cris-layout.rendering.collections.load-more": "Load more",
 
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
 
@@ -2001,6 +2006,13 @@
 
   "confirmation-modal.pending-changes.confirm": "Leave",
 
+  "confirmation-modal.review-account-info.header": "Save the changes",
+
+  "confirmation-modal.review-account-info.info": "Continue to update your profile",
+
+  "confirmation-modal.review-account-info.cancel": "Cancel",
+
+  "confirmation-modal.review-account-info.confirm": "Save",
 
   "dataset.listelement.badge" : "Dataset",
 
@@ -2230,7 +2242,7 @@
   "explore.researcherprofiles.breadcrumbs": "People",
 
   "explore.title": "Explore section",
-
+  "export-schema.process.title": "Metadata Schema Export",
 
   "feed.description": "Syndication feed",
 
@@ -3779,8 +3791,6 @@
 
   "menu.section.import_from_excel": "Import from excel",
 
-  "menu.section.export_batch": "Batch Export (ZIP)",
-
   "menu.section.export_to_excel": "Export to excel",
 
   "menu.section.icon.access_control": "Access Control menu section",
@@ -4162,8 +4172,6 @@
   "nav.toggle" : "Toggle navigation",
 
   "nav.user.description" : "User profile bar",
-
-  "nav.subscriptions" : "Subscriptions",
 
   "none.listelement.badge": "Item",
 
@@ -5089,6 +5097,8 @@
 
   "search.filters.applied.charts.default.title": "Search Output",
 
+  "search.filters.applied.charts.site.title": "Search Output",
+
   "search.filters.applied.charts.RELATION.Person.researchoutputs.title": "Research Output",
 
   "search.filters.applied.charts.RELATION.Project.fundings.title": "Fundings",
@@ -5202,6 +5212,8 @@
 
   "search.filters.filter.investigators.head": "Researcher",
 
+  "search.filters.filter.investigators.label": "Researcher",
+
   "search.filters.filter.investigators.placeholder": "Researcher",
 
   "search.filters.filter.jobTitle.head": "Job Title",
@@ -5223,6 +5235,8 @@
   "search.filters.filter.language.placeholder": "Language",
 
   "search.filters.filter.projectOrgUnits.head" : "Organizations",
+
+  "search.filters.filter.projectOrgUnits.label" : "Organizations",
 
   "search.filters.filter.projectOrgUnits.placeholder" : "Organizations",
 
@@ -5343,6 +5357,8 @@
   "search.results.head": "Search Results",
 
   "default.search.results.head": "Search Results",
+
+  "site.search.results.head": "Search Results",
 
   "default-relationships.search.results.head": "Search Results",
 
@@ -5599,6 +5615,30 @@
   "statistics.categories.rppublicationsReports.tab": "Researchers publication reports",
 
   "statistics.categories.downloadReports.tab": "Downloads reports",
+
+  "statistics.categories.itemReports.tab": "Item views reports",
+
+  "statistics.table.itemReports.header.continent" : "Continent",
+
+  "statistics.table.itemReports.header.views" : "Views",
+
+  "statistics.table.itemReports.header.city" : "City",
+
+  "statistics.table.itemReports.header.item" : "Item",
+
+  "statistics.table.mainReports.header.community" : "Community",
+
+  "statistics.table.mainReports.header.collection" : "Collection",
+
+  "statistics.table.itemReports.title.TopContinents" : "Top region views",
+
+  "statistics.table.itemReports.title.TopCities" : "Top cities views",
+
+  "statistics.table.itemReports.title.TopItems" : "Most viewed",
+
+  "statistics.table.itemReports.title.TopCategories" : "Top categories",
+
+  "statistics.table.itemReports.title.TotalVisitsPerMonth" : "Top views per month",
 
   "statistics.reports.title": "Reports",
 
@@ -6348,6 +6388,14 @@
 
   "submission.sections.accesses.form.until-placeholder": "Until",
 
+  "access.condition.value.openaccess": "Open Access",
+
+  "access.condition.value.embargo": "Embargo",
+
+  "access.condition.value.administrator": "Administrator Only",
+
+  "access.condition.value.lease": "Lease",
+
   "submission.sections.license.granted-label": "I confirm the license above",
 
   "submission.sections.license.required": "You must accept the license",
@@ -6733,9 +6781,23 @@
 
   "workspace-item.view.title": "Workspace View",
 
+  "workspace-item.delete.breadcrumbs": "Workspace Delete",
+
+  "workspace-item.delete.header": "Delete workspace item",
+
+  "workspace-item.delete.button.confirm": "Delete",
+
+  "workspace-item.delete.button.cancel": "Cancel",
+
+  "workspace-item.delete.notification.success.title": "Deleted",
+
+  "workspace-item.delete.title": "This workspace item was successfully deleted",
+
+  "workspace-item.delete.notification.error.title": "Something went wrong",
+
+  "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
 
   "workflow-item.advanced.title": "Advanced workflow",
-
 
   "workflow-item.selectrevieweraction.notification.success.title": "Selected reviewer",
 
@@ -7129,4 +7191,66 @@
   "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
 
   "admin.system-wide-alert.title": "System-wide Alerts",
+
+  "external-login.form.email": "Enter the email",
+
+  "external-login.form.or-divider": "or",
+
+  "external-login.confirmation.header": "Information needed to complete the login process",
+
+  "external-login.noEmail.informationText": "The information received from {{authMethod}} are not sufficient to complete the login process. Please provide the missing information below, or login via a different method to associate your {{authMethod}} to an existing account.",
+
+  "external-login.haveEmail.informationText": "It seems that you have not yet an account in this system. If this is the case, please confirm the data received from {{authMethod}} and a new account will be created for you. Otherwise, if you already have an account in the system, please update the email address to match the one already in use in the system or login via a different method to associate your {{authMethod}} to your existing account.",
+
+  "external-login.confirm-email.header": "Confirm or update email",
+
+  "external-login.confirmation.email-required": "Email is required.",
+
+  "external-login.confirmation.email-invalid": "Invalid email format.",
+
+  "external-login.confirm.button.label": "Confirm this email",
+
+  "external-login.confirm-email-sent.header": "Confirmation email sent",
+
+  "external-login.confirm-email-sent.info": " We have sent an email to the provided address to validate your input. <br /> Please follow the instructions in the email to complete the login process.",
+
+  "external-login.provide-email.header": "Provide email",
+
+  "external-login.provide-email.button.label": "Send Verification link",
+
+  "external-login-validation.review-account-info.header": "Review your account information",
+
+  "external-login-validation.review-account-info.info": "The information received from ORCID differs from the one recorded in your profile. <br /> Please review them and decide if you want to update any of them. After saving you will be redirected to your profile page.",
+
+  "external-login-validation.review-account-info.table.header.information": "Information",
+
+  "external-login-validation.review-account-info.table.header.received-value": "Received value",
+
+  "external-login-validation.review-account-info.table.header.current-value": "Current value",
+
+  "external-login-validation.review-account-info.table.header.action": "Override",
+
+  "on-label": "ON",
+
+  "off-label": "OFF",
+
+  "review-account-info.merge-data.notification.success": "Your account information has been updated successfully",
+
+  "review-account-info.merge-data.notification.error": "Something went wrong while updating your account information",
+
+  "review-account-info.alert.error.content": "Something went wrong. Please try again later.",
+
+  "external-login-page.provide-email.notifications.error": "Something went wrong.Email address was omitted or the operation is not valid.",
+
+  "external-login.error.notification": "There was an error while processing your request. Please try again later.",
+
+  "external-login.connect-to-existing-account.label": "Connect to an existing user",
+
+  "external-login.modal.label.close": "Close",
+
+  "external-login-page.provide-email.create-account.notifications.error.header": "Something went wrong",
+
+  "external-login-page.provide-email.create-account.notifications.error.content": "Please check again your email address and try again.",
+
+  "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Something went wrong with this email account. Try again or use a different method to login.",
 }

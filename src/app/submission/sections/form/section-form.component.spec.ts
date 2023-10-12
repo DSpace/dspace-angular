@@ -585,11 +585,14 @@ describe('SubmissionSectionFormComponent test suite', () => {
 
     it('should call dispatchOperationsFromEvent on form remove event', () => {
       spyOn(comp, 'hasStoredValue').and.returnValue(false);
+      formBuilderService.hasMappedGroupValue.and.returnValue(false);
+      formOperationsService.getFieldValueFromChangeEvent.and.returnValue('test');
 
       comp.onRemove(dynamicFormControlEvent);
 
       expect(formOperationsService.dispatchOperationsFromEvent).toHaveBeenCalled();
-
+      expect(compAsAny.previousValue.path).toBeNull();
+      expect(compAsAny.previousValue.value).toBeNull();
     });
 
     it('should check if has stored value in the section state', () => {

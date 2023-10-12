@@ -298,7 +298,7 @@ export class MenuResolver implements Resolve<boolean> {
           id: 'new_item',
           parentID: 'new',
           active: false,
-          visible: canSubmit,
+          visible: isSiteAdmin,
           model: {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_item',

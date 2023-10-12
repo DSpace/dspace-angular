@@ -1,0 +1,27 @@
+options:
+  runs-on: ubuntu-latest
+
+definitions:
+  steps:
+    - step: &unittest-code-checks
+        name: test-code-checks
+        image:
+          name: cypress/browsers:node18.12.0-chrome107
+          run-as-user: 1000
+        size: 2x
+        caches:
+          - node
+        script:
+          - yarn install --frozen-lockfile
+          - yarn run lint --quiet
+          - yarn run check-circ-deps
+          - yarn run build:prod
+          - yarn run test:headless
+
+pipelines:
+  branches:
+    'dspace-cris-7':
+      - step: *unittest-code-checks
+  pull-requests:
+    '**':
+      - step: *unittest-code-checks

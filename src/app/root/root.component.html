@@ -8,7 +8,6 @@
     <ds-themed-header-navbar-wrapper></ds-themed-header-navbar-wrapper>
     <main class="main-content">
       <ds-themed-breadcrumbs></ds-themed-breadcrumbs>
-      <ds-social *ngIf="browserPlatform"></ds-social>
       <div class="container d-flex justify-content-center align-items-center h-100" *ngIf="shouldShowRouteLoader">
         <ds-themed-loading [showMessage]="false"></ds-themed-loading>
       </div>
@@ -20,6 +19,8 @@
     <ds-themed-footer></ds-themed-footer>
   </div>
 </div>
+
+<ds-social *ngIf="browserPlatform"></ds-social>
 
 <ds-notifications-board [options]="notificationOptions">
 </ds-notifications-board>
