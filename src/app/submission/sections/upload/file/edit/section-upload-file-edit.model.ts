@@ -118,3 +118,5 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT: DynamicFormControl
     host: 'col-6'
   }
 };
+
+export const BITSTREAM_FORM_ACCESS_CONDITIONS_TRANSLATION_CONFIG = 'access.condition.value.';

@@ -28,6 +28,7 @@ import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { createPaginatedList, createRequestEntry$ } from '../../shared/testing/utils.test';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from '../data/find-list-options.model';
+import { RemoteData } from '../data/remote-data';
 
 describe('EPersonDataService', () => {
   let service: EPersonDataService;
@@ -314,6 +315,21 @@ describe('EPersonDataService', () => {
     });
   });
 
+  describe('mergeEPersonDataWithToken', () => {
+    const uuid = '1234-5678-9012-3456';
+    const token = 'abcd-efgh-ijkl-mnop';
+    const metadataKey = 'eperson.firstname';
+    beforeEach(() => {
+      spyOn(service, 'mergeEPersonDataWithToken').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMock));
+    });
+
+    it('should merge EPerson data with token', () => {
+      service.mergeEPersonDataWithToken(uuid, token, metadataKey).subscribe((result: RemoteData<EPerson>) => {
+        expect(result.hasSucceeded).toBeTrue();
+      });
+      expect(service.mergeEPersonDataWithToken).toHaveBeenCalledWith(uuid, token, metadataKey);
+    });
+  });
 });
 
 class DummyChangeAnalyzer implements ChangeAnalyzer<Item> {
