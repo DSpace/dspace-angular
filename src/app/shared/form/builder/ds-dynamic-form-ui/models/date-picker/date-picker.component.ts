@@ -11,6 +11,8 @@ import { DOCUMENT } from '@angular/common';
 import isEqual from 'lodash/isEqual';
 
 
+export type DatePickerFieldType = '_year' | '_month' | '_day';
+
 export const DS_DATE_PICKER_SEPARATOR = '-';
 
 @Component({
@@ -52,6 +54,9 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
 
   disabledMonth = true;
   disabledDay = true;
+
+  private readonly fields: DatePickerFieldType[] = ['_year', '_month', '_day'];
+
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
               private renderer: Renderer2,
@@ -172,18 +177,35 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
    * Listen to keydown Tab event.
    * Get the active element and blur it, in order to focus the next input field.
    */
-  @HostListener('keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent) {
-    if (event.key === 'Tab') {
-      event.preventDefault();
-      const activeElement: Element = this._document.activeElement;
-      (activeElement as any).blur();
-      if (isEqual(activeElement.id, this.model.id.concat('_year')) ) {
-        this.focusInput('_month');
-      } else if (isEqual(activeElement.id, this.model.id.concat('_month'))) {
-        this.focusInput('_day');
-      }
+  @HostListener('keydown.tab', ['$event'])
+  onTabKeydown(event: KeyboardEvent) {
+    event.preventDefault();
+    const activeElement: Element = this._document.activeElement;
+    (activeElement as any).blur();
+    const index = this.selectedFieldIndex(activeElement);
+    if (index < 0) {
+      return;
     }
+    let fieldToFocusOn = index + 1;
+    if (fieldToFocusOn < this.fields.length) {
+      this.focusInput(this.fields[fieldToFocusOn]);
+    }
+  }
+
+  @HostListener('keydown.shift.tab', ['$event'])
+  onShiftTabKeyDown(event: KeyboardEvent) {
+    event.preventDefault();
+    const activeElement: Element = this._document.activeElement;
+    (activeElement as any).blur();
+    const index = this.selectedFieldIndex(activeElement);
+    let fieldToFocusOn = index - 1;
+    if (fieldToFocusOn >= 0) {
+      this.focusInput(this.fields[fieldToFocusOn]);
+    }
+  }
+
+  private selectedFieldIndex(activeElement: Element): number {
+    return this.fields.findIndex(field => isEqual(activeElement.id, this.model.id.concat(field)));
   }
 
   /**
@@ -191,12 +213,16 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
    * based on the model id.
    * Used to focus the next input field
    * in case of a disabled field.
-   * @param type '_month' | '_day'
+   * @param type DatePickerFieldType
    */
-  focusInput(type: '_month' | '_day') {
+  focusInput(type: DatePickerFieldType) {
     const field = this._document.getElementById(this.model.id.concat(type));
     if (field) {
 
+      if (hasValue(this.year) && isEqual(type, '_year')) {
+        this.disabledMonth = true;
+        this.disabledDay = true;
+      }
       if (hasValue(this.year) && isEqual(type, '_month')) {
         this.disabledMonth = false;
       } else if (hasValue(this.month) && isEqual(type, '_day')) {
