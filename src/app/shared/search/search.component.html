@@ -116,9 +116,9 @@
         <ng-content select="[additionalSearchFormOptions]"></ng-content>
         <ds-item-export-modal-launcher [searchOptions$]="searchOptions$" *ngIf="showExport"></ds-item-export-modal-launcher>
     </div>
-    <div class="row mb-3 mb-md-1">
+    <div class="row my-3 my-md-1">
         <div class="labels col-sm-9">
-            <ds-search-labels *ngIf="searchEnabled" [inPlaceSearch]="inPlaceSearch"></ds-search-labels>
+            <ds-search-labels [inPlaceSearch]="inPlaceSearch"></ds-search-labels>
         </div>
     </div>
 </ng-template>
