@@ -57,6 +57,11 @@
     </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-6">
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.contributor.sponsor']"
+      [separator]="', '"
+      [label]="'relationships.isSponsorOf' | translate">
+    </ds-generic-item-page-field>
     <ds-item-page-abstract-field [item]="object"></ds-item-page-abstract-field>
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.description']"
