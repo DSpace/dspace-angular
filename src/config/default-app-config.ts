@@ -725,4 +725,5 @@ export class DefaultAppConfig implements AppConfig {
     additionalMetadataFields: []
   };
 
+  breadcrumbCharLimit = 10;
 }
