@@ -8,15 +8,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../core/auth/auth.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
-import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
+import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { NotificationType } from '../../shared/notifications/models/notification-type';
 import { hasValue } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/models/search-result.model';
 import { CollectionSelectorComponent } from '../collection-selector/collection-selector.component';
-import { UploaderComponent } from '../../shared/uploader/uploader.component';
-import { UploaderError } from '../../shared/uploader/uploader-error.model';
+import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
+import { UploaderError } from '../../shared/upload/uploader/uploader-error.model';
+import { Router } from '@angular/router';
 
 /**
  * This component represents the whole mydspace page header
@@ -56,13 +55,15 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
    * @param {NotificationsService} notificationsService
    * @param {TranslateService} translate
    * @param {NgbModal} modalService
+   * @param {Router} router
    */
   constructor(private authService: AuthService,
               private changeDetectorRef: ChangeDetectorRef,
               private halService: HALEndpointService,
               private notificationsService: NotificationsService,
               private translate: TranslateService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private router: Router) {
   }
 
   /**
@@ -87,16 +88,9 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
       this.uploadEnd.emit(workspaceitems);
 
       if (workspaceitems.length === 1) {
-        const options = new NotificationOptions();
-        options.timeOut = 0;
         const link = '/workspaceitems/' + workspaceitems[0].id + '/edit';
-        this.notificationsService.notificationWithAnchor(
-          NotificationType.Success,
-          options,
-          link,
-          'mydspace.general.text-here',
-          'mydspace.upload.upload-successful',
-          'here');
+        // To avoid confusion and ambiguity, redirect the user on the publication page.
+        this.router.navigateByUrl(link);
       } else if (workspaceitems.length > 1) {
         this.notificationsService.success(null, this.translate.get('mydspace.upload.upload-multiple-successful', {qty: workspaceitems.length}));
       }

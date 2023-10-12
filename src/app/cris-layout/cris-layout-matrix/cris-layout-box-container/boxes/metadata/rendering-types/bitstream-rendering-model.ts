@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
-import { Bitstream } from '../../../../../../core/shared/bitstream.model';
+import { Bitstream, ChecksumInfo } from '../../../../../../core/shared/bitstream.model';
 import { hasValue, isNotEmpty } from '../../../../../../shared/empty.util';
 import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
 import { BitstreamDataService, MetadataFilter } from '../../../../../../core/data/bitstream-data.service';
@@ -70,6 +70,14 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
    * Returns the size of given bitstreams in bytes
    * @param bitstream
    */
+  getChecksum(bitstream: Bitstream): ChecksumInfo {
+    return bitstream.checkSum;
+  }
+
+  /**
+   * Returns the size of given bitstreams in bytes
+   * @param bitstream
+   */
   getSize(bitstream: Bitstream): number {
     return bitstream.sizeBytes;
   }
@@ -116,16 +124,16 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
    * @param options The {@link FindListOptions} for the request
    */
   getBitstreamsByItem(options?: FindListOptions): Observable<PaginatedList<Bitstream>> {
-    let filters: MetadataFilter[] = [];
-    if (isNotEmpty(this.field.bitstream.metadataValue)) {
-      filters.push({
-        metadataName: this.field.bitstream.metadataField,
-        metadataValue: this.field.bitstream.metadataValue
-      });
-    }
-
     return this.bitstreamDataService
-      .findByItem(this.item.uuid, this.field.bitstream.bundle, filters, options, false, false, followLink('thumbnail'))
+      .findByItem(
+        this.item.uuid,
+        this.field.bitstream.bundle,
+        this.getMetadataFilters(),
+        options,
+        false,
+        false,
+        followLink('thumbnail')
+      )
       .pipe(
         getFirstCompletedRemoteData(),
         map((response: RemoteData<PaginatedList<Bitstream>>) => {
@@ -134,5 +142,21 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
       );
   }
 
+  /**
+   * Composes the {@link MetadataFilter} array used as filter
+   * while retrieving bitstream from remote services.
+   *
+   * @protected
+   */
+  protected getMetadataFilters(): MetadataFilter[] {
+    let filters: MetadataFilter[] = [];
+    if (isNotEmpty(this.field.bitstream.metadataValue)) {
+      filters.push({
+        metadataName: this.field.bitstream.metadataField,
+        metadataValue: this.field.bitstream.metadataValue
+      });
+    }
+    return filters;
+  }
 
 }

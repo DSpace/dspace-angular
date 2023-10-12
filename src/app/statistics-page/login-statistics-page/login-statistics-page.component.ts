@@ -43,7 +43,6 @@ export class LoginStatisticsPageComponent implements OnInit {
    * Perform a search when the search filters change.
    */
   onSearchFilterChange() {
-    console.log(this.max);
     this.searchByDateRange(this.parseDate(this.dateFrom),this.parseDate(this.dateTo), this.max);
   }
 

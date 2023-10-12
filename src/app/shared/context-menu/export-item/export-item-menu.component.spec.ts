@@ -12,7 +12,7 @@ import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { Item } from '../../../core/shared/item.model';
 import { ExportItemMenuComponent } from './export-item-menu.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ItemExportFormConfiguration, ItemExportService } from '../../item-export/item-export.service';
+import { ItemExportFormConfiguration, ItemExportService } from '../../search/item-export/item-export.service';
 import { of as observableOf } from 'rxjs';
 
 describe('ExportItemMenuComponent', () => {

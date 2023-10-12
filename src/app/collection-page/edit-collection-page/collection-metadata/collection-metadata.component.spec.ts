@@ -13,7 +13,7 @@ import { Item } from '../../../core/shared/item.model';
 import { ItemTemplateDataService } from '../../../core/data/item-template-data.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { RequestService } from '../../../core/data/request.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
 
 describe('CollectionMetadataComponent', () => {
@@ -39,8 +39,8 @@ describe('CollectionMetadataComponent', () => {
 
   const itemTemplateServiceStub = jasmine.createSpyObj('itemTemplateService', {
     findByCollectionID: createSuccessfulRemoteDataObject$(template),
-    create: createSuccessfulRemoteDataObject$(template),
-    deleteByCollectionID: observableOf(true),
+    createByCollectionID: createSuccessfulRemoteDataObject$(template),
+    delete: observableOf(true),
     getCollectionEndpoint: observableOf(collectionTemplateHref),
   });
 
@@ -91,12 +91,12 @@ describe('CollectionMetadataComponent', () => {
 
   describe('deleteItemTemplate', () => {
     beforeEach(() => {
-      (itemTemplateService.deleteByCollectionID as jasmine.Spy).and.returnValue(observableOf(true));
+      (itemTemplateService.delete as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$({}));
       comp.deleteItemTemplate();
     });
 
-    it('should call ItemTemplateService.deleteByCollectionID', () => {
-      expect(itemTemplateService.deleteByCollectionID).toHaveBeenCalledWith(template, 'collection-id');
+    it('should call ItemTemplateService.delete', () => {
+      expect(itemTemplateService.delete).toHaveBeenCalledWith(template.uuid);
     });
 
     describe('when delete returns a success', () => {
@@ -107,7 +107,7 @@ describe('CollectionMetadataComponent', () => {
 
     describe('when delete returns a failure', () => {
       beforeEach(() => {
-        (itemTemplateService.deleteByCollectionID as jasmine.Spy).and.returnValue(observableOf(false));
+        (itemTemplateService.delete as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$());
         comp.deleteItemTemplate();
       });
 

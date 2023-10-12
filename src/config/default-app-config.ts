@@ -16,14 +16,23 @@ import { ThemeConfig } from './theme.model';
 import { UIServerConfig } from './ui-server-config.interface';
 import { BundleConfig } from './bundle-config.interface';
 import { ActuatorsConfig } from './actuators.config';
-import { AddThisPluginConfig } from './addThisPlugin-config';
+import { InfoConfig } from './info-config.interface';
+import { CommunityListConfig } from './community-list-config.interface';
+import { HomeConfig } from './homepage-config.interface';
+import { MarkdownConfig } from './markdown-config.interface';
+import { FilterVocabularyConfig } from './filter-vocabulary-config';
+import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
 import { CmsMetadata } from './cms-metadata';
 import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-config.interfaces';
 import { MetadataSecurityConfig } from './metadata-security-config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
-import { AdvancedAttachmentRenderingConfig, AdvancedAttachmentElementType } from './advanced-attachment-rendering.config';
+import {
+  AdvancedAttachmentElementType,
+  AdvancedAttachmentRenderingConfig
+} from './advanced-attachment-rendering.config';
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
+import { SearchResultConfig } from './search-result-config.interface';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -44,7 +53,10 @@ export class DefaultAppConfig implements AppConfig {
     rateLimiter: {
       windowMs: 1 * 60 * 1000, // 1 minute
       max: 500 // limit each IP to 500 requests per windowMs
-    }
+    },
+
+    // Trust X-FORWARDED-* headers from proxies
+    useProxies: true,
   };
 
   // The REST API server settings
@@ -67,11 +79,34 @@ export class DefaultAppConfig implements AppConfig {
     msToLive: {
       default: 15 * 60 * 1000 // 15 minutes
     },
-    control: 'max-age=60', // revalidate browser
+    // Cache-Control HTTP Header
+    control: 'max-age=604800', // revalidate browser
     autoSync: {
       defaultTime: 0,
       maxBufferSize: 100,
       timePerMethod: { [RestRequestMethod.PATCH]: 3 } as any // time in seconds
+    },
+    // In-memory cache of server-side rendered content
+    serverSide: {
+      debug: false,
+      // Cache specific to known bots.  Allows you to serve cached contents to bots only.
+      // Defaults to caching 1,000 pages. Each page expires after 1 day
+      botCache: {
+        // Maximum number of pages (rendered via SSR) to cache. Setting max=0 disables the cache.
+        max: 1000,
+        // Amount of time after which cached pages are considered stale (in ms)
+        timeToLive: 24 * 60 * 60 * 1000, // 1 day
+        allowStale: true,
+      },
+      // Cache specific to anonymous users. Allows you to serve cached content to non-authenticated users.
+      // Defaults to caching 0 pages. But, when enabled, each page expires after 10 seconds (to minimize anonymous users seeing out-of-date content)
+      anonymousCache: {
+        // Maximum number of pages (rendered via SSR) to cache. Setting max=0 disables the cache.
+        max: 0, // disabled by default
+        // Amount of time after which cached pages are considered stale (in ms)
+        timeToLive: 10 * 1000, // 10 seconds
+        allowStale: true,
+      }
     }
   };
 
@@ -94,6 +129,7 @@ export class DefaultAppConfig implements AppConfig {
 
   // Form settings
   form: FormConfig = {
+    spellCheck: true,
     // NOTE: Map server-side validators to comparative Angular form validators
     validatorMap: {
       required: 'required',
@@ -185,11 +221,23 @@ export class DefaultAppConfig implements AppConfig {
           },
           {
             value: 500,
-            style: 'text-info'
+            style: 'text-warning'
           },
           {
             value: 400,
-            style: 'text-warning'
+            style: 'text-danger'
+          },
+          {
+            value: 300,
+            style: 'text-dark'
+          },
+          {
+            value: 200,
+            style: 'text-dark'
+          },
+          {
+            value: 100,
+            style: 'text-dark'
           },
           // default configuration
           {
@@ -215,6 +263,7 @@ export class DefaultAppConfig implements AppConfig {
   // When set to active, users will be able to switch to the use of this language in the user interface.
   languages: LangConfig[] = [
     { code: 'en', label: 'English', active: true },
+    { code: 'ca', label: 'Català', active: true },
     { code: 'cs', label: 'Čeština', active: true },
     { code: 'de', label: 'Deutsch', active: true },
     { code: 'es', label: 'Español', active: true },
@@ -224,11 +273,17 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'lv', label: 'Latviešu', active: true },
     { code: 'hu', label: 'Magyar', active: true },
     { code: 'nl', label: 'Nederlands', active: true },
+    { code: 'pl', label: 'Polski', active: true },
     { code: 'pt-PT', label: 'Português', active: true },
     { code: 'pt-BR', label: 'Português do Brasil', active: true },
     { code: 'fi', label: 'Suomi', active: true },
+    { code: 'sv', label: 'Svenska', active: true },
     { code: 'tr', label: 'Türkçe', active: true },
-    { code: 'bn', label: 'বাংলা', active: true }
+    { code: 'kk', label: 'Қазақ', active: true },
+    { code: 'bn', label: 'বাংলা', active: true },
+    { code: 'hi', label: 'हिंदी', active: true},
+    { code: 'el', label: 'Ελληνικά', active: true },
+    { code: 'uk', label: 'Yкраї́нська', active: true}
   ];
 
   // Browse-By Pages
@@ -238,7 +293,29 @@ export class DefaultAppConfig implements AppConfig {
     // Limit for years to display using jumps of five years (current year - fiveYearLimit)
     fiveYearLimit: 30,
     // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
-    defaultLowerLimit: 1900
+    defaultLowerLimit: 1900,
+    // Whether to add item thumbnail images to BOTH browse and search result lists.
+    showThumbnails: true,
+    // The number of entries in a paginated browse results list.
+    // Rounded to the nearest size in the list of selectable sizes on the
+    // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
+    pageSize: 20
+  };
+
+  communityList: CommunityListConfig = {
+    pageSize: 20
+  };
+
+  homePage: HomeConfig = {
+    recentSubmissions: {
+      //The number of item showing in recent submission components
+      pageSize: 5,
+      //sort record of recent submission
+      sortField: 'dc.date.accessioned',
+    },
+    topLevelCommunityList: {
+      pageSize: 5
+    }
   };
 
   // Item Config
@@ -247,7 +324,13 @@ export class DefaultAppConfig implements AppConfig {
       undoTimeout: 10000 // 10 seconds
     },
     // Show the item access status label in items lists
-    showAccessStatuses: false
+    showAccessStatuses: false,
+    bitstream: {
+      // Number of entries in the bitstream list in the item view page.
+      // Rounded to the nearest size in the list of selectable sizes on the
+      // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
+      pageSize: 5
+    }
   };
 
   // When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
@@ -381,6 +464,36 @@ export class DefaultAppConfig implements AppConfig {
     image: false,
     video: false
   };
+  // Whether the end-user-agreement and privacy policy feature should be enabled or not.
+  // Disabling the end user agreement feature will result in:
+  // - Users no longer being forced to accept the end-user-agreement before they can access the repository
+  // - A 404 page if you manually try to navigate to the end-user-agreement page at info/end-user-agreement
+  // - All end-user-agreement related links and pages will be removed from the UI (e.g. in the footer)
+  // Disabling the privacy policy feature will result in:
+  // - A 404 page if you manually try to navigate to the privacy policy page at info/privacy
+  // - All mentions of the privacy policy being removed from the UI (e.g. in the footer)
+  info: InfoConfig = {
+    enableEndUserAgreement: true,
+    enablePrivacyStatement: true
+  };
+
+  // Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
+  // display in supported metadata fields. By default, only dc.description.abstract is supported.
+  markdown: MarkdownConfig = {
+    enabled: false,
+    mathjax: false,
+  };
+
+  // Which vocabularies should be used for which search filters
+  // and whether to show the filter in the search sidebar
+  // Take a look at the filter-vocabulary-config.ts file for documentation on how the options are obtained
+  vocabularies: FilterVocabularyConfig[] = [
+    {
+      filter: 'subject',
+      vocabulary: 'srsc',
+      enabled: false
+    }
+    ];
 
   crisLayout: CrisLayoutConfig = {
     urn: [
@@ -408,17 +521,44 @@ export class DefaultAppConfig implements AppConfig {
     crisRef: [
       {
         entityType: 'DEFAULT',
-        icon: 'fa fa-info'
+        entityStyle: {
+          default: {
+            icon: 'fa fa-info',
+            style: 'text-info'
+          }
+        }
       },
       {
         entityType: 'PERSON',
-        icon: 'fa fa-user'
+        entityStyle: {
+          default: {
+            icon: 'fa fa-user',
+            style: 'text-info'
+          }
+        }
       },
       {
         entityType: 'ORGUNIT',
-        icon: 'fa fa-university'
+        entityStyle: {
+          default: {
+            icon: 'fa fa-university',
+            style: 'text-info'
+          }
+        }
+      },
+      {
+        entityType: 'PROJECT',
+        entityStyle: {
+          default: {
+            icon: 'fas fa-project-diagram',
+            style: 'text-info'
+          }
+        }
       }
     ],
+    crisRefStyleMetadata: {
+      default: 'cris.entity.style',
+    },
     itemPage: {
       OrgUnit: {
         orientation: 'vertical'
@@ -433,6 +573,11 @@ export class DefaultAppConfig implements AppConfig {
     metadataBox: {
       defaultMetadataLabelColStyle: 'col-3',
       defaultMetadataValueColStyle: 'col-9'
+    },
+    collectionsBox: {
+      defaultCollectionsLabelColStyle: 'col-3 font-weight-bold',
+      defaultCollectionsValueColStyle: 'col-9',
+      isInline: true
     }
   };
 
@@ -479,10 +624,15 @@ export class DefaultAppConfig implements AppConfig {
     ]
   };
 
-  addThisPlugin: AddThisPluginConfig = {
-    siteId: '',
-    scriptUrl: 'http://s7.addthis.com/js/300/addthis_widget.js#pubid=',
-    socialNetworksEnabled: false
+  addToAnyPlugin: AddToAnyPluginConfig = {
+    scriptUrl: 'https://static.addtoany.com/menu/page.js',
+    socialNetworksEnabled: false,
+    buttons: ['facebook', 'twitter', 'linkedin', 'email', 'copy_link'],
+    showPlusButton: true,
+    showCounters: true,
+    title: 'DSpace CRIS 7 demo',
+    // link: 'https://dspacecris7.4science.cloud/',
+    // The link to be shown in the shared post, if different from document.location.origin
   };
 
   metricVisualizationConfig: MetricVisualizationConfig[] = [
@@ -563,7 +713,17 @@ export class DefaultAppConfig implements AppConfig {
       {
         name: 'format',
         type: AdvancedAttachmentElementType.Attribute,
+      },
+      {
+        name: 'checksum',
+        type: AdvancedAttachmentElementType.Attribute,
       }
     ]
   };
+
+  searchResult: SearchResultConfig = {
+    additionalMetadataFields: []
+  };
+
+  breadcrumbCharLimit = 10;
 }

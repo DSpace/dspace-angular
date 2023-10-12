@@ -2,4 +2,9 @@
                       [object]="object"
                       [status]="status"></ds-themed-item-list-preview>
 
-<ds-item-actions [object]="dso" (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-item-actions>
+<div class="row">
+  <div [ngClass]="showThumbnails ? 'offset-3 offset-xl-2 pl-3' : ''">
+    <ds-item-actions [object]="dso" (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-item-actions>
+  </div>
+</div>
+

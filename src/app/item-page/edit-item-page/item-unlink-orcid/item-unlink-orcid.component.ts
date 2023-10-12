@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { RemoteData } from '../../../core/data/remote-data';
-import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
 import { Item } from '../../../core/shared/item.model';
 import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

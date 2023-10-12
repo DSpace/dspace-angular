@@ -14,6 +14,8 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { Item } from '../shared/item.model';
 import { of } from 'rxjs';
 import SpyObj = jasmine.SpyObj;
+import { UUIDService } from '../shared/uuid.service';
+import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 
 const url = 'fake-url';
 
@@ -25,6 +27,7 @@ describe('VersionHistoryDataService', () => {
   let rdbService: RemoteDataBuildService;
   let objectCache: ObjectCacheService;
   let versionService: SpyObj<VersionDataService>;
+  let uuidService: UUIDService;
   let halService: any;
 
   const versionHistoryId = 'version-history-id';
@@ -102,17 +105,25 @@ describe('VersionHistoryDataService', () => {
       buildFromRequestUUID: jasmine.createSpy('buildFromRequestUUID'),
     });
     objectCache = jasmine.createSpyObj('objectCache', {
-      remove: jasmine.createSpy('remove')
+      remove: jasmine.createSpy('remove'),
     });
     versionService = jasmine.createSpyObj('objectCache', {
       findByHref: jasmine.createSpy('findByHref'),
-      findAllByHref: jasmine.createSpy('findAllByHref'),
+      findListByHref: jasmine.createSpy('findListByHref'),
       getHistoryFromVersion: jasmine.createSpy('getHistoryFromVersion'),
     });
+    uuidService = getMockUUIDService();
     halService = new HALEndpointServiceStub(url);
     notificationsService = new NotificationsServiceStub();
 
-    service = new VersionHistoryDataService(requestService, rdbService, null, objectCache, halService, notificationsService, versionService, null, null);
+    service = new VersionHistoryDataService(
+      requestService,
+      rdbService,
+      objectCache,
+      halService,
+      versionService,
+      uuidService
+    );
   }
 
   beforeEach(() => {
@@ -126,8 +137,8 @@ describe('VersionHistoryDataService', () => {
       result = service.getVersions('1');
     });
 
-    it('should call versionService.findAllByHref', () => {
-      expect(versionService.findAllByHref).toHaveBeenCalled();
+    it('should call versionService.findListByHref', () => {
+      expect(versionService.findListByHref).toHaveBeenCalled();
     });
   });
 
@@ -135,8 +146,8 @@ describe('VersionHistoryDataService', () => {
     beforeEach(waitForAsync(() => {
       service.getVersions(versionHistoryId);
     }));
-    it('findAllByHref should have been called', () => {
-      expect(versionService.findAllByHref).toHaveBeenCalled();
+    it('findListByHref should have been called', () => {
+      expect(versionService.findListByHref).toHaveBeenCalled();
     });
   });
 

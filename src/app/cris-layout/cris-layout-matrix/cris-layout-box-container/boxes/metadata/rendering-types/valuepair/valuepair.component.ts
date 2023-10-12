@@ -1,14 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, interval, race } from 'rxjs';
-import { map, mapTo, take } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { VocabularyService } from '../../../../../../../core/submission/vocabularies/vocabulary.service';
 import {
-  getFirstSucceededRemoteDataPayload,
-  getPaginatedListPayload
+  getFirstCompletedRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload
 } from '../../../../../../../core/shared/operators';
 import { AuthService } from '../../../../../../../core/auth/auth.service';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
@@ -49,21 +50,20 @@ export class ValuepairComponent extends RenderingTypeValueModelComponent impleme
 
     const vocabularyName = this.renderingSubType;
     const authority = this.metadataValue.authority ? this.metadataValue.authority.split(':') : undefined;
-    const isControlledVocabulary =  authority?.length > 1 && authority[0] === vocabularyName;
-    const metadataValue = isControlledVocabulary ? authority[1] : this.metadataValue.value;
+    const isControlledVocabulary = authority?.length > 1 && authority[0] === vocabularyName;
 
-    const entry$ = this.vocabularyService.getPublicVocabularyEntryByValue(vocabularyName, metadataValue).pipe(
-      getFirstSucceededRemoteDataPayload(),
+    let vocabularyEntry$ = isControlledVocabulary ?
+      this.vocabularyService.getPublicVocabularyEntryByID(vocabularyName, this.metadataValue.authority) :
+      this.vocabularyService.getPublicVocabularyEntryByValue(vocabularyName, this.metadataValue.value);
+
+    vocabularyEntry$.pipe(
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload(),
       getPaginatedListPayload(),
-      map((res) => res[0]?.display ?? this.metadataValue.value),
-    );
-
-    // fallback values to be shown if the display value cannot be retrieved
-    const initValue$ = interval(5000).pipe(mapTo(this.metadataValue.value));
-
-    race([entry$, initValue$]).pipe(take(1)).subscribe((value: string) => {
-      this.value$.next(value);
-    });
+      map((res) => res?.length > 0 ? res[0] : null),
+      map((res) => res?.display ?? this.metadataValue.value),
+      take(1)
+    ).subscribe(value => this.value$.next(value));
 
   }
 

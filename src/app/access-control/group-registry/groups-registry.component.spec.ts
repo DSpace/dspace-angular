@@ -32,6 +32,8 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { NoContent } from '../../core/shared/NoContent.model';
+import { UUIDService } from '../../core/shared/uuid.service';
+import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 
 describe('GroupRegistryComponent', () => {
   let component: GroupsRegistryComponent;
@@ -69,7 +71,7 @@ describe('GroupRegistryComponent', () => {
     mockGroups = [GroupMock, GroupMock2];
     mockEPeople = [EPersonMock, EPersonMock2];
     ePersonDataServiceStub = {
-      findAllByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
+      findListByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
         switch (href) {
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/epersons':
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
@@ -97,7 +99,7 @@ describe('GroupRegistryComponent', () => {
     };
     groupsDataServiceStub = {
       allGroups: mockGroups,
-      findAllByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
+      findListByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
         switch (href) {
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/groups':
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
@@ -179,7 +181,8 @@ describe('GroupRegistryComponent', () => {
         { provide: Router, useValue: new RouterMock() },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: PaginationService, useValue: paginationService },
-        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) }
+        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) },
+        { provide: UUIDService, useValue: getMockUUIDService() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

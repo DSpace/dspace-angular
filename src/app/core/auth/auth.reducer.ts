@@ -8,6 +8,7 @@ import {
   LogOutErrorAction,
   RedirectWhenAuthenticationIsRequiredAction,
   RedirectWhenTokenExpiredAction,
+  RefreshEpersonAndTokenRedirectSuccessAction,
   RefreshTokenAndRedirectSuccessAction,
   RefreshTokenSuccessAction,
   RetrieveAuthenticatedEpersonSuccessAction,
@@ -18,6 +19,7 @@ import {
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
+import { StoreActionTypes } from '../../store.actions';
 import { EPerson } from '../eperson/models/eperson.model';
 
 /**
@@ -189,6 +191,25 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         user: undefined
       });
 
+    case AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT:
+      return Object.assign({}, state, {
+        loading: true,
+        loaded: false,
+      });
+
+    case AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT_SUCCESS:
+      return Object.assign({}, state, {
+        loading: false,
+        loaded: false,
+        user: (action as RefreshEpersonAndTokenRedirectSuccessAction).payload.ePerson,
+      });
+
+    case AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT_ERROR:
+      return Object.assign({}, state, {
+        loading: false,
+        loaded: false,
+      });
+
     case AuthActionTypes.REFRESH_TOKEN:
       return Object.assign({}, state, {
         refreshing: true,
@@ -257,6 +278,11 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.UNSET_USER_AS_IDLE:
       return Object.assign({}, state, {
         idle: false,
+      });
+
+    case StoreActionTypes.REHYDRATE:
+      return Object.assign({}, state, {
+        blocking: true,
       });
 
     default:

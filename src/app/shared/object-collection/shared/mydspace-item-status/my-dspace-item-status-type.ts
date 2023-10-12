@@ -6,4 +6,5 @@ export enum MyDspaceItemStatusType {
   ARCHIVED = 'mydspace.status.archived',
   DECLINED = 'mydspace.status.declined',
   APPROVED = 'mydspace.status.approved',
+  DECLINED_TASk = 'mydspace.status.declined-task',
 }

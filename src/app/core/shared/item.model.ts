@@ -23,6 +23,9 @@ import { BITSTREAM } from './bitstream.resource-type';
 import { Bitstream } from './bitstream.model';
 import { ACCESS_STATUS } from 'src/app/shared/object-list/access-status-badge/access-status.resource-type';
 import { AccessStatusObject } from 'src/app/shared/object-list/access-status-badge/access-status.model';
+import { HandleObject } from './handle-object.model';
+import { IDENTIFIERS } from '../../shared/object-list/identifier-data/identifier-data.resource-type';
+import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';
 import { Metric } from './metric.model';
 import { METRIC } from './metric.resource-type';
 
@@ -31,7 +34,7 @@ import { METRIC } from './metric.resource-type';
  */
 @typedObject
 @inheritSerialization(DSpaceObject)
-export class Item extends DSpaceObject implements ChildHALResource {
+export class Item extends DSpaceObject implements ChildHALResource, HandleObject {
   static type = ITEM;
 
   /**
@@ -84,6 +87,7 @@ export class Item extends DSpaceObject implements ChildHALResource {
     version: HALLink;
     thumbnail: HALLink;
     accessStatus: HALLink;
+    identifiers: HALLink;
     metrics: HALLink;
     self: HALLink;
   };
@@ -129,6 +133,13 @@ export class Item extends DSpaceObject implements ChildHALResource {
    */
    @link(ACCESS_STATUS)
    accessStatus?: Observable<RemoteData<AccessStatusObject>>;
+
+  /**
+   * The identifier data for this Item
+   * Will be undefined unless the identifiers {@link HALLink} has been resolved.
+   */
+  @link(IDENTIFIERS, false, 'identifiers')
+  identifiers?: Observable<RemoteData<IdentifierData>>;
 
   /**
    * The list of the Item's metrics

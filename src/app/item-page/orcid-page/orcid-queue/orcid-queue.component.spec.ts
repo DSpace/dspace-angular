@@ -4,7 +4,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { OrcidQueueService } from '../../../core/orcid/orcid-queue.service';
+import { OrcidQueueDataService } from '../../../core/orcid/orcid-queue-data.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -17,12 +17,14 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { By } from '@angular/platform-browser';
 import { Item } from '../../../core/shared/item.model';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
+import { UUIDService } from '../../../core/shared/uuid.service';
+import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 
 describe('OrcidQueueComponent test suite', () => {
   let component: OrcidQueueComponent;
   let fixture: ComponentFixture<OrcidQueueComponent>;
   let debugElement: DebugElement;
-  let orcidQueueService: OrcidQueueService;
+  let orcidQueueService: OrcidQueueDataService;
   let orcidAuthService: jasmine.SpyObj<OrcidAuthService>;
 
   const testProfileItemId = 'test-owner-id';
@@ -120,15 +122,16 @@ describe('OrcidQueueComponent test suite', () => {
       declarations: [OrcidQueueComponent],
       providers: [
         { provide: OrcidAuthService, useValue: orcidAuthService },
-        { provide: OrcidQueueService, useValue: orcidQueueServiceSpy },
+        { provide: OrcidQueueDataService, useValue: orcidQueueServiceSpy },
         { provide: OrcidHistoryDataService, useValue: {} },
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: UUIDService, useValue: getMockUUIDService() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
-    orcidQueueService = TestBed.inject(OrcidQueueService);
+    orcidQueueService = TestBed.inject(OrcidQueueDataService);
   }));
 
   beforeEach(() => {

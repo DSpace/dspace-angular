@@ -8,7 +8,7 @@ import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.ser
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
 import { AdminEditUserAgreementComponent } from './admin-edit-user-agreement/admin-edit-user-agreement.component';
 import { NOTIFICATIONS_MODULE_PATH, REGISTRIES_MODULE_PATH } from './admin-routing-paths';
-import {EditCmsMetadataComponent} from './edit-cms-metadata/edit-cms-metadata.component';
+import { EditCmsMetadataComponent } from './edit-cms-metadata/edit-cms-metadata.component';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
 
 @NgModule({
@@ -65,6 +65,12 @@ import { BatchImportPageComponent } from './admin-import-batch-page/batch-import
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: BatchImportPageComponent,
         data: { title: 'admin.batch-import.title', breadcrumbKey: 'admin.batch-import' }
+      },
+      {
+        path: 'system-wide-alert',
+        resolve: { breadcrumb: I18nBreadcrumbResolver },
+        loadChildren: () => import('../system-wide-alert/system-wide-alert.module').then((m) => m.SystemWideAlertModule),
+        data: {title: 'admin.system-wide-alert.title', breadcrumbKey: 'admin.system-wide-alert'}
       },
     ])
   ],

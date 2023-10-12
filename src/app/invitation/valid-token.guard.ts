@@ -22,7 +22,7 @@ export class ValidTokenGuard implements CanActivate {
     // get the url
     if (route.params.registrationToken) {
       // search by token found
-      return this.epersonRegistrationService.searchByTokenAndHandleError(route.params.registrationToken).pipe(
+      return this.epersonRegistrationService.searchRegistrationByToken(route.params.registrationToken).pipe(
         getFirstCompletedRemoteData(),
         map((data: RemoteData<Registration>) => data.hasSucceeded && hasValue('groupNames') && data.payload.groupNames.length > 0),
         tap((isValid: boolean) => {

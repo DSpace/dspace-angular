@@ -17,9 +17,6 @@ import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { of as observableOf } from 'rxjs';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
@@ -131,7 +128,7 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
   });
 
   const groupDataService = jasmine.createSpyObj('groupsDataService', {
-    findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     getGroupRegistryRouterLink: '',
     getUUIDFromString: '',
   });
@@ -181,17 +178,20 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
 
   });
 
-  it('should display a list of sub-communities', () => {
-    subCommList = subcommunities;
-    fixture.detectChanges();
 
-    const subComList = fixture.debugElement.queryAll(By.css('li'));
-    expect(subComList.length).toEqual(5);
-    expect(subComList[0].nativeElement.textContent).toContain('SubCommunity 1');
-    expect(subComList[1].nativeElement.textContent).toContain('SubCommunity 2');
-    expect(subComList[2].nativeElement.textContent).toContain('SubCommunity 3');
-    expect(subComList[3].nativeElement.textContent).toContain('SubCommunity 4');
-    expect(subComList[4].nativeElement.textContent).toContain('SubCommunity 5');
+  it('should display a list of sub-communities', () => {
+    waitForAsync(() => {
+      subCommList = subcommunities;
+      fixture.detectChanges();
+
+      const subComList = fixture.debugElement.queryAll(By.css('li'));
+      expect(subComList.length).toEqual(5);
+      expect(subComList[0].nativeElement.textContent).toContain('SubCommunity 1');
+      expect(subComList[1].nativeElement.textContent).toContain('SubCommunity 2');
+      expect(subComList[2].nativeElement.textContent).toContain('SubCommunity 3');
+      expect(subComList[3].nativeElement.textContent).toContain('SubCommunity 4');
+      expect(subComList[4].nativeElement.textContent).toContain('SubCommunity 5');
+    });
   });
 
   it('should not display the header when list of sub-communities is empty', () => {

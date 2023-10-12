@@ -11,7 +11,7 @@ import { AppState } from '../../../app.reducer';
 import { NotificationComponent } from '../notification/notification.component';
 import { Notification } from '../models/notification.model';
 import { NotificationType } from '../models/notification-type';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { cold } from 'jasmine-marbles';

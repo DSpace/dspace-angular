@@ -9,6 +9,7 @@ import { SubmissionSectionUploadFileViewComponent } from './section-upload-file-
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { createTestComponent } from '../../../../../shared/testing/utils.test';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('SubmissionSectionUploadFileViewComponent test suite', () => {
 
@@ -21,6 +22,7 @@ describe('SubmissionSectionUploadFileViewComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
+        NgbTooltipModule,
         TranslateModule.forRoot()
       ],
       declarations: [

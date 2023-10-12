@@ -9,7 +9,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { OrcidHistory } from '../../../core/orcid/model/orcid-history.model';
 import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
 import { OrcidHistoryDataService } from '../../../core/orcid/orcid-history-data.service';
-import { OrcidQueueService } from '../../../core/orcid/orcid-queue.service';
+import { OrcidQueueDataService } from '../../../core/orcid/orcid-queue-data.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
@@ -18,6 +18,7 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { AlertType } from '../../../shared/alert/aletr-type';
 import { Item } from '../../../core/shared/item.model';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
+import { UUIDService } from '../../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-orcid-queue',
@@ -35,7 +36,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list
    */
   public paginationOptions: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'oqp',
+    id: this.uuidService.generate(),
     pageSize: 5
   });
 
@@ -62,11 +63,12 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
   private subs: Subscription[] = [];
 
   constructor(private orcidAuthService: OrcidAuthService,
-              private orcidQueueService: OrcidQueueService,
+              private orcidQueueService: OrcidQueueDataService,
               protected translateService: TranslateService,
               private paginationService: PaginationService,
               private notificationsService: NotificationsService,
               private orcidHistoryService: OrcidHistoryDataService,
+              private uuidService: UUIDService
   ) {
   }
 

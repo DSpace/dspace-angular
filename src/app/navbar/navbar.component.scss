@@ -1,10 +1,10 @@
 nav.navbar {
-    border-bottom: 1px var(--bs-gray-400) solid;
+    border-bottom: 1px var(--ds-header-navbar-border-bottom-color) solid;
     align-items: baseline;
 }
 
 /** Mobile menu styling **/
-@media screen and (max-width: map-get($grid-breakpoints, md)) {
+@media screen and (max-width: map-get($grid-breakpoints, md)-0.02) {
     .navbar {
         width: 100%;
         background-color: var(--bs-white);

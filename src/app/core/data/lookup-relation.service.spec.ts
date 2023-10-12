@@ -1,5 +1,5 @@
 import { LookupRelationService } from './lookup-relation.service';
-import { ExternalSourceService } from './external-source.service';
+import { ExternalSourceDataService } from './external-source-data.service';
 import { SearchService } from '../shared/search/search.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
@@ -13,12 +13,15 @@ import { skip, take } from 'rxjs/operators';
 import { ExternalSource } from '../shared/external-source.model';
 import { RequestService } from './request.service';
 import { of as observableOf } from 'rxjs';
+import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
+import { UUIDService } from '../shared/uuid.service';
 
 describe('LookupRelationService', () => {
   let service: LookupRelationService;
-  let externalSourceService: ExternalSourceService;
+  let externalSourceService: ExternalSourceDataService;
   let searchService: SearchService;
   let requestService: RequestService;
+  let uuidService: UUIDService;
 
   const totalExternal = 8;
   const optionsWithQuery = new PaginatedSearchOptions({ query: 'test-query' });
@@ -55,7 +58,8 @@ describe('LookupRelationService', () => {
       getEndpoint: observableOf(searchServiceEndpoint)
     });
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring']);
-    service = new LookupRelationService(externalSourceService, searchService, requestService);
+    uuidService = getMockUUIDService();
+    service = new LookupRelationService(externalSourceService, searchService, requestService, uuidService);
   }
 
   beforeEach(() => {

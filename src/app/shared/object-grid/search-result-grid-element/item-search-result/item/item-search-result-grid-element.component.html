@@ -20,7 +20,7 @@
         <ds-access-status-badge [item]="dso"></ds-access-status-badge>
         <ds-truncatable [id]="dso.id">
             <ds-truncatable-part [id]="dso.id" [minLines]="3" type="h4">
-                <h4 class="card-title" [innerHTML]="firstMetadataValue('dc.title')"></h4>
+                <h4 class="card-title" [innerHTML]="dsoTitle"></h4>
             </ds-truncatable-part>
             <ds-truncatable-part [id]="dso.id" [minLines]="1" *ngIf="dso.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])">
                 <p class="item-authors card-text text-muted">

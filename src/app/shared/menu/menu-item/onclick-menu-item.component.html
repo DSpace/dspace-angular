@@ -1,4 +1,5 @@
-<a href="javascript:void(0);"
+<a *ngIf="!item.disabled"
+   href="javascript:void(0);"
    class="nav-item nav-link"
    role="button"
    [title]="item.text | translate"
@@ -6,3 +7,4 @@
    (keyup.space)="activate($event)"
    (keyup.enter)="activate($event)"
 >{{item.text | translate}}</a>
+<span *ngIf="item.disabled"   class="nav-item nav-link disabled">{{item.text | translate}}</span>

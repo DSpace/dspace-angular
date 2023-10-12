@@ -1,5 +1,5 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import { ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,7 +16,7 @@ import { FormFieldModel } from '../../../../models/form-field.model';
 import { FormBuilderService } from '../../../../form-builder.service';
 import { FormService } from '../../../../../form.service';
 import { FormComponent } from '../../../../../form.component';
-import { Chips } from '../../../../../../chips/models/chips.model';
+import { Chips } from '../../../../../chips/models/chips.model';
 import { FormFieldMetadataValueObject } from '../../../../models/form-field-metadata-value.model';
 import { DsDynamicInputModel } from '../../ds-dynamic-input.model';
 import { VocabularyService } from '../../../../../../../core/submission/vocabularies/vocabulary.service';

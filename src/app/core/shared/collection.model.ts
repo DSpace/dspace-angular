@@ -15,10 +15,11 @@ import { RESOURCE_POLICY } from '../resource-policy/models/resource-policy.resou
 import { COMMUNITY } from './community.resource-type';
 import { Community } from './community.model';
 import { ChildHALResource } from './child-hal-resource.model';
+import { HandleObject } from './handle-object.model';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
-export class Collection extends DSpaceObject implements ChildHALResource {
+export class Collection extends DSpaceObject implements ChildHALResource, HandleObject {
   static type = COLLECTION;
 
   /**

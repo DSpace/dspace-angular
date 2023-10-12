@@ -1,5 +1,4 @@
 import { EditDsoResolver } from './edit-dso.resolver';
-import { getTestScheduler } from 'jasmine-marbles';
 import { Collection } from '../collection.model';
 import { EditCollectionResolver } from './edit-collection.resolver';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
@@ -17,7 +16,7 @@ describe('EditDsoResolver', () => {
       uuid = '1234-65487-12354-1235';
       testCollection = Object.assign(new Collection(), { uuid });
       collectionService = {
-        findByIdWithProjection: (id: string) => createSuccessfulRemoteDataObject$(testCollection)
+        findByIdWithProjections: (id: string) => createSuccessfulRemoteDataObject$(testCollection)
       };
       resolver = new EditCollectionResolver(collectionService);
     });

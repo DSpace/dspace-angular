@@ -20,14 +20,14 @@ import { TestScheduler } from 'rxjs/testing';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
+  createFailedRemoteDataObject$
 } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { UUIDService } from '../../../core/shared/uuid.service';
+import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 
 describe('BitstreamFormatsComponent', () => {
   let comp: BitstreamFormatsComponent;
@@ -85,10 +85,6 @@ describe('BitstreamFormatsComponent', () => {
   ];
   const mockFormatsRD = createSuccessfulRemoteDataObject(createPaginatedList(mockFormatsList));
 
-  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
-  const sort = new SortOptions('score', SortDirection.DESC);
-  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
-
   const initAsync = () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
@@ -114,7 +110,8 @@ describe('BitstreamFormatsComponent', () => {
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: NotificationsService, useValue: notificationsServiceStub },
-        { provide: PaginationService, useValue: paginationService }
+        { provide: PaginationService, useValue: paginationService },
+        { provide: UUIDService, useValue: getMockUUIDService() }
       ]
     }).compileComponents();
   };
@@ -135,16 +132,19 @@ describe('BitstreamFormatsComponent', () => {
     });
 
     it('should contain the correct formats', () => {
-      const unknownName: HTMLElement = fixture.debugElement.query(By.css('#formats tr:nth-child(1) td:nth-child(2)')).nativeElement;
+      const unknownName: HTMLElement = fixture.debugElement.query(By.css('#formats tr:nth-child(1) td:nth-child(3)')).nativeElement;
       expect(unknownName.textContent).toBe('Unknown');
 
-      const licenseName: HTMLElement = fixture.debugElement.query(By.css('#formats tr:nth-child(2) td:nth-child(2)')).nativeElement;
+      const UUID: HTMLElement = fixture.debugElement.query(By.css('#formats tr:nth-child(1) td:nth-child(2)')).nativeElement;
+      expect(UUID.textContent).toBe('test-uuid-1');
+
+      const licenseName: HTMLElement = fixture.debugElement.query(By.css('#formats tr:nth-child(2) td:nth-child(3)')).nativeElement;
       expect(licenseName.textContent).toBe('License');
 
-      const ccLicenseName: HTMLElement = fixture.debugElement.query(By.css('#formats tr:nth-child(3) td:nth-child(2)')).nativeElement;
+      const ccLicenseName: HTMLElement = fixture.debugElement.query(By.css('#formats tr:nth-child(3) td:nth-child(3)')).nativeElement;
       expect(ccLicenseName.textContent).toBe('CC License');
 
-      const adobeName: HTMLElement = fixture.debugElement.query(By.css('#formats tr:nth-child(4) td:nth-child(2)')).nativeElement;
+      const adobeName: HTMLElement = fixture.debugElement.query(By.css('#formats tr:nth-child(4) td:nth-child(3)')).nativeElement;
       expect(adobeName.textContent).toBe('Adobe PDF');
     });
   });
@@ -239,14 +239,15 @@ describe('BitstreamFormatsComponent', () => {
             { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
             { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
             { provide: NotificationsService, useValue: notificationsServiceStub },
-            { provide: PaginationService, useValue: paginationService }
+            { provide: PaginationService, useValue: paginationService },
+            { provide: UUIDService, useValue: getMockUUIDService() }
           ]
         }).compileComponents();
       }
     ));
 
     beforeEach(initBeforeEach);
-    it('should clear bitstream formats  ', () => {
+    it('should clear bitstream formats and show a success notification', () => {
       comp.deleteFormats();
 
       expect(bitstreamFormatService.clearBitStreamFormatRequests).toHaveBeenCalled();
@@ -275,7 +276,7 @@ describe('BitstreamFormatsComponent', () => {
           selectBitstreamFormat: {},
           deselectBitstreamFormat: {},
           deselectAllBitstreamFormats: {},
-          delete: observableOf(false),
+          delete: createFailedRemoteDataObject$(),
           clearBitStreamFormatRequests: observableOf('cleared')
         });
 
@@ -288,14 +289,15 @@ describe('BitstreamFormatsComponent', () => {
             { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
             { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
             { provide: NotificationsService, useValue: notificationsServiceStub },
-            { provide: PaginationService, useValue: paginationService }
+            { provide: PaginationService, useValue: paginationService },
+            { provide: UUIDService, useValue: getMockUUIDService() }
           ]
         }).compileComponents();
       }
     ));
 
     beforeEach(initBeforeEach);
-    it('should clear bitstream formats  ', () => {
+    it('should clear bitstream formats and show an error notification', () => {
       comp.deleteFormats();
 
       expect(bitstreamFormatService.clearBitStreamFormatRequests).toHaveBeenCalled();

@@ -8,7 +8,7 @@ import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { FileSizePipe } from '../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { MetadataFieldWrapperComponent } from '../../field-components/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MockBitstreamFormat1 } from '../../../shared/mocks/item.mock';
 import { MediaViewerVideoComponent } from './media-viewer-video.component';
 import { By } from '@angular/platform-browser';

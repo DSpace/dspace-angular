@@ -32,6 +32,7 @@ import {
   ACCESS_CONDITION_GROUP_LAYOUT,
   ACCESS_CONDITIONS_FORM_ARRAY_CONFIG,
   ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT,
+  ACCESS_CONDITIONS_FORM_TRANSLATION_CONFIG,
   ACCESS_FORM_CHECKBOX_CONFIG,
   ACCESS_FORM_CHECKBOX_LAYOUT,
   FORM_ACCESS_CONDITION_END_DATE_CONFIG,
@@ -45,7 +46,7 @@ import { hasValue, isNotEmpty, isNotNull } from '../../../shared/empty.util';
 import {
   WorkspaceitemSectionAccessesObject
 } from '../../../core/submission/models/workspaceitem-section-accesses.model';
-import { SubmissionAccessesConfigService } from '../../../core/config/submission-accesses-config.service';
+import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
@@ -133,7 +134,7 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
    * @param {SectionFormOperationsService} formOperationsService
    * @param {FormBuilderService} formBuilderService
    * @param {TranslateService} translate
-   * @param {SubmissionAccessesConfigService} accessesConfigService
+   * @param {SubmissionAccessesConfigDataService} accessesConfigService
    * @param {SectionAccessesService} accessesService
    * @param {SubmissionJsonPatchOperationsService} operationsService
    * @param {string} injectedSubmissionId
@@ -141,7 +142,7 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
   constructor(
     protected sectionService: SectionsService,
     private formBuilderService: FormBuilderService,
-    private accessesConfigService: SubmissionAccessesConfigService,
+    private accessesConfigService: SubmissionAccessesConfigDataService,
     private accessesService: SectionAccessesService,
     protected formOperationsService: SectionFormOperationsService,
     protected operationsBuilder: JsonPatchOperationsBuilder,
@@ -336,7 +337,7 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
     for (const accessCondition of this.availableAccessConditionOptions) {
       accessConditionTypeOptions.push(
         {
-          label: accessCondition.name,
+          label: this.translate.instant(`${ACCESS_CONDITIONS_FORM_TRANSLATION_CONFIG}${accessCondition.name}`),
           value: accessCondition.name
         }
       );

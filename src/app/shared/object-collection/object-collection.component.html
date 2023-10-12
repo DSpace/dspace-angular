@@ -1,4 +1,5 @@
-<ds-object-list [config]="config"
+<ds-themed-object-list [ngClass]="placeholderFontClass"
+                [config]="config"
                 [sortConfig]="sortConfig"
                 [objects]="objects"
                 [hasBorder]="hasBorder"
@@ -6,8 +7,9 @@
                 [linkType]="linkType"
                 [context]="context"
                 [hidePaginationDetail]="hidePaginationDetail"
-                [showHiddenRelatedItemsAlert]="showHiddenRelatedItemsAlert"
+                [showMetrics]="showMetrics"
                 [showPaginator]="showPaginator"
+                [showThumbnails]="showThumbnails"
                 (paginationChange)="onPaginationChange($event)"
                 (pageChange)="onPageChange($event)"
                 (pageSizeChange)="onPageSizeChange($event)"
@@ -26,7 +28,7 @@
                 (prev)="goPrev()"
                 (next)="goNext()"
                 *ngIf="(currentMode$ | async) === viewModeEnum.ListElement">
-</ds-object-list>
+</ds-themed-object-list>
 
 <ds-object-grid [config]="config"
                 [sortConfig]="sortConfig"
@@ -35,7 +37,9 @@
                 [linkType]="linkType"
                 [context]="context"
                 [hidePaginationDetail]="hidePaginationDetail"
+                [showMetrics]="showMetrics"
                 [showPaginator]="showPaginator"
+                [showThumbnails]="showThumbnails"
                 (paginationChange)="onPaginationChange($event)"
                 (pageChange)="onPageChange($event)"
                 (pageSizeChange)="onPageSizeChange($event)"
@@ -51,7 +55,9 @@
                   [linkType]="linkType"
                   [context]="context"
                   [hidePaginationDetail]="hidePaginationDetail"
+                  [showMetrics]="showMetrics"
                   [showPaginator]="showPaginator"
+                  [showThumbnails]="showThumbnails"
                   (contentChange)="contentChange.emit($event)"
                   *ngIf="(currentMode$ | async) === viewModeEnum.DetailedListElement">
 </ds-object-detail>

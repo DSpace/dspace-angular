@@ -18,7 +18,7 @@
                     <div class="col-7">
                         <dl class="row">
                             <dt class="col-md-4">{{"item.page.filesection.name" | translate}}</dt>
-                            <dd class="col-md-8">{{file.name}}</dd>
+                            <dd class="col-md-8 text-break" data-test="file-name">{{file.name}}</dd>
 
                             <dt class="col-md-4">{{"item.page.filesection.size" | translate}}</dt>
                             <dd class="col-md-8">{{(file.sizeBytes) | dsFileSize }}</dd>
@@ -33,9 +33,9 @@
                         </dl>
                     </div>
                     <div class="col-2">
-                        <ds-file-download-link [bitstream]="file" [item]="item">
+                        <ds-themed-file-download-link [bitstream]="file" [item]="item">
                             {{"item.page.filesection.download" | translate}}
-                        </ds-file-download-link>
+                        </ds-themed-file-download-link>
                     </div>
                 </div>
             </ds-pagination>
@@ -74,9 +74,9 @@
                         </dl>
                     </div>
                     <div class="col-2">
-                        <ds-file-download-link [bitstream]="file" [item]="item">
+                        <ds-themed-file-download-link [bitstream]="file" [item]="item">
                             {{"item.page.filesection.download" | translate}}
-                        </ds-file-download-link>
+                        </ds-themed-file-download-link>
                     </div>
                 </div>
             </ds-pagination>

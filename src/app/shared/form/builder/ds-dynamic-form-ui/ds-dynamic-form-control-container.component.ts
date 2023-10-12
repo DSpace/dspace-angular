@@ -3,7 +3,7 @@ import {
   Component,
   ComponentFactoryResolver,
   ContentChildren,
-  EventEmitter,
+  EventEmitter, Inject,
   Input,
   NgZone,
   OnChanges,
@@ -86,7 +86,7 @@ import { DsDynamicRelationInlineGroupComponent } from './models/relation-inline-
 import { SearchResult } from '../../../search/models/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { RelationshipService } from '../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
@@ -119,6 +119,8 @@ import { RelationshipOptions } from '../models/relationship-options.model';
 import { FormBuilderService } from '../form-builder.service';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
+import { itemLinksToFollow } from '../../../utils/relation-query.utils';
 import { DynamicConcatModel } from './models/ds-dynamic-concat.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
@@ -235,6 +237,11 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }) componentViewContainerRef: ViewContainerRef;
   private showErrorMessagesPreviousStage: boolean;
 
+  /**
+   * Determines whether to request embedded thumbnail.
+   */
+  fetchThumbnail: boolean;
+
   get componentType(): Type<DynamicFormControl> | null {
     return dsDynamicFormControlMapFn(this.model);
   }
@@ -248,7 +255,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     protected translateService: TranslateService,
     protected relationService: DynamicFormRelationService,
     private modalService: NgbModal,
-    private relationshipService: RelationshipService,
+    private relationshipService: RelationshipDataService,
     private selectableListService: SelectableListService,
     private itemService: ItemDataService,
     private zone: NgZone,
@@ -257,8 +264,11 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private ref: ChangeDetectorRef,
     private formService: FormService,
     private formBuilderService: FormBuilderService,
-    private submissionService: SubmissionService) {
+    private submissionService: SubmissionService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+  ) {
     super(ref, componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
+    this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
   }
 
   /**
@@ -317,8 +327,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       }
 
       if (hasValue(this.value) && this.value.isVirtual) {
-        const relationship$ = this.relationshipService.findById(this.value.virtualValue, true, true, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType'))
-          .pipe(
+        const relationship$ = this.relationshipService.findById(this.value.virtualValue,
+          true,
+          true,
+          ... itemLinksToFollow(this.fetchThumbnail)).pipe(
             getAllSucceededRemoteData(),
             getRemoteDataPayload());
         this.relationshipValue$ = observableCombineLatest([this.item$.pipe(take(1)), relationship$]).pipe(
@@ -485,6 +497,19 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   get hasHint(): boolean {
     return isNotEmpty(this.model.hint) && this.model.hint !== '&nbsp;';
+  }
+
+  /**
+   * Check if the current field has a hint and is repeatable
+   * for specific input types such as CHECKBOX_GROUP (input-type: LIST) and RELATION (input-type: GROUP)
+   * @readonly
+   * @type {boolean}
+   * @memberof DsDynamicFormControlContainerComponent
+   */
+  get hasHintAndIsRepeatable(): boolean {
+    return this.hasHint && this.model.repeatable && (
+      this.model.type === 'CHECKBOX_GROUP' || this.model.type === 'RELATION'
+    ) ;
   }
 
   /**

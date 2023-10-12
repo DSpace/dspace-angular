@@ -1,73 +1,39 @@
-/* eslint-disable max-classes-per-file */
-
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
+
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { dataService } from '../cache/builders/build-decorators';
+import { dataService } from '../data/base/data-service.decorator';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core-state.model';
-import { ConfigurationDataService } from '../data/configuration-data.service';
-import { DataService } from '../data/data.service';
-import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
-import { ItemDataService } from '../data/item-data.service';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { LoginStatistics } from './models/login-statistics.model';
 import { LOGIN_STATISTICS } from './models/login-statistics.resource-type';
-
-/**
- * A private DataService implementation to delegate specific methods to.
- */
- class LoginStatisticsServiceImpl extends DataService<LoginStatistics> {
-  protected linkPath = 'logins';
-
-  constructor(
-    protected requestService: RequestService,
-    protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
-    protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<LoginStatistics>) {
-    super();
-  }
-
-}
+import { SearchDataImpl } from '../data/base/search-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 
 /**
  * A service that provides methods to make REST requests with login statistics endpoint.
  */
- @Injectable()
- @dataService(LOGIN_STATISTICS)
- export class LoginStatisticsService {
+@Injectable()
+@dataService(LOGIN_STATISTICS)
+export class LoginStatisticsService extends IdentifiableDataService<LoginStatistics> {
 
-  dataService: LoginStatisticsServiceImpl;
-
-  responseMsToLive: number = 10 * 1000;
+  private searchData: SearchDataImpl<LoginStatistics>;
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected router: Router,
-    protected comparator: DefaultChangeAnalyzer<LoginStatistics>,
-    protected itemService: ItemDataService,
-    protected configurationService: ConfigurationDataService ) {
+    protected notificationsService: NotificationsService) {
 
-    this.dataService = new LoginStatisticsServiceImpl(requestService, rdbService, store, objectCache, halService,
-        notificationsService, http, comparator);
+    super('logins', requestService, rdbService, objectCache, halService);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
 
   }
 
@@ -93,8 +59,8 @@ import { LOGIN_STATISTICS } from './models/login-statistics.resource-type';
       limit = 10;
     }
 
-    return this.dataService.searchBy('byDateRange', {
-      elementsPerPage : limit,
+    return this.searchData.searchBy('byDateRange', {
+      elementsPerPage: limit,
       searchParams: searchParams
     }, false);
 

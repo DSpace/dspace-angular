@@ -36,7 +36,7 @@ export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxModelComponent 
   subs: Subscription[] = [];
 
   constructor(
-    public cd: ChangeDetectorRef,
+    public cdr: ChangeDetectorRef,
     protected translateService: TranslateService,
     @Inject('boxProvider') public boxProvider: CrisLayoutBox,
     @Inject('itemProvider') public itemProvider: Item
@@ -55,6 +55,7 @@ export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxModelComponent 
    */
   setMetadataComponents(metadatacomponents: MetadataBoxConfiguration) {
     this.metadataBoxConfiguration = metadatacomponents;
+    this.cdr.detectChanges();
   }
 
   /**

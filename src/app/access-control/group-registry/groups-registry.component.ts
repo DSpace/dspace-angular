@@ -5,11 +5,12 @@ import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
+  EMPTY,
   Observable,
   of as observableOf,
   Subscription
 } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, defaultIfEmpty, map, switchMap, tap } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
@@ -36,6 +37,7 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { NoContent } from '../../core/shared/NoContent.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { UUIDService } from '../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-groups-registry',
@@ -53,7 +55,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of groups
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'gl',
+    id: this.uuidService.generate(),
     pageSize: 5,
     currentPage: 1
   });
@@ -103,6 +105,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               private router: Router,
               private authorizationService: AuthorizationDataService,
               private paginationService: PaginationService,
+              private uuidService: UUIDService,
               public requestService: RequestService) {
     this.currentSearchQuery = '';
     this.searchForm = this.formBuilder.group(({
@@ -144,7 +147,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
         }
         return this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
           switchMap((isSiteAdmin: boolean) => {
-            return observableCombineLatest(groups.page.map((group: Group) => {
+            return observableCombineLatest([...groups.page.map((group: Group) => {
               if (hasValue(group) && !this.deletedGroupsIds.includes(group.id)) {
                 return observableCombineLatest([
                   this.authorizationService.isAuthorized(FeatureID.CanDelete, group.self),
@@ -165,8 +168,10 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
                     }
                   )
                 );
+              } else {
+                return EMPTY;
               }
-            })).pipe(map((dtos: GroupDtoModel[]) => {
+            })]).pipe(defaultIfEmpty([]), map((dtos: GroupDtoModel[]) => {
               return buildPaginatedList(groups.pageInfo, dtos);
             }));
           })
@@ -213,7 +218,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    * @param group
    */
   getMembers(group: Group): Observable<RemoteData<PaginatedList<EPerson>>> {
-    return this.ePersonDataService.findAllByHref(group._links.epersons.href).pipe(getFirstSucceededRemoteData());
+    return this.ePersonDataService.findListByHref(group._links.epersons.href).pipe(getFirstSucceededRemoteData());
   }
 
   /**
@@ -221,7 +226,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    * @param group
    */
   getSubgroups(group: Group): Observable<RemoteData<PaginatedList<Group>>> {
-    return this.groupService.findAllByHref(group._links.subgroups.href).pipe(getFirstSucceededRemoteData());
+    return this.groupService.findListByHref(group._links.subgroups.href).pipe(getFirstSucceededRemoteData());
   }
 
   /**

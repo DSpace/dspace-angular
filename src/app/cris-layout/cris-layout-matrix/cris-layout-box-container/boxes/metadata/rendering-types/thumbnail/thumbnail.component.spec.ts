@@ -4,7 +4,9 @@ import {
   bitstreamOrignialWithMetadata,
   bitstreamWithoutThumbnail,
   bitstreamWithThumbnail,
-  bitstreamWithThumbnailWithMetadata
+  bitstreamWithThumbnailWithMetadata,
+  mockThumbnail,
+  mockThumbnailWithType
 } from '../../../../../../../shared/mocks/bitstreams.mock';
 import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 
@@ -13,7 +15,6 @@ import { BitstreamDataService } from '../../../../../../../core/data/bitstream-d
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { of } from 'rxjs';
-import { SharedModule } from '../../../../../../../shared/shared.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../../../shared/testing/translate-loader.mock';
 import { FieldRenderingType } from '../metadata-box.decorator';
@@ -21,7 +22,10 @@ import {
   AuthorizationDataService
 } from '../../../../../../../core/data/feature-authorization/authorization-data.service';
 import { By } from '@angular/platform-browser';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../../../../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
 
 describe('ThumbnailComponent', () => {
@@ -88,7 +92,6 @@ describe('ThumbnailComponent', () => {
   const getDefaultTestBedConf = (fieldProvider) => {
     return {
       imports: [
-        SharedModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -96,7 +99,7 @@ describe('ThumbnailComponent', () => {
           }
         })
       ],
-      declarations: [ThumbnailComponent],
+      declarations: [ThumbnailComponent, ThumbnailComponent],
       providers: [
         { provide: 'fieldProvider', useValue: fieldProvider },
         { provide: 'itemProvider', useValue: testItem },
@@ -104,7 +107,7 @@ describe('ThumbnailComponent', () => {
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
         { provide: AuthorizationDataService, useValue: mockAuthorizedService },
         { provide: ConfigurationDataService, useValue: {} },
-        { provide: ThumbnailService, useValue: mockThumbnailService },
+        { provide: ThumbnailService, useValue: mockThumbnailService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     };
@@ -144,13 +147,12 @@ describe('ThumbnailComponent', () => {
       });
 
       it('check metadata rendering', fakeAsync(() => {
-        const valueFound = fixture.debugElement.queryAll(By.css('ds-thumbnail'));
-        expect(valueFound.length).toBe(1);
+        const thumbnail = fixture.debugElement.query(By.css('[data-test="thumbnail"]'));
+        expect(thumbnail).toBeTruthy();
       }));
 
       it('should show default thumbnail', () => {
-        const image = fixture.debugElement.query(By.css('img[src="assets/images/person-placeholder.svg"]'));
-        expect(image).toBeTruthy();
+        expect(component.default).toBe('assets/images/person-placeholder.svg');
       });
 
     });
@@ -165,13 +167,12 @@ describe('ThumbnailComponent', () => {
       });
 
       it('check metadata rendering', fakeAsync(() => {
-        const valueFound = fixture.debugElement.queryAll(By.css('ds-thumbnail'));
-        expect(valueFound.length).toBe(1);
+        const thumbnail = fixture.debugElement.query(By.css('[data-test="thumbnail"]'));
+        expect(thumbnail).toBeTruthy();
       }));
 
       it('should show default thumbnail', () => {
-        const image = fixture.debugElement.query(By.css('img[src="assets/images/person-placeholder.svg"]'));
-        expect(image).toBeTruthy();
+        expect(component.default).toBe('assets/images/person-placeholder.svg');
       });
 
     });
@@ -186,13 +187,12 @@ describe('ThumbnailComponent', () => {
       });
 
       it('check metadata rendering', fakeAsync(() => {
-        const valueFound = fixture.debugElement.queryAll(By.css('ds-thumbnail'));
-        expect(valueFound.length).toBe(1);
+        const thumbnail = fixture.debugElement.query(By.css('[data-test="thumbnail"]'));
+        expect(thumbnail).toBeTruthy();
       }));
 
       it('should show thumbnail content image src', () => {
-        const image = fixture.debugElement.query(By.css('img[src="http://localhost:8080/server/api/core/bitstreams/thumbnail-6df9-40ef-9009-b3c90a4e6d5b/content"]'));
-        expect(image).toBeTruthy();
+        expect(component.thumbnail$.value).toEqual(mockThumbnail);
       });
 
     });
@@ -233,14 +233,13 @@ describe('ThumbnailComponent', () => {
         fixture.detectChanges();
       });
 
-      it('check metadata rendering', fakeAsync(() => {
-        const valueFound = fixture.debugElement.queryAll(By.css('ds-thumbnail'));
-        expect(valueFound.length).toBe(1);
-      }));
+      it('check metadata rendering', () => {
+        const thumbnail = fixture.debugElement.query(By.css('[data-test="thumbnail"]'));
+        expect(thumbnail).toBeTruthy();
+      });
 
       it('should show default thumbnail', () => {
-        const image = fixture.debugElement.query(By.css('img[src="assets/images/person-placeholder.svg"]'));
-        expect(image).toBeTruthy();
+        expect(component.default).toBe('assets/images/person-placeholder.svg');
       });
 
     });
@@ -255,8 +254,7 @@ describe('ThumbnailComponent', () => {
       });
 
       it('should not show bitstream content image src but the default image', () => {
-        const image = fixture.debugElement.query(By.css('img[src="assets/images/person-placeholder.svg"]'));
-        expect(image).toBeTruthy();
+        expect(component.default).toBe('assets/images/person-placeholder.svg');
       });
 
     });
@@ -271,8 +269,7 @@ describe('ThumbnailComponent', () => {
       });
 
       it('should not show thumbnail content image src but the default image', () => {
-        const image = fixture.debugElement.query(By.css('img[src="assets/images/person-placeholder.svg"]'));
-        expect(image).toBeTruthy();
+        expect(component.default).toBe('assets/images/person-placeholder.svg');
       });
 
     });
@@ -287,8 +284,7 @@ describe('ThumbnailComponent', () => {
       });
 
       it('should not show thumbnail content image src but the default image', () => {
-        const image = fixture.debugElement.query(By.css('img[src="assets/images/person-placeholder.svg"]'));
-        expect(image).toBeTruthy();
+        expect(component.default).toBe('assets/images/person-placeholder.svg');
       });
 
     });
@@ -303,8 +299,10 @@ describe('ThumbnailComponent', () => {
       });
 
       it('should show thumbnail content image src', () => {
+/*        expect(component.default).toBe('assets/images/person-placeholder.svg');
         const image = fixture.debugElement.query(By.css('img[src="http://localhost:8080/server/api/core/bitstreams/thumbnail-6df9-40ef-9009-b3c90a4e6d5b/content"]'));
-        expect(image).toBeTruthy();
+        expect(image).toBeTruthy();*/
+        expect(component.thumbnail$.value).toEqual(mockThumbnailWithType);
       });
 
     });

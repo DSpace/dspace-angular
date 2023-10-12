@@ -39,20 +39,23 @@
                   <i class="fas fa-sliders"></i> {{"search.sidebar.open" | translate}}
                 </button>
             </div>
-            <ds-search-results [searchResults]="resultsRD$ | async"
-                               [searchConfig]="searchOptions$ | async"
-                               [configuration]="(currentConfiguration$ | async)"
-                               [disableHeader]="!searchEnabled"
-                               [linkType]="linkType"
-                               [context]="(currentContext$ | async)"
-                               [selectable]="selectable"
-                               [selectionConfig]="selectionConfig"
-                               [showHiddenRelatedItemsAlert]="true"
-                               [customData]="customData"
-                               (contentChange)="onContentChange($event)"
-                               (customEvent)="customEvent.emit($event)"
-                               (deselectObject)="deselectObject.emit($event)"
-                               (selectObject)="selectObject.emit($event)"></ds-search-results>
+            <ds-themed-search-results [searchResults]="resultsRD$ | async"
+                                      [searchConfig]="searchOptions$ | async"
+                                      [configuration]="(currentConfiguration$ | async)"
+                                      [disableHeader]="!searchEnabled"
+                                      [linkType]="linkType"
+                                      [context]="(currentContext$ | async)"
+                                      [customData]="customData"
+                                      [searchResultNotice]="searchResultNotice"
+                                      [searchResultNoticeType]="searchResultNoticeType"
+                                      [selectable]="selectable"
+                                      [selectionConfig]="selectionConfig"
+                                      [showCsvExport]="showCsvExport"
+                                      [showSearchResultNotice]="showSearchResultNotice"
+                                      (contentChange)="onContentChange($event)"
+                                      (customEvent)="customEvent.emit($event)"
+                                      (deselectObject)="deselectObject.emit($event)"
+                                      (selectObject)="selectObject.emit($event)"></ds-themed-search-results>
         </div>
     </div>
 </ng-template>
@@ -92,9 +95,9 @@
 </ng-template>
 
 <ng-template #searchForm>
-    <div class="d-flex justify-content-between">
+    <div class="d-flex flex-wrap flex-xl-nowrap search-form-flex-wrapper">
         <div *ngIf="!(isXsOrSm$ | async) && showFilterToggle && showSidebar">
-            <button class="btn btn-outline-secondary mr-3"
+            <button class="btn btn-outline-secondary"
                     ngbTooltip="{{'search.sidebar.show.hide.filters.tooltip' | translate}}"
                     (click)="toggleSidebar()">
                 <span class="d-flex align-items-center">
@@ -113,9 +116,9 @@
         <ng-content select="[additionalSearchFormOptions]"></ng-content>
         <ds-item-export-modal-launcher [searchOptions$]="searchOptions$" *ngIf="showExport"></ds-item-export-modal-launcher>
     </div>
-    <div class="row mb-3 mb-md-1">
+    <div class="row my-3 my-md-1">
         <div class="labels col-sm-9">
-            <ds-search-labels *ngIf="searchEnabled" [inPlaceSearch]="inPlaceSearch"></ds-search-labels>
+            <ds-search-labels [inPlaceSearch]="inPlaceSearch"></ds-search-labels>
         </div>
     </div>
 </ng-template>

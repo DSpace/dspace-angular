@@ -34,17 +34,24 @@ import {
 import { PageInternalServerErrorComponent } from './page-internal-server-error/page-internal-server-error.component';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { PageErrorComponent } from './page-error/page-error.component';
+import { ContextHelpToggleComponent } from './header/context-help-toggle/context-help-toggle.component';
+import { SystemWideAlertModule } from './system-wide-alert/system-wide-alert.module';
 import {
   ProcessNotificationComponent
 } from './shared/notifications/process-notification/process-notification.component';
 import { FooterModule } from './footer/footer.module';
 import { SocialModule } from './social/social.module';
 import { ExploreModule } from './shared/explore/explore.module';
+import { BreadcrumbTooltipPipe } from './breadcrumbs/breadcrumb/breadcrumb-tooltip.pipe';
+import {
+  TruncateBreadcrumbItemCharactersPipe
+} from './breadcrumbs/breadcrumb/truncate-breadcrumb-item-characters.pipe';
 
 const IMPORTS = [
   CommonModule,
   SharedModule.withEntryComponents(),
   NavbarModule,
+  SystemWideAlertModule,
   NgbModule,
   ExploreModule,
   FooterModule,
@@ -78,7 +85,10 @@ const DECLARATIONS = [
   ThemedPageInternalServerErrorComponent,
   PageInternalServerErrorComponent,
   ThemedPageErrorComponent,
-  PageErrorComponent
+  PageErrorComponent,
+  ContextHelpToggleComponent,
+  TruncateBreadcrumbItemCharactersPipe,
+  BreadcrumbTooltipPipe
 ];
 
 const EXPORTS = [

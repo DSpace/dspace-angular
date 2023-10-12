@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Process } from '../processes/process.model';
@@ -11,10 +11,14 @@ import { map, switchMap, take } from 'rxjs/operators';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { ProcessBulkDeleteService } from './process-bulk-delete.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { hasValue } from '../../shared/empty.util';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { UUIDService } from '../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-process-overview',
@@ -23,7 +27,7 @@ import { TranslateService } from '@ngx-translate/core';
 /**
  * Component displaying a list of all processes in a paginated table
  */
-export class ProcessOverviewComponent implements OnInit {
+export class ProcessOverviewComponent implements OnInit, OnDestroy {
 
   /**
    * List of all processes
@@ -41,7 +45,7 @@ export class ProcessOverviewComponent implements OnInit {
    * The current pagination configuration for the page
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'po',
+    id: this.uuidService.generate(),
     pageSize: 20
   });
 
@@ -50,16 +54,26 @@ export class ProcessOverviewComponent implements OnInit {
    */
   dateFormat = 'yyyy-MM-dd HH:mm:ss';
 
+  processesToDelete: string[] = [];
+  private modalRef: any;
+
+  isProcessingSub: Subscription;
+
   constructor(protected processService: ProcessDataService,
               protected paginationService: PaginationService,
               protected ePersonService: EPersonDataService,
+              protected modalService: NgbModal,
               protected authorizationService: AuthorizationDataService,
               protected notificationService: NotificationsService,
-              protected translateService: TranslateService) {
+              protected translateService: TranslateService,
+              protected uuidService: UUIDService,
+              public processBulkDeleteService: ProcessBulkDeleteService
+  ) {
   }
 
   ngOnInit(): void {
     this.setProcesses();
+    this.processBulkDeleteService.clearAllProcesses();
   }
 
   /**
@@ -74,9 +88,9 @@ export class ProcessOverviewComponent implements OnInit {
     ]).pipe(
       switchMap(([isAdmin, config]) => {
         if (isAdmin) {
-          return this.processService.findAll(config);
+          return this.processService.findAll(config, false, true);
         } else {
-          return this.processService.searchBy('own', config);
+          return this.processService.searchItsOwnProcesses(config, false, true);
         }
       }),
       getFirstCompletedRemoteData(),
@@ -126,6 +140,43 @@ export class ProcessOverviewComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.paginationService.clearPagination(this.pageConfig.id);
+    if (hasValue(this.isProcessingSub)) {
+      this.isProcessingSub.unsubscribe();
+    }
   }
 
+  /**
+   * Open a given modal.
+   * @param content   - the modal content.
+   */
+  openDeleteModal(content) {
+    this.modalRef = this.modalService.open(content);
+  }
+
+  /**
+   * Close the modal.
+   */
+  closeModal() {
+    this.modalRef.close();
+  }
+
+  /**
+   * Delete the previously selected processes using the processBulkDeleteService
+   * After the deletion has started, subscribe to the isProcessing$ and when it is set
+   * to false after the processing is done, close the modal and reinitialise the processes
+   */
+  deleteSelected() {
+    this.processBulkDeleteService.deleteSelectedProcesses();
+
+    if (hasValue(this.isProcessingSub)) {
+      this.isProcessingSub.unsubscribe();
+    }
+    this.isProcessingSub = this.processBulkDeleteService.isProcessing$()
+      .subscribe((isProcessing) => {
+      if (!isProcessing) {
+        this.closeModal();
+        this.setProcesses();
+      }
+    });
+  }
 }

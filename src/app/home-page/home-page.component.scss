@@ -1,2 +1,5 @@
 :host {
+  #home-header-wrapper {
+    margin-top: calc(var(--ds-content-spacing) * -1);
+  }
 }
