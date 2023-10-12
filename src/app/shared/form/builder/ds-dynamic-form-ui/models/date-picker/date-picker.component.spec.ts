@@ -1,5 +1,5 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, Renderer2 } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { FormControl, FormGroup } from '@angular/forms';
 
@@ -39,6 +39,11 @@ describe('DsDatePickerComponent test suite', () => {
   let dateFixture: ComponentFixture<DsDatePickerComponent>;
   let html;
 
+  const renderer2: Renderer2 = {
+    selectRootElement: jasmine.createSpy('selectRootElement'),
+    querySelector: jasmine.createSpy('querySelector'),
+  } as unknown as Renderer2;
+
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
 
@@ -54,7 +59,8 @@ describe('DsDatePickerComponent test suite', () => {
         ChangeDetectorRef,
         DsDatePickerComponent,
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
-        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService }
+        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
+        { provide: Renderer2, useValue: renderer2 },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
