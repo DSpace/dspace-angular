@@ -5,9 +5,12 @@ rest:
   nameSpace: /server
 
 themes:
+  - name: capstone
+    extends: tamu
+    handle: '1969.1/94971'
   - name: esl
-    extends: 'tamu'
-    uuid: 'e646326e-f75a-47f3-b713-946754877b32'
+    extends: tamu
+    handle: '1969.1/1656'
   - name: tamu
     headTags:
     - tagName: link

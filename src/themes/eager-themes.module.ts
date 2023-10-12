@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 // import { EagerThemeModule as DSpaceEagerThemeModule } from './dspace/eager-theme.module';
 // import { EagerThemeModule as CustomEagerThemeModule } from './custom/eager-theme.module';
 import { EagerThemeModule as OaktrustEagerThemeModule } from './tamu/eager-theme.module';
+import { EagerThemeModule as CapstoneThemeModule } from './capstone/eager-theme.module';
 import { EagerThemeModule as EnergySystemsLaboratoryEagerThemeModule } from './esl/eager-theme.module';
 
 /**
@@ -16,6 +17,7 @@ import { EagerThemeModule as EnergySystemsLaboratoryEagerThemeModule } from './e
     // DSpaceEagerThemeModule,
     // CustomEagerThemeModule,
     OaktrustEagerThemeModule,
+    CapstoneThemeModule,
     EnergySystemsLaboratoryEagerThemeModule,
   ],
 })

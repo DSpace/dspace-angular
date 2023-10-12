@@ -66,6 +66,11 @@
                 "bundleName": "tamu-theme"
               },
               {
+                "input": "src/themes/capstone/styles/theme.scss",
+                "inject": false,
+                "bundleName": "capstone-theme"
+              },
+              {
                 "input": "src/themes/esl/styles/theme.scss",
                 "inject": false,
                 "bundleName": "esl-theme"

@@ -5230,6 +5230,10 @@
 
   "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
 
+  "relationships.isAdvisorOf": "Project Advisor",
+
+  "relationships.isSponsorOf": "Client",
+  
   "theme.esl.visit": "Visit the",
 
   "theme.esl.homepage": "Energy Systems Laboratory Homepage",
