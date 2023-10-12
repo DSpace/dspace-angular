@@ -7,7 +7,7 @@ rest:
 themes:
   - name: capstone
     extends: tamu
-    uuid: '45934f9c-2a5a-49be-8a90-d1fe2498498f'
+    handle: '1969.1/94971'
   - name: tamu
     headTags:
     - tagName: link
