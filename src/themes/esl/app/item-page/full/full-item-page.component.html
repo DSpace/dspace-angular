@@ -5,6 +5,7 @@
       <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
       <ds-view-tracker [object]="item"></ds-view-tracker>
       <div *ngIf="!item.isWithdrawn || (isAdmin$|async)" class="full-item-info">
+        <!-- TAMU Customization - ESL homepage link -->
         <div class="d-flex flex-row justify-content-center font-weight-bold">
           <p>{{"theme.esl.visit" | translate}} <a href="http://esl.tamu.edu/">{{"theme.esl.homepage" | translate}}</a>.</p>
         </div>
