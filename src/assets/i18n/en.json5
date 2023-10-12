@@ -1894,7 +1894,9 @@
 
   "dso-selector.error.title": "An error occurred searching for a {{ type }}",
 
-  "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
+  "dso-selector.export-metadata-csv.dspaceobject.head": "Export metadata from",
+
+  "dso-selector.export-metadata-xls.dspaceobject.head": "Export metadata from",
 
   "dso-selector.export-batch.dspaceobject.head": "Export Batch (ZIP) from",
 
@@ -1960,11 +1962,21 @@
 
   "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
 
-  "confirmation-modal.export-metadata.info": "Are you sure you want to export metadata for {{ dsoName }}",
+  "confirmation-modal.export-metadata-csv.header": "Export metadata for {{ dsoName }}",
 
-  "confirmation-modal.export-metadata.cancel": "Cancel",
+  "confirmation-modal.export-metadata-csv.info": "Are you sure you want to export metadata for {{ dsoName }}",
 
-  "confirmation-modal.export-metadata.confirm": "Export",
+  "confirmation-modal.export-metadata-csv.cancel": "Cancel",
+
+  "confirmation-modal.export-metadata-csv.confirm": "Export",
+
+  "confirmation-modal.export-metadata-xls.header": "Export metadata for {{ dsoName }}",
+
+  "confirmation-modal.export-metadata-xls.info": "Are you sure you want to export metadata for {{ dsoName }}",
+
+  "confirmation-modal.export-metadata-xls.cancel": "Cancel",
+
+  "confirmation-modal.export-metadata-xls.confirm": "Export",
 
   "confirmation-modal.export-batch.header": "Export batch (ZIP) for {{ dsoName }}",
 
@@ -3786,6 +3798,10 @@
   "menu.section.export_item": "Item",
 
   "menu.section.export_metadata": "Metadata",
+
+  "menu.section.export_metadata_csv": "Metadata CSV",
+
+  "menu.section.export_metadata_xls": "Metadata XLS",
 
   "menu.section.export_batch": "Batch Export (ZIP)",
 

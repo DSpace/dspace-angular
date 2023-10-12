@@ -9,7 +9,8 @@ import { hasValue, isNotEmpty } from '../../empty.util';
 export enum SelectorActionType {
   CREATE = 'create',
   EDIT = 'edit',
-  EXPORT_METADATA = 'export-metadata',
+  EXPORT_METADATA_CSV = 'export-metadata-csv',
+  EXPORT_METADATA_XLS = 'export-metadata-xls',
   IMPORT_BATCH = 'import-batch',
   SET_SCOPE = 'set-scope',
   EXPORT_BATCH = 'export-batch',
