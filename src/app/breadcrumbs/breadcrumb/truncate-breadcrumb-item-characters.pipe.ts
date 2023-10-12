@@ -19,10 +19,14 @@ export class TruncateBreadcrumbItemCharactersPipe implements PipeTransform {
    * @param text Traslated text to be truncated
    */
   transform(text: string): string {
-    if (hasValue(text) && text.length > this.charLimit) {
+    if (this.isTruncatable(text)) {
       return text.substring(0, this.charLimit).concat('...');
     } else {
       return text;
     }
+  }
+
+  protected isTruncatable(text: string): boolean {
+    return hasValue(text) && text.length > this.charLimit;
   }
 }

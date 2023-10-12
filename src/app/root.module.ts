@@ -42,8 +42,10 @@ import {
 import { FooterModule } from './footer/footer.module';
 import { SocialModule } from './social/social.module';
 import { ExploreModule } from './shared/explore/explore.module';
-import { IsTextTruncatedPipe } from './breadcrumbs/breadcrumb/is-text-truncated.pipe';
-import { TruncateBreadcrumbItemCharactersPipe } from './breadcrumbs/breadcrumb/truncate-breadcrumb-item-characters.pipe';
+import { BreadcrumbTooltipPipe } from './breadcrumbs/breadcrumb/breadcrumb-tooltip.pipe';
+import {
+  TruncateBreadcrumbItemCharactersPipe
+} from './breadcrumbs/breadcrumb/truncate-breadcrumb-item-characters.pipe';
 
 const IMPORTS = [
   CommonModule,
@@ -86,7 +88,7 @@ const DECLARATIONS = [
   PageErrorComponent,
   ContextHelpToggleComponent,
   TruncateBreadcrumbItemCharactersPipe,
-  IsTextTruncatedPipe
+  BreadcrumbTooltipPipe
 ];
 
 const EXPORTS = [
