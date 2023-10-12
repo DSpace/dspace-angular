@@ -15,6 +15,8 @@ import { OpenaireStateService } from '../../openaire-state.service';
 import { cold } from 'jasmine-marbles';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { UUIDService } from '../../../core/shared/uuid.service';
+import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 
 describe('OpenaireBrokerTopicsComponent test suite', () => {
   let fixture: ComponentFixture<OpenaireBrokerTopicsComponent>;
@@ -43,6 +45,7 @@ describe('OpenaireBrokerTopicsComponent test suite', () => {
         { provide: OpenaireStateService, useValue: mockOpenaireStateService },
         { provide: ActivatedRoute, useValue: { data: observableOf(activatedRouteParams), params: observableOf({}) } },
         { provide: PaginationService, useValue: paginationService },
+        { provide: UUIDService, useValue: getMockUUIDService() },
         OpenaireBrokerTopicsComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]

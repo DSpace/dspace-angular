@@ -7,7 +7,7 @@ import { SubscriptionModalComponent } from './subscription-modal/subscription-mo
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared.module';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 const COMPONENTS = [
   SubscriptionViewComponent,
@@ -25,6 +25,9 @@ const COMPONENTS = [
     TranslateModule,
     RouterModule,
     SharedModule
+  ],
+  providers:[
+    NgbActiveModal
   ],
   exports: [
     ...COMPONENTS

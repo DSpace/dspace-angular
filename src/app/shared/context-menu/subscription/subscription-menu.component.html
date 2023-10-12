@@ -1,8 +1,4 @@
 <button *ngIf="isAuthorized$ | async" class="btn btn-primary"
         [innerHTML]="'context-menu.actions.subscribe.btn' | translate"
-        (click)="$event.preventDefault();openSubscription(subscriptionModal);">
+        (click)="$event.preventDefault();openSubscription();">
 </button>
-
-<ng-template #subscriptionModal let-c="close" let-d="dismiss">
-  <ds-subscription-modal (close)="c('cancel')" [dso]="injectedContextMenuObject"></ds-subscription-modal>
-</ng-template>

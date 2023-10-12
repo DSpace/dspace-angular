@@ -142,34 +142,61 @@ describe('ChipsComponent test suite', () => {
       const icons = de.queryAll(By.css('i.fas'));
 
       icons[0].triggerEventHandler('mouseover', null);
+      expect(chipsComp.tipText$.value).toEqual(['main test with long text and tooltip']);
+      icons[0].triggerEventHandler('mouseout', null);
 
-      expect(chipsComp.tipText).toEqual(['main test with long text and tooltip']);
+      icons[1].triggerEventHandler('mouseover', null);
+      expect(chipsComp.tipText$.value).toEqual(['related test']);
+      icons[1].triggerEventHandler('mouseout', null);
     });
   });
 
-  describe('when has items as object and short text to display', () => {
+  describe('when has a chip with short text to display', () => {
     beforeEach(() => {
       const item = {
-        mainField: new FormFieldMetadataValueObject('main test', null, null,'test001', 'main test', 0, ConfidenceType.CF_ACCEPTED),
-        relatedField: new FormFieldMetadataValueObject('related test', null, null,'test002', 'related test', 0, ConfidenceType.CF_ACCEPTED),
-        otherRelatedField: new FormFieldMetadataValueObject('other related test')
+        mainField: new FormFieldMetadataValueObject('main test', null, null, 'test001', 'main test', 0, ConfidenceType.CF_ACCEPTED)
       };
 
       chips = new Chips([item], 'display', 'mainField', environment.submission.icons.metadata);
       chipsFixture = TestBed.createComponent(ChipsComponent);
       chipsComp = chipsFixture.componentInstance; // TruncatableComponent test instance
-      chipsComp.showIcons = true;
+      chipsComp.showIcons = false;
       chipsComp.chips = chips;
       chipsFixture.detectChanges();
     });
 
-    it('should not show tooltip on mouse over an icon', () => {
+    it('should not show tooltip on mouse over list item when display text is short', () => {
       const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
-      const icons = de.queryAll(By.css('i.fas'));
+      de.triggerEventHandler('mouseover', null);
+      expect(chipsComp.tipText$.value).toEqual([]);
+      de.triggerEventHandler('mouseout', null);
+    });
+  });
 
-      icons[0].triggerEventHandler('mouseover', null);
+  describe('when has a chip with long text to display', () => {
+    beforeEach(() => {
+      const item = {
+        mainField: new FormFieldMetadataValueObject('main test', null, null, 'test001', 'long text to display is truncated but not in tooltip', 0, ConfidenceType.CF_ACCEPTED)
+      };
 
-      expect(chipsComp.tipText).toBeUndefined();
+      chips = new Chips([item], 'display', 'mainField');
+      chipsFixture = TestBed.createComponent(ChipsComponent);
+      chipsComp = chipsFixture.componentInstance; // TruncatableComponent test instance
+      chipsComp.showIcons = false;
+      chipsComp.chips = chips;
+      chipsFixture.detectChanges();
+    });
+
+    it('should show tooltip on mouse over list item when display text is long', () => {
+      const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
+      de.triggerEventHandler('mouseover', null);
+      expect(chipsComp.tipText$.value).toEqual(['long text to display is truncated but not in tooltip']);
+      de.triggerEventHandler('mouseout', null);
+    });
+
+    it('should show truncated text on list item when display text is long', () => {
+      const de = chipsFixture.debugElement.query(By.css('li.nav-item p.d-table-cell'));
+      expect(de.nativeElement.innerText).toEqual(chipsComp.textTruncate('long text to display is truncated but not in tooltip'));
     });
   });
 

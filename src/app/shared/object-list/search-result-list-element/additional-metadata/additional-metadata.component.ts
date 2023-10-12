@@ -60,8 +60,9 @@ export class AdditionalMetadataComponent implements OnInit {
     }
 
     this.additionalMetadataFields = unfilteredAdditionalMetadataFields.map(field => {
-      return field.filter(item =>
-        this.object.hasMetadata(item.name)
+      const fields = field?.length ? field : [field];
+      return (fields as AdditionalMetadataConfig[]).filter(item =>
+        this.object.hasMetadata(item?.name)
       );
     }).filter(field => !!field.length);
 

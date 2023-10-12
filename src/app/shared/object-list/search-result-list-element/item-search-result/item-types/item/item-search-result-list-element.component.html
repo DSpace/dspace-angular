@@ -11,9 +11,9 @@
     </ds-thumbnail>
     </span>
   </div>
-  <div class="d-flex" [ngClass]="showThumbnails ? 'col-9 col-xl-10' : 'col-12'">
-    <div class="truncatable-content">
-      <div>
+  <div [ngClass]="showThumbnails ? 'col-9 col-xl-10' : 'col-12'">
+    <div class="d-flex justify-content-between">
+      <div class="flex-fill">
         <div class="d-flex">
           <ds-type-badge *ngIf="showLabel" [object]="dso"></ds-type-badge>
           <ds-access-status-badge [item]="dso" class="pl-1"></ds-access-status-badge>

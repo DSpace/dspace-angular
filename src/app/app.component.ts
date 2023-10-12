@@ -28,6 +28,7 @@ import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { distinctNext } from './core/shared/distinct-next';
 import { RouteService } from './core/services/route.service';
 import { getEditItemPageRoute, getWorkflowItemModuleRoute, getWorkspaceItemModuleRoute } from './app-routing-paths';
+import { SocialService } from './social/social.service';
 
 @Component({
   selector: 'ds-app',
@@ -72,6 +73,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private cssService: CSSVariableService,
     private modalService: NgbModal,
     private modalConfig: NgbModalConfig,
+    private socialService: SocialService,
   ) {
     this.notificationOptions = environment.notifications;
 
@@ -85,6 +87,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.isThemeLoading$ = this.themeService.isThemeLoading$;
 
     this.storeCSSVariables();
+
+    this.socialService.initialize();
   }
 
   ngOnInit() {
