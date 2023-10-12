@@ -9,9 +9,12 @@
   </ng-container>
   <ng-container *ngIf="!(canDownload$ | async)">
     <ng-container *ngVar="bitstreamPath$ | async as requestACopyLink">
-      <a [routerLink]="requestACopyLink?.routerLink" [queryParams]="requestACopyLink?.queryParams"
-         class="btn btn-outline-primary" data-test="requestACopy">{{ 'cris-layout.advanced-attachment.requestACopy' |
-        translate }}</a>
+      <button [routerLink]="requestACopyLink?.routerLink"
+      [queryParams]="requestACopyLink?.queryParams"
+      [disabled]="!(canRequestItemCopy$ | async)"
+      class="btn btn-outline-primary"
+      data-test="requestACopy">
+      {{ 'cris-layout.advanced-attachment.requestACopy' | translate }}</button>
     </ng-container>
   </ng-container>
 </ng-container>
