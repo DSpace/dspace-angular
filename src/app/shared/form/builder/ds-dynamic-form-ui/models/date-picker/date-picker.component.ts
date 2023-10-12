@@ -8,7 +8,7 @@ import {
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
 import { DOCUMENT } from '@angular/common';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 
 export const DS_DATE_PICKER_SEPARATOR = '-';
