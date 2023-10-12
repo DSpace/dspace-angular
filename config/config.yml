@@ -5,6 +5,9 @@ rest:
   nameSpace: /server
 
 themes:
+  - name: capstone
+    extends: tamu
+    handle: '1969.1/94971'
   - name: tamu
     headTags:
     - tagName: link

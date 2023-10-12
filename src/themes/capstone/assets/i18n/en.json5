@@ -1,0 +1,4 @@
+{
+  "relationships.isAdvisorOf": "Project Advisor",
+  "relationships.isSponsorOf": "Client",
+}
