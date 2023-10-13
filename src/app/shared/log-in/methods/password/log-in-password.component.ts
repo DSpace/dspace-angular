@@ -15,7 +15,7 @@ import { fadeOut } from '../../../animations/fade';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { renderAuthMethodFor } from '../log-in.methods-decorator';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
-import { AuthService, LOGIN_ROUTE } from '../../../../core/auth/auth.service';
+import { AuthService } from '../../../../core/auth/auth.service';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { CoreState } from '../../../../core/core-state.model';
 import { ActivatedRoute , Router} from '@angular/router';
@@ -143,9 +143,8 @@ export class LogInPasswordComponent implements OnInit {
     // Store the `redirectUrl` value from the url and then remove that value from url.
     if (isNotEmpty(this.route.snapshot.queryParams?.redirectUrl)) {
       this.redirectUrl = this.route.snapshot.queryParams?.redirectUrl;
-      void this.router.navigate([LOGIN_ROUTE]);
     } else {
-      // Pop up discojuice login.
+      // Pop up discojuice login e.g. when the token is expired or the user is trying to download restricted bitstream.
       this.popUpDiscoJuiceLogin();
     }
   }
