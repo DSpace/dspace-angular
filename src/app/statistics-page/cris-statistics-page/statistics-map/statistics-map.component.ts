@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
-import { GoogleChartInterface } from 'ng2-google-charts';
-
-
+import { GoogleChartComponent, GoogleChartInterface, GoogleChartType } from 'ng2-google-charts';
+import { ExportImageType, ExportService } from '../../../core/export-service/export.service';
+import { BehaviorSubject } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 @Component({
   selector: 'ds-statistics-map',
   templateUrl: './statistics-map.component.html',
@@ -30,6 +31,40 @@ export class StatisticsMapComponent implements OnInit {
    * Chart Columns needed to be shown in the tooltip
    */
   chartColumns = [];
+  /**
+   * Loading utilized for export functions to disable buttons
+   */
+  isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
+   * Chart ElementRef
+   */
+  @ViewChild('googleChartRef') googleChartRef: GoogleChartComponent;
+
+  exportImageType = ExportImageType;
+
+  exportImageTypes = [
+    { type: ExportImageType.png, label: 'PNG' },
+    { type: ExportImageType.jpeg, label: 'JPEG/JPG' }
+  ];
+
+  protected exportService: ExportService;
+
+  constructor(
+    @Inject(PLATFORM_ID) protected platformId: Object
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      import('../../../core/export-service/browser-export.service').then((s) => {
+        this.exportService = new s.BrowserExportService();
+      });
+    } else {
+      import('../../../core/export-service/server-export.service').then((s) => {
+        this.exportService = new s.ServerExportService();
+      });
+    }
+  }
 
   ngOnInit(): void {
     if ( !!this.report && !!this.report.points && this.report.points.length > 0 ) {
@@ -54,16 +89,23 @@ export class StatisticsMapComponent implements OnInit {
     });
 
     this.geoChart = {
-      chartType: 'GeoChart',
+      chartType: GoogleChartType.GeoChart,
       dataTable: [
         this.chartColumns,
         ...this.data
       ],
       options: { 'title': this.report.reportType }
     };
-
   }
 
-
-
+  /**
+   * Export the map as an image
+   * @param type of export
+   */
+   exportMapAsImage(type: ExportImageType){
+    this.isLoading$.next(true);
+    const chart = this.googleChartRef.wrapper.getChart();
+    const imageURI: string = chart?.getImageURI();
+    this.exportService.exportImageWithBase64(imageURI, type, this.report.reportType, this.isLoading$);
+  }
 }

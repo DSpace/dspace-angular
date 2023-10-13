@@ -7123,6 +7123,8 @@
 
   "authority-confidence.search-label":"Search",
 
+  "statistics-page.export-map-as-image": "Export map",
+
   "curation-task.task.hocr.label": "Extract text (HOCR) from images",
 
   "curation-task.task.ocrfilter.label": "Consolidate hOCR for fulltext indexing",

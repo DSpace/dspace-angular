@@ -5,6 +5,7 @@ import { saveAs } from 'file-saver';
 import { BehaviorSubject } from 'rxjs';
 
 import { ExportImageType, ExportService } from './export.service';
+import { hasValue } from '../../shared/empty.util';
 
 /**
  *  IMPORTANT
@@ -68,4 +69,19 @@ export class BrowserExportService implements ExportService {
 
   }
 
+  /**
+   * Creates an image from the given base64 string.
+   * @param base64 the base64 string
+   * @param type image type (png or jpeg)
+   * @param fileName
+   * @param isLoading
+   */
+  exportImageWithBase64(base64: string, type: ExportImageType, fileName: string, isLoading: BehaviorSubject<boolean>): void {
+    if (hasValue(base64)) {
+      saveAs(base64, fileName + '.' + type);
+    } else {
+      console.error('Base64 string is empty');
+    }
+    isLoading.next(false);
+  }
 }
